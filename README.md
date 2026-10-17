@@ -17,6 +17,7 @@ existing environment entry points. New clones use the setup command below.
 - [Tracked baseline evidence](evidence/baseline/)
 - [Relocation checks and second-run variation](docs/SETUP_CHECK.md)
 - [ML Cloud GPU validation sequence](docs/GPU_VALIDATION.md)
+- [Scheduled ML Cloud jobs and status commands](docs/CLOUD_RUNS.md)
 
 The official source is a Git submodule pinned to the revision below.
 Datasets, environments, generated weights and runtime logs remain local.
