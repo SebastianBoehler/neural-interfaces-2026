@@ -1,0 +1,27 @@
+{
+  "status": "validated locally; not submitted",
+  "source_revision": "a66bc23d1a0e686b895c093a642b45c74970758b",
+  "dataset": "PROTEUS nm000290 v1.0.0",
+  "training_config": "tracks/bci_decoding/training.yml",
+  "device": "cpu",
+  "solver_source_unchanged": true,
+  "zip_sha256": "548b00d469c2c01607b7114c794b3162e398655c5d6d8014c5eb34e205af663e",
+  "zip_size_bytes": 2651,
+  "replayed_submission_directory": "runs/baseline/submission-gcgqrm1z",
+  "submission_files_unchanged_after_replay": true,
+  "training_matches_inference_replay": true,
+  "metrics": {
+    "balanced_accuracy_cell_mean": 0.37754352830305277,
+    "balanced_accuracy_session_mean": 0.37711015690796557,
+    "balanced_accuracy": 0.3772304566346878,
+    "accuracy": 0.37748344370860926
+  },
+  "n_cells": 8,
+  "scores": {
+    "balanced_accuracy_cell_mean": 0.37754352830305277,
+    "balanced_accuracy": 0.3772304566346878,
+    "accuracy": 0.37748344370860926,
+    "duration": 4.888446092605591
+  },
+  "limitation": "Native CPU replay; Linux A100 worker not exercised."
+}

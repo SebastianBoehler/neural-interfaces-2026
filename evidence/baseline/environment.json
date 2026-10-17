@@ -1,0 +1,12 @@
+{
+  "benchopt": "1.10.0",
+  "torch": "2.14.1",
+  "neuralbench": "0.4.0",
+  "neuralset": "0.4.0",
+  "neuralfetch": "0.4.0",
+  "neuraltrain": "0.4.0",
+  "exca": "0.5.29",
+  "nemar-py": "0.3.3",
+  "mne": "1.13.2",
+  "moabb": "1.7.2"
+}

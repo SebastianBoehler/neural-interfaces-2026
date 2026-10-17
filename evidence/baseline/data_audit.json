@@ -1,0 +1,223 @@
+{
+  "metadata": {
+    "sfreq": 120.0,
+    "ch_names": [
+      "C2",
+      "CP2",
+      "P2",
+      "Pz",
+      "CPz",
+      "Cz",
+      "C1",
+      "CP1",
+      "P1",
+      "P3",
+      "PO7",
+      "P5",
+      "TP7",
+      "CP5",
+      "CP3",
+      "C3",
+      "PO8",
+      "P6",
+      "P4",
+      "TP8",
+      "CP6",
+      "CP4",
+      "C6",
+      "C4",
+      "FC6",
+      "FC4",
+      "FC2",
+      "F6",
+      "F4",
+      "F2",
+      "AF4",
+      "AF3",
+      "F5",
+      "F3",
+      "F1",
+      "Fz",
+      "FC5",
+      "FC3",
+      "FC1",
+      "FCz",
+      "C5"
+    ],
+    "chs_info": [
+      {
+        "ch_name": "C2"
+      },
+      {
+        "ch_name": "CP2"
+      },
+      {
+        "ch_name": "P2"
+      },
+      {
+        "ch_name": "Pz"
+      },
+      {
+        "ch_name": "CPz"
+      },
+      {
+        "ch_name": "Cz"
+      },
+      {
+        "ch_name": "C1"
+      },
+      {
+        "ch_name": "CP1"
+      },
+      {
+        "ch_name": "P1"
+      },
+      {
+        "ch_name": "P3"
+      },
+      {
+        "ch_name": "PO7"
+      },
+      {
+        "ch_name": "P5"
+      },
+      {
+        "ch_name": "TP7"
+      },
+      {
+        "ch_name": "CP5"
+      },
+      {
+        "ch_name": "CP3"
+      },
+      {
+        "ch_name": "C3"
+      },
+      {
+        "ch_name": "PO8"
+      },
+      {
+        "ch_name": "P6"
+      },
+      {
+        "ch_name": "P4"
+      },
+      {
+        "ch_name": "TP8"
+      },
+      {
+        "ch_name": "CP6"
+      },
+      {
+        "ch_name": "CP4"
+      },
+      {
+        "ch_name": "C6"
+      },
+      {
+        "ch_name": "C4"
+      },
+      {
+        "ch_name": "FC6"
+      },
+      {
+        "ch_name": "FC4"
+      },
+      {
+        "ch_name": "FC2"
+      },
+      {
+        "ch_name": "F6"
+      },
+      {
+        "ch_name": "F4"
+      },
+      {
+        "ch_name": "F2"
+      },
+      {
+        "ch_name": "AF4"
+      },
+      {
+        "ch_name": "AF3"
+      },
+      {
+        "ch_name": "F5"
+      },
+      {
+        "ch_name": "F3"
+      },
+      {
+        "ch_name": "F1"
+      },
+      {
+        "ch_name": "Fz"
+      },
+      {
+        "ch_name": "FC5"
+      },
+      {
+        "ch_name": "FC3"
+      },
+      {
+        "ch_name": "FC1"
+      },
+      {
+        "ch_name": "FCz"
+      },
+      {
+        "ch_name": "C5"
+      }
+    ],
+    "n_chans": 41,
+    "n_times": 480,
+    "target_shape": [],
+    "raw_target_shape": [
+      3
+    ],
+    "device": "cpu"
+  },
+  "splits": {
+    "train": {
+      "participants": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P10"
+      ],
+      "n_windows": 1521,
+      "class_counts": {
+        "0": 510,
+        "1": 507,
+        "2": 504
+      }
+    },
+    "val": {
+      "participants": [
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P08"
+      ],
+      "n_windows": 379,
+      "class_counts": {
+        "0": 126,
+        "1": 127,
+        "2": 126
+      }
+    },
+    "test": {
+      "participants": [
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P09"
+      ],
+      "n_windows": 755,
+      "class_counts": {
+        "0": 249,
+        "1": 252,
+        "2": 254
+      }
+    }
+  },
+  "participant_overlap": false
+}
