@@ -15,6 +15,7 @@ existing environment entry points. New clones use the setup command below.
 - [Measured baseline result and validation limits](BASELINE_RESULT.md)
 - [Experiment procedure and next steps](docs/EXPERIMENTS.md)
 - [Tracked baseline evidence](evidence/baseline/)
+- [Relocation checks and second-run variation](docs/SETUP_CHECK.md)
 
 The official source is a Git submodule pinned to the revision below.
 Datasets, environments, generated weights and runtime logs remain local.
