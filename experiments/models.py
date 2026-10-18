@@ -46,17 +46,25 @@ class TangentSpace:
                 blended with the global training reference (``k`` windows).
     train_causal: recenter training sessions with the same causal scheme
                 used at test time instead of the full-session mean.
+    slow: "mean" (channel means), "wave"/"wave1" (2 Hz / 1 Hz low-pass
+          waveform) or "wave1d" (1 Hz waveform minus its window mean, i.e.
+          without the per-window DC offset).
+    k_slow: prior weight for centring the slow features (default ``k``).
     """
 
     _logs = {}
 
     def __init__(self, d, bands=("alpha", "beta1", "beta2"), align="session",
                  k=5.0, train_causal=False, clf="lr", C=0.1, means=None,
-                 stretch=False, slow="mean"):
+                 stretch=False, slow="mean", k_slow=None):
         self.d, self.bands, self.align, self.means = d, bands, align, means
         self.M = (d["X"].mean(-1) if slow == "mean" else
-                  slow_waveform(d["X"], cutoff=1.0 if slow == "wave1" else 2.0))
+                  slow_waveform(d["X"], cutoff=2.0 if slow == "wave" else 1.0))
+        if slow == "wave1d":
+            W = self.M.reshape(len(self.M), d["X"].shape[1], -1)
+            self.M = (W - W.mean(-1, keepdims=True)).reshape(len(W), -1)
         self.k, self.train_causal, self.stretch = k, train_causal, stretch
+        self.k_slow = k if k_slow is None else k_slow
         self.clf = make_clf(clf, C)
         self.covs = [band_covariances(d["X"], b) for b in bands]
         self.logs = [self._log(b, c) for b, c in zip(bands, self.covs)]
@@ -87,7 +95,7 @@ class TangentSpace:
         M = self.M[idx]
         if self.means == "center":  # session mean so far, or whole session
             n = np.arange(1, len(idx) + 1)[:, None]
-            M = M - (np.cumsum(M, 0) / (self.k + n) if causal else M.mean(0))
+            M = M - (np.cumsum(M, 0) / (self.k_slow + n) if causal else M.mean(0))
         return np.concatenate([F, M], axis=1)
 
     def _tangent(self, idx, causal):
@@ -110,6 +118,9 @@ class TangentSpace:
             feats.append(self._session_feats(sub, self.train_causal))
             ys.append(self.d["y"][sub])
         self.clf.fit(np.concatenate(feats), np.concatenate(ys))
+
+    def predict_proba_stream(self, idx):
+        return self.clf.predict_proba(self._session_feats(idx, causal=True))
 
     def predict_stream(self, idx):
         return self.clf.predict(self._session_feats(idx, causal=True))

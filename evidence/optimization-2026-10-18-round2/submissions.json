@@ -1,0 +1,130 @@
+{
+ "date": "2026-10-18",
+ "official_submodule": "a66bc23d1a0e686b895c093a642b45c74970758b",
+ "windows_npz_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+ "uploaded": false,
+ "thread_fix_check": {
+  "description": "submission.py before (sha 68fa5834) and after (sha de3c07ad) adding single-thread limits, same weights, all 1132 official-test windows streamed per session",
+  "agreement_old_vs_new": {
+   "ensemble_official": 1.0,
+   "ensemble_all": 1.0
+  },
+  "mac_cpu_seconds_per_window_new": {
+   "ensemble_official": 0.0478,
+   "ensemble_all": 0.0469
+  }
+ },
+ "timing_galvani_per_window_ms": {
+  "cpu_node_1_thread": 28.4,
+  "cpu_node_4_threads": 24.9,
+  "a100_node_1_thread": 31.5,
+  "a100_node_4_threads": 117.8,
+  "a100_node_4_threads_earlier": 585.3,
+  "note": "scratch timing loop over 150 windows, predict() one window at a time; A100 node load average 23-38 (shared)"
+ },
+ "packages": {
+  "ensemble_official": {
+   "train": "official",
+   "members": "v2 (weight 1/3) + 5 aligned + 5 raw ShallowConvNet seeds 0-4 (1/15 each)",
+   "trained_on": "Galvani A100, job 2975297",
+   "harness_agreement": 1.0,
+   "min_harness_top2_margin": 0.00014486184151385473,
+   "harness_cell_mean": 0.44109823028673834,
+   "weights_sha256": "6a21d950f3509b95742f819dfb6d87df22ccda0981884ad971a585f0f148f1c8",
+   "weights_bytes": 3318468,
+   "submission_py_sha256": "de3c07ad86739e6ea22040db3a651ff2f51127125b50f49cdfb691b2d2363102",
+   "zip_root": [
+    "submission.py",
+    "weights.npz"
+   ],
+   "zip_bytes": 2999935,
+   "replay_mac_cpu": {
+    "scores": {
+     "balanced_accuracy_cell_mean": 0.44109823028673834,
+     "balanced_accuracy": 0.4398845224668202,
+     "accuracy": 0.4384105960264901,
+     "duration": 48.25722074508667
+    },
+    "ingestion_wall_seconds": 48.4,
+    "files_unchanged": true
+   },
+   "replay_a100_node_previous_submission_py": {
+    "submission_py_sha256": "68fa58344554ed012a5158f825d577525e1fb8888075f7731b4de3097a1dc723",
+    "scores": {
+     "balanced_accuracy_cell_mean": 0.44109823028673834,
+     "balanced_accuracy": 0.4398845224668202,
+     "accuracy": 0.4384105960264901,
+     "duration": 126.04385542869568
+    },
+    "ingestion_wall_seconds": 126.2,
+    "files_unchanged": true,
+    "note": "same weights; submission.py before the single-thread fix"
+   },
+   "replay_linux_cpu_node": {
+    "host": "galvani-cn001, Intel Xeon Gold 6226R, 4 CPUs, load avg ~15-18",
+    "submission_py_sha256": "de3c07ad86739e6ea22040db3a651ff2f51127125b50f49cdfb691b2d2363102",
+    "scores": {
+     "balanced_accuracy_cell_mean": 0.44109823028673834,
+     "balanced_accuracy": 0.4398845224668202,
+     "accuracy": 0.4384105960264901,
+     "duration": 55.806922912597656
+    },
+    "ingestion_wall_seconds": 55.9,
+    "files_unchanged": true,
+    "zip_sha256": "50d47f9a7e2cc3f32aff9ea82b2712f2f101850b13f59011a38c6df099854ddd"
+   }
+  },
+  "ensemble_all": {
+   "train": "all",
+   "members": "v2 (weight 1/3) + 5 aligned + 5 raw ShallowConvNet seeds 0-4 (1/15 each)",
+   "trained_on": "Galvani A100, job 2975298",
+   "harness_agreement": 1.0,
+   "min_harness_top2_margin": 0.08441736008640532,
+   "harness_cell_mean": 0.9986559139784946,
+   "weights_sha256": "4e4e46b98d962d00684e6e6f06a10f961e3e99cdf3a8912cbb4346c4b6a20e59",
+   "weights_bytes": 3318468,
+   "submission_py_sha256": "de3c07ad86739e6ea22040db3a651ff2f51127125b50f49cdfb691b2d2363102",
+   "zip_root": [
+    "submission.py",
+    "weights.npz"
+   ],
+   "zip_bytes": 3001000,
+   "replay_mac_cpu": {
+    "scores": {
+     "balanced_accuracy_cell_mean": 0.9986559139784946,
+     "balanced_accuracy": 0.9986876640419947,
+     "accuracy": 0.9986754966887417,
+     "duration": 44.06324100494385
+    },
+    "ingestion_wall_seconds": 44.2,
+    "files_unchanged": true
+   },
+   "replay_a100_node_previous_submission_py": {
+    "submission_py_sha256": "68fa58344554ed012a5158f825d577525e1fb8888075f7731b4de3097a1dc723",
+    "scores": {
+     "balanced_accuracy_cell_mean": 0.9986559139784946,
+     "balanced_accuracy": 0.9986876640419947,
+     "accuracy": 0.9986754966887417,
+     "duration": 108.14111566543579
+    },
+    "ingestion_wall_seconds": 108.3,
+    "files_unchanged": true,
+    "note": "same weights; submission.py before the single-thread fix"
+   },
+   "replay_linux_cpu_node": {
+    "host": "galvani-cn001, Intel Xeon Gold 6226R, 4 CPUs, load avg ~15-18",
+    "submission_py_sha256": "de3c07ad86739e6ea22040db3a651ff2f51127125b50f49cdfb691b2d2363102",
+    "scores": {
+     "balanced_accuracy_cell_mean": 0.9986559139784946,
+     "balanced_accuracy": 0.9986876640419947,
+     "accuracy": 0.9986754966887417,
+     "duration": 40.37263083457947
+    },
+    "ingestion_wall_seconds": 40.5,
+    "files_unchanged": true,
+    "zip_sha256": "82692b2ac7216fc973b8e922c0cde30899bee479b8032adbad3279e627a6310d"
+   }
+  }
+ },
+ "a100_final_replay": "not run: interactive A100 job 2975306 stayed queued behind the per-user job limit and was cancelled"
+}

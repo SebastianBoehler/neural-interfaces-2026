@@ -54,3 +54,20 @@ unchanged. Native Linux only; not the official Docker image.
 seed) and writes `runs/experiments/results-<job>-<seed>.jsonl`. It reuses
 `data/proteus_windows.npz` (SHA-256 `2be4187f…3e1327`, exported locally from
 the official pipeline and copied over) or exports it after preparation.
+
+## 18 October 2026, optimization round 2
+
+| Job | Purpose | Result |
+| --- | --- | --- |
+| 2975257_[0-4] | ShallowConvNet members and v2 ensembles, `dev_loso`/`dev_session` | Completed, 10–13 min each |
+| 2975282_[0-4] | ShallowConvNet members, `all_loso`/`official`, probabilities saved | Completed, 2–3 min each |
+| 2975288, 2975289 | First ensemble exports (superseded) | Completed |
+| 2975297, 2975298 | Ensemble export (official / all), agreement check, A100-node replay | Completed, about 5 min each |
+| 2975304, 2975305 | Re-export after the thread fix | Cancelled while queued (per-user job limit); weights of 2975297/8 kept |
+| 2975306 | Interactive A100-node replay of the final packages | Cancelled while queued (per-user job limit) |
+| (srun, cpu-galvani) | Replay of the final packages on galvani-cn001 | Identical metrics, 41–56 s each |
+
+`scripts/cloud/export_ensemble.sbatch official|all` trains and exports
+`runs/submissions/ensemble_<train>/` and replays it with
+`scripts/replay_package.py`. Probabilities from sweeps are written under
+`runs/experiments/probs/` (set `NI26_PROBS` to change). Nothing uploaded.

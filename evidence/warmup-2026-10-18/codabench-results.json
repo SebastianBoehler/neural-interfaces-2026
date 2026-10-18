@@ -1,0 +1,26 @@
+[
+  {
+    "submission_id": 1000481,
+    "file": "warmup1_ensemble_official.zip",
+    "phase": "Warm-up Phase (update 1)",
+    "status": "Finished",
+    "scores": {
+      "balanced_accuracy_cell_mean": 0.44109823028673834,
+      "balanced_accuracy": 0.4398845224668202,
+      "accuracy": 0.4384105960264901,
+      "duration": 23.65762209892273
+    }
+  },
+  {
+    "submission_id": 1000482,
+    "file": "warmup2_v1_official.zip",
+    "phase": "Warm-up Phase (update 1)",
+    "status": "Finished",
+    "scores": {
+      "balanced_accuracy_cell_mean": 0.4972515758249907,
+      "balanced_accuracy": 0.4957147675817632,
+      "accuracy": 0.495364238410596,
+      "duration": 15.720450401306152
+    }
+  }
+]

@@ -25,8 +25,26 @@ Registration remains open through 24 October; Track 2 approval was verified.
 | Warm-up | 5 | 100 |
 | Sealed final | 1 | 10 |
 
-This project has made no uploads. Quotas apply to the account, so check current
-usage before submitting. The local scripts never upload a submission.
+Quotas apply to the account, so check current usage before submitting.
+The local scripts never upload a submission.
+
+## Warm-up uploads
+
+Uploaded by the user on 18 October 2026 (Europe/Berlin). Codabench showed
+2 of 5 daily and 2 of 100 total warm-up submissions used afterwards, with
+worker image `lionelyneuro/neural-compet:v3`.
+
+| ID | ZIP (SHA-256 prefix) | Model | Local replay | Codabench score |
+| --- | --- | --- | ---: | ---: |
+| 1000481 | `warmup1_ensemble_official.zip` (`a8f11f33`) | v2 + 10 ShallowConvNets, official train | 0.44109823028673834 | 0.44109823028673834 (23.7 s) |
+| 1000482 | `warmup2_v1_official.zip` (`76fc58fb`) | v1 tangent space, official train | 0.4972515758249907 | 0.4972515758249907 (15.7 s) |
+
+Both finished on the worker (phase "Warm-up Phase (update 1)"). Cell-mean
+balanced accuracy, pooled balanced accuracy and accuracy are bit-identical
+to the local replays, so the worker runs these packages exactly, including
+the torch ensemble. Durations are the worker-reported scoring durations.
+Raw export: `evidence/warmup-2026-10-18/codabench-results.json`. Warm-up scores remain indicative: P04 is 6 of the 8 cells. No
+sealed-phase submission has been made.
 
 ## Compute and rules
 

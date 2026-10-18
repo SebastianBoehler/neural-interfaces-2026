@@ -76,6 +76,9 @@ class AlignedNet:
         self.net.eval()
 
     @torch.no_grad()
-    def predict_stream(self, idx):
+    def predict_proba_stream(self, idx):
         X = torch.from_numpy(self._aligned(idx, causal=True)).to(self.dev)
-        return self.net(X).argmax(1).cpu().numpy()
+        return torch.softmax(self.net(X).cpu().double(), 1).numpy()
+
+    def predict_stream(self, idx):
+        return self.predict_proba_stream(idx).argmax(1)

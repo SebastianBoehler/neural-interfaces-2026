@@ -2,6 +2,8 @@
 
 Usage: python experiments/run_cv.py NAME [NAME ...] [--protocols p1,p2]
 Results are appended as JSON lines to runs/experiments/results.jsonl.
+Per-window class probabilities (models with ``predict_proba_stream``) go to
+runs/experiments/probs/NAME-PROTOCOL-sSEED.npz for offline ensembling.
 """
 
 import argparse
@@ -12,11 +14,14 @@ import time
 from pathlib import Path
 
 import protocol
+import numpy as np
 from deep import AlignedNet
+from ensemble import Ensemble
 from models import MeanLinear, TangentSpace
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / os.environ.get("NI26_RESULTS", "runs/experiments/results.jsonl")
+PROBS = ROOT / os.environ.get("NI26_PROBS", "runs/experiments/probs")
 SEED = [0]  # set from --seed; used by stochastic (deep) configs
 FB = ("theta", "alpha", "beta1", "beta2", "gamma", "high")
 
@@ -44,6 +49,14 @@ for _C in (0.01, 0.03, 0.3, 1.0):
 for _a in ("eegnet", "shallow"):
     CONFIGS[f"{_a}_raw"] = lambda d, a=_a: AlignedNet(d, arch=a, align=False, seed=SEED[0])
     CONFIGS[f"{_a}_ea"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0])
+V2 = dict(bands=("delta",) + FB, means="center", slow="wave1")
+CONFIGS["ens_ea"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_ea"](d)])
+CONFIGS["ens_raw"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_raw"](d)])
+CONFIGS["ens_both"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_ea"](d),
+                                          CONFIGS["shallow_raw"](d)])
+for _k in (1.0, 20.0, 100.0):
+    CONFIGS[f"v2_ks{_k:g}"] = lambda d, k=_k: TangentSpace(d, **{**V2, "k_slow": k})
+CONFIGS["v2_dc"] = lambda d: TangentSpace(d, **{**V2, "slow": "wave1d"})
 for _k in (1.0, 20.0):
     CONFIGS[f"ts_sess_fb_k{_k:g}"] = lambda d, k=_k: TangentSpace(d, bands=FB, k=k)
 
@@ -63,6 +76,10 @@ def main():
         for proto in args.protocols.split(","):
             t0 = time.time()
             res = protocol.evaluate(lambda: CONFIGS[name](d), d, proto)
+            if "proba" in res:
+                PROBS.mkdir(parents=True, exist_ok=True)
+                np.savez(PROBS / f"{name}-{proto}-s{args.seed}.npz",
+                         proba=res.pop("proba"), index=res.pop("index"))
             res.update(name=name, protocol=proto, rev=rev, seed=args.seed,
                        seconds=round(time.time() - t0, 1))
             with OUT.open("a") as f:

@@ -75,10 +75,16 @@ def score(y, pred, d, mask):
     }
 
 
-def predict_streams(model, d, mask):
-    """Predict test windows session by session, in stored acquisition order."""
+def predict_streams(model, d, mask, proba=False):
+    """Predict test windows session by session, in stored acquisition order.
+
+    With ``proba`` the model's ``predict_proba_stream`` is used and class
+    probabilities (N, 3) are returned instead of labels.
+    """
     idx = np.flatnonzero(mask)
-    pred = np.empty(len(idx), dtype=np.int64)
+    out = np.empty((len(idx), 3) if proba else len(idx),
+                   dtype=np.float64 if proba else np.int64)
+    fn = model.predict_proba_stream if proba else model.predict_stream
     streams = d["stream"][idx]
     start = 0
     while start < len(idx):
@@ -86,18 +92,27 @@ def predict_streams(model, d, mask):
         while stop < len(idx) and streams[stop] == streams[start]:
             stop += 1
         assert streams[start] not in streams[:start], "stream not contiguous"
-        pred[start:stop] = model.predict_stream(idx[start:stop])
+        out[start:stop] = fn(idx[start:stop])
         start = stop
-    return pred
+    return out
 
 
 def evaluate(make_model, d, protocol):
-    """Run every fold; returns pooled scores plus per-fold scores."""
-    ys, preds, masks, per_fold = [], [], [], {}
+    """Run every fold; returns pooled scores plus per-fold scores.
+
+    Models with ``predict_proba_stream`` are scored by the argmax of their
+    probabilities, which are returned as ``out["proba"]`` (rows follow
+    ``out["index"]``) for offline ensembling; JSON writers drop both.
+    """
+    ys, preds, probs, masks, per_fold = [], [], [], [], {}
     for name, tr, te in folds(d, protocol):
         model = make_model()
         model.fit(np.flatnonzero(tr))
-        pred = predict_streams(model, d, te)
+        if hasattr(model, "predict_proba_stream"):
+            probs.append(predict_streams(model, d, te, proba=True))
+            pred = probs[-1].argmax(1)
+        else:
+            pred = predict_streams(model, d, te)
         y = d["y"][te]
         per_fold[name] = score(y, pred, d, te)["balanced_accuracy_cell_mean"]
         ys.append(y), preds.append(pred), masks.append(te)
@@ -107,4 +122,7 @@ def evaluate(make_model, d, protocol):
     pred = np.concatenate(preds)[order]
     out = score(y, pred, d, mask)
     out["per_fold"] = per_fold
+    if probs:
+        out["proba"] = np.concatenate(probs)[order]
+        out["index"] = np.flatnonzero(mask)
     return out
