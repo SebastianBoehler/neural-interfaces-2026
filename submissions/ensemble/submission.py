@@ -5,10 +5,13 @@ Members (all causal, label-free, state reset at every session):
     log-Euclidean mean of the session (blended with a training reference as
     ``k`` pseudo-windows), tangent vectors plus a causally centred 1 Hz slow
     waveform, standardised multinomial logistic regression.
-  * Shallow: ShallowConvNet (braindecode ShallowFBCSPNet layout, re-implemented
-    in plain torch) on windows that are either whitened by the causal running
+  * Shallow / FBC: ShallowConvNet or FBCNet (braindecode layouts,
+    re-implemented in plain torch) on windows that are either whitened by the causal running
     mean covariance of the session ("aligned") or divided by a global scale.
-The ensemble returns the weighted mean of member probabilities. Parameters
+The ensemble returns the weighted mean of member probabilities, optionally
+rebalanced causally: window t's probabilities are divided by m ** alpha, m
+being the session's mean probability over windows 0..t-1 blended with a
+uniform prior weighted as ``k`` windows (no labels). Parameters
 are numpy arrays in ``weights.npz`` (keys prefixed ``ts_`` and ``netI_``).
 Per-window work is tiny, so BLAS, OpenMP and torch run single-threaded:
 interleaved multi-threaded numpy and torch calls were 4x slower on a loaded
@@ -142,6 +145,42 @@ class Shallow:
         return torch.softmax(h.double(), 1).numpy()
 
 
+def _fft_same(x, f):
+    n, L = x.shape[-1], f.shape[-1]
+    m = n + L - 1
+    full = torch.fft.irfft(torch.fft.rfft(x, m) * torch.fft.rfft(f, m), m)
+    s = (m - n) // 2
+    return full[..., s:s + n]
+
+
+class FBC:
+    """Stateless FBCNet (braindecode layout, plain torch, float64): FIR
+    filter bank, grouped spatial filters, batch norm, SiLU, log-variance over
+    ``stride`` segments, linear head. Weights are the effective (max-norm
+    constrained) values; ``proba`` maps (B, C, T) to (B, 3)."""
+
+    def __init__(self, p):
+        self.t = {k: torch.from_numpy(np.ascontiguousarray(v)).double()
+                  for k, v in p.items() if k.startswith("fbc_")}
+        self.fir = [self.t[f"fbc_fir{i}"] for i in range(int(p["fbc_n_bands"]))]
+
+    @torch.no_grad()
+    def proba(self, X):
+        t = self.t
+        x = torch.from_numpy(X).double()
+        Y = torch.stack([_fft_same(x, f) for f in self.fir], 1)   # B,K,C,T
+        K, C = Y.shape[1], Y.shape[2]
+        Z = torch.einsum("kfc,bkct->bkft", t["fbc_W"].view(K, -1, C), Y)
+        Z = Z.reshape(x.shape[0], -1, x.shape[-1]) + t["fbc_bw"][None, :, None]
+        Z = (Z - t["fbc_rm"][None, :, None]) / torch.sqrt(
+            t["fbc_rv"][None, :, None] + t["fbc_eps"])
+        Z = F.silu(Z * t["fbc_g"][None, :, None] + t["fbc_be"][None, :, None])
+        s = int(t["fbc_stride"])
+        V = Z.view(Z.shape[0], Z.shape[1], s, Z.shape[-1] // s).var(dim=3)
+        V = torch.log(V.clamp(1e-6, 1e6)).flatten(1)
+        return torch.softmax(V @ t["fbc_L"].T + t["fbc_lb"], 1).numpy()
+
+
 def _input_key(p):
     keys = ("align", "k", "G", "scale", "shrink")
     return b"".join(np.ascontiguousarray(p[k]).tobytes() for k in keys if k in p)
@@ -155,22 +194,27 @@ class Ensemble:
     with identical alignment parameters share one input stream.
     """
 
-    def __init__(self, tangent, nets, weights):
+    def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0):
         self.tangent, self.w = tangent, weights / weights.sum()
+        self.alpha, self.k = alpha, k
+        self.seen, self.n = np.zeros(3), 0
         self.groups = {}
         for i, p in enumerate(nets):
             key = _input_key(p)
             if key not in self.groups:
                 self.groups[key] = (InputStream(p), [])
-            self.groups[key][1].append((i, Shallow(p)))
+            net = FBC(p) if "fbc_n_bands" in p else Shallow(p)
+            self.groups[key][1].append((i, net))
 
     def reset_state(self):
         self.tangent.reset_state()
+        self.seen, self.n = np.zeros(3), 0
         for stream, _ in self.groups.values():
             stream.reset_state()
 
     @torch.no_grad()
-    def predict(self, X):
+    def mixed_proba(self, X):
+        """Weighted member probabilities, (B, 3); advances session state."""
         X = X.detach().cpu().numpy() if torch.is_tensor(X) else np.asarray(X)
         X = X.astype(np.float32)
         inputs = {key: [] for key in self.groups}
@@ -184,6 +228,16 @@ class Ensemble:
             H = np.stack(inputs[key])
             for i, net in nets:
                 P = P + self.w[1 + i] * net.proba(H)
+        return P
+
+    def predict(self, X):
+        P = self.mixed_proba(X)
+        if self.alpha:
+            for r, p in enumerate(P.copy()):  # causal, in acquisition order
+                m = (self.k / len(p) + self.seen) / (self.k + self.n)
+                q = p / m ** self.alpha
+                P[r] = q / q.sum()
+                self.seen, self.n = self.seen + p, self.n + 1
         return torch.as_tensor(P.argmax(1), dtype=torch.long)
 
 
@@ -208,4 +262,6 @@ class Solver(CompetSolver):
             pre = f"net{i}_"
             nets.append({k[len(pre):]: v for k, v in z.items() if k.startswith(pre)})
         return Ensemble(AlignedTangent(ts), nets,
-                        z["member_weights"].astype(np.float64))
+                        z["member_weights"].astype(np.float64),
+                        alpha=float(z.get("rb_alpha", 0.0)),
+                        k=float(z.get("rb_k", 5.0)))

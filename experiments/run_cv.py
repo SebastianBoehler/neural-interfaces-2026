@@ -46,9 +46,14 @@ CONFIGS["v1"] = CONFIGS["ts_sess_fb_mctr"]
 CONFIGS["v2"] = CONFIGS["ts_sess_fb7_w1ctr"]
 for _C in (0.01, 0.03, 0.3, 1.0):
     CONFIGS[f"ts_sess_fb_C{_C}"] = lambda d, C=_C: TangentSpace(d, bands=FB, C=C)
-for _a in ("eegnet", "shallow"):
+for _a in ("eegnet", "shallow", "deep4", "conformer", "atcnet", "eegnex",
+           "ctnet", "fbcnet", "ifnet", "tidnet"):
     CONFIGS[f"{_a}_raw"] = lambda d, a=_a: AlignedNet(d, arch=a, align=False, seed=SEED[0])
     CONFIGS[f"{_a}_ea"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0])
+for _a in ("shallow", "fbcnet"):
+    CONFIGS[f"{_a}_ea_aug"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0], aug=True)
+CONFIGS["shallow_raw_aug"] = lambda d: AlignedNet(d, arch="shallow", align=False,
+                                                  seed=SEED[0], aug=True)
 V2 = dict(bands=("delta",) + FB, means="center", slow="wave1")
 CONFIGS["ens_ea"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_ea"](d)])
 CONFIGS["ens_raw"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_raw"](d)])
@@ -56,6 +61,8 @@ CONFIGS["ens_both"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallo
                                           CONFIGS["shallow_raw"](d)])
 for _k in (1.0, 20.0, 100.0):
     CONFIGS[f"v2_ks{_k:g}"] = lambda d, k=_k: TangentSpace(d, **{**V2, "k_slow": k})
+for _C in (0.03, 0.3, 1.0, 3.0):
+    CONFIGS[f"v2_C{_C:g}"] = lambda d, C=_C: TangentSpace(d, **{**V2, "C": C})
 CONFIGS["v2_dc"] = lambda d: TangentSpace(d, **{**V2, "slow": "wave1d"})
 for _k in (1.0, 20.0):
     CONFIGS[f"ts_sess_fb_k{_k:g}"] = lambda d, k=_k: TangentSpace(d, bands=FB, k=k)

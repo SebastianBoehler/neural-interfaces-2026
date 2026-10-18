@@ -244,9 +244,12 @@ Linux Galvani CPU node (Xeon Gold 6226R, 4 CPUs): identical metrics,
 interactive job (2975306) stayed queued behind the account's per-user job
 limit and was cancelled.
 
-Not yet run in the official Docker image or on the Codabench worker.
+The official-train ensemble later ran on the Codabench warm-up worker
+(submission 1000481) with bit-identical metrics; see `docs/COMPETITION.md`.
 
 Evidence: `evidence/optimization-2026-10-18-round2/`.
+
+Round 3 continues in [OPTIMIZATION_R3.md](OPTIMIZATION_R3.md).
 
 ## Next steps
 

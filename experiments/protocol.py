@@ -13,6 +13,10 @@ dev_loso : leave one participant out over the 8 non-test participants.
            This is the model-selection protocol; it never sees P04/P09.
 dev_session : train on all dev windows except P10 sessions 2-3, test on
               them (a small probe of later-session transfer).
+seen_session : for each multi-session participant (P04, P10), train on all
+               other participants plus its session 1, test on its sessions
+               2-3: the "later sessions of represented participants" half of
+               the sealed phase. Includes P04: evaluation only.
 all_loso : leave one participant out over all 10 participants. Includes the
            official test participants, so it only *evaluates* candidates
            already chosen on the dev protocols; never select on it.
@@ -29,7 +33,8 @@ sys.path.insert(0, str(ROOT / "2026-competition/tracks/bci_decoding"))
 from benchmark_utils.metrics import balanced_accuracy, group_scores  # noqa: E402
 
 DATA = ROOT / "data/proteus_windows.npz"
-PROTOCOLS = ("official", "official_tv", "dev_loso", "dev_session", "all_loso")
+PROTOCOLS = ("official", "official_tv", "dev_loso", "dev_session", "all_loso",
+             "seen_session")
 
 
 def load():
@@ -53,6 +58,10 @@ def folds(d, protocol):
     elif protocol == "all_loso":
         for s in sorted(set(subj)):
             yield s.split("/")[-1], subj != s, subj == s
+    elif protocol == "seen_session":
+        for s in ("P04", "P10"):
+            held = (subj == f"Dreyer2026Proteus/{s}") & (d["session"] != "1")
+            yield f"{s}_s23", ~held, held
     elif protocol == "dev_session":
         dev = split != "test"
         held = (subj == "Dreyer2026Proteus/P10") & (d["session"] != "1")

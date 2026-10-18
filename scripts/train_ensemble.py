@@ -68,6 +68,9 @@ def main():
                     default="shallow_raw")
     ap.add_argument("--seeds", type=int, default=5)
     ap.add_argument("--v2-weight", type=float, default=0.5)
+    ap.add_argument("--rb-alpha", type=float, default=0.0,
+                    help="causal class rebalancing exponent (0 = off)")
+    ap.add_argument("--rb-k", type=float, default=5.0)
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
     d = protocol.load()
@@ -77,7 +80,8 @@ def main():
     nets = [AlignedNet(d, arch="shallow", align=kind == "shallow_ea", seed=s)
             for kind in kinds for s in range(args.seeds)]
     w = np.array([args.v2_weight] + [(1 - args.v2_weight) / len(nets)] * len(nets))
-    model = Ensemble([TangentSpace(d, **V2)] + nets, weights=w)
+    model = Ensemble([TangentSpace(d, **V2)] + nets, weights=w,
+                     alpha=args.rb_alpha, k=args.rb_k)
     t0 = time.time()
     model.fit(np.flatnonzero(tr))
     fit_s = time.time() - t0
@@ -89,7 +93,8 @@ def main():
         z.update({f"net{i}_{k}": v for k, v in net_params(m).items()})
     args.out.mkdir(parents=True, exist_ok=True)
     np.savez(args.out / "weights.npz", n_nets=np.int64(len(nets)),
-             member_weights=model.w, **z)
+             member_weights=model.w, rb_alpha=np.float64(args.rb_alpha),
+             rb_k=np.float64(args.rb_k), **z)
     shutil.copyfile(SRC, args.out / "submission.py")
 
     sys.path.insert(0, str(args.out))
@@ -108,6 +113,7 @@ def main():
     agree = float(np.mean(got == ref_pred))
     top2 = np.sort(ref, 1)[:, -2:]
     res = {"train": args.train, "deep": args.deep, "seeds": args.seeds,
+           "rb_alpha": args.rb_alpha, "rb_k": args.rb_k,
            "member_weights": [round(float(x), 6) for x in model.w],
            "agreement_with_harness": agree,
            "min_harness_top2_margin": float((top2[:, 1] - top2[:, 0]).min()),

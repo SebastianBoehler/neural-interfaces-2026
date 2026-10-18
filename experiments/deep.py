@@ -5,30 +5,56 @@ t is whitened by the running mean covariance of windows 0..t of its session,
 blended with the global training mean as ``k`` pseudo-windows.
 """
 
+import inspect
+import os
+
+import braindecode.models as bd
 import numpy as np
 import torch
-from braindecode.models import EEGNet, ShallowFBCSPNet
 from torch import nn
 
-from features import covariances, invsqrtm
+from features import SFREQ, covariances, invsqrtm
 
-ARCHS = {"eegnet": EEGNet, "shallow": ShallowFBCSPNet}
+ARCHS = {"eegnet": "EEGNet", "shallow": "ShallowFBCSPNet", "deep4": "Deep4Net",
+         "conformer": "EEGConformer", "atcnet": "ATCNet", "eegnex": "EEGNeX",
+         "ctnet": "CTNet", "fbcnet": "FBCNet", "ifnet": "IFNet", "tidnet": "TIDNet"}
+
+
+def build(arch, n_chans, n_times):
+    cls = getattr(bd, ARCHS[arch])
+    kw = dict(n_chans=n_chans, n_outputs=3, n_times=n_times)
+    if "sfreq" in inspect.signature(cls).parameters:
+        kw["sfreq"] = SFREQ
+    return cls(**kw)
 
 
 def device():
+    if os.environ.get("NI26_DEVICE"):
+        return os.environ["NI26_DEVICE"]
     if torch.cuda.is_available():
         return "cuda"
     return "mps" if torch.backends.mps.is_available() else "cpu"
+
+
+def augment(x, gen, shift=30, scale=0.1, drop=0.1):
+    """Training-time augmentation: circular time shift (<= ``shift``
+    samples), per-window amplitude scaling and channel dropout."""
+    B, C, _ = x.shape
+    k = int(torch.randint(-shift, shift + 1, (1,), generator=gen))
+    x = torch.roll(x, k, dims=-1)
+    amp = 1 + scale * (2 * torch.rand(B, 1, 1, generator=gen) - 1)
+    keep = (torch.rand(B, C, 1, generator=gen) >= drop).float()
+    return x * (amp * keep).to(x.device)
 
 
 class AlignedNet:
     _covs = {}
 
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
-                 lr=1e-3, wd=1e-3, seed=0, batch=64):
+                 lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False):
         self.d, self.arch, self.align, self.k = d, arch, align, k
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
-        self.seed, self.dev = seed, device()
+        self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
         if key not in self._covs:
             self._covs[key] = np.concatenate(
@@ -58,17 +84,20 @@ class AlignedNet:
         X = torch.from_numpy(np.concatenate([p[0] for p in parts]))
         y = torch.from_numpy(np.concatenate([p[1] for p in parts])).long()
         n_ch, n_t = X.shape[1:]
-        self.net = ARCHS[self.arch](n_chans=n_ch, n_outputs=3, n_times=n_t).to(self.dev)
+        self.net = build(self.arch, n_ch, n_t).to(self.dev)
         opt = torch.optim.AdamW(self.net.parameters(), lr=self.lr, weight_decay=self.wd)
         steps = self.epochs * int(np.ceil(len(X) / self.batch))
         sched = torch.optim.lr_scheduler.OneCycleLR(opt, self.lr, total_steps=steps)
         loss_fn = nn.CrossEntropyLoss()
+        gen = torch.Generator().manual_seed(self.seed)
         self.net.train()
         for _ in range(self.epochs):
             perm = rng.permutation(len(X))
             for b in range(0, len(X), self.batch):
                 j = perm[b:b + self.batch]
                 xb, yb = X[j].to(self.dev), y[j].to(self.dev)
+                if self.aug:
+                    xb = augment(xb, gen)
                 opt.zero_grad()
                 loss_fn(self.net(xb), yb).backward()
                 opt.step()

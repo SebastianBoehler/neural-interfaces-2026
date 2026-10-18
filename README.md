@@ -18,7 +18,8 @@ existing environment entry points. New clones use the setup command below.
 - [Relocation checks and second-run variation](docs/SETUP_CHECK.md)
 - [ML Cloud GPU validation sequence](docs/GPU_VALIDATION.md)
 - [Scheduled ML Cloud jobs and status commands](docs/CLOUD_RUNS.md)
-- [Optimization round 1: bounds, protocols, results](docs/OPTIMIZATION.md)
+- [Optimization rounds 1–2: bounds, protocols, results](docs/OPTIMIZATION.md)
+- [Optimization round 3: rebalancing, FBCNet, sealed candidate](docs/OPTIMIZATION_R3.md)
 
 The official source is a Git submodule pinned to the revision below.
 Datasets, environments, generated weights and runtime logs remain local.
@@ -30,7 +31,11 @@ See [BASELINE_RESULT.md](BASELINE_RESULT.md) for measurements and evidence.
 Session-aligned tangent-space decoders reach 49.7% (v1) on the same official
 split, and v2 reaches 54.9% under leave-one-participant-out over all ten
 participants. Both replay identically through the official evaluator. See
-[docs/OPTIMIZATION.md](docs/OPTIMIZATION.md); nothing has been uploaded.
+[docs/OPTIMIZATION.md](docs/OPTIMIZATION.md). The round-3 ensemble (v2,
+ShallowConvNets, FBCNets, causal class rebalancing) reaches 62.9% under the
+same ten-participant protocol; see [docs/OPTIMIZATION_R3.md](docs/OPTIMIZATION_R3.md).
+Two warm-up uploads matched local replays bit for bit
+([docs/COMPETITION.md](docs/COMPETITION.md)); no sealed-phase upload yet.
 
 ```bash
 python scripts/export_windows.py                 # once: cache official windows
