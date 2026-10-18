@@ -31,18 +31,20 @@ The local scripts never upload a submission.
 ## Warm-up uploads
 
 Uploaded by the user on 18 October 2026 (Europe/Berlin). Codabench showed
-2 of 5 daily and 2 of 100 total warm-up submissions used afterwards, with
-worker image `lionelyneuro/neural-compet:v3`.
+2 of 5 daily and 2 of 100 total warm-up submissions used after the first two;
+1000615 followed at 10:13. Worker image `lionelyneuro/neural-compet:v3`.
 
 | ID | ZIP (SHA-256 prefix) | Model | Local replay | Codabench score |
 | --- | --- | --- | ---: | ---: |
 | 1000481 | `warmup1_ensemble_official.zip` (`a8f11f33`) | v2 + 10 ShallowConvNets, official train | 0.44109823028673834 | 0.44109823028673834 (23.7 s) |
 | 1000482 | `warmup2_v1_official.zip` (`76fc58fb`) | v1 tangent space, official train | 0.4972515758249907 | 0.4972515758249907 (15.7 s) |
+| 1000615 | `warmup4_ensemble_official_r3.zip` (`b5a3cd23`) | round-3 ensemble (v2 + ShallowConvNets + FBCNets, rebalanced), official train | 0.4939964157706094 | 0.49 (two decimals shown) |
 
-Both finished on the worker (phase "Warm-up Phase (update 1)"). Cell-mean
-balanced accuracy, pooled balanced accuracy and accuracy are bit-identical
-to the local replays, so the worker runs these packages exactly, including
-the torch ensemble. Durations are the worker-reported scoring durations.
+All three finished on the worker (phase "Warm-up Phase (update 1)"). For
+1000481 and 1000482, cell-mean balanced accuracy, pooled balanced accuracy
+and accuracy are bit-identical to the local replays; 1000615 matches at the
+two decimals shown, confirming the plain-torch FBCNet and causal
+rebalancing code path on the worker. Durations are the worker-reported scoring durations.
 Raw export: `evidence/warmup-2026-10-18/codabench-results.json`. Warm-up scores remain indicative: P04 is 6 of the 8 cells. No
 sealed-phase submission has been made.
 
