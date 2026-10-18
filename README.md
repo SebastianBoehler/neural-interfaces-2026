@@ -32,7 +32,7 @@ Session-aligned tangent-space decoders reach 49.7% (v1) on the same official
 split, and v2 reaches 54.9% under leave-one-participant-out over all ten
 participants. Both replay identically through the official evaluator. See
 [docs/OPTIMIZATION.md](docs/OPTIMIZATION.md). The round-3 ensemble (v2,
-ShallowConvNets, FBCNets, causal class rebalancing) reaches 62.9% under the
+ShallowConvNets, FBCNets, causal class rebalancing) reaches 62.8% under the
 same ten-participant protocol; see [docs/OPTIMIZATION_R3.md](docs/OPTIMIZATION_R3.md).
 Two warm-up uploads matched local replays bit for bit
 ([docs/COMPETITION.md](docs/COMPETITION.md)); no sealed-phase upload yet.

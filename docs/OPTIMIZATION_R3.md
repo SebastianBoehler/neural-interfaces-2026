@@ -153,6 +153,24 @@ queued on Galvani (2975858) behind the per-user job limit.
 `ensemble_all_r3`: v2 (1/4) + five aligned and five raw ShallowConvNets +
 five aligned FBCNets (1/20 each), causal rebalancing α = 0.5, k = 5,
 trained on all ten public participants. Best estimates of its sealed
-behaviour: `all_loso` 62.9% (unseen participants; one FBCNet seed) and
-`dev_session` 77.5% (P10 later sessions, 4 cells). Baseline Torch-Linear
+behaviour: `all_loso` 62.8% (unseen participants; five FBCNet seeds) and
+`seen_session` 66.6% (P04/P10 later sessions, 8 cells). Baseline Torch-Linear
 reference: 37.75% on the official split.
+
+## Five-seed confirmation (Galvani 2975471, 2975472)
+
+FBCNet alone, seeds 0–4: `dev_loso` 59.0 ± 0.7, `all_loso` 54.9 ± 0.6,
+`seen_session` 55.2 ± 0.7, `official` 41.8 ± 0.8 (IFNet: 55.9, 52.2,
+53.9, 38.0). Rebalanced ensemble without → with five FBCNets:
+
+| Protocol | without | with | change |
+|---|---:|---:|---:|
+| `dev_loso` | 64.3 | 65.1 | +0.8 |
+| `dev_session` | 75.8 | 77.3 | +1.5 |
+| `all_loso` | 62.0 | **62.8** | +0.8 |
+| `seen_session` | 66.9 | 66.6 | −0.2 |
+| `official` | 49.1 | 48.7 | −0.4 |
+
+The unseen-participant estimate (`all_loso`) confirms the one-seed result
+(62.9); the seen-participant protocol is flat within its 8-cell noise.
+`ensemble_all_r3` remains the sealed-phase candidate.
