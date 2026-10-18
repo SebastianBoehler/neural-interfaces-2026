@@ -13,13 +13,16 @@ The pinned dependency snapshot lives under `requirements/`.
 Reruns write to ignored `runs/baseline/`; archive important runs separately
 before rerunning because logs and summary files use the same names.
 
+Round 1 of optimization (18 October) is in [OPTIMIZATION.md](OPTIMIZATION.md):
+session-aligned tangent-space decoders, deep baselines on ML Cloud, the
+selection protocols and validated submission packages.
+
 ## Next steps
 
-1. Validate the baseline ZIP in the official Linux worker environment.
+1. Validate a candidate ZIP in the official Linux worker Docker image.
 2. Review the package and explicitly authorize any Codabench upload.
-3. Compare official EEGNet on the same participant split and ranking metric.
-4. Evaluate repeated seeds before drawing performance conclusions.
-5. Consider REVE or EEGDM only after checking licenses, pretraining data and cost.
+3. Ensemble v2 with ShallowConvNet; investigate the P04 failure mode.
+4. Consider REVE or EEGDM only after checking licenses, pretraining data and cost.
 
 EEGDM is a candidate, not a validated improvement. Its epilepsy benchmarks do
 not establish transfer to cross-session mental-command decoding.

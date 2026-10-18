@@ -14,11 +14,15 @@ curl -LsSf https://astral.sh/uv/install.sh -o runs/cloud/uv-install.sh
 UV_INSTALL_DIR="$ROOT/.tools/bin" UV_NO_MODIFY_PATH=1 \
   sh runs/cloud/uv-install.sh
 export PATH="$ROOT/.tools/bin:$PATH"
-uv venv --python 3.12 .venv
-uv pip install --python .venv/bin/python torch \
-  --index-url https://download.pytorch.org/whl/cu126
-uv pip install --python .venv/bin/python pip \
-  -r requirements/cloud.txt
+uv venv --clear --python 3.12 .venv
+# One resolution with matching CUDA 12.6 torch/torchvision/torchaudio; a
+# PyPI torchvision next to cu126 torch fails with "torchvision::nms".
+uv pip install --python .venv/bin/python pip -r requirements/cloud.txt \
+  torch==2.14.1+cu126 torchvision==0.29.1+cu126 torchaudio==2.11.0+cu126 \
+  --extra-index-url https://download.pytorch.org/whl/cu126 \
+  --index-strategy unsafe-best-match
+.venv/bin/python -c "import torch, torchvision, torchmetrics, braindecode; \
+print(torch.__version__, torchvision.__version__, torch.version.cuda)"
 export PATH="$ROOT/.venv/bin:$PATH"
 export BENCHOPT_DATA_HOME="$ROOT/data"
 export COMPET_DEVICE=cpu

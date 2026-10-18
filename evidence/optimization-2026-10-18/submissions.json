@@ -1,0 +1,54 @@
+{
+ "date": "2026-10-18",
+ "official_submodule": "a66bc23d1a0e686b895c093a642b45c74970758b",
+ "windows_npz_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+ "hardware_local": "Apple M4 Max CPU, native macOS; not Linux/A100 worker or Docker",
+ "submission_files_unchanged_after_replay": true,
+ "uploaded": false,
+ "packages": {
+  "tangent_official": {
+   "official_replay": {
+    "balanced_accuracy_cell_mean": 0.4972515758249907,
+    "balanced_accuracy_session_mean": 0.4961032915942686,
+    "balanced_accuracy": 0.4957147675817632,
+    "accuracy": 0.495364238410596
+   },
+   "variant": "v1",
+   "train": "official",
+   "harness_agreement": 1.0,
+   "weights_sha256": "cb2a54a179fe777469f41d01d8ded58a2fa8311f3900fac53872528fc4f1719e"
+  },
+  "tangent_v2_official": {
+   "official_replay": {
+    "balanced_accuracy_cell_mean": 0.45660417439129897,
+    "balanced_accuracy_session_mean": 0.4552226424458379,
+    "balanced_accuracy": 0.4550661087042835,
+    "accuracy": 0.4543046357615894
+   },
+   "variant": "v2",
+   "train": "official",
+   "harness_agreement": 1.0,
+   "weights_sha256": "e5b3c8f9c8b47bee17b4bf18e41617454df92b780917ca1a33ca28f53c194f02"
+  },
+  "tangent_v2_all": {
+   "official_replay": {
+    "balanced_accuracy_cell_mean": 0.9919774865591398,
+    "balanced_accuracy_session_mean": 0.99208416005291,
+    "balanced_accuracy": 0.9920739074282382,
+    "accuracy": 0.9920529801324504
+   },
+   "variant": "v2",
+   "train": "all",
+   "harness_agreement": 1.0,
+   "weights_sha256": "55a0d365dd8438af011adf5d350f913a92b0916656086ec3398be1fccdc76468",
+   "zip_sha256": "e9aaa1a86f364704e604a48b201a04c07062e4e116502537faca51a0f8a30c4f",
+   "zip_bytes": 308737,
+   "zip_root": [
+    "submission.py",
+    "weights.npz"
+   ],
+   "replay_wall_seconds": 9.97,
+   "note": "Trained on all 10 public participants incl. official test P04/P09: warm-up replay is leakage, not an estimate."
+  }
+ }
+}

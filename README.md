@@ -18,6 +18,7 @@ existing environment entry points. New clones use the setup command below.
 - [Relocation checks and second-run variation](docs/SETUP_CHECK.md)
 - [ML Cloud GPU validation sequence](docs/GPU_VALIDATION.md)
 - [Scheduled ML Cloud jobs and status commands](docs/CLOUD_RUNS.md)
+- [Optimization round 1: bounds, protocols, results](docs/OPTIMIZATION.md)
 
 The official source is a Git submodule pinned to the revision below.
 Datasets, environments, generated weights and runtime logs remain local.
@@ -25,6 +26,19 @@ Datasets, environments, generated weights and runtime logs remain local.
 The baseline completed and passed local validation. Its public test
 cell-averaged balanced accuracy is **37.75%** (one run).
 See [BASELINE_RESULT.md](BASELINE_RESULT.md) for measurements and evidence.
+
+Session-aligned tangent-space decoders reach 49.7% (v1) on the same official
+split, and v2 reaches 54.9% under leave-one-participant-out over all ten
+participants. Both replay identically through the official evaluator. See
+[docs/OPTIMIZATION.md](docs/OPTIMIZATION.md); nothing has been uploaded.
+
+```bash
+python scripts/export_windows.py                 # once: cache official windows
+python experiments/run_cv.py v2 --protocols dev_loso,dev_session
+python scripts/train_tangent.py --variant v2 --train official --out runs/submissions/v2
+```
+
+Source `scripts/environment.sh` from Bash, not zsh: it relies on `BASH_SOURCE`.
 
 ## Source and environment
 

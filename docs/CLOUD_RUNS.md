@@ -28,3 +28,29 @@ Successful GPU evidence: `runs/cloud/2974935/summary.json`, per-model
 summary must not be presented as completed validation; inspect Slurm and logs.
 
 Read [GPU_VALIDATION.md](GPU_VALIDATION.md) for checks and follow-up gates.
+
+## 18 October 2026 outcome and follow-up jobs
+
+Job 2974934 failed after 95 s: `requirements/cloud.txt` replaced the cu126
+torchvision with a PyPI build, and importing torchmetrics raised
+`operator torchvision::nms does not exist`. Dependent jobs 2974935 and
+2975095 were cancelled by Slurm. `prepare.sbatch` now resolves torch,
+torchvision and torchaudio together from the cu126 index
+(`unsafe-best-match`) and checks the imports before data preparation.
+
+| Job | Purpose | Result |
+| --- | --- | --- |
+| 2975102 | Fixed preparation and audit | Completed, 4 min 54 s |
+| 2975103 | Torch-Linear and EEGNet GPU training/replay | Completed; see below |
+| 2975104_[0-2] | Deep sweep, `dev_loso` and `dev_session`, seeds 0–2 | Completed, about 4 min each |
+| 2975118_[0-4] | Deep sweep, `all_loso`, seeds 0–4 | See OPTIMIZATION.md |
+
+GPU validation (A100-PCIE-40GB, driver 580.173.02, seed 42, official
+split): Torch-Linear 38.12% and EEGNet 35.73% cell mean. GPU and CPU
+replays were identical on all four metrics, and submission files stayed
+unchanged. Native Linux only; not the official Docker image.
+
+`scripts/cloud/sweep.sbatch` runs `experiments/run_cv.py` as an array (index =
+seed) and writes `runs/experiments/results-<job>-<seed>.jsonl`. It reuses
+`data/proteus_windows.npz` (SHA-256 `2be4187f…3e1327`, exported locally from
+the official pipeline and copied over) or exports it after preparation.

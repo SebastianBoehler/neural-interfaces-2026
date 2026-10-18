@@ -1,4 +1,4 @@
-# Native Linux validation; torch is installed first from the CUDA 12.6 index.
+# Native Linux validation; torch/vision/audio are pinned to CUDA 12.6 wheels in prepare.sbatch.
 # This is not the official Docker image (whose default CUDA channel is 13.0).
 -r ../2026-competition/requirements.txt
 benchopt==1.10.0
