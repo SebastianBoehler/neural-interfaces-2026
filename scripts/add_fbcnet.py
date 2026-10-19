@@ -1,7 +1,7 @@
 """Append aligned FBCNets to an exported ensemble package.
 
 Usage: python scripts/add_fbcnet.py SRC_DIR OUT_DIR --train official|all
-       [--seeds 5] [--share 0.25] [--rb-alpha 0.5] [--rb-k 5]
+       [--seeds 5] [--share 0.25] [--rb-alpha 0.5] [--rb-k 5] [--rb-w 0] [--raw]
 Trains FBCNets (harness ``AlignedNet``, seeds 0..n-1) on the same windows
 as the source package, scales the source members' weights by 1 - share and
 gives the FBCNets ``share`` equally. Checks every official-test window,
@@ -58,6 +58,8 @@ def main():
     ap.add_argument("--share", type=float, default=0.25)
     ap.add_argument("--rb-alpha", type=float, default=0.5)
     ap.add_argument("--rb-k", type=float, default=5.0)
+    ap.add_argument("--rb-w", type=int, default=0, help="rebalancing window (0 = session)")
+    ap.add_argument("--raw", action="store_true", help="unaligned FBCNets (global scale only)")
     args = ap.parse_args()
     d = protocol.load()
     tr = d["split"] == "train" if args.train == "official" else np.ones(len(d["y"]), bool)
@@ -68,7 +70,8 @@ def main():
     P_old = stream(load_solver(args.src, "src_pkg"), d, te, lambda m, x: m.mixed_proba(x))
 
     t0 = time.time()
-    nets = [AlignedNet(d, arch="fbcnet", seed=s) for s in range(args.seeds)]
+    nets = [AlignedNet(d, arch="fbcnet", align=not args.raw, seed=s)
+            for s in range(args.seeds)]
     for m in nets:
         m.fit(np.flatnonzero(tr))
         m.net.to("cpu")
@@ -81,7 +84,7 @@ def main():
     for i, m in enumerate(nets):
         z.update({f"net{n_old + i}_{k}": v for k, v in fbc_params(m).items()})
     z.update(n_nets=np.int64(n_old + len(nets)), rb_alpha=np.float64(args.rb_alpha),
-             rb_k=np.float64(args.rb_k))
+             rb_k=np.float64(args.rb_k), rb_w=np.int64(args.rb_w))
     args.out.mkdir(parents=True, exist_ok=True)
     np.savez(args.out / "weights.npz", **z)
     shutil.copyfile(SRC, args.out / "submission.py")
@@ -89,13 +92,15 @@ def main():
     P = (1 - args.share) * P_old / P_old.sum(1, keepdims=True)
     P = P + sum(w_new * protocol.predict_streams(m, d, te, proba=True) for m in nets)
     streams = d["stream"][te]
-    ref = np.concatenate([rebalance(P[streams == s], args.rb_alpha, args.rb_k).argmax(1)
+    ref = np.concatenate([rebalance(P[streams == s], args.rb_alpha, args.rb_k,
+                                    args.rb_w).argmax(1)
                           for s in dict.fromkeys(streams)])
     t1 = time.time()
     got = stream(load_solver(args.out, "new_pkg"), d, te, lambda m, x: m.predict(x))
     per_window = (time.time() - t1) / len(got)
     res = {"source": str(args.src), "train": args.train, "fbc_seeds": args.seeds,
-           "fbc_share": args.share, "rb_alpha": args.rb_alpha, "rb_k": args.rb_k,
+           "fbc_share": args.share, "fbc_raw": args.raw, "rb_alpha": args.rb_alpha,
+           "rb_k": args.rb_k, "rb_w": args.rb_w,
            "agreement_with_harness": float(np.mean(got == ref)),
            "fbc_fit_seconds": round(fit_s, 1),
            "submission_seconds_per_window_cpu": round(per_window, 5),

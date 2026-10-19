@@ -20,8 +20,10 @@ existing environment entry points. New clones use the setup command below.
 - [Scheduled ML Cloud jobs and status commands](docs/CLOUD_RUNS.md)
 - [Optimization rounds 1–2: bounds, protocols, results](docs/OPTIMIZATION.md)
 - [Optimization round 3: rebalancing, FBCNet, sealed candidate](docs/OPTIMIZATION_R3.md)
-- [Optimization round 4: rejected ideas and remaining lever](docs/OPTIMIZATION_R4.md)
+- [Optimization round 4: rejected ideas and windowed rebalancing](docs/OPTIMIZATION_R4.md)
 - [Optimization round 5: external data (Dreyer 2023, Scherer 2015)](docs/OPTIMIZATION_R5.md)
+- [Optimization round 6: member diversity, current sealed candidate](docs/OPTIMIZATION_R6.md)
+- [Handoff: current state and next steps](docs/HANDOFF.md)
 
 The official source is a Git submodule pinned to the revision below.
 Datasets, environments, generated weights and runtime logs remain local.
@@ -36,7 +38,10 @@ participants. Both replay identically through the official evaluator. See
 [docs/OPTIMIZATION.md](docs/OPTIMIZATION.md). The round-3 ensemble (v2,
 ShallowConvNets, FBCNets, causal class rebalancing) reaches 62.8% under the
 same ten-participant protocol; see [docs/OPTIMIZATION_R3.md](docs/OPTIMIZATION_R3.md).
-Two warm-up uploads matched local replays bit for bit
+The current sealed candidate (round 6: windowed rebalancing, Scherer-trained
+members and an unaligned FBCNet) reaches 66.0%, and 70.8% on later sessions
+of seen participants; see [docs/OPTIMIZATION_R6.md](docs/OPTIMIZATION_R6.md).
+Warm-up uploads matched local replays
 ([docs/COMPETITION.md](docs/COMPETITION.md)); no sealed-phase upload yet.
 
 ```bash
