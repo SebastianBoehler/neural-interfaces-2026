@@ -20,6 +20,11 @@ seen_session : for each multi-session participant (P04, P10), train on all
 all_loso : leave one participant out over all 10 participants. Includes the
            official test participants, so it only *evaluates* candidates
            already chosen on the dev protocols; never select on it.
+
+External data (``load(external=...)``) are appended after the PROTEUS
+windows with split "external" and added to every training fold. Test folds,
+fold names and PROTEUS indices are unchanged, so probabilities stay
+comparable with PROTEUS-only runs.
 """
 
 import sys
@@ -37,33 +42,88 @@ PROTOCOLS = ("official", "official_tv", "dev_loso", "dev_session", "all_loso",
              "seen_session")
 
 
-def load():
+def fill_null(X, sessions, rel=2e-3, seed=0):
+    """Add noise in the channel subspace that interpolation left empty.
+
+    Spherical-spline interpolation of C' recorded channels onto 41 leaves
+    41 - C' dimensions without energy; after session alignment PROTEUS has
+    energy in every direction, external windows none in these. Per session,
+    every eigen-direction of the mean covariance below ``rel`` times the
+    mean eigenvalue is topped up to it with white noise (PROTEUS sessions'
+    smallest eigenvalues: 3e-4 to 3e-3 of the mean); stronger directions,
+    i.e. the recorded signal, are unchanged.
+    """
+    rng = np.random.default_rng(seed)
+    X = X.copy()
+    for s in dict.fromkeys(sessions):
+        rows = np.flatnonzero(sessions == s)
+        Z = X[rows].astype(np.float64)
+        C = np.einsum("nct,ndt->cd", Z, Z) / (len(rows) * Z.shape[-1])
+        w, V = np.linalg.eigh(C)
+        sd = np.sqrt(np.clip(rel * w.mean() - w, 0, None))
+        noise = rng.standard_normal((len(rows), len(w), Z.shape[-1]))
+        X[rows] += np.einsum("ck,nkt->nct", V * sd, noise).astype(X.dtype)
+    return X
+
+
+def load(external=()):
+    """PROTEUS windows, optionally followed by data/<name>/windows.npz.
+
+    ``name~n`` fills the interpolation null space (fill_null); ``~w0.5``
+    sets the training weight of these windows (``d["w"]``; PROTEUS 1);
+    ``~m`` flags them in ``d["nolow"]`` as carrying no information below
+    4 Hz (Scherer 2015 is high-passed at about 4 Hz at source).
+    """
     with np.load(DATA) as f:
         d = {k: f[k] for k in f.files}
+    d["w"], d["nolow"] = np.ones(len(d["y"])), np.zeros(len(d["y"]), bool)
+    for token in external:
+        name, *opts = token.split("~")
+        with np.load(ROOT / "data" / name / "windows.npz") as f:
+            assert (f["ch_names"] == d["ch_names"]).all()
+            n = len(f["y"])
+            ext = {k: f[k] if k in f.files else np.full(n, "external")
+                   for k in d if k not in ("ch_names", "w", "nolow")}
+        ext["w"] = np.full(n, float(next((o[1:] for o in opts if o[0] == "w"), 1)))
+        ext["nolow"] = np.full(n, "m" in opts)
+        if "n" in opts:
+            st = np.char.add(np.char.add(ext["subject"], "|"), ext["session"])
+            ext["X"] = fill_null(ext["X"], st)
+        for k, v in ext.items():
+            d[k] = np.concatenate([d[k], v])
+        assert (d["split"][-n:] == "external").all()
+    d["tag"] = "+".join(external)
     d["stream"] = np.char.add(np.char.add(d["subject"], "|"), d["session"])
     return d
 
 
 def folds(d, protocol):
-    """Yield ``(name, train_mask, test_mask)`` for a protocol."""
+    """Yield ``(name, train_mask, test_mask)``; external data always train."""
+    ext = d["split"] == "external"
+    for name, tr, te in _folds(d, protocol, ~ext):
+        assert not (te & ext).any()
+        yield name, (tr & ~ext) | ext, te
+
+
+def _folds(d, protocol, pro):
     split, subj = d["split"], d["subject"]
     if protocol == "official":
         yield "official", split == "train", split == "test"
     elif protocol == "official_tv":
         yield "official_tv", split != "test", split == "test"
     elif protocol == "dev_loso":
-        dev = split != "test"
+        dev = (split != "test") & pro
         for s in sorted(set(subj[dev])):
             yield s.split("/")[-1], dev & (subj != s), dev & (subj == s)
     elif protocol == "all_loso":
-        for s in sorted(set(subj)):
-            yield s.split("/")[-1], subj != s, subj == s
+        for s in sorted(set(subj[pro])):
+            yield s.split("/")[-1], pro & (subj != s), subj == s
     elif protocol == "seen_session":
         for s in ("P04", "P10"):
             held = (subj == f"Dreyer2026Proteus/{s}") & (d["session"] != "1")
-            yield f"{s}_s23", ~held, held
+            yield f"{s}_s23", pro & ~held, held
     elif protocol == "dev_session":
-        dev = split != "test"
+        dev = (split != "test") & pro
         held = (subj == "Dreyer2026Proteus/P10") & (d["session"] != "1")
         yield "P10_s23", dev & ~held, held
     else:

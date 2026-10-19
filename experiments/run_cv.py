@@ -1,6 +1,8 @@
 """Run named candidate configurations under one or more protocols.
 
 Usage: python experiments/run_cv.py NAME [NAME ...] [--protocols p1,p2]
+NAME@ext1+ext2 trains NAME with data/ext1/windows.npz etc. added to every
+training fold (test folds stay PROTEUS-only; see protocol.py).
 Results are appended as JSON lines to runs/experiments/results.jsonl.
 Per-window class probabilities (models with ``predict_proba_stream``) go to
 runs/experiments/probs/NAME-PROTOCOL-sSEED.npz for offline ensembling.
@@ -52,6 +54,10 @@ for _a in ("eegnet", "shallow", "deep4", "conformer", "atcnet", "eegnex",
     CONFIGS[f"{_a}_ea"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0])
 for _a in ("shallow", "fbcnet"):
     CONFIGS[f"{_a}_ea_aug"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0], aug=True)
+for _a in ("shallow", "fbcnet"):  # fine-tune 10 epochs on PROTEUS after external
+    CONFIGS[f"{_a}_ea_ft"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0], ft=10)
+    CONFIGS[f"{_a}_raw_ft"] = lambda d, a=_a: AlignedNet(d, arch=a, align=False,
+                                                        seed=SEED[0], ft=10)
 CONFIGS["shallow_raw_aug"] = lambda d: AlignedNet(d, arch="shallow", align=False,
                                                   seed=SEED[0], aug=True)
 V2 = dict(bands=("delta",) + FB, means="center", slow="wave1")
@@ -59,6 +65,7 @@ CONFIGS["ens_ea"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_
 CONFIGS["ens_raw"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_raw"](d)])
 CONFIGS["ens_both"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_ea"](d),
                                           CONFIGS["shallow_raw"](d)])
+CONFIGS["v2_ws"] = lambda d: TangentSpace(d, **{**V2, "wscale": True})  # external data
 for _k in (1.0, 20.0, 100.0):
     CONFIGS[f"v2_ks{_k:g}"] = lambda d, k=_k: TangentSpace(d, **{**V2, "k_slow": k})
 for _C in (0.03, 0.3, 1.0, 3.0):
@@ -75,14 +82,18 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
     SEED[0] = args.seed
-    d = protocol.load()
+    data = {}
     rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
                          capture_output=True, text=True).stdout.strip()
     OUT.parent.mkdir(parents=True, exist_ok=True)
     for name in args.names:
+        base, _, ext = name.partition("@")
+        if ext not in data:
+            data[ext] = protocol.load(tuple(ext.split("+")) if ext else ())
+        d = data[ext]
         for proto in args.protocols.split(","):
             t0 = time.time()
-            res = protocol.evaluate(lambda: CONFIGS[name](d), d, proto)
+            res = protocol.evaluate(lambda: CONFIGS[base](d), d, proto)
             if "proba" in res:
                 PROBS.mkdir(parents=True, exist_ok=True)
                 np.savez(PROBS / f"{name}-{proto}-s{args.seed}.npz",

@@ -1,0 +1,106 @@
+{
+ "date": "2026-10-19",
+ "official_submodule": "a66bc23d1a0e686b895c093a642b45c74970758b",
+ "windows_npz_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+ "scherer2015_windows_sha256": "a6188799753276451235678d08e92fd79162a95ec8099dbbb85e2ed9e2701e91",
+ "uploaded": false,
+ "package": "runs/submissions/ensemble_all_r5 (source ensemble_all_r3, weights sha b1b3f3c1...; raw ShallowConvNet net5-9 and FBCNet net10-14 retrained with scherer2015~n~w0.1, Galvani A100 job 2979634)",
+ "contains_cc_by_nc_nd_trained_members": true,
+ "staged_zip": {
+  "path": "runs/upload/sealed_candidate_ensemble_all_r5_scherer.zip",
+  "sha256": "42005d95728e63999075837c1a80e4198be5693154fa48c3497d01d165da40c4"
+ },
+ "harness_check": {
+  "source": "runs/submissions/ensemble_all_r3",
+  "ext": "scherer2015~n~w0.1",
+  "train": "all",
+  "swapped_slots": {
+   "shallow_raw": [
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "fbcnet": [
+    10,
+    11,
+    12,
+    13,
+    14
+   ]
+  },
+  "seeds": 5,
+  "n_train_windows": {
+   "proteus": 2655,
+   "external": 2130
+  },
+  "agreement_with_harness": 1.0,
+  "fit_seconds": 184.9,
+  "submission_seconds_per_window_cpu": 0.06385,
+  "harness": {
+   "balanced_accuracy_cell_mean": 1.0,
+   "balanced_accuracy_session_mean": 1.0,
+   "balanced_accuracy": 1.0,
+   "accuracy": 1.0,
+   "n_cells": 8
+  },
+  "submission": {
+   "balanced_accuracy_cell_mean": 1.0,
+   "balanced_accuracy_session_mean": 1.0,
+   "balanced_accuracy": 1.0,
+   "accuracy": 1.0,
+   "n_cells": 8
+  },
+  "weights_sha256": "56ba00bc0effd0969656251b086030ab176b7c1bcbecb7bc884ba6ff145bd9f1"
+ },
+ "replay_mac_cpu": {
+  "submission": "runs/submissions/ensemble_all_r5",
+  "device": "cpu",
+  "zip_root": [
+   "submission.py",
+   "weights.npz"
+  ],
+  "zip_bytes": 3434606,
+  "zip_sha256": "42005d95728e63999075837c1a80e4198be5693154fa48c3497d01d165da40c4",
+  "files_sha256": {
+   "submission.py": "567199ecb48b2cbeaffe12342a88b0110da89e89c8f40cdbb1b5fff3452f672c",
+   "weights.npz": "56ba00bc0effd0969656251b086030ab176b7c1bcbecb7bc884ba6ff145bd9f1"
+  },
+  "files_unchanged": true,
+  "ingestion_wall_seconds": 84.1,
+  "scores": {
+   "balanced_accuracy_cell_mean": 1.0,
+   "balanced_accuracy": 1.0,
+   "accuracy": 1.0,
+   "duration": 83.99199318885803
+  }
+ },
+ "replay_linux_cpu_a100_node": {
+  "submission": "runs/submissions/ensemble_all_r5",
+  "device": "cpu",
+  "zip_root": [
+   "submission.py",
+   "weights.npz"
+  ],
+  "zip_bytes": 3434606,
+  "zip_sha256": "42005d95728e63999075837c1a80e4198be5693154fa48c3497d01d165da40c4",
+  "files_sha256": {
+   "submission.py": "567199ecb48b2cbeaffe12342a88b0110da89e89c8f40cdbb1b5fff3452f672c",
+   "weights.npz": "56ba00bc0effd0969656251b086030ab176b7c1bcbecb7bc884ba6ff145bd9f1"
+  },
+  "files_unchanged": true,
+  "ingestion_wall_seconds": 94.7,
+  "scores": {
+   "balanced_accuracy_cell_mean": 1.0,
+   "balanced_accuracy": 1.0,
+   "accuracy": 1.0,
+   "duration": 94.51957273483276
+  }
+ },
+ "timing_same_machine_ms_per_window": {
+  "ensemble_all_r3": 64.0,
+  "ensemble_all_r5": 61.1,
+  "note": "Mac CPU, 300 official-test windows, measured back to back"
+ }
+}

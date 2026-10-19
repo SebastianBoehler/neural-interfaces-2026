@@ -1,0 +1,82 @@
+{
+ "scherer_raw_highpass": "raw BNCI A.mat Welch PSD: <=0.0013 below 3 Hz, 0.168 at 3.5 Hz, 1.19 at 4 Hz, ~4 at 5-7.5 Hz (uV^2/Hz); description states 0.5-100 Hz",
+ "relative_power_vs_1_30Hz": {
+  "proteus": {
+   "0.25-0.5": 0.643,
+   "0.5-1": 0.455,
+   "1-2": 0.408,
+   "8-13": 0.056
+  },
+  "scherer": {
+   "0.25-0.5": 0.0,
+   "0.5-1": 0.0,
+   "1-2": 0.0,
+   "8-13": 0.265
+  }
+ },
+ "aligned_spectrum_min_eig_trace41": {
+  "PROTEUS P01 s1": [
+   0.348,
+   0.892
+  ],
+  "PROTEUS P05 s1": [
+   0.72,
+   0.964
+  ],
+  "Scherer A s1 raw": [
+   0.0,
+   0.678
+  ],
+  "Scherer A s1 ~n": [
+   0.66,
+   0.88
+  ],
+  "Scherer E s1 ~n": [
+   0.661,
+   0.875
+  ]
+ },
+ "fill_noise_rms_over_signal_rms": 0.0249,
+ "v2_scherer_only_to_proteus": {
+  "cell_mean": 0.4131,
+  "confusion_rows_true_MI_SUB_WORD": [
+   [
+    307,
+    258,
+    320
+   ],
+   [
+    228,
+    391,
+    267
+   ],
+   [
+    261,
+    225,
+    398
+   ]
+  ]
+ },
+ "v2_within_scherer_loso": {
+  "per_participant": [
+   0.467,
+   0.367,
+   0.571,
+   0.522,
+   0.442,
+   0.471,
+   0.467,
+   0.438,
+   0.5
+  ],
+  "mean": 0.4715
+ },
+ "v2_dev_session_statistics_check": {
+  "v2": 0.6827,
+  "v2@~n~w0": 0.6564,
+  "v2_ws@~n~w0 (scaler weighted, PROTEUS refs)": 0.6827,
+  "v2_ws@~n~m~w0.1": 0.5937
+ },
+ "aligned_net_refactor_check": "AlignedNet new vs HEAD, PROTEUS-only, CPU, 2 epochs, seed 3: max abs prob diff 0.0",
+ "dreyer_single_class": "Dreyer sessions contain MI only; self-alignment centres MI at identity (PROTEUS centre = 3-class mean)"
+}

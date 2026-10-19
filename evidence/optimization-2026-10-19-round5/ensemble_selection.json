@@ -1,0 +1,477 @@
+{
+ "ens_ft": {
+  "swaps": {
+   "shallow_raw": "shallow_raw_ft@scherer2015~n",
+   "fbcnet_ea": "fbcnet_ea_ft@scherer2015~n",
+   "shallow_ea": "shallow_ea_ft@scherer2015~n"
+  },
+  "dev_loso": {
+   "shallow_raw (ref, 5 seeds)": 0.5461,
+   "shallow_raw_ft@scherer2015~n (3 seeds)": 0.5751,
+   "fbcnet_ea (ref, 5 seeds)": 0.5972,
+   "fbcnet_ea_ft@scherer2015~n (3 seeds)": 0.5987,
+   "shallow_ea (ref, 5 seeds)": 0.5772,
+   "shallow_ea_ft@scherer2015~n (3 seeds)": 0.5238,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap shallow_raw": 0.6453,
+   "ens_rb swap shallow_raw": 0.6598,
+   "ens swap fbcnet_ea": 0.6274,
+   "ens_rb swap fbcnet_ea": 0.6476,
+   "ens swap shallow_ea": 0.6239,
+   "ens_rb swap shallow_ea": 0.6407,
+   "ens swap all": 0.636,
+   "ens_rb swap all": 0.6434
+  },
+  "dev_session": {
+   "shallow_raw (ref, 5 seeds)": 0.6148,
+   "shallow_raw_ft@scherer2015~n (3 seeds)": 0.6165,
+   "fbcnet_ea (ref, 5 seeds)": 0.6892,
+   "fbcnet_ea_ft@scherer2015~n (3 seeds)": 0.7182,
+   "shallow_ea (ref, 5 seeds)": 0.6155,
+   "shallow_ea_ft@scherer2015~n (3 seeds)": 0.6208,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap shallow_raw": 0.6923,
+   "ens_rb swap shallow_raw": 0.7677,
+   "ens swap fbcnet_ea": 0.7083,
+   "ens_rb swap fbcnet_ea": 0.7651,
+   "ens swap shallow_ea": 0.7032,
+   "ens_rb swap shallow_ea": 0.7568,
+   "ens swap all": 0.7285,
+   "ens_rb swap all": 0.7492
+  }
+ },
+ "ens_mix": {
+  "swaps": {
+   "shallow_raw": "shallow_raw_ft@scherer2015~n",
+   "fbcnet_ea": "fbcnet_ea@scherer2015~n~w0.1"
+  },
+  "dev_loso": {
+   "shallow_raw (ref, 5 seeds)": 0.5461,
+   "shallow_raw_ft@scherer2015~n (3 seeds)": 0.5751,
+   "fbcnet_ea (ref, 5 seeds)": 0.5972,
+   "fbcnet_ea@scherer2015~n~w0.1 (3 seeds)": 0.6056,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap shallow_raw": 0.6453,
+   "ens_rb swap shallow_raw": 0.6598,
+   "ens swap fbcnet_ea": 0.6399,
+   "ens_rb swap fbcnet_ea": 0.655,
+   "ens swap all": 0.6406,
+   "ens_rb swap all": 0.663
+  },
+  "dev_session": {
+   "shallow_raw (ref, 5 seeds)": 0.6148,
+   "shallow_raw_ft@scherer2015~n (3 seeds)": 0.6165,
+   "fbcnet_ea (ref, 5 seeds)": 0.6892,
+   "fbcnet_ea@scherer2015~n~w0.1 (3 seeds)": 0.7091,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap shallow_raw": 0.6923,
+   "ens_rb swap shallow_raw": 0.7677,
+   "ens swap fbcnet_ea": 0.7028,
+   "ens_rb swap fbcnet_ea": 0.7756,
+   "ens swap all": 0.6975,
+   "ens_rb swap all": 0.7683
+  }
+ },
+ "ens_scherer2015~n": {
+  "dev_loso": {
+   "seeds_ext": {
+    "v2": 1,
+    "shallow_ea": 3,
+    "shallow_raw": 3,
+    "fbcnet_ea": 3
+   },
+   "v2": 0.5617,
+   "v2@scherer2015~n": 0.5538,
+   "shallow_ea": 0.5772,
+   "shallow_ea@scherer2015~n": 0.5043,
+   "shallow_raw": 0.5461,
+   "shallow_raw@scherer2015~n": 0.5445,
+   "fbcnet_ea": 0.5972,
+   "fbcnet_ea@scherer2015~n": 0.5823,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap v2": 0.6419,
+   "ens_rb swap v2": 0.6467,
+   "ens swap shallow_ea": 0.6255,
+   "ens_rb swap shallow_ea": 0.6423,
+   "ens swap shallow_raw": 0.6405,
+   "ens_rb swap shallow_raw": 0.654,
+   "ens swap fbcnet_ea": 0.6274,
+   "ens_rb swap fbcnet_ea": 0.6445,
+   "ens swap all available": 0.6183,
+   "ens_rb swap all available": 0.6297
+  },
+  "dev_session": {
+   "seeds_ext": {
+    "v2": 1,
+    "shallow_ea": 3,
+    "shallow_raw": 3,
+    "fbcnet_ea": 3
+   },
+   "v2": 0.6827,
+   "v2@scherer2015~n": 0.5526,
+   "shallow_ea": 0.6155,
+   "shallow_ea@scherer2015~n": 0.6029,
+   "shallow_raw": 0.6148,
+   "shallow_raw@scherer2015~n": 0.6025,
+   "fbcnet_ea": 0.6892,
+   "fbcnet_ea@scherer2015~n": 0.6811,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap v2": 0.6386,
+   "ens_rb swap v2": 0.6975,
+   "ens swap shallow_ea": 0.7033,
+   "ens_rb swap shallow_ea": 0.7546,
+   "ens swap shallow_raw": 0.7055,
+   "ens_rb swap shallow_raw": 0.7657,
+   "ens swap fbcnet_ea": 0.6955,
+   "ens_rb swap fbcnet_ea": 0.7546,
+   "ens swap all available": 0.6564,
+   "ens_rb swap all available": 0.695
+  }
+ },
+ "ens_scherer2015~n~w0.5": {
+  "dev_loso": {
+   "seeds_ext": {
+    "v2": 1,
+    "shallow_ea": 3,
+    "shallow_raw": 3,
+    "fbcnet_ea": 3
+   },
+   "v2": 0.5617,
+   "v2@scherer2015~n~w0.5": 0.556,
+   "shallow_ea": 0.5772,
+   "shallow_ea@scherer2015~n~w0.5": 0.5136,
+   "shallow_raw": 0.5461,
+   "shallow_raw@scherer2015~n~w0.5": 0.5578,
+   "fbcnet_ea": 0.5972,
+   "fbcnet_ea@scherer2015~n~w0.5": 0.5912,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap v2": 0.6413,
+   "ens_rb swap v2": 0.6477,
+   "ens swap shallow_ea": 0.6229,
+   "ens_rb swap shallow_ea": 0.6409,
+   "ens swap shallow_raw": 0.6448,
+   "ens_rb swap shallow_raw": 0.6571,
+   "ens swap fbcnet_ea": 0.6289,
+   "ens_rb swap fbcnet_ea": 0.6461,
+   "ens swap all available": 0.6241,
+   "ens_rb swap all available": 0.6418
+  },
+  "dev_session": {
+   "seeds_ext": {
+    "v2": 1,
+    "shallow_ea": 3,
+    "shallow_raw": 3,
+    "fbcnet_ea": 3
+   },
+   "v2": 0.6827,
+   "v2@scherer2015~n~w0.5": 0.5602,
+   "shallow_ea": 0.6155,
+   "shallow_ea@scherer2015~n~w0.5": 0.6011,
+   "shallow_raw": 0.6148,
+   "shallow_raw@scherer2015~n~w0.5": 0.6311,
+   "fbcnet_ea": 0.6892,
+   "fbcnet_ea@scherer2015~n~w0.5": 0.6859,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap v2": 0.6409,
+   "ens_rb swap v2": 0.6951,
+   "ens swap shallow_ea": 0.6899,
+   "ens_rb swap shallow_ea": 0.7674,
+   "ens swap shallow_raw": 0.7057,
+   "ens_rb swap shallow_raw": 0.7658,
+   "ens swap fbcnet_ea": 0.698,
+   "ens_rb swap fbcnet_ea": 0.7653,
+   "ens swap all available": 0.6666,
+   "ens_rb swap all available": 0.7033
+  }
+ },
+ "ens_v2m": {
+  "swaps": {
+   "v2": "v2@scherer2015~n~m~w0.5"
+  },
+  "dev_loso": {
+   "v2 (ref, 1 seeds)": 0.5617,
+   "v2@scherer2015~n~m~w0.5 (1 seeds)": 0.5569,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap v2": 0.6412,
+   "ens_rb swap v2": 0.6499
+  },
+  "dev_session": {
+   "v2 (ref, 1 seeds)": 0.6827,
+   "v2@scherer2015~n~m~w0.5 (1 seeds)": 0.5894,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap v2": 0.6584,
+   "ens_rb swap v2": 0.7156
+  }
+ },
+ "ens_w0.1": {
+  "swaps": {
+   "shallow_raw": "shallow_raw@scherer2015~n~w0.1",
+   "fbcnet_ea": "fbcnet_ea@scherer2015~n~w0.1"
+  },
+  "dev_loso": {
+   "shallow_raw (ref, 5 seeds)": 0.5461,
+   "shallow_raw@scherer2015~n~w0.1 (3 seeds)": 0.5529,
+   "fbcnet_ea (ref, 5 seeds)": 0.5972,
+   "fbcnet_ea@scherer2015~n~w0.1 (3 seeds)": 0.6056,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap shallow_raw": 0.6421,
+   "ens_rb swap shallow_raw": 0.6556,
+   "ens swap fbcnet_ea": 0.6399,
+   "ens_rb swap fbcnet_ea": 0.655,
+   "ens swap all": 0.6432,
+   "ens_rb swap all": 0.6598
+  },
+  "dev_session": {
+   "shallow_raw (ref, 5 seeds)": 0.6148,
+   "shallow_raw@scherer2015~n~w0.1 (3 seeds)": 0.6497,
+   "fbcnet_ea (ref, 5 seeds)": 0.6892,
+   "fbcnet_ea@scherer2015~n~w0.1 (3 seeds)": 0.7091,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap shallow_raw": 0.7003,
+   "ens_rb swap shallow_raw": 0.7728,
+   "ens swap fbcnet_ea": 0.7028,
+   "ens_rb swap fbcnet_ea": 0.7756,
+   "ens swap all": 0.7058,
+   "ens_rb swap all": 0.7731
+  }
+ },
+ "ens_w0.1_dev5": {
+  "swaps": {
+   "shallow_raw": "shallow_raw@scherer2015~n~w0.1",
+   "fbcnet_ea": "fbcnet_ea@scherer2015~n~w0.1"
+  },
+  "dev_loso": {
+   "shallow_raw (ref, 5 seeds)": 0.5461,
+   "shallow_raw@scherer2015~n~w0.1 (5 seeds)": 0.5599,
+   "fbcnet_ea (ref, 5 seeds)": 0.5972,
+   "fbcnet_ea@scherer2015~n~w0.1 (5 seeds)": 0.6017,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap shallow_raw": 0.642,
+   "ens_rb swap shallow_raw": 0.6555,
+   "ens swap fbcnet_ea": 0.6383,
+   "ens_rb swap fbcnet_ea": 0.6587,
+   "ens swap all": 0.6447,
+   "ens_rb swap all": 0.6556
+  },
+  "dev_session": {
+   "shallow_raw (ref, 5 seeds)": 0.6148,
+   "shallow_raw@scherer2015~n~w0.1 (5 seeds)": 0.6518,
+   "fbcnet_ea (ref, 5 seeds)": 0.6892,
+   "fbcnet_ea@scherer2015~n~w0.1 (5 seeds)": 0.6942,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap shallow_raw": 0.7029,
+   "ens_rb swap shallow_raw": 0.783,
+   "ens swap fbcnet_ea": 0.6951,
+   "ens_rb swap fbcnet_ea": 0.7705,
+   "ens swap all": 0.7006,
+   "ens_rb swap all": 0.7731
+  }
+ },
+ "ens_w0.1_eval": {
+  "swaps": {
+   "shallow_raw": "shallow_raw@scherer2015~n~w0.1",
+   "fbcnet_ea": "fbcnet_ea@scherer2015~n~w0.1"
+  },
+  "all_loso": {
+   "shallow_raw (ref, 5 seeds)": 0.5311,
+   "shallow_raw@scherer2015~n~w0.1 (5 seeds)": 0.5476,
+   "fbcnet_ea (ref, 5 seeds)": 0.5516,
+   "fbcnet_ea@scherer2015~n~w0.1 (5 seeds)": 0.5617,
+   "ens reference": 0.6131,
+   "ens_rb reference": 0.6283,
+   "ens swap shallow_raw": 0.6175,
+   "ens_rb swap shallow_raw": 0.6341,
+   "ens swap fbcnet_ea": 0.6127,
+   "ens_rb swap fbcnet_ea": 0.6294,
+   "ens swap all": 0.6174,
+   "ens_rb swap all": 0.6354
+  },
+  "seen_session": {
+   "shallow_raw (ref, 5 seeds)": 0.5365,
+   "shallow_raw@scherer2015~n~w0.1 (5 seeds)": 0.547,
+   "fbcnet_ea (ref, 5 seeds)": 0.5488,
+   "fbcnet_ea@scherer2015~n~w0.1 (5 seeds)": 0.5697,
+   "ens reference": 0.6007,
+   "ens_rb reference": 0.6664,
+   "ens swap shallow_raw": 0.6049,
+   "ens_rb swap shallow_raw": 0.6636,
+   "ens swap fbcnet_ea": 0.6112,
+   "ens_rb swap fbcnet_ea": 0.6666,
+   "ens swap all": 0.6112,
+   "ens_rb swap all": 0.6676
+  }
+ },
+ "ens_w0.25": {
+  "swaps": {
+   "shallow_raw": "shallow_raw@scherer2015~n~w0.25",
+   "fbcnet_ea": "fbcnet_ea@scherer2015~n~w0.25",
+   "shallow_ea": "shallow_ea@scherer2015~n~w0.25"
+  },
+  "dev_loso": {
+   "shallow_raw (ref, 5 seeds)": 0.5461,
+   "shallow_raw@scherer2015~n~w0.25 (3 seeds)": 0.548,
+   "fbcnet_ea (ref, 5 seeds)": 0.5972,
+   "fbcnet_ea@scherer2015~n~w0.25 (3 seeds)": 0.5997,
+   "shallow_ea (ref, 5 seeds)": 0.5772,
+   "shallow_ea@scherer2015~n~w0.25 (3 seeds)": 0.5213,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap shallow_raw": 0.6436,
+   "ens_rb swap shallow_raw": 0.6582,
+   "ens swap fbcnet_ea": 0.6357,
+   "ens_rb swap fbcnet_ea": 0.6566,
+   "ens swap shallow_ea": 0.6318,
+   "ens_rb swap shallow_ea": 0.6427,
+   "ens swap all": 0.6313,
+   "ens_rb swap all": 0.6476
+  },
+  "dev_session": {
+   "shallow_raw (ref, 5 seeds)": 0.6148,
+   "shallow_raw@scherer2015~n~w0.25 (3 seeds)": 0.6388,
+   "fbcnet_ea (ref, 5 seeds)": 0.6892,
+   "fbcnet_ea@scherer2015~n~w0.25 (3 seeds)": 0.7011,
+   "shallow_ea (ref, 5 seeds)": 0.6155,
+   "shallow_ea@scherer2015~n~w0.25 (3 seeds)": 0.6026,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap shallow_raw": 0.6923,
+   "ens_rb swap shallow_raw": 0.7778,
+   "ens swap fbcnet_ea": 0.7032,
+   "ens_rb swap fbcnet_ea": 0.7705,
+   "ens swap shallow_ea": 0.6928,
+   "ens_rb swap shallow_ea": 0.7596,
+   "ens swap all": 0.6958,
+   "ens_rb swap all": 0.7599
+  }
+ },
+ "dreyer_s0": {
+  "dev_loso": {
+   "seeds_ext": {
+    "v2": 1,
+    "shallow_ea": 1,
+    "shallow_raw": 1,
+    "fbcnet_ea": 1
+   },
+   "v2": 0.5617,
+   "v2@dreyer2023": 0.4488,
+   "shallow_ea": 0.5772,
+   "shallow_ea@dreyer2023": 0.5062,
+   "shallow_raw": 0.5461,
+   "shallow_raw@dreyer2023": 0.4819,
+   "fbcnet_ea": 0.5972,
+   "fbcnet_ea@dreyer2023": 0.528,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap v2": 0.607,
+   "ens_rb swap v2": 0.6189,
+   "ens swap shallow_ea": 0.6298,
+   "ens_rb swap shallow_ea": 0.6367,
+   "ens swap shallow_raw": 0.6389,
+   "ens_rb swap shallow_raw": 0.6508,
+   "ens swap fbcnet_ea": 0.6444,
+   "ens_rb swap fbcnet_ea": 0.6563,
+   "ens swap all available": 0.5651,
+   "ens_rb swap all available": 0.5808
+  },
+  "dev_session": {
+   "seeds_ext": {
+    "v2": 1,
+    "shallow_ea": 1,
+    "shallow_raw": 1,
+    "fbcnet_ea": 1
+   },
+   "v2": 0.6827,
+   "v2@dreyer2023": 0.4967,
+   "shallow_ea": 0.6155,
+   "shallow_ea@dreyer2023": 0.5617,
+   "shallow_raw": 0.6148,
+   "shallow_raw@dreyer2023": 0.5188,
+   "fbcnet_ea": 0.6892,
+   "fbcnet_ea@dreyer2023": 0.585,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap v2": 0.6848,
+   "ens_rb swap v2": 0.7469,
+   "ens swap shallow_ea": 0.6692,
+   "ens_rb swap shallow_ea": 0.7399,
+   "ens swap shallow_raw": 0.6539,
+   "ens_rb swap shallow_raw": 0.7316,
+   "ens swap fbcnet_ea": 0.6665,
+   "ens_rb swap fbcnet_ea": 0.7359,
+   "ens swap all available": 0.5913,
+   "ens_rb swap all available": 0.6163
+  }
+ },
+ "scherer_raw": {
+  "dev_loso": {
+   "seeds_ext": {
+    "v2": 1,
+    "shallow_ea": 3,
+    "shallow_raw": 3,
+    "fbcnet_ea": 3
+   },
+   "v2": 0.5617,
+   "v2@scherer2015": 0.5511,
+   "shallow_ea": 0.5772,
+   "shallow_ea@scherer2015": 0.4994,
+   "shallow_raw": 0.5461,
+   "shallow_raw@scherer2015": 0.545,
+   "fbcnet_ea": 0.5972,
+   "fbcnet_ea@scherer2015": 0.5755,
+   "ens reference": 0.6415,
+   "ens_rb reference": 0.6507,
+   "ens swap v2": 0.6415,
+   "ens_rb swap v2": 0.6452,
+   "ens swap shallow_ea": 0.6287,
+   "ens_rb swap shallow_ea": 0.6409,
+   "ens swap shallow_raw": 0.641,
+   "ens_rb swap shallow_raw": 0.6587,
+   "ens swap fbcnet_ea": 0.6326,
+   "ens_rb swap fbcnet_ea": 0.6524,
+   "ens swap all available": 0.6229,
+   "ens_rb swap all available": 0.6346
+  },
+  "dev_session": {
+   "seeds_ext": {
+    "v2": 1,
+    "shallow_ea": 3,
+    "shallow_raw": 3,
+    "fbcnet_ea": 3
+   },
+   "v2": 0.6827,
+   "v2@scherer2015": 0.5625,
+   "shallow_ea": 0.6155,
+   "shallow_ea@scherer2015": 0.5589,
+   "shallow_raw": 0.6148,
+   "shallow_raw@scherer2015": 0.6079,
+   "fbcnet_ea": 0.6892,
+   "fbcnet_ea@scherer2015": 0.6582,
+   "ens reference": 0.69,
+   "ens_rb reference": 0.7731,
+   "ens swap v2": 0.6483,
+   "ens_rb swap v2": 0.7027,
+   "ens swap shallow_ea": 0.6895,
+   "ens_rb swap shallow_ea": 0.7467,
+   "ens swap shallow_raw": 0.7003,
+   "ens_rb swap shallow_raw": 0.7652,
+   "ens swap fbcnet_ea": 0.6873,
+   "ens_rb swap fbcnet_ea": 0.7651,
+   "ens swap all available": 0.6649,
+   "ens_rb swap all available": 0.6906
+  }
+ }
+}

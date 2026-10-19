@@ -34,10 +34,10 @@ def covariances(X, shrink=1e-3):
     return (1 - shrink) * C + shrink * tr * eye
 
 
-def band_covariances(X, band):
-    """Cached covariances of all exported windows for one band."""
+def band_covariances(X, band, tag=""):
+    """Cached covariances of all windows for one band (``tag``: external data)."""
     CACHE.mkdir(parents=True, exist_ok=True)
-    path = CACHE / f"cov_{band}.npy"
+    path = CACHE / (f"cov_{band}@{tag}.npy" if tag else f"cov_{band}.npy")
     if path.exists():
         return np.load(path)
     lo, hi = BANDS[band]

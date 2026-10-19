@@ -20,6 +20,7 @@ existing environment entry points. New clones use the setup command below.
 - [Scheduled ML Cloud jobs and status commands](docs/CLOUD_RUNS.md)
 - [Optimization rounds 1–2: bounds, protocols, results](docs/OPTIMIZATION.md)
 - [Optimization round 3: rebalancing, FBCNet, sealed candidate](docs/OPTIMIZATION_R3.md)
+- [Optimization round 5: external data (Dreyer 2023, Scherer 2015)](docs/OPTIMIZATION_R5.md)
 
 The official source is a Git submodule pinned to the revision below.
 Datasets, environments, generated weights and runtime logs remain local.

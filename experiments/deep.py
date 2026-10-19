@@ -51,8 +51,8 @@ class AlignedNet:
     _covs = {}
 
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
-                 lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False):
-        self.d, self.arch, self.align, self.k = d, arch, align, k
+                 lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0):
+        self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -79,30 +79,46 @@ class AlignedNet:
         self.G = self.C[idx].mean(0)
         self.scale = float(np.sqrt(np.trace(self.G) / len(self.G)))
         streams = self.d["stream"][idx]
-        parts = [(self._aligned(idx[streams == s], False), self.d["y"][idx[streams == s]])
-                 for s in dict.fromkeys(streams)]
-        X = torch.from_numpy(np.concatenate([p[0] for p in parts]))
-        y = torch.from_numpy(np.concatenate([p[1] for p in parts])).long()
+        order = np.concatenate([idx[streams == s] for s in dict.fromkeys(streams)])
+        X = torch.from_numpy(np.concatenate(
+            [self._aligned(idx[streams == s], False) for s in dict.fromkeys(streams)]))
+        y = torch.from_numpy(self.d["y"][order]).long()
+        sw = torch.from_numpy(self.d["w"][order]).float() if "w" in self.d else None
         n_ch, n_t = X.shape[1:]
         self.net = build(self.arch, n_ch, n_t).to(self.dev)
-        opt = torch.optim.AdamW(self.net.parameters(), lr=self.lr, weight_decay=self.wd)
-        steps = self.epochs * int(np.ceil(len(X) / self.batch))
-        sched = torch.optim.lr_scheduler.OneCycleLR(opt, self.lr, total_steps=steps)
-        loss_fn = nn.CrossEntropyLoss()
+        weighted = bool(self.d.get("tag"))  # external data: class-balanced,
+        if weighted:                          # per-sample weighted loss
+            cnt = np.bincount(y.numpy(), weights=sw.numpy(), minlength=3)
+            cw = torch.tensor(sw.sum().item() / (3 * cnt), dtype=torch.float32)
+            sw = (sw * cw[y]).to(self.dev)
+        loss_fn = nn.CrossEntropyLoss(reduction="none" if weighted else "mean")
         gen = torch.Generator().manual_seed(self.seed)
         self.net.train()
-        for _ in range(self.epochs):
-            perm = rng.permutation(len(X))
-            for b in range(0, len(X), self.batch):
+        rows = np.arange(len(X))
+        self._train(X, y, sw, rows, self.epochs, self.lr, rng, gen, loss_fn, weighted)
+        if self.ft and weighted:  # fine-tune on PROTEUS windows only
+            rows = np.flatnonzero(self.d["split"][order] != "external")
+            self._train(X, y, sw, rows, self.ft, self.lr / 3, rng, gen, loss_fn, weighted)
+        self.net.eval()
+
+    def _train(self, X, y, sw, rows, epochs, lr, rng, gen, loss_fn, weighted):
+        opt = torch.optim.AdamW(self.net.parameters(), lr=lr, weight_decay=self.wd)
+        steps = epochs * int(np.ceil(len(rows) / self.batch))
+        sched = torch.optim.lr_scheduler.OneCycleLR(opt, lr, total_steps=steps)
+        for _ in range(epochs):
+            perm = rows[rng.permutation(len(rows))]
+            for b in range(0, len(perm), self.batch):
                 j = perm[b:b + self.batch]
                 xb, yb = X[j].to(self.dev), y[j].to(self.dev)
                 if self.aug:
                     xb = augment(xb, gen)
                 opt.zero_grad()
-                loss_fn(self.net(xb), yb).backward()
+                loss = loss_fn(self.net(xb), yb)
+                if weighted:
+                    loss = (loss * sw[j]).sum() / sw[j].sum()
+                loss.backward()
                 opt.step()
                 sched.step()
-        self.net.eval()
 
     @torch.no_grad()
     def predict_proba_stream(self, idx):

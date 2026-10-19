@@ -11,7 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-from features import (band_covariances, causal_references, expm_sym, logm,
+from features import (BANDS, band_covariances, causal_references, expm_sym, logm,
                       slow_waveform, whiten_tangent)
 
 
@@ -56,7 +56,7 @@ class TangentSpace:
 
     def __init__(self, d, bands=("alpha", "beta1", "beta2"), align="session",
                  k=5.0, train_causal=False, clf="lr", C=0.1, means=None,
-                 stretch=False, slow="mean", k_slow=None):
+                 stretch=False, slow="mean", k_slow=None, wscale=False):
         self.d, self.bands, self.align, self.means = d, bands, align, means
         self.M = (d["X"].mean(-1) if slow == "mean" else
                   slow_waveform(d["X"], cutoff=2.0 if slow == "wave" else 1.0))
@@ -64,16 +64,18 @@ class TangentSpace:
             W = self.M.reshape(len(self.M), d["X"].shape[1], -1)
             self.M = (W - W.mean(-1, keepdims=True)).reshape(len(W), -1)
         self.k, self.train_causal, self.stretch = k, train_causal, stretch
+        self.wscale = wscale
         self.k_slow = k if k_slow is None else k_slow
         self.clf = make_clf(clf, C)
-        self.covs = [band_covariances(d["X"], b) for b in bands]
-        self.logs = [self._log(b, c) for b, c in zip(bands, self.covs)]
+        tag = d.get("tag", "")
+        self.covs = [band_covariances(d["X"], b, tag) for b in bands]
+        self.logs = [self._log((tag, b), c) for b, c in zip(bands, self.covs)]
 
     @classmethod
-    def _log(cls, band, C):
-        if band not in cls._logs:
-            cls._logs[band] = logm(C)
-        return cls._logs[band]
+    def _log(cls, key, C):
+        if key not in cls._logs:
+            cls._logs[key] = logm(C)
+        return cls._logs[key]
 
     def _features(self, idx, refs, causal=False):
         out = []
@@ -108,19 +110,49 @@ class TangentSpace:
             refs = [expm_sym(L[idx].mean(0)) for L in self.logs]
         return self._features(idx, refs, causal)
 
+    def _low_columns(self):
+        """Feature columns carrying information below 4 Hz (delta, slow)."""
+        n = len(self.covs[0][0])
+        size = n * (n + 1) // 2
+        cols = [np.arange(i * size, (i + 1) * size)
+                for i, b in enumerate(self.bands) if BANDS[b][0] < 4]
+        if self.means is not None:
+            start = size * len(self.bands)
+            cols.append(np.arange(start, start + self.M.shape[1]))
+        return np.concatenate(cols) if cols else np.zeros(0, int)
+
     def fit(self, idx):
-        self.log_glob = [L[idx].mean(0) for L in self.logs]
+        nolow = self.d.get("nolow", np.zeros(len(self.d["y"]), bool))
+        hi = idx[~nolow[idx]]  # global low-band references from full-band data
+        ref = idx
+        if self.wscale:  # target statistics: global references from PROTEUS
+            ref = hi = idx[self.d["split"][idx] != "external"]
+        self.log_glob = [L[hi if BANDS[b][0] < 4 else ref].mean(0)
+                         for b, L in zip(self.bands, self.logs)]
         self.glob = [expm_sym(g) for g in self.log_glob]
+        low = self._low_columns()
         streams = self.d["stream"][idx]
-        feats, ys = [], []
+        feats, ys, ws = [], [], []
         for s in dict.fromkeys(streams):
             sub = idx[streams == s]
             feats.append(self._session_feats(sub, self.train_causal))
+            if nolow[sub].all():  # missing below 4 Hz: no gradient on those
+                feats[-1][:, low] = 0.0
             ys.append(self.d["y"][sub])
-        self.clf.fit(np.concatenate(feats), np.concatenate(ys))
+            ws.append(self.d["w"][sub])
+        y = np.concatenate(ys)
+        kw = {}
+        if self.d.get("tag"):  # external data: class-balanced, weighted samples
+            w = np.concatenate(ws)
+            cw = w.sum() / (3 * np.bincount(y, weights=w, minlength=3))
+            kw["logisticregression__sample_weight"] = w * cw[y]
+            if self.wscale:  # target statistics: scaler weighted like the loss
+                kw["standardscaler__sample_weight"] = w
+        self.clf.fit(np.concatenate(feats), y, **kw)
 
     def predict_proba_stream(self, idx):
         return self.clf.predict_proba(self._session_feats(idx, causal=True))
 
     def predict_stream(self, idx):
         return self.clf.predict(self._session_feats(idx, causal=True))
+
