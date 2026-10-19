@@ -1,7 +1,9 @@
-"""Append aligned FBCNets to an exported ensemble package.
+"""Append FBCNets (aligned, or unaligned with --raw) to an exported package.
 
 Usage: python scripts/add_fbcnet.py SRC_DIR OUT_DIR --train official|all
-       [--seeds 5] [--share 0.25] [--rb-alpha 0.5] [--rb-k 5] [--rb-w 0] [--raw]
+       [--seeds 5] [--share 0.25] [--rb-alpha A] [--rb-k K] [--rb-w W] [--raw]
+Rebalancing settings default to the source package's own (rb_alpha, rb_k,
+rb_w); the flags override them.
 Trains FBCNets (harness ``AlignedNet``, seeds 0..n-1) on the same windows
 as the source package, scales the source members' weights by 1 - share and
 gives the FBCNets ``share`` equally. Checks every official-test window,
@@ -56,9 +58,9 @@ def main():
     ap.add_argument("--train", choices=("official", "all"), required=True)
     ap.add_argument("--seeds", type=int, default=5)
     ap.add_argument("--share", type=float, default=0.25)
-    ap.add_argument("--rb-alpha", type=float, default=0.5)
-    ap.add_argument("--rb-k", type=float, default=5.0)
-    ap.add_argument("--rb-w", type=int, default=0, help="rebalancing window (0 = session)")
+    ap.add_argument("--rb-alpha", type=float)
+    ap.add_argument("--rb-k", type=float)
+    ap.add_argument("--rb-w", type=int, help="rebalancing window (0 = session)")
     ap.add_argument("--raw", action="store_true", help="unaligned FBCNets (global scale only)")
     args = ap.parse_args()
     d = protocol.load()
@@ -67,6 +69,10 @@ def main():
     with np.load(args.src / "weights.npz") as f:
         z = {k: f[k] for k in f.files}
     n_old = int(z["n_nets"])
+    for key, default in (("rb_alpha", 0.0), ("rb_k", 5.0), ("rb_w", 0)):
+        if getattr(args, key) is None:
+            setattr(args, key, type(default)(z.get(key, default)))
+    print(f"rebalancing: alpha {args.rb_alpha}, k {args.rb_k}, w {args.rb_w}")
     P_old = stream(load_solver(args.src, "src_pkg"), d, te, lambda m, x: m.mixed_proba(x))
 
     t0 = time.time()

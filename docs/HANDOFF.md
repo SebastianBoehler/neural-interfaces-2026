@@ -17,8 +17,39 @@ participants P04/P09.
 | Evaluation limit | 60 min on one A100, inference only, `submission.py` + non-Python files |
 
 Uploads are done by the user. Claude never uploads without explicit
-authorisation. Still open: which sealed submission counts (best or last)
-is not documented here; check the Codabench sealed-phase rules.
+authorisation.
+
+## Challenge review (19 October, late; sources: Codabench API 17982, Terms, GitHub issues)
+
+- Official repo: pinned `a66bc23` is still upstream `main` (no later
+  commits). Worker image `neural-compet:v3` unchanged since 12 Oct.
+- **Ranking rule:** the Timeline page says the final rank uses the best of
+  each team's **last five** sealed submissions; the Codabench leaderboard
+  is `Force_Best`. Plan for "last five": never spend a late slot on an
+  experiment.
+- **Sealed output is hidden** (`hide_output`, `hide_score_output`): a crash
+  costs the day without a log. Only upload packages that already ran on the
+  worker, i.e. verify the exact sealed package in warm-up before 25 Oct.
+- Quotas are per Codabench account, not per team.
+- **Audit (Rule 7):** top three must have their *training* re-run from the
+  committed config and land within ±2σ of the sealed score. Our package
+  is built by a chain of scripts (train_ensemble → add_rebalance →
+  swap_external → add_fbcnet); this needs one reproducible pipeline,
+  pinned versions (neuroai 0.4.0, exca 0.5.29, braindecode 1.8.1; see issue
+  #61 for the exca 0.6 breakage) and a scripted Scherer download.
+- Scherer 2015 (CC BY-NC-ND) for a cash prize: issues #41/#52 unanswered.
+  Declare it either way; keep a no-Scherer fallback with the round-6 gain.
+- Track 2 card: "Session 6 · unseen day"; the sealed sessions can lie
+  further from session 1 than our `dev_session` probe (sessions 2–3).
+- The FAQ explicitly allows gradient updates inside `predict` (test-time
+  training), not only statistics-based alignment. `meta["device"]` is the
+  A100; our package runs on CPU by design.
+
+**Protocol caveat.** `all_loso` tests the 8 `dev_loso` participants plus
+P04/P09, and `seen_session`'s P10 half is `dev_session`'s test data. After
+six rounds of selection, evaluation is not independent of selection; only
+P04/P09 in `all_loso` are untouched by selection. Treat ≤ 1.5-point gains as
+unconfirmed and report P04/P09 separately.
 
 ## Task in one paragraph
 
@@ -87,7 +118,10 @@ bash -c "source scripts/environment.sh && python scripts/replay_package.py PKG O
 ```
 
 - Saved per-window probabilities: `runs/experiments/probs*`; offline mixes
-  with `experiments/ensemble.rebalance` (pattern in `OPTIMIZATION_R6.md`).
+  with `experiments/ensemble.rebalance(P, alpha, k, W)`. No tracked script
+  reproduces the R4–R6 windowed mix tables yet (`external_probs.py` and
+  `rebalance_probs.py` use the old unwindowed α = 0.5 rule); add one before
+  the next selection round.
 - Galvani ML Cloud: `ssh mlcloud-galvani`, workspace
   `/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026`; sync with
   `rsync -az --exclude __pycache__ experiments scripts submissions …`.
@@ -115,8 +149,9 @@ FBCNet). Details: `OPTIMIZATION_R3.md`–`R6.md`.
 1. **Worker check of round 6.** Ask the user to upload
    `warmup6_ensemble_official_r6.zip` (expected 0.5243) before 25 Oct: first
    worker test of the unaligned-FBCNet stream and windowed rebalancing.
-   Optionally upload the exact sealed package once to warm-up (labelled as
-   trained on all public data) to confirm worker runtime.
+   Then upload the exact sealed package once to warm-up (trained on all
+   public data, expected ≈ 0.9987, leakage) so that it has run on the worker
+   before the hidden-output sealed phase.
 2. **More diversity, the lever that just worked.** Unaligned variants of
    other architectures (`<arch>_raw` configs exist: tidnet, eegnex, ifnet,
    shallow, eegnet) on `dev_loso`/`dev_session`, 3–5 seeds on Galvani; add a
@@ -127,16 +162,35 @@ FBCNet). Details: `OPTIMIZATION_R3.md`–`R6.md`.
    worker image's braindecode version matches 1.8.1.
 3. **Scherer for the unaligned FBCNet** (61.5 single-model; was second-best
    as a fifth member) and member-level combinations, selected on dev only.
+   `swap_external.py --kinds fbcnet_raw` now handles round-6 packages.
+   Also build a no-Scherer round-6 fallback (r3w + unaligned FBCNet).
+3b. **Unexplored families** (higher ceiling than more members): causal
+   test-time adaptation of the nets (per-session BatchNorm statistics,
+   AdaBN; entropy-minimisation updates, allowed by the FAQ), and GPU-side
+   members (the A100 is idle at inference). Self-training with hard
+   pseudo-labels failed, so prefer statistics-only updates first.
 4. **Runtime**: measure the sealed candidate on an A100 node (CPU path
-   dominates); keep the projected sealed time under about 30 min.
-5. **Sealed-phase plan**: first sealed day upload the best verified
-   package; later days only packages that beat it on `dev_loso` and pass all
-   checks. Write the method description (data, compute, licences).
+   dominates); keep the projected sealed time under about 30 min. The ten
+   FBCNets recompute the same FIR filter bank per net (≈ 55% of window
+   time); sharing it per input stream should save ≈ 40%. Also guard
+   non-finite inputs (one NaN window poisons the rest of the session's
+   state). Both change `submission.py` and need the full re-verification.
+5. **Sealed-phase plan**: assume "best of the last five" counts: upload
+   only worker-verified packages, keep the strongest for the final slots,
+   and stop early rather than spend late slots on experiments. Write the
+   method description (data, compute, licences) and a one-command training
+   pipeline for the reproducibility audit.
 
 ## Repository state at handoff
 
-- `main` at `9a19590` (pushed). Uncommitted: `docs/OPTIMIZATION_R6.md`
-  (FBCNet results and round-6 packages), `scripts/add_fbcnet.py` (`--raw`,
-  `--rb-w`), `README.md`, this file. Ask the user before committing.
+- `main` at `539ed9e` (round-6 docs, pushed). Uncommitted after the
+  review: this file, `swap_external.py` (windowed reference, aligned vs
+  unaligned FBCNet kinds) and `add_fbcnet.py` (rebalancing settings now
+  default to the source package's). Ask the user before committing.
+- Legacy scripts that only document rejected experiments: `extract_reve.py`,
+  `selftrain_probs.py`, `diagnose_slow.py`, `combine_probs.py`,
+  `external_probs.py`, `rebalance_probs.py`; superseded:
+  `cloud/export_ensemble.sbatch`, `train_tangent.py` + `submissions/tangent`
+  (only for the old v1/v2 uploads). Docs link to them, so they are kept.
 - Staged ZIPs in `runs/upload/` (ignored by Git), packages in
   `runs/submissions/`, data and caches in `data/` (ignored).

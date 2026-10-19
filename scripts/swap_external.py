@@ -2,8 +2,8 @@
 
 Usage: python scripts/swap_external.py SRC_DIR OUT_DIR --ext scherer2015~n~w0.1
        --train official|all [--kinds shallow_raw,fbcnet] [--seeds 5]
-Slots of each kind (raw ShallowConvNet: Shallow nets with align False;
-fbcnet: FBC nets) are retrained by the harness ``AlignedNet`` (seeds
+Slots of each kind (shallow_raw / shallow_ea: ShallowConvNets with align
+False / True; fbcnet / fbcnet_raw: aligned / unaligned FBCNets) are retrained by the harness ``AlignedNet`` (seeds
 0..n-1, in slot order) on the package's PROTEUS training windows plus the
 external windows (``protocol.load``; test folds never contain them). Member
 weights, v2 and the other nets are copied unchanged. Checks every
@@ -36,9 +36,10 @@ from train_ensemble import net_params  # noqa: E402
 
 
 def slot_kind(z, i):
-    if f"net{i}_fbc_n_bands" in z:
-        return "fbcnet"
-    return "shallow_ea" if bool(z[f"net{i}_align"]) else "shallow_raw"
+    arch = "fbcnet" if f"net{i}_fbc_n_bands" in z else "shallow"
+    if bool(z[f"net{i}_align"]):
+        return "fbcnet" if arch == "fbcnet" else "shallow_ea"
+    return f"{arch}_raw"
 
 
 def main():
@@ -80,14 +81,15 @@ def main():
     P = P_kept * kept["member_weights"].sum()
     for kind, idx in slots.items():
         for seed, i in enumerate(idx):
-            m = AlignedNet(dx, arch="fbcnet" if kind == "fbcnet" else "shallow",
-                           align=kind != "shallow_raw", seed=seed)
+            fbc = kind.startswith("fbcnet")
+            m = AlignedNet(dx, arch="fbcnet" if fbc else "shallow",
+                           align=not kind.endswith("_raw"), seed=seed)
             m.fit(tr)
             m.net.to("cpu")
             m.dev = "cpu"
             for key in [k for k in z if k.startswith(f"net{i}_")]:
                 del z[key]
-            params = fbc_params(m) if kind == "fbcnet" else net_params(m)
+            params = fbc_params(m) if fbc else net_params(m)
             z.update({f"net{i}_{k}": v for k, v in params.items()})
             P = P + w[1 + i] * protocol.predict_streams(m, dx, te_x, proba=True)
     fit_s = time.time() - t0
@@ -95,9 +97,9 @@ def main():
     np.savez(args.out / "weights.npz", **z)
     shutil.copyfile(SRC, args.out / "submission.py")
 
-    a, k = float(z["rb_alpha"]), float(z["rb_k"])
+    a, k, win = float(z["rb_alpha"]), float(z["rb_k"]), int(z.get("rb_w", 0))
     streams = d0["stream"][te]
-    ref = np.concatenate([rebalance(P[streams == s], a, k).argmax(1)
+    ref = np.concatenate([rebalance(P[streams == s], a, k, win).argmax(1)
                           for s in dict.fromkeys(streams)])
     t1 = time.time()
     got = stream(load_solver(args.out, "new_pkg"), d0, te, lambda m, x: m.predict(x))
