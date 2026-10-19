@@ -156,3 +156,37 @@ class TangentSpace:
     def predict_stream(self, idx):
         return self.clf.predict(self._session_feats(idx, causal=True))
 
+
+class ReveLinear:
+    """Frozen REVE embeddings (scripts/extract_reve.py) -> logistic regression.
+
+    center: subtract the session mean embedding (whole session for training,
+    causal running mean with ``k`` zero pseudo-windows at test time).
+    """
+
+    def __init__(self, d, center=True, k=5.0, C=0.1):
+        from features import CACHE
+        self.d, self.center, self.k = d, center, k
+        self.E = np.load(CACHE / "reve_base.npy").astype(np.float64)
+        self.clf = make_clf("lr", C)
+
+    def _feats(self, idx, causal):
+        E = self.E[idx]
+        if not self.center:
+            return E
+        if causal:
+            n = np.arange(1, len(idx) + 1)[:, None]
+            return E - np.cumsum(E, 0) / (self.k + n)
+        return E - E.mean(0)
+
+    def fit(self, idx):
+        st = self.d["stream"][idx]
+        F = [self._feats(idx[st == s], False) for s in dict.fromkeys(st)]
+        y = [self.d["y"][idx[st == s]] for s in dict.fromkeys(st)]
+        self.clf.fit(np.concatenate(F), np.concatenate(y))
+
+    def predict_proba_stream(self, idx):
+        return self.clf.predict_proba(self._feats(idx, True))
+
+    def predict_stream(self, idx):
+        return self.predict_proba_stream(idx).argmax(1)

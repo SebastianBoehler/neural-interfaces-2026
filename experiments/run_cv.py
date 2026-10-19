@@ -19,7 +19,7 @@ import protocol
 import numpy as np
 from deep import AlignedNet
 from ensemble import Ensemble
-from models import MeanLinear, TangentSpace
+from models import MeanLinear, ReveLinear, TangentSpace
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / os.environ.get("NI26_RESULTS", "runs/experiments/results.jsonl")
@@ -60,6 +60,10 @@ for _a in ("shallow", "fbcnet"):  # fine-tune 10 epochs on PROTEUS after externa
                                                         seed=SEED[0], ft=10)
 CONFIGS["shallow_raw_aug"] = lambda d: AlignedNet(d, arch="shallow", align=False,
                                                   seed=SEED[0], aug=True)
+CONFIGS["reve_raw"] = lambda d: ReveLinear(d, center=False)
+CONFIGS["reve_ctr"] = lambda d: ReveLinear(d)
+CONFIGS["reve_ctr_C1"] = lambda d: ReveLinear(d, C=1.0)
+CONFIGS["reve_ctr_C001"] = lambda d: ReveLinear(d, C=0.01)
 V2 = dict(bands=("delta",) + FB, means="center", slow="wave1")
 CONFIGS["ens_ea"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_ea"](d)])
 CONFIGS["ens_raw"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_raw"](d)])

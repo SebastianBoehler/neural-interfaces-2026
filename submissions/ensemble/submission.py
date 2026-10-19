@@ -10,8 +10,9 @@ Members (all causal, label-free, state reset at every session):
     mean covariance of the session ("aligned") or divided by a global scale.
 The ensemble returns the weighted mean of member probabilities, optionally
 rebalanced causally: window t's probabilities are divided by m ** alpha, m
-being the session's mean probability over windows 0..t-1 blended with a
-uniform prior weighted as ``k`` windows (no labels). Parameters
+being the session's mean probability over windows 0..t-1 (or the last
+``W`` of them) blended with a uniform prior weighted as ``k`` windows
+(no labels). Parameters
 are numpy arrays in ``weights.npz`` (keys prefixed ``ts_`` and ``netI_``).
 Per-window work is tiny, so BLAS, OpenMP and torch run single-threaded:
 interleaved multi-threaded numpy and torch calls were 4x slower on a loaded
@@ -194,10 +195,10 @@ class Ensemble:
     with identical alignment parameters share one input stream.
     """
 
-    def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0):
+    def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0):
         self.tangent, self.w = tangent, weights / weights.sum()
-        self.alpha, self.k = alpha, k
-        self.seen, self.n = np.zeros(3), 0
+        self.alpha, self.k, self.W = alpha, k, W
+        self.seen, self.n, self.hist = np.zeros(3), 0, []
         self.groups = {}
         for i, p in enumerate(nets):
             key = _input_key(p)
@@ -208,7 +209,7 @@ class Ensemble:
 
     def reset_state(self):
         self.tangent.reset_state()
-        self.seen, self.n = np.zeros(3), 0
+        self.seen, self.n, self.hist = np.zeros(3), 0, []
         for stream, _ in self.groups.values():
             stream.reset_state()
 
@@ -234,10 +235,16 @@ class Ensemble:
         P = self.mixed_proba(X)
         if self.alpha:
             for r, p in enumerate(P.copy()):  # causal, in acquisition order
-                m = (self.k / len(p) + self.seen) / (self.k + self.n)
+                if self.W:
+                    h = self.hist[-self.W:]
+                    m = (self.k / len(p) + np.asarray(h).sum(0)) / (self.k + len(h))
+                else:
+                    m = (self.k / len(p) + self.seen) / (self.k + self.n)
                 q = p / m ** self.alpha
                 P[r] = q / q.sum()
                 self.seen, self.n = self.seen + p, self.n + 1
+                if self.W:
+                    self.hist = (self.hist + [p])[-self.W:]
         return torch.as_tensor(P.argmax(1), dtype=torch.long)
 
 
@@ -264,4 +271,5 @@ class Solver(CompetSolver):
         return Ensemble(AlignedTangent(ts), nets,
                         z["member_weights"].astype(np.float64),
                         alpha=float(z.get("rb_alpha", 0.0)),
-                        k=float(z.get("rb_k", 5.0)))
+                        k=float(z.get("rb_k", 5.0)),
+                        W=int(z.get("rb_w", 0)))

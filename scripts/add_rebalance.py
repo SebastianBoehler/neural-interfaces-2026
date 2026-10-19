@@ -1,11 +1,13 @@
-"""Add causal class rebalancing to an exported ensemble package.
+"""Set causal class rebalancing parameters of an exported ensemble package.
 
-Usage: python scripts/add_rebalance.py SRC_DIR OUT_DIR [ALPHA] [K]
-Copies the package's trained weights, adds ``rb_alpha``/``rb_k`` and the
-current ``submissions/ensemble/submission.py``. Checks on every official
-test window, streamed per session: (1) the new code with rebalancing off
-reproduces the source package's own predictions; (2) with rebalancing on it
-equals ``experiments.ensemble.rebalance`` applied to the member mix.
+Usage: python scripts/add_rebalance.py SRC_DIR OUT_DIR [ALPHA] [K] [W]
+Copies the package's trained weights with the current
+``submissions/ensemble/submission.py``. Checks on every official test
+window, streamed per session: (1) the new code with the source package's
+own rebalancing parameters reproduces the source package's predictions;
+(2) with ``rb_alpha``/``rb_k``/``rb_w`` set to ALPHA/K/W it equals
+``experiments.ensemble.rebalance`` applied to the member mix. W = 0 uses all
+earlier windows of the session.
 """
 
 import hashlib
@@ -47,28 +49,28 @@ def main():
     src, out = Path(sys.argv[1]), Path(sys.argv[2])
     alpha = float(sys.argv[3]) if len(sys.argv) > 3 else 0.5
     k = float(sys.argv[4]) if len(sys.argv) > 4 else 5.0
+    w = int(sys.argv[5]) if len(sys.argv) > 5 else 0
     out.mkdir(parents=True, exist_ok=True)
     with np.load(src / "weights.npz") as f:
         z = {key: f[key] for key in f.files}
-    z.update(rb_alpha=np.float64(0.0), rb_k=np.float64(k))
-    np.savez(out / "weights.npz", **z)
+    np.savez(out / "weights.npz", **z)  # source parameters, new code
     shutil.copyfile(SRC, out / "submission.py")
 
     d = protocol.load()
     te = d["split"] == "test"
     old = stream(load_solver(src, "old_pkg"), d, te, lambda m, x: m.predict(x))
-    off = load_solver(out, "new_off")
+    off = load_solver(out, "new_src_params")
     P = stream(off, d, te, lambda m, x: m.mixed_proba(x))
     same_off = float(np.mean(stream(off, d, te, lambda m, x: m.predict(x)) == old))
 
-    z["rb_alpha"] = np.float64(alpha)
+    z.update(rb_alpha=np.float64(alpha), rb_k=np.float64(k), rb_w=np.int64(w))
     np.savez(out / "weights.npz", **z)
     on = stream(load_solver(out, "new_on"), d, te, lambda m, x: m.predict(x))
     streams = d["stream"][te]
-    ref = np.concatenate([rebalance(P[streams == s], alpha, k).argmax(1)
+    ref = np.concatenate([rebalance(P[streams == s], alpha, k, w).argmax(1)
                           for s in dict.fromkeys(streams)])
-    res = {"source": str(src), "rb_alpha": alpha, "rb_k": k,
-           "off_matches_source_package": same_off,
+    res = {"source": str(src), "rb_alpha": alpha, "rb_k": k, "rb_w": w,
+           "source_params_match_source_package": same_off,
            "on_matches_harness_rebalance": float(np.mean(on == ref)),
            "source_score": protocol.score(d["y"][te], old, d, te),
            "rebalanced_score": protocol.score(d["y"][te], on, d, te),
