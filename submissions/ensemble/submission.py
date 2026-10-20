@@ -146,12 +146,17 @@ class Shallow:
         return torch.softmax(h.double(), 1).numpy()
 
 
-def _fft_same(x, f):
-    n, L = x.shape[-1], f.shape[-1]
-    m = n + L - 1
-    full = torch.fft.irfft(torch.fft.rfft(x, m) * torch.fft.rfft(f, m), m)
-    s = (m - n) // 2
-    return full[..., s:s + n]
+def _fft_bank(x, fir):
+    """"Same"-padded FIR filtering by FFT for every filter of a bank,
+    (B, C, T) -> (B, K, C, T); ``x`` is transformed once per filter length."""
+    n, xf, out = x.shape[-1], {}, []
+    for f in fir:
+        m = n + f.shape[-1] - 1
+        if m not in xf:
+            xf[m] = torch.fft.rfft(x, m)
+        s = (m - n) // 2
+        out.append(torch.fft.irfft(xf[m] * torch.fft.rfft(f, m), m)[..., s:s + n])
+    return torch.stack(out, 1)
 
 
 class FBC:
@@ -164,12 +169,17 @@ class FBC:
         self.t = {k: torch.from_numpy(np.ascontiguousarray(v)).double()
                   for k, v in p.items() if k.startswith("fbc_")}
         self.fir = [self.t[f"fbc_fir{i}"] for i in range(int(p["fbc_n_bands"]))]
+        self.bank_key = b"".join(f.numpy().tobytes() for f in self.fir)
+
+    def bank(self, X):
+        return _fft_bank(torch.from_numpy(X).double(), self.fir)  # B,K,C,T
 
     @torch.no_grad()
-    def proba(self, X):
+    def proba(self, X, Y=None):
+        """``Y``: precomputed ``bank(X)``, shared by nets with the same FIR."""
         t = self.t
         x = torch.from_numpy(X).double()
-        Y = torch.stack([_fft_same(x, f) for f in self.fir], 1)   # B,K,C,T
+        Y = self.bank(X) if Y is None else Y
         K, C = Y.shape[1], Y.shape[2]
         Z = torch.einsum("kfc,bkct->bkft", t["fbc_W"].view(K, -1, C), Y)
         Z = Z.reshape(x.shape[0], -1, x.shape[-1]) + t["fbc_bw"][None, :, None]
@@ -217,7 +227,7 @@ class Ensemble:
     def mixed_proba(self, X):
         """Weighted member probabilities, (B, 3); advances session state."""
         X = X.detach().cpu().numpy() if torch.is_tensor(X) else np.asarray(X)
-        X = X.astype(np.float32)
+        X = np.nan_to_num(X.astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
         inputs = {key: [] for key in self.groups}
         tang = []
         for x in X:  # causal state updates, in acquisition order
@@ -226,9 +236,14 @@ class Ensemble:
                 inputs[key].append(stream(x))
         P = self.w[0] * np.stack(tang)
         for key, (_, nets) in self.groups.items():
-            H = np.stack(inputs[key])
+            H, banks = np.stack(inputs[key]), {}
             for i, net in nets:
-                P = P + self.w[1 + i] * net.proba(H)
+                if isinstance(net, FBC):
+                    if net.bank_key not in banks:
+                        banks[net.bank_key] = net.bank(H)
+                    P = P + self.w[1 + i] * net.proba(H, banks[net.bank_key])
+                else:
+                    P = P + self.w[1 + i] * net.proba(H)
         return P
 
     def predict(self, X):

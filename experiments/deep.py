@@ -3,8 +3,14 @@
 Training sessions are whitened by their mean covariance. At test time window
 t is whitened by the running mean covariance of windows 0..t of its session,
 blended with the global training mean as ``k`` pseudo-windows.
+
+``adabn`` > 0 also adapts every batch-norm layer causally at test time:
+window t is normalised with the per-channel mean and variance of windows
+0..t of its session, blended with the training running statistics as
+``adabn`` pseudo-windows (no labels, reset per session).
 """
 
+import copy
 import inspect
 import os
 
@@ -47,12 +53,31 @@ def augment(x, gen, shift=30, scale=0.1, drop=0.1):
     return x * (amp * keep).to(x.device)
 
 
+def causal_bn(bn, x, k):
+    """Batch norm of one session's windows (rows in order) with causal
+    statistics: training running stats as ``k`` pseudo-windows + rows 0..t."""
+    red = list(range(2, x.dim()))
+    m, s = (x.mean(red), (x * x).mean(red)) if red else (x, x * x)
+    n = torch.arange(1, len(x) + 1, device=x.device, dtype=x.dtype)[:, None]
+    rm, rv = bn.running_mean, bn.running_var
+    mean = (k * rm + m.cumsum(0)) / (k + n)
+    var = ((k * (rv + rm ** 2) + s.cumsum(0)) / (k + n) - mean ** 2).clamp_min(0)
+    shape = (len(x), -1) + (1,) * len(red)
+    out = (x - mean.view(shape)) / torch.sqrt(var.view(shape) + bn.eps)
+    if bn.affine:
+        out = out * bn.weight.view(shape[1:2] + shape[2:]) + bn.bias.view(shape[1:2] + shape[2:])
+    return out
+
+
 class AlignedNet:
     _covs = {}
+    _fitted = {}  # trained nets by data, settings and training rows (reused
+                  # by configs that differ only in test-time adaptation)
 
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
-                 lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0):
+                 lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=0.0):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
+        self.adabn = adabn
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -74,6 +99,16 @@ class AlignedNet:
         return np.einsum("ij,njt->nit", P, X).astype(np.float32)
 
     def fit(self, idx):
+        key = (id(self.d["X"]), self.arch, self.align, self.k, self.epochs, self.lr,
+               self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
+               hash(np.asarray(idx).tobytes()))
+        if key not in self._fitted:
+            self._fit(idx)
+            self._fitted[key] = (copy.deepcopy(self.net), self.G, self.scale)
+        net, self.G, self.scale = self._fitted[key]
+        self.net = copy.deepcopy(net)
+
+    def _fit(self, idx):
         torch.manual_seed(self.seed)
         rng = np.random.default_rng(self.seed)
         self.G = self.C[idx].mean(0)
@@ -123,7 +158,16 @@ class AlignedNet:
     @torch.no_grad()
     def predict_proba_stream(self, idx):
         X = torch.from_numpy(self._aligned(idx, causal=True)).to(self.dev)
-        return torch.softmax(self.net(X).cpu().double(), 1).numpy()
+        bns = [m for m in self.net.modules()
+               if self.adabn and isinstance(m, nn.modules.batchnorm._BatchNorm)]
+        for bn in bns:
+            bn.forward = lambda x, bn=bn: causal_bn(bn, x, self.adabn)
+        try:
+            logits = self.net(X)
+        finally:
+            for bn in bns:
+                del bn.forward
+        return torch.softmax(logits.cpu().double(), 1).numpy()
 
     def predict_stream(self, idx):
         return self.predict_proba_stream(idx).argmax(1)

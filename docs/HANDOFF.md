@@ -61,25 +61,22 @@ participants with 10 unseen participants. `predict` gets one window at a
 time per session, in order; label-free causal adaptation within a session
 is allowed; state resets per session.
 
-## Current best (sealed candidate)
+## Current best (sealed candidates; plan in `SEALED_PLAN.md`)
 
-`runs/upload/sealed_candidate_ensemble_all_r6_scherer.zip` (SHA-256
-`cd6d2696…b4d4`), built from `runs/submissions/ensemble_all_r6/`:
+Same weights as round 6, faster bit-identical `submission.py` (round 7):
 
-- v2: 7-band session-aligned tangent space + causally centred 1 Hz slow
-  waveform, logistic regression (`submissions/tangent`, `models.TangentSpace`).
-- 5 aligned ShallowConvNets; 5 unaligned ShallowConvNets and 5 aligned
-  FBCNets trained with Scherer 2015 (`~n~w0.1`); 5 unaligned FBCNets
-  (PROTEUS only). Equal member-type weights (v2 0.2, each net 0.04).
-- Causal windowed class rebalancing: last 30 windows, α = 1, k = 5.
-- All plain numpy/torch in `submissions/ensemble/submission.py` (no
-  braindecode at inference; ShallowConvNet and FBCNet re-implemented).
-- 68 ms per window on Mac CPU → about 23 min for the estimated upper bound
-  of 20,000 sealed windows. Keep new members inside this budget.
-
-Scherer 2015 is CC BY-NC-ND 4.0; the user decided to use it (competition
-not treated as commercial use). Declare it as external training data in
-the method description. Fallback without it: `sealed_candidate_ensemble_all_r3w.zip`.
+- `runs/upload/sealed_candidate_ensemble_all_r6nf_noscherer.zip`
+  (`1d347187…`, **recommended primary**): v2 (0.2) + 5 aligned and 5
+  unaligned ShallowConvNets + 5 aligned and 5 unaligned FBCNets (0.04
+  each), PROTEUS only.
+- `runs/upload/sealed_candidate_ensemble_all_r6f_scherer.zip`
+  (`accc74df…`): as above, but the unaligned ShallowConvNets and aligned
+  FBCNets are trained with Scherer 2015 (`~n~w0.1`); CC BY-NC-ND, must be
+  declared; licence question open (issues #41, #52).
+- Both: causal session alignment (k = 5) and windowed class rebalancing
+  (last 30 windows, α = 1, k = 5); plain numpy/torch, CPU only,
+  ≈ 35 ms per window on the Mac and 62–64 ms on a loaded Galvani A100
+  node (≈ 21 min for ~20,000 windows; the old code needed 99 ms ≈ 33 min).
 
 ## Score history (cell-mean balanced accuracy, %)
 
@@ -90,10 +87,12 @@ the method description. Fallback without it: `sealed_candidate_ensemble_all_r3w.
 | round 3 (`r3`) | 65.1 | 77.3 | 62.8 | 66.6 |
 | round 5 + windowed (`r5w`) | 66.3 | 78.6 | 64.7 | 69.9 |
 | **round 6 (`r6`)** | **67.8** | **80.5** | **66.0** | **70.8** |
+| round 6 without Scherer (`r6n`) | 67.2 | 80.5 | 64.9 | 71.6 |
 
 Honest warm-up (official-train packages): v1 0.4973, round 3 0.4940
-(worker-confirmed), round 6 0.5243 (local replay;
-`runs/upload/warmup6_ensemble_official_r6.zip`, not uploaded).
+(worker-confirmed), round 6 0.5243 (local replay; fast-code ZIP
+`runs/upload/warmup7_ensemble_official_r6f.zip`, not uploaded yet).
+Offline mixes: `scripts/mix_probs.py PROTOCOLS MEMBER[:SEEDS][*W] ...`.
 
 ## Protocols and rules of evidence (`experiments/protocol.py`)
 
@@ -142,55 +141,37 @@ unsupervised participant identification for personal models (cross-session
 drift ≈ between-person differences), within-session self-training,
 frozen REVE embeddings, Dreyer 2023 (MI-only sessions break alignment),
 IFNet/TIDNet/EEGNeX/CTNet/Conformer/ATCNet/Deep4 aligned (weaker than
-FBCNet). Details: `OPTIMIZATION_R3.md`–`R6.md`.
+FBCNet), unaligned IFNet/TIDNet/EEGNeX as extra members (EEGNeX +1.2 on
+dev, not confirmed on evaluation), causal test-time BatchNorm (AdaBN;
+redundant with rebalancing in the ensemble), Scherer for the unaligned
+FBCNet. Details: `OPTIMIZATION_R3.md`–`R7.md`.
 
 ## Prioritised next steps
 
-1. **Worker check of round 6.** Ask the user to upload
-   `warmup6_ensemble_official_r6.zip` (expected 0.5243) before 25 Oct: first
-   worker test of the unaligned-FBCNet stream and windowed rebalancing.
-   Then upload the exact sealed package once to warm-up (trained on all
-   public data, expected ≈ 0.9987, leakage) so that it has run on the worker
-   before the hidden-output sealed phase.
-2. **More diversity, the lever that just worked.** Unaligned variants of
-   other architectures (`<arch>_raw` configs exist: tidnet, eegnex, ifnet,
-   shallow, eegnet) on `dev_loso`/`dev_session`, 3–5 seeds on Galvani; add a
-   member only if the windowed ensemble improves on both selection
-   protocols. New architectures need a plain-torch re-implementation in
-   `submissions/ensemble/submission.py` verified against braindecode
-   (pattern: the FBC class, ≤ 3e-6 logit difference), or a check that the
-   worker image's braindecode version matches 1.8.1.
-3. **Scherer for the unaligned FBCNet** (61.5 single-model; was second-best
-   as a fifth member) and member-level combinations, selected on dev only.
-   `swap_external.py --kinds fbcnet_raw` now handles round-6 packages.
-   Also build a no-Scherer round-6 fallback (r3w + unaligned FBCNet).
-3b. **Unexplored families** (higher ceiling than more members): causal
-   test-time adaptation of the nets (per-session BatchNorm statistics,
-   AdaBN; entropy-minimisation updates, allowed by the FAQ), and GPU-side
-   members (the A100 is idle at inference). Self-training with hard
-   pseudo-labels failed, so prefer statistics-only updates first.
-4. **Runtime**: measure the sealed candidate on an A100 node (CPU path
-   dominates); keep the projected sealed time under about 30 min. The ten
-   FBCNets recompute the same FIR filter bank per net (≈ 55% of window
-   time); sharing it per input stream should save ≈ 40%. Also guard
-   non-finite inputs (one NaN window poisons the rest of the session's
-   state). Both change `submission.py` and need the full re-verification.
-5. **Sealed-phase plan**: assume "best of the last five" counts: upload
-   only worker-verified packages, keep the strongest for the final slots,
-   and stop early rather than spend late slots on experiments. Write the
-   method description (data, compute, licences) and a one-command training
-   pipeline for the reproducibility audit.
+1. **Warm-up worker checks before 25 Oct 02:00 CEST** (user uploads):
+   `warmup7_ensemble_official_r6f.zip` (expected 0.5243), then the exact
+   primary sealed ZIP (expected ≈ 0.9973, leakage) to prove it runs and to
+   read the worker duration. Record IDs and scores in `COMPETITION.md`.
+2. **Licence decision**: r6nf (recommended) vs r6f; the user may ask the
+   organisers on issue #41 before 28 Oct.
+3. **Reproducibility**: one script that rebuilds the chosen package from
+   committed configs with pinned versions (audit Rule 7).
+4. **Accuracy**: the ensemble is saturated on member diversity and
+   session-level adaptation. Remaining untested families: fine-tuned
+   foundation models with alignment (only frozen REVE was tried), GPU-side
+   inference members, within-session entropy minimisation. Any gain must
+   beat ±1 on both dev protocols *and* hold on P04/P09.
+5. **Method description**: finalise the draft in `SEALED_PLAN.md`
+   (sum compute from `sacct`).
 
 ## Repository state at handoff
 
-- `main` at `539ed9e` (round-6 docs, pushed). Uncommitted after the
-  review: this file, `swap_external.py` (windowed reference, aligned vs
-  unaligned FBCNet kinds) and `add_fbcnet.py` (rebalancing settings now
-  default to the source package's). Ask the user before committing.
+- Round 7 committed and pushed (see `git log`). Staged ZIPs in
+  `runs/upload/` (ignored by Git), packages in `runs/submissions/`, data
+  and caches in `data/` (ignored); round-7 probabilities in
+  `runs/experiments/probs_r7` (Galvani A100) and `probs_mps_r7` (seed 0).
 - Legacy scripts that only document rejected experiments: `extract_reve.py`,
   `selftrain_probs.py`, `diagnose_slow.py`, `combine_probs.py`,
-  `external_probs.py`, `rebalance_probs.py`; superseded:
-  `cloud/export_ensemble.sbatch`, `train_tangent.py` + `submissions/tangent`
-  (only for the old v1/v2 uploads). Docs link to them, so they are kept.
-- Staged ZIPs in `runs/upload/` (ignored by Git), packages in
-  `runs/submissions/`, data and caches in `data/` (ignored).
+  `external_probs.py`, `rebalance_probs.py` (superseded by `mix_probs.py`);
+  superseded: `cloud/export_ensemble.sbatch`, `train_tangent.py` +
+  `submissions/tangent` (only the old v1/v2 uploads). Docs link to them.

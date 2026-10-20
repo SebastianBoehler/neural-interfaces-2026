@@ -60,6 +60,12 @@ for _a in ("shallow", "fbcnet"):  # fine-tune 10 epochs on PROTEUS after externa
                                                         seed=SEED[0], ft=10)
 CONFIGS["shallow_raw_aug"] = lambda d: AlignedNet(d, arch="shallow", align=False,
                                                   seed=SEED[0], aug=True)
+for _a in ("shallow", "fbcnet"):  # causal test-time batch-norm adaptation
+    for _al in (False, True):
+        for _k in (0, 5, 20, 100):
+            CONFIGS[f"{_a}_{'ea' if _al else 'raw'}_bn{_k}"] = (
+                lambda d, a=_a, al=_al, k=_k: AlignedNet(d, arch=a, align=al,
+                                                         seed=SEED[0], adabn=k))
 CONFIGS["reve_raw"] = lambda d: ReveLinear(d, center=False)
 CONFIGS["reve_ctr"] = lambda d: ReveLinear(d)
 CONFIGS["reve_ctr_C1"] = lambda d: ReveLinear(d, C=1.0)

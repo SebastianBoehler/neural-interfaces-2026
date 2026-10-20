@@ -22,7 +22,9 @@ existing environment entry points. New clones use the setup command below.
 - [Optimization round 3: rebalancing, FBCNet, sealed candidate](docs/OPTIMIZATION_R3.md)
 - [Optimization round 4: rejected ideas and windowed rebalancing](docs/OPTIMIZATION_R4.md)
 - [Optimization round 5: external data (Dreyer 2023, Scherer 2015)](docs/OPTIMIZATION_R5.md)
-- [Optimization round 6: member diversity, current sealed candidate](docs/OPTIMIZATION_R6.md)
+- [Optimization round 6: member diversity](docs/OPTIMIZATION_R6.md)
+- [Optimization round 7: review, AdaBN, faster inference](docs/OPTIMIZATION_R7.md)
+- [Sealed-phase plan and method description](docs/SEALED_PLAN.md)
 - [Handoff: current state and next steps](docs/HANDOFF.md)
 
 The official source is a Git submodule pinned to the revision below.
