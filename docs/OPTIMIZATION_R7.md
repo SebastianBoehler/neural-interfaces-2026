@@ -117,3 +117,19 @@ an A100 node (job 2982352, EPYC 7302, 4 threads, node load ≈ 26):
 Old and new code agree on all 755 windows on Linux as well. The fast code
 keeps the projected sealed time under the 30-minute budget; the old code
 did not.
+
+## Post-processing and a new feature family (20 October, all rejected)
+
+Same saved r6 probabilities, `dev_loso` / `dev_session`:
+
+| Variant | dev_loso | dev_session |
+|---|---:|---:|
+| r6 (one-step windowed rebalancing, α 1, k 5, W 30) | 67.8 | 80.5 |
+| Sinkhorn balancing over the last W windows incl. the current one, W 15–45, prior 0/5, 1–10 iterations (18 settings) | 66.4–68.2 | 79.9–82.9 |
+| Learned combiner (logistic regression on member log-probabilities, nested leave-one-participant-out, C 0.01–1) | 64.8–66.4 | – |
+| + xDAWN/ERP-covariance member (`experiments/erp.py`; alone 45.1–46.9 / 49.2–58.7), weight 1 / 0.5 | 66.5 / 67.8 | 80.4–80.9 / 80.7 |
+
+Sinkhorn helps only the 4-cell `dev_session` probe and is flat or worse on
+`dev_loso`; equal-weight averaging beats a learned combiner; the ERP view
+of the slow signal is weak alone (v2 already uses that signal) and adds
+nothing. The combination layer and the post-processing are saturated.

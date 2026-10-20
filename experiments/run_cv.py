@@ -18,6 +18,7 @@ from pathlib import Path
 import protocol
 import numpy as np
 from deep import AlignedNet
+from erp import ErpTangent
 from ensemble import Ensemble
 from models import MeanLinear, ReveLinear, TangentSpace
 
@@ -66,6 +67,9 @@ for _a in ("shallow", "fbcnet"):  # causal test-time batch-norm adaptation
             CONFIGS[f"{_a}_{'ea' if _al else 'raw'}_bn{_k}"] = (
                 lambda d, a=_a, al=_al, k=_k: AlignedNet(d, arch=a, align=al,
                                                          seed=SEED[0], adabn=k))
+for _c, _nf in ((4.0, 4), (2.0, 4), (8.0, 4), (4.0, 2), (4.0, 8)):
+    CONFIGS[f"erp_c{_c:g}_f{_nf}"] = lambda d, c=_c, nf=_nf: ErpTangent(d, cutoff=c, nf=nf)
+CONFIGS["erp_noalign"] = lambda d: ErpTangent(d, align=False)
 CONFIGS["reve_raw"] = lambda d: ReveLinear(d, center=False)
 CONFIGS["reve_ctr"] = lambda d: ReveLinear(d)
 CONFIGS["reve_ctr_C1"] = lambda d: ReveLinear(d, C=1.0)
