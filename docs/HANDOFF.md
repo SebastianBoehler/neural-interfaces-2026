@@ -154,8 +154,9 @@ FBCNet. Details: `OPTIMIZATION_R3.md`–`R7.md`.
    read the worker duration. Record IDs and scores in `COMPETITION.md`.
 2. **Licence decision**: r6nf (recommended) vs r6f; the user may ask the
    organisers on issue #41 before 28 Oct.
-3. **Reproducibility**: one script that rebuilds the chosen package from
-   committed configs with pinned versions (audit Rule 7).
+3. **Reproducibility**: done for r6nf (`scripts/build_sealed.py
+   scripts/sealed_r6nf.json`, evidence `evidence/sealed-rebuild-2026-10-20`);
+   r6f (Scherer) would need per-member external data and a scripted download.
 4. **Accuracy**: the ensemble is saturated on member diversity and
    session-level adaptation. Remaining untested families: fine-tuned
    foundation models with alignment (only frozen REVE was tried), GPU-side

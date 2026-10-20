@@ -1,0 +1,467 @@
+{
+ "mps": {
+  "config": "scripts/sealed_r6nf.json",
+  "config_sha256": "acd4629e429c675794119328f59dd6479219054c379a02936feb6b869ec49f4b",
+  "name": "ensemble_all_r6nf",
+  "environment": {
+   "git_rev": "5f9b9aba274532c893ff72e3eb1ba4a28cdc0537",
+   "git_dirty": true,
+   "official_rev": "a66bc23d1a0e686b895c093a642b45c74970758b",
+   "host": "MacBook-Pro-von-Sebastian.local",
+   "platform": "macOS-27.0.1-arm64-arm-64bit",
+   "python": "3.12.13",
+   "train_device": "mps",
+   "cuda": null,
+   "slurm_job": null,
+   "versions": {
+    "torch": "2.14.1",
+    "braindecode": "1.8.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "mne": "1.13.2",
+    "exca": "0.5.29",
+    "neuralset": "0.4.0",
+    "neuralfetch": "0.4.0",
+    "neuraltrain": "0.4.0",
+    "neuralbench": "0.4.0"
+   },
+   "data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
+  },
+  "n_train_windows": 2655,
+  "member_weights": [
+   0.2,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04
+  ],
+  "rebalance": {
+   "alpha": 1.0,
+   "k": 5.0,
+   "w": 30
+  },
+  "fit_seconds": 3549.1,
+  "fit_seconds_by_member": [
+   5.3,
+   280.5,
+   278.1,
+   274.0,
+   260.6,
+   242.6,
+   240.8,
+   232.7,
+   229.0,
+   231.8,
+   241.2,
+   116.3,
+   106.5,
+   104.2,
+   104.1,
+   103.8,
+   99.4,
+   92.9,
+   92.3,
+   93.5,
+   90.4
+  ],
+  "agreement_with_harness": 1.0,
+  "submission_seconds_per_window_cpu": 0.04072,
+  "harness": {
+   "balanced_accuracy_cell_mean": 0.9986559139784946,
+   "balanced_accuracy_session_mean": 0.9986772486772487,
+   "balanced_accuracy": 0.9986772486772487,
+   "accuracy": 0.9986754966887417,
+   "n_cells": 8
+  },
+  "submission": {
+   "balanced_accuracy_cell_mean": 0.9986559139784946,
+   "balanced_accuracy_session_mean": 0.9986772486772487,
+   "balanced_accuracy": 0.9986772486772487,
+   "accuracy": 0.9986754966887417,
+   "n_cells": 8
+  },
+  "weights_sha256": "6c93ac0cd879dcc17beda0beacc9e271ddf762855e4bf382a2975945dfec94d6",
+  "submission_sha256": "681dd49aa089d44ab480169b257d4736ee7873cca1076f90cd24f13663ee2560",
+  "comparison": {
+   "reference": "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/runs/submissions/ensemble_all_r6nf",
+   "reference_weights_sha256": "2739b2632851fffbec996475ce05580753ec82f741076104e842864795e10777",
+   "same_weight_keys": true,
+   "submission_py_identical": true,
+   "max_abs_weight_diff_v2": 2.0521223609293315e-12,
+   "max_abs_weight_diff_by_net": [
+    0.11894305050373077,
+    0.13701959303580225,
+    0.17294779047369957,
+    0.18039550818502903,
+    0.17417312413454056,
+    0.18639396131038666,
+    0.22977059101685882,
+    0.14661777019500732,
+    0.18038158863782883,
+    0.24186206981539726,
+    0.10574252158403397,
+    0.10416380502283573,
+    0.08497830480337143,
+    0.10432072728872299,
+    0.09677056223154068,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "official_test": {
+    "n_windows": 755,
+    "label_agreement": 0.9986754966887417,
+    "n_disagree": 1,
+    "mean_abs_prob_diff": 0.005548129412636568,
+    "max_abs_prob_diff": 0.03881496573668203,
+    "max_abs_mix_diff": 0.037006816801088194,
+    "rebuild": {
+     "balanced_accuracy_cell_mean": 0.9986559139784946,
+     "balanced_accuracy_session_mean": 0.9986772486772487,
+     "balanced_accuracy": 0.9986772486772487,
+     "accuracy": 0.9986754966887417,
+     "n_cells": 8
+    },
+    "reference": {
+     "balanced_accuracy_cell_mean": 0.9973118279569892,
+     "balanced_accuracy_session_mean": 0.9973544973544974,
+     "balanced_accuracy": 0.9973649127192434,
+     "accuracy": 0.9973509933774835,
+     "n_cells": 8
+    },
+    "delta_balanced_accuracy_cell_mean": 0.0013440860215053752,
+    "delta_balanced_accuracy": 0.001312335958005284
+   },
+   "all_windows": {
+    "n_windows": 2655,
+    "label_agreement": 0.9996233521657251,
+    "n_disagree": 1,
+    "mean_abs_prob_diff": 0.00488307834525975,
+    "max_abs_prob_diff": 0.06754992024619244,
+    "max_abs_mix_diff": 0.06907206754948725,
+    "rebuild": {
+     "balanced_accuracy_cell_mean": 0.9976694508448541,
+     "balanced_accuracy_session_mean": 0.9977141394192086,
+     "balanced_accuracy": 0.9977388338159298,
+     "accuracy": 0.9977401129943503,
+     "n_cells": 28
+    },
+    "reference": {
+     "balanced_accuracy_cell_mean": 0.9972854262672811,
+     "balanced_accuracy_session_mean": 0.997336210469851,
+     "balanced_accuracy": 0.9973617599094441,
+     "accuracy": 0.9973634651600753,
+     "n_cells": 28
+    },
+    "delta_balanced_accuracy_cell_mean": 0.00038402457757302777,
+    "delta_balanced_accuracy": 0.00037707390648566985
+   }
+  }
+ },
+ "a100": {
+  "config": "scripts/sealed_r6nf.json",
+  "config_sha256": "acd4629e429c675794119328f59dd6479219054c379a02936feb6b869ec49f4b",
+  "name": "ensemble_all_r6nf",
+  "environment": {
+   "git_rev": "5f9b9aba274532c893ff72e3eb1ba4a28cdc0537+uncommitted",
+   "git_dirty": true,
+   "official_rev": "a66bc23d1a0e686b895c093a642b45c74970758b",
+   "host": "galvani-cn232",
+   "platform": "Linux-4.18.0-553.168.1.el8_10.x86_64-x86_64-with-glibc2.28",
+   "python": "3.12.15",
+   "train_device": "NVIDIA A100-PCIE-40GB",
+   "cuda": "12.6",
+   "slurm_job": "2982358",
+   "versions": {
+    "torch": "2.14.1+cu126",
+    "braindecode": "1.8.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "mne": "1.13.2",
+    "exca": "0.5.29",
+    "neuralset": "0.4.0",
+    "neuralfetch": "0.4.0",
+    "neuraltrain": "0.4.0",
+    "neuralbench": "0.4.0"
+   },
+   "data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
+  },
+  "n_train_windows": 2655,
+  "member_weights": [
+   0.2,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04,
+   0.04
+  ],
+  "rebalance": {
+   "alpha": 1.0,
+   "k": 5.0,
+   "w": 30
+  },
+  "fit_seconds": 205.5,
+  "fit_seconds_by_member": [
+   8.6,
+   17.9,
+   6.0,
+   6.6,
+   5.6,
+   5.9,
+   5.3,
+   5.4,
+   5.7,
+   4.8,
+   4.8,
+   12.4,
+   10.6,
+   10.5,
+   10.5,
+   10.6,
+   10.1,
+   10.1,
+   10.1,
+   10.1,
+   10.0
+  ],
+  "agreement_with_harness": 1.0,
+  "submission_seconds_per_window_cpu": 0.06489,
+  "harness": {
+   "balanced_accuracy_cell_mean": 0.9986559139784946,
+   "balanced_accuracy_session_mean": 0.9986772486772487,
+   "balanced_accuracy": 0.9986772486772487,
+   "accuracy": 0.9986754966887417,
+   "n_cells": 8
+  },
+  "submission": {
+   "balanced_accuracy_cell_mean": 0.9986559139784946,
+   "balanced_accuracy_session_mean": 0.9986772486772487,
+   "balanced_accuracy": 0.9986772486772487,
+   "accuracy": 0.9986754966887417,
+   "n_cells": 8
+  },
+  "weights_sha256": "9d0554069e805a600c4e6e300eb24ed2d4b9e682bad457dec06110c903719685",
+  "submission_sha256": "681dd49aa089d44ab480169b257d4736ee7873cca1076f90cd24f13663ee2560",
+  "comparison": {
+   "reference": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/submissions/ensemble_all_r6nf",
+   "reference_weights_sha256": "2739b2632851fffbec996475ce05580753ec82f741076104e842864795e10777",
+   "same_weight_keys": true,
+   "submission_py_identical": true,
+   "max_abs_weight_diff_v2": 2.3351097097612517e-11,
+   "max_abs_weight_diff_by_net": [
+    0.057419234653934836,
+    0.08001415245234966,
+    0.07732031308114529,
+    0.03098963527008891,
+    0.06573953432962298,
+    0.14260868728160858,
+    0.13306546211242676,
+    0.1295248195528984,
+    0.15750425681471825,
+    0.13803182914853096,
+    0.08322302252054214,
+    0.08486918732523918,
+    0.08671231009066105,
+    0.07504036277532578,
+    0.085528664290905,
+    0.0941172894090414,
+    0.13305135071277618,
+    0.16705969162285328,
+    0.09835498780012131,
+    0.08225563541054726
+   ],
+   "official_test": {
+    "n_windows": 755,
+    "label_agreement": 0.9986754966887417,
+    "n_disagree": 1,
+    "mean_abs_prob_diff": 0.003138539550897747,
+    "max_abs_prob_diff": 0.019299221670537547,
+    "max_abs_mix_diff": 0.02157250079967099,
+    "rebuild": {
+     "balanced_accuracy_cell_mean": 0.9986559139784946,
+     "balanced_accuracy_session_mean": 0.9986772486772487,
+     "balanced_accuracy": 0.9986772486772487,
+     "accuracy": 0.9986754966887417,
+     "n_cells": 8
+    },
+    "reference": {
+     "balanced_accuracy_cell_mean": 0.9973118279569892,
+     "balanced_accuracy_session_mean": 0.9973544973544974,
+     "balanced_accuracy": 0.9973649127192434,
+     "accuracy": 0.9973509933774835,
+     "n_cells": 8
+    },
+    "delta_balanced_accuracy_cell_mean": 0.0013440860215053752,
+    "delta_balanced_accuracy": 0.001312335958005284
+   },
+   "all_windows": {
+    "n_windows": 2655,
+    "label_agreement": 0.9996233521657251,
+    "n_disagree": 1,
+    "mean_abs_prob_diff": 0.0029195393108562046,
+    "max_abs_prob_diff": 0.034011308430526466,
+    "max_abs_mix_diff": 0.03734230055726501,
+    "rebuild": {
+     "balanced_accuracy_cell_mean": 0.9976694508448541,
+     "balanced_accuracy_session_mean": 0.9977141394192086,
+     "balanced_accuracy": 0.9977388338159298,
+     "accuracy": 0.9977401129943503,
+     "n_cells": 28
+    },
+    "reference": {
+     "balanced_accuracy_cell_mean": 0.9972854262672811,
+     "balanced_accuracy_session_mean": 0.997336210469851,
+     "balanced_accuracy": 0.9973617599094441,
+     "accuracy": 0.9973634651600753,
+     "n_cells": 28
+    },
+    "delta_balanced_accuracy_cell_mean": 0.00038402457757302777,
+    "delta_balanced_accuracy": 0.00037707390648566985
+   }
+  }
+ },
+ "replay_mps_build_mac_cpu": {
+  "device": "cpu",
+  "zip_sha256": "2cf2e9aa3959fa34317022517d9cb27f508d319fdf63336726c466e5956f601b",
+  "files_sha256": {
+   "submission.py": "681dd49aa089d44ab480169b257d4736ee7873cca1076f90cd24f13663ee2560",
+   "weights.npz": "6c93ac0cd879dcc17beda0beacc9e271ddf762855e4bf382a2975945dfec94d6"
+  },
+  "files_unchanged": true,
+  "ingestion_wall_seconds": 35.8,
+  "scores": {
+   "balanced_accuracy_cell_mean": 0.9986559139784946,
+   "balanced_accuracy": 0.9986772486772487,
+   "accuracy": 0.9986754966887417,
+   "duration": 35.745089054107666
+  }
+ },
+ "replay_a100_build_a100_node": {
+  "device": "cuda",
+  "zip_sha256": "32430c16bd604231618e9a035dd672e833967cea35d394455426919d2fc286e4",
+  "files_sha256": {
+   "submission.py": "681dd49aa089d44ab480169b257d4736ee7873cca1076f90cd24f13663ee2560",
+   "weights.npz": "9d0554069e805a600c4e6e300eb24ed2d4b9e682bad457dec06110c903719685"
+  },
+  "files_unchanged": true,
+  "ingestion_wall_seconds": 97.8,
+  "scores": {
+   "balanced_accuracy_cell_mean": 0.9986559139784946,
+   "balanced_accuracy": 0.9986772486772487,
+   "accuracy": 0.9986754966887417,
+   "duration": 97.57354378700256
+  }
+ },
+ "mps_vs_a100": {
+  "reference": "runs/sealed/sealed_r6nf_a100_2982358",
+  "reference_weights_sha256": "9d0554069e805a600c4e6e300eb24ed2d4b9e682bad457dec06110c903719685",
+  "same_weight_keys": true,
+  "submission_py_identical": true,
+  "max_abs_weight_diff_v2": 2.334489893063285e-11,
+  "max_abs_weight_diff_by_net": [
+   0.11700998991727829,
+   0.13625792018137872,
+   0.13966898061335087,
+   0.17945284768939018,
+   0.1698753908276558,
+   0.184153214097023,
+   0.2538651805371046,
+   0.16941015049815178,
+   0.21470961719751358,
+   0.24924635142087936,
+   0.09119682013988495,
+   0.06525366753339767,
+   0.06627669185400009,
+   0.09294215217232704,
+   0.07739945501089096,
+   0.0941172894090414,
+   0.13305135071277618,
+   0.16705969162285328,
+   0.09835498780012131,
+   0.08225563541054726
+  ],
+  "official_test": {
+   "n_windows": 755,
+   "label_agreement": 1.0,
+   "n_disagree": 0,
+   "mean_abs_prob_diff": 0.0055811751277952334,
+   "max_abs_prob_diff": 0.03839302613467893,
+   "max_abs_mix_diff": 0.038972542815104205,
+   "rebuild": {
+    "balanced_accuracy_cell_mean": 0.9986559139784946,
+    "balanced_accuracy_session_mean": 0.9986772486772487,
+    "balanced_accuracy": 0.9986772486772487,
+    "accuracy": 0.9986754966887417,
+    "n_cells": 8
+   },
+   "reference": {
+    "balanced_accuracy_cell_mean": 0.9986559139784946,
+    "balanced_accuracy_session_mean": 0.9986772486772487,
+    "balanced_accuracy": 0.9986772486772487,
+    "accuracy": 0.9986754966887417,
+    "n_cells": 8
+   },
+   "delta_balanced_accuracy_cell_mean": 0.0,
+   "delta_balanced_accuracy": 0.0
+  },
+  "all_windows": {
+   "n_windows": 2655,
+   "label_agreement": 1.0,
+   "n_disagree": 0,
+   "mean_abs_prob_diff": 0.004976553511695895,
+   "max_abs_prob_diff": 0.06912121597694221,
+   "max_abs_mix_diff": 0.07041466178253764,
+   "rebuild": {
+    "balanced_accuracy_cell_mean": 0.9976694508448541,
+    "balanced_accuracy_session_mean": 0.9977141394192086,
+    "balanced_accuracy": 0.9977388338159298,
+    "accuracy": 0.9977401129943503,
+    "n_cells": 28
+   },
+   "reference": {
+    "balanced_accuracy_cell_mean": 0.9976694508448541,
+    "balanced_accuracy_session_mean": 0.9977141394192086,
+    "balanced_accuracy": 0.9977388338159298,
+    "accuracy": 0.9977401129943503,
+    "n_cells": 28
+   },
+   "delta_balanced_accuracy_cell_mean": 0.0,
+   "delta_balanced_accuracy": 0.0
+  }
+ }
+}

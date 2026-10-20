@@ -81,7 +81,10 @@ GPU-hours on the Tübingen ML Cloud (to be summed from `sacct`). Inference:
 CPU only, about 35 ms per window on an M4 Max and 62–64 ms on an
 A100-node CPU (EPYC 7302).
 
-**Reproduction.** To do before the deadline: one script that rebuilds the
-chosen package from committed configs (currently `train_ensemble.py` →
-`add_rebalance.py` → `swap_external.py` → `add_fbcnet.py`), with pinned
-neuroai 0.4.0, exca 0.5.29, braindecode 1.8.1 and torch versions.
+**Reproduction.** `python scripts/build_sealed.py scripts/sealed_r6nf.json
+OUT` (Galvani: `scripts/cloud/build_sealed.sbatch`) rebuilds r6nf from
+scratch with the versions pinned in `requirements/cloud.txt` (neuroai
+0.4.0, exca 0.5.29, braindecode 1.8.1, torch 2.14.1) and checks it against
+the harness and the staged package. Rebuilds on MPS and an A100 agree with
+the staged package on 2,654 of 2,655 windows
+(`evidence/sealed-rebuild-2026-10-20`).
