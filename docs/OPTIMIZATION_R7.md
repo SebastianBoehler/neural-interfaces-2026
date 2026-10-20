@@ -44,7 +44,7 @@ for k → ∞). The trained nets are reused across k (`AlignedNet._fitted`).
 Configs `{shallow,fbcnet}_{ea,raw}_bn{0,5,20,100}`; Galvani 2981495, seeds
 0–2 (single seed 0 on MPS agrees).
 
-| Single model, k = 0 → 5 | dev_loso | dev_session |
+| Single model, AdaBN off → k = 5 | dev_loso | dev_session |
 |---|---:|---:|
 | FBCNet aligned (MPS s0) | 59.1 → **64.0** | 70.5 → 75.6 |
 | FBCNet unaligned (MPS s0) | 60.4 → 61.5 | 71.6 → 75.1 |
@@ -53,9 +53,9 @@ Configs `{shallow,fbcnet}_{ea,raw}_bn{0,5,20,100}`; Galvani 2981495, seeds
 
 | Ensemble, all four nets PROTEUS-only, 3 seeds | dev_loso | dev_session |
 |---|---:|---:|
-| k = 0, rebalanced | 67.0 | 80.7 |
+| AdaBN off, rebalanced | 67.0 | 80.7 |
 | k = 5 / 20 / 100, rebalanced | 66.0 / 66.4 / 67.5 | 80.4 / 80.7 / 81.5 |
-| k = 0, **no** rebalancing | 65.0 | 71.0 |
+| AdaBN off, **no** rebalancing | 65.0 | 71.0 |
 | k = 5, **no** rebalancing | 64.7 | 78.6 |
 | AdaBN on the FBCNets only, k = 5 / 20 | 67.0 / 66.9 | 80.9 / 80.9 |
 
@@ -84,8 +84,9 @@ The ten FBCNets recomputed the same FIR filter bank (9 filters of 45–199
 taps) per net. `Ensemble.mixed_proba` now filters each input stream once
 per distinct bank (`_fft_bank`, one input FFT per filter length) and
 non-finite input samples are zeroed before any state update. Against the
-previous code on all 755 official-test windows: max |ΔP| = 0.0, 100%
-prediction agreement (`scripts/time_package.py`). Mac CPU, same load:
+previous code on all 755 official-test windows: max |ΔP| = 0.0 (one-off
+check of `mixed_proba`) and 100% prediction agreement
+(`scripts/time_package.py`). Mac CPU, same load:
 r6 51 → **35 ms/window**, r6n 50 → 35 ms. A first version used the first
 filter's length for every band and changed 0.4% of predictions; the
 agreement check caught it.

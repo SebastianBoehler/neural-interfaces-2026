@@ -26,6 +26,7 @@ existing environment entry points. New clones use the setup command below.
 - [Optimization round 7: review, AdaBN, faster inference](docs/OPTIMIZATION_R7.md)
 - [Sealed-phase plan and method description](docs/SEALED_PLAN.md)
 - [Handoff: current state and next steps](docs/HANDOFF.md)
+- [Strategy review: breakthroughs, solution space, plan](docs/STRATEGY_REVIEW.md)
 
 The official source is a Git submodule pinned to the revision below.
 Datasets, environments, generated weights and runtime logs remain local.
