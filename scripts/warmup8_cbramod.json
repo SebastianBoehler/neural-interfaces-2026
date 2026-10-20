@@ -1,0 +1,83 @@
+{
+ "name": "warmup8_r6nf_cbramod",
+ "about": "Honest warm-up check of the CBraMod GPU path: r6nf members plus three fine-tuned CBraMod nets (aligned input), official train split. Weights as the mix_probs selection mix: v2 and each of the five families 1/6.",
+ "train": "official",
+ "v2_weight": 0.16666666666666666,
+ "net_defaults": {
+  "k": 5.0,
+  "epochs": 40,
+  "lr": 0.001,
+  "wd": 0.001,
+  "batch": 64
+ },
+ "members": [
+  {
+   "arch": "shallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.03333333333333333
+  },
+  {
+   "arch": "shallow",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.03333333333333333
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.03333333333333333
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.03333333333333333
+  },
+  {
+   "arch": "cbramod",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "weight": 0.05555555555555555,
+   "kw": {
+    "lr": 0.0001,
+    "epochs": 30,
+    "wd": 0.05
+   }
+  }
+ ],
+ "rebalance": {
+  "alpha": 1.0,
+  "k": 5.0,
+  "w": 30
+ }
+}

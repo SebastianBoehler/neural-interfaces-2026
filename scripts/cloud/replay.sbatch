@@ -21,4 +21,5 @@ python -c "import torch; assert torch.cuda.is_available(), 'CUDA missing'"
 nvidia-smi --query-gpu=name,driver_version --format=csv
 lscpu | grep -E "Model name|^CPU\(s\)"
 uptime
-python scripts/replay_package.py "$1" "${2:-$1_replay_a100_$SLURM_JOB_ID}" cuda
+PKG="${1%/}"
+python scripts/replay_package.py "$PKG" "${2:-${PKG}_replay_a100_$SLURM_JOB_ID}" cuda

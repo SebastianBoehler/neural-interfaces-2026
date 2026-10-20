@@ -74,17 +74,28 @@ def environment(dev):
             "data_sha256": sha256(protocol.DATA)}
 
 
+def cbm_params(m):
+    """Fine-tuned CBraMod (``deep.Resampled``) for ``submission.CBra``."""
+    sd = {f"cbm_{k}": v.detach().cpu().float().numpy()
+          for k, v in m.net.net.state_dict().items() if "mask_encoding" not in k}
+    sd.update(cbm_n_times=np.int64(m.net.n_times), cbm_factor=np.float64(m.net.factor),
+              align=np.bool_(m.align), k=np.float64(m.k), G=m.G,
+              scale=np.float64(m.scale), shrink=np.float64(1e-3))
+    return sd
+
+
 def build(cfg, d, out):
     from deep import AlignedNet
     from models import TangentSpace
     from run_cv import V2
+    assert cfg["train"] in ("official", "all"), cfg["train"]
     rows = np.flatnonzero(d["split"] == "train" if cfg["train"] == "official"
                           else np.ones(len(d["y"]), bool))
     nets, w = [], [cfg["v2_weight"]]
     for g in cfg["members"]:
         for s in g["seeds"]:
-            nets.append(AlignedNet(d, arch=g["arch"], align=g["align"], seed=s,
-                                   **cfg["net_defaults"]))
+            kw = {**cfg["net_defaults"], **g.get("kw", {})}  # per-member overrides
+            nets.append(AlignedNet(d, arch=g["arch"], align=g["align"], seed=s, **kw))
             w.append(g["weight"])
     assert abs(sum(w) - 1) < 1e-9, f"member weights sum to {sum(w)}"
     rb = cfg["rebalance"]
@@ -100,7 +111,8 @@ def build(cfg, d, out):
     z = {f"ts_{k}": v for k, v in tangent_params(model.members[0]).items()}
     for i, m in enumerate(nets):  # export and harness both on CPU
         m.net.to("cpu")
-        params = fbc_params(m) if m.arch == "fbcnet" else net_params(m)
+        params = (fbc_params(m) if m.arch == "fbcnet" else
+                  cbm_params(m) if m.arch == "cbramod" else net_params(m))
         m.dev = "cpu"
         z.update({f"net{i}_{k}": v for k, v in params.items()})
     out.mkdir(parents=True, exist_ok=True)

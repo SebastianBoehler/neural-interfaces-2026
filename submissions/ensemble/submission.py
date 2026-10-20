@@ -192,6 +192,68 @@ class FBC:
         return torch.softmax(V @ t["fbc_L"].T + t["fbc_lb"], 1).numpy()
 
 
+def _mha(x, w, b, ow, ob, heads):
+    """Self-attention as nn.MultiheadAttention(batch_first), eval mode."""
+    B, L, E = x.shape
+    q, k, v = (x @ w.T + b).view(B, L, 3, heads, E // heads).permute(2, 0, 3, 1, 4)
+    o = F.scaled_dot_product_attention(q, k, v)
+    return o.transpose(1, 2).reshape(B, L, E) @ ow.T + ob
+
+
+class CBra:
+    """Fine-tuned CBraMod (braindecode 1.8.1 layout, plain torch, float32) on
+    ``dev``: linear resampling to 200 Hz and scaling, patch + spectral +
+    positional embedding, criss-cross encoder layers, flattened linear head."""
+
+    def __init__(self, p, dev="cpu"):
+        self.t = {k[4:]: torch.from_numpy(np.ascontiguousarray(v)).float().to(dev)
+                  for k, v in p.items() if k.startswith("cbm_") and v.ndim}
+        self.n_times, self.factor = int(p["cbm_n_times"]), float(p["cbm_factor"])
+        self.layers = len({k.split(".")[2] for k in self.t if k.startswith("encoder.")})
+        self.dev = dev
+
+    @torch.no_grad()
+    def proba(self, X):
+        g = self.t.__getitem__
+        x = torch.from_numpy(X).float().to(self.dev)
+        x = F.interpolate(x, size=self.n_times, mode="linear", align_corners=False)
+        B, C, T = x.shape
+        N = T // 200  # 1-s patches
+        x = x.mul(self.factor).view(B, C, N, 200)
+        h = x.reshape(B, 1, C * N, 200)
+        for i, (s, pad) in enumerate(((25, 24), (1, 1), (1, 1))):
+            pre = f"patch_embedding.proj_in.{3 * i}"
+            h = F.conv2d(h, g(pre + ".weight"), g(pre + ".bias"), stride=(1, s),
+                         padding=(0, pad))
+            pre = f"patch_embedding.proj_in.{3 * i + 1}"
+            h = F.gelu(F.group_norm(h, 5, g(pre + ".weight"), g(pre + ".bias"), 1e-5))
+        D, p2 = h.shape[1], h.shape[-1]
+        h = h.view(B, D, C, N, p2).permute(0, 2, 3, 1, 4).reshape(B, C, N, D * p2)
+        spec = torch.fft.rfft(x, dim=-1, norm="forward").abs()
+        h = h + F.linear(spec, g("patch_embedding.spectral_proj.0.weight"),
+                         g("patch_embedding.spectral_proj.0.bias"))
+        d, e2 = h.shape[-1], h.shape[-1] // 2
+        pe = F.conv2d(h.permute(0, 3, 1, 2), g("patch_embedding.positional_encoding.0.weight"),
+                      g("patch_embedding.positional_encoding.0.bias"), padding=(9, 3),
+                      groups=d)
+        h = h + pe.permute(0, 2, 3, 1)
+        for i in range(self.layers):
+            e = lambda k: g(f"encoder.layers.{i}.{k}")
+            a = lambda y, n: _mha(y, e(n + ".in_proj_weight"), e(n + ".in_proj_bias"),
+                                  e(n + ".out_proj.weight"), e(n + ".out_proj.bias"), 4)
+            y = F.layer_norm(h, (d,), e("norm1.weight"), e("norm1.bias"), 1e-5)
+            ys = a(y[..., :e2].permute(0, 2, 1, 3).reshape(B * N, C, e2), "self_attn_s")
+            yt = a(y[..., e2:].reshape(B * C, N, e2), "self_attn_t")
+            h = h + torch.cat((ys.view(B, N, C, e2).permute(0, 2, 1, 3),
+                               yt.view(B, C, N, e2)), dim=3)
+            y = F.layer_norm(h, (d,), e("norm2.weight"), e("norm2.bias"), 1e-5)
+            y = F.gelu(F.linear(y, e("linear1.weight"), e("linear1.bias")))
+            h = h + F.linear(y, e("linear2.weight"), e("linear2.bias"))
+        h = F.linear(h, g("proj_out.0.weight"), g("proj_out.0.bias"))
+        z = F.linear(h.flatten(1), g("final_layer.1.weight"), g("final_layer.1.bias"))
+        return torch.softmax(z.double(), 1).cpu().numpy()
+
+
 def _input_key(p):
     keys = ("align", "k", "G", "scale", "shrink")
     return b"".join(np.ascontiguousarray(p[k]).tobytes() for k in keys if k in p)
@@ -205,7 +267,7 @@ class Ensemble:
     with identical alignment parameters share one input stream.
     """
 
-    def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0):
+    def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0, dev="cpu"):
         self.tangent, self.w = tangent, weights / weights.sum()
         self.alpha, self.k, self.W = alpha, k, W
         self.seen, self.n, self.hist = np.zeros(3), 0, []
@@ -214,7 +276,8 @@ class Ensemble:
             key = _input_key(p)
             if key not in self.groups:
                 self.groups[key] = (InputStream(p), [])
-            net = FBC(p) if "fbc_n_bands" in p else Shallow(p)
+            net = (CBra(p, dev) if "cbm_n_times" in p else
+                   FBC(p) if "fbc_n_bands" in p else Shallow(p))
             self.groups[key][1].append((i, net))
 
     def reset_state(self):
@@ -276,6 +339,11 @@ class Solver(CompetSolver):
             pass
         with np.load(meta["submission_dir"] / "weights.npz") as f:
             z = {k: f[k] for k in f.files}
+        # CBraMod members run on the harness device (CUDA on the worker),
+        # without TF32 so GPU and CPU agree to float32 precision
+        torch.backends.cuda.matmul.allow_tf32 = False
+        torch.backends.cudnn.allow_tf32 = False
+        dev = str(meta.get("device", "cpu"))
         ts = {k[3:]: v for k, v in z.items() if k.startswith("ts_")}
         ts["log_glob"] = list(ts["log_glob"])
         ts["bands"] = [tuple(b) for b in ts["bands"]]
@@ -287,4 +355,4 @@ class Solver(CompetSolver):
                         z["member_weights"].astype(np.float64),
                         alpha=float(z.get("rb_alpha", 0.0)),
                         k=float(z.get("rb_k", 5.0)),
-                        W=int(z.get("rb_w", 0)))
+                        W=int(z.get("rb_w", 0)), dev=dev)

@@ -70,6 +70,31 @@ for _a in ("shallow", "fbcnet"):  # causal test-time batch-norm adaptation
 for _c, _nf in ((4.0, 4), (2.0, 4), (8.0, 4), (4.0, 2), (4.0, 8)):
     CONFIGS[f"erp_c{_c:g}_f{_nf}"] = lambda d, c=_c, nf=_nf: ErpTangent(d, cutoff=c, nf=nf)
 CONFIGS["erp_noalign"] = lambda d: ErpTangent(d, align=False)
+for _al in (False, True):  # fine-tuned foundation model (CBraMod)
+    _t = "ea" if _al else "raw"
+    for _lr, _ep in ((1e-4, 30), (3e-4, 30), (1e-4, 60)):
+        CONFIGS[f"cbramod_{_t}_lr{_lr:g}_e{_ep}"] = (
+            lambda d, al=_al, lr=_lr, ep=_ep: AlignedNet(d, arch="cbramod", align=al,
+                                                        lr=lr, epochs=ep, wd=5e-2,
+                                                        seed=SEED[0]))
+    CONFIGS[f"cbramod_{_t}_scratch"] = (
+        lambda d, al=_al: AlignedNet(d, arch="cbramod", align=al, lr=1e-4, epochs=30,
+                                     wd=5e-2, seed=SEED[0], pretrained=False))
+_CB = dict(arch="cbramod", lr=1e-4, epochs=30, wd=5e-2)
+for _n, _kw in (("ls", dict(ls=0.1)), ("lld", dict(lr=3e-4, lld=0.75)),
+                ("lpft", dict(lp=5)), ("rec", dict(ls=0.1, lr=3e-4, lld=0.75, lp=5))):
+    CONFIGS[f"cbramod_ea_{_n}"] = lambda d, kw=_kw: AlignedNet(
+        d, **{**_CB, **kw}, seed=SEED[0])
+for _a in ("shallow", "fbcnet"):  # extra training crops from the task period
+    for _al in (False, True):
+        for _n, _cr in (("c23", (2.0, 3.0)), ("c234", (2.0, 3.0, 4.0)), ("c05", (0.5,))):
+            CONFIGS[f"{_a}_{'ea' if _al else 'raw'}_{_n}"] = (
+                lambda d, a=_a, al=_al, cr=_cr: AlignedNet(d, arch=a, align=al,
+                                                           seed=SEED[0], crops=cr))
+CONFIGS["labram_ea"] = lambda d: AlignedNet(d, **{**_CB, "arch": "labram"}, seed=SEED[0])
+CONFIGS["labram_ea_lld"] = lambda d: AlignedNet(  # LaBraM's own fine-tuning recipe
+    d, **{**_CB, "arch": "labram", "lr": 5e-4, "lld": 0.65}, seed=SEED[0])
+CONFIGS["cbramod_ea_c23"] = lambda d: AlignedNet(d, **_CB, crops=(2.0, 3.0), seed=SEED[0])
 CONFIGS["reve_raw"] = lambda d: ReveLinear(d, center=False)
 CONFIGS["reve_ctr"] = lambda d: ReveLinear(d)
 CONFIGS["reve_ctr_C1"] = lambda d: ReveLinear(d, C=1.0)
