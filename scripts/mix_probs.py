@@ -9,6 +9,10 @@ with their weights (default 1, normalised) and causally rebalanced per
 session with ``experiments.ensemble.rebalance(P, alpha, k, W)``, as in the
 packages. Prints the cell mean per protocol; ``all_loso`` also lists P04 and
 P09, the only participants no selection round has scored.
+
+``dev_loso_all`` (selection): the ``all_loso`` folds of the eight dev
+participants only. Training includes P04/P09, as in the sealed models, but
+they are never scored, so they stay untouched for evaluation.
 """
 
 import argparse
@@ -51,9 +55,14 @@ def member(name, seeds, proto, dirs):
 
 
 def mix(d, proto, specs, dirs, alpha, k, w):
-    ms = [(member(n, s, proto, dirs), wt) for n, s, wt in map(parse, specs)]
+    src = "all_loso" if proto == "dev_loso_all" else proto
+    ms = [(member(n, s, src, dirs), wt) for n, s, wt in map(parse, specs)]
     idx = ms[0][0][1]
     assert all((m[1] == idx).all() for m, _ in ms)
+    if proto == "dev_loso_all":  # drop the P04/P09 test folds
+        keep = ~np.isin(d["subject"][idx], [f"Dreyer2026Proteus/{p}" for p in ("P04", "P09")])
+        ms = [((m[0][keep], m[1][keep], m[2]), wt) for m, wt in ms]
+        idx = idx[keep]
     tot = sum(wt for _, wt in ms)
     P = sum(wt / tot * m[0] for m, wt in ms)
     streams = d["stream"][idx]

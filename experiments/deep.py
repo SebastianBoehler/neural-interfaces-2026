@@ -41,10 +41,11 @@ def crops(start, d):
 ARCHS = {"eegnet": "EEGNet", "shallow": "ShallowFBCSPNet", "deep4": "Deep4Net",
          "conformer": "EEGConformer", "atcnet": "ATCNet", "eegnex": "EEGNeX",
          "ctnet": "CTNet", "fbcnet": "FBCNet", "ifnet": "IFNet", "tidnet": "TIDNet",
-         "cbramod": "CBraMod", "labram": "Labram"}
+         "cbramod": "CBraMod", "labram": "Labram", "reve": "REVE"}
 # Foundation models: Hub weights (BSD-3-Clause) at a pinned revision, input
 # rate, and amplitude factor: our inputs have unit RMS and CBraMod was
 # pretrained on 100-uV units, so 0.15 matches PROTEUS' ~15 uV median RMS.
+REVE_REV = "dc2a075c287bb2f6c04ee5875bd79535a0f7dba6"
 PRETRAINED = {"cbramod": ("braindecode/cbramod-pretrained",
                           "584cdc415913739a05d84bf0c1cb3db397764507", 200, 0.15),
               "labram": ("braindecode/labram-pretrained",  # BSD-3-Clause, 0.1 mV
@@ -54,17 +55,30 @@ PRETRAINED = {"cbramod": ("braindecode/cbramod-pretrained",
 class Resampled(nn.Module):
     """Linear resampling to the pretrained model's rate, then scaling."""
 
-    def __init__(self, net, n_times, factor, **fwd):
+    def __init__(self, net, n_times, factor, clamp=None, **fwd):
         super().__init__()
         self.net, self.n_times, self.factor, self.fwd = net, n_times, factor, fwd
+        self.clamp = clamp
 
     def forward(self, x):
         x = nn.functional.interpolate(x, size=self.n_times, mode="linear",
-                                      align_corners=False)
-        return self.net(x * self.factor, **self.fwd)
+                                      align_corners=False) * self.factor
+        if self.clamp:
+            x = x.clamp(-self.clamp, self.clamp)
+        return self.net(x, **self.fwd)
 
 
-def build(arch, n_chans, n_times, pretrained=True):
+def build(arch, n_chans, n_times, pretrained=True, **net_kw):
+    if arch == "reve":  # REVE responsible-use licence v1.0; staged on workers.
+        from protocol import DATA  # Aligned input is ~unit variance, like
+        names = [str(c) for c in np.load(DATA)["ch_names"]]  # REVE's z-scores
+        n = int(round(n_times * 200 / SFREQ))
+        kw = dict(n_outputs=3, n_chans=n_chans, n_times=n, sfreq=200,
+                  chs_info=[{"ch_name": c} for c in names])
+        net = (bd.REVE.from_pretrained("brain-bzh/reve-base", revision=REVE_REV, **kw)
+               if pretrained else bd.REVE(**kw))
+        assert net.default_pos is not None
+        return Resampled(net, n, 1.0, clamp=15.0)
     if arch in PRETRAINED:
         repo, rev, sfreq, factor = PRETRAINED[arch]
         n = int(round(n_times * sfreq / SFREQ))
@@ -90,7 +104,7 @@ def build(arch, n_chans, n_times, pretrained=True):
     kw = dict(n_chans=n_chans, n_outputs=3, n_times=n_times)
     if "sfreq" in inspect.signature(cls).parameters:
         kw["sfreq"] = SFREQ
-    return cls(**kw)
+    return cls(**kw, **net_kw)  # architecture variants, e.g. FBCNet stride
 
 
 def device():
@@ -134,7 +148,8 @@ def _depth(name):
     m = re.search(r"\.(?:layers|blocks)\.(\d+)\.", name)
     if m:
         return int(m.group(1))
-    if re.search(r"patch_embed|position_embedding|temporal_embedding|cls_token", name):
+    if re.search(r"patch_embed|position_embedding|temporal_embedding|cls_token|"
+                 r"to_patch_embedding|mlp4d|fourier4d|net\.ln\.", name):
         return -1
     return None
 
@@ -167,11 +182,12 @@ class AlignedNet:
 
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
                  lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=None,
-                 pretrained=True, ls=0.0, lld=1.0, lp=0, crops=()):
+                 pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.adabn, self.pretrained = adabn, pretrained
         self.ls, self.lld, self.lp = ls, lld, lp  # fine-tuning recipe
         self.crops = tuple(crops)  # extra training windows (s after the cue)
+        self.net_kw = dict(net_kw or {})
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -198,6 +214,7 @@ class AlignedNet:
         key = (id(self.d["X"]), self.arch, self.align, self.k, self.epochs, self.lr,
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
+               tuple(sorted(self.net_kw.items())),
                hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)
@@ -225,7 +242,8 @@ class AlignedNet:
         y = torch.from_numpy(self.d["y"][order]).long()
         sw = torch.from_numpy(self.d["w"][order]).float() if "w" in self.d else None
         n_ch, n_t = X.shape[1:]
-        self.net = build(self.arch, n_ch, n_t, self.pretrained).to(self.dev)
+        self.net = build(self.arch, n_ch, n_t, self.pretrained,
+                         **self.net_kw).to(self.dev)
         weighted = bool(self.d.get("tag"))  # external data: class-balanced,
         if weighted:                          # per-sample weighted loss
             cnt = np.bincount(y.numpy(), weights=sw.numpy(), minlength=3)

@@ -94,6 +94,15 @@ for _a in ("shallow", "fbcnet"):  # extra training crops from the task period
 CONFIGS["labram_ea"] = lambda d: AlignedNet(d, **{**_CB, "arch": "labram"}, seed=SEED[0])
 CONFIGS["labram_ea_lld"] = lambda d: AlignedNet(  # LaBraM's own fine-tuning recipe
     d, **{**_CB, "arch": "labram", "lr": 5e-4, "lld": 0.65}, seed=SEED[0])
+CONFIGS["reve_ea"] = lambda d: AlignedNet(d, **{**_CB, "arch": "reve"}, seed=SEED[0])
+CONFIGS["reve_ea_lld"] = lambda d: AlignedNet(  # higher top lr, layer decay 0.8
+    d, **{**_CB, "arch": "reve", "lr": 3e-4, "lld": 0.8}, seed=SEED[0])
+for _al in (False, True):  # FBCNet variants (packageable: LogVar layer)
+    for _n, _kw in (("s2", dict(stride_factor=2)), ("s8", dict(stride_factor=8)),
+                    ("f16", dict(n_filters_spat=16)), ("f64", dict(n_filters_spat=64))):
+        CONFIGS[f"fbcnet_{'ea' if _al else 'raw'}_{_n}"] = (
+            lambda d, al=_al, kw=_kw: AlignedNet(d, arch="fbcnet", align=al,
+                                                 seed=SEED[0], net_kw=kw))
 CONFIGS["cbramod_ea_c23"] = lambda d: AlignedNet(d, **_CB, crops=(2.0, 3.0), seed=SEED[0])
 CONFIGS["reve_raw"] = lambda d: ReveLinear(d, center=False)
 CONFIGS["reve_ctr"] = lambda d: ReveLinear(d)

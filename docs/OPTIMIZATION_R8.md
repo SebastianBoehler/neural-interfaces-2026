@@ -79,8 +79,43 @@ it is 3.6 lower when P04 and P09 join the training set, while FBCNet and
 ShallowConvNet are equal or better with more participants. P04/P09 data are
 unremarkable (RMS 17–27 µV, aligned 99.9th percentile 5.4–6.1). Sealed
 training uses all ten participants, so this is the regime that matters.
-Paired check running: seed 5 on `dev_loso` (same seed, without P04/P09);
-Galvani 2984514 adds seeds 1–4 on both evaluation protocols.
+With all seeds (Galvani 2984514 seeds 1–4, MPS 0 and 5): `all_loso` 65.07
+(P04 46.8, P09 68.1) vs 64.92 (48.5 / 69.6); `seen_session` 70.2 vs 71.6.
+Paired seed 5 (same seed, eight dev participants): 59.3 trained without
+P04/P09 (`dev_loso`), 56.2 with them (`all_loso` folds).
+
+**New selection protocol `dev_loso_all`** (`mix_probs.py`): the `all_loso`
+folds of the eight dev participants only. Training includes P04/P09, as in
+the sealed models; they are never scored, so they stay untouched for
+evaluation. r6nf 69.37 → + CBraMod 70.25 (+0.9, vs +2.2 on `dev_loso`).
+From now on new members are selected on `dev_loso_all` and `dev_session`
+(with `dev_loso` reported), which requires their `all_loso` runs.
+
+LaBraM baseline recipe, seeds 0–1, added to r6nf: dl 67.76 (+0.6), ds 81.74
+(+1.2): within noise.
+
+### Clean rebuild (step 5)
+
+Galvani 2984724 rebuilt r6nf from commit `7f22d21` (`NI26_SOURCE_REV`; the
+workspace is an rsync copy, so `git_dirty` reads true there): agreement with
+the harness 1.0; against the staged r6nf 3 / 755 official-test and 5 / 2,655
+windows differ (GPU training is not bit-deterministic; the earlier rebuild
+differed on 1 / 2,655); official replay on CUDA passes
+(`runs/sealed/ensemble_all_r6nf_clean_7f22d21*` on Galvani).
+
+### Queued overnight (20 → 21 Oct)
+
+| Job | Configs | Protocols |
+|---|---|---|
+| 2984802 / 2984803 | FBCNet aligned / unaligned variants: stride 2, stride 8, 16 or 64 spatial filters (all packageable), seeds 0–2 | dl, ds, all_loso |
+| 2984808 / 2984809 | REVE fine-tuned (aligned, z-like input clamped ±15; lr 1e-4, and lr 3e-4 with layer decay 0.8), seeds 0–2 | dl + ds / all_loso |
+| 2984618 | LaBraM own recipe (lr 5e-4, layer decay 0.65), seeds 0–2 | dl, ds |
+
+REVE: `brain-bzh/reve-base` rev dc2a075c (69.6 M parameters), REVE
+Responsible Use License v1.0: research and commercial use, BCI research
+explicitly allowed; a shipped fine-tune must include the licence, state the
+modification and identify the checkpoint (§5.1). Weights copied to Galvani
+from the local cache of 19 Oct (sha256 8ecc6506…), run with `HF_HUB_OFFLINE=1`.
 
 ### Galvani grid (array 2982784, seeds 0–1, A100, alone)
 

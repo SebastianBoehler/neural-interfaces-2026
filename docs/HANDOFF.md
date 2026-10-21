@@ -54,19 +54,19 @@ fallback). Record IDs/scores/durations in `docs/COMPETITION.md`.
 
 ## Running experiments at handoff
 
-- Galvani **2984514** (CBraMod `cbramod_ea_lr0.0001_e30`, seeds 1–4,
-  `seen_session,all_loso`), **2984515** (`labram_ea`, seeds 0–2, dl/ds),
-  **2984618** (`labram_ea_lld`, LaBraM's own recipe, seeds 0–2, dl/ds).
-  Fetch: `rsync -az --include='cbramod_*' --include='labram_*' --exclude='*'
-  mlcloud-galvani:<ws>/runs/experiments/probs/ runs/experiments/probs_fm_cloud/`;
-  copy evaluation files into `probs_fm` (seed numbers do not clash; the two
-  A100 dl/ds seeds were copied as `cbramod_ea_a100` s3–s4).
-- Mac: `cbramod_ea_lr0.0001_e30` seed 5 `dev_loso` (paired with its
-  `all_loso` run: does adding P04/P09 to training lower CBraMod on the other
-  eight participants?) → `runs/experiments/local/fm_eval_s5.log`.
-- CBraMod status (R8): selection +1.9–2.2 dl / +1.5 ds, evaluation all_loso
-  +0.1 (P04 −1.0, P09 −2.0), seen_session −2.2 → **not adopted**; open
-  question why it is ~9 points weaker alone in all_loso than in dev_loso.
+Overnight 20 → 21 Oct on Galvani (details and licence notes in
+`OPTIMIZATION_R8.md`): **2984802/2984803** FBCNet variants (stride 2/8,
+16/64 spatial filters; aligned/unaligned; seeds 0–2; dl, ds, all_loso),
+**2984808/2984809** REVE fine-tuned (`reve_ea`, `reve_ea_lld`; seeds 0–2;
+dl+ds / all_loso), **2984618** LaBraM own recipe (dl, ds). Fetch with
+`rsync -az --include='fbcnet_*' --include='reve_*' --include='labram_*'
+--exclude='*' mlcloud-galvani:<ws>/runs/experiments/probs/ runs/experiments/probs_cloud_r8/`
+and add `probs_cloud_r8` to `--dirs`.
+
+Select on **`dev_loso_all`** (new, see R8) and `dev_session`, report
+`dev_loso`; then evaluate on `all_loso` (P04/P09) and `seen_session` (the
+latter needs separate runs for anything selected). CBraMod is not adopted
+(all_loso +0.1, P04/P09 −1.8/−1.5, seen_session −1.4).
 
 ## Protocols and rules of evidence (`experiments/protocol.py`)
 
