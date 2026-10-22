@@ -13,3 +13,7 @@ This project targets Track 2 BCI decoding in Neural Interfaces 2026.
 - Native CPU replay is not proof of Linux/A100 worker compatibility.
 - Keep source files below approximately 300 lines and diffs surgical.
 - Verify changes with the narrowest meaningful real-data check.
+- Run local training only through `scripts/run_capped.sh` (one job at a time,
+  process-tree RSS cap, MPS high watermark); never several MPS jobs in
+  parallel. The Mac shares RAM with the GPU: parallel jobs froze it (Oct 22).
+  Prefer Galvani for anything heavy.
