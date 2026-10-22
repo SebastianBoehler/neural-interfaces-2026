@@ -157,21 +157,22 @@ def _depth(name):
 def param_groups(net, lr, lld, head_only=False):
     """AdamW groups: with layer-wise decay ``lld`` < 1 transformer block i of
     L gets lr * lld ** (L - i), the embeddings lr * lld ** (L + 1) and the
-    head lr; ``head_only`` trains just the final layer (linear probe)."""
-    if lld == 1 and not head_only:  # default: one group, as before
-        for prm in net.parameters():
-            prm.requires_grad_(True)
-        return [{"params": list(net.parameters()), "lr": lr}]
+    head lr; ``head_only`` trains just the final layer (linear probe).
+    Parameters frozen at build time (FBCNet's FIR filter bank) stay frozen."""
+    if not hasattr(net, "_built_trainable"):  # build-time flags, recorded once
+        net._built_trainable = {n for n, q in net.named_parameters() if q.requires_grad}
     named = list(net.named_parameters())
+    for n, prm in named:
+        prm.requires_grad_(n in net._built_trainable
+                           and (not head_only or "final_layer" in n))
+    if lld == 1 and not head_only:  # default: one group, as before
+        return [{"params": list(net.parameters()), "lr": lr}]
     L = len({_depth(n) for n, _ in named} - {None, -1})
     groups = {}
     for n, prm in named:
-        if head_only and "final_layer" not in n:
-            prm.requires_grad_(False)
-            continue
-        prm.requires_grad_(True)
-        depth = _depth(n)
-        groups.setdefault(L if depth is None else depth, []).append(prm)
+        if prm.requires_grad:
+            depth = _depth(n)
+            groups.setdefault(L if depth is None else depth, []).append(prm)
     return [{"params": v, "lr": lr * lld ** (L - k)} for k, v in groups.items()]
 
 

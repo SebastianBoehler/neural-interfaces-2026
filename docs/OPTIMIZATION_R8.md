@@ -261,3 +261,43 @@ own-data ceiling of ≈ 0.58, so a cell mean above ≈ 0.62 needs cross-particip
 P04 accuracy at or above what a model trained on P04 itself reaches: entries
 ≥ 0.62 very likely trained on P04/P09. Only the ~5 entries at 0.57–0.60 are
 plausibly honest and ahead, by ≈ 7–10 points on P04.
+
+### Control with fresh standard seeds (Galvani 2988708, seeds 5–7)
+
+| Added to r6nf | dev_loso | dev_session | dev_loso_all |
+|---|---:|---:|---:|
+| none | 67.18 | 80.49 | 69.37 |
+| 3 more seeds inside the existing FBCNet families (same weight) | 68.34 | 80.88 | 70.85 |
+| one extra family of fresh standard FBCNets (aligned + unaligned) | 68.48 | 80.90 | 71.23 |
+| one extra family of FBCNet variants (r8v) | 69.00 | 80.88 | 71.55 |
+
+Most of the gain is more fresh FBCNets (+1.2 dl, +1.5 dl_all), some is the
+extra family weight, and the variants add +0.3–0.5 (within noise, same sign
+on both). r8v stays the candidate. Sealed build from `967d2b2`: Galvani
+2988950; seen_session for the eight variants: running locally (capped).
+
+### Correction (22 Oct): FBCNet filter banks were trainable since `fce02e9`
+
+`param_groups` (layer-wise decay helper, added 20 Oct) called
+`requires_grad_(True)` on every parameter, which unfroze FBCNet's FIR filter
+bank (frozen at build in braindecode 1.8.1). Every FBCNet trained since then
+learned its filters. Found because r8v ran 2.1× slower than r6nf (66.6 vs
+31.6 ms/window, same Mac): its 18 FBCNets had 18 distinct filter banks, so
+the shared FFT bank (R7) no longer applied; the staged r6nf has one.
+
+Affected and invalid until rerun: the FBCNet variants and the r8v selection
+and evaluation numbers above (their FBCNets had trained filters, the r6nf
+FBCNets in the same mixes did not), the fresh-seed control (seeds 5–7), the
+task-period crop experiment (crop FBCNet trainable, baseline frozen: the
+rejection is confounded), the r8v build (2988950) and the "clean" r6nf
+rebuild (2984724; its 2,650/2,655 agreement did not reveal it because sealed
+packages fit every window). Not affected: CBraMod, LaBraM, REVE (only an
+unused mask buffer was unfrozen), ShallowConvNets, v2, the staged packages.
+
+Fix: `param_groups` records the build-time `requires_grad` flags and never
+unfreezes a frozen parameter (checked: FIR unchanged after training; CBraMod
+212/213 trainable). Affected probabilities moved to
+`probs_buggyfir_2026-10-22`. Reruns: Galvani 2989010/2989011 (variants, dl,
+ds, all_loso), 2989016 (variants, seen_session), 2989017 (standard seeds
+5–7). Lesson for the build check: also compare per-member weights against
+the reference package, not only predictions on fitted windows.
