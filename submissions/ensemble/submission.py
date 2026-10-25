@@ -146,16 +146,22 @@ class Shallow:
         return torch.softmax(h.double(), 1).numpy()
 
 
-def _fft_bank(x, fir):
+def _fft_bank(x, fir, xf=None, ff=None):
     """"Same"-padded FIR filtering by FFT for every filter of a bank,
-    (B, C, T) -> (B, K, C, T); ``x`` is transformed once per filter length."""
-    n, xf, out = x.shape[-1], {}, []
-    for f in fir:
+    (B, C, T) -> (B, K, C, T). ``xf`` caches input spectra per FFT length
+    (shareable by all banks filtering the same input), ``ff`` filter
+    spectra per (filter, length) (computed once per net)."""
+    n, out = x.shape[-1], []
+    xf = {} if xf is None else xf
+    ff = {} if ff is None else ff
+    for i, f in enumerate(fir):
         m = n + f.shape[-1] - 1
         if m not in xf:
             xf[m] = torch.fft.rfft(x, m)
+        if (i, m) not in ff:
+            ff[i, m] = torch.fft.rfft(f, m)
         s = (m - n) // 2
-        out.append(torch.fft.irfft(xf[m] * torch.fft.rfft(f, m), m)[..., s:s + n])
+        out.append(torch.fft.irfft(xf[m] * ff[i, m], m)[..., s:s + n])
     return torch.stack(out, 1)
 
 
@@ -170,9 +176,11 @@ class FBC:
                   for k, v in p.items() if k.startswith("fbc_")}
         self.fir = [self.t[f"fbc_fir{i}"] for i in range(int(p["fbc_n_bands"]))]
         self.bank_key = b"".join(f.numpy().tobytes() for f in self.fir)
+        self.ff = {}  # filter spectra, filled on first use
 
-    def bank(self, X):
-        return _fft_bank(torch.from_numpy(X).double(), self.fir)  # B,K,C,T
+    def bank(self, X, xf=None):
+        """``xf``: input spectra shared by the nets of one input stream."""
+        return _fft_bank(torch.from_numpy(X).double(), self.fir, xf, self.ff)
 
     @torch.no_grad()
     def proba(self, X, Y=None):
@@ -299,11 +307,11 @@ class Ensemble:
                 inputs[key].append(stream(x))
         P = self.w[0] * np.stack(tang)
         for key, (_, nets) in self.groups.items():
-            H, banks = np.stack(inputs[key]), {}
+            H, banks, xf = np.stack(inputs[key]), {}, {}
             for i, net in nets:
                 if isinstance(net, FBC):
                     if net.bank_key not in banks:
-                        banks[net.bank_key] = net.bank(H)
+                        banks[net.bank_key] = net.bank(H, xf)
                     P = P + self.w[1 + i] * net.proba(H, banks[net.bank_key])
                 else:
                     P = P + self.w[1 + i] * net.proba(H)

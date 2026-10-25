@@ -301,3 +301,34 @@ unfreezes a frozen parameter (checked: FIR unchanged after training; CBraMod
 ds, all_loso), 2989016 (variants, seen_session), 2989017 (standard seeds
 5–7). Lesson for the build check: also compare per-member weights against
 the reference package, not only predictions on fitted windows.
+
+### After the fix (22–25 Oct)
+
+Frozen-filter variants add ≈ 0 (dl 66.8–67.3, dl_all 69.6–70.1): the r8v
+gain came from **learned FIR filter banks**, now an explicit option
+(`AlignedNet(train_fir=True)`, configs `*_tf`). The pre-fix probabilities are
+exactly that and were relabelled (`probs_tf`). r8t = r6nf + eight
+learned-filter FBCNets: dl 69.0 / ds 80.9 / dl_all 71.6, all_loso 66.6 (P04
+48.7, P09 71.2), seen_session 70.6 (−1.0, all P04; a frozen-filter family and
+plain FBCNet upweighting drop P04 alike). Expected sealed effect ≈ +0.5.
+`scripts/sealed_r8v.json` (built with the bug) is replaced by
+`scripts/sealed_r8t.json`. Package: input spectra shared across nets and
+filter spectra cached (bit-identical; r8v-style package 204 → 166 ms/window
+on a loaded Mac, r6nf 97).
+
+Clean r6nf rebuild from `1631413` (Galvani 2989027): FIR banks identical to
+the staged package (90/90), v2 max |Δw| 2e-11, 1 / 2,655 windows differ,
+mean |ΔP| 0.003, 64 ms/window: audit-grade.
+
+### Ceiling: our members trained within each session (`within_session`)
+
+Five contiguous blocks per session, train on four: v2 78.8, FBCNet-EA 74.6,
+FBCNet-raw 71.8, ShallowConvNet raw 60.6 / EA 42.6 (too few windows). Mix
+v2 + FBCNets 81.9 vs r6nf all_loso 64.9: P10 88.8 vs 60.6, P09 92.7 vs 69.6,
+P04 66.9 vs 48.5, P07 88.5 vs 79.3. ≈ 17 points sit in participant-specific
+decision boundaries.
+
+Label-free route by clustering (`experiments/cluster_bound.py`): per
+session, k-means/GMM on 5–20 PCA dims of session-centred v2 features: 0.37–0.39
+balanced accuracy even with the oracle cluster→class map (chance 0.33;
+global model 0.65). Classes are not the session's main structure; closed.

@@ -17,6 +17,9 @@ seen_session : for each multi-session participant (P04, P10), train on all
                other participants plus its session 1, test on its sessions
                2-3: the "later sessions of represented participants" half of
                the sealed phase. Includes P04: evaluation only.
+within_session : ceiling only (never for selection): each session split into
+                 5 contiguous blocks; train on the other 4 blocks of the same
+                 session, test on the held-out block.
 all_loso : leave one participant out over all 10 participants. Includes the
            official test participants, so it only *evaluates* candidates
            already chosen on the dev protocols; never select on it.
@@ -39,7 +42,7 @@ from benchmark_utils.metrics import balanced_accuracy, group_scores  # noqa: E40
 
 DATA = ROOT / "data/proteus_windows.npz"
 PROTOCOLS = ("official", "official_tv", "dev_loso", "dev_session", "all_loso",
-             "seen_session")
+             "seen_session", "within_session")
 
 
 def fill_null(X, sessions, rel=2e-3, seed=0):
@@ -126,6 +129,13 @@ def _folds(d, protocol, pro):
         dev = (split != "test") & pro
         held = (subj == "Dreyer2026Proteus/P10") & (d["session"] != "1")
         yield "P10_s23", dev & ~held, held
+    elif protocol == "within_session":  # ceiling: own session, 5 contiguous blocks
+        for st in dict.fromkeys(d["stream"][pro]):
+            rows = np.flatnonzero(pro & (d["stream"] == st))
+            for k, block in enumerate(np.array_split(rows, 5)):
+                te = np.zeros(len(subj), bool)
+                te[block] = True
+                yield f"{st.split('/')[-1]}_b{k}", pro & (d["stream"] == st) & ~te, te
     else:
         raise ValueError(protocol)
 

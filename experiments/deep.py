@@ -183,12 +183,14 @@ class AlignedNet:
 
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
                  lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=None,
-                 pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None):
+                 pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None,
+                 train_fir=False):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.adabn, self.pretrained = adabn, pretrained
         self.ls, self.lld, self.lp = ls, lld, lp  # fine-tuning recipe
         self.crops = tuple(crops)  # extra training windows (s after the cue)
         self.net_kw = dict(net_kw or {})
+        self.train_fir = train_fir  # FBCNet: learn the FIR filter bank (R8)
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -215,7 +217,7 @@ class AlignedNet:
         key = (id(self.d["X"]), self.arch, self.align, self.k, self.epochs, self.lr,
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
-               tuple(sorted(self.net_kw.items())),
+               tuple(sorted(self.net_kw.items())), self.train_fir,
                hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)
@@ -245,6 +247,9 @@ class AlignedNet:
         n_ch, n_t = X.shape[1:]
         self.net = build(self.arch, n_ch, n_t, self.pretrained,
                          **self.net_kw).to(self.dev)
+        if self.train_fir:  # braindecode freezes FBCNet's filter bank
+            for prm in self.net.spectral_filtering.parameters():
+                prm.requires_grad_(True)
         weighted = bool(self.d.get("tag"))  # external data: class-balanced,
         if weighted:                          # per-sample weighted loss
             cnt = np.bincount(y.numpy(), weights=sw.numpy(), minlength=3)

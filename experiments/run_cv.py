@@ -103,6 +103,15 @@ for _al in (False, True):  # FBCNet variants (packageable: LogVar layer)
         CONFIGS[f"fbcnet_{'ea' if _al else 'raw'}_{_n}"] = (
             lambda d, al=_al, kw=_kw: AlignedNet(d, arch="fbcnet", align=al,
                                                  seed=SEED[0], net_kw=kw))
+for _al in (False, True):  # FBCNet with a learned filter bank (R8)
+    _t = "ea" if _al else "raw"
+    CONFIGS[f"fbcnet_{_t}_tf"] = lambda d, al=_al: AlignedNet(
+        d, arch="fbcnet", align=al, seed=SEED[0], train_fir=True)
+    for _n, _kw in (("s2", dict(stride_factor=2)), ("s8", dict(stride_factor=8)),
+                    ("f16", dict(n_filters_spat=16)), ("f64", dict(n_filters_spat=64))):
+        CONFIGS[f"fbcnet_{_t}_{_n}_tf"] = (
+            lambda d, al=_al, kw=_kw: AlignedNet(d, arch="fbcnet", align=al, seed=SEED[0],
+                                                 net_kw=kw, train_fir=True))
 CONFIGS["cbramod_ea_c23"] = lambda d: AlignedNet(d, **_CB, crops=(2.0, 3.0), seed=SEED[0])
 CONFIGS["reve_raw"] = lambda d: ReveLinear(d, center=False)
 CONFIGS["reve_ctr"] = lambda d: ReveLinear(d)
