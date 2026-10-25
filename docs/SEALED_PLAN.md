@@ -7,11 +7,13 @@ Codabench before every upload.
 
 - Sealed phase: 28 Oct 2026 01:00 CET → 22 Nov 2026 01:00 CET (Codabench);
   1 submission per day, 10 in total, per account.
-- Final ranking: the Timeline page says the best of each team's **last
-  five** sealed submissions; the Codabench leaderboard is `Force_Best`.
-  With at most five sealed submissions both rules give the same result.
-- Sealed output (logs, scores) is hidden: a crash costs the day without a
-  diagnosis. Only packages that already ran on the warm-up worker go in.
+- Final ranking: "the best of each team's last five sealed submissions"
+  (official `timeline.md`); leaderboard `Force_Best`.
+- Sealed scores are **visible** to the team: the phase config hides the
+  prediction files and the scoring-step output (logs), not the leaderboard
+  score (`competition_bci.yaml`: "participants get their leaderboard score";
+  duration column shown). A crash costs one of ten slots, with no log.
+  (Corrected 25 Oct; earlier versions of this plan said scores were hidden.)
 - Top three are audited by re-running training from the committed config
   (±2σ). Scherer 2015 (CC BY-NC-ND 4.0) for a cash prize is not answered
   by the organisers (issues #41, #52).
@@ -39,13 +41,18 @@ Before 25 Oct 02:00 CEST (warm-up):
    sealed bytes run on the worker; note the reported duration.
 3. Optionally `sealed_candidate_ensemble_all_r6f_scherer.zip`, expected ≈ 0.9987.
 
-Sealed phase:
-1. Day 1 (28 Oct): the primary package.
-2. Later days: only a package that beats it on `dev_loso` **and**
-   `dev_session` by more than noise, is confirmed on the evaluation
-   protocols, and has run on the worker. Stop at five sealed submissions in
-   total; if a later upload is weaker, resubmit the primary as the last
-   one (inference is deterministic).
+Sealed phase (10 uploads, 1/day, 28 Oct – 21 Nov; best of the last five
+counts, scores visible):
+1. Uploads 1–5 measure distinct candidates on the sealed data itself (later
+   sessions of the ten public participants + ten unseen), most robust first:
+   r6nf (CPU, worker-run code), then r8t (learned-filter FBCNet family),
+   then other candidates that pass the local rules. Each upload is a real
+   readout of the ranking metric and of the worker duration.
+2. Uploads 6–10 (the counted five) are the best-scoring packages, the best
+   one at least once (inference is deterministic, so a resubmission
+   reproduces its score). Never end with five untested packages.
+3. Gaps of ≈ 1 point between sealed scores of similar packages can be noise
+   of a single draw; prefer the locally better-evidenced package then.
 
 ## Method description (draft for the fact sheet / workshop)
 
