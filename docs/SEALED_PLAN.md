@@ -38,9 +38,27 @@ All pass the official replay in the worker replica (`scripts/cloud/worker_replay
 | Package | dl | ds | dl_all | all_loso (P04 / P09) | ss | replica s / 755 windows |
 |---|---:|---:|---:|---:|---:|---:|
 | r6nf (staged, primary) | 67.2 | 80.5 | 69.4 | 64.9 (48.5 / 69.6) | 71.6 | 66.7 |
-| r8t4 (+4 learned-filter FBCNets) | 69.1 | 80.9 | 71.4 | 66.3 (47.8 / 70.7) | 70.9 | pending |
+| r8t4 (+4 learned-filter FBCNets) | 69.1 | 80.9 | 71.4 | 66.3 (47.8 / 70.7) | 70.9 | 83.1 |
 | r8t (+8 learned-filter variants) | 69.0 | 80.9 | 71.6 | 66.6 (48.7 / 71.2) | 70.5 | 107.4 |
 | r6f (staged, Scherer data): **excluded** (user decision 25 Oct: no Scherer data) | 67.8 | 80.5 | – | 66.0 (– / –) | 70.8 | 66.8 |
+
+Staged (25 Oct), each ZIP byte-identical to the one that passed the worker
+replica: day 1 `sealed_candidate_ensemble_all_r6nf_noscherer.zip`
+(`1d347187…`), day 2 `sealed_candidate_ensemble_all_r8t4.zip` (`f858e6c2…`,
+built from `c625ecc` + `scripts/sealed_r8t4.json`, committed in `48f4419`;
+Galvani 3002636/3002637). Projected sealed runtime at ≈ 21k windows: r6nf
+≈ 25–30 min, r8t4 ≈ 30–40 min on the worker CPU (60-min limit).
+
+**GPU builds (preferred, 25 Oct).** Same weights with the current
+`submission.py`, whose FBCNets and ShallowConvNets also run on the harness
+device (CUDA on the worker; CPU fallback when no GPU is passed). In the
+worker replica (Galvani 3003404/3003405): labels identical to the CPU path on
+all 2,655 windows (max |ΔP| 1.2e-7), 31 ms vs 83 ms per window (r8t4) and
+25 vs 64 ms (r6nf); official replay 46.5 s / 40.6 s for 755 windows.
+Staged: `sealed_candidate_ensemble_all_r6nfg.zip` (`9d430f0d…`) and
+`sealed_candidate_ensemble_all_r8t4g.zip` (`725cfcdc…`); projected sealed
+runtime ≈ 9–11 min. Plan: day 1 r6nfg (baseline score and the worker's real
+duration), day 2 r8t4g; the CPU ZIPs stay as fallbacks.
 
 ## Upload sequence
 

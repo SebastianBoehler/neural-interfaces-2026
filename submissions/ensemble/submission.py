@@ -123,10 +123,10 @@ class InputStream:
 class Shallow:
     """Stateless ShallowConvNet; ``proba`` maps a batch (B, C, T) to (B, 3)."""
 
-    def __init__(self, p):
-        t = {k: torch.from_numpy(np.ascontiguousarray(v)) for k, v in p.items()
+    def __init__(self, p, dev="cpu"):
+        t = {k: torch.from_numpy(np.ascontiguousarray(v)).to(dev) for k, v in p.items()
              if k not in ("align", "k", "G", "scale", "shrink")}
-        self.t = t
+        self.t, self.dev = t, dev
         # CombinedConv: temporal and spatial filters merged into one kernel
         self.weight = ((t["time_w"] * t["spat_w"].permute(1, 0, 2, 3))
                        .sum(0).unsqueeze(1))
@@ -136,14 +136,14 @@ class Shallow:
     @torch.no_grad()
     def proba(self, X):
         t = self.t
-        h = torch.from_numpy(X).unsqueeze(1).transpose(2, 3)
+        h = torch.from_numpy(X).to(self.dev).unsqueeze(1).transpose(2, 3)
         h = F.conv2d(h, self.weight, self.bias)            # (B, 40, T', 1)
         h = F.batch_norm(h, t["bn_mean"], t["bn_var"], t["bn_w"], t["bn_b"],
                          False, 0.0, 1e-5)
         h = F.avg_pool2d(h * h, (75, 1), (15, 1))
         h = torch.log(torch.clamp(h, min=1e-6))
         h = F.conv2d(h, t["cls_w"], t["cls_b"])[:, :, 0, 0]
-        return torch.softmax(h.double(), 1).numpy()
+        return torch.softmax(h.double(), 1).cpu().numpy()
 
 
 def _fft_bank(x, fir, xf=None, ff=None):
@@ -171,33 +171,35 @@ class FBC:
     ``stride`` segments, linear head. Weights are the effective (max-norm
     constrained) values; ``proba`` maps (B, C, T) to (B, 3)."""
 
-    def __init__(self, p):
-        self.t = {k: torch.from_numpy(np.ascontiguousarray(v)).double()
+    def __init__(self, p, dev="cpu"):
+        self.t = {k: torch.from_numpy(np.ascontiguousarray(v)).double().to(dev)
                   for k, v in p.items() if k.startswith("fbc_")}
-        self.fir = [self.t[f"fbc_fir{i}"] for i in range(int(p["fbc_n_bands"]))]
-        self.bank_key = b"".join(f.numpy().tobytes() for f in self.fir)
+        n = int(p["fbc_n_bands"])
+        self.fir = [self.t[f"fbc_fir{i}"] for i in range(n)]
+        self.bank_key = b"".join(np.asarray(p[f"fbc_fir{i}"], np.float64).tobytes()
+                                 for i in range(n))
+        self.dev = dev
         self.ff = {}  # filter spectra, filled on first use
 
     def bank(self, X, xf=None):
         """``xf``: input spectra shared by the nets of one input stream."""
-        return _fft_bank(torch.from_numpy(X).double(), self.fir, xf, self.ff)
+        return _fft_bank(torch.from_numpy(X).double().to(self.dev), self.fir, xf, self.ff)
 
     @torch.no_grad()
     def proba(self, X, Y=None):
         """``Y``: precomputed ``bank(X)``, shared by nets with the same FIR."""
         t = self.t
-        x = torch.from_numpy(X).double()
         Y = self.bank(X) if Y is None else Y
         K, C = Y.shape[1], Y.shape[2]
         Z = torch.einsum("kfc,bkct->bkft", t["fbc_W"].view(K, -1, C), Y)
-        Z = Z.reshape(x.shape[0], -1, x.shape[-1]) + t["fbc_bw"][None, :, None]
+        Z = Z.reshape(X.shape[0], -1, X.shape[-1]) + t["fbc_bw"][None, :, None]
         Z = (Z - t["fbc_rm"][None, :, None]) / torch.sqrt(
             t["fbc_rv"][None, :, None] + t["fbc_eps"])
         Z = F.silu(Z * t["fbc_g"][None, :, None] + t["fbc_be"][None, :, None])
         s = int(t["fbc_stride"])
         V = Z.view(Z.shape[0], Z.shape[1], s, Z.shape[-1] // s).var(dim=3)
         V = torch.log(V.clamp(1e-6, 1e6)).flatten(1)
-        return torch.softmax(V @ t["fbc_L"].T + t["fbc_lb"], 1).numpy()
+        return torch.softmax(V @ t["fbc_L"].T + t["fbc_lb"], 1).cpu().numpy()
 
 
 def _mha(x, w, b, ow, ob, heads):
@@ -285,7 +287,7 @@ class Ensemble:
             if key not in self.groups:
                 self.groups[key] = (InputStream(p), [])
             net = (CBra(p, dev) if "cbm_n_times" in p else
-                   FBC(p) if "fbc_n_bands" in p else Shallow(p))
+                   FBC(p, dev) if "fbc_n_bands" in p else Shallow(p, dev))
             self.groups[key][1].append((i, net))
 
     def reset_state(self):
@@ -347,7 +349,7 @@ class Solver(CompetSolver):
             pass
         with np.load(meta["submission_dir"] / "weights.npz") as f:
             z = {k: f[k] for k in f.files}
-        # CBraMod members run on the harness device (CUDA on the worker),
+        # Nets run on the harness device (CUDA on the worker),
         # without TF32 so GPU and CPU agree to float32 precision
         torch.backends.cuda.matmul.allow_tf32 = False
         torch.backends.cudnn.allow_tf32 = False

@@ -396,3 +396,13 @@ two aligned + two unaligned learned-filter standard FBCNets, seeds 0–1:
 all_loso 66.31 (P04 47.77, P09 70.67), seen_session 70.93 (r6nf 64.92 /
 48.54 / 69.58 and 71.62). Built as Galvani 3002636 (config
 `scripts/sealed_r8t4.json`), worker replica 3002637.
+
+Fresh seeds of the learned-filter family (never used for a decision): eight
+variants, seed 3 / 4 / 5: dl 69.43 / 68.96 / 68.95, ds 81.14 / 81.39 / 81.37,
+dl_all 71.60 / 71.60 / 71.44; standard seeds 2–3 (r8t4 layout): 68.95 /
+80.35 / 71.69. The gain reproduces.
+
+GPU path for all nets (`submission.py`, `scripts/device_agreement.py`): CPU
+path bit-identical to the staged code; on CUDA in the worker replica labels
+agree on all 2,655 windows (r8t4: max |ΔP| 1.2e-7, 31 vs 83 ms/window; r6nf:
+9.5e-8, 25 vs 64 ms/window).
