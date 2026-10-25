@@ -1,0 +1,24 @@
+Bootstrap: docker
+From: python:3.12-slim
+
+# Apptainer replica of the Codabench worker image
+# (2026-competition/tools/Dockerfile at the pinned revision): Python 3.12,
+# torch from the cu130 wheel index, the official unpinned requirements, the
+# neuralbench config. Versions resolve at build time, as on the worker.
+# Build: apptainer build runs/cloud/ni26_worker.sif scripts/cloud/worker_image.def
+
+%files
+    2026-competition/requirements.txt /compet/requirements.txt
+    2026-competition/tools/neuralbench_config.json /compet/neuralbench_config.json
+
+%post
+    pip install -U pip
+    pip install --no-cache-dir torch torchvision torchaudio \
+        --index-url https://download.pytorch.org/whl/cu130
+    pip install --no-cache-dir -r /compet/requirements.txt
+    python -c "import neuralbench, braindecode, benchopt"
+    pip freeze > /compet/pip_freeze.txt
+
+%environment
+    export NEURALBENCH_CONFIG=/compet/neuralbench_config.json
+    export PYTHONWARNINGS=ignore::FutureWarning MNE_LOGGING_LEVEL=ERROR TQDM_DISABLE=1

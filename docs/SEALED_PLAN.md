@@ -31,6 +31,17 @@ declaration beyond "none" and a simpler audit (no external download).
 **Recommendation: r6nf as the primary sealed submission**, unless the
 organisers confirm before the deadline that CC BY-NC-ND data are admissible.
 
+## Candidates after round 8 (25 Oct)
+
+All pass the official replay in the worker replica (`scripts/cloud/worker_replay.sbatch`).
+
+| Package | dl | ds | dl_all | all_loso (P04 / P09) | ss | replica s / 755 windows |
+|---|---:|---:|---:|---:|---:|---:|
+| r6nf (staged, primary) | 67.2 | 80.5 | 69.4 | 64.9 (48.5 / 69.6) | 71.6 | 66.7 |
+| r8t4 (+4 learned-filter FBCNets) | 69.1 | 80.9 | 71.4 | 66.3 (47.8 / 70.7) | 70.9 | pending |
+| r8t (+8 learned-filter variants) | 69.0 | 80.9 | 71.6 | 66.6 (48.7 / 71.2) | 70.5 | 107.4 |
+| r6f (staged, Scherer data): **excluded** (user decision 25 Oct: no Scherer data) | 67.8 | 80.5 | – | 66.0 (– / –) | 70.8 | 66.8 |
+
 ## Upload sequence
 
 Before 25 Oct 02:00 CEST (warm-up):

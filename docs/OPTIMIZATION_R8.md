@@ -332,3 +332,67 @@ Label-free route by clustering (`experiments/cluster_bound.py`): per
 session, k-means/GMM on 5–20 PCA dims of session-centred v2 features: 0.37–0.39
 balanced accuracy even with the oracle cluster→class map (chance 0.33;
 global model 0.65). Classes are not the session's main structure; closed.
+
+### 25 Oct: crops retested, fresh Shallow family, personal models
+
+Crops with frozen filters (Galvani 3002612, seeds 0–2): alone dl 51.4 (EA) /
+57.0 (raw), added to r6nf as one family dl 67.28 / ds 80.17 / dl_all 69.59:
+rejected (now unconfounded). Fresh ShallowConvNet family (3002618, seeds
+5–7): 67.15 / 79.41 / 70.01: no gain; the fresh-family gain is specific to
+learned-filter FBCNets.
+
+Personal models (`experiments/personal_bound.py`, oracle participant): a v2
+trained on P10's session 1, mixed into r6nf on `dev_session`: 80.5 → 83.0 /
+83.5 / 81.2 at weight 0.15 / 0.3 / 0.5 (personal alone 74.2).
+
+Recognition (`experiments/identify.py`; 7-band tangent at the global
+reference, PCA 100, multinomial LR over participants; causal mean of window
+log-probabilities): seen P10 sessions 2–3 correct from 5 windows on
+(posterior 0.79–0.94); P04 sessions 2–3 wrong (s3 confidently, 0.90 after 5
+windows); unseen participants reach max posteriors 0.25–0.91 (P02 0.81,
+P04 s1 0.79). No threshold separates them: hard routing is unsafe.
+
+Soft routing (`experiments/soft_route.py`): P = (1 − λ) r6nf + λ Σ_p q_t(p)
+personal_p. dev_session 80.49 / 81.71 / 84.55 / 84.04 and dev_loso_all
+69.37 / 69.38 / 68.02 / 67.22 at λ 0 / 0.1 / 0.2 / 0.3; the selection
+objective (mean of seen and unseen proxies) peaks at λ 0.2 (+1.4). λ fixed
+at 0.2 before evaluation; evaluation running.
+
+Soft-routing evaluation (λ 0.2, fixed before): `seen_session` 71.62 → 72.64
+(P04 59.72 → 59.98, P10 83.51 → 85.29); `all_loso` 64.92 → 63.90 (P04
+48.54 → 47.60, P09 69.58 → 71.66). Selection overestimated the seen gain (P10
+is the easiest participant to recognise); with the sealed set about half or
+more unseen sessions the net is ≈ 0 and `all_loso` drops: not adopted.
+Recognition across sessions is the limit, not the personal models.
+
+### Worker replica (Apptainer, Galvani)
+
+`scripts/cloud/worker_image.def` rebuilds the official worker image recipe
+(python:3.12-slim, torch from the cu130 index, the official unpinned
+requirements; resolved 25 Oct: torch 2.14.1+cu130, braindecode 1.8.1, numpy
+2.5.2, scipy 1.18.1, benchopt 1.10.0, neuroai 0.4.0); `worker_replay.sbatch`
+runs the official ingestion + scoring inside it on an A100 with CUDA
+visible. 3002631: staged r6nf 0.9973 (66.7 s), staged r6f 0.9987 (66.8 s),
+`warmup8_cbramod` 0.4586 on CUDA (121.3 s), files unchanged, scores equal to
+the local replays: the substitute for the missed warm-up uploads.
+
+r8t built from `c625ecc` (3002611): harness agreement 1.0, the ten r6nf
+FBCNets' filter banks identical to the staged package, the eight new ones
+learned; 100 ms/window on that node's CPU (r6nf rebuild 64 ms on another);
+CUDA replay passes (ZIP `46be1133`); worker replica 3002634.
+r8t in the worker replica (3002634): 0.9987, files unchanged, 107.4 s for
+755 windows (r6nf 66.7 s).
+
+### Learned filters complement frozen ones; a 4-net family suffices
+
+Learned-filter standard FBCNets (3002616, seeds 0–3): added to r6nf as one
+family 68.9 / 80.6 / 71.4 (dl / ds / dl_all), like r8t (69.0 / 80.9 / 71.6);
+*replacing* r6nf's frozen FBCNets with them loses (66.4 / 78.3 / 69.2): the
+gain is the combination. r8t's complete `seen_session` (8 nets, 3002617):
+70.46. Four-net families all match the eight-net one (aligned variants,
+seeds 0/1/2: dl 68.4–68.6, dl_all 71.1–71.3; unaligned 68.7–68.9 / 70.9–71.5;
+two aligned + two unaligned learned-filter standard FBCNets, seeds 0–1:
+69.11 / 80.91 / 71.43). Fixed as **r8t4** (simplest, half r8t's extra cost):
+all_loso 66.31 (P04 47.77, P09 70.67), seen_session 70.93 (r6nf 64.92 /
+48.54 / 69.58 and 71.62). Built as Galvani 3002636 (config
+`scripts/sealed_r8t4.json`), worker replica 3002637.
