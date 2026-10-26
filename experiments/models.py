@@ -56,7 +56,8 @@ class TangentSpace:
 
     def __init__(self, d, bands=("alpha", "beta1", "beta2"), align="session",
                  k=5.0, train_causal=False, clf="lr", C=0.1, means=None,
-                 stretch=False, slow="mean", k_slow=None, wscale=False):
+                 stretch=False, slow="mean", k_slow=None, wscale=False, group=None,
+                 dro_eta=1.0, dro_iter=5):
         self.d, self.bands, self.align, self.means = d, bands, align, means
         self.M = (d["X"].mean(-1) if slow == "mean" else
                   slow_waveform(d["X"], cutoff=2.0 if slow == "wave" else 1.0))
@@ -65,6 +66,7 @@ class TangentSpace:
             self.M = (W - W.mean(-1, keepdims=True)).reshape(len(W), -1)
         self.k, self.train_causal, self.stretch = k, train_causal, stretch
         self.wscale = wscale
+        self.group, self.dro_eta, self.dro_iter = group, dro_eta, dro_iter  # R8
         self.k_slow = k if k_slow is None else k_slow
         self.clf = make_clf(clf, C)
         tag = d.get("tag", "")
@@ -148,7 +150,23 @@ class TangentSpace:
             kw["logisticregression__sample_weight"] = w * cw[y]
             if self.wscale:  # target statistics: scaler weighted like the loss
                 kw["standardscaler__sample_weight"] = w
-        self.clf.fit(np.concatenate(feats), y, **kw)
+        F = np.concatenate(feats)
+        if self.group:  # participant-balanced weights, or GroupDRO reweighting
+            assert not kw, "participant weighting is for PROTEUS-only training"
+            g = np.unique(np.concatenate([self.d["subject"][idx[streams == s]]
+                                          for s in dict.fromkeys(streams)]),
+                          return_inverse=True)[1]
+            q = np.ones(g.max() + 1) / (g.max() + 1)
+            for _ in range(self.dro_iter if self.group == "dro" else 1):
+                w = q[g] / np.bincount(g)[g]  # each participant's mass is q_g
+                self.clf.fit(F, y, logisticregression__sample_weight=w * len(y))
+                if self.group == "dro":
+                    p = self.clf.predict_proba(F)[np.arange(len(y)), y]
+                    loss = np.bincount(g, weights=-np.log(np.clip(p, 1e-9, 1))) / np.bincount(g)
+                    q = q * np.exp(self.dro_eta * loss)
+                    q /= q.sum()
+            return
+        self.clf.fit(F, y, **kw)
 
     def predict_proba_stream(self, idx):
         return self.clf.predict_proba(self._session_feats(idx, causal=True))

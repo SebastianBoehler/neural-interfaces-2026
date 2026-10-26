@@ -83,15 +83,21 @@ counts, scores visible):
 3. Gaps of ≈ 1 point between sealed scores of similar packages can be noise
    of a single draw; prefer the locally better-evidenced package then.
 
-## Method description (draft for the fact sheet / workshop)
+## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 
-**Model.** A probability-averaging ensemble of 21 members, run on CPU in
-plain numpy/torch inside `submission.py`:
-- v2: seven-band filter-bank covariances (1–4 Hz to high beta) mapped
-  to the tangent space at a causally updated session reference, plus a
-  causally centred < 1 Hz waveform, logistic regression (weight 0.2);
-- 5 ShallowConvNets on Euclidean-aligned input, 5 unaligned
-  ShallowConvNets, 5 aligned FBCNets and 5 unaligned FBCNets (0.04 each).
+**Model (r8t4; r6nf = the same without the last family).** A
+probability-averaging ensemble of 25 members in plain numpy/torch inside
+`submission.py`; the nets run on the harness device (CUDA on the worker,
+CPU otherwise):
+- v2: seven-band filter-bank covariances (1–4 Hz to 58 Hz) mapped to the
+  tangent space at a causally updated session reference, plus a causally
+  centred < 1 Hz waveform, logistic regression (weight 1/6);
+- 5 ShallowConvNets on Euclidean-aligned input, 5 unaligned ShallowConvNets,
+  5 aligned FBCNets and 5 unaligned FBCNets with braindecode's fixed FIR
+  filter bank (1/30 each);
+- r8t4 only: 2 aligned and 2 unaligned FBCNets whose FIR filter bank is
+  trained with the network (1/24 each). Learned and fixed filter banks are
+  complementary: the learned family helps only alongside the fixed one.
 
 **Test-time adaptation (label-free, causal, reset per session).** Each
 window is whitened by the running mean covariance of the session so far,
@@ -99,28 +105,28 @@ blended with the training mean as five pseudo-windows. Ensemble
 probabilities are divided by the mean predicted class distribution of the
 previous 30 windows (blended with a uniform prior of weight five).
 
-**Training data.** PROTEUS (NEMAR nm000290 v1.0.0, CC BY 4.0), all ten
-public participants, official preprocessing. Scherer package only: BNCI
-2015-004 (Scherer et al. 2015, PLoS ONE 10:e0123727; licensor TU Graz;
-CC BY-NC-ND 4.0), 2,130 windows preprocessed like PROTEUS, channels
-interpolated to the PROTEUS montage, loss weight 0.1, used for the
-unaligned ShallowConvNets and aligned FBCNets.
+**Training data.** PROTEUS only (NEMAR nm000290 v1.0.0, CC BY 4.0), all ten
+public participants, official preprocessing. No external data and no
+pretrained models in the sealed candidates.
 
 **Selection.** Leave-one-participant-out over the eight non-warm-up-test
-participants and a later-session probe (P10 sessions 2–3); evaluation on
-leave-one-participant-out over all ten and later sessions of P04/P10.
+participants, the same folds with P04/P09 added as training-only data
+(`dev_loso_all`, the sealed models' training regime), and a later-session
+probe (P10 sessions 2–3); evaluation on leave-one-participant-out over all
+ten (P04/P09 untouched by selection) and later sessions of P04/P10.
 
-**Compute.** Final weights: about 20 nets × 1–3 min on one A100 or Apple
-M4 Max (MPS), v2 under a minute on CPU (estimate: < 1 GPU-hour). Whole
-development including sweeps: estimate on the order of 50–100 A100
-GPU-hours on the Tübingen ML Cloud (to be summed from `sacct`). Inference:
-CPU only, about 35 ms per window on an M4 Max and 62–64 ms on an
-A100-node CPU (EPYC 7302).
+**Compute.** Final weights: 24 nets × 1–3 min on one A100, v2 under a minute
+on CPU (< 1 GPU-hour). Development: on the order of 100–200 GPU-hours on
+the Tübingen ML Cloud (to be summed from `sacct`). Inference on an A100
+(worker replica): 25–31 ms per window; CPU fallback 64–83 ms.
 
-**Reproduction.** `python scripts/build_sealed.py scripts/sealed_r6nf.json
-OUT` (Galvani: `scripts/cloud/build_sealed.sbatch`) rebuilds r6nf from
-scratch with the versions pinned in `requirements/cloud.txt` (neuroai
-0.4.0, exca 0.5.29, braindecode 1.8.1, torch 2.14.1) and checks it against
-the harness and the staged package. Rebuilds on MPS and an A100 agree with
-the staged package on 2,654 of 2,655 windows
-(`evidence/sealed-rebuild-2026-10-20`).
+**Reproduction.** `python scripts/build_sealed.py scripts/sealed_r8t4.json
+OUT` (Galvani: `scripts/cloud/build_sealed.sbatch`; r6nf:
+`scripts/sealed_r6nf.json`) rebuilds a package from scratch with the
+versions pinned in `requirements/cloud.txt` (neuroai 0.4.0, exca 0.5.29,
+braindecode 1.8.1, torch 2.14.1) and checks it against the harness and the
+reference package. A clean r6nf rebuild (commit `1631413`) has fixed filter
+banks identical to the staged package and differs on 1 of 2,655 windows
+(GPU training is not bit-deterministic; audit tolerance stated as such).
+`scripts/cloud/worker_replay.sbatch` replays any package in an Apptainer
+replica of the official worker image.

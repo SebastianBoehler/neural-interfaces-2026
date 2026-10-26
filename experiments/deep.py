@@ -184,13 +184,14 @@ class AlignedNet:
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
                  lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=None,
                  pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None,
-                 train_fir=False):
+                 train_fir=False, dro=0.0, pbal=False):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.adabn, self.pretrained = adabn, pretrained
         self.ls, self.lld, self.lp = ls, lld, lp  # fine-tuning recipe
         self.crops = tuple(crops)  # extra training windows (s after the cue)
         self.net_kw = dict(net_kw or {})
         self.train_fir = train_fir  # FBCNet: learn the FIR filter bank (R8)
+        self.dro, self.pbal = dro, pbal  # participant GroupDRO step / balanced loss
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -217,7 +218,7 @@ class AlignedNet:
         key = (id(self.d["X"]), self.arch, self.align, self.k, self.epochs, self.lr,
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
-               tuple(sorted(self.net_kw.items())), self.train_fir,
+               tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal,
                hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)
@@ -244,6 +245,10 @@ class AlignedNet:
         X = torch.from_numpy(np.concatenate(X))
         y = torch.from_numpy(self.d["y"][order]).long()
         sw = torch.from_numpy(self.d["w"][order]).float() if "w" in self.d else None
+        grp = np.unique(self.d["subject"][order], return_inverse=True)[1]
+        self._grp = torch.from_numpy(grp).to(self.dev)  # participant of each row
+        self._q = torch.ones(grp.max() + 1, device=self.dev) / (grp.max() + 1)
+        self._gw = (1.0 / torch.bincount(self._grp).float())[self._grp]
         n_ch, n_t = X.shape[1:]
         self.net = build(self.arch, n_ch, n_t, self.pretrained,
                          **self.net_kw).to(self.dev)
@@ -284,12 +289,34 @@ class AlignedNet:
                 if self.aug:
                     xb = augment(xb, gen)
                 opt.zero_grad()
-                loss = loss_fn(self.net(xb), yb)
+                if self.dro or self.pbal:  # participant-aware objectives (R8)
+                    loss = self._group_loss(self.net(xb), yb, torch.from_numpy(j).to(self.dev))
+                else:
+                    loss = loss_fn(self.net(xb), yb)
                 if weighted:
                     loss = (loss * sw[j]).sum() / sw[j].sum()
                 loss.backward()
                 opt.step()
                 sched.step()
+
+    def _group_loss(self, out, yb, j):
+        """Participant-balanced mean (``pbal``) or online GroupDRO: weights
+        q_g *= exp(dro * batch loss of participant g), loss = q-weighted mean
+        of the participants' batch losses (Sagawa et al. 2020)."""
+        per = nn.functional.cross_entropy(out, yb, reduction="none",
+                                          label_smoothing=self.ls)
+        g = self._grp[j]
+        if not self.dro:
+            w = self._gw[j]
+            return (per * w).sum() / w.sum()
+        n = torch.bincount(g, minlength=len(self._q)).float()
+        lg = torch.zeros_like(self._q).scatter_add_(0, g, per) / n.clamp_min(1)
+        present = n > 0
+        with torch.no_grad():
+            self._q[present] *= torch.exp(self.dro * lg[present])
+            self._q /= self._q.sum()
+        q = self._q[present]
+        return (q * lg[present]).sum() / q.sum()
 
     @torch.no_grad()
     def predict_proba_stream(self, idx):

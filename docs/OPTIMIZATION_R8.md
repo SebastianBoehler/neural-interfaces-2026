@@ -406,3 +406,29 @@ GPU path for all nets (`submission.py`, `scripts/device_agreement.py`): CPU
 path bit-identical to the staged code; on CUDA in the worker replica labels
 agree on all 2,655 windows (r8t4: max |ΔP| 1.2e-7, 31 vs 83 ms/window; r6nf:
 9.5e-8, 25 vs 64 ms/window).
+
+### Participant-aware objectives (25 Oct, running)
+
+Sealed composition (official description: later sessions of the ten public
+participants + ten new participants, six sessions each): ≈ 46 seen later
+sessions vs ≈ 60 unseen ones, i.e. ≈ 57% unseen. Expected effects: r8t4
+0.57 × 1.4 − 0.43 × 0.7 ≈ +0.5; soft routing 0.43 × 1.0 − 0.57 × 1.0 ≈ −0.1
+(stays rejected).
+
+v2 with participant-balanced weights or GroupDRO-style reweighting
+(`TangentSpace(group=...)`): alone dl 56.6–56.8 (plain 56.2), ds 68.3; in
+r8t4 dl 69.0–69.05 / ds 80.91 / dl_all 71.1–71.2 vs 69.11 / 80.91 / 71.43:
+no gain (C 0.1 leaves little to reweight). Existing members as additions to
+r8t4 (v1, v2_C1, EEGNeX, IFNet, TIDNet): all lower dl and dl_all.
+FBCNet/ShallowConvNet with `pbal` / online GroupDRO (η 0.01, 0.1), seeds
+0–4, all protocols: Galvani 3004101–3004105, 3004131 (pending behind the
+partition queue); FBCNet η 0.1 and pbal seed 0 on the Mac.
+
+FBCNet with participant objectives, seed 0 (Mac): GroupDRO η 0.1 alone dl
+57.7 / 57.1, ds 68.4 / 67.6, all_loso 53.1 / 53.2 (aligned / unaligned;
+standard seed 0: 59.1 / 60.4 dl); balanced loss 59.3 / 60.9, 70.5 / 69.7,
+54.8 / 56.4. In r8t4 (dl / ds / dl_all; staged 69.11 / 80.91 / 71.43):
+replacing standard seed 0 by DRO 69.00 / 80.65 / 71.23, by balanced 68.90 /
+81.17 / 71.44, control without seed 0 68.80 / 81.14 / 71.28; as an extra
+family DRO 68.68 / 81.94 / 70.90, balanced 68.78 / 81.16 / 71.70. Neutral on
+one seed; the five-seed Galvani arrays (3004101–3004105, 3004131) decide.
