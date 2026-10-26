@@ -60,6 +60,14 @@ check worker execution and runtime.
 | 1010506 | `sealed_candidate_ensemble_all_r6nfg.zip` (`9d430f0d…`) | 0.9973118280 | 24.0 s | 0.9973118280 / 40.6 s (replica) |
 | 1010508 | `sealed_candidate_ensemble_all_r8t4g.zip` (`725cfcdc…`) | 1.0000000000 | 25.6 s | 1.0000000000 / 46.5 s (replica) |
 
+| 1010748 | `warmup9_r8t4_tv.zip` (`ace07590…`; r8t4 trained on official train + validation only, **honest**) | 0.5303723852 (P04 0.493, P09 0.644) | 26.7 s | 0.5303723852 (CPU replay) |
+
+Reading the board (26 Oct): the public leaderboard lists the top 50, all ≥
+0.63 (38 at ≥ 0.95). Reaching 0.63 honestly would need about P04 0.60 and
+P09 0.72; P04's within-session ceiling with our members is 0.67 (band-power
+LDA 0.58), so such entries almost certainly used P04/P09 data. There is no
+honest reference on the warm-up board; our honest number is 0.530.
+
 The worker runs the nets on its GPU (about half the CPU-path time). At
 ≈ 21k sealed windows: ≈ 11–12 min. Worker image: `lionelyneuro/neural-compet:v3`.
 

@@ -325,12 +325,14 @@ class AlignedNet:
                if self.adabn and isinstance(m, nn.modules.batchnorm._BatchNorm)]
         for bn in bns:
             bn.forward = lambda x, bn=bn: causal_bn(bn, x, self.adabn)
-        try:
-            logits = self.net(X)
+        try:  # optional test-time augmentation: mean over circular time shifts
+            shifts = getattr(self, "tta", ()) or (0,)
+            P = sum(torch.softmax(self.net(torch.roll(X, s, -1)).cpu().double(), 1)
+                    for s in shifts) / len(shifts)
         finally:
             for bn in bns:
                 del bn.forward
-        return torch.softmax(logits.cpu().double(), 1).numpy()
+        return P.numpy()
 
     def predict_stream(self, idx):
         return self.predict_proba_stream(idx).argmax(1)
