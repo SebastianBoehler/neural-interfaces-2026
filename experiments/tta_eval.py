@@ -38,9 +38,11 @@ for proto in protos:
             idx_all.append(rows)
         print(cfg, proto, name, flush=True)
     idx = np.concatenate(idx_all)
+    order = np.argsort(idx)  # global row order, as protocol.evaluate saves
     for tta in (False, True):
         tag = f"{cfg}_tta" if tta else cfg
-        np.savez(out / f"{tag}-{proto}-s{seed}.npz", proba=np.concatenate(res[tta]), index=idx)
+        np.savez(out / f"{tag}-{proto}-s{seed}.npz",
+                 proba=np.concatenate(res[tta])[order], index=idx[order])
     for tta in (False, True):
         P = np.concatenate(res[tta])
         mask = np.zeros(len(d["y"]), bool)
