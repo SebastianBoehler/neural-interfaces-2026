@@ -48,6 +48,21 @@ rebalancing code path on the worker. Durations are the worker-reported scoring d
 Raw export: `evidence/warmup-2026-10-18/codabench-results.json`. Warm-up scores remain indicative: P04 is 6 of the 8 cells. No
 sealed-phase submission has been made.
 
+## Warm-up uploads after the outage (26 Oct 2026, Warm-up Phase (update 1))
+
+Uploaded by Claude with the user's explicit authorization, quota checked
+first (0/5 today, 3/100 total). Both are the exact staged sealed ZIPs; their
+scores are inflated by design (trained on the warm-up test participants) and
+check worker execution and runtime.
+
+| ID | ZIP (sha256) | Cell-mean balanced accuracy | Duration | Local / replica |
+|---|---|---:|---:|---|
+| 1010506 | `sealed_candidate_ensemble_all_r6nfg.zip` (`9d430f0d…`) | 0.9973118280 | 24.0 s | 0.9973118280 / 40.6 s (replica) |
+| 1010508 | `sealed_candidate_ensemble_all_r8t4g.zip` (`725cfcdc…`) | 1.0000000000 | 25.6 s | 1.0000000000 / 46.5 s (replica) |
+
+The worker runs the nets on its GPU (about half the CPU-path time). At
+≈ 21k sealed windows: ≈ 11–12 min. Worker image: `lionelyneuro/neural-compet:v3`.
+
 ## Compute and rules
 
 Training compute is uncapped. Organizer evaluation must finish within 60 minutes

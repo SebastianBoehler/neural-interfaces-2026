@@ -70,6 +70,7 @@ Before 25 Oct 02:00 CEST (warm-up):
    sealed bytes run on the worker; note the reported duration.
 3. Optionally `sealed_candidate_ensemble_all_r6f_scherer.zip`, expected ≈ 0.9987.
 
+Done 26 Oct: both sealed ZIPs ran on the real worker (1010506 r6nfg 0.9973 in 24.0 s, 1010508 r8t4g 1.0000 in 25.6 s; `docs/COMPETITION.md`).
 Before 1 Nov (warm-up, 5/day): upload the exact sealed ZIPs to run them on
 the real worker (GPU path, duration). Their warm-up scores are inflated
 (trained on the warm-up test participants): r6nfg ≈ 0.997, r8t4g ≈ 1.000.

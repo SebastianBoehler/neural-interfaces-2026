@@ -88,9 +88,11 @@ def build(cfg, d, out):
     from deep import AlignedNet
     from models import TangentSpace
     from run_cv import V2
-    assert cfg["train"] in ("official", "all"), cfg["train"]
-    rows = np.flatnonzero(d["split"] == "train" if cfg["train"] == "official"
-                          else np.ones(len(d["y"]), bool))
+    split = {"official": d["split"] == "train",          # warm-up, honest
+             "official_tv": d["split"] != "test",         # + validation split
+             "all": np.ones(len(d["y"]), bool)}           # sealed
+    assert cfg["train"] in split, cfg["train"]
+    rows = np.flatnonzero(split[cfg["train"]])
     nets, w = [], [cfg["v2_weight"]]
     for g in cfg["members"]:
         for s in g["seeds"]:
