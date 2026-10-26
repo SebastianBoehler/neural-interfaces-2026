@@ -1,0 +1,22 @@
+{
+ "submission": "runs/submissions/ensemble_all_r6nf",
+ "device": "cuda",
+ "zip_root": [
+  "submission.py",
+  "weights.npz"
+ ],
+ "zip_bytes": 3866326,
+ "zip_sha256": "1d3471874418e3b65ef58dea4b77a065dd10b4cfb2f5d05d0900d5aaf7787965",
+ "files_sha256": {
+  "submission.py": "681dd49aa089d44ab480169b257d4736ee7873cca1076f90cd24f13663ee2560",
+  "weights.npz": "2739b2632851fffbec996475ce05580753ec82f741076104e842864795e10777"
+ },
+ "files_unchanged": true,
+ "ingestion_wall_seconds": 66.9,
+ "scores": {
+  "balanced_accuracy_cell_mean": 0.9973118279569892,
+  "balanced_accuracy": 0.9973649127192434,
+  "accuracy": 0.9973509933774835,
+  "duration": 66.71447515487671
+ }
+}

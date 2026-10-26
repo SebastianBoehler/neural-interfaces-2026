@@ -1,0 +1,22 @@
+{
+ "submission": "runs/sealed/ensemble_all_r8t4",
+ "device": "cuda",
+ "zip_root": [
+  "submission.py",
+  "weights.npz"
+ ],
+ "zip_bytes": 4217796,
+ "zip_sha256": "f858e6c25b2dfe451f6653407e06d9935647a69c9a049187658a333ed267ddf9",
+ "files_sha256": {
+  "submission.py": "26f744acf079e07a8ecb1f4952901ab247eb77a3621e59b2cbc603074645efe8",
+  "weights.npz": "fd20fd1e11884d89c8bc3cc04fdce07802832be9f43f29ce41dcd927f24186ac"
+ },
+ "files_unchanged": true,
+ "ingestion_wall_seconds": 83.2,
+ "scores": {
+  "balanced_accuracy_cell_mean": 1.0,
+  "balanced_accuracy": 1.0,
+  "accuracy": 1.0,
+  "duration": 83.0536789894104
+ }
+}

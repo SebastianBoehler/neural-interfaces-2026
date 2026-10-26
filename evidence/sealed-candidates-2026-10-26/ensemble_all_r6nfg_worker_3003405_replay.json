@@ -1,0 +1,22 @@
+{
+ "submission": "runs/sealed/ensemble_all_r6nfg",
+ "device": "cuda",
+ "zip_root": [
+  "submission.py",
+  "weights.npz"
+ ],
+ "zip_bytes": 3867648,
+ "zip_sha256": "9d430f0d3fe7231e860b2dcdf44e185d11e5886f4e4ad666347c5fbb4fecd496",
+ "files_sha256": {
+  "submission.py": "f7a05356584f2fa0bc96d7cd75a820972ec5dcae6f85fb2418ceb4fd25ed991d",
+  "weights.npz": "2739b2632851fffbec996475ce05580753ec82f741076104e842864795e10777"
+ },
+ "files_unchanged": true,
+ "ingestion_wall_seconds": 40.7,
+ "scores": {
+  "balanced_accuracy_cell_mean": 0.9973118279569892,
+  "balanced_accuracy": 0.9973649127192434,
+  "accuracy": 0.9973509933774835,
+  "duration": 40.55746531486511
+ }
+}

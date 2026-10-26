@@ -119,6 +119,7 @@ for _a in ("shallow", "fbcnet"):  # participant-aware training objectives (R8)
                         ("dro1", dict(dro=0.1))):
             CONFIGS[f"{_a}_{_t}_{_n}"] = lambda d, a=_a, al=_al, kw=_kw: AlignedNet(
                 d, arch=a, align=al, seed=SEED[0], **kw)
+CONFIGS["v2_lda"] = lambda d: TangentSpace(d, **{**V2, "clf": "lda"})  # generative head
 CONFIGS["v2_pbal"] = lambda d: TangentSpace(d, **{**V2, "group": "pbal"})
 for _e in (0.5, 2.0):
     CONFIGS[f"v2_dro{_e:g}"] = lambda d, e=_e: TangentSpace(d, **{**V2, "group": "dro", "dro_eta": e})

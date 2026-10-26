@@ -10,9 +10,9 @@ public warm-up test participants P04/P09).
 
 | Item | Value |
 |---|---|
-| Warm-up closes | 25 Oct 2026, 02:00 CEST (5/day, 100 total; 3 used: 1000481, 1000482, 1000615) |
-| Sealed phase | 28 Oct 01:00 CET → 22 Nov 01:00 CET; 1/day, 10 total per account |
-| Ranking | Timeline: best of the **last five** sealed uploads (leaderboard: `Force_Best`) → plan ≤ 5 uploads |
+| Warm-up closes | 1 Nov 2026, 23:59 CET (extended after the Codabench outage; 5/day, 100 total) |
+| Sealed phase | 5 Nov 00:01 → 21 Nov 23:59 CET; at most 5 uploads, 1/day |
+| Ranking | best sealed score retained (`Force_Best`); scores visible, logs hidden |
 | Sealed output | hidden (no logs): only upload worker-verified packages |
 | Evaluation | ≤ 60 min on one A100, `submission.py` + data files; we keep ≤ 30 min |
 | Audit (top 3) | training re-run from committed config, ±2σ |

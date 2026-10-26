@@ -1,0 +1,163 @@
+{
+ "config": "scripts/sealed_r8t4.json",
+ "config_sha256": "5ded9b89266a637fc438dceeaca951c78fd1aade5cb1a34992cfab28fd842c62",
+ "name": "ensemble_all_r8t4",
+ "environment": {
+  "git_rev": "c625ecc+r8t4-config",
+  "git_dirty": true,
+  "official_rev": "a66bc23d1a0e686b895c093a642b45c74970758b",
+  "host": "galvani-cn218",
+  "platform": "Linux-4.18.0-553.172.1.el8_10.x86_64-x86_64-with-glibc2.28",
+  "python": "3.12.15",
+  "train_device": "NVIDIA A100-PCIE-40GB",
+  "cuda": "12.6",
+  "slurm_job": "3002636",
+  "versions": {
+   "torch": "2.14.1+cu126",
+   "braindecode": "1.8.1",
+   "numpy": "2.5.4",
+   "scipy": "1.18.1",
+   "scikit-learn": "1.9.1",
+   "mne": "1.13.2",
+   "exca": "0.5.29",
+   "neuralset": "0.4.0",
+   "neuralfetch": "0.4.0",
+   "neuraltrain": "0.4.0",
+   "neuralbench": "0.4.0"
+  },
+  "data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
+ },
+ "n_train_windows": 2655,
+ "member_weights": [
+  0.166667,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.033333,
+  0.041667,
+  0.041667,
+  0.041667,
+  0.041667
+ ],
+ "rebalance": {
+  "alpha": 1.0,
+  "k": 5.0,
+  "w": 30
+ },
+ "fit_seconds": 435.7,
+ "fit_seconds_by_member": [
+  7.8,
+  10.0,
+  5.4,
+  5.4,
+  5.4,
+  5.4,
+  4.9,
+  4.9,
+  4.9,
+  4.9,
+  4.9,
+  10.7,
+  10.3,
+  10.3,
+  10.3,
+  10.3,
+  9.8,
+  9.8,
+  9.9,
+  9.9,
+  9.9,
+  61.6,
+  61.9,
+  61.3,
+  61.5
+ ],
+ "agreement_with_harness": 1.0,
+ "submission_seconds_per_window_cpu": 0.08311,
+ "harness": {
+  "balanced_accuracy_cell_mean": 1.0,
+  "balanced_accuracy_session_mean": 1.0,
+  "balanced_accuracy": 1.0,
+  "accuracy": 1.0,
+  "n_cells": 8
+ },
+ "submission": {
+  "balanced_accuracy_cell_mean": 1.0,
+  "balanced_accuracy_session_mean": 1.0,
+  "balanced_accuracy": 1.0,
+  "accuracy": 1.0,
+  "n_cells": 8
+ },
+ "weights_sha256": "fd20fd1e11884d89c8bc3cc04fdce07802832be9f43f29ce41dcd927f24186ac",
+ "submission_sha256": "26f744acf079e07a8ecb1f4952901ab247eb77a3621e59b2cbc603074645efe8",
+ "comparison": {
+  "reference": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/submissions/ensemble_all_r6nf",
+  "reference_weights_sha256": "2739b2632851fffbec996475ce05580753ec82f741076104e842864795e10777",
+  "same_weight_keys": false,
+  "submission_py_identical": false,
+  "official_test": {
+   "n_windows": 755,
+   "label_agreement": 0.9973509933774835,
+   "n_disagree": 2,
+   "mean_abs_prob_diff": 0.012102049391228968,
+   "max_abs_prob_diff": 0.08444470080733368,
+   "max_abs_mix_diff": 0.08088801409637791,
+   "rebuild": {
+    "balanced_accuracy_cell_mean": 1.0,
+    "balanced_accuracy_session_mean": 1.0,
+    "balanced_accuracy": 1.0,
+    "accuracy": 1.0,
+    "n_cells": 8
+   },
+   "reference": {
+    "balanced_accuracy_cell_mean": 0.9973118279569892,
+    "balanced_accuracy_session_mean": 0.9973544973544974,
+    "balanced_accuracy": 0.9973649127192434,
+    "accuracy": 0.9973509933774835,
+    "n_cells": 8
+   },
+   "delta_balanced_accuracy_cell_mean": 0.0026881720430107503,
+   "delta_balanced_accuracy": 0.002635087280756565
+  },
+  "all_windows": {
+   "n_windows": 2655,
+   "label_agreement": 0.9992467043314501,
+   "n_disagree": 2,
+   "mean_abs_prob_diff": 0.010676439510260129,
+   "max_abs_prob_diff": 0.08444470080733368,
+   "max_abs_mix_diff": 0.08088801409637791,
+   "rebuild": {
+    "balanced_accuracy_cell_mean": 0.9980534754224271,
+    "balanced_accuracy_session_mean": 0.998092068368566,
+    "balanced_accuracy": 0.9981150565397824,
+    "accuracy": 0.9981167608286252,
+    "n_cells": 28
+   },
+   "reference": {
+    "balanced_accuracy_cell_mean": 0.9972854262672811,
+    "balanced_accuracy_session_mean": 0.997336210469851,
+    "balanced_accuracy": 0.9973617599094441,
+    "accuracy": 0.9973634651600753,
+    "n_cells": 28
+   },
+   "delta_balanced_accuracy_cell_mean": 0.0007680491551459445,
+   "delta_balanced_accuracy": 0.000753296630338296
+  }
+ }
+}

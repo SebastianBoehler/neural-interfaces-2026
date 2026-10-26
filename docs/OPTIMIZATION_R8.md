@@ -432,3 +432,26 @@ replacing standard seed 0 by DRO 69.00 / 80.65 / 71.23, by balanced 68.90 /
 81.17 / 71.44, control without seed 0 68.80 / 81.14 / 71.28; as an extra
 family DRO 68.68 / 81.94 / 70.90, balanced 68.78 / 81.16 / 71.70. Neutral on
 one seed; the five-seed Galvani arrays (3004101–3004105, 3004131) decide.
+
+### 26 Oct: five-seed objectives, family weights, LDA head, calibration
+
+Five seeds (Galvani 3004101–3004105, 3004131), in r8t4 (dl / ds / dl_all,
+selection score = mean of ds and dl_all; r8t4 69.11 / 80.91 / 71.43, 76.17):
+balanced loss replacing the FBCNets 69.00 / 80.91 / 71.54 (76.22), the
+ShallowConvNets 76.00, both 75.94, as an extra FBCNet family 76.34; GroupDRO
+η 0.01 / 0.1 replacing the FBCNets 75.78 / 75.66, the ShallowConvNets 75.67 /
+74.74, both 75.16 / 73.86, extra family 76.63 / 76.38 (ds only). Closed:
+weighting participants does not improve generalisation to new ones here.
+
+Family weights re-checked on the new selection protocols (v2 0.5–1.5,
+ShallowConvNets 0.5–1, fixed FBCNets 1–1.5, learned family 1–2): selection
+score 75.97–76.64, no consistent direction; current weights on the plateau.
+
+v2 with a shrinkage-LDA head: alone dl 57.1 (LR 56.2), ds 67.7, all_loso
+53.6; added to r8t4 72.94 (weight 1) / 74.72 (0.5): its posteriors are far
+more peaked. Calibrated fusion (`experiments/calibrate.py`: one temperature
+per family by log-loss on dev_loso_all, applied unchanged): temperatures
+1.9–3.6 for every family (LDA 9.2), r8t4 −0.26 dl / +0.90 ds / −0.76
+dl_all; with LDA still below r8t4. All members are overconfident across
+participants by similar factors, so calibration barely changes the mix.
+Closed.

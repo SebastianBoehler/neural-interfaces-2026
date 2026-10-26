@@ -1,0 +1,2 @@
+{"package": "runs/sealed/ensemble_all_r8t4g", "windows": 2655, "label_agreement": 1.0, "max_abs_prob_diff": 1.1596742649500058e-07, "ms_per_window": {"cpu": 82.52, "cuda": 31.05}}
+{"package": "runs/sealed/ensemble_all_r6nfg", "windows": 2655, "label_agreement": 1.0, "max_abs_prob_diff": 9.514616974848344e-08, "ms_per_window": {"cpu": 63.97, "cuda": 25.37}}

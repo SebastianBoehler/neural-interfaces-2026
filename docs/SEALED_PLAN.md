@@ -3,17 +3,17 @@
 Uploads are made by the user only. Recheck phase, quota and rules live in
 Codabench before every upload.
 
-## Facts that shape the plan
+## Facts that shape the plan (updated 26 Oct: upstream `2b53aec`, live Codabench)
 
-- Sealed phase: 28 Oct 2026 01:00 CET → 22 Nov 2026 01:00 CET (Codabench);
-  1 submission per day, 10 in total, per account.
-- Final ranking: "the best of each team's last five sealed submissions"
-  (official `timeline.md`); leaderboard `Force_Best`.
-- Sealed scores are **visible** to the team: the phase config hides the
-  prediction files and the scoring-step output (logs), not the leaderboard
-  score (`competition_bci.yaml`: "participants get their leaderboard score";
-  duration column shown). A crash costs one of ten slots, with no log.
-  (Corrected 25 Oct; earlier versions of this plan said scores were hidden.)
+- Codabench was down 20–26 Oct (PHP security issue, then a compute-side
+  incident); the competition was migrated. Warm-up extended to **1 Nov 2026,
+  23:59 CET** (5 per day, 100 total). No warm-up upload of ours happened yet.
+- Sealed phase: **5 Nov 00:01 → 21 Nov 23:59 CET**; **at most five
+  submissions per participant for this track, one per day**. "The best
+  eligible score from you or your team is automatically displayed and
+  retained for the final ranking" (`submission_rule: Force_Best`).
+- Aggregate sealed scores stay visible; execution logs and prediction /
+  scoring files are hidden. A crash costs one of five slots, with no log.
 - Top three are audited by re-running training from the committed config
   (±2σ). Scherer 2015 (CC BY-NC-ND 4.0) for a cash prize is not answered
   by the organisers (issues #41, #52).
@@ -70,18 +70,15 @@ Before 25 Oct 02:00 CEST (warm-up):
    sealed bytes run on the worker; note the reported duration.
 3. Optionally `sealed_candidate_ensemble_all_r6f_scherer.zip`, expected ≈ 0.9987.
 
-Sealed phase (10 uploads, 1/day, 28 Oct – 21 Nov; best of the last five
-counts, scores visible):
-1. Uploads 1–5 measure distinct candidates on the sealed data itself (later
-   sessions of the ten public participants + ten unseen), most robust first:
-   r6nf (CPU, worker-run code), then r8t (learned-filter FBCNet family),
-   then other candidates that pass the local rules. Each upload is a real
-   readout of the ranking metric and of the worker duration.
-2. Uploads 6–10 (the counted five) are the best-scoring packages, the best
-   one at least once (inference is deterministic, so a resubmission
-   reproduces its score). Never end with five untested packages.
-3. Gaps of ≈ 1 point between sealed scores of similar packages can be noise
-   of a single draw; prefer the locally better-evidenced package then.
+Before 1 Nov (warm-up, 5/day): upload the exact sealed ZIPs to run them on
+the real worker (GPU path, duration). Their warm-up scores are inflated
+(trained on the warm-up test participants): r6nfg ≈ 0.997, r8t4g ≈ 1.000.
+
+Sealed phase (five uploads, best one counts, scores visible): no
+resubmissions are needed, so every slot is a distinct, worker-verified
+strong candidate; a weaker one costs nothing. Order: r8t4g (best evidence),
+r6nfg (baseline), then the best remaining distinct candidates, informed by
+the scores so far.
 
 ## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 
