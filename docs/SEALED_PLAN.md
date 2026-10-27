@@ -81,6 +81,16 @@ strong candidate; a weaker one costs nothing. Order: r8t4g (best evidence),
 r6nfg (baseline), then the best remaining distinct candidates, informed by
 the scores so far.
 
+**Update 27 Oct: r9 leads.** r9 = r8t4 + 5 aligned SincShallowNets + 5
+aligned FBLightConvNets (`scripts/sealed_r9.json`, code `ea58271`;
+`docs/OPTIMIZATION_R8.md`, R9). Fresh-seed selection 77.71 vs 76.17,
+all_loso 66.95 (P04 49.6, P09 69.7) vs 66.31, seen_session 71.99 vs 70.93,
+honest warm-up replay 0.5358 vs 0.5304; expected ≈ +0.8 on the sealed set.
+Worker replica 51.3 s per 755 windows (r8t4g 46.7 s), ≈ 13 min projected.
+New order: **r9 (clean rebuild from `ea58271`), r8t4g, r6nfg**, then up to
+two candidates informed by the scores. The r9 warm-up upload
+(`warmup11_r9_tv.zip`, 1014114) runs it on the real worker.
+
 ## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 
 **Model (r8t4; r6nf = the same without the last family).** A

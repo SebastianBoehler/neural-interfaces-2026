@@ -110,6 +110,27 @@ for _n, _kw in (("lo", dict(first_freq=1.0)),  # SincShallowNet variants (R9):
         d, arch="sincshallow", seed=SEED[0], net_kw=kw)
 CONFIGS["sincshallow_ea_e80"] = lambda d: AlignedNet(d, arch="sincshallow", seed=SEED[0],
                                                      epochs=80)
+_REC = {"lr5e4": dict(lr=5e-4), "lr2e3": dict(lr=2e-3), "e20": dict(epochs=20),
+        "e80": dict(epochs=80), "wd1e2": dict(wd=1e-2), "ls": dict(ls=0.1),
+        "aug": dict(aug=True), "b32": dict(batch=32)}
+_NKW = {"sincshallow": {"d25": dict(drop_prob=0.25), "d70": dict(drop_prob=0.7),
+                        "bw8": dict(bandwidth=8.0), "p30": dict(pool_size=30, pool_stride=6),
+                        "p110": dict(pool_size=110, pool_stride=24)},
+        "fblight": {"w480": dict(win_len=480), "w240": dict(win_len=240),
+                    "f64": dict(n_filters_spat=64)}}
+for _a in ("sincshallow", "fblight"):  # recipe sweep of the R9 families (aligned)
+    for _n, _kw in _REC.items():
+        CONFIGS[f"{_a}_ea_r{_n}"] = lambda d, a=_a, kw=_kw: AlignedNet(
+            d, arch=a, seed=SEED[0], **kw)
+    for _n, _kw in _NKW[_a].items():
+        CONFIGS[f"{_a}_ea_r{_n}"] = lambda d, a=_a, kw=_kw: AlignedNet(
+            d, arch=a, seed=SEED[0], net_kw=kw)
+for _a, _al in (("fbcnet", True), ("fbcnet", False), ("shallow", True),
+                ("shallow", False), ("sincshallow", True)):  # time segments (R9)
+    for _n, _tc in (("h1", (0, 240)), ("h2", (240, 480)), ("t3", (0, 360))):
+        CONFIGS[f"{_a}_{'ea' if _al else 'raw'}_{_n}"] = (
+            lambda d, a=_a, al=_al, tc=_tc: AlignedNet(d, arch=a, align=al, seed=SEED[0],
+                                                       tcrop=tc))
 for _al in (False, True):  # FBCNet with a learned filter bank (R8)
     _t = "ea" if _al else "raw"
     CONFIGS[f"fbcnet_{_t}_tf"] = lambda d, al=_al: AlignedNet(

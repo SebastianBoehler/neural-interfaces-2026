@@ -192,7 +192,7 @@ class AlignedNet:
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
                  lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=None,
                  pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None,
-                 train_fir=False, dro=0.0, pbal=False):
+                 train_fir=False, dro=0.0, pbal=False, tcrop=None):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.adabn, self.pretrained = adabn, pretrained
         self.ls, self.lld, self.lp = ls, lld, lp  # fine-tuning recipe
@@ -200,6 +200,7 @@ class AlignedNet:
         self.net_kw = dict(net_kw or {})
         self.train_fir = train_fir  # FBCNet: learn the FIR filter bank (R8)
         self.dro, self.pbal = dro, pbal  # participant GroupDRO step / balanced loss
+        self.tcrop = tcrop  # (start, stop) samples of the aligned window the net sees (R9)
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -213,20 +214,23 @@ class AlignedNet:
         the official windows' statistics."""
         X = (self.d["X"] if src is None else src)[idx].astype(np.float64)
         if not self.align:
-            return (X / self.scale).astype(np.float32)
+            return self._crop((X / self.scale).astype(np.float32))
         if causal:
             n = np.arange(1, len(idx) + 1)[:, None, None]
             R = (self.k * self.G + np.cumsum(self.C[idx], 0)) / (self.k + n)
             P = invsqrtm(R)
-            return np.einsum("nij,njt->nit", P, X).astype(np.float32)
+            return self._crop(np.einsum("nij,njt->nit", P, X).astype(np.float32))
         P = invsqrtm(self.C[idx].mean(0))
-        return np.einsum("ij,njt->nit", P, X).astype(np.float32)
+        return self._crop(np.einsum("ij,njt->nit", P, X).astype(np.float32))
+
+    def _crop(self, X):
+        return X if self.tcrop is None else np.ascontiguousarray(X[..., slice(*self.tcrop)])
 
     def fit(self, idx):
         key = (id(self.d["X"]), self.arch, self.align, self.k, self.epochs, self.lr,
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
-               tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal,
+               tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal, self.tcrop,
                hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)

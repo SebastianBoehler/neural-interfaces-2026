@@ -520,3 +520,37 @@ Worker-image replica (3012337): `sealed_r9_dev` files unchanged, 0.9973,
 51.3 s per 755 windows vs 46.7 s for r8t4g in the same replica (+10%); at
 r8t4g's 24–26 s on the real worker, r9 projects to ≈ 13 min for ≈ 21k
 sealed windows.
+
+### 27–28 Oct: r9 rebuilt clean; recipe sweep flat; time segments queued
+
+Clean rebuild of r9 from `ea58271` (Galvani 3013581, A100): harness
+agreement 1.0, official replay 0.9986 on CUDA, files unchanged (69.2 s);
+staged as `runs/upload/sealed_candidate_ensemble_all_r9g.zip`
+(`cd238165…`). Warm-up upload `warmup11_r9_tv.zip` (1014114) has stayed in
+"Preparing submission" for over an hour (Codabench worker queue).
+
+Recipe sweep of the two R9 families (Galvani 3013582–3013593, seeds 0–2,
+each variant replacing its default family in r9; r9 78.45): SincShallowNet
+lr 5e-4 / 2e-3, 20 epochs, wd 1e-2, label smoothing 0.1, augmentation,
+batch 32, dropout 0.25 / 0.7, bandwidth 8 Hz, pooling 30/6 and 110/24:
+77.72–78.53; FBLightConvNet lr 5e-4 / 2e-3, 20 / 80 epochs, wd 1e-2, label
+smoothing, augmentation, batch 32, 64 spatial filters: 77.85–78.56. Flat:
+the defaults are on the plateau. Ten seeds per family (6–9 added, 3013594):
+77.73, within noise of three. FBLightConvNet over the whole window
+(`win_len` 480) is far worse alone (dl_all 54.8 vs 59.0 for its default,
+which sees only the first 2.08 s) and in r9 (76.67); two 2-s segments with
+attention 76.72. The early part of the window carries the cleaner variance
+signal, so time-segment members are queued (`tcrop`, Galvani
+3013670–3013674): FBCNet and ShallowConvNet (aligned and unaligned) and
+SincShallowNet on the first 2 s, the last 2 s and the first 3 s of the
+aligned window, seeds 0–2.
+
+Time segments (3013670–3013674, seeds 0–2; r9 seeds 0–4 77.79): alone, the
+first 2 s beat the last 2 s for every family (dl FBCNet 57.7 vs 55.7,
+ShallowConvNet 52.6 vs 47.7, SincShallowNet 59.5 vs 57.6), the first 3 s are
+close to the full window. Added to r9: 76.77–78.84; the best (aligned
+ShallowConvNet, first 2 s: 70.00 / 86.01 / 71.66) gains only on ds, and
+dl_all never rises by more than 0.4 (unaligned FBCNet, first 3 s 72.26).
+Not adopted: the full-window nets already carry the early signal. Closed.
+r9g worker replica (3013669): same ZIP (`cd238165…`), files unchanged,
+0.9986, 51.4 s per 755 windows.
