@@ -455,3 +455,68 @@ per family by log-loss on dev_loso_all, applied unchanged): temperatures
 dl_all; with LDA still below r8t4. All members are overconfident across
 participants by similar factors, so calibration barely changes the mix.
 Closed.
+
+### 27 Oct: time-shift TTA (five seeds), new architectures queued
+
+Time-shift TTA (`experiments/tta_eval.py`, circular shifts ±3/±6 samples
+averaged; Galvani 3007600–3007604, seeds 0–4, paired: the same trained nets
+scored with and without TTA, `runs/experiments/probs_tta`). In r8t4 (dl / ds /
+dl_all): without TTA 69.16 / 81.44 / 71.28; TTA on the ShallowConvNets
+69.32 / 81.44 / 71.28; on the FBCNets 69.01 / 80.87 / 71.17; everywhere
+68.96 / 81.67 / 71.17. All within noise, no consistent sign: closed (the
+classes carry content time-locked to the cue, so shifts blur signal).
+
+R9 sweep (Galvani 3011617–3011632, seeds 0–2, dl / ds / all_loso,
+`runs/experiments/probs_r9`): sixteen braindecode architectures never tried
+here (FBMSNet, FBLightConvNet, SincShallowNet, EEGMiner, EEGSimpleConv,
+SCCNet, MSVTNet, TCFormer, EEGInceptionMI, EEGTCNet, EEGITNet, SSTDPN,
+MEDFormer, AttentionBaseNet, TSception, BDTCN), aligned and unaligned, each
+judged as an extra family in r8t4 on dl / ds / dl_all.
+
+R9 sweep result (seeds 0–2; selection score = mean of ds and dl_all; r8t4
+69.11 / 80.91 / 71.43, 76.17). Alone (dl / ds / dl_all) the best new nets are
+SincShallowNet aligned 63.75 / 73.24 / 62.66 (strongest single net so far;
+FBCNet ≈ 59–60 dl), FBMSNet unaligned 62.95 / 71.97 / 62.82, SSTDPN aligned
+60.62 / 74.47 / 60.70, FBLightConvNet aligned 60.21 / 71.14 / 58.97; the rest
+34–52 dl. As an extra family in r8t4: SincShallowNet aligned 69.51 / 83.70 /
+71.64 (77.67; per seed 77.32 / 77.31 / 76.99; weight 0.5–3: 76.62–77.90,
+plateau at 1–1.5), FBLightConvNet aligned 70.13 / 83.49 / 71.00 (77.25),
+every other config ≤ 77.81 with dl_all below r8t4 except FBMSNet raw.
+Both families: 70.12 / 85.02 / 71.88 (78.45, +2.3). Candidate fixed before
+evaluation as **r9** = r8t4 + SincShallowNet + FBLightConvNet (aligned,
+family weight 1 each). Evaluation `all_loso` 66.83 (P04 49.05, P09 69.68;
+r8t4 66.31 / 47.77 / 70.67): +0.5, much less than selection suggests (part
+of the selection gain is the maximum over 32 configs). Fresh seeds 3–5
+(3011972), `seen_session` seeds 0–4 (3011973), packages `sealed_r9` /
+`warmup10_r9` (3011988/3011989) and SincShallowNet variants (slow band,
+65-tap FIRs, 64 filters, 80 epochs; 3011990) running.
+
+Package: `submission.Sinc` (trained sinc FIRs frozen into a conv kernel) and
+`submission.FBL` (FBCNet's FIR bank, shared cache; one-tap attention is the
+identity; log-variance over the first 250 samples) match braindecode 1.8.1
+on random weights to |Δlog P| ≤ 4e-6 (labels 100%).
+
+**r9 confirmed.** Fresh seeds 3–5 (never used for a decision), in r8t4:
+SincShallowNet 69.88 / 82.94 / 71.07 (77.00), FBLightConvNet 69.77 / 83.21 /
+70.95 (77.08), both 70.11 / 83.70 / 71.72 (77.71, +1.5); single fresh seeds
+77.91 / 77.31 / 78.06. Packaged seeds 0–4: 70.01 / 83.69 / 71.89 (77.79).
+Evaluation (seeds 0–4): `all_loso` 66.95 (P04 49.58, P09 69.68; r8t4 66.31 /
+47.77 / 70.67), `seen_session` 71.99 (r8t4 70.93, r6nf 71.62; SincShallowNet
+alone 70.55 in r8t4, FBLightConvNet alone 72.15). Expected sealed effect over
+r8t4 ≈ 0.57 × 0.64 + 0.43 × 1.06 ≈ +0.8.
+SincShallowNet variants (seeds 0–2, in r8t4 + FBLightConvNet): filters from
+1 Hz 77.92, 65-tap filters 77.88 (alone the best single net, dl 64.57), 80
+epochs 78.34, default 78.45: no gain, default kept. 64 filters from 1 Hz put
+the top bands past Nyquist (zero bandwidth, NaN): invalid config.
+
+Packages (uncommitted code, Galvani 3011988/3011989): `sealed_r9_dev`
+harness agreement 1.0, official replay on CUDA 43.2 s, files unchanged,
+0.108 s/window on CPU; `warmup10_r9_dev` (official train only, 6
+participants) 0.5081 — not comparable with r8t4's honest 0.5304, which was
+trained on train + validation (`warmup11_r9_tv`, 3012336, queued).
+`warmup11_r9_tv` (train + validation, as r8t4's honest upload; 3012336):
+harness agreement 1.0, official replay 0.5358 (r8t4 0.5304, +0.5).
+Worker-image replica (3012337): `sealed_r9_dev` files unchanged, 0.9973,
+51.3 s per 755 windows vs 46.7 s for r8t4g in the same replica (+10%); at
+r8t4g's 24–26 s on the real worker, r9 projects to ≈ 13 min for ≈ 21k
+sealed windows.

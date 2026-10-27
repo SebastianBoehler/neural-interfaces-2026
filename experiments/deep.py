@@ -41,7 +41,15 @@ def crops(start, d):
 ARCHS = {"eegnet": "EEGNet", "shallow": "ShallowFBCSPNet", "deep4": "Deep4Net",
          "conformer": "EEGConformer", "atcnet": "ATCNet", "eegnex": "EEGNeX",
          "ctnet": "CTNet", "fbcnet": "FBCNet", "ifnet": "IFNet", "tidnet": "TIDNet",
-         "cbramod": "CBraMod", "labram": "Labram", "reve": "REVE"}
+         "cbramod": "CBraMod", "labram": "Labram", "reve": "REVE",
+         # R9 sweep: architectures not tried before (braindecode 1.8.1)
+         "fbmsnet": "FBMSNet", "fblight": "FBLightConvNet", "sincshallow": "SincShallowNet",
+         "eegminer": "EEGMiner", "simpleconv": "EEGSimpleConv", "sccnet": "SCCNet",
+         "msvtnet": "MSVTNet", "tcformer": "TCFormer", "inceptionmi": "EEGInceptionMI",
+         "eegtcnet": "EEGTCNet", "eegitnet": "EEGITNet", "sstdpn": "SSTDPN",
+         "medformer": "MEDFormer", "attnbase": "AttentionBaseNet", "tsception": "TSception",
+         "bdtcn": "BDTCN"}
+R9_ARCHS = list(ARCHS)[list(ARCHS).index("fbmsnet"):]
 # Foundation models: Hub weights (BSD-3-Clause) at a pinned revision, input
 # rate, and amplitude factor: our inputs have unit RMS and CBraMod was
 # pretrained on 100-uV units, so 0.15 matches PROTEUS' ~15 uV median RMS.

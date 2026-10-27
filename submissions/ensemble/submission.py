@@ -202,6 +202,50 @@ class FBC:
         return torch.softmax(V @ t["fbc_L"].T + t["fbc_lb"], 1).cpu().numpy()
 
 
+class FBL(FBC):
+    """Stateless FBLightConvNet (braindecode layout): FBCNet's FIR bank, a
+    full spatial conv over bands, batch norm, ELU, log-variance of the first
+    ``fbl_win`` samples, linear head (its one-tap attention is the identity)."""
+
+    def __init__(self, p, dev="cpu"):
+        super().__init__(p, dev)
+        self.win = int(p["fbl_win"])
+
+    @torch.no_grad()
+    def proba(self, X, Y=None):
+        t = self.t
+        Y = self.bank(X) if Y is None else Y
+        Z = torch.einsum("fkc,bkct->bft", t["fbc_W"], Y) + t["fbc_bw"][None, :, None]
+        Z = F.batch_norm(Z, t["fbc_rm"], t["fbc_rv"], t["fbc_g"], t["fbc_be"],
+                         False, 0.0, float(t["fbc_eps"]))
+        V = torch.log(F.elu(Z)[..., :self.win].var(dim=2).clamp(1e-6, 1e6))
+        return torch.softmax(V @ t["fbc_L"].T + t["fbc_lb"], 1).cpu().numpy()
+
+
+class Sinc:
+    """Stateless SincShallowNet (braindecode layout, plain torch, float64):
+    the trained sinc FIRs ("same" padding), batch norm, depthwise spatial
+    conv, batch norm, ELU, average pooling, linear head."""
+
+    def __init__(self, p, dev="cpu"):
+        self.t = {k: torch.from_numpy(np.ascontiguousarray(v)).double().to(dev)
+                  for k, v in p.items() if k.startswith("sinc_")}
+        self.pool = tuple(int(v) for v in p["sinc_pool"])
+        self.dev = dev
+
+    @torch.no_grad()
+    def proba(self, X):
+        t = self.t
+        bn = lambda h, i: F.batch_norm(h, t[f"sinc_rm{i}"], t[f"sinc_rv{i}"], t[f"sinc_g{i}"],
+                                       t[f"sinc_b{i}"], False, 0.0, float(t["sinc_eps"]))
+        h = torch.from_numpy(X).double().to(self.dev).unsqueeze(1)
+        h = bn(F.conv2d(h, t["sinc_f"], padding="same"), 1)        # (B, F, C, T)
+        h = F.conv2d(h, t["sinc_dw"], groups=h.shape[1])          # (B, 2F, 1, T)
+        h = F.avg_pool2d(F.elu(bn(h, 2)), (1, self.pool[0]), (1, self.pool[1]))
+        z = h.flatten(1) @ t["sinc_L"].T + t["sinc_lb"]
+        return torch.softmax(z, 1).cpu().numpy()
+
+
 def _mha(x, w, b, ow, ob, heads):
     """Self-attention as nn.MultiheadAttention(batch_first), eval mode."""
     B, L, E = x.shape
@@ -287,6 +331,8 @@ class Ensemble:
             if key not in self.groups:
                 self.groups[key] = (InputStream(p), [])
             net = (CBra(p, dev) if "cbm_n_times" in p else
+                   Sinc(p, dev) if "sinc_f" in p else
+                   FBL(p, dev) if "fbl_win" in p else
                    FBC(p, dev) if "fbc_n_bands" in p else Shallow(p, dev))
             self.groups[key][1].append((i, net))
 

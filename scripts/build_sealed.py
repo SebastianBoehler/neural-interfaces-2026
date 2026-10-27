@@ -32,6 +32,7 @@ import time
 from pathlib import Path
 
 import numpy as np
+import torch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "experiments"))
@@ -74,14 +75,52 @@ def environment(dev):
             "data_sha256": sha256(protocol.DATA)}
 
 
+def _align(m):
+    return dict(align=np.bool_(m.align), k=np.float64(m.k), G=m.G,
+                scale=np.float64(m.scale), shrink=np.float64(1e-3))
+
+
 def cbm_params(m):
     """Fine-tuned CBraMod (``deep.Resampled``) for ``submission.CBra``."""
     sd = {f"cbm_{k}": v.detach().cpu().float().numpy()
           for k, v in m.net.net.state_dict().items() if "mask_encoding" not in k}
     sd.update(cbm_n_times=np.int64(m.net.n_times), cbm_factor=np.float64(m.net.factor),
-              align=np.bool_(m.align), k=np.float64(m.k), G=m.G,
-              scale=np.float64(m.scale), shrink=np.float64(1e-3))
+              **_align(m))
     return sd
+
+
+def fbl_params(m):
+    """FBLightConvNet for ``submission.FBL`` (FBCNet keys + window length)."""
+    net = m.net.to("cpu").eval()
+    assert net.attn_conv.kernel_size == 1 and net.attn_conv.weight_softmax
+    sd = {k: v.detach().double().numpy() for k, v in net.state_dict().items()}
+    out = {f"fbc_fir{i}": f.detach().double().numpy()
+           for i, f in enumerate(net.spectral_filtering.fir_list)}
+    out.update(fbc_n_bands=np.int64(len(net.spectral_filtering.fir_list)),
+               fbc_W=sd["spatial_conv.0.weight"][..., 0], fbc_bw=sd["spatial_conv.0.bias"],
+               fbc_rm=sd["spatial_conv.1.running_mean"], fbc_rv=sd["spatial_conv.1.running_var"],
+               fbc_g=sd["spatial_conv.1.weight"], fbc_be=sd["spatial_conv.1.bias"],
+               fbc_eps=np.float64(net.spatial_conv[1].eps), fbc_L=sd["final_layer.weight"],
+               fbc_lb=sd["final_layer.bias"], fbl_win=np.int64(net.n_times_truncated), **_align(m))
+    return out
+
+
+def sinc_params(m):
+    """SincShallowNet for ``submission.Sinc``: sinc FIRs built as in training."""
+    net = m.net.to("cpu").eval()
+    sd = {k: v.detach().double().numpy() for k, v in net.state_dict().items()}
+    with torch.no_grad():
+        f = net.sinc_filter_layer.build_sinc_filters().permute(3, 2, 0, 1)
+    pool = net.temporal_aggregation[2]
+    out = dict(sinc_f=f.double().numpy(), sinc_dw=sd["depthwiseconv.1.weight"],
+               sinc_L=sd["final_layer.weight"], sinc_lb=sd["final_layer.bias"],
+               sinc_eps=np.float64(net.depthwiseconv[0].eps),
+               sinc_pool=np.array([pool.kernel_size[1], pool.stride[1]], np.int64), **_align(m))
+    assert net.depthwiseconv[0].eps == net.temporal_aggregation[0].eps
+    for i, pre in ((1, "depthwiseconv.0"), (2, "temporal_aggregation.0")):
+        for a, b in (("rm", "running_mean"), ("rv", "running_var"), ("g", "weight"), ("b", "bias")):
+            out[f"sinc_{a}{i}"] = sd[f"{pre}.{b}"]
+    return out
 
 
 def build(cfg, d, out):
@@ -113,8 +152,8 @@ def build(cfg, d, out):
     z = {f"ts_{k}": v for k, v in tangent_params(model.members[0]).items()}
     for i, m in enumerate(nets):  # export and harness both on CPU
         m.net.to("cpu")
-        params = (fbc_params(m) if m.arch == "fbcnet" else
-                  cbm_params(m) if m.arch == "cbramod" else net_params(m))
+        params = {"fbcnet": fbc_params, "cbramod": cbm_params, "fblight": fbl_params,
+                  "sincshallow": sinc_params}.get(m.arch, net_params)(m)
         m.dev = "cpu"
         z.update({f"net{i}_{k}": v for k, v in params.items()})
     out.mkdir(parents=True, exist_ok=True)

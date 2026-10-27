@@ -17,7 +17,7 @@ from pathlib import Path
 
 import protocol
 import numpy as np
-from deep import AlignedNet
+from deep import R9_ARCHS, AlignedNet
 from erp import ErpTangent
 from ensemble import Ensemble
 from models import MeanLinear, ReveLinear, TangentSpace
@@ -50,7 +50,7 @@ CONFIGS["v2"] = CONFIGS["ts_sess_fb7_w1ctr"]
 for _C in (0.01, 0.03, 0.3, 1.0):
     CONFIGS[f"ts_sess_fb_C{_C}"] = lambda d, C=_C: TangentSpace(d, bands=FB, C=C)
 for _a in ("eegnet", "shallow", "deep4", "conformer", "atcnet", "eegnex",
-           "ctnet", "fbcnet", "ifnet", "tidnet"):
+           "ctnet", "fbcnet", "ifnet", "tidnet", *R9_ARCHS):
     CONFIGS[f"{_a}_raw"] = lambda d, a=_a: AlignedNet(d, arch=a, align=False, seed=SEED[0])
     CONFIGS[f"{_a}_ea"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0])
 for _a in ("shallow", "fbcnet"):
@@ -103,6 +103,13 @@ for _al in (False, True):  # FBCNet variants (packageable: LogVar layer)
         CONFIGS[f"fbcnet_{'ea' if _al else 'raw'}_{_n}"] = (
             lambda d, al=_al, kw=_kw: AlignedNet(d, arch="fbcnet", align=al,
                                                  seed=SEED[0], net_kw=kw))
+for _n, _kw in (("lo", dict(first_freq=1.0)),  # SincShallowNet variants (R9):
+                ("k65", dict(first_freq=1.0, time_filter_len=65)),  # slow band, longer
+                ("n64", dict(first_freq=1.0, num_time_filters=64))):  # FIRs, more filters
+    CONFIGS[f"sincshallow_ea_{_n}"] = lambda d, kw=_kw: AlignedNet(
+        d, arch="sincshallow", seed=SEED[0], net_kw=kw)
+CONFIGS["sincshallow_ea_e80"] = lambda d: AlignedNet(d, arch="sincshallow", seed=SEED[0],
+                                                     epochs=80)
 for _al in (False, True):  # FBCNet with a learned filter bank (R8)
     _t = "ea" if _al else "raw"
     CONFIGS[f"fbcnet_{_t}_tf"] = lambda d, al=_al: AlignedNet(
