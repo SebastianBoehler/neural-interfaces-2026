@@ -91,6 +91,59 @@ New order: **r9 (clean rebuild from `ea58271`), r8t4g, r6nfg**, then up to
 two candidates informed by the scores. The r9 warm-up upload
 (`warmup11_r9_tv.zip`, 1014114) runs it on the real worker.
 
+**Update 28 Oct: r9 seed copies staged.** Under Force_Best, independent
+seed draws of the same recipe are cheap extra chances: each copy has about
+±0.4 seed noise, which is worth about +0.3 to +0.4 expected over a single
+draw. Both copies were built from `d89f133` on Galvani:
+
+| ZIP | Seeds | Harness agreement | Worker replica (755 windows) | SHA-256 |
+|---|---|---:|---:|---|
+| `sealed_candidate_ensemble_all_r9b.zip` | +5 (learned-FIR 2–3) | 1.0 | 0.9986, 50.4 s, files unchanged | `ca47d2b4…` |
+| `sealed_candidate_ensemble_all_r9c.zip` | +10 (learned-FIR 4–5) | 1.0 | 0.9986, 46.4 s, files unchanged | `c52fb8e5…` |
+
+Both copies use the same `submission.py` as r9g (`396e3866…`). Their
+labels agree 100% with the r9 clean build on the official test.
+
+Sealed upload order, one per day:
+
+| Day | Package |
+|---|---|
+| 1 | r9g |
+| 2 | r9b |
+| 3 | r9c |
+| 4 | r8t4g, or a stronger R10 candidate (pretrained trunks, `docs/OPTIMIZATION_R10.md`) |
+| 5 | Decided from the scores |
+
+**Update 28 Oct (evening): R10.** R10 is r9 with the SincShallow family
+initialised from trunks pretrained on seven open motor-imagery corpora
+(`docs/OPTIMIZATION_R10.md`).
+
+| | Selection | all_loso | seen_session |
+|---|---:|---:|---:|
+| Gain over r9, six seeds (cross-validation) | +0.9 | +0.5 | +0.7 |
+
+| Honest warm-up replay | Score |
+|---|---:|
+| R10 | 0.5319 |
+| r9 | 0.5358 |
+
+The warm-up difference is within noise: six of its 8 cells are P04, and
+pretraining never helped P04. Seed copies R10b and R10c use r9b's and r9c's
+seeds.
+
+Proposed order, one per day and every upload authorised by the user:
+
+| Day | Package |
+|---|---|
+| 1 | r9g (proven on the real worker) |
+| 2 | R10 |
+| 3 | R10b |
+| 4 | R10c |
+| 5 | Decided from the scores |
+
+Each R10 package first needs a clean build, harness agreement, a worker
+replica run and staging.
+
 ## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 
 **Model (r8t4; r6nf = the same without the last family).** A

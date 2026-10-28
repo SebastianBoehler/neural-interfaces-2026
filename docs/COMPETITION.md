@@ -61,12 +61,23 @@ check worker execution and runtime.
 | 1010508 | `sealed_candidate_ensemble_all_r8t4g.zip` (`725cfcdc…`) | 1.0000000000 | 25.6 s | 1.0000000000 / 46.5 s (replica) |
 
 | 1010748 | `warmup9_r8t4_tv.zip` (`ace07590…`; r8t4 trained on official train + validation only, **honest**) | 0.5303723852 (P04 0.493, P09 0.644) | 26.7 s | 0.5303723852 (CPU replay) |
+| 1014114 | `warmup11_r9_tv.zip` (`5f5d2c96…`; r9, official train + validation, **honest**; uploaded 27 Oct, queued about 12 h on Codabench) | 0.5357966220 | 30.5 s | 0.5357966220 (replay, identical) |
 
 Reading the board (26 Oct): the public leaderboard lists the top 50, all ≥
 0.63 (38 at ≥ 0.95). Reaching 0.63 honestly would need about P04 0.60 and
 P09 0.72; P04's within-session ceiling with our members is 0.67 (band-power
 LDA 0.58), so such entries almost certainly used P04/P09 data. There is no
 honest reference on the warm-up board; our honest number is 0.530.
+
+Full board via the leaderboard API (27 Oct, 160 participants, best entry
+each): 52 at ≥ 0.90, 16 at 0.60–0.89, 17 at 0.55–0.59, 3 at 0.53–0.54,
+9 at 0.50–0.52, 63 below 0.50. Entries at ≥ 0.60 almost certainly used P04/P09
+data, as argued above. The 0.55–0.59 cluster needs P04 ≈ 0.54–0.58 with P09 ≈ 0.65. That is
+plausible for a stronger honest cross-subject decoder, so it is the realistic
+competition. Our honest r9 is 0.536, so on the warm-up proxy we sit about
+20th among possibly honest entries. Caveat: 8 cells (6 from P04) give a
+noise of several points, and the sealed set is 57% unseen participants
+plus 43% later sessions.
 
 The worker runs the nets on its GPU (about half the CPU-path time). At
 ≈ 21k sealed windows: ≈ 11–12 min. Worker image: `lionelyneuro/neural-compet:v3`.

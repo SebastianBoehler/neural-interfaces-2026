@@ -21,6 +21,7 @@ import numpy as np
 import torch
 from torch import nn
 
+import dg
 from features import SFREQ, covariances, invsqrtm
 
 CROPS = {}  # start (s after cue) -> training crops, rows as the official export
@@ -192,7 +193,7 @@ class AlignedNet:
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
                  lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=None,
                  pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None,
-                 train_fir=False, dro=0.0, pbal=False, tcrop=None):
+                 train_fir=False, dro=0.0, pbal=False, tcrop=None, init=None, swa=0.0, cmix=0.0):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.adabn, self.pretrained = adabn, pretrained
         self.ls, self.lld, self.lp = ls, lld, lp  # fine-tuning recipe
@@ -201,6 +202,8 @@ class AlignedNet:
         self.train_fir = train_fir  # FBCNet: learn the FIR filter bank (R8)
         self.dro, self.pbal = dro, pbal  # participant GroupDRO step / balanced loss
         self.tcrop = tcrop  # (start, stop) samples of the aligned window the net sees (R9)
+        self.init = init  # pretrained trunk, runs/pretrain/... with {seed} (R10)
+        self.swa, self.cmix = swa, cmix  # weight averaging, same-class mixing (dg.py, R11)
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -238,8 +241,8 @@ class AlignedNet:
         key = (id(self.d["X"]), self.arch, self.align, self.k, self.epochs, self.lr,
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
-               tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal, self.tcrop,
-               hash(np.asarray(idx).tobytes()))
+               tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal, self.tcrop, self.init,
+               self.swa, self.cmix, hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)
         if key not in self._fitted:  # kept on CPU to bound device memory
@@ -275,6 +278,12 @@ class AlignedNet:
         if self.train_fir:  # braindecode freezes FBCNet's filter bank
             for prm in self.net.spectral_filtering.parameters():
                 prm.requires_grad_(True)
+        if self.init:  # experiments/pretrain.py trunk; the 3-class head stays fresh
+            sd = torch.load(self.init.format(seed=self.seed), map_location="cpu")["state"]
+            own = self.net.state_dict()
+            sd = {k: v for k, v in sd.items() if k in own and own[k].shape == v.shape}
+            assert len(sd) >= len(own) - 4, (len(sd), len(own))
+            self.net.load_state_dict(sd, strict=False)
         weighted = bool(self.d.get("tag"))  # external data: class-balanced,
         if weighted:                          # per-sample weighted loss
             cnt = np.bincount(y.numpy(), weights=sw.numpy(), minlength=3)
@@ -288,19 +297,23 @@ class AlignedNet:
         if self.lp:  # linear probe first, at 10x the learning rate
             self._train(X, y, sw, rows, self.lp, 10 * self.lr, rng, gen, loss_fn,
                         weighted, head_only=True)
-        self._train(X, y, sw, rows, self.epochs, self.lr, rng, gen, loss_fn, weighted)
+        avg = dg.averager(self.net) if self.swa else None
+        self._train(X, y, sw, rows, self.epochs, self.lr, rng, gen, loss_fn, weighted, avg=avg)
+        if avg is not None:
+            self.net = dg.finish(avg, X, self.dev)
         if self.ft and weighted:  # fine-tune on PROTEUS windows only
             rows = np.flatnonzero(self.d["split"][order] != "external")
             self._train(X, y, sw, rows, self.ft, self.lr / 3, rng, gen, loss_fn, weighted)
         self.net.eval()
 
     def _train(self, X, y, sw, rows, epochs, lr, rng, gen, loss_fn, weighted,
-               head_only=False):
+               head_only=False, avg=None):
         groups = param_groups(self.net, lr, self.lld, head_only)
         opt = torch.optim.AdamW(groups, lr=lr, weight_decay=self.wd)
         steps = epochs * int(np.ceil(len(rows) / self.batch))
         sched = torch.optim.lr_scheduler.OneCycleLR(
             opt, [g["lr"] for g in groups], total_steps=steps)
+        step, start = 0, int(self.swa * steps)
         for _ in range(epochs):
             perm = rows[rng.permutation(len(rows))]
             for b in range(0, len(perm), self.batch):
@@ -308,6 +321,8 @@ class AlignedNet:
                 xb, yb = X[j].to(self.dev), y[j].to(self.dev)
                 if self.aug:
                     xb = augment(xb, gen)
+                if self.cmix:
+                    xb = dg.class_mix(xb, yb, gen, self.cmix)
                 opt.zero_grad()
                 if self.dro or self.pbal:  # participant-aware objectives (R8)
                     loss = self._group_loss(self.net(xb), yb, torch.from_numpy(j).to(self.dev))
@@ -318,6 +333,9 @@ class AlignedNet:
                 loss.backward()
                 opt.step()
                 sched.step()
+                step += 1
+                if avg is not None and step > start:
+                    avg.update_parameters(self.net)
 
     def _group_loss(self, out, yb, j):
         """Participant-balanced mean (``pbal``) or online GroupDRO: weights

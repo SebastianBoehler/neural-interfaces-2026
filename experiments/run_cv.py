@@ -11,6 +11,7 @@ runs/experiments/probs/NAME-PROTOCOL-sSEED.npz for offline ensembling.
 import argparse
 import json
 import os
+import re
 import subprocess
 import time
 from pathlib import Path
@@ -174,6 +175,39 @@ CONFIGS["v2_dc"] = lambda d: TangentSpace(d, **{**V2, "slow": "wave1d"})
 for _k in (1.0, 20.0):
     CONFIGS[f"ts_sess_fb_k{_k:g}"] = lambda d, k=_k: TangentSpace(d, bands=FB, k=k)
 
+PT = re.compile(r"(shallow|fbcnet|sincshallow|fblight)_(ea|raw)(_tf)?_pt([a-z0-9]+)(_lo|_lp)?")
+
+
+def pt_config(base):
+    """NAME_ALIGN[_tf]_ptTAG[_lo|_lp]: fine-tune the trunk pretrained by
+    experiments/pretrain.py (runs/pretrain/NAME_ALIGN-TAG-sSEED.pt) on PROTEUS,
+    at lr 1e-3, 3e-4 (_lo) or 3e-4 after a 5-epoch linear probe (_lp)."""
+    a, t, tf, tag, rec = PT.fullmatch(base).groups()
+    kw = {"_lo": dict(lr=3e-4), "_lp": dict(lr=3e-4, lp=5)}.get(rec, {})
+    return lambda d: AlignedNet(d, arch=a, align=t == "ea", seed=SEED[0], train_fir=bool(tf),
+                                init=f"{ROOT}/runs/pretrain/{a}_{t}-{tag}-s{{seed}}.pt", **kw)
+
+# R11 training options as name suffixes on any AlignedNet config (experiments/dg.py)
+MODS = {"swa": dict(swa=0.5), "swa25": dict(swa=0.25), "swa75": dict(swa=0.75),
+        "cmix": dict(cmix=0.4), "cmix1": dict(cmix=1.0)}
+
+
+def resolve(base):
+    if base in CONFIGS:
+        return CONFIGS[base]
+    head, _, mod = base.rpartition("_")
+    if mod in MODS:
+        inner = resolve(head)
+        return lambda d: _with(inner(d), MODS[mod])
+    return pt_config(base)
+
+
+def _with(net, kw):
+    for k, v in kw.items():
+        setattr(net, k, v)
+    return net
+
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -193,7 +227,8 @@ def main():
         d = data[ext]
         for proto in args.protocols.split(","):
             t0 = time.time()
-            res = protocol.evaluate(lambda: CONFIGS[base](d), d, proto)
+            make = resolve(base)
+            res = protocol.evaluate(lambda: make(d), d, proto)
             if "proba" in res:
                 PROBS.mkdir(parents=True, exist_ok=True)
                 np.savez(PROBS / f"{name}-{proto}-s{args.seed}.npz",

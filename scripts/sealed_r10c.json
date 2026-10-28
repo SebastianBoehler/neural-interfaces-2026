@@ -1,0 +1,120 @@
+{
+ "name": "ensemble_all_r10c",
+ "about": "Seed replicate of sealed_r10 (r9c seeds: every net seed + 10; SincShallowNet initialised from experiments/pretrain.py sincshallow ea m7 trunks of the same seeds). Same expected score as r10, independent seed noise.",
+ "train": "all",
+ "v2_weight": 0.125,
+ "net_defaults": {
+  "k": 5.0,
+  "epochs": 40,
+  "lr": 0.001,
+  "wd": 0.001,
+  "batch": 64
+ },
+ "members": [
+  {
+   "arch": "shallow",
+   "align": true,
+   "seeds": [
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "shallow",
+   "align": false,
+   "seeds": [
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    4,
+    5
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    4,
+    5
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "sincshallow",
+   "align": true,
+   "seeds": [
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "weight": 0.025,
+   "kw": {
+    "init": "runs/pretrain/sincshallow_ea-m7-s{seed}.pt"
+   }
+  },
+  {
+   "arch": "fblight",
+   "align": true,
+   "seeds": [
+    10,
+    11,
+    12,
+    13,
+    14
+   ],
+   "weight": 0.025
+  }
+ ],
+ "rebalance": {
+  "alpha": 1.0,
+  "k": 5.0,
+  "w": 30
+ },
+ "reference": "runs/sealed/sealed_r10_dev"
+}
