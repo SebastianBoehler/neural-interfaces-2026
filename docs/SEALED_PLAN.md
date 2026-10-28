@@ -144,6 +144,22 @@ Proposed order, one per day and every upload authorised by the user:
 Each R10 package first needs a clean build, harness agreement, a worker
 replica run and staging.
 
+**R10b and R10c staged (28 Oct, night).** Clean builds from `5ee3adc`
+(Galvani 3017692/3017693), same `submission.py` as r9g (`396e3866…`):
+
+| ZIP | Harness agreement | A100 replay | Worker replica 3017800 (755 windows) | SHA-256 |
+|---|---:|---|---|---|
+| `sealed_candidate_ensemble_all_r10b.zip` | 1.0 | 0.9986, files unchanged | 0.9986, 49.7 s, files unchanged | `f3ddbe54…` |
+| `sealed_candidate_ensemble_all_r10c.zip` | 1.0 | 0.9986, files unchanged | 0.9986, 46.1 s, files unchanged | `51b0570f…` |
+
+R10 (3017691, `sealed_candidate_ensemble_all_r10.zip`, `1e3ab63a…`):
+harness agreement 1.0, A100 replay 0.9973 with files unchanged, worker
+replica 3017801 0.9973 with files unchanged. It took 99.1 s for 755 windows,
+but it ran on galvani-cn222, which was about twice as slow throughout (the
+build took 61 min against 25 min). R10 has the same members and
+`submission.py` as R10b/R10c (47–50 s on cn201) and r9 (30.5 s on the real
+worker).
+
 ## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 
 **Model (r8t4; r6nf = the same without the last family).** A

@@ -175,3 +175,79 @@ score. R10 copies are therefore worth more than r9 copies.
 `scripts/sealed_r10b.json` and `sealed_r10c.json` use r9b/r9c's seeds with
 pretrained SincShallow trunks: pretraining seeds 5-14 is Galvani 3017635,
 and the dev builds 3017646/3017647 depend on it.
+
+**More seeds (Galvani 3017705, SincShallow ptm7 seeds 6-9).** The
+pretrained family alone, over seeds 6-9:
+
+| | sel | all_loso |
+|---|---:|---:|
+| Baseline SincShallow | 68.44 | 58.00 |
+| Pretrained (ptm7) | 69.91 | 58.62 |
+
+In the ensemble, seeds 6-7 (r9 → R10): selection 76.73 → 76.94, all_loso
+65.86 → 65.86 (P04 46.9 → 47.1, P09 70.7 → 68.6).
+
+R10's gain over r9 across the three seed sets:
+
+| Seed set | sel | all_loso |
+|---|---:|---:|
+| 0-2 | +1.03 | +0.38 |
+| 3-5 | +0.86 | +0.57 |
+| 6-7 | +0.21 | 0.00 |
+| **Mean** | **≈ +0.7** | **≈ +0.3** |
+
+Positive in every set but small. Expected sealed effect: about +0.3 to +0.5.
+
+## Bounds after R11 (28 Oct, night; R10 seeds 0-2 saved probabilities, no training)
+
+| Bound (non-causal oracles use test labels) | all_loso | seen_session |
+|---|---:|---:|
+| R10 without rebalancing | 61.69 | 61.03 |
+| R10 (W 30 rebalancing) | 67.36 | 72.15 |
+| Exact per-run class counts, Hungarian (oracle run boundaries) | 67.74 | 73.96 |
+| Best per-session logit bias (oracle) | 69.32 | 76.25 |
+| Per-session affine logit map (oracle, in-sample) | 69.99 | 74.15 |
+| Personal v2 at λ 0.3, oracle participant (r6nf mix) | – | 71.6 → 74.4 (P04 +4.0, P10 +1.6) |
+
+- Output-level adaptation is spent: even with labels, fixing each session's
+  bias or affine logit map gains ≤ 2.6 on unseen participants. The ≈ 15
+  points to the within-session ceiling sit in the representation.
+- Run structure is spent: every run is exactly balanced (10 or 12 per
+  class), but exact-count assignment with oracle run boundaries adds +0.4.
+- Training participants: `dev_loso` (7) → `all_loso` folds (9) gains +1.7
+  on the same 8 test participants (5 of 8 up), ≈ +0.85 per in-distribution
+  participant. Out-of-distribution data are worth far less (Scherer 2015:
+  +0.7 for 9).
+- Seen-participant routing stays blocked: session-mean covariance and log-PSD
+  distances between sessions of the same participant (P04, P10) overlap
+  completely with those between participants, at 20, 60 or all windows.
+- Literature/dataset search (28 Oct): no public EEG corpus has motor
+  imagery, subtraction and word generation in one session (only Rathee 2021
+  MEG). Gradient TTA with entropy + marginal-diversity loss (T-TIME,
+  arXiv 2412.07228) is the one literature-backed representation-level
+  method not yet tried here; its reported +3 to +6 is over EEGNet+EA without
+  rebalancing.
+
+## R12: label-free test-time training (T-TIME-style, 28 Oct, closed)
+
+`experiments/ttime_eval.py` (Galvani 3017870/3017871, shallow_ea and
+fbcnet_ea, seeds 0-2, `runs/experiments/probs_ttime`). After predicting
+window t, one Adam step on the last B windows of the session minimises
+mean entropy minus the entropy of the mean prediction. Each session starts
+from a fresh copy; every variant is paired with a frozen control `tt0`
+that uses the same trained nets. `tt0` reproduces the earlier family scores
+exactly.
+
+| Variant (params, lr, B) | FBCNet-EA sel / dl_all / dl | ShallowConvNet-EA sel / dl_all / dl | R10 with both swapped: sel / dl_all / dl |
+|---|---|---|---|
+| tt0 control | 71.89 / 65.18 / 64.23 | 63.68 / 61.59 / 57.89 | 78.71 / 72.94 / 70.48 |
+| n10 (BN affine, 1e-3, 8) | 69.84 / 63.24 / 63.78 | 65.31 / 61.56 / 57.00 | 77.43 / 72.17 / 70.96 |
+| a1 (all, 1e-4, 8) | 68.33 / 60.02 / 61.01 | 60.67 / 54.13 / 53.07 | 77.75 / 70.93 / 69.51 |
+| a3, a10, a3b16 | ≤ 68 / ≤ 58 / ≤ 57 | ≤ 53 | ≤ 77.6 |
+
+All rebalanced (W 30), as in the packages. Without rebalancing, `n10` lifts
+FBCNet `dev_loso` by about +2.5 on every seed (59.2 → 61.8). That is only
+the class-bias correction rebalancing already gives (64.2). On top of
+rebalancing, every adaptation strength loses, and stronger updates lose
+more. Runtime was 2–7 ms per window on an A100, so cost was not the
+problem. Closed: this matches the oracle bounds above.
