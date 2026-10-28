@@ -213,6 +213,14 @@ class AlignedNet:
         """``src``: other windows of the same rows (crops), whitened with
         the official windows' statistics."""
         X = (self.d["X"] if src is None else src)[idx].astype(np.float64)
+        if self.align == "scalar":  # per-session RMS only, topography kept (R9)
+            tr = np.trace(self.C[idx], axis1=1, axis2=2) / X.shape[1]
+            if causal:
+                n = np.arange(1, len(idx) + 1)
+                tr = (self.k * np.trace(self.G) / X.shape[1] + np.cumsum(tr)) / (self.k + n)
+            else:
+                tr = np.full(len(idx), tr.mean())
+            return self._crop((X / np.sqrt(tr)[:, None, None]).astype(np.float32))
         if not self.align:
             return self._crop((X / self.scale).astype(np.float32))
         if causal:

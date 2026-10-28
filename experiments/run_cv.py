@@ -131,6 +131,10 @@ for _a, _al in (("fbcnet", True), ("fbcnet", False), ("shallow", True),
         CONFIGS[f"{_a}_{'ea' if _al else 'raw'}_{_n}"] = (
             lambda d, a=_a, al=_al, tc=_tc: AlignedNet(d, arch=a, align=al, seed=SEED[0],
                                                        tcrop=tc))
+for _a in ("shallow", "fbcnet", "sincshallow", "fblight"):  # session RMS only (R9)
+    CONFIGS[f"{_a}_sn"] = lambda d, a=_a: AlignedNet(d, arch=a, align="scalar", seed=SEED[0])
+CONFIGS["fbcnet_sn_tf"] = lambda d: AlignedNet(d, arch="fbcnet", align="scalar",
+                                               seed=SEED[0], train_fir=True)
 for _al in (False, True):  # FBCNet with a learned filter bank (R8)
     _t = "ea" if _al else "raw"
     CONFIGS[f"fbcnet_{_t}_tf"] = lambda d, al=_al: AlignedNet(

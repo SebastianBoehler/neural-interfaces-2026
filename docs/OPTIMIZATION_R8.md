@@ -554,3 +554,27 @@ dl_all never rises by more than 0.4 (unaligned FBCNet, first 3 s 72.26).
 Not adopted: the full-window nets already carry the early signal. Closed.
 r9g worker replica (3013669): same ZIP (`cd238165…`), files unchanged,
 0.9986, 51.4 s per 755 windows.
+
+### 28 Oct: robustness review, session RMS normalisation, seed replicates
+
+Robustness of the staged r9g (CPU path, 43 ms/window): a one-window session,
+NaN/inf samples, all-zero windows, a dead channel, ×1000 / ×0.001
+amplitude, a +500 µV channel offset and a 4× long session all run and
+return valid labels. Amplitude sensitivity on the honest warm-up build
+(official test, cell mean): ×1 53.58, ×0.5 53.84, ×0.25 55.00, ×2 51.87, ×4
+49.74 (unaligned members use one global training scale).
+
+Per-session RMS normalisation (`align="scalar"`: each session divided by its
+causal running RMS, topography kept; Galvani 3013769–3013774, seeds 0–4):
+alone on par with unaligned input (FBCNet dl 63.6 vs 63.3, ShallowConvNet
+55.3 vs 56.4, dl_all equal); replacing r9's unaligned families 77.56–77.72
+vs 77.79; as extra families 77.09–78.56 (best of five tries, within noise).
+Closed: natural amplitude differences between participants are already
+handled.
+
+Seed replicates for the best-of-five sealed rule: a rebuild of r9 with other
+seeds has the same expected score and independent seed noise (r9 selection
+score across seed sets ±0.4), so two replicates are a better use of slots
+than the weaker r8t4g / r6nfg. `scripts/sealed_r9b.json` (every net seed
++5, learned-filter FBCNets 2–3) and `sealed_r9c.json` (+10, 4–5);
+development builds 3013894/3013895.
