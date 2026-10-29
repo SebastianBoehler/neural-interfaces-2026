@@ -19,10 +19,22 @@ to it.
 ``fsc`` = s (R14): each batch is time-scaled by a factor in [1 - s, 1 + s]
 (spectral peaks shift by the same factor; individual alpha frequency varies
 by about +-15% across people), then cropped or circularly padded back.
+
+``mstyle`` = p (R18): MixStyle (Zhou et al. 2021). With probability p per
+batch, the per-window feature statistics (mean and std over all but the
+feature axis) after the first two convolutions are mixed with those of a
+random other window, mostly another participant's. Hooks exist only while
+training, so the exported net is unchanged.
+
+``adv`` = lam (R18): participant-adversarial training (DANN, Ganin et al.
+2016). A linear participant classifier reads the input of the final layer
+through gradient reversal (scale lam), pushing the trunk towards features
+that do not identify the participant.
 """
 
 import torch
 import torch.nn.functional as F
+from torch import nn
 from torch.optim.swa_utils import AveragedModel, update_bn
 
 
@@ -63,3 +75,59 @@ def finish(avg, X, dev, batch=256):
     """Averaged net with batch-norm statistics recomputed on ``X``."""
     update_bn((X[b:b + batch].to(dev) for b in range(0, len(X), batch)), avg.module)
     return avg.module
+
+
+class MixStyle:
+    def __init__(self, net, gen, n=2, alpha=0.1):
+        self.gen, self.on, self.beta = gen, False, torch.distributions.Beta(alpha, alpha)
+        convs = [m for m in net.modules() if isinstance(m, (nn.Conv1d, nn.Conv2d))][:n]
+        self.hooks = [m.register_forward_hook(self._hook) for m in convs]
+
+    def _hook(self, module, inp, out):
+        if not (self.on and module.training) or len(out) < 2:
+            return out
+        dims = tuple(range(2, out.dim()))
+        mu, sig = out.mean(dims, keepdim=True), (out.var(dims, keepdim=True) + 1e-6).sqrt()
+        mu, sig = mu.detach(), sig.detach()
+        perm = torch.randperm(len(out), generator=self.gen).to(out.device)
+        lam = self.beta.sample((len(out),) + (1,) * (out.dim() - 1)).to(out.device)
+        mix_mu, mix_sig = lam * mu + (1 - lam) * mu[perm], lam * sig + (1 - lam) * sig[perm]
+        return (out - mu) / sig * mix_sig + mix_mu
+
+    def remove(self):
+        for h in self.hooks:
+            h.remove()
+
+
+class _Reverse(torch.autograd.Function):
+    @staticmethod
+    def forward(ctx, x, lam):
+        ctx.lam = lam
+        return x.view_as(x)
+
+    @staticmethod
+    def backward(ctx, g):
+        return -ctx.lam * g, None
+
+
+class Adversary:
+    def __init__(self, net, n_groups, lam, lr, dev):
+        self.n, self.lam, self.lr, self.dev, self.head = n_groups, lam, lr, dev, None
+        self.hook = net.final_layer.register_forward_pre_hook(self._grab)
+
+    def _grab(self, module, args):
+        self.feat = args[0]
+
+    def loss(self, g):
+        f = _Reverse.apply(self.feat.flatten(1), self.lam)
+        if self.head is None:
+            self.head = nn.Linear(f.shape[1], self.n).to(self.dev)
+            self.opt = torch.optim.AdamW(self.head.parameters(), lr=self.lr)
+        return F.cross_entropy(self.head(f), g)
+
+    def step(self):
+        self.opt.step()
+        self.opt.zero_grad()
+
+    def remove(self):
+        self.hook.remove()

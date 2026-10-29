@@ -365,3 +365,20 @@ One seed at a time (the swapped member only), sel changes by +0.72,
 sel. Weaker evidence than R14 (four of six seeds), but positive in both
 seed sets, and `dev_loso` improves with every rotation-pretrained trunk.
 Candidate R15 = R14 with the m7r trunks.
+
+## R16: rotation-pretrained FBCNet and FBLight trunks (30 Oct)
+
+Same recipe as R15 (`pretrain.py --rot 0.05`, tag m7r; Galvani
+3023731/3023732, seeds 0-2). In place of R15's member (sel / ds / dl_all / dl;
+R15 79.59 / 86.34 / 72.83 / 70.79):
+
+| Member | alone sel | in R15 |
+|---|---:|---|
+| fbcnet_ea_ptm7r_rot05 | 74.78 (rot05 73.63) | 79.80 / 86.56 / 73.04 / 70.99 |
+| fbcnet_ea_ptm7r | 74.03 | 79.89 / 86.58 / 73.20 / 71.25 |
+| fbcnet_ea_ptm7_rot05 | 74.36 | 79.83 / 86.56 / 73.10 / 70.89 |
+| fblight_ea_ptm7r_rot05 | 67.82 (rot05 67.90) | 79.53 / 86.06 / 72.99 / 70.94 |
+| fblight_ea_ptm7_rot05 | 68.00 | 79.29 / 85.82 / 72.77 / 70.90 |
+
+FBLight: closed. FBCNet: +0.2–0.3, below the three-seed noise level
+(docs/STRATEGY_R16.md §1). Seeds 3-5 are running (3023801) before any decision.

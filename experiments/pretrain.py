@@ -11,6 +11,11 @@ one output block per corpus (shared trunk, one head each): the loss is cross
 entropy over the window's own block, and batches draw corpora equally often.
 Only the trunk transfers; AlignedNet(init=...) starts a fresh 3-class head.
 Output: runs/pretrain/<ARCH>_<ALIGN>-<TAG>-s<SEED>.pt (gitignored).
+
+``--unified C1,C2`` (R17): these corpora share one 4-way block, motor
+imagery / subtraction / word generation / rest, each learning its task
+against rest inside the same sessions (no block confound). The block's
+first three outputs are saved as a 3-class head, which AlignedNet loads.
 """
 
 import argparse
@@ -53,6 +58,10 @@ def load_corpus(name, align):
     return X, y, classes, len(np.unique(np.char.partition(s, "|")[:, 0]))
 
 
+UNIFIED = {"feet": 0, "hands": 0, "left_hand": 0, "right_hand": 0,  # PROTEUS order + rest
+           "subtraction": 1, "S16": 2, "rest": 3, "S32": 3}  # Shin 2018: S16 word gen., S32 baseline
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("arch"), ap.add_argument("align", choices=("ea", "raw"))
@@ -64,20 +73,26 @@ def main():
     ap.add_argument("--train-fir", action="store_true")
     ap.add_argument("--aug", action="store_true")
     ap.add_argument("--rot", type=float, default=0.0)  # dg.rotate strength (R14)
+    ap.add_argument("--unified", default="")  # corpora in the shared 4-way block (R17)
     a = ap.parse_args()
     torch.manual_seed(a.seed)
     rng, gen = np.random.default_rng(a.seed), torch.Generator().manual_seed(a.seed)
     dev, t0 = device(), time.time()
-    X, Y, off, meta = [], [], 0, {}
+    uni = [c for c in a.unified.split(",") if c]
+    X, Y, off, meta = [], [], 4 if uni else 0, {}
     for c in a.corpora.split(","):
         x, y, classes, n_subj = load_corpus(c, a.align)
-        X.append(torch.from_numpy(x)), Y.append(torch.from_numpy(y + off).long())
-        meta[c] = dict(windows=len(y), subjects=n_subj, classes=classes, offset=off)
-        off += len(classes)
+        if c in uni:  # shared block at outputs 0-3
+            y, o, n = np.array([UNIFIED[classes[i]] for i in y]), 0, 4
+        else:
+            y, o, n = y + off, off, len(classes)
+            off += n
+        X.append(torch.from_numpy(x)), Y.append(torch.from_numpy(y).long())
+        meta[c] = dict(windows=len(y), subjects=n_subj, classes=classes, offset=o, n=n)
         print(c, meta[c], flush=True)
     sizes = [len(y) for y in Y]
     lo = torch.tensor([meta[c]["offset"] for c in meta])
-    hi = torch.tensor([meta[c]["offset"] + len(meta[c]["classes"]) for c in meta])
+    hi = torch.tensor([meta[c]["offset"] + meta[c]["n"] for c in meta])
     cls = getattr(bd, ARCHS[a.arch])  # as deep.build, with one block per corpus
     kw = dict(n_chans=41, n_outputs=off, n_times=480)
     if "sfreq" in inspect.signature(cls).parameters:
@@ -114,7 +129,11 @@ def main():
         print(f"epoch {ep} loss {tot / steps_per_epoch:.4f} {time.time() - t0:.0f}s", flush=True)
     out = ROOT / "runs/pretrain" / f"{a.arch}_{a.align}-{a.tag}-s{a.seed}.pt"
     out.parent.mkdir(parents=True, exist_ok=True)
-    torch.save({"state": {k: v.cpu() for k, v in net.state_dict().items()},
+    state = {k: v.cpu() for k, v in net.state_dict().items()}
+    if uni:  # 3-class head = the shared block's first three outputs
+        state = {k: v[:3] if k.startswith("final_layer.") and v.shape[0] == off else v
+                 for k, v in state.items()}
+    torch.save({"state": state,
                 "meta": json.dumps(dict(vars(a), corpora=meta, seconds=round(time.time() - t0)),
                                    default=str)}, out)
     print(json.dumps({"out": str(out), "seconds": round(time.time() - t0)}))

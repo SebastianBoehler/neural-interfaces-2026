@@ -193,7 +193,8 @@ class AlignedNet:
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
                  lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=None,
                  pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None,
-                 train_fir=False, dro=0.0, pbal=False, tcrop=None, init=None, swa=0.0, cmix=0.0, rot=0.0, fsc=0.0):
+                 train_fir=False, dro=0.0, pbal=False, tcrop=None, init=None, swa=0.0, cmix=0.0, rot=0.0, fsc=0.0,
+                 mstyle=0.0, adv=0.0):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.adabn, self.pretrained = adabn, pretrained
         self.ls, self.lld, self.lp = ls, lld, lp  # fine-tuning recipe
@@ -205,6 +206,7 @@ class AlignedNet:
         self.init = init  # pretrained trunk, runs/pretrain/... with {seed} (R10)
         self.swa, self.cmix = swa, cmix  # weight averaging, same-class mixing (dg.py, R11)
         self.rot, self.fsc = rot, fsc  # rotation / frequency-scaling augmentation (dg.py, R14)
+        self.mstyle, self.adv = mstyle, adv  # MixStyle / participant-adversarial (dg.py, R18)
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -243,7 +245,7 @@ class AlignedNet:
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
                tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal, self.tcrop, self.init,
-               self.swa, self.cmix, self.rot, self.fsc, hash(np.asarray(idx).tobytes()))
+               self.swa, self.cmix, self.rot, self.fsc, self.mstyle, self.adv, hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)
         if key not in self._fitted:  # kept on CPU to bound device memory
@@ -279,7 +281,7 @@ class AlignedNet:
         if self.train_fir:  # braindecode freezes FBCNet's filter bank
             for prm in self.net.spectral_filtering.parameters():
                 prm.requires_grad_(True)
-        if self.init:  # experiments/pretrain.py trunk; the 3-class head stays fresh
+        if self.init:  # experiments/pretrain.py trunk; head fresh unless --unified (R17)
             sd = torch.load(self.init.format(seed=self.seed), map_location="cpu")["state"]
             own = self.net.state_dict()
             sd = {k: v for k, v in sd.items() if k in own and own[k].shape == v.shape}
@@ -315,6 +317,9 @@ class AlignedNet:
         sched = torch.optim.lr_scheduler.OneCycleLR(
             opt, [g["lr"] for g in groups], total_steps=steps)
         step, start = 0, int(self.swa * steps)
+        ms = dg.MixStyle(self.net, gen) if self.mstyle and not head_only else None
+        adv = (dg.Adversary(self.net, int(self._grp.max()) + 1, self.adv, lr, self.dev)
+               if self.adv and not head_only else None)
         for _ in range(epochs):
             perm = rows[rng.permutation(len(rows))]
             for b in range(0, len(perm), self.batch):
@@ -329,18 +334,27 @@ class AlignedNet:
                 if self.fsc:
                     xb = dg.freq_scale(xb, gen, self.fsc)
                 opt.zero_grad()
+                if ms:
+                    ms.on = float(torch.rand(1, generator=gen)) < self.mstyle
                 if self.dro or self.pbal:  # participant-aware objectives (R8)
                     loss = self._group_loss(self.net(xb), yb, torch.from_numpy(j).to(self.dev))
                 else:
                     loss = loss_fn(self.net(xb), yb)
                 if weighted:
                     loss = (loss * sw[j]).sum() / sw[j].sum()
+                if adv:
+                    loss = loss + adv.loss(self._grp[torch.from_numpy(j).to(self.dev)])
                 loss.backward()
                 opt.step()
+                if adv:
+                    adv.step()
                 sched.step()
                 step += 1
                 if avg is not None and step > start:
                     avg.update_parameters(self.net)
+        for h in (ms, adv):
+            if h:
+                h.remove()
 
     def _group_loss(self, out, yb, j):
         """Participant-balanced mean (``pbal``) or online GroupDRO: weights
