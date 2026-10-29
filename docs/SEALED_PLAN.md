@@ -139,7 +139,7 @@ Proposed order, one per day and every upload authorised by the user:
 | 2 | R10 |
 | 3 | R14 (user decision 29 Oct) |
 | 4 | R10b |
-| 5 | Decided from the scores |
+| 5 | R15 (user decision 29 Oct) |
 
 Each R10 package first needs a clean build, harness agreement, a worker
 replica run and staging.
@@ -182,8 +182,8 @@ build from `6a894df` (Galvani 3023595, `scripts/sealed_r15.json`), same
 `submission.py` (`396e3866…`): harness agreement 1.0; A100 replay 0.9960,
 files unchanged; worker replica 3023596 0.9960, 49.7 s, files unchanged.
 `sealed_candidate_ensemble_all_r15.zip` (`0f86ccbd…`). Against R14, only
-the five SincShallowNet members change; 0 of 2,655 labels differ. Proposed
-for day 5 (not yet confirmed).
+the five SincShallowNet members change; 0 of 2,655 labels differ. Day 5
+(user decision 29 Oct).
 
 ## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 
