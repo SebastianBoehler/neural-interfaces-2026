@@ -160,6 +160,11 @@ build took 61 min against 25 min). R10 has the same members and
 `submission.py` as R10b/R10c (47–50 s on cn201) and r9 (30.5 s on the real
 worker).
 
+**Real worker (29 Oct):** the exact staged R10 ZIP ran in the warm-up phase
+as Codabench 1018364: 0.99731 cell-mean (identical to the replica) in 30.8 s.
+(The submissions table kept showing "Running"; `/api/submissions/<id>/`
+had the result.) Warm-up quota after it: 8 of 100.
+
 ## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 
 **Model (r8t4; r6nf = the same without the last family).** A

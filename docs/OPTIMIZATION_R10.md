@@ -251,3 +251,88 @@ the class-bias correction rebalancing already gives (64.2). On top of
 rebalancing, every adaptation strength loses, and stronger updates lose
 more. Runtime was 2–7 ms per window on an A100, so cost was not the
 problem. Closed: this matches the oracle bounds above.
+
+## R13: Shin 2017 A+B in the 3-class loss; per-interface alignment (29 Oct, closed)
+
+**Per-interface alignment (oracle).** v2 with session references, and
+rebalancing, kept apart for Graz and BrainHero using the true interface of
+each window (rebalanced; plain session alignment → per interface):
+`dev_session` 69.50 → 67.14, `dev_loso_all` 58.17 → 58.26, `dev_loso` 57.22
+→ 56.44. Even with the oracle there is no gain, so an interface detector is
+not worth building.
+
+**Shin 2017 A+B as PROTEUS-labelled data** (`scripts/merge_shin_ab.py`,
+Galvani 3020050–3020055, seeds 0-2, `runs/experiments/probs_shin`). The same
+29 participants did hand MI (A) and subtraction (B) in alternating sessions
+of one day. Their windows were merged into one alignment session per
+participant, labelled MI → 0 and subtraction → 1 (rest dropped), and added
+to every training fold (`NAME@shin2017ab`, 5220 windows, about twice
+PROTEUS).
+
+| Family (rebalanced) | base sel / dl_all | + Shin sel / dl_all | R10 with it swapped: sel / ds / dl_all / dl |
+|---|---|---|---|
+| R10 | – | – | 78.58 / 84.48 / 72.67 / 70.43 |
+| v2 | 63.84 / 58.17 | 49.37 / 48.08 (w 0.3: 50.82) | 78.12 / 85.05 / 71.19 / 71.48 |
+| fbcnet_ea | 71.89 / 65.18 | 60.44 / 58.85 (w 0.3: 65.17; ft: 63.27) | best 78.68 / 85.26 / 72.10 / 69.96 (ft) |
+| shallow_ea | 63.78 / 61.80 | 63.02 / 58.20 (w 0.3: 64.74 / 58.97) | best 78.97 / 85.51 / 72.43 / 71.55 (w 0.3) |
+| fbcnet_raw / shallow_raw | 70.48 / 63.80 | 56.64 / 54.45 | 78.12 / 78.47 |
+| sincshallow_ea / fblight_ea | 67.95 / 65.06 | 56.84 / 53.27 | 77.36 / 77.62 |
+
+Every family loses on unseen participants (dl_all) when Shin is added. The
+best R10 swaps gain only on `dev_session` (+0.4 sel, noise) and lose on
+`dev_loso_all`. Likely cause: in Shin, class equals recording block (MI only
+in sessions 0/2/4, subtraction only in 1/3/5). Any block-level drift (slow
+offsets, impedance) predicts the class perfectly there, and the models learn
+it. That hurts most for v2, which leans on the slow channel means. Aligning
+each block separately would remove the confound, but also the task contrast
+(the Dreyer 2023 failure). Closed: no public corpus gives a clean
+within-session contrast between our classes.
+
+**Per-session IAF band shift (closed, no run).** The alpha peak estimated
+per session is unstable within participants (P10 7.5 / 12.5 / 8.0 Hz, P04
+13 / 7 / 7 Hz), and many sessions have no clear peak, so bands cannot be
+moved per session reliably.
+
+## R14: rotation and frequency-scaling augmentation (29 Oct, open)
+
+Training-time augmentation only (`experiments/dg.py`; run_cv suffixes
+`_rot02/_rot05/_rot1`, `_fsc1/_fsc2`). After EA, the remaining between-
+session difference is mostly a spatial rotation, so `rot` multiplies each
+training window by a random orthogonal matrix exp(εA − εAᵀ), which keeps its
+power. `fsc` stretches a batch in time by up to ±10/20%. Galvani
+3023047–3023051, seeds 0-2, `runs/experiments/probs_r14` (rebalanced).
+
+| Family | base sel / dl_all | best variant sel / dl_all | R10 with it swapped: sel / ds / dl_all / dl |
+|---|---|---|---|
+| fbcnet_ea | 71.89 / 65.18 | rot05 73.63 / 65.83 | 78.81 / 84.99 / 72.62 / 70.10 |
+| shallow_ea | 63.78 / 61.80 | rot05 68.36 / 65.19 | 78.13 / 83.96 / 72.31 / 70.13 |
+| sincshallow_ea_ptm7 | 69.85 / 62.00 | rot05 71.44 / 63.39 | 78.94 / 85.27 / 72.62 / 70.12 |
+| fblight_ea | 65.06 / 58.97 | rot05 67.90 / 61.06 | 78.53 / 84.22 / 72.83 / 70.17 |
+| fbcnet_raw / shallow_raw | 70.48 / 63.80 | fsc1 70.86 / 64.86 | 78.39 / 78.83 |
+
+Rotation helps every aligned family alone (+1.6 to +4.6 sel); frequency
+scaling and rotation of raw inputs do not. Swapped together into R10
+(fbcnet_ea, sincshallow, fblight_ea → rot05): **79.31 / 85.78 / 72.84 /
+70.04** against 78.58 / 84.48 / 72.67 / 70.43. With shallow_ea rot05 as well,
+79.31 / 86.26 / 72.37 / 70.74. Adding the members instead of swapping them
+loses (78.35–78.76). The three-member swap gains on every seed alone (swapped
+members from one seed each: +1.11, +0.74, +0.59 sel; `dev_loso_all` +0.69,
++0.37, +0.38). `dev_loso` moves by −0.43, −0.48, +0.13. Candidate R14 =
+R10 with these three rot05 swaps.
+
+**Fresh seeds 3-5** (3023187; all deep members at seeds 3-5, TF members 3-4):
+R10 77.69 / 84.72 / 70.66 / 70.13 → R14 **77.92 / 84.99 / 70.85 / 70.22**.
+One seed at a time, sel gains +0.23, +0.52, +0.55 and `dev_loso_all` +0.21,
++0.52, +0.03. The gain is smaller than on seeds 0-2 but positive on all six
+seeds; expect about +0.2 to +0.7.
+
+**Dev build** (`scripts/sealed_r14.json`, Galvani 3023188, uncommitted tree
+labelled `8780b12-dirty-r14`): harness agreement 1.0, official A100 replay
+0.99601 with files unchanged, 68.8 s. `submission.py` is identical to R10
+(`396e3866…`); only `weights.npz` changes. Staging needs a clean build from
+a commit and a worker-replica run.
+
+**Trainable-filter members** (3023191, seeds 0-1): fbcnet_ea_tf rot05 alone
+65.23 → 69.61, fbcnet_raw_tf rot02 68.50 → 68.27. Swapped into R14 they
+lose (79.12, 79.22, both 78.97 against 79.31), mostly on `dev_loso_all`.
+These members stay unrotated: R14 keeps three swaps.

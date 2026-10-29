@@ -1,0 +1,127 @@
+{
+ "name": "ensemble_all_r14",
+ "about": "R10 with random-rotation augmentation (experiments/dg.py rotate, eps 0.05) for the aligned FBCNet, SincShallowNet and FBLight members; everything else as R10 (docs/OPTIMIZATION_R10.md R14). Seeds 0-2: selection 79.31 vs 78.58, dev_loso_all 72.84 vs 72.67, dev_loso 70.04 vs 70.43; gain on every single seed (+1.11, +0.74, +0.59 sel).",
+ "train": "all",
+ "v2_weight": 0.125,
+ "net_defaults": {
+  "k": 5.0,
+  "epochs": 40,
+  "lr": 0.001,
+  "wd": 0.001,
+  "batch": 64
+ },
+ "members": [
+  {
+   "arch": "shallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "shallow",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "sincshallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "init": "runs/pretrain/sincshallow_ea-m7-s{seed}.pt",
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fblight",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  }
+ ],
+ "rebalance": {
+  "alpha": 1.0,
+  "k": 5.0,
+  "w": 30
+ },
+ "reference": "runs/sealed/ensemble_all_r10_clean_5ee3adc"
+}

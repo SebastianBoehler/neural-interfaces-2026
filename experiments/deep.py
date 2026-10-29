@@ -193,7 +193,7 @@ class AlignedNet:
     def __init__(self, d, arch="eegnet", align=True, k=5.0, epochs=40,
                  lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=None,
                  pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None,
-                 train_fir=False, dro=0.0, pbal=False, tcrop=None, init=None, swa=0.0, cmix=0.0):
+                 train_fir=False, dro=0.0, pbal=False, tcrop=None, init=None, swa=0.0, cmix=0.0, rot=0.0, fsc=0.0):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.adabn, self.pretrained = adabn, pretrained
         self.ls, self.lld, self.lp = ls, lld, lp  # fine-tuning recipe
@@ -204,6 +204,7 @@ class AlignedNet:
         self.tcrop = tcrop  # (start, stop) samples of the aligned window the net sees (R9)
         self.init = init  # pretrained trunk, runs/pretrain/... with {seed} (R10)
         self.swa, self.cmix = swa, cmix  # weight averaging, same-class mixing (dg.py, R11)
+        self.rot, self.fsc = rot, fsc  # rotation / frequency-scaling augmentation (dg.py, R14)
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -242,7 +243,7 @@ class AlignedNet:
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
                tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal, self.tcrop, self.init,
-               self.swa, self.cmix, hash(np.asarray(idx).tobytes()))
+               self.swa, self.cmix, self.rot, self.fsc, hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)
         if key not in self._fitted:  # kept on CPU to bound device memory
@@ -323,6 +324,10 @@ class AlignedNet:
                     xb = augment(xb, gen)
                 if self.cmix:
                     xb = dg.class_mix(xb, yb, gen, self.cmix)
+                if self.rot:
+                    xb = dg.rotate(xb, gen, self.rot)
+                if self.fsc:
+                    xb = dg.freq_scale(xb, gen, self.fsc)
                 opt.zero_grad()
                 if self.dro or self.pbal:  # participant-aware objectives (R8)
                     loss = self._group_loss(self.net(xb), yb, torch.from_numpy(j).to(self.dev))
