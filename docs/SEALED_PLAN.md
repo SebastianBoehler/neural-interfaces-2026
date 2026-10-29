@@ -165,6 +165,17 @@ as Codabench 1018364: 0.99731 cell-mean (identical to the replica) in 30.8 s.
 (The submissions table kept showing "Running"; `/api/submissions/<id>/`
 had the result.) Warm-up quota after it: 8 of 100.
 
+**R14 staged (29 Oct).** R10 with random-rotation augmentation on the
+aligned FBCNet, SincShallowNet and FBLight members (docs/OPTIMIZATION_R10.md
+R14; selection 79.31 vs 78.58 on seeds 0-2, 77.92 vs 77.69 on seeds 3-5).
+Clean build from `741a074` (Galvani 3023343, `scripts/sealed_r14.json`),
+same `submission.py` (`396e3866…`): harness agreement 1.0; A100 replay
+0.9960, files unchanged; worker replica 3023344 0.9960, 49.0 s, files
+unchanged. `sealed_candidate_ensemble_all_r14.zip` (`0ca4df88…`). Against
+the R10 package: 1 of 755 official-test labels and 6 of 2,655 windows
+differ. Proposed: R14 takes day 3 in place of R10b, and the R10 seed copies
+move later.
+
 ## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 
 **Model (r8t4; r6nf = the same without the last family).** A
