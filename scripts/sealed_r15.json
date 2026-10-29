@@ -1,0 +1,127 @@
+{
+ "name": "ensemble_all_r15",
+ "about": "R14 with the SincShallowNet trunks pretrained with rotation augmentation (experiments/pretrain.py sincshallow ea m7r --rot 0.05, seeds 0-4; docs/OPTIMIZATION_R10.md R15). Selection 79.59 vs 79.31 (seeds 0-2), 78.23 vs 77.92 (seeds 3-5); dev_loso 70.79 vs 70.04, 70.43 vs 70.22.",
+ "train": "all",
+ "v2_weight": 0.125,
+ "net_defaults": {
+  "k": 5.0,
+  "epochs": 40,
+  "lr": 0.001,
+  "wd": 0.001,
+  "batch": 64
+ },
+ "members": [
+  {
+   "arch": "shallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "shallow",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "sincshallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "init": "runs/pretrain/sincshallow_ea-m7r-s{seed}.pt",
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fblight",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  }
+ ],
+ "rebalance": {
+  "alpha": 1.0,
+  "k": 5.0,
+  "w": 30
+ },
+ "reference": "runs/sealed/ensemble_all_r14_clean_741a074"
+}

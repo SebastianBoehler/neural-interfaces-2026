@@ -336,3 +336,32 @@ a commit and a worker-replica run.
 65.23 → 69.61, fbcnet_raw_tf rot02 68.50 → 68.27. Swapped into R14 they
 lose (79.12, 79.22, both 78.97 against 79.31), mostly on `dev_loso_all`.
 These members stay unrotated: R14 keeps three swaps.
+
+## R15: rotation in pretraining and in the tangent-space model (29 Oct)
+
+**Tangent-space v2 with rotated copies (closed).** `TangentSpace(rot=ε)` adds
+two copies of every training window with its tangent matrices rotated,
+Q S Qᵀ in every band, and its slow waveform Q M (`models.rotate_features`;
+it matches rotating the covariances to 1e-15). Alone: v2 63.84 → rot02
+64.14, rot05 64.16, rot1 60.27 (sel; Galvani 3023391). Swapped into R14:
+78.91 / 78.65 / 78.28 against 79.31. Closed.
+
+**SincShallow trunk pretrained with rotation** (`pretrain.py --rot`, tag
+`m7r` ε 0.05, `m7rr` ε 0.1; same seven corpora and recipe as m7; Galvani
+3023383/3023384, fresh seeds 3023431). In place of R14's SincShallow
+member (sel / ds / dl_all / dl):
+
+| SincShallow member | seeds 0-2 | seeds 3-5 |
+|---|---|---|
+| R14: ptm7_rot05 | 79.31 / 85.78 / 72.84 / 70.04 | 77.92 / 84.99 / 70.85 / 70.22 |
+| ptm7r_rot05 | **79.59 / 86.34 / 72.83 / 70.79** | **78.23 / 84.99 / 71.47 / 70.43** |
+| ptm7r | 79.58 / 86.54 / 72.62 / 70.95 | – |
+| ptm7rr_rot05 | 79.38 / 86.04 / 72.72 / 71.14 | – |
+| ptm7rr | 79.12 / 85.78 / 72.46 / 70.94 | – |
+
+One seed at a time (the swapped member only), sel changes by +0.72,
++0.59, −0.13, +0.42, +0.66, −0.63 and `dev_loso` by +0.31, +1.10, +0.22,
++0.51, +0.09, −0.52. Pooled over three seeds, the gain is +0.28 and +0.31
+sel. Weaker evidence than R14 (four of six seeds), but positive in both
+seed sets, and `dev_loso` improves with every rotation-pretrained trunk.
+Candidate R15 = R14 with the m7r trunks.

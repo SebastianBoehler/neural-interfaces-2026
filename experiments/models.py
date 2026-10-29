@@ -6,6 +6,7 @@ must use only window t and earlier windows for prediction t, without labels.
 """
 
 import numpy as np
+from scipy.linalg import expm
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
@@ -20,6 +21,31 @@ def make_clf(kind, C):
         return LinearDiscriminantAnalysis(solver="lsqr", shrinkage="auto")
     return make_pipeline(StandardScaler(),
                          LogisticRegression(C=C, max_iter=2000))
+
+
+def rotate_features(F, n, n_bands, eps, copies, rng):
+    """F plus ``copies`` copies with every window's channels rotated by its own
+    random orthogonal Q = exp(eps (A - A^T)), as dg.rotate does to signals: the
+    tangent matrices of every band become Q S Q^T, the slow waveform Q M."""
+    iu = np.triu_indices(n)
+    coef = np.where(iu[0] == iu[1], 1.0, np.sqrt(2.0))
+    size = len(coef)
+    out = [F]
+    for _ in range(copies):
+        A = eps * rng.standard_normal((len(F), n, n))
+        Q = np.stack([expm(a - a.T) for a in A])
+        G = F.copy()
+        for b in range(n_bands):
+            S = np.zeros((len(F), n, n))
+            S[:, iu[0], iu[1]] = F[:, b * size:(b + 1) * size] / coef
+            S = S + np.triu(S, 1).transpose(0, 2, 1)
+            S = Q @ S @ Q.transpose(0, 2, 1)
+            G[:, b * size:(b + 1) * size] = S[:, iu[0], iu[1]] * coef
+        if F.shape[1] > n_bands * size:  # slow features: channel-major waveform
+            M = F[:, n_bands * size:].reshape(len(F), n, -1)
+            G[:, n_bands * size:] = (Q @ M).reshape(len(F), -1)
+        out.append(G)
+    return np.concatenate(out)
 
 
 class MeanLinear:
@@ -57,7 +83,7 @@ class TangentSpace:
     def __init__(self, d, bands=("alpha", "beta1", "beta2"), align="session",
                  k=5.0, train_causal=False, clf="lr", C=0.1, means=None,
                  stretch=False, slow="mean", k_slow=None, wscale=False, group=None,
-                 dro_eta=1.0, dro_iter=5):
+                 dro_eta=1.0, dro_iter=5, rot=0.0, rot_copies=2):
         self.d, self.bands, self.align, self.means = d, bands, align, means
         self.M = (d["X"].mean(-1) if slow == "mean" else
                   slow_waveform(d["X"], cutoff=2.0 if slow == "wave" else 1.0))
@@ -67,6 +93,7 @@ class TangentSpace:
         self.k, self.train_causal, self.stretch = k, train_causal, stretch
         self.wscale = wscale
         self.group, self.dro_eta, self.dro_iter = group, dro_eta, dro_iter  # R8
+        self.rot, self.rot_copies = rot, rot_copies  # rotated training copies (R15)
         self.k_slow = k if k_slow is None else k_slow
         self.clf = make_clf(clf, C)
         tag = d.get("tag", "")
@@ -151,6 +178,11 @@ class TangentSpace:
             if self.wscale:  # target statistics: scaler weighted like the loss
                 kw["standardscaler__sample_weight"] = w
         F = np.concatenate(feats)
+        if self.rot:
+            assert not kw, "rotation copies are for PROTEUS-only training"
+            F = rotate_features(F, len(self.covs[0][0]), len(self.bands), self.rot,
+                                self.rot_copies, np.random.default_rng(0))
+            y = np.tile(y, self.rot_copies + 1)
         if self.group:  # participant-balanced weights, or GroupDRO reweighting
             assert not kw, "participant weighting is for PROTEUS-only training"
             g = np.unique(np.concatenate([self.d["subject"][idx[streams == s]]

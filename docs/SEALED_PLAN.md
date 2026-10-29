@@ -137,8 +137,8 @@ Proposed order, one per day and every upload authorised by the user:
 |---|---|
 | 1 | r9g (proven on the real worker) |
 | 2 | R10 |
-| 3 | R10b |
-| 4 | R10c |
+| 3 | R14 (user decision 29 Oct) |
+| 4 | R10b |
 | 5 | Decided from the scores |
 
 Each R10 package first needs a clean build, harness agreement, a worker
@@ -173,8 +173,7 @@ same `submission.py` (`396e3866…`): harness agreement 1.0; A100 replay
 0.9960, files unchanged; worker replica 3023344 0.9960, 49.0 s, files
 unchanged. `sealed_candidate_ensemble_all_r14.zip` (`0ca4df88…`). Against
 the R10 package: 1 of 755 official-test labels and 6 of 2,655 windows
-differ. Proposed: R14 takes day 3 in place of R10b, and the R10 seed copies
-move later.
+differ. Day 3 is R14 (user decision 29 Oct); R10b moves to day 4.
 
 ## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 

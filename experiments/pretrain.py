@@ -1,7 +1,7 @@
 """Multi-corpus supervised pretraining of the deep families (R10).
 
 Usage: python experiments/pretrain.py ARCH ALIGN TAG CORPUS[,CORPUS...]
-           [--seed 0] [--epochs 30] [--train-fir] [--aug]
+           [--seed 0] [--epochs 30] [--train-fir] [--aug] [--rot 0.05]
 
 Corpora are data/<corpus>/windows_*.npz (scripts/export_moabb.py): the 41
 PROTEUS channels at 120 Hz, 4 s windows, dataset-local labels. ALIGN "ea"
@@ -24,6 +24,7 @@ import numpy as np
 import torch
 from torch import nn
 
+import dg
 from deep import ARCHS, augment, device
 from features import covariances, invsqrtm
 
@@ -62,6 +63,7 @@ def main():
     ap.add_argument("--batch", type=int, default=256)
     ap.add_argument("--train-fir", action="store_true")
     ap.add_argument("--aug", action="store_true")
+    ap.add_argument("--rot", type=float, default=0.0)  # dg.rotate strength (R14)
     a = ap.parse_args()
     torch.manual_seed(a.seed)
     rng, gen = np.random.default_rng(a.seed), torch.Generator().manual_seed(a.seed)
@@ -98,6 +100,8 @@ def main():
             cb = torch.cat([torch.full((len(j),), c) for c, j in parts]).to(dev)
             if a.aug:
                 xb = augment(xb, gen)
+            if a.rot:
+                xb = dg.rotate(xb, gen, a.rot)
             out = net(xb)
             k = torch.arange(off, device=dev)[None]
             own = (k >= lo.to(dev)[cb][:, None]) & (k < hi.to(dev)[cb][:, None])

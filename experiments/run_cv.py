@@ -167,6 +167,8 @@ CONFIGS["ens_raw"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow
 CONFIGS["ens_both"] = lambda d: Ensemble([TangentSpace(d, **V2), CONFIGS["shallow_ea"](d),
                                           CONFIGS["shallow_raw"](d)])
 CONFIGS["v2_ws"] = lambda d: TangentSpace(d, **{**V2, "wscale": True})  # external data
+for _e, _t in ((0.02, "02"), (0.05, "05"), (0.1, "1")):  # R15: rotated training copies
+    CONFIGS[f"v2_rot{_t}"] = lambda d, e=_e: TangentSpace(d, **{**V2, "rot": e})
 for _k in (1.0, 20.0, 100.0):
     CONFIGS[f"v2_ks{_k:g}"] = lambda d, k=_k: TangentSpace(d, **{**V2, "k_slow": k})
 for _C in (0.03, 0.3, 1.0, 3.0):
