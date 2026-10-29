@@ -175,6 +175,16 @@ unchanged. `sealed_candidate_ensemble_all_r14.zip` (`0ca4df88…`). Against
 the R10 package: 1 of 755 official-test labels and 6 of 2,655 windows
 differ. Day 3 is R14 (user decision 29 Oct); R10b moves to day 4.
 
+**R15 staged (29 Oct).** R14 with SincShallowNet trunks pretrained with
+rotation (`sincshallow_ea-m7r-s{0-4}.pt`; docs/OPTIMIZATION_R10.md R15;
+selection 79.59 vs 79.31 on seeds 0-2, 78.23 vs 77.92 on seeds 3-5). Clean
+build from `6a894df` (Galvani 3023595, `scripts/sealed_r15.json`), same
+`submission.py` (`396e3866…`): harness agreement 1.0; A100 replay 0.9960,
+files unchanged; worker replica 3023596 0.9960, 49.7 s, files unchanged.
+`sealed_candidate_ensemble_all_r15.zip` (`0f86ccbd…`). Against R14, only
+the five SincShallowNet members change; 0 of 2,655 labels differ. Proposed
+for day 5 (not yet confirmed).
+
 ## Method description (draft for the fact sheet / workshop; updated 25 Oct)
 
 **Model (r8t4; r6nf = the same without the last family).** A
