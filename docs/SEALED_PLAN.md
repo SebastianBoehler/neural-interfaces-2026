@@ -137,7 +137,7 @@ Proposed order, one per day and every upload authorised by the user:
 |---|---|
 | 1 | r9g (proven on the real worker) |
 | 2 | R10 |
-| 3 | R14 (user decision 29 Oct) |
+| 3 | R19e (user decision 30 Oct; replaces R14) |
 | 4 | R19 (user decision 30 Oct; replaces R10b) |
 | 5 | R15 (user decision 29 Oct) |
 
@@ -274,3 +274,8 @@ score, not evidence). `sealed_candidate_ensemble_all_r19e.zip`
 **Real worker (30 Oct):** the exact staged R19e ZIP ran in the warm-up phase
 (30961) as Codabench 1021330, with user authorisation: 0.98685 cell-mean
 (identical to the replica) in 31.4 s. Warm-up quota after it: 10 of 100.
+
+**Day 3 is R19e (user decision 30 Oct).** It replaces R14, which gets the
+same answer as R15 on all 2,655 public windows. Order: r9g, R10, R19e, R19,
+R15. The gaze stage is covered at two strengths (R19, R19e), with R15 as
+the no-stage fallback. R14 stays staged as a fallback.
