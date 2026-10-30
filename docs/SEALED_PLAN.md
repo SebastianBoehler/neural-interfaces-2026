@@ -232,3 +232,19 @@ banks identical to the staged package and differs on 1 of 2,655 windows
 (GPU training is not bit-deterministic; audit tolerance stated as such).
 `scripts/cloud/worker_replay.sbatch` replays any package in an Apptainer
 replica of the official worker image.
+
+**R19 staged (30 Oct).** R15's weights, unchanged, plus the per-session
+gaze-template stage (docs/OPTIMIZATION_R10.md R19; `scripts/add_session_em.py`
+on `ensemble_all_r15_clean_6a894df`, Galvani 3024078). There is a **new
+`submission.py`** (`55d11fbf…`) with the `em_*` keys. Checks on all 2,655
+windows:
+- with the stage off, the new code reproduces R15 exactly (1.0);
+- with it on, it equals experiments/session_em.py on the package's own
+  rebalanced mix (1.0).
+
+Worker replica 3024079: 0.9960, 50.2 s, files unchanged.
+`sealed_candidate_ensemble_all_r19.zip` (`3db3a1fc…`). It has not run on the
+real worker yet. The only chance before the sealed phase is a warm-up
+upload by 1 Nov 23:59 CET, and only with user authorisation.
+Audit config: `scripts/sealed_r19.json` (R15 members plus `session_em`);
+`build_sealed.py` reproduces the stage from it.

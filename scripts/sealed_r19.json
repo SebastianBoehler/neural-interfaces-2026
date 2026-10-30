@@ -1,0 +1,135 @@
+{
+ "name": "ensemble_all_r19",
+ "about": "R15 plus the causal per-session gaze-template EM stage after rebalancing (experiments/session_em.py; docs/OPTIMIZATION_R10.md R19). Same trained weights as R15; staged package built with scripts/add_session_em.py from the R15 clean build.",
+ "train": "all",
+ "v2_weight": 0.125,
+ "net_defaults": {
+  "k": 5.0,
+  "epochs": 40,
+  "lr": 0.001,
+  "wd": 0.001,
+  "batch": 64
+ },
+ "members": [
+  {
+   "arch": "shallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "shallow",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "sincshallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "init": "runs/pretrain/sincshallow_ea-m7r-s{seed}.pt",
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fblight",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  }
+ ],
+ "rebalance": {
+  "alpha": 1.0,
+  "k": 5.0,
+  "w": 30
+ },
+ "session_em": {
+  "lam": 0.5,
+  "n0": 60,
+  "m0": 20,
+  "shrink": 0.7,
+  "iters": 2,
+  "nmin": 10
+ },
+ "reference": "runs/sealed/ensemble_all_r19_em_r15"
+}

@@ -194,7 +194,8 @@ MODS = {"swa": dict(swa=0.5), "swa25": dict(swa=0.25), "swa75": dict(swa=0.75),
         "cmix": dict(cmix=0.4), "cmix1": dict(cmix=1.0),
         "rot02": dict(rot=0.02), "rot05": dict(rot=0.05), "rot1": dict(rot=0.1),
         "fsc1": dict(fsc=0.1), "fsc2": dict(fsc=0.2),
-        "ms5": dict(mstyle=0.5), "adv01": dict(adv=0.1), "adv03": dict(adv=0.3)}  # R18
+        "ms5": dict(mstyle=0.5), "adv01": dict(adv=0.1), "adv03": dict(adv=0.3),  # R18
+        "rb440": dict(ref_band=(4, 40))}  # R19
 
 
 def resolve(base):

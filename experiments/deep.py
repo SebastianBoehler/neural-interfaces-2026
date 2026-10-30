@@ -22,7 +22,7 @@ import torch
 from torch import nn
 
 import dg
-from features import SFREQ, covariances, invsqrtm
+from features import SFREQ, bandpass, covariances, invsqrtm
 
 CROPS = {}  # start (s after cue) -> training crops, rows as the official export
 
@@ -194,7 +194,7 @@ class AlignedNet:
                  lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=None,
                  pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None,
                  train_fir=False, dro=0.0, pbal=False, tcrop=None, init=None, swa=0.0, cmix=0.0, rot=0.0, fsc=0.0,
-                 mstyle=0.0, adv=0.0):
+                 mstyle=0.0, adv=0.0, ref_band=None):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.adabn, self.pretrained = adabn, pretrained
         self.ls, self.lld, self.lp = ls, lld, lp  # fine-tuning recipe
@@ -207,6 +207,7 @@ class AlignedNet:
         self.swa, self.cmix = swa, cmix  # weight averaging, same-class mixing (dg.py, R11)
         self.rot, self.fsc = rot, fsc  # rotation / frequency-scaling augmentation (dg.py, R14)
         self.mstyle, self.adv = mstyle, adv  # MixStyle / participant-adversarial (dg.py, R18)
+        self.ref_band = ref_band  # (lo, hi) Hz: EA reference from band-passed windows (R19)
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -245,7 +246,7 @@ class AlignedNet:
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
                tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal, self.tcrop, self.init,
-               self.swa, self.cmix, self.rot, self.fsc, self.mstyle, self.adv, hash(np.asarray(idx).tobytes()))
+               self.swa, self.cmix, self.rot, self.fsc, self.mstyle, self.adv, self.ref_band, hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)
         if key not in self._fitted:  # kept on CPU to bound device memory
@@ -255,6 +256,13 @@ class AlignedNet:
         self.net = copy.deepcopy(net).to(self.dev)
 
     def _fit(self, idx):
+        if self.ref_band:  # whiten with the band's covariance, input stays broadband
+            key = (id(self.d["X"]), tuple(self.ref_band))
+            if key not in self._covs:
+                X = self.d["X"]
+                self._covs[key] = np.concatenate([covariances(bandpass(X[i:i + 512], *self.ref_band))
+                                                  for i in range(0, len(X), 512)])
+            self.C = self._covs[key]
         torch.manual_seed(self.seed)
         rng = np.random.default_rng(self.seed)
         self.G = self.C[idx].mean(0)

@@ -7,6 +7,8 @@ probabilities, so it stays causal and label-free when every member is.
 
 import numpy as np
 
+import session_em
+
 
 def rebalance(P, alpha, k, W=0):
     """Causal class rebalancing of one session's probabilities (rows in order).
@@ -29,8 +31,9 @@ def rebalance(P, alpha, k, W=0):
 
 
 class Ensemble:
-    def __init__(self, members, weights=None, alpha=0.0, k=5.0, W=0):
+    def __init__(self, members, weights=None, alpha=0.0, k=5.0, W=0, em=None):
         self.members = list(members)
+        self.em = em  # session_em.SessionEM kwargs, applied after rebalancing (R19)
         w = np.ones(len(self.members)) if weights is None else np.asarray(weights, float)
         self.w = w / w.sum()
         self.alpha, self.k, self.W = alpha, k, W
@@ -42,7 +45,12 @@ class Ensemble:
     def predict_proba_stream(self, idx):
         P = sum(w * m.predict_proba_stream(idx)
                 for w, m in zip(self.w, self.members))
-        return rebalance(P, self.alpha, self.k, self.W) if self.alpha else P
+        P = rebalance(P, self.alpha, self.k, self.W) if self.alpha else P
+        if self.em:  # idx is one session in acquisition order
+            d = self.members[0].d
+            F = session_em.gaze_features(d["X"][idx].astype(np.float64), list(d["ch_names"]))
+            P = session_em.apply(F, P, np.zeros(len(idx)), **self.em)
+        return P
 
     def predict_stream(self, idx):
         return self.predict_proba_stream(idx).argmax(1)

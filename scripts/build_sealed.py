@@ -41,6 +41,7 @@ sys.path.insert(0, str(ROOT / "2026-competition/tracks/bci_decoding"))
 
 import features  # noqa: E402
 import protocol  # noqa: E402
+import session_em  # noqa: E402
 from add_fbcnet import fbc_params  # noqa: E402
 from add_rebalance import SRC, load_solver, stream  # noqa: E402
 from ensemble import Ensemble, rebalance  # noqa: E402
@@ -140,8 +141,9 @@ def build(cfg, d, out):
             w.append(g["weight"])
     assert abs(sum(w) - 1) < 1e-9, f"member weights sum to {sum(w)}"
     rb = cfg["rebalance"]
+    em = cfg.get("session_em")  # R19: per-session gaze-template stage
     model = Ensemble([TangentSpace(d, **V2)] + nets, weights=np.array(w),
-                     alpha=rb["alpha"], k=rb["k"], W=rb["w"])
+                     alpha=rb["alpha"], k=rb["k"], W=rb["w"], em=em)
     times = []
     for m in model.members:
         t0 = time.time()
@@ -157,11 +159,21 @@ def build(cfg, d, out):
         m.dev = "cpu"
         z.update({f"net{i}_{k}": v for k, v in params.items()})
     out.mkdir(parents=True, exist_ok=True)
+    if em:
+        z.update(em_params(em, list(d["ch_names"])))
     np.savez(out / "weights.npz", n_nets=np.int64(len(nets)), member_weights=model.w,
              rb_alpha=np.float64(rb["alpha"]), rb_k=np.float64(rb["k"]),
              rb_w=np.int64(rb["w"]), **z)
     shutil.copyfile(SRC, out / "submission.py")
     return model, times, len(rows)
+
+
+def em_params(em, ch_names):
+    ix = lambda cs: np.array([ch_names.index(c) for c in cs], np.int64)
+    kw = {"lam": 0.5, "n0": 60, "m0": 20, "shrink": 0.7, "iters": 2, "nmin": 10, **em}
+    return {"em_hl": ix(session_em.FRONT_L), "em_hr": ix(session_em.FRONT_R),
+            "em_vt": ix(session_em.VERT_TOP), "em_vb": ix(session_em.VERT_BOTTOM),
+            "em_bins": np.int64(16), **{f"em_{k}": np.float64(v) for k, v in kw.items()}}
 
 
 def package_stream(folder, tag, d, mask, rb):

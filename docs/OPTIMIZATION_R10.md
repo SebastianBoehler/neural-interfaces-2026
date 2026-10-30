@@ -382,3 +382,85 @@ R15 79.59 / 86.34 / 72.83 / 70.79):
 
 FBLight: closed. FBCNet: +0.2–0.3, below the three-seed noise level
 (docs/STRATEGY_R16.md §1). Seeds 3-5 are running (3023801) before any decision.
+
+**R16 fresh seeds (3023801).** Pooled over seeds 0-5, R15 78.68 → 78.98
+(ptm7r_rot05) and 79.01 (ptm7r); on seeds 3-5 alone 78.23 → 78.26 / 78.11.
+At or below noise: not adopted.
+
+## R17: rest-anchored unified pretraining (30 Oct, closed)
+
+`pretrain.py --unified physionetmi,shin2017b,shin2018wg,schirrmeister2017`
+(tag u9: m7 + Shin 2018WG; one shared MI/SUB/WG/rest block; its first three
+outputs initialise the PROTEUS head; Galvani 3023804/3023805). Alone:
+sincshallow ptu9_rot05 62.19 sel (seeds 0, 2) against 68.72 for ptm7r_rot05
+on the same seeds; fbcnet ptu9_rot05 71.87 against 73.63. Swapped into R15:
+77.83 / 78.04 / 78.92 against 79.59. The external task-vs-rest directions
+do not transfer to PROTEUS's three-task contrast; the pretrained head even
+hurts. Closed.
+
+## R18: MixStyle and participant-adversarial training (30 Oct, closed)
+
+`dg.MixStyle` (p 0.5, first two convolutions) and `dg.Adversary` (gradient
+reversal on the final-layer input, λ 0.1 / 0.3); Galvani 3023864–3023869,
+seeds 0-2. Swapped into R15 (79.59 / 86.34 / 72.83 / 70.79):
+
+| Member | alone sel (base) | in R15 sel / dl_all |
+|---|---|---|
+| fbcnet_ea_rot05 ms5 / adv01 / adv03 | 72.84 / 71.04 / 67.81 (73.63) | 79.18 / 78.69 / 79.21 |
+| shallow_ea ms5 / adv01 / adv03 | 63.97 / 60.09 / 55.12 (63.78) | 79.56 / 79.00 / 78.47 |
+| sincshallow ptm7r_rot05 ms5 / adv01 | 69.12 / 70.40 (70.90) | 78.78 / 79.38 |
+| fbcnet_raw ms5 / adv01 | 71.03 / 67.78 (70.48) | 79.41 / 78.92 |
+| shallow_raw ms5 / adv01 | 63.83 / 61.58 (63.80) | 79.68 / 79.09 |
+| fblight_ea_rot05 ms5 / adv01 | 67.00 / 68.05 (67.90) | 79.52 / 79.42 |
+
+Participant-adversarial training hurts every family, more so with larger λ.
+With only ten participants, removing participant information also removes
+class information. MixStyle is neutral (±0.4, within noise). Closed.
+
+## R19: per-session gaze templates (30 Oct, candidate)
+
+Found by the ground-up review (docs/GROUND_UP_REVIEW.md §2.4, §5 rank 1)
+and re-implemented independently in `experiments/session_em.py`.
+- **View:** horizontal (F5+AF3+F3 − F6+AF4+F4) and vertical
+  (AF3+AF4 − P1+P2+Pz) slow potentials in 16 bins per window, 32 values.
+- **Template:** per session and causally, a soft EM estimates Gaussian
+  class templates from the session's earlier windows. It is seeded by the
+  rebalanced R15 posteriors, with class means shrunk to the session mean
+  (m0 20) and covariance shrinkage 0.7.
+- **Combination:** the template likelihood multiplies the posterior with
+  exponent 0.5·n/(n+60), from window 10 on.
+
+No training. Pre-registered config, R15 seed sets checked separately
+(`scratchpad/verify_em.log`):
+
+| | seeds 0-2 | seeds 3-5 |
+|---|---|---|
+| dev_loso_all | **+0.93** (shift-null max +0.57) | **+1.67** (null max +0.38) |
+| nested LOPO selection over 12 configs, dla | +0.89 (se 1.26) | +0.95 (se 1.04) |
+| dev_session | −0.89 (null mean −1.44) | +0.43 (null mean −0.62) |
+| all_loso (diagnostic) | +0.77 | +1.45 |
+| first 60 windows per session, dla | −0.41 | +0.84 |
+| participants ≥ 0 (dla) | 4/8 | 6/8 |
+
+The seen_session proxy changes by −0.18 (P10 +1.5, P04 −1.9).
+
+**Reading.**
+- The unseen-participant gain is real: it is above every circular-shift and
+  noise null on both seed sets.
+- The seen side is mixed. The stage itself costs −0.6 to −1.4 on P10 under
+  the null, and the gaze signal wins only part of that back.
+- Over the 18-config grid, mean(ds, dla) ranges −0.09 to +0.76 averaged over
+  both seed sets. The frozen config gives +0.54.
+- Sealed expectation ≈ 0.57 × (+0.9 to +1.7) + 0.43 × (−0.9 to +0.4)
+  ≈ +0.3 to +0.8.
+
+R19 = R15 + this stage, made by `scripts/add_session_em.py` (R15 weights
+unchanged; new `submission.py` with the `em_*` keys).
+
+**Band-limited EA reference (closed).** Nets whitened with the covariance
+of their 4–40 Hz band-passed windows, input kept broadband (`ref_band`, suffix
+`_rb440`; Galvani 3024080, seeds 0-2). Alone: fbcnet_ea_rot05 73.63 → 69.67,
+fblight 67.90 → 64.66, shallow_ea 63.78 → 54.66 sel. In R15: 78.17 / 79.31 /
+77.58 against 79.59. The broadband reference, dominated by the slow signal,
+is what these nets rely on. The linear proxy in the review did not transfer.
+Closed.

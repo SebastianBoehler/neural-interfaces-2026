@@ -12,8 +12,11 @@ The ensemble returns the weighted mean of member probabilities, optionally
 rebalanced causally: window t's probabilities are divided by m ** alpha, m
 being the session's mean probability over windows 0..t-1 (or the last
 ``W`` of them) blended with a uniform prior weighted as ``k`` windows
-(no labels). Parameters
-are numpy arrays in ``weights.npz`` (keys prefixed ``ts_`` and ``netI_``).
+(no labels). Optionally (``em_*`` keys, R19) a per-session Gaussian class
+template in a 32-dimensional frontal slow-potential view is then estimated
+from the session's earlier windows (soft EM seeded by the rebalanced
+posteriors) and its likelihood multiplies the posterior. Parameters
+are numpy arrays in ``weights.npz`` (keys prefixed ``ts_``, ``netI_``, ``em_``).
 Per-window work is tiny, so BLAS, OpenMP and torch run single-threaded:
 interleaved multi-threaded numpy and torch calls were 4x slower on a loaded
 A100 node (spin-waiting thread pools).
@@ -308,6 +311,56 @@ class CBra:
         return torch.softmax(z.double(), 1).cpu().numpy()
 
 
+class SessionEM:
+    """Causal per-session class templates in the frontal slow-potential view
+    (experiments/session_em.py): window t uses windows < t only."""
+
+    def __init__(self, p):
+        self.chans = [p[k].astype(int) for k in ("em_hl", "em_hr", "em_vt", "em_vb")]
+        self.lam, self.n0, self.m0 = float(p["em_lam"]), float(p["em_n0"]), float(p["em_m0"])
+        self.shrink, self.iters, self.nmin = float(p["em_shrink"]), int(p["em_iters"]), int(p["em_nmin"])
+        self.bins = int(p["em_bins"])
+        self.reset_state()
+
+    def reset_state(self):
+        self.A, self.B = [], []
+
+    def features(self, x):
+        x = x.astype(np.float64)
+        t = x.shape[-1] // self.bins * self.bins
+        hl, hr, vt, vb = (x[c].mean(0)[:t].reshape(self.bins, -1).mean(-1) for c in self.chans)
+        return np.concatenate([hl - hr, vt - vb])
+
+    @staticmethod
+    def _lik(Z, mu, Ci):
+        W = Ci @ mu.T
+        s = Z @ W - 0.5 * (mu * W.T).sum(1)
+        s = s - s.max(-1, keepdims=True)
+        g = np.exp(s)
+        return g / g.sum(-1, keepdims=True)
+
+    def step(self, x, p):
+        f, t, out = self.features(x), len(self.A), p
+        if t >= self.nmin:
+            A, B = np.asarray(self.A), np.asarray(self.B)
+            m, sd = A.mean(0), A.std(0) + 1e-9
+            Z, z = (A - m) / sd, (f - m) / sd
+            Q = B
+            for _ in range(self.iters):
+                mu = (Q / (Q.sum(0, keepdims=True) + self.m0)).T @ Z
+                C = np.cov((Z - Q @ mu).T)
+                C = (1 - self.shrink) * C + self.shrink * np.eye(len(C)) * np.trace(C) / len(C)
+                Ci = np.linalg.inv(C)
+                Q = B * self._lik(Z, mu, Ci) ** self.lam
+                Q = Q / Q.sum(1, keepdims=True)
+            e = self.lam * t / (t + self.n0) if self.n0 else self.lam
+            q = p * self._lik(z[None], mu, Ci)[0] ** e
+            out = q / q.sum()
+        self.A.append(f)
+        self.B.append(p)
+        return out
+
+
 def _input_key(p):
     keys = ("align", "k", "G", "scale", "shrink")
     return b"".join(np.ascontiguousarray(p[k]).tobytes() for k in keys if k in p)
@@ -321,8 +374,8 @@ class Ensemble:
     with identical alignment parameters share one input stream.
     """
 
-    def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0, dev="cpu"):
-        self.tangent, self.w = tangent, weights / weights.sum()
+    def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0, dev="cpu", em=None):
+        self.tangent, self.w, self.em = tangent, weights / weights.sum(), em
         self.alpha, self.k, self.W = alpha, k, W
         self.seen, self.n, self.hist = np.zeros(3), 0, []
         self.groups = {}
@@ -338,6 +391,8 @@ class Ensemble:
 
     def reset_state(self):
         self.tangent.reset_state()
+        if self.em is not None:
+            self.em.reset_state()
         self.seen, self.n, self.hist = np.zeros(3), 0, []
         for stream, _ in self.groups.values():
             stream.reset_state()
@@ -379,6 +434,10 @@ class Ensemble:
                 self.seen, self.n = self.seen + p, self.n + 1
                 if self.W:
                     self.hist = (self.hist + [p])[-self.W:]
+        if self.em is not None:  # after rebalancing, in acquisition order
+            X = X.detach().cpu().numpy() if torch.is_tensor(X) else np.asarray(X)
+            X = np.nan_to_num(X.astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
+            P = np.stack([self.em.step(x, p) for x, p in zip(X, P)])
         return torch.as_tensor(P.argmax(1), dtype=torch.long)
 
 
@@ -411,4 +470,5 @@ class Solver(CompetSolver):
                         z["member_weights"].astype(np.float64),
                         alpha=float(z.get("rb_alpha", 0.0)),
                         k=float(z.get("rb_k", 5.0)),
-                        W=int(z.get("rb_w", 0)), dev=dev)
+                        W=int(z.get("rb_w", 0)), dev=dev,
+                        em=SessionEM(z) if "em_lam" in z else None)
