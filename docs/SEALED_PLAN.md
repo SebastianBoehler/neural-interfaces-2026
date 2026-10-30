@@ -138,7 +138,7 @@ Proposed order, one per day and every upload authorised by the user:
 | 1 | r9g (proven on the real worker) |
 | 2 | R10 |
 | 3 | R14 (user decision 29 Oct) |
-| 4 | R10b |
+| 4 | R19 (user decision 30 Oct; replaces R10b) |
 | 5 | R15 (user decision 29 Oct) |
 
 Each R10 package first needs a clean build, harness agreement, a worker
@@ -252,3 +252,8 @@ Live check the same day: sealed phase 30483 runs 4 Nov 23:01 UTC to 21 Nov
 22:59 UTC, 1 per day, 5 in total.
 Audit config: `scripts/sealed_r19.json` (R15 members plus `session_em`);
 `build_sealed.py` reproduces the stage from it.
+
+**Day 4 is R19 (user decision 30 Oct).** It replaces R10b, which differs
+from R10 on only a few windows. Only the best of the five sealed scores
+counts, so having both R15 (day 5) and R19 (day 4) covers both outcomes of
+the gaze stage. R10b stays staged as a fallback.
