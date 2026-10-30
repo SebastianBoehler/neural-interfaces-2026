@@ -243,8 +243,12 @@ windows:
   rebalanced mix (1.0).
 
 Worker replica 3024079: 0.9960, 50.2 s, files unchanged.
-`sealed_candidate_ensemble_all_r19.zip` (`3db3a1fc…`). It has not run on the
-real worker yet. The only chance before the sealed phase is a warm-up
-upload by 1 Nov 23:59 CET, and only with user authorisation.
+`sealed_candidate_ensemble_all_r19.zip` (`3db3a1fc…`).
+
+**Real worker (30 Oct):** the exact staged R19 ZIP ran in the warm-up phase
+(30961) as Codabench 1021075, with user authorisation: 0.99601 cell-mean
+(identical to the replica) in 30.8 s. Warm-up quota after it: 9 of 100.
+Live check the same day: sealed phase 30483 runs 4 Nov 23:01 UTC to 21 Nov
+22:59 UTC, 1 per day, 5 in total.
 Audit config: `scripts/sealed_r19.json` (R15 members plus `session_em`);
 `build_sealed.py` reproduces the stage from it.
