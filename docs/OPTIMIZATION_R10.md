@@ -536,3 +536,52 @@ Expected sealed gain over R19 is about +0.2 to +0.5.
 enable it. It matches `session_em` to 3e-16 on 755 real windows.
 Config: `scripts/sealed_r19e.json`. Build:
 `scripts/add_session_em.py --events` on the R15 clean package.
+
+## Round 3: big-jump hypotheses, oracle first (30 Oct, all closed)
+
+Four larger levers over R19e, each gated on a causal true-label oracle (labels
+of windows < t only) before any label-free version (scratchpad `round3/`).
+Gains are dla pooled over seed halves, with ds in brackets.
+
+| Hypothesis | True-label oracle | Label-free | Status |
+|---|---|---|---|
+| H1 per-session refit: MAP LR on v2 / gaze features | +2.03, nested −0.23 (ds −2.6) | v2 on R19e soft labels −12 | closed |
+| H1 adaptive LDA on R19e's ocular templates | **+5.39**, 8/8 participants (ds +1.3) | +0.32 (hard labels), −0.13 (soft) | closed |
+| H2 per-session member confusions (Dawid-Skene) | +0.93; non-causal +1.88 | not run | closed |
+| H3 cortical discriminant-subspace EM (PLS/LDA, fold-internal) | +3.52 (pls4), nested +2.75 | +0.25, below the null maxima | closed |
+| H4 head refit on member log-probs (test-time fine-tune proxy) | +4.67 cell mean; +0.69 without P10 | +0.67, equal to the R15-teacher control | closed |
+
+**Reading.**
+- Per-session adaptation has real capacity: up to about +5 dla with
+  40 or more correct labels per session.
+- The limit is the teacher. True labels corrupted at random to R19e's
+  error rate (about 25%) are still worth +1.4 to +2.3. R19e's own labels
+  are worth 0.
+- Its errors are the participant-specific confusions (P10 MI recall:
+  R19e 31/28, R15 32/28), and every view correlated with the classifier
+  inherits them.
+- Label-free per-session adaptation fed by the ensemble or by views
+  correlated with it is exhausted. What remains needs a label source whose
+  errors are independent of the ensemble, or base models whose class
+  directions generalise better.
+
+**Two last screens (closed).**
+- **Permutation oracle on the ocular EM.** At each window, the best
+  class-to-template map is chosen from the true labels of past windows.
+  Result: +0.03 dla, so the templates are almost never class-swapped. The
+  +5 oracle headroom lies in template shape, not identity, and a label-free
+  permutation selector can gain nothing.
+- **New physiological views:**
+
+  | View | Alone (dla) | P(correct \| R19e wrong) ≥ 0.45 on P10/P03/P05/P07 |
+  |---|---|---|
+  | Cardiac-artifact timing | 33.3 (chance) | 0 of 4 |
+  | < 0.5 Hz respiration/drift | 48.0 | 0 of 4 |
+  | 30–58 Hz lateral EMG | 32.9 (chance) | 0 of 4 |
+
+  Respiration/drift carries task information, but its errors follow
+  R19e's: confusion correlation +0.73 on P10. Every combined teacher scores
+  below R19e alone.
+
+No label source with independent errors exists in these 41 channels. R19e
+stays the best package.
