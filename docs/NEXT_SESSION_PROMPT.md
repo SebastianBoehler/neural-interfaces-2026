@@ -2,67 +2,107 @@
 
 Continue our Track 2 (BCI decoding) entry for the Neural Interfaces 2026
 sealed phase in
-/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026. The goal is
-**top three in the sealed phase**: the prize, and above all the sponsors'
-internship and career opportunities, matter a lot to me. Ignore warm-up rank.
-The sealed phase opens on 5 Nov: five uploads, one per day, best score
-counts.
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026. The goal
+is to **rank confidently in the top three of the sealed phase**: the prize,
+and above all the sponsors' internship and career opportunities, matter a
+lot to me. The sealed phase opens on 5 Nov: five uploads, one per day,
+best score counts, deadline 21 Nov.
 
-Read docs/HANDOFF.md first, then AGENTS.md, OFFICIAL_CONTRACT.md,
-docs/SEALED_PLAN.md and docs/OPTIMIZATION_R10.md. Open older round docs only
-for a specific number.
+## 1. Understand the current state (first)
 
-## First: finish what is running
+Read in this order:
+1. docs/HANDOFF.md
+2. AGENTS.md and OFFICIAL_CONTRACT.md
+3. docs/SEALED_PLAN.md
+4. docs/OPTIMIZATION_R10.md (end: R19, round 2, R19e, round 3)
+5. docs/GROUND_UP_REVIEW.md
 
-The clean builds of R10, R10b and R10c from commit 5ee3adc are Galvani jobs
-3017691–3017693.
-1. Check harness agreement and the official replay.
-2. Run the worker-image replica.
-3. Stage the ZIPs in runs/upload/ and record them in SEALED_PLAN.md.
+Then look at the code: experiments/ (deep.py, models.py, features.py,
+session_em.py, ensemble.py, run_cv.py), submissions/ensemble/submission.py
+and scripts/build_sealed.py.
 
-## Then: step back
+Confirm the baseline with `scripts/diag/diag_common.py`: R15 dla should be
+72.11.
 
-Take a genuine first-principles look at the solution space before running
-more sweeps. Every lever since R9 moved by ≤ 1 point, and our honest warm-up
-proxy (0.536) sits about 20th among plausibly honest entries. The past step
-changes all came from new information: alignment, the slow signal,
-heterogeneous input streams and the balanced runs.
+Summarise for me in a few lines:
+- where we stand (R19e, the sealed order);
+- the established bottleneck (participant-specific class directions);
+- what round 3 proved: label-free teachers carry the ensemble's
+  participant-structured errors.
 
-Challenge the ranked open directions in HANDOFF.md ("Solution space after
-R10/R11"):
-- more data with the same three tasks in one session;
-- unified-label pretraining;
-- self-supervised test-time training;
-- better decision power from pooled seeds and participants;
-- the seen-participant part of the sealed set.
+## 2. Research block: at least 30 minutes wall-clock
 
-Add anything better you find, including a literature and dataset search.
-Give me a short plan ranked by expected sealed gain per day before spending
-heavy compute. Use Galvani lanes generously once the plan is clear.
+Do a genuine state-of-the-art and interdisciplinary research block before
+proposing experiments. Use workflows and parallel research agents (ultracode
+is fine). Look explicitly beyond what docs/GROUND_UP_REVIEW.md §3 already
+covered.
+
+**Questions to answer:**
+- What gives cross-subject generalisation of class directions with about
+  10 training subjects?
+- What creates a label source whose errors are independent of the
+  ensemble?
+- What do other fields do with few-domain transfer? Speech/speaker
+  adaptation, medical imaging site shift, recommender cold start,
+  psychometrics and item-response models, causal representation learning,
+  meta-learning, test-time training with auxiliary self-supervised tasks,
+  Bayesian hierarchical models.
+- What is the neuroscience of MI vs mental subtraction vs word generation
+  that our models may not exploit?
+- What data could legally add same-task participants?
+- What did 2024–26 EEG/BCI challenge winners do?
+
+Be rigorous: for every claimed gain, ask what baseline it beat and whether
+the mechanism survives our setting (causal streaming, no metadata, about
+190 windows per session, a rebalanced heterogeneous ensemble).
+
+## 3. Then iterate towards the next breakthrough
+
+Map the remaining solution space against what is closed (docs/HANDOFF.md,
+"Closed levers"; do not re-propose those without new evidence). Rank the
+candidates by expected sealed gain × probability. Then run them:
+- **Oracle-first gates.** Bound each idea with a true-label or ideal-case
+  oracle before building the label-free version.
+- **Pre-registered checks.** Use six seeds pooled and seed halves, paired
+  per-participant signs and nulls. Template: scripts/diag/verify_r19e.py.
+- **Compute.** Use Galvani generously for training. Use the Mac only for
+  capped CPU analysis.
+
+Aim for real jumps (≥ +1 on dla over R19e, ds not worse) rather than
+knob-turning. Good candidates go through the full packaging path:
+committed config, build, harness agreement 1.0, worker replica, and an
+optional warm-up crash test before 1 Nov 23:59 CET if authorised. They can
+then replace the weak day-2 slot (R10) or improve on R19e.
 
 ## Rules
 
 **Evidence:**
-- Select only on the mean of dev_session and dev_loso_all, and report
-  dev_loso.
-- Evaluate on all_loso (report P04/P09 separately) and seen_session only
-  after a choice is fixed.
-- Never tune on official, all_loso or seen_session.
-- About ±1 point is noise: prefer plateaus and fresh-seed confirmation.
+- Select only on mean(dev_session, dev_loso_all) and report dev_loso.
+- Never tune on official, all_loso, seen_session, P04/P09 or the warm-up
+  board.
+- About ±0.7 is seed noise; adopt at ≥ +0.5 pooled over six seeds with
+  both seed halves positive.
 
 **Packaging:**
-- Every package needs 100% harness agreement, an official replay with
-  unchanged files and a worker-replica run before staging.
+- Every package needs 100% harness agreement, a replay with unchanged
+  files and a worker-replica run before staging.
 - Keep sealed runtime under about 30 min.
+- Commit the config and ZIP hash before any sealed upload (top-3 audit).
 
 **Uploads and commits:**
-- Never upload to Codabench without my explicit authorisation. Check live
-  quota and phase first.
+- Never upload to Codabench without my explicit authorisation, and check
+  the live quota and phase first (Claude in Chrome).
 - Ask before committing unless I've approved it.
-- Skip Scherer 2015. No teammates.
+- Never commit datasets, environments, credentials or checkpoints.
+- Keep the 2026-competition submodule pinned and unchanged.
 
 **Compute:**
-- Run local training only via scripts/run_capped.sh, one job at a time.
-  Prefer Galvani.
-- Galvani 2FA: open a terminal tab running `ssh -fN mlcloud-galvani` and ask
-  me to enter the code.
+- Local Python only via `NI26_MAX_GB=6 scripts/run_capped.sh LOG
+  .venv/bin/python SCRIPT`, one job at a time.
+- Training on Galvani. For 2FA, open a terminal tab with
+  `ssh -fN mlcloud-galvani` and ask me for the code.
+
+**Scope:**
+- Skip Scherer 2015 unless I re-open it.
+- No teammates.
+- Keep source files below about 300 lines and diffs surgical.

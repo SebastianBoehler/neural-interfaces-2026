@@ -141,6 +141,16 @@ Proposed order, one per day and every upload authorised by the user:
 | 4 | R19 (user decision 30 Oct; replaces R10b) |
 | 5 | R15 (user decision 29 Oct) |
 
+**Superseded by the adaptive order (user decision 30 Oct, evening).**
+- Day 1: R19e.
+- Day 2: R15.
+- Days 3–5: chosen from whether R15 beat R19e on the sealed leaderboard (Force_Best shows the best
+  score).
+
+The bootstrap E[max] of {R10, R19e, R19, R15} equals R19e alone, and R15/R19e share worker-proven
+code, so r9g and R10 bought neither expected score nor crash insurance (docs/OPTIMIZATION_R10.md,
+round 4).
+
 Each R10 package first needs a clean build, harness agreement, a worker
 replica run and staging.
 

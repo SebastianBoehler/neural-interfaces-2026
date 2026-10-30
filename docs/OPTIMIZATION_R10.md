@@ -585,3 +585,96 @@ Gains are dla pooled over seed halves, with ds in brackets.
 
 No label source with independent errors exists in these 41 channels. R19e
 stays the best package.
+
+## Round 4: research block and independent-teacher screens (30 Oct evening, all closed)
+
+A 30-minute research block with five parallel agents: cross-subject state of the art, independent label
+sources, other fields, task neuroscience and protocol, legal same-task data. A red-team pass followed.
+Every lead was then screened on saved six-seed probabilities (R19e base, `base_cache.npz`; scripts and
+logs in the session scratchpad, notes in the side-session notes folder). No training.
+
+**Protocol facts found** (dataset README, BIDS events, Inria POTIOC 2025 report):
+- MI is kinesthetic imagery of the **non-dominant** hand; handedness is not released.
+- SUB is cued with a concrete problem; WG means words from a given letter.
+- The screen has three lanes in both interfaces: **MI left, SUB centre, WG right**. Calibration runs
+  give sham feedback in the cued lane on every trial. Online runs very likely give positive-only
+  feedback in the cued lane. BrainHero sends a note down the target lane from cue onset.
+- Feedback starts at cue +3.000 s in all 1,344 trials, i.e. sample 240 of every window.
+- The online decoder is trained per session on the acquisition runs. Its output is **not** recorded
+  in the events.
+- All 84 runs have distinct cue sequences. Transitions match sampling without replacement
+  (diagonal 0.28 against 0.33).
+
+**Bar for a label source with independent errors** (simulation: per-window teacher of accuracy a,
+errors independent of R19e, product of experts with exponent 0.5): dla +1.0 at a = 0.50, +2.1 at
+0.55, +2.9 at 0.60. At exponent 1, ds goes negative.
+
+| Screen (dla unless stated) | Alone (cross-subject) | P(right \| R19e wrong) | In R19e | Verdict |
+|---|---:|---:|---|---|
+| Unsupervised 3-GMM per session, oracle cluster map: ocular 48 / slow PCA | 48.3 / 38.7 (ens 66.9) | – | – | closed |
+| Same after causal local-mean (8 windows) drift removal | 38.5 (ens 69.2) | – | – | closed |
+| 2-way split inside each predicted-class group, oracle relabel (ocular / slow / band power) | fixes 1.7 / 1.4 / 1.9 accuracy points with oracle choices | – | – | closed |
+| Naming vs partition (balance-Hungarian on mean posterior by true class) | identity in 14/14 sessions; P10 MI mean posterior 0.28–0.33 | – | – | partition, not naming |
+| Sign-free cortical log band power (session-centred) | 36.0 | 31.9 | −0.28 | closed |
+| Signed cortical log band power | 45.2 | 28.8 | −2.57 | closed |
+| Feedback-period slow frontal (< 5 Hz, samples 230–480) | 39.7 | 28.0 | −5.2 | closed |
+| Posterior ERP lateralisation (PO7/P5/P3 − PO8/P6/P4) | 36.5 | 37.3 | EM view −0.26 (ds −0.67) | closed |
+| Posterior alpha lateralisation (MI−WG sign 9–10/10 in several bins) | 36.1 | 34.6 | EM view −0.05, inside the shift null (max +0.25); ds +0.29 | closed |
+| Signed saccade-direction event rates | 45.2 / asymmetry 39.0 | 22.9 / 33.5 | EM view +0.07 / +0.64, ds −0.02 / −0.52 | closed |
+| Mirror augmentation, MI only or all classes (band-power LR, balanced weights) | 45.1 / 45.3 vs 45.4 | – | – | closed; MI laterality indices ≤ 0.07 except P08 |
+| Direction-consistency feature gating (AND-mask, tangent space, ≥ 7/8/9 of 9 participants) | 50.9 / 50.3 / 42.1 vs 51.8; P10 MI recall 9–14 | – | – | closed |
+| Within-session own-label slow view: early (cue +1–3 s) vs late (feedback), acquisition vs online | similar; 50–80 % right where the ensemble is wrong (P02, P03, P10, P08) | – | – | capacity exists, but there is no separate feedback signal |
+
+**Reading.**
+- Across about 15 views, every view at ≥ 45 % alone makes R19e's errors: it is right on 23–29 % of
+  them. Every view whose errors are independent sits at 36–39 %, far below the 50 % bar.
+- The ensemble always names the classes right; the loss is the partition. The intruding windows form
+  no cluster of their own in any view tested.
+- This agrees with the literature:
+  - SPDAlign (arXiv 2610.06315) gets 92.6 with a label-fitted rotation but 72.7 label-free, against
+    73.2 for plain EA;
+  - every working in-context model needs a labelled context;
+  - methods that learn the domain shift need 40+ domains;
+  - weak-supervision theory caps correlated views at about 1.4 effective voters.
+- Label-free conditional-shift correction in these 41 channels is closed.
+
+**Portfolio (Force_Best).**
+- Joint participant bootstrap (20 participants) of per-participant scores. E[max] of {R10, R19e, R19,
+  R15} equals R19e alone: 76.54 against 76.54 on dla, 73.52 against 73.51 on al. R10, R19 and R15
+  are hedges against a sealed failure of the stage, not E[max] contributors.
+- Replacing R10 with an R19e config variant adds +0.03 to +0.3. The best, m0 0, is chosen from the
+  grid, so +0.3 is an upper bound.
+
+**External data.**
+- No new legally usable EEG corpus has two of our three tasks. Rathee 2021 (CC0) is MEG only;
+  Ajra 2026 ds007554 (CC0) has MI and auditory arithmetic in a beep-cued protocol.
+- BCI III-V has no licence and only 3 participants.
+- **The rule text changed upstream** (2026-competition main 2b53aec, 26 Oct): "Public datasets may be
+  used when their original terms permit competition use". The pinned a66bc23 still says "publicly
+  available, redistributable". Scherer 2015 was worth +0.7 al (R5), and R7 judged the dev gain to be
+  selection noise. The decision stays with the user.
+
+**Red-team screens** (increments over R19e, seed halves 0–2 / 3–5):
+- Per-interface session EM, true interface given: dla −0.69 / −1.05.
+- Per-run-type EM (sham vs online, true run type given): dla −0.90 / −1.11.
+- λ 0.75 / 1.0 and recency windows 60 / 100: flat or negative.
+- λ per session chosen on the other interface's cell: dla −0.31 / +0.26, ds −1.05 / −0.79.
+- n0 30: dla +0.43 / +0.37, al +0.34 / +0.34, ds mixed. Below the adoption rule.
+- MAD-clipping the EM features at 3 / 5 / 8: dla −0.2 to +0.12, ds −0.75 to −2.8.
+
+All closed.
+
+**Sealed-phase risks raised by the red team** (scratchpad `rt_*.py`, notes `redteam.md`).
+- **Artifacts in the arithmetic-mean EA reference.**
+  - 26 of 2,655 public windows exceed 10× their session's median trace.
+  - P06 has a 287× window that holds 41 % of its session's covariance sum.
+  - P05's R19e accuracy falls from 74 to 62 in the 60 windows after a 35× window.
+  - Injection into the staged R19e ZIP costs at most 3.4 points per session, with no crash.
+  - Expected sealed cost −0.1 to −0.3. A trace clip at 5× the running median is untested: the gate
+    needs a CV re-run on Galvani, since fold models are not saved.
+- **Audit reproducibility.** Only R10 / R10b / R10c have recorded clean rebuilds. An R19e rebuild
+  depends on re-downloading 7 pretraining corpora. Mitigation: commit corpus checksums and run one
+  fresh-clone rebuild.
+- **Upload order.** R19e has run on the real worker (1021330), and R15 runs R10's code. In the sealed
+  phase participants see their leaderboard score (competition_bci.yaml), so an adaptive order can
+  measure the stage on sealed data: R19e, then R15, then choose.
