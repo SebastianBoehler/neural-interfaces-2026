@@ -269,5 +269,8 @@ stage with 32 gaze values and 16 ocular-event rates
 
 Worker replica 3025577: 0.9869, 50.0 s, files unchanged (an in-sample
 score, not evidence). `sealed_candidate_ensemble_all_r19e.zip`
-(`73cd31f7…`). Audit config: `scripts/sealed_r19e.json`. It has not run on
-the real worker yet.
+(`73cd31f7…`). Audit config: `scripts/sealed_r19e.json`.
+
+**Real worker (30 Oct):** the exact staged R19e ZIP ran in the warm-up phase
+(30961) as Codabench 1021330, with user authorisation: 0.98685 cell-mean
+(identical to the replica) in 31.4 s. Warm-up quota after it: 10 of 100.
