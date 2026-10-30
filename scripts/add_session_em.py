@@ -1,9 +1,11 @@
 """Add the per-session gaze-template stage (R19) to an exported package.
 
-Usage: python scripts/add_session_em.py SRC_DIR OUT_DIR [--rows test|all]
+Usage: python scripts/add_session_em.py SRC_DIR OUT_DIR [--rows test|all] [--events]
 Copies the package's trained weights with the current
 ``submissions/ensemble/submission.py`` and adds the ``em_*`` parameters
-(defaults of experiments/session_em.SessionEM). Checks, streamed per session:
+(defaults of experiments/session_em.SessionEM); ``--events`` adds the R19e
+ocular-event rates, with the event scale prior g from all public windows
+(the rows the sealed packages train on). Checks, streamed per session:
 (1) the new code without the stage reproduces the source package exactly;
 (2) with the stage it equals experiments.session_em.apply on the package's
 own rebalanced member mix (the harness reference).
@@ -34,6 +36,7 @@ def main():
     ap.add_argument("src", type=Path)
     ap.add_argument("out", type=Path)
     ap.add_argument("--rows", choices=("test", "all"), default="all")
+    ap.add_argument("--events", action="store_true")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     with np.load(a.src / "weights.npz") as f:
@@ -49,13 +52,18 @@ def main():
     P = stream(off, d, rows, lambda m, x: m.mixed_proba(x))
     same_off = float(np.mean(stream(off, d, rows, lambda m, x: m.predict(x)) == old))
 
-    em = em_params({}, list(d["ch_names"]))
+    ch = list(d["ch_names"])
+    g = session_em.global_mad(d["X"].astype(np.float64), ch) if a.events else None
+    em = em_params({"events": g} if a.events else {}, ch)
     np.savez(a.out / "weights.npz", **z, **em)
     on = stream(load_solver(a.out, "new_on"), d, rows, lambda m, x: m.predict(x))
     st = d["stream"][rows]
     Q = np.concatenate([rebalance(P[st == s], float(z["rb_alpha"]), float(z["rb_k"]), int(z["rb_w"]))
                         for s in dict.fromkeys(st)])
-    F = session_em.gaze_features(d["X"][rows].astype(np.float64), list(d["ch_names"]))
+    Xr = d["X"][rows].astype(np.float64)
+    F = session_em.gaze_features(Xr, ch)
+    if a.events:
+        F = np.c_[F, session_em.event_features(Xr, ch, st, g)]
     ref = session_em.apply(F, Q, st).argmax(1)
     res = {"source": str(a.src), "rows": a.rows, "n_windows": int(rows.sum()),
            "em": {k: v.tolist() for k, v in em.items()},

@@ -1,0 +1,136 @@
+{
+ "name": "ensemble_all_r19e",
+ "about": "R19 with 16 causal ocular-event rates (8 Hz low-passed horizontal/vertical frontal derivatives, |x| > 4 and 8 x running median, 4 bins) appended to the per-session EM view (experiments/session_em.py EventRates; docs/OPTIMIZATION_R10.md R19e). Same trained weights as R15; event scale prior g from all public windows.",
+ "train": "all",
+ "v2_weight": 0.125,
+ "net_defaults": {
+  "k": 5.0,
+  "epochs": 40,
+  "lr": 0.001,
+  "wd": 0.001,
+  "batch": 64
+ },
+ "members": [
+  {
+   "arch": "shallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "shallow",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "sincshallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "init": "runs/pretrain/sincshallow_ea-m7r-s{seed}.pt",
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fblight",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  }
+ ],
+ "rebalance": {
+  "alpha": 1.0,
+  "k": 5.0,
+  "w": 30
+ },
+ "session_em": {
+  "lam": 0.5,
+  "n0": 60,
+  "m0": 20,
+  "shrink": 0.7,
+  "iters": 2,
+  "nmin": 10,
+  "events": true
+ },
+ "reference": "runs/sealed/ensemble_all_r19e_em_r15"
+}

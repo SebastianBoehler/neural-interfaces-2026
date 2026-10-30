@@ -48,8 +48,13 @@ class Ensemble:
         P = rebalance(P, self.alpha, self.k, self.W) if self.alpha else P
         if self.em:  # idx is one session in acquisition order
             d = self.members[0].d
-            F = session_em.gaze_features(d["X"][idx].astype(np.float64), list(d["ch_names"]))
-            P = session_em.apply(F, P, np.zeros(len(idx)), **self.em)
+            X, ch = d["X"][idx].astype(np.float64), list(d["ch_names"])
+            em = dict(self.em)
+            g = em.pop("events", None)  # R19e: training event scale (2,)
+            F = session_em.gaze_features(X, ch)
+            if g is not None:
+                F = np.c_[F, session_em.event_features(X, ch, np.zeros(len(idx)), g)]
+            P = session_em.apply(F, P, np.zeros(len(idx)), **em)
         return P
 
     def predict_stream(self, idx):

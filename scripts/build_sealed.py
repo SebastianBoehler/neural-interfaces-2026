@@ -142,6 +142,9 @@ def build(cfg, d, out):
     assert abs(sum(w) - 1) < 1e-9, f"member weights sum to {sum(w)}"
     rb = cfg["rebalance"]
     em = cfg.get("session_em")  # R19: per-session gaze-template stage
+    if em and em.get("events"):  # R19e: event scale prior from the training rows
+        em = {**em, "events": session_em.global_mad(
+            d["X"][rows].astype(np.float64), list(d["ch_names"]))}
     model = Ensemble([TangentSpace(d, **V2)] + nets, weights=np.array(w),
                      alpha=rb["alpha"], k=rb["k"], W=rb["w"], em=em)
     times = []
@@ -171,9 +174,15 @@ def build(cfg, d, out):
 def em_params(em, ch_names):
     ix = lambda cs: np.array([ch_names.index(c) for c in cs], np.int64)
     kw = {"lam": 0.5, "n0": 60, "m0": 20, "shrink": 0.7, "iters": 2, "nmin": 10, **em}
-    return {"em_hl": ix(session_em.FRONT_L), "em_hr": ix(session_em.FRONT_R),
-            "em_vt": ix(session_em.VERT_TOP), "em_vb": ix(session_em.VERT_BOTTOM),
-            "em_bins": np.int64(16), **{f"em_{k}": np.float64(v) for k, v in kw.items()}}
+    g = kw.pop("events", None)
+    out = {"em_hl": ix(session_em.FRONT_L), "em_hr": ix(session_em.FRONT_R),
+           "em_vt": ix(session_em.VERT_TOP), "em_vb": ix(session_em.VERT_BOTTOM),
+           "em_bins": np.int64(16), **{f"em_{k}": np.float64(v) for k, v in kw.items()}}
+    if g is not None:  # R19e ocular-event rates (session_em.EventRates defaults)
+        out.update(em_ev_g=np.asarray(g, np.float64), em_ev_vt=ix(session_em.EV_TOP),
+                   em_ev_vb=ix(session_em.EV_BOTTOM), em_ev_k=np.float64(5),
+                   em_ev_q=np.array([4.0, 8.0]), em_ev_bins=np.int64(4))
+    return out
 
 
 def package_stream(folder, tag, d, mask, rb):

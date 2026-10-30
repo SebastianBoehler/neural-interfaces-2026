@@ -257,3 +257,17 @@ Audit config: `scripts/sealed_r19.json` (R15 members plus `session_em`);
 from R10 on only a few windows. Only the best of the five sealed scores
 counts, so having both R15 (day 5) and R19 (day 4) covers both outcomes of
 the gaze stage. R10b stays staged as a fallback.
+
+**R19e staged (30 Oct).** R15's weights unchanged, plus the per-session EM
+stage with 32 gaze values and 16 ocular-event rates
+(docs/OPTIMIZATION_R10.md R19e; `scripts/add_session_em.py --events` on
+`ensemble_all_r15_clean_6a894df`, Galvani 3025576). New `submission.py`
+(`6c63a8f2…`) with the `em_ev_*` keys. On all 2,655 windows:
+- stage off reproduces R15 exactly (1.0);
+- stage on equals experiments/session_em.py on the package's own
+  rebalanced mix (1.0).
+
+Worker replica 3025577: 0.9869, 50.0 s, files unchanged (an in-sample
+score, not evidence). `sealed_candidate_ensemble_all_r19e.zip`
+(`73cd31f7…`). Audit config: `scripts/sealed_r19e.json`. It has not run on
+the real worker yet.

@@ -464,3 +464,75 @@ fblight 67.90 → 64.66, shallow_ea 63.78 → 54.66 sel. In R15: 78.17 / 79.31 /
 77.58 against 79.59. The broadband reference, dominated by the slow signal,
 is what these nets rely on. The linear proxy in the review did not transfer.
 Closed.
+
+## Round 2 bottleneck review (30 Oct)
+
+A second multi-agent pass looked at three things: literature on 2024–26
+zero-calibration and recent EEG challenges, which closed levers rest on weak
+evidence, and three CPU probes on saved six-seed R15 probabilities. Two
+critics then tried to refute each candidate.
+
+**Bottleneck.** The remaining loss is participant-specific class
+directions. On the same rows, R15 trails the within-session ceiling by
+13.3 on dla (MI 5.5, SUB 3.2, WG 1.9) and by 3.7 on ds. The biggest
+single blocks:
+- P10: MI recall 29 against 94;
+- P03: all classes;
+- P05 and P07: SUB.
+
+**Ruled out in this round:**
+
+| Lever | Result |
+|---|---|
+| 30–58 Hz power (subvocal EMG) | Alone at chance cross-subject (dla 33.6). Mixed in: inside the shift-null, mostly negative per participant |
+| Per-participant member-family or input-subset routing | Positive in-sample; cross-fitted −0.2 to −2.6 dla |
+| Amplitude as P04's explanation | P04's RMS (13.4–13.8 µV) equals that of P01/P02/P06, who score 70–82, and raw members are no worse on P04 than EA members. The "P04 19 µV" claim in GROUND_UP_REVIEW §2.3 is wrong |
+| v2 slow-block scaling | Inside R15: ds −0.73, sel ≈ +0.06 |
+| Population-template prior for the gaze EM | −0.6 sel on both seed halves |
+| External same-task data (BCI III-V), imaginary coherency, labelled Procrustes oracle | Refuted by the critics: closed mechanism, dla −0.01 on one half, or no path to a sealed slot |
+
+## R19e: gaze + ocular-event rates in the session EM (30 Oct, candidate)
+
+The review's rank-1 joint view, which R19 had shipped only half of. It adds
+16 causal, sign-free event rates to the 32 gaze values (48 in all):
+- traces: 8 Hz low-passed first differences of horizontal
+  (F5+AF3+F3 − F6+AF4+F4) and vertical (AF3+AF4 − C1+C2+Cz) frontal signals;
+- events: |trace| above 4× and 8× the running per-window median, where the
+  median is blended with a training prior g weighted as 5 windows;
+- 4 time bins.
+
+The EM config is unchanged (`experiments/session_em.py` `EventRates`).
+These are saved-probability replays on R15, with the gates fixed before
+the run (scratchpad `round2/verify/verify_r19e.py`):
+
+| R19e minus R19 | seeds 0-2 | seeds 3-5 |
+|---|---|---|
+| dev_loso_all | **+1.26** (shift-null max +0.67, noise max +0.51) | **+0.53** (+0.22, +0.01) |
+| dev_session | +0.84 | +1.83 |
+| all_loso (diagnostic) | +0.80 | +0.50 |
+| first 60 windows per session, dla | +0.64 | +0.35 |
+
+- Pooled per participant on dla: +0.82 (se 0.61), with 7 of 8 participants
+  ≥ 0. P08 is −2.95 and P06 +2.77.
+- Nested leave-one-participant-out over the 12-config grid: +2.44 (se 0.66).
+- g computed inside each fold gives the same result (+0.89).
+- seen_session, R10-like proxy members, against R19: −0.11 (P10 +0.29, P04 −0.51).
+- seen_session with R15's actual members (new six-seed files from Galvani
+  3025249, `probs_r15ss`; diagnostic only): R15 71.10, R19 71.41, R19e
+  72.35. Seeds 0-2: 70.84 / 71.82 / 72.48. Seeds 3-5: 71.24 / 71.81 / 71.96.
+  P04 is 57.6 / 55.2 / 57.3, so the events give back what the gaze stage
+  cost P04.
+- Against R15: ds −0.05 / +2.27, dla +2.19 / +2.21, al +1.56 / +1.94.
+
+All five gates pass. Caveats:
+- The event definition had already been seen on these posteriors in the
+  review, so this confirms a frozen definition rather than testing on
+  fresh data.
+- ds is a single participant.
+
+Expected sealed gain over R19 is about +0.2 to +0.5.
+
+`submission.py` computes the events in the stream; the `em_ev_*` keys
+enable it. It matches `session_em` to 3e-16 on 755 real windows.
+Config: `scripts/sealed_r19e.json`. Build:
+`scripts/add_session_em.py --events` on the R15 clean package.

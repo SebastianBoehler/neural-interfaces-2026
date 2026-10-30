@@ -16,9 +16,12 @@ the standardisation; it starts after ``nmin`` windows.
 """
 
 import numpy as np
+from scipy.signal import butter, sosfiltfilt
 
 FRONT_L, FRONT_R = ("F5", "AF3", "F3"), ("F6", "AF4", "F4")
 VERT_TOP, VERT_BOTTOM = ("AF3", "AF4"), ("P1", "P2", "Pz")
+EV_TOP, EV_BOTTOM = ("AF3", "AF4"), ("C1", "C2", "Cz")
+EV_SOS = butter(4, 8, "low", fs=120, output="sos")
 
 
 def gaze_features(X, ch_names, bins=16):
@@ -30,6 +33,51 @@ def gaze_features(X, ch_names, bins=16):
     h = (sel(FRONT_L) - sel(FRONT_R))[:, :t].reshape(n, bins, -1).mean(-1)
     v = (sel(VERT_TOP) - sel(VERT_BOTTOM))[:, :t].reshape(n, bins, -1).mean(-1)
     return np.concatenate([h, v], 1).astype(np.float64)
+
+
+def event_traces(X, ch_names, bins=4):
+    """(N, 41, T) -> (2, N, T') horizontal and vertical 8 Hz low-passed first
+    differences (saccade and blink velocity proxies), T' divisible by bins."""
+    ix = {c: i for i, c in enumerate(ch_names)}
+    sel = lambda cs: X[:, [ix[c] for c in cs]].mean(1)
+    n = (X.shape[-1] - 1) // bins * bins
+    return np.stack([np.diff(sosfiltfilt(EV_SOS, a, axis=-1), axis=-1)[:, :n]
+                     for a in (sel(FRONT_L) - sel(FRONT_R), sel(EV_TOP) - sel(EV_BOTTOM))])
+
+
+def global_mad(X, ch_names):
+    """Prior event scale (median |trace| over all training samples), (2,)."""
+    return np.median(np.abs(event_traces(X, ch_names)), axis=(1, 2))
+
+
+class EventRates:
+    """Causal per-session ocular-event rates (R19e): log fraction of samples
+    per time bin where |trace| exceeds q times the running per-window median
+    |trace| of the session so far (including the current window), blended
+    with the training prior g weighted as k windows. Sign-free; 2 traces x
+    len(q) thresholds x bins values (16)."""
+
+    def __init__(self, g, k=5, q=(4, 8), bins=4):
+        self.g, self.k, self.q, self.bins = np.asarray(g, float), k, q, bins
+        self.hist = []
+
+    def step(self, tr):  # tr: (2, T') one window's traces
+        a = np.abs(tr)
+        self.hist.append(np.median(a, axis=1))
+        m = (self.k * self.g + np.sum(self.hist, 0)) / (self.k + len(self.hist))
+        f = [(a[i] > q * m[i]).reshape(self.bins, -1).mean(-1) for i in range(2) for q in self.q]
+        return np.log(np.concatenate(f) + 1e-3)
+
+
+def event_features(X, ch_names, streams, g, **kw):
+    """Offline helper: EventRates over rows in acquisition order, per stream."""
+    T = event_traces(X, ch_names)
+    out = np.empty((len(X), 2 * 2 * 4))
+    for s in dict.fromkeys(streams):
+        er = EventRates(g, **kw)
+        for r in np.flatnonzero(streams == s):
+            out[r] = er.step(T[:, r])
+    return out
 
 
 def _softmax_lda(Z, mu, Ci):

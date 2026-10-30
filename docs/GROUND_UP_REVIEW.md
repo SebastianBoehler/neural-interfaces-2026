@@ -129,7 +129,7 @@ Every gain of 2 points or more landed by R4. Since R10 each adopted step is at m
   - P04: SUB recall 35–40%.
   - P09 and P03: WG recall 50–53%.
   - P10's class contrast correlates −0.40 with the group; P05's −0.08. P10 is the only participant with reversed frontal-midline theta for MI (+0.84 against a −0.59 mean). P05 shows reversed MI laterality.
-  - P04 is a weak-signal participant (own-data ceiling 0.58; 19 µV RMS against 27–46), not a transfer failure.
+  - P04 is a weak-signal participant (own-data ceiling 0.58). Correction (round 2, docs/OPTIMIZATION_R10.md): its broadband RMS (13.4–13.8 µV) equals P01/P02/P06's, so amplitude does not explain it.
 - **Errors are near-ties.** Confident-and-wrong windows (≥ 0.6) are 4.4% of windows. Pseudo-labels at ≥ 0.7 are clean but skewed against WG (17% of predicted labels). This explains why confident-only adaptation failed.
 - **Diversity.** On 94.7% of windows at least one member is right; the ensemble gets 72.0%. Leave-one-family-out:
   - all EA members −3.92 dla;

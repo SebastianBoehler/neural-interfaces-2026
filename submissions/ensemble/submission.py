@@ -320,16 +320,33 @@ class SessionEM:
         self.lam, self.n0, self.m0 = float(p["em_lam"]), float(p["em_n0"]), float(p["em_m0"])
         self.shrink, self.iters, self.nmin = float(p["em_shrink"]), int(p["em_iters"]), int(p["em_nmin"])
         self.bins = int(p["em_bins"])
+        self.ev = "em_ev_g" in p  # R19e: causal ocular-event rates
+        if self.ev:
+            self.ev_v = [p[k].astype(int) for k in ("em_ev_vt", "em_ev_vb")]
+            self.ev_g, self.ev_k = p["em_ev_g"].astype(np.float64), float(p["em_ev_k"])
+            self.ev_q, self.ev_bins = p["em_ev_q"].astype(np.float64), int(p["em_ev_bins"])
+            self.ev_sos = butter(4, 8, btype="low", fs=SFREQ, output="sos")
         self.reset_state()
 
     def reset_state(self):
-        self.A, self.B = [], []
+        self.A, self.B, self.ev_hist = [], [], []
+
+    def events(self, x):
+        n = (x.shape[-1] - 1) // self.ev_bins * self.ev_bins
+        h = x[self.chans[0]].mean(0) - x[self.chans[1]].mean(0)
+        v = x[self.ev_v[0]].mean(0) - x[self.ev_v[1]].mean(0)
+        a = np.abs(np.stack([np.diff(sosfiltfilt(self.ev_sos, s))[:n] for s in (h, v)]))
+        self.ev_hist.append(np.median(a, axis=1))
+        m = (self.ev_k * self.ev_g + np.sum(self.ev_hist, 0)) / (self.ev_k + len(self.ev_hist))
+        f = [(a[i] > q * m[i]).reshape(self.ev_bins, -1).mean(-1) for i in range(2) for q in self.ev_q]
+        return np.log(np.concatenate(f) + 1e-3)
 
     def features(self, x):
         x = x.astype(np.float64)
         t = x.shape[-1] // self.bins * self.bins
         hl, hr, vt, vb = (x[c].mean(0)[:t].reshape(self.bins, -1).mean(-1) for c in self.chans)
-        return np.concatenate([hl - hr, vt - vb])
+        f = np.concatenate([hl - hr, vt - vb])
+        return np.concatenate([f, self.events(x)]) if self.ev else f
 
     @staticmethod
     def _lik(Z, mu, Ci):
