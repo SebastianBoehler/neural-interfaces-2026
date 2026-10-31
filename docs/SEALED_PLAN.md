@@ -378,3 +378,18 @@ ZIPs. Code is frozen from here: new sealed arms may only change `weights.npz`.
 - P04/P09 (al) and seen_session have been looked at during selection; they are no
   longer clean holdouts.
 - Sealed composite expectation: about 69.5–73.
+
+**Sealed order revised (user decision 31 Oct).** The branch for "R15 beats R19e"
+now uses R19-g and R19e-λ0.25-g instead of R14, R10 and r9g, which agree with R15
+on all but 0–6 of 2,655 public labels and add about 0 to the best-of-five.
+R19e-λ0.25-g: R15 weights plus the R19e stage at λ 0.25
+(`scripts/add_session_em.py --events --lam 0.25`, audit config
+`scripts/sealed_r19e_l25.json`); stage off reproduces R15 (1.0), stage on equals
+`experiments/session_em.py` at λ 0.25 (1.0); same worker-proven `submission.py`
+(`cdfa4cec…`). Dev (six seeds): dla 73.52, ds 85.76, al 68.15 (R19 73.57 / 85.68 /
+68.17; profile in docs/HANDOFF.md). Worker replica 3031717 (A100): 0.99601, 49.8 s,
+files unchanged; `sealed_candidate_ensemble_all_r19e_l25_g.zip` (`b65086f8e0fe…`).
+(3031715 failed before scoring: Slurm placed it on a non-A100 GPU, which the worker
+image's CUDA build does not support; replicas must use the default A100 partition.)
+Day 1 R19e-g, day 2 R15-g; slots 3–5 may wait
+for weights-only arms until about 18 Nov.

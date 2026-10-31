@@ -123,17 +123,27 @@ code ran on the real worker (1024097), so the `_g` ZIPs supersede the unguarded
 R19e/R15/R19. After the warm-up closes (1 Nov 23:59 CET) the code is frozen: new
 sealed arms may change only `weights.npz`.
 
-**Sealed order: adaptive (user decision 30 Oct, evening).** It replaces r9g, R10, R19e, R19, R15.
-One upload per day from 5 Nov.
-- **Day 1:** R19e. It is the best package and has run on the real worker (1021330).
-- **Day 2:** R15, the same weights without the stage, on R10's proven code. Under Force_Best, the
-  leaderboard shows whether R15 beat R19e on the sealed set.
+**Sealed order: adaptive (user decisions 30 Oct evening and 31 Oct).** Guarded `_g` ZIPs only.
+Uploads need not be on consecutive days: slots 3–5 can wait for weights-only arms built until
+about 18 Nov (deadline 21 Nov 23:59 CET).
+- **Day 1:** R19e-g (real worker 1024097).
+- **Day 2:** R15-g, the same weights without the stage (λ = 0). If per-submission sealed scores
+  are visible, this shows whether the stage helps on the sealed set.
 - **Days 3–5:** decided from those two results.
-  - If R19e ≥ R15, the stage helps: use stage variants or the EA-clip build if it passes its gate.
-  - If R15 > R19e, the stage hurts on sealed data: use non-stage arms (R14, R10, r9g).
+  - If R19e ≥ R15: stronger or decorrelated stage variants (λ 0.8, a fresh-seed R19e copy;
+    weights only).
+  - If R15 > R19e (31 Oct swap): R19-g (gaze only: drops the unproven event rates) and
+    R19e-λ0.25-g (half-strength stage), instead of the R15 near-copies R14, R10 and r9g.
 
-r9g and R10 add no crash insurance (R15 and R19e share proven code) and about 0 to E[max]
-(docs/OPTIMIZATION_R10.md, round 4).
+Dev profile (six seeds, `scripts/diag/check_lam.py`): dla / ds / al
+
+| Arm | dla | ds | al |
+|---|---:|---:|---:|
+| R15 (λ 0) | 72.11 | 85.25 | 67.03 |
+| R19 (gaze, λ 0.5) | 73.57 | 85.68 | 68.17 |
+| R19e λ 0.25 | 73.52 | 85.76 | 68.15 |
+| R19e (λ 0.5) | 74.93 | 86.97 | 69.26 |
+| R19e λ 0.8 | 74.67 | 86.22 | 68.93 |
 
 **Warm-up scores are not evidence.** Every package trains on the warm-up
 test participants, so they score about 0.99.

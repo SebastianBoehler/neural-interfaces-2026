@@ -1,0 +1,136 @@
+{
+ "name": "ensemble_all_r19e_l25",
+ "about": "R19e with the per-session EM stage at half strength (lam 0.25): sealed portfolio arm for the case that the full stage over-commits on sealed sessions (docs/SEALED_PLAN.md, 31 Oct). Same trained weights as R15; event scale prior g from all public windows.",
+ "train": "all",
+ "v2_weight": 0.125,
+ "net_defaults": {
+  "k": 5.0,
+  "epochs": 40,
+  "lr": 0.001,
+  "wd": 0.001,
+  "batch": 64
+ },
+ "members": [
+  {
+   "arch": "shallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "shallow",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025
+  },
+  {
+   "arch": "fbcnet",
+   "align": true,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "fbcnet",
+   "align": false,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight": 0.03125,
+   "kw": {
+    "train_fir": true
+   }
+  },
+  {
+   "arch": "sincshallow",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "init": "runs/pretrain/sincshallow_ea-m7r-s{seed}.pt",
+    "rot": 0.05
+   }
+  },
+  {
+   "arch": "fblight",
+   "align": true,
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "weight": 0.025,
+   "kw": {
+    "rot": 0.05
+   }
+  }
+ ],
+ "rebalance": {
+  "alpha": 1.0,
+  "k": 5.0,
+  "w": 30
+ },
+ "session_em": {
+  "lam": 0.25,
+  "n0": 60,
+  "m0": 20,
+  "shrink": 0.7,
+  "iters": 2,
+  "nmin": 10,
+  "events": true
+ },
+ "reference": "runs/sealed/final_r19e_l25_g"
+}

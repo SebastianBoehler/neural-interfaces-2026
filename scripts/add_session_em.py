@@ -1,6 +1,6 @@
 """Add the per-session gaze-template stage (R19) to an exported package.
 
-Usage: python scripts/add_session_em.py SRC_DIR OUT_DIR [--rows test|all] [--events]
+Usage: python scripts/add_session_em.py SRC_DIR OUT_DIR [--rows test|all] [--events] [--lam L]
 Copies the package's trained weights with the current
 ``submissions/ensemble/submission.py`` and adds the ``em_*`` parameters
 (defaults of experiments/session_em.SessionEM); ``--events`` adds the R19e
@@ -37,6 +37,7 @@ def main():
     ap.add_argument("out", type=Path)
     ap.add_argument("--rows", choices=("test", "all"), default="all")
     ap.add_argument("--events", action="store_true")
+    ap.add_argument("--lam", type=float, default=0.5, help="stage strength (sealed portfolio)")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     with np.load(a.src / "weights.npz") as f:
@@ -54,7 +55,7 @@ def main():
 
     ch = list(d["ch_names"])
     g = session_em.global_mad(d["X"].astype(np.float64), ch) if a.events else None
-    em = em_params({"events": g} if a.events else {}, ch)
+    em = em_params({"lam": a.lam, **({"events": g} if a.events else {})}, ch)
     np.savez(a.out / "weights.npz", **z, **em)
     on = stream(load_solver(a.out, "new_on"), d, rows, lambda m, x: m.predict(x))
     st = d["stream"][rows]
@@ -64,7 +65,7 @@ def main():
     F = session_em.gaze_features(Xr, ch)
     if a.events:
         F = np.c_[F, session_em.event_features(Xr, ch, st, g)]
-    ref = session_em.apply(F, Q, st).argmax(1)
+    ref = session_em.apply(F, Q, st, lam=a.lam).argmax(1)
     res = {"source": str(a.src), "rows": a.rows, "n_windows": int(rows.sum()),
            "em": {k: v.tolist() for k, v in em.items()},
            "stage_off_matches_source": same_off,
