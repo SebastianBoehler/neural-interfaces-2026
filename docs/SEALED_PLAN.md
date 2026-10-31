@@ -309,3 +309,69 @@ Two gaps found and closed:
 same answer as R15 on all 2,655 public windows. Order: r9g, R10, R19e, R19,
 R15. The gaze stage is covered at two strengths (R19, R19e), with R15 as
 the no-stage fallback. R14 stays staged as a fallback.
+
+## Pre-freeze audit and guarded packages (31 Oct)
+
+Three independent reviews (package code, evaluation method, strategy) plus a
+stress test of the staged R19e package on real windows
+(`scripts/diag/stress_package.py`).
+
+**Defects found in the staged packages (R19, R19e; R15/R10 unaffected unless noted):**
+- **Crash (lost slot, no log):** `SessionEM` inverts a zero covariance when every
+  EM feature is constant over the session's past. That happens when the first
+  ≥ 10 windows are all-NaN or zero (one NaN in a raw run, spread by the official
+  filter, would do it) or when the 12 EM-view channels are dead or identical.
+  The public data have no NaN and no flat channel, so it is unlikely, not impossible.
+- **Silent numerical bug (also in `experiments/session_em.py`):** `sd = std + 1e-9`.
+  An event-rate column that never fired is constant in the past; its mean is off by
+  one ulp, so a later window with an event gets z ≈ 2e9 and rounding noise decides
+  the class (28 % of EM steps had a constant column). Fixed with an sd floor of 1e-3.
+  Six-seed dev check (`scripts/diag/check_sd_floor.py`, `runs/diag/check_sd_floor.log`):
+  R19 unchanged everywhere; R19e dla +0.05 / +0.10 (seed halves, ≤ 2 labels), ds +0.00.
+  The bug did not distort the dev evidence.
+- **NaN poisoning (all packages):** one non-finite member probability entered the
+  rebalance history and EM state and spoiled the rest of the session (needs ≥ 1e25 µV).
+- **Positional channels (all packages):** `meta["ch_names"]` was unused, and the
+  organisers' guide says sealed runtime `meta` values may differ. A reordered
+  montage would have permuted every model's input silently.
+
+**Fixes (`submissions/ensemble/submission.py`, `cdfa4cec…`; reference code in step):**
+EM fit inside try/except with a finite check (falls back to the rebalanced
+posterior), sd floor 1e-3, non-finite member rows set to uniform before any
+session state, and `channel_map`: inputs are re-ordered by `meta["ch_names"]`
+against the hard-coded training montage (missing channels zero-filled; identity,
+absent or unusable names keep the positional path). On normal data the guards are
+inert except the sd floor.
+
+**Checks:**
+- `add_session_em.py` from the R15 package: with the new code, stage off reproduces
+  R15 exactly (1.0) and stage on equals `experiments/session_em.py` (1.0), for R19
+  and R19e. Weights stay the staged ones (R19e `1b6c5d03…`, R19 `5e720d63…`, R15
+  from `0f86ccbd…`), so the audit configs are unchanged.
+- Stress test: every degenerate case above now runs; a permuted, lower-case or
+  40-channel montage with matching `ch_names` gives labels identical to the original.
+- Official CPU replay of R19e-g: 0.99080, 41 s, files unchanged.
+- Worker replica 3031525: R19e-g 0.99080 (51.7 s), R15-g 0.99601 (46.6 s),
+  R19-g 0.99601 (50.8 s), files unchanged.
+
+| ZIP (`runs/upload/`) | SHA-256 |
+|---|---|
+| `sealed_candidate_ensemble_all_r19e_g.zip` | `125503e8f59b…` |
+| `sealed_candidate_ensemble_all_r15_g.zip` | `e10409ba1b1c…` |
+| `sealed_candidate_ensemble_all_r19_g.zip` | `c10650cad4ed…` |
+
+These replace the unguarded R19e/R15/R19 ZIPs once the guarded code has run on the
+real worker (warm-up closes 1 Nov 23:59 CET; after that, code is frozen and new
+sealed arms may only change `weights.npz`).
+
+**Evidence caveats from the reviews (not new levers):**
+- P10 carries about 65 % of the selection rule (all of ds, 6 of 20 dla cells).
+- R19e − R15 on dla per participant (six seeds): mean +2.67, bootstrap 95 % CI
+  [+0.68, +4.35], 7/8 positive; R19 − R15 +1.44 [+0.44, +2.44]; R19e − R19 +1.23
+  [−0.35, +2.68], within selection-bias range. Expected sealed gain of R19e over
+  R15 after shrinkage: about +0.6 to +1.0.
+- The sealed seen/new split is not published (FAQ: identities and session
+  allocation private). 43 % seen assumed all six sessions; carry 33–50 %.
+- P04/P09 (al) and seen_session have been looked at during selection; they are no
+  longer clean holdouts.
+- Sealed composite expectation: about 69.5–73.

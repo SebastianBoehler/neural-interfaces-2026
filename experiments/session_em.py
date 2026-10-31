@@ -22,6 +22,7 @@ FRONT_L, FRONT_R = ("F5", "AF3", "F3"), ("F6", "AF4", "F4")
 VERT_TOP, VERT_BOTTOM = ("AF3", "AF4"), ("P1", "P2", "Pz")
 EV_TOP, EV_BOTTOM = ("AF3", "AF4"), ("C1", "C2", "Cz")
 EV_SOS = butter(4, 8, "low", fs=120, output="sos")
+SD_FLOOR = 1e-3
 
 
 def gaze_features(X, ch_names, bins=16):
@@ -101,23 +102,32 @@ class SessionEM:
         t = len(self.A)
         out = p
         if t >= self.nmin:
-            A, B = np.asarray(self.A), np.asarray(self.B)
-            m, sd = A.mean(0), A.std(0) + 1e-9
-            Z, z = (A - m) / sd, (f - m) / sd
-            Q = B
-            for _ in range(self.iters):
-                mu = (Q / (Q.sum(0, keepdims=True) + self.m0)).T @ Z
-                C = np.cov((Z - Q @ mu).T)
-                C = (1 - self.shrink) * C + self.shrink * np.eye(len(C)) * np.trace(C) / len(C)
-                Ci = np.linalg.inv(C)
-                Q = B * _softmax_lda(Z, mu, Ci) ** self.lam
-                Q = Q / Q.sum(1, keepdims=True)
-            e = self.lam * t / (t + self.n0) if self.n0 else self.lam
-            q = p * _softmax_lda(z[None], mu, Ci)[0] ** e
-            out = q / q.sum()
+            try:
+                out = self._adapt(np.asarray(self.A), np.asarray(self.B), f, p, t)
+            except np.linalg.LinAlgError:  # degenerate view (e.g. flat frontal channels)
+                pass
+            if not np.isfinite(out).all():
+                out = p
         self.A.append(f)
         self.B.append(p)
         return out
+
+    def _adapt(self, A, B, f, p, t):
+        # sd floor: a column constant over the past (e.g. an event rate that
+        # never fired) must not turn float rounding into huge z scores
+        m, sd = A.mean(0), np.maximum(A.std(0), SD_FLOOR)
+        Z, z = (A - m) / sd, (f - m) / sd
+        Q = B
+        for _ in range(self.iters):
+            mu = (Q / (Q.sum(0, keepdims=True) + self.m0)).T @ Z
+            C = np.cov((Z - Q @ mu).T)
+            C = (1 - self.shrink) * C + self.shrink * np.eye(len(C)) * np.trace(C) / len(C)
+            Ci = np.linalg.inv(C)
+            Q = B * _softmax_lda(Z, mu, Ci) ** self.lam
+            Q = Q / Q.sum(1, keepdims=True)
+        e = self.lam * t / (t + self.n0) if self.n0 else self.lam
+        q = p * _softmax_lda(z[None], mu, Ci)[0] ** e
+        return q / q.sum()
 
 
 def apply(F, P, streams, **kw):

@@ -30,6 +30,11 @@ from scipy.signal import butter, sosfiltfilt
 from benchmark_utils.base_solver import CompetSolver
 
 SFREQ = 120.0
+# Training montage order (PROTEUS meta["ch_names"]); see channel_map
+CH_NAMES = ("C2", "CP2", "P2", "Pz", "CPz", "Cz", "C1", "CP1", "P1", "P3", "PO7", "P5", "TP7",
+            "CP5", "CP3", "C3", "PO8", "P6", "P4", "TP8", "CP6", "CP4", "C6", "C4", "FC6", "FC4",
+            "FC2", "F6", "F4", "F2", "AF4", "AF3", "F5", "F3", "F1", "Fz", "FC5", "FC3", "FC1",
+            "FCz", "C5")
 
 
 def _eig_fn(C, fn):
@@ -359,23 +364,32 @@ class SessionEM:
     def step(self, x, p):
         f, t, out = self.features(x), len(self.A), p
         if t >= self.nmin:
-            A, B = np.asarray(self.A), np.asarray(self.B)
-            m, sd = A.mean(0), A.std(0) + 1e-9
-            Z, z = (A - m) / sd, (f - m) / sd
-            Q = B
-            for _ in range(self.iters):
-                mu = (Q / (Q.sum(0, keepdims=True) + self.m0)).T @ Z
-                C = np.cov((Z - Q @ mu).T)
-                C = (1 - self.shrink) * C + self.shrink * np.eye(len(C)) * np.trace(C) / len(C)
-                Ci = np.linalg.inv(C)
-                Q = B * self._lik(Z, mu, Ci) ** self.lam
-                Q = Q / Q.sum(1, keepdims=True)
-            e = self.lam * t / (t + self.n0) if self.n0 else self.lam
-            q = p * self._lik(z[None], mu, Ci)[0] ** e
-            out = q / q.sum()
+            try:
+                out = self._adapt(np.asarray(self.A), np.asarray(self.B), f, p, t)
+            except np.linalg.LinAlgError:  # degenerate view (e.g. flat frontal channels)
+                pass
+            if not np.isfinite(out).all():
+                out = p
         self.A.append(f)
         self.B.append(p)
         return out
+
+    def _adapt(self, A, B, f, p, t):
+        # sd floor: a column constant over the past (an event rate that never
+        # fired) must not turn float rounding into huge z scores
+        m, sd = A.mean(0), np.maximum(A.std(0), 1e-3)
+        Z, z = (A - m) / sd, (f - m) / sd
+        Q = B
+        for _ in range(self.iters):
+            mu = (Q / (Q.sum(0, keepdims=True) + self.m0)).T @ Z
+            C = np.cov((Z - Q @ mu).T)
+            C = (1 - self.shrink) * C + self.shrink * np.eye(len(C)) * np.trace(C) / len(C)
+            Ci = np.linalg.inv(C)
+            Q = B * self._lik(Z, mu, Ci) ** self.lam
+            Q = Q / Q.sum(1, keepdims=True)
+        e = self.lam * t / (t + self.n0) if self.n0 else self.lam
+        q = p * self._lik(z[None], mu, Ci)[0] ** e
+        return q / q.sum()
 
 
 def _input_key(p):
@@ -394,6 +408,7 @@ class Ensemble:
     def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0, dev="cpu", em=None):
         self.tangent, self.w, self.em = tangent, weights / weights.sum(), em
         self.alpha, self.k, self.W = alpha, k, W
+        self.perm = None  # set by Solver.load_model from meta["ch_names"]
         self.seen, self.n, self.hist = np.zeros(3), 0, []
         self.groups = {}
         for i, p in enumerate(nets):
@@ -438,7 +453,13 @@ class Ensemble:
         return P
 
     def predict(self, X):
+        if self.perm is not None:  # sealed montage in another order: map by name
+            X = X.detach().cpu().numpy() if torch.is_tensor(X) else np.asarray(X)
+            Xn = np.zeros((len(X), len(self.perm), X.shape[-1]), np.float32)
+            Xn[:, self.perm >= 0] = X[:, self.perm[self.perm >= 0]]
+            X = Xn
         P = self.mixed_proba(X)
+        P[~np.isfinite(P).all(1)] = 1.0 / P.shape[1]  # never let NaN enter session state
         if self.alpha:
             for r, p in enumerate(P.copy()):  # causal, in acquisition order
                 if self.W:
@@ -483,9 +504,25 @@ class Solver(CompetSolver):
         for i in range(int(z["n_nets"])):
             pre = f"net{i}_"
             nets.append({k[len(pre):]: v for k, v in z.items() if k.startswith(pre)})
-        return Ensemble(AlignedTangent(ts), nets,
-                        z["member_weights"].astype(np.float64),
-                        alpha=float(z.get("rb_alpha", 0.0)),
-                        k=float(z.get("rb_k", 5.0)),
-                        W=int(z.get("rb_w", 0)), dev=dev,
-                        em=SessionEM(z) if "em_lam" in z else None)
+        model = Ensemble(AlignedTangent(ts), nets,
+                         z["member_weights"].astype(np.float64),
+                         alpha=float(z.get("rb_alpha", 0.0)),
+                         k=float(z.get("rb_k", 5.0)),
+                         W=int(z.get("rb_w", 0)), dev=dev,
+                         em=SessionEM(z) if "em_lam" in z else None)
+        model.perm = channel_map(meta.get("ch_names"))
+        return model
+
+
+def channel_map(names):
+    """Index of each training channel in the runtime montage (-1: missing,
+    zero-filled), or None when the runtime order is the training order or
+    the names are unusable (then inputs stay positional)."""
+    try:
+        names = [str(c).strip().upper() for c in names]
+    except TypeError:
+        return None
+    train = [c.upper() for c in CH_NAMES]
+    if names == train or len(set(names) & set(train)) < len(train) // 2:
+        return None
+    return np.array([names.index(c) if c in names else -1 for c in train])
