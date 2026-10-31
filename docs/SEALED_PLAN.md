@@ -285,6 +285,26 @@ score, not evidence). `sealed_candidate_ensemble_all_r19e.zip`
 (30961) as Codabench 1021330, with user authorisation: 0.98685 cell-mean
 (identical to the replica) in 31.4 s. Warm-up quota after it: 10 of 100.
 
+**Fresh-clone audit of R19e (30 Oct, night).** A clean clone of `d26234f` (submodule `a66bc23`) on
+Galvani rebuilt everything from public sources:
+- the PROTEUS windows (3027901), the 7 corpora re-downloaded (3027927–33), the m7r trunks (3027934);
+- then `build_sealed.sbatch scripts/sealed_r19e.json` (3027935).
+
+Results:
+- **Corpora:** content equal to the originals (3029111). X differs by at most 3e-5 µV; y, subject,
+  session, run, task and split are identical.
+- **Trunks:** relative distance to the originals 0.05; two original seeds differ by 0.13–0.16.
+- **Package:** `submission.py` identical (`6c63a8f2…`). Labels equal the staged R19e on 755/755
+  official-test windows and on 2,654 of 2,655 windows overall (max probability diff 0.031). That is
+  the same tolerance as the r6nf clean rebuild.
+- **A100 replay:** 0.9882 in-sample (staged 0.9869), 71.6 s, files unchanged.
+
+Two gaps found and closed:
+- `build_sealed.sbatch` now creates `data/proteus_windows.npz` on a fresh clone. `export_moabb.py`
+  also needs that file, so export it first.
+- `scripts/sealed_r19e_inputs.sha256` records the input hashes and the export chunk sizes. Other
+  chunk sizes change the file hashes and the pretraining row order, not the content.
+
 **Day 3 is R19e (user decision 30 Oct).** It replaces R14, which gets the
 same answer as R15 on all 2,655 public windows. Order: r9g, R10, R19e, R19,
 R15. The gaze stage is covered at two strengths (R19, R19e), with R15 as

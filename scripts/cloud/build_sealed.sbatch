@@ -20,6 +20,7 @@ export PATH="$PWD/.venv/bin:$PATH" BENCHOPT_DATA_HOME="$PWD/data"
 export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4
 unset NEURALBENCH_EXTRACT_CPUS
 python -c "import torch; assert torch.cuda.is_available(), 'CUDA missing'"
+test -f data/proteus_windows.npz || python scripts/export_windows.py  # fresh clone (audit)
 nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv
 OUT="${2:-runs/sealed/$(basename "$1" .json)_a100_$SLURM_JOB_ID}"
 python scripts/build_sealed.py "$1" "$OUT" --device cuda

@@ -202,7 +202,8 @@ Details and numbers are in `docs/OPTIMIZATION_R10.md` and
   - mirror (handedness) augmentation;
   - direction-consistency feature gating;
   - per-interface and per-run-type EM;
-  - EM λ / recency / feature clipping.
+  - EM λ / recency / feature clipping;
+  - the EA reference trace clip (R20: dla +0.08, ds −0.13).
 
   The ensemble names every class right: the loss is the partition, not a swap. Every view at ≥ 45 %
   alone repeats R19e's errors; every view with independent errors is at 36–39 %, below the 50 % bar.
@@ -213,8 +214,10 @@ Details and numbers are in `docs/OPTIMIZATION_R10.md` and
 The literature agrees: SPDAlign gets 72.7 label-free against 73.2 for EA, and in-context models need
 labelled context. What is left is sealed-phase work:
 - the upload order (adaptive: R19e, then R15);
-- audit reproducibility (a fresh-clone rebuild of R19e with corpus checksums);
-- an EA artifact clip, which needs a Galvani CV gate (expected +0 to +0.3);
+- audit reproducibility: done. A fresh-clone rebuild of R19e from re-downloaded corpora matches the
+  staged package on 2,654 of 2,655 labels (docs/SEALED_PLAN.md; checksums in
+  `scripts/sealed_r19e_inputs.sha256`);
+- an EA artifact clip: tested as R20, dla +0.08, not adopted (closed);
 - replacing R10 with an R19e variant (E[max] +0.03 to +0.3).
 
 Details are in docs/OPTIMIZATION_R10.md, end.

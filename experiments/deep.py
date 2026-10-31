@@ -194,7 +194,7 @@ class AlignedNet:
                  lr=1e-3, wd=1e-3, seed=0, batch=64, aug=False, ft=0, adabn=None,
                  pretrained=True, ls=0.0, lld=1.0, lp=0, crops=(), net_kw=None,
                  train_fir=False, dro=0.0, pbal=False, tcrop=None, init=None, swa=0.0, cmix=0.0, rot=0.0, fsc=0.0,
-                 mstyle=0.0, adv=0.0, ref_band=None):
+                 mstyle=0.0, adv=0.0, ref_band=None, ref_clip=0.0):
         self.d, self.arch, self.align, self.k, self.ft = d, arch, align, k, ft
         self.adabn, self.pretrained = adabn, pretrained
         self.ls, self.lld, self.lp = ls, lld, lp  # fine-tuning recipe
@@ -208,6 +208,7 @@ class AlignedNet:
         self.rot, self.fsc = rot, fsc  # rotation / frequency-scaling augmentation (dg.py, R14)
         self.mstyle, self.adv = mstyle, adv  # MixStyle / participant-adversarial (dg.py, R18)
         self.ref_band = ref_band  # (lo, hi) Hz: EA reference from band-passed windows (R19)
+        self.ref_clip = ref_clip  # cap each window's trace at c x the (running) median in the reference (R20)
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -230,13 +231,24 @@ class AlignedNet:
             return self._crop((X / np.sqrt(tr)[:, None, None]).astype(np.float32))
         if not self.align:
             return self._crop((X / self.scale).astype(np.float32))
+        C = self.C[idx] * self._clip(idx, causal)[:, None, None]
         if causal:
             n = np.arange(1, len(idx) + 1)[:, None, None]
-            R = (self.k * self.G + np.cumsum(self.C[idx], 0)) / (self.k + n)
+            R = (self.k * self.G + np.cumsum(C, 0)) / (self.k + n)
             P = invsqrtm(R)
             return self._crop(np.einsum("nij,njt->nit", P, X).astype(np.float32))
-        P = invsqrtm(self.C[idx].mean(0))
+        P = invsqrtm(C.mean(0))
         return self._crop(np.einsum("ij,njt->nit", P, X).astype(np.float32))
+
+    def _clip(self, idx, causal):
+        """Per-window reference weights: a window whose covariance trace exceeds ref_clip
+        times the median trace (of the session's windows 0..t when causal) is scaled down to it."""
+        if not self.ref_clip:
+            return np.ones(len(idx))
+        tr = np.trace(self.C[idx], axis1=1, axis2=2)
+        med = (np.array([np.median(tr[:t + 1]) for t in range(len(tr))]) if causal
+               else np.full(len(tr), np.median(tr)))
+        return np.minimum(1.0, self.ref_clip * med / tr)
 
     def _crop(self, X):
         return X if self.tcrop is None else np.ascontiguousarray(X[..., slice(*self.tcrop)])
@@ -246,7 +258,7 @@ class AlignedNet:
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
                tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal, self.tcrop, self.init,
-               self.swa, self.cmix, self.rot, self.fsc, self.mstyle, self.adv, self.ref_band, hash(np.asarray(idx).tobytes()))
+               self.swa, self.cmix, self.rot, self.fsc, self.mstyle, self.adv, self.ref_band, self.ref_clip, hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)
         if key not in self._fitted:  # kept on CPU to bound device memory
@@ -265,9 +277,10 @@ class AlignedNet:
             self.C = self._covs[key]
         torch.manual_seed(self.seed)
         rng = np.random.default_rng(self.seed)
-        self.G = self.C[idx].mean(0)
-        self.scale = float(np.sqrt(np.trace(self.G) / len(self.G)))
         streams = self.d["stream"][idx]
+        self.G = np.mean(np.concatenate([self.C[idx[streams == s]] * self._clip(idx[streams == s], False)[:, None, None]
+                                         for s in dict.fromkeys(streams)]), 0) if self.ref_clip else self.C[idx].mean(0)
+        self.scale = float(np.sqrt(np.trace(self.G) / len(self.G)))
         order = np.concatenate([idx[streams == s] for s in dict.fromkeys(streams)])
         X = [self._aligned(idx[streams == s], False) for s in dict.fromkeys(streams)]
         for start in self.crops:  # same rows and labels, shifted windows

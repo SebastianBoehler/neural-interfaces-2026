@@ -678,3 +678,20 @@ All closed.
 - **Upload order.** R19e has run on the real worker (1021330), and R15 runs R10's code. In the sealed
   phase participants see their leaderboard score (competition_bci.yaml), so an adaptive order can
   measure the stage on sealed data: R19e, then R15, then choose.
+
+**R20: artifact-robust EA reference (closed, 30 Oct night).** `ref_clip=5` (`_rc5`, experiments/deep.py):
+each window's covariance is scaled down to 5× its session's running median trace before it enters the EA
+reference, and the training prior uses the same clip. On public data this caps 40 of 2,655 windows; P06's
+287× window gets factor 0.018. All five EA families of R15 were retrained (Galvani 3027861–3027865, six
+seeds, TF five; `probs_r20`). Pre-registered gate (scratchpad `r20_prereg.md`, `eval_r20.py`):
+
+| | seeds 0–2 | seeds 3–5 |
+|---|---:|---:|
+| R20 − R15, dla | +0.02 | −0.36 |
+| R20e − R19e, dla | −0.10 | +0.25 |
+| R20e − R19e, ds | +0.48 | −0.74 |
+| R20e − R19e, al (diagnostic) | +0.01 | +0.14 |
+
+- Pooled dla is +0.08 (5 of 8 participants ≥ 0) and ds −0.13, so it is not adopted.
+- P05, the motivating case, falls by 1.29. P06 gains 0.57. The P05 drop after its 35× window is not
+  caused by a corrupted reference.
