@@ -360,9 +360,12 @@ inert except the sd floor.
 | `sealed_candidate_ensemble_all_r15_g.zip` | `e10409ba1b1c…` |
 | `sealed_candidate_ensemble_all_r19_g.zip` | `c10650cad4ed…` |
 
-These replace the unguarded R19e/R15/R19 ZIPs once the guarded code has run on the
-real worker (warm-up closes 1 Nov 23:59 CET; after that, code is frozen and new
-sealed arms may only change `weights.npz`).
+**Real worker (31 Oct):** the exact staged R19e-g ZIP ran in the warm-up phase
+(30961) as Codabench 1024097, with user authorisation: 0.99080 cell-mean
+(identical to the replica) in 31.7 s. Warm-up quota after it: 11 of 100.
+The guarded `submission.py` (`cdfa4cec…`) is now worker-proven; R15-g and R19-g
+run a subset of its code path. The `_g` ZIPs replace the unguarded R19e/R15/R19
+ZIPs. Code is frozen from here: new sealed arms may only change `weights.npz`.
 
 **Evidence caveats from the reviews (not new levers):**
 - P10 carries about 65 % of the selection rule (all of ds, 6 of 20 dla cells).

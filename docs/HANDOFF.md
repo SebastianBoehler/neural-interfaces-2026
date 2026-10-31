@@ -24,7 +24,7 @@ specific number.
 
 | Item | Value |
 |---|---|
-| Warm-up ("Warm-up Phase (update 1)", phase 30961) | open until 1 Nov 2026 23:59 CET; 5/day, 100 total; **10 used** |
+| Warm-up ("Warm-up Phase (update 1)", phase 30961) | open until 1 Nov 2026 23:59 CET; 5/day, 100 total; **11 used** |
 | Sealed ("Sealed Final Phase", phase 30483) | 5 Nov 00:01 → 21 Nov 23:59 CET; **1/day, 5 total**; best score counts (Force_Best); logs hidden |
 | Evaluation | ≤ 60 min on one A100; `submission.py` + data files in a ZIP |
 | Audit (top three) | training re-run from the committed config (±2σ); every package has a committed `scripts/sealed_*.json` |
@@ -112,15 +112,15 @@ saved-probability replays.
 | `sealed_candidate_ensemble_all_r15.zip` | `0f86ccbd…` | replica only (same code as R10) |
 | `sealed_candidate_ensemble_all_r19.zip` | `3db3a1fc…` | 1021075: 0.99601, 30.8 s |
 | `sealed_candidate_ensemble_all_r19e.zip` | `73cd31f7…` | 1021330: 0.98685, 31.4 s |
-| `sealed_candidate_ensemble_all_r19e_g.zip` | `125503e8…` | replica 3031525: 0.99080 (guarded code) |
+| `sealed_candidate_ensemble_all_r19e_g.zip` | `125503e8…` | 1024097: 0.99080, 31.7 s (guarded code) |
 | `sealed_candidate_ensemble_all_r15_g.zip` | `e10409ba…` | replica 3031525: 0.99601 (guarded code) |
 | `sealed_candidate_ensemble_all_r19_g.zip` | `c10650ca…` | replica 3031525: 0.99601 (guarded code) |
 
 **Guarded code (31 Oct, `submission.py` `cdfa4cec…`).** The pre-freeze audit found
 a crash path in the EM stage, an sd bug, NaN poisoning and positional channels;
-all fixed, weights unchanged (docs/SEALED_PLAN.md, "Pre-freeze audit"). The `_g`
-ZIPs supersede the unguarded R19e/R15/R19 once the guarded code has run on the
-real worker. After the warm-up closes (1 Nov 23:59 CET) the code is frozen: new
+all fixed, weights unchanged (docs/SEALED_PLAN.md, "Pre-freeze audit"). The guarded
+code ran on the real worker (1024097), so the `_g` ZIPs supersede the unguarded
+R19e/R15/R19. After the warm-up closes (1 Nov 23:59 CET) the code is frozen: new
 sealed arms may change only `weights.npz`.
 
 **Sealed order: adaptive (user decision 30 Oct, evening).** It replaces r9g, R10, R19e, R19, R15.
