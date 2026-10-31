@@ -22,6 +22,8 @@ interleaved multi-threaded numpy and torch calls were 4x slower on a loaded
 A100 node (spin-waiting thread pools).
 """
 
+from pathlib import Path
+
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -151,6 +153,24 @@ class Shallow:
         h = F.avg_pool2d(h * h, (75, 1), (15, 1))
         h = torch.log(torch.clamp(h, min=1e-6))
         h = F.conv2d(h, t["cls_w"], t["cls_b"])[:, :, 0, 0]
+        return torch.softmax(h.double(), 1).cpu().numpy()
+
+
+class Jit:
+    """Stateless member shipped as a TorchScript file in the submission
+    folder (key ``jit_file``): aligned (B, C, T) float32 -> logits (B, 3).
+    New architectures can then change weight files only."""
+
+    def __init__(self, p, dev="cpu", root="."):
+        self.m = torch.jit.load(str(Path(root) / str(p["jit_file"])), map_location=dev).eval()
+        self.dev = dev
+
+    def __deepcopy__(self, memo):  # stateless: session copies share the module
+        return self
+
+    @torch.no_grad()
+    def proba(self, X):
+        h = self.m(torch.from_numpy(np.ascontiguousarray(X)).to(self.dev))
         return torch.softmax(h.double(), 1).cpu().numpy()
 
 
@@ -405,7 +425,8 @@ class Ensemble:
     with identical alignment parameters share one input stream.
     """
 
-    def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0, dev="cpu", em=None):
+    def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0, dev="cpu", em=None,
+                 root="."):
         self.tangent, self.w, self.em = tangent, weights / weights.sum(), em
         self.alpha, self.k, self.W = alpha, k, W
         self.perm = None  # set by Solver.load_model from meta["ch_names"]
@@ -415,7 +436,8 @@ class Ensemble:
             key = _input_key(p)
             if key not in self.groups:
                 self.groups[key] = (InputStream(p), [])
-            net = (CBra(p, dev) if "cbm_n_times" in p else
+            net = (Jit(p, dev, root) if "jit_file" in p else
+                   CBra(p, dev) if "cbm_n_times" in p else
                    Sinc(p, dev) if "sinc_f" in p else
                    FBL(p, dev) if "fbl_win" in p else
                    FBC(p, dev) if "fbc_n_bands" in p else Shallow(p, dev))
@@ -509,7 +531,8 @@ class Solver(CompetSolver):
                          alpha=float(z.get("rb_alpha", 0.0)),
                          k=float(z.get("rb_k", 5.0)),
                          W=int(z.get("rb_w", 0)), dev=dev,
-                         em=SessionEM(z) if "em_lam" in z else None)
+                         em=SessionEM(z) if "em_lam" in z else None,
+                         root=meta["submission_dir"])
         model.perm = channel_map(meta.get("ch_names"))
         return model
 

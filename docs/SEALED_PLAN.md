@@ -393,3 +393,28 @@ files unchanged; `sealed_candidate_ensemble_all_r19e_l25_g.zip` (`b65086f8e0fe�
 image's CUDA build does not support; replicas must use the default A100 partition.)
 Day 1 R19e-g, day 2 R15-g; slots 3–5 may wait
 for weights-only arms until about 18 Nov.
+
+## Model-file member before the code freeze (31 Oct, night)
+
+After the warm-up closes, sealed packages may only change data files. To keep
+new architectures possible after the freeze, `submission.py` gained a generic
+`Jit` member: a net whose dict has `jit_file` loads a TorchScript module from the
+submission folder (aligned (B, C, T) float32 → logits (B, 3)) and keeps its
+input stream through the usual alignment keys. It is stateless and shared by the
+per-session deep copies. Packages without `jit_file` take exactly the old path.
+
+**Proof package:** `scripts/export_jit_member.py` swaps R19e-g's member 0
+(ShallowConvNet) for a scripted twin (`member0.pt`, exported with torch 2.14.1,
+the worker's version). On all 2,655 public windows the twin's probabilities equal
+Shallow's (max |Δp| 0.0) and the package's labels equal R19e-g's (1.0). Official
+CPU replay: 0.99080 (= R19e-g), 42 s, `member0.pt` at the ZIP root, files
+unchanged. `scripts/replay_package.py` now ships `.pt` files.
+
+Worker replica 3032473 (A100): 0.99080, 51.6 s, files unchanged
+(`warmup13_r19e_jit_g.zip`, `011e56bc77b4…`). **Real worker (1 Nov, 00:06 CET):**
+the exact ZIP ran in the warm-up phase as Codabench 1024447, with user
+authorisation: 0.99080 (identical to R19e-g) in 31.8 s. Warm-up quota after it:
+12 of 100. This `submission.py` (`25d51a6e…`) is the frozen sealed code: it runs
+every existing package unchanged and accepts TorchScript members as data files.
+Export members with torch 2.14.1 (the worker's version) and prove each with
+`export_jit_member.py`-style equivalence plus a worker replica before staging.

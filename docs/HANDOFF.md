@@ -24,7 +24,7 @@ specific number.
 
 | Item | Value |
 |---|---|
-| Warm-up ("Warm-up Phase (update 1)", phase 30961) | open until 1 Nov 2026 23:59 CET; 5/day, 100 total; **11 used** |
+| Warm-up ("Warm-up Phase (update 1)", phase 30961) | open until 1 Nov 2026 23:59 CET; 5/day, 100 total; **12 used** |
 | Sealed ("Sealed Final Phase", phase 30483) | 5 Nov 00:01 → 21 Nov 23:59 CET; **1/day, 5 total**; best score counts (Force_Best); logs hidden |
 | Evaluation | ≤ 60 min on one A100; `submission.py` + data files in a ZIP |
 | Audit (top three) | training re-run from the committed config (±2σ); every package has a committed `scripts/sealed_*.json` |
@@ -122,6 +122,11 @@ all fixed, weights unchanged (docs/SEALED_PLAN.md, "Pre-freeze audit"). The guar
 code ran on the real worker (1024097), so the `_g` ZIPs supersede the unguarded
 R19e/R15/R19. After the warm-up closes (1 Nov 23:59 CET) the code is frozen: new
 sealed arms may change only `weights.npz`.
+
+**Frozen sealed code (1 Nov):** `submission.py` `25d51a6e…` = the guarded code plus a
+generic TorchScript member (`jit_file` key; docs/SEALED_PLAN.md, "Model-file member").
+It ran on the real worker as Codabench 1024447 (0.99080, 31.8 s). New architectures
+after the freeze ship as `.pt` data files next to `weights.npz`.
 
 **Sealed order: adaptive (user decisions 30 Oct evening and 31 Oct).** Guarded `_g` ZIPs only.
 Uploads need not be on consecutive days: slots 3–5 can wait for weights-only arms built until

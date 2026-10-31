@@ -43,7 +43,7 @@ def main():
     archive = out / "submission.zip"
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zf:
         for p in sorted(src.iterdir()):
-            if p.is_file() and p.suffix in (".py", ".npz"):
+            if p.is_file() and p.suffix in (".py", ".npz", ".pt"):
                 zf.write(p, arcname=p.name)
     sub = out / "extracted"
     with zipfile.ZipFile(archive) as zf:
