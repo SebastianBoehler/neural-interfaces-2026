@@ -51,7 +51,9 @@ def heads(path, X):
     arch = Path(path).name.split("_")[0]
     cls = getattr(bd, ARCHS[arch])
     blocks = {(m["offset"], m.get("n", len(m["classes"]))): c for c, m in meta["corpora"].items()}
-    n_out = max(o + n for o, n in blocks)  # unified corpora (R17) share one 4-way block
+    if meta.get("unified"):  # R17 saves only the shared block's MI / SUB / WG outputs
+        blocks = {(0, 3): "unified"}
+    n_out = max(o + n for o, n in blocks)
     kw = dict(n_chans=41, n_outputs=n_out, n_times=480)
     if "sfreq" in inspect.signature(cls).parameters:
         kw["sfreq"] = 120.0
@@ -63,8 +65,8 @@ def heads(path, X):
     cols, names = [], []
     for (o, n), c in sorted(blocks.items()):
         cols.append(torch.log_softmax(Z[:, o:o + n], 1).numpy())
-        cl = meta["corpora"][c]["classes"]
-        names += [f"{c}:{k}" for k in cl] if len(cl) == n else [f"unified:{k}" for k in range(n)]
+        names += [f"{c}:{k}" for k in meta["corpora"][c]["classes"]] if c in meta["corpora"] else \
+            [f"unified:{k}" for k in ("mi", "sub", "wg")]
     return np.concatenate(cols, 1), names
 
 

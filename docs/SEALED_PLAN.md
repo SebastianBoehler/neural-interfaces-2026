@@ -487,3 +487,25 @@ public windows) to R19e-g with member weight 2 × 0.125, sharing the EA input st
   (sinc and filter-bank layers) therefore run on the real CUDA worker.
 - Audit: still needs a committed config that rebuilds it (pretrain.py m7r s0–5 for
   both families, then the exporter).
+
+**Wave-2 teacher screen (1 Nov, Galvani 3034726, `eval_wave2.json`).** Same map and
+folds, eight head families, six pretraining seeds each. Adoption rule, set before the
+data: beat ref (the packaged teacher) by ≥ +0.5 pooled sel at its best weight, both seed
+halves positive. Pooled sel Δ vs R19e at w 0.5 / 1 / 2:
+
+| family | w0.5 | w1 | w2 | vs ref (best w) |
+|---|---|---|---|---|
+| ref: sinc+fbcnet m7r (packaged) | +0.23 | +0.29 | +0.84 | (reproduces) |
+| m9r: + shin2018wg corpus | +0.07 | +0.20 | +0.72 | −0.12 |
+| u9: unified MI/SUB/WG head | −0.21 | −0.29 | −0.98 | worse |
+| m7r4: + fblight + shallow m7r | +0.25 | +0.82 | +1.11 | +0.27 |
+| fbl: fblight m7r alone | +0.07 | +0.22 | +0.33 | −0.51 |
+| sh: shallow m7r alone | +0.27 | +0.44 | +0.52 | −0.32 |
+| mix: ref + m9r | +0.01 | +0.28 | +0.37 | −0.47 |
+| ref_u9: ref + u9 | +0.03 | +0.40 | +0.67 | −0.17 |
+
+No family passes. m7r4 is the only one ahead (dla 76.49 vs 76.43 at w 2; ds 87.52 vs
+87.04, P10 only), within noise. Task-matched corpora (word generation, unified head) do
+not help a frozen-head teacher; more MI architectures help a little. The packaged
+teacher stays. The remaining bet in this class is end-to-end fine-tuning on PROTEUS,
+not more frozen heads.
