@@ -507,5 +507,14 @@ halves positive. Pooled sel Δ vs R19e at w 0.5 / 1 / 2:
 No family passes. m7r4 is the only one ahead (dla 76.49 vs 76.43 at w 2; ds 87.52 vs
 87.04, P10 only), within noise. Task-matched corpora (word generation, unified head) do
 not help a frozen-head teacher; more MI architectures help a little. The packaged
-teacher stays. The remaining bet in this class is end-to-end fine-tuning on PROTEUS,
-not more frozen heads.
+teacher stays. (End-to-end fine-tuning of these trunks is R10–R16, already in the
+ensemble.) Overnight follow-ups: w 3–4, a per-net probe on the frozen trunk embeddings
+instead of the heads, and pretraining seeds 6–11 as an independent replication.
+
+**w 3–4 (1 Nov 21:39, Galvani 3035011, `eval_w34.json`).** Pooled sel Δ (s02 / s35):
+ref w3 +0.64 (1.19 / 1.23), w4 +0.47; m7r4 w3 +1.33 (0.54 / 2.00), w4 +1.58 (1.51 / 2.41).
+m7r4 w4 formally clears the bar (+0.74 over ref w2), but dla is flat (76.41 vs 76.43)
+and the whole gain is ds (88.55 vs 87.04, P10 only), picked from 5 weights × 8 families.
+Not adopted on this alone. Pre-registered for the seed 6–11 replication (3035013, seeds
+never seen by any selection): m7r4 at w 2 and w 4 must beat ref w 2 by ≥ +0.5 sel on
+s611, with dla not below ref's; otherwise the packaged teacher stays.

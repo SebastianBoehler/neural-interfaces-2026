@@ -10,10 +10,13 @@ Reports, on dev_loso_all rows, against R19e from BASE_CACHE (scratchpad base_cac
   - the same scores session-centred (causal running mean);
   - a LOSO logistic map from the 19 centred head log-probs to the 3 classes: dla alone,
     P(right | R19e wrong), and R19e x teacher^0.5 per seed half (round-4 bar).
+NI26_EMB=1 saves each net's trunk embedding (the final layer's flattened input) instead of
+the head log-probs, for eval_external_teacher.py NI26_PROBE=1, and skips the report.
 """
 
 import inspect
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -60,8 +63,14 @@ def heads(path, X):
     net = cls(**kw)
     net.load_state_dict(ck["state"])
     net.eval()
+    emb = []
+    if os.environ.get("NI26_EMB"):
+        net.final_layer.register_forward_pre_hook(lambda m, a: emb.append(a[0].flatten(1)))
     with torch.no_grad():
         Z = torch.cat([net(torch.from_numpy(X[i:i + 256])) for i in range(0, len(X), 256)]).double()
+    if emb:
+        E = torch.cat(emb).numpy().astype(np.float32)
+        return E, [f"emb{j}" for j in range(E.shape[1])]
     cols, names = [], []
     for (o, n), c in sorted(blocks.items()):
         cols.append(torch.log_softmax(Z[:, o:o + n], 1).numpy())
@@ -99,6 +108,8 @@ def main():
         feats.setdefault(fam, []).append(F)
         fam_names[fam], per_ckpt[Path(p).stem] = names, F
     np.savez_compressed(out_json.with_suffix(".npz"), names=np.array(names), **per_ckpt)
+    if os.environ.get("NI26_EMB"):
+        return print({k: v.shape for k, v in per_ckpt.items()})
     res ={"checkpoints": ckpts, "families": {}}
     idx = base["s05_dev_loso_all_idx"]
     parts = sorted(set(subj[idx]))
