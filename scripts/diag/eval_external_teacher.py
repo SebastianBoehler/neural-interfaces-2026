@@ -1,0 +1,97 @@
+"""MI-transfer arm, step 2 (1 Nov): the external-head teacher as one more R19e member.
+
+Usage: python scripts/diag/eval_external_teacher.py BASE_CACHE HEADS_NPZ OUT_JSON
+HEADS_NPZ comes from screen_external_heads.py (per-checkpoint log-probs of the external heads,
+causal EA). Teacher = logistic map (C 0.1, balanced) from seed-averaged head log-probs to the
+3 classes, fit on each fold's training participants only (dla: the other nine; ds: dev rows
+outside P10 sessions 2-3; al: the other nine). No session state, so it is a stateless member,
+packageable as TorchScript (trunk + heads + map). It enters the member mix with weight w (the
+plain members have 1), then the unchanged rebalancing and R19e stage (lam 0.5, n0 60, m0 20).
+Pre-registered primary: family sinc+fbcnet, w 1. Seed halves use the matching pretraining seeds.
+"""
+
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "scripts/diag")]
+from diag_common import cells, cm, d, mixp, rebal  # noqa: E402
+import session_em as SE  # noqa: E402
+from sklearn.linear_model import LogisticRegression  # noqa: E402
+
+WS = [1, 0.5, 0.5, 1, 1, 1, 1, 1, 1]  # R15 member weights (base_cache.py spec order)
+HALF = {"s02": range(0, 3), "s35": range(3, 6), "s05": range(0, 6)}
+FAMS = {"sinc": ["sincshallow_ea-m7r"], "fbcnet": ["fbcnet_ea-m7r"],
+        "sinc+fbcnet": ["sincshallow_ea-m7r", "fbcnet_ea-m7r"]}
+st, y, subj = d["stream"], d["y"], d["subject"]
+DEV = ~np.isin(subj, [f"Dreyer2026Proteus/{p}" for p in ("P04", "P09")])
+
+
+def features(H, fams, seeds):
+    return np.concatenate([np.mean([H[f"{f}-s{s}"] for s in seeds], 0) for f in fams], 1)
+
+
+def teacher(F, proto, idx):
+    T = np.zeros((len(y), 3))
+    if proto == "dev_session":
+        tr = DEV & ~np.isin(np.arange(len(y)), idx)
+        T[idx] = LogisticRegression(C=0.1, max_iter=3000, class_weight="balanced").fit(
+            F[tr], y[tr]).predict_proba(F[idx])
+        return T[idx]
+    for p in sorted(set(subj[idx])):
+        te = subj == p
+        T[te] = LogisticRegression(C=0.1, max_iter=3000, class_weight="balanced").fit(
+            F[~te], y[~te]).predict_proba(F[te])
+    return T[idx]
+
+
+def by_participant(idx, pred):
+    out = {}
+    for (s, _), v in cells(idx, pred).items():
+        out.setdefault(s.split("|")[0].split("/")[-1], []).append(v)
+    return {p: float(np.mean(v)) for p, v in out.items()}
+
+
+def main():
+    B, H, out = np.load(sys.argv[1]), np.load(sys.argv[2]), Path(sys.argv[3])
+    fams = dict(a.split("=") for a in sys.argv[4:]) or FAMS  # NAME=prefix+prefix (controls)
+    fams = {k: v.split("+") if isinstance(v, str) else v for k, v in fams.items()}
+    GE = np.c_[B["G"], B["EV"]]
+    res = {}
+    for fam, fl in fams.items():
+        for half, seeds in HALF.items():
+            for proto in ("dev_loso_all", "dev_session", "all_loso"):
+                k = f"{half}_{proto}"
+                idx, M, R19e = B[k + "_idx"], list(B[k + "_members"]), B[k + "_R19e"]
+                base = rebal(mixp(M, WS), idx)
+                assert np.allclose(base, B[k + "_R15"]), "member weights do not reproduce R15"
+                T = teacher(features(H, fl, seeds), proto, idx)
+                r = res.setdefault(fam, {}).setdefault(half, {}).setdefault(proto, {})
+                r["R15"], r["R19e"] = round(cm(idx, base.argmax(1)), 2), round(cm(idx, R19e.argmax(1)), 2)
+                r["teacher"] = round(cm(idx, T.argmax(1)), 2)
+                ref = by_participant(idx, R19e.argmax(1))
+                for w in (0.5, 1.0, 2.0):
+                    b = rebal(mixp(M + [T], WS + [w]), idx)
+                    e = SE.apply(GE[idx], b, st[idx], lam=0.5, n0=60, m0=20)
+                    pp = by_participant(idx, e.argmax(1))
+                    r[f"w{w:g}"] = {"R15+T": round(cm(idx, b.argmax(1)), 2),
+                                    "R19e+T": round(cm(idx, e.argmax(1)), 2),
+                                    "per_participant_delta": {p: round(pp[p] - ref[p], 2) for p in ref}}
+            for w in ("w0.5", "w1", "w2"):
+                s = {p: res[fam][half][p] for p in ("dev_loso_all", "dev_session")}
+                sel0 = np.mean([s[p]["R19e"] for p in s])
+                sel1 = np.mean([s[p][w]["R19e+T"] for p in s])
+                res[fam][half][f"sel_delta_{w}"] = round(float(sel1 - sel0), 2)
+            print(fam, half, {w: res[fam][half][f"sel_delta_{w}"] for w in ("w0.5", "w1", "w2")},
+                  "dla", res[fam][half]["dev_loso_all"]["R19e"], "->",
+                  {w: res[fam][half]["dev_loso_all"][w]["R19e+T"] for w in ("w0.5", "w1", "w2")},
+                  "ds", res[fam][half]["dev_session"]["R19e"], "->",
+                  {w: res[fam][half]["dev_session"][w]["R19e+T"] for w in ("w0.5", "w1", "w2")}, flush=True)
+    out.write_text(json.dumps(res, indent=1))
+
+
+if __name__ == "__main__":
+    main()

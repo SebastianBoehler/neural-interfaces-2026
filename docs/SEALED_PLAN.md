@@ -418,3 +418,72 @@ authorisation: 0.99080 (identical to R19e-g) in 31.8 s. Warm-up quota after it:
 every existing package unchanged and accepts TorchScript members as data files.
 Export members with torch 2.14.1 (the worker's version) and prove each with
 `export_jit_member.py`-style equivalence plus a worker replica before staging.
+
+## External-head teacher: MI-transfer arm (1 Nov, candidate)
+
+**Idea.** MI is the largest loss block, and the only class with hundreds of
+external participants. The m7r pretrained nets (`experiments/pretrain.py`, seven
+public MI corpora, about 340 participants, no PROTEUS data) are kept frozen. Their
+per-corpus head log-probs on the causal-EA PROTEUS stream feed a logistic map to
+the three classes (C 0.1, balanced; fit per fold on training participants only).
+The teacher is stateless, so it ships as one TorchScript member (data files only,
+frozen code).
+
+**Screen** (`scripts/diag/screen_external_heads.py`, no PROTEUS training in the
+nets; R19e from the six-seed base cache):
+- MI vs SUB/WG from High-Gamma `1 − p(rest)`: mean AUC 0.70–0.77, P10 0.81–0.85.
+- PhysionetMI rest, Shin 2017B subtraction and |laterality| are near 0.5.
+- The teacher alone reaches dla 52–54. P(right | R19e wrong) is 0.45–0.50,
+  against 0.23–0.29 for the round-4 views.
+
+**As an R19e member** (`scripts/diag/eval_external_teacher.py`): it enters the
+member mix with weight w (one family = 1), then the unchanged rebalancing and
+R19e stage. Seed halves use the matching pretraining seeds. Teacher sinc+fbcnet,
+sel Δ:
+
+| w | s0–2 | s3–5 | pooled s0–5 | dla pooled | al pooled |
+|---|---:|---:|---:|---:|---:|
+| 1 (pre-registered) | +0.79 | +0.94 | +0.29 | 74.82 → 75.59 | 69.23 → 69.62 |
+| 2 | +0.91 | +1.36 | **+0.84** | 74.82 → 76.43 | 69.23 → 70.26 |
+
+- Pooled w2, dla per participant: 6 of 8 positive (P10 +3.4, P02 +2.6, P05 +2.1,
+  P03 −1.6).
+- sinc-only and fbcnet-only teachers behave the same (pooled w2 +0.86 / +0.81).
+
+**Control.** The same map on randomly initialised trunks of the same shapes gives
+sel Δ −0.41 to +0.29 (teacher alone 32–39). The gain comes from the external
+pretraining.
+
+**Caveats.**
+- w 2 was chosen after seeing three weights; the pre-registered w 1 misses the
+  pooled +0.5 bar.
+- The official test participants, evaluation only, move P04 −1.1…+0.7 and
+  P09 −0.5…−3.2 (al is still +0.4…+1.0).
+- ds is P10 only.
+- Treat it as a portfolio arm for days 3–5, not day 1.
+
+**Package (staged 1 Nov, `runs/sealed/final_r19e_ext_g`).** `scripts/export_external_teacher.py`
+adds `teacher.pt` (the 12 frozen nets, seed-averaged head log-probs, the map fit on all
+public windows) to R19e-g with member weight 2 × 0.125, sharing the EA input stream
+(k 5, shrink 0.001). Frozen `submission.py` `25d51a6e…`; only data files change.
+
+- Tracing fixes: braindecode properties that raise `ValueError` get metadata values
+  (forward unchanged), and same-device `.to(x.device)` calls are skipped during the
+  trace. Without the second fix the graph pinned the sinc and filter-bank filters to
+  the CPU, which would have failed on the CUDA worker; the export now asserts that no
+  device constant is left.
+- Checks (Galvani 3034483, `final_r19e_ext_g_check.json`): traced = eager (0.0; batch
+  1 8e-7; loaded on CUDA 2e-6); package = harness reference on all 2,655 windows; 18
+  labels differ from R19e-g.
+- Official replay on A100 (3034485): files unchanged, 136.5 s. Worker-image replica
+  (3034484, default A100 partition): files unchanged, 70.0 s.
+- In-sample score 0.98299 (R19e-g 0.99080). Not evidence: every package trains on
+  these participants.
+- ZIP `runs/upload/sealed_candidate_ensemble_all_r19e_ext_g.zip`, SHA-256 `6562d2ee…`
+  (byte-identical to the replica's).
+- **Real worker (1 Nov, user-authorised warm-up upload):** Codabench 1026185, Finished,
+  0.9829861111 (identical to the replica on all three scores), 44.6 s. Live check
+  before it: warm-up phase 30961 current, 12 of 100 used. TorchScript braindecode nets
+  (sinc and filter-bank layers) therefore run on the real CUDA worker.
+- Audit: still needs a committed config that rebuilds it (pretrain.py m7r s0–5 for
+  both families, then the exporter).

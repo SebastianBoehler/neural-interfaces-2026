@@ -24,7 +24,7 @@ specific number.
 
 | Item | Value |
 |---|---|
-| Warm-up ("Warm-up Phase (update 1)", phase 30961) | open until 1 Nov 2026 23:59 CET; 5/day, 100 total; **12 used** |
+| Warm-up ("Warm-up Phase (update 1)", phase 30961) | open until 1 Nov 2026 23:59 CET; 5/day, 100 total; **13 used** (last: 1026185, the MI-transfer teacher package, 1 Nov) |
 | Sealed ("Sealed Final Phase", phase 30483) | 5 Nov 00:01 → 21 Nov 23:59 CET; **1/day, 5 total**; best score counts (Force_Best); logs hidden |
 | Evaluation | ≤ 60 min on one A100; `submission.py` + data files in a ZIP |
 | Audit (top three) | training re-run from the committed config (±2σ); every package has a committed `scripts/sealed_*.json` |
