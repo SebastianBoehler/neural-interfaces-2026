@@ -16,6 +16,10 @@ Output: runs/pretrain/<ARCH>_<ALIGN>-<TAG>-s<SEED>.pt (gitignored).
 imagery / subtraction / word generation / rest, each learning its task
 against rest inside the same sessions (no block confound). The block's
 first three outputs are saved as a 3-class head, which AlignedNet loads.
+
+``--cmix A`` / ``--fsc S`` / ``--mstyle P`` (2 Nov, teacher wave 6): the dg.py
+cross-subject levers applied to pretraining (same-class mixing, time scaling,
+MixStyle); see dg.py. MixStyle hooks are removed before saving.
 """
 
 import argparse
@@ -74,6 +78,9 @@ def main():
     ap.add_argument("--aug", action="store_true")
     ap.add_argument("--rot", type=float, default=0.0)  # dg.rotate strength (R14)
     ap.add_argument("--unified", default="")  # corpora in the shared 4-way block (R17)
+    ap.add_argument("--cmix", type=float, default=0.0)  # dg.class_mix alpha: same-class, cross-subject
+    ap.add_argument("--fsc", type=float, default=0.0)  # dg.freq_scale: individual alpha frequency
+    ap.add_argument("--mstyle", type=float, default=0.0)  # dg.MixStyle probability per batch
     a = ap.parse_args()
     torch.manual_seed(a.seed)
     rng, gen = np.random.default_rng(a.seed), torch.Generator().manual_seed(a.seed)
@@ -105,6 +112,7 @@ def main():
     opt = torch.optim.AdamW([p for p in net.parameters() if p.requires_grad], lr=a.lr, weight_decay=1e-3)
     sched = torch.optim.lr_scheduler.OneCycleLR(opt, a.lr, total_steps=a.epochs * steps_per_epoch)
     per = a.batch // len(X)
+    ms = dg.MixStyle(net, gen) if a.mstyle else None
     net.train()
     for ep in range(a.epochs):
         tot = 0.0
@@ -117,6 +125,12 @@ def main():
                 xb = augment(xb, gen)
             if a.rot:
                 xb = dg.rotate(xb, gen, a.rot)
+            if a.cmix:  # labels are corpus-offset, so partners share corpus and class
+                xb = dg.class_mix(xb, yb, gen, a.cmix)
+            if a.fsc:
+                xb = dg.freq_scale(xb, gen, a.fsc)
+            if ms:
+                ms.on = float(torch.rand(1, generator=gen)) < a.mstyle
             out = net(xb)
             k = torch.arange(off, device=dev)[None]
             own = (k >= lo.to(dev)[cb][:, None]) & (k < hi.to(dev)[cb][:, None])
@@ -127,6 +141,8 @@ def main():
             sched.step()
             tot += loss.item()
         print(f"epoch {ep} loss {tot / steps_per_epoch:.4f} {time.time() - t0:.0f}s", flush=True)
+    if ms:
+        ms.remove()
     out = ROOT / "runs/pretrain" / f"{a.arch}_{a.align}-{a.tag}-s{a.seed}.pt"
     out.parent.mkdir(parents=True, exist_ok=True)
     state = {k: v.cpu() for k, v in net.state_dict().items()}

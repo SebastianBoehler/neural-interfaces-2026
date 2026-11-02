@@ -272,3 +272,93 @@ focus5 (s05 only) and written here before screenW5 reports. Adopt only if, in
 screenW5, that arm beats m7r4 at C 0.01, w 4 by ≥ +0.5 sel on s611 and on s011,
 with dla not below m7r4's, and probe5 passes (traced = eager, harness 1.0).
 Otherwise cand_m7r4 stays.
+
+**Wave 5b (2 Nov ~07:55, `runs/diag/wave5b.sh`, exploratory).** SCCNet, CTNet and EEGTCNet
+m7r seeds 6–11 (3037224–6), then screenW5b 3037227 on s05 / s611 / s011: each alone, the
+three together, with EEGNeX + IFNet, and all with m7r4. Secondary only; the
+pre-registered decision above is unchanged. Live command lines checked: `--rot 0.05`
+reaches pretrain.py (the resubmit bug does not recur). All corrected resubmissions from
+the night (resub2: 24 jobs; cn122: 3036215–7) completed.
+
+**focus5 (3037208, s05 only) and probe5 (3037209), 2 Nov ~08:15.** Sel Δ (s02 / s35 / s05):
+
+| arm | C 0.01 best w | C 0.1 best w |
+|---|---|---|
+| m7r4 (packaged: C 0.01, w 4) | w4 1.92 / 2.58 / **2.05** | w4 1.53 / 2.41 / 1.58 |
+| EEGNeX | w4 2.30 / 2.99 / 2.27 | w4 2.61 / 2.67 / **2.51** |
+| IFNet | w6 3.11 / 2.42 / 2.64 (grid edge) | w6 2.42 / 2.60 / 2.61 |
+| **EEGNeX + IFNet** | **w5 2.48 / 2.95 / 2.64** (w4 2.37, w6 2.35) | w6 2.50 / 1.91 / 2.27 |
+| m7r4 + either or both | ≤ 2.49 | ≤ 1.86 |
+| SCCNet / CTNet | ≤ 1.89 / 1.62 | ≤ 1.88 / 1.65 |
+
+Adding m7r4 to the new architectures never helps. probe5 (EEGNeX + IFNet, s0–5, C 0.01,
+w 4) passes: traced = eager 0.0, batch 1 6e-7, CUDA 1.8e-6, harness 1.0, 29 labels change.
+
+**Pre-registered arm (fixed 2 Nov ~08:20, before screenW5): EEGNeX + IFNet, C 0.01, w 5**,
+the s05 best with stable neighbours and both halves ≥ +2.48, and the configuration probe5
+proved. Bar: ≥ m7r4 (C 0.01, w 4) + 0.5 sel on s611 and on s011 in screenW5, dla not
+lower. EEGNeX alone (C 0.1, w 4) is reported as secondary. Package chain queued in
+advance (`runs/diag/build_nxif.sh`: export 3037256 with seeds 0–11 → official replay
+3037257, worker replica 3037258); it is staged only if the bar is met.
+
+## Wave 5 result: the pre-registered arm passes (screenW5 3037212, 2 Nov ~10:00)
+
+Sel Δ vs R19e at C 0.01 (dla in brackets); m7r4 is recomputed in the same run:
+
+| arm | s05 | s611 (unseen seeds) | s011 |
+|---|---|---|---|
+| m7r4, w 4 (packaged) | +2.05 (77.09) | +2.27 (77.20) | +2.21 (77.41) |
+| **EEGNeX + IFNet, w 5 (pre-registered)** | +2.65 (77.75) | **+2.92 (78.00)** | **+2.91 (78.01)** |
+| EEGNeX alone, C 0.1, w 4 (secondary) | +2.56 (77.84) | +2.49 (77.68) | +2.81 (78.11) |
+| IFNet alone, w 6 | +2.64 | +2.30 | +2.52 |
+| m7r4 + EEGNeX + IFNet, w 5 | +2.10 | +2.28 | +2.31 |
+
+**Verdict: pass.** On s611 +0.65 over m7r4, on s011 +0.70 (+0.58 against the night's
+s011 m7r4 figure of +2.33); dla +0.80 / +0.60, not lower. Both s05 halves were already
+positive (+2.48 / +2.95). Adding m7r4 to the new pair hurts everywhere: the four
+classic architectures dilute the two stronger teachers.
+
+**screenW5b 3037227 (exploratory, C 0.01).** On s611: SCCNet +1.52, CTNet +1.58,
+EEGTCNet +1.70; the three together +2.14 (w 4); EEGNeX + IFNet + the three +2.30; with m7r4 also
++2.16. Nothing beats the pre-registered pair; the runners-up are closed.
+
+**Package.** First export 3037256 failed at start (`python: command not found`):
+build_nxif.sh had been written through an ssh heredoc, so `$PWD`/`$PATH` were expanded on
+the Mac. Rewritten locally and copied; chain resubmitted: export 3039045 →
+official replay 3039046, worker replica 3039047 (`runs/sealed/cand_nxif`).
+
+## Wave 6 (2 Nov ~15:40, `runs/diag/wave6.sh`)
+
+Base: EEGNeX + IFNet m7r, C 0.01, w 5. `experiments/pretrain.py` gained `--cmix`, `--fsc`
+and `--mstyle` (the dg.py levers, never used for teacher pretraining); a local smoke
+test ran forward and backward through all of them for both nets.
+
+- **A, push the base.** grid6 3039058: C 0.003 / 0.01 / 0.03 × w 4–7 on seeds 0–11.
+  Seeds 12–23 (3039059–60) → screenS24 3039061: s1223 / s023 against m7r4.
+  Recipes on seeds 0–5: 60 epochs (m7r60), rotation 0.10 (m7r10).
+- **B, cross-subject invariance in pretraining.** Same-class mixing across subjects
+  (m7rcm, cmix 0.4); ±15 % time scaling for individual alpha frequency (m7rfs,
+  fsc 0.15); MixStyle (m7rms, p 0.5); each keeps rot 0.05. Pretraining 3039062–71
+  → screenW6 3039072 (s02 / s35 / s05; C 0.01 and 0.1; w 3–7) against the base pair
+  on the same seeds.
+
+**Pre-registered.** A variant advances to seeds 6–11 only if its pair beats the base
+pair in screenW6 by ≥ +0.5 sel on s05 at its best (C, w), with both halves above the
+base's. The grid only reports: another (C, w) is adopted only if it beats C 0.01, w 5 by ≥
++0.5 on s011 and holds on s1223. Seeds 12–23 are a third replication against m7r4; the
+package keeps 12 seeds unless s023 beats s011 by ≥ +0.5.
+
+**grid6 3039058 (2 Nov ~16:00): the base setting holds.** EEGNeX + IFNet sel Δ on s011:
+C 0.003 best +2.71 (w 6); C 0.01 best **+2.91 (w 5)**, w 4.5 +2.80, w 5.5 +2.70; C 0.03 best
++2.56. Nothing comes within +0.5 of beating C 0.01, w 5, which also leads at C 0.01 on s611 (+2.92). Grid closed.
+
+**cand_nxif passes every staging gate (2 Nov ~16:50).** `runs/sealed/cand_nxif`: EEGNeX +
+IFNet m7r, seeds 0–11, C 0.01, w 5 (teacher member weight 0.625).
+- export 3039045: harness agreement 1.0; traced vs eager 0.0, batch 1 4.8e-7, CUDA 2.1e-6;
+  40 of 2655 labels change against final_r19e_g;
+- official A100 replay 3039046: files unchanged, ingestion 89 s;
+- worker-image replica 3039047: files unchanged, 70 s, same scores;
+- zip 9.0 MB, sha 0a562e62…; teacher.pt 98f7df45…, weights.npz 00ea3dcb…,
+  submission.py unchanged (25d51a6e…).
+- Not run on the real Codabench worker; no upload. This replaces cand_m7r4 as the lead
+  teacher package (dev sel +2.91 vs +2.21 on s011); cand_m7r4 stays staged as the fallback.
