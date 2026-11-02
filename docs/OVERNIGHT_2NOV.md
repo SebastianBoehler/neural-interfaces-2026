@@ -362,3 +362,55 @@ IFNet m7r, seeds 0–11, C 0.01, w 5 (teacher member weight 0.625).
   submission.py unchanged (25d51a6e…).
 - Not run on the real Codabench worker; no upload. This replaces cand_m7r4 as the lead
   teacher package (dev sel +2.91 vs +2.21 on s011); cand_m7r4 stays staged as the fallback.
+
+**screenS24 3039061 (2 Nov ~17:10): third replication passes.** C 0.01, sel Δ (dla):
+EEGNeX + IFNet w 5 on seeds 12–23 +2.83 (77.84) vs m7r4 w 4 +2.11 (77.20), +0.72. All 24
+seeds: +2.91, the same as 12 seeds (+2.91), so the package keeps 12 seeds.
+
+**screenW6 3039072 (2 Nov ~17:35): no variant advances.** All 84 pretraining jobs completed;
+saved args checked (epochs, rot, cmix, fsc, mstyle as intended). Best s05 sel Δ of each
+EEGNeX + IFNet pair (C 0.01 unless noted), against the base pair's +2.64 (w 5):
+
+| pair recipe | best s05 | s02 / s35 | vs base |
+|---|---|---|---|
+| base m7r | +2.64 (w 5) | 2.48 / 2.95 | — |
+| m7r60 (60 epochs) | +2.58 (w 5) | 2.46 / 2.76 | −0.06 |
+| m7r10 (rot 0.10) | +2.16 | 2.47 / 2.14 | −0.48 |
+| m7rcm (same-class mixing) | +2.73 (w 5) | 2.01 / 2.55 | +0.09 |
+| m7rfs (time scaling) | +1.36 | — | −1.28 |
+| m7rms (MixStyle) | +2.40 | 2.38 / 1.86 | −0.24 |
+
+EEGNeX alone with mixing reaches +3.10 at C 0.1, w 3, but only through s35 (s02 2.36 vs base
+EEGNeX 2.43). It is the best of 60 single-net configurations, so it is noted, not followed.
+Time scaling and MixStyle hurt; stronger rotation hurts, as for the classic families.
+Teacher pretraining recipes are closed: the m7r recipe stays.
+
+## Wave 7 (2 Nov ~18:00, `runs/diag/wave7.sh`): EEGNeX / IFNet as fine-tuned members
+
+A different lever: the same pretrained trunks fine-tuned on PROTEUS as ensemble members
+(as sincshallow_ea_ptm7r_rot05 in R15), packageable later as TorchScript members.
+`run_cv.py` PT pattern now accepts eegnex / ifnet; `eval_external_teacher.py` gained
+NI26_ADD (extra members after R15's). Sweeps 3039866–9 (seeds 0–5, all_loso and
+dev_session): eegnex/ifnet `_ea_ptm7r_rot05` and the no-pretraining controls `_ea_rot05`.
+evalW7 3039870: each added to R15 at w 0 (members alone) and with the teacher at w 5
+(teacher seeds 0–5 and 0–11); "zero" (v2 at weight 0) must reproduce "base".
+
+**Pre-registered.** A member is followed up (seeds 6–11, then a member export) only if
+teacher + member beats teacher alone by ≥ +0.5 sel on the s011 teacher with members
+s0–5, and its pretrained version beats its control.
+
+**evalW7 3039870 (2 Nov ~18:25): members closed.** All 24 sweeps completed. "zero" reproduces
+"base" exactly (the NI26_ADD path is right). Sel Δ vs R19e, members s0–5, teacher s011 at w 5
+(members alone at w 0 in brackets): teacher alone +2.91; + fine-tuned EEGNeX +2.30 (−0.42);
++ fine-tuned IFNet +2.33 (−0.11); + both +2.66 (−0.77); + EEGNeX at weight 2 +1.44 (−0.94);
+controls without pretraining: EEGNeX +2.07 (−0.76), IFNet +2.45 (−0.16). Every member
+lowers the score, with or without the teacher: these nets help only as a frozen teacher, not
+as fine-tuned members.
+
+**Recipe diversity (3040231, queued 18:31, eval only).** Teacher pairs from several pretraining
+recipes averaged (m7r + m7r60, + m7rcm, + both, + m7rms) on screenW6 heads, seeds 0–5,
+C 0.01, w 4–7. Same rule: ≥ +0.5 over the base pair on s05, both halves above it.
+
+**Recipe diversity 3040231 (2 Nov ~18:45): closed.** Best s05 sel Δ: base pair +2.64 (w 5);
+m7r + m7r60 +2.43; + m7rcm +2.44; m7r + m7r60 + m7rcm +2.45; all four recipes +2.29. Averaging
+recipes lowers the score, as more seeds did not raise it: the base pair's 12 seeds stay.

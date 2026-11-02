@@ -11,6 +11,8 @@ Pre-registered primary: family sinc+fbcnet, w 1. Seed halves use the matching pr
 Env (2 Nov): NI26_HALVES "name=lo-hi,..." (default s02/s35/s05), NI26_C (default 0.1), NI26_WTS,
 NI26_MW (member weights with the teacher; deltas stay against the unchanged R19e), and
 NI26_PROBE=1 for trunk embeddings: one standardised map per net, probabilities averaged.
+NI26_ADD "spec,spec" (mix_probs specs, e.g. eegnex_ea_ptm7r_rot05:0-5*1): extra members on
+top of R15, mixed with the teacher; w 0 then gives the members' effect alone.
 """
 
 import json
@@ -22,7 +24,8 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "scripts/diag")]
-from diag_common import cells, cm, d, mixp, rebal  # noqa: E402
+from diag_common import R15, cells, cm, d, load, mixp, rebal  # noqa: E402
+from mix_probs import parse  # noqa: E402
 import session_em as SE  # noqa: E402
 from sklearn.linear_model import LogisticRegression  # noqa: E402
 from sklearn.pipeline import make_pipeline  # noqa: E402
@@ -35,6 +38,7 @@ HALF = {h: range(int(a), int(b) + 1) for h, a, b in (
 C, PROBE = float(os.environ.get("NI26_C", 0.1)), bool(os.environ.get("NI26_PROBE"))
 WTS = tuple(float(w) for w in os.environ.get("NI26_WTS", "0.5,1,2,3,4").split(","))
 MW = [float(w) for w in os.environ["NI26_MW"].split(",")] if "NI26_MW" in os.environ else WS
+ADD = [s for s in os.environ.get("NI26_ADD", "").split(",") if s]
 FAMS = {"sinc": ["sincshallow_ea-m7r"], "fbcnet": ["fbcnet_ea-m7r"],
         "sinc+fbcnet": ["sincshallow_ea-m7r", "fbcnet_ea-m7r"]}
 st, y, subj = d["stream"], d["y"], d["subject"]
@@ -90,13 +94,18 @@ def main():
                 idx, M, R19e = B[k + "_idx"], list(B[k + "_members"]), B[k + "_R19e"]
                 base = rebal(mixp(M, WS), idx)
                 assert np.allclose(base, B[k + "_R15"]), "member weights do not reproduce R15"
+                MT = MW
+                if ADD:  # extra members after R15's, same rows (load asserts the order)
+                    _, Ps, _, ix, _ = load(proto, R15 + ADD)
+                    assert (ix == idx).all(), "added members do not cover the cached rows"
+                    M, MT = Ps, MW + [parse(s)[2] for s in ADD]
                 T = teacher(features(H, fl, seeds), proto, idx)
                 r = res.setdefault(fam, {}).setdefault(half, {}).setdefault(proto, {})
                 r["R15"], r["R19e"] = round(cm(idx, base.argmax(1)), 2), round(cm(idx, R19e.argmax(1)), 2)
                 r["teacher"] = round(cm(idx, T.argmax(1)), 2)
                 ref = by_participant(idx, R19e.argmax(1))
                 for w in WTS:
-                    b = rebal(mixp(M + [T], MW + [w]), idx)
+                    b = rebal(mixp(M + [T], MT + [w]), idx)
                     e = SE.apply(GE[idx], b, st[idx], lam=0.5, n0=60, m0=20)
                     pp = by_participant(idx, e.argmax(1))
                     r[f"w{w:g}"] = {"R15+T": round(cm(idx, b.argmax(1)), 2),
