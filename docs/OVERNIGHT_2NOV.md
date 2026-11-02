@@ -730,3 +730,22 @@ generalise to new people: the explorer's EM/rebalancing core holds on the hidden
 resolve: unseen-person gains cost ds on P10's later sessions. cand_nxif stays the lead. The
 explorer core (`em_shrink` 0.85, `em_n0` 40, `rb_alpha` 1.15, data-only) is noted as a
 decorrelated sealed arm.
+
+**screenW9 3041083 (3 Nov ~00:05): arithmetic heads closed.** All 36 pretraining jobs completed. Best s05
+sel Δ of each pair against the base pair's +2.65 (C 0.01, w 5):
+
+| pair | best s05 | vs base |
+|---|---|---|
+| m7r (base) | +2.65 | — |
+| + both corpora (m9ar) | +2.10 (w 6) | −0.55 |
+| + eegmat only (m8z) | +2.19 (w 4) | −0.46 |
+| + ds007554 only (m8c) | +1.67 (w 5) | −0.98 |
+
+The C 0.1 results are lower still.
+
+Teacher-alone dla barely moves (EEGNeX 51.4 → 51.8–52.8; IFNet 54.8 → 54.1–55.2), and the
+Shin 2017B subtraction head separates SUB slightly better (AUC 0.53 → 0.54–0.56). But P(right | R19e
+wrong) falls from 0.50 / 0.48 to 0.44–0.45 (EEGNeX / IFNet): the arithmetic heads make the teacher's
+errors more like the ensemble's. That fits the independent-errors account (docs/REVIEW_2NOV.md §7):
+what the ensemble already decodes (SUB is its strongest class) adds nothing, and the cost is
+independence. Not adopted.
