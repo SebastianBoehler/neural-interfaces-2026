@@ -547,3 +547,186 @@ Scientific note: the teacher's SUB-vs-WG output is person-specific (helps P02/P0
 Its MI-vs-non-MI output is the part that transfers. With ten participants, re-tuning the existing
 parameters (by grid, gradient or agent) cannot separate signal from person-specific fit. Gains
 must come from new information. cand_nxif stays.
+
+## Agent as optimizer, round 2: cross-fitted folds (2 Nov ~22:15)
+
+Harness (`agent_opt.py --group`) now has two balanced folds, G1 = P01 P02 P05 P07 (baseline +1.19)
+and G2 = P03 P06 P08 P10 (+1.96). It also reports per-class recall, the confusion matrix, the change
+per interface and the teacher's own accuracy, all on the search group only. The defaults still
+reproduce cand_nxif (s011 +2.91; round-1 A unchanged).
+
+Two agents search in parallel, one per fold, with up to 80 evaluations each, queued on one lock
+(`lockf`), so only one capped job runs at a time. Shared brief: the session scratchpad
+`round2_brief.md`.
+
+**Round-1 memory given to both, search-side lessons only.** What it tried and what was noise. Plus
+one qualitative held-out lesson: lowering w and raising lam trades people against each other and did
+not transfer. *Caveat:* that lesson came from people now in both folds, so round 2's confirmation is
+slightly optimistic for configs that avoid those moves.
+
+**Pre-registered adoption rule.** A pick must improve the *other* fold's mean by ≥ +0.5 over the
+baseline. It must also not lower sel on s011, ds, or the mean without P10. A change both agents find
+independently counts as stronger evidence.
+
+**Round 2, fold G1 (34 evaluations).** Every config that clearly beat the baseline on G1 used the
+*interface label* (Graz / BrainHero), read from metadata that `predict` does not receive. The agent
+flagged this itself. A per-window EEG interface detector it built reached only 53–66 %. Run order is
+counterbalanced across sessions, so position cannot reveal the interface either. Mechanism found: the
+teacher adds +2.1 on Graz but only +0.3 on BrainHero, where it is too confident. Interface-specific map
+blocks plus a flatter BrainHero teacher gave G1 +2.74 (cfg_16) / +3.00 (cfg_22), with every G1
+participant improving. Deployable configs: none passed; the agent recommended keeping `{}`.
+
+Mechanism check with true interface labels (diagnostic only), s011:
+
+| config | sel | G1 | G2 (held out) | ds |
+|---|---|---|---|---|
+| cand_nxif | +2.91 | +1.71 | +2.10 | +2.63 |
+| cfg_16 | +2.23 | +2.61 | +0.19 | +2.12 |
+| cfg_22 | +1.94 | +2.87 | +0.28 | +1.34 |
+
+It does not transfer to G2, so interface-specific calibration is fold-specific. Closed, and so
+is the question of detecting the interface.
+
+## Arithmetic corpora (2 Nov ~22:45; `scripts/export_mental.py`, export agent)
+
+Licences checked at the primary sources:
+- OpenNeuro ds007554 "CMx7-MM" v1.0.0: `"License": "CC0"` in dataset_description.json. "Ajra 2026"
+  (arXiv 2603.22933) is its data paper, not a separate dataset.
+- PhysioNet eegmat 1.0.0 (Zyma et al. 2019): ODC-By 1.0; attribution required.
+
+Downloads on Galvani only: eegmat in full (176 MB); EEG-only files of ds007554 (837 MiB of 4.5 GB).
+
+Exports:
+- `data/zyma2019/windows_0-35.npz`: 2,132 windows, rest 1,592 / subtraction 540, 36 subjects.
+  - 9 of 41 channels present.
+  - Rest is always recorded before the task (order confound).
+- `data/cmx7mm/windows_1-30.npz`: 8,308 windows, arithmetic / motor_imagery / nback / pretask, 24 subjects.
+  - 19 of 41 channels present.
+  - Saturated sub-009–013 skipped.
+  - Contrasts lie between recordings; pretask is louder.
+
+Both match the export_moabb keys and load with pretrain.load_corpus.
+
+## Wave 9 (2 Nov ~22:50, `runs/diag/wave9.sh`): arithmetic heads for the teacher
+
+EEGNeX / IFNet with the m7r recipe, seeds 0–5 (3041077–82):
+- m9ar = 7 MI corpora + zyma2019 + cmx7mm;
+- m8z = + zyma2019;
+- m8c = + cmx7mm.
+
+screenW9 3041083 compares them against the base m7r pair on the same seeds (C 0.01 / 0.1, w 3–7).
+**Pre-registered:** a variant pair must beat the base pair by ≥ +0.5 sel on s05 with both halves
+above it, then seeds 6–11. Before staging it also reports the mean without P10 and the worst participant.
+
+**Round 2, fold G2 (58 evaluations).**
+
+The pick was rebalancing α 1.25 (deployable: `rb_alpha` in weights.npz). The agent reports it helped
+under every condition it tried on G2. Its proposed mechanism: the soft teacher flattens the mixture,
+rebalancing under-corrects, and MI is under-predicted. The raw best was C 0.003 + α 1.35 (G2 +3.52 vs
++1.96).
+
+Agent findings:
+- The teacher's SUB evidence is essential (dropping shin2017b costs P06 −5.4).
+- P06's loss comes from the teacher inside the mixture, not from the EM.
+- Map-structure edits all lost.
+
+Cross-confirmation, s011:
+
+| config | sel | G1 (held out) | G2 | ds | without P10 |
+|---|---|---|---|---|---|
+| cand_nxif | +2.91 | +1.71 | +2.10 | +2.63 | +0.99 |
+| α 1.25 (pick) | +2.65 | +0.93 | +2.77 | +2.04 | +0.83 |
+| C 0.003, α 1.35 | +2.21 | +0.52 | +2.99 | +1.26 | +0.75 |
+| C 0.005, α 1.25 | +2.28 | +0.78 | +2.55 | +1.51 | +0.67 |
+
+**Round-2 verdict.** Neither fold's pick transfers to the other fold, and each also lowers ds and the
+mean without P10. Across both rounds, three agents ran 153 evaluations; each found real, mechanistic
+structure on its search people, and each pick lost on held-out people.
+
+The agent loop works as an optimizer, and the hidden cross-fitted check works as a guard. But with ten
+participants, the remaining tunable parameters encode person-specific trade-offs, not general gains.
+Knowledge gained, for the method write-up:
+- the teacher is reliable on Graz and overconfident on BrainHero;
+- its SUB evidence (shin2017b) is load-bearing;
+- its SUB-vs-WG laterality output is person-specific.
+
+cand_nxif stays.
+
+## Agent as optimizer, round 3: nested scoring and profiling tools (2 Nov ~23:30)
+
+**Why rounds 1–2 failed.** The agents were told to generalise, but the only number they could measure
+was in-sample fit on their search people.
+
+**New tools.**
+- `agent_opt.py --nested GRID.json`: the agent submits a hypothesis as a grid of 2–8 configs. For each of
+  the 8 dev people, the best candidate over the other seven (package always included) scores the
+  left-out person, so the printed score pays for selection. Verified: two package copies give exactly
+  0.0; round 2's α 1.25 gives +0.27 nested (vs +0.4 in-sample).
+- `scripts/diag/agent_probe.py`: descriptive profilers, never scores.
+  - `map`: fold-wise map weights and their stability.
+  - `heads`: per-neuron class effects and how many people share the sign. MI-vs-cognitive neurons
+    agree in 7–8/8; SUB-vs-WG in 4–6/8.
+  - `confusion`: per person, the pipeline and the teacher alone. The teacher alone shows a strong
+    per-person class bias.
+- Agents may write their own analysis scripts on training rows and seeds 0–5 only.
+
+**Setup.** Two agents, mechanist and explorer, each with ≤ 20 nested grids and the same lock. The brief
+(`round3_brief.md` in the scratchpad) carries the full memory of rounds 1–2.
+
+**Hidden checks:** ds (P10 later sessions) and pretraining seeds 6–11 / 0–11.
+
+**Pre-registered adoption rule:**
+- nested gain ≥ +0.5;
+- nested gain without P10 > 0;
+- a non-package pick in ≥ 6 of 8 folds;
+- the full-set pick must not lower ds or the s611 sel;
+- it must beat cand_nxif on s011 sel.
+
+**Round 3, explorer (18 grids).** Best grid g11, nested +1.59 (+1.56 without P10), picked 8/8. It
+combines an EM template that is more regularised and trusted earlier (shrink 0.85, n0 40),
+rebalancing α 1.15, a consistency-weighted map and a SUB intercept offset. Recommended core: EM
+shrink 0.85 + n0 40 + α 1.15, nested +1.24 in its own grid, picked 8/8. The agent noted that grids
+09–18 were built on earlier grids' results (meta-selection), so the true gain is lower.
+
+Mechanisms it reports:
+- The 48-dim EM covariance is noisy on ≤ 190 windows; more shrinkage lets it be trusted earlier.
+- α 1 under-corrects the session bias left by the soft teacher (P10: members predict MI 0 %).
+- SUB offset and consistency weighting depend on P05 or on the seeds.
+
+Hidden check:
+
+| config | s011 sel | s611 sel | dla | ds | without P10 |
+|---|---|---|---|---|---|
+| cand_nxif | +2.91 | +2.91 | +3.18 | +2.63 | +0.99 |
+| core (shrink .85, n0 40, α 1.15) | +2.85 | +2.93 | +3.92 | +1.77 | +1.34 |
+| best grid pick (+ edit) | +2.79 | +3.03 | +4.08 | +1.51 | +1.41 |
+
+**Verdict.** The unseen-people gain survives the hidden seeds (dla +0.74 to +0.90; positive
+without P10), but later sessions of known people lose 0.9–1.1 (ds), so sel is flat. Under the
+pre-registered rule it is not adopted: ds drops, and s011 sel is below cand_nxif. It is a
+decorrelated arm, better for new people and worse for returning ones. With Force_Best keeping our
+best sealed score, it is a candidate for a later sealed upload. Weighted by the sealed mix (57 %
+unseen, 43 % later sessions), it is about neutral (+0.05).
+
+**Round 3, mechanist (12 grids).** No teacher-map edit helps unseen people under nested scoring:
+SUB-WG shrinkage, temperature, in-fold intercept calibration, stability shrinkage, person-balanced
+refits and shorter rebalancing windows were all negative (−0.06 to −0.87).
+
+Profiling findings for the write-up:
+- The teacher's per-person bias lies on the MI-vs-cognitive axis (61 % of between-person variance) and
+  is absorbed by rebalancing; even oracle per-person centring does not help.
+- Rebalancing's α > 1 gain sits in the most skewed sessions (correlation with label-free skew +0.51 to
+  +0.70).
+- W 30 matches the 30-trial run length (shorter windows are monotonically worse).
+- Teacher SUB-vs-WG evidence is weak but real (AUC 0.56–0.75 in 8/8 people) and independent of the
+  members.
+
+Pick: α 1.25 alone (nested +0.27, 8/8 folds). Its hidden check is the round-2 cross-confirmation:
+s011 sel +2.65, ds +2.04, below cand_nxif. Not adopted.
+
+**Round-3 verdict.** Nested scoring plus profiling tools made the agents find mechanisms that do
+generalise to new people: the explorer's EM/rebalancing core holds on the hidden seeds (dla
++0.74). The remaining structure is a trade between new and returning people that dev data cannot
+resolve: unseen-person gains cost ds on P10's later sessions. cand_nxif stays the lead. The
+explorer core (`em_shrink` 0.85, `em_n0` 40, `rb_alpha` 1.15, data-only) is noted as a
+decorrelated sealed arm.

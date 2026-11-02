@@ -1,11 +1,18 @@
 """Agent-as-optimizer harness (2 Nov): an LLM agent proposes configurations of everything a sealed
 package can still change (teacher map, member weights, rebalancing, R19e stage) and reads the score.
 
-Usage: python scripts/diag/agent_opt.py CONFIG.json            (search: what the agent sees)
+Usage: python scripts/diag/agent_opt.py CONFIG.json [--group A|G1|G2]  (search: what the agent sees)
        python scripts/diag/agent_opt.py CONFIG.json --confirm  (held out: run by us, never the agent)
-Search scores only dev_loso_all on participants A = P01 P02 P03 P05 P06 with teacher seeds 0-5;
-nothing else is computed. --confirm adds B = P07 P08 P10, dev_session (P10's later sessions) and
-teacher seeds 6-11 and 0-11, so the agent's choice is tested on people and seeds it never saw.
+Search scores only dev_loso_all on the group's participants with teacher seeds 0-5; nothing else is
+computed. Round 1 used A = P01 P02 P03 P05 P06 (held out B = P07 P08 P10). Round 2 cross-fits two
+balanced folds, G1 = P01 P02 P05 P07 and G2 = P03 P06 P08 P10: an agent searches one, its pick is
+confirmed on the other. Search output also gives per-class recall, the confusion matrix (rows true
+MI / SUB / WG), per-interface change and the teacher's own accuracy, all on the group only.
+--confirm adds every participant, dev_session (P10's later sessions) and seeds 6-11 and 0-11.
+Round 3 (``--nested GRID.json``, a list of 2-8 configs): for each of the 8 dev participants the grid
+config (or the package, always candidate 0) with the best mean change over the other seven is chosen
+and scores the left-out person, so the printed score already pays for the selection. Prints only the
+nested per-person change against the package, the pick per fold, and the full-set pick.
 Config keys (all optional; defaults = cand_nxif):
   fams ["eegnex_ea-m7r", "ifnet_ea-m7r"]  heads in runs/diag/screenW5.npz (also sincshallow_ea-m7r,
        fbcnet_ea-m7r, fblight_ea-m7r, shallow_ea-m7r);   C 0.01;   w 5 (teacher weight)
@@ -27,12 +34,13 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "scripts/diag")]
-from diag_common import cm, d, mixp, rebal  # noqa: E402
+from diag_common import cells, cm, d, mixp, rebal  # noqa: E402
 from eval_external_teacher import by_participant  # noqa: E402
 import session_em as SE  # noqa: E402
 from sklearn.linear_model import LogisticRegression  # noqa: E402
 
 A, B_ = ("P01", "P02", "P03", "P05", "P06"), ("P07", "P08", "P10")
+GROUPS = {"A": A, "G1": ("P01", "P02", "P05", "P07"), "G2": ("P03", "P06", "P08", "P10")}
 WS = [1, 0.5, 0.5, 1, 1, 1, 1, 1, 1]
 y, subj, st = d["y"], d["subject"], d["stream"]
 DEV = ~np.isin(subj, [f"Dreyer2026Proteus/{p}" for p in ("P04", "P09")])
@@ -84,21 +92,59 @@ def run(Bc, H, cfg, proto, seeds, people=None):
     b = rebal(mixp([P[rows] for P in M] + [T[rows]], cfg.get("member_weights", WS) + [cfg.get("w", 5)]), ix, **rb)
     e = SE.apply(view[ix], b, st[ix], **em)
     r = Bc[k + "_R19e"][rows].argmax(1)
+    run.last = dict(ix=ix, e=e.argmax(1), r=r, t=T[rows].argmax(1))
     return by_participant(ix, e.argmax(1)), by_participant(ix, r), cm(ix, e.argmax(1)) - cm(ix, r)
 
 
-def main():
-    cfg, confirm = json.loads(Path(sys.argv[1]).read_text()), "--confirm" in sys.argv
+def diagnostics(group):
+    L = run.last
+    ix, yt = L["ix"], y[L["ix"]]
+    conf = lambda p: (np.bincount(3 * yt + p, minlength=9).reshape(3, 3) / np.bincount(yt, minlength=3)[:, None])
+    by_if = lambda p: {i: np.mean([v for (_, j), v in cells(ix, p).items() if j == i]) for i in ("Graz", "BrainHero")}
+    ce, cr = by_if(L["e"]), by_if(L["r"])
+    return {"recall_MI_SUB_WG": np.round(100 * np.diag(conf(L["e"])), 1).tolist(),
+            "recall_R19e": np.round(100 * np.diag(conf(L["r"])), 1).tolist(),
+            "confusion_rows_true": np.round(100 * conf(L["e"]), 1).tolist(),
+            "interface_delta": {i: round(float(ce[i] - cr[i]), 2) for i in ce},
+            "teacher_alone_bacc": {p: round(v, 1) for p, v in by_participant(ix, L["t"]).items()}}
+
+
+def prep(cfg):
     if cfg.get("edit_py"):
         s = importlib.util.spec_from_file_location("edit", cfg["edit_py"])
         cfg["_edit"] = importlib.util.module_from_spec(s)
         s.loader.exec_module(cfg["_edit"])
+    return cfg
+
+
+def nested(Bc, H, grid):
+    P8 = GROUPS["G1"] + GROUPS["G2"]
+    D = []
+    for cfg in [{}] + grid:
+        pp, ref, _ = run(Bc, H, prep(cfg), "dev_loso_all", range(6), list(P8))
+        D.append({p: pp[p] - ref[p] for p in P8})
+    best = lambda ps: max(range(len(D)), key=lambda j: np.mean([D[j][q] for q in ps]))
+    picks = {p: best([q for q in P8 if q != p]) for p in P8}
+    gain = {p: round(D[picks[p]][p] - D[0][p], 2) for p in P8}
+    print(json.dumps({"nested_gain_vs_package": round(float(np.mean(list(gain.values()))), 3),
+                      "nested_gain_without_P10": round(float(np.mean([v for p, v in gain.items() if p != "P10"])), 3),
+                      "per_person_gain": gain, "pick_per_fold": picks, "full_set_pick": best(P8),
+                      "note": "pick 0 = package; pick j = grid[j-1]"}))
+
+
+def main():
     Bc, H = np.load(ROOT / "runs/diag/base_cache.npz"), np.load(ROOT / "runs/diag/screenW5.npz")
+    if "--nested" in sys.argv:
+        grid = json.loads(Path(sys.argv[sys.argv.index("--nested") + 1]).read_text())
+        assert 2 <= len(grid) <= 8, "a grid holds 2-8 candidate configs"
+        return nested(Bc, H, grid)
+    cfg, confirm = prep(json.loads(Path(sys.argv[1]).read_text())), "--confirm" in sys.argv
     if not confirm:
-        pp, ref, _ = run(Bc, H, cfg, "dev_loso_all", range(6), list(A))
-        delta = {p: round(pp[p] - ref[p], 2) for p in A}
+        g = GROUPS[sys.argv[sys.argv.index("--group") + 1]] if "--group" in sys.argv else A
+        pp, ref, _ = run(Bc, H, cfg, "dev_loso_all", range(6), list(g))
+        delta = {p: round(pp[p] - ref[p], 2) for p in g}
         print(json.dumps({"search_mean_delta_vs_R19e": round(float(np.mean(list(delta.values()))), 3),
-                          "worst_delta": min(delta.values()), "per_participant_delta": delta}))
+                          "worst_delta": min(delta.values()), "per_participant_delta": delta, **diagnostics(g)}))
         return
     out = {}
     for half, seeds in (("s05", range(6)), ("s611", range(6, 12)), ("s011", range(12))):
@@ -108,6 +154,7 @@ def main():
         out[half] = {"sel_delta": round(float((dla_mean + ds_d) / 2), 2), "dla_delta": round(float(dla_mean), 2),
                      "ds_delta": round(float(ds_d), 2), "A_mean": round(float(np.mean([dla[p] for p in A])), 2),
                      "B_mean": round(float(np.mean([dla[p] for p in B_])), 2),
+                     **{f"{k}_mean": round(float(np.mean([dla[p] for p in GROUPS[k]])), 2) for k in ("G1", "G2")},
                      "no_P10_mean": round(float(np.mean([v for p, v in dla.items() if p != "P10"])), 2),
                      "per_participant": dla}
         print(half, json.dumps(out[half]), flush=True)
