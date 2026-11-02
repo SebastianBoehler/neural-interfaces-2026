@@ -50,6 +50,20 @@ def class_mix(xb, yb, gen, alpha):
     return mixed / torch.sqrt(lam ** 2 + (1 - lam) ** 2)
 
 
+def seg_recombine(xb, yb, gen, k):
+    """Segment & reconstruction (arXiv 2405.14994): in the first half of the batch, each of
+    k equal time segments is taken from a random window of the same label (wave 8)."""
+    n, T, out, yc = len(xb) // 2, xb.shape[-1], xb.clone(), yb.cpu()
+    edges = torch.linspace(0, T, k + 1).long().tolist()
+    for a, b in zip(edges[:-1], edges[1:]):
+        perm = torch.arange(len(yc))
+        for c in yc.unique():
+            i = torch.nonzero(yc == c).flatten()
+            perm[i] = i[torch.randperm(len(i), generator=gen)]
+        out[:n, :, a:b] = xb[perm[:n].to(xb.device), :, a:b]
+    return out
+
+
 def rotate(xb, gen, eps):
     C = xb.shape[1]
     A = eps * torch.randn(len(xb), C, C, generator=gen)

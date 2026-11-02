@@ -19,7 +19,8 @@ first three outputs are saved as a 3-class head, which AlignedNet loads.
 
 ``--cmix A`` / ``--fsc S`` / ``--mstyle P`` (2 Nov, teacher wave 6): the dg.py
 cross-subject levers applied to pretraining (same-class mixing, time scaling,
-MixStyle); see dg.py. MixStyle hooks are removed before saving.
+MixStyle); see dg.py. MixStyle hooks are removed before saving. ``--sr K`` (wave 8):
+segment-and-reconstruction augmentation (dg.seg_recombine).
 """
 
 import argparse
@@ -81,6 +82,7 @@ def main():
     ap.add_argument("--cmix", type=float, default=0.0)  # dg.class_mix alpha: same-class, cross-subject
     ap.add_argument("--fsc", type=float, default=0.0)  # dg.freq_scale: individual alpha frequency
     ap.add_argument("--mstyle", type=float, default=0.0)  # dg.MixStyle probability per batch
+    ap.add_argument("--sr", type=int, default=0)  # dg.seg_recombine segments (wave 8)
     a = ap.parse_args()
     torch.manual_seed(a.seed)
     rng, gen = np.random.default_rng(a.seed), torch.Generator().manual_seed(a.seed)
@@ -129,6 +131,8 @@ def main():
                 xb = dg.class_mix(xb, yb, gen, a.cmix)
             if a.fsc:
                 xb = dg.freq_scale(xb, gen, a.fsc)
+            if a.sr:
+                xb = dg.seg_recombine(xb, yb, gen, a.sr)
             if ms:
                 ms.on = float(torch.rand(1, generator=gen)) < a.mstyle
             out = net(xb)

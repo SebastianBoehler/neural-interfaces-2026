@@ -414,3 +414,136 @@ C 0.01, w 4–7. Same rule: ≥ +0.5 over the base pair on s05, both halves abov
 **Recipe diversity 3040231 (2 Nov ~18:45): closed.** Best s05 sel Δ: base pair +2.64 (w 5);
 m7r + m7r60 +2.43; + m7rcm +2.44; m7r + m7r60 + m7rcm +2.45; all four recipes +2.29. Averaging
 recipes lowers the score, as more seeds did not raise it: the base pair's 12 seeds stay.
+
+## Wave 8 (2 Nov ~20:30, `runs/diag/wave8.sh`; levers 2–4 of docs/REVIEW_2NOV.md)
+
+Code: `dg.seg_recombine` + `pretrain.py --sr K` (segment and reconstruction, arXiv
+2405.14994; smoke test: shape kept, second half untouched, every segment from a same-class
+window); `screen_external_heads.py` feeds raw-pretrained nets the unaligned stream at unit
+global RMS; `eval_external_teacher.py` NI26_T2 (second teacher, own map, own member).
+
+- lfW8 3040501: late fusion on screenW5b heads (seeds 0–11), base nx+if at w 4–5 plus T2 ∈
+  {m7r4, SCCNet, SCCNet+CTNet+EEGTCNet} at w2 1–3; control T2 at weight 0 = base.
+- 3040502–5: EEGNeX / IFNet pretrained raw (m7r recipe) and with --sr 4, seeds 0–5.
+- screenW8 3040506: base vs raw pair, sr pair, ea+raw concatenated (C 0.01 / 0.1, w 3–7), and
+  the raw pair as a late-fusion T2 (w2 2 / 3 / 5).
+
+**Pre-registered.** Late fusion: the best (T2, w2, w) on s05 must beat the base (w 5) by ≥ +0.5
+sel on s611 and on s011. Raw / sr / ea+raw / raw-T2: ≥ +0.5 over the base on s05 with both
+halves above it, then seeds 6–11. Anything that passes also reports sel without P10 and
+its worst participant before staging. A raw-stream teacher also needs an exporter change
+(input stream from a raw member), made only if it passes.
+
+**lfW8 3040501 (2 Nov ~20:45): late fusion closed.** Control (T2 at weight 0) reproduces the base
+exactly. Best on s05: SCCNet+CTNet+EEGTCNet as T2 at w2 1 with w 5, +2.76 (base +2.65); on s611
+it gives +2.59 vs the base's +2.92, on s011 +2.77 vs +2.91. No T2 / w2 / w beats the base on s611 or
+s011 (best s011 +2.80, SCCNet w2 2 at w 4, still below +2.91). A second teacher, fused late or
+early, dilutes EEGNeX + IFNet.
+
+## Code-freeze exploration: in-session teacher adaptation (viewW9 3040857, 2 Nov ~21:10)
+
+Question: would lifting the code freeze pay off? The motivating idea was a per-session, label-free
+re-fit of the teacher's mapping, with the R19e stage also seeing the teacher. Tested offline with
+`eval_external_teacher.py` NI26_VIEW / NI26_EMLAM (screenW5 heads, nx+if C 0.01, seeds 0–11).
+"base" reproduces +2.91. Sel Δ at w 5 (s611 / s011), and at w 0 (stage only, s011):
+
+| R19e stage view | s611 | s011 | w 0, s011 |
+|---|---|---|---|
+| gaze + events (base) | +2.92 | +2.91 | +0.06 |
+| + teacher 3-class log-probs (tmap) | +2.07 | +2.66 | +0.30 |
+| tmap, lam 0.7 | +1.95 | +2.28 | +0.30 |
+| + teacher head log-probs (heads) | +1.30 | +1.51 | +0.56 |
+| second EM on the heads (heads2) | +1.36 | +1.41 | +0.57 |
+| heads / heads2, lam 0.35 | +1.70 / +1.37 | +1.56 / +1.54 | −0.39 / +0.38 |
+
+Every in-session use of the teacher is worse than the stateless population map, by 0.3–1.5 sel.
+On its own (w 0), session-learned teacher templates give at most +0.57, against +2.9 for the map
+fitted on the other participants. A session of 30–80 unlabelled windows cannot re-learn a
+38-dimensional mapping as well as nine labelled people can. heads2 seeded by the R19e output
+is the cross-view co-training variant, and it fails too. This matches R4/R8/R12, where
+self-training, T-TIME and AdaBN were closed.
+
+**Conclusion: keep the code freeze.** The one stateful idea that motivated lifting it loses
+offline, and every other session-stateful method we know is already closed. Changing
+submission.py would add real-worker risk for no measured gain. Code stays at 25d51a6e.
+
+## Weight-space programming on the teacher map (2 Nov ~21:20)
+
+Idea from Takehi, Teoh, Zhang and Khattab, "Sparks of Weight-Space Programming" (MIT CSAIL blog,
+https://rikiyat.github.io/blog/weight-space-programming/): an LLM reads a network's weights and writes
+edits directly, without gradients. Applied to the only small, named, data-file weights we have: the
+teacher's logistic map (3 classes × 38 heads, EEGNeX + IFNet; `scripts/diag/weight_edit.py`). Every
+fold's fitted map passes through an edit program before scoring (C 0.01, w 5, seeds 0–11).
+
+**Reading the map (all dev participants).**
+- Right-hand heads point to WG (eegnex dreyer2023:right_hand: MI −0.24, WG +0.28); left-hand heads
+  point to MI. This fits the physiology: PROTEUS MI uses the non-dominant hand (right hemisphere in
+  right-handers) and WG is left-lateralised.
+- shin2017b:subtraction supports SUB against MI. Rest heads argue against MI.
+- Heads in one softmax block are collinear, so single coefficients are not identifiable.
+
+**Edits (each a stated prior, written before scoring).** Sel Δ vs R19e (s05 / s611 / s011); per
+participant dla vs the unedited teacher; mean without P10:
+
+| Edit | s05 | s611 | s011 | without P10 |
+|---|---|---|---|---|
+| e0 identity (control) | +2.65 | +2.92 | +2.91 | — |
+| e1 tie left/right (handedness unknown) | +1.28 | +1.61 | +1.68 | −0.63 |
+| e2 tie EEGNeX/IFNet columns (denoise) | +2.97 | +2.73 | +2.97 | −0.70 |
+| e3 zero feet heads (no PROTEUS class uses feet) | +3.38 | +3.83 | +3.48 | −0.54 (P10 +4.13, P06 −2.65) |
+| e4 subtraction heads ×2 | +2.79 | +2.65 | +2.81 | −1.21 |
+| e5 add laterality magnitude (refit) | +2.91 | +2.67 | +2.86 | −0.77 |
+
+**Verdict.**
+- The handedness prior is refuted: laterality is a real cue, worth 1.2 sel (e1).
+- e3 clears +0.5 on every seed half, but the gain comes from P10, the participant whose later
+  sessions also make up ds. Five of the seven others lose. That is exactly the P10 selection risk in
+  docs/REVIEW_2NOV.md §2, so e3 is not adopted. If it is ever used, it should be a sealed exploration
+  arm, not the lead.
+- No edit helps the typical held-out participant. The fitted map already encodes what these
+  priors can add.
+
+**screenW8 3040506 (2 Nov ~21:30): wave 8 closed.** All 24 pretraining jobs completed; saved args
+verified (raw: align raw, rot 0.05; sr: --sr 4). Best s05 sel Δ against the base pair's +2.64 (w 5, C 0.01):
+- raw-stream pair: best −0.31 at w 3 at C 0.01 (worse at C 0.1); teacher alone 46.6 dla, P(right | R19e wrong)
+  0.42;
+- segment-and-reconstruction pair (sr): +2.16 (w 4), −0.48;
+- ea + raw concatenated: +1.34 (C 0.01, w 5);
+- raw pair as a late-fusion second member: best +1.67 (w2 2).
+The raw-stream teacher is clearly worse than the aligned one and drags every combination down;
+segment recombination does not help the teacher. Teacher recipes stay closed.
+
+## Agent as optimizer, with hidden confirmation (2 Nov ~21:30–22:00)
+
+`scripts/diag/agent_opt.py`: an LLM agent proposes configurations of everything a sealed package
+can still change:
+- teacher families, C, w, head drops and scaling, arbitrary map or feature edit programs;
+- the nine member weights, rebalancing, and every R19e parameter.
+
+It reads only search scores: dla on A = P01 P02 P03 P05 P06 with teacher seeds 0–5. The harness
+computes nothing else in that mode. `--confirm` (run by us only) adds B = P07 P08 P10, ds and seeds
+6–11 / 0–11. The default config reproduces cand_nxif exactly (s011 +2.91). The agent ran 61
+evaluations in 17 min; it could read code but not docs/ or runs/.
+
+**Agent's findings on A.**
+- The teacher weight is too high (peak at w 1.5–3).
+- Tying the map's SUB and WG rows (teacher = MI vs non-MI only) lifts the worst participant.
+- R19e lam 0.7 helps whenever a teacher is present.
+- Its pick (tie, w 3, lam 0.7): A +1.37, worst −1.56, against +0.01 / −3.16 at baseline.
+
+**Hidden confirmation, s011:**
+
+| Config | sel | dla | ds | A | B | without P10 |
+|---|---|---|---|---|---|---|
+| cand_nxif (default) | **+2.91** | +3.18 | +2.63 | +0.43 | **+4.36** | +0.99 |
+| agent pick: tie SUB/WG, w 3, lam 0.7 | +1.60 | +2.65 | +0.54 | +1.07 | +1.98 | +0.53 |
+| alternative: tie, w 3, lam 0.5 | +1.74 | +2.17 | +1.30 | +0.62 | +2.31 | +0.60 |
+| raw-mean best: w 3, lam 0.7 | +1.52 | +3.01 | +0.02 | +1.16 | +3.29 | +1.21 |
+
+**Verdict: the agent overfit its search participants.** Its gains on A (+0.6) came at a large cost
+on unseen B (−2.4: P07 +1.55 → −1.09, P08 +3.23 → −0.56) and on later sessions (ds −2.1). The protocol
+did its job: without the hidden split, the agent's +1.37 would have looked like a win.
+Scientific note: the teacher's SUB-vs-WG output is person-specific (helps P02/P05/P07/P08, hurts P06).
+Its MI-vs-non-MI output is the part that transfers. With ten participants, re-tuning the existing
+parameters (by grid, gradient or agent) cannot separate signal from person-specific fit. Gains
+must come from new information. cand_nxif stays.

@@ -13,6 +13,12 @@ NI26_MW (member weights with the teacher; deltas stay against the unchanged R19e
 NI26_PROBE=1 for trunk embeddings: one standardised map per net, probabilities averaged.
 NI26_ADD "spec,spec" (mix_probs specs, e.g. eegnex_ea_ptm7r_rot05:0-5*1): extra members on
 top of R15, mixed with the teacher; w 0 then gives the members' effect alone.
+NI26_T2 "prefix+prefix@w2" (wave 8): a second teacher with its own logistic map, mixed as
+its own member at weight w2 (late fusion, as two Jit members would be packaged).
+NI26_VIEW (2 Nov, code-freeze exploration): the R19e stage also sees the teacher, per
+session and label-free. "heads" appends the teacher's head log-probs to the gaze/event
+view, "tmap" its 3-class log-probs, "heads2" runs a second EM on the head log-probs alone;
+NI26_EMLAM sets the stage's lam (default 0.5, as R19e).
 """
 
 import json
@@ -39,6 +45,8 @@ C, PROBE = float(os.environ.get("NI26_C", 0.1)), bool(os.environ.get("NI26_PROBE
 WTS = tuple(float(w) for w in os.environ.get("NI26_WTS", "0.5,1,2,3,4").split(","))
 MW = [float(w) for w in os.environ["NI26_MW"].split(",")] if "NI26_MW" in os.environ else WS
 ADD = [s for s in os.environ.get("NI26_ADD", "").split(",") if s]
+T2F, _, T2W = os.environ.get("NI26_T2", "").partition("@")
+VIEW, EMLAM = os.environ.get("NI26_VIEW", ""), float(os.environ.get("NI26_EMLAM", 0.5))
 FAMS = {"sinc": ["sincshallow_ea-m7r"], "fbcnet": ["fbcnet_ea-m7r"],
         "sinc+fbcnet": ["sincshallow_ea-m7r", "fbcnet_ea-m7r"]}
 st, y, subj = d["stream"], d["y"], d["subject"]
@@ -100,13 +108,20 @@ def main():
                     assert (ix == idx).all(), "added members do not cover the cached rows"
                     M, MT = Ps, MW + [parse(s)[2] for s in ADD]
                 T = teacher(features(H, fl, seeds), proto, idx)
+                if T2F:  # second teacher, own map, own member slot
+                    M, MT = M + [teacher(features(H, T2F.split("+"), seeds), proto, idx)], MT + [float(T2W)]
                 r = res.setdefault(fam, {}).setdefault(half, {}).setdefault(proto, {})
                 r["R15"], r["R19e"] = round(cm(idx, base.argmax(1)), 2), round(cm(idx, R19e.argmax(1)), 2)
                 r["teacher"] = round(cm(idx, T.argmax(1)), 2)
                 ref = by_participant(idx, R19e.argmax(1))
+                V, Fh = GE[idx], features(H, fl, seeds)[0][idx] if VIEW.startswith("heads") else None
+                if VIEW in ("heads", "tmap"):
+                    V = np.c_[V, Fh if VIEW == "heads" else np.log(T + 1e-6)]
                 for w in WTS:
                     b = rebal(mixp(M + [T], MT + [w]), idx)
-                    e = SE.apply(GE[idx], b, st[idx], lam=0.5, n0=60, m0=20)
+                    e = SE.apply(V, b, st[idx], lam=EMLAM, n0=60, m0=20)
+                    if VIEW == "heads2":
+                        e = SE.apply(Fh, e, st[idx], lam=EMLAM, n0=60, m0=20)
                     pp = by_participant(idx, e.argmax(1))
                     r[f"w{w:g}"] = {"R15+T": round(cm(idx, b.argmax(1)), 2),
                                     "R19e+T": round(cm(idx, e.argmax(1)), 2),

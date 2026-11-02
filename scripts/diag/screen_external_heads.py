@@ -10,6 +10,7 @@ Reports, on dev_loso_all rows, against R19e from BASE_CACHE (scratchpad base_cac
   - the same scores session-centred (causal running mean);
   - a LOSO logistic map from the 19 centred head log-probs to the 3 classes: dla alone,
     P(right | R19e wrong), and R19e x teacher^0.5 per seed half (round-4 bar).
+Nets pretrained with ALIGN "raw" get the unaligned windows scaled to unit global RMS instead.
 NI26_EMB=1 saves each net's trunk embedding (the final layer's flattened input) instead of
 the head log-probs, for eval_external_teacher.py NI26_PROBE=1, and skips the report.
 """
@@ -48,9 +49,10 @@ def causal_ea(X, k=5.0):
     return out
 
 
-def heads(path, X):
+def heads(path, Xs):
     ck = torch.load(path, weights_only=False)
     meta = json.loads(ck["meta"])
+    X = Xs[meta.get("align", "ea")]  # raw-pretrained nets see the unaligned stream (wave 8)
     arch = Path(path).name.split("_")[0]
     cls = getattr(bd, ARCHS[arch])
     blocks = {(m["offset"], m.get("n", len(m["classes"]))): c for c, m in meta["corpora"].items()}
@@ -100,10 +102,11 @@ def cellmean(idx, pred):
 
 def main():
     base, out_json, ckpts = np.load(sys.argv[1]), Path(sys.argv[2]), sys.argv[3:]
-    X = causal_ea(d["X"])
+    raw = (d["X"] / np.sqrt((d["X"].astype(np.float64) ** 2).mean())).astype(np.float32)
+    Xs = {"ea": causal_ea(d["X"]), "raw": raw}  # raw: global RMS, as the raw members' scale
     feats, fam_names, per_ckpt = {}, {}, {}
     for p in ckpts:
-        F, names = heads(p, X)
+        F, names = heads(p, Xs)
         fam = Path(p).name.rsplit("-s", 1)[0]
         feats.setdefault(fam, []).append(F)
         fam_names[fam], per_ckpt[Path(p).stem] = names, F
