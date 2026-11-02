@@ -8,7 +8,8 @@ outside P10 sessions 2-3; al: the other nine). No session state, so it is a stat
 packageable as TorchScript (trunk + heads + map). It enters the member mix with weight w (the
 plain members have 1), then the unchanged rebalancing and R19e stage (lam 0.5, n0 60, m0 20).
 Pre-registered primary: family sinc+fbcnet, w 1. Seed halves use the matching pretraining seeds.
-Env (2 Nov): NI26_HALVES "name=lo-hi,..." (default s02/s35/s05), NI26_C (default 0.1), and
+Env (2 Nov): NI26_HALVES "name=lo-hi,..." (default s02/s35/s05), NI26_C (default 0.1), NI26_WTS,
+NI26_MW (member weights with the teacher; deltas stay against the unchanged R19e), and
 NI26_PROBE=1 for trunk embeddings: one standardised map per net, probabilities averaged.
 """
 
@@ -32,7 +33,8 @@ HALF = {h: range(int(a), int(b) + 1) for h, a, b in (
     (k, *r.split("-")) for k, r in (x.split("=") for x in os.environ.get(
         "NI26_HALVES", "s02=0-2,s35=3-5,s05=0-5").split(",")))}
 C, PROBE = float(os.environ.get("NI26_C", 0.1)), bool(os.environ.get("NI26_PROBE"))
-WTS = (0.5, 1.0, 2.0, 3.0, 4.0)
+WTS = tuple(float(w) for w in os.environ.get("NI26_WTS", "0.5,1,2,3,4").split(","))
+MW = [float(w) for w in os.environ["NI26_MW"].split(",")] if "NI26_MW" in os.environ else WS
 FAMS = {"sinc": ["sincshallow_ea-m7r"], "fbcnet": ["fbcnet_ea-m7r"],
         "sinc+fbcnet": ["sincshallow_ea-m7r", "fbcnet_ea-m7r"]}
 st, y, subj = d["stream"], d["y"], d["subject"]
@@ -77,9 +79,14 @@ def main():
     GE = np.c_[B["G"], B["EV"]]
     res = {}
     for fam, fl in fams.items():
+        missing = [f"{f}-s{s}" for f in fl for s in HALF["s05" if "s05" in HALF else next(iter(HALF))]
+                   if f"{f}-s{s}" not in H.files]
+        if missing:  # e.g. an architecture whose pretraining failed
+            print(fam, "skipped, missing", missing[:3], flush=True)
+            continue
         for half, seeds in HALF.items():
             for proto in ("dev_loso_all", "dev_session", "all_loso"):
-                k = f"{half}_{proto}"
+                k = f"{half if f'{half}_{proto}_idx' in B.files else 's05'}_{proto}"  # s611: s05 base
                 idx, M, R19e = B[k + "_idx"], list(B[k + "_members"]), B[k + "_R19e"]
                 base = rebal(mixp(M, WS), idx)
                 assert np.allclose(base, B[k + "_R15"]), "member weights do not reproduce R15"
@@ -89,7 +96,7 @@ def main():
                 r["teacher"] = round(cm(idx, T.argmax(1)), 2)
                 ref = by_participant(idx, R19e.argmax(1))
                 for w in WTS:
-                    b = rebal(mixp(M + [T], WS + [w]), idx)
+                    b = rebal(mixp(M + [T], MW + [w]), idx)
                     e = SE.apply(GE[idx], b, st[idx], lam=0.5, n0=60, m0=20)
                     pp = by_participant(idx, e.argmax(1))
                     r[f"w{w:g}"] = {"R15+T": round(cm(idx, b.argmax(1)), 2),

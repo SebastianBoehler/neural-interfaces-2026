@@ -1,6 +1,7 @@
 """Add the external-head teacher (MI-transfer arm, 1 Nov) to a package as a TorchScript member.
 
 Usage: python scripts/export_external_teacher.py SRC_DIR OUT_DIR [--weight 2] [--ckpt-dir runs/pretrain]
+       [--families sincshallow,fbcnet] [--seeds 0-5] [--C 0.1]
 The teacher (docs/SEALED_PLAN.md, "External-head teacher"): the 12 external-only pretrained
 nets (sincshallow_ea-m7r and fbcnet_ea-m7r, seeds 0-5; seven MI corpora, no PROTEUS data)
 are frozen; their per-corpus head log-probs are averaged over seeds per family (2 x 19), and a
@@ -10,6 +11,8 @@ no session state. It enters the member mix with weight WEIGHT x the v2 weight (o
 Checks on all public windows: traced vs eager teacher (batch 256 and 1), and the streamed
 package against the harness reference (old mix + teacher, rebalancing, R19e stage).
 Writes OUT_DIR/teacher.pt, weights.npz, submission.py and OUT_DIR_check.json.
+The defaults reproduce the packaged arm; the 2 Nov candidate (docs/OVERNIGHT_2NOV.md) is
+--families sincshallow,fbcnet,fblight,shallow --seeds 0-11 --C 0.01 --weight 4.
 """
 
 import argparse
@@ -31,20 +34,20 @@ sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "scripts")]
 import protocol  # noqa: E402
 import session_em  # noqa: E402
 from add_rebalance import SRC, load_solver, stream  # noqa: E402
+from deep import ARCHS  # noqa: E402
 from ensemble import rebalance  # noqa: E402
 
-FAMILIES = (("sincshallow", "SincShallowNet"), ("fbcnet", "FBCNet"))
 ALIGN = ("align", "k", "G", "scale", "shrink")
 
 
 class Heads(nn.Module):
-    """Frozen external nets -> (B, 2 x 19) seed-averaged per-corpus head log-probs."""
+    """Frozen external nets -> (B, families x 19) seed-averaged per-corpus head log-probs."""
 
-    def __init__(self, ckpt_dir, seeds):
+    def __init__(self, ckpt_dir, seeds, families):
         super().__init__()
         self.fams = nn.ModuleList()
         self.blocks = []
-        for arch, cls_name in FAMILIES:
+        for arch in families:
             nets = nn.ModuleList()
             for s in seeds:
                 ck = torch.load(Path(ckpt_dir) / f"{arch}_ea-m7r-s{s}.pt", weights_only=False)
@@ -52,7 +55,7 @@ class Heads(nn.Module):
                 blocks = [(m["offset"], m["offset"] + len(m["classes"])) for m in corp.values()]
                 assert not self.blocks or self.blocks == blocks
                 self.blocks = blocks
-                cls = getattr(bd, cls_name)
+                cls = getattr(bd, ARCHS[arch])
                 kw = dict(n_chans=41, n_outputs=blocks[-1][1], n_times=480)
                 if "sfreq" in inspect.signature(cls).parameters:
                     kw["sfreq"] = 120.0
@@ -121,6 +124,9 @@ def main():
     ap.add_argument("out", type=Path)
     ap.add_argument("--weight", type=float, default=2.0)
     ap.add_argument("--ckpt-dir", default=str(ROOT / "runs/pretrain"))
+    ap.add_argument("--families", default="sincshallow,fbcnet")
+    ap.add_argument("--seeds", default="0-5")
+    ap.add_argument("--C", type=float, default=0.1)
     a = ap.parse_args()
     torch.set_num_threads(1)
     with np.load(a.src / "weights.npz") as f:
@@ -138,9 +144,10 @@ def main():
         if i == 0 or st[i] != st[i - 1]:
             ins.reset_state()
         H[i] = ins(d["X"][i].astype(np.float32))
-    heads = Heads(a.ckpt_dir, range(6)).eval()
+    lo, _, hi = a.seeds.partition("-")
+    heads = Heads(a.ckpt_dir, range(int(lo), int(hi or lo) + 1), a.families.split(",")).eval()
     Fh = batched(heads, H)
-    lr = LogisticRegression(C=0.1, max_iter=3000, class_weight="balanced").fit(Fh, d["y"])
+    lr = LogisticRegression(C=a.C, max_iter=3000, class_weight="balanced").fit(Fh, d["y"])
     teacher = Teacher(heads, lr.coef_, lr.intercept_).eval()
     eager = batched(teacher, H)
     traced = device_free_trace(teacher, torch.from_numpy(H[:4]))
@@ -178,7 +185,8 @@ def main():
     new = stream(load_solver(a.out, "new_pkg"), d, rows, lambda m, x: m.predict(x))
     old = stream(load_solver(a.src, "old_pkg"), d, rows, lambda m, x: m.predict(x))
     sha = lambda f: hashlib.sha256(f.read_bytes()).hexdigest()
-    res = {"source": str(a.src), "teacher_weight_units": a.weight, "teacher_member_weight": w_t,
+    res = {"source": str(a.src), "families": a.families, "seeds": a.seeds, "C": a.C,
+           "teacher_weight_units": a.weight, "teacher_member_weight": w_t,
            "align_from_member": j, "n_windows": int(len(new)),
            "teacher_in_sample_acc": float(np.mean(eager.argmax(1) == d["y"])),
            "max_abs_logit_traced_vs_eager": float(np.abs(tr256 - eager).max()),

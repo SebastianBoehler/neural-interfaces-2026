@@ -21,6 +21,7 @@ import numpy as np
 import torch
 from torch import nn
 
+import cotrain
 import dg
 from features import SFREQ, bandpass, covariances, invsqrtm
 
@@ -109,11 +110,14 @@ def build(arch, n_chans, n_times, pretrained=True, **net_kw):
             from protocol import DATA
             fwd["ch_names"] = [str(c) for c in np.load(DATA)["ch_names"]]
         return Resampled(net, n, factor, **fwd)
+    if arch == "rocket":  # random-kernel member (rocket.py)
+        from rocket import Rocket
+        return Rocket(**{**dict(n_chans=n_chans, n_outputs=3, n_times=n_times), **net_kw})
     cls = getattr(bd, ARCHS[arch])
     kw = dict(n_chans=n_chans, n_outputs=3, n_times=n_times)
     if "sfreq" in inspect.signature(cls).parameters:
         kw["sfreq"] = SFREQ
-    return cls(**kw, **net_kw)  # architecture variants, e.g. FBCNet stride
+    return cls(**{**kw, **net_kw})  # architecture variants, e.g. FBCNet stride
 
 
 def device():
@@ -209,6 +213,7 @@ class AlignedNet:
         self.mstyle, self.adv = mstyle, adv  # MixStyle / participant-adversarial (dg.py, R18)
         self.ref_band = ref_band  # (lo, hi) Hz: EA reference from band-passed windows (R19)
         self.ref_clip = ref_clip  # cap each window's trace at c x the (running) median in the reference (R20)
+        self.cotrain = 0.0  # lam: multi-task steps on the external corpora (cotrain.py; set by run_cv MODS)
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
         key = id(d["X"])
@@ -297,8 +302,11 @@ class AlignedNet:
         self._q = torch.ones(grp.max() + 1, device=self.dev) / (grp.max() + 1)
         self._gw = (1.0 / torch.bincount(self._grp).float())[self._grp]
         n_ch, n_t = X.shape[1:]
-        self.net = build(self.arch, n_ch, n_t, self.pretrained,
-                         **self.net_kw).to(self.dev)
+        self._ct = (cotrain.CoTrain(self.cotrain, self.batch, self.dev,
+                                    torch.Generator().manual_seed(self.seed + 1), self.rot)
+                    if self.cotrain else None)
+        kw = {**self.net_kw, "n_outputs": self._ct.n_out} if self._ct else self.net_kw
+        self.net = build(self.arch, n_ch, n_t, self.pretrained, **kw).to(self.dev)
         if self.train_fir:  # braindecode freezes FBCNet's filter bank
             for prm in self.net.spectral_filtering.parameters():
                 prm.requires_grad_(True)
@@ -358,11 +366,13 @@ class AlignedNet:
                 if ms:
                     ms.on = float(torch.rand(1, generator=gen)) < self.mstyle
                 if self.dro or self.pbal:  # participant-aware objectives (R8)
-                    loss = self._group_loss(self.net(xb), yb, torch.from_numpy(j).to(self.dev))
+                    loss = self._group_loss(self.net(xb)[:, :3], yb, torch.from_numpy(j).to(self.dev))
                 else:
-                    loss = loss_fn(self.net(xb), yb)
+                    loss = loss_fn(self.net(xb)[:, :3], yb)
                 if weighted:
                     loss = (loss * sw[j]).sum() / sw[j].sum()
+                if self._ct and not head_only:
+                    loss = loss + self._ct.loss(self.net)
                 if adv:
                     loss = loss + adv.loss(self._grp[torch.from_numpy(j).to(self.dev)])
                 loss.backward()
@@ -405,7 +415,7 @@ class AlignedNet:
             bn.forward = lambda x, bn=bn: causal_bn(bn, x, self.adabn)
         try:  # optional test-time augmentation: mean over circular time shifts
             shifts = getattr(self, "tta", ()) or (0,)
-            P = sum(torch.softmax(self.net(torch.roll(X, s, -1)).cpu().double(), 1)
+            P = sum(torch.softmax(self.net(torch.roll(X, s, -1))[:, :3].cpu().double(), 1)
                     for s in shifts) / len(shifts)
         finally:
             for bn in bns:

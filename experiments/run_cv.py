@@ -51,7 +51,7 @@ CONFIGS["v2"] = CONFIGS["ts_sess_fb7_w1ctr"]
 for _C in (0.01, 0.03, 0.3, 1.0):
     CONFIGS[f"ts_sess_fb_C{_C}"] = lambda d, C=_C: TangentSpace(d, bands=FB, C=C)
 for _a in ("eegnet", "shallow", "deep4", "conformer", "atcnet", "eegnex",
-           "ctnet", "fbcnet", "ifnet", "tidnet", *R9_ARCHS):
+           "ctnet", "fbcnet", "ifnet", "tidnet", "rocket", *R9_ARCHS):
     CONFIGS[f"{_a}_raw"] = lambda d, a=_a: AlignedNet(d, arch=a, align=False, seed=SEED[0])
     CONFIGS[f"{_a}_ea"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0])
 for _a in ("shallow", "fbcnet"):
@@ -196,7 +196,8 @@ MODS = {"swa": dict(swa=0.5), "swa25": dict(swa=0.25), "swa75": dict(swa=0.75),
         "fsc1": dict(fsc=0.1), "fsc2": dict(fsc=0.2),
         "ms5": dict(mstyle=0.5), "adv01": dict(adv=0.1), "adv03": dict(adv=0.3),  # R18
         "rb440": dict(ref_band=(4, 40)),  # R19
-        "rc5": dict(ref_clip=5.0)}  # R20: artifact-robust EA reference
+        "rc5": dict(ref_clip=5.0),  # R20: artifact-robust EA reference
+        "ct03": dict(cotrain=0.3), "ct1": dict(cotrain=1.0), "ct3": dict(cotrain=3.0)}  # co-training (cotrain.py)
 
 
 def resolve(base):
