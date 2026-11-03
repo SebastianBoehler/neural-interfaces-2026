@@ -1,0 +1,33 @@
+# cand_nxif audit inputs (Galvani workspace, 3 Nov 2026), docs/AUDIT_NXIF.md. Corpora and PROTEUS windows:
+# scripts/sealed_r19e_inputs.sha256 (same 7 corpora, same chunking). Teacher trunks: experiments/pretrain.py
+# ARCH ea m7r <7 corpora> --seed S --rot 0.05 (30 epochs, lr 1e-3, batch 256; metadata checked for all 24).
+# Trunks are not bit-reproducible on GPU (A100 / RTX 2080 mixed); the staged package files are the reference.
+18fe7d3fbdb2ea7d0a4d2bc1c43776988142030dfc34eaef84a7da9af35663f1  runs/pretrain/eegnex_ea-m7r-s0.pt
+4ed8b308e9e2164bbbbbbb8660b3a5762b9c2c7cedb7add113cf5e1b43b9fb82  runs/pretrain/eegnex_ea-m7r-s1.pt
+aded83774d83747a70108a614f1cac0cb507bee5b31447968cb28b3f714c69af  runs/pretrain/eegnex_ea-m7r-s2.pt
+146f7f91767a2c4a65789a49f4065a2c1515f5e6b49f34b2383cb3fab2a0fb81  runs/pretrain/eegnex_ea-m7r-s3.pt
+e715b0f6055d3e3148cbde95a86c77ce720f9607d0b983e2428a434a30f217dd  runs/pretrain/eegnex_ea-m7r-s4.pt
+3cff2e6af3a219f4d69ec4ef273833b01a7b56273a45ad2052f85ff48b26afda  runs/pretrain/eegnex_ea-m7r-s5.pt
+fc3ff30b48c91b68e9efa89b0b71af4ab1f1e94f067ff88925857e216021e682  runs/pretrain/eegnex_ea-m7r-s6.pt
+dfa65ea4328d6df2588f16d1d316eb6596ab33adee037aa702eababf6eab3a0b  runs/pretrain/eegnex_ea-m7r-s7.pt
+8890a4818747f90b1020420c478a06ecffac7e2d7ca5efcc5ce9cb7187bf5f07  runs/pretrain/eegnex_ea-m7r-s8.pt
+71dd7f59ca884f1cb9308cb0e6556bdef4fbd20749ece71e0fa141e17ff09b5f  runs/pretrain/eegnex_ea-m7r-s9.pt
+675593f76b2d893b455bf2a0b5a13204b5b2ce98b0d15a258ba4e084905a9027  runs/pretrain/eegnex_ea-m7r-s10.pt
+67d50ea3af2465eea2fecad8ed2ca5147a970cf4afc6927b63e6380a98caf175  runs/pretrain/eegnex_ea-m7r-s11.pt
+ff36825967d62e922573ce8b687e1ead460840a95749c3b67a8d252d3c0ed37a  runs/pretrain/ifnet_ea-m7r-s0.pt
+694c4896b3375827147dc62e7d642bd897930d169163a0a82d3d7142e4ff5241  runs/pretrain/ifnet_ea-m7r-s1.pt
+11ca8b61a7691a6a0e2f3b4346a48aadff7cc43b686f0327386b50071c73f01f  runs/pretrain/ifnet_ea-m7r-s2.pt
+5a8789b9e8710cb7ca2e17a0f62032b87746a3fadb27d0e46289fdb954f51d03  runs/pretrain/ifnet_ea-m7r-s3.pt
+ba7102a065c6a15fdd5c779e72f01b2780d0b93b830069f7910501f1939a7e59  runs/pretrain/ifnet_ea-m7r-s4.pt
+ab60167d57d8b95f8138b994e66b8f38999bf9f76db12c8c2d5341252a8c7022  runs/pretrain/ifnet_ea-m7r-s5.pt
+a76e0acd93d20a1eea510002ef3aba10fa1c3adff7dc0a53a2e0da15af384b55  runs/pretrain/ifnet_ea-m7r-s6.pt
+491e5d4731f0f68b341f7c9e59ac6a340d2fac8a426b5a20d8b24d73140dade0  runs/pretrain/ifnet_ea-m7r-s7.pt
+761199c8db04f187bb926fd516c07737de027cf7cd6335e60fc29927a53a0838  runs/pretrain/ifnet_ea-m7r-s8.pt
+3307844c7b231d55654fca9c718cfcd8980618a6b5c469796b6e95b3af036d27  runs/pretrain/ifnet_ea-m7r-s9.pt
+ab671c67de1dbe0bd52cbf505e5ee1a52dc32ff7e4dc8645c42f841739065fb4  runs/pretrain/ifnet_ea-m7r-s10.pt
+a7a0478b08497756ef4b1172915d33baa285f29216237c9653bd78b078b8749e  runs/pretrain/ifnet_ea-m7r-s11.pt
+cdfa4cecf8784590badc00b28152e7197ec8adcda579970d4966ef3102256df1  runs/sealed/final_r19e_g/submission.py
+1b6c5d039b414e802f6a521b6989b9a525ff26e77ade467575f3f63c27848598  runs/sealed/final_r19e_g/weights.npz
+25d51a6eaa8b91437377e8bfa43a68053e9dc35c4b29c5f31c2bec2783118c17  runs/sealed/cand_nxif/submission.py
+98f7df456dcbecaaadb2e0c0a09a130dc6fd3e2de187adf606dd1ce1b4330b5c  runs/sealed/cand_nxif/teacher.pt
+00ea3dcb06bdb5dd98aacb292378e803935e00cd1b2edefedc07b68b23c2724a  runs/sealed/cand_nxif/weights.npz
