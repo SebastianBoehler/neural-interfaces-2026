@@ -62,6 +62,9 @@ duration), day 2 r8t4g; the CPU ZIPs stay as fallbacks.
 
 ## Upload sequence
 
+**Superseded on 3 Nov by docs/SEALED_UPLOADS.md** (the arms, sequence, day-3 rule and upload log).
+The history below is kept for reference.
+
 Before 25 Oct 02:00 CEST (warm-up):
 1. `warmup7_ensemble_official_r6f.zip`, expected 0.5243 (honest; checks the
    new fast code and the unaligned-FBCNet stream on the worker).

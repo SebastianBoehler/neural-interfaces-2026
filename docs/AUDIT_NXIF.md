@@ -125,6 +125,11 @@ rebuilt by stage 1; the 7 corpora and PROTEUS windows linked in and verified aga
 
 **Verdict:** the recipe rebuilds cand_nxif from a fresh workspace within the expected tolerance
 (≥ 99 % agreement). In-sample scores only check that the predictions agree, not how well the
-package generalises. Not covered: an all-A100 rebuild, where EEGNeX lands about a seed away. The
-seed-half replication (+2.91 / +2.83) suggests the dev gain holds there, but label agreement
-would be lower.
+package generalises.
+
+**All-A100 rebuild (3 Nov, docs/WAVE10_3NOV.md §10h).** The 12 EEGNeX trunks were trained on A100 (the
+two from the audit plus 10 new). Combined with the original IFNet, the teacher's dev sel is +2.80 vs
++2.91 on seeds 0–11 (s05 −0.13, s611 −0.16), well inside seed noise. The exported package
+(`teacher.pt` `ccc8e2f7…`) agrees with the staged cand_nxif on 752 / 755 official-test windows and
+2,649 / 2,655 overall (99.77 %). The recipe's RTX 2080 Ti pin is therefore a precision choice; an
+auditor on A100 only still lands within tolerance.
