@@ -47,6 +47,7 @@ MW = [float(w) for w in os.environ["NI26_MW"].split(",")] if "NI26_MW" in os.env
 ADD = [s for s in os.environ.get("NI26_ADD", "").split(",") if s]
 T2F, _, T2W = os.environ.get("NI26_T2", "").partition("@")
 VIEW, EMLAM = os.environ.get("NI26_VIEW", ""), float(os.environ.get("NI26_EMLAM", 0.5))
+NCOL = int(os.environ.get("NI26_NCOL", 0)) or None  # wave 10m: first heads only (19 = the m7 corpora)
 FAMS = {"sinc": ["sincshallow_ea-m7r"], "fbcnet": ["fbcnet_ea-m7r"],
         "sinc+fbcnet": ["sincshallow_ea-m7r", "fbcnet_ea-m7r"]}
 st, y, subj = d["stream"], d["y"], d["subject"]
@@ -56,7 +57,7 @@ DEV = ~np.isin(subj, [f"Dreyer2026Proteus/{p}" for p in ("P04", "P09")])
 def features(H, fams, seeds):
     if PROBE:  # embeddings of different nets do not share axes: one map per net
         return [H[f"{f}-s{s}"] for f in fams for s in seeds]
-    return [np.concatenate([np.mean([H[f"{f}-s{s}"] for s in seeds], 0) for f in fams], 1)]
+    return [np.concatenate([np.mean([H[f"{f}-s{s}"][:, :NCOL] for s in seeds], 0) for f in fams], 1)]
 
 
 def fit_predict(Fs, tr, te):

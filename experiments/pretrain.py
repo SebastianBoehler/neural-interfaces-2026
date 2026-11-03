@@ -53,6 +53,10 @@ def load_corpus(name, align):
             ss.append(np.char.add(np.char.add(z["subject"].astype(str), "|"),
                                   z["session"].astype(str)))
     X, y, s = np.concatenate(Xs), np.concatenate(ys), np.concatenate(ss)
+    return align_sessions(X, s, align), y, classes, len(np.unique(np.char.partition(s, "|")[:, 0]))
+
+
+def align_sessions(X, s, align):
     if align == "ea":
         for sess in np.unique(s):
             i = np.flatnonzero(s == sess)
@@ -60,7 +64,19 @@ def load_corpus(name, align):
             X[i] = np.einsum("ij,njt->nit", P, X[i]).astype(np.float32)
     else:
         X /= np.float32(np.sqrt((X.astype(np.float64) ** 2).mean()))
-    return X, y, classes, len(np.unique(np.char.partition(s, "|")[:, 0]))
+    return X
+
+
+def load_proteus(align):
+    """Unlabelled PROTEUS windows for --uda (three window starts): dev participants only, never P04 / P09."""
+    Xs = []
+    for n in ("proteus_windows", "proteus_windows_start2", "proteus_windows_start3"):
+        with np.load(ROOT / "data" / f"{n}.npz") as z:
+            subj = z["subject"].astype(str)
+            keep = ~np.isin(np.char.rpartition(subj, "/")[:, 2], ["P04", "P09"])
+            s = np.char.add(np.char.add(subj[keep], "|"), z["session"].astype(str)[keep])
+            Xs.append(align_sessions(z["X"][keep].astype(np.float32), s, align))
+    return np.concatenate(Xs)
 
 
 UNIFIED = {"feet": 0, "hands": 0, "left_hand": 0, "right_hand": 0,  # PROTEUS order + rest
@@ -83,6 +99,7 @@ def main():
     ap.add_argument("--fsc", type=float, default=0.0)  # dg.freq_scale: individual alpha frequency
     ap.add_argument("--mstyle", type=float, default=0.0)  # dg.MixStyle probability per batch
     ap.add_argument("--sr", type=int, default=0)  # dg.seg_recombine segments (wave 8)
+    ap.add_argument("--uda", type=float, default=0.0)  # dg.Adversary: corpora vs unlabelled PROTEUS (wave 10)
     a = ap.parse_args()
     torch.manual_seed(a.seed)
     rng, gen = np.random.default_rng(a.seed), torch.Generator().manual_seed(a.seed)
@@ -115,6 +132,8 @@ def main():
     sched = torch.optim.lr_scheduler.OneCycleLR(opt, a.lr, total_steps=a.epochs * steps_per_epoch)
     per = a.batch // len(X)
     ms = dg.MixStyle(net, gen) if a.mstyle else None
+    U = torch.from_numpy(load_proteus(a.align)) if a.uda else None
+    adv = dg.Adversary(net, 2, a.uda, a.lr, dev) if a.uda else None
     net.train()
     for ep in range(a.epochs):
         tot = 0.0
@@ -135,18 +154,27 @@ def main():
                 xb = dg.seg_recombine(xb, yb, gen, a.sr)
             if ms:
                 ms.on = float(torch.rand(1, generator=gen)) < a.mstyle
+            nb = len(xb)
+            if adv:  # a quarter batch of unlabelled PROTEUS windows, same augmentation
+                ub = U[rng.integers(0, len(U), a.batch // 4)].to(dev)
+                xb = torch.cat([xb, dg.rotate(ub, gen, a.rot) if a.rot else ub])
             out = net(xb)
             k = torch.arange(off, device=dev)[None]
             own = (k >= lo.to(dev)[cb][:, None]) & (k < hi.to(dev)[cb][:, None])
-            loss = nn.functional.cross_entropy(out.masked_fill(~own, -1e4), yb)
+            loss = nn.functional.cross_entropy(out[:nb].masked_fill(~own, -1e4), yb)
+            if adv:
+                loss = loss + adv.loss((torch.arange(len(xb), device=dev) >= nb).long())
             opt.zero_grad()
             loss.backward()
             opt.step()
+            if adv:
+                adv.step()
             sched.step()
             tot += loss.item()
         print(f"epoch {ep} loss {tot / steps_per_epoch:.4f} {time.time() - t0:.0f}s", flush=True)
-    if ms:
-        ms.remove()
+    for h in (ms, adv):
+        if h:
+            h.remove()
     out = ROOT / "runs/pretrain" / f"{a.arch}_{a.align}-{a.tag}-s{a.seed}.pt"
     out.parent.mkdir(parents=True, exist_ok=True)
     state = {k: v.cpu() for k, v in net.state_dict().items()}

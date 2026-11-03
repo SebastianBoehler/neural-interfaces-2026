@@ -77,7 +77,9 @@ No pretrained third-party weights; no sealed or clinical data.
   - R19e base: 16 min on one A100;
   - teacher export 44 min, label comparison 38 min, replays 2 and 8 min.
 - Inference: 65–100 s for the 2,655 public windows (A100 replay and worker-image replica). The sealed set (~21k windows) stays well inside the 60 min limit.
-- Development compute: the Galvani `sacct` total is still to be summed for the method description.
+- Development compute on Galvani (`sacct`, 1 Oct – 3 Nov, 1,393 jobs, all in this project's
+  workspaces): about 300 GPU-hours (A100 139, RTX 2080 Ti 142, other 22) and 1,300 CPU-core-hours.
+  Local runs on a Mac are not metered.
 
 ## Pinned environment
 

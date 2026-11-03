@@ -29,17 +29,23 @@ from export_external import DUR, SFREQ, preprocess, to_proteus  # noqa: E402
 # dataset -> events kept (None: all of the dataset's event_id)
 KEEP = {"Cho2017": None, "Lee2019_MI": None, "PhysionetMI": None,
         "Stieger2021": None, "Dreyer2023": None, "Schirrmeister2017": None,
-        "Shin2017A": None, "Shin2017B": None, "Liu2024": None, "Yang2025": None}
+        "Shin2017A": None, "Shin2017B": None, "Liu2024": None, "Yang2025": None,
+        # wave 10m (3 Nov; licences on the data hosts: CC BY 4.0 or CC0, healthy participants)
+        "Zhou2020": None, "Chang2025": None, "GuttmannFlury2025_MI": None, "Kumar2024": None,
+        "Rozado2015": None, "Weibo2014": ["feet", "hands", "left_hand", "rest", "right_hand"]}
+# Shin 2017: MOABB asks to accept the GNU GPL data terms (user OK, 28 Oct); Stieger 2021: sessions 1-3
+# of up to 11 (377 GB in all)
+ARGS = {"Shin2017A": {"accept": True}, "Shin2017B": {"accept": True}, "Stieger2021": {"sessions": [1, 2, 3]}}
 
 
 def load(name, subjects):
     import moabb.datasets as md
-    # Shin 2017: MOABB asks to accept the GNU GPL data terms (user OK, 28 Oct)
-    ds = getattr(md, name)(**({"accept": True} if name.startswith("Shin") else {}))
+    ds = getattr(md, name)(**ARGS.get(name, {}))
     keep = sorted(KEEP[name] or ds.event_id)
     lab = {ds.event_id[e]: i for i, e in enumerate(keep)}
-    start, tmax = max(0.0, min(1.0, float(ds.interval[1]) - DUR)), float(ds.interval[1])
-    offs = [start] + [start + k * DUR for k in range(1, 9) if start + (k + 1) * DUR <= tmax]
+    t0, tlen = float(ds.interval[0]), float(ds.interval[1]) - float(ds.interval[0])  # t0 = 0 up to R10
+    start = max(0.0, min(1.0, tlen - DUR))
+    offs = [start] + [start + k * DUR for k in range(1, 9) if start + (k + 1) * DUR <= tlen]
     for s in subjects:
         try:
             data = ds.get_data([s])[s]
@@ -55,7 +61,7 @@ def load(name, subjects):
                     continue
                 raw.pick("eeg", exclude="bads")
                 ev = np.concatenate([ev] * len(offs))  # long trials: consecutive 4 s windows
-                cues = ev[:, 0] / raw.info["sfreq"] + float(ds.interval[0]) + np.repeat(
+                cues = ev[:, 0] / raw.info["sfreq"] + t0 + np.repeat(
                     np.array(offs) - start, len(ev) // len(offs))
                 X = preprocess(raw).get_data() * 1e6
                 n, st = int(DUR * SFREQ), np.round((cues + start) * SFREQ).astype(int)
