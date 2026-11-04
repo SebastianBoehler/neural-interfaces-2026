@@ -20,7 +20,7 @@ the user's explicit authorisation for that upload, after a live check of phase a
 |---|---|---|---|---|---|---|---|
 | cand_nxif | `sealed_cand_nxif.zip` `0a562e62…` | +2.91 | +3.18 | +2.63 | +0.99 | code: yes (1024447); EEGNeX / IFNet layers replica only | committed, validated, incl. all-A100 |
 | cand_nxif_emx | `sealed_cand_nxif_emx.zip` `98d39600…` | +2.85 | +3.92 | +1.77 | +1.34 | as cand_nxif | cand_nxif recipe + `set_params.py` |
-| cand_m7r4 | `sealed_cand_m7r4.zip` `060850ee…` | +2.33 | +2.59 | +2.08 | — | sinc / fbcnet TorchScript ran (1026185) | **missing**: needs fbcnet / fblight / shallow trunks |
+| cand_m7r4 | `sealed_cand_m7r4.zip` `060850ee…` | +2.33 | +2.59 | +2.08 | — | sinc / fbcnet TorchScript ran (1026185) | docs/AUDIT_M7R4.md, validated 4 Nov (754 / 755, 99.81 %) |
 | R19e (jit_g) | `sealed_r19e_jit_g.zip` `011e56bc…` | 0 | 0 | 0 | 0 | **this exact ZIP** (1024447) | R19e fresh-clone audit (30 Oct) |
 
 Deltas are dev sel = mean(ds, dla) over R19e on pretraining seeds 0–11, never tuned on P04 / P09 or
@@ -49,7 +49,7 @@ What the arms test:
   weight 3, built on demand (export + replays, about 1.5 h).
 - Days 4–5 candidates:
   - the weight in the direction S1–S3 point (3 or 7);
-  - cand_m7r4, only after its audit recipe exists;
+  - cand_m7r4 (audit recipe validated 4 Nov);
   - the remaining arm.
 
 Paired differences between arms on the same sealed windows are far less noisy than absolute scores,
