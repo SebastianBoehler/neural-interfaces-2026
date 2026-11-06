@@ -67,9 +67,12 @@ def windows(raw, cues):
     return np.stack([X[:, s:s + n] for s in starts[keep]]), keep
 
 
-def to_proteus(W, ch_names, targets):
-    """Map windows onto the 41 PROTEUS channels; returns (W41, interpolated)."""
-    missing = [c for c in targets if c not in ch_names]
+def to_proteus(W, ch_names, targets, ref=None):
+    """Map windows onto the 41 PROTEUS channels; returns (W41, interpolated).
+    ref (e.g. "M1", PROTEUS's reference): re-reference to that electrode, recorded or
+    spline-interpolated (the weights sum to one, so the native reference cancels)."""
+    want = list(targets) + ([ref] if ref and ref not in targets else [])
+    missing = [c for c in want if c not in ch_names]
     names = list(ch_names) + missing
     info = mne.create_info(names, SFREQ, "eeg")
     data = np.concatenate([W, np.zeros((len(W), len(missing), W.shape[2]))], 1)
@@ -77,7 +80,10 @@ def to_proteus(W, ch_names, targets):
     ep.set_montage("standard_1005")
     ep.info["bads"] = missing
     ep.interpolate_bads(reset_bads=True, verbose=False)
-    return ep.get_data(picks=list(targets)).astype(np.float32), missing
+    out = ep.get_data(picks=list(targets))
+    if ref:
+        out = out - ep.get_data(picks=[ref])
+    return out.astype(np.float32), [c for c in missing if c in targets]
 
 
 def scherer(targets, subjects, download):

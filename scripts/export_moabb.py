@@ -104,6 +104,7 @@ def main():
     ap.add_argument("name", choices=sorted(KEEP) + ["Shin2018WG"])
     ap.add_argument("--subjects", required=True, help="e.g. 1-20")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--ref", default=None, help="re-reference, e.g. M1 as PROTEUS (5 Nov)")
     args = ap.parse_args()
     with np.load(ROOT / "data/proteus_windows.npz") as f:
         targets = [str(c) for c in f["ch_names"]]
@@ -113,7 +114,7 @@ def main():
     interp, classes = set(), None
     for (subj, sess, run, W, ch, y, cues), classes in (shin2018 if args.name == "Shin2018WG" else load)(
             args.name, range(int(lo), int(hi or lo) + 1)):
-        W41, missing = to_proteus(W, ch, targets)
+        W41, missing = to_proteus(W, ch, targets, args.ref)
         interp.update(missing)
         n = len(y)
         for k, v in (("X", W41), ("y", y), ("subject", [subj] * n), ("session", [sess] * n),

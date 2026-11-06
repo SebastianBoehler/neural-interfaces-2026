@@ -72,6 +72,32 @@ its replica.
 - 3 Nov 23:00 CET: the user authorised day 1 ("Yes, authorise day 1": cand_nxif as the first sealed
   submission on 5 Nov). A one-shot session check-in is set for 5 Nov 00:17 CET to run the checks above
   and upload. Days 2–5 still need their own authorisation.
+- 5 Nov 06:45 CET: the 00:17 check-in never uploaded (owner API: 0 submissions, 0/1 today, 0/5 total; phase
+  "Current", image v4-sealed). The user re-authorised cand_nxif in this session ("Upload cand_nxif now"); ZIP
+  SHA-256 checked (`0a562e62…`) and uploaded through Chrome as `s_boehler`.
 
 | Day | Date | Arm | Submission | Status | Cell-mean BA | Duration |
 |---|---|---|---|---|---|---|
+| 1 | 5 Nov (UTC) | cand_nxif (`0a562e62…`) | 1034698 | Finished (v4-sealed: the TorchScript teacher loads) | **0.7794596196** (rank 9 of 46 at 07:54 CET; top 0.83) | 834.7 s |
+
+**6 Nov: new arms (plan in docs/REVIEW_5NOV.md §5d/§6).** Live check 11:25 UTC: phase 30483 "Current", 1 of 5
+used, 0 today; board top seohee / timothewt 0.825, 3rd 0.816, us 21st.
+
+| Arm | ZIP (SHA-256) | Dev J vs packaged REC | Replays (A100 / worker replica) | Sealed runtime est. | Audit recipe |
+|---|---|---|---|---|---|
+| cand_rec_ts2 (REC + core1 + Hilbert core) | `sealed_cand_rec_ts2.zip` `e9f13567…` | +1.30 (≈ +0.8–1.1 after selection) | 211.3 s / 173.8 s, identical, files unchanged | 38–43 min (≤ ~47) | docs/AUDIT_SBN.md |
+| cand_rec_ts2_tsem (cand_rec_ts2 + TSEM stage after SessionEM) | `sealed_cand_rec_ts2_tsem.zip` `9c31a167…` (36.1 MB) | TSEM +1.30 mean on fresh bases (≈ +1.2–1.4 after selection) | 218.9 s / 181.2 s, identical (0.974922 in-sample), files unchanged | ≈ 40–45 min (per-window scaling) | docs/AUDIT_SBN.md |
+| cand_rec_ts (REC + core1), fallback | `sealed_cand_rec_ts.zip` `1a4b48af…` | +0.65 | 196.1 s / 160.5 s | 37–39 min | docs/AUDIT_SBN.md |
+
+- 6 Nov 12:45 UTC: **no upload today (user decision)**: keep iterating on ground-up solutions instead. Staged:
+  cand_rec_ts2 (reviewed) and cand_rec_ts2_tsem (`sealed_cand_rec_ts2_tsem.zip` `9c31a167…`, replays identical
+  218.6 s / 181.0 s, package == harness 2,655/2,655). Independent review (`scratchpad/review_tsem/`): safe to
+  upload: only the inline TSEM stage and 8 new weight keys differ; future-perturbation, own-seed, reset and deepcopy
+  tests bit-identical; packaged == batch tsem.py exactly; λ 0 byte-identical to cand_rec_ts2; basis independently
+  recomputed (subspace cosine ≥ 0.999999998); robust to short sessions, missing seeds, singular covariance and bad
+  windows; no ZIP size limit (36 MB fine); sealed runtime ≈ 40–45 min (≤ ~50). Code must be committed before audit.
+
+Independent review of cand_rec_ts2 (6 Nov, `scratchpad/review_ts2/`): safe to upload. The ZIP differs from
+cand_rec_ts only in submission.py and weights.npz as described; the new member is causal (future-perturbation and
+reset tests bit-identical); weights equal dev arm4 to 3e-16; robust to zero/NaN/degenerate windows. Runtime estimates
+were corrected: per-window scaling rather than total replay time (which includes a fixed overhead).

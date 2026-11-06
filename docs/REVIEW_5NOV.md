@@ -1,0 +1,268 @@
+# Review, 5 Nov 2026 (night of the sealed opening): audit, research, gates, upload plan
+
+Inputs: a 37-agent workflow (code audits with independent verification, five research blocks, three fresh-eyes
+ideators, synthesis, two-lens adversarial challenge of each shortlisted idea), plus our own saved-probability gates.
+Agent findings are marked "agent" where we did not re-run them ourselves. Scratch evidence:
+`/private/tmp/claude-501/-Users-sebastianboehler-Documents-GitHub-neural-interfaces-2026/95eb4b0e-c5db-4ae9-81b3-afeeeac7221a/scratchpad/`
+(`own/` = ours, `p1/` = agents). Every control below reproduced cand_nxif exactly (s011 sel +2.91).
+
+## 1. Live sealed-phase facts (checked 4–5 Nov, public API and Codabench source)
+
+- Phase 30483 is live: 1 upload per UTC day, 5 in total, until 21 Nov 23:59 CET. **The daily quota resets at
+  00:00 UTC (01:00 CET)**: verified in the Codabench source, not guessed. A failed run uses no quota.
+- **New worker image `lionelyneuro/neural-compet:v4-sealed`**, unpublished (Docker Hub has only v2/v3). Every
+  proof we have (real worker 1024097/1024447/1026185, Apptainer replica) is v3. The sealed task was rebound on
+  4 Nov 21:31Z (task 36954): same ingestion program, new scoring program, about 25 KB of private input data (agent).
+- **Fail-over fix:** if a TorchScript package fails, upload `sealed_candidate_ensemble_all_r19e_g.zip`
+  (`125503e8…`, no `.pt`, real worker 1024097, labels identical to jit_g). Not `sealed_r19e_jit_g.zip`, which
+  also carries a TorchScript member.
+- **Cohort now private.** The organisers removed "20 participants × 6 sessions" and "ten new participants"
+  (website commit 44ea882, FAQ 6f1a05f9). PROTEUS has 22 participants. The 57 % unseen share has no basis.
+- **Organiser sealed baselines** (from scratch, public 6-person train split, no alignment): EEGNet 0.4927,
+  SincShallowNet 0.5876. The same EEGNet scores 0.326 on the public split: the sealed set is much easier than
+  P04/P09. A cand_nxif score below about 0.60 would point to a broken run (image, montage, units), not the model.
+- Owner API (`/api/submissions/<id>/`) returns 10-decimal scores; the public board shows 2 decimals (agent, from
+  the Codabench serializers). Paired differences between our own uploads are exact on the final objective.
+- Board at 01:39 CET (2 decimals, 12 entries): JLShen 0.81, anarghya 0.78, lorenzoveronese 0.77, foreist 0.76,
+  huytungst 0.76, teddythebuilder 0.75, aimarsilvan 0.72, adoroodchi 0.71, judeswallis 0.71, noiroao 0.68,
+  syehsyoh 0.66, arnaultcaillet 0.48. Durations 32–1,414 s. **Our day-1 entry was not on the board at 01:39**
+  (status unknown to this session: still queued, failed, or not uploaded).
+- Rules fact (not a recommendation): quotas are per participant; a team keeps its best member score.
+  Registration closes 5 Nov 23:59 CET. Earlier decision: no teammates.
+
+## 2. Does the code do what we intend? (audits, each finding independently verified)
+
+- **submission.py (frozen 25d51a6e): no correctness, causality or state-leak bug.** Staged cand_nxif parameters
+  match the docs. Robustness probes on one session (amplitude ×10 / ×0.1, flat Cz, NaN window, permuted named
+  montage, spikes) change 0–16 labels. One weakness: SessionEM never forgets (two P10 sessions in one stream:
+  session 3 drops 0.995 → 0.930); a real sealed stream is one session, so this is a pessimistic proxy.
+  CPU-only fallback would take about 29 min for 21k windows.
+- **Dev harness: valid.** Metric = official cell mean; folds keep the held-out person out of everything that
+  matters; stream order and the causal rebalancing/EM simulation equal submission.py. Two documented leaks
+  (teacher EA prior G and EM event prior from all windows) are each worth < 0.1.
+- **Teacher pipeline:** dev features equal the packaged teacher input. Three train/test mismatches remain:
+  the corpora keep their native references (PROTEUS is M1), corpora with ≤ 4 s task intervals are windowed
+  cue+0–4 s (PROTEUS cue+1–5 s), and pretraining EA is full-session (test is causal, k 5).
+
+## 3. What the evidence really says
+
+- **P10 drives 88 % of cand_nxif's +2.91 sel** (its weight in sel is 65 %; agent, re-derived from per-cell
+  deltas). Per person over all 10 (all_loso, diagnostic): mean +1.12, se 1.25, 6 of 10 positive; without P10
+  +0.32. P09 −5.9 and P06 −2.1 grow with the teacher weight.
+- **Sealed forecast for the teacher (cand_nxif − R19e): +1.0 ± 1.2 points**, not +2.9.
+- **The teacher also helps a second seen person (new tonight):** seen_session, own session 1 in training:
+  P04 +1.14, P10 +2.31 at w 5 (P04 −0.72 at w 3).
+- **Teacher weight, person-equal:** without P10 the curve is flat from w 2 to w 5 (s011: w 3 +0.82,
+  w 5 +0.99; s611: +1.06 / +0.83) and falls steeply above w 5.5 (w 7 −0.14). **w 7 is dominated; w 3 is only
+  a mild hedge** (w 3 − w 5 forecast −0.1 ± 0.5).
+
+## 4. Gates run tonight (all on saved probabilities; all closed unless stated)
+
+| Idea | Result (s011 sel Δ over R19e; cand_nxif +2.91) |
+|---|---|
+| Log-linear (PoE) pooling of the teacher | best +1.65 |
+| Teacher pre-rebalanced before mixing | +2.80 |
+| Map fitted with boosting weights (members' out-of-fold error) | +3.06, but dla 77.5 vs 78.0; independence 0.44 → 0.46 |
+| Participant-balanced map | +2.37 |
+| Pool-aware stacked map (agent) | −1.8 |
+| Per-session label-free teacher gate | no statistic predicts harm (teacher skew r −0.40 with P05/P04 counterexamples) |
+| Common-average-referenced input to the existing trunks | +2.48 (P09 still −4.9) |
+| EM λ 0.4–0.7 with the teacher | best person-equal λ 0.7, but ds −1.6; not better than a115 |
+| Agents: NAP/WCCN/CMN teacher normalisation, position-scheduled weight, seed-dispersion gate, m14r person-equal, forward-only teacher bundle (TTA, 4 Hz high-pass, feedback surgery), emx at w 3 | all ≤ base or refuted on prior evidence |
+
+## 5. What survived
+
+**a115: cand_nxif with `rb_alpha` 1.15 (data-only, frozen code).** α 1.15 comes from the round-3 explorer core
+(chosen on dev people); P04 and P09 were never used to choose it.
+
+| s011, Δ vs R19e | cand_nxif | **a115** | emx |
+|---|---:|---:|---:|
+| seen_session P04 / P10 | +1.14 / +2.31 | +1.43 / +2.03 | +0.07 / +2.05 |
+| ds (P10 later sessions) | +2.63 | +2.35 | +1.77 |
+| dla, person-equal (8) | +1.77 | +1.96 | +2.29 |
+| all_loso without P10, person-equal (9) | +0.32 | +0.86 | +1.07 |
+| P09 / P04 all_loso | −5.9 / +1.9 | −1.8 / +1.6 | +0.8 / −0.6 |
+
+On the hidden pretraining seeds 6–11, P09 behaves the same (−5.4 → −1.3). Mechanism (round 2/3 profiling): the soft
+teacher leaves a session class bias that α 1 under-corrects; α > 1 gains sit in the most skewed sessions.
+a115 keeps the returning-person score and repairs most of the teacher's worst new-person loss.
+**Honest size:** on the 8 dev people the α curve is flat from 1.0 to 1.25 (s011 dla7 0.84 / 0.99 / 0.68 at
+α 1 / 1.15 / 1.25; s611 0.68 / 0.46 / 0.60), ds falls slowly (2.63 / 2.35 / 2.04), seen P04 rises with α. The case
+rests on P09 and seen P04: a cheap, low-risk arm, not a breakthrough.
+Package: `runs/sealed/cand_nxif_a115` (local, `scripts/set_params.py … rb_alpha=1.15`): harness 1.0 / 1.0,
+3 of 2,655 public labels changed, `weights.npz` `7eda1d06…`, `submission.py` and `teacher.pt` unchanged.
+**Staged 5 Nov 07:00:** official A100 replay 3055253 (102 s) and worker replica 3055254 (68 s), files unchanged,
+identical scores (in-sample 0.96463, as cand_nxif). Upload ZIP `runs/upload/sealed_cand_nxif_a115.zip`
+`841e7605…` (byte-identical to both replays' submission.zip).
+emx (adds EM shrink 0.85, n0 40) gains more for new people but loses about 0.7 on returning people; its EM half
+is negative on every readout except dla (agent challenge).
+
+**Open, needs Galvani: reference-matched teacher (wave 11).** Three agents independently ranked it first among new
+levers (p 0.07–0.18): after EA, PROTEUS's M1 reference is a session-dependent rotation the trunks never saw.
+`scripts/export_moabb.py --ref M1` (new, unit-tested: a common native-reference signal cancels to 6e-8; default
+path byte-identical) re-references every corpus to a spline-interpolated M1. `runs/diag/wave11.sh` (not in git)
+exports, pretrains EEGNeX + IFNet seeds 0–5 (variants m7m1, and m7m1d with Dreyer2023 native) and screens against
+the all-A100 base pair. The pre-registered gate is in the script header. The test-time CAR gate above lowers its
+prior but does not test it.
+
+**Board, 5 Nov ~21:00 CET (98 entries):** seohee 0.825; eight entries at 0.805–0.810; 0.783–0.797; us 0.779 at rank
+17. Several entries may be one team (team members appear separately). Simple models on the sealed set: a plynk
+tangent-space model 0.762, FBCNet 0.63–0.64, EEGNeX 0.556, CBraMod 0.513 (agent, from model names and the board).
+
+## 5b. Approach tournament (5 Nov, person-equal scorer `scratchpad/own/pe_metric.py`)
+
+Metric: J = 0.5 × person-equal all_loso (10 people) + 0.5 × person-equal seen_session (P04, P10), deltas over R19e.
+cand_nxif J +1.38 (new +1.03, seen +1.73), a115 +1.65 (new +1.56, seen +1.73).
+
+- **CAR for the deep members: closed.** Seeds 0–2 on Galvani, each CAR member swapped for its M1 twin: all deep
+  CAR dJ −0.29, with CAR v2 −0.52; an M1 + CAR mixture +0.26 ± 0.37 (noise). CAR helps v2 alone (+1.85) but not the ensemble.
+- **Cleanup ablations: the ensemble is already lean.** Removing any component costs J: EM −1.85, teacher −1.38,
+  ShallowConvNets −1.37, FBCNets −1.22, rebalancing (α 0) −5.75. Only the trainable-FIR FBCNets are removable at no
+  cost (+0.08 to +0.25, noise).
+- **Existing alternative architectures** (EEGTCNet, EEGITNet, MSVTNet; 45–48 % alone) lower a115 when added.
+- **Newly trained deep families** (ATCNet from the m7r trunk, EEGNeX, IFNet, Inception-ERP): none is a new class; a
+  deep-only ensemble is far worse (J −4.5 to −8.5). EEGNeX in the trainable-FIR slot of a115: J +2.17 (≈70 configs scored).
+- **Seen-person specialist: closed again.** Cross-session identification reaches at most 10/12 sessions after 60 windows
+  and cannot reject new people (AUC 0.5–0.65).
+- **Wave 11 (M1-re-referenced teacher corpora): closed.** Best s05 +2.47 vs +2.58 for the hardware-matched base.
+- **Trained-in per-session latent normalisation (BEETL 2021 winner): the first large member-level jump.**
+  Batch norm uses per-session statistics in training and causal running statistics of the session at test.
+  FBCNet alone: 59.1 → 66.0 (all_loso, person-equal) and 58.1 → 64.1 (seen). ShallowConvNet: 58.0 → 62.4 / 58.3 → 65.4.
+  EEGNeX: no gain. In the ensemble (seeds 0–2, plain twins = controls at a115 level):
+  fbcnet_ea_rot05 replaced by the session-normalised FBCNet (k 2) J +2.14; the same nets at k 5 added
+  ("arm D") **J +2.43** (new +2.07, without P10 +1.57, seen +2.80) vs a115 +1.65. Ensembles of session-normalised nets
+  only are worse (J +0.75), so the heterogeneous members still matter. Needs a ~20-line submission.py change (a
+  session-stateful TorchScript member). Build, a pre-registered fresh-seed confirmation (seeds 3–5) and a code review
+  started 5 Nov ~20:15 CET.
+  - **Confirmation (seeds 3–5): narrow FAIL of the pre-registered bar.** D − a115 = +0.30 J (bar +0.40); new9 +0.98
+    (≥ +0.76 ✓), seen +2.39 (≥ +1.73 ✓), plain-twin control +0.02 (✓). The member-level gain replicates (FBCNet alone
+    58.5 → 65.7); the ensemble keeps about 40 % of the dev estimate. Unbiased estimate: about +0.3 J over a115, mostly
+    from returning people. P06 and P10 lose about 2 points each.
+  - **Package `runs/sealed/cand_sbn`** (`submission.py` 6e526e3a: +29/−2 lines, class SJit; 12 SJit members = 6 seeds
+    × k 2/5 trained on all 10 people; everything else = a115): harness 1.0 (2,655/2,655), 14 labels changed vs a115;
+    old packages byte-identical with the new code; official A100 replay 141 s and worker replica 99 s, files unchanged,
+    identical scores; CPU/CUDA agreement 1.0. ZIP `runs/upload/sealed_cand_sbn.zip` `cee75861…`. Estimated sealed
+    runtime 20–23 min. Code review: safe; never run on the real v4-sealed worker. Audit recipe: docs/AUDIT_SBN.md.
+    Uncommitted.
+  - **Structure search (selection on member seeds 0–2, judged on 3–5):** REC = D + session-normalised FBLight (k 5),
+    SincShallow (k 20) and raw FBCNet (k 20): held-out **J +2.27** (new +2.16, new9 +1.65, seen +2.37) vs D +1.95 and
+    a115 +1.65. Paired by seed: REC − a115 +0.56 (SE 0.15, 6/6), REC − D +0.14 (SE 0.14). Two-fold estimate of the
+    subset search about +2.14. All 8 slots session-normalised (sbn8): held-out +2.31 but new +1.20 (below a115), with
+    the gain on the two seen people. 89 % of 56 subsets beat D held out. REC build started 6 Nov ~00:05 CET.
+
+## 5c. Solution-space map and the strategic re-framing (6 Nov, 01:00–02:30 CET)
+
+- **Board (102 entries, 6 Nov 00:10 CET):** 0.825; 0.810 ×2; 0.809; 0.808 ("LDA"); 0.806 ×3; 0.805; 0.797 ×2; … us
+  0.779 (rank 18). All entries are still first uploads.
+- **Constraints we imposed on ourselves, not the rules:** runtime (we used 835 of 3,600 s), package size (10 MB of
+  15 GB), the code freeze, stateless members. The rules also allow unlabelled in-domain PROTEUS EEG (rest runs,
+  inter-trial periods, trial tails), which we never used. pyriemann 0.12 is importable on the worker replica.
+- **Coverage audit:** the Riemannian/tangent-space core (v2) was designed in one day on 18 Oct and never redesigned
+  (3.6 % of saved experiments are linear). Never tried: many/narrow bands, sub-window or delay-embedded covariances,
+  an AIRM reference, shrinkage estimators, MDM/FgMDM, FBCSP+LDA, TS ensembles, nonlinear heads, TSMNet SPD-BN.
+- **Board reading:** tangent-space entries span 0.628–0.762 (v2-like recipes 0.628/0.673, plynk 0.762). Our stack is
+  about v2 + 16 per cell on dev, so our v2 alone is probably about 0.62–0.66 sealed. Our stack works on the sealed
+  set, but our core is about 10 points below the best TS recipe. Board score correlates with runtime (Spearman 0.66);
+  all entries ≥ 0.80 run 430–3,410 s.
+- **Regime check (P04/P10 later sessions):** our margin over v2 does not shrink on later sessions; no regime knob
+  moves dev by more than about 1 point.
+- **Upload design:** no current candidate reaches 0.81 under any plausible dev-to-sealed mapping (P ≈ 2 %). The most
+  informative next upload is a calibration probe, **cal_v2** (v2 + rebalancing only; frozen code, `weights.npz`
+  only): about 0.62–0.67 → stack fine, build a much stronger core; near 0.78 → the stack is broken on sealed.
+  Package `runs/sealed/cal_v2`: harness 1.0, `weights.npz` `b33c16c6…`; official A100 replay 3060075 (68 s) and
+  worker replica 3060076 (71 s), files unchanged, identical scores. ZIP `runs/upload/sealed_cal_v2.zip` `cdab9b17…`.
+- **REC package staged (6 Nov ~03:00 CET):** `runs/sealed/cand_rec` = cand_sbn + session-normalised FBLight (k 5),
+  SincShallow (k 20) and raw FBCNet (k 20), 6 seeds each, trained on all 10 people (export 3059663). Harness 1.0
+  (0/2,655 differ), 22 labels changed vs a115, 10 vs cand_sbn; every SJit member traces cleanly (saved state zero,
+  stream vs eager ≤ 5e-5). Official A100 replay 3059664 (171 s) and worker replica 3059665 (146 s): files unchanged,
+  identical scores. ZIP `runs/upload/sealed_cand_rec.zip` `ab6adf65…` (11.3 MB). Expected sealed runtime about
+  30 min (2.2× a115 in the replica). The independent review died on a usage limit; its SJit mechanism is shared
+  with the reviewed cand_sbn.
+- **Tangent-space core search (48 configs on Galvani CPU; harness reproduces v2 exactly): a much stronger causal core.**
+  car_ov17_fs2_t0.1_le_k2 + LR C 10: common-average reference with fresh covariances, 17 overlapping bands 1–58 Hz,
+  full-window plus two half-window covariances per band, fixed trace shrinkage 0.1, causal log-Euclidean recentering
+  (k 2), slow block. Standalone person-equal all_loso **69.3 vs 58.8** for v2; seen 66.9 vs 57.7. Selection on one half
+  of the people, judged on the other: +8.5 and +10.0. Drivers in order: shrinkage (+6), sub-window covariances (+3.3),
+  CAR (+1.7 to +4.8), higher C / smaller k, overlapping bands (+0.6). Not helpful: OAS/LW, AIRM reference (equal, 9×
+  slower), LDA/SVM heads, per-band ensembles, dropping the slow block (−3.8). In the a115 stack (core replacing v2 at
+  weight 1–2): J 2.1–2.7 vs 1.65. Side findings: the 5 Nov "CAR +1.85" applied CAR only to the slow block (the feature
+  cache ignores the input); models.TangentSpace with stretch=True is not causal at test time (unused by v2).
+  A REC + new-core arm (pre-registered choice on people halves) and its build started 6 Nov ~02:10 CET.
+
+## 5d. Ground-up redesign from the bottleneck (6 Nov, Galvani; scratch `scratchpad/gu/`)
+
+Base: REC + core (J 76.09 absolute; new 76.82, seen 75.36). One calibration point: sealed ≈ J + 3.65 (cand_nxif).
+- **Bottleneck = per-session class directions.** A head fitted on the session's own labels over the core's tangent
+  features adds +6.0 J (new +7.6) and sits in the session's top 10–30 unsupervised components. Causally, even with true
+  labels, only about half is reachable (+3.0; nothing before window ~96). Closed after cross-validation: label shift
+  (−1.35; rebalancing already leaves 0.07 class-share error), per-session member weighting (+0.02), a global stacker
+  (−4.8), the combiner re-tune (8,197 candidates, none ≥ +0.4 held-out both ways).
+- **Design A, label-free session adaptation: TSEM survives.** Per-session Gaussian class templates in the training
+  top-128 PCs of the core's causal tangent features, seeded by the 70 % most confident past outputs of the full
+  pipeline with a per-class quota, multiplied in with exponent 0.15·t/(t+60). Nested LOPO over 264 configs +1.73 J
+  (new +2.02, 8/10 ≥ 0; seen +1.44); halves +0.86 / +2.63; other PCA basis +1.57 to +2.02; 11/14 sessions positive.
+  Seed quality drives it (weak base +0.3, strong +1.4, true labels +3.7), so base gains are amplified. Head
+  self-training stays closed (windows are near-orthogonal in the 44k-dim space).
+- **Design B, a learned session-conditioned network: closed.** Context branch −1.8 to −2.7 per seed vs SessionBN;
+  meta-trained on 659 external sessions it only reaches parity; frozen −4.5. It relearns rebalancing, nothing more.
+- **Core 2 (round 2):** core1 + a Hilbert (analytic-signal, complex) 7-band core, mean at slot weight 2: +1.57 J over
+  REC (sd 0.26, 6/6 member seeds, both halves); with per-session z-scoring +1.65. Searched on all 10 people: shrink to
+  about +0.7 ± 0.4 over REC + core. Round 2 final: both cores with per-session z-scoring (Z+HS, lr10, w1.5) is +1.74
+  (6/6); not adopted, because z-scoring overlaps with TSEM (arm3 + TSEM 77.87 vs arm4 + TSEM 78.20 absolute, seeds 3–5).
+  Closed in round 2: delay embedding, more/wider bands, 3 sub-windows, other shrinkage, MDM heads, CAR+M1 concat.
+- **Running (6 Nov ~11:30 local):** pre-registered TSEM confirmation (exact SVD, fresh seeds, on REC + core2; bar
+  J ≥ +1.0, new and seen ≥ +0.5, ≥ 7/10 people ≥ 0) plus three add-ons; the REC + core2 package; an SPD network
+  with per-session SPD batch norm (TSMNet-style, gated vs the core standalone and ≥ +0.5 J in the stack).
+- **TSEM pre-registered confirmation: PASS** (Galvani 3061045; exact-SVD bases; streaming class == batch, λ 0
+  bit-identical). On REC + core2 arm4 with fresh member seeds 3–5: **+1.71 J** (new +2.38, seen +1.04, 8/10 people
+  ≥ 0; halves +3.16 / +1.32); single seeds +1.49 / +1.25 / +1.30; pooled +1.46. On the per-session z-scored core
+  (arm3) only +0.89 (the two overlap), so arm4 is the base. Hedge pc256 λ 0.2: +1.30 to +2.01, more people negative.
+  Add-ons on top of TSEM (Galvani 3061049, grids fixed beforehand, nested LOPO + halves, bar +0.3): gated pseudo-label
+  head −0.22 (TSEM already holds that signal), causal session-PC view +0.16 (halves −0.05 / +0.20), agreement-ranked
+  seeds +0.20 (new −0.38): all rejected. TSEM ships as pre-registered (exact PC128, λ 0.15, ρ 0.7, m0 20, shrink 0.7).
+- **SPD network with per-session SPD batch norm (TSMNet-style, own float64 PyTorch; prefix-causal, stream == batch):
+  closed.** Standalone J 54 vs core 68.5 and SessionBN FBCNet 66.8; negative in the stack at every weight, seed and
+  half (−0.1 to −3.3). Diagnostics: the core's strength is its ov17 sub-window input plus the slow block and a convex
+  head on recentred tangent vectors; end-to-end SGD with chunk-statistics BN and a learned BiMap loses ~4.5 more.
+- **Adversarial audits (6 Nov; `scratchpad/screens/audits.json`, judge `judge_verdict.md`): no leakage, causality or
+  label bug in TSEM or core2.** Sizes shrink: core2 vs the packaged (pooled) REC is +1.30, not +1.57 (the paired
+  number used weaker single-seed REC bases); after selection on the same people about +0.8 to +1.1. TSEM: the tail of
+  the 128-PC basis is poorly determined (24 of 128 directions differ between randomized and exact SVD; J unchanged at
+  +2.14 vs +2.18, people move by up to 1), and its family was chosen on all 10 people: forecast +1.2 to +1.4.
+  Revised path ≈ 77.4–77.9 J (0.81–0.815 at full transfer); 0.83 now about 8–12 %. Three small pre-registered screens
+  follow: a causal Gram-Wiener posterior filter before TSEM (+0.3 expected), a person-equal Sw target for TSEM's
+  covariance, and person-equal sample weights for the two cores.
+- **Screens (6 Nov afternoon, `scratchpad/screens/`): all three FAIL their pre-registered bars.** Gram-Wiener filter:
+  +0.62 on the fresh base, but permuted-Gram nulls give +0.47 (generic shrinkage interacting with TSEM; TSEM's
+  response to any input change is noisy at ±0.2–0.3 J). Sw target: +0.47 J but all from seen P04 s3; new −0.13, P09
+  −2 on every base. Person-equal core weights: core1 −0.83 standalone (4/10). TSEM on four fresh bases: +1.17 / +0.94
+  / +1.38 / +1.69 (mean +1.30), as forecast.
+- **Expected path (before the audits):** REC + core2 ≈ 76.9 J (0.805 full transfer / 0.79 half), + TSEM ≈ 78.4 ± 1.0 (0.82 / 0.80).
+  0.83 needs ≈ 79.35: full transfer, TSEM holding in the package, and about +0.8 J more. Architect's estimate 15–25 %.
+
+## 6. Recommended upload plan (each upload still needs your authorisation)
+
+**Superseded on 6 Nov by 5d** (4 uploads left): U2 = REC + core2 (also measures the dev-to-board slope), U3 = U2 +
+TSEM (paired, so the 10-decimal difference measures TSEM on sealed), U4 = U3 + whatever passes its gate, U5 = final
+best or hedge. If U2 − cand_nxif ≤ 0.008 the board does not reward dev gains: re-plan before U3. The list below is
+the 5 Nov plan, kept for the record.
+
+1. **Day 1: cand_nxif.** The 00:17 check-in never uploaded. Uploaded on 5 Nov 06:45 CET with the user's
+   authorisation as Codabench **1034698**: **0.7794596196**, 834.7 s, rank 9 of 46 (top: seohee 0.83, then
+   0.81 ×3, 0.79 ×3). The v4-sealed image runs the TorchScript teacher. A 3–5 point gap is beyond data-only
+   knobs, so an approach tournament (six families, person-equal scorer `scratchpad/own/pe_metric.py`) started
+   at 08:00. First member-level finding: CAR lifts v2 alone by +1.85 all_loso, but is neutral inside the
+   ensemble (re-referenced views had been dropped on 30 Oct by argument, never tested).
+2. **Day 2: a115**, once its official replay and worker replica pass. Fallback if they cannot run in time:
+   cand_nxif_emx (staged, replica-checked). Forecast: S(a115) − S(cand_nxif) ≈ +0.2 ± 0.5.
+3. **Day 3, branch on d = S(a115) − S(cand_nxif):**
+   - d > 0: more rebalancing helps on the sealed cohort. Continue the line search with α 1.25 (a125, same build), or
+     emx if new people look dominant.
+   - d ≤ 0: the cohort rewards the plain teacher. Upload the wave-11 teacher if it passes its gate, else w 3.
+   - Expect |d| ≈ 0.2–0.5. Data-only arms move the score by tenths, not points.
+4. **Days 4–5:** the best measured direction, one step further, or the best combination. Keep one upload for a
+   gated new-information arm if we are more than about 1.5 points below 3rd place.
+- **Drop from the plan:** R19e as a scheduled arm (it wins only if the teacher is net harmful, about 15–20 %), w 7 and
+  m7r4 (dominated). Keep r19e_g only as the failure fallback.
+
+Every arm that might score best needs its audit recipe (a115 = the cand_nxif recipe plus one `set_params.py` call).

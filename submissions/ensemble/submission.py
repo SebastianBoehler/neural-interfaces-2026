@@ -15,19 +15,24 @@ being the session's mean probability over windows 0..t-1 (or the last
 (no labels). Optionally (``em_*`` keys, R19) a per-session Gaussian class
 template in a 32-dimensional frontal slow-potential view is then estimated
 from the session's earlier windows (soft EM seeded by the rebalanced
-posteriors) and its likelihood multiplies the posterior. Parameters
-are numpy arrays in ``weights.npz`` (keys prefixed ``ts_``, ``netI_``, ``em_``).
+posteriors) and its likelihood multiplies the posterior; optionally (``tsem_*``
+keys, 6 Nov) TSEM then does the same in a PCA view of the first tangent
+member's scaled features, seeded by its most confident input posteriors. Parameters
+are numpy arrays in ``weights.npz`` (keys prefixed ``ts_``, ``netI_``, ``em_``;
+optional ``ts2_``: a second AlignedTangent member weighted by the last
+``member_weights`` entry).
 Per-window work is tiny, so BLAS, OpenMP and torch run single-threaded:
 interleaved multi-threaded numpy and torch calls were 4x slower on a loaded
 A100 node (spin-waiting thread pools).
 """
 
+import copy
 from pathlib import Path
 
 import numpy as np
 import torch
 import torch.nn.functional as F
-from scipy.signal import butter, sosfiltfilt
+from scipy.signal import butter, hilbert, sosfilt, sosfilt_zi, sosfiltfilt
 
 from benchmark_utils.base_solver import CompetSolver
 
@@ -59,6 +64,21 @@ def _softmax(z):
     return e / e.sum()
 
 
+def _eig_b(C, fn):  # batched _eig_fn, (B, n, n); torch's eigh is faster here; complex Hermitian too
+    w, V = (t.numpy() for t in torch.linalg.eigh(torch.from_numpy(C)))
+    return (V * fn(w)[:, None, :]) @ (V.conj() if np.iscomplexobj(V) else V).transpose(0, 2, 1)
+
+
+def _filtfilt(sos, zi, n, x):
+    """scipy.signal.sosfiltfilt(sos, x, axis=-1) for 2-D x (odd padding of n =
+    its default padlen, zi = sosfilt_zi(sos)): the same steps without the
+    per-call setup."""
+    e = np.concatenate([2 * x[:, :1] - x[:, n:0:-1], x, 2 * x[:, -1:] - x[:, -2:-(n + 2):-1]], -1)
+    y = sosfilt(sos, e, zi=zi[:, None] * e[:, :1])[0]
+    y = sosfilt(sos, y[:, ::-1], zi=zi[:, None] * y[:, -1:])[0]
+    return y[:, ::-1][:, n:-n]
+
+
 class AlignedTangent:
     def __init__(self, p):
         self.p = p
@@ -66,12 +86,55 @@ class AlignedTangent:
                     for lo, hi in p["bands"]]
         self.slow_sos = butter(4, float(p["slow_cutoff"]), btype="low",
                                fs=SFREQ, output="sos")
+        # Optional (6 Nov core, default off): ts_car = common-average reference of
+        # the window; ts_nsub = per band the full window plus nsub sub-window
+        # covariances (blocks band-major), vectorised, float64 slow block;
+        # ts_hilbert (nsub path) = covariances of the bands' analytic signals (complex
+        # Hermitian; tangent vector per block = Re upper + sqrt(2) Im strict upper)
+        self.car = bool(p.get("car", False))
+        self.nsub = int(p.get("nsub", 0))
+        self.hilbert = bool(p.get("hilbert", False))
+        self.glob = np.stack(p["log_glob"]) if self.nsub else None
+        self.filt = [(s, sosfilt_zi(s), 3 * (2 * len(s) + 1 - min((s[:, 2] == 0).sum(), (s[:, 5] == 0).sum())))
+                     for s in self.sos] if self.nsub else None
         self.reset_state()
 
     def reset_state(self):
         self.n = 0
         self.log_sum = [np.zeros_like(g) for g in self.p["log_glob"]]
+        if self.nsub:
+            self.log_sum = np.zeros_like(self.glob)
         self.mean_sum = 0.0
+
+    def _features_sub(self, x):
+        self.n += 1
+        k, s = float(self.p["k"]), float(self.p["shrink"])
+        B = np.stack([_filtfilt(*f, x) for f in self.filt]).astype(np.float32)
+        if self.hilbert:
+            B = hilbert(B, axis=-1).astype(np.complex64)
+        C = []
+        for seg in [B] + np.array_split(B, self.nsub, axis=-1):
+            seg = (seg - seg.mean(-1, keepdims=True)).astype(np.complex128 if self.hilbert else np.float64)
+            S = seg @ (seg.conj() if self.hilbert else seg).transpose(0, 2, 1) / seg.shape[-1]
+            tr = np.trace(S, axis1=1, axis2=2)[:, None, None].real / S.shape[1]
+            C.append((1 - s) * S + s * tr * np.eye(S.shape[1]))
+        C = np.stack(C, 1).reshape(-1, *C[0].shape[1:])
+        self.log_sum += _eig_b(C, lambda w: np.log(np.maximum(w, 1e-12)))
+        ref = (k * self.glob + self.log_sum) / (k + self.n)
+        P = _eig_b(ref, lambda w: np.exp(-0.5 * w))
+        T = _eig_b(P @ C @ P, lambda w: np.log(np.maximum(w, 1e-12)))
+        iu = np.triu_indices(T.shape[-1])
+        V = T.real[:, iu[0], iu[1]] * np.where(iu[0] == iu[1], 1.0, np.sqrt(2.0))
+        if self.hilbert:
+            ju = np.triu_indices(T.shape[-1], 1)
+            V = np.concatenate([V, np.sqrt(2.0) * T.imag[:, ju[0], ju[1]]], 1)
+        feats = [V.reshape(-1)]
+        step = int(self.p["slow_step"])
+        m = sosfiltfilt(self.slow_sos, x, axis=-1)[..., step // 2::step]
+        m = m.reshape(-1).astype(np.float32).astype(np.float64)
+        self.mean_sum = self.mean_sum + m
+        feats.append(m - self.mean_sum / (k + self.n))
+        return np.concatenate(feats)
 
     def _cov(self, x):
         x = x - x.mean(-1, keepdims=True)
@@ -80,6 +143,10 @@ class AlignedTangent:
         return (1 - s) * C + s * np.trace(C) / len(C) * np.eye(len(C))
 
     def _features(self, x):
+        if self.car:
+            x = x - x.mean(0, keepdims=True)
+        if self.nsub:
+            return self._features_sub(x)
         self.n += 1
         k = float(self.p["k"])
         feats = []
@@ -99,6 +166,7 @@ class AlignedTangent:
 
     def proba(self, x):
         f = (self._features(x) - self.p["mu"]) / self.p["sd"]
+        self.z = f  # scaled features of the last window (TSEM view)
         return _softmax(self.p["W"] @ f + self.p["b"])
 
 
@@ -172,6 +240,26 @@ class Jit:
     def proba(self, X):
         h = self.m(torch.from_numpy(np.ascontiguousarray(X)).to(self.dev))
         return torch.softmax(h.double(), 1).cpu().numpy()
+
+
+class SJit(Jit):
+    """Session-stateful TorchScript member (key ``sjit_file``): its batch
+    norms normalise window t with the causal statistics of the session's
+    windows 0..t, carried in buffers named s1/s2/n (experiments/session_bn.py
+    StreamBN). Each session copy owns its module; reset_state zeroes them."""
+
+    def __init__(self, p, dev="cpu", root="."):
+        super().__init__({"jit_file": p["sjit_file"]}, dev, root)
+
+    def __deepcopy__(self, memo):
+        new = copy.copy(self)
+        new.m = copy.deepcopy(self.m, memo)
+        return new
+
+    def reset_state(self):
+        for name, b in self.m.named_buffers():
+            if name.rsplit(".", 1)[-1] in ("s1", "s2", "n"):
+                b.zero_()
 
 
 def _fft_bank(x, fir, xf=None, ff=None):
@@ -412,6 +500,53 @@ class SessionEM:
         return q / q.sum()
 
 
+class TSEM:
+    """Causal per-session class templates in a fixed PCA view of the first
+    tangent member's scaled features (u = (z - tsem_m) @ tsem_V): window t
+    uses windows < t, seeded per class by the most confident input posteriors
+    (the SessionEM output, not its own output); LDA likelihood ** lam t / (t + n0)."""
+
+    def __init__(self, p):
+        self.lam, self.rho, self.shrink = (float(p[f"tsem_{k}"]) for k in ("lam", "rho", "shrink"))
+        self.m0, self.n0, self.nmin = float(p["tsem_m0"]), float(p["tsem_n0"]), int(p["tsem_nmin"])
+        self.m, self.V = p["tsem_m"].astype(np.float64), p["tsem_V"].astype(np.float64)
+        self.reset_state()
+
+    def reset_state(self):
+        self.U, self.conf, self.lab = [], [], []
+
+    def view(self, z):
+        return (z - self.m) @ self.V
+
+    def step(self, u, q):
+        t, out = len(self.U), q
+        if self.lam > 0 and t >= self.nmin:
+            try:
+                out = self._adapt(np.asarray(self.U), np.asarray(self.conf), np.asarray(self.lab), u, q, t)
+            except np.linalg.LinAlgError:
+                out = q
+            if not np.isfinite(out).all():
+                out = q
+        self.U.append(u)
+        self.conf.append(q.max())
+        self.lab.append(q.argmax())
+        return out
+
+    def _adapt(self, A, conf, lab, u, q, t):
+        m, sd = A.mean(0), np.maximum(A.std(0), 1e-3)
+        Z, z = (A - m) / sd, (u - m) / sd
+        k = max(2, int(self.rho * t / 3))
+        sel = [i[np.argsort(-conf[i])[:k]] for i in (np.flatnonzero(lab == c) for c in range(3))]
+        if min(len(i) for i in sel) < 2:
+            return q
+        mu = np.stack([Z[i].sum(0) / (len(i) + self.m0) for i in sel])
+        C = np.cov(np.concatenate([Z[i] - mu[c] for c, i in enumerate(sel)]).T)
+        C = (1 - self.shrink) * C + self.shrink * np.eye(len(C)) * np.trace(C) / len(C)
+        e = self.lam * t / (t + self.n0) if self.n0 else self.lam
+        qq = q * SessionEM._lik(z[None], mu, np.linalg.inv(C))[0] ** e
+        return qq / qq.sum()
+
+
 def _input_key(p):
     keys = ("align", "k", "G", "scale", "shrink")
     return b"".join(np.ascontiguousarray(p[k]).tobytes() for k in keys if k in p)
@@ -426,8 +561,10 @@ class Ensemble:
     """
 
     def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0, dev="cpu", em=None,
-                 root="."):
-        self.tangent, self.w, self.em = tangent, weights / weights.sum(), em
+                 root=".", tangent2=None, tsem=None):
+        self.tangent, self.w, self.em, self.tsem = tangent, weights / weights.sum(), em, tsem
+        self.tangent2 = tangent2  # optional second tangent member, weight w[1 + len(nets)]
+        self.w2 = self.w[1 + len(nets)] if tangent2 is not None else 0.0
         self.alpha, self.k, self.W = alpha, k, W
         self.perm = None  # set by Solver.load_model from meta["ch_names"]
         self.seen, self.n, self.hist = np.zeros(3), 0, []
@@ -436,7 +573,8 @@ class Ensemble:
             key = _input_key(p)
             if key not in self.groups:
                 self.groups[key] = (InputStream(p), [])
-            net = (Jit(p, dev, root) if "jit_file" in p else
+            net = (SJit(p, dev, root) if "sjit_file" in p else
+                   Jit(p, dev, root) if "jit_file" in p else
                    CBra(p, dev) if "cbm_n_times" in p else
                    Sinc(p, dev) if "sinc_f" in p else
                    FBL(p, dev) if "fbl_win" in p else
@@ -445,11 +583,18 @@ class Ensemble:
 
     def reset_state(self):
         self.tangent.reset_state()
+        if self.tangent2 is not None:
+            self.tangent2.reset_state()
         if self.em is not None:
             self.em.reset_state()
+        if self.tsem is not None:
+            self.tsem.reset_state()
         self.seen, self.n, self.hist = np.zeros(3), 0, []
-        for stream, _ in self.groups.values():
+        for stream, nets in self.groups.values():
             stream.reset_state()
+            for _, net in nets:  # session-stateful members only (SJit)
+                if hasattr(net, "reset_state"):
+                    net.reset_state()
 
     @torch.no_grad()
     def mixed_proba(self, X):
@@ -457,9 +602,13 @@ class Ensemble:
         X = X.detach().cpu().numpy() if torch.is_tensor(X) else np.asarray(X)
         X = np.nan_to_num(X.astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
         inputs = {key: [] for key in self.groups}
-        tang = []
+        tang, tang2, self.views = [], [], []
         for x in X:  # causal state updates, in acquisition order
             tang.append(self.tangent.proba(x))
+            if self.tsem is not None:
+                self.views.append(self.tsem.view(self.tangent.z))
+            if self.tangent2 is not None:
+                tang2.append(self.tangent2.proba(x))
             for key, (stream, _) in self.groups.items():
                 inputs[key].append(stream(x))
         P = self.w[0] * np.stack(tang)
@@ -472,6 +621,8 @@ class Ensemble:
                     P = P + self.w[1 + i] * net.proba(H, banks[net.bank_key])
                 else:
                     P = P + self.w[1 + i] * net.proba(H)
+        if self.tangent2 is not None:
+            P = P + self.w2 * np.stack(tang2)
         return P
 
     def predict(self, X):
@@ -498,6 +649,8 @@ class Ensemble:
             X = X.detach().cpu().numpy() if torch.is_tensor(X) else np.asarray(X)
             X = np.nan_to_num(X.astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
             P = np.stack([self.em.step(x, p) for x, p in zip(X, P)])
+        if self.tsem is not None:  # after session EM, in acquisition order
+            P = np.stack([self.tsem.step(u, p) for u, p in zip(self.views, P)])
         return torch.as_tensor(P.argmax(1), dtype=torch.long)
 
 
@@ -519,20 +672,25 @@ class Solver(CompetSolver):
         torch.backends.cuda.matmul.allow_tf32 = False
         torch.backends.cudnn.allow_tf32 = False
         dev = str(meta.get("device", "cpu"))
-        ts = {k[3:]: v for k, v in z.items() if k.startswith("ts_")}
-        ts["log_glob"] = list(ts["log_glob"])
-        ts["bands"] = [tuple(b) for b in ts["bands"]]
+        tss = []
+        for pre in ("ts_", "ts2_"):
+            ts = {k[len(pre):]: v for k, v in z.items() if k.startswith(pre)}
+            if ts:
+                ts["log_glob"] = list(ts["log_glob"])
+                ts["bands"] = [tuple(b) for b in ts["bands"]]
+                tss.append(AlignedTangent(ts))
         nets = []
         for i in range(int(z["n_nets"])):
             pre = f"net{i}_"
             nets.append({k[len(pre):]: v for k, v in z.items() if k.startswith(pre)})
-        model = Ensemble(AlignedTangent(ts), nets,
+        model = Ensemble(tss[0], nets,
                          z["member_weights"].astype(np.float64),
                          alpha=float(z.get("rb_alpha", 0.0)),
                          k=float(z.get("rb_k", 5.0)),
                          W=int(z.get("rb_w", 0)), dev=dev,
                          em=SessionEM(z) if "em_lam" in z else None,
-                         root=meta["submission_dir"])
+                         root=meta["submission_dir"], tangent2=tss[1] if len(tss) > 1 else None,
+                         tsem=TSEM(z) if "tsem_lam" in z else None)
         model.perm = channel_map(meta.get("ch_names"))
         return model
 
