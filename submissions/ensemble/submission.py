@@ -17,7 +17,12 @@ template in a 32-dimensional frontal slow-potential view is then estimated
 from the session's earlier windows (soft EM seeded by the rebalanced
 posteriors) and its likelihood multiplies the posterior; optionally (``tsem_*``
 keys, 6 Nov) TSEM then does the same in a PCA view of the first tangent
-member's scaled features, seeded by its most confident input posteriors. Parameters
+member's scaled features, seeded by its most confident input posteriors; optionally
+(``route_*`` keys, 7 Nov; ``route_v2``: shape score, robust standardisation) a
+returning-person routing stage then blends in the personal head of the public
+person whose class contrasts the session matches (``route_v3``: a gate on that
+unrouted output feeds the matched person's head into the core1 slot of a second,
+routed rebalancing -> SessionEM -> TSEM tail). Parameters
 are numpy arrays in ``weights.npz`` (keys prefixed ``ts_``, ``netI_``, ``em_``;
 optional ``ts2_``: a second AlignedTangent member weighted by the last
 ``member_weights`` entry).
@@ -433,6 +438,8 @@ class SessionEM:
         self.lam, self.n0, self.m0 = float(p["em_lam"]), float(p["em_n0"]), float(p["em_m0"])
         self.shrink, self.iters, self.nmin = float(p["em_shrink"]), int(p["em_iters"]), int(p["em_nmin"])
         self.bins = int(p["em_bins"])
+        self.boost, self.boost_T = float(p.get("em_boost", 0.0)), float(p.get("eb_T", 30.0))  # early boost (7 Nov)
+        self.g_lo, self.g_hi = float(p.get("eb_gate_lo", 0.0)), float(p.get("eb_gate_hi", 0.0))  # boost gate (eb2)
         self.ev = "em_ev_g" in p  # R19e: causal ocular-event rates
         if self.ev:
             self.ev_v = [p[k].astype(int) for k in ("em_ev_vt", "em_ev_vb")]
@@ -443,6 +450,14 @@ class SessionEM:
 
     def reset_state(self):
         self.A, self.B, self.ev_hist = [], [], []
+        self.msum, self.gates = 0.0, []
+
+    def _gate(self, t):
+        """Early-boost gate of window t: 1 for a weak session .. 0 for a strong one, from the mean
+        input margin (top1 - top2) of windows < t; 1 when disabled or t = 0."""
+        if self.g_hi <= self.g_lo or t == 0:
+            return 1.0
+        return min(max((self.g_hi - self.msum / t) / (self.g_hi - self.g_lo), 0.0), 1.0)
 
     def events(self, x):
         n = (x.shape[-1] - 1) // self.ev_bins * self.ev_bins
@@ -471,6 +486,7 @@ class SessionEM:
 
     def step(self, x, p):
         f, t, out = self.features(x), len(self.A), p
+        self.gates.append(self._gate(t))
         if t >= self.nmin:
             try:
                 out = self._adapt(np.asarray(self.A), np.asarray(self.B), f, p, t)
@@ -480,6 +496,8 @@ class SessionEM:
                 out = p
         self.A.append(f)
         self.B.append(p)
+        s = np.sort(p)
+        self.msum += s[-1] - s[-2]
         return out
 
     def _adapt(self, A, B, f, p, t):
@@ -496,6 +514,7 @@ class SessionEM:
             Q = B * self._lik(Z, mu, Ci) ** self.lam
             Q = Q / Q.sum(1, keepdims=True)
         e = self.lam * t / (t + self.n0) if self.n0 else self.lam
+        e *= 1 + self.boost * (min(max((2 * self.boost_T - t) / self.boost_T, 0.0), 1.0) * self.gates[t])
         q = p * self._lik(z[None], mu, Ci)[0] ** e
         return q / q.sum()
 
@@ -510,6 +529,8 @@ class TSEM:
         self.lam, self.rho, self.shrink = (float(p[f"tsem_{k}"]) for k in ("lam", "rho", "shrink"))
         self.m0, self.n0, self.nmin = float(p["tsem_m0"]), float(p["tsem_n0"]), int(p["tsem_nmin"])
         self.m, self.V = p["tsem_m"].astype(np.float64), p["tsem_V"].astype(np.float64)
+        self.boost, self.boost_T = float(p.get("tsem_boost", 0.0)), float(p.get("eb_T", 30.0))  # early boost (7 Nov)
+        self.gate_src = None  # SessionEM whose per-window boost gate applies here (eb2; wired by Ensemble)
         self.reset_state()
 
     def reset_state(self):
@@ -543,8 +564,226 @@ class TSEM:
         C = np.cov(np.concatenate([Z[i] - mu[c] for c, i in enumerate(sel)]).T)
         C = (1 - self.shrink) * C + self.shrink * np.eye(len(C)) * np.trace(C) / len(C)
         e = self.lam * t / (t + self.n0) if self.n0 else self.lam
+        g = self.gate_src.gates[t] if self.gate_src is not None and t < len(self.gate_src.gates) else 1.0
+        e *= 1 + self.boost * (min(max((2 * self.boost_T - t) / self.boost_T, 0.0), 1.0) * g)
         qq = q * SessionEM._lik(z[None], mu, np.linalg.inv(C))[0] ** e
         return qq / qq.sum()
+
+
+def _softmax_rows(D):  # sklearn.utils.extmath.softmax (LogisticRegression.predict_proba)
+    D = D - np.max(D, axis=1).reshape((-1, 1))
+    np.exp(D, D)
+    return D / np.sum(D, axis=1).reshape((-1, 1))
+
+
+def _rz(A, x, clip, floor):
+    """x standardised by the per-feature median / (1.4826 MAD) of the rows of A, clipped at +-clip."""
+    med = np.median(A, axis=0)
+    s = 1.4826 * np.median(np.abs(A - med), axis=0)
+    return np.clip((x - med) / np.maximum(s, floor), -clip, clip)
+
+
+class Route:
+    """Returning-person routing after TSEM (its 128-PC output). View u = [TSEM view,
+    (z - tsem_m) @ route_V_hi] (256 PCs). From window t_start, the class contrast
+    of windows < t (the top max(2, rho t / 3) TSEM outputs per argmax class) is
+    compared with each public person's gallery; the best person's LR head is
+    blended in at weight wmax * clip((score - tau) / ramp, 0, 1). Reset per session.
+    v1 (no route_v2 key): u standardised by mean / std; score = cosine of
+    (contrast - route_b - route_pop) and (gallery - route_pop).
+    v2 (route_v2 = 1, 7 Nov): u robust-standardised (median / 1.4826 MAD, clipped
+    at +-route_clip); score = cosine after projecting contrast and gallery off
+    span{route_pop, route_b} (orthonormal basis route_Q); no contrast scores 0."""
+
+    def __init__(self, p):
+        f = lambda k: np.asarray(p[k], dtype=np.float64)
+        self.v2 = "route_v2" in p
+        self.G, self.W, self.c = f("route_gal"), f("route_head_W"), f("route_head_c")
+        self.tau, self.ramp, self.wmax, self.rho = (float(p[f"route_{k}"]) for k in ("tau", "ramp", "wmax", "rho"))
+        self.t_start = int(p["route_t_start"])
+        if self.v2:
+            assert int(p["route_v2"]) == 1
+            self.Qb, self.clip = f("route_Q"), float(p["route_clip"])
+            A = np.stack([self._perp(g) for g in self.G])
+            self.Gn = A / np.linalg.norm(A, axis=1, keepdims=True)
+        else:
+            self.pop, self.b = f("route_pop"), f("route_b")
+            self.Gr = [(g - self.pop).ravel() for g in self.G]
+        self.m, self.V = p["tsem_m"].astype(np.float64), p["route_V_hi"].astype(np.float64)
+        self.reset_state()
+
+    def reset_state(self):
+        self.U, self.Q, self.last = [], [], None
+
+    def view(self, z):
+        return (z - self.m) @ self.V
+
+    def _perp(self, v):
+        v = v.ravel()
+        return v - self.Qb @ (self.Qb.T @ v)
+
+    def scores(self, t):
+        X, P = np.asarray(self.U[:t]), np.asarray(self.Q[:t])
+        lab, conf = P.argmax(1), P.max(1)
+        Wt, q = np.zeros((t, 3)), max(2, int(self.rho * t / 3))
+        for k in range(3):
+            ik = np.flatnonzero(lab == k)
+            Wt[ik[np.argsort(-conf[ik])[:q]], k] = 1
+        if self.v2:
+            n = Wt.sum(0)
+            if (n < 1e-9).any():
+                return None
+            Z = _rz(X, X, self.clip, 1e-6)
+            mu = (Wt.T @ Z) / n[:, None]
+            a = self._perp(mu - mu.mean(0))
+            na = np.linalg.norm(a)
+            return self.Gn @ a / na if na > 1e-9 else np.zeros(len(self.Gn))
+        m = X.mean(0)
+        Z = (X - m) / np.maximum(X.std(0), 1e-6)
+        mu = []
+        for k in range(3):
+            a = Wt[:, k]
+            if a.sum() < 1e-9:
+                return None
+            mu.append((a[:, None] * Z).sum(0) / a.sum())
+        mu = np.stack(mu)
+        c = mu - mu.mean(0) - self.b
+        a = (c - self.pop).ravel()
+        na = np.linalg.norm(a)
+        return np.array([float(a @ g / (na * np.linalg.norm(g) + 1e-12)) for g in self.Gr])
+
+    def step(self, u, q):
+        u, q = np.asarray(u, dtype=np.float64), np.asarray(q, dtype=np.float64)
+        t, out = len(self.U), q
+        self.last = None
+        if t >= self.t_start:
+            try:
+                s = self.scores(t)
+                if s is not None and np.isfinite(s).all():
+                    j = int(np.argmax(s))
+                    w = self.wmax * np.clip((s[j] - self.tau) / self.ramp, 0, 1)
+                    self.last = (j, s[j], w)
+                    if w > 0:
+                        if self.v2:
+                            z = _rz(np.asarray(self.U + [u]), u, self.clip, 1e-3)
+                        else:
+                            A = np.asarray(self.U + [u])
+                            m = A.mean(0)
+                            z = (u - m) / np.maximum(A.std(0), 1e-3) if t >= 4 else u - m
+                        h = _softmax_rows(z[None] @ self.W[j].T + self.c[j])[0]
+                        L = np.log(np.clip(q, 1e-9, 1)) + w * np.log(np.clip(h, 1e-9, 1))
+                        L -= L.max(-1, keepdims=True)
+                        o = np.exp(L)
+                        o = o / o.sum(-1, keepdims=True)
+                        if np.isfinite(o).all():
+                            out = o
+            except (np.linalg.LinAlgError, FloatingPointError, ValueError):
+                out = q
+        self.U.append(u)
+        self.Q.append(q)
+        return out
+
+
+class Route3:
+    """Returning-person routing v3 (7 Nov). Gate (as v2) on the SHADOW tail = this
+    ensemble's own unrouted rebalancing -> SessionEM -> TSEM output: view u = [TSEM view,
+    (z - tsem_m) @ route_V_hi] (256 PCs); from window t_start the class contrast of
+    windows < t (u robust-standardised: median / 1.4826 MAD, clipped at +-route_clip; the
+    top max(2, rho t / 3) shadow outputs per argmax class), projected off span{route_pop,
+    route_b} (route_Q), is compared by cosine with each public person's projected gallery;
+    r = clip((score - tau) / ramp, 0, 1). Routed tail (own rebalancing state and copies of
+    the SessionEM / TSEM stages): the mix with core1 (share a) partly replaced by the best
+    person's PS1 head h (LR on u standardised over windows <= t) at g times its weight,
+    mix' = (mix - r a core1 + g r a h) / (1 - r a + g r a); output = routed tail (equal to
+    the shadow tail until the first routed window). The gate never reads the routed tail."""
+
+    def __init__(self, p):
+        f = lambda k: np.asarray(p[k], dtype=np.float64)
+        assert int(p["route_v3"]) == 1
+        self.G, self.Qb, self.W, self.c = f("route_gal"), f("route_Q"), f("route_ps1_W"), f("route_ps1_c")
+        self.tau, self.ramp, self.rho, self.clip = (float(p[f"route_{k}"]) for k in ("tau", "ramp", "rho", "clip"))
+        self.g, self.t_start = float(p["route_slot_g"]), int(p["route_t_start"])
+        A = np.stack([self._perp(g) for g in self.G])
+        self.Gn = A / np.linalg.norm(A, axis=1, keepdims=True)
+        self.m, self.V = p["tsem_m"].astype(np.float64), p["route_V_hi"].astype(np.float64)
+        self.em = self.tsem = None
+
+    def bind(self, em, tsem, a, alpha, k, W):
+        """Routed tail: own copies of the SessionEM / TSEM stages and rebalancing state."""
+        self.em, self.tsem = copy.deepcopy((em, tsem))  # one copy: keeps tsem.gate_src -> its own em
+        self.a, self.rb_alpha, self.rb_k, self.rb_w = float(a), alpha, k, W
+        self.reset_state()
+
+    def reset_state(self):
+        self.U, self.Qs, self.last = [], [], None
+        self.seen, self.n, self.hist = np.zeros(3), 0, []
+        for stage in (self.em, self.tsem):
+            if stage is not None:
+                stage.reset_state()
+
+    def view(self, z):
+        return (z - self.m) @ self.V
+
+    def _perp(self, v):
+        v = v.ravel()
+        return v - self.Qb @ (self.Qb.T @ v)
+
+    def scores(self, t):
+        X, P = np.asarray(self.U[:t]), np.asarray(self.Qs[:t])
+        lab, conf = P.argmax(1), P.max(1)
+        Wt, q = np.zeros((t, 3)), max(2, int(self.rho * t / 3))
+        for k in range(3):
+            ik = np.flatnonzero(lab == k)
+            Wt[ik[np.argsort(-conf[ik])[:q]], k] = 1
+        n = Wt.sum(0)
+        if (n < 1e-9).any():
+            return None
+        Z = _rz(X, X, self.clip, 1e-6)
+        mu = (Wt.T @ Z) / n[:, None]
+        a = self._perp(mu - mu.mean(0))
+        na = np.linalg.norm(a)
+        return self.Gn @ a / na if na > 1e-9 else np.zeros(len(self.Gn))
+
+    def step(self, x, u, mix, core1, qs):
+        """x: raw window (SessionEM input), u: 256-PC view, mix / core1: B2 mixture and core1
+        probabilities before rebalancing, qs: shadow-tail output of this window."""
+        u, mix, core1, qs = (np.asarray(v, dtype=np.float64) for v in (u, mix, core1, qs))
+        t, p = len(self.U), mix
+        self.last = None
+        if t >= self.t_start:
+            try:
+                s = self.scores(t)
+                if s is not None and np.isfinite(s).all():
+                    j = int(np.argmax(s))
+                    r = float(np.clip((s[j] - self.tau) / self.ramp, 0, 1))
+                    self.last = (j, s[j], r)
+                    if r > 0:
+                        A = np.asarray(self.U + [u])
+                        m = A.mean(0)
+                        z = (u - m) / np.maximum(A.std(0), 1e-3) if t >= 4 else u - m
+                        h = _softmax_rows(z[None] @ self.W[j].T + self.c[j])[0]
+                        o = (mix - r * self.a * core1 + self.g * r * self.a * h) / (1 - r * self.a + self.g * r * self.a)
+                        if np.isfinite(o).all():
+                            p = o
+            except (np.linalg.LinAlgError, FloatingPointError, ValueError):
+                p = mix
+        if self.rb_alpha:  # routed rebalancing (same rule as Ensemble.predict)
+            if self.rb_w:
+                h = self.hist[-self.rb_w:]
+                mm = (self.rb_k / len(p) + np.asarray(h).sum(0)) / (self.rb_k + len(h))
+            else:
+                mm = (self.rb_k / len(p) + self.seen) / (self.rb_k + self.n)
+            q = p / mm ** self.rb_alpha
+            self.seen, self.n = self.seen + p, self.n + 1
+            if self.rb_w:
+                self.hist = (self.hist + [p])[-self.rb_w:]
+            p = q / q.sum()
+        if self.em is not None:
+            p = self.em.step(x, p)
+        out = self.tsem.step(u[:self.tsem.V.shape[1]], p)
+        self.U.append(u)
+        self.Qs.append(qs)
+        return out
 
 
 def _input_key(p):
@@ -561,8 +800,15 @@ class Ensemble:
     """
 
     def __init__(self, tangent, nets, weights, alpha=0.0, k=5.0, W=0, dev="cpu", em=None,
-                 root=".", tangent2=None, tsem=None):
+                 root=".", tangent2=None, tsem=None, route=None):
         self.tangent, self.w, self.em, self.tsem = tangent, weights / weights.sum(), em, tsem
+        if em is not None and tsem is not None:
+            tsem.gate_src = em  # eb2: TSEM's early boost uses SessionEM's per-window gate
+        self.route = route  # needs TSEM's 128-PC views and output (v3: gate on it, routed tail of its own)
+        if route is not None:
+            assert tsem is not None and tsem.V.shape[1] + route.V.shape[1] == route.G.shape[2]
+        if isinstance(route, Route3):
+            route.bind(em, tsem, self.w[0], alpha, k, W)
         self.tangent2 = tangent2  # optional second tangent member, weight w[1 + len(nets)]
         self.w2 = self.w[1 + len(nets)] if tangent2 is not None else 0.0
         self.alpha, self.k, self.W = alpha, k, W
@@ -589,6 +835,8 @@ class Ensemble:
             self.em.reset_state()
         if self.tsem is not None:
             self.tsem.reset_state()
+        if self.route is not None:
+            self.route.reset_state()
         self.seen, self.n, self.hist = np.zeros(3), 0, []
         for stream, nets in self.groups.values():
             stream.reset_state()
@@ -602,16 +850,19 @@ class Ensemble:
         X = X.detach().cpu().numpy() if torch.is_tensor(X) else np.asarray(X)
         X = np.nan_to_num(X.astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
         inputs = {key: [] for key in self.groups}
-        tang, tang2, self.views = [], [], []
+        tang, tang2, self.views, self.views_hi = [], [], [], []
         for x in X:  # causal state updates, in acquisition order
             tang.append(self.tangent.proba(x))
             if self.tsem is not None:
                 self.views.append(self.tsem.view(self.tangent.z))
+            if self.route is not None:
+                self.views_hi.append(self.route.view(self.tangent.z))
             if self.tangent2 is not None:
                 tang2.append(self.tangent2.proba(x))
             for key, (stream, _) in self.groups.items():
                 inputs[key].append(stream(x))
-        P = self.w[0] * np.stack(tang)
+        self.core1 = np.stack(tang)  # core1's probabilities (routed tail, v3)
+        P = self.w[0] * self.core1
         for key, (_, nets) in self.groups.items():
             H, banks, xf = np.stack(inputs[key]), {}, {}
             for i, net in nets:
@@ -633,6 +884,9 @@ class Ensemble:
             X = Xn
         P = self.mixed_proba(X)
         P[~np.isfinite(P).all(1)] = 1.0 / P.shape[1]  # never let NaN enter session state
+        Pmix = P.copy()  # routed tail input (v3)
+        X = X.detach().cpu().numpy() if torch.is_tensor(X) else np.asarray(X)
+        X = np.nan_to_num(X.astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
         if self.alpha:
             for r, p in enumerate(P.copy()):  # causal, in acquisition order
                 if self.W:
@@ -646,11 +900,14 @@ class Ensemble:
                 if self.W:
                     self.hist = (self.hist + [p])[-self.W:]
         if self.em is not None:  # after rebalancing, in acquisition order
-            X = X.detach().cpu().numpy() if torch.is_tensor(X) else np.asarray(X)
-            X = np.nan_to_num(X.astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
             P = np.stack([self.em.step(x, p) for x, p in zip(X, P)])
         if self.tsem is not None:  # after session EM, in acquisition order
             P = np.stack([self.tsem.step(u, p) for u, p in zip(self.views, P)])
+        if isinstance(self.route, Route3):  # P = shadow output; routed tail per window, in acquisition order
+            P = np.stack([self.route.step(x, np.r_[u, v], pm, c1, q) for x, u, v, pm, c1, q
+                          in zip(X, self.views, self.views_hi, Pmix, self.core1, P)])
+        elif self.route is not None:  # v1 / v2: after TSEM, on its output, in acquisition order
+            P = np.stack([self.route.step(np.r_[u, v], p) for u, v, p in zip(self.views, self.views_hi, P)])
         return torch.as_tensor(P.argmax(1), dtype=torch.long)
 
 
@@ -690,7 +947,8 @@ class Solver(CompetSolver):
                          W=int(z.get("rb_w", 0)), dev=dev,
                          em=SessionEM(z) if "em_lam" in z else None,
                          root=meta["submission_dir"], tangent2=tss[1] if len(tss) > 1 else None,
-                         tsem=TSEM(z) if "tsem_lam" in z else None)
+                         tsem=TSEM(z) if "tsem_lam" in z else None,
+                         route=(Route3(z) if "route_v3" in z else Route(z)) if "route_tau" in z else None)
         model.perm = channel_map(meta.get("ch_names"))
         return model
 

@@ -87,6 +87,11 @@ used, 0 today; board top seohee / timothewt 0.825, 3rd 0.816, us 21st.
 |---|---|---|---|---|---|
 | cand_rec_ts2 (REC + core1 + Hilbert core) | `sealed_cand_rec_ts2.zip` `e9f13567…` | +1.30 (≈ +0.8–1.1 after selection) | 211.3 s / 173.8 s, identical, files unchanged | 38–43 min (≤ ~47) | docs/AUDIT_SBN.md |
 | cand_rec_ts2_tsem (cand_rec_ts2 + TSEM stage after SessionEM) | `sealed_cand_rec_ts2_tsem.zip` `9c31a167…` (36.1 MB) | TSEM +1.30 mean on fresh bases (≈ +1.2–1.4 after selection) | 218.9 s / 181.2 s, identical (0.974922 in-sample), files unchanged | ≈ 40–45 min (per-window scaling) | docs/AUDIT_SBN.md |
+| cand_rec_ts2_tsem256 (hedge, alternate; TSEM PC256, λ 0.2; data-only, code `243c9901…`) | `sealed_cand_rec_ts2_tsem256.zip` `3799c0e0…` (57.1 MB) | vs cand_rec_ts2_tsem: ΔJ +0.30 (sd 0.21, B2 seeds 3–5; seen +0.53, new +0.07; picked after the confirmation) | 225.7 s / 188.9 s, identical (0.968190 in-sample), files unchanged | ≈ 42 min (paired ratio 1.00; ≤ 44) | docs/AUDIT_SBN.md |
+| cand_rec_ts2_tsem_route (alternate; cand_rec_ts2_tsem + returning-person routing after TSEM; code `ab5fc0b9…`) | `sealed_cand_rec_ts2_tsem_route.zip` `34f60eca…` (57.3 MB) | vs cand_rec_ts2_tsem, pre-registered, 4 fresh bases: dJ +0.73 to +0.86 (new 0.00, seen +1.45 to +1.72, 0 impostor routings) | 211.0 s / 198.0 s, identical (0.982734 in-sample), files unchanged | ≈ 42 min (paired ratio 1.01; ≤ 47) | docs/AUDIT_SBN.md |
+| cand_rec_ts2_tsem_route3 (alternate, supersedes v1 / v2; routing v3: gate on the unrouted tail, personal head in the core1 slot of a routed tail; code `3ef76b58…`) | `sealed_cand_rec_ts2_tsem_route3.zip` `9903c1ef…` (57.3 MB) | vs cand_rec_ts2_tsem, pre-registered, 4 fresh bases: dJ +0.99 to +1.12 (new 0.00, seen +1.98 to +2.23, P10 ≥ 0, 0 impostor routings; Stieger FAR 0.42 %) | 225.0 s / 188.3 s, identical (0.980088 in-sample), files unchanged | ≈ 42 min (paired ratio 1.01; ≤ 44) | docs/AUDIT_SBN.md |
+| cand_rec_ts2_tsem_route3eb (alternate, PROVISIONAL, superseded by route3geb; route3 + early boost; code `db3aa8b6…`) | `sealed_cand_rec_ts2_tsem_route3eb.zip` `2f34907d…` (57.3 MB) | vs cand_rec_ts2_tsem (dev sim, 4 fresh bases): EB + routing +1.31 to +1.86 (EB + routing vs routing +0.28 to +0.74; new +0.53 to +1.09, P10 −0.5 to −1.2) | 222.9 s / 189.8 s, identical (0.973578 in-sample), files unchanged | ≈ 43 min (paired ratio 1.03; ≤ 45) | docs/AUDIT_SBN.md |
+| cand_rec_ts2_tsem_route3geb (alternate, staging only; route3 + gated early boost; code `786bcab0…`) | `sealed_cand_rec_ts2_tsem_route3geb.zip` `74433d9b…` (57.3 MB) | vs cand_rec_ts2_tsem (dev sim, mean of 4 fresh bases): GEB + routing +1.80 (EB + routing +1.53, routing only +1.05) | 196.3 s / 183.2 s, identical (0.981432 in-sample), files unchanged | ≈ 42 min (paired ratio 1.00; ≤ 43) | docs/AUDIT_SBN.md |
 | cand_rec_ts (REC + core1), fallback | `sealed_cand_rec_ts.zip` `1a4b48af…` | +0.65 | 196.1 s / 160.5 s | 37–39 min | docs/AUDIT_SBN.md |
 
 - 6 Nov 12:45 UTC: **no upload today (user decision)**: keep iterating on ground-up solutions instead. Staged:
@@ -96,6 +101,38 @@ used, 0 today; board top seohee / timothewt 0.825, 3rd 0.816, us 21st.
   tests bit-identical; packaged == batch tsem.py exactly; λ 0 byte-identical to cand_rec_ts2; basis independently
   recomputed (subspace cosine ≥ 0.999999998); robust to short sessions, missing seeds, singular covariance and bad
   windows; no ZIP size limit (36 MB fine); sealed runtime ≈ 40–45 min (≤ ~50). Code must be committed before audit.
+
+- 6 Nov ~19:05 UTC: the user authorised uploading cand_rec_ts2_tsem in the 7 Nov UTC slot ("Yes, upload it"), as
+  the transfer/compatibility signal; further uploads only for clearly better packages. The user then asked to upload
+  immediately (6 Nov slot still unused); the scheduled check-in was cancelled.
+- 6 Nov 19:20 UTC: checks passed (phase "Current", 0/1 today, 1/5 total, logged in as s_boehler, SHA-256 9c31a167…
+  locally and re-checked in the browser on the uploaded bytes). The file is 36 MB, above the Chrome tool's 10 MB
+  limit, so it was served once from 127.0.0.1 (`scratchpad/relay/serve_one.py`) into the page's own file input.
+  Submission **1038262** created 19:20:15 UTC, status Running. Score to be read from the owner API (needs login).
+
+| Day | Date | Arm | Submission | Status | Cell-mean BA | Duration |
+|---|---|---|---|---|---|---|
+| 2 | 6 Nov (UTC) | cand_rec_ts2_tsem (`9c31a167…`) | 1038262 | Finished (v4-sealed runs the Hilbert core and TSEM) | **0.8196888507** (+0.0402 over cand_nxif) | 2,497.2 s (41.6 of 60 min) |
+
+Reading: S ≥ 0.812, so dev gains transfer about 1:1 (dev J +3.7 to +3.9 over cand_nxif → sealed +4.02; predicted
+0.8165–0.8185 at full transfer). Keep TSEM; skip the paired ablation. 0.83 needs about +1 dev J more. Runtime margin
+is now about 18 min, so any added stage must stay cheap.
+
+Reading rule (fixed before the score): S ≥ 0.812 near-full transfer; 0.797 ≤ S < 0.812 partial (next: paired
+ablation sealed_cand_rec_ts2.zip); S < 0.797 re-plan. Failed run: compare with the replica, upload nothing else
+without authorisation.
+
+- 7 Nov ~13:00 UTC: user decision: no further upload until the dev estimate reaches about 0.83 ("push to .83
+  first").
+- 7 Nov evening: independent review of `sealed_cand_rec_ts2_tsem_route3geb.zip` (`74433d9b…`):
+  - **Verdict:** safe to upload, no blocking defect (`scratchpad/review_geb/`).
+  - **Routing:** 0 impostor routings in every stress setting, including open-gate weak bases. GEB does not push new
+    people toward routing (max impostor score 0.188 vs τ 0.22).
+  - **Open-gate path:** bitwise equal to the reference, including open-and-routed cases.
+  - **Causality, reset and wiring:** verified on the full package.
+  - **Runtime:** sealed ≈ 42 min.
+  - **Still needed:** the code (786bcab0 and the references) must be committed for the audit.
+- Live board 7 Nov ~17:30 UTC: bryanyahir03 0.838, seohee 0.825, timothewt 0.825, xianglong_bao 0.823, us 0.820 (5th). Staged candidates: routing v3 and routing v3 + EB (builds in progress), tsem256, route v1.
 
 Independent review of cand_rec_ts2 (6 Nov, `scratchpad/review_ts2/`): safe to upload. The ZIP differs from
 cand_rec_ts only in submission.py and weights.npz as described; the new member is causal (future-perturbation and

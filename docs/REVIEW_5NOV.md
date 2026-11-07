@@ -237,6 +237,159 @@ Base: REC + core (J 76.09 absolute; new 76.82, seen 75.36). One calibration poin
   response to any input change is noisy at ±0.2–0.3 J). Sw target: +0.47 J but all from seen P04 s3; new −0.13, P09
   −2 on every base. Person-equal core weights: core1 −0.83 standalone (4/10). TSEM on four fresh bases: +1.17 / +0.94
   / +1.38 / +1.69 (mean +1.30), as forecast.
+- **Ground-up round 2 (6 Nov, `scratchpad/gu2/`): nothing credible to add to cand_rec_ts2_tsem.** Interface-aware
+  rebalancing/EM/TSEM: true-interface oracle ≤ +0.10 (pooling beats specificity at ~95 windows per interface;
+  interface undetectable within a session, 48–50 %). Multi-view: no new view adds per-session class information
+  beyond TSEM's PC128 (oracle ≤ +0.5); cross-view seeding / co-training / CCA ≤ +0.18; a second TSEM stage on PCs
+  129–256 passed narrowly (+0.419 vs +0.40) but the verifier judged it not credible (fresh-base mean +0.20, λ-
+  sensitive, a duplicate of the PC256 hedge): kept only as a possible late variant. Returning-person head: oracle
+  +2.2–3.4 on seen (90 % P04), but open-set identification fails on PROTEUS (P05 resembles P04 s1 more than P04's
+  later sessions) and false accepts cost −1 to −3.6. First principles (feedback-locked, cue-late, ERD/ERS envelope,
+  EMG, ECG, IAF alignment, lane-geometry gaze): no view adds beyond PC128; label-free versions ≤ +0.14. Reading: the
+  label-free per-session layer is saturated at 82 % seed precision (+0.1 J per seed-precision point); the next lever
+  is cross-subject base accuracy, judged after TSEM.
+- **Sealed check (6 Nov): cand_rec_ts2_tsem scored 0.8197 (cand_nxif 0.7795), so dev J gains transfer about 1:1.**
+- **Round 3, base accuracy for new people (6–7 Nov, `scratchpad/gu3/`): nothing passes, nothing is variant-grade;
+  the fresh bases remain unseen.** Screens on B2_pool / B2_s345 after TSEM:
+  - CMMN spectral normalisation −0.85 / −0.99.
+  - Domain-generalisation heads (mixed effects, group DRO, Fishr, person bagging, synthetic people): negative on both
+    cores. On the Hilbert core only, the best is fishr1 at +0.36 / +0.22, with JG1 negative and P10-driven.
+  - External within-subject contrasts (Shin2017 MI + arithmetic, latent / joint / anchor fits and a C-sweep): +0.4–0.5
+    only on seen people (new −0.35, JG1 negative); every arm of the C-sweep is negative.
+
+  Side finding: the shipped sklearn heads are effectively early-stopped, and fully converged heads are 0.1–0.6 J worse
+  in the stack.
+- **Post-TSEM re-tune of the chain's global settings (7 Nov, `scratchpad/retune/`, 243 configs): FAIL.**
+  - In-sample best is α 1.3 + TSEM λ 0.2 at +0.39, but nested LOPO gives −0.21 and the half-splits −0.31 / −2.22.
+  - Pre-registered confirmation on fresh bases: +0.52 / +0.17 / −0.14 / +0.08, mean +0.16 (bar +0.3).
+  - The shipped EM λ, slot weight and teacher weight are already optimal; α 1.3 alone is +0.17 on average, positive on all four fresh bases.
+  - Keep the shipped settings; α 1.3 + λ 0.2 is at most a near-equal upload variant.
+- **Returning-person routing by class-direction fingerprints (7 Nov, `scratchpad/route/`).**
+  - **Idea:** class directions are personal, so a session's pseudo-labelled class contrasts should match its own
+    person's public sessions and nobody else's.
+  - **PROTEUS, true labels:** clean separation at every window count; impostors ≤ 0.22, genuine 0.40–0.54 at the end.
+  - **PROTEUS, pseudo-labels:** soft pseudo-labels bias the fingerprint toward the 3-session people (P05 → P04 0.32).
+    Top-70 % seeds with debiasing fix it (margin +0.04), but this fix was found post hoc on the same 4 genuine probes.
+  - **External check (Lee2019, Stieger2021):** at 1 % false accepts, only 10–42 % of genuine sessions are accepted.
+  - **Exploratory routing (weight 0.25, from window 60):** dJ +0.98 / +0.99, new 0.00 with 0 impostor routings, seen
+    +2.0 (P04 +3.2 / +4.0, P10 ~0).
+  - **Sealed estimate:** +0.2–0.3 points realistic, +0.85 if every returning session is accepted; downside ≈ −0.01.
+  - **Next:** under Force_Best only the upside counts, so it is being frozen, confirmed on fresh bases and prepared as
+    an upload variant. The track allows within-session adaptation, so this must be declared in the method description.
+  - **Pre-registered confirmation on fresh bases:**
+    - **Config:** q70 debiased seeds, PC256, threshold 0.20, ramp 0.10, start window 60, weight 0.25.
+    - **Results:** dJ +0.73 / +0.86 / +0.80 / +0.79. New is 0.00 on all four bases, with 0 impostor routings. Seen is
+      +1.45 to +1.72 (P04 +2.6 to +3.5, P10 about 0). Real − null is +0.94 to +1.19, and the truncation test passes.
+    - **Sealed estimate:** about +0.6 points, so about 0.826, if returning people route like P04/P10; +0.2–0.3 at
+      external acceptance rates.
+    - **Risk:** the closest new-person impostor (P06 → P04, max 0.175–0.193) sits only 0.007–0.025 below the
+      threshold. The fresh bases vary member seeds only; the people are still the same 10.
+    - **Package data:** `scratchpad/route/pkg/` (route_pkg.npz, route_stream.py; parity with the simulation exact).
+  - **Independent review of sealed_cand_rec_ts2_tsem_route.zip (`34f60eca…`): no blocking defect.**
+    - The ZIP matches the build bit for bit and is causal and reset-safe. With weight 0 it equals the baseline byte
+      for byte. Replays are identical; runtime is about 42 of 60 min.
+    - **Model risk: P04 attracts.** P04 is the weakest public person (gallery norm 3.0 vs 4.4–6.5 for the others), so
+      a session with no class contrast scores 0.40 against P04 and gets full weight. A weak, BCI-inefficient new
+      person would probably be routed to P04's head; the dev gate could not test this.
+    - **Estimated harm:** −0.7 to −1.1 per affected session at weight 0.25, about −0.1 to −0.2 on the cell mean.
+    - **Possible fix (not built):** a null gallery or minimum-contrast check before routing.
+- **Routing v2 (7 Nov, `scratchpad/route2/`): the P04 attractor is fixed; the gain is P04-only.**
+  - **Changes:** the shape score cos(P c, P G_p) projects out the population and debias directions; standardisation
+    is robust (median/MAD, clip 4); τ 0.22.
+  - **Stress tests:** constant, noise, random-label, weakened and artifact sessions route nowhere (v1 sent most of
+    them to P04). Stieger FAR is 0.42 %.
+  - **Pre-registered confirmation on fresh bases** (new 0.00, 0 impostor routings everywhere):
+    - V-fix (w 0.25): seen +0.66 / +1.19 / +1.21 / +1.32; fails the seen bar on B2_s012.
+    - V-gain (w 0.5): seen +1.85 / +1.72 / +2.14 / +2.10, passes every bar; P04 +4.0 to +5.1, P10 −1.1 to +0.2.
+  - **Sealed estimate (V-gain):** +0.8 by the bar's arithmetic. It is −0.13 (−0.22 to +0.26) if the other returning
+    people respond like P10, whose base is strong.
+  - **Reading:** personal heads help where the population model is weak for that person (P04, 51 %) and are neutral or
+    harmful where it is strong. A per-person trust weight from the public LOSO deficit is the natural next step.
+- **Personal models with oracle identity (7 Nov, `scratchpad/personal/`): PS1 passes its pre-registered bar.**
+  - **PS1:** the person's own LR head on the PC256 view (C 0.1), placed in the B2 slot instead of core1 at 3×.
+  - **Seen gain on fresh bases from window 0:** +4.23 on B2_s012 (P04 +7.1, P10 +1.3), fresh mean +4.03.
+  - **From window 60:** +2.46.
+  - **Null (a wrong person's head):** −3.
+  - **What mattered:** where the head plugs in. In the slot, it improves TSEM's seeds.
+  - **Closed:** full 44k-dim MAP adaptation, Hilbert personal heads, a personal gaze-EM prior, time-varying weights.
+  - **More sessions:** no evidence that 3 sessions beat 1.
+  - **Sealed:** ≈ +1.06 × TAR − 0.86 × FAR, at most about +1 J. Routing v3 (v2 gate + PS1 in the slot + shadow
+    unrouted tail for the fingerprint) is in progress.
+- **Routing v3 (7 Nov, `scratchpad/route2/prereg3.txt`): PASS on all four fresh bases.**
+  - **Design:**
+    - **Gate:** the v2 gate reads an unrouted shadow tail.
+    - **Ramp:** r = clip((s − 0.22)/0.05, 0, 1).
+    - **Personal model:** PS1 is injected into the core1 slot at 3× of a separate rebalancing → SessionEM → TSEM tail.
+  - **Results:**
+    - dJ +1.12 / +1.06 / +1.04 / +0.99; seen +1.98 to +2.23 (P04 +3.4 to +4.2, P10 +0.0 to +0.7).
+    - New is 0.00 with 0 impostor routings on every base.
+    - Real − null +1.63 to +1.77.
+  - **Stress tests and false accepts:**
+    - All stress tests route 0 sessions, including with feedback through the full chain.
+    - Stieger FAR 0.42 %, at a mean r of 0.085 for the false accepts.
+    - A false accept costs about 0 at the typical r of 0.1, and −1.3 to −1.9 at r = 1.
+  - **Sealed estimate:** central +0.33 if the 9 other returning people behave like P10; +0.9 if they route like the
+    P04/P10 mean; +0.1 to +0.4 at external acceptance rates.
+  - **Status:** the package build has started (cand_rec_ts2_tsem_route3).
+- **Gated early boost "GEB" (7 Nov, `scratchpad/eb2/`): passes all pre-registered gates and replaces EB.**
+  - **Mechanism:** EB's h(t) is multiplied by g = clip((0.35 − m̄)/0.15, 0, 1), where m̄ is the running mean margin of
+    SessionEM's input over windows 0..t−1. Sessions that are already confident early get no boost.
+  - **Cross-fit on fresh bases:** +0.54 (new +0.88, 10/10 ≥ 0; seen +0.20; P10 +0.01). Joint sign-flip null
+    p = 0.001.
+  - **Honest increment over EB:** +0.18 (paired p = 0.09), mostly seen; P10 is +0.5.
+  - **Permuted-gate null:** real − null +0.24 (below the +0.3 bar). A constant gate gives +0.39.
+  - **With routing v3:** +1.80 against the shipped chain, versus +1.53 for EB + routing and +1.05 for routing only.
+  - **Cost:** 2 weight keys and ~20 code lines; no extra chain.
+- **Consolidation on routing v3 + GEB (7 Nov, `scratchpad/consol/`): FAIL.**
+  - **Primary arm, picked by a frozen rule on exploration:** α 1.3, fresh dJ −0.23 (sign-flip p 0.86).
+  - **Other arms:** TSEM λ 0.2 −0.07; both −0.37.
+  - **Why:** GEB already absorbs the new-person gain of α 1.3, and routing replaces its seen gain. Keep the shipped
+    values.
+- **Personal deep models in the routed tail (7 Nov, `scratchpad/pdeep/`): no gain beyond PS1.**
+  - Personal fine-tuned FBCNet/EEGNeX/IFNet are stronger standalone (72–75 vs PS1 71) and improve the routed mix by
+    +1 to +2.3 BA.
+  - TSEM absorbs it: seen +0.3 to +0.55 after TSEM, below the gate.
+  - The only gate-passing arm, a personal teacher map, failed confirmation (P10 −0.5). Sealed value about 0.
+- **Early routing on top of v3 (7 Nov, `scratchpad/route_early/`): FAIL, not shipped.**
+  - **Mechanism:** a two-factor latched gate from window 10 (fingerprint nearest = v3 top person, with shape
+    score ≥ 0.12). It routes all 4 seen sessions at t12–22.
+  - **Result:** seen +0.40 to +0.92 over v3, but the pre-registered P10 bar fails on B2_s1 (−0.47).
+  - **Stress:** not clean — random posteriors fire 2/140; a view artifact fires 1/14.
+  - **Sealed:** about 0 to +0.1; small capped early weights do not help.
+  - **Bug found:** the inherited band-correlation fingerprint slices assume 820 columns per band but the export has 861,
+    so earlier "alpha+beta" numbers refer to shifted columns. The package would have shipped exactly the evaluated
+    feature.
+- **Early-window boost "EB" (7 Nov, `scratchpad/early/`): passes on fresh bases. Found in a post-hoc second round;
+  adversarial verification running.**
+  - **Diagnosis:** the stages add only +0.6 / +3.7 / +6.0 / +7.0 points in bins 0–9 / 10–19 / 20–39 / 40–59, against
+    +10 later. SessionEM slightly hurts in 10–19. There is no early class bias.
+  - **Mechanism:** with h(t) = clip((60 − t)/30, 0, 1), the SessionEM exponent ×(1 + 2h) with nmin 20, and the TSEM
+    exponent ×(1 + 4h).
+  - **Fresh-base results:** dJ +0.67 / +0.42 / +0.14 / +0.21 (mean +0.36). New +0.53 to +1.09; seen −0.50 to +0.41,
+    with P10 −0.5 on every base.
+  - **With routing v3:** +0.48 over v3 alone (exploratory). The two are complementary, since routing helps returning
+    people and EB helps new people.
+  - **Closed:** position-dependent member weights (−0.39) and an early rebalancing prior (−0.25).
+  - **Adversarial verification (`scratchpad/verify_eb/`): not refuted, but the size is overstated.**
+    - **Reproduced exactly;** causal.
+    - **New-person gain is real** (joint person-sign-flip null p = 0.002): about +0.6 ± 0.2, coming from windows 20–39.
+    - **At the J level** p = 0.07. Honest dev gain is about +0.2 to +0.25: cross-fit +0.27, early-only hybrid +0.25,
+      nested on the fresh bases +0.17.
+    - **Seen people** about −0.15 ± 0.4. EB hurts where the early base is already strong; P10's loss is the same 2–3
+      windows on every base.
+    - **Robustness:** a broad plateau across neighbouring configs; the transition point at 40–60 works, 80 collapses.
+    - **Sealed estimate:** about +0.25 ± 0.25 points, i.e. 0.8197 → about 0.822.
+- **SessionBN GPU round for new people (7 Nov, `scratchpad/deep2/`, 34 Galvani jobs, about 9 GPU-h): all FAIL.**
+  - **SessionBN teacher:** replacing the teacher costs about −1.0; fusing it with the current one is neutral.
+  - **SessionBN EEGNeX/IFNet fine-tuned on PROTEUS in the trainable-FIR slots:** nested +0.28 with both halves
+    positive, but the plain twins already give most of that.
+  - **SessionBN twins of the remaining plain-BN members:** −0.18.
+  - **SessionBN FBCNets on CAR input:** +0.15.
+  - Fresh bases untouched.
+- **Third tangent core after TSEM (7 Nov, `scratchpad/core3/`): FAIL.**
+  - 77 saved non-sz cores × {add, replace Hilbert} × weights {2, 2.5, 3}: nested LOPO −0.24, halves +0.22 / −0.79.
+  - The best in-sample core (fb12 Hilbert, +0.29) lowers TSEM seed precision and is over the runtime budget.
+  - Fresh bases untouched.
 - **Expected path (before the audits):** REC + core2 ≈ 76.9 J (0.805 full transfer / 0.79 half), + TSEM ≈ 78.4 ± 1.0 (0.82 / 0.80).
   0.83 needs ≈ 79.35: full transfer, TSEM holding in the package, and about +0.8 J more. Architect's estimate 15–25 %.
 
