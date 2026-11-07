@@ -340,6 +340,34 @@ Base: REC + core (J 76.09 absolute; new 76.82, seen 75.36). One calibration poin
   - **Permuted-gate null:** real − null +0.24 (below the +0.3 bar). A constant gate gives +0.39.
   - **With routing v3:** +1.80 against the shipped chain, versus +1.53 for EB + routing and +1.05 for routing only.
   - **Cost:** 2 weight keys and ~20 code lines; no extra chain.
+- **Lean / single-model study on the route3geb chain (7 Nov, `scratchpad/lean/`): no lean or single model matches.**
+  - **Leave one family out:** every member family costs ≥ 0.3 J except the TF FBCNets (+0.10 / +0.17).
+  - **Lean configurations:**
+    - slot only −6.4;
+    - slot + teacher −5.0;
+    - slot + SessionBN FBCNet −4.2;
+    - core1 only −9.3.
+  - **One concat LR over both cores:** standalone 69.9 / 68.2, but chain-only −7.4 against the full system and −0.3
+    in place of the slot.
+  - **MLP heads:** all below the slot.
+  - **Runtime:** the package computes 20 weight-0 nets that are never used (2.7 min wasted). Halving the SessionBN
+    seeds (3 of 6 per group) changes dJ by −0.02 (range −0.17 to +0.13).
+  - **Robust lean rebuild:** about 29 min instead of 41.9, as a weights-only change (not built or replayed).
+  - **Reading:** our strength is the ensemble plus session adaptation; no single component is near the leader's
+    single-model strength.
+- **Single deep model replacing the 30-net ensemble (7–8 Nov, `scratchpad/single_deep/`): FAIL.**
+  - **Best case:** the wide FBCNet (18 bands, 64 filters; 67.6 new standalone) is −2.8 to −3.1 J through the chain,
+    even at a post-hoc weighting.
+  - **Other variants:** longer training with augmentation, fully fine-tuned EEGNeX/IFNet and an FBCNet with a tangent
+    branch all lose 3–12 J.
+  - **Why:** the ensemble adds about +6.5 J over cores only, and one model recovers at most about half. The gain is
+    diversity across members, not one strong member.
+  - **Runtime with one net instead of 65:** about 1.1–1.5 ks, near the leader's 1,022 s, but 3–6 J worse.
+- **Core training crops and head iteration budget (7 Nov, `scratchpad/coreaug/`): both FAIL.**
+  - **Task-period crops as extra training rows:** nested −0.47; cross-fit on fresh −0.46. Cue-locked sub-window and
+    slow blocks make shifted crops a distribution shift; only P04 gains.
+  - **Iteration budget:** the shipped tol stop (≈ 15 iterations) is already optimal. it5 −1.9, it8 −0.7, it30 −0.4,
+    inner-LOPO early stopping −0.1 to −0.2.
 - **Consolidation on routing v3 + GEB (7 Nov, `scratchpad/consol/`): FAIL.**
   - **Primary arm, picked by a frozen rule on exploration:** α 1.3, fresh dJ −0.23 (sign-flip p 0.86).
   - **Other arms:** TSEM λ 0.2 −0.07; both −0.37.

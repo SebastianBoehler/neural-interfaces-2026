@@ -132,7 +132,25 @@ without authorisation.
   - **Causality, reset and wiring:** verified on the full package.
   - **Runtime:** sealed ≈ 42 min.
   - **Still needed:** the code (786bcab0 and the references) must be committed for the audit.
-- Live board 7 Nov ~17:30 UTC: bryanyahir03 0.838, seohee 0.825, timothewt 0.825, xianglong_bao 0.823, us 0.820 (5th). Staged candidates: routing v3 and routing v3 + EB (builds in progress), tsem256, route v1.
+- Live board 7 Nov ~17:30 UTC: bryanyahir03 0.838, seohee 0.825, timothewt 0.825, xianglong_bao 0.823, us 0.820 (5th).
+- 7 Nov 17:45 UTC: the user authorised commit, push and upload ("do that commit, push and upload"). Code committed and
+  pushed as c4d600d (submission.py 786bcab0, identical to the ZIP's).
+- Checks before upload: phase "Current", 2/5 used, 0 today, logged in as s_boehler, SHA-256 74433d9b… locally and
+  re-checked in the browser.
+- Uploaded through the local relay as submission **1040847**, created 17:49:21 UTC, status Running.
+
+| Day | Date | Arm | Submission | Status | Cell-mean BA | Duration |
+|---|---|---|---|---|---|---|
+| 3 | 7 Nov (UTC) | cand_rec_ts2_tsem_route3geb (`74433d9b…`) | 1040847 | Finished | **0.8240266154** (+0.0043 over 0.8197) | 2,687.2 s (44.8 of 60 min) |
+
+Expectation was about 0.827 central (0.822–0.835). The realised +0.43 points is about 0.6 of the honest dev estimate
+(+0.75), whereas the large TSEM step transferred about 1:1, so small stacked gains transfer only partly.
+Live board 7 Nov ~19:10 UTC: 0.838, 0.825, 0.825, **us 0.824 (4th)**, 0.823. **New baseline: route3geb.** 2 uploads
+left. Staged candidates: routing v3 and routing v3 + EB (builds in progress), tsem256, route v1.
+
+7 Nov evening cleanup (docs/STATE_7NOV.md): `submissions/ensemble/submission.py` is now the lean file `dacee85a…`. It
+reproduces the three uploaded packages byte for byte. The staged packages that were never uploaded (route v1, route3,
+route3eb, tsem256) keep their ZIPs in `runs/upload/`. Their code is commit `c4d600d` (docs/AUDIT_SBN.md, top note).
 
 Independent review of cand_rec_ts2 (6 Nov, `scratchpad/review_ts2/`): safe to upload. The ZIP differs from
 cand_rec_ts only in submission.py and weights.npz as described; the new member is causal (future-perturbation and

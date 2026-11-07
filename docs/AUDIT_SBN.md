@@ -1,3 +1,15 @@
+> **Code version for these recipes (7 Nov cleanup, docs/STATE_7NOV.md).** `submissions/ensemble/submission.py` is now
+> the lean file (`dacee85a…`, 781 lines; previously `786bcab0…`, 967 lines, commit `c4d600d`). It keeps only the code
+> paths of the three uploaded packages, cand_nxif (docs/AUDIT_NXIF.md), cand_rec_ts2_tsem and cand_rec_ts2_tsem_route3geb.
+> It reproduces all three byte for byte (route3geb reference values, end of this file). The export steps copy the
+> current `submission.py` into their package. The intermediate packages (a115, cand_sbn, cand_rec, cand_rec_ts,
+> cand_rec_ts2, and cand_rec_ts2_tsem256 as route3geb's basis) use only code paths that the uploaded packages
+> exercise, and each export checks its package against its harness. Byte identity with their staged ZIPs was not
+> re-checked. **The recipes for packages that were staged but never uploaded use commit `c4d600d`:** cand_rec_ts2_tsem256
+> as an upload, routing v1 (`cand_rec_ts2_tsem_route`), v2 (`route2g` / `route2f`), route3 and route3eb. For them,
+> check out `submissions/ensemble/submission.py`, `experiments/route_stream*.py` and `scripts/export_route.py` from
+> `c4d600d`. The lean code refuses routing v1 / v2 keys and an early boost without gate keys.
+
 # Audit recipe: cand_sbn (a115 + per-session latent normalisation, arm D)
 
 `runs/sealed/cand_sbn` = `runs/sealed/cand_nxif_a115` (cand_nxif with `rb_alpha` 1.15) where the five
@@ -816,21 +828,41 @@ route3eb's plus `eb_gate_lo` 0.20 and `eb_gate_hi` 0.35. Relative to route3, the
 
 ## One command (cand_rec_ts2_tsem_route3geb)
 
-As route3eb, adding `--set eb_gate_lo=0.20 --set eb_gate_hi=0.35`, with output `runs/sealed/cand_rec_ts2_tsem_route3geb`.
-With gate keys, the reference is `experiments/route_stream3geb.py` (`V3TailGEB`: each tail's TSEM reads its own tail's
-SessionEM gate). The export also asserts that wiring:
+Prerequisites (recipes above): `runs/sealed/cand_rec_ts2_tsem` and `runs/sealed/cand_rec_ts2_tsem256` with their
+harnesses, and `route_pkg3.npz` (SHA-256 `b4de2fe7…`: Galvani `runs/diag/rroute3/route_pkg3.npz`, Mac
+`runs/sealed/cand_rec_ts2_tsem_route3_route_pkg3.npz`, archive `runs/archive_7nov/route2/pkg/route_pkg3.npz`). The
+build fits nothing. With the lean code (7 Nov cleanup, below) the whole recipe is:
+
+```bash
+A="runs/sealed/cand_rec_ts2_tsem runs/sealed/cand_rec_ts2_tsem_route3geb --route runs/diag/rroute3/route_pkg3.npz \
+   --hi runs/sealed/cand_rec_ts2_tsem256 --src-harness runs/sealed/cand_rec_ts2_tsem_harness.npz \
+   --hi-harness runs/sealed/cand_rec_ts2_tsem256_harness.npz \
+   --set em_nmin=20 --set em_boost=2.0 --set tsem_boost=4.0 --set eb_T=30.0 --set eb_gate_lo=0.20 --set eb_gate_hi=0.35"
+J=$(sbatch --parsable --export=ALL,NI26_SOURCE_REV=$(git rev-parse HEAD) \
+    -o runs/sealed/cand_rec_ts2_tsem_route3geb_export_%j.log scripts/cloud/export_route.sbatch $A)
+sbatch --export=ALL -o runs/sealed/cand_rec_ts2_tsem_route3geb_off_%j.log scripts/cloud/export_route.sbatch $A --off-only
+X=galvani-cn109,galvani-cn111,galvani-cn121,galvani-cn122
+sbatch --dependency=afterok:$J --exclude=$X runs/diag/replay_bundle.sbatch runs/sealed/cand_rec_ts2_tsem_route3geb \
+    runs/sealed/cand_rec_ts2_tsem
+```
+
+The reference is `experiments/route_stream3geb.py` (`V3TailGEB`: each tail's TSEM reads its own tail's SessionEM gate;
+since the cleanup a self-contained file that merges the former `route_stream3.py` and `route_stream3eb.py` with
+unchanged arithmetic). The export also asserts that wiring:
 - the shadow TSEM reads the shadow SessionEM;
 - the routed TSEM reads the routed SessionEM;
 - the two SessionEMs are distinct.
 
-The A100 replays run as one job, `runs/diag/replay_bundle.sbatch PKG BASE` (the official A100 replay, then the paired
-ABBA in the worker-image replica). Its runs 2 and 3 are the replica replays of PKG, and run 2's `submission.zip` is
-copied to `runs/upload/sealed_cand_rec_ts2_tsem_route3geb.zip`.
+`--off-only` builds a temporary copy with `route_tau` 1e9 and compares it with cand_rec_ts2_tsem + the same `--set` keys
+without route keys. The A100 replays run as one job, `runs/diag/replay_bundle.sbatch PKG BASE` (Galvani scratch, not in
+the repository: the official A100 replay, then the paired ABBA in the worker-image replica). Its runs 2 and 3 are the
+replica replays of PKG, and run 2's `submission.zip` is copied to `runs/upload/sealed_cand_rec_ts2_tsem_route3geb.zip`.
+`scripts/cloud/replay.sbatch` and `worker_replay.sbatch` (as in the recipes above) give the same two replays.
 
 Provenance: built from uncommitted files on top of `26b0f54` (`NI26_SOURCE_REV=26b0f54+route3geb-uncommitted`). `--code`
-is `runs/diag/rroute3geb/code/submission.py`, byte-identical to the repository's `submissions/ensemble/submission.py`
-`786bcab0…` and to the route team's `eb2/pkg/submission_geb.py` (md5 `b575d3d1`). Besides the route3eb files,
-`experiments/route_stream3geb.py` must be committed.
+is `runs/diag/rroute3geb/code/submission.py`, byte-identical to the route team's `eb2/pkg/submission_geb.py` (md5
+`b575d3d1`) and to `submissions/ensemble/submission.py` `786bcab0…` as committed in `c4d600d` (7 Nov). The uploaded ZIP
+carries `786bcab0…`; the lean file only replaces the repository copy (reference values below).
 
 ## Reference values (cand_rec_ts2_tsem_route3geb)
 
@@ -884,5 +916,64 @@ is `runs/diag/rroute3geb/code/submission.py`, byte-identical to the repository's
 
   The ratio is 1.00. Per-window scaling of cand_rec_ts2_tsem's real 2,497 s gives about 42 min. The unpaired replica
   ratio (1.02), with up to 60 s fixed overhead removed, gives at most 43 min. Both are under 50 min.
+- **Uploaded:** submission **1040847** (7 Nov), sealed **0.8240266154**, 2,687.2 s.
 
 **Tolerance.** As for route3.
+
+## Reference values: lean code (7 Nov cleanup)
+
+- **Code.** `submission.py` `786bcab0…` (967 lines) → `dacee85a…` (781 lines). Removed:
+  - the CBraMod member;
+  - routing v1 / v2 (class `Route`);
+  - the early boost without gate keys (`em_boost` now requires `eb_T`, `eb_gate_lo`, `eb_gate_hi`);
+  - SessionEM without ocular-event keys;
+  - rebalancing over the whole past (`rb_w` 0) and the n0 = 0 branches.
+
+  Rebalancing became one class (`Rebalance`), shared by the shadow and the routed tail (`Route3.bind` deep-copies
+  rebalancing, SessionEM and TSEM together). `experiments/route_stream3geb.py` is self-contained (`19d3118b` md5; it
+  merges `route_stream3.py` / `route_stream3eb.py`, which were deleted together with `route_stream.py` /
+  `route_stream2.py`). `scripts/export_route.py` is v3-only.
+- **Compatibility** (`scripts/check_compat.py PKG --post --code submission.py`, Mac CPU, `run_capped`). Each run uses
+  the shipped ZIP extracted, with its own code, against the lean code on all 2,655 public windows, streamed per
+  session. It compares labels, the pre-rebalancing member mix and every stage's per-window output: SessionEM, TSEM,
+  routing; the last of these is the final posteriors. Records are in `runs/archive_7nov/cleanup/`.
+  - cand_rec_ts2_tsem_route3geb (`74433d9b…`, own code `786bcab0…`): every output byte-identical, 0 windows differ
+    (1,122 s).
+  - cand_rec_ts2_tsem (`9c31a167…`, own code `243c9901…`): every output byte-identical, 0 windows differ (1,008 s).
+  - cand_nxif (`0a562e62…`, own code `25d51a6e…`): labels, mix and SessionEM output (= final posteriors)
+    byte-identical, 0 windows differ (459 s).
+- **Recipe run with the lean code** (Mac CPU, the command above with local paths; inputs SHA-256-equal to Galvani's:
+  cand_rec_ts2_tsem `9812d2f9…`, tsem256 `90fda086…`, `route_pkg3.npz` `b4de2fe7…`, both harnesses).
+  - **Rebuilt package:** `weights.npz` `813d8c54…`, equal to the shipped ZIP's. 32 of 33 files are byte-identical to
+    the ZIP; only `submission.py` differs (the lean file).
+  - **Reference and wiring:** routed and shadow outputs equal `V3TailGEB` bitwise (max |diff| 0, 0 flips); gate
+    wiring true.
+  - **Routing:** every public session routes to its own person from window 60.
+  - **Same numbers as the original export:** 16 labels changed vs cand_rec_ts2_tsem, 14 of them by the routing
+    stage; in-sample 0.98412; routed gate mean 0.009, max 0.53 at t 15–59.
+  - **Streaming checks:** truncation (T 128) and deep copy + reset are bit-identical.
+  - **Platform differences:** comparisons with Galvani's stored harnesses differ only at platform level (views
+    5.3e-9 vs 1.4e-12 on Galvani; BLAS / LAPACK).
+  - **Routing off** (`--off-only`, Mac): labels and final posteriors are byte-identical to cand_rec_ts2_tsem + GEB
+    without route keys; the stage output equals its input bitwise and no window is routed (as in job 3069162).
+- **Reference merge.**
+  - **Galvani:** the merged `V3TailGEB` output equals the `c4d600d` reference's stored output bitwise (`ref`,
+    `ref_shadow` in the Galvani harness comparison above).
+  - **Mac:** the merged reference run on the stored stage inputs differs from Galvani's stored outputs by at most
+    4.4e-16 (BLAS / LAPACK).
+  - **Mac, same machine** (`runs/archive_7nov/cleanup/local/ref_check.py`): the merged reference and the `c4d600d`
+    reference (`route_stream3geb.py` md5 `41bd2d5f` on `route_stream3.py` `419c1637` / `route_stream3eb.py`
+    `c7051d10`) give bitwise-equal routed and shadow outputs on all 2,655 windows. Label flips vs Galvani: 0.
+- **Recipe run on Galvani** (Linux CPU; job 3069827, galvani-cn001, 38 min). The setup was a mini-root
+  `runs/diag/clean7nov/root/` holding `c4d600d` + the cleanup edits, run with the real Galvani inputs and the command
+  above.
+  - **Rebuilt package:** `weights.npz` `813d8c54…`; 32 of 33 files byte-identical to the shipped ZIP; only
+    `submission.py` differs.
+  - **Harness:** every array of the new harness is bitwise equal to the original export's
+    `runs/sealed/cand_rec_ts2_tsem_route3geb_harness.npz` (job 3069161, cn117, `786bcab0…` and the old references).
+    That covers the package's routed and shadow outputs (`O`, `Q`), the reference outputs (`ref`, `ref_shadow`), the
+    views, the mixes, the SessionEM features and the labels.
+  - **So:** on the platform of the original build, the lean code and the merged reference reproduce the
+    route3geb export exactly.
+  - Compat of route3geb on Galvani (job 3069795, cn002, 2,976 s, shipped ZIP extracted): every output
+    byte-identical, 0 windows differ, as on the Mac. Records: `runs/diag/clean7nov/` on Galvani.

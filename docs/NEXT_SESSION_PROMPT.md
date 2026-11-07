@@ -5,30 +5,33 @@ sealed phase in
 /Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026. The goal
 is to **rank confidently in the top three of the sealed phase**: the prize,
 and above all the sponsors' internship and career opportunities, matter a
-lot to me. The sealed phase opens on 5 Nov: five uploads, one per day,
-best score counts, deadline 21 Nov.
+lot to me. The sealed phase runs until 21 Nov 23:59 CET: five uploads in
+total (three used by 7 Nov), at most one per UTC day, best score counts.
 
 ## 1. Understand the current state (first)
 
 Read in this order:
-1. docs/HANDOFF.md
+1. docs/STATE_7NOV.md (the entry point: baseline, sealed history, board,
+   runtime, what is closed and what is open)
 2. AGENTS.md and OFFICIAL_CONTRACT.md
-3. docs/SEALED_PLAN.md
-4. docs/OPTIMIZATION_R10.md (end: R19, round 2, R19e, round 3)
-5. docs/GROUND_UP_REVIEW.md
+3. docs/SEALED_UPLOADS.md (upload log) and docs/AUDIT_SBN.md (audit recipes)
+4. docs/REVIEW_5NOV.md (5–7 Nov evidence and closed directions)
+5. runs/archive_7nov/INDEX.md (archived dev bases, preregistrations and
+   confirmations of 5–7 Nov)
 
-Then look at the code: experiments/ (deep.py, models.py, features.py,
-session_em.py, ensemble.py, run_cv.py), submissions/ensemble/submission.py
-and scripts/build_sealed.py.
+Older docs (HANDOFF.md, SEALED_PLAN.md, OPTIMIZATION_R10.md,
+GROUND_UP_REVIEW.md) are background; read them only for a specific number.
 
-Confirm the baseline with `scripts/diag/diag_common.py`: R15 dla should be
-72.11.
+Then look at the code: submissions/ensemble/submission.py (lean since 7 Nov),
+experiments/ (ts_core.py, ts_core2.py, tsem.py, session_bn.py,
+session_em.py, route_stream3geb.py) and the export scripts
+(scripts/export_*.py, scripts/check_compat.py).
 
 Summarise for me in a few lines:
-- where we stand (R19e, the sealed order);
-- the established bottleneck (participant-specific class directions);
-- what round 3 proved: label-free teachers carry the ensemble's
-  participant-structured errors.
+- where we stand (route3geb 0.8240, 4th; uploads and runtime left);
+- the established bottleneck (per-session class directions);
+- what transfers to the sealed board (big steps about 1:1, small stacked
+  gains about 0.6×).
 
 ## 2. Research block: at least 30 minutes wall-clock
 
@@ -58,9 +61,10 @@ the mechanism survives our setting (causal streaming, no metadata, about
 
 ## 3. Then iterate towards the next breakthrough
 
-Map the remaining solution space against what is closed (docs/HANDOFF.md,
-"Closed levers"; do not re-propose those without new evidence). Rank the
-candidates by expected sealed gain × probability. Then run them:
+Map the remaining solution space against what is closed (docs/STATE_7NOV.md
+and docs/REVIEW_5NOV.md; older: docs/HANDOFF.md, "Closed levers"; do not
+re-propose those without new evidence). Rank the candidates by expected
+sealed gain × probability. Then run them:
 - **Oracle-first gates.** Bound each idea with a true-label or ideal-case
   oracle before building the label-free version.
 - **Pre-registered checks.** Use six seeds pooled and seed halves, paired
@@ -68,15 +72,19 @@ candidates by expected sealed gain × probability. Then run them:
 - **Compute.** Use Galvani generously for training. Use the Mac only for
   capped CPU analysis.
 
-Aim for real jumps (≥ +1 on dla over R19e, ds not worse) rather than
-knob-turning. Good candidates go through the full packaging path:
-committed config, build, harness agreement 1.0, worker replica, and an
-optional warm-up crash test before 1 Nov 23:59 CET if authorised. They can
-then replace the weak day-2 slot (R10) or improve on R19e.
+Aim for real jumps (rank 1 is 1.4 points away: about +1.4 dev J at full
+transfer, +2.3 at 0.6×) rather than knob-turning. Good candidates go through
+the full packaging path: committed config, build, harness agreement 1.0,
+replay with unchanged files, worker replica and an audit recipe.
 
 ## Rules
 
 **Evidence:**
+- Since 5 Nov the dev scorer is the person-equal J (0.5 new + 0.5 seen;
+  runs/archive_7nov/own/pe_metric.py). Choose on exploration bases with
+  split-half or nested selection, then confirm on fresh bases
+  (runs/archive_7nov/bases/) against a bar written down beforehand.
+  The older rules below date from the warm-up.
 - Select only on mean(dev_session, dev_loso_all) and report dev_loso.
 - Never tune on official, all_loso, seen_session, P04/P09 or the warm-up
   board.
@@ -86,7 +94,8 @@ then replace the weak day-2 slot (R10) or improve on R19e.
 **Packaging:**
 - Every package needs 100% harness agreement, a replay with unchanged
   files and a worker-replica run before staging.
-- Keep sealed runtime under about 30 min.
+- Keep the sealed runtime under 60 min with margin: the baseline already
+  takes 44.8 min, so new stages must be cheap or pay for themselves.
 - Commit the config and ZIP hash before any sealed upload (top-3 audit).
 
 **Uploads and commits:**
