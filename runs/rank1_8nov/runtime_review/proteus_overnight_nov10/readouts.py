@@ -3,6 +3,8 @@
 import numpy as np
 from scipy.special import softmax
 from sklearn.cluster import KMeans
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from spectral import fit_head
@@ -23,7 +25,12 @@ def pairwise(bank, draw, held, y, people, interface, seed, fold):
         combined = np.zeros((int(held.sum()), 3))
         for a, b in ((0, 1), (0, 2), (1, 2)):
             fit = draw[(y[draw] == a) | (y[draw] == b)]
-            log_odds = logits(x, fit, held, y)
+            head = make_pipeline(StandardScaler(), LogisticRegression(C=.01, max_iter=500))
+            head.fit(x[fit], y[fit])
+            classifier = head[-1]
+            if classifier.classes_.tolist() != [a, b] or classifier.n_iter_.max() >= classifier.max_iter:
+                raise ValueError("Invalid fitted class-pair classifier")
+            log_odds = head.decision_function(x[held])
             combined[:, a] -= log_odds
             combined[:, b] += log_odds
         result[f"{name}_pair"] = softmax(combined / 3, axis=1)

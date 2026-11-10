@@ -111,11 +111,13 @@ thresholds and 10% replacement match the earlier breadth batch.
 | New | Learned temporal patch network | Same network on shuffled patches and a pooled logistic head |
 | New | Learned product interactions between rank and temporal views | Same-capacity additive head, within-cell shuffled partners, and a temporal-only head |
 
-The first 16 tasks are array 3083524. Array 3083525 becomes eligible
+The first 16 tasks are array 3083524. Its two class-pair tasks used
+the three-class fit guard and were rerun as 3083546 after switching
+to a binary fit with the same regularizer. Array 3083525 becomes eligible
 at 21:00 CET on 10 November, and array 3083526 at 04:30 CET on
 11 November. Each array runs up to four tasks concurrently. Job
-3083527 aggregates all three after they succeed. Slurm determines
-actual starts.
+3083527 waits for the successful retries and later arrays, then verifies
+all 48 result files. Slurm determines actual starts.
 
 The experiment source and its frozen dependency files live under
 `runs/rank1_8nov/runtime_review/`. The Galvani scripts require the
