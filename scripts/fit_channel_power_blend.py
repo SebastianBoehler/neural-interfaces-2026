@@ -50,8 +50,8 @@ def blend(base, auxiliary, weight):
     return (1 - weight) * base + weight * auxiliary
 
 
-def fit_weight(bases, auxiliary, labels, people, interfaces):
-    """Minimize person/interface/class-balanced out-of-fold log loss."""
+def fit_weight(bases, auxiliary, labels, people, interfaces, objective="log-loss"):
+    """Select one weight on person/interface/class-balanced out-of-fold scores."""
     if bases.shape != (len(OFFSETS), len(labels), 3) or auxiliary.shape != (len(labels), 3):
         raise ValueError("Expected three aligned source overlap posteriors and one auxiliary posterior")
     if any(not np.isfinite(p).all() or (p < 0).any()
@@ -63,6 +63,11 @@ def fit_weight(bases, auxiliary, labels, people, interfaces):
     if len(counts) != len(np.unique(people)) * 2 * 3:
         raise ValueError("Expected both interfaces and all three labels for each source person")
     mass = 1 / (len(OFFSETS) * len(counts) * counts[cell])
+    if objective == "balanced-accuracy":
+        return maximize_balanced_accuracy(bases, auxiliary, labels, mass)
+    if objective != "log-loss":
+        raise ValueError(f"Unknown source objective: {objective}")
+
     index = np.arange(len(labels))
     p = np.maximum(bases[:, index, labels], 1e-12)
     direction = np.maximum(auxiliary[index, labels], 1e-12) - p
@@ -84,6 +89,21 @@ def fit_weight(bases, auxiliary, labels, people, interfaces):
             "derivative_at_bounds": [gradient(0.0), gradient(MAX_WEIGHT)]}
 
 
+def maximize_balanced_accuracy(bases, auxiliary, labels, mass):
+    grid = np.arange(round(MAX_WEIGHT * 100) + 1) / 100
+    scores = []
+    for weight in grid:
+        correct = blend(bases, auxiliary, weight).argmax(axis=-1) == labels
+        scores.append(100 * len(OFFSETS) * (correct @ mass))
+    by_seed = np.stack(scores)
+    means = by_seed.mean(axis=1)
+    # Keep the lower weight when exact scores differ only by floating-point noise.
+    best = int(np.flatnonzero(means >= means.max() - 1e-12)[0])
+    return {"objective": "balanced_accuracy", "weight": float(grid[best]), "bounds": [0.0, MAX_WEIGHT],
+            "weight_grid": grid.tolist(), "balanced_accuracy_by_seed": by_seed.tolist(),
+            "mean_balanced_accuracy": means.tolist(), "seed_order": list(OFFSETS)}
+
+
 def compare_arms(meta, rows, base, auxiliary, weight, slices=None):
     fixed = blend(base, auxiliary, FIXED_WEIGHT)
     fitted = blend(base, auxiliary, weight)
@@ -94,7 +114,7 @@ def compare_arms(meta, rows, base, auxiliary, weight, slices=None):
     }
 
 
-def run(paths, fixed_fit, fixed_result, fit_path, result_path):
+def run(paths, fixed_fit, fixed_result, fit_path, result_path, objective="log-loss"):
     meta = metadata()
     groups, target, later = partition(meta)
     source = source_rows(meta, "abc")
@@ -129,7 +149,7 @@ def run(paths, fixed_fit, fixed_result, fit_path, result_path):
                       "head_sha256": model_sha256(model)}
     bases = np.stack([load_trace(path, check, "source_oof.npz", source, fold_id)["final"]
                       for path, check in zip(paths, manifests, strict=True)])
-    selection = fit_weight(bases, oof, labels, people, meta["interface"][source])
+    selection = fit_weight(bases, oof, labels, people, meta["interface"][source], objective)
     weight = selection["weight"]
     source_scores = {str(seed): compare_arms(meta, source, base, oof, weight)
                      for seed, base in zip(OFFSETS, bases, strict=True)}
@@ -174,5 +194,6 @@ if __name__ == "__main__":
     parser.add_argument("archives", type=Path, nargs=3)
     for name in ("fixed_fit", "fixed_result", "fit_receipt", "result"):
         parser.add_argument(name, type=Path)
+    parser.add_argument("--objective", choices=("log-loss", "balanced-accuracy"), default="log-loss")
     args = parser.parse_args()
-    run(args.archives, args.fixed_fit, args.fixed_result, args.fit_receipt, args.result)
+    run(args.archives, args.fixed_fit, args.fixed_result, args.fit_receipt, args.result, args.objective)
