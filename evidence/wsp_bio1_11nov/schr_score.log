@@ -1,0 +1,65 @@
+[run_capped] Wed Nov 11 15:32:45 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler-Documents-GitHub-neural-interfaces-2026/95eb4b0e-c5db-4ae9-81b3-afeeeac7221a/scratchpad/schr/score_schr.py NJ=2 (max 8 GB)
+seeds per tag: {'fbsbn_w0_k2': [0, 1, 2], 'fbsbn_w01_k2': [0, 1, 2], 'fbsbn_w025_k2': [0, 1, 2], 'fbsbn_sw025_k2': [0, 2], 'fbsbn_w0_k5': [0, 1, 2], 'fbsbn_w01_k5': [0, 1, 2], 'fbsbn_w025_k5': [0, 1, 2], 'fbsbn_sw025_k5': [0, 2], 'shraw_w0': [0, 1, 2], 'shraw_w01': [0, 1, 2], 'shraw_w025': [0, 1, 2], 'shraw_sw025': [0, 1, 2]} INCOMPLETE
+standalone fbsbn_w0_k2      s012 new 66.04 seen 64.12 J 65.08 (1-seed mean J 64.44) rec MI/SUB/WORD new 71.9/65.9/60.2 | vs twin new +0.00 seen +0.00 J +0.00 rec new +0.0/+0.0/+0.0
+standalone fbsbn_w01_k2     s012 new 67.67 seen 67.00 J 67.33 (1-seed mean J 66.10) rec MI/SUB/WORD new 73.3/66.3/63.4 | vs twin new +1.63 seen +2.87 J +2.25 rec new +1.4/+0.4/+3.2
+standalone fbsbn_w025_k2    s012 new 67.07 seen 67.06 J 67.07 (1-seed mean J 66.39) rec MI/SUB/WORD new 73.9/64.5/62.8 | vs twin new +1.03 seen +2.94 J +1.99 rec new +2.0/-1.5/+2.6
+standalone fbsbn_sw025_k2   s02 new 66.12 seen 66.04 J 66.08 (1-seed mean J 65.63) rec MI/SUB/WORD new 70.8/66.3/61.2 | vs twin new +0.08 seen +1.92 J +1.00 rec new -1.1/+0.4/+1.0
+standalone fbsbn_w0_k5      s012 new 65.32 seen 64.77 J 65.05 (1-seed mean J 64.48) rec MI/SUB/WORD new 71.9/64.4/59.7 | vs twin new +0.00 seen +0.00 J +0.00 rec new +0.0/+0.0/+0.0
+standalone fbsbn_w01_k5     s012 new 66.59 seen 65.90 J 66.25 (1-seed mean J 65.40) rec MI/SUB/WORD new 70.8/65.8/63.1 | vs twin new +1.28 seen +1.13 J +1.20 rec new -1.1/+1.5/+3.4
+standalone fbsbn_w025_k5    s012 new 66.16 seen 66.41 J 66.28 (1-seed mean J 65.91) rec MI/SUB/WORD new 72.1/64.4/62.0 | vs twin new +0.84 seen +1.64 J +1.24 rec new +0.2/+0.0/+2.4
+standalone fbsbn_sw025_k5   s02 new 65.70 seen 66.14 J 65.92 (1-seed mean J 65.17) rec MI/SUB/WORD new 67.3/66.8/63.0 | vs twin new +0.38 seen +1.36 J +0.87 rec new -4.6/+2.4/+3.4
+standalone shraw_w0         s012 new 55.21 seen 53.61 J 54.41 (1-seed mean J 53.08) rec MI/SUB/WORD new 54.4/57.2/54.0 | vs twin new +0.00 seen +0.00 J +0.00 rec new +0.0/+0.0/+0.0
+standalone shraw_w01        s012 new 57.11 seen 54.46 J 55.78 (1-seed mean J 55.60) rec MI/SUB/WORD new 53.9/59.4/58.1 | vs twin new +1.89 seen +0.84 J +1.37 rec new -0.5/+2.1/+4.1
+standalone shraw_w025       s012 new 57.87 seen 53.62 J 55.74 (1-seed mean J 54.97) rec MI/SUB/WORD new 58.0/58.3/57.3 | vs twin new +2.65 seen +0.01 J +1.33 rec new +3.6/+1.1/+3.3
+standalone shraw_sw025      s012 new 56.46 seen 54.93 J 55.70 (1-seed mean J 54.72) rec MI/SUB/WORD new 50.4/60.6/58.4 | vs twin new +1.25 seen +1.32 J +1.28 rec new -4.0/+3.4/+4.4
+twin check fbsbn_w0_k2 s0: J ours 64.08 shipped 64.08 (d +0.00) argmax agreement 100.0%
+twin check fbsbn_w0_k2 s1: J ours 64.66 shipped 64.66 (d +0.00) argmax agreement 100.0%
+twin check fbsbn_w0_k2 s2: J ours 64.60 shipped 64.60 (d +0.00) argmax agreement 100.0%
+twin check fbsbn_w0_k5 s0: J ours 63.91 shipped 63.91 (d +0.00) argmax agreement 100.0%
+twin check fbsbn_w0_k5 s1: J ours 64.63 shipped 64.63 (d +0.00) argmax agreement 100.0%
+twin check fbsbn_w0_k5 s2: J ours 64.89 shipped 64.89 (d +0.00) argmax agreement 100.0%
+twin check shraw_w0 s0: J ours 53.44 shipped 53.88 (d -0.44) argmax agreement 91.3%
+twin check shraw_w0 s1: J ours 54.39 shipped 55.25 (d -0.85) argmax agreement 91.2%
+twin check shraw_w0 s2: J ours 51.41 shipped 51.07 (d +0.34) argmax agreement 91.6%
+B2_pool ref            J 80.0131 new 80.176 seen 79.851 WORD new 76.74 6s
+B2_s345 ref            J 79.8474 new 80.105 seen 79.590 WORD new 76.74 6s
+B2_pool b|F            J 79.8727 new 80.155 seen 79.590 WORD new 76.85 10s
+B2_pool b|R            J 80.0368 new 80.227 seen 79.846 WORD new 77.06 10s
+B2_pool b|FR           J 80.0977 new 80.210 seen 79.985 WORD new 76.95 15s
+B2_s345 b|F            J 79.8800 new 79.896 seen 79.864 WORD new 76.50 15s
+B2_s345 b|R            J 79.8047 new 80.019 seen 79.590 WORD new 76.49 19s
+B2_s345 b|FR           J 79.7521 new 79.775 seen 79.729 WORD new 76.49 19s
+B2_pool a|F|w01        J 79.8458 new 79.971 seen 79.720 WORD new 76.39 23s
+B2_pool a|F|w025       J 80.0621 new 80.270 seen 79.855 WORD new 76.81 23s
+B2_pool a|R|w01        J 79.4511 new 80.257 seen 78.645 WORD new 77.15 28s
+B2_pool a|F|sw025      J 80.0476 new 80.101 seen 79.994 WORD new 76.86 28s
+B2_pool a|R|sw025      J 79.6083 new 80.173 seen 79.044 WORD new 77.48 32s
+B2_pool a|R|w025       J 79.6271 new 80.067 seen 79.187 WORD new 76.91 32s
+B2_pool a|FR|w01       J 79.8435 new 80.219 seen 79.468 WORD new 77.03 36s
+B2_pool a|FR|w025      J 79.7620 new 80.342 seen 79.182 WORD new 76.92 36s
+B2_s345 a|F|w01        J 80.0352 new 80.337 seen 79.733 WORD new 77.17 40s
+B2_pool a|FR|sw025     J 79.4871 new 80.295 seen 78.679 WORD new 77.24 40s
+B2_s345 a|F|sw025      J 80.0817 new 80.170 seen 79.994 WORD new 76.60 45s
+B2_s345 a|F|w025       J 80.1566 new 80.320 seen 79.993 WORD new 76.44 45s
+B2_s345 a|R|w01        J 79.5852 new 80.105 seen 79.065 WORD new 76.90 49s
+B2_s345 a|R|w025       J 79.4975 new 80.194 seen 78.801 WORD new 77.01 49s
+B2_s345 a|R|sw025      J 79.1471 new 79.880 seen 78.414 WORD new 76.64 53s
+B2_s345 a|FR|w01       J 79.8603 new 80.126 seen 79.594 WORD new 76.81 53s
+B2_s345 a|FR|w025      J 79.9641 new 80.338 seen 79.590 WORD new 77.12 58s
+B2_s345 a|FR|sw025     J 79.8091 new 80.280 seen 79.338 WORD new 77.35 58s
+reference J (expect B2_pool 80.0131, B2_s345 79.8474): {'B2_pool': 80.0131, 'B2_s345': 79.8474}
+J(b) - J(shipped): {'B2_pool|F': -0.1405, 'B2_pool|R': 0.0236, 'B2_pool|FR': 0.0846, 'B2_s345|F': 0.0326, 'B2_s345|R': -0.0428, 'B2_s345|FR': -0.0953}
+nested ALL 9: G1 pick FR|sw025 -> G2 -0.267 | G2 pick F|w025 -> G1 -0.200 | nested -0.233 | ALL pick F|w025 dJ +0.233 seen +0.197 WORD new -0.04 seen +0.20
+nested all_classes: G1 pick FR|w01 -> G2 -0.061 | G2 pick F|w025 -> G1 -0.200 | nested -0.131 | ALL pick F|w025 dJ +0.233 seen +0.197 WORD new -0.04 seen +0.20
+nested sub_word: G1 pick FR|sw025 -> G2 -0.267 | G2 pick F|sw025 -> G1 -0.087 | nested -0.177 | ALL pick F|sw025 dJ +0.188 seen +0.267 WORD new +0.06 seen +0.77
+  F|w01      dJ +0.064 G1 -0.099 G2 +0.178 new +0.128 seen -0.000 new>=0 8/10 rec new +0.32/-0.04/+0.11
+  F|w025     dJ +0.233 G1 -0.200 G2 +0.467 new +0.269 seen +0.197 new>=0 7/10 rec new +0.63/+0.22/-0.04
+  F|sw025    dJ +0.188 G1 -0.087 G2 +0.286 new +0.110 seen +0.267 new>=0 7/10 rec new +0.57/-0.31/+0.06
+  R|w01      dJ -0.403 G1 +0.043 G2 -0.395 new +0.058 seen -0.863 new>=0 4/10 rec new -0.16/+0.09/+0.25
+  R|w025     dJ -0.358 G1 +0.047 G2 -0.378 new +0.008 seen -0.724 new>=0 6/10 rec new -0.06/-0.10/+0.18
+  R|sw025    dJ -0.543 G1 -0.057 G2 -0.563 new -0.097 seen -0.989 new>=0 5/10 rec new -0.40/-0.18/+0.29
+  FR|w01     dJ -0.073 G1 +0.156 G2 -0.061 new +0.180 seen -0.326 new>=0 8/10 rec new +0.26/+0.08/+0.19
+  FR|w025    dJ -0.062 G1 +0.109 G2 +0.057 new +0.347 seen -0.471 new>=0 7/10 rec new +0.55/+0.19/+0.30
+  FR|sw025   dJ -0.277 G1 +0.275 G2 -0.267 new +0.295 seen -0.849 new>=0 9/10 rec new +0.44/-0.13/+0.57
+gate: {'nested': False, 'halves': False, 'seen': True, 'complete': False, 'pass': False}
+[run_capped] Wed Nov 11 15:33:45 CET 2026 exit 0

@@ -272,12 +272,17 @@ code and seeds (control). Member = mean of seeds 0–2. The chain swaps the memb
 | WORD recall in the chain | +1.0 (−1 to +3) | ≤ 0 |
 | P(gate pass: nested ≥ +0.5, halves ≥ 0, seen ≥ −0.3) | ≈ 15 % | — |
 
-| Item | Observed | Verdict |
+| Item | Observed (23 of 24 tasks; the SUB+WORD-only FB arm has seeds 0 and 2) | Verdict |
 |---|---|---|
-| Member standalone vs twin | | |
-| Chain nested dJ per arm | | |
-| WORD recall | | |
-| Gate / fresh | | |
+| Member standalone vs its PROTEUS-only twin (new / seen) | SessionBN FBCNet k 2: +1.63 / +2.87 at weight 0.1, +1.03 / +2.94 at 0.25; k 5: +1.28 / +1.13, +0.84 / +1.64; raw ShallowConvNet: +1.89 / +0.84, +2.65 / +0.01. SUB+WORD-only: +0.1 to +1.3 new | **Hit** (predicted +0.8, range −0.5 to +2.0; upper half) |
+| WORD recall of the members on new people | +2.4 to +4.4 points in every arm | Supported at member level |
+| Twin check | the retrained FB twins equal the shipped seed files exactly; the raw Shallow twins agree on 91 % of labels (training nondeterminism) | Harness valid for F; R twins are a noisier control |
+| Chain, condition swapped in against the twin swapped in (B2_pool / B2_s345) | F at 0.25: +0.19 / +0.28; F at 0.1: −0.03 / +0.16; R: −0.6 to −0.2; both: −0.6 to +0.2. WORD recall in the chain −0.04 at the overall pick | **Miss** on WORD (predicted +1.0) |
+| Nested selection | all 9 arms: −0.23 (halves −0.27 / −0.20); best overall F at 0.25, +0.23 | **FAIL**; fresh bases not opened |
+
+**Reading.** Scherer makes the individual nets clearly better (1–3 points, WORD recall +3), and the chain absorbs all
+of it. This is the fourth time today that a stronger member or head did not move the chain (weight edits, SessionBN
+families, the regularised personal head, now Scherer). Member strength is not what limits the chain.
 
 ## 8. GPU-batched eigendecomposition speed probe (written 11 Nov ~10:45 UTC, before any code; time corrected at 10:50 UTC, an earlier draft said ~11:40)
 
@@ -705,3 +710,24 @@ simply harder, in which case forgetting changes nothing or hurts. Test-time chan
 **Reading.** A reference that tracks drift does not recover the late-session loss: core1 itself is 10 points lower in
 windows ≥ 90 for the seen sessions with either reference. The late windows are the online runs with live feedback, and
 they are harder to decode, not staler. Forgetting references are closed for the cores.
+
+## 21. CSCH: Scherer 2015 rows in core1's head (written 11 Nov ~14:50 UTC, before any result; code `experiments/core_scherer.py`)
+
+**Why, despite §7.** core1 is the one member whose strength the chain is most sensitive to (it sits in the slot at
+weight 2 with the Hilbert core, and the personal heads replace it), and it has never been fitted with Scherer. Cheap:
+one local run.
+
+**Setup.** core1 features for PROTEUS + Scherer (null space filled); scaler fitted on the PROTEUS training rows only;
+logistic head with sample weight 0.1 or 0.25 on Scherer rows; for Scherer rows the blocks below 4 Hz and the slow block
+are set to the PROTEUS mean (the source files are high-passed near 4 Hz). Weight 0 must reproduce the cached core1.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| core1 standalone new | +0.6 (−0.6 to +1.8) | ≤ 0 at both weights |
+| Chain dJ with the core in its slot (exploration bases) | +0.05 (−0.3 to +0.4) | ≤ 0 at both weights |
+| P(gate: nested ≥ +0.5, halves ≥ 0, seen ≥ −0.3) | ≈ 6 % | — |
+
+| Item | Observed | Verdict |
+|---|---|---|
+| Harness (weight 0) | | |
+| Standalone / chain | | |
