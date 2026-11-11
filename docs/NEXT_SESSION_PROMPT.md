@@ -1,3 +1,5 @@
+> **Outdated (7 Nov).** Start from docs/STATE_11NOV.md instead.
+
 # Prompt for the next session
 
 Continue our Track 2 (BCI decoding) entry for the Neural Interfaces 2026

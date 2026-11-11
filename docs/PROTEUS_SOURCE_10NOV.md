@@ -126,6 +126,46 @@ fit receipt referenced in their input manifests. Those generated
 inputs, Slurm logs, model weights, and outputs remain outside Git.
 P04/P09/P10 were excluded from all fits and tuning. No upload was made.
 
+### Six-draw readback before the final Slurm wave
+
+3083526 was waiting for 04:30 CET on 11 November, and 3083527
+was waiting on that array. To get an early comparison, the
+unchanged runner scored the 16 missing tasks locally under the
+project's cap, then ran the normal receipt-checked aggregation.
+The first four draws came from Galvani and the last two from the
+Mac. Keep this comparison provisional until the Galvani summary
+is available.
+
+| Arm | Overall | BrainHero | Graz |
+|---|---:|---:|---:|
+| Rank logistic on log covariance | +0.731 | +1.024 | +0.438 |
+| Rank correlation control in bounded covariance | +0.569 | +0.666 | +0.471 |
+| Full-window lag energy | +0.552 | +0.144 | +0.959 |
+
+Rank logistic had the best overall mean and positive overall
+gains in all six draws, but ranked first in only two. It beat
+the runner-up on four overall draws. Full-window lag energy
+beat it on Graz in all six. No prespecified candidate cleared
+the source screen in the provisional comparison.
+
+Array 3084468 compares four methods on six fresh draws 7600–8100.
+Two refinements test stronger covariance conditioning and a
+regularizer that favors features with consistent class contrasts
+across source people and interfaces. Their controls include an
+eigenvalue floor and shuffled feature weights. Two new decoders
+test the relative covariance eigenvalues of the 8–13 and 13–25 Hz
+bands and participant-balanced exemplar neighbors. Matched controls
+use marginal eigenvalues, pooled neighbors, and participant
+centroids. The existing rank logistic is in every comparison.
+All arms use the same source folds and fixed 10% replacement.
+
+All four 3084468 tasks finished. On the fresh draws the common
+rank-logistic control gained +0.484 overall, +0.612 BrainHero
+and +0.355 Graz. Stronger conditioning gained +0.495 overall,
+only +0.011 over that control. The agreement-weighted readout
+gained +0.277, relative band modes +0.196, and participant-balanced
+neighbors +0.216. None passed the source gate.
+
 ## Sealed board
 
 Verified on Codabench on 10 November. Submission 1040847 was sixth,

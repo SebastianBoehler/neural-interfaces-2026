@@ -1,0 +1,30 @@
+[run_capped] Wed Nov 11 12:20:02 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/seq/diag3.py (max 8 GB)
+
+mix (temp 1.76): Graz n 1344, acc 0.649 -> 0.690; model-expected acc 0.657 -> 0.696
+   flips 271 (20.2%): fixed 145, broken 89, wrong->wrong 37; flips to pattern class 1.00
+   on-pattern : n 755 acc 0.644 mean cal top 0.661 | cal prob of true class 0.540 | pred==pat 0.644
+   off-pattern: n 589 acc 0.655 mean cal top 0.653 | cal prob of true class 0.551 | pred==pat 0.178
+   low-odds windows with runner-up == pattern class: n 213; truth = top 0.343, truth = pattern/runner-up 0.535
+   all windows with top != pattern: n 753; truth = top 0.513; truth = pattern 0.357  | top == pattern: n 591, truth = top 0.822
+
+rebal (temp 2.33): Graz n 1344, acc 0.701 -> 0.717; model-expected acc 0.697 -> 0.733
+   flips 242 (18.0%): fixed 116, broken 95, wrong->wrong 31; flips to pattern class 1.00
+   on-pattern : n 755 acc 0.697 mean cal top 0.699 | cal prob of true class 0.587 | pred==pat 0.697
+   off-pattern: n 589 acc 0.706 mean cal top 0.696 | cal prob of true class 0.599 | pred==pat 0.146
+   low-odds windows with runner-up == pattern class: n 203; truth = top 0.409, truth = pattern/runner-up 0.498
+   all windows with top != pattern: n 732; truth = top 0.568; truth = pattern 0.313  | top == pattern: n 612, truth = top 0.859
+
+em (temp 2.1): Graz n 1344, acc 0.736 -> 0.746; model-expected acc 0.720 -> 0.755
+   flips 227 (16.9%): fixed 108, broken 95, wrong->wrong 24; flips to pattern class 1.00
+   on-pattern : n 755 acc 0.730 mean cal top 0.719 | cal prob of true class 0.613 | pred==pat 0.730
+   off-pattern: n 589 acc 0.744 mean cal top 0.723 | cal prob of true class 0.633 | pred==pat 0.129
+   low-odds windows with runner-up == pattern class: n 179; truth = top 0.425, truth = pattern/runner-up 0.497
+   all windows with top != pattern: n 717; truth = top 0.611; truth = pattern 0.285  | top == pattern: n 627, truth = top 0.879
+
+tsem (temp 1.92): Graz n 1344, acc 0.765 -> 0.772; model-expected acc 0.743 -> 0.774
+   flips 182 (13.5%): fixed 84, broken 74, wrong->wrong 24; flips to pattern class 1.00
+   on-pattern : n 755 acc 0.760 mean cal top 0.742 | cal prob of true class 0.641 | pred==pat 0.760
+   off-pattern: n 589 acc 0.771 mean cal top 0.744 | cal prob of true class 0.664 | pred==pat 0.110
+   low-odds windows with runner-up == pattern class: n 145; truth = top 0.421, truth = pattern/runner-up 0.476
+   all windows with top != pattern: n 705; truth = top 0.644; truth = pattern 0.257  | top == pattern: n 639, truth = top 0.898
+[run_capped] Wed Nov 11 12:20:12 CET 2026 exit 0

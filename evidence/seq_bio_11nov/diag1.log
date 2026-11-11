@@ -1,0 +1,27 @@
+[run_capped] Wed Nov 11 12:18:16 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/seq/diag1.py (max 8 GB)
+prior-only acc on Graz 0.562  BH 0.349
+1          Graz acc 0.525 | on-pattern 0.531 off 0.516 | pred==pattern rate 0.415 || BH acc 0.545 on 0.556 off 0.539 pred==pat 0.342
+2          Graz acc 0.548 | on-pattern 0.539 off 0.560 | pred==pattern rate 0.414 || BH acc 0.549 on 0.534 off 0.557 pred==pat 0.330
+3          Graz acc 0.555 | on-pattern 0.559 off 0.550 | pred==pattern rate 0.410 || BH acc 0.563 on 0.593 off 0.547 pred==pat 0.347
+4          Graz acc 0.527 | on-pattern 0.525 off 0.530 | pred==pattern rate 0.409 || BH acc 0.539 on 0.551 off 0.533 pred==pat 0.323
+5          Graz acc 0.589 | on-pattern 0.576 off 0.604 | pred==pattern rate 0.409 || BH acc 0.611 on 0.578 off 0.629 pred==pat 0.326
+6          Graz acc 0.606 | on-pattern 0.599 off 0.616 | pred==pattern rate 0.419 || BH acc 0.636 on 0.628 off 0.641 pred==pat 0.329
+7          Graz acc 0.579 | on-pattern 0.576 off 0.582 | pred==pattern rate 0.419 || BH acc 0.617 on 0.621 off 0.615 pred==pat 0.349
+8          Graz acc 0.568 | on-pattern 0.562 off 0.576 | pred==pattern rate 0.414 || BH acc 0.577 on 0.586 off 0.573 pred==pat 0.355
+9          Graz acc 0.599 | on-pattern 0.585 off 0.616 | pred==pattern rate 0.411 || BH acc 0.634 on 0.621 off 0.641 pred==pat 0.325
+10         Graz acc 0.486 | on-pattern 0.483 off 0.489 | pred==pattern rate 0.388 || BH acc 0.505 on 0.503 off 0.506 pred==pat 0.341
+c1         Graz acc 0.656 | on-pattern 0.628 off 0.691 | pred==pattern rate 0.417 || BH acc 0.667 on 0.654 off 0.673 pred==pat 0.340
+hb         Graz acc 0.634 | on-pattern 0.623 off 0.649 | pred==pattern rate 0.426 || BH acc 0.654 on 0.637 off 0.664 pred==pat 0.321
+mix        Graz acc 0.649 | on-pattern 0.644 off 0.655 | pred==pattern rate 0.440 || BH acc 0.686 on 0.676 off 0.691 pred==pat 0.339
+rebal      Graz acc 0.701 | on-pattern 0.697 off 0.706 | pred==pattern rate 0.455 || BH acc 0.718 on 0.733 off 0.710 pred==pat 0.351
+em         Graz acc 0.736 | on-pattern 0.730 off 0.744 | pred==pattern rate 0.467 || BH acc 0.744 on 0.759 off 0.737 pred==pat 0.351
+tsem       Graz acc 0.765 | on-pattern 0.760 off 0.771 | pred==pattern rate 0.475 || BH acc 0.767 on 0.777 off 0.761 pred==pat 0.349
+mix   Graz acc when y==prev 0.647 (n 365) | y!=prev 0.654 | P(pred==prev) 0.307 vs P(y==prev) 0.280
+mix   BH   acc when y==prev 0.669 (n 381) | y!=prev 0.698 | P(pred==prev) 0.307 vs P(y==prev) 0.300
+tsem  Graz acc when y==prev 0.762 (n 365) | y!=prev 0.772 | P(pred==prev) 0.303 vs P(y==prev) 0.280
+tsem  BH   acc when y==prev 0.751 (n 381) | y!=prev 0.780 | P(pred==prev) 0.300 vs P(y==prev) 0.300
+c1    Graz acc when y==prev 0.658 (n 365) | y!=prev 0.655 | P(pred==prev) 0.316 vs P(y==prev) 0.280
+c1    BH   acc when y==prev 0.667 (n 381) | y!=prev 0.669 | P(pred==prev) 0.318 vs P(y==prev) 0.300
+m6    Graz acc when y==prev 0.627 (n 365) | y!=prev 0.602 | P(pred==prev) 0.319 vs P(y==prev) 0.280
+m6    BH   acc when y==prev 0.643 (n 381) | y!=prev 0.643 | P(pred==prev) 0.315 vs P(y==prev) 0.300
+[run_capped] Wed Nov 11 12:18:26 CET 2026 exit 0

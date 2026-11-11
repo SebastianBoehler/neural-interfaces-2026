@@ -355,6 +355,46 @@ Base: REC + core (J 76.09 absolute; new 76.82, seen 75.36). One calibration poin
   - **Robust lean rebuild:** about 29 min instead of 41.9, as a weights-only change (not built or replayed).
   - **Reading:** our strength is the ensemble plus session adaptation; no single component is near the leader's
     single-model strength.
+- **Overnight research programme (11 Nov, 29 pre-registered runs, `runs/archive_scratch_11nov/night/`): nothing passes.**
+  - **Best fresh result:** +0.07, against a noise calibration of −0.22 to +0.10.
+  - **Predictions were well calibrated:** 43 of 54 fell inside their 80 % ranges.
+  - **Diagnostics:**
+    - errors are spread over all pairs (MI↔WORD 37 %, SUB↔WORD 36 %, MI↔SUB 27 %);
+    - WORD is the weak class (recall 73.7 %, seed precision 78 %);
+    - true-label TSEM seeds are now worth only +0.93;
+    - P04 accounts for 263 of 622 new-person errors;
+    - on WORD errors the deep families are right about 41 % of the time and core1 18 %.
+  - **Refuted:**
+    - run-level without-replacement priors (−0.76);
+    - SUB/WORD-specific TSEM covariance;
+    - Dawid–Skene member reliability;
+    - common-mode / mastoid EMG views (≤ +0.11 even with true labels);
+    - mirrored-MI training (−0.25);
+    - seed-rule, shrinkage, pair-exponent and family-column refinements;
+    - longer rebalancing windows (−0.44; the 30-window scale is load-bearing).
+  - **Reading:** the label-free session stage is at a local optimum. Further gains need new base information, i.e.
+    better members for WORD and for P04-like people.
+- **ST-EEGFormer member (11 Nov, Galvani 3085914, `runs/archive_scratch_11nov/steeg/`): FAIL.**
+  - **Model:** ST-EEGFormer-small (25.3 M parameters, MIT weights), authors' fine-tuning recipe, 50 epochs, two seeds.
+  - **Standalone:** new 53.85 and J 53.79, against a prediction of 60 (55–66). That is 15 points below core1, as with
+    CBraMod, LaBraM and REVE.
+  - **In the chain:** +0.16 nested (prediction +0.0, range −0.3 to +0.4). At w 0.5 it gives new +0.21 and seen −0.06;
+    w 1 costs seen −0.54.
+  - **Gate:** fails on both the standalone and the nested bar, so the fresh bases were left unscored.
+  - **Reading:** this closes the foundation-model member line. About 2.4 k windows from 9 people cannot adapt a large
+    pretrained encoder beyond our tangent and filter-bank cores.
+- **Late second-opinion head after the full route3geb chain (11 Nov, `scratchpad/secop/`): FAIL.**
+  - **Heads tested** (Codex's lead): channel power, Hann + lag energy, Fisher-z 8–13 Hz rank correlation, rank
+    logistic on log covariance.
+  - **Blend weights:** 5 / 10 / 15 % into the final posterior.
+  - **Result:** every config is negative on exploration and on fresh bases. The pre-registered pick (channel power, 5 %)
+    gives −0.21 fresh (null p 0.98).
+  - **Shuffle control:** shuffled head posteriors lose as much as the real ones, so the heads add no window-specific
+    information to our chain.
+  - **Why:** they help only weaker bases (core1 or small ensembles: +0.15 to +0.26). Codex's +0.60 is a three-person
+    slice effect on a weaker base.
+  - **Scratch archive:** macOS /private/tmp cleanup has started deleting scratch files. The full scratchpad (3.3 GB) is
+    archived in `runs/archive_scratch_11nov/` (gitignored).
 - **Single deep model replacing the 30-net ensemble (7–8 Nov, `scratchpad/single_deep/`): FAIL.**
   - **Best case:** the wide FBCNet (18 bands, 64 filters; 67.6 new standalone) is −2.8 to −3.1 J through the chain,
     even at a post-hoc weighting.

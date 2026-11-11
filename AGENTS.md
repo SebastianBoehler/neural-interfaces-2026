@@ -2,7 +2,7 @@
 
 This project targets Track 2 BCI decoding in Neural Interfaces 2026.
 
-- Read README.md, OFFICIAL_CONTRACT.md and BASELINE_RESULT.md first.
+- Read README.md, OFFICIAL_CONTRACT.md and BASELINE_RESULT.md first, then docs/STATE_11NOV.md (current state).
 - Keep the official 2026-competition submodule pinned and unchanged.
 - Keep our implementations and scripts outside the official submodule.
 - Preserve the official participant split, preprocessing and metric for comparisons.

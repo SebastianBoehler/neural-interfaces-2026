@@ -1,3 +1,5 @@
+> **Superseded on 11 Nov by docs/STATE_11NOV.md.** Kept for the pipeline description and the 7 Nov history.
+
 # State on 7 Nov 2026 (evening): the starting point
 
 This file supersedes docs/HANDOFF.md (30 Oct) as the entry point. Details are in docs/SEALED_UPLOADS.md (upload log),

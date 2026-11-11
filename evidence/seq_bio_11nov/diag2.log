@@ -1,0 +1,17 @@
+[run_capped] Wed Nov 11 12:19:05 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/seq/diag2.py (max 8 GB)
+
+mix: mean top prob 0.541 (acc 0.667); median top1/top2 odds 1.68; quartiles top [0.41 0.45 0.52 0.61 0.7 ]
+   fixed g 0.05: Graz cell BA +0.59;   fixed g 0.1: Graz cell BA +1.46;   fixed g 0.15: Graz cell BA +1.74;   fixed g 0.2: Graz cell BA +2.15;   fixed g 0.3: Graz cell BA +3.40;   fixed g 0.4: Graz cell BA +3.78;   fixed g 0.5: Graz cell BA +3.72;
+   LOPO fit: temperature a 1.76 (sd 0.11), prior weight g 1.01 (sd 0.04); ratio g/a 0.575
+   LOPO Graz cell BA 69.44 -> 72.47 (+3.02); window acc 0.649 -> 0.681
+
+rebal: mean top prob 0.531 (acc 0.709); median top1/top2 odds 1.65; quartiles top [0.4  0.44 0.51 0.61 0.69]
+   fixed g 0.05: Graz cell BA +0.94;   fixed g 0.1: Graz cell BA +1.87;   fixed g 0.15: Graz cell BA +1.84;   fixed g 0.2: Graz cell BA +2.29;   fixed g 0.3: Graz cell BA +1.74;   fixed g 0.4: Graz cell BA +1.25;   fixed g 0.5: Graz cell BA +1.22;
+   LOPO fit: temperature a 2.33 (sd 0.13), prior weight g 1.01 (sd 0.04); ratio g/a 0.434
+   LOPO Graz cell BA 73.47 -> 74.55 (+1.08); window acc 0.701 -> 0.714
+
+tsem: mean top prob 0.608 (acc 0.766); median top1/top2 odds 2.10; quartiles top [0.42 0.48 0.58 0.72 0.84]
+   fixed g 0.05: Graz cell BA +0.76;   fixed g 0.1: Graz cell BA +0.80;   fixed g 0.15: Graz cell BA +0.52;   fixed g 0.2: Graz cell BA +0.35;   fixed g 0.3: Graz cell BA +0.52;   fixed g 0.4: Graz cell BA +0.07;   fixed g 0.5: Graz cell BA +0.38;
+   LOPO fit: temperature a 1.92 (sd 0.14), prior weight g 1.04 (sd 0.04); ratio g/a 0.545
+   LOPO Graz cell BA 80.35 -> 80.10 (-0.24); window acc 0.765 -> 0.767
+[run_capped] Wed Nov 11 12:19:15 CET 2026 exit 0

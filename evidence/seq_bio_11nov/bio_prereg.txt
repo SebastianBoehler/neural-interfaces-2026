@@ -1,0 +1,8 @@
+BIO0: label-free spectral biometric for returning-person identification. Written 11 Nov ~12:05 UTC before any result.
+Feature: per-window Welch log-PSD (CAR, 2-40 Hz, 1 Hz bins), per-channel mean over frequency removed (gain-free
+spectral shape), 41 x 39 dims; session signature = mean over the first n windows; z-scored across gallery people.
+Probes: each of the 14 sessions; gallery = every other session averaged per person (own person kept only for P04/P10).
+Prediction (80 %): at n = 10 windows, rank-1 correct for 5 of 6 P04/P10 probes (4-6); genuine score exceeds the
+largest impostor score over all 14 probes for 4 of 6 (2-6). At n = 60: 6/6 rank-1, 5/6 above the largest impostor.
+Refuted (lever not better than the class-fingerprint gate) if fewer than 4/6 genuine exceed the 90th percentile
+of new-person impostor maxima at n = 20.

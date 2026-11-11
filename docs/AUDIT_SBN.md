@@ -977,3 +977,130 @@ carries `786bcab0…`; the lean file only replaces the repository copy (referenc
     route3geb export exactly.
   - Compat of route3geb on Galvani (job 3069795, cn002, 2,976 s, shipped ZIP extracted): every output
     byte-identical, 0 windows differ, as on the Mac. Records: `runs/diag/clean7nov/` on Galvani.
+
+# Audit recipe: cand_rec_ts2_tsem_route3geb_fast (route3geb, faster code, same outputs)
+
+Runtime insurance for the uploaded route3geb (submission 1040847: 2,687 s first run, 3,732 s in the organisers' rerun,
+above the nominal 3,600 s limit). `runs/sealed/cand_rec_ts2_tsem_route3geb_fast` = the shipped ZIP's 32 data files,
+unchanged and with their timestamps (`weights.npz` `813d8c54…`, `teacher.pt` `98f7df45…`, the 30 `sbn_*.pt`), plus a
+new `submission.py` `ccbce506…` (904 lines). No file is dropped: the 20 zero-weight nets (10–19, 24–33) are inline
+arrays in `weights.npz`; every file-backed member has weight.
+
+**Code.** It comes from Codex's runtime review (8 Nov, `runs/rank1_8nov/runtime_review/`). That work is derived from the
+lean `dacee85a…` (`reference.py` is byte-identical to it), not from the shipped `786bcab0…`:
+- `candidate.py` `9e4776cb…` (job 3072286): zero-weight nets are neither loaded nor run. The device posteriors are
+  stacked and copied to the host once per call, then summed in the lean order on the CPU. One device input per dtype
+  and alignment group.
+- `shared_fir.py` `baab69b8…` (job 3072365): the 24 FBCNet / FBLightConvNet SessionBN traces (`sbn_k2`, `sbn_k5`,
+  `sbn_fbcnet_raw_k20`, `sbn_fblight_ea_rot05_k5`) of one input group share one float32 FIR filter-bank output
+  (`SharedFIRSJit`). The guard checks file name, module names, filter shapes and the coefficient SHA-256 `607a44ee…`.
+  Each member keeps its own causal SessionBN state.
+- `next/speed_overlap.py` `134e48dc…` + `next/speed_worker.py` `64e06349…` (job 3073250): the tangent members (CPU)
+  run on one worker thread while the nets run on the main thread, for the same window. `mixed_proba` waits for both
+  before returning.
+
+`ccbce506…` is `shared_fir.py` with `OverlapEnsemble`'s methods folded into `Ensemble` (`_tangent_batch`,
+`_neural_batch`, `mixed_proba`) and `speed_worker.submit` inlined as `_submit` (one lazy thread per process). One
+behaviour differs from Codex's file: a fingerprint mismatch falls back to the generic `SJit` (same outputs, slower)
+instead of raising. Every stage after the mix (`Rebalance`, `SessionEM`, `TSEM`, `Route3`) is the lean code unchanged,
+so data-only changes of stage keys in `weights.npz` take the lean path (variant check below). One remaining output
+difference: a zero-weight net that returned a non-finite value would no longer poison the mix. It cannot occur on the
+public windows or the stress set below.
+
+## One command (cand_rec_ts2_tsem_route3geb_fast)
+
+The tools are in `runs/archive_scratch_11nov/fastpkg/tools/` (Galvani `runs/diag/fast11nov/`): `fastcheck.py` (per-stage
+trace, bitwise compare, streaming checks), `warmcheck.py`, `variant.py`, `parity.sbatch`, `variant.sbatch` and
+`warm.sbatch`. The build fits nothing:
+
+```bash
+P=runs/sealed/cand_rec_ts2_tsem_route3geb_fast; B=runs/sealed/cand_rec_ts2_tsem_route3geb; T=runs/diag/fast11nov
+mkdir $P && for f in $B/*; do [ "$(basename $f)" = submission.py ] || cp -p $f $P/; done
+cp -p runs/archive_scratch_11nov/fastpkg/code/submission.py $P/
+X=galvani-cn109,galvani-cn111,galvani-cn121,galvani-cn122
+sbatch --exclude=$X $T/parity.sbatch $B $P $T/parity
+sbatch --exclude=$X scripts/cloud/replay.sbatch $P
+sbatch --exclude=$X --time=02:00:00 scripts/cloud/worker_replay.sbatch $P
+sbatch --exclude=$X runs/diag/paired_timing_ab.sbatch $B $P
+sbatch --exclude=$X $T/variant.sbatch $B $P/submission.py runs/rank1_8nov/runtime_review/reference.py $T/variant \
+    rb_w=20 rb_alpha=1.0 em_n0=40 tsem_n0=40 em_boost=1.5 tsem_boost=3.0 eb_gate_lo=0.15 eb_gate_hi=0.40 \
+    route_tau=0.18 route_t_start=40
+sbatch --exclude=$X $T/warm.sbatch $B $P $T/warm.json
+```
+
+`parity.sbatch` traces all 2,655 public windows for the shipped package (`786bcab0…`) and the fast one. Each session
+runs on the official `fresh_model` copy, one window at a time, as device tensors. It does this in the worker-image
+replica and again in the repository venv, then runs `fastcheck.py checks`. The upload ZIP is the replica's
+`submission.zip`, copied to `runs/upload/sealed_cand_rec_ts2_tsem_route3geb_fast.zip`. The ZIP bytes depend on the file
+timestamps (`submission.py` 11 Nov 01:50 in the ZIP); a rebuild with other timestamps gives the same 33 file hashes.
+Provenance: built from uncommitted files on top of `f5dfa20`. For the audit, the fast `submission.py` (or Codex's four
+files) and the tools must be committed.
+
+## Reference values (cand_rec_ts2_tsem_route3geb_fast)
+
+- **Full parity against the shipped ZIP** (job 3085817, galvani-cn206, A100; load average 22): every recorded array is
+  bitwise equal on all 2,655 public windows in both environments (worker image torch 2.14.1+cu130 / numpy 2.5.2, venv
+  +cu126 / 2.5.4):
+  - member mix;
+  - shadow rebalancing, SessionEM and TSEM outputs;
+  - routed-tail rebalancing, SessionEM and TSEM outputs;
+  - final posteriors;
+  - routing decisions (1,815 routed windows);
+  - core1, the TSEM and routing views;
+  - SHA-1 of both tangent members' scaled features;
+  - SessionEM gates of both tails;
+  - labels.
+
+  The fast code loads 45 nets (24 on the shared FIR bank) against 65. Worker vs venv differ only at platform level
+  (≤ 4.7e-13 on the views, labels equal), for the fast code as for the shipped one.
+- **Data-only stage variant** (job 3085820, cn208). The keys `rb_w` 20, `rb_alpha` 1.0, `em_n0`/`tsem_n0` 40,
+  `em_boost` 1.5, `tsem_boost` 3.0, `eb_gate_lo`/`hi` 0.15/0.40, `route_tau` 0.18 and `route_t_start` 40 were run with
+  the lean `dacee85a…` against the fast code. All arrays are bitwise equal on all 2,655 windows (2,095 routed windows).
+- **Streaming checks, Mac CPU** (`run_capped`): everything passes.
+  - Future perturbation and truncation at T 40 / 128 on P01|1, P10|1 and P09|1 are bitwise equal before T.
+  - Reset after a session equals a fresh copy.
+  - A mid-session deep copy equals the full run, and the original is unaffected.
+  - The 30 session modules are distinct, and the base model is unchanged after use.
+  - A stress session (NaN, ±Inf, all-zero, zeroed channel, DC 50 µV, ×1000, ×1e-6, 1e30, all-NaN, dropout, plus 1-
+    and 2-window sessions) is bitwise equal to the shipped code, with finite outputs and valid labels.
+- **Streaming checks, A100** (job 3085817). Reset, deepcopy, base-unchanged, and P10|1 / P09|1 causality are bitwise.
+  Two items are not bitwise:
+  - **P01|1 causality:** P01|1 was the first stream of that model in the process, and its outputs differed from the
+    later runs of the same windows.
+  - **Stress session, shipped vs fast:** max |d| 1.5e-8 on the mix and every later stage (2.8e-8 on the gates). Labels,
+    routing decisions, views and features are identical, and outputs are finite.
+
+  In the stress run, the shipped model ran its first-ever stream, while the fast model was long warmed up. Both items
+  therefore compare a cold first stream with warm ones. `warmcheck.py` (job 3086003, cn208, worker image) confirms that
+  this is a property of both codes, not a difference between them:
+  - **Cold vs warm on P01|1, per code:** the first stream in a process differs from the next from window 0, by up to
+    6.1e-8 on the mix and the final posteriors. The two codes give identical difference sizes, and labels are unchanged.
+  - **Warm runs:** repeated warm runs are bitwise equal, and warm shipped equals warm fast bitwise.
+  - **Warm causality:** T 40 / 128, perturbation and truncation are bitwise for both codes.
+  - **Warm stress session:** shipped vs fast is bitwise on every array.
+
+  The likely cause is that the first GPU calls of the TorchScript members run before fusion (the profiling executor).
+  The evaluator also starts cold, and the cold-vs-cold traces above are bitwise equal over all 14 sessions.
+- **Replays, files unchanged:**
+  - official A100 3085818 (cn208, load 26): 122.8 s;
+  - worker-image replica 3085819 (cn207): 111.5 s.
+
+  Scores are identical to route3geb's (cell mean 0.9814320116487456, balanced accuracy 0.9814961633811837, accuracy
+  0.9814569536423841). Unpaired, against route3geb's 196.3 s / 183.2 s (cn219, 7 Nov). Upload ZIP
+  `runs/upload/sealed_cand_rec_ts2_tsem_route3geb_fast.zip`
+  `cfd1a4b452b6a840a71626447abe405bbcceaaf41f64a0eb04c0f7c2d43f417d` (57,280,590 B) is the replica's `submission.zip`,
+  byte-identical to the A100 replay's. Its 32 data files equal the route3geb ZIP's.
+- **Runtime.**
+  - Same-node solver time in the parity job (2,655 windows, instrumented alike): 216.2 s vs 521.0 s (81.4 vs 196.2 ms
+    per window) in the replica, 215.3 vs 526.3 s in the venv. Ratio 0.41.
+  - Paired ABBA in the replica (job 3086004, cn209): shipped 192.1 s and 189.0 s, fast 108.3 s and 93.6 s. The
+    ratio is 0.53 with fixed overhead included, and every run scores 0.981432.
+  - Sealed estimate, with ≤ 60 s fixed overhead and per-window scaling at 0.41: 2,687 s gives about 19 min, and the
+    rerun's 3,732 s about 26 min.
+  - Using the unpaired total-replay ratio (0.61, overhead included) instead gives about 27 / 38 min.
+  - The overlap needs a second free CPU core. Without one, the shared-FIR ratio alone (Codex 0.63) gives about
+    28 / 39 min.
+- **Peak memory:**
+  - host RSS 2.56 GB vs 2.60 GB (shipped);
+  - CUDA allocated 55 MB vs 61 MB (reserved 78 vs 90 MB);
+  - Slurm MaxRSS 3.4 GB for the A100 replay and 5.3 GB for the replica job.

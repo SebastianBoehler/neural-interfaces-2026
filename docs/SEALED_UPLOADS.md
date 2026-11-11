@@ -92,6 +92,7 @@ used, 0 today; board top seohee / timothewt 0.825, 3rd 0.816, us 21st.
 | cand_rec_ts2_tsem_route3 (alternate, supersedes v1 / v2; routing v3: gate on the unrouted tail, personal head in the core1 slot of a routed tail; code `3ef76b58…`) | `sealed_cand_rec_ts2_tsem_route3.zip` `9903c1ef…` (57.3 MB) | vs cand_rec_ts2_tsem, pre-registered, 4 fresh bases: dJ +0.99 to +1.12 (new 0.00, seen +1.98 to +2.23, P10 ≥ 0, 0 impostor routings; Stieger FAR 0.42 %) | 225.0 s / 188.3 s, identical (0.980088 in-sample), files unchanged | ≈ 42 min (paired ratio 1.01; ≤ 44) | docs/AUDIT_SBN.md |
 | cand_rec_ts2_tsem_route3eb (alternate, PROVISIONAL, superseded by route3geb; route3 + early boost; code `db3aa8b6…`) | `sealed_cand_rec_ts2_tsem_route3eb.zip` `2f34907d…` (57.3 MB) | vs cand_rec_ts2_tsem (dev sim, 4 fresh bases): EB + routing +1.31 to +1.86 (EB + routing vs routing +0.28 to +0.74; new +0.53 to +1.09, P10 −0.5 to −1.2) | 222.9 s / 189.8 s, identical (0.973578 in-sample), files unchanged | ≈ 43 min (paired ratio 1.03; ≤ 45) | docs/AUDIT_SBN.md |
 | cand_rec_ts2_tsem_route3geb (alternate, staging only; route3 + gated early boost; code `786bcab0…`) | `sealed_cand_rec_ts2_tsem_route3geb.zip` `74433d9b…` (57.3 MB) | vs cand_rec_ts2_tsem (dev sim, mean of 4 fresh bases): GEB + routing +1.80 (EB + routing +1.53, routing only +1.05) | 196.3 s / 183.2 s, identical (0.981432 in-sample), files unchanged | ≈ 42 min (paired ratio 1.00; ≤ 43) | docs/AUDIT_SBN.md |
+| cand_rec_ts2_tsem_route3geb_fast (runtime insurance: route3geb's 32 data files + faster code `ccbce506…`; zero-weight nets skipped, shared FIR bank, tangent/net overlap) | `sealed_cand_rec_ts2_tsem_route3geb_fast.zip` `cfd1a4b4…` (57.3 MB) | same outputs as route3geb: every stage bitwise on all 2,655 public windows on A100 (worker image and venv) | 122.8 s / 111.5 s, identical (0.981432 in-sample), files unchanged | ≈ 19 min against 2,687 s, ≈ 26 min against the rerun's 3,732 s (solver ratio 0.41; ≤ 39 min without overlap gain) | docs/AUDIT_SBN.md |
 | cand_rec_ts (REC + core1), fallback | `sealed_cand_rec_ts.zip` `1a4b48af…` | +0.65 | 196.1 s / 160.5 s | 37–39 min | docs/AUDIT_SBN.md |
 
 - 6 Nov 12:45 UTC: **no upload today (user decision)**: keep iterating on ground-up solutions instead. Staged:
@@ -156,3 +157,51 @@ Independent review of cand_rec_ts2 (6 Nov, `scratchpad/review_ts2/`): safe to up
 cand_rec_ts only in submission.py and weights.npz as described; the new member is causal (future-perturbation and
 reset tests bit-identical); weights equal dev arm4 to 3e-16; robust to zero/NaN/degenerate windows. Runtime estimates
 were corrected: per-window scaling rather than total replay time (which includes a fixed overhead).
+
+## 10–11 Nov: organiser rescoring of all Track 02 sealed submissions
+
+Official commit 8734b2f6 (10 Nov 20:34 UTC): "Following a technical fix on the Track 02 sealed evaluation backend,
+previously Finished Track 02 sealed submissions are being rerun automatically" (same IDs, no quota used). Scores are
+provisional while rescoring continues. Allowance raised from 5 to **7** per team (1/day unchanged), so we have
+**4 left**. The FAQ no longer states that windows are strictly chronological within a session ("the same evaluation
+order is used for all submissions"); the public `streaming.py` still checks time order.
+
+Public board 11 Nov 00:10 UTC (provisional):
+
+| Rank | Team | Score | Duration (s) |
+|---|---|---|---|
+| 1 | sungjunwang | 0.830 | 1,222 |
+| 2 | bryanyahir03 | 0.824 (was 0.838) | 968 |
+| 3 | seohee | 0.821 (was 0.825) | 739 |
+| 4 | liuyin | 0.819 | 2,220 |
+| 5 | timothewt | 0.818 (was 0.825) | 2,909 |
+| 6 | euntack_im | 0.814 | 682 |
+| **7** | **us** | **0.813 (was 0.824)** | **3,732 (was 2,687)** |
+
+Our displayed duration now exceeds the 3,600 s execution limit's nominal value, so runtime is a real risk for any
+heavier package. Per-submission rescored values need the owner view (log in to Codabench).
+
+Owner view after the rescoring (11 Nov, user logged in; allowance 7 confirmed by the user, 4 left):
+
+| Submission | Package | Original | Rescored | Δ | Duration original → rescored |
+|---|---|---|---|---|---|
+| 1034698 | cand_nxif | 0.7794596196 | **0.7722919674** | −0.72 | 834.7 → 811.6 s |
+| 1038262 | cand_rec_ts2_tsem | 0.8197 | **0.8080263921** | −1.17 | 2,496.9 → 2,496.9 s |
+| 1040847 | cand_rec_ts2_tsem_route3geb | 0.8240266154 | **0.8134828319** | −1.05 | 2,687.2 → 3,732.2 s |
+
+The ranking of our packages is unchanged. The step increments still transfer:
+- TSEM step: +3.57 sealed for +3.8 dev (0.94×).
+- Routing + GEB: +0.55 sealed for the honest +0.75 dev (0.73×; it was +0.43 before the fix).
+
+This points to a uniform drop from the backend fix, not a penalty on our order-dependent stages. route3geb's rescored
+duration rose by 1,045 s while the TSEM package's did not. The run is above the nominal 3,600 s limit yet finished,
+so worker speed varies and runtime headroom matters.
+
+11 Nov: **cand_rec_ts2_tsem_route3geb_fast** staged as runtime insurance. It is route3geb's data files unchanged plus
+Codex's runtime code (from the lean `dacee85a…`), packaged as one `submission.py` `ccbce506…`. Upload ZIP
+`runs/upload/sealed_cand_rec_ts2_tsem_route3geb_fast.zip` `cfd1a4b452b6a840a71626447abe405bbcceaaf41f64a0eb04c0f7c2d43f417d`
+(57,280,590 B).
+- **Parity:** every stage is bitwise equal to the shipped ZIP on all 2,655 public windows (A100, worker image and venv).
+- **CUDA nuance:** one cold-vs-warm first stream differs by up to 1.5e-8 (labels identical; docs/AUDIT_SBN.md).
+- **Runtime:** A100 solver time is 0.41× route3geb's, so about 19–26 min sealed.
+- Not uploaded; the user authorises each upload.

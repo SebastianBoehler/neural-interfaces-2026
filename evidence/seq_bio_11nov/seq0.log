@@ -1,0 +1,16 @@
+[run_capped] Wed Nov 11 12:17:10 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/seq/seq0.py B2_pool (max 8 GB)
+prior table (last person held out):
+ [[0.223 0.217 0.561]
+ [0.203 0.572 0.225]
+ [0.575 0.211 0.214]]
+
+B2_pool base J 80.013 new 80.18 seen 79.85 | new Graz 80.35 BH 80.00 | seen Graz 78.65 BH 81.06
+  final g0.5: dJ -0.46 new -0.02 (4/10) seen -0.91 | new Graz -0.03 BH +0.00 | seen Graz -1.82 BH +0.00 | per-person new [-1.0, -0.5, 0.5, 1.6, -2.6, -0.5, 1.6, 2.6, -1.6, -0.2] 0s
+  final g1.0: dJ -2.01 new -1.81 (2/10) seen -2.21 | new Graz -3.61 BH +0.00 | seen Graz -4.43 BH +0.00 | per-person new [-1.0, -1.0, 0.0, 2.6, -4.7, -4.2, -1.6, -0.5, -4.7, -3.0] 0s
+  final g1.5: dJ -4.86 new -3.99 (1/10) seen -5.73 | new Graz -7.99 BH +0.00 | seen Graz -11.46 BH +0.00 | per-person new [-2.6, -2.6, -1.0, 1.9, -7.8, -6.2, -5.2, -2.6, -6.2, -7.5] 0s
+  final g2.0: dJ -7.17 new -6.41 (1/10) seen -7.94 | new Graz -12.81 BH +0.00 | seen Graz -15.89 BH +0.00 | per-person new [-4.2, -3.6, -3.6, 2.3, -12.0, -10.4, -7.3, -4.2, -10.4, -10.6] 0s
+  mix   g0.5: dJ -0.69 new -0.21 (4/10) seen -1.18 | new Graz -0.21 BH -0.21 | seen Graz -2.08 BH -0.28 | per-person new [-1.6, -0.5, 2.6, 1.9, -1.5, -1.6, 1.0, 1.6, -3.2, -0.8] 4s
+  mix   g1.0: dJ -2.94 new -2.45 (2/10) seen -3.42 | new Graz -4.72 BH -0.19 | seen Graz -5.73 BH -1.11 | per-person new [-4.2, -1.6, 2.1, 2.3, -5.7, -3.6, -1.6, -1.6, -7.3, -3.4] 4s
+  mix   g1.5: dJ -5.97 new -5.00 (2/10) seen -6.95 | new Graz -9.06 BH -0.93 | seen Graz -12.50 BH -1.40 | per-person new [-5.7, -2.1, 0.6, 2.1, -10.5, -7.8, -5.2, -3.2, -11.5, -6.7] 4s
+  mix   g2.0: dJ -8.43 new -7.19 (2/10) seen -9.68 | new Graz -13.26 BH -1.11 | seen Graz -17.97 BH -1.39 | per-person new [-8.4, -3.6, 0.0, 2.9, -12.0, -12.0, -8.9, -4.2, -14.6, -11.2] 4s
+[run_capped] Wed Nov 11 12:17:40 CET 2026 exit 0

@@ -1,0 +1,10 @@
+SEQ: Graz cue-order prior. Written 11 Nov 2026 ~11:40 UTC, before any chain score.
+Finding (labels only, 42 public Graz runs, all 14 sessions): y_i == "WSM"[i mod 3] in 55-58 % of positions
+(chance 33 %); BrainHero runs 34-39 %. Consistent with the OpenViBE Lua stimulator: ordered W,S,M,... list plus
+a limited number of random swaps (counts stay 10/12 per class).
+Stage 0 (oracle structure: true interface and run position; prior table fitted without the test person):
+  P' ~ P * (pi[pos mod 3] * 3)^gamma on Graz windows, injected (a) into the mix before rebalancing, (b) on the final output.
+Prediction (80 % range), gamma 1, injection (a), mean of B2_pool and B2_s345:
+  Graz-cell BA +5 (3 to 8); BrainHero cells 0 (-0.5 to +0.8); dJ +2.5 (1.5 to 4.0).
+  Injection (b): dJ +1.5 (0.8 to 2.5), smaller because TSEM/EM do not see the better seeds.
+Refuted if dJ(a) < +1.0.
