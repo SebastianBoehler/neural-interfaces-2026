@@ -729,5 +729,19 @@ are set to the PROTEUS mean (the source files are high-passed near 4 Hz). Weight
 
 | Item | Observed | Verdict |
 |---|---|---|
-| Harness (weight 0) | | |
-| Standalone / chain | | |
+| Harness (weight 0) | reproduces the stored core1 to 7e-9 | Valid |
+| Scherer weight 0.1 | standalone new −4.00 (2/10), seen −2.68; chain −0.89 | **Refuted** |
+| Scherer weight 0.25 | standalone new −3.31 (2/10), seen −1.54; chain −1.10 | **Refuted** (predicted +0.6, range −0.6 to +1.8: miss, far below) |
+
+**Reading.** Scherer rows hurt core1 badly, the opposite of what they do to the nets. The tangent features of
+recordings with 22 interpolated channels and no content below 4 Hz are not comparable to PROTEUS's, and a linear head
+on 44k features cannot ignore that the way a small net with session normalisation can. Scherer in the cores is closed.
+
+## 22. Slot weight of the personal head under routing v4 (exploratory, 11 Nov ~15:20 UTC; not pre-registered)
+
+Absolute J on the six bases (B2_pool, B2_s345, B2_s012, B2_s0, B2_s1, B2_s2):
+- weight 3 (shipped): 80.53 / 80.57 / 80.73 / 79.71 / 80.17 / 80.93;
+- weight 2: 80.08 / 80.04 / 80.14 / 79.32 / 79.65 / 80.20 (about −0.5 on every base);
+- weight 4.5: 80.7438 80.5044 80.4782 80.0991 80.6449 80.9329 
+
+The shipped weight stays unless 4.5 is clearly better on all six; any change here is tuned on P04 and P10 alone.
