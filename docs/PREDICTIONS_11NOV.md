@@ -1110,3 +1110,10 @@ question is the spread across people. Standalone nets only (the chain replay has
 | Spearman between a person's gain and the frozen net's weakness for them | +0.4 (0 to +0.8) |
 
 Reading rule: if at most 3 people gain ≥ half of P04's, PFT is not worth a package build (sealed value below +0.2).
+
+**Addendum to §31 (11 Nov ~21:10 UTC): the runtime-feasible form of TTT** (`evidence/wsp_bio1_11nov/oneseed.log`). One
+fine-tuned net per family next to two frozen seeds in the same slot, four families, against three frozen seeds:
+new +0.65 / +0.54 / +0.37 (60 steps, three choices of the fine-tuned seed) and +0.54 / +0.66 / +0.64 (20 steps, lr
+1e-3); seen +0.28 / −0.38 / +0.14 and +0.59 / +0.26 / +0.33. A single fine-tuned net alone in the slot keeps less
+(new +0.3 to +0.6, seen −0.5 to −1.1). Per session (one base, three fine-tuned seeds): 11 of 14 new-person sessions
+gain; P01, P05 and P08 lose 1.0–1.6. A gate on the session's early confidence does not separate winners from losers.

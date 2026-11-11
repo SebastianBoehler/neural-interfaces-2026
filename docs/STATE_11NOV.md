@@ -1,4 +1,4 @@
-# State on 11 Nov 2026 (updated 17:40 UTC): the starting point
+# State on 11 Nov 2026 (updated 21:15 UTC): the starting point
 
 This is the entry point. It is written so that a new thread needs nothing from the chat history. Older documents are
 in docs/archive/ (see its README for the assumptions in them that are now known to be wrong).
@@ -277,8 +277,51 @@ unconfirmed. If true, returning-person sessions are a larger share than our 2-pe
    worker (1,129 s), so about 40 minutes of runtime budget are free.
 4. **Segmentation hypothesis for the rescoring** and **GPU-eigh speed:** unchanged, low priority.
 
-**Honest standing (11 Nov ~19:00 UTC):** 9th at 0.816; third place is 0.826 (+1.0), the leader 0.846. The field moved
-during the day. Nothing in hand has an estimate near +1.0.
+**Honest standing (11 Nov ~21:15 UTC):** 9th at 0.816; third place is 0.826 (+1.0), the leader 0.846. The field moved
+during the day. Nothing in hand has an estimate near +1.0; the two levers below add up to about +0.3 to +0.6.
+
+## 8b. What the evening of 11 Nov added (ledger §24–§32)
+
+**Two levers that work, both small:**
+1. **Fine-tuning the nets inside the session on the chain's own labels (TTT), for new people.** Four SessionBN families
+   fine-tuned every 10 windows: new people +0.6 to +0.7 (11 of 14 sessions gain; half G1 is about 0, half G2 +1.6),
+   seen sessions −0.5. The version that fits the runtime (one fine-tuned net per family next to two frozen seeds):
+   new +0.4 to +0.65, seen about 0 to +0.3, in six of six draws. Estimated sealed value +0.2 to +0.3. Runtime: about
+   5 s per net and session on a 2080 Ti with the full schedule.
+2. **Nets fine-tuned on a returning person's own public session (PFT).** Standalone +2 to +9 points per family; chain
+   +1.4 to +2.0 on seen sessions with all five families, all from P04 (P10 about 0). The head-and-BN-affine variant is
+   the only one where both people are ≥ 0. Sealed value about +0.1 to +0.3, because P04 has few sealed sessions.
+   The ten-person proxy (Galvani 3088938) says how the other eight people respond.
+
+**What the sealed weighting implies.** Dev weights P04 and P10 equally in "seen". On the sealed set (if the old cohort
+text holds) P04 has 3 of about 46 returning sessions. Every returning-person result so far is P04's, which explains the
+0.46× transfer of v4.1. Returning-person levers should be read by P10's response.
+
+**Closed this evening (each for the recipe tested):**
+- label feedback rounds (labels do not improve past 77.3 %), two-directional smoothing and run-balance for past labels;
+- fine-tuned nets as a final multiplicative stage with chain labels (negative; +1.6 J with true labels);
+- unsupervised clustering of a session into classes (47 % at best);
+- cross-frequency coupling core (58 % alone, −0.6 J in the chain) and envelope core;
+- REST4 (rest as a fourth class): +0.1 to +0.3 J, below the pass mark;
+- calibrated or learned member combinations (log-linear pool: +1 at mix level, −1 to −2 J in the chain), re-weighted
+  families for seen sessions, a personal ocular/slow-potential head;
+- a second Weco search over the session stage (57 candidates so far: best +0.6 on its half, negative on every hidden
+  measure).
+
+**What the diagnostics say about headroom.**
+- The causal, label-free chain is as accurate as a supervised model trained on about 150 labelled windows of the same
+  session in core1's features (76 %).
+- The members share their errors: the best label-free combination of the 12 members is about +1 point above core1
+  alone before the session stages.
+- P04 is a low-signal person (55–59 % even with its own labels), not a bad recording.
+- True labels inside the session are worth +1.6 J through the nets and +3 J through a head. No label-free source gets
+  past 77 % label accuracy.
+
+**Next, in order:**
+1. Read the ten-person PFT proxy; decide whether PFT goes into a package.
+2. If the user wants the next upload to carry the two levers: build "v5" = v4.1 + TTT (one net per family, sessions not
+   identified as returning) + PFT nets behind the identity gate, with a runtime replay on A100 and in the worker image.
+   Honest estimate +0.3 to +0.6 sealed: a rank or two, not top 3.
 
 ## 9. Where everything is
 
