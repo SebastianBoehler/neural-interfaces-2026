@@ -4,7 +4,7 @@ Top-3 entries are audited by re-running training from committed config and resco
 set; the rescore must land within ±2σ of the submitted score. Our leaderboard entry is our best
 sealed upload, so every uploaded arm needs this config. This document is the one for
 `runs/sealed/cand_m7r4`: R19e with the frozen `submission.py`, plus the external-head teacher of four
-architectures (docs/OVERNIGHT_2NOV.md, "Packaging the candidate"). It shares stages 1–3, 5 and 7, the
+architectures (docs/archive/OVERNIGHT_2NOV.md, "Packaging the candidate"). It shares stages 1–3, 5 and 7, the
 corpora, licences and environment with docs/AUDIT_NXIF.md; only the teacher's trunks and export differ.
 
 ## One command

@@ -1,6 +1,6 @@
 # Sealed-phase upload plan and log (3 Nov 2026)
 
-Supersedes the upload sequence in docs/SEALED_PLAN.md (R19e / R15 order of 30 Oct). Every upload needs
+Supersedes the upload sequence in docs/archive/SEALED_PLAN.md (R19e / R15 order of 30 Oct). Every upload needs
 the user's explicit authorisation for that upload, after a live check of phase and quota.
 
 ## Facts (live Codabench API, 3 Nov 21:53Z)
@@ -9,7 +9,7 @@ the user's explicit authorisation for that upload, after a live check of phase a
   21 Nov), status "Next", **1 upload per day, 5 in total**, 0 submissions.
 - Task 36592 "BCI decoding", created 5 Oct. The task's programs are not visible to participants (the
   API returns 404), so we cannot confirm the binding before the first run.
-- Rules (docs/REVIEW_2NOV.md): a failed run uses no quota, a cancelled run does. Force_Best keeps
+- Rules (docs/archive/REVIEW_2NOV.md): a failed run uses no quota, a cancelled run does. Force_Best keeps
   the best sealed score, and logs are hidden. The daily reset is probably UTC midnight (unverified).
 - Our leaderboard entry is our best upload, so **whichever arm scores best is the one audited**. Each
   arm must have a rebuild recipe before it goes up.
@@ -149,7 +149,7 @@ Expectation was about 0.827 central (0.822–0.835). The realised +0.43 points i
 Live board 7 Nov ~19:10 UTC: 0.838, 0.825, 0.825, **us 0.824 (4th)**, 0.823. **New baseline: route3geb.** 2 uploads
 left. Staged candidates: routing v3 and routing v3 + EB (builds in progress), tsem256, route v1.
 
-7 Nov evening cleanup (docs/STATE_7NOV.md): `submissions/ensemble/submission.py` is now the lean file `dacee85a…`. It
+7 Nov evening cleanup (docs/archive/STATE_7NOV.md): `submissions/ensemble/submission.py` is now the lean file `dacee85a…`. It
 reproduces the three uploaded packages byte for byte. The staged packages that were never uploaded (route v1, route3,
 route3eb, tsem256) keep their ZIPs in `runs/upload/`. Their code is commit `c4d600d` (docs/AUDIT_SBN.md, top note).
 

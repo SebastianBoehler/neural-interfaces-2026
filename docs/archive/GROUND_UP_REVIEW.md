@@ -1,12 +1,12 @@
 # Track 2 (PROTEUS): ground-up review, 30 Oct 2026
 
-**Scope.** This review starts from first principles and covers what we know, what the literature offers, the remaining solution space, a ranked plan and the sealed-upload strategy. It draws on the round docs (`docs/OPTIMIZATION*.md`, `docs/STRATEGY_R16.md`, `docs/HANDOFF.md`, `docs/SEALED_PLAN.md`, `docs/COMPETITION.md`), the official submodule (`2026-competition/`, written `OC/` below), this session's research reports and diagnostics (scripts and logs under `/private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-Pdn7MS/f1aede87-a130-4f66-8c95-5c7dc01a3281/scratchpad/`), and two adversarial critiques of each of the 13 candidates.
+**Scope.** This review starts from first principles and covers what we know, what the literature offers, the remaining solution space, a ranked plan and the sealed-upload strategy. It draws on the round docs (`docs/OPTIMIZATION*.md`, `docs/archive/STRATEGY_R16.md`, `docs/archive/HANDOFF.md`, `docs/archive/SEALED_PLAN.md`, `docs/COMPETITION.md`), the official submodule (`2026-competition/`, written `OC/` below), this session's research reports and diagnostics (scripts and logs under `/private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-Pdn7MS/f1aede87-a130-4f66-8c95-5c7dc01a3281/scratchpad/`), and two adversarial critiques of each of the 13 candidates.
 
 **Tags.** **[F]** is a fact with a source. **[I]** is an inference.
 
 **Abbreviations.** ds = dev_session, dla = dev_loso_all, dl = dev_loso, al = all_loso, ss = seen_session, sel = mean(ds, dla).
 
-**State correction.** The task context lists R16, R17 and R18 as running. All three have finished and are recorded in the working tree's `docs/OPTIMIZATION_R10.md` (lines 369–425):
+**State correction.** The task context lists R16, R17 and R18 as running. All three have finished and are recorded in the working tree's `docs/archive/OPTIMIZATION_R10.md` (lines 369–425):
 - **R16** (rotation-pretrained FBCNet): six-seed pooled sel 78.98 / 79.01 against 78.68. On seeds 3–5 alone it is 78.26 / 78.11 against 78.23. Not adopted.
 - **R17** (unified rest-anchored pretraining): 77.83–78.92 against 79.59. The pretrained head hurts. Closed.
 - **R18**: MixStyle is neutral (±0.4). Participant-adversarial training hurts every family, more so at higher λ. Closed.
@@ -47,21 +47,21 @@ R15 therefore remains the best package. Nothing trained since R15 has cleared th
 
 **Budget.**
 - Inference: 3600 s on one A100 [F].
-- Projected sealed runtime: 11–13 min for about 21k windows, so 2.8–5× headroom (`docs/COMPETITION.md`, `docs/OPTIMIZATION_R8.md:521`) [F/I].
+- Projected sealed runtime: 11–13 min for about 21k windows, so 2.8–5× headroom (`docs/COMPETITION.md`, `docs/archive/OPTIMIZATION_R8.md:521`) [F/I].
 - Package: one `submission.py` plus weights. `submission.py` is already 414 lines.
 
 ### 1.2 What bounds performance
 
 | Bound | Value | Source |
 |---|---|---|
-| Within-session ceiling (own labels, about 160 training windows) | mix 81.9. This is a *lower* bound on per-person separability, because the models are data-starved (ShallowConvNet-EA 42.6 there). | `docs/OPTIMIZATION_R8.md` |
+| Within-session ceiling (own labels, about 160 training windows) | mix 81.9. This is a *lower* bound on per-person separability, because the models are data-starved (ShallowConvNet-EA 42.6 there). | `docs/archive/OPTIMIZATION_R8.md` |
 | Same later sessions scored as unseen vs seen (own session 1 in training) | 56.6 → 72.0 (+15.4; BrainHero +18.6, P10 BrainHero +22–25) | diagnostics (d), `scratchpad/diag_mix.log` |
-| Per-session logit bias / affine map, fitted with labels | +2.0 / +2.6 in-sample (al). Picked on the other interface: −1.9 dla (70.34 vs 72.11) | `docs/OPTIMIZATION_R10.md`; diagnostics (e) |
+| Per-session logit bias / affine map, fitted with labels | +2.0 / +2.6 in-sample (al). Picked on the other interface: −1.9 dla (70.34 vs 72.11) | `docs/archive/OPTIMIZATION_R10.md`; diagnostics (e) |
 | Per-session oracle rebalancing or member weighting | in-sample +2.5 / +4.3 dla; on the other interface below default | diagnostics (f) |
-| Exact per-run counts, oracle boundaries | al +0.38, ss +1.81 | `docs/OPTIMIZATION_R10.md` |
-| Label-shift-aware reference (oracle) | +0.05 | `docs/OPTIMIZATION_R8.md` |
-| Session clustering with oracle cluster-to-class map | 0.37–0.39 | `docs/OPTIMIZATION_R8.md` |
-| Value of one more in-distribution training participant | about +0.85 | `docs/OPTIMIZATION_R10.md` |
+| Exact per-run counts, oracle boundaries | al +0.38, ss +1.81 | `docs/archive/OPTIMIZATION_R10.md` |
+| Label-shift-aware reference (oracle) | +0.05 | `docs/archive/OPTIMIZATION_R8.md` |
+| Session clustering with oracle cluster-to-class map | 0.37–0.39 | `docs/archive/OPTIMIZATION_R8.md` |
+| Value of one more in-distribution training participant | about +0.85 | `docs/archive/OPTIMIZATION_R10.md` |
 | Errors near-tie: true class ranked 2nd | 65–69% of errors; 60% of errors at confidence < 0.5 | diagnostics (g) |
 
 [I] The about 10-point gap between unseen participants (dla 72) and the within-session ceiling (82) lies in participant-specific decision directions, not in a bias or a reference. Label-free methods can only reach it through:
@@ -72,7 +72,7 @@ The gaze EM in §5 is the first working instance of (b).
 
 ### 1.3 Two populations, two ceilings
 
-The organiser FAQ says the sealed set is later sessions of the 10 public participants plus 10 new participants [F]. Our estimate of 57% unseen / 43% seen by cells assumes all six sessions are used (`docs/OPTIMIZATION_R8.md:411–414`) [I]. The NeuralBench guide says "sessions 1–3 train, 4–6 test" [F, hint only].
+The organiser FAQ says the sealed set is later sessions of the 10 public participants plus 10 new participants [F]. Our estimate of 57% unseen / 43% seen by cells assumes all six sessions are used (`docs/archive/OPTIMIZATION_R8.md:411–414`) [I]. The NeuralBench guide says "sessions 1–3 train, 4–6 test" [F, hint only].
 
 **Unseen participants (about 57%).**
 - Best local proxies: dla 72.11 (8 participants, P04 and P09 folds dropped) and al 67.03 (all 10, including P04 ≈ 49 and P09 ≈ 69).
@@ -99,7 +99,7 @@ The organiser FAQ says the sealed set is later sessions of the 10 public partici
 
 | Step | Gain | Mechanism [I] |
 |---|---|---|
-| Causal session recentering (R1) | +7 dl, +14.6 ds | Unlabelled session statistics remove nuisance covariance (`docs/OPTIMIZATION.md`) |
+| Causal session recentering (R1) | +7 dl, +14.6 ds | Unlabelled session statistics remove nuisance covariance (`docs/archive/OPTIMIZATION.md`) |
 | < 4 Hz band + centred < 1 Hz waveform (R1) | +6.8 dl, +15.0 ds | A new signal: slow frontal potentials, largely gaze/ocular-like and display-locked. Signs are consistent: SUB frontal positive 8–9/10, WORD left-minus-right negative 8–9/10 (neuro report) |
 | Heterogeneous probability ensemble (R2) | +6.8 dl, +5.5 al | Variance reduction across inductive biases (pairwise error correlation 0.33) |
 | Causal rebalancing → windowed W=30 (R3–R4) | +2.3 dl, +6.8 ds, +3.0 al, +3.0 ss | Balanced-run prior: removes session class bias |
@@ -129,7 +129,7 @@ Every gain of 2 points or more landed by R4. Since R10 each adopted step is at m
   - P04: SUB recall 35–40%.
   - P09 and P03: WG recall 50–53%.
   - P10's class contrast correlates −0.40 with the group; P05's −0.08. P10 is the only participant with reversed frontal-midline theta for MI (+0.84 against a −0.59 mean). P05 shows reversed MI laterality.
-  - P04 is a weak-signal participant (own-data ceiling 0.58). Correction (round 2, docs/OPTIMIZATION_R10.md): its broadband RMS (13.4–13.8 µV) equals P01/P02/P06's, so amplitude does not explain it.
+  - P04 is a weak-signal participant (own-data ceiling 0.58). Correction (round 2, docs/archive/OPTIMIZATION_R10.md): its broadband RMS (13.4–13.8 µV) equals P01/P02/P06's, so amplitude does not explain it.
 - **Errors are near-ties.** Confident-and-wrong windows (≥ 0.6) are 4.4% of windows. Pseudo-labels at ≥ 0.7 are clean but skewed against WG (17% of predicted labels). This explains why confident-only adaptation failed.
 - **Diversity.** On 94.7% of windows at least one member is right; the ensemble gets 72.0%. Leave-one-family-out:
   - all EA members −3.92 dla;
@@ -175,9 +175,9 @@ ss is −0.29 against −0.18 for gaze alone. The ds increments sit within the n
 - **Foundation models do not beat specialists on cross-subject MI.**
   - A controlled evaluation has 0 of 12 MI cells beating five-band log-power (arXiv 2610.32067).
   - EEG-FM-Compass finds FMs "comparable" to EEGNet/ShallowConv under LOSO (arXiv 2601.17883).
-  - Our CBraMod, LaBraM and REVE runs agree (`docs/OPTIMIZATION_R8.md`).
+  - Our CBraMod, LaBraM and REVE runs agree (`docs/archive/OPTIMIZATION_R8.md`).
 - **Honest DG gains on few-subject MI are +1 to +3.** SREA gets +1.1 on IV-2a LOSO (arXiv 2602.01728). MAML gets +3, but with 54 subjects. Under fair selection, ERM matches DANN, IRM, MixStyle and others (DomainBed, arXiv 2007.01434). Our R18 result (adversarial hurts, MixStyle neutral) is the expected outcome with 10 domains.
-- **Data scale dominates.** Cross-subject accuracy keeps rising up to about 40 training subjects (AdaBrain-Bench, arXiv 2507.09882). We have 10, and no public 3-class PROTEUS-like corpus exists (`docs/OPTIMIZATION_R10.md` search).
+- **Data scale dominates.** Cross-subject accuracy keeps rising up to about 40 training subjects (AdaBrain-Bench, arXiv 2507.09882). We have 10, and no public 3-class PROTEUS-like corpus exists (`docs/archive/OPTIMIZATION_R10.md` search).
 - **Alignment.**
   - EA belongs after temporal filtering (Wu 2025, arXiv 2502.09203 §III-C).
   - A Riemannian-mean reference beats arithmetic EA by +1.0–1.4 cross-subject on IV-2a (Wimpff 2024, arXiv 2311.18520, Table II).
@@ -301,7 +301,7 @@ The decision rule is unchanged: select on ds + dla only, six seeds pooled for an
 ### Rank 2: Sealed portfolio rebuilt from decorrelated arms, plus a validated defensive input contract
 
 **Mechanism.** No new information. It exploits Force_Best order statistics.
-- The current user-approved order (r9g, R10, R14, R10b, R15; `docs/SEALED_PLAN.md`, decided 29 Oct) spends slots on near-duplicates: R14 and R15 differ on 0 of 2,655 windows, R10/R10b/R14 on 1–6.
+- The current user-approved order (r9g, R10, R14, R10b, R15; `docs/archive/SEALED_PLAN.md`, decided 29 Oct) spends slots on near-duplicates: R14 and R15 differ on 0 of 2,655 windows, R10/R10b/R14 on 1–6.
 - The realised E[max] − E[R15] of that order is about +0.1 [I].
 - Replacing duplicate or dominated slots with arms that have near-equal means but different errors is the only real portfolio lever.
 
@@ -369,7 +369,7 @@ Leave ShallowConvNet-EA and the pretrained SincShallow on broadband. Drop the st
 ### Sealed-upload strategy (5 slots, max 1 per day, Force_Best, hidden logs)
 
 **Preconditions for every upload.**
-- Live check of phase, quota and dates first: the pinned yaml says 10 uploads, `docs/SEALED_PLAN.md` says 5.
+- Live check of phase, quota and dates first: the pinned yaml says 10 uploads, `docs/archive/SEALED_PLAN.md` says 5.
 - Explicit user authorisation per upload.
 - Config and zip hash committed before upload (top-3 audit retrains from the committed config, ±2σ).
 - Worker replica, harness agreement 1.0, A100 replay.
@@ -446,8 +446,8 @@ None of these can be verified before the sealed phase. Being in the top group is
 5. How large is our seen-participant performance on sessions 4–6 relative to the ds (85) vs ss (72) proxies? This is the largest unmeasured term in the sealed score (43% weight, roughly a 13-point bracket).
 
 **Repository files referenced:**
-- `docs/OPTIMIZATION.md`, `docs/OPTIMIZATION_R3.md`–`R8.md`, `docs/OPTIMIZATION_R10.md` (R16–R18 results at lines 369–425)
-- `docs/STRATEGY_R16.md`, `docs/STRATEGY_REVIEW.md`, `docs/HANDOFF.md`, `docs/SEALED_PLAN.md`, `docs/COMPETITION.md`
+- `docs/archive/OPTIMIZATION.md`, `docs/archive/OPTIMIZATION_R3.md`–`R8.md`, `docs/archive/OPTIMIZATION_R10.md` (R16–R18 results at lines 369–425)
+- `docs/archive/STRATEGY_R16.md`, `docs/archive/STRATEGY_REVIEW.md`, `docs/archive/HANDOFF.md`, `docs/archive/SEALED_PLAN.md`, `docs/COMPETITION.md`
 - `experiments/deep.py`, `experiments/features.py`, `experiments/models.py`, `experiments/dg.py`, `experiments/pretrain.py`
 - `submissions/ensemble/submission.py`, `scripts/build_sealed.py`
 - `2026-competition/benchmark_utils/{streaming.py,metrics.py,base_solver.py}`, `2026-competition/codabench/pages/{scientific_faq_bci.md,participate.md,terms.md}`

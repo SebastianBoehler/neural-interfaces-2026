@@ -1,7 +1,7 @@
-# State on 11 Nov 2026 (11:05 UTC): the starting point
+# State on 11 Nov 2026 (updated 11:50 UTC): the starting point
 
-This file supersedes docs/STATE_7NOV.md as the entry point. It is written so that a new thread needs nothing from the
-chat history.
+This is the entry point. It is written so that a new thread needs nothing from the chat history. Older documents are
+in docs/archive/ (see its README for the assumptions in them that are now known to be wrong).
 
 **Read in this order:**
 1. This file.
@@ -54,12 +54,11 @@ since 7 Nov.
 - Its runtime code is Codex's shared FIR bank plus CPU/GPU overlap.
 - **Parity:** every stage is bitwise equal on all 2,655 public windows.
 - **Speed:** A100 solver time 0.41× of route3geb; whole run 0.53× (ABBA job 3086004). Estimated sealed run 19–35 min.
-- **Not committed:** its code lives only in gitignored `runs/` and in `runs/archive_scratch_11nov/fastpkg/`. It must be
-  committed before or with any upload, for the audit.
+- **Code:** committed as `submissions/ensemble_fast/submission.py` (7a2f9e8), with the per-file SHA-256 manifest.
 - It is the base for every future upload. Upload only with your explicit go-ahead, after checking the live quota and
   phase.
 
-## 3. Pipeline (unchanged since 7 Nov; full description in docs/STATE_7NOV.md)
+## 3. Pipeline (unchanged since 7 Nov)
 
 **Members:**
 - two tangent-space cores (core1 and a Hilbert core);
@@ -67,11 +66,22 @@ since 7 Nov.
 - 30 SessionBN nets;
 - the external-MI teacher (EEGNeX + IFNet pretrained on 7 MI corpora, weight 5).
 
+Every member is causal and resets per session; members are mixed with fixed weights.
+- **core1** (`car_ov17_fs2`): common-average reference, 17 overlapping bands, full plus two half-window covariances,
+  causal log-Euclidean recentring, logistic regression (C 10).
+- **Hilbert core** (`car_fb7_hfs2`): complex analytic-signal covariances in 7 bands, logistic regression (C 3).
+- **SessionBN nets:** batch norm uses the session's own causal running statistics (FBCNet k 2 and k 5, raw FBCNet
+  k 20, SincShallow k 20, FBLight k 5; 6 seeds each).
+
 **Stages after the mix:**
-- rebalancing (α 1.15, W 30);
-- GEB SessionEM;
-- GEB TSEM (PC128, λ 0.15);
-- routing v3 (returning-person PS1 heads).
+- **Rebalancing** (α 1.15, k 5, last 30 windows): divides each posterior by the recent class share. It exploits the
+  class balance inside a run and is worth 5.75 J.
+- **GEB SessionEM:** per-session class templates on frontal slow-potential and ocular features (nmin 20).
+- **GEB TSEM:** per-session Gaussian class templates in the top 128 PCs of core1's features, seeded by the 70 % most
+  confident past outputs (λ 0.15).
+- **GEB (gated early boost):** raises both exponents in windows 30–60 for sessions with low early margins.
+- **Routing v3:** from window 60, a gate matches the session against the 10 public people (τ 0.22, ramp 0.05) and
+  puts the matched person's own head (PS1) at 3× into the core1 slot of a second tail.
 
 **Dev metric:** J = 0.5 × new (all_loso, 10 people) + 0.5 × seen (P04/P10 sessions 2–3), person-equal cell-mean
 balanced accuracy.
@@ -99,61 +109,56 @@ balanced accuracy.
   - an SPD net with SPD batch norm, a session-conditioned net, a single big model;
   - Codex's source screens.
   - **Never tried:** recurrent nets, Mamba, LMDA, EEGPT/BIOT, and SessionBN versions of TIDNet, CTNet or EEGConformer.
+- **Graz cue order is not random** (ledger §9, new on 11 Nov):
+  - In all 42 public Graz runs the cues follow a weakly shuffled WORD → SUB → MI cycle. Position alone predicts the
+    label in 56 % of windows (chance 33 %). BrainHero runs are properly random.
+  - For our chain it is worth at most +0.4 J even with the true run position: the chain's confidence does not mark its
+    own errors, so the prior has no reliable place to override it. Not pursued.
+  - A weaker base gains about +3 points on Graz cells, so other teams may be using it.
+- **Spectral person identification** (ledger §10): closed-set identity is in the spectrum (6/6 by window 60), but a
+  raw correlation score cannot reject new people early. The discriminant version is running (§5, BIO1).
 - **Synthetic data:**
   - Round 3's "synthetic people" was a feature-space trick and came out negative.
   - Augmentations: spatial rotation was adopted (rot 0.05); frequency scaling and mirroring were tested, mirroring
     refuted; crops rejected.
   - A generative EEG model was never tried. Prior: low, since it cannot add class information it never saw.
 
-## 5. Running when this file was written (Galvani; no agent is watching)
+## 5. Running on Galvani (state at 11:50 UTC on 11 Nov)
 
 **Collecting results:**
 - Galvani access is `ssh mlcloud-galvani`. You type the 2FA code yourself; agents must never re-authenticate.
 - The ControlMaster was renewed at 10:15 UTC on 11 Nov and drops after about 12 h (around 22:15 UTC).
+- The queue is slow: jobs wait on fair-share priority. Everything below shares one user queue.
 
-**Before running any scorer:** scripts hard-code the scratch path
+**Before running an older scorer:** the W12 and Scherer scorers hard-code the scratch path
 `S=/private/tmp/claude-501/-Users-sebastianboehler-Documents-GitHub-neural-interfaces-2026/95eb4b0e-c5db-4ae9-81b3-afeeeac7221a/scratchpad`.
 If macOS has purged it, restore it first with `mkdir -p $S && rsync -a runs/archive_scratch_11nov/ $S/`. Run local
 scoring only through `scripts/run_capped.sh`.
 
-**W12, pair specialists for the WORD confusions** (ledger §6; prereg `$S/w12/prereg.txt`)
-- **Jobs:** smoke 3086617 OK; array 3086618 (21 tasks).
-- **What it tests:**
-  - SessionBN FBCNet and SessionBN ShallowConvNet nets, 3 seeds each, trained only on SUB/WORD, MI/WORD or WORD vs rest.
-  - A multitask FBCNet.
-  - The specialists re-split the chain's pair mass at β 0.25/0.5/0.75.
-- **Gate:** nested dJ ≥ +0.5, both held-out halves ≥ 0, seen ≥ −0.3.
-- **Known before results:** the 3-class FB member already splits the pairs at 74.2 / 77.5 / 72.7 BA on new people, so
-  the ledger's pair-BA predictions (66 / 70 / 65) will miss low.
-- **Score it:**
-  ```
-  bash $S/w12/fetch.sh
-  NI26_MAX_GB=8 scripts/run_capped.sh $S/w12/score.log .venv/bin/python $S/w12/score_w12.py
-  ```
-  Add `fresh=1` only after a gate pass.
+| Job | IDs | State | What it tests | Ledger |
+|---|---|---|---|---|
+| **W12** pair specialists | array 3086618 (21 tasks) | 9 done at 11:40 UTC | SessionBN nets trained on one class-pair boundary re-split the chain's pair mass | §6 |
+| **SCH** Scherer 2015 as training data | array 3086622 (24 tasks) | all pending; Slurm estimates up to 12 Nov ~10:00 UTC | Members retrained with Scherer at loss weight 0.1 / 0.25, against PROTEUS-only twins | §7 |
+| **BIO1** person identification | 3087013 (CPU) | pending | Two-covariance discriminant trained on 6 external multi-session corpora; open-set accepts at 5–60 windows | §11 |
+| **SBNX** untried SessionBN families | smoke 3087028, array 3087029 (16 tasks) | pending, behind SCH | TIDNet, CTNet, EEGConformer, ATCNet, EEGSimpleConv, FBMSNet, SCCNet, Deep4 with session normalisation | §12 |
 
-**SCH, Scherer 2015 as extra training data** (ledger §7; prereg `$S/schr/prereg.txt`)
-- **Jobs:** smoke 3086621 OK; array 3086622 (24 tasks). Slurm's pessimistic start estimate was 20:18 UTC.
-- **What it tests:** the SessionBN FB slot (members 6 and 9) and the raw ShallowConvNet (member 4), each retrained
-  with Scherer at loss weight 0.1, 0.25, or 0.25 on SUB+WORD only. Hand-MI windows get zero loss weight but stay in
-  the normalisation.
-- **Control:** PROTEUS-only twins from the same code. The chain swaps the member in, against the twin swapped in.
-- **Score it:**
-  ```
-  bash $S/schr/fetch.sh
-  NI26_MAX_GB=8 scripts/run_capped.sh $S/schr/score.log .venv/bin/python $S/schr/score_schr.py NJ=2
-  ```
-- Research use only; see §6 for the licence.
+**Scoring commands:**
+```
+bash $S/w12/fetch.sh
+NI26_MAX_GB=8 scripts/run_capped.sh $S/w12/score.log .venv/bin/python $S/w12/score_w12.py     # fresh=1 only after a gate pass
+bash $S/schr/fetch.sh
+NI26_MAX_GB=8 scripts/run_capped.sh $S/schr/score.log .venv/bin/python $S/schr/score_schr.py NJ=2
+```
+- BIO1 writes `runs/diag/bio1/bio1.json` and `bio1-3087013.out` on Galvani.
+- SBNX writes `runs/diag/sbnx/probs/sbnx_<arch>_k<k>-<proto>-s<seed>.npz`; it has no scorer yet (adapt the `mt` arm of
+  `score_w12.py`: extra member at weight 0.5 / 1 / 2).
 
-**GPU-eigh speed probe** (ledger §8; the agent was stopped mid-way)
-- **Idea:** run the tangent cores' batched eigendecompositions on the A100. Today they take 40 of 124 ms per window, and
-  the CPU tangent path is still critical after the overlap.
-- **Code:** `$S/gpueig/submission.py` and `code.diff` (a side CUDA stream; the CPU path is meant to stay unchanged).
-- **Jobs:** A100 parity 3086722 and ABBA timing 3086723 were running. Results go to Galvani
-  `/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/diag/gpueig/` (`parity_3086722.log`, `abba_3086723*`).
-- **Still to do:** the local CPU bitwise check (`$S/gpueig/local/`) and the summary.
+**GPU-eigh speed probe** (ledger §8; finished, not adopted):
+- ABBA timing (3086723): whole run 87 s against 110 s for the fast package (0.79×), same in-sample score.
+- The parity job (3086722) ended with a failed bitwise assertion; labels were identical. Whether the difference
+  matters was not established. Only worth resolving if new members need runtime.
 
-To cancel any of these: `ssh mlcloud-galvani scancel 3086618 3086622 3086722 3086723`.
+To cancel: `ssh mlcloud-galvani scancel 3086618 3086622 3087013 3087028 3087029`.
 
 ## 6. Decisions waiting for you
 
@@ -167,10 +172,13 @@ To cancel any of these: `ssh mlcloud-galvani scancel 3086618 3086622 3086722 308
   matters only if we publish the weights.
 - **Unverified reading:** an ineligible upload falling back to an earlier eligible one is our reading, not confirmed.
 
-**Commits:** you said in the Codex thread not to show Codex or Claude as author. Settle the attribution line before
-the next commit. Nothing has been committed since 9491882. Pending items:
-- the fast package's `submission.py`;
-- the doc updates (AUDIT_SBN, SEALED_UPLOADS, REVIEW_5NOV, PREDICTIONS_11NOV, Codex's PROTEUS docs, this file).
+**Decided on 11 Nov:**
+- **Commits:** commit and push freely, with no AI author line (as in the 10 Nov commits). The fast package's code is
+  committed in `submissions/ensemble_fast/` (7a2f9e8).
+- **Cue-order artefact:** no question to the organisers. We follow the published rules and document the finding in
+  the final method write-up.
+- **Fast package:** no upload for speed alone. It goes up as the base of the next real improvement.
+- **Repository:** the agent owns the codebase and cleans up stale documents and assumptions as it goes.
 
 **Uploads:** each one needs your explicit go-ahead.
 
@@ -215,25 +223,29 @@ unconfirmed. If true, returning-person sessions are a larger share than our 2-pe
 
 **Planning lesson:** headroom estimates mislead. On L2D, the forecast was about 3rd and the result 13/110.
 
-## 8. Open directions (none tested; low-to-moderate priors)
+## 8. Open directions
 
-1. **Scherer member:** if SCH passes its gate, it goes into a package only after the licence decision.
-2. **W12 specialists:** if one passes, confirm on fresh bases, then build on the fast package.
-3. **Returning-person lever:** if later sessions are about 43 % of sealed cells, better identification and personal
-   heads matter more than the dev proxy shows.
-   - Routing gives an oracle +2.2–3.4 on seen, 90 % of it from P04; open-set identification is the limit.
-4. **Segmentation hypothesis for the rescoring:** replay with per-interface resets or merged sessions. Cheap, CPU only;
-   reuse `runs/archive_scratch_11nov/order/olib.py`.
-5. **SessionBN versions of untried families** (TIDNet, CTNet) or a small recurrent net over sub-window band power: free
-   2080 GPU-hours, low prior.
-6. **GPU-eigh speed:** only worth adopting if new members need runtime headroom.
+1. **Returning-person identification (BIO1 → routing v4).** The largest lever identified on 11 Nov.
+   - Routing + GEB gained +0.55 sealed in total; a rough split puts routing at about +0.2, against about +0.9 if every
+     returning session were routed and gained like the P04/P10 mean.
+   - The shortfall is either weak identification on sealed (fixable) or other returning people gaining nothing from a
+     personal head, as P10 does not (not fixable). Public data cannot tell which.
+   - If BIO1 passes its gate: an earlier, more reliable gate for the existing PS1 heads.
+2. **Scherer member:** if SCH passes, it ships only after the licence decision.
+3. **W12 specialists and SBNX families:** low priors (about 10 % each); confirm on fresh bases before any build.
+4. **Segmentation hypothesis for the rescoring:** replay with per-interface resets or merged sessions. Cheap, CPU
+   only; reuse `runs/archive_scratch_11nov/order/olib.py`. It explains the past rather than adding points.
+5. **GPU-eigh speed:** only if new members need runtime headroom.
+
+**Honest standing:** rank 3 needs about +1.3 sealed points and the field is moving. No candidate above has an
+estimate near that.
 
 ## 9. Where everything is
 
-**Docs (tracked or untracked in `docs/`):**
-- this file; PREDICTIONS_11NOV; SEALED_UPLOADS; REVIEW_5NOV; AUDIT_SBN; STATE_7NOV;
-- Codex's PROTEUS_SOURCE_10NOV, PROTEUS_ACQUISITION_10NOV, PROTEUS_ALPHA_CONFIRMATION_10NOV and
-  PROTEUS_CHANNEL_POWER_BLEND.
+**Docs:**
+- current, in `docs/`: this file; PREDICTIONS_11NOV; SEALED_UPLOADS; REVIEW_5NOV; AUDIT_SBN / NXIF / M7R4; COMPETITION;
+- history, in `docs/archive/`: STATE_7NOV, the optimisation rounds, strategy reviews, handoffs and Codex's PROTEUS
+  notes. Its README lists the assumptions in them that are now wrong.
 
 **Archives (gitignored, on this Mac only):**
 - `runs/archive_scratch_11nov/`, 3.5 GB: a full mirror of the session scratch. It covers steeg, w12, schr, gpueig,

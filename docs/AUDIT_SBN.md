@@ -1,4 +1,4 @@
-> **Code version for these recipes (7 Nov cleanup, docs/STATE_7NOV.md).** `submissions/ensemble/submission.py` is now
+> **Code version for these recipes (7 Nov cleanup, docs/archive/STATE_7NOV.md).** `submissions/ensemble/submission.py` is now
 > the lean file (`dacee85a…`, 781 lines; previously `786bcab0…`, 967 lines, commit `c4d600d`). It keeps only the code
 > paths of the three uploaded packages, cand_nxif (docs/AUDIT_NXIF.md), cand_rec_ts2_tsem and cand_rec_ts2_tsem_route3geb.
 > It reproduces all three byte for byte (route3geb reference values, end of this file). The export steps copy the

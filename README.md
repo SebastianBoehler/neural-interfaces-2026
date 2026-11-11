@@ -1,72 +1,33 @@
-# Neural Interfaces 2026 — BCI decoding
+# Neural Interfaces 2026 — Track 2, BCI decoding
 
-Local reproduction of Track 2 of the EEG/EMG Foundation Challenge 2026.
-No Codabench upload is part of this workflow.
+Three-class EEG decoding (motor imagery, mental subtraction, word generation) on PROTEUS, for the EEG/EMG Foundation
+Challenge 2026. Private repository: [SebastianBoehler/neural-interfaces-2026](https://github.com/SebastianBoehler/neural-interfaces-2026).
 
-Working directory: `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026`.
-Private project repository: [SebastianBoehler/neural-interfaces-2026](https://github.com/SebastianBoehler/neural-interfaces-2026).
-The previous Codex workspace path is a local symlink to this directory, preserving
-existing environment entry points. New clones use the setup command below.
+**Start with [docs/STATE_11NOV.md](docs/STATE_11NOV.md).** It holds the current score, packages, running jobs and open
+decisions. Everything under `docs/archive/` is history and may contradict it.
 
-## Project information
+## Current documents
 
-- [Competition, dates, quotas and hardware](docs/COMPETITION.md)
-- [Baseline implementation and evaluation contract](OFFICIAL_CONTRACT.md)
-- [Measured baseline result and validation limits](BASELINE_RESULT.md)
-- [Experiment procedure and next steps](docs/EXPERIMENTS.md)
-- [Tracked baseline evidence](evidence/baseline/)
-- [Relocation checks and second-run variation](docs/SETUP_CHECK.md)
-- [ML Cloud GPU validation sequence](docs/GPU_VALIDATION.md)
-- [Scheduled ML Cloud jobs and status commands](docs/CLOUD_RUNS.md)
-- [Optimization rounds 1–2: bounds, protocols, results](docs/OPTIMIZATION.md)
-- [Optimization round 3: rebalancing, FBCNet, sealed candidate](docs/OPTIMIZATION_R3.md)
-- [Optimization round 4: rejected ideas and windowed rebalancing](docs/OPTIMIZATION_R4.md)
-- [Optimization round 5: external data (Dreyer 2023, Scherer 2015)](docs/OPTIMIZATION_R5.md)
-- [Optimization round 6: member diversity](docs/OPTIMIZATION_R6.md)
-- [Optimization round 7: review, AdaBN, faster inference](docs/OPTIMIZATION_R7.md)
-- [Sealed-phase plan and method description](docs/SEALED_PLAN.md)
-- [Handoff: current state and next steps](docs/HANDOFF.md)
-- [Strategy review: breakthroughs, solution space, plan](docs/STRATEGY_REVIEW.md)
+| File | What it holds |
+|---|---|
+| [docs/STATE_11NOV.md](docs/STATE_11NOV.md) | Entry point: standing, pipeline, running jobs, decisions, open directions |
+| [docs/PREDICTIONS_11NOV.md](docs/PREDICTIONS_11NOV.md) | Pre-registered ledger: every run since 11 Nov with prediction, result and verdict |
+| [docs/SEALED_UPLOADS.md](docs/SEALED_UPLOADS.md) | Upload log, staged packages, the 10 Nov rescoring |
+| [docs/REVIEW_5NOV.md](docs/REVIEW_5NOV.md) | Every direction closed since 5 Nov, with the method class it was tested on |
+| [docs/AUDIT_SBN.md](docs/AUDIT_SBN.md), [AUDIT_NXIF.md](docs/AUDIT_NXIF.md), [AUDIT_M7R4.md](docs/AUDIT_M7R4.md) | Rebuild recipes for uploaded and staged packages |
+| [docs/COMPETITION.md](docs/COMPETITION.md) | Rules, dates, quotas, warm-up history |
+| [OFFICIAL_CONTRACT.md](OFFICIAL_CONTRACT.md), [BASELINE_RESULT.md](BASELINE_RESULT.md) | The official evaluation contract and the reproduced linear baseline (37.75 %) |
+| [docs/CLOUD_RUNS.md](docs/CLOUD_RUNS.md), [docs/GPU_VALIDATION.md](docs/GPU_VALIDATION.md) | Galvani job and worker-replica procedures |
 
-The official source is a Git submodule pinned to the revision below.
-Datasets, environments, generated weights and runtime logs remain local.
+## Layout
 
-The baseline completed and passed local validation. Its public test
-cell-averaged balanced accuracy is **37.75%** (one run).
-See [BASELINE_RESULT.md](BASELINE_RESULT.md) for measurements and evidence.
+- `2026-competition/`: official source, a pinned submodule (`a66bc23`). Never edited.
+- `submissions/ensemble/submission.py`: lean code that reproduces the three uploaded packages byte for byte.
+- `submissions/ensemble_fast/submission.py`: the same outputs at about half the runtime; the base for future uploads.
+- `experiments/`, `scripts/`: training, feature, replay and export code (audit recipes depend on it).
+- `evidence/`: compact tracked results. `data/`, `runs/`, `.venv/` are local only and gitignored.
 
-Session-aligned tangent-space decoders reach 49.7% (v1) on the same official
-split, and v2 reaches 54.9% under leave-one-participant-out over all ten
-participants. Both replay identically through the official evaluator. See
-[docs/OPTIMIZATION.md](docs/OPTIMIZATION.md). The round-3 ensemble (v2,
-ShallowConvNets, FBCNets, causal class rebalancing) reaches 62.8% under the
-same ten-participant protocol; see [docs/OPTIMIZATION_R3.md](docs/OPTIMIZATION_R3.md).
-The current sealed candidate (round 6: windowed rebalancing, Scherer-trained
-members and an unaligned FBCNet) reaches 66.0%, and 70.8% on later sessions
-of seen participants; see [docs/OPTIMIZATION_R6.md](docs/OPTIMIZATION_R6.md).
-Warm-up uploads matched local replays
-([docs/COMPETITION.md](docs/COMPETITION.md)); no sealed-phase upload yet.
-
-```bash
-python scripts/export_windows.py                 # once: cache official windows
-python experiments/run_cv.py v2 --protocols dev_loso,dev_session
-python scripts/train_tangent.py --variant v2 --train official --out runs/submissions/v2
-```
-
-Source `scripts/environment.sh` from Bash, not zsh: it relies on `BASH_SOURCE`.
-
-## Source and environment
-
-- Official checkout: `2026-competition/`.
-- Source revision: `a66bc23d1a0e686b895c093a642b45c74970758b`.
-- Isolated Python 3.12 environment: `.venv/`.
-- NeuroAI packages: 0.4.0; remaining dependencies follow worker requirements.
-- Data and extraction caches: `data/`.
-- Logs, exact dependency versions, package and validation: `runs/baseline/`.
-
-## Run
-
-To rebuild the isolated environment:
+## Setup
 
 ```bash
 git clone --recurse-submodules https://github.com/SebastianBoehler/neural-interfaces-2026.git
@@ -74,35 +35,11 @@ cd neural-interfaces-2026
 bash scripts/setup.sh
 ```
 
-Requires Git and [uv](https://docs.astral.sh/uv/). Setup installs Python 3.12
-and the resolved dependency versions from our macOS ARM baseline run.
-This dependency snapshot has not been validated on Linux/CUDA.
-The upstream worker requirements are in `2026-competition/requirements.txt`.
-Data preparation downloads PROTEUS on the first run.
+Requires Git and [uv](https://docs.astral.sh/uv/). Source `scripts/environment.sh` from Bash, not zsh.
 
-```bash
-bash scripts/run_baseline.sh
-```
+## Rules of work
 
-This runs the unchanged official `training.yml`: PROTEUS, Torch-Linear,
-30 epochs, run seed 42. The participant split retains random state 33.
-Training and inference run on CPU on this local Mac; the official extractor
-retains its default worker settings.
-
-Before training, a real-data audit verifies disjoint participants, signal shape,
-finite values, label range, and one-window evaluation batches.
-Local validation packages the exported solver and weights, reloads them through
-the official ingestion program, and invokes the official scoring program.
-It checks that the trained and reloaded metrics match, the ZIP has the right
-root layout, and inference does not change the read-only submission files.
-
-Success is recorded in `runs/baseline/validation.json`. A package alone does
-not establish successful validation. Native CPU replay does not establish
-Linux/A100 worker compatibility or a Codabench score.
-
-See `OFFICIAL_CONTRACT.md` for source links and detailed preprocessing,
-streaming, split, metric, and packaging requirements.
-
-After cloning, the tracked historical evidence is available immediately;
-the ZIP, full logs and caches are generated by the run command.
-The existing local workspace retains its original ZIP and logs under `runs/`.
+- Local Python jobs run only through `scripts/run_capped.sh`, one at a time. Heavy work goes to Galvani.
+- Every run is pre-registered in the ledger (mechanism, numeric prediction, refutation rule) before it is scored.
+- Uploads need the user's explicit go-ahead and a live check of phase and quota.
+- Datasets, environments, credentials and checkpoints are never committed.

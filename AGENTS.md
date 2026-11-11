@@ -2,7 +2,11 @@
 
 This project targets Track 2 BCI decoding in Neural Interfaces 2026.
 
-- Read README.md, OFFICIAL_CONTRACT.md and BASELINE_RESULT.md first, then docs/STATE_11NOV.md (current state).
+- Read docs/STATE_11NOV.md first (current state), then README.md and OFFICIAL_CONTRACT.md.
+- docs/archive/ is history; where it contradicts docs/STATE_11NOV.md, the state file wins.
+- Pre-register every run in docs/PREDICTIONS_11NOV.md (mechanism, numeric prediction, refutation rule) before scoring it.
+- You own this codebase: edit and clean up freely, commit and push often, with no AI author line in commits.
+- Never edit submissions/*/submission.py in place: their SHA-256 values are pinned to uploaded or staged packages.
 - Keep the official 2026-competition submodule pinned and unchanged.
 - Keep our implementations and scripts outside the official submodule.
 - Preserve the official participant split, preprocessing and metric for comparisons.

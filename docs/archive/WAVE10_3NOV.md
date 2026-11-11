@@ -1,8 +1,8 @@
 # Wave 10 (3 Nov): the teacher's data, two untested directions
 
-cand_nxif stays the lead (docs/OVERNIGHT_2NOV.md; audit recipe docs/AUDIT_NXIF.md). Waves 5–9 closed
+cand_nxif stays the lead (docs/archive/OVERNIGHT_2NOV.md; audit recipe docs/AUDIT_NXIF.md). Waves 5–9 closed
 the teacher's architecture, recipe, C / w, seeds, fusion, map edits and arithmetic heads. Two rows of
-the allowed space (docs/REVIEW_2NOV.md §4, §7) are still untested. Both follow the independent-errors
+the allowed space (docs/archive/REVIEW_2NOV.md §4, §7) are still untested. Both follow the independent-errors
 account: raise the teacher's accuracy on PROTEUS without giving it PROTEUS labels.
 
 1. **10u, in-domain adaptation without labels.** The teacher trunk never sees PROTEUS. `pretrain.py
@@ -153,7 +153,7 @@ evidence yet for the independent-errors account: accuracy alone is not the lever
 
 ## Explorer arm staged: `runs/sealed/cand_nxif_emx`
 
-Wave 9's explorer core (docs/OVERNIGHT_2NOV.md, round 3) is now a data-only package. It is cand_nxif
+Wave 9's explorer core (docs/archive/OVERNIGHT_2NOV.md, round 3) is now a data-only package. It is cand_nxif
 with `rb_alpha` 1.15, `em_shrink` 0.85 and `em_n0` 40 (`scripts/set_params.py`, job 3044931). Other
 files are unchanged, and `submission.py` is still `25d51a6e…`.
 

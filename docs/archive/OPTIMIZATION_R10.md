@@ -381,7 +381,7 @@ R15 79.59 / 86.34 / 72.83 / 70.79):
 | fblight_ea_ptm7_rot05 | 68.00 | 79.29 / 85.82 / 72.77 / 70.90 |
 
 FBLight: closed. FBCNet: +0.2–0.3, below the three-seed noise level
-(docs/STRATEGY_R16.md §1). Seeds 3-5 are running (3023801) before any decision.
+(docs/archive/STRATEGY_R16.md §1). Seeds 3-5 are running (3023801) before any decision.
 
 **R16 fresh seeds (3023801).** Pooled over seeds 0-5, R15 78.68 → 78.98
 (ptm7r_rot05) and 79.01 (ptm7r); on seeds 3-5 alone 78.23 → 78.26 / 78.11.
@@ -419,7 +419,7 @@ class information. MixStyle is neutral (±0.4, within noise). Closed.
 
 ## R19: per-session gaze templates (30 Oct, candidate)
 
-Found by the ground-up review (docs/GROUND_UP_REVIEW.md §2.4, §5 rank 1)
+Found by the ground-up review (docs/archive/GROUND_UP_REVIEW.md §2.4, §5 rank 1)
 and re-implemented independently in `experiments/session_em.py`.
 - **View:** horizontal (F5+AF3+F3 − F6+AF4+F4) and vertical
   (AF3+AF4 − P1+P2+Pz) slow potentials in 16 bins per window, 32 values.

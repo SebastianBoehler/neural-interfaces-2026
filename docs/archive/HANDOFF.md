@@ -11,10 +11,10 @@ matter. The user wants a clean thread that:
 
 Read this file, then:
 - `AGENTS.md`, `OFFICIAL_CONTRACT.md`;
-- `docs/SEALED_PLAN.md` (slot plan, packages, real-worker runs);
-- `docs/OPTIMIZATION_R10.md` (R10–R19e, rounds 2 and 3; the latest
+- `docs/archive/SEALED_PLAN.md` (slot plan, packages, real-worker runs);
+- `docs/archive/OPTIMIZATION_R10.md` (R10–R19e, rounds 2 and 3; the latest
   evidence is at the end);
-- `docs/GROUND_UP_REVIEW.md` (first-principles review of 30 Oct: bounds,
+- `docs/archive/GROUND_UP_REVIEW.md` (first-principles review of 30 Oct: bounds,
   solution-space map, literature).
 
 Older round docs (`OPTIMIZATION*.md` R1–R8, `STRATEGY_*.md`) only for a
@@ -118,13 +118,13 @@ saved-probability replays.
 
 **Guarded code (31 Oct, `submission.py` `cdfa4cec…`).** The pre-freeze audit found
 a crash path in the EM stage, an sd bug, NaN poisoning and positional channels;
-all fixed, weights unchanged (docs/SEALED_PLAN.md, "Pre-freeze audit"). The guarded
+all fixed, weights unchanged (docs/archive/SEALED_PLAN.md, "Pre-freeze audit"). The guarded
 code ran on the real worker (1024097), so the `_g` ZIPs supersede the unguarded
 R19e/R15/R19. After the warm-up closes (1 Nov 23:59 CET) the code is frozen: new
 sealed arms may change only `weights.npz`.
 
 **Frozen sealed code (1 Nov):** `submission.py` `25d51a6e…` = the guarded code plus a
-generic TorchScript member (`jit_file` key; docs/SEALED_PLAN.md, "Model-file member").
+generic TorchScript member (`jit_file` key; docs/archive/SEALED_PLAN.md, "Model-file member").
 It ran on the real worker as Codabench 1024447 (0.99080, 31.8 s). New architectures
 after the freeze ship as `.pt` data files next to `weights.npz`.
 
@@ -183,8 +183,8 @@ the same session, causally.
 
 ## Closed levers (do not re-propose without new evidence)
 
-Details and numbers are in `docs/OPTIMIZATION_R10.md` and
-`docs/GROUND_UP_REVIEW.md` §4–5.
+Details and numbers are in `docs/archive/OPTIMIZATION_R10.md` and
+`docs/archive/GROUND_UP_REVIEW.md` §4–5.
 - **Models and training:**
   - architectures (~30 braindecode nets) and recipes;
   - more seeds;
@@ -218,7 +218,7 @@ Details and numbers are in `docs/OPTIMIZATION_R10.md` and
   - imaginary coherency (refuted);
   - amplitude/slow-block scaling;
   - population-template priors in the gaze EM (−0.6).
-- **Round 4 (30 Oct evening; `docs/OPTIMIZATION_R10.md`, end):**
+- **Round 4 (30 Oct evening; `docs/archive/OPTIMIZATION_R10.md`, end):**
   - unsupervised per-session clustering, with or without drift removal;
   - 2-way splits inside predicted classes, even with an oracle relabel;
   - sign-free or signed cortical band power;
@@ -241,12 +241,12 @@ The literature agrees: SPDAlign gets 72.7 label-free against 73.2 for EA, and in
 labelled context. What is left is sealed-phase work:
 - the upload order (adaptive: R19e, then R15);
 - audit reproducibility: done. A fresh-clone rebuild of R19e from re-downloaded corpora matches the
-  staged package on 2,654 of 2,655 labels (docs/SEALED_PLAN.md; checksums in
+  staged package on 2,654 of 2,655 labels (docs/archive/SEALED_PLAN.md; checksums in
   `scripts/sealed_r19e_inputs.sha256`);
 - an EA artifact clip: tested as R20, dla +0.08, not adopted (closed);
 - replacing R10 with an R19e variant (E[max] +0.03 to +0.3).
 
-Details are in docs/OPTIMIZATION_R10.md, end.
+Details are in docs/archive/OPTIMIZATION_R10.md, end.
 
 1. **Base models whose class directions generalise across people.** This
    is the population-level transfer gap (dla 74 against 85). It needs:
@@ -322,7 +322,7 @@ the file input on the participate tab, then poll
 ## Repository state
 
 `main` is at `954904b` (pushed). Uncommitted at handoff: this file,
-`docs/NEXT_SESSION_PROMPT.md` and `scripts/diag/`. The user had not yet
+`docs/archive/NEXT_SESSION_PROMPT.md` and `scripts/diag/`. The user had not yet
 said whether to commit them.
 
 Not in git: `data/` and `runs/` (probabilities, packages, ZIPs, pretrain

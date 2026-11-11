@@ -2,7 +2,7 @@
 
 # State on 7 Nov 2026 (evening): the starting point
 
-This file supersedes docs/HANDOFF.md (30 Oct) as the entry point. Details are in docs/SEALED_UPLOADS.md (upload log),
+This file supersedes docs/archive/HANDOFF.md (30 Oct) as the entry point. Details are in docs/SEALED_UPLOADS.md (upload log),
 docs/AUDIT_SBN.md (audit recipes) and docs/REVIEW_5NOV.md (5–7 Nov evidence and closed directions). The session
 scratch is archived in `runs/archive_7nov/` (see its `INDEX.md`; mirrored on Galvani).
 

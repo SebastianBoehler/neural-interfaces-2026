@@ -2,7 +2,7 @@
 
 External training data: Dreyer 2023 (CC BY 4.0) and Scherer 2015 /
 BNCI 2015-004 (CC BY-NC-ND 4.0, used by user decision; see
-`docs/OPTIMIZATION_R5.md`).
+`docs/archive/OPTIMIZATION_R5.md`).
 
 - `cv_summary.json`: every round-5 harness run (`NAME@TAG`), mean/SD over
   seeds, per seed, `rev` and source. Deep runs: Galvani A100 jobs 2977845

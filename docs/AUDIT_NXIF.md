@@ -3,7 +3,7 @@
 Top-3 entries are audited by re-running training from committed config and rescoring on the sealed
 set; the rescore must land within ±2σ of the submitted score. This document is that config for
 `runs/sealed/cand_nxif`: R19e with the frozen `submission.py`, plus the EEGNeX + IFNet external-head
-teacher (docs/OVERNIGHT_2NOV.md, "Wave 5 result").
+teacher (docs/archive/OVERNIGHT_2NOV.md, "Wave 5 result").
 
 ## One command
 
@@ -48,7 +48,7 @@ EEGNeX and IFNet seeds 0–11 feed the teacher, which averages head log-probs ov
 
 **Tolerance.** GPU training is not bit-deterministic, so rebuilt files will not hash equal. EEGNeX
 trunks also depend on the GPU type (A100 vs RTX 2080 Ti: about one seed apart), so the recipe trains
-them on RTX 2080 Ti like the originals. The R19e fresh-clone audit (30 Oct, docs/SEALED_PLAN.md) matched the staged
+them on RTX 2080 Ti like the originals. The R19e fresh-clone audit (30 Oct, docs/archive/SEALED_PLAN.md) matched the staged
 package on 2,654 of 2,655 labels. Its rebuilt trunks were 0.05 (relative) from the originals, against
 0.13–0.16 between two seeds. Averaging 12 seeds per architecture further damps trunk noise in the
 teacher. Expected for cand_nxif: label agreement ≥ 99 % on the public windows and a dev score
@@ -66,7 +66,7 @@ within seed noise (±0.7 sel). Met on 3 Nov: see "Validation" below.
 | Schirrmeister2017 (High-Gamma) | 14 | CC BY 4.0 |
 | Shin2017A / Shin2017B (TU Berlin hBCI) | 29 | GNU GPL (MOABB `accept=True`, accepted 28 Oct) |
 
-Licences were checked on 28 Oct (docs/OPTIMIZATION_R10.md); re-verify before the method description.
+Licences were checked on 28 Oct (docs/archive/OPTIMIZATION_R10.md); re-verify before the method description.
 No pretrained third-party weights; no sealed or clinical data.
 
 ## Compute
@@ -127,7 +127,7 @@ rebuilt by stage 1; the 7 corpora and PROTEUS windows linked in and verified aga
 (≥ 99 % agreement). In-sample scores only check that the predictions agree, not how well the
 package generalises.
 
-**All-A100 rebuild (3 Nov, docs/WAVE10_3NOV.md §10h).** The 12 EEGNeX trunks were trained on A100 (the
+**All-A100 rebuild (3 Nov, docs/archive/WAVE10_3NOV.md §10h).** The 12 EEGNeX trunks were trained on A100 (the
 two from the audit plus 10 new). Combined with the original IFNet, the teacher's dev sel is +2.80 vs
 +2.91 on seeds 0–11 (s05 −0.13, s611 −0.16), well inside seed noise. The exported package
 (`teacher.pt` `ccc8e2f7…`) agrees with the staged cand_nxif on 752 / 755 official-test windows and

@@ -415,7 +415,7 @@ C 0.01, w 4–7. Same rule: ≥ +0.5 over the base pair on s05, both halves abov
 m7r + m7r60 +2.43; + m7rcm +2.44; m7r + m7r60 + m7rcm +2.45; all four recipes +2.29. Averaging
 recipes lowers the score, as more seeds did not raise it: the base pair's 12 seeds stay.
 
-## Wave 8 (2 Nov ~20:30, `runs/diag/wave8.sh`; levers 2–4 of docs/REVIEW_2NOV.md)
+## Wave 8 (2 Nov ~20:30, `runs/diag/wave8.sh`; levers 2–4 of docs/archive/REVIEW_2NOV.md)
 
 Code: `dg.seg_recombine` + `pretrain.py --sr K` (segment and reconstruction, arXiv
 2405.14994; smoke test: shape kept, second half untouched, every segment from a same-class
@@ -498,7 +498,7 @@ participant dla vs the unedited teacher; mean without P10:
 - The handedness prior is refuted: laterality is a real cue, worth 1.2 sel (e1).
 - e3 clears +0.5 on every seed half, but the gain comes from P10, the participant whose later
   sessions also make up ds. Five of the seven others lose. That is exactly the P10 selection risk in
-  docs/REVIEW_2NOV.md §2, so e3 is not adopted. If it is ever used, it should be a sealed exploration
+  docs/archive/REVIEW_2NOV.md §2, so e3 is not adopted. If it is ever used, it should be a sealed exploration
   arm, not the lead.
 - No edit helps the typical held-out participant. The fitted map already encodes what these
   priors can add.
@@ -746,6 +746,6 @@ The C 0.1 results are lower still.
 Teacher-alone dla barely moves (EEGNeX 51.4 → 51.8–52.8; IFNet 54.8 → 54.1–55.2), and the
 Shin 2017B subtraction head separates SUB slightly better (AUC 0.53 → 0.54–0.56). But P(right | R19e
 wrong) falls from 0.50 / 0.48 to 0.44–0.45 (EEGNeX / IFNet): the arithmetic heads make the teacher's
-errors more like the ensemble's. That fits the independent-errors account (docs/REVIEW_2NOV.md §7):
+errors more like the ensemble's. That fits the independent-errors account (docs/archive/REVIEW_2NOV.md §7):
 what the ensemble already decodes (SUB is its strongest class) adds nothing, and the cost is
 independence. Not adopted.

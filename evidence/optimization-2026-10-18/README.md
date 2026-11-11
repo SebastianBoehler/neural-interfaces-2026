@@ -10,4 +10,4 @@ Recorded `rev` values are the parent commit (`daedce3`); the experiment code
 was uncommitted at run time and is first committed together with this
 evidence. Windows: `data/proteus_windows.npz`, SHA-256 in `submissions.json`.
 Limits: native replays only, no Docker/Codabench run, public data only.
-See `docs/OPTIMIZATION.md` for interpretation.
+See `docs/archive/OPTIMIZATION.md` for interpretation.

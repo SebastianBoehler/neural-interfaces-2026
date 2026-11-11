@@ -13,7 +13,7 @@ total (three used by 7 Nov), at most one per UTC day, best score counts.
 ## 1. Understand the current state (first)
 
 Read in this order:
-1. docs/STATE_7NOV.md (the entry point: baseline, sealed history, board,
+1. docs/archive/STATE_7NOV.md (the entry point: baseline, sealed history, board,
    runtime, what is closed and what is open)
 2. AGENTS.md and OFFICIAL_CONTRACT.md
 3. docs/SEALED_UPLOADS.md (upload log) and docs/AUDIT_SBN.md (audit recipes)
@@ -39,7 +39,7 @@ Summarise for me in a few lines:
 
 Do a genuine state-of-the-art and interdisciplinary research block before
 proposing experiments. Use workflows and parallel research agents (ultracode
-is fine). Look explicitly beyond what docs/GROUND_UP_REVIEW.md §3 already
+is fine). Look explicitly beyond what docs/archive/GROUND_UP_REVIEW.md §3 already
 covered.
 
 **Questions to answer:**
@@ -63,8 +63,8 @@ the mechanism survives our setting (causal streaming, no metadata, about
 
 ## 3. Then iterate towards the next breakthrough
 
-Map the remaining solution space against what is closed (docs/STATE_7NOV.md
-and docs/REVIEW_5NOV.md; older: docs/HANDOFF.md, "Closed levers"; do not
+Map the remaining solution space against what is closed (docs/archive/STATE_7NOV.md
+and docs/REVIEW_5NOV.md; older: docs/archive/HANDOFF.md, "Closed levers"; do not
 re-propose those without new evidence). Rank the candidates by expected
 sealed gain × probability. Then run them:
 - **Oracle-first gates.** Bound each idea with a true-label or ideal-case

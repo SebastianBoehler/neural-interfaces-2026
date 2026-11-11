@@ -25,4 +25,4 @@ with `experiments/` rsynced); the round-2 code was uncommitted at run time
 and is first committed together with this evidence.
 Windows: `data/proteus_windows.npz`, SHA-256 in `submissions.json`.
 Limits: public data only; native replays, no Docker or Codabench run.
-See `docs/OPTIMIZATION.md` (round 2) for interpretation.
+See `docs/archive/OPTIMIZATION.md` (round 2) for interpretation.

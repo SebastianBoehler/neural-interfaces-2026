@@ -1,4 +1,4 @@
-SEQ: Graz cue-order prior. Written 11 Nov 2026 ~11:40 UTC, before any chain score.
+SEQ: Graz cue-order prior. Written 11 Nov 2026 ~11:15 UTC, before any chain score.
 Finding (labels only, 42 public Graz runs, all 14 sessions): y_i == "WSM"[i mod 3] in 55-58 % of positions
 (chance 33 %); BrainHero runs 34-39 %. Consistent with the OpenViBE Lua stimulator: ordered W,S,M,... list plus
 a limited number of random swaps (counts stay 10/12 per class).

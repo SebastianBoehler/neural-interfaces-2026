@@ -297,7 +297,7 @@ code and seeds (control). Member = mean of seeds 0–2. The chain swaps the memb
 | Time ratio | | |
 | CPU fallback | | |
 
-## 9. SEQ: Graz cue-order prior (written 11 Nov ~11:40 UTC, before any chain score; scratch `runs/archive_scratch_11nov/seq/`)
+## 9. SEQ: Graz cue-order prior (written 11 Nov ~11:15 UTC, before any chain score; scratch `runs/archive_scratch_11nov/seq/`)
 
 **Finding (labels only, no EEG).** In all 42 public Graz runs (14 sessions, acquisition and online), the cue order is a
 weakly shuffled repeating WORD → SUB → MI cycle: y_i equals "WSM"[i mod 3] in 56 % of positions (chance 33 %); the run's
@@ -326,7 +326,7 @@ Information content: 0.155 bit per Graz window.
   gains more (+3 points on Graz cells at the mix level), so other teams may be using it.
 - **Open for the user:** whether to tell the organisers (it is a protocol artefact, not neural decoding).
 
-## 10. BIO0: label-free spectral biometric for returning-person identification (written 11 Nov ~12:05 UTC, before any result; scratch `runs/archive_scratch_11nov/bio/`)
+## 10. BIO0: label-free spectral biometric for returning-person identification (written 11 Nov ~11:28 UTC, before any result; scratch `runs/archive_scratch_11nov/bio/`)
 
 Feature: per-window log-PSD shape (CAR, 2–40 Hz, per-channel gain removed), session mean over the first n windows,
 correlated with each gallery person's mean. Probes: all 14 sessions, leave-one-session-out; genuine trials exist only
@@ -345,3 +345,46 @@ this raw score cannot reject new people early: P04's genuine scores (0.3–0.5) 
 (0.4–0.6). It is not better than the shipped class-fingerprint gate. A discriminant trained on external multi-session
 corpora (within-person against between-person variance) is the untested next step; its payoff is capped by the fact
 that only P04-like people gain from a personal head.
+
+## 11. BIO1: discriminant person identification trained on external multi-session corpora (written 11 Nov ~11:38 UTC, before any result; code `experiments/bio_id.py`; Galvani job 3087013)
+
+**Mechanism.** BIO0 failed open-set because a raw correlation has no model of what varies within a person across
+sessions. A two-covariance Gaussian model (between-person, within-person across sessions, window noise / n) fitted in
+PCA space on external people (Lee2019, Stieger2021, Yang2025, Kumar2024, GuttmannFlury2025, Zhou2020) gives a
+same-person log-likelihood ratio that accounts for n. Held-out external people measure it honestly; PROTEUS is scored
+leave-one-session-out with the model fitted on external data only.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| External, held-out people, 10-person gallery, 1 gallery session: correct accepts at 2 % false accepts, n = 20 windows (best view) | 55 % (30–80) | < 30 % |
+| Same, n = 60 | 70 % (45–90) | — |
+| External rank-1 at n = 20 | 85 % (65–95) | — |
+| PROTEUS at the external 2 % threshold, n = 20: genuine P04/P10 probes accepted | 4 of 6 (2–6) | < 3 |
+| PROTEUS new-person probes above that threshold (of 14) | 1 (0–3) | > 4 |
+
+**Gate for building routing v4 on it:** external correct accepts ≥ 60 % at n = 20 and 2 % false accepts; PROTEUS ≥ 5 of
+6 genuine accepted with ≤ 1 of 14 impostors at the externally fixed threshold.
+
+| Item | Observed | Verdict |
+|---|---|---|
+| External (rank-1, correct accepts at 2 %) by n | | |
+| PROTEUS genuine / impostor | | |
+| Gate | | |
+
+## 12. SBNX: SessionBN versions of untried member families (written 11 Nov ~11:40 UTC, before any code ran; Galvani smoke 3087028, array 3087029; scripts `runs/archive_scratch_11nov/sbnx/galv/`)
+
+**Mechanism.** Session normalisation lifted FBCNet from 59 to 66 and ShallowConvNet from 58 to 62 on new people, and
+the ensemble's gain is member diversity. TIDNet, CTNet, EEGConformer, ATCNet, EEGSimpleConv, FBMSNet, SCCNet and Deep4
+were only ever tried with plain batch norm (45–48 % alone) or not at all. Same recipe as the FB slot, seeds 0–1.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Best family, standalone new (k 2, raw argmax, 2 seeds) | 61 (55–66); SBN FBCNet is 66 | — |
+| Families that train and reach ≥ 58 new | 3 of 8 (1–5) | 0 |
+| Best single family as an extra chain member, nested dJ | +0.15 (−0.20 to +0.50) | ≤ 0 for every family |
+| P(gate pass: nested ≥ +0.5, both halves ≥ 0, seen ≥ −0.3) | ≈ 8 % | — |
+
+| Item | Observed | Verdict |
+|---|---|---|
+| Standalone per family | | |
+| Chain nested dJ | | |

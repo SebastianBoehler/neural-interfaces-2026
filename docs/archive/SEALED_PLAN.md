@@ -86,7 +86,7 @@ the scores so far.
 
 **Update 27 Oct: r9 leads.** r9 = r8t4 + 5 aligned SincShallowNets + 5
 aligned FBLightConvNets (`scripts/sealed_r9.json`, code `ea58271`;
-`docs/OPTIMIZATION_R8.md`, R9). Fresh-seed selection 77.71 vs 76.17,
+`docs/archive/OPTIMIZATION_R8.md`, R9). Fresh-seed selection 77.71 vs 76.17,
 all_loso 66.95 (P04 49.6, P09 69.7) vs 66.31, seen_session 71.99 vs 70.93,
 honest warm-up replay 0.5358 vs 0.5304; expected ≈ +0.8 on the sealed set.
 Worker replica 51.3 s per 755 windows (r8t4g 46.7 s), ≈ 13 min projected.
@@ -114,12 +114,12 @@ Sealed upload order, one per day:
 | 1 | r9g |
 | 2 | r9b |
 | 3 | r9c |
-| 4 | r8t4g, or a stronger R10 candidate (pretrained trunks, `docs/OPTIMIZATION_R10.md`) |
+| 4 | r8t4g, or a stronger R10 candidate (pretrained trunks, `docs/archive/OPTIMIZATION_R10.md`) |
 | 5 | Decided from the scores |
 
 **Update 28 Oct (evening): R10.** R10 is r9 with the SincShallow family
 initialised from trunks pretrained on seven open motor-imagery corpora
-(`docs/OPTIMIZATION_R10.md`).
+(`docs/archive/OPTIMIZATION_R10.md`).
 
 | | Selection | all_loso | seen_session |
 |---|---:|---:|---:|
@@ -151,7 +151,7 @@ Proposed order, one per day and every upload authorised by the user:
   score).
 
 The bootstrap E[max] of {R10, R19e, R19, R15} equals R19e alone, and R15/R19e share worker-proven
-code, so r9g and R10 bought neither expected score nor crash insurance (docs/OPTIMIZATION_R10.md,
+code, so r9g and R10 bought neither expected score nor crash insurance (docs/archive/OPTIMIZATION_R10.md,
 round 4).
 
 Each R10 package first needs a clean build, harness agreement, a worker
@@ -179,7 +179,7 @@ as Codabench 1018364: 0.99731 cell-mean (identical to the replica) in 30.8 s.
 had the result.) Warm-up quota after it: 8 of 100.
 
 **R14 staged (29 Oct).** R10 with random-rotation augmentation on the
-aligned FBCNet, SincShallowNet and FBLight members (docs/OPTIMIZATION_R10.md
+aligned FBCNet, SincShallowNet and FBLight members (docs/archive/OPTIMIZATION_R10.md
 R14; selection 79.31 vs 78.58 on seeds 0-2, 77.92 vs 77.69 on seeds 3-5).
 Clean build from `741a074` (Galvani 3023343, `scripts/sealed_r14.json`),
 same `submission.py` (`396e3866…`): harness agreement 1.0; A100 replay
@@ -189,7 +189,7 @@ the R10 package: 1 of 755 official-test labels and 6 of 2,655 windows
 differ. Day 3 is R14 (user decision 29 Oct); R10b moves to day 4.
 
 **R15 staged (29 Oct).** R14 with SincShallowNet trunks pretrained with
-rotation (`sincshallow_ea-m7r-s{0-4}.pt`; docs/OPTIMIZATION_R10.md R15;
+rotation (`sincshallow_ea-m7r-s{0-4}.pt`; docs/archive/OPTIMIZATION_R10.md R15;
 selection 79.59 vs 79.31 on seeds 0-2, 78.23 vs 77.92 on seeds 3-5). Clean
 build from `6a894df` (Galvani 3023595, `scripts/sealed_r15.json`), same
 `submission.py` (`396e3866…`): harness agreement 1.0; A100 replay 0.9960,
@@ -247,7 +247,7 @@ banks identical to the staged package and differs on 1 of 2,655 windows
 replica of the official worker image.
 
 **R19 staged (30 Oct).** R15's weights, unchanged, plus the per-session
-gaze-template stage (docs/OPTIMIZATION_R10.md R19; `scripts/add_session_em.py`
+gaze-template stage (docs/archive/OPTIMIZATION_R10.md R19; `scripts/add_session_em.py`
 on `ensemble_all_r15_clean_6a894df`, Galvani 3024078). There is a **new
 `submission.py`** (`55d11fbf…`) with the `em_*` keys. Checks on all 2,655
 windows:
@@ -273,7 +273,7 @@ the gaze stage. R10b stays staged as a fallback.
 
 **R19e staged (30 Oct).** R15's weights unchanged, plus the per-session EM
 stage with 32 gaze values and 16 ocular-event rates
-(docs/OPTIMIZATION_R10.md R19e; `scripts/add_session_em.py --events` on
+(docs/archive/OPTIMIZATION_R10.md R19e; `scripts/add_session_em.py --events` on
 `ensemble_all_r15_clean_6a894df`, Galvani 3025576). New `submission.py`
 (`6c63a8f2…`) with the `em_ev_*` keys. On all 2,655 windows:
 - stage off reproduces R15 exactly (1.0);
@@ -390,7 +390,7 @@ R19e-λ0.25-g: R15 weights plus the R19e stage at λ 0.25
 `scripts/sealed_r19e_l25.json`); stage off reproduces R15 (1.0), stage on equals
 `experiments/session_em.py` at λ 0.25 (1.0); same worker-proven `submission.py`
 (`cdfa4cec…`). Dev (six seeds): dla 73.52, ds 85.76, al 68.15 (R19 73.57 / 85.68 /
-68.17; profile in docs/HANDOFF.md). Worker replica 3031717 (A100): 0.99601, 49.8 s,
+68.17; profile in docs/archive/HANDOFF.md). Worker replica 3031717 (A100): 0.99601, 49.8 s,
 files unchanged; `sealed_candidate_ensemble_all_r19e_l25_g.zip` (`b65086f8e0fe…`).
 (3031715 failed before scoring: Slurm placed it on a non-A100 GPU, which the worker
 image's CUDA build does not support; replicas must use the default A100 partition.)

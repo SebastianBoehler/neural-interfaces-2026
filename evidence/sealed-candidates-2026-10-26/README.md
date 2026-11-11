@@ -15,5 +15,5 @@ image (`scripts/cloud/worker_image.def`: torch 2.14.1+cu130, braindecode
 1.8.1) on an A100 with CUDA visible. Scores there are on the warm-up test
 windows, which the sealed packages were trained on (≈ 1.0 by design); they
 check execution, timing and file integrity, not accuracy. Selection and
-evaluation numbers: `docs/OPTIMIZATION_R8.md`, `docs/SEALED_PLAN.md`.
+evaluation numbers: `docs/archive/OPTIMIZATION_R8.md`, `docs/archive/SEALED_PLAN.md`.
 `ensemble_all_r6nf_clean_1631413_check.json`: audit-grade rebuild of r6nf.
