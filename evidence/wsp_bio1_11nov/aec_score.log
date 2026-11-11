@@ -1,0 +1,4 @@
+[run_capped] Wed Nov 11 20:46:04 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/ttt/score_extra_core.py runs/aec/out/car_fb7_full_t0.1_le_k2.npz aec (max 8 GB)
+aec lr3: standalone new 50.38 seen 48.67 | chain w0.5: -0.69 (new -0.19: G1 -0.01, G2 -0.36; seen -1.19) | w1.0: -1.04 (new -0.62: G1 -0.64, G2 -0.61; seen -1.46) | w2.0: -2.49 (new -2.61: G1 -3.09, G2 -2.13; seen -2.38)
+aec lr10: standalone new 50.18 seen 48.67 | chain w0.5: -0.59 (new -0.18: G1 -0.01, G2 -0.36; seen -1.00) | w1.0: -1.03 (new -0.67: G1 -0.64, G2 -0.70; seen -1.39) | w2.0: -2.46 (new -2.67: G1 -3.03, G2 -2.30; seen -2.25)
+[run_capped] Wed Nov 11 20:47:44 CET 2026 exit 0

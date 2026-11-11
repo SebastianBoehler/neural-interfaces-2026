@@ -892,7 +892,11 @@ variants), AEC core (1 task). Predictions for TTT are in §24.
 
 | Item | Observed | Verdict |
 |---|---|---|
-| AEC | | |
+| AEC standalone new / seen | 50.4 / 48.7 (lr3 and lr10 alike; 6,355 features) | **Hit** (predicted 45, range 38–55): envelope co-fluctuation carries class information |
+| AEC as an extra chain member (weight 0.5 / 1 / 2) | −0.6 / −1.0 / −2.5 J; seen −1.0 to −2.4 | **Refuted** (≤ 0 at every weight) |
+
+**AEC reading.** A new kind of feature with real standalone signal still lowers the chain. Being different is necessary
+but not sufficient: the teacher helps because it is different *and* was trained on hundreds of other people.
 
 ## 26. CFC core and REST4 (written 11 Nov ~19:55 UTC, before any result)
 
