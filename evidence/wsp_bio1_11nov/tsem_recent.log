@@ -1,0 +1,6 @@
+[run_capped] Wed Nov 11 18:55:02 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/rt4/tsem_recent.py (max 8 GB)
+N all: J 79.9303 dJ +0.00 new +0.00 (10/10) seen +0.00 | new-people accuracy windows >= 90: 0.7652
+N 120: J 79.8115 dJ -0.12 new -0.06 (7/10) seen -0.18 | new-people accuracy windows >= 90: 0.7652
+N 90: J 79.5239 dJ -0.41 new -0.59 (3/10) seen -0.22 | new-people accuracy windows >= 90: 0.7577
+N 60: J 78.9973 dJ -0.93 new -0.66 (3/10) seen -1.21 | new-people accuracy windows >= 90: 0.7591
+[run_capped] Wed Nov 11 18:55:42 CET 2026 exit 0

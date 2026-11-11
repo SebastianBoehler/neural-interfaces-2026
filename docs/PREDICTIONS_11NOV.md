@@ -790,3 +790,30 @@ Absolute J on the six bases (B2_pool, B2_s345, B2_s012, B2_s0, B2_s1, B2_s2):
 - weight 4.5: 80.7438 80.5044 80.4782 80.0991 80.6449 80.9329 
 
 The shipped weight stays unless 4.5 is clearly better on all six; any change here is tuned on P04 and P10 alone.
+
+## 23. TSEM-R: recency-limited seeds in TSEM (written 11 Nov ~17:55 UTC, before any result)
+
+**Why.** The late-session loss (§20) is not a stale recentring reference. But the class templates of TSEM are also
+cumulative: seeds are the most confident windows of the whole session so far, so in the online runs (from about window
+69) they are still dominated by the acquisition runs, where there is no live feedback. Rebalancing already shows that
+recency matters in this chain (a 30-window share beats a cumulative one by about 0.45 J). Never tested for TSEM.
+
+**Change.** Seeds are drawn only from the last N windows (N = 60, 90, 120); the per-session standardisation stays
+cumulative; everything else as shipped. Applied in both tails of routing v3 (the shipped chain).
+
+| Check (exploration bases) | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Best N: dJ | +0.15 (−0.3 to +0.6) | ≤ 0 for every N |
+| Accuracy in windows ≥ 90, new people | +0.5 (−0.5 to +1.5) | ≤ 0 |
+| N = 60 | −0.2 (−0.8 to +0.3): too few seeds | — |
+| P(gate: fresh ≥ +0.4, new ≥ +0.2, seen ≥ −0.2) | ≈ 10 % | — |
+
+| Item | Observed (exploration bases; shipped chain J 79.930) | Verdict |
+|---|---|---|
+| N = 120 | −0.12 (new −0.06, seen −0.18); late-window accuracy unchanged (76.5 %) | **Refuted** |
+| N = 90 | −0.41 (new −0.59) | **Refuted** |
+| N = 60 | −0.93 (new −0.66, seen −1.21) | **Miss, below the range** |
+
+**Reading.** TSEM wants every seed it can get; older seeds are not stale. Unlike the class shares (where a 30-window
+view wins), the class templates are stable over the session. Recency in TSEM is closed; the late-session loss stays
+unexplained beyond "the online runs are harder".
