@@ -227,3 +227,22 @@ live quota and phase check. **Known limits:** one new-person dev session is rout
 accepts about 2 % of impostors by design); the in-sample score on public people drops because personal heads replace an
 in-sample core, which says nothing about sealed data; the dev gain is P04-driven; the main expected sealed effect
 (more returning sessions accepted) is not measurable on dev.
+
+**Independent review of cand_v4_bio (11 Nov, report `runs/bio1/review_v4.md`; the reviewer had the code and the
+contract, not our conclusions): no blocking defect.**
+- **Verified:** causal and reset-safe (changing later windows leaves earlier scores bit-identical; deep copy plus reset
+  replays like a fresh model); without `bio_*` keys the new routing step equals the old one on 432 fuzz cases including
+  every exception path; the package merge rule equals the dev replay's with no off-by-one; `Bio.scores` equals
+  `TwoCov.llr` to 1e-15; no input the caller can pass raises or yields a non-finite ramp; about 0.85 ms per window.
+- **Calibration caveat (medium, the user's call):** the threshold was calibrated scoring every 5th window with
+  one-session galleries and a centring vector that included the probe; the package scores every window, P04 and P10 have
+  three gallery sessions, and the centring never contains the probe. The 1.9 % false-accept rate is therefore a lower
+  bound. A package-faithful recalibration is running (Galvani 3088231: every window, probe excluded, one- and
+  three-session galleries). The earlier calibration did cover windows 10–200 (it ran with `BIO_KEEP=200`).
+- **Hygiene, fixed in the builder:** the channel-order assertion never ran (now checked against the submission's channel
+  list); the threshold default was 0.23 while the package uses 0.25 (the builder now requires `tau`).
+- **Known and left in the staged code:** an out-of-range person index from the gate would raise an uncaught
+  `IndexError` in the routed block; unreachable here because gallery and heads are both built from `route_names` (the
+  builder now asserts equal lengths). To be closed with an assertion in `Route3.__init__` at the next code rebuild.
+- **Weak spot of our own check:** `check_bio_gate.py` compares only the windows before the first routed one (140 of
+  2,655, since every public session routes at window 10); full-length parity rests on the gate-off replay.

@@ -63,7 +63,7 @@ class Bio:
         return j, r
 
 
-def fold_params(model, feats, stream, names, tau=0.23, ramp=0.05, t0=10):
+def fold_params(model, feats, stream, names, tau=0.25, ramp=0.05, t0=10):
     """Parameters for `Bio`: model = arrays sd, V, B, W, S (bio_id export); feats (n, 1599) window features and
     stream ids ("P04|1") of the gallery rows; names = gallery people in the order of the personal heads."""
     sig = {u: feats[stream == u].mean(0) for u in dict.fromkeys(stream)}

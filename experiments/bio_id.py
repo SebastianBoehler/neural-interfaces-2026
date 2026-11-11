@@ -142,6 +142,38 @@ def stream_trials(M, S, rng, reps=20, G=10, grid=tuple(range(10, 201, 5))):
     return out
 
 
+def stream_trials2(M, S, rng, m=1, step=1, reps=20, G=10, lo=10, hi=200):
+    """As the package scores: every `step`-th window from index `lo` (lo + 1 windows), galleries of `m` sessions, and
+    the centring vector computed without the probe session. -> list of (genuine, best score per n, correct id per n)."""
+    out = []; grid = tuple(range(lo + 1, hi + 1, step)); pj = lambda x: (x[M.sl] / M.sd) @ M.V  # noqa: E731
+    for c in sorted({s["corpus"] for s in S}):
+        by = {}
+        for s in S:
+            if s["corpus"] == c:
+                by.setdefault(s["person"], []).append(s)
+        multi = [p for p in by if len(by[p]) > m]
+        if len(multi) < 4:
+            continue
+        allp = [pj(s["full"]) for s in S if s["corpus"] == c]; tot, nall = np.sum(allp, 0), len(allp)
+        for _ in range(reps):
+            gal = list(rng.choice(multi, min(G, len(multi) // 2), replace=False)); g0, pr = {}, []
+            for p in gal:
+                ii = rng.choice(len(by[p]), m + 1, replace=False); g0[p] = np.mean([pj(by[p][i]["full"]) for i in ii[:m]], 0); pr.append((p, by[p][ii[m]]))
+            for p in by:
+                if p not in gal:
+                    pr.append((None, by[p][rng.integers(len(by[p]))]))
+            for truth, s in pr:
+                mu = (tot - pj(s["full"])) / (nall - 1); cum = np.cumsum(s["head"].astype(np.float64), 0)
+                best, ok = np.full(len(grid), np.nan), np.zeros(len(grid), bool)
+                for k, n in enumerate(grid):
+                    if n > len(cum):
+                        break
+                    x = (cum[n - 1] / n / M.sd) @ M.V - mu; sc = np.array([M.llr(g0[p] - mu, m, x, n) for p in gal])
+                    best[k] = sc.max(); ok[k] = truth is not None and gal[int(sc.argmax())] == truth
+                out.append((truth is not None, best, ok))
+    return out
+
+
 def stream_summary(tr, taus=np.arange(0.18, 0.421, 0.01), ks=(1, 2, 3)):
     """Per threshold and persistence k (consecutive grid points above it): session-level false accepts, correct accepts,
     wrong-identity accepts of genuine sessions, and the median grid index of the first correct accept."""
@@ -207,7 +239,18 @@ def main():
             s["head"] = s["head"][:, :1599]
         people = sorted({s["person"] for s in S}); test = set(rng.choice(people, int(0.3 * len(people)), replace=False))
         M = TwoCov().fit([s for s in S if s["person"] not in test], "psd", 64)
-        rows = stream_summary(stream_trials(M, [s for s in S if s["person"] in test], np.random.default_rng(1)))
+        te = [s for s in S if s["person"] in test]
+        if os.environ.get("BIO_STREAM2"):  # package-faithful: every window, probe excluded from the centring, m sessions
+            res = {}
+            for m in (1, 3):
+                tr = stream_trials2(M, te, np.random.default_rng(1), m=m, step=int(os.environ.get("BIO_STEP", 1)))
+                res[f"m{m}"] = stream_summary(tr, ks=(1,)) if tr else []
+                for r in res[f"m{m}"]:
+                    if r["tau"] in (0.2, 0.23, 0.25, 0.27, 0.3, 0.33, 0.36):
+                        print("m", m, r, flush=True)
+                json.dump(res, open(os.environ["BIO_STREAM2"], "w"), indent=1)
+            return
+        rows = stream_summary(stream_trials(M, te, np.random.default_rng(1)))
         json.dump(rows, open(os.environ["BIO_STREAM"], "w"), indent=1)
         for r in rows:
             if r["tau"] in (0.2, 0.23, 0.25, 0.27, 0.3, 0.33, 0.36, 0.4):

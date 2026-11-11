@@ -1,6 +1,6 @@
 """Build a routing-v4 package: copy a route3geb package, add the identity-gate arrays (bio_*) and the v4 code.
 
-Usage: python scripts/add_bio_gate.py SRC_DIR OUT_DIR MODEL.npz [tau=0.23] [ramp=0.05] [t0=10]
+Usage: python scripts/add_bio_gate.py SRC_DIR OUT_DIR MODEL.npz tau=0.25 [ramp=0.05] [t0=10]   (tau is required)
 MODEL.npz is the external two-covariance model (experiments/bio_id.py, BIO_EXPORT). The galleries are the public
 PROTEUS sessions of the ten people in `route_names` (the order of the personal heads). Every other file and array is
 copied unchanged; submission.py becomes submissions/ensemble_v4/submission.py.
@@ -23,10 +23,12 @@ def main():
     shutil.copy2(ROOT / "submissions/ensemble_v4/submission.py", out / "submission.py")
     z = dict(np.load(src / "weights.npz", allow_pickle=False)); assert not any(k.startswith("bio_") for k in z)
     d = np.load(ROOT / "data/proteus_windows.npz", allow_pickle=True)
-    assert list(d["ch_names"]) == [str(c) for c in z["ch_names"]] if "ch_names" in z else True
+    sub = (ROOT / "submissions/ensemble_v4/submission.py").read_text()
+    assert all(f'"{c}"' in sub or f"'{c}'" in sub for c in map(str, d["ch_names"])), "channel names differ from the submission's CH_NAMES"
+    assert len(z["route_names"]) == len(z["route_ps1_W"]), "gallery order must follow the personal heads"
     per = np.array([s[-3:] for s in d["subject"]]); stream = np.char.add(np.char.add(per, "|"), d["session"].astype(str))
     b0 = Bio.__new__(Bio); b0.win = np.hanning(120); feats = np.stack([b0.feat(x) for x in d["X"]])
-    p = fold_params(model, feats, stream, [str(n) for n in z["route_names"]], tau=kw.get("tau", 0.23), ramp=kw.get("ramp", 0.05), t0=int(kw.get("t0", 10)))
+    p = fold_params(model, feats, stream, [str(n) for n in z["route_names"]], tau=kw["tau"], ramp=kw.get("ramp", 0.05), t0=int(kw.get("t0", 10)))
     z.update({k: np.asarray(v) for k, v in p.items()})
     np.savez(out / "weights.npz", **z)
     print("gallery sessions per person", dict(zip(z["route_names"], p["bio_m"])), "| tau", p["bio_tau"], "ramp", p["bio_ramp"], "t0", p["bio_t0"])
