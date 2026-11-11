@@ -1117,3 +1117,31 @@ new +0.65 / +0.54 / +0.37 (60 steps, three choices of the fine-tuned seed) and +
 1e-3); seen +0.28 / −0.38 / +0.14 and +0.59 / +0.26 / +0.33. A single fine-tuned net alone in the slot keeps less
 (new +0.3 to +0.6, seen −0.5 to −1.1). Per session (one base, three fine-tuned seeds): 11 of 14 new-person sessions
 gain; P01, P05 and P08 lose 1.0–1.6. A gate on the session's early confidence does not separate winners from losers.
+
+**§32 result so far (6 of 15 nets, 11 Nov ~21:40 UTC; `runs/ttt/pfx_score.log`).** Within-session standalone gain of
+fine-tuned over frozen nets, 60 steps: mean +4.4 (predicted +5: **hit**); every person gains (P10 +6.7, P05 +5.6,
+P03 +5.7, P09 +5.6, P02 +4.8, P04 +4.6, P06 +3.9, P01 +3.5, P08 +2.4, P07 +1.5); 9 of 10 gain at least half of P04's
+(predicted 5: above the range); Spearman with weakness +0.32 (hit). Caveat learned from §31: P10 also gains +1 to +10
+standalone across sessions and still gains nothing in the chain, so a standalone proxy does not settle the chain value.
+
+## 33. Hard-bounds review for "what could be worth +3" (11 Nov ~21:20–21:40 UTC; exploratory)
+
+Asked by the user: find a submission that passes the current leader (0.846, +3.0 over our 0.816). Checked:
+
+- **State across sessions.** The evaluator deep-copies the loaded model at every session boundary; the contract says no
+  model state crosses sessions. A new person's six sealed sessions cannot be pooled. Not available, by rule.
+- **Slow potentials / gaze** (channel means and slopes, per session and interface): 62 % within-session supervised on
+  average, very person-specific (P02 95 % in BrainHero, P05 37 %), 46 % by unsupervised clustering. Already what the
+  SessionEM stage uses; no shortcut.
+- **Feedback in online runs** (starts about 2 s into the window): class information in the second half of the window
+  is not higher than in the first half beyond 0.05, for slow features or band power, in either interface. The chain is
+  equally accurate on acquisition and online runs (78–81). No feedback leak.
+- **External corpora and foundation models:** dense in earlier rounds (seven MI corpora, Shin 2017/2018, Zyma, Scherer;
+  four pretrained models). Nothing new found.
+- **Ceilings measured today:** true labels inside the session are worth +3 J through a head and +1.6 J through the
+  nets; label-free labels stop at 77 %; the best label-free member combination is +1 point at mix level; a supervised
+  model on 150 labelled windows of the same session reaches 76 %, which the label-free chain already matches.
+
+**Reading.** Every label-free information source I can identify is used or measured at ≤ +0.7 dev. The gap to the
+leader equals what true in-session labels would give us. I have not found the source of that gap; the leader's fourfold
+runtime is consistent with in-session fine-tuning, which is worth +0.6 to +0.7 on our chain for new people.
