@@ -1,4 +1,4 @@
-# State on 11 Nov 2026 (updated 14:55 UTC): the starting point
+# State on 11 Nov 2026 (updated 16:10 UTC): the starting point
 
 This is the entry point. It is written so that a new thread needs nothing from the chat history. Older documents are
 in docs/archive/ (see its README for the assumptions in them that are now known to be wrong).
@@ -126,9 +126,8 @@ balanced accuracy.
 
 ## 5. Running (state at 14:55 UTC on 11 Nov)
 
-**Galvani access is down since about 14:30 UTC:** the ControlMaster dropped (network changes on the Mac). Jobs keep
-running, but nothing can be fetched until you type a 2FA code (`ssh mlcloud-galvani`; a terminal tab "Galvani 2FA" is
-open). Agents must never re-authenticate.
+**Galvani access** dropped at about 14:30 UTC (network changes on the Mac) and was renewed by the user at about
+15:15 UTC. If it drops again: `ssh mlcloud-galvani`, the user types the 2FA code; agents must never re-authenticate.
 
 | Job | IDs | State when access dropped | What to do with it | Ledger |
 |---|---|---|---|---|
@@ -136,11 +135,15 @@ open). Agents must never re-authenticate.
 | **SCH** leftovers | array 3086622 | one FB task (SUB+WORD only, seed 1) missing | Nothing: scored without it, gate failed | §7 |
 
 **Local:**
-- **Weco** run `ea473cae-53bd-41fd-963b-fa11446fd3f1` (60 steps, resumes itself after network drops): 15 edits scored
-  by 14:50 UTC, all negative on the half it sees (best −0.31), none positive on the hidden dev score. Task files in
-  `.weco/wsp-core1/`; the hidden scores are in `history.jsonl` there.
-- **CSCH** (core1 with Scherer rows, §21): running; output `runs/wsp/core_scherer.npz`, scorer
-  `runs/archive_scratch_11nov/rt4/score_core.py runs/wsp/core_scherer.npz w0`.
+- **Weco** run `ea473cae-53bd-41fd-963b-fa11446fd3f1` finished (60 steps, 56 edits scored, 4.1 credits): one edit was
+  +0.11 on the half it optimised and −0.11 on the hidden half; nothing beats the fitted head (ledger §13). The task in
+  `.weco/wsp-core1/` is reusable for another target.
+- **CSCH** (core1 with Scherer rows, §21): finished, refuted (chain −0.9 to −1.1).
+- **Slot weight of the personal head under v4** (§22, exploratory): 2 is 0.5 worse on every base; 4.5 is +0.12 on
+  average with mixed signs. The shipped 3 stays.
+- **Independent review of the v4 package:** started 16:05 UTC; report goes to `runs/bio1/review_v4.md`.
+- **Access:** renewed about 15:15 UTC by the user; the head-export watcher resubmits the export if the last
+  pretraining task fails. TSCH scorer: `runs/archive_scratch_11nov/rt4/score_tsch.py HEADS.npz`.
 
 **Scorers written on 11 Nov** (all need the old scratch path, see below): `runs/archive_scratch_11nov/rt4/route4.py`
 (routing v4 replay; env TAU, PSC, G3, KAPPA), `stress.py`, `simdiag.py`, `score_core.py`; `runs/archive_scratch_11nov/sbnx/score.py`;
@@ -251,7 +254,8 @@ unconfirmed. If true, returning-person sessions are a larger share than our 2-pe
   revisit if a sealed upload shows that returning-person levers transfer.
 
 **Closed on 11 Nov (afternoon), each for the method class tested:**
-- weight-space edits of core1 (ten hand edits, learned block gains, and Weco so far): the head is at its optimum;
+- weight-space edits of core1 (ten hand edits, learned block gains, and a 60-step Weco search): the head is at its optimum;
+- Scherer rows in core1's head (hurts by about 1 J);
 - pair specialists (W12), untried SessionBN families (SBNX), Scherer as member training data (members +1–3 points,
   chain 0);
 - similarity routing for new people, a forgetting recentring reference, a personal recentring prior, a more
