@@ -365,11 +365,21 @@ leave-one-session-out with the model fitted on external data only.
 **Gate for building routing v4 on it:** external correct accepts ≥ 60 % at n = 20 and 2 % false accepts; PROTEUS ≥ 5 of
 6 genuine accepted with ≤ 1 of 14 impostors at the externally fixed threshold.
 
-| Item | Observed | Verdict |
+| Item | Observed (Galvani 3087096, 18 min; best view = PSD shape; the band-correlation view is poor, rank-1 75–81 %) | Verdict |
 |---|---|---|
-| External (rank-1, correct accepts at 2 %) by n | | |
-| PROTEUS genuine / impostor | | |
-| Gate | | |
+| External, held-out 67 people: correct accepts at 2 % false accepts, n = 20 | 75.0 % (PCA 64), 76.3 % (PCA 128), 71.8 % (PCA 32) | **Hit** (predicted 55, range 30–80) |
+| Same, n = 60 | 86.8 % / 82.9 % / 85.9 % | **Hit** (high end of 45–90) |
+| External rank-1, n = 20 | 95.6 % (n = 5: 92.3 %) | **Miss, above the range** (65–95) |
+| External correct accepts at 1 % false accepts, PCA 64, n = 5 / 10 / 20 / 40 / 60 | 54.6 / 61.7 / 70.5 / 78.6 / 81.5 % | — (the shipped class-fingerprint gate: 10–42 % at session end on Lee2019 / Stieger2021) |
+| PROTEUS genuine P04/P10 probes accepted at the external 2 % threshold, n = 20 (PCA 64) | 5 of 6 (n = 40 and 60: 6 of 6; n = 10: 4 of 6) | **Hit** |
+| PROTEUS new-person probes above that threshold | 0 of 14 at every n (PCA 64); the largest is 0.17–0.18 against thresholds 0.20–0.23 | **Hit** |
+| Gate | external 75 % ≥ 60 %; PROTEUS 5 of 6 with 0 of 14 | **PASS** → routing v4 (§14) |
+
+**Reading.** Identity is in the gain-free spectral shape and survives across sessions once the within-person variation
+is modelled. It needs no pseudo-labels, so it works from window 5–10, where the class-fingerprint gate cannot. The
+margin on PROTEUS is thin for one case (P10 session 1 as a new person scores 0.18). The dev set cannot show the main
+benefit: all four dev seen sessions are already routed by v3, so the gain from a higher acceptance rate on sealed
+returning sessions rests on the external rates.
 
 ## 12. SBNX: SessionBN versions of untried member families (written 11 Nov ~11:40 UTC, before any code ran; Galvani smoke 3087028, array 3087029; scripts `runs/archive_scratch_11nov/sbnx/galv/`)
 
@@ -388,3 +398,69 @@ were only ever tried with plain batch norm (45–48 % alone) or not at all. Same
 |---|---|---|
 | Standalone per family | | |
 | Chain nested dJ | | |
+
+## 13. WSP: profiling and editing core1's weights (written 11 Nov ~12:15 UTC, while the cache was building and before any profile or edit result; code `experiments/wsp_build.py`, `experiments/wsp_core.py`)
+
+**Why core1.** It is our strongest single member (69.3 on new people), it is linear (a 3 × 44,239 logistic head on
+standardised tangent features: 17 bands × {full, half 1, half 2} × 861 covariance entries, plus a slow block), and every
+weight has a physical meaning (band, time half, channel pair). An edit is a matrix operation and scores in seconds.
+
+**Rule for every edit:** it may use only the fold's training people. Each fold therefore carries "inner" heads refitted
+with one more training person left out; the held-out person's rows are used only for scoring.
+
+**Profile (descriptive predictions, 80 % ranges):**
+
+| Quantity | Prediction |
+|---|---|
+| Held-out margin as a share of in-sample margin (whole head) | 12 % (6–25) |
+| Share of weight energy in off-diagonal (connectivity) entries | 90 % (80–97) |
+| Share of held-out margin from off-diagonal entries | 65 % (40–85): power entries transfer better per unit of weight |
+| Bands above 30 Hz: share of weight energy vs share of held-out margin | energy 25 % (15–35), margin 12 % (0–25) |
+| Slow block: share of held-out margin | 10 % (4–20) |
+| Weights whose sign is unstable across leave-one-person-out heads (jackknife |mean| < sd) | 55 % of weight energy (35–75) |
+
+**Edits (standalone = core1 alone on new people, person-equal; chain = route3geb replay with the edited core in the
+core1 slot, mean of B2_pool and B2_s345):**
+
+| Edit | Mechanism | Standalone new (80 %) | Chain dJ (80 %) |
+|---|---|---|---|
+| E2 jackknife shrinkage | each weight × m² / (m² + v), m and v its mean and person-jackknife variance over the inner heads | +0.5 (−0.5 to +1.5) | +0.05 (−0.30 to +0.40) |
+| E1 group gains | each band × time-half block scaled by its inner held-out / in-sample margin ratio (mean 1, ≥ 0) | +0.3 (−0.7 to +1.3) | 0.0 (−0.4 to +0.4) |
+| E3 band smoothing | weights averaged with the neighbouring overlapping bands (ρ 0.5) | 0.0 (−1.0 to +0.7) | −0.1 (−0.5 to +0.3) |
+| E4 half-window tying | the two half-window weight blocks pulled to their mean (ρ 0.5) | −0.2 (−1.2 to +0.5) | −0.1 (−0.5 to +0.3) |
+| E6 magnitude pruning | smallest 50 % / 90 % of standardised weights set to 0 | −0.1 / −1.0 | −0.1 / −0.4 |
+| E8 jackknife soup | weights = mean of the inner heads | 0.0 (−0.5 to +0.5) | 0.0 (−0.3 to +0.3) |
+| Controls | E1 gains permuted across blocks; E2 factors permuted across features | below the real edit | — |
+
+**Gate:** chain dJ ≥ +0.5 with both people halves ≥ 0 and seen ≥ −0.3, then the four fresh bases. P(any edit passes) ≈ 6 %.
+Prior evidence against: fully converged heads are worse than the early-stopped ones, the C sweep is flat around 10, and
+domain-generalisation heads (group DRO, Fishr, person bagging) were negative on both cores.
+
+| Item | Observed | Verdict |
+|---|---|---|
+| Reproduction of the stored core1 posteriors | max abs difference 7e-9 (all_loso), 0 (seen); argmax identical; chain J 80.0131 / 79.8474 reproduced exactly | Harness valid |
+| Held-out / in-sample margin | 41 % (per person 1.9 for P04 to 10.2 for P08, against 12–14 in-sample) | **Miss, above the range** (6–25): the head transfers better than assumed |
+| Off-diagonal entries: weight energy / held-out margin | 92.4 % / 82.4 % (power entries: 4.3 % of energy, 11.8 % of margin) | **Hit / hit**: power transfers 2.7× better per unit of weight |
+| Bands above 30 Hz: energy / margin | 17 % / 4.3 % (above 24 Hz: 22 % / 5.8 %) | **Hit / hit** |
+| Slow block: held-out margin | 5.8 % | **Hit** |
+| Unstable-sign weights | 18 % of weight energy | **Miss, below the range** (35–75): the weights are stable across people |
+| Where transfer concentrates | 10–14 Hz (9.7 % of energy, 18.3 % of margin), 3–6 Hz (5.8 / 12.5), 4–8 Hz (6.4 / 10.1); weak: 6–10 Hz (5.6 / 3.0) and everything above 24 Hz; full window 33 / 39, each half 31–33 / 27–28 | — |
+| E2 jackknife shrinkage | standalone +0.05 (5/10), seen −0.07; chain −0.18 (control −0.11) | **Hit**; no gain |
+| E1 group gains | standalone −2.12 (3/10); chain −0.46; permuted control −2.00 / −0.45 | **Miss, below the range**; any block rescaling of this size hurts |
+| E3 band smoothing | standalone −0.80; chain −0.21 | **Hit** |
+| E4 half-window tying | standalone −2.35 (1/10); chain −0.19 | **Miss** standalone; the halves carry different information |
+| E6 pruning 50 % / 90 % | standalone −0.25 / −1.31; chain −0.08 / −0.69 | **Hit** |
+| E8 jackknife soup | standalone −0.45; chain −0.27 | **Hit** |
+| Gate | best chain dJ −0.08; nothing ≥ 0 | **FAIL** (as expected at ≈ 6 %) |
+
+**Reading.**
+- The fitted head is close to the best linear map of these features: every hand edit lowers the chain, including the
+  two built from the transfer profile.
+- **Margin share is not usefulness.** Blocks above 24 Hz hold 22 % of the weight for 6 % of the held-out margin, yet
+  scaling blocks by their transfer ratio costs 2 points, the same as a random rescaling. The weights are a joint
+  solution, and low-margin blocks cancel noise in the others.
+- **The weights are not the bottleneck; the per-person class directions are.** The head keeps 41 % of its margin on
+  unseen people on average but 15 % on P04, and no person-independent edit of one shared head can fix a person whose
+  class directions differ.
+- Useful by-products: the neuro-physiological picture (mu 10–14 Hz and theta 3–8 Hz carry the transferable signal;
+  power transfers better than connectivity) and a 20-second edit-and-score loop for core1 (`experiments/wsp_core.py`).

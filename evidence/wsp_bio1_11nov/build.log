@@ -1,0 +1,15 @@
+[run_capped] Wed Nov 11 13:03:44 CET 2026 start: .venv/bin/python experiments/wsp_build.py runs/wsp/cache (max 14 GB)
+features (2655, 44239) 73s
+all_loso P01 n_test 190 acc 0.7105 iters 16 inner 9 115s
+all_loso P02 n_test 189 acc 0.7989 iters 15 inner 9 156s
+all_loso P03 n_test 189 acc 0.6296 iters 17 inner 9 195s
+all_loso P04 n_test 566 acc 0.5071 iters 17 inner 9 292s
+all_loso P05 n_test 190 acc 0.5526 iters 15 inner 9 332s
+all_loso P06 n_test 187 acc 0.7005 iters 16 inner 9 370s
+all_loso P07 n_test 189 acc 0.8413 iters 17 inner 9 408s
+all_loso P08 n_test 189 acc 0.8095 iters 15 inner 9 446s
+all_loso P09 n_test 189 acc 0.7143 iters 15 inner 9 483s
+all_loso P10 n_test 577 acc 0.6586 iters 14 inner 9 587s
+seen_session P04_s23 n_test 377 acc 0.5703 iters 16 inner 10 656s
+seen_session P10_s23 n_test 385 acc 0.7636 iters 14 inner 10 727s
+[run_capped] Wed Nov 11 13:15:58 CET 2026 exit 0

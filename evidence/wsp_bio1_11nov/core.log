@@ -1,0 +1,50 @@
+[run_capped] Wed Nov 11 13:16:24 CET 2026 start: .venv/bin/python experiments/wsp_core.py runs/wsp/cache profile edits (max 10 GB)
+  all_loso-P01: held-out margin 5.446, in-sample 13.267
+  all_loso-P02: held-out margin 6.904, in-sample 12.439
+  all_loso-P03: held-out margin 3.861, in-sample 13.097
+  all_loso-P04: held-out margin 1.924, in-sample 13.270
+  all_loso-P05: held-out margin 2.983, in-sample 13.765
+  all_loso-P06: held-out margin 6.178, in-sample 13.741
+  all_loso-P07: held-out margin 8.088, in-sample 13.735
+  all_loso-P08: held-out margin 10.209, in-sample 12.103
+  all_loso-P09: held-out margin 4.185, in-sample 11.794
+  all_loso-P10: held-out margin 3.509, in-sample 12.075
+held-out / in-sample margin 0.412; inner held-out / in-sample 0.380
+unstable-sign weights (jackknife |mean| < sd): 0.181 of weight energy
+group         weight-energy  held-out-margin  inner-held-out  in-sample
+off-diagonal          0.924            0.824           0.826      0.905
+diagonal              0.043            0.118           0.116      0.064
+slow block            0.033            0.058           0.058      0.032
+full window           0.329            0.392           0.392      0.355
+half 1                0.331            0.277           0.277      0.313
+half 2                0.307            0.273           0.273      0.300
+   1-3    Hz          0.063            0.050           0.049      0.067
+   2-4    Hz          0.048            0.074           0.073      0.060
+   3-6    Hz          0.058            0.125           0.124      0.079
+   4-8    Hz          0.064            0.101           0.101      0.074
+   6-10   Hz          0.056            0.030           0.031      0.051
+   8-12   Hz          0.072            0.075           0.078      0.078
+  10-14   Hz          0.097            0.183           0.184      0.120
+  12-16   Hz          0.074            0.085           0.086      0.079
+  14-18   Hz          0.059            0.041           0.042      0.051
+  16-20   Hz          0.055            0.039           0.040      0.047
+  18-24   Hz          0.054            0.043           0.044      0.049
+  20-28   Hz          0.050            0.035           0.035      0.044
+  24-32   Hz          0.047            0.015           0.014      0.036
+  28-36   Hz          0.049            0.017           0.017      0.039
+  32-40   Hz          0.045            0.009           0.009      0.035
+  36-45   Hz          0.041            0.007           0.007      0.030
+  40-58   Hz          0.035            0.010           0.010      0.028
+edited all_loso-P01
+edited all_loso-P02
+edited all_loso-P03
+edited all_loso-P04
+edited all_loso-P05
+edited all_loso-P06
+edited all_loso-P07
+edited all_loso-P08
+edited all_loso-P09
+edited all_loso-P10
+edited seen_session-P04_s23
+edited seen_session-P10_s23
+[run_capped] Wed Nov 11 13:16:54 CET 2026 exit 0

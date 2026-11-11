@@ -1,0 +1,17 @@
+[run_capped] Wed Nov 11 13:17:20 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/wsp/score.py runs/wsp/cache (max 8 GB)
+verify all_loso: max abs diff 7.45e-09, argmax agreement 1.0000
+verify seen_session: max abs diff 0.00e+00, argmax agreement 1.0000
+B2_pool: stored-core chain J 80.0131; rebuilt-core chain J 80.0131
+B2_s345: stored-core chain J 79.8474; rebuilt-core chain J 79.8474
+base standalone new 69.29 seen 66.85
+edit         | standalone new  seen | chain dJ   new    G1    G2   seen  (n>=0)
+E1_group     |  -2.12 (3/10)  -1.14 |  -0.46  -0.99  -1.31  -0.67  +0.07  (3/10)
+E1_perm      |  -2.00 (3/10)  -3.00 |  -0.45  -0.12  -0.10  -0.15  -0.79  (5/10)
+E2_jack      |  +0.05 (5/10)  -0.07 |  -0.18  -0.24  -0.20  -0.28  -0.13  (3/10)
+E2_perm      |  -1.35 (0/10)  +0.46 |  -0.11  -0.22  -0.31  -0.13  +0.00  (5/10)
+E3_smooth    |  -0.80 (4/10)  -0.21 |  -0.21  -0.49  -0.98  +0.01  +0.08  (3/10)
+E4_tie       |  -2.35 (1/10)  -1.13 |  -0.19  -0.18  -0.37  +0.01  -0.20  (5/10)
+E6_prune50   |  -0.25 (5/10)  +0.30 |  -0.08  -0.03  -0.15  +0.09  -0.13  (5/10)
+E6_prune90   |  -1.31 (3/10)  -1.91 |  -0.69  -0.53  -0.94  -0.13  -0.85  (3/10)
+E8_soup      |  -0.45 (4/10)  +0.01 |  -0.27  -0.34  -0.46  -0.21  -0.20  (2/10)
+[run_capped] Wed Nov 11 13:19:00 CET 2026 exit 0
