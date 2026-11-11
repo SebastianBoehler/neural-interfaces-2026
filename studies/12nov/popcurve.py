@@ -14,7 +14,7 @@ import ts_core2 as T  # noqa: E402
 d = protocol.load(); t0 = time.time(); fe = T.Feats(d, T.parse("car_ov17_fs2_t0.1_le_k2")); y = d["y"]
 print(f"features {fe.F.shape} in {time.time() - t0:.0f}s", flush=True)
 per = np.array([s[-3:] for s in d["subject"]]); ses = d["session"].astype(str); itf = d["interface"]
-PEOPLE = sorted(set(per)); KS, DRAWS = (2, 3, 5, 7), 4
+PEOPLE = sorted(set(per)); KS, DRAWS = (3, 5, 7), 2  # reduced from (2, 3, 5, 7) x 4 after the first run was stopped unfinished (ledger s39)
 
 
 def rebal(X, alpha=1.15, k=5.0, W=30):
@@ -32,10 +32,11 @@ def trial(p, train_people):
     for s in sorted(set(ses[per == p])):
         r = np.flatnonzero((per == p) & (ses == s)); P = core.predict_proba(fe.causal(r, pri, d2p, None))
         a.append(ba(r, P.argmax(1))); b.append(ba(r, rebal(P).argmax(1)))
+    print(f"  fit {p} k={len(train_people)} core {np.mean(a):.1f} rebal {np.mean(b):.1f} ({time.time() - T00:.0f}s)", flush=True)
     return p, len(train_people), np.mean(a), np.mean(b)
 
 
-rng = np.random.default_rng(0); jobs = []
+T00 = time.time(); rng = np.random.default_rng(0); jobs = []
 for p in PEOPLE:
     oth = [q for q in PEOPLE if q != p]; jobs.append((p, oth))
     for k in KS:

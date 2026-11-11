@@ -532,3 +532,13 @@ Rule: adopt the variant with the best ten-person mean only if it also beats V0 o
 
 | Item | Observed | Verdict |
 |---|---|---|
+| V0 on the ten-person proxy, best β | +4.17 (β 0.25); 12 pairs +10.54 (β 0.5) | Hit |
+| All variants, ten people / 12 pairs (best β) | V1 +4.50 / +11.08; V2 +4.12 / +10.64; V3 +3.83 / +10.62; V4 +4.21 / +10.73; V5 +4.08 / +10.67; V6 +4.12 / +10.44; V7 +4.38 / +10.99; **V8 +4.71 / +11.57** | Best minus V0: +0.54 and +1.03: **hit, hit** (predicted +0.6, +0.5) |
+| Fitted temperatures (median T / C / S) | 0.43 / 4.7 / 8.0 (the grid's upper end): the tangent head is under-confident, both LDA members are far too sharp | — |
+| V7, people lowered by more than 1 at its best β | 0 (V0: 1) | Hit |
+| By the rule V8 is adopted for the chain check. Real seen chain, exploration bases, best β (`dose2.py`) | V8 +1.52 to +1.66 (β 0.25–0.5; P10 −1.3 to −3.6); V7 +1.61 to +1.75; V1 +2.03 to +2.04 (P10 −1.3 to −1.6); V0 at β 0.10: +1.72 to +1.87 (P10 −0.2 to −0.5) | **V8 is not better than V0 on the real chain** |
+
+**Reading (12 Nov 00:00 UTC; logs `runs/memsweep_12nov.log`, `runs/dose2_v*.log`).** The members are at a plateau:
+nine variants lie within half a point of each other on ten people, and on the real chain every one gives +1.5 to
++2.0 with P10 between −0.2 and −1.6. V0 at β 0.10 stays the reference because it costs P10 least. More member
+engineering is not where the next gain is; the lever's size is set by how many returning people are P04-like.
