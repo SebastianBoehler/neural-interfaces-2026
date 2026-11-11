@@ -674,3 +674,34 @@ costs the strong one a window or two. That is the same pattern as PS1 itself and
 information pays in proportion to the person's weakness. A per-person trust weight is the obvious refinement, but with
 two dev people it cannot be validated honestly, so the prior is not added to the checkpoint. Kept as the first thing to
 revisit if a sealed upload shows that returning-person levers transfer.
+
+## 20. FORGET: a forgetting reference for core1's causal recentring (written 11 Nov ~14:35 UTC, before any result; code `experiments/forget_ref.py`)
+
+**Observation (B2_pool, final chain accuracy by window position).** New people: 63 % in windows 0–5, 70 % in 5–10,
+75–79 % from window 10 to 90, then 76.6 % in 90–130 and 76.5 % after 130. Seen people: 83–86 % in windows 20–90, then
+78.7 % and 76.4 %. So the cold start costs only the first ten windows, and accuracy falls again late in the session.
+
+**Mechanism to test.** Every causal reference in the pipeline (core recentring, EA, SessionBN) is a cumulative mean
+from the session start. If the recording drifts within a session (impedance, fatigue, the switch between interfaces),
+a cumulative reference goes stale. An exponentially forgetting reference tracks it:
+R_t = (k·prior + Σ ρ^(t−i) L_i) / (k + Σ ρ^(t−i)), half-life h windows. Alternative explanation: the online runs are
+simply harder, in which case forgetting changes nothing or hurts. Test-time change only; the heads are unchanged.
+
+| Check (core1, heads from the weight-space cache) | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| h = ∞ reproduces the cached core1 posteriors | max difference < 1e-6 | otherwise the harness is wrong |
+| h = 80: standalone new | +0.3 (−0.5 to +1.0) | ≤ 0 |
+| h = 80: accuracy in windows ≥ 90 | +1.0 (−0.5 to +2.5) | ≤ 0 |
+| h = 30: standalone new | −0.5 (−2.0 to +0.5): too noisy a reference | — |
+| Chain dJ with the best h in the core1 slot | +0.1 (−0.3 to +0.5) | ≤ 0 |
+
+| Item | Observed | Verdict |
+|---|---|---|
+| Harness | h = ∞ reproduces the stored core1 to 6e-8 | Valid |
+| h = 80 | standalone new +0.05 (6/10), seen +0.79; accuracy in windows ≥ 90: new 65.4 → 65.6, seen 62.7 → 63.9 | **Hit** on new (inside the range), late windows +0.2 against a predicted +1.0 (inside the range, near its lower end) |
+| h = 30 | standalone new −0.48 (3/10), seen +1.04 | **Hit** |
+| Chain, core1 slot | h 80: −0.04 (new −0.09, seen 0.00); h 30: −0.01 (new −0.16, seen +0.13) | **Refuted** (≤ 0) |
+
+**Reading.** A reference that tracks drift does not recover the late-session loss: core1 itself is 10 points lower in
+windows ≥ 90 for the seen sessions with either reference. The late windows are the online runs with live feedback, and
+they are harder to decode, not staler. Forgetting references are closed for the cores.
