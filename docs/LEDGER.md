@@ -161,7 +161,7 @@ Reading rule: P10 ≥ +0.5 on both bases with chain labels → in-session learni
   reach. The remaining positive levers are the two that change the nets (TTT, PFT). Where the sealed errors sit
   (returning or new sessions) is not measurable on dev; a sealed measurement is the user's decision (§34, point 2).
 
-## 36. REPCEIL: is the 76 % within-session level a property of the data or of core1's features? (written 11 Nov 22:15 UTC, before any result; code `studies/12nov/repceil.py`)
+## 36. REPCEIL: is the 76 % within-session level a property of the data or of core1's features? (written 11 Nov 21:59 UTC, before any result; code `studies/12nov/repceil.py`)
 
 **Why.** Steer from the user (11 Nov evening): a team scores 0.846 under the same rules, so a +3 method exists; the
 ceilings in STATE §5 were all measured inside our representation (core1's PCs, our nets) and are ceilings of that
@@ -192,6 +192,52 @@ Reading rule: best fusion ≥ R0 + 6 → core1's PC space leaves within-person i
 put that representation behind the chain's labels (TSEM in the richer space) and into the population model. Between
 +2 and +6 → worth one chain test. ≤ +2 → the representation is not the lever; the population model (invariance across
 people) is.
+
+| Item | Observed | Verdict |
+|---|---|---|
+| R0, core1's population PCs | 74.93 | **Hit** (predicted 73, range 70–76) |
+| Best single of R1–R3 | FBCSP 76.01 (own tangent 74.53; slow 61.60) | **Hit** (predicted 75) |
+| Pre-registered fusions R4 / R5 | 67.28 / 70.68 | **Miss, below the range** (predicted 79): the slow LDA's posteriors are too sharp for a product of two or three |
+| Four-way fusion R0 × R1 × R2 × R3 (in the script before the run, not in the table above) | geometric 81.36, arithmetic 82.37; minus R0 **+6.44 / +7.44**; 8 of 14 sessions ≥ +5 | By the reading rule: ≥ R0 + 6 |
+| Subsets (exploratory addendum) | R0 × R1 79.0–79.4; R0 × R2 × R3 80.7–81.5; R1 × R2 × R3 80.6–81.0 | Robust to the pooling rule and to leaving any one member out |
+| Per session, R0 → four-way | P04 56.9 → 80.0, 60.4 → 72.0, 54.7 → 62.2; P08 79.4 → 89.3; P02 78.8 → 90.0; P01 75.1 → 84.7; P10s3 80.4 → 88.5; P05 73.1 → 69.5; P10s1 88.0 → 84.4 | — |
+
+**Reading (11 Nov 22:05 UTC; log `runs/repceil_12nov.log`, posteriors `runs/repceil_12nov.npz`).**
+- **The 76 % level was a property of core1's PC space, not of the data.** With the same 160 labels, session-own
+  spatial filters (FBCSP), the session-own tangent space and slow time courses together reach 81–82 %, against 74.9 %
+  in the population PCs and 76.6 % for the label-free chain on the same sessions (session mean).
+- **P04 is not a low-signal person.** FBCSP alone decodes P04's first session at 74 % (population PCs: 57 %). P04's
+  class information lies in directions the population basis does not keep. STATE §5 ("P04: 55–59 % with their own
+  labels") holds only for core1's features.
+- **Consequence for returning people:** the personal head is a logistic regression on the population PCs, the space
+  that loses most for exactly the people who need it. A personal model in the person's own space is the first test
+  (§37).
+- **Consequence for new people:** the label-free target is no longer "match 76 %"; the session holds about 5 points
+  more than the chain extracts. Whether any of it can be reached with the chain's labels is a separate test (§38,
+  to be written after §37).
+- Limits: three regularisation values per representation chosen on the mean; leave-one-run-out is not causal; 14
+  sessions of 10 people.
+
+## 37. XSESS: a returning person's model in their own space (written 11 Nov 22:06 UTC, before any result; code `studies/12nov/xsess.py`)
+
+**Mechanism.** For P04 and P10 (dev seen: session 1 → sessions 2–3) three personal members are fitted on session 1
+only and streamed causally over the later sessions: (T) tangent space of 9 bands after recentring to the session's
+own reference (training: whole-session mean covariance; test: running mean with the public session's mean as 2
+pseudo-windows), logistic regression; (C) FBCSP filters of the recentred public session, LDA; (S) slow time courses
+with causal standardisation, shrinkage LDA. In the v4.1 chain replay the personal head's posterior for the true
+person is replaced by a plain average: V1 = (PS1 + T + C) / 3, V2 = (PS1 + T + C + S) / 4, V3 = (T + C) / 2.
+Exploration bases first; fresh bases only if the rule below is met.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Standalone, later sessions, mean of T and C averaged: P04 / P10 | 58 (52–64) / 74 (66–82) | — |
+| Share of the within-session level kept across sessions (T + C: within 69 / 80 by §36) | 85 % (70–100) | < 60 %: own-space models are session-bound, like the PC head |
+| Chain, V1, seen | +1.0 (−0.5 to +2.5); P04 +1.5 (−1 to +4), P10 +0.5 (−1 to +2) | seen ≤ 0 on both exploration bases |
+| Chain, V2 minus V1 | +0.3 (−1 to +1.5): P10's slow view helps, P04's does not | — |
+| New people | 0.00 (no new-person session is routed) | any change |
+
+Rule: best variant ≥ +1.0 seen on both exploration bases with P10 ≥ 0 → confirm on the four fresh bases; then the same
+members are fitted for all ten people for a package candidate.
 
 | Item | Observed | Verdict |
 |---|---|---|

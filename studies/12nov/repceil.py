@@ -102,3 +102,14 @@ for i, s in enumerate(SS):
 print("mean     " + " ".join(f"{np.mean(tab[k]):6.2f}" for k in tab))
 bf = max(fus, key=lambda k: np.mean(tab[k])); d = np.array(tab[bf]) - np.array(tab["R0 core1 PCs"])
 print(f"best fusion {bf}: {np.mean(tab[bf]):.2f}; minus R0 {d.mean():+.2f}; sessions with >= +5: {(d >= 5).sum()}/14")
+
+# Addendum (exploratory, after the first result): which members carry the fusion, and is it robust to the pooling rule?
+import itertools  # noqa: E402
+K = list(REG)
+for n in (2, 3):
+    for parts in itertools.combinations(K, n):
+        g = np.mean([ba(s, np.exp(sum(np.log(np.clip(res[s][(q, best[q])], 1e-4, 1)) for q in parts) / n)) for s in SS])
+        a = np.mean([ba(s, sum(res[s][(q, best[q])] for q in parts) / n) for s in SS])
+        print(f"   {' x '.join(p[:2] for p in parts):14s} geometric {g:.2f} arithmetic {a:.2f}")
+a = [ba(s, sum(res[s][(q, best[q])] for q in K) / 4) for s in SS]; print(f"   all four, arithmetic {np.mean(a):.2f}")
+np.savez_compressed(REPO + "/runs/repceil_12nov.npz", sessions=np.array(SS), **{f"{s}|{k[:2]}": res[s][(k, best[k])] for s in SS for k in K})
