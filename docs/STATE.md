@@ -179,10 +179,19 @@ class in net training (+0.1 to +0.3 J); slot weight 4.5 for the personal head (+
 
 ## 9. Decisions waiting for the user
 
-**Update, 11 Nov 22:00 UTC (ledger §34–§35).** An in-session head on true labels adds +2 for new people (weak sessions
-only) and +0.5 for returning sessions (P10: 0); on the chain's labels it is negative everywhere. Returning sessions
-are saturated in core1's features, so in-session learning is not built behind the identity gate. Proposed: build v5
-as two paired uploads (PFT first, TTT second), so each upload also measures its lever on the sealed set.
+**Update, 11 Nov 22:25 UTC (ledger §34–§38; scripts `studies/12nov/`).** The user's steer: a team scores 0.846 under
+the same rules, so a +3 method exists; the ceilings in §5 are ceilings of our representation, not of the data.
+- **Confirmed (§36):** with its own labels a session holds 81–82 % in session-own representations (FBCSP, own
+  tangent space, slow time courses) against 74.9 % in core1's population PCs. P04 reaches 74–80 % in its first
+  session: **P04 is not low-signal; the population model does not cover it.** The §5 statements about the 76 % level
+  and about P04 hold only inside core1's features.
+- **In-session learning on the chain's labels is closed in three feature families** (§35 PC head −0.7, §38 own space
+  −0.3, TTT nets +0.6). True labels would add +2 to +3 J in each. This is not where the +3 is.
+- **Returning people:** own-space personal members as a tempered product in the head's slot give P04 +2 to +3 and P10
+  0 (§37, exploratory), the same pattern as PFT. Five of the eight single-session people look P04-like by §36.
+- **Open:** a population model that covers more kinds of people (next: the learning curve over training people and
+  what a P04-like person needs from the training set); a returning-person package from PFT plus own-space members.
+  No upload until the user says so.
 
 1. Build v5 (§6) or keep the three uploads for something larger.
 2. Any information on what the leading teams do (Discord). The leader gained +2.5 in one upload while its runtime

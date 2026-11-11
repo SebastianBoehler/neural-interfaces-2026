@@ -283,3 +283,21 @@ Rule: chain labels ≥ +0.8 new on both exploration bases → confirm on the fou
 
 | Item | Observed | Verdict |
 |---|---|---|
+| True labels, new, best λ (B2_pool / B2_s345) | TCS λ 0.5: +2.94 / +2.71; TC λ 0.25: +2.53 / +2.70 (8 of 10 people ≥ 0). P04 +6 to +11, P10 +5 to +7, P01 +3 to +5, P03 +2 to +7; P05 −3 to +1, P02 −0.6 to 0 | **Hit**, lower half (predicted +4.0, range +2 to +6) |
+| True labels, seen | TCS λ 0.25–0.5: +1.82 to +2.50 (P04 +2.6 to +3.7, P10 +1.0 to +1.3) | **Hit** (predicted +1.5); P10 above its prediction (0) |
+| Chain labels, new, best λ | TC λ 0.25: −0.14 / −0.47; TCS λ 0.25: −0.28 / −0.62; larger λ −1.7 to −6.0 | **Refuted** (≤ +0.3 on both bases) |
+| Chain labels, seen | −0.92 to +0.50 at λ 0.25; −2.7 to −8.2 above | Hit (predicted 0.0) |
+| Members alone, causal, new people (window accuracy) | true labels: T 69.8, C 72.0, S 57.5, together 76.7; chain labels: together 66–67; the chain: 77.3 | — |
+
+**Reading (11 Nov 22:22 UTC; log `runs/ownttt_12nov.log`).**
+- **Label-free learning in the session's own space is closed** in the seeded form that made TSEM work. Members
+  trained on the chain's seeds reach 66–67 % alone, ten points below the same members on true labels and below the
+  chain itself, so no fusion weight helps. With LADDER (§35) and TTT (§24, §31) that is three feature families in
+  which the chain's labels buy nothing or +0.6.
+- **The true-label ceiling is about +2.5 to +3 J in this space too** (and +2 for returning sessions, where the
+  population-PC head gave +0.5): the §36 surplus is real and adds to the chain, but only with labels.
+- **Where that leaves the +3 question.** In-session learning on our own labels is not the mechanism, in any of the
+  three spaces. What remains open: (a) a population model that is right for more people before any session stage
+  (P04 holds 74–80 % of class information in its own space and gets 54 % from the population model: the failure is
+  the population's coverage of people, not P04's signal); (b) returning people in their own space (§37 follow-up and
+  PFT: P04-like people gain +2 to +4, and by the §36 gap five of the eight single-session people look P04-like).
