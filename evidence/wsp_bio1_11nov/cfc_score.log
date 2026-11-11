@@ -1,0 +1,2 @@
+cfc lr3: standalone new 58.40 seen 57.59 | chain w0.5: -0.60 (new -0.40: G1 -0.53, G2 -0.27; seen -0.79) | w1.0: -1.49 (new -1.25: G1 -2.02, G2 -0.47; seen -1.74) | w2.0: -2.84 (new -2.81: G1 -3.48, G2 -2.14; seen -2.86)
+cfc lr10: standalone new 58.36 seen 57.33 | chain w0.5: -0.61 (new -0.36: G1 -0.48, G2 -0.23; seen -0.86) | w1.0: -1.21 (new -1.15: G1 -2.02, G2 -0.28; seen -1.28) | w2.0: -2.70 (new -2.85: G1 -3.59, G2 -2.12; seen -2.54)

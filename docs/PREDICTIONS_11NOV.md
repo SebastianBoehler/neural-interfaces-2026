@@ -921,7 +921,8 @@ held-out person's rest windows are excluded from training. Control: the same cod
 
 | Item | Observed | Verdict |
 |---|---|---|
-| CFC | | |
+| CFC standalone new / seen | 58.4 / 57.6 (lr3 and lr10 alike; 13,940 features) | **Miss, high** (predicted 42, range 36–50): slow-phase / fast-envelope coupling carries more class information than expected |
+| CFC as an extra chain member (weight 0.5 / 1 / 2) | −0.6 / −1.2 to −1.5 / −2.7 to −2.8 J, both halves and seen negative at every weight | **Refuted** (≤ 0) |
 | REST4 | | |
 
 ## 27. GEN: is the Graz cue order reproducible from the stimulus program? (11 Nov ~19:10–19:45 UTC; labels only; `evidence/wsp_bio1_11nov/gen_search.py`)
