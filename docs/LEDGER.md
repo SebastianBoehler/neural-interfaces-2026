@@ -301,3 +301,29 @@ Rule: chain labels ≥ +0.8 new on both exploration bases → confirm on the fou
   (P04 holds 74–80 % of class information in its own space and gets 54 % from the population model: the failure is
   the population's coverage of people, not P04's signal); (b) returning people in their own space (§37 follow-up and
   PFT: P04-like people gain +2 to +4, and by the §36 gap five of the eight single-session people look P04-like).
+
+## 39. POPCURVE: new-person accuracy against the number of training people (written 11 Nov 22:30 UTC, before any result; code `studies/12nov/popcurve.py`)
+
+**Why.** §36/§38: P04 holds 74–80 % of class information in its own space and gets 54 % from the population model.
+The failure is the population's coverage of people. If coverage is the lever, new-person accuracy must still be
+rising steeply at nine training people. This was never measured.
+
+**Test.** core1 (the strongest member; `car_ov17_fs2_t0.1_le_k2`, logistic regression C 10) refitted for every
+held-out person on k ∈ {2, 3, 5, 7} randomly drawn other people (4 draws each) and on all 9; causal test features;
+score = person-equal cell-mean BA, alone and after the packaged rebalancing (α 1.15, W 30). No other member or stage.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| k = 9, core alone / after rebalancing | 67.5 (65–70) / 72 (69–75) | — |
+| k = 2 / 3 / 5 / 7, core alone | 54 / 58 / 62.5 / 65.5 (each ±3) | — |
+| Gain from 7 to 9 people, after rebalancing | +1.8 (+0.8 to +3.0) | ≤ +0.5: the curve is flat; more people of this kind would not help |
+| Gain per doubling of people (log fit over k ≥ 3) | +5 (+3 to +7.5) | ≤ +2 |
+| P04 as the held-out person, 3 → 9 people | +3 (0 to +7): P04 gains less than the others | — |
+
+Reading: ≥ +4 per doubling means ten more people of the same kind would be worth about +4 on the base before any
+session stage, more than every stage change since TSEM. Then the next bets are sources of people (PROTEUS-like
+external recordings re-referenced into this montage; synthetic people by recombining sessions' spatial structure),
+and the sealed package's tenth person is already worth part of a step. ≤ +2 per doubling closes "coverage".
+
+| Item | Observed | Verdict |
+|---|---|---|
