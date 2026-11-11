@@ -1095,3 +1095,18 @@ at 0.46×. Unknown: how the eight single-session people respond.
   session stages depend on the shape of this particular mix. Changing the combination is closed, again.
 - A personal head on the ocular and slow-potential features (48 dimensions) decodes P10's later sessions at 72 %
   alone, but lowers the chain as a final stage (−1.5 to −7 seen). Closed.
+
+## 32. PFT-proxy: which returning people gain from personally fine-tuned nets? (written 11 Nov ~21:05 UTC, before any job ran; code `runs/archive_scratch_11nov/ttt/galv/pft_proxy.py`)
+
+**Why.** PFT's dev gain is P04's alone and P10's is zero (§31). The sealed value depends on the eight single-session
+people. As in §15, each person's first session is split: runs 1–3 are the "public part" (in training, and the
+fine-tuning set), runs 4–6 the "later part" (own causal stream). No session change, so sizes are upper bounds; the
+question is the spread across people. Standalone nets only (the chain replay has no rows for this split).
+
+| Quantity | Prediction (80 % range) |
+|---|---|
+| Mean standalone gain of fine-tuned over frozen nets, ten people, 60 steps | +5 (+2 to +9) |
+| People with a gain ≥ half of P04's | 5 of 10 (3–8) |
+| Spearman between a person's gain and the frozen net's weakness for them | +0.4 (0 to +0.8) |
+
+Reading rule: if at most 3 people gain ≥ half of P04's, PFT is not worth a package build (sealed value below +0.2).
