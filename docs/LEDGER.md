@@ -420,3 +420,29 @@ seen protocol and the fresh bases.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| One public session, P·T·C·S β 0.25, mean of 12 pairs (B2_pool / B2_s345) | **+10.35 / +10.35**; P04 +13.8, P10 +6.9 | **Miss, far above the range** (predicted +1.5, −0.5 to +3.5) |
+| Share of the within-session gain kept | more than all of it (within: P04 +5 to +6, P10 +6 to +8) | **Miss** (predicted 25 %) |
+| Two public sessions → the third, mean of 6 | +11.98 / +11.90 (β 0.5: +15.4 / +15.1); +1.6 over one session | Above the range; the step from one to two sessions is a **hit** (predicted +1) |
+| P stage, one session, mean of 12 | +5.94 / +5.67 (P04 +6.9, P10 +5.0) | Above the range (predicted +2.0) |
+| T·C·S against P, per person | P04 +13.9 against +6.9; P10 +6.0 against +5.0; together +13.8 and +6.9 | — |
+| Pairs lowered by more than 1 | 0 of 12 | Below the range (predicted 3) |
+
+**Reading (11 Nov 23:40 UTC; log `runs/xpair_12nov.log`). Read the size with care.**
+- **My prediction was wrong because I priced the stage against the shipped chain, and this test's base is the
+  person-naive chain** (the population has never seen the person, no personal head). Against that base any personal
+  information is worth a lot: the population-PC head alone gives +5.8. The numbers are gains over "nothing personal",
+  not over v4.1.
+- What does carry over: **across real sessions the own-space members hold about twice the personal information of the
+  population-PC head** (+9.9 against +5.8; together +10.4), for both people, in every one of 12 session pairs, and a
+  second public session adds +1.6 more. The session change does not remove it (§37's worry).
+- In absolute terms for P04: person-naive chain plus the stage reaches 74.2 and 71.3 on sessions 2 and 3; the shipped
+  v3 chain with the person in the population and the PS1 head reaches 72.5 and 65.0. For P10 it is 86.8 and 88.3
+  against 91.0 and 90.9. So over the shipped chain the stage is worth about +4 for P04 and nothing for P10, which is
+  what §37 measured directly (P04 +4.5 to +4.8, P10 −2.4 to −2.9 at β 0.25).
+- **The increment that matters for a package is "own space on top of the population-PC head".** Ten-person proxy
+  (§41, P·T·C·S minus P): +2.2 at β 0.25, +3.3 at β 0.5; eight of ten people ≥ +0.8; P10 is the one clear negative
+  (−2.5). Across sessions (this test): P04 +6.9, P10 +1.9. Dev "seen" contains the best case and the worst case of
+  the ten.
+- **Estimate for the sealed set:** +2 to +3 per recognised returning session, times about 0.38 of sessions, gives
+  **+0.8 to +1.1** if the eight single-session people behave like the ten-person proxy; +0.4 to +0.55 if they behave
+  like the dev mean of P04 and P10. This is the first lever in the record with a credible +1.
