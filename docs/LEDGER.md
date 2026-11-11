@@ -92,3 +92,71 @@ Numbers are dev J (0.5 new + 0.5 seen) unless stated. Anything below +0.3 is ins
 | Item | Observed | Verdict |
 |---|---|---|
 -->
+
+## 34. View of 12 Nov and plan (written 11 Nov 21:55 UTC, after `replay/check.py` printed OK; no new chain result yet)
+
+**Independent reading of the record** (two own checks, not pre-registered, both exploratory: `studies/12nov/`):
+- `slow_xsubj.py`: slow-potential / gaze features decode 57–59 % within a session and 47–49 % across people
+  (P02 BrainHero 93 % within, 71 % across). The gaze-to-class mapping is mostly personal. No shared shortcut; agrees
+  with §33.
+- `anatomy.py` (B2_pool, v3 chain): new people by window position 72.6 % (0–30), 78.6 (30–60), 77.3 (60–100),
+  77.9 (100–150), 75.7 (150+). The chain stops improving after window 30–60 although the unlabelled evidence triples.
+  New people without P04: 83.1 %; P04 53.6 %. Seen: P10 91, P04 69.
+- **Every group sits at or above its within-session supervised level in core1's features** (new 77 vs 76; P04 seen 69
+  vs 55–59 with its own labels; P10 91). I find no label-free source the record missed. The +3 gap to the leader
+  equals our true-label ceiling, so it needs information we do not have, not a better stage.
+- **What the record does not price:** the returning-person branch. It is about 43 % of sealed sessions (46 of 106 if
+  the cohort text holds), the only place where true labels of the same person exist, and every verdict on it rests on
+  two people, one at ceiling (P10) and one low-signal (P04). The eight single-session people (40 sealed sessions)
+  are unmeasured in the chain.
+
+**Plan.**
+1. LADDER (§35): does the label limit of in-session learning also hold for returning sessions, where the chain's labels
+   are far more accurate? Cheap, local, decides whether in-session learning belongs behind the identity gate.
+2. If the user agrees to build v5: build it as **two paired uploads**, PFT first (v4.1 + personal nets behind the
+   gate: its sealed difference to v4.1 measures the eight single-session people directly, which dev cannot), TTT
+   second. Each upload is then a candidate and a measurement.
+3. Honest expectation: v5 as specified is +0.3 to +0.6 sealed (rank 6–8). I have no mechanism for +1.0 yet.
+
+## 35. LADDER: in-session head on true vs chain labels, by new and returning sessions (written 11 Nov 21:55 UTC, before any result; code `studies/12nov/ladder.py`)
+
+**Why.** "Fine-tuning is label-limited" (§28) was measured on new people (labels 77 % right) and with nets. In a
+returning person's session the labels come from a chain that contains a model trained on that person's true labels
+(P10: 91 % right), an independent source. If the limit is label accuracy, a self-labelled in-session head should pay
+for P10 even though it does not for new people.
+
+**Mechanism.** After the full v3 chain, a causal per-session logistic head (128 PCs of core1's features, z-scored on
+the session's past windows, C 0.1, refit every 5 windows from window 20) is multiplied into the output:
+out ∝ chain × head^(λ·t/(t+60)), λ ∈ {0.5, 1}. Labels for the head: true past labels (ceiling) or the chain's own past
+outputs (hard labels, weighted by confidence). Bases B2_pool and B2_s345; the better λ is reported for both.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| True labels, new | +3.0 (+1.8 to +4.5) | < +1: the "+3 J ceiling" is not reproducible this way |
+| True labels, seen (P04 / P10) | +2.0 (+0.5 to +3.5); P04 +3, P10 +1 | — |
+| Chain labels, new | +0.1 (−0.4 to +0.5) | ≥ +0.8: the label limit is not what stops new people |
+| Chain labels, seen | +0.3 (−0.5 to +1.0); P10 +0.5 (−0.3 to +1.2), P04 0.0 (−1 to +1) | P10 ≤ 0 on both bases: accurate labels do not unlock in-session learning either |
+
+Reading rule: P10 ≥ +0.5 on both bases with chain labels → in-session learning is built behind the identity gate
+(with the personal nets); otherwise the returning branch gets PFT only.
+
+| Item | Observed | Verdict |
+|---|---|---|
+| True labels, new (λ 0.5; B2_pool / B2_s345) | +1.88 / +2.11 (λ 1: +0.77 / +1.00). P04 +6.7, P10 +4.8 to +5.0, P09 +3.3 to +4.3, P06 +2.6 to +3.1; P02 −1.6 to −2.2 | **Hit**, at the low edge (predicted +3.0, range +1.8 to +4.5) |
+| True labels, seen (λ 0.5) | +0.52 / +0.52; P04 +1.3 / +1.0, P10 −0.3 / 0.0 | **Hit on the mean at the low edge; miss on both people** (predicted P04 +3, P10 +1) |
+| Chain labels, new (λ 0.5) | −0.81 / −0.59 (λ 1: −1.8 / −1.7); 2 and 4 of 10 people ≥ 0 | **Miss, below the range** (predicted +0.1, −0.4 to +0.5) |
+| Chain labels, seen (λ 0.5) | −1.69 / −1.30; P10 −0.3 / 0.0, P04 −3.1 / −2.6 | **Refuted** by the pre-set rule (P10 ≤ 0 on both bases) |
+| Head alone, window accuracy (new / seen) | true labels 71.5 / 69.5; chain labels 66–67 / 67 (the chain: 77 / 80) | — |
+
+**Reading (11 Nov 22:00 UTC; log `runs/ladder_12nov.log`).**
+- **Returning sessions are saturated in core1's features.** Even true labels of the running session add only +0.5 to
+  the seen score, and nothing for P10. The personal head already carries what an in-session supervised head would
+  add. In-session learning is not built behind the identity gate; the returning branch keeps PFT only (the nets are a
+  different feature space; P04 +2.4 to +4.5 there).
+- **For new people true in-session labels are worth about +2 with this head, and only for weak sessions** (P04, P10,
+  P09, P06). For strong sessions (P02, P01, P05) an in-session head trained on true labels lowers the chain: the
+  population chain is better than 150 own labels. The "+3 J" in STATE §5 is closer to +2 by this route.
+- A self-labelled head is negative everywhere. The label limit holds for returning sessions too. Closed.
+- **What this does to the plan:** on dev neither branch has head-room that a session-stage or head design could
+  reach. The remaining positive levers are the two that change the nets (TTT, PFT). Where the sealed errors sit
+  (returning or new sessions) is not measurable on dev; a sealed measurement is the user's decision (§34, point 2).
