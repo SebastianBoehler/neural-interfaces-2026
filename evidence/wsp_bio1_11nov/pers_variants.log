@@ -1,0 +1,27 @@
+[run_capped] Wed Nov 11 14:27:39 CET 2026 start: .venv/bin/python experiments/pers_variants.py runs/bio1/pers_variants.json (max 14 GB)
+P01 done
+P02 done
+P03 done
+P04 done
+P05 done
+P06 done
+P07 done
+P08 done
+P09 done
+P10 done
+recipe                                   within-10 mean gain | P04 cross  P10 cross | P04 within P10 within
+core                                          +0.00          |    +0.00     +0.00 |     +0.00     +0.00
+PS1 mix 3x (baseline)                         +5.78          |    +2.64     -1.03 |     +8.89     +2.22
+PS1 mix 1x                                    +3.56          |    +4.77     +0.79 |     +1.11     +4.44
+PS1 mix 6x                                    +3.44          |    +0.52     -2.08 |     +8.89     +1.11
+PS1 C0.03 3x                                  +6.56          |    +3.96     -0.51 |     +6.67     +6.67
+PS1 C0.3 3x                                   +4.78          |    +1.05     -1.03 |    +10.00     +1.11
+core w5                                       +2.67          |    +0.52     +2.05 |     +3.33     +0.00
+core w20                                      +0.56          |    -1.33     +4.42 |     -2.22     +1.11
+core w5 + PS1 3x                              +6.44          |    +2.91     -1.30 |    +11.11     +2.22
+core w20 + PS1 3x                             +6.33          |    +2.11     -0.78 |    +11.11     +2.22
+personal prior k2: core                       +0.11          |    +0.27     -0.27 |     -1.11     +0.00
+personal prior k10: core                      +0.44          |    -0.80     -0.53 |     -1.11     -1.11
+personal prior k10: PS1 mix 3x                +6.33          |    +2.38     -0.53 |    +10.00     +3.33
+personal prior k10: core w5 + PS1 3x          +6.33          |    +2.37     -0.27 |    +12.22     +1.11
+[run_capped] Wed Nov 11 14:48:33 CET 2026 exit 0

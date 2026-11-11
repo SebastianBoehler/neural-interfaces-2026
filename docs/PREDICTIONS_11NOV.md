@@ -596,10 +596,20 @@ change. Core level only.
 A recipe is carried into the routed chain only if it beats the shipped one on the ten-person mean **and** on both real
 cross-session cases.
 
-| Item | Observed | Verdict |
+| Item | Observed (gain over core1: ten-person proxy mean / P04 cross-session / P10 cross-session) | Verdict |
 |---|---|---|
-| Recipe table | | |
-| Carried into the chain | | |
+| PS1 mix at 3× (shipped) | +5.78 / +2.64 / −1.03 | Reference |
+| PS1 mix at 1× / 6× | +3.56 / +4.77 / +0.79; +3.44 / +0.52 / −2.08 | A weaker head is better across sessions, worse within |
+| PS1 with C 0.03 / C 0.3 (at 3×) | **+6.56 / +3.96 / −0.51**; +4.78 / +1.05 / −1.03 | C 0.03 beats the shipped recipe on all three: passes the rule |
+| Person-upweighted core, weight 5 / 20 | +2.67 / +0.52 / +2.05; +0.56 / −1.33 / +4.42 | **Miss** on P04 (predicted +1.5); inconsistent between the two people |
+| Upweighted core (5) + PS1 | +6.44 / +2.91 / −1.30 | Hit; no better than PS1 alone across sessions |
+| Personal recentring prior, k 2 / k 10 (core alone) | +0.11 / +0.27 / −0.27; +0.44 / −0.80 / −0.53 | **Refuted**: the public session's reference is no better a prior than the population's |
+| Carried into the chain: PS1 with C 0.03, routing v4, six bases | absolute J 80.14 / 80.24 / 80.07 / 79.91 / 79.91 / 80.59 (mean 80.14) against 80.53 / 80.57 / 80.73 / 79.71 / 80.17 / 80.93 (mean 80.44) with C 0.1 | **Loses 0.30 in the chain** (5 of 6 bases); the shipped recipe stays |
+
+**Reading.** At core level a more regularised personal head survives a session change better, but the chain does not
+want it: the head's job there is to sharpen the seeds of the session stage, and a flatter head does that less. Core-level
+recipe comparisons do not predict chain behaviour for personal models; future personal-model ideas must be scored in the
+chain. The cross-session loss remains unsolved.
 
 ## 18. TSCH: Scherer 2015 as an eighth corpus of the external teacher (written 11 Nov ~13:45 UTC, before any job ran)
 
