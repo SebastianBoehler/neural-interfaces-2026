@@ -702,6 +702,7 @@ class Route3:
         self.Gn = A / np.linalg.norm(A, axis=1, keepdims=True)
         self.m, self.V = p["tsem_m"].astype(np.float64), p["route_V_hi"].astype(np.float64)
         self.bio = Bio(p) if "bio_V" in p else None  # v4: label-free identity gate (11 Nov)
+        assert self.bio is None or len(self.bio.G) == len(self.W)  # one gallery row per personal head
 
     def bind(self, rb, em, tsem, a):
         """Routed tail: own copies of the rebalancing, SessionEM and TSEM stages."""

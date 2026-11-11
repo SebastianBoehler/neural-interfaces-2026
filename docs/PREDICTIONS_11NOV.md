@@ -553,6 +553,27 @@ amended τ on all six bases. Predicted: τ ≈ 0.27 (0.25–0.31); dev dJ +0.45 
   that is the larger effect; if they behave like P10 alone, it is small.
 - The one false accept (P10's first session against P03) is a real person-pair resemblance, not a threshold artefact.
 
+**Second amendment after the independent review (11 Nov ~16:20 UTC; rule unchanged, protocol made package-faithful).**
+The review pointed out that the session-level calibration scored every 5th window and centred with a mean that included
+the probe, while the package scores every window and never has the probe in its centring. Recalibrated on the same 67
+held-out external people with every window from index 10 and the probe excluded (Galvani 3088231, 720 impostor and 520
+genuine session trials, one gallery session):
+
+| τ | False accepts | Correct accepts | Wrong identity |
+|---|---|---|---|
+| 0.23 | 3.8 % | 88.8 % | 0.8 % |
+| 0.25 (first build) | 2.9 % | 86.7 % | 0.8 % |
+| **0.26** | **1.9 %** | **86.7 %** | 0.7 % |
+| 0.27 | 1.7 % | 86.7 % | 0.6 % |
+| 0.30 | 0.6 % | 83.8 % | 0.2 % |
+
+- The same rule (smallest τ with at most 2 % session-level false accepts) now gives **τ = 0.26**.
+- Three-session galleries could not be tested externally: no exported corpus has more than three sessions per person.
+- Dev at τ 0.26, six bases: dJ against v3 +0.52 / +0.66 / +0.52 / +0.66 / +0.45 / +0.65 (mean +0.58); seen +0.90 to
+  +1.32; P10 −0.25 to +0.52; new exactly 0.00 with **0 of 14 new-person routings** (the P10-session-1 case scores 0.253).
+- **Gate at τ 0.26: PASS on every clause as written.** The package is rebuilt as `cand_v41_bio` (τ 0.26, plus the
+  review's assertion that the gallery has one row per personal head).
+
 ## 15. PERS: who gains from a personal head? A within-session proxy for all ten people (written 11 Nov ~13:20 UTC, before any result; code `experiments/pers_proxy.py`)
 
 **Why.** Routing v4's sealed value depends on how the eight single-session public people respond to a personal head,
