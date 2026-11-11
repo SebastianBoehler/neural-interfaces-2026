@@ -345,6 +345,13 @@ families; OWN = PS1 × (T·C·S)^(0.5/3) in the personal head's slot (the §37 f
 
 | Item | Observed | Verdict |
 |---|---|---|
+| PFT, seen (P04, P10), B2_pool / B2_s345 | +0.94 (+1.84, +0.03) / +1.20 (+2.37, +0.03) | **Hit**, a little low (predicted +1.4) |
+| OWN (in-slot, β 0.5), seen | −0.13 (+0.27, −0.54) / +0.01 (+0.29, −0.26) | **Refuted** (< +0.5 on both): on the frozen-twin base the in-slot arm of §37 gives nothing; it was a pick of 20 |
+| BOTH, seen | +2.01 (+3.75, +0.26) / +1.88 (+3.49, +0.26) | **Hit** (predicted +2.0); not redundant (BOTH − PFT = +0.7 to +1.1) |
+
+**Reading (11 Nov 23:43 UTC; log `runs/add_12nov.log`).** PFT replicates. The in-slot own-space arm is unstable
+(+1.1 to +1.5 on the shipped nets, 0 on the frozen twins, +0.7 to +1.1 on top of PFT): not a form to build on. The
+final-stage form is the stable one (§43).
 
 ## 41. PSEL: per-person choice of the personal model's space, tested on ten people (written 11 Nov 23:35 UTC, before any result; code `studies/12nov/psel.py`)
 
@@ -446,3 +453,58 @@ seen protocol and the fresh bases.
 - **Estimate for the sealed set:** +2 to +3 per recognised returning session, times about 0.38 of sessions, gives
   **+0.8 to +1.1** if the eight single-session people behave like the ten-person proxy; +0.4 to +0.55 if they behave
   like the dev mean of P04 and P10. This is the first lever in the record with a credible +1.
+
+## 43. DOSE and CONF: the own-space final stage on the real v4.1 chain (code `studies/12nov/dose.py`; logs `runs/dose_12nov.log`, `runs/conf_12nov.log`)
+
+**Process note.** The dose-response is exploratory. The confirmation's predictions below were composed before the
+fresh-base run, but the ledger write failed on a script assertion and the run started in the same command, so this
+text reached the file only after the result (11 Nov 23:50 UTC). The predictions are unchanged from what was composed;
+the only evidence for that is the session transcript. Treat the confirmation as pre-specified, not as pre-registered
+on disk.
+
+**Dose-response (exploration bases B2_pool / B2_s345; real seen protocol, session 1 → sessions 2–3).**
+out ∝ chain × (T·C·S)^(β/3) on the sessions of recognised returning people.
+
+| β | Shipped v4.1: seen (P04, P10) | With PFT nets, against the frozen twins |
+|---|---|---|
+| 0.05 | +1.35 (+3.2, −0.5) / +1.08 (+2.7, −0.5) | +1.49 / +1.88 |
+| **0.10** | **+1.87 (+4.2, −0.5) / +1.72 (+3.7, −0.2)** | +1.61 (+4.3, −1.0) / +2.15 (+5.3, −1.0) |
+| 0.15 | +1.47 (+4.5, −1.6) / +1.46 (+4.2, −1.3) | +2.13 (+5.3, −1.0) / +2.67 (+6.4, −1.0) |
+| 0.25 | +0.96 (+4.8, −2.9) / +1.08 (+4.5, −2.4) | +1.75 / +1.76 |
+| 0.40 | −0.20 (+5.1, −5.5) / +0.19 (+5.6, −5.2) | +0.69 / +0.95 |
+
+P04's gain saturates near β 0.15; P10's loss grows with β and is at the noise level up to β 0.10. Single members:
+C alone at β 0.05 gives +1.4 to +1.5; T alone +0.3; the three together give the smoothest curve.
+
+**Confirmation (four fresh bases; the arm fixed after the dose-response: T·C·S, β 0.10, no other change).**
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Shipped v4.1 + stage, seen, mean of four fresh bases | +1.6 (+0.8 to +2.4); P04 +3.8 (+2.5 to +5), P10 −0.4 (−1.2 to +0.4) | mean < +1.0, or fewer than 3 of 4 bases ≥ +1.0, or P10 < −1.0 on any base |
+| With PFT nets (against the frozen twins) | +1.9 (+1.0 to +2.8) | < the stage alone − 0.3 |
+| New people | 0.00 | any change |
+
+Limit: the fresh bases differ in net seeds only; the own-space members and the two people are the same. This
+confirms robustness to the base, not transfer to other people.
+
+| Item | Observed (B2_s012 / B2_s0 / B2_s1 / B2_s2) | Verdict |
+|---|---|---|
+| Shipped v4.1 + stage, seen | +1.74 / +2.39 / +2.53 / +1.07, **mean +1.93** (dJ +0.97); 4 of 4 ≥ +1.0 | **Hit; passes** |
+| P04 / P10 | +3.73, +5.06, +4.82, +2.39 (mean +4.00) / −0.26, −0.28, +0.25, −0.26 (mean −0.14) | **Hit, hit** |
+| With PFT nets, against the frozen twins | +2.67 / +2.01 / +2.27 / +2.41, mean +2.34 (dJ +1.17); PFT alone +1.30; P10 −1.0 on every base | **Hit**; above the stage alone |
+| β 0.15 for comparison (not the fixed arm) | +2.00 / +1.72 / +2.94 / +1.60 | — |
+| New people | 0.00 | Hit |
+
+**Reading (11 Nov 23:50 UTC).**
+- **On all six dev bases the own-space final stage adds +1.1 to +2.5 to returning sessions (mean +1.9, dJ about
+  +0.95), and with the personal nets +2.3 (dJ +1.17).** It is the largest returning-person gain since routing itself
+  and the first lever of this session with a dev size near +1 J.
+- It is still P04's gain: P10 is at −0.1 (and −1.0 with PFT). What is new against PFT's "P04 only" is the ten-person
+  evidence (§41, §42): own-space members add to eight of ten people within a session, and P10 is the one clear
+  negative of the ten.
+- **Sealed estimate: +0.4 to +0.9** (dJ +0.95 to +1.17 at the usual 0.46–0.7 transfer, or +2 to +3 per recognised
+  returning session if the eight single-session people follow the ten-person proxy). With TTT for new people (about
+  +0.2) a package could reach roughly 0.821 to 0.827. Not built.
+- Not done: better own-space members (these are a first version: 9 bands, whole-window covariances, fixed
+  regularisation), training on all public sessions of P04 and P10 (+1.6 in §42), the package form (per-person
+  filters and heads, causal recentring, catch-up at recognition), runtime.

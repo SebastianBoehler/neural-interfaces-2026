@@ -189,9 +189,14 @@ the same rules, so a +3 method exists; the ceilings in §5 are ceilings of our r
   −0.3, TTT nets +0.6). True labels would add +2 to +3 J in each. This is not where the +3 is.
 - **Returning people:** own-space personal members as a tempered product in the head's slot give P04 +2 to +3 and P10
   0 (§37, exploratory), the same pattern as PFT. Five of the eight single-session people look P04-like by §36.
-- **Open:** a population model that covers more kinds of people (next: the learning curve over training people and
-  what a P04-like person needs from the training set); a returning-person package from PFT plus own-space members.
-  No upload until the user says so.
+- **Own-space final stage for returning people (§41–§43), the first lever near +1 J:** personal members fitted
+  on the public session in the person's own space (FBCSP, own tangent space, slow time courses), multiplied into the
+  chain output at β 0.10 for recognised people. Six dev bases: seen +1.1 to +2.5 (mean +1.9; P04 +4.0, P10 −0.1);
+  with PFT nets +2.3. Ten-person within-session proxy: +4 to +5 over a person-naive chain, twice the population-PC
+  head. Sealed estimate +0.4 to +0.9. Code `studies/12nov/ownspace.py`, `dose.py`. Not built into a package.
+- **Open:** better own-space members; all public sessions for P04 and P10; the package form; the learning curve over
+  training people for new people (§39, stopped unfinished: rerun with progress output). No upload until the user
+  says so.
 
 1. Build v5 (§6) or keep the three uploads for something larger.
 2. Any information on what the leading teams do (Discord). The leader gained +2.5 in one upload while its runtime
