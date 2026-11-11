@@ -481,6 +481,20 @@ domain-generalisation heads (group DRO, Fishr, person bagging) were negative on 
 - Useful by-products: the neuro-physiological picture (mu 10–14 Hz and theta 3–8 Hz carry the transferable signal;
   power transfers better than connectivity) and a 20-second edit-and-score loop for core1 (`experiments/wsp_core.py`).
 
+**Weco search over edits of core1's head (11 Nov, run `ea473cae-53bd-41fd-963b-fa11446fd3f1`, 60 steps, 56 edits scored; task in `.weco/wsp-core1/`).**
+The optimiser (default model) could rewrite one function that edits the head from the fitted weights, the
+leave-one-more-person-out heads, the per-feature transfer statistics and the feature layout. It saw only the chain score
+on people half G1; half G2, the seen people and J were logged out of its sight. Each step cost about 20 s locally and
+about 0.07 credits (4.1 in total).
+- One of 56 edits was positive on the half it optimised (+0.11), and that edit was −0.11 on the hidden half (J +0.04).
+- Median edit: −0.44 on its half, −0.12 on J. Eight edits were marginally positive on the hidden J (best +0.07), all
+  inside the null range.
+- Its attempts were the structured ones suggested (rank-k spatial denoising, projection onto the subspace shared by the
+  inner heads, contrast-specific rescaling, boosting power entries and the slow block).
+
+**Verdict:** an automated search agrees with the hand edits: the fitted head cannot be improved by editing its weights.
+Weco works here as a tool (cheap steps, a hidden half as the honest check); the target was already at its optimum.
+
 ## 14. Routing v4: the BIO1 identity gate in front of the personal heads (written 11 Nov ~12:30 UTC, before any routing score)
 
 **Mechanism.** Routing v3 opens at window 60 on a class-direction fingerprint that needs pseudo-labels; on external
