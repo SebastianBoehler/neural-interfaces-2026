@@ -660,8 +660,18 @@ and the files are high-passed near 4 Hz.
 
 | Item | Observed | Verdict |
 |---|---|---|
-| Pretraining | | |
-| Teacher alone / in the chain | | |
+| Pretraining | 24 of 24 jobs (2080 Ti, 26–70 min each); head export 3087589; teacher rebuilt locally (seed-mean head log-probs of EEGNeX + IFNet, balanced logistic map C 0.01 per fold) | — |
+| Harness | the shipped recipe's own checkpoints (seeds 0–5) rebuilt this way give chain J 80.20 / 79.86 against 80.01 / 79.85 for the packaged 12-seed teacher; the control m7c gives 80.20 / 79.90 | Close enough for a paired comparison against m7c |
+| Teacher alone on new / seen people | m7c 50.46 / 50.85; **m8s 53.73 / 54.15** (SUB recall 34.0 → 40.5, MI 65.9 → 67.2, WORD 47.9 → 47.9) | **Hit, above the range** (+3.3 against a predicted +1.0, range −0.5 to +2.5) |
+| Chain with the teacher swapped at weight 5 (m8s − m7c) | **−0.98** (new −1.39: half G1 −2.70, half G2 −0.09, 3 of 10 people ≥ 0; seen −0.57) | **Refuted; miss far below the range** (−0.20 to +0.60) |
+| Weight sweep (exploratory), m8s − m7c at weight 1 / 2 / 3 / 5 / 7 | +0.07 / −0.41 / −0.58 / −0.98 / −0.74; m7c peaks at weight 5 (80.05), m8s never exceeds 79.07 | No weight rescues it |
+| Gate | — | **FAIL** |
+
+**Reading.** With Scherer the teacher becomes a better three-class decoder by itself and a worse chain member. Its
+value in the chain is not its accuracy but that it is different: a motor-imagery specialist whose errors are unlike the
+PROTEUS-trained members'. Teaching it subtraction and word generation from nine more people makes it more like them.
+This is the fifth and clearest case today that the chain rewards complementary members, not stronger ones. Scherer is
+now closed in the members, the cores and the teacher.
 
 ## 19. PTSEM: the returning person's own class templates as a prior in the routed tail's TSEM (written 11 Nov ~14:05 UTC, before any result)
 

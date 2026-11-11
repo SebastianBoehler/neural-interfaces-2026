@@ -131,7 +131,7 @@ balanced accuracy.
 
 | Job | IDs | State when access dropped | What to do with it | Ledger |
 |---|---|---|---|---|
-| **TSCH** Scherer as an eighth teacher corpus | pretraining arrays 3087564 (m8s EEGNeX), 3087565 (m8s IFNet), 3087566 / 3087567 (m7c controls), 6 seeds each; head export 3087589 chained after them | 2 of 24 running | Fetch `runs/diag/tsch/heads.npz`; build the teacher member (balanced logistic map C 0.01 per fold from seed-mean head log-probs, EEGNeX + IFNet concatenated, as `deep2/lib.teacher_fn`); swap it for alib member 10 at weight 5; compare m8s with m7c | §18 |
+| **TSCH** Scherer as an eighth teacher corpus | 3087564–3087567, 3087589 | finished | Scored: teacher alone +3.3, chain −0.98 at weight 5 and worse at every weight ≥ 2. Closed | §18 |
 | **SCH** leftovers | array 3086622 | one FB task (SUB+WORD only, seed 1) missing | Nothing: scored without it, gate failed | §7 |
 
 **Local:**
@@ -260,11 +260,13 @@ unconfirmed. If true, returning-person sessions are a larger share than our 2-pe
   chain 0);
 - similarity routing for new people, a forgetting recentring reference, a personal recentring prior, a more
   regularised personal head (wins at core level, loses in the chain).
-- **Pattern:** stronger members or heads do not move the chain (four independent cases). Core-level results do not
+- **Pattern:** stronger members or heads do not move the chain (five independent cases; the Scherer teacher is +3.3
+  alone and −1.0 in the chain). Core-level results do not
   predict chain results for personal models.
 
 **Open:**
-1. **TSCH** (Scherer in the teacher): the only running bet on new people; prior about 15 %.
+1. **Nothing is running for new people.** TSCH failed (a stronger teacher is a worse chain member); the chain rewards
+   complementary members, not stronger ones, so the next member idea has to be different in kind, not better.
 2. **Returning-person robustness across sessions:** nothing tested works yet; needs a chain-level idea.
 3. **The upload decision on v4:** an independent package review is still to do before any upload.
 4. **Segmentation hypothesis for the rescoring** and **GPU-eigh speed:** unchanged, low priority.

@@ -1,0 +1,11 @@
+[run_capped] Wed Nov 11 17:28:12 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/tsch/weights.py runs/tsch/heads.npz /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/tsch/score.py (max 8 GB)
+keys ['names', 'eegnex_ea-m7c-s0', 'eegnex_ea-m7c-s1', 'eegnex_ea-m7c-s2', 'eegnex_ea-m7c-s3', 'eegnex_ea-m7c-s4'] ... 37
+m7c teacher recall MI/SUB/WORD on new people: [np.float64(65.9), np.float64(34.0), np.float64(47.9)] mean max prob 0.51
+m8s teacher recall MI/SUB/WORD on new people: [np.float64(67.2), np.float64(40.5), np.float64(47.9)] mean max prob 0.528
+weight | m7c J (pool, s345) new seen | m8s J new seen | m8s - m7c dJ (G1, G2 new)
+ 1.0   | 78.678 78.35 79.01 | 78.747 78.55 78.94 | +0.07 (-0.27, +0.67)
+ 2.0   | 79.112 78.97 79.25 | 78.707 78.66 78.75 | -0.41 (-0.83, +0.22)
+ 3.0   | 79.455 79.45 79.46 | 78.870 78.79 78.95 | -0.58 (-0.95, -0.38)
+ 5.0   | 80.054 80.19 79.92 | 79.073 78.79 79.35 | -0.98 (-2.70, -0.09)
+ 7.0   | 78.993 79.44 78.54 | 78.253 77.96 78.54 | -0.74 (-2.81, -0.16)
+[run_capped] Wed Nov 11 17:29:42 CET 2026 exit 0

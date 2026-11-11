@@ -1,0 +1,8 @@
+[run_capped] Wed Nov 11 17:27:10 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/tsch/score.py runs/tsch/heads.npz (max 8 GB)
+keys ['names', 'eegnex_ea-m7c-s0', 'eegnex_ea-m7c-s1', 'eegnex_ea-m7c-s2', 'eegnex_ea-m7c-s3', 'eegnex_ea-m7c-s4'] ... 37
+shipped chain J [np.float64(80.0131), np.float64(79.8474)]
+m7r: 38 head columns | teacher alone new 50.38 seen 51.12 WORD recall 47.9 | chain J 80.2031 79.8645
+m7c: 38 head columns | teacher alone new 50.46 seen 50.85 WORD recall 47.9 | chain J 80.2031 79.9039
+m8s: 44 head columns | teacher alone new 53.73 seen 54.15 WORD recall 47.9 | chain J 79.1641 78.9825
+m8s - m7c: dJ -0.98 new -1.39 (G1 -2.70, G2 -0.09; 3/10) seen -0.57 | per person new [0.5, -2.2, 0.3, 1.5, -6.5, -0.0, -2.7, -1.6, -2.7, -0.5]
+[run_capped] Wed Nov 11 17:27:50 CET 2026 exit 0
