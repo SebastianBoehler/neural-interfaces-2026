@@ -973,3 +973,26 @@ far. Measured at session end on new people, with the true run boundaries given:
 - Better labels are not available label-free: smoothing in both directions and exact run-balance constraints move
   label accuracy by less than one point. **Fine-tuning is label-limited, and the labels are capped near 77 %.**
 - Wave 2 (all net families) and round 2 (labels fed back) will confirm or correct this; the prior for a pass is now low.
+
+## 29. PFT: nets fine-tuned on a returning person's own earlier session (written 11 Nov ~20:25 UTC, before any job ran; code `runs/archive_scratch_11nov/ttt/galv/pft.py`)
+
+**Why.** §24/§28: fine-tuning the nets pays only with true labels (+1.6 J as a final stage), and label-free labels are
+capped near 77 %. True labels do exist for one group: returning people, from their public sessions. The personal
+model so far is a linear head on core1's features (PS1); the nets were never personalised.
+
+**Mechanism.** For each seen-session fold (P04, P10; test sessions 2–3) the trained SessionBN net is fine-tuned on the
+test person's own training rows (session 1, true labels; full batch, AdamW), then streamed over the test sessions
+with causal SessionBN statistics. Variants: `pf20`, `pf60`, `pf200` (all parameters, lr 5e-4), `pfh60` (output layer
+and SessionBN affine only, lr 2e-3). Five net families × 3 seeds.
+
+**Known weakness before running.** The population net was already trained on these rows (one person among ten plus
+external data), so fine-tuning only re-weights them; a net has the capacity to fit them already. Only two people.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Standalone seen accuracy, fine-tuned minus frozen twin (mean of families) | +1.5 (−1 to +4) | ≤ 0 |
+| Chain with all five families swapped on seen sessions, seen BA | +0.5 (−0.5 to +1.5) | ≤ +0.3 |
+| As a final stage on seen sessions (chain × net^λ, best of 0.25 / 0.5) | +0.6 seen (−0.5 to +2) | ≤ +0.3 |
+
+A pass (≥ +1.0 seen in the chain, both people ≥ 0) would reopen the returning-person line with a net-based personal
+model behind the identity gate.
