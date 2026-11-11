@@ -883,3 +883,29 @@ variants), AEC core (1 task). Predictions for TTT are in §24.
 | Item | Observed | Verdict |
 |---|---|---|
 | AEC | | |
+
+## 26. CFC core and REST4 (written 11 Nov ~19:55 UTC, before any result)
+
+**CFC: cross-frequency coupling core** (`runs/archive_scratch_11nov/aec/cfc_core.py`). For four slow/fast band pairs
+(4–8 with 13–30 and 30–45; 8–13 with 30–45; 2–6 with 8–13) the joint covariance of the slow-band signals and the
+slow-filtered fast-band log-envelopes, through core1's machinery. Mental arithmetic and verbal tasks are known for
+frontal-midline theta and theta-gamma coupling; no member sees coupling between bands.
+
+**REST4: PROTEUS's own rest periods as a fourth class** (`runs/archive_scratch_11nov/rest4/`). The recordings contain
+far more signal than the 2,655 task windows. In Graz runs the 4 s before each cue (cue −4.5 to −0.5 s) are a clean
+no-task period, interleaved with the tasks in the same runs. Nets are trained 4-way (MI / SUB / WORD / rest) and used
+3-way. The external teacher's "task vs rest" heads were load-bearing, yet PROTEUS's own rest was never used. The
+held-out person's rest windows are excluded from training. Control: the same code without rest rows.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| CFC standalone new (lr10) | 42 (36–50) | — |
+| CFC as an extra chain member, best weight | +0.1 J (−0.2 to +0.4) | ≤ 0 |
+| REST4 member standalone new, vs its twin | +0.8 (−0.7 to +2.5) | ≤ 0 for both architectures |
+| REST4 in the chain (member replaced, vs twin replaced) | +0.15 J (−0.3 to +0.6) | ≤ 0 |
+| P(any of AEC, CFC, REST4 passes: nested ≥ +0.5) | ≈ 12 % | — |
+
+| Item | Observed | Verdict |
+|---|---|---|
+| CFC | | |
+| REST4 | | |
