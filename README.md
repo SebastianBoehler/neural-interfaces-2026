@@ -15,7 +15,7 @@ levers and the decisions waiting. Everything under `docs/archive/` is history an
 | [docs/PREDICTIONS_11NOV.md](docs/PREDICTIONS_11NOV.md) | Full record of 11 Nov: 33 pre-registered sections with predictions, results and verdicts |
 | [docs/SEALED_UPLOADS.md](docs/SEALED_UPLOADS.md) | Upload log, packages, the 10 Nov rescoring |
 | [docs/REVIEW_5NOV.md](docs/REVIEW_5NOV.md) | Directions closed 5–10 Nov, with the method class each was tested on |
-| [docs/AUDIT_SBN.md](docs/AUDIT_SBN.md), [AUDIT_NXIF.md](docs/AUDIT_NXIF.md), [AUDIT_M7R4.md](docs/AUDIT_M7R4.md) | Rebuild recipes for uploaded and staged packages |
+| [docs/AUDIT_SBN.md](docs/AUDIT_SBN.md), [AUDIT_NXIF.md](docs/AUDIT_NXIF.md) | Rebuild recipes for the uploaded packages (members, teacher, fast runtime) |
 | [docs/COMPETITION.md](docs/COMPETITION.md), [OFFICIAL_CONTRACT.md](OFFICIAL_CONTRACT.md) | Rules, dates, quotas; the official evaluation contract |
 | [docs/CLOUD_RUNS.md](docs/CLOUD_RUNS.md), [docs/GPU_VALIDATION.md](docs/GPU_VALIDATION.md) | Galvani job and worker-replica procedures |
 
@@ -26,7 +26,8 @@ levers and the decisions waiting. Everything under `docs/archive/` is history an
   `ensemble/` reproduces the three earlier uploads. All three are SHA-pinned: never edited in place.
 - `replay/`: the dev chain replay. `python replay/check.py` reproduces the six reference scores in about a minute.
 - `studies/11nov/`: one-off study scripts of 11 Nov (fine-tuning, identity routing, new feature cores, diagnostics).
-- `experiments/`, `scripts/`: training, feature and export code (audit recipes depend on it).
+- `experiments/`, `scripts/`: training, feature and export code that the packages and their audit recipes use.
+  Unreferenced code was removed on 11 Nov (`docs/archive/README.md` lists it; `git show 05d2335:<path>` recovers it).
 - `evidence/`: compact tracked results. `data/`, `runs/`, `.venv/` are local only and gitignored.
 
 ## Setup

@@ -4,7 +4,7 @@
 - solve(): exact linear personal head in the span of the own training rows (kernel form) with offset logits f0
   (MAP pull to a population head when f0 = its logits; personal-only head when f0 = 0).
 - scoring: person-equal cell-mean BA (tsem_confirm/score.py definition), per person and per session."""
-import os, sys
+import os
 import numpy as np
 from scipy.optimize import minimize
 import paths

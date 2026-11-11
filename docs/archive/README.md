@@ -14,6 +14,7 @@ wins. Read them only to look up how something was tested.
 | BASELINE_RESULT.md | Oct | The reproduced official linear baseline (37.75 %) |
 | PROTEUS_SOURCE_10NOV.md, PROTEUS_ACQUISITION_10NOV.md, PROTEUS_ALPHA_CONFIRMATION_10NOV.md, PROTEUS_CHANNEL_POWER_BLEND.md | 8–10 Nov | Codex's source-screen campaign (auxiliary heads, +0.4–0.8 on a weaker base, none promoted) |
 | EXPERIMENTS.md, SETUP_CHECK.md | Oct | Early procedure notes |
+| AUDIT_M7R4.md | 4 Nov | Rebuild recipe of `cand_m7r4`, a four-family teacher package that was staged and never uploaded |
 
 ## Assumptions in these files that are now known to be wrong or outdated
 
@@ -36,3 +37,20 @@ wins. Read them only to look up how something was tested.
 - **"Foundation models / more seeds / session-stage tweaks might still help."** Tested and closed for the recipes
   listed in docs/REVIEW_5NOV.md; a closed verdict covers only the method class that was tested.
 - **Runtime budget "60 min, we use 45".** The shipped package was rescored at 3,732 s; the fast package replaces it.
+
+## Code removed in the cleanup of 11 Nov 2026
+
+Removed because nothing current referenced it any more: not the packages, their audit recipes, the replay, the
+studies of 11 Nov or any current document. Everything is in git history; `git show 05d2335:<path>` recovers a file.
+
+| What | Files |
+|---|---|
+| Early experiment modules | `experiments/`: calibrate, cluster_bound, identify, personal_bound, soft_route, tta_eval, ttime_eval |
+| One-off scripts of October | `scripts/`: combine_probs, diagnose_slow, export_jit_member, export_mental, external_probs, merge_shin_ab, rebalance_probs, selftrain_probs, sort_probs, summarize_results, swap_external, time_package, train_tangent, validate_baseline, run_baseline.sh, fit_channel_power_blend |
+| Old diagnostics | `scripts/diag/`: agent_probe, check_lam, check_sd_floor, eval_members, families, riemann_heads, stress_package, verify_r19e, weight_edit |
+| Old job files | `scripts/cloud/`: external, swap_external, tta, ttime (.sbatch) |
+| Package configs of superseded candidates | `scripts/sealed_r10*.json`, `r14`, `r15`, `r19e_l25`, `r8t`, `r8t4`, `r9b`, `r9c`; `warmup8/10/12*.json`; the `cand_m7r4` audit script and manifest |
+| Codex's source-screen campaign (8–10 Nov, closed) | 55 files under `runs/rank1_8nov/` are no longer tracked; they are still on the Mac in that folder |
+
+Kept on purpose although old: `scripts/sealed_r19.json`, `sealed_r19e.json`, `sealed_r9.json`, `sealed_r6nf.json` and two
+warm-up configs (referenced by the upload log, the build script or the competition notes).

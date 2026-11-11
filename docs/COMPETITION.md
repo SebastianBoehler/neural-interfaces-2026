@@ -1,7 +1,7 @@
 # Competition information
 
 > **Current facts (11 Nov 2026):** sealed phase 30483 closes 21 Nov 2026, 22:59 UTC. Allowance: 7 uploads per team,
-> 1 per UTC day (reset 00:00 UTC); we have used 3. A failed run uses no quota; a manually cancelled one does. The
+> 1 per UTC day (reset 00:00 UTC); we have used 4 (3 left). A failed run uses no quota; a manually cancelled one does. The
 > cohort size is private. Runtime: 60 min written, 80 min actual worker timeout. The dates and quotas in the tables
 > below are the October snapshot and are superseded by this note and docs/SEALED_UPLOADS.md.
 

@@ -65,7 +65,7 @@ document contradicts it, this file wins.
 
 Never edit `submissions/*/submission.py` in place: their SHA-256 values are pinned to uploaded or staged packages.
 Package builders: `scripts/add_bio_gate.py`, `scripts/check_bio_gate.py`, `scripts/build_sealed.py`; audit recipes in
-[AUDIT_SBN.md](AUDIT_SBN.md), [AUDIT_NXIF.md](AUDIT_NXIF.md), [AUDIT_M7R4.md](AUDIT_M7R4.md).
+[AUDIT_SBN.md](AUDIT_SBN.md), [AUDIT_NXIF.md](AUDIT_NXIF.md).
 
 ## 4. How results are measured
 
@@ -171,7 +171,7 @@ class in net training (+0.1 to +0.3 J); slot weight 4.5 for the personal head (+
 | History (superseded; may be wrong) | `docs/archive/` (its README lists the wrong assumptions) |
 | Chain replay | `replay/` |
 | Study scripts of 11 Nov | `studies/11nov/` (the ledger cites them as `runs/archive_scratch_11nov/<same path>`) |
-| Training, features, exports | `experiments/`, `scripts/` (audit recipes depend on them) |
+| Training, features, exports | `experiments/`, `scripts/` (only code that packages, audit recipes or the ledger still reference; the rest was removed on 11 Nov, see `docs/archive/README.md`) |
 | Identity gate | `experiments/bio_gate.py`, `experiments/bio_id.py` |
 | Compact evidence logs | `evidence/` (11 Nov: `evidence/wsp_bio1_11nov/`, `evidence/seq_bio_11nov/`) |
 | Local only (gitignored) | `data/`, `runs/` (`runs/upload/` ZIPs, `runs/replay_data/`, `runs/ttt/` outputs, `runs/archive_scratch_11nov/` full scratch mirror, 3.5 GB) |

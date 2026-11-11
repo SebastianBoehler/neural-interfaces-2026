@@ -7,7 +7,7 @@ outputs; test probabilities are the softmax over the first three (as every membe
 Conditions: c3 (control: same code, no rest rows, 3 outputs), r1 (rest loss weight 1), r03 (rest loss weight 0.3).
 Usage: python rest4.py TASK (seed = TASK // 6, arch = ("fb", "sh")[(TASK % 6) // 3], cond = CONDS[TASK % 3]) | python rest4.py smoke
 """
-import os, sys, time
+import sys, time
 from pathlib import Path
 WS = Path("/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026")
 sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]

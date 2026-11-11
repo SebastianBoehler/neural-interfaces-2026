@@ -1,7 +1,7 @@
 """How good can labels for PAST windows get without ground truth? (They are only used to fine-tune, so they may use
 everything seen so far.) Compares, at the end of each session: the causal chain output, forward x backward smoothing
 (the session stage run in both directions), and a balanced assignment inside each run (10 or 12 per class)."""
-import importlib.util, sys
+import importlib.util
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 REPO = __import__("os").path.abspath(__file__ + "/../../../.."); T = REPO + "/.weco/session-stage"

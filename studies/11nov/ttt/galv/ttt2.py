@@ -8,7 +8,7 @@ STEP windows (SessionBN statistics stay causal). Label source for the fine-tunin
 Saved proba (n, 3) per variant, rows sorted by index: base (no fine-tuning), pl20, or20, or60.
 Usage: python ttt2.py TASK (seed = TASK // 5, arch = ORDER[TASK % 5]) | python ttt2.py smoke
 """
-import copy, os, sys, time
+import copy, sys, time
 from pathlib import Path
 WS = Path("/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026")
 sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]

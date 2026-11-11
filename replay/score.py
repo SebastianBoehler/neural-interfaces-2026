@@ -1,5 +1,4 @@
 """Person-equal scoring helpers for the TSEM confirmation (cell-mean BA per person, pe_metric definition)."""
-import os
 import numpy as np
 import paths
 B = dict(np.load(paths.DATA + "/bases.npz", allow_pickle=True))

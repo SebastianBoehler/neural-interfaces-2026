@@ -4,7 +4,6 @@ routing's personal head share = core1's share of the lean mix (package: Route3.b
 the lean system's own all_loso output. Members (dev stack, retune/inputs.npz) split into families:
   core1, hilb (slot = mean of the two at weight 2 -> each 1), tf (FBCNet TF ea/raw, 0.5 each), shallow (ea/raw, 1 each),
   sbnfb (SBN FBCNet raw k20, ea k2, ea k5: 1 each), sbnsinc (1), sbnfbl (1), teacher (5)."""
-import os, sys
 import paths  # noqa: F401
 import numpy as np
 import gm  # noqa: E402  (early/lib as L, early/mech as M, GEB stages)

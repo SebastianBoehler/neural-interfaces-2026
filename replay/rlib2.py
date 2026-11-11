@@ -3,7 +3,6 @@ v1 score: cos(c - b - pop, G_p - pop) -> a session with weak or no class contras
 the weakest gallery (P04): 'weakness' was part of the fingerprint. v2 score: cos(P c, P G_p), P = projector onto the
 orthogonal complement of span{pop, b} (768-dim vectors) -> invariant to contrast strength along the shared directions;
 a session with no contrast scores 0. Standardisation: per-feature median / (1.4826 MAD), clipped at +-CLIP (artifacts)."""
-import sys
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 import paths

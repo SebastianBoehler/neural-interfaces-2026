@@ -3,7 +3,7 @@ all_loso + seen_session. Recipe = the FB slot's (SessionNet group 32, EA k5, 40 
 Saved proba (n, 3) at SessionBN k 2/5/20, rows sorted by index. A failing architecture logs FAIL and exits 0.
 Usage: python sbnx.py TASK (seed = TASK // len(ARCHS), arch = ARCHS[TASK % len(ARCHS)]) | python sbnx.py smoke
 """
-import os, sys, time, traceback
+import sys, time, traceback
 from pathlib import Path
 WS = Path("/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026")
 sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]

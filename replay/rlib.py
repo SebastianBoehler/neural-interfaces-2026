@@ -1,5 +1,4 @@
 """Class-direction fingerprint (route team): loaders + contrast scores on core1's exact-SVD PC view (feats_exact)."""
-import os
 import numpy as np
 import paths
 S, REPO = paths.DATA, paths.REPO

@@ -1,5 +1,5 @@
 """Flip anatomy of the Graz position prior at each chain stage, and calibration by on/off-pattern."""
-import sys, collections
+import sys
 import numpy as np
 REPO = __import__("os").path.abspath(__file__ + "/../../../..")
 sys.path.insert(0, REPO + "/replay")

@@ -6,7 +6,6 @@ injected into the B2 slot of a separate routed tail. Batch simulation on the dev
   output  = routed tail for sessions with any r > 0, else the shadow (identical by construction in the stream).
 PS1 = LR(C 0.1) on the person's training sessions in the fold (core1 PC256, each session mean/std standardised),
 test rows causally standardised (route.causal_std)."""
-import sys
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 import rlib2 as R2

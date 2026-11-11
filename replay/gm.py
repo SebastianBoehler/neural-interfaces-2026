@@ -1,6 +1,5 @@
 """Gated EB in the early/ (retune inputs) framework, for routing v3 and package parity: gate from the SessionEM input
 (rebalanced mix) of the same chain; margin = top1 - top2, causal session mean over windows < t."""
-import os, sys
 import paths  # noqa: F401
 import numpy as np
 import lib as L, mech as M  # early/lib.py, early/mech.py

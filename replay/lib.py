@@ -1,5 +1,4 @@
 """Early-window study: shared helpers. Chain = mix(ws(t)) -> rebal -> SessionEM -> TSEM (replica of retune/grid.py)."""
-import os, sys
 import paths
 import numpy as np
 import grid as G  # loads retune/inputs.npz as G.Z

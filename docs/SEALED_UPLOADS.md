@@ -1,4 +1,10 @@
-# Sealed-phase upload plan and log (3 Nov 2026)
+# Sealed-phase upload plan and log
+
+> **Current facts (11 Nov 2026, 22:30 UTC).** Sealed phase 30483 closes 21 Nov 2026, 22:59 UTC. Allowance: 7 uploads
+> per team, 1 per UTC day; **4 used, 3 left**. Best: submission 1048575, `cand_v41_bio`, 0.8161546323 (see "11 Nov,
+> 18:31 UTC" below). A failed run uses no quota; a manually cancelled one does. The sections "Facts", "Arms" and
+> "Sequence" below are the plan of 3 Nov and are history: the quota of 5, the arms and the planned order no longer
+> apply, and `cand_m7r4` was never uploaded. "Before each upload" and the log are current.
 
 Supersedes the upload sequence in docs/archive/SEALED_PLAN.md (R19e / R15 order of 30 Oct). Every upload needs
 the user's explicit authorisation for that upload, after a live check of phase and quota.
@@ -20,7 +26,7 @@ the user's explicit authorisation for that upload, after a live check of phase a
 |---|---|---|---|---|---|---|---|
 | cand_nxif | `sealed_cand_nxif.zip` `0a562e62…` | +2.91 | +3.18 | +2.63 | +0.99 | code: yes (1024447); EEGNeX / IFNet layers replica only | committed, validated, incl. all-A100 |
 | cand_nxif_emx | `sealed_cand_nxif_emx.zip` `98d39600…` | +2.85 | +3.92 | +1.77 | +1.34 | as cand_nxif | cand_nxif recipe + `set_params.py` |
-| cand_m7r4 | `sealed_cand_m7r4.zip` `060850ee…` | +2.33 | +2.59 | +2.08 | — | sinc / fbcnet TorchScript ran (1026185) | docs/AUDIT_M7R4.md, validated 4 Nov (754 / 755, 99.81 %) |
+| cand_m7r4 | `sealed_cand_m7r4.zip` `060850ee…` | +2.33 | +2.59 | +2.08 | — | sinc / fbcnet TorchScript ran (1026185) | docs/archive/AUDIT_M7R4.md, validated 4 Nov (754 / 755, 99.81 %) |
 | R19e (jit_g) | `sealed_r19e_jit_g.zip` `011e56bc…` | 0 | 0 | 0 | 0 | **this exact ZIP** (1024447) | R19e fresh-clone audit (30 Oct) |
 
 Deltas are dev sel = mean(ds, dla) over R19e on pretraining seeds 0–11, never tuned on P04 / P09 or
