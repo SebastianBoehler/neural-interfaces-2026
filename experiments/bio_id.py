@@ -11,7 +11,7 @@ import glob, json, os, sys
 import numpy as np
 
 NS = (5, 10, 20, 40, 60)
-KEEP = 60  # windows kept per session for short-n probes and the window-noise estimate
+KEEP = int(os.environ.get("BIO_KEEP", 60))  # windows kept per session for short-n probes and the window-noise estimate
 CORPORA = tuple(os.environ.get("BIO_CORPORA", "lee2019_mi,stieger2021,yang2025,kumar2024,guttmannflury2025_mi,zhou2020").split(","))
 VIEWS = {"psd": (0, 1599), "corr": (1599, 3239), "both": (0, 3239)}
 IU = np.triu_indices(41, 1)
@@ -112,6 +112,58 @@ def external_trials(M, S, rng, reps=30, G=10):
     return res
 
 
+def stream_trials(M, S, rng, reps=20, G=10, grid=tuple(range(10, 201, 5))):
+    """Session-level trials: the probe is scored at every n of `grid`; -> list of (genuine, best score per n, correct id per n)."""
+    out = []
+    for c in sorted({s["corpus"] for s in S}):
+        by = {}
+        for s in S:
+            if s["corpus"] == c:
+                by.setdefault(s["person"], []).append(s)
+        multi = [p for p in by if len(by[p]) > 1]
+        if len(multi) < 4:
+            continue
+        mu = np.mean([s["full"][M.sl] for s in S if s["corpus"] == c], 0)
+        for _ in range(reps):
+            gal = list(rng.choice(multi, min(G, len(multi) // 2), replace=False)); gs, pr = {}, []
+            for p in gal:
+                i, j = rng.choice(len(by[p]), 2, replace=False); gs[p] = M.proj(by[p][i]["full"], mu); pr.append((p, by[p][j]))
+            for p in by:
+                if p not in gal:
+                    pr.append((None, by[p][rng.integers(len(by[p]))]))
+            for truth, s in pr:
+                cum = np.cumsum(s["head"].astype(np.float64), 0); best, ok = np.full(len(grid), np.nan), np.zeros(len(grid), bool)
+                for k, n in enumerate(grid):
+                    if n > len(cum):
+                        break
+                    x = M.proj(cum[n - 1] / n, mu); sc = np.array([M.llr(gs[p], 1, x, n) for p in gal])
+                    best[k] = sc.max(); ok[k] = truth is not None and gal[int(sc.argmax())] == truth
+                out.append((truth is not None, best, ok))
+    return out
+
+
+def stream_summary(tr, taus=np.arange(0.18, 0.421, 0.01), ks=(1, 2, 3)):
+    """Per threshold and persistence k (consecutive grid points above it): session-level false accepts, correct accepts,
+    wrong-identity accepts of genuine sessions, and the median grid index of the first correct accept."""
+    rows = []
+    for k in ks:
+        for tau in taus:
+            fa, ta, wa, first = [], [], [], []
+            for gen, best, ok in tr:
+                above = np.nan_to_num(best, nan=-np.inf) >= tau
+                run = np.convolve(above, np.ones(k), "valid") >= k if len(above) >= k else np.zeros(0, bool)
+                hit = np.flatnonzero(run) + k - 1
+                if not gen:
+                    fa.append(len(hit) > 0)
+                else:
+                    good = [h for h in hit if ok[h]]; ta.append(len(good) > 0); wa.append(any(not ok[h] for h in hit))
+                    if good:
+                        first.append(good[0])
+            rows.append(dict(k=int(k), tau=round(float(tau), 2), far=float(np.mean(fa)), tar=float(np.mean(ta)), wrong_id=float(np.mean(wa)),
+                             first=float(np.median(first)) if first else None, n_imp=len(fa), n_gen=len(ta)))
+    return rows
+
+
 def summarize(res):
     out = {}
     for n, (g, ok, im) in res.items():
@@ -150,6 +202,17 @@ def main():
         np.savez(os.environ["BIO_EXPORT"], lo=M.sl.start, hi=M.sl.stop, sd=M.sd, V=M.V, B=M.B, W=M.W, S=M.S,
                  n_sessions=len(S), n_people=len({s["person"] for s in S}))
         return print("exported", view, dim, len(S), flush=True)
+    if os.environ.get("BIO_STREAM"):  # session-level calibration of the routing threshold on held-out external people
+        for s in S:
+            s["head"] = s["head"][:, :1599]
+        people = sorted({s["person"] for s in S}); test = set(rng.choice(people, int(0.3 * len(people)), replace=False))
+        M = TwoCov().fit([s for s in S if s["person"] not in test], "psd", 64)
+        rows = stream_summary(stream_trials(M, [s for s in S if s["person"] in test], np.random.default_rng(1)))
+        json.dump(rows, open(os.environ["BIO_STREAM"], "w"), indent=1)
+        for r in rows:
+            if r["tau"] in (0.2, 0.23, 0.25, 0.27, 0.3, 0.33, 0.36, 0.4):
+                print(r, flush=True)
+        return
     P = load_sessions([f"{root}/proteus_windows.npz"], "proteus")
     people = sorted({s["person"] for s in S}); test = set(rng.choice(people, int(0.3 * len(people)), replace=False))
     tr, te = [s for s in S if s["person"] not in test], [s for s in S if s["person"] in test]

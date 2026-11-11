@@ -1,0 +1,33 @@
+[run_capped] Wed Nov 11 13:39:15 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/rt4/route4.py runs/bio1/model_psd_d64.npz (max 8 GB)
+model 224 people 673 sessions; dim 64
+B2_pool v3            J 80.0131 dJ +0.00 new +0.00 seen +0.00 (P04 +0.00, P10 +0.00) | routed new 0 seen 4
+      seen_session P04|2    -> P04 first routed window 64, first bio window 15, max bio score +0.295, routed share 0.60
+      seen_session P04|3    -> P04 first routed window 72, first bio window 10, max bio score +0.478, routed share 0.61
+      seen_session P10|2    -> P10 first routed window 60, first bio window 10, max bio score +0.353, routed share 0.68
+      seen_session P10|3    -> P10 first routed window 60, first bio window 10, max bio score +0.375, routed share 0.70
+B2_pool v4 max t10    J 80.5838 dJ +0.57 new -0.03 seen +1.18 (P04 +1.83, P10 +0.52) | routed new 1 seen 4
+      all_loso     P10|1    -> P03 first routed window 76, first bio window 76, max bio score +0.253, routed share 0.34
+      seen_session P04|2    -> P04 first routed window 15, first bio window 15, max bio score +0.295, routed share 0.61
+      seen_session P04|3    -> P04 first routed window 10, first bio window 10, max bio score +0.478, routed share 0.95
+      seen_session P10|2    -> P10 first routed window 10, first bio window 10, max bio score +0.353, routed share 0.72
+      seen_session P10|3    -> P10 first routed window 10, first bio window 10, max bio score +0.375, routed share 0.95
+B2_pool v4 max t20    J 80.5123 dJ +0.50 new -0.03 seen +1.03 (P04 +1.55, P10 +0.52) | routed new 1 seen 4
+      all_loso     P10|1    -> P03 first routed window 76, first bio window 76, max bio score +0.253, routed share 0.34
+      seen_session P04|2    -> P04 first routed window 21, first bio window 21, max bio score +0.295, routed share 0.60
+      seen_session P04|3    -> P04 first routed window 20, first bio window 20, max bio score +0.478, routed share 0.89
+      seen_session P10|2    -> P10 first routed window 60, first bio window 96, max bio score +0.353, routed share 0.68
+      seen_session P10|3    -> P10 first routed window 20, first bio window 20, max bio score +0.375, routed share 0.90
+B2_pool bio only t10  J 79.9893 dJ -0.02 new -0.03 seen -0.01 (P04 -0.55, P10 +0.52) | routed new 1 seen 4
+      all_loso     P10|1    -> P03 first routed window 76, first bio window 76, max bio score +0.253, routed share 0.34
+      seen_session P04|2    -> P04 first routed window 15, first bio window 15, max bio score +0.295, routed share 0.45
+      seen_session P04|3    -> P04 first routed window 10, first bio window 10, max bio score +0.478, routed share 0.95
+      seen_session P10|2    -> P10 first routed window 10, first bio window 10, max bio score +0.353, routed share 0.53
+      seen_session P10|3    -> P10 first routed window 10, first bio window 10, max bio score +0.375, routed share 0.95
+   26s
+B2_s345 v3            J 79.8474 dJ +0.00 new +0.00 seen +0.00 (P04 +0.00, P10 +0.00) | routed new 0 seen 4
+B2_s345 v4 max t10    J 80.5634 dJ +0.72 new -0.02 seen +1.45 (P04 +2.38, P10 +0.52) | routed new 1 seen 4
+B2_s345 v4 max t20    J 80.4898 dJ +0.64 new -0.02 seen +1.30 (P04 +2.08, P10 +0.52) | routed new 1 seen 4
+B2_s345 bio only t10  J 80.1013 dJ +0.25 new -0.02 seen +0.53 (P04 +0.27, P10 +0.78) | routed new 1 seen 4
+   20s
+new-person sessions, max identity score (threshold 0.23): [(-0.171, 'P05|1'), (-0.114, 'P06|1'), (-0.085, 'P07|1'), (-0.066, 'P04|1'), (-0.027, 'P09|1'), (0.005, 'P04|3'), (0.006, 'P02|1'), (0.006, 'P03|1'), (0.012, 'P10|2'), (0.051, 'P04|2'), (0.052, 'P08|1'), (0.067, 'P10|3'), (0.088, 'P01|1'), (0.253, 'P10|1')]
+[run_capped] Wed Nov 11 13:40:05 CET 2026 exit 0

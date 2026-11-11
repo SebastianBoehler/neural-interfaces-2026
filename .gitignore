@@ -9,3 +9,9 @@ __pycache__/
 .env
 .env.*
 .tools/
+
+.weco/*/pack/
+.weco/*/.runs/
+.weco/*/*.log
+.weco/*/history.jsonl
+.runs/

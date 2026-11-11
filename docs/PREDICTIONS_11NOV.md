@@ -233,11 +233,16 @@ existing 3-class SessionBN FBCNet (B2_pool member 6) already splits the pairs at
 WORD-vs-rest 72.7 BA on new people. So the pair-BA predictions above (66 / 70 / 65) were set too low and will probably
 miss low. The chain dJ predictions are unchanged. The refutation "pair BA ≤ comparator" now has a known bar.
 
-| Item | Observed | Verdict |
+| Item | Observed (21 tasks: 11 from array 3086618, 10 from the packed job 3087109) | Verdict |
 |---|---|---|
-| Pair BA per arm | | |
-| Chain dJ per arm (nested, halves, seen) | | |
-| Gate / fresh confirmation | | |
+| Pair BA on new people, specialist vs the 3-class FB member's own split | SUB/WORD 72.6 vs 74.2; MI/WORD 77.0 vs 77.5; WORD-vs-rest 69.7 vs 72.7 (the full mix: 79.2 / 81.5 / 76.7) | **Refuted** by the stated rule: every specialist is at or below the 3-class net. (The predicted 66 / 70 / 65 missed low, as the calibration note said.) |
+| Chain dJ, pair re-splits (β 0.25 / 0.5 / 0.75) | SUB/WORD −0.74 / −2.90 / −3.97; MI/WORD −0.70 / −1.96 / −3.00; WORD-vs-rest −0.56 / −2.51 / −3.38 | **Miss, far below the range** (+0.05 to +0.10 predicted) |
+| Chain dJ, multitask member | extra at weight 0.5 / 1 / 2: −0.09 / −0.00 / −0.67; replacing its twin −0.04 | Hit (predicted +0.05, −0.25 to +0.30) |
+| Nested selection, gate | nested −0.20 (halves −0.03 / −0.37); seen +0.20 at the pick | **FAIL**; fresh bases not opened |
+
+**Reading.** A net trained on one boundary is no better at that boundary than a 3-class net, and it is worse
+calibrated against the rest of the chain: replacing even a quarter of the chain's pair split costs 0.6–0.7 J. The
+three-class representation is not what limits the pair confusions. Pair specialists are closed.
 
 ## 7. Scherer 2015 member test (written 11 Nov ~10:30 UTC, before any code or result; research use only; time corrected at 10:50 UTC, an earlier draft said ~11:15)
 
@@ -492,9 +497,24 @@ rests on the external rates in §11.
 ≥ 0 on each of the four fresh bases; P10 ≥ −0.3 on every base. Then stress tests (noise, constant, artefact and
 amplitude-scaled sessions must not route) before any build.
 
+| Item | Observed (exploration bases B2_pool / B2_s345; streaming class `experiments/bio_gate.Bio`) | Verdict |
+|---|---|---|
+| New-person routings at τ 0.23 | 1 of 14: P10 session 1, as a new person, scores 0.253 against P03 at window 76 and is routed for 34 % of its windows (cost −0.03 / −0.02 on new). The other 13 sessions peak at ≤ 0.09 | **Refuted** (predicted 0). The threshold came from fixed-n false-accept rates; the maximum over a whole session is higher |
+| Seen sessions routed by the identity gate by window 20 | 4 of 4 (windows 15, 10, 10, 10); genuine maxima 0.295 / 0.478 / 0.353 / 0.375 with one gallery session | **Hit** (predicted 3, range 2–4) |
+| Seen gain over v3 | +1.18 / +1.45 (P04 +1.83 / +2.38) | **Miss, above the range** (0.0 to +1.0) |
+| P10 against v3 | +0.52 / +0.52 | **Hit** (above the centre) |
+| dJ against v3 | +0.57 / +0.72 | **Miss, above the range** (0.0 to +0.5) |
+| Variants | start window 20: +0.50 / +0.64; identity gate alone (no v3): −0.02 / +0.25 | The two gates are complementary: v3 keeps sessions routed late, the identity gate starts them early |
+
+**Amendment (written 11 Nov ~12:45 UTC, before the external session-level calibration result).** The threshold is
+re-derived at the session level: on held-out external people a probe is scored at every 5th window from 10 to 200 and
+counts as accepted if it is ever above τ (job running: `BIO_STREAM` mode of `experiments/bio_id.py`). Rule fixed now:
+τ = the smallest value with external session-level false accepts ≤ 2 %; ramp 0.05 unchanged; if that τ leaves fewer
+than 3 of the 4 dev seen sessions routed early, also report the 5 % threshold. The gate above is then judged at the
+amended τ on all six bases. Predicted: τ ≈ 0.27 (0.25–0.31); dev dJ +0.45 (+0.2 to +0.7); 0 of 14 new-person routings.
+
 | Item | Observed | Verdict |
 |---|---|---|
-| New-person routings | | |
-| Seen sessions routed early | | |
-| Seen gain, P10, dJ | | |
+| External session-level calibration | | |
+| Dev at the amended τ, six bases | | |
 | Gate | | |
