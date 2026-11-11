@@ -974,7 +974,7 @@ far. Measured at session end on new people, with the true run boundaries given:
   label accuracy by less than one point. **Fine-tuning is label-limited, and the labels are capped near 77 %.**
 - Wave 2 (all net families) and round 2 (labels fed back) will confirm or correct this; the prior for a pass is now low.
 
-## 29. PFT: nets fine-tuned on a returning person's own earlier session (written 11 Nov ~20:25 UTC, before any job ran; code `runs/archive_scratch_11nov/ttt/galv/pft.py`)
+## 29. PFT: nets fine-tuned on a returning person's own earlier session (written 11 Nov ~20:10 UTC, before any job ran; code `runs/archive_scratch_11nov/ttt/galv/pft.py`)
 
 **Why.** §24/§28: fine-tuning the nets pays only with true labels (+1.6 J as a final stage), and label-free labels are
 capped near 77 %. True labels do exist for one group: returning people, from their public sessions. The personal
@@ -996,3 +996,37 @@ external data), so fine-tuning only re-weights them; a net has the capacity to f
 
 A pass (≥ +1.0 seen in the chain, both people ≥ 0) would reopen the returning-person line with a net-based personal
 model behind the identity gate.
+
+## 30. CLUS and recording-quality diagnostics (11 Nov ~20:15 UTC; exploratory, not pre-registered; `runs/archive_scratch_11nov/clus/`)
+
+**Question.** Fine-tuning is label-limited (§28). Is there class structure in a new person's session that can be found
+without labels and named afterwards ("cluster first, name later")? And is the hard person (P04) hard because of the
+recording?
+
+**Clustering ceiling** (14 new-person sessions, whole session at once, so an upper bound; accuracy with the best of
+the six cluster-to-class assignments):
+
+| Feature space | k-means | Gaussian mixture | Mixture seeded by the chain | Supervised 5-fold in the session |
+|---|---|---|---|---|
+| core1 PCs, first 8 | 47.8 % | 44.4 % | 51.2 % | 61.5 % |
+| core1 PCs, first 32 | 47.4 % | 43.9 % | 58.7 % | 72.7 % |
+| core1 PCs, 128 | 47.6 % | 47.1 % | 47.1 % | 75.9 % |
+| Members' log posteriors (33) | 64.3 % | 56.1 % | 65.1 % | 76.1 % |
+| **Chain (causal)** | | | | **76.6 %** |
+
+**Recording quality.** P04's three sessions have no bad channels, normal amplitude, few outlier windows and the most
+uniform channel variances of all people. A supervised model trained inside P04's own sessions reaches only 55–59 %
+(others 70–89 %).
+
+**Chain by interface** (new people, B2_pool): BrainHero 80.0, Graz 80.3; the member mix alone 72.1 and 69.4. As
+returning people P04 reaches 69 (54 as a new person) and P10 91 (82).
+
+**Reading.**
+- Classes are not the dominant cluster structure of a session; unsupervised clustering is far below the chain in
+  every space. Closed.
+- The causal, label-free chain is already as accurate as a supervised model trained on about 150 labelled windows of
+  the same session in core1's feature space. Label-free headroom for new people in these features is small.
+- P04 is a low-signal person, not a bad recording. Preprocessing has nothing to repair.
+- A person's own earlier session is worth +9 to +15 points for that person. Single nets do not carry it (their
+  standalone accuracy is about the same on seen and new sessions: 58–65 %); the tangent heads do. This is the case for
+  PFT (§29).
