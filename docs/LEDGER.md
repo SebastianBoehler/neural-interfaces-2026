@@ -377,3 +377,46 @@ for eight people (P04 keeps 88 %, P10 84 % of the within-session level, §37).
 
 | Item | Observed | Verdict |
 |---|---|---|
+| LOSO chain on runs 4–6 (B2_pool / B2_s345) | 82.50 / 82.33 | — |
+| P stage for everyone | +2.00 / +1.92 (β 0.25 / 0.5: +2.00, +1.67; +1.83, +1.92) | **Hit** (predicted +2.0) |
+| T·C·S stage for everyone | β 0.25: **+4.17 / +4.17**, 9 of 10 people ≥ 0 (P07 −1.7); β 0.5: +3.67 / +3.83 | **Hit** (predicted +3.0, range 0 to +6) |
+| P·T·C·S stage for everyone | β 0.25: +4.17 / +4.08, nobody below −1; β 0.5: **+5.00 / +5.08** (P07 −1.7) | **Hit** (predicted +4.0, range +1 to +7) |
+| Per person, P·T·C·S β 0.25 (B2_pool) | P01 +8.3, P02 +0.8, P03 +5.0, P04 +5.8, P05 +2.5, P06 +4.2, P07 +0.8, P08 +5.0, P09 +3.3, P10 +5.8 | Ten of ten ≥ 0 |
+| Selected by the gate, minus the best uniform stage | −0.09 / −0.42 (β 0.25); −0.33 / −0.25 (β 0.5) | Inside the range (predicted +0.5, −1 to +2), but **no value**: the gate never beats one recipe for all |
+| Spearman(gate gap, gain of T·C·S − gain of P) | +0.28 / +0.21 (β 0.25); +0.15 / +0.35 (β 0.5) | Hit at the low end; too weak to use |
+| Members alone on runs 4–6 | T 56.7–88.3, C 63.3–91.7 (P08), S 43–89 (P02), P 59–87 | — |
+
+**Reading (11 Nov 23:32 UTC; log `runs/psel_12nov.log`).**
+- **First broad positive of this line: on ten people, own-space personal members add +4 to +5 to the chain, twice
+  what a population-PC personal head adds (+2), and nobody is hurt at β 0.25.** It is not a P04 effect: P01, P03,
+  P08, P10, P06 and P09 each gain +3 to +9.
+- The per-person gate is dropped: three-fold accuracy on 100 windows is too noisy, and almost everyone gains anyway.
+  The recipe is P·T·C·S for everyone.
+- **Limits, all three matter.** (1) No session change: across sessions P04 kept the gain and P10 lost 2–3 as a final
+  stage (§37). (2) The population had never seen the person; in the package it has, so part of this gain is already
+  in the base. (3) Half a session of public data (100 windows; the package has 190 or 570).
+- Next: the same stage across real session pairs of P04 and P10 on the LOSO chain (§42), which removes limit 1 for
+  two people and leaves 2 and 3 as in this test, so the two are comparable.
+
+## 42. XPAIR: the own-space stage across real session pairs (written 11 Nov 23:34 UTC, before any result; code `studies/12nov/xpair.py`)
+
+**Test.** P04 and P10, three sessions each. Personal members (P, T, C, S as §41) fitted on one whole session A and
+streamed over another session B (6 ordered pairs per person), and fitted on two sessions and streamed over the third
+(3 per person). Chain = the LOSO v3 chain's output on B, as in §41. Stages P, T·C·S and P·T·C·S at β 0.25 and 0.5.
+The matching within-session numbers are §41's for the same two people (P·T·C·S β 0.25: P04 +5.0 to +5.8, P10 +5.8
+to +8.3).
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| One public session, P·T·C·S β 0.25, mean of 12 pairs | +1.5 (−0.5 to +3.5); P04 +3.5, P10 −0.5 | ≤ 0: the stage does not survive a session change for either person |
+| Share of the within-session gain kept | 25 % (0–60) | — |
+| Two public sessions → the third, mean of 6 | +2.5 (0 to +5); better than one session by +1 (−0.5 to +2.5) | — |
+| P stage (population-PC head), one session, mean of 12 | +2.0 (0 to +4): the head crosses sessions better than the own-space members for P10 | — |
+| Pairs where P·T·C·S β 0.25 lowers the chain by more than 1 | 3 of 12 (1–6) | ≥ 7 |
+
+Rule: mean of 12 ≥ +1.5 and two-session training ≥ +2 → a returning-person package candidate is specified
+(own-space stage behind the identity gate, with PFT if §40 shows they add), with its dev confirmation on the real
+seen protocol and the fresh bases.
+
+| Item | Observed | Verdict |
+|---|---|---|
