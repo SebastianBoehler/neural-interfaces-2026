@@ -214,6 +214,22 @@ To cancel: `ssh mlcloud-galvani scancel 3086618 3086622 3087013 3087028 3087029`
   - `track2-leaderboard-2026-11-11.csv`;
   - `our_question_11nov.md` (the Scherer question posted on Discord).
 
+**Where experiment time goes (profiled 11 Nov):**
+- **Training is tiny; the queue is the bottleneck.** One member task (12 folds of a small net, 40 epochs) takes 2.5–6.5
+  min on a 2080 Ti: about 30 s per fold at roughly 50 optimiser steps per second, which is Python overhead, not GPU
+  load. The 21-task W12 array needed 65 min of wall time for its first 11 tasks (56 min of compute, run 1–2 at a
+  time) and then stalled on fair-share priority.
+- **Fix 1, packing:** `scripts/cloud/pack.sh NAME P TIME "CMD" TASKS…` runs many tasks in one job, P at a time on one
+  GPU, and logs GPU utilisation every 20 s. One queue wait instead of one per task.
+- **Fix 2, partitions and limits:** short time limits (≤ 1 h) backfill; `2080-preemptable-galvani` often has idle
+  nodes, and our tasks skip finished outputs, so preemption only costs the task in progress.
+- **Fix 3, the Mac:** the training code runs on MPS (M4 Max, 36 GB) and CPU-only analyses run locally. One capped job
+  at a time through `scripts/run_capped.sh`.
+- **Chain scoring** is not a bottleneck: one full chain replay takes about 4 s per base locally.
+- **Inference** (sealed worker, per window): about 77 ms with the fast package; the CPU tangent path (two cores'
+  eigendecompositions, 40 ms) is the critical path, and GPU eigh brings the whole run to 0.79×. Runtime is not
+  binding today; it becomes binding only if a new stage adds a second tail or more members.
+
 **Sealed cohort:** the organisers removed the cohort numbers. An earlier text said "20 participants × 6 sessions, ten
 new participants", which implies roughly 57 % new people and 43 % later sessions of represented people. That is
 unconfirmed. If true, returning-person sessions are a larger share than our 2-person seen proxy suggests.
