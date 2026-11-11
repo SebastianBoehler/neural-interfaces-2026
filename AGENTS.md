@@ -2,9 +2,11 @@
 
 This project targets Track 2 BCI decoding in Neural Interfaces 2026.
 
-- Read docs/STATE_11NOV.md first (current state), then README.md and OFFICIAL_CONTRACT.md.
-- docs/archive/ is history; where it contradicts docs/STATE_11NOV.md, the state file wins.
-- Pre-register every run in docs/PREDICTIONS_11NOV.md (mechanism, numeric prediction, refutation rule) before scoring it.
+- Read docs/STATE.md first (current state), then docs/LEDGER.md (what is closed) and OFFICIAL_CONTRACT.md.
+- docs/archive/ is history; where it contradicts docs/STATE.md, the state file wins.
+- Pre-register every run in docs/LEDGER.md (mechanism, numeric prediction, refutation rule) before scoring it.
+- Check ideas against the ledger index first; score members and stages in the chain (`replay/`), never alone.
+- `python replay/check.py` must print OK before any chain result is trusted.
 - You own this codebase: edit and clean up freely, commit and push often, with no AI author line in commits.
 - Never edit submissions/*/submission.py in place: their SHA-256 values are pinned to uploaded or staged packages.
 - Keep the official 2026-competition submodule pinned and unchanged.

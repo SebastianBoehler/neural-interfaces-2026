@@ -1,5 +1,10 @@
 # Predictions ledger · written 11 Nov 2026, 01:50 UTC, before any of these results
 
+> **Note (cleanup of 11 Nov, 22:30 UTC).** This file is the closed record of 11 Nov. Its index is docs/LEDGER.md, where new
+> runs are pre-registered. Scripts cited below as `runs/archive_scratch_11nov/<path>` are tracked as `studies/11nov/<path>`;
+> the chain replay cited as `runs/archive_scratch_11nov/lean/alib.py` via `secop/env.py` is `replay/`. "docs/STATE_11NOV.md"
+> is now docs/archive/STATE_11NOV.md; the current entry point is docs/STATE.md.
+
 Each row states the mechanism we believe in, a numeric prediction with an ~80 % range, and what would refute it.
 After a run finishes, fill in **Observed** and **Verdict** (hit = inside range; miss = outside; mechanism refuted /
 supported). Units: dev J and its pieces in balanced-accuracy points (person-equal, 0.5·new + 0.5·seen) unless stated.
@@ -1118,11 +1123,20 @@ new +0.65 / +0.54 / +0.37 (60 steps, three choices of the fine-tuned seed) and +
 (new +0.3 to +0.6, seen −0.5 to −1.1). Per session (one base, three fine-tuned seeds): 11 of 14 new-person sessions
 gain; P01, P05 and P08 lose 1.0–1.6. A gate on the session's early confidence does not separate winners from losers.
 
-**§32 result so far (6 of 15 nets, 11 Nov ~21:40 UTC; `runs/ttt/pfx_score.log`).** Within-session standalone gain of
-fine-tuned over frozen nets, 60 steps: mean +4.4 (predicted +5: **hit**); every person gains (P10 +6.7, P05 +5.6,
-P03 +5.7, P09 +5.6, P02 +4.8, P04 +4.6, P06 +3.9, P01 +3.5, P08 +2.4, P07 +1.5); 9 of 10 gain at least half of P04's
-(predicted 5: above the range); Spearman with weakness +0.32 (hit). Caveat learned from §31: P10 also gains +1 to +10
-standalone across sessions and still gains nothing in the chain, so a standalone proxy does not settle the chain value.
+**§32 result (all 15 nets: five families × three seeds; 11 Nov ~22:20 UTC; `evidence/wsp_bio1_11nov/pfx_score.log`).**
+
+| Quantity | Observed | Verdict |
+|---|---|---|
+| Mean standalone gain, ten people, 60 steps | +5.67 (20 steps +4.08; head and BN affine only +4.19) | **Hit** (predicted +5) |
+| Per person (frozen → gain, 60 steps) | P04 48 → +8.1; P09 72 → +7.5; P05 68 → +6.8; P02 70 → +6.6; P10 74 → +6.3; P03 60 → +6.1; P06 73 → +4.4; P01 65 → +4.0; P07 81 → +3.6; P08 78 → +3.3 | Every person gains |
+| People with a gain ≥ half of P04's | 7 of 10 | **Hit** (predicted 5, range 3–8) |
+| Spearman(gain, frozen weakness) | +0.58 | **Hit** (predicted +0.4) |
+| By family (60 steps) | FBCNet k2 +9.8; FBLight +7.2; SincShallow +6.5; raw FBCNet +4.7; ShallowConvNet +0.1 | — |
+
+**Reading.** By the pre-set rule (more than 3 people gain at least half of P04's) PFT is worth a package build.
+The caveat from §31 stands: P10 gains +6 standalone here and +1 to +10 standalone across sessions, yet nothing in the
+chain. The chain value for the eight single-session people is therefore still unknown; the proxy only says that the
+nets take up personal information for everyone.
 
 ## 33. Hard-bounds review for "what could be worth +3" (11 Nov ~21:20–21:40 UTC; exploratory)
 

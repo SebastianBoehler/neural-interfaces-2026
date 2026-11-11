@@ -1,23 +1,20 @@
-  print(f"  {a:5s} ({len(k)} nets): frozen {R['base'][k].mean():.1f}, pf60 {(R['pf60'][k] - R['base'][k]).mean():+.2f}, pfh60 {(R['pfh60'][k] - R['base'][k]).mean():+.2f}")
-  ret = ret.dtype.type(ret / rcount)
-6 nets: ['fb s0.npz', 'fbl s0.npz', 'fbraw s0.npz', 'fbraw s1.npz', 'sh s0.npz', 'sh s1.npz']
+15 nets: ['fb s0.npz', 'fb s1.npz', 'fb s2.npz', 'fbl s0.npz', 'fbl s1.npz', 'fbl s2.npz', 'fbraw s0.npz', 'fbraw s1.npz', 'fbraw s2.npz', 'sh s0.npz', 'sh s1.npz', 'sh s2.npz', 'sinc s0.npz', 'sinc s1.npz', 'sinc s2.npz']
 person  frozen | gain pf20  pf60  pfh60
-P01      64.8 |  +2.4   +3.5   -0.9
-P02      69.4 |  +5.2   +4.8   +5.7
-P03      62.4 |  +5.2   +5.7   +3.7
-P04      50.9 |  +0.7   +4.6   +3.5
-P05      68.3 |  +6.9   +5.6   +6.3
-P06      71.5 |  +2.4   +3.9   +2.4
-P07      80.2 |  +0.9   +1.5   +3.1
-P08      78.5 |  +1.1   +2.4   +0.7
-P09      74.4 |  +4.4   +5.6   +4.1
-P10      73.9 |  +7.6   +6.7   +9.4
-pf20: mean gain +3.69; people with gain >= half of P04's (+0.7): 10/10; people >= 0: 10/10; Spearman(gain, frozen weakness) +0.11
-pf60: mean gain +4.43; people with gain >= half of P04's (+4.6): 9/10; people >= 0: 10/10; Spearman(gain, frozen weakness) +0.32
-pfh60: mean gain +3.81; people with gain >= half of P04's (+3.5): 8/10; people >= 0: 9/10; Spearman(gain, frozen weakness) +0.05
-  fb s0.npz (0 nets): frozen nan, pf60 +nan, pfh60 +nan
-  fbl s0.npz (0 nets): frozen nan, pf60 +nan, pfh60 +nan
-  fbraw s0.npz (0 nets): frozen nan, pf60 +nan, pfh60 +nan
-  fbraw s1.npz (0 nets): frozen nan, pf60 +nan, pfh60 +nan
-  sh s0.npz (0 nets): frozen nan, pf60 +nan, pfh60 +nan
-  sh s1.npz (0 nets): frozen nan, pf60 +nan, pfh60 +nan
+P01      64.5 |  +2.7   +4.0   -1.1
+P02      69.5 |  +4.4   +6.6   +6.0
+P03      59.8 |  +5.0   +6.1   +5.2
+P04      48.1 |  +3.1   +8.1   +5.3
+P05      68.2 |  +5.9   +6.8   +4.6
+P06      73.1 |  +3.6   +4.4   +3.2
+P07      81.0 |  +1.7   +3.6   +3.9
+P08      77.8 |  +2.6   +3.3   +2.6
+P09      71.6 |  +6.3   +7.5   +5.3
+P10      73.9 |  +5.7   +6.3   +7.0
+pf20: mean gain +4.08; people with gain >= half of P04's (+3.1): 10/10; people >= 0: 10/10; Spearman(gain, frozen weakness) +0.27
+pf60: mean gain +5.67; people with gain >= half of P04's (+8.1): 7/10; people >= 0: 10/10; Spearman(gain, frozen weakness) +0.58
+pfh60: mean gain +4.19; people with gain >= half of P04's (+5.3): 8/10; people >= 0: 9/10; Spearman(gain, frozen weakness) +0.10
+  fb    (3 nets): frozen 72.0, pf60 +9.78, pfh60 +5.52
+  fbl   (3 nets): frozen 68.1, pf60 +7.19, pfh60 +2.04
+  fbraw (3 nets): frozen 69.7, pf60 +4.74, pfh60 +3.63
+  sh    (3 nets): frozen 69.3, pf60 +0.11, pfh60 +3.04
+  sinc  (3 nets): frozen 64.6, pf60 +6.52, pfh60 +6.74
