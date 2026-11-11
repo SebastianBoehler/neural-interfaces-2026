@@ -1,0 +1,21 @@
+[run_capped] Wed Nov 11 14:56:34 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/rt4/route4.py runs/bio1/model_psd_d64.npz - fresh (max 8 GB)
+model 224 people 673 sessions; dim 64
+personal head C 0.1 slot gain 3.0 kappa 10
+tau 0.25
+B2_pool v3            J 80.0131 dJ +0.00 new +0.00 seen +0.00 (P04 +0.00, P10 +0.00) | routed new 0 seen 4
+      seen_session P04|2    -> P04 first routed window 64, first bio window 130, max bio score +0.295, routed share 0.60
+      seen_session P04|3    -> P04 first routed window 72, first bio window 10, max bio score +0.478, routed share 0.61
+      seen_session P10|2    -> P10 first routed window 60, first bio window 10, max bio score +0.353, routed share 0.68
+      seen_session P10|3    -> P10 first routed window 60, first bio window 10, max bio score +0.375, routed share 0.70
+B2_pool v4 max t10    J 80.6071 dJ +0.59 new +0.00 seen +1.19 (P04 +2.88, P10 -0.51) | routed new 1 seen 4
+      all_loso     P10|1    -> P03 first routed window 93, first bio window 93, max bio score +0.253, routed share 0.09
+      seen_session P04|2    -> P04 first routed window 64, first bio window 130, max bio score +0.295, routed share 0.60
+      seen_session P04|3    -> P04 first routed window 10, first bio window 10, max bio score +0.478, routed share 0.95
+      seen_session P10|2    -> P10 first routed window 10, first bio window 10, max bio score +0.353, routed share 0.71
+      seen_session P10|3    -> P10 first routed window 10, first bio window 10, max bio score +0.375, routed share 0.95
+   12s
+B2_s345 v3            J 79.8474 dJ +0.00 new +0.00 seen +0.00 (P04 +0.00, P10 +0.00) | routed new 0 seen 4
+B2_s345 v4 max t10    J 80.5043 dJ +0.66 new +0.00 seen +1.31 (P04 +2.87, P10 -0.25) | routed new 1 seen 4
+   9s
+new-person sessions, max identity score: [(-0.171, 'P05|1'), (-0.114, 'P06|1'), (-0.085, 'P07|1'), (-0.066, 'P04|1'), (-0.027, 'P09|1'), (0.005, 'P04|3'), (0.006, 'P02|1'), (0.006, 'P03|1'), (0.012, 'P10|2'), (0.051, 'P04|2'), (0.052, 'P08|1'), (0.067, 'P10|3'), (0.088, 'P01|1'), (0.253, 'P10|1')]
+[run_capped] Wed Nov 11 14:57:04 CET 2026 exit 0

@@ -643,3 +643,34 @@ and the files are high-passed near 4 Hz.
 |---|---|---|
 | Pretraining | | |
 | Teacher alone / in the chain | | |
+
+## 19. PTSEM: the returning person's own class templates as a prior in the routed tail's TSEM (written 11 Nov ~14:05 UTC, before any result)
+
+**Mechanism.** In the chain, personal information enters only through the PS1 head. TSEM builds its class templates
+from the current session's confident windows and shrinks them towards zero with 20 pseudo-windows. For an identified
+returning person, part of that shrinkage target can be the person's own class means from their public session(s), in the
+same 128-PC view, z-scored per session: mu_k = (sum of selected windows + κ·r·mu_k_personal) / (n_k + 20), with r the
+routing ramp. Class contrasts are personal and moderately stable across sessions (the v3 gate relies on exactly that:
+genuine cosine 0.40–0.54), and the prior acts where the session's own templates are weakest, in windows 15–60.
+
+| Check (on routing v4, τ 0.25; κ 5 / 10 / 20 picked on the exploration bases, judged on the four fresh bases) | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Seen gain over v4 at the pick | +0.3 (−0.2 to +0.8) | ≤ 0 on the fresh mean |
+| P10 | 0.0 (−0.5 to +0.5) | < −0.3 on any base |
+| New people | 0.00 (the prior is only active on routed windows) | any change beyond the one mis-routed session |
+| P(gate: fresh seen ≥ +0.3, P10 ≥ −0.3 everywhere) | ≈ 25 % | — |
+
+| Item | Observed | Verdict |
+|---|---|---|
+| κ sweep, exploration bases (absolute J; v4 without prior 80.534 / 80.570) | κ 5: 80.605 / 80.639; κ 10: 80.607 / 80.504; κ 20: 80.666 / 80.631. Pick κ 20: seen +0.27 / +0.12 over v4 | Below the +0.3 centre; inside the range |
+| Fresh bases at κ 20, change against v4 | seen −0.13 / +0.76 / +0.69 / +0.51 (mean +0.46); J −0.06 / +0.38 / +0.35 / +0.26 (mean +0.23) | **Hit** on seen (≥ +0.3) |
+| P04 against v4, six bases | +0.79 / +0.50 / +0.54 / +1.56 / +1.90 / +0.80 | Consistent gain |
+| P10 against v4, six bases | −0.26 / −0.26 / −0.78 / −0.04 / −0.53 / +0.22 | **Fails the P10 clause** (< −0.3 on two bases); not monotone in κ, so partly noise (0.26 = one window) |
+| New people | 0.00 | Hit |
+| Gate | fresh seen ✓, P10 ✗ | **FAIL as written.** Six-base mean +0.19 J, at the edge of the null range |
+
+**Reading.** The personal template prior helps the person the population model is weak for (P04, every base) and
+costs the strong one a window or two. That is the same pattern as PS1 itself and as the ten-person proxy: personal
+information pays in proportion to the person's weakness. A per-person trust weight is the obvious refinement, but with
+two dev people it cannot be validated honestly, so the prior is not added to the checkpoint. Kept as the first thing to
+revisit if a sealed upload shows that returning-person levers transfer.
