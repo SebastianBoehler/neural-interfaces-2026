@@ -1,0 +1,6 @@
+[run_capped] Wed Nov 11 21:00:38 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/ttt/round.py runs/ttt/probs ttt pl20 runs/ttt/chain_r1.npz (max 8 GB)
+base     archs ['fb', 'sh']: chain J 79.436 new 80.00 seen 78.87
+pl20     archs ['fb', 'sh']: chain J 79.564 new 80.38 seen 78.74
+pl20 - base: dJ +0.13 new +0.39 (G1 -0.79, G2 +1.56; 6/10) seen -0.13
+label accuracy on new people: frozen chain 0.7653, this chain 0.7725
+[run_capped] Wed Nov 11 21:01:08 CET 2026 exit 0

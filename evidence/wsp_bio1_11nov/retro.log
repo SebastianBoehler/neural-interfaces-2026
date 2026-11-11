@@ -1,0 +1,6 @@
+[run_capped] Wed Nov 11 21:03:03 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/ttt/retro.py (max 6 GB)
+causal               label accuracy 0.7657 | first 30 windows 0.7262
+smoothed             label accuracy 0.7537 | first 30 windows 0.7262
+causal + balance     label accuracy 0.7680 | first 30 windows 0.7357
+smoothed + balance   label accuracy 0.7729 | first 30 windows 0.7381
+[run_capped] Wed Nov 11 21:03:13 CET 2026 exit 0

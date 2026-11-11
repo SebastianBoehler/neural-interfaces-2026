@@ -938,3 +938,38 @@ and compared with all 42 public Graz runs for an exact match.
 **Refuted for this generator family.** Not tested: other C libraries (glibc), other seeding, Lua 5.3+'s own generator.
 The cue order stays the statistical regularity of §9 (position predicts 56 %), not a reproducible sequence. Not pursued
 further; had it matched, it would have been a leakage decision for the user, not a modelling step.
+
+## 28. TTT follow-ups: feedback round, final-stage use, and how good past labels can get (11 Nov ~20:00–20:20 UTC; exploratory unless stated)
+
+**Chain with both wave-1 fine-tuned nets** (FBCNet in slot 6, ShallowConvNet extra; `pl20`): J 79.56 against 79.44 with
+the same nets frozen: +0.13 (new +0.39: half G1 −0.79, half G2 +1.56; seen −0.13). Its labels on new people are right
+77.3 % of the time against 76.5 % for the frozen chain. These outputs are the labels of round 2 (Galvani 3088842).
+
+**Fine-tuned nets as a final multiplicative stage** (chain output × net posterior^λ, λ 0.25 / 0.5 / 1; two net
+families, 3 seeds):
+
+| Expert | dJ at λ 0.25 / 0.5 / 1 |
+|---|---|
+| Frozen nets (control) | −0.28 / −1.85 / −4.10 |
+| Fine-tuned on the chain's labels | −0.53 / −0.93 / −2.19 |
+| Fine-tuned on true labels, 20 steps | +1.09 / +0.93 / +0.04 |
+| Fine-tuned on true labels, 60 steps | **+1.36 / +1.62 / +0.68** |
+
+**How good can labels for past windows get?** They are only used for fine-tuning, so they may use everything seen so
+far. Measured at session end on new people, with the true run boundaries given:
+
+| Labels | Accuracy | First 30 windows |
+|---|---|---|
+| Causal chain output | 76.6 % | 72.6 % |
+| Forward × backward smoothing of the session stage | 75.4 % | 72.6 % |
+| Causal + balanced assignment inside each run | 76.8 % | 73.6 % |
+| Smoothed + balanced assignment | 77.3 % | 73.8 % |
+
+**Reading.**
+- With true past labels, two fine-tuned nets are worth +1.6 J as a final stage. That is the largest label-conditional
+  gain measured in this project after the per-session head (+3 causal), and it is real information.
+- With the chain's own labels the same nets are worth nothing, in the mix or as a final stage: they learn the chain's
+  beliefs, errors included.
+- Better labels are not available label-free: smoothing in both directions and exact run-balance constraints move
+  label accuracy by less than one point. **Fine-tuning is label-limited, and the labels are capped near 77 %.**
+- Wave 2 (all net families) and round 2 (labels fed back) will confirm or correct this; the prior for a pass is now low.
