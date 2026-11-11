@@ -160,3 +160,38 @@ Reading rule: P10 ≥ +0.5 on both bases with chain labels → in-session learni
 - **What this does to the plan:** on dev neither branch has head-room that a session-stage or head design could
   reach. The remaining positive levers are the two that change the nets (TTT, PFT). Where the sealed errors sit
   (returning or new sessions) is not measurable on dev; a sealed measurement is the user's decision (§34, point 2).
+
+## 36. REPCEIL: is the 76 % within-session level a property of the data or of core1's features? (written 11 Nov 22:15 UTC, before any result; code `studies/12nov/repceil.py`)
+
+**Why.** Steer from the user (11 Nov evening): a team scores 0.846 under the same rules, so a +3 method exists; the
+ceilings in STATE §5 were all measured inside our representation (core1's PCs, our nets) and are ceilings of that
+representation, not of the data. The Discord export (`runs/archive_scratch_11nov/discord_11nov/`) names no top team's
+method. So the first question is how much class information a session holds when it is decoded in representations
+we never used as a within-session model.
+
+**Test.** Per session (14), leave-one-run-out (6 runs, so every fold crosses a run and often the interface),
+supervised, with that session's own labels only. Score: mean over sessions of the interface-cell balanced accuracy.
+Representations, each with its best of three regularisation strengths (chosen on the mean, a mild optimism that is
+acceptable for a ceiling):
+- R0 reference: core1's 128 population PCs (the space of §30 and of TSEM), logistic regression.
+- R1 session-own tangent space: 9 bands (1–4 … 40–58 Hz and 4–40 Hz), common-average reference, covariance of the
+  full window, reference = the session's own log-Euclidean mean, all 861 tangent coordinates per band.
+- R2 filter-bank CSP (6 filters per class pair and band, fitted in the fold) with LDA.
+- R3 slow time courses: 0.1–4 Hz, 8 samples per second, all channels, shrinkage LDA.
+- R4 late fusion of R1 + R3, and R5 of R0 + R1 + R3 (product of out-of-fold posteriors).
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| R0 | 73 (70–76): lower than §30's 75.9 because folds are whole runs | — |
+| Best single of R1–R3 | 75 (71–79) | — |
+| Best fusion (R4 / R5) | 79 (75–83) | — |
+| Best fusion minus R0 | +6 (+2 to +9) | ≤ +2: the 76 % level is a property of the data at this label count, and a better within-person representation is not where +3 is |
+| Sessions where the best fusion beats R0 by ≥ 5 | 8 of 14 (5–11) | — |
+
+Reading rule: best fusion ≥ R0 + 6 → core1's PC space leaves within-person information unused; the next step is to
+put that representation behind the chain's labels (TSEM in the richer space) and into the population model. Between
++2 and +6 → worth one chain test. ≤ +2 → the representation is not the lever; the population model (invariance across
+people) is.
+
+| Item | Observed | Verdict |
+|---|---|---|
