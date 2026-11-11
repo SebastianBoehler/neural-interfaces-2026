@@ -508,3 +508,27 @@ confirms robustness to the base, not transfer to other people.
 - Not done: better own-space members (these are a first version: 9 bands, whole-window covariances, fixed
   regularisation), training on all public sessions of P04 and P10 (+1.6 in §42), the package form (per-person
   filters and heads, causal recentring, catch-up at recognition), runtime.
+
+## 44. MEMSWEEP: better own-space members (written 11 Nov 23:55 UTC, before any result; code `studies/12nov/memsweep.py`)
+
+**Why.** The members of §37–§43 are a first version (9 bands, whole-window covariances, fixed regularisation,
+uncalibrated posteriors). Selection is on the ten-person proxy of §41 (T·C·S stage over the LOSO chain, both
+exploration bases, best β of 0.1 / 0.25 / 0.5 / 1), then checked on the 12 real session pairs of §42. Only a variant
+that is better on both goes to the real seen chain; the seen protocol (P04, P10) is not used for selection.
+
+Variants: V0 current; V1 core1's 17 overlapping bands; V2 two half-window covariances added to T; V3 CSP with 4
+filters per pair; V4 LDA shrinkage 0.3 for C; V5 T with C 0.003; V6 T with C 0.03; V7 temperature of each member
+fitted on the public part by leave-one-run-out (then β acts on calibrated posteriors); V8 = V1 + V7.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| V0 on the ten-person proxy (best β) | +4.2 (the §41 value) | — |
+| Best variant minus V0, ten-person proxy | +0.6 (0 to +1.5) | — |
+| Best variant minus V0, 12 session pairs | +0.5 (−1 to +2) | — |
+| V7 (calibration): people lowered by more than 1 at its best β | 0 (0–1), against 1 for V0 at β 0.5 | — |
+| P(a variant beats V0 by ≥ +0.5 on both) | 35 % | — |
+
+Rule: adopt the variant with the best ten-person mean only if it also beats V0 on the 12 pairs; otherwise V0 stays.
+
+| Item | Observed | Verdict |
+|---|---|---|
