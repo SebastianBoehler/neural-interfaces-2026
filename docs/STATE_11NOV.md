@@ -1,4 +1,4 @@
-# State on 11 Nov 2026 (updated 16:10 UTC): the starting point
+# State on 11 Nov 2026 (updated 17:40 UTC): the starting point
 
 This is the entry point. It is written so that a new thread needs nothing from the chat history. Older documents are
 in docs/archive/ (see its README for the assumptions in them that are now known to be wrong).
@@ -46,7 +46,7 @@ since 7 Nov.
 |---|---|---|
 | route3geb (shipped) | `runs/upload/sealed_cand_rec_ts2_tsem_route3geb.zip`; code at commit `c4d600d` | The best upload |
 | **Fast package** | `runs/sealed/cand_rec_ts2_tsem_route3geb_fast/`; ZIP `runs/upload/sealed_cand_rec_ts2_tsem_route3geb_fast.zip` | Built, not uploaded |
-| **Routing v4 checkpoint** | `runs/sealed/cand_v4_bio/`; ZIP `runs/upload/sealed_cand_v4_bio.zip` `94185c2f…`; code `submissions/ensemble_v4/` | Staged 11 Nov, replays pass, **not uploaded**; dev +0.59 J over route3geb (ledger §14) |
+| **Routing v4.1 checkpoint** | `runs/sealed/cand_v41_bio/`; ZIP `runs/upload/sealed_cand_v41_bio.zip` `53fc1679…`; code `submissions/ensemble_v4/` (`45f9f2fd…`) | Staged 11 Nov evening, reviewed, replays pass, **not uploaded**; dev +0.58 J over route3geb, 0 new-person routings (ledger §14) |
 | Lean reference code | `submissions/ensemble/submission.py` `dacee85a…` (committed 9491882) | Reproduces all 3 uploads |
 
 **Fast package details:**
@@ -141,7 +141,7 @@ balanced accuracy.
 - **CSCH** (core1 with Scherer rows, §21): finished, refuted (chain −0.9 to −1.1).
 - **Slot weight of the personal head under v4** (§22, exploratory): 2 is 0.5 worse on every base; 4.5 is +0.12 on
   average with mixed signs. The shipped 3 stays.
-- **Independent review of the v4 package:** started 16:05 UTC; report goes to `runs/bio1/review_v4.md`.
+- **Independent review of the v4 package:** done, no blocking finding; report `runs/bio1/review_v4.md`.
 - **Access:** renewed about 15:15 UTC by the user; the head-export watcher resubmits the export if the last
   pretraining task fails. TSCH scorer: `runs/archive_scratch_11nov/rt4/score_tsch.py HEADS.npz`.
 
@@ -237,11 +237,14 @@ unconfirmed. If true, returning-person sessions are a larger share than our 2-pe
 
 ## 8. What 11 Nov (afternoon) added, and what is open
 
-**Routing v4 checkpoint (staged, not uploaded; ledger §11, §14).**
+**Routing v4.1 checkpoint (staged, not uploaded; ledger §11, §14).**
 - A label-free identity gate (spectral shape, two-covariance model trained on 224 external people) in front of the
-  personal heads. External, session level: 1.9 % false accepts, 86.9 % correct accepts at τ 0.25 (the v3 gate: 10–42 %).
-- Dev: +0.59 J over route3geb on six bases, all from starting the personal head about 50 windows earlier.
-- Replays pass on A100 and in the worker image; runtime 1.02× the fast package.
+  personal heads. External, session level, scored as the package scores: 1.9 % false accepts, 86.7 % correct accepts at τ 0.26 (the
+  v3 gate: 10–42 %).
+- Dev: +0.58 J over route3geb on six bases, all from starting the personal head about 50 windows earlier; no
+  new-person session is routed.
+- Replays pass on A100 and in the worker image; runtime 1.01× the fast package; independent review without blocking
+  findings.
 - You decided not to lock it in yet.
 
 **What limits returning people now (ledger §15, §17, §19).**
@@ -268,7 +271,7 @@ unconfirmed. If true, returning-person sessions are a larger share than our 2-pe
 1. **Nothing is running for new people.** TSCH failed (a stronger teacher is a worse chain member); the chain rewards
    complementary members, not stronger ones, so the next member idea has to be different in kind, not better.
 2. **Returning-person robustness across sessions:** nothing tested works yet; needs a chain-level idea.
-3. **The upload decision on v4:** an independent package review is still to do before any upload.
+3. **The upload decision on v4.1:** reviewed and staged; it needs only your go-ahead and a live quota check.
 4. **Segmentation hypothesis for the rescoring** and **GPU-eigh speed:** unchanged, low priority.
 
 **Honest standing:** rank 3 needs about +1.3 sealed points. v4's dev gain is +0.6 J on the half of the metric that is

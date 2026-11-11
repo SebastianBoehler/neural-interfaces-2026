@@ -1,0 +1,107 @@
+{
+ "gate_equals_standalone": true,
+ "equal_to_base_before_first_routed_window": true,
+ "in_sample_acc_v4": 0.9819209039548022,
+ "in_sample_acc_base": 0.984180790960452,
+ "labels_changed": 10,
+ "sessions": {
+  "P01|1": {
+   "first_bio_window": 10,
+   "person": "P01",
+   "max_score": 0.6230804599054061,
+   "equal_before_first": true,
+   "labels_changed": 1
+  },
+  "P02|1": {
+   "first_bio_window": 10,
+   "person": "P02",
+   "max_score": 0.6388030245901679,
+   "equal_before_first": true,
+   "labels_changed": 1
+  },
+  "P03|1": {
+   "first_bio_window": 10,
+   "person": "P03",
+   "max_score": 0.739877927667119,
+   "equal_before_first": true,
+   "labels_changed": 0
+  },
+  "P06|1": {
+   "first_bio_window": 10,
+   "person": "P06",
+   "max_score": 0.7285098786491195,
+   "equal_before_first": true,
+   "labels_changed": 0
+  },
+  "P07|1": {
+   "first_bio_window": 10,
+   "person": "P07",
+   "max_score": 0.7145750278052834,
+   "equal_before_first": true,
+   "labels_changed": 0
+  },
+  "P10|1": {
+   "first_bio_window": 10,
+   "person": "P10",
+   "max_score": 0.6517690326045673,
+   "equal_before_first": true,
+   "labels_changed": 0
+  },
+  "P10|2": {
+   "first_bio_window": 10,
+   "person": "P10",
+   "max_score": 0.6980193316847836,
+   "equal_before_first": true,
+   "labels_changed": 0
+  },
+  "P10|3": {
+   "first_bio_window": 10,
+   "person": "P10",
+   "max_score": 0.651489137240945,
+   "equal_before_first": true,
+   "labels_changed": 0
+  },
+  "P05|1": {
+   "first_bio_window": 10,
+   "person": "P05",
+   "max_score": 0.7068963921506684,
+   "equal_before_first": true,
+   "labels_changed": 0
+  },
+  "P08|1": {
+   "first_bio_window": 10,
+   "person": "P08",
+   "max_score": 0.6354663728023588,
+   "equal_before_first": true,
+   "labels_changed": 1
+  },
+  "P04|1": {
+   "first_bio_window": 10,
+   "person": "P04",
+   "max_score": 0.6149122667297007,
+   "equal_before_first": true,
+   "labels_changed": 4
+  },
+  "P04|2": {
+   "first_bio_window": 10,
+   "person": "P04",
+   "max_score": 0.5748595011763387,
+   "equal_before_first": true,
+   "labels_changed": 3
+  },
+  "P04|3": {
+   "first_bio_window": 10,
+   "person": "P04",
+   "max_score": 0.6732511530953786,
+   "equal_before_first": true,
+   "labels_changed": 0
+  },
+  "P09|1": {
+   "first_bio_window": 10,
+   "person": "P09",
+   "max_score": 0.654852825953061,
+   "equal_before_first": true,
+   "labels_changed": 0
+  }
+ }
+}

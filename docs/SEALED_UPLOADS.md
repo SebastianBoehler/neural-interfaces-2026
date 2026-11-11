@@ -246,3 +246,24 @@ contract, not our conclusions): no blocking defect.**
   builder now asserts equal lengths). To be closed with an assertion in `Route3.__init__` at the next code rebuild.
 - **Weak spot of our own check:** `check_bio_gate.py` compares only the windows before the first routed one (140 of
   2,655, since every public session routes at window 10); full-length parity rests on the gate-off replay.
+
+## 11 Nov, evening: routing v4.1 checkpoint (staged, not uploaded; supersedes cand_v4_bio)
+
+**cand_v41_bio** = cand_v4_bio with the gate threshold moved from 0.25 to 0.26 (package-faithful recalibration, ledger
+§14, second amendment) and one assertion from the review. Upload ZIP `runs/upload/sealed_cand_v41_bio.zip`
+`53fc16797f541a81c5bf96f2c1bdbc2356d270ee8f38f978b9ba672b19da14be` (57,739,465 B); code
+`submissions/ensemble_v4/submission.py` `45f9f2fd…`, committed. The first build's ZIP (`94185c2f…`) was deleted.
+
+| Check | Result |
+|---|---|
+| External identification, scored as the package scores (every window, probe excluded from the centring) | 1.9 % false accepts, 86.7 % correct accepts at τ 0.26 |
+| Dev against route3geb, six bases | dJ +0.45 to +0.66 (mean +0.58); seen +0.90 to +1.32; P10 −0.25 to +0.52; new 0.00 with 0 of 14 new-person sessions routed |
+| Code parity with the gate off | byte-identical to the fast package, all stages, 2,655 public windows |
+| Integration (gate on) | gate decisions equal the stand-alone class; outputs equal the fast package before the first routed window of every session |
+| A100 replay 3088399 / worker-image replay 3088400 | identical scores (0.9748375896 in-sample on the public test split), same ZIP, files unchanged; 154 s / 109 s |
+| Paired timing (ABBA 3088401) | 109.0 / 108.7 s against 107.0 / 107.9 s: 1.01× the fast package |
+| Independent review | no blocking finding (of the first build; the only code change since is the assertion it asked for) |
+
+**Before an upload:** your go-ahead after a live quota and phase check. **Known limits:** unchanged from the first
+build (the in-sample drop is expected; the dev gain is P04-driven; three-session galleries were never tested externally;
+the main expected sealed effect is not measurable on dev).
