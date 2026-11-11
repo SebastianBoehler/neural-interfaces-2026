@@ -1,0 +1,18 @@
+[run_capped] Wed Nov 11 14:12:35 CET 2026 start: .venv/bin/python experiments/pers_proxy.py (max 12 GB)
+person  kind            core1  head   mix   gain  n_test
+P01     within-session   68.9  78.9  80.0  +11.1  90
+P02     within-session   82.2  75.6  82.2   +0.0  90
+P03     within-session   68.9  64.4  68.9   -0.0  90
+P04     within-session   52.2  58.9  61.1   +8.9  90
+P04     cross-session    58.1  56.8  60.7   +2.6  377   (real: session 1 -> sessions 2,3)
+P04     cross, half pub  54.1  56.2  57.3   +3.2  377   (runs 1-3 of session 1 -> sessions 2,3)
+P05     within-session   62.2  70.0  82.2  +20.0  90
+P06     within-session   76.7  76.7  78.9   +2.2  90
+P07     within-session   86.7  78.9  91.1   +4.4  90
+P08     within-session   82.2  81.1  83.3   +1.1  90
+P09     within-session   80.0  82.2  87.8   +7.8  90
+P10     within-session   83.3  82.2  85.6   +2.2  90
+P10     cross-session    77.4  73.2  76.4   -1.0  385   (real: session 1 -> sessions 2,3)
+P10     cross, half pub  71.4  67.8  73.0   +1.6  385   (runs 1-3 of session 1 -> sessions 2,3)
+mean proxy gain +5.78; people with gain >= half of P04's: 5/10; spearman(gain, weakness) +0.52
+[run_capped] Wed Nov 11 14:26:59 CET 2026 exit 0

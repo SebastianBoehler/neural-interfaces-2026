@@ -551,8 +551,21 @@ No gate: this sizes the bet on v4; it does not change the package.
 
 | Item | Observed | Verdict |
 |---|---|---|
-| Per-person proxy gains | | |
-| Calibration on P04 / P10 | | |
+| Proxy gain of the mix over core1, mean of 10 | +5.78 | **Hit** (predicted +4, range 0 to +8) |
+| Per person (core1 → mix) | P05 +20.0 (62 → 82); P01 +11.1 (69 → 80); P04 +8.9 (52 → 61); P09 +7.8 (80 → 88); P07 +4.4; P06 +2.2; P10 +2.2; P08 +1.1; P02 0.0; P03 0.0 | — |
+| People with a gain ≥ half of P04's | 5 of 10 | **Hit** |
+| Spearman(gain, core1 weakness) | +0.52 | **Hit** (predicted +0.4) |
+| Real cross-session gain, P04 / P10 (session 1 → sessions 2–3) | +2.6 (29 % of its proxy) / −1.0 (proxy +2.2) | **Miss, below the range** (predicted 60 %, 30–100): the session change removes most of the within-session gain |
+| Same, with only runs 1–3 of session 1 as the public part | P04 +3.2; P10 +1.6 | — |
+
+**Reading.**
+- P04 is not an outlier: four other people gain as much or more within a session, and the gain follows weakness of the
+  population model for that person, as the 7 Nov note guessed from two people.
+- Most of the gain does not survive a session change at core level (P04 keeps 29 %, P10 turns slightly negative), so
+  the cross-session robustness of the personal model, not identification, is now the limiting factor for returning
+  people.
+- With the two calibration points, a rough reading for the eight others is a mean cross-session gain of about +1 at
+  core level, concentrated in P05, P01 and P09. The chain is kinder than the core (v4 gives P10 0 to +0.5).
 
 ## 16. SIM: does spectral similarity pick a useful person model for NEW people? (exploratory diagnostic, 11 Nov ~13:15 UTC; not pre-registered; log `evidence/wsp_bio1_11nov/simdiag.log`)
 
@@ -566,3 +579,52 @@ compared with how well that person's personal head decodes the session.
 **Reading.** Similarity is weakly informative, but weighting by it loses to a plain average, which loses to the pooled
 model. Spectral resemblance to a public person does not say whose class directions a new person shares. Similarity
 routing for new people is closed in this form.
+
+## 17. PERS2: personal-model recipes on ten people (written 11 Nov ~13:35 UTC, before any result; code `experiments/pers_variants.py`)
+
+**Why.** Every earlier personal-model choice (PS1 head, weight 3×) was made on P04 and P10 alone. The within-session
+proxy of §15 gives ten people; the two real cross-session cases stay as the check that a recipe survives a session
+change. Core level only.
+
+| Recipe | Prediction: mean proxy gain over core1 (10 people) | Prediction: P04 / P10 cross-session |
+|---|---|---|
+| PS1 mix at 3× (the shipped recipe) | +5.8 (the §15 value) | +2.6 / −1.0 (the §15 values) |
+| Person-upweighted core (weight 5 or 20 on the person's public windows) | +3 (0 to +6): smaller than PS1 within-session | +1.5 / 0.0: more robust across sessions than the 256-dimensional head |
+| Upweighted core + PS1 | +6.5 (+4 to +9) | +3.0 / −0.5 |
+| Personal recentring prior, k 10 (public session's reference instead of the population's) | not meaningful within-session | core alone +0.5 / +0.3 (−0.5 to +1.5): helps only the first windows |
+
+A recipe is carried into the routed chain only if it beats the shipped one on the ten-person mean **and** on both real
+cross-session cases.
+
+| Item | Observed | Verdict |
+|---|---|---|
+| Recipe table | | |
+| Carried into the chain | | |
+
+## 18. TSCH: Scherer 2015 as an eighth corpus of the external teacher (written 11 Nov ~13:45 UTC, before any job ran)
+
+**Mechanism.** The teacher (EEGNeX + IFNet trunks pretrained on seven corpora, one head per corpus, mapped to our
+classes) carries the largest member weight (5) and is right on 42 % of the chain's motor-imagery errors. Its only
+non-MI evidence is Shin 2017B (subtraction vs rest). Scherer 2015 has all three of our tasks from nine more people and
+is now cleared by the organisers. Earlier it was only tried as extra rows for PROTEUS-trained members (§7), never in
+the teacher.
+
+**Runs.** `experiments/pretrain.py`, the shipped m7r recipe (30 epochs, rot 0.05), seeds 0–5, both trunks:
+- **m8s** = the seven m7r corpora + `scherer2015t` (the Scherer windows with a 3-class corpus head);
+- **m7c** = the seven corpora again, same seeds and hardware, as the control (the shipped m7r checkpoints were trained
+  on other hardware, which moved results by about ±0.3 before).
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Teacher alone on new people (m8s − m7c, mapped posteriors) | +1.0 (−0.5 to +2.5) | ≤ 0 |
+| Chain with the teacher swapped (m8s − m7c), nested over people halves | +0.20 (−0.20 to +0.60) | ≤ 0 |
+| WORD recall in the chain | +0.5 (−1 to +2) | — |
+| P(gate: nested ≥ +0.4, both halves ≥ 0, seen ≥ −0.3) | ≈ 15 % | — |
+
+Limits known beforehand: Scherer's participants have stroke or spinal-cord injury, 22 of 41 channels are interpolated,
+and the files are high-passed near 4 Hz.
+
+| Item | Observed | Verdict |
+|---|---|---|
+| Pretraining | | |
+| Teacher alone / in the chain | | |
