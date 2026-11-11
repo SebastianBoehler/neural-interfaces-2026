@@ -14,8 +14,8 @@ in docs/archive/ (see its README for the assumptions in them that are now known 
 
 **Deadline:** 21 Nov 2026, 22:59 UTC (23:59 CET).
 
-**Quota:** 7 sealed uploads per team, at most 1 per UTC day. We have used 3, so **4 are left**. No upload has been made
-since 7 Nov.
+**Quota:** 7 sealed uploads per team, at most 1 per UTC day. We have used 4, so **3 are left**. Upload 4 (routing
+v4.1, submission 1048575) went up on 11 Nov at 18:31 UTC; its score is pending (docs/SEALED_UPLOADS.md).
 
 **Best sealed score:** submission 1040847, `cand_rec_ts2_tsem_route3geb`, **0.8134828319 after the 10 Nov rescoring**
 (0.8240266154 before). Its code is commit `c4d600d` (`submission.py` `786bcab0…`). Rescored duration 3,732 s.
@@ -271,7 +271,7 @@ unconfirmed. If true, returning-person sessions are a larger share than our 2-pe
 1. **Nothing is running for new people.** TSCH failed (a stronger teacher is a worse chain member); the chain rewards
    complementary members, not stronger ones, so the next member idea has to be different in kind, not better.
 2. **Returning-person robustness across sessions:** nothing tested works yet; needs a chain-level idea.
-3. **The upload decision on v4.1:** reviewed and staged; it needs only your go-ahead and a live quota check.
+3. **Upload 4 (v4.1, submission 1048575):** running; read the result with the rule in docs/SEALED_UPLOADS.md.
 4. **Segmentation hypothesis for the rescoring** and **GPU-eigh speed:** unchanged, low priority.
 
 **Honest standing:** rank 3 needs about +1.3 sealed points. v4's dev gain is +0.6 J on the half of the metric that is

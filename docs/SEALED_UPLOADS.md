@@ -267,3 +267,26 @@ contract, not our conclusions): no blocking defect.**
 **Before an upload:** your go-ahead after a live quota and phase check. **Known limits:** unchanged from the first
 build (the in-sample drop is expected; the dev gain is P04-driven; three-session galleries were never tested externally;
 the main expected sealed effect is not measurable on dev).
+
+## 11 Nov, 18:31 UTC: upload 4, cand_v41_bio (routing v4.1)
+
+- **Authorisation:** the user, 11 Nov evening ("if ... a rank improvement and valuable signal out of that submission then
+  submit already"; then opened Codabench in Chrome for the upload). Our stated expectation: +0.2 to +0.8 sealed points,
+  not top 3; a rank improvement is likely, not certain.
+- **Checks before upload (live, in the logged-in browser):** phase 30483 "Sealed Final Phase" = Current; 0 of 1 used
+  today, 3 of 7 in total; `can_make_submission` true; logged in as s_boehler; SHA-256 `53fc1679…da14be` and 57,739,465 B
+  verified locally and again in the browser on the bytes that were attached.
+- **Upload:** through a one-shot relay on 127.0.0.1 into the page's own file input (the Chrome tool cannot attach more
+  than 10 MB). Two earlier attempts in a tab that was being reloaded created no submission; the third ran in its own tab.
+- **Submission 1048575**, created 2026-11-11T18:31:09Z, status "Submitting" at creation.
+- **Note:** the user deleted the first sealed submission (1034698, cand_nxif, 0.7723) from Codabench before this upload
+  to free storage; 1038262 and 1040847 remain.
+
+| Day | Date | Arm | Submission | Status | Cell-mean BA | Duration |
+|---|---|---|---|---|---|---|
+| 4 | 11 Nov (UTC) | cand_v41_bio (`53fc1679…`) | 1048575 | Submitting (18:31 UTC) | | |
+
+Reading rule (fixed before the score): against route3geb's rescored 0.8134828319, a paired gain ≥ +0.3 means
+returning-person routing transfers and the personal template prior and trust weights are worth building; between −0.1
+and +0.3 it is neutral and the returning-person line stops; below −0.1 the gate is routing new people and v4 is dropped.
+A failed run uses no quota: compare with the replica, upload nothing else without authorisation. Never cancel it.
