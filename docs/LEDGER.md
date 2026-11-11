@@ -241,3 +241,45 @@ members are fitted for all ten people for a package candidate.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Standalone across sessions, T + C (session 1 → 2, 3): P04 / P10 | 61.0 / 66.9 (with S: 67–69 / 68–77). The PS1 head alone: 60.8 / 80.8 | **Hit / hit at the low edge** (predicted 58 / 74). For P10 the population-PC head is 14 points better than the own-space members |
+| Share of the within-session level kept | P04 88 %, P10 84 % | **Hit** (predicted 85 %) |
+| Chain, V1 / V2 / V3, seen (B2_pool; B2_s345) | −0.80 / −0.80 / −0.92; −0.68 / −1.07 / −1.32 (P04 −1.0 to −2.1, P10 0.0 to −0.8) | **Refuted** (seen ≤ 0 on both bases) |
+| New people | 0.00 | Hit |
+| Exploratory, after the result (`xsess_poe.py`, 20 arms): the members as a tempered product inside the head's slot, PS1 × (T·C·S)^(0.5/3) | seen +1.07 / +1.45: P04 +2.1 / +2.9, P10 0.0 / 0.0. As a final stage (β 0.25): P04 +4.5 to +4.8, P10 −2.4 to −2.9 | Not pre-registered; the best of 20 arms on two people |
+
+**Reading (11 Nov 22:12 UTC; logs `runs/xsess_12nov.log`, `runs/xsess_poe_12nov.log`).**
+- Own-space personal members do cross sessions (they keep 84–88 % of their within-session level), but averaging
+  them into the personal head's slot dilutes the head and loses. As a tempered product they add +2 to +3 for P04 and
+  nothing for P10: the same pattern as PFT (P04 gains, P10 does not).
+- This fits §36: P04's class information lies outside the population PCs; P10's lies inside them (PS1 alone 81 %).
+  By the §36 gap (four-way fusion minus R0) five of the eight single-session people look like P04, not like P10
+  (P02 +11, P08 +10, P01 +10, P03 +9; P07, P09 +3; P06 0; P05 −4), so the lever may be larger on the sealed set than
+  the dev mean says. Dev cannot settle it.
+- Status: a returning-person lever of about the size of PFT, to be confirmed on fresh bases together with PFT if a
+  returning-person package is built. Not the +3 mechanism.
+
+## 38. OWNTTT: session-own filters trained inside the session, on true and on the chain's labels (written 11 Nov 22:14 UTC, before any result; code `studies/12nov/ownttt.py`)
+
+**Why.** §36: with its own labels a session holds 81–82 % in session-own representations; the chain extracts 76.6 %.
+TSEM, the stage that brought +3.6 sealed, is a generative model on confident seeds in the population PCs. The same
+seeded scheme was never run in the session's own space (spatial filters and the full tangent space re-learnt per
+session). The nets' TTT is the gradient analogue and gave new +0.6.
+
+**Mechanism.** After the full v3 chain, every 5 windows from window 30, three members are refitted on the session's
+past windows: FBCSP + LDA (C), session-own tangent space + logistic regression (T), slow time courses + LDA (S); all
+referenced to the running mean covariance of the past windows. Labels: true past labels (ceiling) or the chain's
+past outputs restricted to the 70 % most confident windows per predicted class (as TSEM's seeds). Fusion:
+out ∝ chain × (geometric mean of the members)^(λ·t/(t+60)), λ ∈ {0.25, 0.5, 1}, member sets TC and TCS.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| True labels, new, best λ | +4.0 (+2 to +6) | < +2: the §36 surplus does not add to the chain |
+| True labels, seen | +1.5 (0 to +3): P04 +4, P10 0 | — |
+| Chain labels, new, best λ | +0.3 (−0.6 to +1.2) | ≤ +0.3 on both exploration bases: label-free learning in the session's own space is closed |
+| Chain labels, seen | 0.0 (−1 to +1) | — |
+| P(chain labels ≥ +0.8 new on both bases, ≥ 6 of 10 people ≥ 0) | 15 % | — |
+
+Rule: chain labels ≥ +0.8 new on both exploration bases → confirm on the four fresh bases with λ and member set fixed.
+
+| Item | Observed | Verdict |
+|---|---|---|
