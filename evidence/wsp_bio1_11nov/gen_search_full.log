@@ -1,0 +1,15 @@
+[run_capped] Wed Nov 11 20:03:34 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/gen/search.py 1546300800 1793491200 (max 6 GB)
+{30: 28, 36: 14} target runs
+variant K=n/2 lua51 skip0: 0 exact matches in seeds [1546300800, 1793491200) 149s
+variant K=n/3 lua51 skip0: 0 exact matches in seeds [1546300800, 1793491200) 105s
+variant K=n lua51 skip0: 0 exact matches in seeds [1546300800, 1793491200) 405s
+variant K=n/2 lua51 skip1: 0 exact matches in seeds [1546300800, 1793491200) 199s
+variant K=n/3 lua51 skip1: 0 exact matches in seeds [1546300800, 1793491200) 118s
+variant K=n lua51 skip1: 0 exact matches in seeds [1546300800, 1793491200) 299s
+variant K=n/2 lua52 skip0: 0 exact matches in seeds [1546300800, 1793491200) 152s
+variant K=n/3 lua52 skip0: 0 exact matches in seeds [1546300800, 1793491200) 109s
+variant K=n lua52 skip0: 0 exact matches in seeds [1546300800, 1793491200) 272s
+variant K=n/2 lua52 skip1: 0 exact matches in seeds [1546300800, 1793491200) 137s
+variant K=n/3 lua52 skip1: 0 exact matches in seeds [1546300800, 1793491200) 101s
+variant K=n lua52 skip1: 0 exact matches in seeds [1546300800, 1793491200) 262s
+[run_capped] Wed Nov 11 20:42:03 CET 2026 exit 0

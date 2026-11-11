@@ -909,3 +909,18 @@ held-out person's rest windows are excluded from training. Control: the same cod
 |---|---|---|
 | CFC | | |
 | REST4 | | |
+
+## 27. GEN: is the Graz cue order reproducible from the stimulus program? (11 Nov ~19:10–19:45 UTC; labels only; `evidence/wsp_bio1_11nov/gen_search.py`)
+
+**Hypothesis.** The Graz sequences look like OpenViBE's Lua stimulator: an ordered WORD, SUB, MI list followed by a
+number of random position swaps, with the C library generator seeded from the clock. If so, a run's whole cue order
+would be a function of its start time.
+
+**Test.** For every start second from 1 Jan 2019 to 1 Nov 2026 (247 million seeds) the sequence was generated under
+twelve variants (Microsoft `rand()`; Lua 5.1 or 5.2 scaling; n/3, n/2 or n swaps; with or without one discarded draw)
+and compared with all 42 public Graz runs for an exact match.
+
+**Result: no exact match in any variant** (a chance match is practically impossible: 5.5e12 balanced sequences).
+**Refuted for this generator family.** Not tested: other C libraries (glibc), other seeding, Lua 5.3+'s own generator.
+The cue order stays the statistical regularity of §9 (position predicts 56 %), not a reproducible sequence. Not pursued
+further; had it matched, it would have been a leakage decision for the user, not a modelling step.
