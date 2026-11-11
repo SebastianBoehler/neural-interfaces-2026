@@ -1,0 +1,14 @@
+[run_capped] Wed Nov 11 13:23:05 CET 2026 start: ../.venv/bin/python wsp_gains.py ../runs/wsp/cache profile_skip (max 10 GB)
+all_loso-P01 | lam 0.3: CE 0.800 gains min 0.71 max 1.63 slow 1.63 | lam 1.0: CE 0.806 gains min 0.91 max 1.28 slow 1.28 | lam 3.0: CE 0.809 gains min 0.97 max 1.11 slow 1.11
+all_loso-P02 | lam 0.3: CE 0.818 gains min 0.76 max 1.60 slow 1.60 | lam 1.0: CE 0.824 gains min 0.92 max 1.25 slow 1.25 | lam 3.0: CE 0.827 gains min 0.97 max 1.10 slow 1.10
+all_loso-P03 | lam 0.3: CE 0.773 gains min 0.62 max 1.53 slow 1.53 | lam 1.0: CE 0.778 gains min 0.86 max 1.23 slow 1.23 | lam 3.0: CE 0.781 gains min 0.95 max 1.09 slow 1.09
+all_loso-P04 | lam 0.3: CE 0.714 gains min 0.67 max 1.81 slow 1.81 | lam 1.0: CE 0.724 gains min 0.87 max 1.38 slow 1.38 | lam 3.0: CE 0.729 gains min 0.95 max 1.16 slow 1.16
+all_loso-P05 | lam 0.3: CE 0.758 gains min 0.75 max 1.84 slow 1.84 | lam 1.0: CE 0.765 gains min 0.91 max 1.40 slow 1.40 | lam 3.0: CE 0.769 gains min 0.97 max 1.17 slow 1.17
+all_loso-P06 | lam 0.3: CE 0.807 gains min 0.74 max 1.59 slow 1.59 | lam 1.0: CE 0.812 gains min 0.92 max 1.27 slow 1.27 | lam 3.0: CE 0.815 gains min 0.97 max 1.11 slow 1.11
+all_loso-P07 | lam 0.3: CE 0.823 gains min 0.69 max 1.51 slow 1.51 | lam 1.0: CE 0.830 gains min 0.88 max 1.23 slow 1.23 | lam 3.0: CE 0.833 gains min 0.96 max 1.09 slow 1.09
+all_loso-P08 | lam 0.3: CE 0.817 gains min 0.75 max 1.65 slow 1.65 | lam 1.0: CE 0.823 gains min 0.91 max 1.29 slow 1.29 | lam 3.0: CE 0.826 gains min 0.96 max 1.12 slow 1.12
+all_loso-P09 | lam 0.3: CE 0.784 gains min 0.75 max 1.53 slow 1.53 | lam 1.0: CE 0.790 gains min 0.91 max 1.25 slow 1.25 | lam 3.0: CE 0.793 gains min 0.97 max 1.10 slow 1.10
+all_loso-P10 | lam 0.3: CE 0.786 gains min 0.75 max 1.39 slow 1.34 | lam 1.0: CE 0.791 gains min 0.91 max 1.17 slow 1.15 | lam 3.0: CE 0.794 gains min 0.97 max 1.07 slow 1.06
+seen_session-P04_s23 | lam 0.3: CE 0.725 gains min 0.73 max 1.64 slow 1.64 | lam 1.0: CE 0.732 gains min 0.90 max 1.30 slow 1.30 | lam 3.0: CE 0.735 gains min 0.96 max 1.12 slow 1.12
+seen_session-P10_s23 | lam 0.3: CE 0.782 gains min 0.76 max 1.51 slow 1.51 | lam 1.0: CE 0.788 gains min 0.92 max 1.22 slow 1.22 | lam 3.0: CE 0.791 gains min 0.97 max 1.09 slow 1.09
+[run_capped] Wed Nov 11 13:23:15 CET 2026 exit 0

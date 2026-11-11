@@ -145,6 +145,11 @@ def proteus_trials(M, P):
 def main():
     out, root = sys.argv[1], (sys.argv[2] if len(sys.argv) > 2 else "data"); rng = np.random.default_rng(0)
     S = [s for c in CORPORA for s in load_sessions(sorted(glob.glob(f"{root}/{c}/windows*.npz") or glob.glob(f"{root}/{c}*.npz")), c)]
+    if os.environ.get("BIO_EXPORT"):  # fit on all external people and save the model for the routing gate
+        view, dim = os.environ.get("BIO_VIEW", "psd"), int(os.environ.get("BIO_DIM", 64)); M = TwoCov().fit(S, view, dim)
+        np.savez(os.environ["BIO_EXPORT"], lo=M.sl.start, hi=M.sl.stop, sd=M.sd, V=M.V, B=M.B, W=M.W, S=M.S,
+                 n_sessions=len(S), n_people=len({s["person"] for s in S}))
+        return print("exported", view, dim, len(S), flush=True)
     P = load_sessions([f"{root}/proteus_windows.npz"], "proteus")
     people = sorted({s["person"] for s in S}); test = set(rng.choice(people, int(0.3 * len(people)), replace=False))
     tr, te = [s for s in S if s["person"] not in test], [s for s in S if s["person"] in test]

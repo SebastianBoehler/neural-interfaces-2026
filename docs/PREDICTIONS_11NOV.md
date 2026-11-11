@@ -452,6 +452,7 @@ domain-generalisation heads (group DRO, Fishr, person bagging) were negative on 
 | E6 pruning 50 % / 90 % | standalone −0.25 / −1.31; chain −0.08 / −0.69 | **Hit** |
 | E8 jackknife soup | standalone −0.45; chain −0.27 | **Hit** |
 | Gate | best chain dJ −0.08; nothing ≥ 0 | **FAIL** (as expected at ≈ 6 %) |
+| E9 learned block gains (exploratory, added after E1 failed; `experiments/wsp_gains.py`: 52 gains fitted by cross-entropy on inner held-out people, ridge λ 0.3 / 1 / 3) | standalone −0.13 / +0.32 (7/10) / −0.01; chain −0.14 / −0.01 / −0.00. Every fold gives the slow block the largest gain (1.5–1.8× at λ 0.3) | No gain; the optimiser agrees the block weights are already right to within noise |
 
 **Reading.**
 - The fitted head is close to the best linear map of these features: every hand edit lowers the chain, including the
@@ -464,3 +465,36 @@ domain-generalisation heads (group DRO, Fishr, person bagging) were negative on 
   class directions differ.
 - Useful by-products: the neuro-physiological picture (mu 10–14 Hz and theta 3–8 Hz carry the transferable signal;
   power transfers better than connectivity) and a 20-second edit-and-score loop for core1 (`experiments/wsp_core.py`).
+
+## 14. Routing v4: the BIO1 identity gate in front of the personal heads (written 11 Nov ~12:30 UTC, before any routing score)
+
+**Mechanism.** Routing v3 opens at window 60 on a class-direction fingerprint that needs pseudo-labels; on external
+data it accepts 10–42 % of genuine sessions at 1 % false accepts. The BIO1 score needs no labels and accepts 62 % at
+window 10 and 70–80 % at windows 20–60. v4 keeps everything else of v3 (PS1 head at 3× in the core1 slot of a second
+tail) and takes, per window, the larger of the two ramps: r = max(r_v3, r_bio), with
+r_bio = clip((s − 0.23) / 0.05, 0, 1) from window 10 (0.23 = the external 1 % threshold at 20–60 windows; model
+= PSD shape, PCA 64, fitted on all 224 external people; PROTEUS only centres it and provides the galleries).
+
+**What the dev set can and cannot show.** New people: any routing is an impostor routing, so the dev set tests safety.
+Seen people (P04 and P10 sessions 2–3, one gallery session each): v3 already routes all four, so the dev gain is only
+the earlier start. The larger expected benefit, more returning sessions accepted on sealed, is not visible on dev and
+rests on the external rates in §11.
+
+| Check (primary: max of the two ramps, start window 10) | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| New-person sessions routed, all bases | 0 of 14 | ≥ 1 |
+| Seen sessions with r_bio > 0 by window 20 (one gallery session each) | 3 of 4 (2–4) | ≤ 1 |
+| Seen gain over v3, mean of B2_pool and B2_s345 | +0.5 (0.0 to +1.0) | < 0 |
+| P10 change against v3 | −0.2 (−0.8 to +0.4) | — |
+| dJ against v3 | +0.25 (0.0 to +0.5) | < 0 |
+
+**Gate for a package build:** 0 new-person routings on all six bases; seen gain ≥ +0.3 on the exploration mean and
+≥ 0 on each of the four fresh bases; P10 ≥ −0.3 on every base. Then stress tests (noise, constant, artefact and
+amplitude-scaled sessions must not route) before any build.
+
+| Item | Observed | Verdict |
+|---|---|---|
+| New-person routings | | |
+| Seen sessions routed early | | |
+| Seen gain, P10, dJ | | |
+| Gate | | |
