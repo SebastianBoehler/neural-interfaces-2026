@@ -46,6 +46,7 @@ since 7 Nov.
 |---|---|---|
 | route3geb (shipped) | `runs/upload/sealed_cand_rec_ts2_tsem_route3geb.zip`; code at commit `c4d600d` | The best upload |
 | **Fast package** | `runs/sealed/cand_rec_ts2_tsem_route3geb_fast/`; ZIP `runs/upload/sealed_cand_rec_ts2_tsem_route3geb_fast.zip` | Built, not uploaded |
+| **Routing v4 checkpoint** | `runs/sealed/cand_v4_bio/`; ZIP `runs/upload/sealed_cand_v4_bio.zip` `94185c2f…`; code `submissions/ensemble_v4/` | Staged 11 Nov, replays pass, **not uploaded**; dev +0.59 J over route3geb (ledger §14) |
 | Lean reference code | `submissions/ensemble/submission.py` `dacee85a…` (committed 9491882) | Reproduces all 3 uploads |
 
 **Fast package details:**

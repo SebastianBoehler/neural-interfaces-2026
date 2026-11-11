@@ -205,3 +205,25 @@ Codex's runtime code (from the lean `dacee85a…`), packaged as one `submission.
 - **CUDA nuance:** one cold-vs-warm first stream differs by up to 1.5e-8 (labels identical; docs/AUDIT_SBN.md).
 - **Runtime:** A100 solver time is 0.41× route3geb's, so about 19–26 min sealed.
 - Not uploaded; the user authorises each upload.
+
+## 11 Nov: routing v4 checkpoint (staged, not uploaded)
+
+**cand_v4_bio** = the fast package (route3geb outputs) plus a label-free identity gate in front of the personal heads.
+Upload ZIP `runs/upload/sealed_cand_v4_bio.zip` `94185c2fd5f2e4de0d8107809fe51653213c15073156c54017a8149f824a9722`
+(57,739,427 B); code `submissions/ensemble_v4/submission.py` `cd593655…`, committed.
+
+| Check | Result |
+|---|---|
+| Dev against route3geb, six bases | dJ +0.45 to +0.72 (mean +0.59); seen +0.89 to +1.45; new 0.00 to +0.02; P10 −0.24 to +0.52 |
+| External identification (67 held-out people, session level, τ 0.25) | 1.9 % false accepts, 86.9 % correct accepts (route3geb's gate: 10–42 % on Lee2019 / Stieger2021) |
+| Code parity with the gate off | byte-identical to the fast package, all stages, 2,655 public windows |
+| Integration (gate on) | gate decisions equal the stand-alone class; outputs equal the fast package before the first routed window of every session |
+| A100 replay 3087470 / worker-image replay 3087471 | identical scores (0.9748375896 in-sample on the public test split; the fast package: 0.9814320116), same ZIP, files unchanged; 157 s / 95 s |
+| Paired timing (ABBA 3087472) | 95.9 / 94.7 s against 93.2 / 93.5 s: 1.02× the fast package, so about 20–36 min sealed |
+| Stress | noise, zeros, mains hum, offsets never route; amplitude scaling, time reversal and a flat channel do not break identification |
+
+**Open before an upload:** an independent review of the package (as for earlier uploads) and the user's go-ahead after a
+live quota and phase check. **Known limits:** one new-person dev session is routed at negligible weight (the gate
+accepts about 2 % of impostors by design); the in-sample score on public people drops because personal heads replace an
+in-sample core, which says nothing about sealed data; the dev gain is P04-driven; the main expected sealed effect
+(more returning sessions accepted) is not measurable on dev.
