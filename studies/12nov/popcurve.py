@@ -40,7 +40,7 @@ for p in PEOPLE:
     oth = [q for q in PEOPLE if q != p]; jobs.append((p, oth))
     for k in KS:
         jobs += [(p, list(rng.choice(oth, k, replace=False))) for _ in range(DRAWS)]
-t0 = time.time(); res = Parallel(n_jobs=5)(delayed(trial)(*j) for j in jobs); print(f"{len(jobs)} fits in {time.time() - t0:.0f}s", flush=True)
+t0 = time.time(); res = Parallel(n_jobs=2, backend="threading")(delayed(trial)(*j) for j in jobs); print(f"{len(jobs)} fits in {time.time() - t0:.0f}s", flush=True)
 ks = sorted(set(r[1] for r in res)); tab = {(p, k): np.mean([[r[2], r[3]] for r in res if r[0] == p and r[1] == k], 0) for p in PEOPLE for k in ks}
 print("people   " + " ".join(f"{p:>6s}" for p in PEOPLE) + "    mean")
 for j, name in enumerate(("core", "rebal")):

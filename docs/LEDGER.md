@@ -327,3 +327,21 @@ and the sealed package's tenth person is already worth part of a step. ≤ +2 pe
 
 | Item | Observed | Verdict |
 |---|---|---|
+
+## 40. ADD: do personal nets (PFT) and own-space personal members add up for a returning person? (written 11 Nov 22:40 UTC, before any result; code `studies/12nov/add.py`)
+
+**Why.** Both levers help P04 and not P10 (§31, §37). If they carry the same information, a returning-person package
+needs only one; if they add, P04-like people gain about twice as much.
+
+**Test.** The v4.1 chain replay on the two exploration bases, all arms against the frozen-twin system of §31 (five
+net families replaced by the three-seed frozen nets). PFT = the head-and-BN-affine variant (`pfh60`), all five
+families; OWN = PS1 × (T·C·S)^(0.5/3) in the personal head's slot (the §37 follow-up arm, fixed here); BOTH.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| PFT, seen (P04, P10) | +1.4 (+2.4, +0.5), as §31 | — |
+| OWN, seen (P04, P10) | +1.2 (+2.5, 0.0), as §37 | < +0.5 on both bases: the §37 arm was a pick of 20 |
+| BOTH, seen | +2.0 (+1.0 to +3.0); P04 +4 (+2 to +6), P10 +0.3 (−0.7 to +1.3) | BOTH < max(PFT, OWN) + 0.3 on both bases: the levers are redundant |
+
+| Item | Observed | Verdict |
+|---|---|---|
