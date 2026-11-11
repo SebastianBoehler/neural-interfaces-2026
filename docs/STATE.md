@@ -179,6 +179,11 @@ class in net training (+0.1 to +0.3 J); slot weight 4.5 for the personal head (+
 
 ## 9. Decisions waiting for the user
 
+**Update, 11 Nov 22:00 UTC (ledger §34–§35).** An in-session head on true labels adds +2 for new people (weak sessions
+only) and +0.5 for returning sessions (P10: 0); on the chain's labels it is negative everywhere. Returning sessions
+are saturated in core1's features, so in-session learning is not built behind the identity gate. Proposed: build v5
+as two paired uploads (PFT first, TTT second), so each upload also measures its lever on the sealed set.
+
 1. Build v5 (§6) or keep the three uploads for something larger.
 2. Any information on what the leading teams do (Discord). The leader gained +2.5 in one upload while its runtime
    rose fourfold, which fits in-session fine-tuning; on our chain that is worth far less.
