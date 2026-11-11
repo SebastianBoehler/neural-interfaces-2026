@@ -823,3 +823,63 @@ cumulative; everything else as shipped. Applied in both tails of routing v3 (the
 **Reading.** TSEM wants every seed it can get; older seeds are not stale. Unlike the class shares (where a 30-window
 view wins), the class templates are stable over the session. Recency in TSEM is closed; the late-session loss stays
 unexplained beyond "the online runs are harder".
+
+## 24. TTT: per-session gradient fine-tuning of the nets (written 11 Nov ~19:35 UTC, before any job ran; code `runs/archive_scratch_11nov/ttt/galv/ttt.py`)
+
+**Why now.** Every adaptation in our chain is closed-form (statistics, templates). The nets themselves are frozen at
+test time. Earlier test-time training (T-TIME, entropy and self-labels, round 12) used a single net's own predictions
+on a much weaker system. Two things changed: the chain now supplies pseudo-labels that are right about 77–80 % of the
+time, and the sealed runtime is 19 of 60 minutes, so a 3–4× heavier inference is affordable (the leader's jump came
+with a 4× runtime increase).
+
+**Design.** Per test session, every 10 windows from window 30, a copy of the trained SessionBN net is fine-tuned for
+20 full-batch steps on all earlier windows of that session and predicts the next 10. Labels: the chain's own causal
+outputs (`pl20`, packageable) or the true labels (`or20`, `or60`: ceilings). FBCNet and ShallowConvNet, seeds 0–2.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Ceiling: `or60` member standalone, new people | +8 over the frozen net (+4 to +14) | < +3: the nets cannot use session labels |
+| Ceiling in the chain (`or60` replacing its frozen twin) | +1.0 J (+0.2 to +2.5) | < +0.5: the method class is dropped whatever `pl20` does |
+| `pl20` member standalone, new people | +3 (+1 to +6) | ≤ 0 |
+| `pl20` in the chain | +0.2 J (−0.3 to +0.8) | ≤ 0 |
+| P(gate: nested ≥ +0.5, halves ≥ 0, seen ≥ −0.3) | ≈ 12 % | — |
+
+| Item | Observed | Verdict |
+|---|---|---|
+| Ceilings | | |
+| Pseudo-label variant | | |
+
+## 25. Solution-space map and the wave it triggered (written 11 Nov ~19:35 UTC, before any result of the new jobs)
+
+**Why.** Questions were being run one small job at a time, leaving most Galvani lanes idle. The map below lists the
+method classes for this problem, what was tested, and what is thin. "Closed" covers only the recipes tested.
+
+| Axis | Method class | Status |
+|---|---|---|
+| Features | Covariance / tangent space; filter-bank CNNs | Dense: two cores, about 65 nets, 48 + 77 core configs |
+| Features | Raw-time CNNs, transformers, foundation models | Closed: 20 architectures, 4 pretrained models, 8 more with session normalisation today |
+| Features | Phase coupling | Partly covered by the Hilbert core; Codex's rank-correlation heads failed |
+| Features | **Amplitude-envelope coupling** | **Never tested → AEC core (this wave)** |
+| Features | Cross-frequency coupling, source-space priors, time-frequency images | Never tested; no code path yet |
+| Data | PROTEUS labelled windows; other window offsets | Dense; crops rejected |
+| Data | External labelled corpora (MI teacher, Scherer, Shin, Zyma) | Dense; Scherer closed in members, core and teacher today |
+| Data | **PROTEUS unlabelled recordings (rest runs, inter-trial) for self-supervised pretraining** | **Never used; explicitly allowed; needs a training pipeline** |
+| Cross-subject | Alignment, session normalisation, augmentation, domain-generalisation losses | Dense |
+| Test time | Statistics and template adaptation (rebalancing, SessionEM, TSEM, early boost) | Dense: 29 + 8 arms, at a local optimum; Weco search running |
+| Test time | **Gradient fine-tuning of the nets inside the session** | **Thin: only entropy / self-label variants on an old weak system → TTT, TTT2 (this wave)** |
+| Sequence | Class balance per run; Graz cue-order regularity | Used; ≤ +0.4 J for our chain |
+| Sequence | Reconstructing the cue generator | Being tested (labels only); a leakage question, the user's decision |
+| Persons | Identification and personal heads | Done: +0.27 sealed; personal templates not adopted |
+| Combination | Fixed weights, stackers, per-session weights, weight edits | Dense; closed |
+
+**Wave.** TTT (6 tasks, running), TTT2 (15 tasks: all five SessionBN member families × 3 seeds, six fine-tuning
+variants), AEC core (1 task). Predictions for TTT are in §24.
+
+| AEC check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Standalone new (lr10) | 45 (38–55) | — |
+| Extra chain member, best weight | +0.1 J (−0.2 to +0.4) | ≤ 0 |
+
+| Item | Observed | Verdict |
+|---|---|---|
+| AEC | | |
