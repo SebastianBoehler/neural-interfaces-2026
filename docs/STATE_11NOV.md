@@ -173,6 +173,8 @@ To cancel: `ssh mlcloud-galvani scancel 3086618 3086622 3087013 3087028 3087029`
 - **Unverified reading:** an ineligible upload falling back to an earlier eligible one is our reading, not confirmed.
 
 **Decided on 11 Nov:**
+- **Scherer 2015:** the organisers answered the Scherer-specific question on Discord ("super okay"). Scherer-trained
+  members may ship if they pass their gate; the corpus and its CC BY-NC-ND licence go into the method description.
 - **Commits:** commit and push freely, with no AI author line (as in the 10 Nov commits). The fast package's code is
   committed in `submissions/ensemble_fast/` (7a2f9e8).
 - **Cue-order artefact:** no question to the organisers. We follow the published rules and document the finding in

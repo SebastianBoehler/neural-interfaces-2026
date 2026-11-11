@@ -1,0 +1,18 @@
+[run_capped] Wed Nov 11 13:53:35 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/rt4/stress.py runs/bio1/model_psd_d64.npz (max 10 GB)
+synthetic / perturbed sessions (max score over 150 windows, matched person):
+  zeros                            -0.131 -> P09
+  white noise 15 uV                -0.158 -> P09
+  common 50 Hz + noise             -0.143 -> P09
+  pink-ish noise                   +0.102 -> P02
+  constant offset                  -0.131 -> P09
+  NaN-cleaned (zeros) half         +0.667 -> P07
+  real P07 x 10 amplitude          +0.709 -> P07
+  real P07 x 0.1                   +0.709 -> P07
+  real P07 channels permuted       -0.027 -> P05
+  real P07 time-reversed           +0.709 -> P07
+  real P07 one flat channel        +0.681 -> P07
+  real P07 + 20 uV white noise     -0.068 -> P09
+public sessions in-sample (own sessions are in the gallery):
+  P01|1 +0.623 -> P01;  P02|1 +0.639 -> P02;  P03|1 +0.740 -> P03;  P06|1 +0.729 -> P06;  P07|1 +0.715 -> P07;  P10|1 +0.652 -> P10;  P10|2 +0.698 -> P10;  P10|3 +0.651 -> P10;  P05|1 +0.707 -> P05;  P08|1 +0.635 -> P08;  P04|1 +0.615 -> P04;  P04|2 +0.575 -> P04;  P04|3 +0.673 -> P04;  P09|1 +0.655 -> P09;
+scherer2015: 18 sessions of other people; max score quantiles 50/90/95/99/max: [-3.563, -3.219, -3.149, -3.016, -2.983]; above 0.23: 0, above 0.27: 0, above 0.30: 0
+[run_capped] Wed Nov 11 13:53:45 CET 2026 exit 0

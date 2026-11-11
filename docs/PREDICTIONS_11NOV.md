@@ -515,6 +515,16 @@ amended τ on all six bases. Predicted: τ ≈ 0.27 (0.25–0.31); dev dJ +0.45 
 
 | Item | Observed | Verdict |
 |---|---|---|
-| External session-level calibration | | |
-| Dev at the amended τ, six bases | | |
-| Gate | | |
+| External session-level calibration (720 impostor and 520 genuine session trials, 67 held-out people, one gallery session, scored every 5th window from 10 to 200) | false accepts / correct accepts: τ 0.23 3.2 % / 88.3 %; **τ 0.25 1.9 % / 86.9 %**; τ 0.27 1.5 % / 85.6 %; τ 0.30 0.6 % / 81.5 %. Wrong-identity accepts of genuine sessions 0.6 % at 0.25. Median first accept at window 10. Requiring 2–3 consecutive hits changes little | Rule gives **τ = 0.25** (predicted 0.27, range 0.25–0.31: hit at the edge) |
+| Dev at τ 0.25, six bases (B2_pool, B2_s345, B2_s012, B2_s0, B2_s1, B2_s2) | dJ against v3: +0.52 / +0.72 / +0.59 / +0.53 / +0.45 / +0.72 (mean +0.59). Seen +1.04 / +1.45 / +1.18 / +1.06 / +0.89 / +1.43; P04 +1.56 to +2.60; P10 +0.52 / +0.52 / +0.52 / −0.24 / +0.02 / +0.26. New 0.00 to +0.02 | **Miss, above the range** on dJ (+0.2 to +0.7 predicted with centre +0.45; mean +0.59 inside, two bases at the top) |
+| New-person routings at τ 0.25 | 1 of 14 on every base: P10 session 1 (0.253 against P03) from window 93, 9 % of its windows at ramp ≤ 0.06; no measurable cost. Expected count at a 1.9 % rate: 0.27 | **Refuted** as predicted (0), harmless in effect |
+| Stress tests with the package gallery | zeros, white noise, common 50 Hz, constant offset, pink noise: max score ≤ +0.10. A real session scaled ×10 or ×0.1, time-reversed, or with one flat channel is still identified (0.68–0.71); with channels permuted or +20 µV white noise it is not (−0.03, −0.07). 18 Scherer 2015 sessions (other hardware): about −3. All 14 public sessions in-sample: 0.58–0.74, all correct | Safe failure modes |
+| Gate | seen ≥ +0.3 on exploration (+1.25) and ≥ 0 on every fresh base ✓; P10 ≥ −0.3 on every base ✓; "0 new-person routings" ✗ (one, at negligible weight) | **Passes on effect, fails the zero-routing clause as written.** That clause was mis-specified for a gate designed to accept 2 % of impostors. Built as a checkpoint; not uploaded |
+
+**Reading.**
+- On dev the identity gate is worth about +0.6 J, all of it from starting the personal head 50 windows earlier for people
+  it already routed.
+- The part dev cannot show is the acceptance rate on sealed returning sessions: 87 % on external people against 10–42 %
+  for the class-fingerprint gate. If sealed returning people gain from a personal head as P04 and P10 do on average,
+  that is the larger effect; if they behave like P10 alone, it is small.
+- The one false accept (P10's first session against P03) is a real person-pair resemblance, not a threshold artefact.

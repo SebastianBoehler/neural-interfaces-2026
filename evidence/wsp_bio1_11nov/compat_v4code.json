@@ -1,0 +1,25 @@
+{
+ "new_code_sha256": "cd593655cbcb4315450fc81561fcf0405102e76c04f134da9f8ae85757d82780",
+ "n_windows": 2655,
+ "runs/sealed/cand_rec_ts2_tsem_route3geb_fast": {
+  "package_code_sha256": "ccbce50614e50a60eba38ddf3f9c3a058d5ba89c8d20420b95a2019868e8a748",
+  "stages": [
+   "em",
+   "tsem",
+   "route"
+  ],
+  "labels_byte_identical": true,
+  "labels_n_windows_differ": 0,
+  "mix_byte_identical": true,
+  "mix_n_windows_differ": 0,
+  "em_byte_identical": true,
+  "em_n_windows_differ": 0,
+  "tsem_byte_identical": true,
+  "tsem_n_windows_differ": 0,
+  "route_byte_identical": true,
+  "route_n_windows_differ": 0,
+  "final_posteriors_byte_identical": true,
+  "final_posteriors_n_windows_differ": 0,
+  "seconds": 531.6
+ }
+}
