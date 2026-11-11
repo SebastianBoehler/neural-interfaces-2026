@@ -1,0 +1,13 @@
+[run_capped] Wed Nov 11 14:51:20 CET 2026 start: .venv/bin/python /private/tmp/claude-501/-Users-sebastianboehler--claude-spares-spare-UL0F7J/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/sbnx/score.py (max 8 GB)
+k 2; reference J [np.float64(80.0131), np.float64(79.8474)]
+family      seeds | standalone new seen | chain dJ at w 0.5 / 1 / 2 (new, seen)
+atcnet      2     |  47.13  44.40 | -0.28 (-0.23, -0.33) / -0.55 (-0.64, -0.45) / -0.90 (-0.89, -0.91)
+conformer   2     |  48.38  43.41 | -0.32 (-0.18, -0.46) / -0.92 (-0.46, -1.39) / -2.24 (-1.38, -3.11)
+ctnet       2     |  49.63  44.71 | -0.59 (-0.12, -1.06) / -0.81 (-0.11, -1.51) / -1.55 (-0.93, -2.18)
+deep4       2     |  50.32  46.66 | -0.51 (-0.37, -0.65) / -0.86 (-0.52, -1.19) / -1.71 (-1.04, -2.39)
+fbmsnet     1     |  62.32  61.84 | -0.15 (-0.11, -0.20) / -0.52 (-0.20, -0.85) / -0.64 (-0.80, -0.48)
+sccnet      2     |  50.53  43.23 | -0.07 (-0.01, -0.13) / -0.31 (-0.29, -0.33) / -0.82 (-0.59, -1.05)
+simpleconv  2     |  40.68  40.72 | -0.36 (-0.13, -0.59) / -0.94 (-0.29, -1.59) / -2.17 (-2.03, -2.31)
+tidnet      2     |  53.38  51.06 | +0.08 (+0.04, +0.13) / -0.40 (-0.21, -0.60) / -1.33 (-1.27, -1.39)
+nested: pick on G1 ('tidnet', 0.5) -> held-out G2 new +0.16; pick on G2 ('tidnet', 0.5) -> held-out G1 new -0.09; nested new +0.04; best overall ('tidnet', 0.5)
+[run_capped] Wed Nov 11 14:54:50 CET 2026 exit 0

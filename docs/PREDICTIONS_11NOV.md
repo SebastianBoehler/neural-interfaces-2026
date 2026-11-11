@@ -399,10 +399,15 @@ were only ever tried with plain batch norm (45–48 % alone) or not at all. Same
 | Best single family as an extra chain member, nested dJ | +0.15 (−0.20 to +0.50) | ≤ 0 for every family |
 | P(gate pass: nested ≥ +0.5, both halves ≥ 0, seen ≥ −0.3) | ≈ 8 % | — |
 
-| Item | Observed | Verdict |
+| Item | Observed (15 of 16 tasks; the first, over-packed job was cancelled and the single-task array rerun) | Verdict |
 |---|---|---|
-| Standalone per family | | |
-| Chain nested dJ | | |
+| Standalone new / seen at k 2 (2 seeds) | FBMSNet 62.3 / 61.8 (1 seed); TIDNet 53.4 / 51.1; SCCNet 50.5 / 43.2; Deep4 50.3 / 46.7; CTNet 49.6 / 44.7; EEGConformer 48.4 / 43.4; ATCNet 47.1 / 44.4; EEGSimpleConv 40.7 / 40.7 | **Hit** on the best family (predicted 61); 1 of 8 reaches 58 (predicted 3, range 1–5: hit at the edge) |
+| Extra chain member, best weight per family | TIDNet +0.08 at 0.5; SCCNet −0.07; FBMSNet −0.15; all others −0.28 to −0.59; every family is negative at weight 1 and 2 | **Hit** (predicted best +0.15, range −0.20 to +0.50) |
+| Nested selection | both halves pick TIDNet at 0.5; held-out new +0.16 / −0.09 | **FAIL**; inside the null range |
+
+**Reading.** Session normalisation does not rescue these families: only the filter-bank design (FBMSNet, like FBCNet)
+reaches the strength of our existing members, and it adds nothing new to them. New architectures are closed as a source
+of members.
 
 ## 13. WSP: profiling and editing core1's weights (written 11 Nov ~12:15 UTC, while the cache was building and before any profile or edit result; code `experiments/wsp_build.py`, `experiments/wsp_core.py`)
 
