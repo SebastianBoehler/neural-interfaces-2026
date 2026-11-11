@@ -1,4 +1,4 @@
-# State on 11 Nov 2026 (updated 11:50 UTC): the starting point
+# State on 11 Nov 2026 (updated 14:55 UTC): the starting point
 
 This is the entry point. It is written so that a new thread needs nothing from the chat history. Older documents are
 in docs/archive/ (see its README for the assumptions in them that are now known to be wrong).
@@ -124,42 +124,32 @@ balanced accuracy.
     refuted; crops rejected.
   - A generative EEG model was never tried. Prior: low, since it cannot add class information it never saw.
 
-## 5. Running on Galvani (state at 11:50 UTC on 11 Nov)
+## 5. Running (state at 14:55 UTC on 11 Nov)
 
-**Collecting results:**
-- Galvani access is `ssh mlcloud-galvani`. You type the 2FA code yourself; agents must never re-authenticate.
-- The ControlMaster was renewed at 10:15 UTC on 11 Nov and drops after about 12 h (around 22:15 UTC).
-- The queue is slow: jobs wait on fair-share priority. Everything below shares one user queue.
+**Galvani access is down since about 14:30 UTC:** the ControlMaster dropped (network changes on the Mac). Jobs keep
+running, but nothing can be fetched until you type a 2FA code (`ssh mlcloud-galvani`; a terminal tab "Galvani 2FA" is
+open). Agents must never re-authenticate.
 
-**Before running an older scorer:** the W12 and Scherer scorers hard-code the scratch path
-`S=/private/tmp/claude-501/-Users-sebastianboehler-Documents-GitHub-neural-interfaces-2026/95eb4b0e-c5db-4ae9-81b3-afeeeac7221a/scratchpad`.
-If macOS has purged it, restore it first with `mkdir -p $S && rsync -a runs/archive_scratch_11nov/ $S/`. Run local
-scoring only through `scripts/run_capped.sh`.
-
-| Job | IDs | State | What it tests | Ledger |
+| Job | IDs | State when access dropped | What to do with it | Ledger |
 |---|---|---|---|---|
-| **W12** pair specialists | array 3086618 (21 tasks) | 9 done at 11:40 UTC | SessionBN nets trained on one class-pair boundary re-split the chain's pair mass | §6 |
-| **SCH** Scherer 2015 as training data | array 3086622 (24 tasks) | all pending; Slurm estimates up to 12 Nov ~10:00 UTC | Members retrained with Scherer at loss weight 0.1 / 0.25, against PROTEUS-only twins | §7 |
-| **BIO1** person identification | 3087013 (CPU) | pending | Two-covariance discriminant trained on 6 external multi-session corpora; open-set accepts at 5–60 windows | §11 |
-| **SBNX** untried SessionBN families | smoke 3087028, array 3087029 (16 tasks) | pending, behind SCH | TIDNet, CTNet, EEGConformer, ATCNet, EEGSimpleConv, FBMSNet, SCCNet, Deep4 with session normalisation | §12 |
+| **TSCH** Scherer as an eighth teacher corpus | pretraining arrays 3087564 (m8s EEGNeX), 3087565 (m8s IFNet), 3087566 / 3087567 (m7c controls), 6 seeds each; head export 3087589 chained after them | 2 of 24 running | Fetch `runs/diag/tsch/heads.npz`; build the teacher member (balanced logistic map C 0.01 per fold from seed-mean head log-probs, EEGNeX + IFNet concatenated, as `deep2/lib.teacher_fn`); swap it for alib member 10 at weight 5; compare m8s with m7c | §18 |
+| **SCH** leftovers | array 3086622 | one FB task (SUB+WORD only, seed 1) missing | Nothing: scored without it, gate failed | §7 |
 
-**Scoring commands:**
-```
-bash $S/w12/fetch.sh
-NI26_MAX_GB=8 scripts/run_capped.sh $S/w12/score.log .venv/bin/python $S/w12/score_w12.py     # fresh=1 only after a gate pass
-bash $S/schr/fetch.sh
-NI26_MAX_GB=8 scripts/run_capped.sh $S/schr/score.log .venv/bin/python $S/schr/score_schr.py NJ=2
-```
-- BIO1 writes `runs/diag/bio1/bio1.json` and `bio1-3087013.out` on Galvani.
-- SBNX writes `runs/diag/sbnx/probs/sbnx_<arch>_k<k>-<proto>-s<seed>.npz`; it has no scorer yet (adapt the `mt` arm of
-  `score_w12.py`: extra member at weight 0.5 / 1 / 2).
+**Local:**
+- **Weco** run `ea473cae-53bd-41fd-963b-fa11446fd3f1` (60 steps, resumes itself after network drops): 15 edits scored
+  by 14:50 UTC, all negative on the half it sees (best −0.31), none positive on the hidden dev score. Task files in
+  `.weco/wsp-core1/`; the hidden scores are in `history.jsonl` there.
+- **CSCH** (core1 with Scherer rows, §21): running; output `runs/wsp/core_scherer.npz`, scorer
+  `runs/archive_scratch_11nov/rt4/score_core.py runs/wsp/core_scherer.npz w0`.
 
-**GPU-eigh speed probe** (ledger §8; finished, not adopted):
-- ABBA timing (3086723): whole run 87 s against 110 s for the fast package (0.79×), same in-sample score.
-- The parity job (3086722) ended with a failed bitwise assertion; labels were identical. Whether the difference
-  matters was not established. Only worth resolving if new members need runtime.
+**Scorers written on 11 Nov** (all need the old scratch path, see below): `runs/archive_scratch_11nov/rt4/route4.py`
+(routing v4 replay; env TAU, PSC, G3, KAPPA), `stress.py`, `simdiag.py`, `score_core.py`; `runs/archive_scratch_11nov/sbnx/score.py`;
+`evidence/wsp_bio1_11nov/wsp_score.py`.
 
-To cancel: `ssh mlcloud-galvani scancel 3086618 3086622 3087013 3087028 3087029`.
+**Old scratch path** (hard-coded in the chain replay library):
+`S=/private/tmp/claude-501/-Users-sebastianboehler-Documents-GitHub-neural-interfaces-2026/95eb4b0e-c5db-4ae9-81b3-afeeeac7221a/scratchpad`.
+If macOS has purged it, restore it with `mkdir -p $S && rsync -a runs/archive_scratch_11nov/ $S/`. Run local scoring
+only through `scripts/run_capped.sh`.
 
 ## 6. Decisions waiting for you
 
@@ -242,22 +232,41 @@ unconfirmed. If true, returning-person sessions are a larger share than our 2-pe
 
 **Planning lesson:** headroom estimates mislead. On L2D, the forecast was about 3rd and the result 13/110.
 
-## 8. Open directions
+## 8. What 11 Nov (afternoon) added, and what is open
 
-1. **Returning-person identification (BIO1 → routing v4).** The largest lever identified on 11 Nov.
-   - Routing + GEB gained +0.55 sealed in total; a rough split puts routing at about +0.2, against about +0.9 if every
-     returning session were routed and gained like the P04/P10 mean.
-   - The shortfall is either weak identification on sealed (fixable) or other returning people gaining nothing from a
-     personal head, as P10 does not (not fixable). Public data cannot tell which.
-   - If BIO1 passes its gate: an earlier, more reliable gate for the existing PS1 heads.
-2. **Scherer member:** if SCH passes, it ships only after the licence decision.
-3. **W12 specialists and SBNX families:** low priors (about 10 % each); confirm on fresh bases before any build.
-4. **Segmentation hypothesis for the rescoring:** replay with per-interface resets or merged sessions. Cheap, CPU
-   only; reuse `runs/archive_scratch_11nov/order/olib.py`. It explains the past rather than adding points.
-5. **GPU-eigh speed:** only if new members need runtime headroom.
+**Routing v4 checkpoint (staged, not uploaded; ledger §11, §14).**
+- A label-free identity gate (spectral shape, two-covariance model trained on 224 external people) in front of the
+  personal heads. External, session level: 1.9 % false accepts, 86.9 % correct accepts at τ 0.25 (the v3 gate: 10–42 %).
+- Dev: +0.59 J over route3geb on six bases, all from starting the personal head about 50 windows earlier.
+- Replays pass on A100 and in the worker image; runtime 1.02× the fast package.
+- You decided not to lock it in yet.
 
-**Honest standing:** rank 3 needs about +1.3 sealed points and the field is moving. No candidate above has an
-estimate near that.
+**What limits returning people now (ledger §15, §17, §19).**
+- Within a session a personal head gains +5.8 on average over ten people, and five of ten gain at least half of P04's.
+  Across sessions P04 keeps 29 % and P10 nothing: the personal model's robustness to a session change is the limit,
+  not identification.
+- Personal information pays in proportion to the person's weakness (seen three times). A per-person trust weight is
+  the natural refinement and cannot be validated with two dev people.
+- A personal template prior in TSEM gives +0.19 J (P04 on every base, P10 slightly negative): not adopted, first to
+  revisit if a sealed upload shows that returning-person levers transfer.
+
+**Closed on 11 Nov (afternoon), each for the method class tested:**
+- weight-space edits of core1 (ten hand edits, learned block gains, and Weco so far): the head is at its optimum;
+- pair specialists (W12), untried SessionBN families (SBNX), Scherer as member training data (members +1–3 points,
+  chain 0);
+- similarity routing for new people, a forgetting recentring reference, a personal recentring prior, a more
+  regularised personal head (wins at core level, loses in the chain).
+- **Pattern:** stronger members or heads do not move the chain (four independent cases). Core-level results do not
+  predict chain results for personal models.
+
+**Open:**
+1. **TSCH** (Scherer in the teacher): the only running bet on new people; prior about 15 %.
+2. **Returning-person robustness across sessions:** nothing tested works yet; needs a chain-level idea.
+3. **The upload decision on v4:** an independent package review is still to do before any upload.
+4. **Segmentation hypothesis for the rescoring** and **GPU-eigh speed:** unchanged, low priority.
+
+**Honest standing:** rank 3 needs about +1.3 sealed points. v4's dev gain is +0.6 J on the half of the metric that is
+returning people; its sealed value depends on how the eight single-session public people respond.
 
 ## 9. Where everything is
 
