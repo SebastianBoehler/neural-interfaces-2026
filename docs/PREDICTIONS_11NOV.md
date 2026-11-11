@@ -844,10 +844,20 @@ outputs (`pl20`, packageable) or the true labels (`or20`, `or60`: ceilings). FBC
 | `pl20` in the chain | +0.2 J (−0.3 to +0.8) | ≤ 0 |
 | P(gate: nested ≥ +0.5, halves ≥ 0, seen ≥ −0.3) | ≈ 12 % | — |
 
-| Item | Observed | Verdict |
+| Item | Observed (wave 1: FBCNet in member slot 6, ShallowConvNet as an extra member; 3 seeds; change against the same nets frozen) | Verdict |
 |---|---|---|
-| Ceilings | | |
-| Pseudo-label variant | | |
+| Ceiling, standalone new (true labels, 60 steps) | FBCNet +11.67 (66.0 → 77.7), seen +11.55; ShallowConvNet +8.11, seen +3.53 | **Hit** (predicted +8, range +4 to +14) |
+| Ceiling in the chain | FBCNet +0.66 J (new +0.86, seen +0.47); ShallowConvNet +0.89 J (new +0.48, seen +1.29) | **Hit** (predicted +1.0, range +0.2 to +2.5); above the +0.5 bar, **the method class stays** |
+| Chain-label fine-tuning (`pl20`), standalone new | FBCNet +5.05, seen +5.48; ShallowConvNet +5.66, seen +3.58 | **Hit** (predicted +3, range +1 to +6) |
+| `pl20` in the chain | FBCNet −0.12 J (new +0.35, seen −0.59); ShallowConvNet +0.35 J (new +0.36, seen +0.34) | **Hit** (predicted +0.2, range −0.3 to +0.8); one member alone is inside the noise |
+
+**Reading.**
+- This is the first member-level change today that moves the chain when its labels are right: one net fine-tuned on
+  true session labels is worth +0.7 to +0.9 J, and it lifts the net itself by 8–12 points.
+- With the chain's own labels a single net keeps about +5 points standalone but only about +0.1 J in the chain: the
+  net is learning what the chain already believes.
+- Open questions that decide it: whether fine-tuning every net family together adds up (wave 2), whether the gain
+  survives feeding the improved chain's labels back in, and whether the runtime fits (a naive version costs hours).
 
 ## 25. Solution-space map and the wave it triggered (written 11 Nov ~19:35 UTC, before any result of the new jobs)
 
