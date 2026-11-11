@@ -574,6 +574,12 @@ genuine session trials, one gallery session):
 - **Gate at τ 0.26: PASS on every clause as written.** The package is rebuilt as `cand_v41_bio` (τ 0.26, plus the
   review's assertion that the gallery has one row per personal head).
 
+**Sealed result (upload 4, submission 1048575, 11 Nov).** Predicted +0.2 to +0.8 sealed points; observed **+0.267**
+(0.8161546323 against 0.8134828319), duration 1,128.6 s. **Hit, at the low end.** The dev gain (+0.58 J) transferred at
+0.46×. The larger hoped-for effect, more returning sessions accepted, is not visible: consistent with the eight
+single-session public people gaining little from a personal head. By the reading rule fixed before the score this is
+the neutral band, and the returning-person line stops.
+
 ## 15. PERS: who gains from a personal head? A within-session proxy for all ten people (written 11 Nov ~13:20 UTC, before any result; code `experiments/pers_proxy.py`)
 
 **Why.** Routing v4's sealed value depends on how the eight single-session public people respond to a personal head,

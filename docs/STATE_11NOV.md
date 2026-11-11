@@ -15,10 +15,11 @@ in docs/archive/ (see its README for the assumptions in them that are now known 
 **Deadline:** 21 Nov 2026, 22:59 UTC (23:59 CET).
 
 **Quota:** 7 sealed uploads per team, at most 1 per UTC day. We have used 4, so **3 are left**. Upload 4 (routing
-v4.1, submission 1048575) went up on 11 Nov at 18:31 UTC; its score is pending (docs/SEALED_UPLOADS.md).
+v4.1, submission 1048575) scored 0.8162 on 11 Nov (docs/SEALED_UPLOADS.md).
 
-**Best sealed score:** submission 1040847, `cand_rec_ts2_tsem_route3geb`, **0.8134828319 after the 10 Nov rescoring**
-(0.8240266154 before). Its code is commit `c4d600d` (`submission.py` `786bcab0…`). Rescored duration 3,732 s.
+**Best sealed score:** submission 1048575, `cand_v41_bio` (routing v4.1), **0.8161546323** (11 Nov), duration 1,128.6 s.
+Code `submissions/ensemble_v4/submission.py` `45f9f2fd…`. It is +0.267 over the previous best, submission 1040847
+(`cand_rec_ts2_tsem_route3geb`, 0.8134828319 after the 10 Nov rescoring, 3,732 s).
 
 **Rescoring (organiser commit 8734b2f6, completed in bddaff3d):**
 - All Track 2 sealed runs were rerun after a backend fix.
@@ -271,11 +272,13 @@ unconfirmed. If true, returning-person sessions are a larger share than our 2-pe
 1. **Nothing is running for new people.** TSCH failed (a stronger teacher is a worse chain member); the chain rewards
    complementary members, not stronger ones, so the next member idea has to be different in kind, not better.
 2. **Returning-person robustness across sessions:** nothing tested works yet; needs a chain-level idea.
-3. **Upload 4 (v4.1, submission 1048575):** running; read the result with the rule in docs/SEALED_UPLOADS.md.
+3. **Upload 4 (v4.1) gave +0.267 sealed (0.46× of the dev gain): neutral by the pre-set rule.** The returning-person
+   line stops here; the personal template prior and trust weights are not built. The fast runtime works on the real
+   worker (1,129 s), so about 40 minutes of runtime budget are free.
 4. **Segmentation hypothesis for the rescoring** and **GPU-eigh speed:** unchanged, low priority.
 
-**Honest standing:** rank 3 needs about +1.3 sealed points. v4's dev gain is +0.6 J on the half of the metric that is
-returning people; its sealed value depends on how the eight single-session public people respond.
+**Honest standing (11 Nov ~19:00 UTC):** 9th at 0.816; third place is 0.826 (+1.0), the leader 0.846. The field moved
+during the day. Nothing in hand has an estimate near +1.0.
 
 ## 9. Where everything is
 

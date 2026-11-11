@@ -284,9 +284,24 @@ the main expected sealed effect is not measurable on dev).
 
 | Day | Date | Arm | Submission | Status | Cell-mean BA | Duration |
 |---|---|---|---|---|---|---|
-| 4 | 11 Nov (UTC) | cand_v41_bio (`53fc1679…`) | 1048575 | Submitting (18:31 UTC) | | |
+| 4 | 11 Nov (UTC) | cand_v41_bio (`53fc1679…`) | 1048575 | Finished | **0.8161546323** (+0.0026718 over route3geb's 0.8134828319) | 1,128.6 s (18.8 of 60 min) |
 
 Reading rule (fixed before the score): against route3geb's rescored 0.8134828319, a paired gain ≥ +0.3 means
 returning-person routing transfers and the personal template prior and trust weights are worth building; between −0.1
 and +0.3 it is neutral and the returning-person line stops; below −0.1 the gate is routing new people and v4 is dropped.
 A failed run uses no quota: compare with the replica, upload nothing else without authorisation. Never cancel it.
+
+**Result of upload 4 (read 11 Nov ~19:00 UTC, owner API).** Cell-mean BA 0.8161546323; pooled BA 0.8159187836; accuracy
+0.8159139571; duration 1,128.6 s.
+- **Paired gain over route3geb: +0.267 points.** By the rule fixed beforehand this is the neutral band (−0.1 to +0.3),
+  just below its upper edge: the gate does no harm and the gain is real, but returning-person routing does not transfer
+  strongly, so the personal template prior and trust weights are not built.
+- **Transfer:** the dev gain was +0.58 J; +0.267 sealed is 0.46× of it, a little below the 0.6–0.7× seen for small
+  stacked gains. The hoped-for extra from accepting more returning sessions (87 % against 10–42 %) did not show up as a
+  visible addition: the eight single-session public people gain little from a personal head, as P10 does.
+- **Runtime:** 1,128.6 s against 3,732 s for the rescored route3geb: the fast runtime code works on the real sealed
+  worker (0.30×), which frees about 40 minutes of budget.
+- **Board, 11 Nov ~19:00 UTC (191 entries):** seohee 0.846; sungjunwang 0.830; xmqxmq 0.826; timothewt 0.825;
+  bryanyahir03 0.824; navattack 0.821; liuyin 0.819; kyalcin 0.817; **us 0.816 (9th)**; kang5554 0.815. The field moved
+  during the day (three entries are new or improved above us), so the rank is unchanged. Third place needs +1.0.
+- **New baseline: cand_v41_bio.** 3 uploads left.
