@@ -1,0 +1,26 @@
+B2_pool logpool_fitted_w weights fitted on G1: c1:0.39 hb:0.35 1:0.08 2:0.37 3:0.00 4:0.24 5:0.00 6:0.53 9:0.00 7:0.28 8:0.14 10:0.16 | on G2: 0.25 0.53 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.34 0.34 0.51
+B2_pool logpool_fitted_w_l2 weights fitted on G1: c1:0.37 hb:0.35 1:0.16 2:0.28 3:0.00 4:0.24 5:0.00 6:0.30 9:0.20 7:0.27 8:0.17 10:0.17 | on G2: 0.28 0.46 0.00 0.00 0.00 0.00 0.00 0.07 0.00 0.32 0.29 0.40
+B2_pool mix level, new people: arithmetic acc 66.70 person-BA 70.78 | seen person-BA 71.22
+   logpool_shipped_w    acc 67.08 person-BA 71.01 | seen person-BA 71.44
+   logpool_fitted_w     acc 67.19 person-BA 71.73 | seen person-BA 70.75
+   logpool_fitted_w_l2  acc 67.38 person-BA 71.95 | seen person-BA 70.61
+B2_s345 logpool_fitted_w weights fitted on G1: c1:0.39 hb:0.36 1:0.09 2:0.36 3:0.00 4:0.23 5:0.00 6:0.51 9:0.00 7:0.29 8:0.12 10:0.16 | on G2: 0.27 0.52 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.31 0.35 0.53
+B2_s345 logpool_fitted_w_l2 weights fitted on G1: c1:0.38 hb:0.35 1:0.17 2:0.28 3:0.00 4:0.23 5:0.00 6:0.29 9:0.20 7:0.27 8:0.15 10:0.17 | on G2: 0.29 0.46 0.00 0.00 0.00 0.00 0.00 0.07 0.00 0.29 0.30 0.41
+B2_s345 mix level, new people: arithmetic acc 66.48 person-BA 70.54 | seen person-BA 71.23
+   logpool_shipped_w    acc 67.12 person-BA 70.98 | seen person-BA 71.17
+   logpool_fitted_w     acc 66.89 person-BA 71.25 | seen person-BA 69.70
+   logpool_fitted_w_l2  acc 66.97 person-BA 71.46 | seen person-BA 70.10
+
+chain with the mix replaced (confidence matched to the shipped mix x exponent e); shipped J new 80.14 seen 79.72
+logpool_shipped_w    e 0.70: J -0.96 (new -1.28: G1 -1.13, G2 -1.43; seen -0.65)
+logpool_shipped_w    e 0.85: J -1.01 (new -1.23: G1 -1.40, G2 -1.05; seen -0.79)
+logpool_shipped_w    e 1.00: J -1.08 (new -1.10: G1 -1.08, G2 -1.12; seen -1.06)
+logpool_shipped_w    e 1.20: J -1.14 (new -1.22: G1 -1.16, G2 -1.28; seen -1.06)
+logpool_fitted_w     e 0.70: J -2.14 (new -2.33: G1 -3.43, G2 -1.23; seen -1.95)
+logpool_fitted_w     e 0.85: J -2.00 (new -2.24: G1 -3.06, G2 -1.41; seen -1.76)
+logpool_fitted_w     e 1.00: J -2.14 (new -2.40: G1 -2.89, G2 -1.92; seen -1.89)
+logpool_fitted_w     e 1.20: J -2.02 (new -2.63: G1 -3.09, G2 -2.16; seen -1.42)
+logpool_fitted_w_l2  e 0.70: J -2.09 (new -2.29: G1 -3.33, G2 -1.24; seen -1.89)
+logpool_fitted_w_l2  e 0.85: J -1.95 (new -2.07: G1 -2.74, G2 -1.40; seen -1.82)
+logpool_fitted_w_l2  e 1.00: J -1.96 (new -2.28: G1 -2.73, G2 -1.83; seen -1.63)
+logpool_fitted_w_l2  e 1.20: J -2.17 (new -2.52: G1 -2.88, G2 -2.15; seen -1.82)

@@ -1,0 +1,12 @@
+base     archs ['fb', 'fbl', 'fbraw', 'sh']: chain J 79.250 new 79.82 seen 78.68
+pl20 - base: dJ +0.09 new +0.64 (G1 -0.41, G2 +1.70; 8/10) seen -0.46
+label accuracy on new people: frozen chain 0.7616, this chain 0.7751
+base     archs ['fb', 'fbl', 'fbraw', 'sh']: chain J 79.250 new 79.82 seen 78.68
+pl60 - base: dJ +0.03 new +0.74 (G1 -0.09, G2 +1.58; 7/10) seen -0.68
+label accuracy on new people: frozen chain 0.7616, this chain 0.7778
+base     archs ['fb', 'fbl', 'fbraw', 'sh']: chain J 79.250 new 79.82 seen 78.68
+pllr20 - base: dJ +0.33 new +0.63 (G1 -0.25, G2 +1.51; 6/10) seen +0.04
+label accuracy on new people: frozen chain 0.7616, this chain 0.7774
+base     archs ['fb', 'fbl', 'fbraw', 'sh']: chain J 79.250 new 79.82 seen 78.68
+or20 - base: dJ +1.63 new +1.82 (G1 +0.38, G2 +3.27; 8/10) seen +1.44
+label accuracy on new people: frozen chain 0.7616, this chain 0.7910

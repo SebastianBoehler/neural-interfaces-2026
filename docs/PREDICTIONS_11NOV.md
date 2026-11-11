@@ -923,7 +923,8 @@ held-out person's rest windows are excluded from training. Control: the same cod
 |---|---|---|
 | CFC standalone new / seen | 58.4 / 57.6 (lr3 and lr10 alike; 13,940 features) | **Miss, high** (predicted 42, range 36–50): slow-phase / fast-envelope coupling carries more class information than expected |
 | CFC as an extra chain member (weight 0.5 / 1 / 2) | −0.6 / −1.2 to −1.5 / −2.7 to −2.8 J, both halves and seen negative at every weight | **Refuted** (≤ 0) |
-| REST4 | | |
+| REST4 member standalone new, vs its twin (3 seeds) | ShallowConvNet +1.6 (rest weight 0.3) / +2.5 (weight 1); FBCNet +1.0 / +0.3 | **Hit** (predicted +0.8) |
+| REST4 in the chain, both families swapped, vs twins | +0.12 J (weight 0.3) / +0.29 J (weight 1; new +0.48: G1 +0.06, G2 +0.91; seen +0.09) | **Hit** (predicted +0.15); not refuted, but below the +0.5 pass mark: not adopted |
 
 ## 27. GEN: is the Graz cue order reproducible from the stimulus program? (11 Nov ~19:10–19:45 UTC; labels only; `evidence/wsp_bio1_11nov/gen_search.py`)
 
@@ -1031,3 +1032,66 @@ returning people P04 reaches 69 (54 as a new person) and P10 91 (82).
 - A person's own earlier session is worth +9 to +15 points for that person. Single nets do not carry it (their
   standalone accuracy is about the same on seen and new sessions: 58–65 %); the tangent heads do. This is the case for
   PFT (§29).
+
+## 31. Results of the evening wave (11 Nov ~20:20–21:00 UTC)
+
+**TTT wave 2** (§24/§25; SessionBN FBCNet k2, raw FBCNet, FBLight, ShallowConvNet, 3 seeds each; SincShallow incomplete).
+Per family, against the same nets frozen:
+
+| Family | Standalone new, chain labels 20 / 60 steps | Chain dJ, chain labels 20 / 60 steps | Chain dJ, true labels |
+|---|---|---|---|
+| FBCNet k2 | +5.0 / +5.1 | −0.12 / −0.04 | +0.59 |
+| FBLight | +5.8 / +7.2 | +0.11 / +0.38 | +0.38 |
+| Raw FBCNet | +4.1 / +4.3 | −0.24 / +0.03 | +0.52 |
+| ShallowConvNet | +5.5 / +4.9 | +0.33 / +0.13 | +0.75 |
+
+All four families swapped in together:
+
+| Labels for the fine-tuning | dJ | New (G1, G2; people ≥ 0) | Seen | Label accuracy of the resulting chain |
+|---|---|---|---|---|
+| Chain, 20 steps | +0.09 | +0.64 (−0.41, +1.70; 8/10) | −0.46 | 77.5 % |
+| Chain, 60 steps | +0.03 | +0.74 (−0.09, +1.58; 7/10) | −0.68 | 77.8 % |
+| Chain, 20 steps, lr 1e-3 | +0.33 | +0.63 (−0.25, +1.51; 6/10) | +0.04 | 77.7 % |
+| True labels, 20 steps | **+1.63** | +1.82 (+0.38, +3.27; 8/10) | +1.44 | 79.1 % |
+
+**Round 2** (labels of the round-1 chain fed back, Galvani 3088842): chain +0.07 J (new +0.51, seen −0.38); label accuracy
+77.29 % against 77.25 % after round 1. The feedback loop does not compound. **Closed.**
+
+**Verdict on §24.** Fine-tuning with the chain's labels gives new people about +0.6 to +0.7 when four families are
+swapped, all of it in half G2 (P04), and costs seen sessions about 0.5. By the nested rule (both halves positive) it
+does not pass. Per session, the gain is largest where the chain is weakest (correlation −0.69 with the session's
+accuracy): P04's three sessions gain 1.6–2.1, sessions above 80 % lose. Runtime: 20 steps on 30 nets every 10 windows
+is far above the budget; one net per family every 20 windows would fit in about 28 extra minutes.
+
+**PFT** (§29; Galvani 3088860, 5 families × 3 seeds; `runs/ttt/pft_score.log`):
+
+| Check | Observed | Verdict |
+|---|---|---|
+| Standalone seen, fine-tuned minus frozen (60 steps; P04 / P10) | FBCNet +9.4 / +9.7; FBLight +5.6 / +5.6; raw FBCNet +1.8 / +5.5; ShallowConvNet +3.2 / +3.8; SincShallow +5.7 / +1.0 | **Miss, high** (predicted +1.5, range −1 to +4): the nets do take up personal information |
+| Chain, all five families swapped on seen sessions, vs frozen twins (P04, P10) | 20 steps +1.46 (+2.92, 0.00); 60 steps +1.79 (+4.10, −0.53); 200 steps +2.05 (+4.50, −0.40); head and BN affine only +1.44 (+2.36, +0.53) | **Above the range** (predicted +0.5); passes the +1.0 mark; both people ≥ 0 only for the head-only variant |
+| The same against the shipped chain (twins are 0.5 below it: 3 seeds, extra ShallowConvNet) | about +0.9 to +1.5 seen | — |
+| Final stage on the shipped chain (seen; P04, P10) | 60 steps λ 0.25: +1.08 (+1.73, +0.42); 200 steps λ 0.5: +1.56 (+3.49, −0.36) | **Above the range** (predicted +0.6) |
+
+**Reading of PFT.** Fine-tuning the nets on a returning person's own earlier session is the first positive for
+returning people since the identity gate, and it uses true labels. But the gain is P04's; P10 is at zero in every
+variant. That matters more than the dev metric shows: dev weights P04 and P10 equally, while on the sealed set (if the
+old cohort text holds) P04 has 3 of about 46 returning sessions. Weighted like that, the head-only variant is worth
+about +0.3 sealed points and the 200-step variant about 0. This is also the simplest account of why v4.1 transferred
+at 0.46×. Unknown: how the eight single-session people respond.
+
+**Diagnostics on the member mix** (exploratory; `runs/ttt/calib_extra.log`, `runs/ttt/logpool.log`):
+- Members differ widely in calibration: core1 and the Hilbert core are over-confident by a factor of 3–4 in
+  temperature (mean confidence 0.89 at 66 % accuracy), plain nets by 3, SessionBN nets and the teacher are calibrated.
+  The arithmetic mix is under-confident (temperature 0.54).
+- The 12-member mix is only 0.6 points more accurate than core1 alone before the session stages (66.7 % against
+  66.1 %). A log-linear pool of calibrated members with weights fitted on the other half of the people reaches +0.3 to
+  +1.2 at the mix level and **−1 to −2 J in the chain**, at every confidence scale tried.
+- Temperature-calibrating the extra cores before adding them halves their damage (CFC −0.36 instead of −0.60) but does
+  not change the sign. "Extra members hurt" is not an artefact of over-confidence.
+- The chain reacts to the mix's confidence scale asymmetrically: exponent 0.9 gives +0.2 J, 1.1 gives −0.4, 1.5 −1.0.
+- Every re-weighting of member families tried for seen sessions loses (cores ×2 to ×5, nets ×0.25 to ×0.5, teacher
+  ×0.5 or ×2: −0.0 to −2.9 seen).
+- **Reading:** the members share their errors (the best label-free combination is about +1 at mix level), and the
+  session stages depend on the shape of this particular mix. Changing the combination is closed, again.
+- A personal head on the ocular and slow-potential features (48 dimensions) decodes P10's later sessions at 72 %
+  alone, but lowers the chain as a final stage (−1.5 to −7 seen). Closed.
