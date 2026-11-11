@@ -528,3 +528,41 @@ amended τ on all six bases. Predicted: τ ≈ 0.27 (0.25–0.31); dev dJ +0.45 
   for the class-fingerprint gate. If sealed returning people gain from a personal head as P04 and P10 do on average,
   that is the larger effect; if they behave like P10 alone, it is small.
 - The one false accept (P10's first session against P03) is a real person-pair resemblance, not a threshold artefact.
+
+## 15. PERS: who gains from a personal head? A within-session proxy for all ten people (written 11 Nov ~13:20 UTC, before any result; code `experiments/pers_proxy.py`)
+
+**Why.** Routing v4's sealed value depends on how the eight single-session public people respond to a personal head,
+and they have no later public session to test on. Dev knows only P04 (about +2) and P10 (about +0.3).
+
+**Proxy.** For each person, split their first session: runs 1–3 are treated as the "public session", runs 4–6 as a
+"later session" (own causal stream). core1 is refitted on everyone else plus the person's runs 1–3; a personal head
+(PCA 256, per-stream standardisation, logistic regression C 0.1, as PS1) is fitted on runs 1–3 only; the mix puts the
+head at 3× core1. For P04 and P10 the real cross-session version (session 1 → sessions 2–3) calibrates the proxy.
+Core level only (no session stages), so absolute sizes are not chain sizes; the question is the spread across people.
+
+| Quantity | Prediction (80 % range) |
+|---|---|
+| Proxy gain of the mix over core1, mean of 10 people | +4 BA points (0 to +8) |
+| People with a gain ≥ half of P04's | 5 of 10 (3–8) |
+| Spearman between a person's gain and their core1 weakness (100 − BA) | +0.4 (0 to +0.8) |
+| P04 and P10, real cross-session gain as a share of their proxy gain | 60 % (30–100): the proxy has no between-session shift |
+
+No gate: this sizes the bet on v4; it does not change the package.
+
+| Item | Observed | Verdict |
+|---|---|---|
+| Per-person proxy gains | | |
+| Calibration on P04 / P10 | | |
+
+## 16. SIM: does spectral similarity pick a useful person model for NEW people? (exploratory diagnostic, 11 Nov ~13:15 UTC; not pre-registered; log `evidence/wsp_bio1_11nov/simdiag.log`)
+
+For each new-person session (14, leave-one-person-out), the identity score against each of the nine other people was
+compared with how well that person's personal head decodes the session.
+
+- Rank correlation between similarity and head accuracy: +0.21 at window 20, +0.27 at the session end, from −0.57 to +0.83.
+- Balanced accuracy: head of the most similar person 47.1; mean head 44.1; best head (oracle) 53.3; similarity-weighted
+  heads 51.5; uniform mixture of the nine heads 57.6; pooled core1 66.2.
+
+**Reading.** Similarity is weakly informative, but weighting by it loses to a plain average, which loses to the pooled
+model. Spectral resemblance to a public person does not say whose class directions a new person shares. Similarity
+routing for new people is closed in this form.
