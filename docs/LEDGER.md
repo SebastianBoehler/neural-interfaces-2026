@@ -345,3 +345,35 @@ families; OWN = PS1 × (T·C·S)^(0.5/3) in the personal head's slot (the §37 f
 
 | Item | Observed | Verdict |
 |---|---|---|
+
+## 41. PSEL: per-person choice of the personal model's space, tested on ten people (written 11 Nov 23:35 UTC, before any result; code `studies/12nov/psel.py`)
+
+**Why.** The user (11 Nov, late): push on "the ceilings were ours, not the data's". The place where labels exist is
+the returning branch, and it has only ever used the population PCs. §36/§37: P04's information is outside that
+space (own-space members help P04 by +2 to +5 and hurt P10 by up to −3 as a final stage), P10's is inside it. If the
+right space can be read off a person's public session, each returning person gets the model that suits them. Dev
+"seen" has two people; this test uses ten.
+
+**Test (a proxy with stated limits).** For each of the ten people, session 1 is split: runs 1–3 play the public
+session (labels used), runs 4–6 the later session. The chain is the leave-one-person-out v3 chain's output on runs
+4–6 (replay rows; the population has never seen the person, and there is no session change). Personal members are
+fitted on runs 1–3 only and streamed causally over runs 4–6: P = logistic head on the population PCs (the PS1
+recipe), and T, C, S of §37. Final stage: out ∝ chain × (geometric mean of the members)^β, β ∈ {0.25, 0.5}.
+**Gate statistic, from runs 1–3 only:** leave-one-run-out accuracy of T·C·S minus that of P. Rule fixed now:
+gap ≥ +5 → own-space stage (T·C·S); gap ≤ −5 → population-space stage (P); otherwise both (P·T·C·S).
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| P stage for everyone, mean gain on runs 4–6 (better β) | +2.0 (0 to +4) | — |
+| T·C·S stage for everyone | +3.0 (0 to +6) | — |
+| P·T·C·S stage for everyone | +4.0 (+1 to +7) | — |
+| Selected by the gate, minus the better of the three uniform stages | +0.5 (−1 to +2) | ≤ −1: choosing per person is worse than one recipe for all |
+| Spearman, over ten people, between the gate gap and (gain of T·C·S − gain of P) | +0.5 (+0.1 to +0.8) | ≤ 0: the public session does not say which space suits the person |
+| People for whom the best uniform stage lowers the chain by more than 1 | 2 (0–4) | — |
+
+Reading: if own-space stages add ≥ +3 on the ten-person mean and no rule protects the people they hurt, the returning
+package uses P·T·C·S with a small β; if the gate separates, it uses the gate. The cross-session size stays unknown
+for eight people (P04 keeps 88 %, P10 84 % of the within-session level, §37).
+
+| Item | Observed | Verdict |
+|---|---|---|
