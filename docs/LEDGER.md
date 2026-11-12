@@ -165,3 +165,25 @@ None on 12 Nov 06:05 UTC.
 | Item | Observed | Verdict |
 |---|---|---|
 -->
+
+## 66. WEIGHTS: is the chain tuned for the wrong population? (written 12 Nov 09:13 UTC by `date -u`, before any result; code `replay/grid.py`, `studies/12nov/weights.py`)
+
+**Why.** The user (12 Nov, morning): we are now 10th; what is the limit we put on ourselves? One candidate from the
+review (§63): dev J gives P04 about 30 % of the weight (half of "seen", a tenth of "new"), while P04 is 3 of about
+106 sealed sessions. Every stage constant and member weight was chosen on J. If P04 pulled those choices, the chain
+is tuned for a participant who barely counts.
+
+**Test.** The retune grid of 6 Nov (rebalancing α × SessionEM λ × core-slot weight × teacher weight × TSEM λ, 243
+settings; plain chain, B2_pool) scored per person, then read under two objectives: J (0.5 new + 0.5 mean of P04 and
+P10) and a sealed-like S = 0.566 × new (ten people equal) + 0.434 × (0.87 × P10 + 0.13 × P04). Nested check: the
+setting chosen under S on people half G1 (plus P10 as seen) is scored on half G2, and the reverse.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| The S-optimal setting differs from the shipped one | yes (60 %) | — |
+| In-sample gain of the S-optimal setting over the shipped one, measured in S | +0.3 (+0.1 to +0.7) | — |
+| Nested gain in S (mean of the two halves' new people, plus P10) | +0.1 (−0.2 to +0.4) | ≤ 0: the shipped constants are not P04's |
+| P(nested ≥ +0.3) | 15 % | — |
+
+| Item | Observed | Verdict |
+|---|---|---|
