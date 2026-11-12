@@ -305,3 +305,15 @@ other nine people, used as a second TSEM view after the first and as extra colum
 |---|---|---|
 | §68 chain A (cores) / chain B (nets) alone, new | 74.1 / 77.6 (teacher in both); 74.1 / 77.0; 72.5 / 77.6 | A below its range, B a hit |
 | §68 fused, against the single chain (B2_pool / B2_s345) | best arm (average, teacher with the cores) −0.69 [−0.97, −0.38] / −0.71; products −0.9 to −6.3; 0 to 3 of 10 people ≥ 0 | **Refuted as a lever** (predicted −0.3): pooling all members before the stages beats two chains fused after them |
+
+### 72. NETVIEW: the session stage through the nets' own features (written 12 Nov 09:40 UTC, before any result; code `studies/12nov/netemb.py` on Galvani, scored with `studies/12nov/fmview.py`)
+
+The session stage has only ever looked through core1's 128 components and the gaze view; the nets enter as posteriors.
+The classifier inputs of the four shipped SessionBN recipes are captured per leave-one-person-out fold (the net never
+saw the held-out person), reduced to 64 components on training sessions, and used as a second TSEM view.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Second TSEM through a net's feature view, best of the four recipes, new | +0.2 (−0.5 to +1.0) |
+| Lever | ≥ +0.5 on new with the interval above 0 on both seeds |
+
