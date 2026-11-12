@@ -1078,3 +1078,11 @@ labels.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| 57b BUNDLE, every (κ, slot gain) with the stage, minus the stage alone (B2_pool; B2_s345) | κ 0 / gain 4.5: −0.66; −0.39. κ 10 / 3: −0.13; −0.26. κ 10 / 4.5: −0.67; −0.39. κ 20 / 3: −0.92; −1.05. κ 20 / 4.5: −0.66; −0.65 | **Refuted** (≤ +0.2; every bundle is below the stage alone). The stage and the template prior carry overlapping information; the stage alone stays |
+| 57c POPSTAGE, population T·C·S alone on held-out people | 60.9 % window accuracy | Above the range (predicted 55, 48–62 at its edge) |
+| 57c POPSTAGE as a final stage for new people, β 0.05 / 0.10 / 0.25 | −0.61, −1.50, −3.19 / −0.52, −1.20, −3.31; 2–3 of 10 people ≥ 0 | **Hit** on the prediction (0.0, −0.5 to +0.4, at its lower edge) and **the reopening is refuted**: population members hurt as a final stage too |
+
+**Reading (12 Nov 01:55 UTC; logs `runs/bundle_12nov.log`, `runs/popstage_12nov.log`).** The own-space stage works
+because of the person's own labels, not because of where it sits in the chain: the same three members fitted on
+other people are a decent decoder alone (61 %) and still lower the chain at any weight. And the stage does not
+stack with the two small returning-person levers of 11 Nov. v5 stays "v4.1 plus the stage, nothing else".

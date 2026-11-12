@@ -10,14 +10,14 @@ assert d1 < 1e-4, "the refit does not reproduce the stored core1; no result is r
 CUR = [None]
 
 
-def members(bn, p):
+def core_members(bn, p):  # not "members": the v5_replay head already defines members(proto, s, q)
     mem = _members(bn, p)  # the Hilbert slot is derived from the original core1 inside
     if p == "seen_session" and CUR[0] is not None:
         mem = dict(mem); mem["c1"] = CUR[0]
     return mem
 
 
-A.members = members
+A.members = core_members
 for bn in ("B2_pool", "B2_s345"):
     CUR[0] = None; REC.clear(); base, _ = ns["system4"](bn, "max", 10); bst, _ = staged(base); r0 = SC.compare(bst, base)
     print(f"{bn}: stage alone seen {r0['seen']:+.2f} (P04 {r0['ds'][0]:+.2f}, P10 {r0['ds'][1]:+.2f})", flush=True)
