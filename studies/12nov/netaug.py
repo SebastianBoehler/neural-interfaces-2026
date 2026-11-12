@@ -1,6 +1,6 @@
 """NETAUG (ledger s51): SessionBN member families trained with chunk-wise "virtual person" augmentation.
 One random rotation and / or frequency-scaling factor per chunk of `group` same-session windows.
-Usage (Galvani): python netaug.py TASK   (0-47: arch, arm, seed; 100-111: in-harness twins) | python netaug.py smoke
+Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins; 120-131: cmix4; 200-211: people curve) | python netaug.py smoke
 """
 import sys, time
 from pathlib import Path
@@ -19,6 +19,9 @@ ARMS = {"crot05": dict(crot=0.05, pw=False), "crot10": dict(crot=0.10, pw=False)
 TASKS = [(a, r, s) for s in range(3) for a in ARCHS for r in ARMS]
 ARMS["twin"] = dict(pw=True)  # the shipped recipe through the same class: the control (audit, ledger s52)
 TWINS = [(a, "twin", s) for s in range(3) for a in ARCHS]  # tasks 100..111
+ARMS["cmix4"] = dict(cmix=0.4, pw=True)  # same-class mixing across the batch, never applied to SessionBN nets (ledger s56)
+CMIX = [(a, "cmix4", s) for s in range(3) for a in ARCHS]  # tasks 120..131
+PCURVE = [(a, k, dr) for a in ("fb", "fbl") for k in (3, 5, 7) for dr in (0, 1)]  # tasks 200..211: people curve, seed 0
 
 
 class VNet(SB.SessionNet):
@@ -38,6 +41,8 @@ class VNet(SB.SessionNet):
                 if vp.get("crot"):  # one rotation per chunk: a virtual person
                     A = vp["crot"] * torch.randn(G, C, C, generator=gen); Q = torch.linalg.matrix_exp(A - A.transpose(1, 2)).to(xb.device)
                     xb = (Q.repeat_interleave(m, 0)[:len(xb)] @ xb)
+                if vp.get("cmix"):
+                    xb = dg.class_mix(xb, yb, gen, vp["cmix"])
                 if vp.get("cfsc"):
                     xb = torch.cat([dg.freq_scale(xb[c * m:(c + 1) * m], gen, vp["cfsc"]) for c in range(G)])
                 opt.zero_grad(); loss = loss_fn(self.net(xb)[:, :3], yb); loss.backward(); opt.step(); sched.step()
@@ -62,6 +67,22 @@ def run(arch, arm, d, proto, seed, out, epochs=0):
     np.savez(f, proba=P, index=idx); print(f"TOTAL {f.name} n={len(idx)} acc={np.mean(P.argmax(1) == d['y'][idx]):.4f} {time.time() - t0:.0f}s", flush=True)
 
 
+def run_pc(arch, k, draw, d, out):
+    """People curve: every held-out person, trained on k random other people (shipped recipe, seed 0)."""
+    cfg, kk = ARCHS[arch]; f = out / f"pc_{arch}_k{k}_d{draw}-all_loso-s0.npz"
+    if f.exists():
+        return print("exists", f.name, flush=True)
+    per = np.array([s[-3:] for s in d["subject"]]); people = sorted(set(per)); idx, P, t0 = [], [], time.time()
+    for fold, tr, te in protocol.folds(d, "all_loso"):
+        held = per[np.flatnonzero(te)[0]]; rng = np.random.default_rng([people.index(held), k, draw])
+        sub = rng.choice([q for q in people if q != held], k, replace=False)
+        m = SB.make(cfg, d, 0); m.__class__ = VNet; m.vp = ARMS["twin"]; m.fit(np.flatnonzero(tr & np.isin(per, sub))); m.set_k(kk)
+        idx.append(np.flatnonzero(te)); P.append(protocol.predict_streams(m, d, te, proba=True))
+        print(f"pc {arch} k{k} d{draw} {fold} {time.time() - t0:.0f}s", flush=True)
+    idx, P = np.concatenate(idx), np.concatenate(P); o = np.argsort(idx); idx, P = idx[o], P[o]
+    np.savez(f, proba=P, index=idx); print(f"TOTAL {f.name} acc={np.mean(P.argmax(1) == d['y'][idx]):.4f} {time.time() - t0:.0f}s", flush=True)
+
+
 def main():
     d = protocol.load()
     if sys.argv[1] == "smoke":
@@ -69,7 +90,10 @@ def main():
         for arch in ARCHS:
             run(arch, "combo", d, "seen_session", 0, out, epochs=1); print("SMOKE PASS", arch, flush=True)
         return
-    t = int(sys.argv[1]); arch, arm, seed = TWINS[t - 100] if t >= 100 else TASKS[t]; OUT.mkdir(parents=True, exist_ok=True)
+    t = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True)
+    if t >= 200:
+        return run_pc(*PCURVE[t - 200], d, OUT)
+    arch, arm, seed = CMIX[t - 120] if t >= 120 else TWINS[t - 100] if t >= 100 else TASKS[t]
     for proto in ("all_loso", "seen_session"):
         run(arch, arm, d, proto, seed, OUT)
 
