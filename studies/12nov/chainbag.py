@@ -26,6 +26,13 @@ for name, parts, ref in (("(a) s0 + s1 + s2", ("B2_s0", "B2_s1", "B2_s2"), "B2_s
 lik0, reb0 = L.G.tsem_lik, L.rebal; RHO, WIN = [0.7], [30]
 L.G.tsem_lik = lambda P, sess, X, rho=0.7, **kw: lik0(P, sess, X, rho=RHO[0], **kw)
 L.rebal = lambda P, sess, alpha=1.15, k=5.0, W=30, **kw: reb0(P, sess, alpha=alpha, k=k, W=WIN[0], **kw)
+if "fresh" in sys.argv:  # s61b: the rebalancing-window bag on the fresh bases, new people
+    for bn in env.FRESH:
+        outs = []
+        for w in (25, 30, 35):
+            WIN[0] = w; outs.append(A.system(bn, A.FAMS)["out"])
+        r = SC.compare(amean(outs), outs[1]); print(f"FRESH {bn}: new {r['new']:+.2f} seen {r['seen']:+.2f} new>=0 {r['npos']}/10 | " + " ".join(f"{q[1:]}:{v:+.1f}" for q, v in zip(SC.PEOPLE, r["dn"])), flush=True)
+    WIN[0] = 30; L.G.tsem_lik, L.rebal = lik0, reb0; sys.exit(0)
 for bn in env.EXPL:
     outs = {}
     for rho in (0.6, 0.7, 0.8):

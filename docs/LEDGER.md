@@ -1357,3 +1357,21 @@ confirmed with a different split of the seeds.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| (a) three single-seed chains bagged (79.63) against the pooled chain (80.14) | **−0.51** (new −0.10, seen −0.92); arithmetic and geometric alike | **Refuted** (≤ 0) |
+| (a) bagged against the mean of its three chains (79.70) | −0.07 | **Refuted** (≤ +0.2): bagging does not even beat its parts |
+| (b) B2_s012 + B2_s345 bagged against B2_pool | −0.07 | **Refuted** |
+| (c) nine stage settings bagged (B2_pool / B2_s345) | −0.27 / −0.16 | **Refuted** |
+| (c) only the three rebalancing windows bagged | dJ +0.10 / −0.02; **new +0.33 / +0.23 with 9 and 8 of 10 people ≥ 0**; seen −0.12 / −0.26 | Not a pre-registered split; see 61b |
+
+**Reading (12 Nov 03:42 UTC; log `runs/chainbag_12nov.log`).** The chains on different seed sets make the same
+errors: averaging three of them is no better than one of them, and worse than pooling the seeds inside one mix. The
+spread of J across seed sets (79.2 to 80.2) is therefore not path noise that averaging removes. Chain bagging is
+closed.
+
+**61b (written 12 Nov 03:42 UTC, before any fresh-base result).** One split looked systematic: bagging the
+rebalancing window (25, 30, 35) gave new people +0.33 / +0.23 with 9 and 8 of 10 people at or above zero. By §59
+(lesson 3) I expect it to vanish. Fresh bases, new-person sessions only: kept if the mean new-person change is ≥ +0.25
+with at least 7 of 10 people ≥ 0 on average; prediction +0.1 (−0.2 to +0.4), P(kept) 20 %.
+
+| Item | Observed | Verdict |
+|---|---|---|
