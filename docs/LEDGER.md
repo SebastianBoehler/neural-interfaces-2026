@@ -1201,3 +1201,15 @@ cancelled to free the lanes.
   stage on the sealed run shows in the logs. Outputs must equal v5.1's; checked by `scripts/check_own_stage.py`
   against v4.1 on all public windows.
 
+| §94 item (17:27 UTC; `runs/ep_swap_12nov.log`; Leonardo, four families replaced, against the twins) | Observed | Verdict |
+|---|---|---|
+| Training × 2, new, six bases | **+0.00 [−0.17, +0.19]**, 3 of 10 ≥ 0; seen −0.32 | **Refuted** (predicted +0.1; lever +0.3) |
+| Training × 0.5, new | −0.60 [−0.94, −0.27]; seen −0.81 | Hit (predicted −0.3) |
+
+The October training length is right; more training does not help the SessionBN nets.
+
+**v5.1b integration check (17:27 UTC; `runs/sealed/cand_v51b_check.json`, local Mac):** equal to v4.1 on every
+unstaged window, members equal to the study class (max difference 6e-14), output difference to the formula 0.0,
+27 labels changed in sample (the same count as the Galvani build of v5.1), staged share 0.95 per routed session; the
+new stderr line prints once per session (14 sessions). **Passed.** §96 personal nets: all 480 files built.
+
