@@ -782,6 +782,19 @@ early boost, no routing.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Core alone, k = 3 / 5 / 7 / 9 | 56.34 / 60.71 / 65.43 / 69.29 (identical to §39) | Reproduced |
+| After rebalancing and SessionEM | 58.25 / 62.22 / 66.80 / 70.01 | — |
+| Core-only chain (+ TSEM) | 58.65 / 62.50 / 67.24 / 70.10 | k = 9: **miss, far below** (predicted 76, range 73–79) |
+| Stages' gain over the core at k = 9 / k = 3 | +0.8 / +2.3 | **Miss** (predicted +7 / +9): on core1 alone the stages add almost nothing |
+| Slope per doubling after the stages | **+7.32** (core +8.13); 7 → 9: +2.85 | **Hit**, upper end (predicted +5, range +3 to +7.5); not refuted |
+
+**Reading (12 Nov 03:35 UTC by `date -u`; Galvani 3090258).**
+- **The people curve survives the stages in this test:** +7.3 per doubling after rebalancing, SessionEM and TSEM,
+  against +8.1 before. More real people would raise the adapted score nearly as much as the raw one.
+- The test is weaker than intended. A chain built on core1 alone gains only +0.8 from the stages (the full chain
+  gains about +10 on the member mix): core1's posteriors are far over-confident (§31), and the stages are tuned for
+  the softer mix. So the slope is measured where the stages do little; the full-chain slope is still not known.
+
 
 ## 49. PEFF: people-efficient estimators and noise for the population model (written 12 Nov 01:10 UTC, before any result; code `studies/12nov/peff.py`)
 
@@ -901,6 +914,17 @@ never tested in this form and costs only queue time.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Twins through the same code, new / seen (3 seeds) | FBCNet 66.04 / 64.12; raw FBCNet 63.42 / 59.34; SincShallow 61.75 / 62.11; FBLight 57.94 / 63.01 | Control |
+| Standalone new, arm minus twin: crot05 / crot10 / cfsc15 / combo | FBCNet −0.30 / −1.45 / +0.60 / −0.31; raw FBCNet −3.14 / −9.20 / +0.01 / −2.57; SincShallow +0.28 / −0.94 / −0.38 / (combo did not finish); FBLight +0.59 / −1.26 / −0.29 / −0.94 | Best arm, mean of families: cfsc15 −0.02, crot05 −0.64: **refuted** (≤ 0 for every arm on the mean; predicted +0.8) |
+| crot05 minus twin, the clean comparison | −0.64 on the mean of families (+0.59 to −3.14) | **Miss, below the range**: one rotation per chunk is not better than one per window, and it hurts the raw-input family |
+| Chain, one family swapped (B2_pool, B2_s345) | all within −0.53 to +0.52; the largest, FBLight combo, is +0.52 / +0.14 | Inside the noise |
+| Chain, all four families swapped, against all twins | crot05 −0.18 / −0.09; crot10 −0.81 / −0.85; cfsc15 −0.19 / −0.12 | **Refuted** (≤ 0 on both bases for every arm) |
+
+**Reading (12 Nov 03:35 UTC; `runs/netaug_score_12nov.log`; Galvani packs 3090340, 3090364–3090368, twins 3090369).**
+Virtual people do not help the SessionBN nets either, alone or in the chain. Chunk-wise rotation is no better than
+the shipped per-window rotation; frequency scaling, never run on these nets before, is neutral alone and slightly
+negative in the chain. With §47 this closes generated variation for both member types in the forms tested.
+
 
 ## 52. Standing rule: soft gates, and reviews that hunt silent no-ops (12 Nov 02:45 UTC)
 
@@ -1118,6 +1142,24 @@ because of the person's own labels, not because of where it sits in the chain: t
 other people are a decent decoder alone (61 %) and still lower the chain at any weight. And the stage does not
 stack with the two small returning-person levers of 11 Nov. v5 stays "v4.1 plus the stage, nothing else".
 
+| Item (56, 57a) | Observed | Verdict |
+|---|---|---|
+| NETPC, SessionBN FBCNet, k = 3 / 5 / 7 / 9 (seed 0) | 52.36 / 60.21 / 63.88 / 65.28: +8.3 per doubling over the range, but 7 → 9 only **+1.40** | Above the predicted slope (+5) on the fit; **flattening at the top** |
+| NETPC, FBLight | 50.13 / 56.18 / 57.70 / 58.50: +5.3 per doubling; 7 → 9 **+0.80** | **Hit** (+5); flattening |
+| cmix4 on the four families, standalone new minus twin | FBCNet −1.44; raw FBCNet −0.38; SincShallow +0.17 (2 seeds); FBLight +0.06 | Prediction +0.5: **miss**, about −0.4 on the mean |
+| cmix4 in the chain, all four swapped | −0.16 / −0.10 (new −0.45 / −0.33) | **Refuted** |
+| swa50, standalone new minus twin | FBCNet −0.03; raw FBCNet −0.26; SincShallow −0.50 (1 seed); FBLight −0.29 | Prediction +0.3: **miss** |
+| swa50 in the chain, all four swapped | −0.58 / −0.57 | **Refuted** |
+
+**Reading (12 Nov 03:35 UTC; `runs/netpc_score_12nov.log`, `runs/netaug_score_12nov.log`).**
+- **The nets flatten where core1 does not.** From seven to nine training people the two net families gain +1.4 and
+  +0.8; core1 gains +3.9. Over the whole range their slopes are similar. So at ten people the linear member is the
+  one still starved of people; the nets have used up most of what nine people offer them. One seed, two families.
+- The three October tricks that had never run on the shipped nets (same-class mixing, frequency scaling, weight
+  averaging) have now run on them, with controls through the same code: none helps alone or in the chain. Those
+  closures now hold for the shipped nets too.
+
+
 ## 58. OCU: an explicit eye-movement branch (lead from the user, 12 Nov; written 12 Nov 01:57 UTC by `date -u`)
 
 **The lead.** The user pointed at the rank-2 account's publications. A search (primary sources read: two ICTC 2025
@@ -1191,3 +1233,18 @@ alone) with a split population: for about half the people they add several point
 by as much, so a fixed fusion (in the template stage or in core1's features) nets out negative. What is not tested
 yet is a fusion that can tell the two kinds of people apart inside a session, which is what an attention-based
 two-branch model does and what the learned branch of step 3 is for.
+
+| Item (step 3, OCUNET) | Observed | Verdict |
+|---|---|---|
+| Alone, new people: single seeds / mean of three seeds | Mixup 49.6, 50.0, 50.2 / 52.48; no Mixup 51.0, 50.6, 50.3 / **53.16** (P02 63, P08 63, P09 64, P03 54; P05 39) | Below the prediction (54; "+3 over view C's 51.1" not met: +2.1); not refuted (> 51) |
+| Mixup against no Mixup | −0.7 | **Miss** (predicted +2): Mixup does not help here |
+| Chain, as a mix member, weight 0.5 / 1 / 2 (B2_pool; B2_s345) | −0.01, −0.79, −1.62; −0.21, −0.61, −1.26 | Negative |
+| Chain, as a final stage, β 0.05 / 0.1 / 0.25 | −0.78, −2.10, −6.89; −0.69, −2.30, −6.46 | Negative |
+| Chain, SessionEM view = shipped 48 + the net's log posteriors (51) | **+0.21 / +0.33** (new +0.02 / +0.02; seen +0.41 / +0.65) | Positive on both bases, below +0.5; not refuted, no pass |
+| Chain, SessionEM view = event rates + net log posteriors (19) | −0.62 / −0.58 | Negative |
+
+**Reading of step 3 (12 Nov 03:35 UTC; Galvani pack 3090384; `runs/ocu_chain_12nov.log`).** A learned branch on the
+eye-movement traces reaches 53 % across people, two points above the hand-built statistics, and Mixup does not help
+it. In the chain it behaves like every other population member: negative in the mix and as a final stage. The one
+form above zero is as three extra features of SessionEM's view (+0.2 / +0.3, all of it on returning sessions), which
+is inside the noise; a fresh-base check is run before it is kept or dropped (§58b).

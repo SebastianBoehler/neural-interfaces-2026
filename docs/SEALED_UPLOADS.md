@@ -360,7 +360,7 @@ three members fitted on j's public sessions in j's own space). Nothing else chan
     class to 1.6e-12; staged output exact; 27 labels changed; the stage ran on 95 % of the public windows);
   - A100 replay 3090347 and worker-image replay 3090348: identical scores (0.9932767697 in-sample, the same as the
     first build), files unchanged; 204.4 s and 103.7 s (different nodes);
-  - paired timing 3090349 (one A100 node, worker image; three of four runs in): cand_v41_bio 118.5 s, cand_v51_own
-    123.7 / 122.0 s: about **1.04×**, so roughly 20 min sealed.
+  - paired timing 3090349 (one A100 node, worker image): cand_v41_bio 118.5 s, cand_v51_own
+    123.7 / 122.0 s, cand_v41_bio again 109.7 s (all four runs in): **1.08×**, so roughly 20 min sealed.
   The candidate is replayed, checked, reviewed and timed. Not staged as a ZIP, not uploaded; an upload needs the user's
   go-ahead and a live phase and quota check.
