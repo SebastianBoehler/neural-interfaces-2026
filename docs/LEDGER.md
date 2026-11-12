@@ -807,3 +807,17 @@ errors are not the chain's own: those windows look like another class in every s
 the cued task). No other view carries independent information about them. Together with §83 this bounds what any
 label-free method can do for new people on these windows.
 
+### 88. AMBIG: are the chain's hard windows hard for the person's own model too? (written 12 Nov 11:21 UTC, before any result; code `studies/12nov/ambig.py`)
+
+§86: the hard windows look like another class in every population view. Two readings: (1) the windows are ambiguous
+in the data (the person was not doing the cued task, or did it the way they do another task): then nothing helps;
+(2) the information is there in the person's own space and only the mapping is missing: then the head-room is real
+and only labelled own data unlocks it. Test: own-space members (T·C·S) trained on the other runs of the same session
+with true labels, run by run, on all 33 new-person sessions; accuracy on the chain's hard third against the rest.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Own model on the chain's hard windows | 52 (42–62) |
+| Own model on the other windows | 76 (70–82) |
+| Own model right where the chain is wrong (hard windows) | 40 (30–50) |
+
