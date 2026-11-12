@@ -648,3 +648,18 @@ seeds), core1, Hilbert core and teacher from the LOSO outputs, rebalancing, Sess
 | In-population nets against LOSO nets, mini-chain, mean | +2 (0 to +5) |
 | **Validity** | the proxy is informative only if P04's stage gain exceeds P10's, as on the real cross-session sessions (+3.5 / +0.1); otherwise it is recorded as uninformative |
 
+| §82 item (10:50 UTC; `runs/inpop_12nov.log`; B2_pool / B2_s345 / B2_s012) | Observed | Verdict |
+|---|---|---|
+| In-population nets against LOSO nets, mini-chain | +5.1 / +4.5 / +4.8 | Above the prediction (+2) |
+| Stage gain, in-population chain, β 0.10 | **+3.2 [+2.0, +4.4] / +3.8 [+2.4, +5.3] / +3.3 [+2.0, +4.5]** | **Miss, high** (predicted +1.5, 0 to +3) |
+| People ≥ +1 | 6 / 7 / 7 of 10; per person (B2_pool) P01 +8.3, P02 +0.8, P03 +4.2, P04 +6.7, P05 +4.2, P06 +2.5, P07 −0.8, P08 −0.8, P09 +0.8, P10 +5.8 | Hit (5) |
+| Stage gain, β 0.25 | +5.2 / +5.6 / +5.1; P07 −3.3 | — |
+| Validity: P04 above P10 | +6.7 against +5.8 (real cross-session: +3.5 against +0.1) | Passes by the letter, barely |
+
+Reading. Within a session, with the person's first runs already in the population, the personal stage adds +3 to
++4 points for seven of ten people. Across sessions on the real data it kept about half of that for P04 and nothing
+for P10 (whose chain is at 91–92 % once their first session is in training). So the sealed value of v5.1 for the
+eight single-session people lies between "P10-like" (≈ 0) and "half the within-session gain" (≈ +1.5 to +2 for
+their sessions, ≈ +0.6 to +0.8 sealed points if they are 43 % of the board). The proxy cannot narrow this further;
+only the sealed set can.
+
