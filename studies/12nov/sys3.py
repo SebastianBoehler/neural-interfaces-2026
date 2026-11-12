@@ -24,7 +24,8 @@ class Model(torch.nn.Module):
 def episode(X, r, rng):
     """synthetic session: random class-share shift, random subset (order kept), random rotation + shift + scale of the features"""
     w = rng.dirichlet(np.ones(3) * 4)[y[r]]; keep = rng.random(len(r)) < np.clip(0.6 + 0.8 * w, 0.3, 1.0); r = r[keep]
-    x = X[r]; d = x.shape[1]; Q, _ = np.linalg.qr(np.eye(d) + 0.15 * rng.standard_normal((d, d)))
+    x = X[r]; d = x.shape[1]; Q, _ = np.linalg.qr(np.eye(d) + 0.15 / np.sqrt(d) * rng.standard_normal((d, d)))  # 12 Nov fix: 0.15 per entry made Q a random rotation
+    assert np.abs(np.diag(Q)).mean() > 0.8, "the rotation is not small"
     x = (x @ Q) * rng.uniform(0.8, 1.25, d) + 0.3 * rng.standard_normal(d); return x.astype(np.float32), y[r]
 
 

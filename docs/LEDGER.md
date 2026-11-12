@@ -1109,3 +1109,9 @@ checkpoints exist locally). **Change against the Galvani runs, stated before any
 come from the B2_pool v3 replay chain (`studies/12nov/chain_final.npz`, rebuilt locally), not from the Galvani file;
 every TTT comparison is against the frozen and `ple20` nets of the same run, so the rules are unchanged.
 
+**§98 bug, found before any S3 result was scored (12 Nov):** the "small rotation" of the synthetic sessions used noise
+of 0.15 per entry on a 737 × 737 matrix, which makes Q a random rotation (mean |diagonal| 0.16): every episode
+scrambled the feature identities, the model could not learn, and the five local folds that ran sat at chance (25–47 %
+window accuracy, loss ≈ ln 3). Fixed to 0.15/√d (mean |diagonal| 0.99) with an assertion that fails loudly if the
+rotation is not small. The broken outputs were deleted; S3 restarts from scratch (Leonardo, seeds 0–2).
+
