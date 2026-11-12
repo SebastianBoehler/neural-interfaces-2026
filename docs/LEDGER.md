@@ -1377,6 +1377,21 @@ Part B (pre-registered separately, before it runs, if needed): fewer refits or s
 outputs and need new Leonardo runs of `ttt5.py` variants. Part B runs only if the A100 cost of the passing Part A form
 does not fit the budget.
 
+| §106 item (22:16 UTC; `runs/v53_reduce_score.log`; mean over seed choices, six bases) | Observed | Verdict |
+|---|---|---|
+| fixA / fixS / fixLR all6 | +0.36 / +0.37 / +0.36 | equals §101 (code check passed) |
+| fixA delta1 | **+0.26** (bases +0.12 to +0.38, 6 of 6 positive; single seed choices −0.09 to +0.63) | Hit (+0.22, 0 to +0.40); **passes the rule** |
+| fixA delta2 | +0.34 (+0.23 to +0.53, 6 of 6) | Hit (+0.28) |
+| fixA one6 | +0.15 (−0.05 to +0.31, 5 of 6) | Miss, high (+0.06, up to +0.15) |
+| fixS delta1 / delta2 / one6 | +0.26 (6 of 6) / +0.20 / +0.12 | — |
+| fixLR delta1 / delta2 / one6 | +0.25 (6 of 6) / +0.28 / +0.10 | — |
+
+Reading: one fine-tuning per family, with its change added to all six seeds of that family, keeps about 70 % of the gain
+(+0.26 of +0.36). Two per family keep about 95 % with fixA, though not with fixS. The cheapest form passing the rule is
+delta1: four fine-tunings per refit instead of 30. Which seed is chosen matters (single choices range from −0.1 to
++0.6 per base), so a package would average over that choice, which delta2 does. Seen people lose 0.4 to 1.8 in every
+form, so the gate stays.
+
 ### 107. FTCOST: can the full §101 recipe be made cheap? (written 12 Nov by 21:54 UTC [corrected from the commit time; it read 22:55 UTC], before the run; code `studies/13nov/ft_bench2.py`, Leonardo A100)
 
 User rule (relayed 12 Nov): research only until about 14 Nov 02:00 UTC, no package. Upload 5 used 21.5 of 60 min, so
