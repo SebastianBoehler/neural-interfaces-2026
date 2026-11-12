@@ -1016,6 +1016,17 @@ its change is exactly 0). Four fresh bases.
 Pass → a v5 variant with the larger TSEM view for the unrouted tail is specified (new +0.45 is dJ +0.22, about +0.15
 sealed, with a runtime cost to be measured).
 
+| Item (54b) | Observed (B2_s012 / B2_s0 / B2_s1 / B2_s2) | Verdict |
+|---|---|---|
+| New people, 1,024 components for new-person sessions | +0.08 / +0.31 / −0.49 / +0.41, **mean +0.08**; 3 of 4 bases > 0 | **Refuted** (mean < +0.3; predicted +0.45, range +0.1 to +0.8: below it) |
+| People ≥ 0 | 6 / 7 / 4 / 6 of 10 | Below the prediction (7) |
+| Halves, mean | G1 +0.07, G2 +0.09 | — |
+| Seen | +0.00 / +0.14 / +0.26 / +0.00 (the seen sessions' own view is unchanged; the small changes come through the gallery statistics taken from the new-person outputs) | — |
+
+**Reading (12 Nov 02:05 UTC; log `runs/tsemk_split_12nov.log`).** The +0.6 for new people on the two exploration
+bases does not hold on fresh ones (+0.08). It was a pick from fifteen settings split after the fact, and the fresh
+bases say so. TSEM keeps its 128 components. Closed.
+
 ## 55. SEQCAL: the cue-order prior with a learned fusion (written 12 Nov 03:20 UTC, before any result; code `studies/12nov/seqcal.py`)
 
 **Why.** §9 closed the Graz cue-order prior at ≤ +0.4 J with one temperature and one weight; §52 re-read: a fusion
