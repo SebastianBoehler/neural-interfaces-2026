@@ -1158,5 +1158,17 @@ three seeds. Scored alone, then in the chain three ways: as a mix member, as a f
 | Best chain integration, dJ | +0.3 (−0.3 to +1.0) | ≤ 0 on both exploration bases in all three forms |
 | P(≥ +0.5 dJ on both bases) | 20 % | — |
 
+| Step 2, EMVIEW: extended SessionEM views (B2_pool / B2_s345) | shipped + pair + velocity: −1.57 / −1.33; shipped + velocity: −1.35 / −0.98; shipped + pair: −1.14 / −0.83; pair + velocity + shipped event rates: −2.67 / −2.77 | **Refuted** (≤ 0 on both bases for every view; predicted +0.2). The template stage does not take a larger view at its shipped settings |
+
+**Step 2b, COREFUSE (written 12 Nov 02:02 UTC, before any result; `studies/12nov/corefuse.py`).** Feature-level fusion,
+the form the leaders' lab publishes: the 104 eye-movement features of view C join core1's 44k features as one block
+(training sessions z-scored per session, test sessions causally), weighted g ∈ {3, 10, 30} against the scaled core
+features. Leave one person out, core alone, reference 69.29.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Best g minus the reference | +0.5 (−0.3 to +1.5) | ≤ +0.3 at every g |
+| P(≥ +1.5, then into the chain) | 15 % | — |
+
 | Item | Observed | Verdict |
 |---|---|---|
