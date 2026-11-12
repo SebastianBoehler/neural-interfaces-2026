@@ -1414,7 +1414,7 @@ routing, six bases; new people.
 
 ### 108. TTT6 (exploit track): arms that may raise the gain of the §101 fine-tuning (written 12 Nov by 21:59 UTC [corrected from the commit time; it read 23:20 UTC], before any job ran; code `studies/13nov/ttt6.py`, Leonardo, 24 tasks)
 
-(Numbering note: the explore track's RUNTYPE was also written as §106; "§106" alone means V53 here.) User, 12 Nov: spend the
+User, 12 Nov: spend the
 free sealed runtime (about 38 of 60 min) on gain, not only on cost. Same nets, folds, augmentation and chain labels as
 ttt5, four SessionBN families, seeds 0–5. Each arm is scored in the chain (new people, six bases) against the same
 run's frozen nets; `fixA` is the in-run reference.
