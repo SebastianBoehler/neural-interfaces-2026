@@ -740,6 +740,7 @@ different distribution.
 | Reference on Galvani (no copies; 3090208) | 69.29, per person identical to the local run | Machines agree |
 | mix, λmax 0.5 / 1.0 (3090254, 3090255) | 68.73 / 67.86: **−0.56 / −1.43** | **Refuted** (predicted +0.3; ≤ +0.3 at both) |
 | rot, ε 0.1 / 0.2 (local, §46b) | 69.25 / 69.15: −0.04 / −0.14; ε 0.4 still running | No effect so far |
+| gmix, γ 1.5 (3090257) | 67.48: **−1.81**; γ 1.0 still running | Negative |
 
 ## 48. CHAINSLOPE: does the people curve survive the session stages? (written 12 Nov 00:58 UTC, before any result; code `studies/12nov/chainslope.py`)
 
@@ -981,6 +982,17 @@ exploration bases.
 |---|---|---|
 | dJ with the true run structure | +0.3 (0 to +0.8) | < +0.5: stays closed, now with a learned fusion |
 | Graz window accuracy | +1.0 (0 to +2.5) | — |
+
+| Item | Observed (B2_pool / B2_s345) | Verdict |
+|---|---|---|
+| dJ with the true run structure, learned fusion | **−0.67 / −0.74** (new +0.23 / −0.17; seen −1.56 / −1.30) | **Refuted** (< +0.5; below the predicted range 0 to +0.8) |
+| Graz window accuracy, new people | 76.49 → 77.31 / 76.49 → 76.49 (the prior alone: 56.2) | Hit at the low end (predicted +1.0, range 0 to +2.5) |
+
+**Reading (12 Nov 03:40 UTC; log `runs/seqcal_12nov.log`).** A fusion that learns its own calibration does no better
+than §9's single temperature: at most +0.8 on Graz windows for new people, nothing in cell balanced accuracy, and a
+loss on returning sessions (a fusion fitted on new-person outputs does not suit the sharper returning-person
+outputs). The cue-order prior is real (56 % alone) and still worth nothing after the session stages. Closed for a
+second, independent form of fusion.
 
 ## 56. NETPC and cmix on the shipped nets (written 12 Nov 03:20 UTC, before any result; code `studies/12nov/netaug.py`, tasks 120–131 and 200–211)
 
