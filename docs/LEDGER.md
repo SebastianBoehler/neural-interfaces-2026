@@ -453,3 +453,19 @@ Lesson recorded for every view result above: B2_pool and B2_s345 sit high for st
 (only the SessionBN slots differ) halve or erase the effect. **NETVIEW2 (§73) is therefore reported on all six bases
 (changed in the script before any fresh result was scored); B2_pool stays the pre-registered primary.**
 
+**§73 on six bases, before the fresh seeds (`runs/netview2_fb01_six.log`, `runs/viewnull_six.log`; new people, λ 0.15).**
+
+| Base (routed chain) | net view, choosing seeds 0–1 | random 64 directions, mean of 5 | TSEM λ 0.20 |
+|---|---|---|---|
+| B2_pool (80.18) | +0.55 | +0.14 | +0.64 |
+| B2_s345 (80.10) | +0.49 | +0.20 | +0.30 |
+| B2_s012 (80.31) | +0.15 | −0.11 | +0.03 |
+| B2_s0 (79.57) | +0.40 | +0.07 | −0.04 |
+| B2_s1 (80.52) | −0.17 | −0.40 | −0.05 |
+| B2_s2 (80.55) | −0.11 | −0.33 | +0.03 |
+| **Mean** | **+0.22** | **−0.07** | +0.15 |
+
+Over six bases the net view is +0.29 above the random null, but its absolute gain is +0.22, and it is ≤ 0 on the two
+strongest bases. The bases that gain are the weaker ones: a second view partly repairs what a stronger set of
+SessionBN seeds already gets right.
+
