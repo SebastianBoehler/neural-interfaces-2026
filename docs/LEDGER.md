@@ -1082,3 +1082,16 @@ code is written, before its first job.
 | Product with the chain (exponent 0.5), new, six bases | +0.2 (−0.6 to +1.0) |
 | **Reading** | S3 ≥ S2-with-stage + 2 → learning the adaptation beats hand rules; S3 ≥ 78 → a system worth developing |
 
+| §97 item (13:39 UTC; `runs/sys2_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| S2 alone, new | **60.5** (P04 40.7, P05 46.0, P10 50.3; best P02 74.2) | **Miss, below the range** (predicted 68, 63–72; core1 69.3) |
+| + rebalancing; + TSEM in its own embedding | 61.6; 62.2 (λ 0.15) | Miss (predicted 75) |
+| Product with the chain, six bases | −2.5 to −6.0, 0–2 of 10 people ≥ 0 | Refuted |
+
+Reading: a from-scratch multi-view network on 2,400 training windows is 9 points below core1 (a linear model on
+44,239 tangent features of 17 overlapping bands, full and half windows) and its own session stage adds only +1.7
+(the chain's stages add +10 to core1-level members). Two things the chain has that S2 lacks: the feature richness of
+core1 (compressing to 256 components loses most of it, as §54 found at 512) and members whose errors the stages can
+average. A smaller network does not substitute for either. S3 runs on S2's inputs, so it measures one thing only:
+whether a learned adaptation beats S2's hand stage (62.2) on the same inputs.
+
