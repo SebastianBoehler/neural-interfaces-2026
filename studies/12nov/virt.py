@@ -1,4 +1,4 @@
-"""SYNTH (ledger s47): core1 with virtual copies of every training session. MODE=none|rot|cap|mix PARAM=<float> [COPIES=2]
+"""SYNTH (ledger s47): core1 with virtual copies of every training session. MODE=none|rot|cap|mix|gmix PARAM=<float> [COPIES=2]
 Usage: MODE=cap PARAM=6 python studies/12nov/virt.py"""
 import os, sys, time, warnings
 import numpy as np
@@ -51,11 +51,15 @@ def ba(r, pred):
 def fold(p):
     idx = np.flatnonzero(per != p); Xtr, ytr = [F32[idx]], [y[idx]]; rng = np.random.default_rng(abs(hash((p, MODE, PARAM))) % 2 ** 32)
     if MODE != "none":
-        mu = {(q, k): F32[(per == q) & (y == k)].mean(0) for q in PEOPLE if q != p for k in range(3)} if MODE == "mix" else None
+        mu = {(q, k): F32[(per == q) & (y == k)].mean(0) for q in PEOPLE if q != p for k in range(3)} if MODE in ("mix", "gmix") else None
         for s in sorted(set(sid[idx])):
             r = np.flatnonzero(sid == s)
             for _ in range(COPIES):
-                if MODE == "mix":
+                if MODE == "gmix":  # a random member of the between-person family: all three class deviations share the weights
+                    a = per[r[0]]; others = [q for q in PEOPLE if q != p]; w = rng.standard_normal(len(others)) * PARAM / np.sqrt(len(others) - 1); x = F32[r].copy()
+                    for k in range(3):
+                        g = np.mean([mu[(q, k)] for q in others], 0); x[y[r] == k] += sum(wi * (mu[(q, k)] - g) for wi, q in zip(w, others)) - (mu[(a, k)] - g)
+                elif MODE == "mix":
                     a = per[r[0]]; b = rng.choice([q for q in PEOPLE if q not in (p, a)]); lam = rng.uniform(0, PARAM); x = F32[r].copy()
                     for k in range(3):
                         x[y[r] == k] += lam * (mu[(b, k)] - mu[(a, k)])

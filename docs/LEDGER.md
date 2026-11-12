@@ -673,5 +673,12 @@ Rule: a generator at ≥ +1.5 is rerun with four copies and then carried into th
 does not stand in for people, and a learned generator would need a corpus of many people in this montage (the
 87-person Dreyer 2023 set covers 27 of our 41 channels, motor imagery only).
 
+**Addendum, 12 Nov 00:52 UTC, before any §47 result: a fourth generator, gmix.** "mix" only moves a person's class
+means toward another real person's. gmix draws a new person from the between-person family: the three class means of
+the copy are the grand class means plus Σ_j w_j (μ_j,k − grand_k) over the training people j, with the same random
+weights w_j ~ N(0, γ²/(n−1)) for all three classes (γ 1 matches the observed spread between people); the session's
+own windows keep their within-class scatter. γ 1.0 / 1.5. Prediction: best γ +0.5 (−1.0 to +2.0) over the reference;
+refuted if ≤ +0.3 at both. It counts toward "any generator ≥ +1.5" (now 30 %).
+
 | Item | Observed | Verdict |
 |---|---|---|
