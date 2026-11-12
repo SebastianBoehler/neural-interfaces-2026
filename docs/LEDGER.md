@@ -213,3 +213,24 @@ My prior: per interface matches 10 %; "merged before" is consistent 35 %; neithe
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Per session × interface (B2_pool / B2_s345): SessionEM level, TSEM level, TSEM step | −0.45 / −0.68; −1.13 / −1.41; −0.69 / −0.73. Sealed after the fix: −0.72; −1.17; −0.45 | **Matches by the pre-set rule on both bases** (each level within 0.4, the step within 0.3). Predicted −1.0 / −2.0: hit / hit |
+| Per run | −1.77 / −1.92; −2.97 / −3.11 | Too large by a factor of 2.5: rejected |
+| Merged per person | merging LOWERS the two people (−0.4 to −0.8 dJ), so "merged before, per session now" predicts a rise, not a drop | Rejected (wrong sign) |
+
+**Reading (12 Nov 04:00 UTC; log `runs/segfp_12nov.log`).** A stream cut per session × interface reproduces the sealed
+drop of both packages. Supporting facts: after the fix the organisers' FAQ no longer says windows are strictly
+chronological within a session; the score's cells are session × interface; the public code's stream key is
+`[subject, session]` with "one per recording unless the dataset groups them". Limits: only the stage state was cut
+(the members' own causal state was not, so the true drop under this hypothesis would be larger); two non-independent
+bases; three numbers. Not yet separated from a second explanation with the same flavour: one stream per session
+whose runs come grouped by interface or by BIDS task instead of in acquisition order.
+
+**62b (written 12 Nov 04:00 UTC, before any result; `studies/12nov/segfp2.py`).** Discriminating variants at the
+stage level: (1) reset per session × interface; (2) reset per session × BIDS task (four streams); (3) one stream per
+session, runs grouped Graz then BrainHero; (4) BrainHero then Graz; (5) grouped by BIDS task in alphabetical order.
+Fingerprints: SessionEM level −0.72, TSEM level −1.17, step −0.45. Then, for the variants that match, the routed
+packages: route3geb −1.05 after the fix and v4.1 − route3geb = +0.267 (both sealed), which need the gates re-run on
+the cut or re-ordered streams. My prior: (1) 35 %, (2) 15 %, (3)–(5) together 30 %, none 20 %.
+
+| Item | Observed | Verdict |
+|---|---|---|
