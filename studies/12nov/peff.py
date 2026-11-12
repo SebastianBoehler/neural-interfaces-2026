@@ -59,7 +59,7 @@ def fold(p):
         Xa = np.concatenate([Z] + [Z + sg * rng.standard_normal(Z.shape) for _ in range(2)]); m = lr(Xa, np.tile(yt, 3), 0.1); out[f"E7 noise {sg}"] = sc_(lambda A: m.predict(A))
     Mz = np.stack([[Z[(pp == q) & (yt == k)].mean(0) for k in range(3)] for q in people]); sb = Mz.std(0, ddof=1)  # (3, K)
     for g_ in (1.0, 2.0):
-        Xa = np.concatenate([Z] + [Z + g_ * sb[yt] * rng.standard_normal((1, K)).repeat(len(Z), 0) * 0 + g_ * sb[yt] * rng.standard_normal(Z.shape) for _ in range(2)])
+        Xa = np.concatenate([Z] + [Z + g_ * sb[yt] * rng.standard_normal(Z.shape) for _ in range(2)])
         m = lr(Xa, np.tile(yt, 3), 0.1); out[f"E8 person-jitter {g_}"] = sc_(lambda A: m.predict(A))
     print(f"  {p} done ({time.time() - T0:.0f}s) " + " ".join(f"{v:.0f}" for v in out.values()), flush=True)
     return out
