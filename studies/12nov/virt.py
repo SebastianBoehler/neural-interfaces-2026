@@ -1,4 +1,4 @@
-"""SYNTH (ledger s47): core1 with virtual copies of every training session. MODE=none|rot|cap|mix|gmix|fsc PARAM=<float> [COPIES=2]
+"""SYNTH (ledger s47): core1 with virtual copies of every training session. MODE=none|rot|cap|mix|gmix|fsc|gain|wn PARAM=<float> [COPIES=2]
 Usage: MODE=cap PARAM=6 python studies/12nov/virt.py"""
 import os, sys, time, warnings
 import numpy as np
@@ -49,6 +49,21 @@ def cap_copy(rows, rng):
     return out
 
 
+def gain_copy(rows, rng):  # per-channel gain jitter (contact quality): C -> D C D, D = diag(exp(PARAM * n))
+    D = np.exp(PARAM * rng.standard_normal(41)); out = np.empty((len(rows), F32.shape[1]), np.float32)
+    for b in range(NB):
+        C = fe.C[b][rows] * D[:, None] * D[None, :]; out[:, fe.slices[b]] = FT.whiten_tangent(C, T.expm(T.logm(C).mean(0)))
+    M = fe.M[rows].reshape(len(rows), 41, -1) * D[None, :, None]; M = M.reshape(len(rows), -1); out[:, fe.slices[NB]] = M - M.mean(0)
+    return out
+
+
+def wn_copy(rows, rng):  # added sensor noise (a weaker signal): C -> C + PARAM * mean channel variance * I, per block
+    out = F32[rows].copy()
+    for b in range(NB):
+        C = fe.C[b][rows]; C = C + PARAM * np.trace(C.mean(0)) / 41 * np.eye(41); out[:, fe.slices[b]] = FT.whiten_tangent(C, T.expm(T.logm(C).mean(0)))
+    return out
+
+
 def ba(r, pred):
     return 100 * np.mean([np.mean([np.mean(pred[(itf[r] == i) & (y[r] == c)] == c) for c in range(3)]) for i in np.unique(itf[r])])
 
@@ -71,7 +86,7 @@ def fold(p):
                     for k in range(3):
                         x[y[r] == k] += lam * (mu[(b, k)] - mu[(a, k)])
                 else:
-                    x = (rot_copy if MODE == "rot" else cap_copy)(r, rng)
+                    x = {"rot": rot_copy, "cap": cap_copy, "gain": gain_copy, "wn": wn_copy}[MODE](r, rng)
                 Xtr.append(x); ytr.append(y[r])
     core = make_pipeline(StandardScaler(), LogisticRegression(C=10.0, max_iter=2000)).fit(np.concatenate(Xtr), np.concatenate(ytr))
     pri = [fe.prior(b, idx) for b in range(NB)]; d2p = [q[idx].mean() for q in fe.d2]; a = []

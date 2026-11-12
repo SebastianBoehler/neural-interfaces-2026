@@ -710,6 +710,15 @@ few-subject literature (primary sources read where marked in the session notes) 
   training session with all 17 band edges scaled by 1/(1+p) and (1+p), a person whose rhythms run slower or faster;
   p 0.10 / 0.20. Prediction: best p +0.5 (−1.0 to +2.0); refuted if ≤ +0.3 at both.
 
+**Two more generators at the user's suggestion (shifted or noisy variants of the data we have), 12 Nov 02:05 UTC,
+before any §47 result.** **gain**: per-channel gain jitter, C → D C D with D = diag(exp(σ n)), σ 0.1 / 0.3 (contact
+quality differs between people and sessions; after recentring this is again a rotation, structured by channel).
+**wn**: added sensor noise, C → C + s · (mean channel variance) · I per band, s 0.5 / 2.0 (a person with a weaker
+signal; not a rotation: it flattens the eigen-spectrum). Predictions: gain best σ +0.3 (−1.0 to +1.5); wn best s 0.0
+(−1.5 to +1.0). Time-shifted windows are not rerun: as extra training rows they lost 0.47 nested on 7 Nov
+(REVIEW_5NOV, core training crops), because the cue-locked sub-windows and slow features of a shifted window are a
+different distribution.
+
 | Item | Observed | Verdict |
 |---|---|---|
 
