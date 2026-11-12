@@ -321,3 +321,16 @@ saw the held-out person), reduced to 64 components on training sessions, and use
 | Second TSEM through a net's feature view, best of the four recipes, new | +0.2 (−0.5 to +1.0) |
 | Lever | ≥ +0.5 on new with the interval above 0 on both seeds |
 
+**§71 FMVIEW scored (10:08 UTC; logs `runs/fmview_*.log`; embeddings `studies/12nov/fmemb.py`, Galvani jobs 3091224–3091227, rows checked against the replay).**
+
+| Item | Observed | Verdict |
+|---|---|---|
+| Linear probe on frozen embeddings, leave one person out (middle layer; causal EA / per-window input) | CBraMod 42.0 / 42.9, LaBraM 35.9 / 35.4, REVE 44.2 / 39.9, ST-EEGFormer 38.8 / 37.2; **REVE at random initialisation 42.8** | Hit (45, 38–55), but pretraining adds nothing a random network of the same shape does not give |
+| Second TSEM through an embedding view, new (8 views × 2 bases × 2 strengths) | −0.50 to +0.39; best ST-EEGFormer per-window +0.39 [+0.19, +0.59] on one base and +0.31 on the other; the random-init control −0.07 to −0.20 | **Hit on the prediction (0.0), refuted as a lever**: the best of 32 arms sits at selection-noise level |
+| Embedding components appended to the first TSEM | −0.56 to +0.22 | Refuted |
+| Probe as a final member | −1.4 to −3.9 | Refuted |
+
+Reading: frozen EEG foundation models, as published, carry no more class information on this task than a random
+network of their shape. The information "from thousands of other people" is not in their features in a form that
+separates these three mental tasks.
+
