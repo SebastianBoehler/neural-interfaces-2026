@@ -152,15 +152,15 @@ public sessions in j's own space: FBCSP + LDA, own tangent space + logistic regr
 
 **Measured, not built.**
 - **TTT** (in-session fine-tuning of the nets on the chain's labels): new +0.6 to +0.7 with four families, seen −0.5;
-  runtime-feasible form new +0.4 to +0.65 (11 Nov §24, §31). The dev recipe is not what the shipped TorchScript nets
-  can run; the package form is under test [§60].
+  runtime-feasible form new +0.4 to +0.65 (11 Nov §24, §31). Re-measured on 12 Nov in the form a package can run
+  [§60]: the form works on single nets (+4.8 alone, trace-exposed parameters suffice), but the chain gain for new
+  people is about +0.2 with a person-bootstrap interval of −0.5 to +0.9. **Not built.**
 - **PFT** (nets fine-tuned on a returning person's public session): on top of the stage seen +2.3 against +1.9; P10
   −1.0 [§40, §43]. Needs per-person net exports and a catch-up replay.
 - Small and not built: an eye-movement net's log posteriors in SessionEM's view (+0.28 on six bases) [§58b]; REST4
   (+0.1 to +0.3, 11 Nov §26).
 
-**A possible "v6"** = v5.1 + TTT for sessions not recognised as returning, if §60 passes; estimate +0.1 to +0.2 sealed
-more, with a runtime cost of roughly 20–40 min that must be replayed on A100 and in the worker image.
+**No v6 is planned:** with TTT at about +0.1 sealed for 20–40 extra minutes of runtime, v5.1 is the candidate.
 
 ## 7. Working rules and infrastructure
 
