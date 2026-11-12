@@ -1,0 +1,4 @@
+[pnets] windows 189 routed 179 swapped 179 errors 0
+[pnets] windows 189 routed 179 swapped 179 errors 0
+[pnets] windows 188 routed 178 swapped 178 errors 0
+[pnets] windows 189 routed 179 swapped 179 errors 0

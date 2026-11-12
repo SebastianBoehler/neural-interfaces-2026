@@ -378,3 +378,18 @@ v5.1 rebuilt on the Mac from the stored v4.1 package (Galvani unreachable), code
 the Galvani replays of v5.1, 91.9 s. Not yet done: A100 replay and paired timing (Leonardo unreachable), worker image
 (Galvani only). Upload needs the user's go-ahead and a live phase and quota check.
 
+
+## 12 Nov night: cand_v52_pnets (built and checked locally, not uploaded)
+
+v5.1b plus each public person's fine-tuned SessionBN traces (pfh60, ledger §96, §102). They replace the 30 SessionBN
+members in the routed tail's mix on routed windows and are warmed on the session's buffered inputs. The gate and the
+shadow tail are unchanged. Code `submissions/ensemble_v52/submission.py` (SHA-256 5e59900f…), builder
+`scripts/build_v52.py`, checker `scripts/check_v52.py`, notes `docs/V52_BUILD.md`. Package `runs/sealed/cand_v52_pnets`
+(333 files, weights.npz 0b237577…; ZIP 643365016775…, 85,471,739 bytes). Checks: `check_v52.py` **passed** (equal to
+v5.1b before the first routed window and on the shadow everywhere; 2,515/2,515 routed windows swapped; personal
+posteriors equal the traces on the stream to 5.4e-5; gates-off and person-switch passes passed). Official replay on the
+Mac CPU: 0.9946208557 (in-sample), files unchanged, 117.3 s against v5.1b's 86.4 s in a paired run (1.36×; about 27 min
+sealed at worst). Deviation: the raw-FBCNet and SincShallow personal traces (12 of 30) are fine-tuned from retrained
+twins of the shipped nets (mean |Δp| ≤ 0.011), see `docs/V52_BUILD.md`. Not done: A100 or worker-image replay. Upload only
+if the v5.1b upload meets §63 (v5.1b − v4.1 ≥ +0.4), and only with the user's go-ahead after a live phase and quota
+check.
