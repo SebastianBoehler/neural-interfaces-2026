@@ -620,3 +620,15 @@ the rest); a larger β for P04 adds nothing on average, and the small P10 recove
 stage on dev is at its plateau: nine member variants (§44), per-person space (§41), personal nets (§78) and a trust
 weight (§80) all land within ±0.3 of v5.1.
 
+### 81. TTT3B: in-session fine-tuning for new people, three more seeds (written 12 Nov 10:47 UTC, before any job ran; Galvani, `runs/diag/ttt/galv/ttt3.py` = `studies/12nov/ttt3.py`, tasks 15–29)
+
+**Why.** User, 12 Nov: keep the GPUs busy. The only member-level change that has ever been positive for new people in
+the chain is package-form in-session fine-tuning on the chain's labels (§60: +0.27 / +0.17 on two bases, three seeds,
+person interval −0.5 to +0.9; true labels +1.8). Seeds 3–5 halve the seed part of its noise and allow six-base
+scoring with six seeds. The person part of the interval stays.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Chain, five families swapped, package form `ple20`, six seeds, new, six-base mean | +0.15 (−0.15 to +0.45) |
+| **Lever** | ≥ +0.3 on the six-base mean with ≥ 4 of 6 bases positive → a v6 with in-session fine-tuning is specified (runtime check first) |
+
