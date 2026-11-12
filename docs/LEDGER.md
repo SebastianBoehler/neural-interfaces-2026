@@ -1001,3 +1001,9 @@ the dose is re-read on all six bases: β 0.05, 0.075, 0.10, 0.15, 0.20.
 | Best minus 0.10, seen | +0.1 (0 to +0.4) |
 | **Rule** | the package changes only if another β beats 0.10 by ≥ +0.3 seen with P10 not worse by more than 0.3 |
 
+| §95 item (13:21 UTC; `runs/dose6_*.log`; six-base means) | β 0.05 | 0.075 | **0.10** | 0.15 | 0.20 |
+|---|---|---|---|---|---|
+| Seen (P04, P10) | +1.18 (+2.31, +0.05) | +1.46 (+2.75, +0.17) | **+1.79 (+3.51, +0.07)** | +1.94 (+3.91, −0.04) | +1.18 (+2.81, −0.46) |
+
+Verdict: hit. β 0.15 is +0.15 above 0.10 (rule: ≥ +0.3), and its extra is P04's. **The package keeps β 0.10.**
+
