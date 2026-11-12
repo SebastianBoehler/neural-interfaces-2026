@@ -1,6 +1,6 @@
 """NETAUG (ledger s51): SessionBN member families trained with chunk-wise "virtual person" augmentation.
 One random rotation and / or frequency-scaling factor per chunk of `group` same-session windows.
-Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins; 120-131: cmix4; 140-151: swa50; 160-183: focal loss; 200-211: people curve) | python netaug.py smoke
+Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins; 120-131: cmix4; 140-151: swa50; 160-183: focal loss; 200-211: people curve; 300-335: GroupDRO / balanced) | python netaug.py smoke
 """
 import sys, time
 from pathlib import Path
@@ -26,6 +26,8 @@ ARMS["swa50"] = dict(swa=0.5, pw=True)  # weight averaging over the second half 
 SWA = [(a, "swa50", s) for s in range(3) for a in ARCHS]  # tasks 140..151
 ARMS["focal1"] = dict(focal=1.0, pw=True); ARMS["focal2"] = dict(focal=2.0, pw=True)  # hard-window emphasis (ledger s87)
 FOCAL = [(a, f, s) for s in range(3) for f in ("focal1", "focal2") for a in ARCHS]  # tasks 160..183
+ARMS["dro01"] = dict(dro=0.1, pw=True); ARMS["dro001"] = dict(dro=0.01, pw=True); ARMS["pbal"] = dict(pbal=True, pw=True)  # person-robust objectives on SessionBN nets (ledger s93)
+DRO = [(a, f, s) for s in range(3) for f in ("dro01", "dro001", "pbal") for a in ARCHS]  # tasks 300..335
 
 
 class VNet(SB.SessionNet):
@@ -51,7 +53,13 @@ class VNet(SB.SessionNet):
                 if vp.get("cfsc"):
                     xb = torch.cat([dg.freq_scale(xb[c * m:(c + 1) * m], gen, vp["cfsc"]) for c in range(G)])
                 opt.zero_grad(); lo = self.net(xb)[:, :3]
-                if vp.get("focal"):  # focal loss: weight each window by (1 - p_true)^gamma
+                if vp.get("dro") or vp.get("pbal"):  # deep.AlignedNet._group_loss: GroupDRO over participants, or participant-balanced mean
+                    old, self.dro = self.dro, vp.get("dro", 0.0)
+                    try:
+                        loss = self._group_loss(lo, yb, torch.from_numpy(np.asarray(j)).to(self.dev))
+                    finally:
+                        self.dro = old
+                elif vp.get("focal"):  # focal loss: weight each window by (1 - p_true)^gamma
                     ce = torch.nn.functional.cross_entropy(lo, yb, reduction="none"); loss = ((1 - torch.exp(-ce)) ** vp["focal"] * ce).mean()
                 else:
                     loss = loss_fn(lo, yb)
@@ -100,12 +108,22 @@ def run_pc(arch, k, draw, d, out):
 
 def main():
     d = protocol.load()
+    if sys.argv[1] == "smoke_dro":
+        out = WS / "runs/diag/netaug/smoke"; out.mkdir(parents=True, exist_ok=True)
+        for arm in ("dro01", "pbal"):
+            run("fb", arm, d, "seen_session", 0, out, epochs=1); print("SMOKE PASS", arm, flush=True)
+        return
     if sys.argv[1] == "smoke":
         out = WS / "runs/diag/netaug/smoke"; out.mkdir(parents=True, exist_ok=True)
         for arch in ARCHS:
             run(arch, "combo", d, "seen_session", 0, out, epochs=1); print("SMOKE PASS", arch, flush=True)
         return
     t = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True)
+    if t >= 300:
+        arch, arm, seed = DRO[t - 300]
+        for proto in ("all_loso", "seen_session"):
+            run(arch, arm, d, proto, seed, OUT)
+        return
     if t >= 200:
         return run_pc(*PCURVE[t - 200], d, OUT)
     arch, arm, seed = FOCAL[t - 160] if t >= 160 else SWA[t - 140] if t >= 140 else CMIX[t - 120] if t >= 120 else TWINS[t - 100] if t >= 100 else TASKS[t]

@@ -940,3 +940,17 @@ with population knowledge.
 
 | §73 secondary (`runs/netview2_fbraw_fresh.log`; fbraw fresh seeds 2–5) | +0.13, +0.14, −0.30, −0.06, −0.34, −0.55; six-base mean −0.16 | confirms the refutation |
 
+### 93. DRO: person-robust objectives on the SessionBN nets (written 12 Nov 12:16 UTC, before any job ran; `studies/12nov/netaug.py` tasks 300–335, Galvani)
+
+**Why.** User, 12 Nov: fill the free GPU lanes. The located loss is P04-like people (§67, §77): the nets fit the
+average training person. GroupDRO over participants (η 0.1, 0.01) and a participant-balanced loss upweight the
+worst-fitted training people. October tried them on plain nets only (R8: neutral; R18: adversarial hurts); never on
+the SessionBN nets the chain relies on. Four recipes × three objectives × three seeds, both protocols; scored as
+replacements against the twins (as §87).
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Replacing the four families, new, six bases, best objective | 0.0 (−0.4 to +0.4) |
+| P04 as a new person | +1 (−1 to +3) |
+| **Lever** | new ≥ +0.3 with the interval above 0, or P04 ≥ +2 with nobody below −1 |
+
