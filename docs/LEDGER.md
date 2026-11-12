@@ -702,3 +702,37 @@ early boost, no routing.
 
 | Item | Observed | Verdict |
 |---|---|---|
+
+## 49. PEFF: people-efficient estimators and noise for the population model (written 12 Nov 01:10 UTC, before any result; code `studies/12nov/peff.py`)
+
+**Why.** The user (12 Nov): add noise, try sample-efficient methods. §39 says the estimator is starved of people: a
+pooled logistic regression treats 2,400 windows as independent although they come from nine people, so it trusts
+directions in which people differ. Estimators that count people, not windows, should need fewer of them.
+
+**Setup.** Per held-out person: core1's features of the nine others, standardised, reduced to 512 PCs (so that every
+estimator fits in seconds); the held-out person's causal features go through the same map. Reference inside this
+harness: E1, logistic regression on the 512 PCs (best of C 0.01 / 0.1 / 1). Outer reference: the full 44k-feature
+core1, 69.29 (§39).
+
+| Estimator | What it changes |
+|---|---|
+| E2 person-balanced | every training person has the same total weight |
+| E3 random-effects LDA | covariance = within-class + τ × covariance of the people's class-mean deviations; class means = person-equal means; τ 0 / 30 / 100 / 300 |
+| E4 consistency selection (on the 44k features) | keeps the m features whose class contrasts agree most across people (largest across-people t), then the core's own head; m 2,000 / 8,000 |
+| E5 people-bagging | 12 heads, each on 6 of the 9 people, averaged |
+| E6 group DRO | 8 rounds; people re-weighted by exp(their loss) |
+| E7 isotropic noise | two noisy copies, σ 0.5 / 1.0 of each PC's standard deviation |
+| E8 person-jitter noise | two copies with noise whose per-PC scale is the across-people spread of that class's mean |
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| E1 (512 PCs) against the full core | −1.5 (−4 to +0.5): the PCs lose a little | — |
+| Best of E2–E8 minus its reference (E1, or the full core for E4) | +1.0 (−0.5 to +2.5) | ≤ +0.3 for every estimator |
+| E3, best τ > 0, minus τ = 0 | +1.0 (−0.5 to +3) | ≤ 0 |
+| E7 isotropic noise minus E1 | 0.0 (−1 to +1): it is ridge by another name | — |
+| P(any estimator ≥ +1.5 over its reference) | 30 % | — |
+
+Rule: an estimator at ≥ +1.5 is rebuilt on the full features and carried into the chain replay in core1's slot.
+
+| Item | Observed | Verdict |
+|---|---|---|
