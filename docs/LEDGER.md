@@ -821,3 +821,29 @@ with true labels, run by run, on all 33 new-person sessions; accuracy on the cha
 | Own model on the other windows | 76 (70–82) |
 | Own model right where the chain is wrong (hard windows) | 40 (30–50) |
 
+| §88 item (11:24 UTC; `runs/ambig_12nov.log`; new people, B2_pool) | Observed | Verdict |
+|---|---|---|
+| Own model on the chain's hard windows / the rest | **78.3 % / 85.3 %** (chain 60.8 / 84.5) | **Miss, far above** (predicted 52 on hard) |
+| Hard windows where the chain is wrong (348): own model picks the true class / the chain's class | **72.4 % / 17.8 %** | Miss, far above (predicted 40) |
+| Per person, own model on hard | 68 (P04) to 86 (P08); right where the chain is wrong 47 (P07) to 90 (P01) | every person |
+
+**Reading: the hard windows are not ambiguous.** In the person's own space, with labels from the same session's other
+runs, 72 % of the chain's errors are decoded correctly. The information is in the data; what fails is the mapping
+from the population to this person. (Caveat: the own model uses later runs as well, so this is not causal; it is an
+upper bound on what the session holds, not on what a causal method gets.) §83 showed that self-training on the
+chain's confident windows with a linear learner cannot reach it. Untested: a learner that uses the session's own
+cluster structure, not a decision boundary fitted to the easy windows.
+
+### 89. LPROP: does the session's own geometry carry the labels from the easy windows to the hard ones? (written 12 Nov 11:24 UTC, before any result; code `studies/12nov/lprop.py`)
+
+Within each new-person session: own-space features (9-band tangent space after recentring on the session mean; 30
+principal components per session), a k-nearest-neighbour graph, label spreading. Seeds: the chain's easy two thirds,
+labelled (i) with the true labels (upper bound for the seeding), (ii) with the chain's labels. Accuracy on the hard
+third, non-causal first (a ceiling for the method); a causal version follows only if (ii) clears the chain.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| (i) true seeds, accuracy on the hard windows | 62 (52–72) |
+| (ii) chain seeds, accuracy on the hard windows | 57 (48–65), chain 60.8 |
+| **Go/no-go** | (ii) ≥ 64 % on the hard windows → causal version and chain fusion, pre-registered |
+
