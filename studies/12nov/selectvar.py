@@ -1,4 +1,4 @@
-"""SELECT (ledger s76): label-free per-session choice among chain variants (new people). Usage: python studies/12nov/select.py"""
+"""SELECT (ledger s76): label-free per-session choice among chain variants (new people). Usage: python studies/12nov/selectvar.py"""
 import glob, os, sys
 import numpy as np
 REPO = os.path.abspath(__file__ + "/../../..")
