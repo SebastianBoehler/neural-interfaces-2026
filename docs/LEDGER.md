@@ -927,3 +927,7 @@ Reading: the training people's class templates point the wrong way for a new per
 the same lesson as §67 (people do not transfer) at the level of the session stage. The warm-up cannot be shortened
 with population knowledge.
 
+**Lane fill (12 Nov, before any of these results; user: use up to 36 GPU lanes).** Queued: TTT4 seeds 3–5 (tasks
+12–23, scored with seeds 0–2 under §91's rule), and the §73 secondary (fbraw fresh seeds 2–5, netemb tasks 9, 13, 17,
+21), which the pre-emption had dropped. Nothing else is queued without a result that calls for it.
+
