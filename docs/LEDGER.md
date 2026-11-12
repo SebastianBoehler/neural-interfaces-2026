@@ -682,3 +682,23 @@ refuted if ≤ +0.3 at both. It counts toward "any generator ≥ +1.5" (now 30 %
 
 | Item | Observed | Verdict |
 |---|---|---|
+
+## 48. CHAINSLOPE: does the people curve survive the session stages? (written 12 Nov 00:58 UTC, before any result; code `studies/12nov/chainslope.py`)
+
+**Why.** §39 is a core-level slope. Stronger members have repeatedly failed to move the chain (STATE §5), and the
+stages add most where the base is weak, so the slope after the stages may be much smaller. That number prices every
+"more people" lever (§47 and any new data).
+
+**Test.** As §39 (core1 refitted on k = 3, 5, 7 other people, two draws each, and on all 9), then a core-only chain
+on the held-out person's sessions: rebalancing (α 1.15, k 5, W 30) → SessionEM (λ 0.5, the packaged ocular and
+slow-potential view) → TSEM (λ 0.15, the 128 PCs of the fold's own scaled training features). No other member, no
+early boost, no routing.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Core-only chain at k = 9 | 76 (73–79); the full chain is 80.2 | — |
+| Stages' gain over the core at k = 9 / at k = 3 | +7 / +9 (each ±3): larger where the base is weak | — |
+| Slope per doubling after the stages | +5 (+3 to +7.5), about 0.65 of the core slope | < +2.5: the stages absorb most of what more people give |
+
+| Item | Observed | Verdict |
+|---|---|---|
