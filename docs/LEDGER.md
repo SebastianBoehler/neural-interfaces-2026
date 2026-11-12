@@ -632,3 +632,19 @@ scoring with six seeds. The person part of the interval stays.
 | Chain, five families swapped, package form `ple20`, six seeds, new, six-base mean | +0.15 (−0.15 to +0.45) |
 | **Lever** | ≥ +0.3 on the six-base mean with ≥ 4 of 6 bases positive → a v6 with in-session fine-tuning is specified (runtime check first) |
 
+### 82. INPOP: the personal stage for ten people when the person is already in the population (written 12 Nov 10:48 UTC, before any result; code `studies/12nov/inpop.py`)
+
+**Why.** The open question of the returning branch: what the stage gives a returning person whose one public session
+is in our training set (the sealed situation for eight people). Proxy for all ten: session 1, runs 1–3 are public
+(in the nets' training, stored outputs of §32) and fit the own-space members; runs 4–6 are the "later" stream (90
+windows each). Mini-chain on runs 4–6 as their own stream: the five net families from the in-population nets (three
+seeds), core1, Hilbert core and teacher from the LOSO outputs, rebalancing, SessionEM and TSEM; then the stage at
+β 0.10 and 0.25, no gate (recognition assumed). Reference arm: the same chain with LOSO nets (person-naive).
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Stage gain on the in-population chain, β 0.10, mean of ten | +1.5 (0 to +3) |
+| People with a gain ≥ +1 | 5 of 10 (3–8) |
+| In-population nets against LOSO nets, mini-chain, mean | +2 (0 to +5) |
+| **Validity** | the proxy is informative only if P04's stage gain exceeds P10's, as on the real cross-session sessions (+3.5 / +0.1); otherwise it is recorded as uninformative |
+
