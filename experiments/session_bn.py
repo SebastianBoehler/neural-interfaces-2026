@@ -144,6 +144,9 @@ class SessionNet(AlignedNet):
 
     def _train(self, X, y, sw, rows, epochs, lr, rng, gen, loss_fn, weighted, head_only=False, avg=None):
         assert not (head_only or avg is not None or weighted or self.dro or self.pbal or self.mstyle or self.adv)
+        # 12 Nov: cmix and fsc were accepted here and never applied (ledger s51). Fail loudly instead of training a
+        # net that silently lacks the requested augmentation; chunk-wise versions live in studies/12nov/netaug.py.
+        assert not (self.cmix or self.fsc), "SessionNet does not apply cmix / fsc; use studies/12nov/netaug.VNet"
         self._prepare()
         from deep import param_groups
         groups = param_groups(self.net, lr, self.lld, head_only)

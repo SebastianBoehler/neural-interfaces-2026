@@ -3,6 +3,10 @@
 **How to use it.**
 - Before repeating an idea, look it up in the index below. A "closed" verdict covers only the recipe that was tested;
   the cited section says which.
+- **No gate or closure is final (user rule, 12 Nov; §52).** A gate is a threshold on the evidence of its day. Before
+  a closure is used as a reason not to run something, check what actually ran: the code path, the model class, alone
+  or in the chain, and on which version of the system. Pre-registration stays: state the rule first, then say plainly
+  when and why you go past it.
 - New runs are pre-registered at the bottom of this file **before** they are scored: mechanism, numeric prediction
   with an 80 % range, and the result that would refute it. Fill in the outcome and the verdict (hit, miss, refuted)
   afterwards, including for misses.
@@ -838,4 +842,36 @@ is low because stronger nets have not moved the chain before (§7, §12); the ar
 never tested in this form and costs only queue time.
 
 | Item | Observed | Verdict |
+|---|---|---|
+
+## 52. Standing rule: soft gates, and reviews that hunt silent no-ops (12 Nov 02:45 UTC)
+
+**From the user, 12 Nov:** cleanups and reviews should find bugs like the one in §51; none of our gates or decisions
+should be hard; the codebase exists only to optimise the final submission.
+
+**What changed in the repo.**
+- `experiments/session_bn.py`: `SessionNet._train` now asserts that `cmix` and `fsc` are not set instead of ignoring
+  them (no shipped recipe sets them; pinned submission files unchanged).
+- An audit for the same defect class is running over `experiments/`, `scripts/`, `replay/` and `studies/`: options
+  parsed but not applied, overrides that drop a parent's behaviour, cache keys that omit a setting, scorers whose
+  baseline differs from the stated one, leakage in folds. Findings and their effect on recorded verdicts go below.
+- `AGENTS.md` carries both rules for every later session.
+
+**Closures re-read under this rule** (status: what was actually tested, and what is now running or still open):
+
+| Closure | What was actually tested | Now |
+|---|---|---|
+| Net training tricks (mixing, frequency scaling, weight averaging, MixStyle, adversarial, DRO), October | plain nets, one trick at a time, scored alone or in old mixes; mixing and frequency scaling never ran on SessionBN nets | chunk-wise rotation and frequency scaling running (§51); mixing, weight averaging and MixStyle on SessionBN nets still untested |
+| Rotation augmentation "adopted" (`rot05`) | one random rotation per window | per-chunk rotation running (§51); rotated copies for core1 running (§46b) |
+| Individual-frequency band shift | "closed, no run" (the peak estimate was judged unstable) | frequency-scaled virtual people running for core1 (§47 fsc) and the nets (§51) |
+| Scherer 2015 in the cores (§21) | its 30 channels spline-interpolated to our 41 (22 interpolated), slow blocks filled with means | a core on the 19 channels both caps really share, trained on 18–19 people, was never tested: open |
+| "P04 is a low-signal person" | within-session decoding in core1's features only | revised (§36): 74–80 % in its own space |
+| Personal models for returning people | logistic head on the population PCs only | own-space stage built (§41–§45); up-weighted personal core running (§50) |
+| Similarity routing for new people (§16) | spectral identity score, personal heads in the population PCs | own-space members of other people were not tried: open, low prior |
+| Extra members lower the chain (§25, §26, §31) | members added at fixed stage settings | stage settings re-fitted with the member in place were tried only by two overfitting searches: open |
+| Graz cue-order prior (§9) | multiplied into a stage output with one fitted temperature | a calibrated (non-parametric) fusion at the final stage was not tried: open, bounded near +0.4 |
+| In-session learning on the chain's labels | nets (§24), population-PC head (§35), own-space members (§38), each properly run | stays closed; three independent families agree |
+| Earlier or perfect recognition (§46a) | oracle identity from window 0, six bases | stays closed on dev |
+
+| Audit finding | Affected verdicts | Action |
 |---|---|---|
