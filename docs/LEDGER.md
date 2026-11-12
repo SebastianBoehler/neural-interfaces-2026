@@ -566,3 +566,23 @@ same chain with the frozen twins and the stage. Variants: head and BN affine onl
 Reading: with the own-space stage in place, personal nets add +0.2 for returning people, all of it P04's, and cost
 P10 up to 1 point. The stage already holds what the nets would add. The returning branch on dev ends at v5.1.
 
+### 79. TRUST: can a returning session tell how much to trust its personal stage? (written 12 Nov 10:42 UTC, before any result; code `studies/12nov/trust.py`)
+
+**Why.** User, 12 Nov: push on the personal stage. Its dev gain (+1.7 to +2.3 seen on six bases) is P04's: P04
+gains up to β 0.25 (+4.8), P10 loses as β grows (−0.5 at 0.10, −2.9 at 0.25), §43. One β for all wastes P04's
+head-room and costs P10. If a causal, label-free signal inside the session says whether the personal model still
+fits (its three members agree with each other; it agrees with the chain; it is confident), β can follow it. This is
+the per-person trust weight proposed on 7 Nov and never built (review §4).
+
+**Diagnostic first.** Per returning session: the best β of 0 / 0.05 / 0.10 / 0.15 / 0.25 / 0.40 (true labels) and
+three end-of-session signals: (a) agreement of T, C and S with each other, (b) agreement of their mean with the routed
+chain, (c) their mean top posterior. Data: the four real seen sessions (P04 s2, s3; P10 s2, s3) on six bases, and the
+12 cross-session pairs of §42 (one public session → another, LOSO chain) for more points.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Best β, real seen sessions | P04 0.25–0.40; P10 0–0.05 |
+| Signal separating the two people on the real sessions | (a) yes, (b) no, (c) no |
+| Spearman(signal (a), best β) over the 12 pairs | +0.4 (−0.1 to +0.8) |
+| **Lever** | if a signal separates the people and ranks the pairs ≥ +0.5, a trust-scaled β (0 to 0.25, map fixed from the 12 pairs) is pre-registered and scored on the six bases |
+
