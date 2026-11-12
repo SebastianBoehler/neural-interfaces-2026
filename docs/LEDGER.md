@@ -1603,3 +1603,10 @@ by agreement with the majority of the 17 outputs. Prediction: oracle +1.5 (+0.8 
 
 Numbering: this session uses §114–§119 for the explore track; the build session continues at §120.
 
+| Explore wave 2 (23:08 UTC; Leonardo) | Observed | Verdict |
+|---|---|---|
+| §114 PSYS alone, proxy, window accuracy | P01 82, P02 72, P03 50, P04 49, P05 69, P06 79, P07 84, P08 85, P09 67, P10 72 (in-population chain about 82) | Miss, low (predicted 78) |
+| §114 stage + personal system (β 0.25) against the stage alone, proxy, three bases | +1.00 / +0.92 / +0.83 | below the reading's +1.0; and the real later sessions gave −0.81 (P10 −1.6): **refuted** |
+| §115 EARLY alone, windows 0–15 / 0–30 / after 30 | 44.8 / 40.5 / 43.7 % against the chain's 68.6 / 72.6 / 77.3 | Miss (predicted 55): without per-session normalisation a new person is barely decodable |
+| §115 fused (weight fading by window 30), six bases | −1.15 to −1.51 (weight 0.5), −2.2 to −2.5 (weight 1.0) | **Refuted**: the session-start loss cannot be bought back without session statistics |
+
