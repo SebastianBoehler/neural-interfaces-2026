@@ -642,3 +642,36 @@ standardisation and reference have almost nothing to work with), and the real ga
 that. Earlier or more certain recognition is not a lever on dev; the only recognition loss left is returning
 sessions the gate never accepts (about 13 % by the external estimate), which dev cannot measure. Closed as a
 direction; the package keeps the v4.1 gate unchanged.
+
+## 47. SYNTH: virtual people for the population model (written 12 Nov 00:45 UTC, before any result; code `studies/12nov/virt.py`; Galvani CPU jobs)
+
+**Why.** The user (12 Nov): more data, synthetic generation, keep exploring. §39: +8 points per doubling of training
+people at core level. Data search (12 Nov, two passes): no public EEG set with our tasks and more than a few people
+beyond what is already used; the Bordeaux and Graz mental-task studies are not public; the closest new sets are
+ds007554 (30 people, arithmetic and arm imagery in 3-minute blocks, another cap) and an MEG set with our exact
+tasks (17 people). So the test is whether between-person variation can be generated.
+
+**Generators** (each adds two virtual copies of every training session to core1's training rows; score as §39/§46b,
+core1 alone, nine training people, reference 69.29):
+- **rot** (§46b, running locally): random rotation of the tangent blocks, ε 0.1 / 0.2 / 0.4.
+- **cap**: the cap sits differently on a different head. Electrode positions (standard 10-05 on a sphere) are rotated
+  by a random rotation vector with standard deviation σ degrees per axis; the signals at the shifted sites are
+  obtained by spherical-spline interpolation (a smooth 41 × 41 mixing A); covariances become A C Aᵀ, the session
+  reference and all tangent blocks are recomputed, the slow block is mixed by A. σ 3 / 6 / 10.
+- **mix**: a virtual person whose class means lie between two real people: x′ = x + λ (μ_B,k − μ_A,k) for the windows
+  of class k of person A, B another training person, λ uniform in [0, λmax]; λmax 0.5 / 1.0.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| cap, best σ, minus the reference | +1.0 (−0.5 to +3.0) | ≤ +0.3 at every σ |
+| mix, best λmax | +0.3 (−1.0 to +1.5) | ≤ +0.3 at both |
+| rot, best ε (§46b) | +0.8 (−0.5 to +2.5) | as §46b |
+| P(any generator ≥ +1.5) | 25 % | — |
+
+Rule: a generator at ≥ +1.5 is rerun with four copies and then carried into the chain replay in core1's slot;
++0.3 to +1.5 gets one refinement; below that it is closed. If all three close, generated variation of these kinds
+does not stand in for people, and a learned generator would need a corpus of many people in this montage (the
+87-person Dreyer 2023 set covers 27 of our 41 channels, motor imagery only).
+
+| Item | Observed | Verdict |
+|---|---|---|
