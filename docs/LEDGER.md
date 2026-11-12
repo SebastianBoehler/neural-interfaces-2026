@@ -742,3 +742,16 @@ the gate's ramp: out ∝ chain × R^(w·r), w 0.5 (fixed by §84; 1.0 reported).
 | Seen against v5.1, six-base mean | +0.5 (−1.0 to +2.0); P04 +1.0, P10 0.0 |
 | **Lever** | ≥ +0.5 on ≥ 4 of 6 bases with P10 ≥ −0.5 → RESID becomes the returning-person stage candidate (v5.2) |
 
+| §85 item (11:08 UTC; `runs/resid_seen_12nov.log`, `runs/resid_seen_w1_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| v5.1 stage on the real later sessions, six bases | +1.31 to +2.00 seen (P04 +2.4 to +4.0, P10 −0.3 to +0.3) | replicates |
+| RESID w 0.5 against v5.1 | −0.42, −0.41, −0.40, −0.40, +0.13, +0.39; **mean −0.18** (P04 −0.16, P10 −0.20) | **Refuted** (0 of 6 bases) |
+| RESID w 1.0 against v5.1 | mean −0.85 (P04 −1.25, P10 −0.45) | Refuted |
+
+Reading: the stacked correction wins +1.7 within a session and loses across sessions. What it learns is the
+person-naive chain's errors on session 1; on a later session the chain is person-aware (the person's session 1 is in
+training and the personal head routes), and its errors are different ones. The simple product stage does not depend
+on the chain's error pattern and survives. This is the third time a within-session proxy has over-promised for the
+returning branch (§32, §41, §84); the cross-session behaviour of a personal model is only measured on P04, P10 and
+the sealed set.
+
