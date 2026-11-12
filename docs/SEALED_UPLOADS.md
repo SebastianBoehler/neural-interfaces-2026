@@ -454,3 +454,12 @@ in between is undecided. A failed run uses no quota. Never cancel it.
 - **Process:** the collector for these jobs never woke this session (it waited with `squeue -j` on ids, which errors
   once jobs leave the queue). Fixed in `scripts/cloud/leo_collect.sh`, which now also prints each job's final state.
 
+- **Follow-up (23:07 UTC):** the GPU check rerun with deterministic algorithms (cuDNN deterministic, no benchmark,
+  `torch.use_deterministic_algorithms`) gives the same differences to the digit (personal posteriors 2.79e-4, switch
+  2.56e-4; mixes ≤ 9e-6). So the difference is not run-to-run nondeterminism; the remaining explanation is
+  shape-dependent float32 numerics (the package runs the personal traces in chunks of 32 windows, the reference whole
+  sessions; on the Mac CPU the same comparison gave 5.4e-5). Not yet proven: the decisive test is a GPU reference with
+  the package's chunking, which the build session's faster v5.2 check is asked to include. The tolerance stays 1e-4.
+- **Profile (job 64315167, two public sessions on an A100):** 249 ms per window in total, 83 ms of it inside the
+  personal-net path (87 ms per routed call). The speed-up is the build session's task (§112).
+
