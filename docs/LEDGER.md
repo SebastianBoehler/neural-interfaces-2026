@@ -1168,3 +1168,11 @@ S (slow, cue-locked) stays on the original windows. v5.1 replay, seen protocol, 
 | + start0.5 and start2 crops | +0.1 (−0.5 to +0.7) |
 | **Lever** | ≥ +0.3 seen with P10 ≥ −0.3 on ≥ 4 of 6 bases → part of the next candidate |
 
+| §100 item (16:45 UTC; `runs/pcrop_05_12nov.log`, `runs/pcrop_052_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| + start0.5 crops, seen, six bases | −0.53 to +0.41; **mean −0.04** (P04 −0.08, P10 −0.01) | **Refuted** (1 of 6 bases) |
+| + start0.5 and start2 | −0.26 to +0.54; **mean 0.00** | Refuted |
+
+Reading: more rows from shifted copies of the same trials do not help the personal models; the copies carry the same
+trials' information, and the 190-window limit is a limit of trials, not of rows.
+
