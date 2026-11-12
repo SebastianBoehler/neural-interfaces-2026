@@ -10,7 +10,24 @@ sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "scripts")]
 import protocol  # noqa: E402
 from add_rebalance import load_solver  # noqa: E402
 pkg, dev = Path(sys.argv[1]), sys.argv[2] if len(sys.argv) > 2 else "cuda"; ns = int(sys.argv[3]) if len(sys.argv) > 3 else 3
-m = load_solver(pkg, "v52prof", dev); mod = sys.modules["v52prof"]; PN = mod.PersonalNets
+m = load_solver(pkg, "v52prof", dev)
+
+
+def find(o, depth=0, seen=None):  # load_solver does not register the module: find the PersonalNets instance by walking
+    seen = seen if seen is not None else set()
+    if id(o) in seen or depth > 4:
+        return None
+    seen.add(id(o))
+    if type(o).__name__ == "PersonalNets":
+        return o
+    for v in (vars(o).values() if hasattr(o, "__dict__") else []):
+        r = find(v, depth + 1, seen)
+        if r is not None:
+            return r
+    return None
+
+
+PNI = find(m); assert PNI is not None, "no PersonalNets in the loaded package"; PN = type(PNI)
 T = {"proba": 0.0, "calls": 0, "windows": 0, "predict": 0.0}; orig = PN.proba
 
 
@@ -24,9 +41,7 @@ def timed(self, j, t):
 
 
 PN.proba = timed
-pn = [o for o in vars(m).values() if isinstance(o, PN)] or [o for v in vars(m).values() for o in (vars(v).values() if hasattr(v, "__dict__") else []) if isinstance(o, PN)]
-if pn:
-    kinds = [type(n).__name__ for row in pn[0].pristine for n in row]; print("personal trace classes:", {k: kinds.count(k) for k in set(kinds)})
+kinds = [type(n).__name__ for row in PNI.pristine for n in row]; print("personal trace classes:", {k: kinds.count(k) for k in set(kinds)})
 d = protocol.load(); st = d["stream"]; sessions = list(dict.fromkeys(st))[:ns]
 for s in sessions:
     rows = np.flatnonzero(st == s); m.reset_state()
