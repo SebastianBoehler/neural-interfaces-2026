@@ -1176,3 +1176,15 @@ S (slow, cue-locked) stays on the original windows. v5.1 replay, seen protocol, 
 Reading: more rows from shifted copies of the same trials do not help the personal models; the copies carry the same
 trials' information, and the 190-window limit is a limit of trials, not of rows.
 
+| §98 item (16:45 UTC; Leonardo pack 64284047, seed 0, after the rotation fix) | Observed | Verdict |
+|---|---|---|
+| Training loss at 16,000 episodes | 0.29 (from 1.10) | the model fits the synthetic sessions |
+| Window accuracy on the held-out person, ten folds | **5–28 %** (P02 5 %, P08 5 %; best P05 28 %) | **Refuted**, and below chance (33 %) |
+
+Reading: far below chance is not noise: on a new person the model systematically picks a wrong class. It learned
+something that holds inside the training people's sessions and inverts on a new one (most likely the sequence
+structure of the runs: a causal model over a session can exploit the cue order and class-count patterns of the
+training sessions). Not debugged further: even a corrected version would have to beat the hand stages' +10 on a
+member mix, and S2 showed the inputs are 9 points weaker than core1. Seeds 1–2 and the rest of the pack were
+cancelled to free the lanes.
+
