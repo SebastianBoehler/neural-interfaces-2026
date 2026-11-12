@@ -793,3 +793,17 @@ seeds, both protocols; scored with the fair co-tuned screen (§69) and as a repl
 | Replacing the shipped family in the chain, new, six-base mean | 0.0 (−0.4 to +0.4) |
 | **Lever** | ≥ +0.3 on six bases with the interval above 0 |
 
+| §86 item (11:21 UTC; `runs/hardview_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| Views alone, new people | gaze 52.4, band power 52.4, temporal profile 49.4, slow 47.8, muscle 36.9 | — |
+| Chain on its hard third / elsewhere | 60.8 % / 84.5 % | Hit (55, 48–62) |
+| Best view on the hard windows | band power 40.1 %, slow 38.9, gaze 36.8, temporal profile 34.5, muscle 33.2 | Hit (42) |
+| On hard windows where the chain is wrong: view picks the true class / the chain's wrong class | 27–34 % / **38–46 %** | Miss: every view leans to the chain's wrong class |
+| Chosen arm (muscle, w 0.25, c 0.5) on the four fresh bases | −0.71 [−1.02, −0.40]; every view's best arm −0.7 to −2.5 | **Refuted** |
+
+Reading: the chain's hard windows are hard in every sensor view we have. Where the chain is wrong, gaze, muscle,
+band power, temporal profile and slow potentials more often pick the chain's wrong class than the true one, so the
+errors are not the chain's own: those windows look like another class in every signal (or the person was not doing
+the cued task). No other view carries independent information about them. Together with §83 this bounds what any
+label-free method can do for new people on these windows.
+
