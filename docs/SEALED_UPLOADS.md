@@ -331,3 +331,28 @@ three members fitted on j's public sessions in j's own space). Nothing else chan
 **Open before any upload:** a paired timing (job 3090327, running); an independent review of the code (running); the user's go-ahead after a live quota and phase check. **Known limits:** the in-sample rise is expected
 (the stage's members are fitted on the public sessions) and says nothing about sealed data; the dev gain is P04's
 (P10: +0.1); the eight single-session people are measured only within a session (§41).
+
+### 12 Nov, later: review of cand_v5_own and the v5.1 rebuild (supersedes the first build; nothing staged or uploaded)
+
+- **Paired timing of the first build (ABBA, job 3090327, one A100 node, worker image):** cand_v41_bio 114.8 / 113.0 s,
+  cand_v5_own 119.6 / 121.9 s: **1.06×**, about 20 min sealed against v4.1's 18.8.
+- **Independent review** (a reviewer given the code and the contract only): **no blocking defect.** Confirmed by read
+  and unit tests: causal (the stage changes only the returned output; nothing it writes is read later); reset and deep
+  copy clean; bitwise equal to v4 without the `own_*` keys and with the stage present but never triggered; members
+  equal the study class to 1.2e-14 on real sessions; sklearn's `predict_proba` reproduced exactly; flat cost per
+  window. Not covered by the review: an end-to-end run of the real package (done separately: integration check and
+  both replays above), the montage-reordering path with the stage, Linux/A100 numerics.
+- **Low-severity findings, fixed in v5.1** (`submissions/ensemble_v5/submission.py`, SHA-256 prefix `34eba3b0f3eb5a3d`;
+  the first build's `c3d3706e…` is superseded):
+  1. the stage caught only three exception types; now any failure inside it leaves the v4.1 output of that window,
+     and numpy warnings are silenced inside the stage;
+  2. a window with a flat or non-finite channel was staged from filter noise; such a window is now neither added to
+     the session sums nor staged (the public data have none, so parity with the study code is unchanged);
+  3. `Route3.stage` is now cleared on reset;
+  4. checker: a NaN difference could pass and a stage that never ran could pass; both are now asserted;
+  5. builder: channel names are now checked in order, not by membership.
+  Not changed: no outlier guard on the running sums (one extreme window dominates them for the session, as in the
+  study code and in v4.1's own stages); a rebuild will not reproduce the weights' SHA byte for byte (timestamps,
+  BLAS), so the replayed build is the one to stage.
+- **v5.1 jobs:** build + integration check 3090346, A100 replay 3090347, worker-image replay 3090348, paired timing
+  3090349 (package `runs/sealed/cand_v51_own` on Galvani).
