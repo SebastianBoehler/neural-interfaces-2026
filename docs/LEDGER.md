@@ -1411,6 +1411,20 @@ functional_call + vmap, one augmentation per seed).
 | Projected full recipe with vmap per family (12 fb, 6 fbraw, 6 fbl, 6 sinc), per 190-window session | 60 s (25–150 s) |
 | **Reading** | ≤ 25 s per unrouted session (60 sessions within about 25 min) → the full recipe is runtime-feasible and §106's cuts are not needed; otherwise the cheapest form passing §106's rule is costed with the same bench |
 
+| §107 item (22:33 UTC; Leonardo A100 jobs 64312661 bench2, 64314298 bench3; seconds per Adam step, t = 30 / 110 / 190) | Observed | Verdict |
+|---|---|---|
+| trace1 (dev's trained parameters, clean forward without grad), FBCNet | 0.046 / 0.056 / 0.069: 0.95× the first bench at t = 110 | Miss (predicted 0.4×): the traces carry a fixed ~37 ms per step (TorchScript executor) |
+| eager1, CPU augmentation as in dev / GPU augmentation | FBCNet 0.016 / 0.013 at t = 110; FBLight 0.016 / 0.006; SincShallow 0.032 / 0.031; the CPU augmentation alone 3–15 ms | eager is 3–4× cheaper than the trace |
+| vmap over six seeds against six × eager1 (GPU augmentation), t = 110 | FBCNet 0.075 against 0.076; FBLight 0.027 against 0.038; SincShallow 0.211 against 0.185 | Miss (predicted 0.35×): no gain; the A100 is compute-bound at these sizes, not idle |
+| Projected per 190-window session (16 refits, eager, GPU augmentation) | full recipe, 30 nets: **about 142 s**; delta1 (4 nets): **about 20 s**; delta2: about 39 s | Reading: the full recipe is **not** runtime-feasible (> 25 s); delta1 is |
+
+Reading: batching does not make the full recipe cheap, because each FBCNet or SincShallow step already fills the GPU.
+At 60 unrouted sessions the full recipe would cost about 140 min. delta1 (§106: +0.26) costs about 20 min, or about 35
+min if all 106 sessions went unrouted. That is too much next to v5.2's own GPU cost (§112), so a package needs a cheaper
+schedule as well: §108's cum10 (half the steps) or a refit every 20 windows. A package would also need eager networks
+(braindecode is in the official worker image's requirements) and on-device augmentation (a different random stream from
+dev, to be scored as its own arm).
+
 ### 109. RUNTYPE (explore track; first numbered 106, which V53 already used): calibration and feedback runs as separate session domains (written 12 Nov 21:57 UTC, before any result; code `studies/12nov/runtype.py`)
 
 Reasoning from the profile: returning people are right on 87.5 % of Graz calibration windows but 79.2 % of Graz
