@@ -885,3 +885,6 @@ is not included; its features are cached). Between the two reading marks: a caus
 +0.9 bound, so it is a small lever (≈ +0.3), not a breakthrough. P05 loses with hindsight (−2.6 to −4.7): their
 session changes over time, and late information misleads early windows.
 
+**§81 addendum (12 Nov, before any seed-3–5 result was scored): seeds 6–8 (tasks 30–44) queued on Galvani as pack
+`ttt3d` so the GPUs stay busy; they are scored together with seeds 3–5 under the same rule if they finish first.**
+
