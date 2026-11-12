@@ -77,3 +77,23 @@ nothing found on 12 Nov says a knob is left.
    foundation model was fine-tuned on our nine people and gated alone).
 4. **P04-like people:** a label-free detector for "nobody transfers to this session" exists (agreement, +0.83). What
    to do once detected is open; it is the largest located loss.
+
+## 6. What followed the review (12 Nov afternoon; ledger §68–§78)
+
+Every limit of §4 was answered with a build, scored on all six bases with person intervals:
+
+| Limit | Build | Result |
+|---|---|---|
+| One chain | two complete chains fused late (§68); a learned sequence stage (§70) | −0.7 to −6; −10 to −15 |
+| Baseline tuned on its test people; fixed-weight screening | all 64 stored candidates re-screened with the chain co-tuned, cross-fitted (§69) | best +0.15; none was closed wrongly |
+| Information only from our ten people | frozen foundation embeddings as a session-stage view (§71) | equal to a random network of the same shape |
+| New members judged through the old stages | the nets' own features as a session-stage view (§72–§73) | +0.5 on the choosing nets, +0.20 on fresh nets, +0.07 over six bases: refuted |
+| Stage strength set on 6 Nov | TSEM λ re-chosen (§75); per-session choice of variant (§76) | cross-fit −0.07; oracle +1.0 to +1.4, no label-free criterion |
+| P04-like people | per-band transfer map (§77) | no band or family carries P04 from others (best 49 %) |
+| Returning people | personal nets on top of the stage (§78) | +0.2 seen, P04 only |
+
+What this establishes: on dev, the system is at the limit of what our ten people can teach it. A random second view
+moves new people by ±0.4, the exploration bases overstate stage effects by about twice, and the head-room that
+exists is per person (P04 76 % from their own data, 49 % from anyone else). The one block dev cannot measure is the
+sealed returning people with one public session; that is measured only by an upload of v5.1.
+

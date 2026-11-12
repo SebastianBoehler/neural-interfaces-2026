@@ -556,3 +556,13 @@ same chain with the frozen twins and the stage. Variants: head and BN affine onl
 | pf60 + stage, same | +0.2 (−0.6 to +1.0); P10 −0.8 |
 | **Lever** | ≥ +0.3 seen with P10 ≥ −0.5, on at least four of six bases → personal nets trained for all ten people on all public sessions (Galvani) and kept as a ready component |
 
+| §78 item (10:41 UTC; `runs/pnet_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| Stage on the frozen twins, seen, per base | +1.71 to +2.25 | the v5.1 stage replicates on all six bases |
+| pfh60 + stage minus twins + stage, seen, six-base mean | +0.17 (P04 +0.53, P10 −0.18); per base −0.11 to +0.41 | Hit (+0.3, −0.3 to +0.9) |
+| pf60 + stage, same | +0.25 (P04 +1.13, P10 −0.63) | Hit (+0.2); P10 below −0.5 |
+| Bases meeting the lever | pfh60 1 of 6, pf60 0 of 6 | **Refuted**: the per-person nets are not trained |
+
+Reading: with the own-space stage in place, personal nets add +0.2 for returning people, all of it P04's, and cost
+P10 up to 1 point. The stage already holds what the nets would add. The returning branch on dev ends at v5.1.
+
