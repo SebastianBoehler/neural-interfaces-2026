@@ -1034,3 +1034,9 @@ pair added +0.2 over the stage (§78). Which of the two the eight single-session
 question only the sealed set answers; upload 1 (v5.1) measures the stage's half of it. By the pre-set reading, the
 personal-net component is now built for all ten people so that it is ready for upload 2.
 
+**§96 build (12 Nov):** `scripts/build_pnets.py` fine-tunes each of the 24 shipped SessionBN nets (runs/sbn, trained
+on all public windows) for each of the ten people on all their public windows (pf60 and pfh60), Galvani packs
+`pnets_a`, `pnets_b`. Fails loudly if the loss does not fall or no parameter changes. Export to TorchScript, the
+package code that swaps a recognised person's nets in, and the replay checks follow only if upload 1 shows the
+returning branch pays (§63 reading rule).
+
