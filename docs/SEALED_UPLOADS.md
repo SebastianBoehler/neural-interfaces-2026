@@ -437,3 +437,20 @@ in between is undecided. A failed run uses no quota. Never cancel it.
   0.826; bryanyahir03 0.825; timothewt 0.825; navattack 0.821; **us 0.820 (8th)**; kyalcin 0.819; liuyin 0.819.
   Third place needs +1.0, fourth +0.6.
 - **New baseline: cand_v51b_own.** 2 uploads left.
+
+### v5.2 validation on Leonardo (12 Nov night; jobs 64311532, 64311533; recorded 22:21 UTC)
+
+- **Official replay on an A100 (exact package contents of ZIP 64336501…, 333 files equal):** 0.9946208557, files
+  unchanged — equal to the Mac replay. Paired v5.1b on the same node: 0.9932767697.
+- **Runtime: 383.1 s against 97.7 s for v5.1b, 3.9×** (Mac CPU 1.36×). Projected sealed time: about 48 min with 43 %
+  of sessions routed, about 84 min if all were. **Fails the worst case of the 60-minute limit; not uploadable as built.**
+- **GPU check (`scripts/check_v52.py --device cuda`) raised "FAILED":** shadow tail equal on every window, equal
+  before the first routed window, forced-off equal with 0 personal calls, 0 errors; the personal posteriors differ from
+  the reference traces by up to 2.8e-4 (switch pass 2.6e-4) against the tolerance 1e-4, while the mixes differ by at
+  most 9e-6. Most likely float32 GPU numerics (the reference runs whole sessions, the package chunks of 32); a
+  deterministic-algorithms rerun (job 64314422) decides it. The tolerance is not loosened before that.
+- **Worker image: missing.** Leonardo cannot build it ("could not use fakeroot: no valid mapping entry"); it needs
+  Galvani, which needs the user's 2FA.
+- **Process:** the collector for these jobs never woke this session (it waited with `squeue -j` on ids, which errors
+  once jobs leave the queue). Fixed in `scripts/cloud/leo_collect.sh`, which now also prints each job's final state.
+

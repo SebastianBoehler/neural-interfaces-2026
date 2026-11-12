@@ -1476,3 +1476,11 @@ over-promises in size (§82 against upload 5: 0.19×), so only the ranking is re
 | Same form on P04 / P10 real later sessions | P04 +0.3, P10 −0.2 |
 | **Reading** | a form ahead on the proxy by ≥ +0.5 and ≥ 0 on both real people goes into the next candidate's design |
 
+**§105 correction (22:21 UTC): the runtime estimate for v5.2 does not hold.** Leonardo A100, same node, official replay of
+the public warm-up sessions (95 % of windows routed): v5.2 383.1 s against v5.1b 97.7 s, **3.9×** (the Mac CPU pair
+said 1.36×; on CPU the tangent path dominates and hides the extra net calls, on GPU it does not). v5.1b took 1,287 s on
+the real sealed worker; if the extra cost scales with routed windows, v5.2 would take about 48 min with 43 % of
+sessions routed and about 84 min if all were: **over the 60-minute limit in the worst case.** v5.2 is not uploadable as
+built. Profiling is running (`scripts/profile_v52.py`, job 64314420); the likely cost is the personal path running
+30 traces window by window on the critical path, after the base nets, without the base path's overlap.
+
