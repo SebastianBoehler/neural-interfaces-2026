@@ -1,4 +1,4 @@
-"""SYNTH (ledger s47): core1 with virtual copies of every training session. MODE=none|rot|cap|mix|gmix PARAM=<float> [COPIES=2]
+"""SYNTH (ledger s47): core1 with virtual copies of every training session. MODE=none|rot|cap|mix|gmix|fsc PARAM=<float> [COPIES=2]
 Usage: MODE=cap PARAM=6 python studies/12nov/virt.py"""
 import os, sys, time, warnings
 import numpy as np
@@ -18,6 +18,11 @@ MODE, PARAM, COPIES = os.environ.get("MODE", "none"), float(os.environ.get("PARA
 d = protocol.load(); fe = T.Feats(d, T.parse("car_ov17_fs2_t0.1_le_k2")); y = d["y"]; F32 = fe.F.astype(np.float32)
 per = np.array([s[-3:] for s in d["subject"]]); ses = d["session"].astype(str); itf = d["interface"]; sid = np.char.add(per, ses)
 PEOPLE = sorted(set(per)); NB = len(fe.C); IU = np.triu_indices(41); WT = np.where(IU[0] == IU[1], 1.0, np.sqrt(2.0)).astype(np.float32); T0 = time.time()
+if MODE == "fsc":  # the same sessions with every band edge scaled: a person whose rhythms run slower / faster
+    FSC = []
+    for tag, f in (("fslo", 1 / (1 + PARAM)), ("fshi", 1 + PARAM)):
+        T.BANDSETS[tag] = [(lo * f, min(hi * f, 59.0)) for lo, hi in T.BANDSETS["ov17"]]
+        g = T.Feats(d, T.parse(f"car_{tag}_fs2_t0.1_le_k2")); FSC.append(g.F.astype(np.float32)); del g
 if MODE == "cap":
     import mne
     from mne.channels.interpolation import _make_interpolation_matrix
@@ -54,8 +59,10 @@ def fold(p):
         mu = {(q, k): F32[(per == q) & (y == k)].mean(0) for q in PEOPLE if q != p for k in range(3)} if MODE in ("mix", "gmix") else None
         for s in sorted(set(sid[idx])):
             r = np.flatnonzero(sid == s)
-            for _ in range(COPIES):
-                if MODE == "gmix":  # a random member of the between-person family: all three class deviations share the weights
+            for ci in range(COPIES):
+                if MODE == "fsc":
+                    x = FSC[ci % 2][r]
+                elif MODE == "gmix":  # a random member of the between-person family: all three class deviations share the weights
                     a = per[r[0]]; others = [q for q in PEOPLE if q != p]; w = rng.standard_normal(len(others)) * PARAM / np.sqrt(len(others) - 1); x = F32[r].copy()
                     for k in range(3):
                         g = np.mean([mu[(q, k)] for q in others], 0); x[y[r] == k] += sum(wi * (mu[(q, k)] - g) for wi, q in zip(w, others)) - (mu[(a, k)] - g)

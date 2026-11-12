@@ -692,6 +692,24 @@ refuted if ≤ +0.3 at both. It counts toward "any generator ≥ +1.5" (now 30 %
   in the write-up. ds007554 is CC0 (30 people, 4.5 GB; per session one 3-minute arithmetic block and one arm-imagery
   block with nominal event times); the MEG set with our tasks is CC0, 116 GB, no EEG. Neither is fetched.
 
+**Literature pass and a fifth generator (12 Nov 01:40 UTC, before any §47 or §49 result).** A search of the
+few-subject literature (primary sources read where marked in the session notes) found:
+- With fewer than ten training domains, tuned pooled training is hard to beat: invariance penalties (IRM, V-REx,
+  group DRO) are at or below it on DomainBed and on EEG (WOODS); hierarchical priors over subjects equal pooled ridge
+  for an unseen subject (Jayaram 2016) or add +0.7 (Fazli 2011, 83 subjects); no source shows generated subjects
+  beating a tuned linear baseline with fewer than ten subjects (a Riemannian VAE lost 3–4 points with an SVC). This
+  lowers my prior for E3 and E6 of §49 to about 10 % each.
+- Alignment is the one large documented effect (+4 to +5.6), and our recentring is its Riemannian form.
+- The one augmentation with consistent cross-subject gains at 7–9 subjects is left-right channel reflection with a
+  label swap (+1.4 to +3.8, EEGNet). It needs classes that mirror into each other; ours do not, and the mirrored
+  core of 11 Nov (§5, arm A25) lost because it destroys the lateralisation of hand imagery. Closed, not rerun.
+- Rotation and cap-shift copies survive recentring only as an orthogonal rotation of the recentred covariances
+  (so "rot" and "cap" test the same family, cap the structured part of it). Reported gains for spatial rotations are
+  small or absent at 19–32 electrodes.
+- A whole-subject frequency shift is suggested but unverified across subjects. **fsc** is added: two copies of every
+  training session with all 17 band edges scaled by 1/(1+p) and (1+p), a person whose rhythms run slower or faster;
+  p 0.10 / 0.20. Prediction: best p +0.5 (−1.0 to +2.0); refuted if ≤ +0.3 at both.
+
 | Item | Observed | Verdict |
 |---|---|---|
 
