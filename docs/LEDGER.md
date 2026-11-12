@@ -979,3 +979,14 @@ Reading: with six to eight seeds the three-seed +0.27 of §60 shrinks to about 0
 chain's labels is closed for new people; the +2 ceiling with true labels is §83's lesson again (labels on the hard
 windows). The script's secondary "one fine-tuned seed" section failed on the uneven seed counts and is not reported.
 
+| §93 item (13:02 UTC; `runs/dro_swap_12nov.log`; four families replaced, against the twins, six bases) | Observed | Verdict |
+|---|---|---|
+| GroupDRO η 0.1 / 0.01, new | −0.34 [−0.67, −0.01] / −0.22; P04 +0.5 / +0.7; P05–P07 −1.1 to −1.7 | **Refuted** |
+| Participant-balanced loss, new | +0.04 [−0.27, +0.33], 7 of 10 ≥ 0; P04 +0.1 | Refuted (lever +0.3; P04 lever +2) |
+| Seen | −0.05 to −0.67 | — |
+
+Reading: up-weighting the worst-fitted training people does not reach a new P04-like person (+0.5 at most) and costs
+the others. Robust objectives cannot supply what no training person carries (§67, §77). Process note: the first
+scoring attempt failed on an unconverted name in the scorer (fixed in `focal_swap.py`) and on a brace pattern in a
+remote copy; both now fail loudly, and the result above is from the corrected run.
+
