@@ -30,7 +30,7 @@ for bn in env.BASES:
     s = {v: A.summary(A.system(bn, *swap(v))) for v in ("twin",) + ARMS}
     for v in ARMS:
         R[bn, v] = (s[v]["dn"] - s["twin"]["dn"], s[v]["ds"] - s["twin"]["ds"])
-    print(f"{bn}: " + " | ".join(f"{v} against twin: new {R[bn, v][0].mean():+.2f} seen {R[bn, v][1].mean():+.2f}" for v in ("focal1", "focal2")), flush=True)
+    print(f"{bn}: " + " | ".join(f"{v} against twin: new {R[bn, v][0].mean():+.2f} seen {R[bn, v][1].mean():+.2f}" for v in ARMS), flush=True)
 for v in ARMS:
     d = np.mean([R[b, v][0] for b in env.BASES], 0); bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"MEAN {v}: new {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] people >= 0 {(d >= 0).sum()}/10 | P04 {d[3]:+.2f} | " + " ".join(f"{x:+.1f}" for x in d) + f" | seen {np.mean([R[b, v][1].mean() for b in env.BASES]):+.2f}")
