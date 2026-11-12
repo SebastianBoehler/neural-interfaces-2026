@@ -1618,3 +1618,14 @@ with the +70 ms of the 14-session check. Sealed estimate (1,287 s × the ratio):
 min if every session were routed — inside the 60-minute limit. My "48 / 84 min, not uploadable" of 22:2x UTC is
 withdrawn; the original §105 runtime estimate (27 min, worst case 32) stands. Lesson: never time a single cold replay.
 
+| Explore wave 3 (23:14 UTC; Leonardo `runs/leo_cpu/bandsel-64317556.out`, `famsel-64317557.out`) | Observed | Verdict |
+|---|---|---|
+| §116 BANDSEL alone (equal / agree / oracle), ten people | 51.2 / 51.2 / 51.6 % | Miss, low (predicted 58–61; the two-person smoke was the easy pair) |
+| §116 fused, six bases, label-free | −0.57 to −0.94 | **Refuted**; per-band weighting closed |
+| §117 FAMSEL single re-weightings (six bases) | dropping core1 −2.0 to −2.9; dropping SessionBN FBCNet −0.5 to −2.1; dropping the plain TF FBCNets −0.30 to +0.36 (mean +0.09); doubling the SincShallow slot −0.7 to +0.4 | the shipped weights are near the best fixed choice |
+| §117 per-session pick, oracle / label-free (agreement with the majority) | **+1.2 to +2.1** / −0.16 to +0.04 | Oracle above 1 (not closed), but no label-free criterion finds it (as §76) |
+
+Reading: per-session choice among member weightings has 1–2 points of head-room, like per-session choice among stage
+variants (§76), and agreement-based criteria cannot see it. The open question for this family is a criterion, not a
+weighting; none is known.
+
