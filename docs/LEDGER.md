@@ -847,3 +847,16 @@ third, non-causal first (a ceiling for the method); a causal version follows onl
 | (ii) chain seeds, accuracy on the hard windows | 57 (48–65), chain 60.8 |
 | **Go/no-go** | (ii) ≥ 64 % on the hard windows → causal version and chain fusion, pre-registered |
 
+| §89 item (11:25 UTC; `runs/lprop_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| (i) true seeds on the easy two thirds → hard windows | 50.9 % (k 7), 49.5 % (k 15) | **Miss** (predicted 62) |
+| (ii) chain seeds → hard windows | 47.0 %, 44.9 % (chain 60.8) | **No-go** (< 64) |
+
+Where the hard windows sit (B2_pool, new people): 48 % of the first fifth of each session (26 % of the last); equal
+across interfaces; SUB and WORD more than MI; the confusion on them is spread over both other classes.
+
+Reading: even perfectly labelled easy windows do not carry their labels to the hard windows through the session's own
+neighbourhood structure. The hard windows are a different region of the person's space: decodable with labels from
+hard-type windows (§88: 78 %), not reachable from the easy ones. For a new person the bottleneck is now precise: the
+labels of their hard-type windows, which no label-free source in this data supplies.
+
