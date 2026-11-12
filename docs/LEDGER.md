@@ -1515,6 +1515,19 @@ component timers, cProfile) comes first. The fix is chosen from it.
 | Sealed worst case (v5.1b's 1,287 s on the real worker × the replay ratio) | stated for 43 % and 100 % routed sessions |
 | Prediction | the 30 personal traces at batch size 1 cost launch overhead, not compute: personal-trace time ≈ 60–80 % of the extra; overlapping or batching them reaches 1.2–1.5× |
 
+| §112 item (23:16 UTC; A100 jobs 64315681 profile, 64316388 ABBA, 64316760 check, 64316761 replay series) | Observed | Verdict |
+|---|---|---|
+| The 3.9× | a cold start: the first replay in a fresh job pays about 230 s of neuralbench/benchopt setup (`/tmp/neuralbench`); v5.1b alone, run first, took 325.1 s (64302270), and v5.2 ran first in 64311532 | the 3.9× was a measurement artefact |
+| Paired ABBA after a throwaway warm-up replay | v5.1b 96.4 / 99.0 s, v5.2 137.9 / 136.6 s: **1.40×** (+53 ms per routed window) | — |
+| Profile, official `predict_streams` on CUDA (v5.2) | predict 98.9 ms per window against 82.2; PersonalNets.proba 15.6 ms per routed call, 43 ms for the first (warm-up) call; Route3.step 34.8 against 18.9 ms; model deepcopy about 0.1 s per session | personal traces about half the extra (prediction 60–80 %: about right) |
+| Fix: `submissions/ensemble_v52b` | the main thread runs the last routed person's traces for the current window while the CPU tangent thread is still working (`PersonalNets.prefetch`, only when those traces are exactly one window behind, so the arithmetic is v5.2's) | — |
+| v5.2b against v5.2, official streaming, all 2,655 public windows | CPU: identical labels, max posterior difference **0.0**, 711 of 715 test-split calls prefetched; GPU: identical labels, **0.0**, 2,501 of 2,515 | equal (tolerance 0 met) |
+| Paired GPU replay series (warm-up, v5.1b, v5.2b, v5.2, v5.2b, v5.1b) | 97.9; 98.2; 126.7; 146.8; 132.8; 105.7 s: **v5.2b 1.27× v5.1b** (v5.2 1.44× in the same series) | **Target met** (≤ 1.3×), narrowly; node noise about ±5 % |
+| Sealed estimate (1,287 s × ratio; the replay sessions are 95 % routed windows) | v5.2b about **27 min** if every session is routed, about **24 min** at 43 %; v5.2 about 31 / 25 min | — |
+| Why `check_v52.py` failed on GPU | the personal posteriors against a reference run as one CPU batch per session: 2.8e-4 (main), 2.6e-4 (switch), equal to the digit with deterministic algorithms (64314422). Shipped base traces, GPU against CPU on real streams: 5e-5; personal traces 4.7e-5 as a batch, 1.9e-4 window by window (64315682). On the Mac, a reference with the package's own batch schedule gives **0.0** and one batch 3.5e-5 | float32 numerics of batch shape and device, not logic; the GPU run of `--ref-schedule` (64317874) is pending |
+
+Not done: worker-image replay (needs Galvani; the image cannot be built on Leonardo).
+
 **Explore results (22:42 UTC; Leonardo `runs/leo_cpu/`).**
 
 | Item | Observed | Verdict |

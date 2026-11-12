@@ -1,6 +1,9 @@
 """Integration check of the v5.2 package (personal SessionBN traces on routed windows) against v5.1b, public windows.
 
-Usage: python scripts/check_v52.py PKG_V52 PKG_V51B [--out JSON] [--device cuda] [--deterministic]
+Usage: python scripts/check_v52.py PKG_V52 PKG_V51B [--out JSON] [--device cuda] [--deterministic] [--ref-schedule]
+--ref-schedule (ledger s112): the reference runs on the package's device with the package's own batch shapes (catch-up
+chunks of PersonalNets.CHUNK from the last window seen, as the package calls them) instead of one CPU batch per session,
+so a remaining difference cannot be shape- or device-dependent float32 numerics.
 Main pass (all 14 public sessions, one window per call, both packages):
   (1) the shadow tail (gate input) equals v5.1b on every window and the routed output equals v5.1b on every window
       before the session's first routed window; the gate routes the same windows (v5.1b's own-stage counter);
@@ -24,6 +27,7 @@ from add_rebalance import load_solver  # noqa: E402
 
 TOL = 1e-4
 DEVICE = sys.argv[sys.argv.index("--device") + 1] if "--device" in sys.argv else None
+REF_SCHED = "--ref-schedule" in sys.argv
 if "--deterministic" in sys.argv:  # GPU float32 numerics: same algorithms whatever the batch size (cuDNN / cuBLAS)
     import os
     os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8"); torch.backends.cudnn.deterministic = True
@@ -68,19 +72,30 @@ def run(m, d, sessions, sched=None):
 
 
 @torch.no_grad()
-def reference(m, d, rows, j, upto, pkg):
-    """Person j's traces, freshly loaded, on network inputs recomputed by fresh input streams: (T, M, 3)."""
+def reference(m, d, rows, j, upto, pkg, calls=None):
+    """Person j's traces, freshly loaded, on network inputs recomputed by fresh input streams: (T, M, 3). calls (the
+    windows at which the package asked for person j, in order): replay the package's batch shapes on its device."""
     streams = {}
     for k in set(m.pnets.keys):
         st = copy.deepcopy(m.groups[k][0]); st.reset_state()
         streams[k] = np.stack([st(np.nan_to_num(np.asarray(d["X"][i], np.float32))) for i in rows[:upto]])
-    out = []
+    out = []; dev = (DEVICE or "cpu") if calls is not None else "cpu"
     for mi, k in enumerate(m.pnets.keys):
-        mod = torch.jit.load(str(pkg / str(m.pnets_files[mi, j])), map_location="cpu").eval()
+        mod = torch.jit.load(str(pkg / str(m.pnets_files[mi, j])), map_location=dev).eval()
         for name, b in mod.named_buffers():
             if name.rsplit(".", 1)[-1] in ("s1", "s2", "n"):
                 b.zero_()
-        out.append(torch.softmax(mod(torch.from_numpy(streams[k])).double(), 1).numpy())
+        X = torch.from_numpy(streams[k]).to(dev)
+        with torch.no_grad():
+            if calls is None:
+                z = mod(X)
+            else:  # the package's schedule: from the last window seen to the called window, chunks of CHUNK
+                z, done = torch.full((len(X), 3), float("nan"), dtype=torch.float32, device=dev), 0
+                for t in calls:
+                    for a in range(done, t + 1, m.pnets.CHUNK):
+                        b_ = min(a + m.pnets.CHUNK, t + 1); z[a:b_] = mod(X[a:b_])[:, :3]
+                    done = t + 1
+        out.append(torch.softmax(z[:, :3].double(), 1).cpu().numpy())
     return np.stack(out, 1), streams
 
 
@@ -92,7 +107,7 @@ def compare(m, d, sessions, rec, pkg):
             continue
         rows = np.flatnonzero(d["stream"] == s); upto = max(r[0] for r in g) + 1
         for j in sorted({r[1] for r in g}):
-            R, streams = reference(m, d, rows, j, upto, pkg)
+            R, streams = reference(m, d, rows, j, upto, pkg, [r[0] for r in g if r[1] == j] if REF_SCHED else None)
             for k, X in streams.items():
                 dx = max(dx, float(np.abs(buf[k][:upto] - X).max()))
             for t, jj, P, pm, base, o in g:
