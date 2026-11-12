@@ -17,4 +17,4 @@ echo "torch==2.14.1+cu126" > .ni26_constraints.txt
 .venv/bin/python -m uv pip install -q -p .venv312/bin/python torch==2.14.1+cu126 --index-url https://download.pytorch.org/whl/cu126
 .venv/bin/python -m uv pip install -q -p .venv312/bin/python -r requirements/cloud.txt -c .ni26_constraints.txt --extra-index-url https://download.pytorch.org/whl/cu126 --index-strategy unsafe-best-match
 .venv/bin/python -m uv pip install -q -p .venv312/bin/python --reinstall --no-deps torchaudio --index-url https://download.pytorch.org/whl/cu126
-.venv312/bin/python -c "import torch, benchopt, neuralset, braindecode; print(torch.__version__, benchopt.__version__, neuralset.__version__)"; echo VENV_REPLAY_OK
+.venv312/bin/python -c "import torch, benchopt, neuralset, braindecode; print(torch.__version__, benchopt.__version__)"; echo VENV_REPLAY_OK
