@@ -510,3 +510,19 @@ Reading: per-session choice among session-stage variants has at most 1–1.4 poi
 criteria reach a fraction of it. The per-person spread seen all day is noise of the stage, not a missed setting.
 The large losses (P04: every member 37–51 %) sit before the stages, in the members.
 
+### 77. BANDMAP: where does P04's signal live, and where does transfer to P04 fail? (written 12 Nov 10:34 UTC, before any result; code `studies/12nov/bandmap.py`)
+
+**Why.** User, 12 Nov: next wave on both lines; this is the first step of the new-member line. P04 is read at 76 % by
+their own earlier sessions and at 37–51 % by every member trained on others (§67, §77 addendum of §67). A member aimed
+at P04-like people needs a feature family where P04's classes separate **and** where the separating directions are
+shared with somebody. Per band (nine bands) and family (tangent space T, CSP C, plus slow S): accuracy from the
+person's own other sessions (P04, P10) and from the pooled other nine people (all ten targets), causal, as §37.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| P04 own-session, best single band | 65 (55–72), in 8–30 Hz |
+| P04 from others, best single band | 45 (40–52) |
+| Bands where P04 from others ≥ 50 % | 0 (0–2) |
+| Others' mean from others, best band | 55 (50–60) |
+No pass rule: a diagnostic. It turns into a member only if a band/family reads P04 from others ≥ 55 %.
+
