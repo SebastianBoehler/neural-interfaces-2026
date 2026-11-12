@@ -1304,3 +1304,29 @@ returning people (§41–§45; package cand_v51_own). Everything aimed at new pe
   dev recipe fine-tuned Python nets with batch statistics over the session so far. So the first step is a dev test
   of the package form (§60), not the build.
 - **Lanes:** the montage-reordering check of v5.1 with the stage active (Galvani 3090406), then §60.
+
+## 60. TTT3: does in-session fine-tuning survive the form a package can run? (written 12 Nov 03:40 UTC by `date -u`, before any result; code `studies/12nov/ttt3.py`, Galvani)
+
+**Why.** §59: the one new-person lever with a measured dev gain (new +0.6 with four families, §31). The dev recipe
+fine-tunes Python nets in training mode, with batch statistics over all windows so far and dropout on. The shipped
+nets are TorchScript traces whose normalisation is the causal per-window formula and which expose only convolution
+and output weights as parameters. Before any package work the lever has to hold in that form.
+
+**Test.** The TTT2 run again on the same recipe, with four more variants on the very same trained nets (5 families ×
+3 seeds, both protocols, chain labels unless stated): `pl20` the dev form (reference); `ple20` package form, all
+parameters, lr 5e-4; `plelr20` the same at 1e-3; `plec20` package form, only the parameters a trace exposes, 1e-3;
+`ore20` package form with true labels (ceiling).
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| `pl20` here against §31 | reproduces: standalone new +4 to +6 per family | not reproduced: the harness differs |
+| Package form, standalone new, mean of families (best of `ple20`, `plelr20`) | +4 (+2 to +6); within 1.5 of the dev form | < +2 |
+| `plec20` against the best all-parameter variant | −0.3 (−1.5 to +0.5) | < −2: the affine parameters are needed, so traces must be re-exported |
+| Chain, four families swapped, package form, new | +0.4 (0 to +0.8) | ≤ +0.2 on both exploration bases: not worth a build |
+| P(chain new ≥ +0.4 on both bases) | 45 % | — |
+
+Pass → the package work starts: trainable copies of one net per family, 20 steps every 20 windows, and a timing
+replay on A100 (estimate from §31: about 28 extra minutes on the sealed set).
+
+| Item | Observed | Verdict |
+|---|---|---|
