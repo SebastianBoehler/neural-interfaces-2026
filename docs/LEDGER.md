@@ -1022,3 +1022,15 @@ in-population chain with the nets replaced by their personally fine-tuned versio
 | People ahead | 6 of 10 |
 | **Reading** | ≥ +1.5 with ≥ 7 of 10 ahead → the personal-net component is built for all ten people now, ready for upload 2 if upload 1 shows the returning branch pays |
 
+| §96 item (13:24 UTC; `runs/inpop3_12nov.log`; B2_pool / B2_s345 / B2_s012) | Observed | Verdict |
+|---|---|---|
+| Personal nets alone on the in-population chain | pfh60 +1.8 / +2.2 / +1.8; pf60 +2.6 / +3.3 / +2.6 | — |
+| Personal nets + stage against the stage alone | **pfh60 +2.6 / +2.4 / +2.4; pf60 +2.7 / +2.5 / +2.5**, 8 of 10 ahead, intervals +1.2 to +3.9 | **Above the range** (predicted +1.0); the reading's mark is met |
+| Personal nets + stage against the in-population chain | +5.7 to +6.3 | — |
+
+Reading, with the caveat this proxy has earned: within a session, with the person's first runs in the population,
+the stage and personal nets add up (+6 for eight of ten people). On the real later sessions of P04 and P10 the same
+pair added +0.2 over the stage (§78). Which of the two the eight single-session sealed people resemble is the one
+question only the sealed set answers; upload 1 (v5.1) measures the stage's half of it. By the pre-set reading, the
+personal-net component is now built for all ten people so that it is ready for upload 2.
+
