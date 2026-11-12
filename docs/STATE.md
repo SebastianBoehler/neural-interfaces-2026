@@ -12,7 +12,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 - **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage), 12 Nov, 1,287.0 s; **8th** on the board at 21:35 UTC (0.847, 0.846, 0.830, 0.826, 0.825, 0.825, 0.821, us 0.820). Previous best: 0.8161546323 (1048575, `cand_v41_bio`).
 - **Rank:** 10th on 12 Nov (user's reading of the board; leader 0.847); 9th on 11 Nov. Board on 11 Nov, about 19:00 UTC: 0.846 (seohee, ETRI), 0.830, 0.826, 0.825, 0.824, 0.821, 0.819,
   0.817, **0.816 (us)**, 0.815. Third place needs +1.0, first place +3.0, and the field keeps moving.
-- **Upload plan (user, 12 Nov evening):** no upload tonight; the next 24–48 h go to the in-depth review and to finding a method that reaches rank 3 (≈ 0.826), with sanity checks; v5.1 stays staged-ready as the fallback measurement. Three uploads over nine days leaves room.
+- **Upload plan (user, 12 Nov, about 22:00 UTC): research window until about 14 Nov 02:00 UTC.** In the user's words: "before building any next candidate or deciding we have the next at least 28h of doing research, iterating, profiling and pushing our performance". Until then no new package candidate is built and no upload decision is taken. The v5.2 validation approved just before stands (v5.2 already exists), but leads to no upload discussion inside the window. The work is research: iterate on what can raise the score, profile (accuracy by person, session phase and interface; runtime: upload 5 used 21.5 of 60 minutes, so about 38 minutes are free for methods that cost compute), pre-register as usual. Upload 5 (v5.1b, 1050185) scored 0.8197668759; 2 uploads left.
 - **Compute (12 Nov):** Galvani access may have expired (2FA rejected from ~14:00 UTC); local Mac only until it is restored. Results waiting on Galvani: ledger §91, §94, §96, §98.
 - **Deadline:** 21 Nov 2026, 22:59 UTC. **Uploads:** 7 per team, 1 per UTC day; 5 used, **2 left**.
 - **Upload 5 (12 Nov, 21:12 UTC): `cand_v51b_own`, submission 1050185: 0.8197668759, +0.361 over v4.1.** By the rule of ledger §63 that is the undecided band (+0.15 to +0.4), just under its upper mark; arithmetic on the assumed cohort says returning people other than P04 gain about +0.6 per session. Whether v5.2 goes next is open (user's decision). Codabench storage: v5.2 (85 MB) needs that much free space at upload time. Details in `SEALED_UPLOADS.md`.
@@ -204,12 +204,10 @@ public sessions in j's own space: FBCSP + LDA, own tangent space + logistic regr
 
 ## 9. Decisions waiting for the user, and rules they set
 
-1. **Upload `cand_v51_own` or hold.** It is the next candidate and also the only way to measure the returning branch
-   on the eight single-session people. Reading rule fixed in ledger §63: ≥ +0.4 over v4.1 → remaining uploads go to
-   the returning branch; ≤ +0.15 → that branch stops. The user said on 12 Nov (several times) to keep iterating before another
-   upload; no go-ahead has been given. Every upload needs the user's explicit go-ahead and a live phase and quota check.
-2. **The two leading accounts appear to belong to one lab** (§5). Whether to raise that with the organisers is the
-   user's call.
+1. **Next upload (v5.2 or a later candidate).** Not before about 14 Nov 02:00 UTC (research window, below). v5.2 is built and being validated; its sealed expectation is pre-registered in ledger §105. Every upload needs the user's explicit go-ahead and a live phase, quota and Codabench-storage check (v5.2 needs about 85 MB free).
+2. ~~Two leading accounts~~: ranks 1 and 2 are one team (ETRI_EnSeption, two models; REVIEW_12NOV §7).
+
+**Research window (user, 12 Nov about 22:00 UTC, until about 14 Nov 02:00 UTC):** no new package candidate is built and no upload decision is taken before then; research, iteration, profiling and pushing performance only.
 
 **Rules set by the user on 12 Nov** (also in `AGENTS.md`): no gate or closure is final (check what actually ran before
 citing one); cleanups and reviews must hunt silent no-ops (options parsed but not applied); the codebase exists to
