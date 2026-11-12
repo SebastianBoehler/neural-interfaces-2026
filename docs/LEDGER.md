@@ -1107,7 +1107,7 @@ because of the person's own labels, not because of where it sits in the chain: t
 other people are a decent decoder alone (61 %) and still lower the chain at any weight. And the stage does not
 stack with the two small returning-person levers of 11 Nov. v5 stays "v4.1 plus the stage, nothing else".
 
-## 58. OCU: an explicit eye-movement branch (lead from the user, 12 Nov; written 12 Nov 02:15 UTC)
+## 58. OCU: an explicit eye-movement branch (lead from the user, 12 Nov; written 12 Nov 01:57 UTC by `date -u`)
 
 **The lead.** The user pointed at the rank-2 account's publications. A search (primary sources read: two ICTC 2025
 papers, the lab's roster and publication list, the competition leaderboard) found: "Sungjun Wang" and "Seohee Kim" are
