@@ -914,3 +914,69 @@ an unknown suffix; the runs 1–3 / 4–6 proxies split as described; `repceil.p
 of `v5_replay.py`, `oracle_gate.py` and `dose.py` take effect. **Not covered:** the export and build scripts, the
 identity model's internals, the untracked scratch of the 29 stage arms and the two automated searches, and October
 code deleted on 11 Nov.
+
+## 53. SCH19: do external same-task people count as people when only real channels are used? (written 12 Nov 03:20 UTC, before any result; code `studies/12nov/sch19.py`)
+
+**Why.** §39 says each added person is worth about +2; §21 closed Scherer 2015 in the cores, but with 22 of 41
+channels interpolated (§52 re-read). The clean test uses only the 19 channels both caps have, bands from 4 Hz up
+(Scherer is high-passed there) and no slow block, for both corpora alike.
+
+**Test.** core1's recipe on 19 channels, 14 bands (4–58 Hz), three covariance windows; logistic head, C 10.
+R19: PROTEUS only, leave one PROTEUS person out (nine training people). S19: the same plus Scherer's nine people at
+row weight 1.0 and 0.3. Context: PROTEUS → Scherer (train on all ten, test on Scherer's people) and leave-one-person-
+out inside Scherer.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| R19 (19 channels, no slow content) | 63 (58–67), against 69.29 with everything | — |
+| S19 minus R19, best weight | +1.0 (−1.5 to +3.5) | ≤ 0 at both weights: Scherer's people do not act as people even on real channels |
+| PROTEUS → Scherer, balanced accuracy | 45 (38–52) | — |
+| Leave-one-person-out inside Scherer | 45 (38–52) | — |
+| P(S19 − R19 ≥ +2) | 25 % | — |
+
+Reading: ≥ +2 reopens external same-task data (a shared-channel member with 19 people; ds007554 on its own 19
+shared channels becomes worth fetching). ≤ 0 means the corpus differs in more than its cap.
+
+## 54. TSEMK: is the session stage limited by its 128 components? (written 12 Nov 03:20 UTC, before any result; code `studies/12nov/tsemk.py`)
+
+**Why.** §49: 512 PCs of core1's features lose four points against the full features on new people; §36: the
+population PCs lose a person's own directions. TSEM, the stage worth +3.6 sealed, sees 128 PCs. A 256-PC hedge gave
++0.30 on 6 Nov; larger spaces were not tried.
+
+**Test.** core1's scaled features per fold, PCs recomputed (harness check: the chain with my first 128 PCs must
+reproduce the reference J within 0.05). TSEM in k ∈ {64, 128, 256, 512, 1024} PCs with λ ∈ {0.15, 0.10, 0.07} in the
+v3 chain, exploration bases; everything else unchanged (routing still uses its own 256-PC view).
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Best (k > 128, λ) minus the shipped (128, 0.15), dJ | +0.3 (−0.4 to +1.0) | ≤ 0 on both bases for every k > 128 |
+| k = 64 | −0.5 (−1.5 to 0) | — |
+| P(≥ +0.5 on both exploration bases) | 15 % | — |
+
+## 55. SEQCAL: the cue-order prior with a learned fusion (written 12 Nov 03:20 UTC, before any result; code `studies/12nov/seqcal.py`)
+
+**Why.** §9 closed the Graz cue-order prior at ≤ +0.4 J with one temperature and one weight; §52 re-read: a fusion
+that learns the calibration was never tried. This is a ceiling with the true interface and run position.
+
+**Test.** For Graz windows: a multinomial logistic fusion of the chain's log posterior (3) and the pattern class of
+the window's run position (one-hot, 3), fitted on the other people's Graz windows (leave one person out; seen
+sessions use the fusion fitted on all new-person rows of other people). BrainHero windows unchanged. v3 chain,
+exploration bases.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| dJ with the true run structure | +0.3 (0 to +0.8) | < +0.5: stays closed, now with a learned fusion |
+| Graz window accuracy | +1.0 (0 to +2.5) | — |
+
+## 56. NETPC and cmix on the shipped nets (written 12 Nov 03:20 UTC, before any result; code `studies/12nov/netaug.py`, tasks 120–131 and 200–211)
+
+- **NETPC: the people curve for a net.** SessionBN FBCNet (the FB slot) and FBLight, seed 0, trained on k = 3, 5, 7
+  random other people (two draws) per held-out person; k = 9 is the in-harness twin. Prediction: +5 per doubling
+  (+2.5 to +8), flatter than core1's +8 because the nets are weaker and carry augmentation. If a net is much flatter
+  than the core, the nets are the people-efficient members and deserve more weight when people are few; if equally
+  steep, the bottleneck is common to both.
+- **cmix4:** same-class mixing (α 0.4) on the four SessionBN families, never applied to them before (§51, §52).
+  Prediction: standalone new +0.5 (−1 to +2) against the twin; chain as §51.
+
+| Item | Observed | Verdict |
+|---|---|---|
