@@ -1326,3 +1326,16 @@ Reading: augmented-input fine-tuning with the consistency term is a small, *repl
 of cells. It misses the pre-set bar by 0.03–0.04 and costs 20–40 minutes of runtime per sealed run; under §52 it is
 recorded as "positive, small, replicated, not built". A package would run it only on sessions the gate does not route.
 
+### 105. Sealed expectation for v5.2 over v5.1b (written 12 Nov 21:43 UTC, before any upload of v5.2 is discussed)
+
+Inputs: upload 5 measured v5.1b − v4.1 = +0.361 (0.8197668759); with the assumed cohort (106 sessions, 46 returning,
+3 of them P04's) the non-P04 returning sessions gained about +0.6 each, while the within-session proxy had promised
++3.2 for the stage (§82): a survival ratio of about 0.19 from proxy to sealed. v5.2 adds personal nets on routed
+windows: +2.4 within session on the proxy (§96), +0.17 on the real later sessions of P04 and P10 (§78).
+
+| Quantity | Prediction (80 % range) |
+|---|---|
+| v5.2 − v5.1b, sealed | **+0.20 (−0.10 to +0.50)**, i.e. a sealed score of about 0.822 (0.819 to 0.825) |
+| Sealed runtime | about 1.4× v4.1's 18.8 min, 27 min (worst case 32 min) against the 60-minute limit |
+| **Reading rule** | ≥ +0.15 → v5.2 is the base of the final package; ≤ 0.00 → the final package builds on v5.1b; in between → v5.2 stays the base only if nothing else is ready |
+
