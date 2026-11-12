@@ -685,3 +685,21 @@ with the chain's errors moved to random windows of the same true class (same cou
 | **(b) chain-count errors at random places, new** | **+2.0 (+0.5 to +3)**: placement, not count, is the problem |
 | Reading | (b) ≥ +1.5 → explanation 2; the next build is a label source with feature-independent errors. (b) ≤ +0.5 → explanation 1; the next build is cleaner, fewer labels |
 
+| §83 item (11:03 UTC; `runs/ownnoise_12nov.log`; new people, λ 0.25, B2_pool / B2_s345) | Observed | Verdict |
+|---|---|---|
+| (a) chain labels (16 % wrong on the selected windows) | −0.28 / −0.62 | Hit (−0.4) |
+| (b) the same errors moved to random windows | +0.39 / 0.00 | **Miss** (predicted +2.0) |
+| (c) true labels **on the same selected windows** | **+0.55 / +0.73** (λ 0.5: +0.62 / +0.80) | **Miss, far below** the +2.8 of §38, which used true labels on **all** past windows |
+| P05 | −3 to −10 with every label source, true labels included | a within-session learner fails for P05 |
+
+**Reading: neither explanation; the windows are the problem.** Decomposition on B2_pool: chain labels −0.28 →
+errors moved to random places +0.39 (placement: +0.7) → no errors at all on the same windows +0.55 (count: +0.2) →
+true labels on all windows +2.9 (§38; **which windows: +2.4**). The chain's confident windows are the ones it already
+gets right; labelling them, even perfectly, teaches the learner nothing the chain does not know. The value of a
+person's own data lies in labels for the windows the population model finds hard. A returning person's public
+sessions supply exactly those (every window labelled), which is why the personal stage works (§82: +3 to +4 within
+session). For a new person no label-free source can supply them: where the chain is uncertain, its labels are near
+chance by construction. Self-training inside the session is closed **in principle**, not only in the forms tried.
+This also says where a bigger step for new people would have to come from: information about the hard windows that is
+independent of the chain (another sensor view, the task structure), not more adaptation on the chain's own beliefs.
+
