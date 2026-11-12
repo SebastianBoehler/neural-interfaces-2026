@@ -164,3 +164,21 @@ None on 12 Nov 06:05 UTC.
 | Item | Observed | Verdict |
 |---|---|---|
 -->
+
+## 65. IMPOSTOR: what a false accept costs with the stage (written 12 Nov 06:07 UTC by `date -u`, before any result; code `studies/12nov/impostor.py`)
+
+**Why.** The review (§63) names the identity gate's false accepts as a way for cand_v51_own to lose. The gate accepts
+about 1.9 % of new-person sessions by design; on dev none is routed, so the cost has never been measured.
+
+**Test.** Every new-person session is forced to route, from window 10 at ramp 1, to the public person the identity
+gate scores highest for it (the most plausible impostor). v4.1 (personal head of the wrong person) and v5.1 (plus the
+wrong person's own-space stage) against the unrouted chain; exploration bases; per person.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| v4.1 under forced impostor routing, new people | −2.0 (−0.5 to −4.0) | — |
+| Extra loss from the stage (v5.1 − v4.1, both forced) | −0.5 (0 to −1.5) | < −3: the stage makes a false accept much worse |
+| Expected sealed cost of the stage through false accepts (1.9 % × 57 % × the extra loss) | about −0.005 | worse than −0.03 |
+
+| Item | Observed | Verdict |
+|---|---|---|
