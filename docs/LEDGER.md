@@ -305,6 +305,9 @@ other nine people, used as a second TSEM view after the first and as extra colum
 |---|---|---|
 | §68 chain A (cores) / chain B (nets) alone, new | 74.1 / 77.6 (teacher in both); 74.1 / 77.0; 72.5 / 77.6 | A below its range, B a hit |
 | §68 fused, against the single chain (B2_pool / B2_s345) | best arm (average, teacher with the cores) −0.69 [−0.97, −0.38] / −0.71; products −0.9 to −6.3; 0 to 3 of 10 people ≥ 0 | **Refuted as a lever** (predicted −0.3): pooling all members before the stages beats two chains fused after them |
+| §69 FAIR, the 24 SessionBN-family candidates (8 architectures × 3 normalisation constants; B2_pool; `runs/fair_12nov_sbnx.log`) | alone 41–62 %; old screen −0.44 to +0.18; weight chosen on the other half −0.50 to +0.29; **co-tuned: the search leaves the candidate out in 22 of 24 cases (gain 0.00), cross-fit 0.00 to −0.21** | Hit so far: no candidate was closed wrongly by the fixed-weight screen. Remaining families running |
+| §70 SEQ, learned stage alone (on the mix), new | 64.6 / 65.6 against 80.2 / 80.1 for the hand-built stages; 0 of 10 people ≥ 0 | **Miss, far below the range** (predicted 77, 72–81) |
+| §70 SEQ on the chain's output; product with the chain | −11.0 / −9.5; product −6.9 to −3.8; P04 −3 to −10 | **Refuted** in this form (400 steps, 24 dimensions). Two sanity variants running (untrained; 1,500 steps in 8 dimensions) |
 
 ### 72. NETVIEW: the session stage through the nets' own features (written 12 Nov 09:40 UTC, before any result; code `studies/12nov/netemb.py` on Galvani, scored with `studies/12nov/fmview.py`)
 

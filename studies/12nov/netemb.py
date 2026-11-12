@@ -18,14 +18,22 @@ ARCHS = {"fb": ("fb_sbn_rot05", 2.0), "fbraw": ("fbcnet_raw_sbn", 20.0), "fbl": 
 def capture(m, d, mask):
     """-> (proba (n,3), classifier inputs (n,F)) for the rows of mask, in row order; the capture is checked against the output."""
     head = [x for x in m.net.modules() if isinstance(x, (torch.nn.Linear, torch.nn.Conv1d, torch.nn.Conv2d))][-1]; got, outs = [], []
-    h = head.register_forward_hook(lambda mod, inp, out: (got.append(inp[0].detach().flatten(1).float().cpu()), outs.append(out.detach().flatten(1).float().cpu())))
+
+    def hook(mod, inp, out):  # must return None: a returned value would replace the layer's output
+        got.append(inp[0].detach().flatten(1).double().cpu().numpy()); outs.append(torch.softmax(out.detach().flatten(1)[:, :3].double(), 1).cpu().numpy())
+
+    h = head.register_forward_hook(hook)
     try:
         P = protocol.predict_streams(m, d, mask, proba=True)
     finally:
         h.remove()
-    E, O = torch.cat(got).numpy(), torch.cat(outs).numpy(); n = int(mask.sum())
-    assert len(E) == n, f"captured {len(E)} classifier calls for {n} windows: the net is not called once per window"
-    agree = np.mean(O[:, :3].argmax(1) == P.argmax(1)); assert agree > 0.98, f"captured layer is not the classifier of the stream output (label agreement {agree:.3f})"
+    n = int(mask.sum()); S = sum(len(g) for g in got) / n; assert S == int(S) and len(got) % int(S) == 0, f"{sum(len(g) for g in got)} classifier rows for {n} windows"
+    S = int(S); E, O = [], []  # the stream predictor averages S time-shifted passes per session: average the captures the same way
+    for i in range(0, len(got), S):
+        assert len({len(g) for g in got[i:i + S]}) == 1, "shifted passes of one session differ in size"
+        E.append(np.mean(got[i:i + S], 0)); O.append(np.mean(outs[i:i + S], 0))
+    E, O = np.concatenate(E).astype(np.float32), np.concatenate(O); assert len(E) == n
+    diff = np.abs(O - P).max(); assert diff < 1e-3, f"captured layer does not reproduce the stream output (max diff {diff:.4f})"
     assert np.unique(np.round(E, 5), axis=0).shape[0] > 0.99 * n, "captured features repeat across windows"
     return P, E
 

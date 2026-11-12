@@ -7,7 +7,7 @@ import numpy as np
 import grid as G
 import score as SC
 from multiprocessing import Pool
-REPO = os.path.abspath(__file__ + "/../.."); p = "all_loso"; Z = G.Z; N = len(Z[f"y|{p}"]); WX = (0.5, 1.0, 2.0)
+REPO = os.path.abspath(__file__ + "/../.."); p = "all_loso"; Z = G.Z; N = len(Z[f"y|{p}"]); WX = tuple(float(v) for v in os.environ.get("FAIR_W", "0.5,1,2").split(","))
 CFG = list(itertools.product(G.ALPHAS, G.EMLAMS, (2.0,), G.WTS)); SHIP = CFG.index(G.SHIP); TL = G.TLAMS; L15 = TL.index(0.15)
 G1 = [G.PEOPLE.index(q) for q in SC.G1]; G2 = [G.PEOPLE.index(q) for q in SC.G2]
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         nb = crossfit(B); print(f"{base}: {len(C)} candidates, {len(CFG)} settings x {len(TL)} lambdas | baseline shipped {ship.mean():.2f}, best of grid {B.reshape(-1, 10).mean(1).max():.2f}, cross-fit {nb:.2f}", flush=True)
         print("candidate              alone | old screen (shipped, w 1) | weight only, cross-fit | co-tuned in-sample | co-tuned cross-fit | P04 at old screen")
         for name, E in C.items():
-            R = run(pool, base, E, list(WX)); alone = G.scores(E, p).mean(); old = R[1, SHIP, L15] - ship
+            R = run(pool, base, E, list(WX)); alone = G.scores(E, p).mean(); old = R[WX.index(1.0), SHIP, L15] - ship
             RW = np.concatenate([B[SHIP, L15][None], R[:, SHIP, L15]])  # weight 0 / 0.5 / 1 / 2 at shipped constants
             semi = crossfit(RW) - 0.5 * (ship[G1].mean() + ship[G2].mean()); allR = np.concatenate([B[None], R])
             ins = allR.reshape(-1, 10).mean(1).max() - B.reshape(-1, 10).mean(1).max(); nest = crossfit(allR) - nb
