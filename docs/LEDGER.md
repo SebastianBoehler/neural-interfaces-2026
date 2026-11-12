@@ -1445,3 +1445,19 @@ the chain; each fused into the routed chain as a final stage (β 0.10), six base
 | Label-free pick fused, new, six bases | −0.2 (−0.8 to +0.3) |
 | **Reading** | oracle < +2 → person-type experts closed; label-free ≥ +0.4 with the interval above 0 → a whole-system version is pre-registered |
 
+### 111. SEEN-DOSE under the sealed evidence (explore track; written 12 Nov 22:12 UTC, before any result; code `studies/12nov/seendose.py`)
+
+Reasoning: upload 5 showed the own-space stage pays about +0.6 per non-P04 returning session on the sealed set, so the
+returning block is the one measured lever. Which form of the personal stage is strongest is still chosen on dev's
+two people. Here the ten-person proxy with the person in the population (§82, runs 1–3 public, runs 4–6 later) is
+used as the ruler for forms the proxy can rank: stage strength β 0.05–0.40, KREF 1/2/4 (prior weight of the public
+mean in the recentring), the members used (T, C, S alone and together), and the personal nets on top (§96). The proxy
+over-promises in size (§82 against upload 5: 0.19×), so only the ranking is read, and only forms that are also
+≥ 0 on the real later sessions of P04 and P10 (v5.1 replay, six bases) are kept.
+
+| Check | Prediction |
+|---|---|
+| Best proxy form against v5.1's (β 0.10, T·C·S, KREF 2) | +0.5 within session (0 to +1.2) |
+| Same form on P04 / P10 real later sessions | P04 +0.3, P10 −0.2 |
+| **Reading** | a form ahead on the proxy by ≥ +0.5 and ≥ 0 on both real people goes into the next candidate's design |
+
