@@ -254,3 +254,32 @@ v4.1 − v3 step within 0.25 of +0.27. Harness check: the identity variant must 
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Harness: identity variant | v3 80.0131 and 79.8474, v4.1 80.53 and 80.50: the stored values | Valid |
+| (1) reset per session × interface: v3 change; v4.1 − v3 (B2_pool; B2_s345) | −2.93; +0.77 / −3.10; +0.79 | **Not supported** (sealed −1.05; +0.27) |
+| (3) one stream, Graz then BrainHero | −3.50; +1.67 / −3.39; +1.39 | **Not supported** |
+| (4) one stream, BrainHero then Graz | −2.87; +0.51 / −2.73; +0.65 | **Not supported** |
+
+**Reading (12 Nov 04:05 UTC; log `runs/segfp3_12nov.log`).** The routed packages reject all three interface-grouped
+variants: route3geb would have lost about three points, and it lost 1.05. The stage-level match of 62 / 62b was a
+coincidence of two numbers, as cautioned. **Interface grouping is not what the fix changed.**
+
+**New fact from the documents (primary sources, read 12 Nov; commit 8734b2f6 of 10 Nov 20:34 UTC).** The stream
+definition is unchanged ("One stream is one participant × session"; code: `stream_by: [subject, session]`). What the
+fix commit removed is every ordering guarantee: "There is no shuffling within a stream: runs are ordered by run
+number and windows are strictly chronological within each run" became "Windows arrive one at a time (B = 1) within
+each session stream, and the same evaluation order is used for all submissions"; "causal" now means "the current and
+previously delivered windows"; "in recording order" and "chronologically" were deleted from three other pages.
+So since 10 Nov the sealed windows of a session may arrive in a fixed order that is not chronological, and our
+chain's use of order (run-level class balance in rebalancing, the Graz cue-order regularity, early-window logic)
+rests on an assumption the organisers no longer make.
+
+**62d (written 12 Nov 04:05 UTC, before any result; `SEGFP_ORDERS=1 … segfp3.py`).** Four within-session orders, with
+stages and gates re-run on the re-ordered stream (members' own causal state unchanged): O1 a fixed random shuffle of
+the whole session; O2 runs in order, windows shuffled inside each run; O3 runs in a random order, chronological
+inside; O6 sorted by onset within the run across runs (first trial of every run, then the second, …). Fingerprints
+(sealed, after the fix): SessionEM-level package −0.72; TSEM-level −1.17; route3geb −1.05; v4.1 − route3geb +0.27.
+A variant is supported if all four are within 0.4 / 0.4 / 0.4 / 0.25. The 11 Nov test of O1–O3 (§2, a different
+harness with the members recomputed) rejected all three; O6 is new. My prior that any of the four is supported: 15 %.
+
+| Item | Observed | Verdict |
+|---|---|---|
