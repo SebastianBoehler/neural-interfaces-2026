@@ -354,5 +354,13 @@ three members fitted on j's public sessions in j's own space). Nothing else chan
   Not changed: no outlier guard on the running sums (one extreme window dominates them for the session, as in the
   study code and in v4.1's own stages); a rebuild will not reproduce the weights' SHA byte for byte (timestamps,
   BLAS), so the replayed build is the one to stage.
-- **v5.1 jobs:** build + integration check 3090346, A100 replay 3090347, worker-image replay 3090348, paired timing
-  3090349 (package `runs/sealed/cand_v51_own` on Galvani).
+- **v5.1 results (12 Nov 02:10 UTC; package `runs/sealed/cand_v51_own` on Galvani; `submission.py` `34eba3b0f3eb5a3d…`,
+  `weights.npz` `e88bc3b3936c2ce7…`, identical to the first build's weights):**
+  - build + integration check 3090346: **passed** (equal to cand_v41_bio on unstaged windows; members equal the study
+    class to 1.6e-12; staged output exact; 27 labels changed; the stage ran on 95 % of the public windows);
+  - A100 replay 3090347 and worker-image replay 3090348: identical scores (0.9932767697 in-sample, the same as the
+    first build), files unchanged; 204.4 s and 103.7 s (different nodes);
+  - paired timing 3090349 (one A100 node, worker image; three of four runs in): cand_v41_bio 118.5 s, cand_v51_own
+    123.7 / 122.0 s: about **1.04×**, so roughly 20 min sealed.
+  The candidate is replayed, checked, reviewed and timed. Not staged as a ZIP, not uploaded; an upload needs the user's
+  go-ahead and a live phase and quota check.

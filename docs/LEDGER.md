@@ -751,6 +751,17 @@ different distribution.
 | fsc, p 0.10 (3090259) | 68.69: **−0.60**; p 0.20 still running | Negative so far (predicted +0.5) |
 | cap, σ 10° (3090253) | 67.77: **−1.52** | cap is negative at every σ (−0.43 / −1.22 / −1.52): **refuted** |
 | gmix, γ 1.0 (3090256) | 68.34: **−0.95** | gmix is negative at both γ (−0.95 / −1.81): **refuted** |
+| gain, σ 0.1 / 0.3 (3090328, 3090329) | 69.28 / 68.87: **−0.01 / −0.42** | **Refuted** (≤ +0.3 at both; predicted +0.3) |
+| wn, s 0.5 / 2.0 (3090330, 3090331) | 66.20 / 66.04: **−3.09 / −3.25** | Below the range (predicted 0.0, −1.5 to +1.0): added sensor noise is clearly harmful |
+| fsc, p 0.20 (3090373; the first job on a v100 node produced no output in an hour) | 67.61: **−1.68** | fsc is negative at both p (−0.60 / −1.68): **refuted** |
+| **All seven generators** (rot, cap, gain, wn, fsc, mix, gmix), every strength | best is gain 0.1 at −0.01; every other setting is below the reference | **P(any ≥ +1.5) did not happen; no generator even reaches +0.3** |
+
+**Reading of §47 (12 Nov 02:10 UTC by `date -u`).** Generated variation does not stand in for people on core1.
+Spatial transforms (rotation, cap shift, gain) are neutral at small strength and harmful at larger ones; spectral
+scaling, mixing between people and sensor noise are harmful throughout. Together with §49 (no people-efficient
+estimator) and §53 (external same-task people lower accuracy even on real shared channels), the people curve of §39
+stands as a statement about real people of this protocol, of whom there are ten. Soft verdict (§52): closed for
+core1 alone; the nets are still running (§51, §56, §57a).
 
 ## 48. CHAINSLOPE: does the people curve survive the session stages? (written 12 Nov 00:58 UTC, before any result; code `studies/12nov/chainslope.py`)
 
@@ -1172,3 +1183,11 @@ features. Leave one person out, core alone, reference 69.29.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Step 2b, COREFUSE: eye-movement block in core1, weight 3 / 10 / 30 (reference 69.29 reproduced) | 68.84 / 66.56 / 65.76: **−0.45 / −2.73 / −3.53** | **Refuted** (≤ +0.3 at every weight; predicted +0.5) |
+| Same, per person at weight 3 | P02 +4.3, P09 +3.0, P01 +1.2, P06 +1.1, P08 +1.0; P04 −5.9, P03 −3.8, P10 −2.3, P05 −2.1, P07 −1.1 | The block helps the people who look and hurts the others by as much |
+
+**Reading of steps 2 and 2b (12 Nov 02:10 UTC).** The eye-movement features are a real cross-person signal (51 %
+alone) with a split population: for about half the people they add several points, for the other half they mislead
+by as much, so a fixed fusion (in the template stage or in core1's features) nets out negative. What is not tested
+yet is a fusion that can tell the two kinds of people apart inside a session, which is what an attention-based
+two-branch model does and what the learned branch of step 3 is for.
