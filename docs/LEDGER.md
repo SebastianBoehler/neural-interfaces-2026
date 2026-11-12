@@ -366,3 +366,11 @@ from window 0, with and without the own-space stage; exploration bases. Reported
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Real gate, warm k = 5 / 20, seen (B2_pool; B2_s345) | −0.13 / −0.65; −0.13 / −0.53 (P04 −0.3 to −1.3; P10 0.0 to +0.3) | Inside the range at k = 5 (predicted +0.1); **no gain** |
+| Oracle gate from window 0: cold, warm k = 5, warm k = 20 (against the real gate, cold) | −0.39, −0.12, −0.78; −0.40, 0.00, −0.40 | Warm k = 5 closes the cold-start defect (+0.27 / +0.40: **hit**, predicted +0.4) but only up to the real gate's level |
+| With the own-space stage, best warm variant against the shipped (real gate, cold: +2.00; +1.98) | +1.71; +1.89 | Below the shipped form |
+
+**Reading (12 Nov 04:28 UTC; log `runs/warm_12nov.log`).** The cold start is a real defect of the personal head under
+immediate recognition, and a light public-session prior repairs it, but the repaired oracle only equals what the real
+gate already achieves by waiting ten windows and ramping in. With the real gate the prior hurts slightly. Closed: the
+package keeps the cold head and the real gate.
