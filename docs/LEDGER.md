@@ -1665,3 +1665,18 @@ Reading: the 1–2 points of per-session head-room (§76, §117, §118) are invi
 60 windows, hand-made or learned. On average every alternative weighting loses, and nothing in the early outputs
 separates the sessions where one wins.
 
+### 119. RETSTACK (explore → design input): the returning-people stack at stage strength 0.15 (written 13 Nov 23:26 UTC, before any result)
+
+The returning block is the one lever measured on the sealed set. Two of its parts were tested apart: personal nets
+(v5.2) and a stronger stage (§111: β 0.15 ahead on the proxy, P10 −0.11 on real later sessions). Here together, so the
+next candidate's design (after the research window) rests on a joint measurement: (a) the ten-person proxy with the
+in-population chain (`studies/12nov/inpop3.py`, BETA 0.15): personal nets + stage against the stage alone; (b) the real
+later sessions of P04 and P10 in the v5.1 replay (`studies/12nov/pnet.py`, BETA 0.15): personal nets pfh60 + stage
+0.15 against twins + stage 0.15; the β 0.10 numbers of §78 and §96 are the comparison.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| (a) proxy, nets + stage 0.15 over the stage 0.15 alone | +2.0 (+1.0 to +3.0) |
+| (b) real, pfh60 + stage 0.15 against twins + stage 0.15, seen | +0.2 (−0.3 to +0.6); P10 −0.2 |
+| **Reading** | if (b) is ≥ the β 0.10 combination (+0.17, §78) with P10 ≥ −0.3, the next candidate's stage strength is 0.15 |
+

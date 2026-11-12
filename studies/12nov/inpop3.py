@@ -7,7 +7,7 @@ PFV = {v: {a: np.mean([np.load(f)["proba"] for f in sorted(glob.glob(f"{D}/pfx_{
 BASE_PF = dict(PF)
 
 
-def staged(P, beta=0.10):
+def staged(P, beta=float(os.environ.get("BETA", 0.10))):
     S = P.copy()
     for q in PEOPLE:
         m = MEM[q][1]; k = O.PER[B] == q; L = np.log(np.clip(P[k], 1e-9, 1)) + beta * sum(np.log(np.clip(m[x], 1e-3, 1)) for x in "TCS") / 3
