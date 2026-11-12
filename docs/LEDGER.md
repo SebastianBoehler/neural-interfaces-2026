@@ -849,6 +849,15 @@ candidate.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Harness, w = 1 against the stored core1 | max difference 3.0e-8 | Valid |
+| Core alone on the later sessions (window accuracy; w = 1: P04 57.0, P10 76.4) | w 3: 57.8 / 77.7; w 5: 57.6 / 77.9; w 10: 56.0 / 77.4; w 20: 56.8 / 77.9 | P10 +1.0 to +1.5 at every weight, P04 +0.6 to +0.8 at 3–5 then below: smaller than §17's core-level proxy (predicted +0.5 / +3) |
+| v4.1 chain, seen, w 3 / 5 / 10 / 20 (B2_pool; B2_s345) | −0.25, −0.13, +0.01, +0.01; −0.26, +0.01, 0.00, 0.00 | **Refuted** (≤ 0 on both bases at every weight, to within 0.01) |
+| On top of the own-space stage (stage alone +2.00; +1.98) | +1.73, +1.99, +1.87, +1.86; +1.85, +1.86, +1.99, +1.85 | Adds nothing (predicted +0.3) |
+
+**Reading (12 Nov 01:58 UTC; log `runs/upw_chain_12nov.log`; a first run of the scorer stopped on a name clash in
+my script before any result).** Up-weighting the returning person's rows makes core1 slightly better alone and
+changes nothing in the chain: the personal head and the stage already carry what the up-weighted core adds. Closed
+in this form (posterior swapped in from the first window; the TSEM view unchanged).
 
 ## 51. NETAUG: virtual people for the session-normalised nets (written 12 Nov 02:25 UTC, before any result; code `studies/12nov/netaug.py`, scorer `netaug_score.py`)
 
