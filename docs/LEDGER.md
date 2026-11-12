@@ -1155,3 +1155,16 @@ because `runs/pretrain` had not reached Leonardo (the copy that carried it timed
 `ep_sinc`, `pnets_sinc`, `ttt4_sinc`. The FBCNet, raw FBCNet and FBLight outputs of §94 and the 360 personal-net
 files are in.
 
+### 100. PCROP: more training rows for the personal models from shifted windows (written 12 Nov 16:39 UTC, before any result; code `studies/12nov/pcrop.py`)
+
+Both reviews (REVIEW_12NOV §7): the personal models learn from about 190 windows; shifted crops (`start0.5`, 0.5 s
+earlier, never used anywhere; `start2`, 1 s later) were only tried for the population core. Here the own-space T
+and C members are fitted on the public windows plus their shifted copies (each copy recentred as its own session);
+S (slow, cue-locked) stays on the original windows. v5.1 replay, seen protocol, six bases, against v5.1.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| + start0.5 crops, seen, six-base mean | +0.2 (−0.3 to +0.7); P04 +0.4, P10 0.0 |
+| + start0.5 and start2 crops | +0.1 (−0.5 to +0.7) |
+| **Lever** | ≥ +0.3 seen with P10 ≥ −0.3 on ≥ 4 of 6 bases → part of the next candidate |
+
