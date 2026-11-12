@@ -633,3 +633,12 @@ variant (rotation of the slow block as well, four copies); ≤ +0.3 → closed.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| 46a. v4.1 with the oracle gate, seen, minus v4.1 (six bases) | **−0.24** (−0.53 to +0.69; P04 −0.66, P10 +0.19) | **Miss, below the range** (predicted +0.5, 0 to +1.2) |
+| 46a. v4.1 + stage with the oracle gate, minus the same with the real gate | **−0.43** (+1.36 against +1.79; P04 +3.13 against +3.51, P10 −0.40 against +0.07) | **Miss, below the range** (predicted +0.6) |
+
+**Reading of 46a (12 Nov 00:32 UTC; log `runs/oracle_gate_12nov.log`).** Knowing the person from the first window
+is worse than the real gate on dev. The personal head and the stage are poor in a session's first windows (their
+standardisation and reference have almost nothing to work with), and the real gate's delay and ramp protect against
+that. Earlier or more certain recognition is not a lever on dev; the only recognition loss left is returning
+sessions the gate never accepts (about 13 % by the external estimate), which dev cannot measure. Closed as a
+direction; the package keeps the v4.1 gate unchanged.
