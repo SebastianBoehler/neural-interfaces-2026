@@ -1,6 +1,6 @@
 """NETAUG (ledger s51): SessionBN member families trained with chunk-wise "virtual person" augmentation.
 One random rotation and / or frequency-scaling factor per chunk of `group` same-session windows.
-Usage (Galvani): python netaug.py TASK   (task -> arch, arm, seed) | python netaug.py smoke
+Usage (Galvani): python netaug.py TASK   (0-47: arch, arm, seed; 100-111: in-harness twins) | python netaug.py smoke
 """
 import sys, time
 from pathlib import Path
@@ -17,6 +17,8 @@ OUT = WS / "runs/diag/netaug/probs"
 ARCHS = {"fb": ("fb_sbn_rot05", 2.0), "fbraw": ("fbcnet_raw_sbn", 20.0), "fbl": ("fblight_ea_rot05_sbn", 5.0), "sinc": ("sincshallow_ea_ptm7r_rot05_sbn", 20.0)}
 ARMS = {"crot05": dict(crot=0.05, pw=False), "crot10": dict(crot=0.10, pw=False), "cfsc15": dict(cfsc=0.15, pw=True), "combo": dict(crot=0.05, cfsc=0.15, pw=True)}
 TASKS = [(a, r, s) for s in range(3) for a in ARCHS for r in ARMS]
+ARMS["twin"] = dict(pw=True)  # the shipped recipe through the same class: the control (audit, ledger s52)
+TWINS = [(a, "twin", s) for s in range(3) for a in ARCHS]  # tasks 100..111
 
 
 class VNet(SB.SessionNet):
@@ -67,7 +69,7 @@ def main():
         for arch in ARCHS:
             run(arch, "combo", d, "seen_session", 0, out, epochs=1); print("SMOKE PASS", arch, flush=True)
         return
-    arch, arm, seed = TASKS[int(sys.argv[1])]; OUT.mkdir(parents=True, exist_ok=True)
+    t = int(sys.argv[1]); arch, arm, seed = TWINS[t - 100] if t >= 100 else TASKS[t]; OUT.mkdir(parents=True, exist_ok=True)
     for proto in ("all_loso", "seen_session"):
         run(arch, arm, d, proto, seed, OUT)
 

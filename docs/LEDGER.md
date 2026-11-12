@@ -896,3 +896,15 @@ should be hard; the codebase exists only to optimise the final submission.
 
 | Audit finding | Affected verdicts | Action |
 |---|---|---|
+| **MixStyle never ran on ShallowConvNet** (confirmed by test: output identical with it on and off). Its hooks attach to the first two convolution modules; in ShallowConvNet those are wrapped in a combined layer that calls the functional form, so the hooks never fire. In FBCNet, FBLight and SincShallow only one convolution is hooked | R18 (October, `docs/archive/OPTIMIZATION_R10.md`): two of the six rows behind "MixStyle is neutral (±0.4)" are baseline reruns; the closure rests on four rows on plain nets | Recorded. MixStyle on the SessionBN nets remains untested (re-read table above) |
+| **Segment recombination reached only the first corpora of the teacher's pretraining** (confirmed by test): it augments the first half of each batch, and the batch is built corpus by corpus, so of seven corpora the last three were never touched | Wave 8, 2 Nov ("segment recombination does not help the teacher", −0.48, closed): the corpora with arithmetic and word tasks never received it | Recorded; open, low priority (the teacher is pretrained once) |
+| core1 variants entered the chain as posteriors only (`studies/11nov/rt4/score_core.py`): TSEM's view and the routing features stayed the original core1's | §20 FORGET (the changed reference would also change those views; the closure tested part of the mechanism), §13, §21 | Recorded; §20 is "closed for the posterior only" |
+| Latent traps, no recorded run found on them: SessionNet also dropped the co-training loss and AdaBN; `ts_core2.parse` ignored unknown flags and never used its reference-mean token; `alib.mix` ignored a misspelled family in `wscale`; several module constants are bound as default arguments, so assigning them has no effect (`gm.LO`, `gm.HI`, `gm.BEM`, `gm.NMIN`, `gm.BTS`, `R3.TAU`, `R3.T0`); exists-skips whose file names omit settings (`ttt.py`, `sbnx.py`, `rest4.py`, `pft.py`); a fit cache whose key omits co-training | none found | The first three now assert (12 Nov). The default-argument constants and the cache key are listed here as traps, not changed |
+| NETAUG (§51) had no control through its own code path, and the stored SincShallow twin has one seed and no seen-session rows locally | §51, before any result | In-harness twins added (tasks 100–111, Galvani 3090355); the scorer must use them |
+| Scorers average whatever seeds exist (`dose.py`, `add.py`, `pft_score.py`): SincShallow has one seed in the PFT and frozen-twin files | §31, §40, §43: arm and twin share the same seed set, so the recorded differences stand | Recorded |
+
+**Checked and clean** (audit): the PFT and TTT "head" scopes train the intended parameters; `run_cv.resolve` fails on
+an unknown suffix; the runs 1–3 / 4–6 proxies split as described; `repceil.py` has no label leakage; the monkeypatches
+of `v5_replay.py`, `oracle_gate.py` and `dose.py` take effect. **Not covered:** the export and build scripts, the
+identity model's internals, the untracked scratch of the 29 stage arms and the two automated searches, and October
+code deleted on 11 Nov.

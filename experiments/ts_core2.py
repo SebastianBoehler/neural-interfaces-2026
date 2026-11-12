@@ -45,6 +45,9 @@ G1 = ("P01", "P02", "P05", "P07", "P09")
 def parse(name):
     t = name.split("_")
     fl = t[6:]
+    # audit of 12 Nov (ledger s52): unknown flags were ignored and the reference-mean token was never used
+    assert all(f in ("st", "ct", "cb") or re.fullmatch(r"sz[0-9.]+", f) for f in fl), f"unknown flag in {name}: {fl}"
+    assert t[4] == "le", f"only the log-Euclidean reference is implemented here, got {t[4]}"
     sz = next((float(f[2:]) for f in fl if f.startswith("sz")), 0.0)
     return dict(ref=t[0], bands=t[1], cov=t[2], est=t[3], refm=t[4], k=float(t[5][1:]), st="st" in fl, sz=sz,
                 ct="ct" in fl, cb="cb" in fl)

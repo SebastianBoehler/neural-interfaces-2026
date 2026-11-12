@@ -32,6 +32,7 @@ def members(bn, p):
 
 def mix(bn, p, fams, extra=(), wscale=None, slot="c1"):
     """fams: family names; extra: [(name, weight)]; wscale: {family: factor}. -> (mix (n,3), core1 share)."""
+    assert not wscale or set(wscale) <= set(FAM), f"unknown family in wscale: {set(wscale) - set(FAM)}"
     mem = members(bn, p); acc, wsum, wc1 = 0.0, 0.0, 0.0
     items = [(k, w * (wscale or {}).get(f, 1.0)) for f in fams for k, w in FAM[f]] + list(extra)
     for k, w in items:

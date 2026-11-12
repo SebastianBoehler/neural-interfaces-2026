@@ -147,6 +147,7 @@ class SessionNet(AlignedNet):
         # 12 Nov: cmix and fsc were accepted here and never applied (ledger s51). Fail loudly instead of training a
         # net that silently lacks the requested augmentation; chunk-wise versions live in studies/12nov/netaug.py.
         assert not (self.cmix or self.fsc), "SessionNet does not apply cmix / fsc; use studies/12nov/netaug.VNet"
+        assert not (self.cotrain or self.adabn), "SessionNet applies neither the co-training loss nor AdaBN (audit, ledger s52)"
         self._prepare()
         from deep import param_groups
         groups = param_groups(self.net, lr, self.lld, head_only)
