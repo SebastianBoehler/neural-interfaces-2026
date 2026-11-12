@@ -429,3 +429,16 @@ random views, and §72's "every FBCNet arm positive" is the evidence that matter
 plain stage strength (λ 0.15 → 0.20) is worth as much as any view so far on B2_pool. By the addendum, the net view
 must reach the better null + 0.25, i.e. about +0.89 on B2_pool and +0.55 on B2_s345.
 
+### 75. LAMS: is the session stage too weak? (written 12 Nov 10:21 UTC, before any result; code `studies/12nov/lams.py`)
+
+§73's null (ii) found TSEM λ 0.20 worth +0.64 / +0.30 for new people on two bases. λ 0.15 was set on 6 Nov, before
+routing, the identity gate and SessionBN reweighting. Test: the full routed v4.1 replay at λ 0.12, 0.15, 0.20, 0.25,
+0.30 on all six bases, new and seen; cross-fit λ over the two people halves.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| λ 0.20 against 0.15, new, mean of six bases | +0.40 (0.0 to +0.8) |
+| λ 0.20 against 0.15, seen (P04, P10) | −0.3 (−1.5 to +1.0) |
+| λ chosen on one half of the new people, scored on the other, mean of the two directions and six bases | +0.2 (−0.3 to +0.6) |
+| Lever | cross-fit ≥ +0.25 with seen not below −0.5 → λ goes into the package with whatever else is built |
+
