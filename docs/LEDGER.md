@@ -482,3 +482,21 @@ SessionBN seeds already gets right.
 Verdict: the nets' own features as a second session-stage view are **not a lever**. The choosing seeds' +0.5 was
 selection on two favourable bases; fresh nets give +0.2 on the primary base and +0.07 over six. Closed in this form.
 
+### 76. SELECT: can a session choose its own chain variant without labels? (written 12 Nov 10:30 UTC, before any result; code `studies/12nov/select.py`)
+
+**Why.** Every stage change of 12 Nov moved single people by ±1–4 points and the mean by ~0 (§66 per-person optimum
++2.4; §73 P05 +3, P01 −1.8). If a label-free statistic of a whole session's output can tell which variant fits that
+session, the per-person head-room becomes reachable. The criterion must be computable causally at the end of the
+session or progressively; here first as a diagnostic at session end (upper bound for a causal version).
+
+Variants: the routed chain at TSEM λ 0.12 / 0.15 / 0.20 / 0.25 / 0.30, plus two second passes through random
+directions (§73 nulls), B2_pool and B2_s345, new people. Criteria per session and variant: (a) mean top posterior;
+(b) balance of predicted classes (entropy; true classes are balanced by design); (c) agreement with the other variants'
+majority; (d) separation of the predicted classes in the 128 components (Fisher ratio).
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Oracle: best variant per session, new | +2.5 (+1.5 to +4) |
+| Best criterion, picking per session, against λ 0.15 | +0.2 (−0.4 to +0.7) |
+| Lever | a criterion ≥ +0.5 on both bases → a causal version is built and pre-registered |
+
