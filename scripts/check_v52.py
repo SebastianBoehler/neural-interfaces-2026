@@ -1,6 +1,6 @@
 """Integration check of the v5.2 package (personal SessionBN traces on routed windows) against v5.1b, public windows.
 
-Usage: python scripts/check_v52.py PKG_V52 PKG_V51B [--out JSON] [--device cuda]
+Usage: python scripts/check_v52.py PKG_V52 PKG_V51B [--out JSON] [--device cuda] [--deterministic]
 Main pass (all 14 public sessions, one window per call, both packages):
   (1) the shadow tail (gate input) equals v5.1b on every window and the routed output equals v5.1b on every window
       before the session's first routed window; the gate routes the same windows (v5.1b's own-stage counter);
@@ -24,6 +24,10 @@ from add_rebalance import load_solver  # noqa: E402
 
 TOL = 1e-4
 DEVICE = sys.argv[sys.argv.index("--device") + 1] if "--device" in sys.argv else None
+if "--deterministic" in sys.argv:  # GPU float32 numerics: same algorithms whatever the batch size (cuDNN / cuBLAS)
+    import os
+    os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8"); torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False; torch.use_deterministic_algorithms(True, warn_only=True)
 
 
 def run(m, d, sessions, sched=None):
