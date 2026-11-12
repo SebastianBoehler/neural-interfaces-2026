@@ -1106,3 +1106,57 @@ labels.
 because of the person's own labels, not because of where it sits in the chain: the same three members fitted on
 other people are a decent decoder alone (61 %) and still lower the chain at any weight. And the stage does not
 stack with the two small returning-person levers of 11 Nov. v5 stays "v4.1 plus the stage, nothing else".
+
+## 58. OCU: an explicit eye-movement branch (lead from the user, 12 Nov; written 12 Nov 02:15 UTC)
+
+**The lead.** The user pointed at the rank-2 account's publications. A search (primary sources read: two ICTC 2025
+papers, the lab's roster and publication list, the competition leaderboard) found: "Sungjun Wang" and "Seohee Kim" are
+both listed as researchers of ETRI's EnSeption group, so ranks 1 (0.846) and 2 (0.830) plausibly come from one lab;
+nothing public describes their entries. The lab's biosignal work is (a) reading detection from EOG glasses with
+derived horizontal, vertical and magnitude channels, a ResNet-18 with channel attention and Mixup (Mixup +5.6 points
+leave-one-subject-out; derived channels +4.6), and (b) two-branch fusion of EEG and ECG by attention (fusion +14
+points over the best single branch, leave-one-subject-out). None of it uses test-time adaptation. The link between the
+accounts and these people rests on name and lab membership only.
+
+**Why it fits our data.** The display puts each task's cue at a fixed place, so gaze carries class information, and
+its sign is shared by most people (REVIEW of 30 Oct: 8–9 of 10). We use it through a 48-dimensional hand-built view in
+SessionEM and a 1 Hz waveform block in core1. No member learns from the eye-movement traces themselves.
+
+**Step 1, probe (exploratory, run before this text; `studies/12nov/ocu_probe.py`, log `runs/ocu_probe_12nov.log`).**
+Leave one person out, per-session centring, shrinkage LDA:
+
+| View | Balanced accuracy across people |
+|---|---|
+| A: the shipped gaze view (horizontal and vertical frontal differences, 16 bins each) | 44.6 |
+| B: A + magnitude | 44.2 |
+| C: B + a second horizontal pair (FC5, C5 against FC6, C6) + eye-movement velocity statistics | **51.1** (P02 66, P03 58, P09 58; P04 36) |
+| D: all 41 channels, 1 Hz waveform (core1's slow block) | 47.9 |
+
+P02 and P03 share one clear pattern (horizontal: imagery +0.6, word −0.9; vertical: subtraction +0.55, imagery −0.5);
+most others show the same signs weakly; P04 and P08 do not.
+
+**Step 2, EMVIEW (pre-registered here, before any chain result; `studies/12nov/emview.py`).** SessionEM's view
+extended from the shipped 48 features by the second horizontal pair (16 bins) and log velocity statistics (16 bins +
+4), and the extension alone as a replacement of the gaze part. v3 chain, exploration bases.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Extended view, dJ | +0.2 (−0.3 to +0.8) | ≤ 0 on both bases |
+| New people | +0.3 (−0.3 to +0.9) | — |
+| P(≥ +0.5 dJ on both bases) | 15 % | — |
+
+**Step 3, OCUNET (pre-registered here; `studies/12nov/ocunet.py`, Galvani).** A learned eye-movement branch: derived
+channels (two horizontal pairs, two vertical differences, magnitude, their velocities; Savitzky–Golay smoothed,
+session-centred causally), a 1-D ResNet with channel attention, Mixup; leave-one-person-out and the seen protocol,
+three seeds. Scored alone, then in the chain three ways: as a mix member, as a final stage, and as SessionEM's view
+(its log posteriors or embedding).
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Alone, new people | 54 (47–61), at least +3 over view C's 51.1 | ≤ 51: the net learns nothing beyond the statistics |
+| Mixup against no Mixup | +2 (−1 to +5) | — |
+| Best chain integration, dJ | +0.3 (−0.3 to +1.0) | ≤ 0 on both exploration bases in all three forms |
+| P(≥ +0.5 dJ on both bases) | 20 % | — |
+
+| Item | Observed | Verdict |
+|---|---|---|
