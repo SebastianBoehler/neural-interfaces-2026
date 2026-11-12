@@ -500,3 +500,13 @@ majority; (d) separation of the predicted classes in the 128 components (Fisher 
 | Best criterion, picking per session, against λ 0.15 | +0.2 (−0.4 to +0.7) |
 | Lever | a criterion ≥ +0.5 on both bases → a causal version is built and pre-registered |
 
+| §76 item (10:31 UTC; `runs/select_12nov.log`; B2_pool / B2_s345) | Observed | Verdict |
+|---|---|---|
+| Oracle: best of seven variants per session, new | +1.44 [+1.03, +1.84] / +1.00 [+0.70, +1.29] | **Miss, low** (predicted +2.5): the variants are too alike for per-session choice to matter |
+| Pick by agreement with the variants' majority | +0.63 [+0.21, +1.06] / +0.32 [+0.13, +0.52] | below the lever on B2_s345; it is a vote among variants |
+| Pick by confidence / class balance / Fisher separation | +0.07 / +0.27 / +0.10; −0.14 / +0.14 / +0.21 | Hit (+0.2): no criterion |
+
+Reading: per-session choice among session-stage variants has at most 1–1.4 points of head-room, and label-free
+criteria reach a fraction of it. The per-person spread seen all day is noise of the stage, not a missed setting.
+The large losses (P04: every member 37–51 %) sit before the stages, in the members.
+
