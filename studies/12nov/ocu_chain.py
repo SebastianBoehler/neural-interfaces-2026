@@ -8,12 +8,12 @@ import env  # noqa: E402
 A = env.A; SC = A.SC; Z = A.L.Z; arm = sys.argv[1] if len(sys.argv) > 1 else "nomix"; D = REPO + "/runs/ocunet/probs"
 IDX = {p: Z[f"idx|{p}"].astype(int) for p in A.PROTOS}; P = {}
 for p in A.PROTOS:
-    zs = [np.load(f) for f in sorted(glob.glob(f"{D}/oc_{arm}-{p}-s*.npz"))]; assert len(zs) == 3 and all((z["index"] == IDX[p]).all() for z in zs); P[p] = np.mean([z["proba"] for z in zs], 0)
+    zs = [np.load(f) for f in sorted(glob.glob(f"{D}/oc_{arm}-{p}-s*.npz"))]; assert len(zs) >= 3 and all((z["index"] == IDX[p]).all() for z in zs); P[p] = np.mean([z["proba"] for z in zs], 0)
 A.EXTRA["ocu"] = P; REF = {p: Z[f"GE|{p}"].copy() for p in A.PROTOS}; LP = {p: np.log(np.clip(P[p], 1e-3, 1)) for p in A.PROTOS}
-print(f"OCUNET ({arm}, mean of 3 seeds) alone: new {SC.person(P['all_loso'], 'all_loso').mean():.2f} seen {SC.person(P['seen_session'], 'seen_session').mean():.2f}")
+print(f"OCUNET ({arm}, mean of {len(zs)} seeds) alone: new {SC.person(P['all_loso'], 'all_loso').mean():.2f} seen {SC.person(P['seen_session'], 'seen_session').mean():.2f}")
 if "fresh" in sys.argv:  # s58b: the SessionEM-view form on the four fresh bases
     rs = []
-    for bn in env.FRESH:
+    for bn in (env.BASES if "six" in sys.argv else env.FRESH):
         base = A.system(bn, A.FAMS)["out"]
         for p in A.PROTOS:
             Z[f"GE|{p}"] = np.c_[REF[p], LP[p]]
