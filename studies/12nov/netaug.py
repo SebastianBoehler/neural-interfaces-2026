@@ -1,6 +1,6 @@
 """NETAUG (ledger s51): SessionBN member families trained with chunk-wise "virtual person" augmentation.
 One random rotation and / or frequency-scaling factor per chunk of `group` same-session windows.
-Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins; 120-131: cmix4; 140-151: swa50; 200-211: people curve) | python netaug.py smoke
+Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins; 120-131: cmix4; 140-151: swa50; 160-183: focal loss; 200-211: people curve) | python netaug.py smoke
 """
 import sys, time
 from pathlib import Path
@@ -24,6 +24,8 @@ CMIX = [(a, "cmix4", s) for s in range(3) for a in ARCHS]  # tasks 120..131
 PCURVE = [(a, k, dr) for a in ("fb", "fbl") for k in (3, 5, 7) for dr in (0, 1)]  # tasks 200..211: people curve, seed 0
 ARMS["swa50"] = dict(swa=0.5, pw=True)  # weight averaging over the second half of training, never run on SessionBN nets (ledger s57)
 SWA = [(a, "swa50", s) for s in range(3) for a in ARCHS]  # tasks 140..151
+ARMS["focal1"] = dict(focal=1.0, pw=True); ARMS["focal2"] = dict(focal=2.0, pw=True)  # hard-window emphasis (ledger s87)
+FOCAL = [(a, f, s) for s in range(3) for f in ("focal1", "focal2") for a in ARCHS]  # tasks 160..183
 
 
 class VNet(SB.SessionNet):
@@ -48,7 +50,12 @@ class VNet(SB.SessionNet):
                     xb = dg.class_mix(xb, yb, gen, vp["cmix"])
                 if vp.get("cfsc"):
                     xb = torch.cat([dg.freq_scale(xb[c * m:(c + 1) * m], gen, vp["cfsc"]) for c in range(G)])
-                opt.zero_grad(); loss = loss_fn(self.net(xb)[:, :3], yb); loss.backward(); opt.step(); sched.step(); step += 1
+                opt.zero_grad(); lo = self.net(xb)[:, :3]
+                if vp.get("focal"):  # focal loss: weight each window by (1 - p_true)^gamma
+                    ce = torch.nn.functional.cross_entropy(lo, yb, reduction="none"); loss = ((1 - torch.exp(-ce)) ** vp["focal"] * ce).mean()
+                else:
+                    loss = loss_fn(lo, yb)
+                loss.backward(); opt.step(); sched.step(); step += 1
                 if vp.get("swa") and step > start:  # parameters and the SessionBN running statistics are averaged alike
                     sd = {k: v.detach().clone() for k, v in self.net.state_dict().items() if v.dtype.is_floating_point}; cnt += 1
                     mean = sd if mean is None else {k: mean[k] + (sd[k] - mean[k]) / cnt for k in sd}
@@ -101,7 +108,7 @@ def main():
     t = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True)
     if t >= 200:
         return run_pc(*PCURVE[t - 200], d, OUT)
-    arch, arm, seed = SWA[t - 140] if t >= 140 else CMIX[t - 120] if t >= 120 else TWINS[t - 100] if t >= 100 else TASKS[t]
+    arch, arm, seed = FOCAL[t - 160] if t >= 160 else SWA[t - 140] if t >= 140 else CMIX[t - 120] if t >= 120 else TWINS[t - 100] if t >= 100 else TASKS[t]
     for proto in ("all_loso", "seen_session"):
         run(arch, arm, d, proto, seed, OUT)
 

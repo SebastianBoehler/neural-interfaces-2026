@@ -780,3 +780,16 @@ on the four others.
 | Chosen arm on the four fresh bases, new | +0.1 (−0.3 to +0.5) |
 | **Lever** | ≥ +0.3 on the fresh four with the person-bootstrap 10th percentile above 0 |
 
+### 87. FOCAL: population nets trained to emphasise their hard windows (written 12 Nov 11:21 UTC, before any job ran; `studies/12nov/netaug.py` tasks 160–183, Galvani)
+
+**Why.** §83: the value lies in the hard windows. Every member is trained with plain cross-entropy, which spends most
+of its gradient on windows the nets already get right. Focal loss (weight (1 − p_true)^γ, γ 1 and 2) shifts training
+toward the hard windows of the training people. Never tried in this project. Four SessionBN recipes × two γ × three
+seeds, both protocols; scored with the fair co-tuned screen (§69) and as a replacement of the shipped family.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Nets alone, new, against the twin recipe | −0.5 (−2 to +1) |
+| Replacing the shipped family in the chain, new, six-base mean | 0.0 (−0.4 to +0.4) |
+| **Lever** | ≥ +0.3 on six bases with the interval above 0 |
+
