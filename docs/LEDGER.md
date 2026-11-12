@@ -187,3 +187,39 @@ setting chosen under S on people half G1 (plus P10 as seen) is scored on half G2
 
 | Item | Observed | Verdict |
 |---|---|---|
+| The S-optimal setting against the shipped one | the shipped setting is rank 6 of 243 under S (98th percentile; rank 23 under J) | It differs, by little |
+| In-sample gain of the S-optimal setting, in S | +0.21 (83.07 against 82.86) | **Hit** (predicted +0.3) |
+| Nested gain on the other half's new people | −0.88 and −2.00, **mean −1.44** | **Refuted** (≤ 0): what the grid offers is selection noise |
+| Best setting for each new person alone (oracle) | +1.1 to +3.2 per person, mean +2.4 | Per-person settings would pay; nothing label-free chooses them |
+
+**Reading (12 Nov 09:16 UTC; `runs/grid_12nov.npz`).** The chain is not tuned for P04 at the expense of everyone else:
+under a sealed-like weighting the shipped constants are already at the 98th percentile of the grid, and choosing by
+that weighting on one half of the people loses 1.4 on the other half. "We tuned for the wrong population" is not the
+bottleneck. The same grid shows each person would gain 2–3 points from a setting of their own, which is the recurring
+picture: the head-room is per person, and we have no label-free way to pick per person.
+
+## 67. PTYPE: who transfers to whom? (written 12 Nov 09:17 UTC, before any result; code `studies/12nov/ptype.py`)
+
+**Why.** The user's question, 12 Nov: what is the bottleneck? §63 says the members' errors are person-systematic; §36
+says P04's information lies outside the population space. If people fall into a few types, a new person could be
+served by the training people of their type; if every person is idiosyncratic, the population model is a compromise
+nobody matches and only more people would help.
+
+**Test.** Own-space members (T, C, S of §37) fitted on one person (all their sessions) and streamed causally over
+every session of every other person: a 10 × 10 matrix of balanced accuracy (within-person entries only for P04 and
+P10, across their sessions). Read: the best single source per target against the pooled nine-person members (60.9 %,
+§57c); whether transfer is symmetric and clustered; whether a label-free statistic available inside the session
+(agreement of the source's predictions with the chain's) identifies the best source.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Mean single-source accuracy (off-diagonal) | 45 (41–50) |
+| Best single source per target, mean over targets | 55 (50–60), below the pooled 60.9 for at least 7 of 10 targets |
+| Spearman between a source's agreement with the chain in the session and its true accuracy there | +0.6 (+0.3 to +0.85) |
+| Picking the source by agreement, against the pooled members | −3 (−8 to +2) |
+
+No pass rule: this is a diagnostic. It turns into an experiment only if the best single source beats the pooled
+members for most targets and agreement finds it.
+
+| Item | Observed | Verdict |
+|---|---|---|
