@@ -1680,3 +1680,15 @@ later sessions of P04 and P10 in the v5.1 replay (`studies/12nov/pnet.py`, BETA 
 | (b) real, pfh60 + stage 0.15 against twins + stage 0.15, seen | +0.2 (−0.3 to +0.6); P10 −0.2 |
 | **Reading** | if (b) is ≥ the β 0.10 combination (+0.17, §78) with P10 ≥ −0.3, the next candidate's stage strength is 0.15 |
 
+| §119 item (23:37 UTC; `runs/leo_cpu/retstack_a-64319397.out`, `retstack_b-64319399.out`) | Observed | Verdict |
+|---|---|---|
+| (a) proxy, personal nets (pfh60) + stage 0.15 over the stage 0.15 alone | **+1.67 / +1.67 / +1.75** [+1.0, +2.4], 9 of 10 ahead (pf60 +1.6, 10 of 10) | Hit (+2.0, +1.0 to +3.0) |
+| (b) real later sessions, pfh60 + stage 0.15 against twins + stage 0.15, six bases | **+0.39 to +0.79, mean +0.55 (P04 +0.81, P10 +0.28)**; the lever of §78 met on 6 of 6 bases (at β 0.10 it was +0.17 and 1 of 6) | **Hit, above the range** (predicted +0.2; P10 −0.2) |
+| (b) pf60 + stage 0.15 | +0.36 (P04 +1.26, P10 −0.55), 0 of 6 | the head-only variant is the right one |
+| Stage 0.15 alone on the twins against stage 0.10 on the twins | seen 82.10–82.36 against 82.35 | about −0.1: the stronger stage alone does not pay |
+
+**Reading (design input for the next candidate, after the research window):** with the personal nets in place, the
+stronger stage pays and P10 no longer loses: personal nets (pfh60) + own-space stage at β 0.15 is about +0.4 seen over
+v5.2's β 0.10 (82.75 against 82.52 absolute on B2_pool), positive for both real people, and +1.7 over the stage alone
+on the ten-person proxy. By §119's rule the next candidate's stage strength is 0.15, with the head-only personal nets.
+
