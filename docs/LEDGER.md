@@ -888,3 +888,18 @@ session changes over time, and late information misleads early windows.
 **§81 addendum (12 Nov, before any seed-3–5 result was scored): seeds 6–8 (tasks 30–44) queued on Galvani as pack
 `ttt3d` so the GPUs stay busy; they are scored together with seeds 3–5 under the same rule if they finish first.**
 
+### 91. TTT4: in-session fine-tuning with terms that reach the hard windows (written 12 Nov 11:31 UTC, before any job ran; code `studies/12nov/ttt4.py`, Galvani)
+
+**Why.** §83 and §89: pseudo-labels on the chain's easy windows do not teach the hard ones. TTT's loss only touches
+windows through their (mostly easy, mostly right) pseudo-labels. Two unsupervised terms act on every window, hard ones
+included: consistency between a window's prediction and its augmented version (time shift, noise, channel dropout;
+pushes the decision boundary away from dense regions) and entropy minimisation. Variants, package form, four SessionBN
+recipes, three seeds: ple20 (reference, §60), fix20 (pseudo-labels on augmented inputs + consistency), ent20
+(pseudo-labels + entropy), cons20 (consistency only).
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Nets alone, new, fix20 against ple20 | +0.5 (−1 to +2) |
+| Chain, four families swapped, new, best new variant against ple20, two bases | +0.1 (−0.3 to +0.5) |
+| **Lever** | a variant ≥ +0.4 over the frozen nets in the chain on six bases with the interval above 0 |
+
