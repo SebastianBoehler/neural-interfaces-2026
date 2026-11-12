@@ -1278,3 +1278,8 @@ Prediction: LDA alone 66 (62–70); with the oracle rotation 74 (68–80). Readi
 alone, a label-free rotation (which can only approximate it) is closed; if ≥ +8, a label-free version on TSEM's
 templates is pre-registered.
 
+**Throughput (12 Nov, 21:10 CET):** FIX2 (§101) re-launched as Slurm job arrays, one task per A100 (jobs 64304502 64304503),
+instead of six tasks sharing one GPU slot's 8 cores (5–6 h per task); the 50 minutes already run were discarded, no
+result had been written. Scoring moves to Leonardo too (`scripts/cloud/leo_cpu.sh`, a booster slot per scoring run),
+once `replay/check.py` prints OK there.
+
