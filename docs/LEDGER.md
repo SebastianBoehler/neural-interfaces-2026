@@ -1339,3 +1339,16 @@ windows: +2.4 within session on the proxy (§96), +0.17 on the real later sessio
 | Sealed runtime | about 1.4× v4.1's 18.8 min, 27 min (worst case 32 min) against the 60-minute limit |
 | **Reading rule** | ≥ +0.15 → v5.2 is the base of the final package; ≤ 0.00 → the final package builds on v5.1b; in between → v5.2 stays the base only if nothing else is ready |
 
+**Profile of the v5.1 replay (B2_pool; 21:45 UTC; `runs/profile_12nov.log`), for the research window.** New people
+(LOSO): 76.6 % of windows right; interfaces equal (BrainHero 76.7, Graz 76.5); run types 75.4–77.3; by fifth of the
+session 73.1, 80.5, 76.5, 77.6, 75.1 (the first fifth is the warm-up loss of §90; the last fifth dips); classes MI
+81.0, SUB 75.2, WORD 73.5; P04 54 against 75–90 for the others. Returning (seen): 82.9 %; Acquisition-Graz 87.5 against
+Online-Graz 79.2 (feedback runs are harder for returning people); WORD the weakest class in both.
+
+**Runtime as a limit (user's question, 12 Nov):** the 3,600 s evaluation limit is official (competition YAML;
+OFFICIAL_CONTRACT). The package is `submission.py` plus data files, inference-only; the worker image has no C/C++
+compiler, nvcc or triton launcher, so own compiled code cannot be built there and a prebuilt binary cannot be
+verified on the hidden worker. Within those rules the cost of in-session fine-tuning is an engineering question:
+the v5.3 research (v52-build session) first measures torch-native batching of the 30 nets' fine-tuning (torch.func
+vmap per family, CUDA graphs) on an A100 before any recipe is cut.
+
