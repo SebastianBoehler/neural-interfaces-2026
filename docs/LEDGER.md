@@ -680,6 +680,18 @@ weights w_j ~ N(0, γ²/(n−1)) for all three classes (γ 1 matches the observe
 own windows keep their within-class scatter. γ 1.0 / 1.5. Prediction: best γ +0.5 (−1.0 to +2.0) over the reference;
 refuted if ≤ +0.3 at both. It counts toward "any generator ≥ +1.5" (now 30 %).
 
+**Corrections and inputs before any §47 result (12 Nov 01:25 UTC).**
+- **cap generator, bug caught by its own sanity line.** The first three cap jobs (Galvani 3090209–3090211) printed
+  "sigma 0: max abs feature difference 61": at zero shift the copies did not equal the originals. Cause: MNE's
+  spherical-spline matrix smooths with its default regularisation (at identical positions max |A − I| = 0.64). With
+  `alpha=1e-11` it is exact at zero shift and well conditioned at 3–10° (condition number 2–4; electrode spacing is
+  about 20°). The three jobs were cancelled before they printed a result and resubmitted with the fix.
+- **No more PROTEUS data exists.** Second search (primary sources: NEMAR, the dataset's repository, the competition
+  repository and site history): nm000290 v1.0.0 (10 people, 14 sessions) is the only release; the "coming soon"
+  wording was about that first release. Rule 04 allows public datasets whose terms permit competition use, declared
+  in the write-up. ds007554 is CC0 (30 people, 4.5 GB; per session one 3-minute arithmetic block and one arm-imagery
+  block with nominal event times); the MEG set with our tasks is CC0, 116 GB, no EEG. Neither is fetched.
+
 | Item | Observed | Verdict |
 |---|---|---|
 

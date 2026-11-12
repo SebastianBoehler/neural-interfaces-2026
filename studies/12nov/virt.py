@@ -36,7 +36,7 @@ def rot_copy(rows, rng):
 
 
 def cap_copy(rows, rng):
-    A = _make_interpolation_matrix(POS, POS @ Rotation.from_rotvec(rng.standard_normal(3) * np.deg2rad(PARAM)).as_matrix().T)
+    A = _make_interpolation_matrix(POS, POS @ Rotation.from_rotvec(rng.standard_normal(3) * np.deg2rad(PARAM)).as_matrix().T, alpha=1e-11)  # exact at zero shift
     out = np.empty((len(rows), F32.shape[1]), np.float32)
     for b in range(NB):
         C = A @ fe.C[b][rows] @ A.T; out[:, fe.slices[b]] = FT.whiten_tangent(C, T.expm(T.logm(C).mean(0)))
