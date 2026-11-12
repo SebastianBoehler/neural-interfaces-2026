@@ -188,3 +188,28 @@ replay on A100 (estimate from §31: about 28 extra minutes on the sealed set).
 
 | Item | Observed | Verdict |
 |---|---|---|
+
+## 62. SEGFP: did the 10 Nov rescoring change how streams are segmented? (written 12 Nov 03:52 UTC by `date -u`, before any result; code `studies/12nov/segfp.py`)
+
+**Why.** The independent review of 12 Nov (finding 7): the upload log reads the rescoring as a uniform drop, but our
+three packages moved by −0.72 (no TSEM), −1.17 (with TSEM) and −1.05 (with routing), so the TSEM step lost 0.45. The
+order hypotheses were tested and rejected on 11 Nov (§2); resets and segmentation never were. If the sealed streams
+are now cut differently from what the contract says (per interface, per run), every session stage is tuned for the
+wrong stream length and a re-tune could be worth more than anything else left. If instead sessions were merged
+before the fix and are correct now, nothing is to be gained, but the drop is explained.
+
+**Test (stage state only; the members' own causal state is left as it is, so finer cuts are lower bounds).** The
+plain chain (mix → rebalancing → SessionEM → TSEM) on the two exploration bases with the stage streams cut (i) per
+session (reference), (ii) per session × interface, (iii) per run, (iv) merged per person (P04 and P10 have several
+sessions). Read at the SessionEM level (as cand_nxif) and at the TSEM level.
+
+| Hypothesis | Predicted change at the SessionEM / TSEM level | Matches the sealed pattern (−0.72 / −1.17; TSEM step −0.45) if |
+|---|---|---|
+| Now per interface (ii − i) | −1.0 (−0.3 to −2.0) / −2.0 (−1.0 to −4.0) | both within 0.4 and the step within 0.3 |
+| Now per run (iii − i) | −3 / −6 | same |
+| Before merged per person, now per session (i − iv), on the people with several sessions | −0.4 / −0.7 (0 to −1.5) | same sign and ordering, size within a factor of two (only two people can show it) |
+
+My prior: per interface matches 10 %; "merged before" is consistent 35 %; neither 55 %.
+
+| Item | Observed | Verdict |
+|---|---|---|
