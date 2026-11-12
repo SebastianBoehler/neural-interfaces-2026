@@ -12,9 +12,21 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "scripts"), str(ROOT / "studies/12nov")]
 import protocol  # noqa: E402
-from add_rebalance import load_solver  # noqa: E402
-from check_compat import post_pass  # noqa: E402
+from add_rebalance import load_solver, stream  # noqa: E402
 import ownspace as O  # noqa: E402
+
+
+def recorder(f, out, first=False):
+    def g(*args):
+        o = f(*args); out.append(np.array(o[0] if first else o)); return o
+    return g
+
+
+def post_pass(m, d, rows):
+    """One predict stream recording labels and the per-window routing output (as scripts/check_compat.post_pass)."""
+    rec = {"route": []}; m.route.step = recorder(m.route.step, rec["route"])
+    labels = stream(m, d, rows, lambda mm, x: mm.predict(x))
+    return {"labels": labels, "route": np.asarray(rec["route"])}
 
 
 def main():
