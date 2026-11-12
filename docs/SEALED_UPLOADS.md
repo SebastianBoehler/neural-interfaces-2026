@@ -311,3 +311,24 @@ A failed run uses no quota: compare with the replica, upload nothing else withou
   bryanyahir03 0.824; navattack 0.821; liuyin 0.819; kyalcin 0.817; **us 0.816 (9th)**; kang5554 0.815. The field moved
   during the day (three entries are new or improved above us), so the rank is unchanged. Third place needs +1.0.
 - **New baseline: cand_v41_bio.** 3 uploads left.
+
+## 12 Nov: v5 checkpoint, cand_v5_own (built on Galvani, not staged as a ZIP, not uploaded)
+
+**cand_v5_own** = cand_v41_bio plus the own-space personal stage (ledger §37, §41–§45): on windows the v4.1 gate
+routes to public person j with ramp r, the routed output is multiplied by exp(0.10 · r · mean clipped log posterior of
+three members fitted on j's public sessions in j's own space). Nothing else changes; 10 new arrays (`own_*`, 5.2 MB).
+
+| Item | Value |
+|---|---|
+| Code | `submissions/ensemble_v5/submission.py`, SHA-256 `c3d3706e188f22d2aba2a324906338e379d799b0eef03702c8124a1dd2473d73` (v4.1 code + class `OwnStage`, 78 added lines) |
+| Package | Galvani `runs/sealed/cand_v5_own/` (33 files); `weights.npz` `e88bc3b3936c2ce7d4f61c0e5ddd14f8b479737a937633c1da577cebd0108abf` (62,841,447 B) |
+| Build | `python scripts/add_own_stage.py runs/sealed/cand_v41_bio runs/sealed/cand_v5_own beta=0.10` (job 3090163) |
+| Dev replay of the package form (§45), six bases | dJ +0.89 (+0.66 to +1.00); seen +1.79 (P04 +3.51, P10 +0.07); new 0.000, no new-person session routed |
+| A100 replay 3090169 / worker-image replay 3090170 | identical scores (0.9932767697 in-sample on the public split; v4.1: 0.9748375896), files unchanged; 166.2 s / 121.8 s |
+| Runtime against v4.1 (154 s / 109 s on the same replays, different nodes; no paired timing yet) | about 1.08–1.12×, so roughly 21 min sealed against v4.1's 18.8 |
+| Integration check `scripts/check_own_stage.py` (job 3090168) | running when this was written; result in the ledger §45 addendum |
+
+**Open before any upload:** the integration check; a paired timing; an independent review of the code (as for earlier
+uploads); the user's go-ahead after a live quota and phase check. **Known limits:** the in-sample rise is expected
+(the stage's members are fitted on the public sessions) and says nothing about sealed data; the dev gain is P04's
+(P10: +0.1); the eight single-session people are measured only within a session (§41).
