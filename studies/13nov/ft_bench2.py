@@ -23,6 +23,16 @@ FAMS = {"fb": ("fb_sbn_rot05", 2.0, "sbn_k2_s{}"), "fbraw": ("fbcnet_raw_sbn", 2
 STATE = ("s1", "s2", "n")
 
 
+def _lw_forward(self, input):  # braindecode 1.8.1 _LightweightConv1d.forward with reshape for view (vmap-safe, same math)
+    B, C, T = input.size(); weight = F.softmax(self.weight, dim=-1) if self.weight_softmax else self.weight
+    output = F.conv1d(input.reshape(-1, self.heads, T), weight, padding=self.padding, groups=self.heads).reshape(B, C, -1)
+    return output + self.bias.view(1, -1, 1) if self.bias is not None else output
+
+
+import braindecode.models.fblightconvnet as _fbl  # noqa: E402
+_fbl._LightweightConv1d.forward = _lw_forward
+
+
 def strong(X, g, shift=15, noise=0.2, drop=0.1):
     sh = int(torch.randint(-shift, shift + 1, (1,), generator=g)); Xs = torch.roll(X, sh, -1)
     Xs = Xs + noise * Xs.std(-1, keepdim=True) * torch.randn(Xs.shape, generator=g).to(X.device)
@@ -82,7 +92,7 @@ def main():
             lab = torch.randint(0, 3, (t,), device=dev); w = torch.rand(t, device=dev)
             res = dict(family=fam, t=t)
             # trace1
-            tr = copy.deepcopy(traces[0]); st = [b for n_, b in tr.named_buffers() if n_.rsplit(".", 1)[-1] in STATE]
+            tr = torch.jit.load(str(pkg / (pat.format(0) + ".pt")), map_location=dev); st = [b for n_, b in tr.named_buffers() if n_.rsplit(".", 1)[-1] in STATE]
             ps = [p for p in tr.parameters() if p.requires_grad] + [b for n_, b in tr.named_buffers() if n_.rsplit(".", 1)[-1] in ("w", "b")]
             for p in ps:
                 p.requires_grad_(True)

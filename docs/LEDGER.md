@@ -1411,3 +1411,21 @@ routing, six bases; new people.
 | SessionEM + TSEM per run type, new | −0.3 (−0.9 to +0.3): fewer windows per statistic |
 | **Reading** | an oracle below +0.5 closes the run-type axis; ≥ +0.5 → a change-point detector is pre-registered |
 
+
+### 108. TTT6 (exploit track): arms that may raise the gain of the §101 fine-tuning (written 12 Nov 23:20 UTC, before any job ran; code `studies/13nov/ttt6.py`, Leonardo, 24 tasks)
+
+(Numbering note: the explore track's RUNTYPE was also written as §106; "§106" alone means V53 here.) User, 12 Nov: spend the
+free sealed runtime (about 38 of 60 min) on gain, not only on cost. Same nets, folds, augmentation and chain labels as
+ttt5, four SessionBN families, seeds 0–5. Each arm is scored in the chain (new people, six bases) against the same
+run's frozen nets; `fixA` is the in-run reference.
+
+| Arm | What changes | Prediction against frozen, new, six-base mean (80 % range) |
+|---|---|---|
+| fixA | §101 again | +0.36 (+0.25 to +0.45) |
+| cum10 | each refit continues from the previous one, 10 steps (half the cost) | +0.38 (+0.15 to +0.55) |
+| cons2 | consistency weight 2 | +0.38 (+0.15 to +0.55) |
+| soft | CE against the chain's probabilities (not its argmax × confidence) | +0.30 (+0.05 to +0.50) |
+| step5 | a refit every 5 windows | +0.40 (+0.20 to +0.55) |
+| head | only SessionBN affine + output layer trained | +0.25 (0 to +0.45) |
+| view2 | two augmented views per step | +0.40 (+0.20 to +0.55) |
+| **Rule** | an arm counts as a gain over fixA if it is ≥ +0.08 above fixA in the six-base mean and ahead on ≥ 5 of 6 bases; arms that cost less (cum10, head) count if they are within 0.05 of fixA; the best counting arm becomes the recipe for the costing in §107 |
