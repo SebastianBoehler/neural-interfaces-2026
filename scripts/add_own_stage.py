@@ -29,7 +29,9 @@ def main():
     shutil.copy2(code, out / "submission.py")
     z = dict(np.load(src / "weights.npz", allow_pickle=False)); assert "bio_V" in z and not any(k.startswith("own_") for k in z)
     sub = code.read_text(); d = np.load(ROOT / "data/proteus_windows.npz", allow_pickle=True)
-    assert all(f'"{c}"' in sub or f"'{c}'" in sub for c in map(str, d["ch_names"])), "channel names differ from the submission's CH_NAMES"
+    import ast
+    chn = next(ast.literal_eval(n.value) for n in ast.parse(sub).body if isinstance(n, ast.Assign) and getattr(n.targets[0], "id", "") == "CH_NAMES")
+    assert [str(c) for c in d["ch_names"]] == list(chn), "channel names or their order differ from the submission's CH_NAMES"
     names = [str(n) for n in z["route_names"]]; parts, nses = zip(*[person_arrays(n) for n in names])
     for k in parts[0]:
         z[f"own_{k}"] = np.stack([p[k] for p in parts]).astype(np.float64)

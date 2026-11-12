@@ -49,12 +49,15 @@ def main():
                 q = names[j]; models[j] = O.Personal([np.flatnonzero((O.PER == q) & (O.SES == u)) for u in sorted(set(O.SES[O.PER == q]))])
             if j not in streams:
                 o = models[j].stream(r); streams[j] = sum(np.log(np.clip(o[k], 1e-3, 1)) for k in "TCS") / 3
+            assert np.isfinite(lm).all() and np.isfinite(streams[j][t]).all(), (s, t)
             dmem = max(dmem, float(np.abs(streams[j][t] - lm).max()))
             e = np.log(np.clip(old["route"][r[t]], 1e-9, 1)) + beta * ramp * lm; e = np.exp(e - e.max()); dout = max(dout, float(np.abs(e / e.sum() - new["route"][r[t]]).max()))
         first = int(np.flatnonzero(staged)[0]) if staged.any() else None
         res[s.split("/")[-1]] = dict(first_staged_window=first, person=names[rec[r[first]][0]] if first is not None else None, staged_share=float(staged.mean()),
                                      equal_elsewhere=bool(same), labels_changed=int((new["labels"][r] != old["labels"][r]).sum()),
                                      acc_v5=float(np.mean(new["labels"][r] == d["y"][r])), acc_base=float(np.mean(old["labels"][r] == d["y"][r])))
+    share = float(np.mean([v['staged_share'] for v in res.values()]))
+    assert share > 0.5, f'the stage ran on only {share:.2f} of the public windows'  # a stage that never runs must not pass
     ok2 = dmem < 1e-8 and dout < 1e-10
     out = dict(equal_to_base_on_unstaged_windows=ok1, members_equal_study_class=bool(dmem < 1e-8), max_member_diff=dmem, max_output_diff=dout,
                in_sample_acc_v5=float(np.mean(new["labels"] == d["y"])), in_sample_acc_base=float(np.mean(old["labels"] == d["y"])),

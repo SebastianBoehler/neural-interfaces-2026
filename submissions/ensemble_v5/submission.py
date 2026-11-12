@@ -710,6 +710,10 @@ class OwnStage:
 
     def observe(self, x):
         x = np.asarray(x, dtype=np.float64)
+        self.cur = None  # a degenerate window (non-finite, or a flat channel) is not added to the sums and not staged
+        sd = x.std(1)
+        if not (np.isfinite(x).all() and sd.min() > 1e-9 * max(float(sd.max()), 1e-30)):
+            return
         xc = x - x.mean(0, keepdims=True)
         C = []
         for sos in self.sos:
@@ -781,6 +785,7 @@ class Route3:
             self.bio.reset_state()
         if self.own is not None:
             self.own.reset_state()
+        self.stage = None
 
     def view(self, z):
         return (z - self.m) @ self.V
@@ -842,16 +847,17 @@ class Route3:
         out = self.tsem.step(u[:self.tsem.V.shape[1]], self.em.step(x, self.rb.step(p)))
         if self.own is not None:  # v5: every window feeds the session sums; routed windows get the stage
             self.stage = None
-            try:
-                self.own.observe(x)
-                if r > 0:
-                    lm = self.own.log_members(j)
-                    o = np.log(np.clip(out, 1e-9, 1)) + self.own.beta * r * lm
-                    o = np.exp(o - o.max())
-                    o = o / o.sum()
-                    if np.isfinite(o).all():
-                        out, self.stage = o, (j, r, lm)
-            except (np.linalg.LinAlgError, FloatingPointError, ValueError):
+            try:  # the stage is optional: any failure leaves the v4.1 output of this window
+                with np.errstate(all="ignore"):
+                    self.own.observe(x)
+                    if r > 0 and self.own.cur is not None:
+                        lm = self.own.log_members(j)
+                        o = np.log(np.clip(out, 1e-9, 1)) + self.own.beta * r * lm
+                        o = np.exp(o - o.max())
+                        o = o / o.sum()
+                        if np.isfinite(lm).all() and np.isfinite(o).all():
+                            out, self.stage = o, (j, r, lm)
+            except Exception:
                 pass
         self.U.append(u)
         self.Qs.append(qs)
