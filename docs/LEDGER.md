@@ -1266,3 +1266,41 @@ again). By the rule it is dropped at +0.29 against +0.30; under §52 it is recor
 it would need a trained net inside the package for about +0.1 sealed. **The eye-movement lead does not explain the
 leaders' margin on our system**: the signal is real (53 % alone across people), and every way of adding it at the
 population level is worth between −7 and +0.3.
+
+## 59. What the night of 11–12 Nov taught, and what follows (12 Nov 03:35 UTC by `date -u`)
+
+**Scored tonight:** 26 pre-registered sections (§35–§58), about 60 arms. One lever passed: the own-space stage for
+returning people (§41–§45; package cand_v51_own). Everything aimed at new people is at or below zero.
+
+**Updated understanding.**
+1. **New people are limited by how many real people we train on, and nothing substitutes for them.** +8 points per
+   doubling at core level, +7.3 after the stages in a weak test (§39, §48). Seven kinds of generated variation, seven
+   people-efficient estimators, noise, and the one external corpus with our tasks (even on real shared channels) all
+   fail to act as people (§46b, §47, §49, §53). The nets have nearly used up what nine people give them (7 → 9:
+   +0.8 to +1.4); the linear member has not (+3.9) (§56).
+2. **The chain accepts only information it does not already have, and tonight the only such information was a
+   person's own labels.** Population-level additions lose in every position: in the mix, as a final stage, as a view of
+   the template stage (§57c, §58). Session-level learning on the chain's labels is closed in three feature families
+   (§35, §38, TTT). The same three models are worth +1.8 when fitted on the person and −0.5 to −3.3 when fitted on
+   others.
+3. **Our dev metric resolves about ±0.3, and positives of that size do not survive.** +0.6 on two exploration bases
+   became +0.08 on four fresh ones (§54b); small levers do not stack (§57b). Only effects near +1 on six bases, or a
+   sealed measurement, should move a decision.
+4. **Closures were worth re-reading, and the re-read is now done for the nets.** Three October tricks had never run
+   on the shipped nets; they have now, with controls, and stay closed (§51, §56, §57a, §52).
+5. **The leaders' margin is still unexplained.** Ranks 1 and 2 plausibly share one lab (name and roster only). Its
+   published methods (eye-movement branches, two-branch fusion, Mixup) are worth −7 to +0.3 on our system (§58).
+   Two accounts from one group would also have twice the sealed uploads to select from; whether that is within the
+   rules is for the organisers, not for us to assume.
+6. **What dev cannot tell us any more:** how the eight single-session returning people respond. The stage is +4 for
+   P04 and 0 for P10; the ten-person proxy says most people are nearer P04. That gap is the whole range of the sealed
+   estimate (+0.4 to +0.9), and only a sealed upload measures it.
+
+**What follows.**
+- **v5.1 is the next sealed measurement as well as the next candidate.** Its difference to v4.1 on the sealed set
+  says whether the returning branch deserves the remaining effort (personal nets, more own-space) or not.
+- **The one remaining new-person lever with a measured dev gain is in-session fine-tuning of the nets** (new +0.6).
+  It needs a package form: the shipped nets are TorchScript traces whose normalisation is causal per window, while the
+  dev recipe fine-tuned Python nets with batch statistics over the session so far. So the first step is a dev test
+  of the package form (§60), not the build.
+- **Lanes:** the montage-reordering check of v5.1 with the stage active (Galvani 3090406), then §60.

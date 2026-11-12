@@ -179,24 +179,19 @@ class in net training (+0.1 to +0.3 J); slot weight 4.5 for the personal head (+
 
 ## 9. Decisions waiting for the user
 
-**Update, 11 Nov 22:25 UTC (ledger §34–§38; scripts `studies/12nov/`).** The user's steer: a team scores 0.846 under
-the same rules, so a +3 method exists; the ceilings in §5 are ceilings of our representation, not of the data.
-- **Confirmed (§36):** with its own labels a session holds 81–82 % in session-own representations (FBCSP, own
-  tangent space, slow time courses) against 74.9 % in core1's population PCs. P04 reaches 74–80 % in its first
-  session: **P04 is not low-signal; the population model does not cover it.** The §5 statements about the 76 % level
-  and about P04 hold only inside core1's features.
-- **In-session learning on the chain's labels is closed in three feature families** (§35 PC head −0.7, §38 own space
-  −0.3, TTT nets +0.6). True labels would add +2 to +3 J in each. This is not where the +3 is.
-- **Returning people:** own-space personal members as a tempered product in the head's slot give P04 +2 to +3 and P10
-  0 (§37, exploratory), the same pattern as PFT. Five of the eight single-session people look P04-like by §36.
-- **Own-space final stage for returning people (§41–§43), the first lever near +1 J:** personal members fitted
-  on the public session in the person's own space (FBCSP, own tangent space, slow time courses), multiplied into the
-  chain output at β 0.10 for recognised people. Six dev bases: seen +1.1 to +2.5 (mean +1.9; P04 +4.0, P10 −0.1);
-  with PFT nets +2.3. Ten-person within-session proxy: +4 to +5 over a person-naive chain, twice the population-PC
-  head. Sealed estimate +0.4 to +0.9. Code `studies/12nov/ownspace.py`, `dose.py`. Not built into a package.
-- **Open:** better own-space members; all public sessions for P04 and P10; the package form; the learning curve over
-  training people for new people (§39, stopped unfinished: rerun with progress output). No upload until the user
-  says so.
+**Update, 12 Nov 03:35 UTC (ledger §34–§59; scripts `studies/12nov/`).**
+- **Candidate ready: cand_v51_own** = v4.1 + an own-space personal stage for recognised returning people (§41–§45).
+  Dev +0.89 J on six bases (seen +1.79: P04 +3.5, P10 +0.1; new 0). Built, integration-checked, replayed on A100 and
+  in the worker image, independently reviewed, timed (1.08× v4.1). Sealed estimate about 0.822 (0.820–0.825). Not
+  staged, not uploaded. Details: `docs/SEALED_UPLOADS.md`, last sections.
+- **New people: limited by the number of real training people** (+8 points per doubling); synthetic people,
+  people-efficient estimators, noise and external same-task data all fail (§39, §46–§49, §53). The §5 statements
+  about the 76 % level and about P04 hold only inside core1's features (§36).
+- **Only personal labels add to the chain**; population-level additions lose in every position (§57c, §58).
+  In-session learning on the chain's labels is closed in three feature families.
+- **Rules of work (user, 12 Nov):** no gate or closure is final; reviews must hunt silent no-ops (§52, `AGENTS.md`).
+- **Open:** the sealed response of the eight single-session returning people (only an upload measures it);
+  in-session fine-tuning of the nets in a package form (§60); the leaders' margin (§58, §59).
 
 1. Build v5 (§6) or keep the three uploads for something larger.
 2. Any information on what the leading teams do (Discord). The leader gained +2.5 in one upload while its runtime
