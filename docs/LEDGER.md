@@ -703,3 +703,42 @@ chance by construction. Self-training inside the session is closed **in principl
 This also says where a bigger step for new people would have to come from: information about the hard windows that is
 independent of the chain (another sensor view, the task structure), not more adaptation on the chain's own beliefs.
 
+### 84. RESID: a personal stage that learns where the population chain is wrong (written 12 Nov 11:03 UTC, before any result; code `studies/12nov/inpop2.py`)
+
+**Why.** §83: a person's labels are valuable on the windows the population model gets wrong. The v5.1 stage ignores
+that: it multiplies a fixed share of the personal members into every window. A stacked personal model fitted on the
+public windows, with the population chain's own (out-of-sample) posterior as input next to the personal members,
+can learn this person's correction: when to overrule the chain and toward which class. Proxy of §82 (ten people;
+runs 1–3 public, runs 4–6 later). Public-side inputs: the person-naive chain on runs 1–3 and the personal members
+cross-fitted run by run; later side: the in-population chain and the members fitted on runs 1–3. Logistic regression
+on the six log posteriors (+ products of chain and member logs), C 0.1, output mixed with the chain at weight w ∈
+{0.5, 1}.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| RESID against the v5.1 stage (β 0.10) on the in-population chain, mean of ten | +0.3 (−0.8 to +1.2) |
+| People where RESID beats the stage | 5 of 10 (3–7) |
+| **Lever** | ≥ +0.8 on three bases with ≥ 6 of 10 people ahead → test on the real seen sessions (P04, P10) in the v5.1 replay |
+
+| §84 item (11:05 UTC; `runs/inpop2_12nov.log`; B2_pool / B2_s345 / B2_s012) | Observed | Verdict |
+|---|---|---|
+| v5.1 stage on the in-population chain | +3.17 / +3.83 / +3.25 | as §82 |
+| RESID w 0.5 | +4.92 / +5.58 / +4.92 | — |
+| **RESID against the stage** | **+1.75 [+1.00, +2.50] / +1.75 [+0.83, +2.58] / +1.67 [+0.83, +2.50]**; ahead 8 / 7 / 8 of 10 | **Lever met** (predicted +0.3, −0.8 to +1.2: miss, high) |
+| w 1.0 | +1.50 / +1.42 / +1.50 against the stage | — |
+
+On the within-session proxy the stacked correction beats the v5.1 stage by +1.7 for eight of ten people. By the rule
+it goes to the real cross-session test.
+
+### 85. RESID2: the stacked correction on the real later sessions of P04 and P10 (written 12 Nov 11:05 UTC, before any result; code `studies/12nov/resid_seen.py`)
+
+v5.1 replay, six bases, seen protocol. Public side: session 1 of the person, with the person-naive (LOSO) chain's
+posterior and the personal members cross-fitted run by run (six folds). Later side: the routed chain before the
+stage and the members fitted on all of session 1. The correction replaces the v5.1 stage where the gate routes, at
+the gate's ramp: out ∝ chain × R^(w·r), w 0.5 (fixed by §84; 1.0 reported).
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Seen against v5.1, six-base mean | +0.5 (−1.0 to +2.0); P04 +1.0, P10 0.0 |
+| **Lever** | ≥ +0.5 on ≥ 4 of 6 bases with P10 ≥ −0.5 → RESID becomes the returning-person stage candidate (v5.2) |
+
