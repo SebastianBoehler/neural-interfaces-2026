@@ -1610,3 +1610,11 @@ Numbering: this session uses §114–§119 for the explore track; the build sess
 | §115 EARLY alone, windows 0–15 / 0–30 / after 30 | 44.8 / 40.5 / 43.7 % against the chain's 68.6 / 72.6 / 77.3 | Miss (predicted 55): without per-session normalisation a new person is barely decodable |
 | §115 fused (weight fading by window 30), six bases | −1.15 to −1.51 (weight 0.5), −2.2 to −2.5 (weight 1.0) | **Refuted**: the session-start loss cannot be bought back without session statistics |
 
+**§105 correction of the correction (23:09 UTC): the 3.9× was a cold-start artefact.** The first official replay in each
+Leonardo job pays about 230 s of neuralbench/benchopt setup in a fresh /tmp (v5.1b alone, run first, took 325.1 s in job
+64302270; in job 64311532 v5.2 ran first). Paired ABBA on one A100 after a throwaway warm-up replay (build session, job
+64316388): v5.1b 96.4 s, v5.2 137.9 s, v5.2 136.6 s, v5.1b 99.0 s: **1.40×**, +53 ms per routed window, consistent
+with the +70 ms of the 14-session check. Sealed estimate (1,287 s × the ratio): about 25 min at 43 % routed, about 30
+min if every session were routed — inside the 60-minute limit. My "48 / 84 min, not uploadable" of 22:2x UTC is
+withdrawn; the original §105 runtime estimate (27 min, worst case 32) stands. Lesson: never time a single cold replay.
+

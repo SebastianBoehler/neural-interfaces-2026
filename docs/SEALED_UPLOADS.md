@@ -463,3 +463,9 @@ in between is undecided. A failed run uses no quota. Never cancel it.
 - **Profile (job 64315167, two public sessions on an A100):** 249 ms per window in total, 83 ms of it inside the
   personal-net path (87 ms per routed call). The speed-up is the build session's task (§112).
 
+- **Runtime corrected (23:09 UTC):** the 383.1 s vs 97.7 s pair was not paired fairly: the first replay in a job pays about
+  230 s of setup. Warm, paired ABBA (job 64316388): v5.2 1.40× v5.1b (137.9 / 136.6 s against 96.4 / 99.0 s). Projected
+  sealed time about 25 min (43 % routed), about 30 min (all routed). **The "not uploadable as built" verdict above is
+  withdrawn**; the open items are the GPU check (a reference with the package's batch schedule gives 0.0 on CPU; the
+  GPU run is pending) and the missing worker-image replay.
+
