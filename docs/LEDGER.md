@@ -541,3 +541,18 @@ potentials, and in exactly those families P04 runs against the population (slow 
 P04-like people, from our nine training people, is closed in feature space as well as in model space (§67).
 The P05 swap is a second kind of person difference (a class relabelling in alpha); the chain already reads P05 at 80.5.
 
+### 78. PNET: personal nets on top of the v5.1 stage, six bases (written 12 Nov 10:38 UTC, before any result; code `studies/12nov/pnet.py`)
+
+**Why.** User, 12 Nov: build the personal-net component of the returning branch now (no package). Dev evidence so far
+is on two bases and partly in older forms (§40 in-slot, §43 dose). Test in the exact v5.1 form: the five net families
+on seen sessions replaced by their fine-tuned versions (fitted on the person's session 1; stored outputs of 11 Nov
+§29, three seeds), then the routed chain and the own-space final stage at β 0.10, on all six bases; reference = the
+same chain with the frozen twins and the stage. Variants: head and BN affine only (`pfh60`), all parameters 60 steps
+(`pf60`).
+
+| Check | Prediction (80 % range) |
+|---|---|
+| pfh60 + stage minus twins + stage, seen, six-base mean | +0.3 (−0.3 to +0.9); P04 +0.8, P10 −0.3 |
+| pf60 + stage, same | +0.2 (−0.6 to +1.0); P10 −0.8 |
+| **Lever** | ≥ +0.3 seen with P10 ≥ −0.5, on at least four of six bases → personal nets trained for all ten people on all public sessions (Galvani) and kept as a ready component |
+
