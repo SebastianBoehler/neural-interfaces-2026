@@ -223,3 +223,17 @@ members for most targets and agreement finds it.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Mean single-source accuracy | 46.1 | **Hit** (45) |
+| Best single source per target | 62 67 52 46 47 53 67 69 56 50, mean 56.8; below the pooled members' mean of 60.9 | **Hit** (55) |
+| Spearman(agreement with the chain, true accuracy), mean over targets | +0.83 | Hit, at the top of the range |
+| Source picked by agreement | mean 55.2, 5.7 below the pooled members | Hit (−3, −8 to +2): selection does not beat pooling (as 11 Nov §16) |
+| Symmetry of transfer (ACC[i, j] against ACC[j, i]) | r = +0.80 | Not predicted |
+| Within person, across sessions (diagonal) | P04 76, P10 81; nobody else's model gives them more than 46 and 50 | Not predicted |
+| Chain accuracy as a new person (B2_pool) | 01: 79.0, 02: 90.5, 03: 75.0, **04: 53.6**, 05: 80.5, 06: 82.9, 07: 89.4, 08: 85.6, 09: 83.6, 10: 81.6 | Spearman with the best incoming transfer +0.78 |
+
+**Reading (12 Nov 09:50 UTC; `runs/ptype_12nov.log`).** People are not interchangeable and the differences are
+structured: transfer is symmetric, P01, P02, P07 and P08 serve each other at 56–69 %, and how well anyone transfers to
+a person predicts how well the whole chain does on them as a new person (+0.78). P04 is the extreme: 76 % from their
+own earlier sessions, at most 46 % from anybody else, 53.6 % in the chain against 83.1 % for the other nine. Selecting
+similar people still loses to pooling everyone, so this is a map, not a method. What it says about the bottleneck is
+in [REVIEW_12NOV.md](REVIEW_12NOV.md).
