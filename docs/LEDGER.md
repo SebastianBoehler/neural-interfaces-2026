@@ -860,3 +860,17 @@ neighbourhood structure. The hard windows are a different region of the person's
 hard-type windows (§88: 78 %), not reachable from the easy ones. For a new person the bottleneck is now precise: the
 labels of their hard-type windows, which no label-free source in this data supplies.
 
+### 90. WARMUP: how much of the loss is the session stages' warm-up? (written 12 Nov 11:26 UTC, before any result; code `studies/12nov/warmup.py`)
+
+§89: 48 % of the first fifth of each session is hard, 26 % of the last fifth. The session stages (rebalancing,
+SessionEM, TSEM) start empty and learn the session as it goes. Ceiling for a faster warm-up: run the stages over the
+session twice in a row and score each window from the second pass, when the stages already hold the whole session
+(hindsight; not allowed in a package, a bound only). Grid chain without routing, new people, six bases.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Chain accuracy, first fifth / last fifth of the sessions | 72 / 84 |
+| Hindsight stages, new, gain | +1.5 (+0.5 to +3) |
+| Share of the gain in the first fifth | 60 % (40–80) |
+| Reading | ≥ +1.5 → a faster causal warm-up is worth a study; ≤ +0.5 → warm-up is not the loss |
+
