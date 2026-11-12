@@ -1,7 +1,7 @@
 """NETEMB (ledger s72): the shipped SessionBN nets' penultimate features as a view for the session stage.
 Per leave-one-person-out fold the net is trained with the shipped recipe; the classifier's input is captured while
 the held-out person's sessions are streamed, and reduced to 64 components fitted on four training sessions streamed
-through the same net. Saves proba, index, emb (n, 64). Usage (Galvani): python netemb.py TASK (0-7: arch = TASK % 4, seed = TASK // 4) | smoke"""
+through the same net. Saves proba, index, emb (n, 64). Usage (Galvani): python netemb.py TASK (arch = TASK % 4, seed = (TASK % 100) // 4; TASK >= 100: seen protocol) | smoke"""
 import sys, time
 from pathlib import Path
 WS = Path("/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026")
@@ -38,12 +38,12 @@ def capture(m, d, mask):
     return P, E
 
 
-def run(arch, d, seed, out, epochs=0):
-    cfg, k = ARCHS[arch]; f = out / f"ne_{arch}-all_loso-s{seed}.npz"
+def run(arch, d, seed, out, epochs=0, proto="all_loso"):
+    cfg, k = ARCHS[arch]; f = out / f"ne_{arch}-{proto}-s{seed}.npz"
     if f.exists():
         return print("exists", f.name, flush=True)
     idx, Ps, Es, t0, rng = [], [], [], time.time(), np.random.default_rng(seed)
-    for fold, tr, te in protocol.folds(d, "all_loso"):
+    for fold, tr, te in protocol.folds(d, proto):
         m = SB.make(cfg, d, seed); assert type(m) is SB.SessionNet
         if epochs:
             m.epochs = epochs
@@ -66,4 +66,5 @@ if __name__ == "__main__":
         for arch in ARCHS:
             run(arch, d, 0, out, epochs=1); print("SMOKE PASS", arch, flush=True)
     else:
-        t = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True); run(list(ARCHS)[t % 4], d, t // 4, OUT)
+        t = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True); proto = "seen_session" if t >= 100 else "all_loso"; t %= 100
+        run(list(ARCHS)[t % 4], d, t // 4, OUT, proto=proto)

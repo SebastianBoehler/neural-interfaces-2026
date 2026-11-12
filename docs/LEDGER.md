@@ -334,3 +334,36 @@ Reading: frozen EEG foundation models, as published, carry no more class informa
 network of their shape. The information "from thousands of other people" is not in their features in a form that
 separates these three mental tasks.
 
+**§72 NETVIEW scored (logs `runs/netview_*.log`; Galvani pack 3091237; grid chain without routing, new people; second TSEM through the net's classifier input, 64 components, λ 0.05 / 0.10 / 0.15; each cell B2_pool / B2_s345).**
+
+| Recipe, seed | λ 0.10 | λ 0.15 | P04 at λ 0.15 |
+|---|---|---|---|
+| FBCNet SessionBN (fb), s0 | +0.56 [+0.21, +0.90] / +0.35 | **+0.85 [+0.50, +1.21] / +0.52 [+0.11, +0.90]** | +1.9 / +2.1 |
+| fb, s1 | +0.59 [+0.17, +1.01] / +0.15 | **+0.74 [+0.25, +1.26] / +0.44 [−0.14, +1.02]** | +3.1 / +3.1 |
+| FBCNet raw SessionBN (fbraw), s0 | +0.28 / +0.12 | +0.48 [+0.19, +0.78] / +0.32 | +1.9 / +1.7 |
+| fbraw, s1 | +0.59 / +0.32 | +0.58 [+0.16, +0.99] / +0.39 | +2.4 / +2.3 |
+| FBLight (fbl), s0 / s1 | +0.35 / +0.02; +0.45 / +0.10 | +0.36 / +0.14; +0.30 / +0.07 | −0.9; 0.0 |
+| SincShallow (sinc), s0 / s1 | +0.04 / −0.20; +0.06 / −0.10 | +0.08 / −0.06; +0.30 / −0.08 | +1.2 to +1.8 |
+| The net view alone in place of the 128 components | −0.6 to −1.9 | | |
+
+Verdict: **lever met for the fb recipe** (≥ +0.5 with the interval above 0 on both seeds, on B2_pool; on B2_s345 +0.52 and
++0.44). Prediction (+0.2, −0.5 to +1.0) hit at its top. Unlike the foundation and random views (§71: −0.5 to +0.4, no
+pattern), every FBCNet arm is positive at λ 0.15, the gain grows with λ, and P04 gains 2–3 points. λ 0.15 is the edge of
+the tried range and was picked after seeing it: the confirmation below fixes it in advance.
+
+### 73. NETVIEW2: confirmation on fresh nets, after the full routed chain (written 12 Nov 10:10 UTC, before any result; code `studies/12nov/netview2.py`; Galvani packs 3091329, 3091330)
+
+Fixed arm: the fb recipe's classifier input exactly as stored by `netemb.py` (64 components fitted inside the fold on
+four training sessions, no further rotation), second TSEM at λ 0.15 applied **after the full v4.1 replay chain with
+routing** (`A.system`). Fresh nets: fb seeds 2–5 (independent trainings). Secondary: fbraw seeds 2–5; the seen
+protocol (P04, P10) on fb seeds 0–1.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| New people, mean over fb seeds 2–5, B2_pool | +0.55 (+0.2 to +0.9) |
+| Same, B2_s345 | +0.40 (0.0 to +0.8) |
+| People ≥ 0 at the seed mean | 7 of 10 (6–9) |
+| Seen (P04, P10) | +1.0 (−0.5 to +2.5) |
+| **Refutation** | mean over fresh seeds < +0.25 on B2_pool, or its person-bootstrap 10th percentile ≤ 0 |
+| Exploratory (on seeds 0–1, labelled as such): λ 0.2 / 0.3; two nets' views in succession; stored components against the fmview rotation | — |
+
