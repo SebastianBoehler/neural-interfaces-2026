@@ -1588,3 +1588,18 @@ from window 0. Scored on windows 0–15 and 0–30 against the chain, and fused 
 Reading: an adaptive personal LDA adds nothing over the v5.1 stage on real later sessions and costs P10 1.6 points; its
 in-session EM follows the person's drift, which is what hurts P10. The proxy result (Leonardo) is still recorded when it lands.
 
+### 116–117. Explore wave 3 (written 13 Nov 23:04 UTC, before any full result; two-person smokes only checked that the code runs)
+
+**116. BANDSEL** (`studies/12nov/bandsel.py`): people carry their classes in different bands (§77). Per-band population
+models (tangent and CSP, nine bands) combined per new session with weights from their causal agreement with the chain,
+against equal weights and an oracle (true accuracy so far); fused into the routed chain at β 0.10, six bases.
+Prediction: band ensemble alone 58 (equal) / 59 (agree) / 61 (oracle); fused −0.1 (−0.5 to +0.3) for the label-free
+version. Lever: ≥ +0.3 with the interval above 0.
+
+**117. FAMSEL** (`studies/12nov/famsel.py`): per-session weights of the member families. 17 weightings (shipped, each
+family dropped, each doubled) through the grid chain; per session the weighting is picked by true accuracy (oracle) or
+by agreement with the majority of the 17 outputs. Prediction: oracle +1.5 (+0.8 to +2.5); label-free +0.1 (−0.2 to
++0.4). Reading: label-free ≥ +0.4 → a causal version is pre-registered; oracle < +1 → per-session member weighting is closed.
+
+Numbering: this session uses §114–§119 for the explore track; the build session continues at §120.
+
