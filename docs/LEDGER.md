@@ -1305,7 +1305,7 @@ returning people (§41–§45; package cand_v51_own). Everything aimed at new pe
   of the package form (§60), not the build.
 - **Lanes:** the montage-reordering check of v5.1 with the stage active (Galvani 3090406), then §60.
 
-## 60. TTT3: does in-session fine-tuning survive the form a package can run? (written 12 Nov 03:40 UTC by `date -u`, before any result; code `studies/12nov/ttt3.py`, Galvani)
+## 60. TTT3: does in-session fine-tuning survive the form a package can run? (written 12 Nov 03:34 UTC by `date -u`, before any result; code `studies/12nov/ttt3.py`, Galvani)
 
 **Why.** §59: the one new-person lever with a measured dev gain (new +0.6 with four families, §31). The dev recipe
 fine-tunes Python nets in training mode, with batch statistics over all windows so far and dropout on. The shipped
