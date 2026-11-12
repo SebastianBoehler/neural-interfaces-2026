@@ -967,3 +967,15 @@ replacements against the twins (as §87).
 | × 0.5, new, six bases | −0.3 (−0.8 to +0.2) |
 | **Lever** | ≥ +0.3 with the interval above 0 |
 
+| §81 item (12:25 UTC; `runs/ttt3b_score_12nov.log`; seeds per family 6–8, ttt3d still running) | Observed | Verdict |
+|---|---|---|
+| Nets alone, new, package form `ple20` / `plec20` | +4.0 to +5.7 / +3.4 to +7.1 | replicates §60 |
+| Chain, all families swapped, new, six bases, `ple20` | +0.20, −0.05, +0.06, −0.01, −0.02, −0.04: **mean +0.02** | **Refuted** (lever +0.3) |
+| Same, `plec20` / `plelr20` | mean +0.16 / +0.14; 5 of 10 people ≥ 0 | below the lever |
+| True labels (`ore20`), new | +1.77 to +2.09, 7–8 of 10 people ≥ 0 | the ceiling stands |
+| Seen, dev form `pl20` | +0.53 to +0.79 (P04 +1.8 to +2.5) | P04 again |
+
+Reading: with six to eight seeds the three-seed +0.27 of §60 shrinks to about 0.0–0.2. In-session fine-tuning on the
+chain's labels is closed for new people; the +2 ceiling with true labels is §83's lesson again (labels on the hard
+windows). The script's secondary "one fine-tuned seed" section failed on the uneven seed counts and is not reported.
+
