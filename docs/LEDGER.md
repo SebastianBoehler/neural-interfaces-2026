@@ -990,3 +990,14 @@ the others. Robust objectives cannot supply what no training person carries (§6
 scoring attempt failed on an unconverted name in the scorer (fixed in `focal_swap.py`) and on a brace pattern in a
 remote copy; both now fail loudly, and the result above is from the corrected run.
 
+### 95. DOSE6: the v5.1 stage strength on all six bases (written 12 Nov 13:16 UTC, before any result; `BETA=… studies/12nov/v5_replay.py`)
+
+β 0.10 was chosen on the two exploration bases (§43), which overstate stage effects (§75). Before the first upload,
+the dose is re-read on all six bases: β 0.05, 0.075, 0.10, 0.15, 0.20.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Best β by six-base seen mean | 0.10 (0.075–0.15) |
+| Best minus 0.10, seen | +0.1 (0 to +0.4) |
+| **Rule** | the package changes only if another β beats 0.10 by ≥ +0.3 seen with P10 not worse by more than 0.3 |
+
