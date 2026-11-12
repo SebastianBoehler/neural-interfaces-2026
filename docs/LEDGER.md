@@ -1139,3 +1139,19 @@ six bases, person bootstrap.
 | Chain with the swapped slot, new, six-base mean | lap −0.3 (−1.2 to +0.6); cl +0.2 (−0.5 to +0.9) |
 | **Lever** | ≥ +0.5 new with the interval above 0 → rebuild the TSEM view and the routing features with the new core and confirm |
 
+| §99 item (16:12 UTC; `runs/lapref_score.log`) | Observed | Verdict |
+|---|---|---|
+| Harness: shipped core1 rebuilt against the stored one | max difference 7e-9 (LOSO), 0 (seen) | the build path is the shipped one |
+| core1 alone, new: lap / cl / shipped car | **58.9 / 66.2 / 69.3** | Miss, below (predicted 67 / 70) |
+| Chain with the swapped slot, new, six-base mean | lap **−1.07 [−1.49, −0.68]**, 2 of 10 ≥ 0; cl **−0.48 [−0.77, −0.20]**, 4 of 10 ≥ 0 | **Refuted** |
+| Seen | lap −0.5 to −2.1; cl −0.4 to −2.1 (P04 down to −4.2) | — |
+
+Reading: the 30 Oct closure by argument was wrong in kind but right in outcome. A surface Laplacian removes the
+broad spatial patterns core1 classifies on (69.3 → 58.9), and adding it next to CAR doubles the dimension without
+new information (66.2). Re-referencing is now closed on evidence.
+
+**Leonardo, 16:10 UTC:** the first resubmission ran; the SessionBN SincShallow tasks of §94, §96 and §91 failed
+because `runs/pretrain` had not reached Leonardo (the copy that carried it timed out). Copied and resubmitted:
+`ep_sinc`, `pnets_sinc`, `ttt4_sinc`. The FBCNet, raw FBCNet and FBLight outputs of §94 and the 360 personal-net
+files are in.
+
