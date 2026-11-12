@@ -1,0 +1,14 @@
+{
+ "device": "cpu",
+ "windows": 755,
+ "labels_identical": true,
+ "n_label_diff": 0,
+ "max_posterior_diff": 0.0,
+ "tol": 0.0,
+ "prefetch_hits": 711,
+ "personal_calls": 715,
+ "seconds_v52b": 106.9,
+ "seconds_v52": 107.8,
+ "acc_v52b": 0.9947019867549669,
+ "acc_v52": 0.9947019867549669
+}

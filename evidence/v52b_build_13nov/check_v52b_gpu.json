@@ -1,0 +1,14 @@
+{
+ "device": "cuda",
+ "windows": 2655,
+ "labels_identical": true,
+ "n_label_diff": 0,
+ "max_posterior_diff": 0.0,
+ "tol": 0.0,
+ "prefetch_hits": 2501,
+ "personal_calls": 2515,
+ "seconds_v52b": 372.2,
+ "seconds_v52": 395.5,
+ "acc_v52b": 0.991713747645951,
+ "acc_v52": 0.991713747645951
+}
