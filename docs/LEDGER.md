@@ -347,3 +347,22 @@ segmentation fingerprint (done, §62: nothing matches); (3) a ten-person proxy w
 population (not built: the nets need retraining per fold); (4) arithmetic-versus-rest and word-versus-rest heads on
 external trunks as separate members instead of merged into the teacher (to check against the October archive
 first); (5) warm-starting the personal head at recognition (≤ +0.2); (6) TTT only if the returning branch is dead.
+
+## 64. WARM: warm-starting the personal head at recognition (written 12 Nov 04:24 UTC by `date -u`, before any result; code `studies/12nov/warm.py`)
+
+**Why.** Review (§63, point 5) and §46a: with the true identity from window 0 the routed chain is *worse* than with
+the real gate, because the personal head standardises its input with the session's own running statistics, which are
+empty at the start. The public session offers a prior for those statistics.
+
+**Test.** The head's input (256 PCs) is standardised with (k · public-session moments + running session moments) /
+(k + n), k ∈ {5, 20}, instead of the cold running statistics. v4.1 chain with the real gate and with the oracle gate
+from window 0, with and without the own-space stage; exploration bases. Reported per person.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Real gate, best k, seen | +0.1 (−0.3 to +0.4) | — |
+| Oracle gate from window 0, best k, against the oracle gate cold (−0.24 against the real gate, §46a) | +0.4 (0 to +0.9): the cold-start defect closes | ≤ 0 |
+| P(real gate ≥ +0.3 on both bases with P10 ≥ 0) | 15 % | — |
+
+| Item | Observed | Verdict |
+|---|---|---|
