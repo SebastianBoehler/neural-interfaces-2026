@@ -1,4 +1,4 @@
-"""EARLY (ledger s113, explore): a window-local system for the start of a session, needing no session statistics:
+"""EARLY (ledger s115, explore): a window-local system for the start of a session, needing no session statistics:
 relative log band power per channel (each band's power over the window's total) and the tangent space at the training
 people's grand mean (no recentring); logistic regression, leave one person out. Scored on the first 15 and 30 windows
 of each new session against the routed chain, and fused there with a weight that fades out by window 30.

@@ -1,4 +1,4 @@
-"""PSYS (ledger s112, explore): a whole personal system for a returning person, built only from that person's own data:
+"""PSYS (ledger s114, explore): a whole personal system for a returning person, built only from that person's own data:
 own-space tangent features (causal recentring with the public mean as prior), 64 components fitted on the public
 runs, an LDA whose class means adapt inside the session by soft EM from the public class means (pseudo-count M0),
 covariance shrunk and fixed from the public runs. Proxy of s82 (runs 1-3 public, 4-6 later). Scored alone, then fused

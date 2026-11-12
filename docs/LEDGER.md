@@ -1556,9 +1556,9 @@ step. Arms (the same nets, folds and labels as ttt5/ttt6, seeds 0–5, scored al
 | gC10T20 | warm start, 10 steps, every 10 windows, from window 20 | 0.55 | +0.36 (+0.20 to +0.50) |
 | **Rule** | gA within ±0.08 of fixA → on-device augmentation is accepted for a package. The package recipe is the cheapest arm (with delta1 or delta2) whose six-base mean is ≥ +0.25 with ≥ 5 of 6 bases positive and whose projected cost keeps the sealed worst case (v5.2's measured cost plus fine-tuning on every unrouted session) ≤ 45 min |
 
-### 112–113. Explore wave 2: whole systems built for the measured losses (written 12 Nov 22:57 UTC, before any full result; smoke runs on two people only checked that the code runs)
+### 114–115. Explore wave 2 (first numbered 112–113, which the build session had used): whole systems built for the measured losses (written 12 Nov 22:57 UTC, before any full result; smoke runs on two people only checked that the code runs)
 
-**112. PSYS: a personal system for returning people** (`studies/12nov/psys.py`). Reasoning: the sealed set showed that
+**114. PSYS: a personal system for returning people** (`studies/12nov/psys.py`). Reasoning: the sealed set showed that
 returning people respond (+0.6 per non-P04 returning session for the stage); the v5.1 stage multiplies fixed personal
 members into the chain. A whole personal system instead: the person's own tangent space (64 components from the public
 runs), an LDA whose class means adapt within the session by causal soft EM, starting from the public class means.
@@ -1570,7 +1570,7 @@ Proxy of §82; scored alone, then fused into the in-population chain alone and n
 | Stage + system (β 0.25) against the stage alone, proxy, three bases | +1.0 (0 to +2.5) |
 | **Reading** | ≥ +1.0 on the proxy with ≥ 7 of 10 ahead → the real later sessions of P04 and P10 decide (≥ 0 on both) |
 
-**113. EARLY: a window-local system for the start of a session** (`studies/12nov/early.py`). Reasoning: the first
+**115. EARLY: a window-local system for the start of a session** (`studies/12nov/early.py`). Reasoning: the first
 fifth of a new session loses 3–7 points because the session statistics are not yet learned; a system that needs none
 (relative band power per channel; tangent space at the training people's grand mean, no recentring) is available
 from window 0. Scored on windows 0–15 and 0–30 against the chain, and fused with a weight fading out by window 30.
@@ -1581,9 +1581,9 @@ from window 0. Scored on windows 0–15 and 0–30 against the chain, and fused 
 | Fused, new, six bases | −0.1 (−0.5 to +0.2) |
 | **Reading** | fused ≥ +0.3 with the interval above 0 → kept for the next design |
 
-| §112 follow-up (22:59 UTC; `studies/12nov/psys_seen.py`, run locally; meant as a one-base smoke but it ran all six bases because the replay head overwrites `sys.argv`, now fixed) | Observed | Verdict |
+| §114 follow-up (22:59 UTC; `studies/12nov/psys_seen.py`, run locally; meant as a one-base smoke but it ran all six bases because the replay head overwrites `sys.argv`, now fixed) | Observed | Verdict |
 |---|---|---|
-| Personal system (β 0.25, at the gate's ramp) on top of v5.1, real later sessions, six bases | seen −0.36 to −1.03, **mean −0.81 (P04 −0.06, P10 −1.57)** | **Fails the §112 rule** (≥ 0 on both real people) whatever the proxy shows |
+| Personal system (β 0.25, at the gate's ramp) on top of v5.1, real later sessions, six bases | seen −0.36 to −1.03, **mean −0.81 (P04 −0.06, P10 −1.57)** | **Fails the §114 rule** (≥ 0 on both real people) whatever the proxy shows |
 
 Reading: an adaptive personal LDA adds nothing over the v5.1 stage on real later sessions and costs P10 1.6 points; its
 in-session EM follows the person's drift, which is what hurts P10. The proxy result (Leonardo) is still recorded when it lands.

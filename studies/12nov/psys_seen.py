@@ -1,4 +1,4 @@
-"""PSYS on the real later sessions (ledger s112 follow-up): the personal system fitted on session 1 of P04 / P10, streamed
+"""PSYS on the real later sessions (ledger s114 follow-up): the personal system fitted on session 1 of P04 / P10, streamed
 over sessions 2-3, fused next to the v5.1 stage in the v5.1 replay (seen protocol), six bases.
 Usage: python studies/12nov/psys_seen.py [smoke]"""
 import os, sys
