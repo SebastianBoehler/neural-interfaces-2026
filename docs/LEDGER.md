@@ -1040,3 +1040,37 @@ on all public windows) for each of the ten people on all their public windows (p
 package code that swaps a recognised person's nets in, and the replay checks follow only if upload 1 shows the
 returning branch pays (§63 reading rule).
 
+## 97–98. Second and third systems from first principles (written 12 Nov 13:34 UTC, before any result)
+
+**Why.** User, 12 Nov: stop extending the one chain; design new systems from first principles and score them whole.
+What a design has to respect, from the measurements of 11–12 Nov: (1) session adaptation is the largest single
+lever (+7 recentring, +3.8 TSEM); (2) population models alone reach 60–69 % for new people; (3) people differ in
+structured ways (§67, §77); (4) the hard third of each session is decodable with the person's labels (§88) but not
+from the easy windows (§89); (5) every model trained on the same people shares errors (§63). Each system is scored
+alone (new people, LOSO; seen where it applies), then as a product with the chain; dev resolution is ±0.5–1.
+
+### 97. S2: a nonlinear multi-view model with its own session stage (code `studies/12nov/sys2.py`)
+
+Inputs per window, all z-scored causally within the session (no state across sessions): 9-band tangent space after
+causal recentring (population prior from the training people; 256 principal components fitted on training rows),
+per-channel log band power (369), slow time courses (64 components), gaze and event features (48). Model: a
+two-layer network (512, 128; dropout 0.5; label smoothing; mixup across training people; five seeds), trained
+leave one person out. Session stage of its own: count rebalancing, then TSEM in the network's 128-dimensional
+embedding (λ 0.15). No member of the chain is used.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| S2 alone, no session stage, new | 68 (63–72), core1 69.3 |
+| S2 with its own session stage, new | 75 (70–79), chain 80.2 |
+| Product with the chain (exponent 0.5), new | +0.3 (−0.5 to +1.2) |
+| **Reading** | S2 with stage ≥ 78 → a full second system worth developing; product ≥ +0.8 on six bases → candidate |
+
+### 98. S3: a session-set model that learns the adaptation (Galvani; code `studies/12nov/sys3.py`)
+
+First principles: the chain's stages are hand-made rules for "adapt to this session". S3 learns that rule end to end:
+a causal transformer over a session's window embeddings (S2's inputs, projected) predicting each window's class from
+the window and all earlier ones. Against §70's failure (a learned stage overfits nine people) it trains on synthetic
+sessions: each training episode draws a real session and applies a random spatial rotation of the inputs (virtual
+person), a random class-share shift and a random window subset; 20,000 episodes per fold. Pre-registered when the
+code is written, before its first job.
+
