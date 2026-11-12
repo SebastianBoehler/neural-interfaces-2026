@@ -1120,3 +1120,22 @@ training length `ep_a`, `ep_b` (1675); §91 TTT4 `ttt4_a`, `ttt4_b` (1636); §98
 `sys3` (1636); §96 personal nets `pnets_a`, `pnets_b` (1675; retrains the 18 shipped SessionBN nets whose checkpoints
 are not local). Each line is copied home and scored by `scripts/cloud/leo_collect.sh` under its pre-set rule.
 
+## 99. Review of 12 Nov evening and LAPREF (written 12 Nov 15:23 UTC, before any result)
+
+Two independent reviews (literature and internal audit; summary in `docs/REVIEW_12NOV.md` §7) agree: no published
+label-free method for new people is missing from the chain; the large unmeasured block is returning people; the only
+untested axis with plausible ≥ +0.5 for new people is re-referencing for core1, closed on 30 Oct by an argument
+("EA of a re-referenced signal is a rotation") that fails for tangent features of a population classifier — the same
+kind of argument that wrongly closed CAR, which later shipped.
+
+**LAPREF.** core1 rebuilt with a 4-nearest-neighbour surface Laplacian (`lap_ov17_fs2_t0.1_le_k2`) and with CAR and
+Laplacian blocks concatenated (`cl_…`), heads lr10 as shipped; leave one person out and seen. Swapped into core1's
+slot (posterior only; TSEM's view and the routing features keep the shipped core1 — a known limit, §52), routed chain,
+six bases, person bootstrap.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| core1 alone, new: lap / cl (shipped car 69.3) | 67 (63–71) / 70 (67–73) |
+| Chain with the swapped slot, new, six-base mean | lap −0.3 (−1.2 to +0.6); cl +0.2 (−0.5 to +0.9) |
+| **Lever** | ≥ +0.5 new with the interval above 0 → rebuild the TSEM view and the routing features with the new core and confirm |
+

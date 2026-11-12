@@ -53,6 +53,18 @@ def parse(name):
                 ct="ct" in fl, cb="cb" in fl)
 
 
+def laplacian(names, k=4):
+    """Nearest-neighbour surface Laplacian (12 Nov review): x_c minus the mean of its k nearest electrodes on the
+    standard 10-20 head (MNE positions). Rank n-1 like CAR (handled by the trace shrinkage); a session-dependent map, not EA-invariant."""
+    import mne
+    pos = mne.channels.make_standard_montage("standard_1020").get_positions()["ch_pos"]
+    P = np.array([pos[str(n)] for n in names]); D = np.linalg.norm(P[:, None] - P[None], axis=-1); L = np.eye(len(names))
+    for c in range(len(names)):
+        nb = np.argsort(D[c])[1:k + 1]; L[c, nb] -= 1.0 / k
+    assert np.linalg.matrix_rank(L) >= len(names) - 1, "Laplacian lost more than the common mode"  # rows sum to 0, as CAR
+    return L
+
+
 # complex-safe SPD/HPD helpers; the real path calls features.py itself (bit-identical to round 1)
 def _efn(C, fn):
     w, V = np.linalg.eigh(C)
@@ -118,11 +130,12 @@ class Feats:
 
     def __init__(self, d, cfg):
         X0 = d["X"]
-        refs = {"m1": ["m1"], "car": ["car"], "cm": ["car", "m1"]}[cfg["ref"]]
+        refs = {"m1": ["m1"], "car": ["car"], "cm": ["car", "m1"], "lap": ["lap"], "cl": ["car", "lap"]}[cfg["ref"]]
         self.cfg, self.k, self.st, self.sz, self.y = cfg, cfg["k"], cfg["st"], cfg["sz"], d["y"]
         self.C, Ms = [], []
         for rf in refs:
-            X = (X0 - X0.mean(1, keepdims=True)).astype(X0.dtype) if rf == "car" else X0
+            X = ((X0 - X0.mean(1, keepdims=True)).astype(X0.dtype) if rf == "car" else
+                 np.einsum("cd,ndt->nct", laplacian(d["ch_names"]), X0).astype(X0.dtype) if rf == "lap" else X0)
             self.C += blocks(X, cfg)
             Ms.append(slow_waveform(X, cutoff=1.0).astype(np.float64))
         self.M = np.concatenate(Ms, 1)
