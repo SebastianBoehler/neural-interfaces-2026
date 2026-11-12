@@ -526,3 +526,18 @@ person's own other sessions (P04, P10) and from the pooled other nine people (al
 | Others' mean from others, best band | 55 (50–60) |
 No pass rule: a diagnostic. It turns into a member only if a band/family reads P04 from others ≥ 55 %.
 
+| §77 item (10:37 UTC; `runs/bandmap_12nov.log`, `runs/bandconf_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| P04 from own other sessions, best single band/family | CSP 4–8 Hz 60.6; slow S 59.3; CSP 4–40 57.8; best tangent band 4–40 Hz 54.9 | **Miss** (predicted 65 in 8–30 Hz): P04's own signal is in theta and slow potentials, not in mu/beta |
+| P04 from the other nine, best single band/family | CSP 4–40 49, CSP 13–20 47 | Hit (45) |
+| Bands where P04 from others ≥ 50 % | 0 of 19 | Hit |
+| Others' mean from others, best | CSP 8–13 51.2, S 50.6 | Hit at the low edge (55) |
+| Below-chance transfers | P04 slow S **30** (others' mean 50.6); P05 CSP 8–13 **24**, CSP 4–40 26 | not predicted |
+| Are they class permutations? | P05 alpha CSP: SUB and WORD swapped (WORD → SUB 73 %), best permutation 50; P04 slow: no consistent permutation across sessions (best 40–43) | P05's is a swap; P04's is not |
+
+**Reading.** No band or feature family carries P04's classes in a direction shared with any of the other nine
+people (best 49 %, best under any class permutation 53 %). P04's own separable signal is theta CSP and slow
+potentials, and in exactly those families P04 runs against the population (slow 30 %). The new-member line for
+P04-like people, from our nine training people, is closed in feature space as well as in model space (§67).
+The P05 swap is a second kind of person difference (a class relabelling in alpha); the chain already reads P05 at 80.5.
+
