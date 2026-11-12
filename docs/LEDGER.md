@@ -1115,3 +1115,8 @@ scrambled the feature identities, the model could not learn, and the five local 
 window accuracy, loss ≈ ln 3). Fixed to 0.15/√d (mean |diagonal| 0.99) with an assertion that fails loudly if the
 rotation is not small. The broken outputs were deleted; S3 restarts from scratch (Leonardo, seeds 0–2).
 
+**12 Nov 14:55 UTC, Leonardo jobs queued (environment checked: torch 2.14.1+cu126, braindecode 1.8.1):** §94
+training length `ep_a`, `ep_b` (1675); §91 TTT4 `ttt4_a`, `ttt4_b` (1636); §98 S3 with the rotation fix, seeds 0–2
+`sys3` (1636); §96 personal nets `pnets_a`, `pnets_b` (1675; retrains the 18 shipped SessionBN nets whose checkpoints
+are not local). Each line is copied home and scored by `scripts/cloud/leo_collect.sh` under its pre-set rule.
+
