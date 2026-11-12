@@ -394,3 +394,25 @@ orthonormal directions of the same 256 components.
 | (d) random null | 0.0 (−0.3 to +0.3) |
 | Lever | a view ≥ +0.4 on new above the null on both bases, interval above 0 → combine with or replace the net view |
 
+**§74 DVIEW scored (10:20 UTC; `runs/dview_12nov.log`; after the routed chain, B2_pool / B2_s345).**
+
+| View | λ 0.10 | λ 0.15 | Verdict |
+|---|---|---|---|
+| (a) pooled LDA, 2 | −0.02 / −0.14 | −0.21 / −0.19 | Hit (0.0) |
+| (b) PLS-DA, 16 | +0.45 [+0.07, +0.80] / +0.54 [+0.20, +0.90] | +0.60 [+0.22, +0.99] / +0.47 [+0.17, +0.74] | Above the prediction (+0.2) |
+| (c) per-person LDA directions, 18 | +0.33 / +0.12 | +0.28 / +0.22; P04 +0.7 / 0.0 | Hit (+0.3); no P04 effect |
+| **(d) random 18 directions (null)** | **+0.28 [+0.02, +0.52] / +0.25 [+0.09, +0.42]** | +0.22 / +0.11 | **Miss: the null is not zero** (predicted 0.0) |
+
+**This changes how §72–§73 must be read.** A second TSEM pass through *random* directions of core1's own components
+gains +0.25 for new people: part of any second-view gain is generic (a second pass strengthens the session stage, as the
+5 Nov "permuted-Gram null" of +0.47 and the grid's preference for TSEM λ 0.2 already showed). Against this null the
+net view (+0.49 to +0.55 after the routed chain) and PLS-DA (+0.45 to +0.60) are +0.2 to +0.3 above it, which is
+at the edge of resolution.
+
+**Addendum to §73, written 10:20 UTC, before any fresh-seed result exists** (the files are still training): the
+§73 rule stays as written. Added comparisons, run on the same bases: (i) random 64-direction projections of core1's
+256 components, five draws, as a second TSEM at λ 0.15; (ii) the first TSEM alone at λ 0.20 and 0.25, no second pass.
+**The net view counts as a lever of its own only if its fresh-seed mean exceeds the better of (i) and (ii) by ≥ +0.25
+with a person-bootstrap 10th percentile above 0.** Otherwise the finding is "the session stage is slightly too weak",
+worth about +0.25, and the cheapest form (no net features) is preferred.
+
