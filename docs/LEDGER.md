@@ -1629,3 +1629,17 @@ Reading: per-session choice among member weightings has 1–2 points of head-roo
 variants (§76), and agreement-based criteria cannot see it. The open question for this family is a criterion, not a
 weighting; none is known.
 
+### 118. SELMETA (explore): a learned selector for the 1–2 points of per-session head-room (written 13 Nov 23:15 UTC, before any full result; code `studies/12nov/selmeta.py`)
+
+§76 and §117 both found 1–2 points available from choosing per session (stage variants, member weightings) and no
+hand-made label-free criterion that finds them. Instead of a hand criterion, learn one: for each of the 17 weightings,
+five label-free features of its output on the session's first 60 windows (relative to the shipped output); a ridge
+model trained on the other people's sessions predicts each weighting's gain on the rest of the session; the session
+switches at window 60 to the predicted best (or stays if no gain is predicted). Six bases, new people.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Oracle from window 60 | +1.2 (+0.7 to +1.8) |
+| Learned selector from window 60 | +0.05 (−0.3 to +0.3) |
+| **Reading** | ≥ +0.3 with the interval above 0 → a package-form selector (all 17 weightings run in parallel; runtime) is pre-registered |
+
