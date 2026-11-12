@@ -231,9 +231,14 @@ members for most targets and agreement finds it.
 | Within person, across sessions (diagonal) | P04 76, P10 81; nobody else's model gives them more than 46 and 50 | Not predicted |
 | Chain accuracy as a new person (B2_pool) | 01: 79.0, 02: 90.5, 03: 75.0, **04: 53.6**, 05: 80.5, 06: 82.9, 07: 89.4, 08: 85.6, 09: 83.6, 10: 81.6 | Spearman with the best incoming transfer +0.78 |
 
-**Reading (12 Nov 09:50 UTC; `runs/ptype_12nov.log`).** People are not interchangeable and the differences are
+**Reading (12 Nov 09:26 UTC; `runs/ptype_12nov.log`).** People are not interchangeable and the differences are
 structured: transfer is symmetric, P01, P02, P07 and P08 serve each other at 56–69 %, and how well anyone transfers to
 a person predicts how well the whole chain does on them as a new person (+0.78). P04 is the extreme: 76 % from their
 own earlier sessions, at most 46 % from anybody else, 53.6 % in the chain against 83.1 % for the other nine. Selecting
 similar people still loses to pooling everyone, so this is a map, not a method. What it says about the bottleneck is
 in [REVIEW_12NOV.md](REVIEW_12NOV.md).
+
+**Added 09:35 UTC (exploratory, B2_pool, LOSO).** No member reads P04: the eleven members score 37–51 % on P04
+(core1 50.9, Hilbert core 51.0, the nets 37–48, the teacher 38.2) against 52–71 % on the other nine; the mix is 48.6
+against 73.2, and the stages add 5 points for P04 and 10 for the others (chain 53.6 against 83.1). No re-weighting of
+families can rescue a P04-like person; the information is absent from every model trained on other people.

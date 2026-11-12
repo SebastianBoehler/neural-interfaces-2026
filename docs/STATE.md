@@ -10,7 +10,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 ## 1. Where we stand
 
 - **Best sealed score:** 0.8161546323, submission 1048575, package `cand_v41_bio` (routing v4.1), 11 Nov, 1,128.6 s.
-- **Rank:** 9th. Board on 11 Nov, about 19:00 UTC: 0.846 (seohee, ETRI), 0.830, 0.826, 0.825, 0.824, 0.821, 0.819,
+- **Rank:** 10th on 12 Nov (user's reading of the board; leader 0.847); 9th on 11 Nov. Board on 11 Nov, about 19:00 UTC: 0.846 (seohee, ETRI), 0.830, 0.826, 0.825, 0.824, 0.821, 0.819,
   0.817, **0.816 (us)**, 0.815. Third place needs +1.0, first place +3.0, and the field keeps moving.
 - **Deadline:** 21 Nov 2026, 22:59 UTC. **Uploads:** 7 per team, 1 per UTC day; 4 used, **3 left**.
 - **Candidate ready, not uploaded: `cand_v51_own`** (v4.1 + an own-space personal stage for recognised returning
@@ -188,6 +188,7 @@ public sessions in j's own space: FBCSP + LDA, own tangent space + logistic regr
 | Entry point, ledger, upload log | `docs/STATE.md`, `docs/LEDGER.md`, `docs/SEALED_UPLOADS.md` |
 | Detailed record of 11 Nov (33 sections) | `docs/PREDICTIONS_11NOV.md` |
 | Detailed record of the night of 11–12 Nov (§34–§61) | `docs/PREDICTIONS_12NOV.md` |
+| Critical review of 12 Nov: sources of gains, what stopped on 7 Nov, located losses, self-imposed limits | `docs/REVIEW_12NOV.md` |
 | Study scripts of 12 Nov (index in its README) | `studies/12nov/` |
 | Closed directions 5–10 Nov | `docs/REVIEW_5NOV.md` |
 | History (superseded; may be wrong) | `docs/archive/` (its README lists the wrong assumptions) |
