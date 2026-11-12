@@ -374,3 +374,10 @@ from window 0, with and without the own-space stage; exploration bases. Reported
 immediate recognition, and a light public-session prior repairs it, but the repaired oracle only equals what the real
 gate already achieves by waiting ten windows and ramping in. With the real gate the prior hurts slightly. Closed: the
 package keeps the cold head and the real gate.
+
+**§63 addendum (12 Nov 04:33 UTC): the review's experiment 4 against the October archive.** A second external
+teacher as its own member with its own map was run on 2 Nov (Galvani 3040501, `runs/diag/eval_lfW8_*.json`,
+OVERNIGHT_2NOV "late fusion closed"): three second teachers (m7r4, ru3, a raw-input one) at weights 1–3 next to the
+first moved the dev score by −0.1 to +0.1 (77.4–77.9 against 77.4–77.8). So "a second other-population member" is not
+untested; what remains untested is narrower: arithmetic-versus-rest and word-versus-rest heads as members separate
+from the motor-imagery teacher. With the second-teacher result at zero, its prior is low (about 10 %); not queued.
