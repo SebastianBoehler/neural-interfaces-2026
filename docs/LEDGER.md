@@ -469,3 +469,16 @@ Over six bases the net view is +0.29 above the random null, but its absolute gai
 strongest bases. The bases that gain are the weaker ones: a second view partly repairs what a stronger set of
 SessionBN seeds already gets right.
 
+**§73 NETVIEW2 scored (10:29 UTC; `runs/netview2_fb_fresh.log`, `runs/netview2_seen.log`; fresh fb nets seeds 2–5, Galvani pack 3091329).**
+
+| Check | Observed | Verdict |
+|---|---|---|
+| New, mean over fresh seeds, B2_pool (primary) | **+0.20 [−0.25, +0.68]**, 5 of 10 people ≥ 0 | **Refuted** (rule: < +0.25 or 10th percentile ≤ 0) |
+| Same on the other five bases | +0.32, −0.06, +0.21, −0.05, −0.18; six-base mean **+0.07** (random null −0.07) | Miss (predicted +0.40 on B2_s345 and above) |
+| Per person, consistent over bases | P05 +0.7 to +3.8, P10 +1.0 to +2.3; P01 −1.0 to −1.8 | Person-specific, cancels in the mean |
+| Seen (P04, P10), choosing seeds 0–1 | P04 +0.3 to +2.4, P10 −0.8 to 0.0 | Inside the range; two people |
+| fbraw fresh seeds (secondary) | not run: the pack was pre-empted after the fb tasks | — |
+
+Verdict: the nets' own features as a second session-stage view are **not a lever**. The choosing seeds' +0.5 was
+selection on two favourable bases; fresh nets give +0.2 on the primary base and +0.07 over six. Closed in this form.
+
