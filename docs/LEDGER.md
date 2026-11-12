@@ -1538,3 +1538,20 @@ ratio of the stage (0.19 from proxy to sealed, §105) to the proxy's +1.0 to +1.
 returning session, about +0.1 to +0.15 on the board. Recorded as the one form question a later sealed measurement
 should settle (β 0.15 is the cautious choice); not adopted by the pre-set rule.
 
+
+### 113. TTT7 (exploit track): runtime-feasible schedules with on-device augmentation (written 12 Nov 22:55 UTC, before any job ran; code `studies/13nov/ttt7.py`, Leonardo, 24 tasks)
+
+§107: the full recipe costs about 142 s per unrouted session and delta1 about 20 s, which is still too much next to v5.2's
+own cost. A package also has to draw its augmentation on the GPU, because CPU-drawn augmentation costs 3–15 ms per
+step. Arms (the same nets, folds and labels as ttt5/ttt6, seeds 0–5, scored all6 and delta1/delta2 with
+`ttt_reduce_score.py`):
+
+| Arm | Change | Cost against fixA | Prediction, new, six-base mean, all6 (80 % range) |
+|---|---|---|---|
+| fixA | §101 (CPU-drawn augmentation), in-run reference | 1 | +0.36 (+0.25 to +0.45) |
+| gA | fixA with GPU-drawn augmentation (another random stream, same distribution) | 1 | within ±0.08 of fixA |
+| gE20 | a refit every 20 windows | 0.5 | +0.30 (+0.15 to +0.45) |
+| gC10E20 | warm start, 10 steps, every 20 windows | 0.25 | +0.28 (+0.10 to +0.45) |
+| gC5 | warm start, 5 steps, every 10 windows | 0.25 | +0.30 (+0.10 to +0.45) |
+| gC10T20 | warm start, 10 steps, every 10 windows, from window 20 | 0.55 | +0.36 (+0.20 to +0.50) |
+| **Rule** | gA within ±0.08 of fixA → on-device augmentation is accepted for a package. The package recipe is the cheapest arm (with delta1 or delta2) whose six-base mean is ≥ +0.25 with ≥ 5 of 6 bases positive and whose projected cost keeps the sealed worst case (v5.2's measured cost plus fine-tuning on every unrouted session) ≤ 45 min |
