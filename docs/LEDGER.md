@@ -663,3 +663,25 @@ eight single-session people lies between "P10-like" (≈ 0) and "half the within
 their sessions, ≈ +0.6 to +0.8 sealed points if they are 43 % of the board). The proxy cannot narrow this further;
 only the sealed set can.
 
+### 83. NOISE: why are a person's own labels worth +3 and the chain's labels nothing? (written 12 Nov 10:58 UTC, before any result; code `studies/12nov/ownnoise.py`)
+
+**Why.** User, 12 Nov: understand why own data is worth so much and use it. The facts: ~90 labelled windows of a
+person are worth +5 in the nets and +3 to +4 more in the own-space stage (§82); the same in-session learner on true
+labels gives new people +2.5 to +2.9 (§38), on the chain's labels −0.1 to −0.6, though those labels are 77–85 %
+right. Two explanations predict different cures. (1) **Error count**: 15–20 % wrong labels are too many for small
+in-session models; cure: fewer, cleaner labels. (2) **Error placement**: the chain is wrong on the windows that look
+like the other class, so the learner copies the chain's decision boundary and adds nothing; cure: labels whose
+errors are independent of the features (another view, another label source).
+
+**Test.** §38's learner (T, C, S refitted every 5 windows on the chain's most confident windows per class), new
+people, two bases, three label sources on exactly the same selected windows: (a) the chain's labels; (b) true labels
+with the chain's errors moved to random windows of the same true class (same count and confusion at every refit);
+(c) true labels. Fusion as §38 (T·C·S, λ 0.25 and 0.5).
+
+| Check | Prediction (80 % range) |
+|---|---|
+| (c) true, new | +2.8 (+2 to +3.5), as §38 |
+| (a) chain, new | −0.4 (−0.8 to 0), as §38 |
+| **(b) chain-count errors at random places, new** | **+2.0 (+0.5 to +3)**: placement, not count, is the problem |
+| Reading | (b) ≥ +1.5 → explanation 2; the next build is a label source with feature-independent errors. (b) ≤ +0.5 → explanation 1; the next build is cleaner, fewer labels |
+
