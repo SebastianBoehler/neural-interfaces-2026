@@ -1,19 +1,19 @@
 """Score TTT3 (ledger s60): package-form in-session fine-tuning, alone and in the v3 chain, against the same nets frozen.
-Usage: python studies/12nov/ttt3_score.py PROBS3_DIR"""
+Usage: [PFX=ttt4 VARS=ple20,fix20,ent20,cons20] [ALLBASES=1] python studies/12nov/ttt3_score.py PROBS_DIR"""
 import glob, os, sys
 import numpy as np
 REPO = os.path.abspath(__file__ + "/../../..")
 sys.path.insert(0, REPO + "/replay")
 import env  # noqa: E402
 A = env.A; SC = A.SC; D = sys.argv[1]; rng = np.random.default_rng(0)
-IDX = {p: A.pl.B[f"idx|{p}"].astype(int) for p in A.PROTOS}; SLOT = {"fb": 6, "fbraw": 5, "sinc": 7, "fbl": 8, "sh": None}; VARS = ["pl20", "ple20", "plelr20", "plec20", "ore20"]
-ARCHS = sorted({os.path.basename(f).split("_")[1] for f in glob.glob(f"{D}/ttt3_*_base-all_loso-s*.npz")})
+IDX = {p: A.pl.B[f"idx|{p}"].astype(int) for p in A.PROTOS}; SLOT = {"fb": 6, "fbraw": 5, "sinc": 7, "fbl": 8, "sh": None}; PFX = os.environ.get("PFX", "ttt3"); VARS = os.environ.get("VARS", "pl20,ple20,plelr20,plec20,ore20").split(",")
+ARCHS = sorted({os.path.basename(f).split("_")[1] for f in glob.glob(f"{D}/{PFX}_*_base-all_loso-s*.npz")})
 
 
 def load(arch, v):
     out = {}
     for p in A.PROTOS:
-        fs = sorted(glob.glob(f"{D}/ttt3_{arch}_{v}-{p}-s*.npz")); zs = [np.load(f) for f in fs]; assert zs and all((z["index"] == IDX[p]).all() for z in zs), (arch, v, p)
+        fs = sorted(glob.glob(f"{D}/{PFX}_{arch}_{v}-{p}-s*.npz")); zs = [np.load(f) for f in fs]; assert zs and all((z["index"] == IDX[p]).all() for z in zs), (arch, v, p)
         out[p] = np.stack([z["proba"] for z in zs])
     return out  # {proto: (seeds, n, 3)}
 
