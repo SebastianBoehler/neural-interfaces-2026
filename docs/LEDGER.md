@@ -918,3 +918,12 @@ chain without routing, new people, six bases.
 | Share of the gain in the first fifth | 70 % |
 | **Lever** | ≥ +0.3 with the interval above 0, the arm chosen on the two exploration bases and confirmed on the four others |
 
+| §92 item (11:37 UTC; `runs/popprior_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| Every (m0p, start) on every base, new | −0.32 to −1.20; first-fifth window accuracy −0.6 to +0.6 | **Refuted** (predicted +0.2) |
+| Chosen arm (10, 5) on the four fresh bases | −0.50 [−0.85, −0.17], 3 of 10 people ≥ 0 | Refuted |
+
+Reading: the training people's class templates point the wrong way for a new person (P01 −2 to −4, P05 −1 to −4);
+the same lesson as §67 (people do not transfer) at the level of the session stage. The warm-up cannot be shortened
+with population knowledge.
+
