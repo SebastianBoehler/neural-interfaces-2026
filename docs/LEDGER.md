@@ -731,6 +731,9 @@ different distribution.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Reference on Galvani (no copies; 3090208) | 69.29, per person identical to the local run | Machines agree |
+| mix, λmax 0.5 / 1.0 (3090254, 3090255) | 68.73 / 67.86: **−0.56 / −1.43** | **Refuted** (predicted +0.3; ≤ +0.3 at both) |
+| rot, ε 0.1 / 0.2 (local, §46b) | 69.25 / 69.15: −0.04 / −0.14; ε 0.4 still running | No effect so far |
 
 ## 48. CHAINSLOPE: does the people curve survive the session stages? (written 12 Nov 00:58 UTC, before any result; code `studies/12nov/chainslope.py`)
 
@@ -785,6 +788,24 @@ Rule: an estimator at ≥ +1.5 is rebuilt on the full features and carried into 
 
 | Item | Observed | Verdict |
 |---|---|---|
+| E1, 512 PCs, logistic regression (C 0.01 / 0.1 / 1) | 65.30 / 65.24 / 64.33; against the full core's 69.29: **−4.0** | At the lower edge (predicted −1.5, range −4 to +0.5): the 512 PCs lose four points |
+| E2 person-balanced | 65.05 (−0.25 against E1) | — |
+| E3 random-effects LDA, τ 0 / 30 / 100 / 300 | 66.38 / 65.28 / 65.24 / 64.96 | **Refuted** (τ > 0 is −1.1 below τ = 0). Plain LDA with person-equal means is +1.1 over the logistic head in this space |
+| E4 consistency selection on the 44k features, m 2,000 / 8,000 | 60.14 / 66.62 against 69.29 | **Refuted** (−2.7 at best) |
+| E5 people-bagging / E6 group DRO | 65.12 / 65.23 (−0.2 / −0.1) | No effect |
+| E7 isotropic noise, σ 0.5 / 1.0 | 65.24 / 65.22 (−0.06 / −0.08) | **Hit** (predicted 0.0) |
+| E8 person-jitter noise, 1× / 2× | 64.24 / 63.81 (−1.1 / −1.5) | Negative |
+| Best people-efficient estimator minus its reference | none above +0.3 (E3's τ = 0 is the control, not the method) | **Refuted** by the pre-set rule |
+
+**Reading (12 Nov 02:55 UTC; Galvani 3090241, `runs/diag/virt/peff_3090241.log`).**
+- **No estimator that counts people instead of windows beats the pooled fit**, and noise does nothing. This matches
+  the literature pass (§47): with fewer than ten training people a tuned pooled model is hard to beat. The people
+  curve reflects information that only real people bring.
+- Side finding worth keeping: **reducing core1's 44k features to 512 PCs costs four points on new people.** The
+  class information is spread over the long tail of features. TSEM (128 PCs) and the personal head (256 PCs) work in
+  a space that has lost part of it, the same message as §36 from another side.
+- Soft verdict (§52): closed in this form, on this member, at core level. Not tested: the same estimators on the
+  full feature set (only E4 ran there) and inside the chain.
 
 ## 50. UPW: a returning person's own rows up-weighted in the population core (written 12 Nov 01:55 UTC, before any result; code `studies/12nov/upw_core.py`, `upw_chain.py`)
 
