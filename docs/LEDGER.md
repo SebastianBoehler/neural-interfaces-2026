@@ -609,3 +609,14 @@ output before the stage), against fixed β 0.10, six bases. Then, if it passes, 
 | New (false accepts only) | 0.00 (−0.05 to +0.02) |
 | **Lever** | seen ≥ +0.3 on ≥ 4 of 6 bases with P10 ≥ −0.3 and new ≥ −0.05 |
 
+| §80 item (10:46 UTC; `runs/trust2_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| Mean β the map gives (B2_pool) | P04 s2 0.19, s3 0.31; P10 0.12 / 0.10 | the signal separates the people as intended |
+| Seen against fixed β 0.10, six bases | +0.01, −0.26, −0.12, +0.14, +0.40, +0.55; **mean +0.12** (P04 +0.01, P10 +0.23) | **Refuted** (lever 2 of 6 bases; predicted +0.4) |
+| New | 0.000 on every base | Hit |
+
+Reading: in the routed chain P04's gain is already saturated at β 0.10 (the gate's ramp and the personal head carry
+the rest); a larger β for P04 adds nothing on average, and the small P10 recovery is the only gain. The personal
+stage on dev is at its plateau: nine member variants (§44), per-person space (§41), personal nets (§78) and a trust
+weight (§80) all land within ±0.3 of v5.1.
+
