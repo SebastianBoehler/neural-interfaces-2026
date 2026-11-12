@@ -207,6 +207,8 @@ public sessions in j's own space: FBCSP + LDA, own tangent space + logistic regr
 1. **Next upload (v5.2 or a later candidate).** Not before about 14 Nov 02:00 UTC (research window, below). v5.2 is built and being validated; its sealed expectation is pre-registered in ledger §105. Every upload needs the user's explicit go-ahead and a live phase, quota and Codabench-storage check (v5.2 needs about 85 MB free).
 2. ~~Two leading accounts~~: ranks 1 and 2 are one team (ETRI_EnSeption, two models; REVIEW_12NOV §7).
 
+**Two tracks inside the window (user, 12 Nov night):** "nice! exactly these findings we want so keep pushing now on that path but also always with some ratio keep exploring completely new properly reasoned from the ground up fitted solution to our problem understanding". **Ratio chosen: two thirds exploit, one third explore**, in compute and in attention. Exploit = the cheap in-session fine-tuning for new people (v52-build session: reduced forms, A100 batching, then raising the gain with the free runtime). Explore = designs new in kind, reasoned from the measurements, scored as whole systems or as oracles that bound them (this session). Every status report says what ran on each track.
+
 **Research window (user, 12 Nov about 22:00 UTC, until about 14 Nov 02:00 UTC):** no new package candidate is built and no upload decision is taken before then; research, iteration, profiling and pushing performance only.
 
 **Rules set by the user on 12 Nov** (also in `AGENTS.md`): no gate or closure is final (check what actually ran before
