@@ -903,3 +903,18 @@ recipes, three seeds: ple20 (reference, §60), fix20 (pseudo-labels on augmented
 | Chain, four families swapped, new, best new variant against ple20, two bases | +0.1 (−0.3 to +0.5) |
 | **Lever** | a variant ≥ +0.4 over the frozen nets in the chain on six bases with the interval above 0 |
 
+### 92. POPPRIOR: a population prior for the session stage's class templates (written 12 Nov 11:36 UTC, before any result; code `studies/12nov/popprior.py`)
+
+**Why.** §90: the session stage's warm-up costs up to +0.9 for new people, all in the first fifth of the session, and
+TSEM starts from nothing at window 15. The personal template prior was tried for returning people (§19, P04 only);
+a population prior for new people was not. Per fold, the training people's class means in the session-standardised
+128 components (in the fold's own basis, from the cached training projections) are averaged and pull TSEM's class
+means with m0p pseudo-windows (10, 30); TSEM may start at window 5 instead of 15 when the prior is present. Grid
+chain without routing, new people, six bases.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Best (m0p, start) against the shipped TSEM, new, six-base mean | +0.2 (−0.2 to +0.6) |
+| Share of the gain in the first fifth | 70 % |
+| **Lever** | ≥ +0.3 with the interval above 0, the arm chosen on the two exploration bases and confirmed on the four others |
+
