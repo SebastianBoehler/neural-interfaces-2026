@@ -393,3 +393,33 @@ sealed at worst). Deviation: the raw-FBCNet and SincShallow personal traces (12 
 twins of the shipped nets (mean |Δp| ≤ 0.011), see `docs/V52_BUILD.md`. Not done: A100 or worker-image replay. Upload only
 if the v5.1b upload meets §63 (v5.1b − v4.1 ≥ +0.4), and only with the user's go-ahead after a live phase and quota
 check.
+
+
+## 12 Nov, 21:12 UTC: upload 5, cand_v51b_own (v4.1 + own-space personal stage)
+
+- **Authorisation:** the user, 12 Nov ~21:00 UTC, by name ("Yes, upload v5.1b"), after the summary that this is the only
+  way to measure how the eight single-session returning people respond. Stated expectation: about 0.819 (0.817–0.824).
+- **Package:** `runs/upload/sealed_cand_v51b_own.zip`, SHA-256 `4a0bc427f2c9c862ee779db5766badeae93f783446561f4dc8abb43589933bef`,
+  62,308,135 B; its 33 files are byte-identical to `runs/sealed/cand_v51b_own` (`submission.py` `0259d1ea…`, `weights.npz`
+  `6a1f35c1…`). Replays of this exact ZIP: Mac CPU 0.9932767697; Leonardo GPU (job 64302270) 0.9932767697, files
+  unchanged, 324 s. No worker-image replay of this rebuild (the identical-output v5.1 build passed it on Galvani).
+- **Checks before upload (live, in the logged-in browser):** phase 30483 "Sealed Final Phase" active; 0 of 1 used today,
+  4 of 7 in total; `can_make_submission` true; logged in as s_boehler; SHA-256 and size verified again in the browser on
+  the bytes that were attached.
+- **First attempt rejected, no slot used:** Codabench refused the file ("Insufficient space": 58.7 MB free, 62.3 MB
+  needed) before creating a submission. A maximum-compression ZIP of the same files is 62.2 MB, so repacking does not
+  help. A few minutes later the account showed 130 MB free and submissions 1038262 and 1040847 were no longer listed
+  (removed from the account, not by the agent). **Only 1048575 and the new submission remain on Codabench.** v5.2 is
+  85 MB: it needs about 85 MB free at upload time.
+- **Upload:** one-shot relay on 127.0.0.1 into the page's own file input, as for upload 4; the transfer took about
+  15 minutes on a slow link.
+- **Submission 1050185**, created 2026-11-12T21:12:00Z, status "Preparing" at creation. Afterwards: 1 of 1 used today,
+  **5 of 7 in total (2 left)**.
+
+| Day | Date | Arm | Submission | Status | Cell-mean BA | Duration |
+|---|---|---|---|---|---|---|
+| 5 | 12 Nov (UTC) | cand_v51b_own (`4a0bc427…`) | 1050185 | Preparing (21:12 UTC) | | |
+
+Reading rule (fixed before the score, ledger §63): against v4.1's 0.8161546323, a paired gain ≥ +0.4 means the returning
+branch pays and the remaining uploads go to it (v5.2 next, after its worker replay); ≤ +0.15 means that branch stops;
+in between is undecided. A failed run uses no quota. Never cancel it.

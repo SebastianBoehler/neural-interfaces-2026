@@ -14,7 +14,8 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
   0.817, **0.816 (us)**, 0.815. Third place needs +1.0, first place +3.0, and the field keeps moving.
 - **Upload plan (user, 12 Nov evening):** no upload tonight; the next 24–48 h go to the in-depth review and to finding a method that reaches rank 3 (≈ 0.826), with sanity checks; v5.1 stays staged-ready as the fallback measurement. Three uploads over nine days leaves room.
 - **Compute (12 Nov):** Galvani access may have expired (2FA rejected from ~14:00 UTC); local Mac only until it is restored. Results waiting on Galvani: ledger §91, §94, §96, §98.
-- **Deadline:** 21 Nov 2026, 22:59 UTC. **Uploads:** 7 per team, 1 per UTC day; 4 used, **3 left**.
+- **Deadline:** 21 Nov 2026, 22:59 UTC. **Uploads:** 7 per team, 1 per UTC day; 5 used, **2 left**.
+- **Upload 5 (12 Nov, 21:12 UTC): `cand_v51b_own`, submission 1050185**, authorised by the user by name; score pending. Read it with the rule in ledger §63 (≥ +0.4 over 0.8162 → returning branch, v5.2 next; ≤ +0.15 → that branch stops). Details in `SEALED_UPLOADS.md`. Codabench storage: the account was full; v5.2 (85 MB) needs that much free space at upload time.
 - **Candidate ready, not uploaded: `cand_v51_own`** (v4.1 + an own-space personal stage for recognised returning
   people). Dev +0.89 J; **sealed estimate about 0.819 (0.817–0.824)**, revised down on 12 Nov after an independent
   review: the dev gain is P04's, and P04 is 3 of about 106 sealed sessions (ledger §63).
