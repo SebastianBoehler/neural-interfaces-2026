@@ -801,3 +801,35 @@ candidate.
 
 | Item | Observed | Verdict |
 |---|---|---|
+
+## 51. NETAUG: virtual people for the session-normalised nets (written 12 Nov 02:25 UTC, before any result; code `studies/12nov/netaug.py`, scorer `netaug_score.py`)
+
+**Why.** The user (12 Nov): the October closures on the nets should not hold us back; try the approaches and their
+combinations again with what we now know. Reading the code with that in mind:
+- The October tests (mixing, frequency scaling, weight averaging, MixStyle, adversarial, DRO) ran on the plain nets.
+  The shipped members are SessionBN nets (5 Nov), and `SessionNet._train` applies only the per-window rotation:
+  **`cmix` and `fsc` are ignored there**, so neither was ever tested on the current nets.
+- The rotation the nets train with (`rot05`) draws a new random rotation for every window. A person is a
+  transformation shared by all their windows; per-window rotation is noise around the same people. A SessionBN batch
+  is made of chunks of 32 windows of one session, which is exactly the unit a virtual person needs.
+- §39: people are the bottleneck; scoring is now in the chain.
+
+**Arms** (four SessionBN families of the chain: FBCNet EA k2, FBLight, SincShallow, raw FBCNet; seeds 0–2; twins =
+the frozen wave-2 nets of §31):
+- **crot05 / crot10**: one random rotation per 32-window chunk (ε 0.05 / 0.10) instead of one per window.
+- **cfsc15**: one frequency-scaling factor in [0.85, 1.15] per chunk (never applied to these nets before).
+- **combo**: the shipped per-window rotation + chunk rotation 0.05 + chunk frequency scaling 0.15.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Standalone new-person BA, best arm minus twin, mean of families | +0.8 (−0.5 to +2.5) | ≤ 0 for every arm |
+| crot05 minus twin (the clean "shared instead of per-window" comparison) | +0.5 (−0.7 to +1.8) | — |
+| Chain, all four families swapped, best arm, dJ (exploration bases) | +0.2 (−0.3 to +0.7) | ≤ 0 on both bases |
+| P(chain dJ ≥ +0.5 on both exploration bases) | 12 % | — |
+
+Rule: chain ≥ +0.5 on both exploration bases → fresh bases, then the families are retrained for a package. My prior
+is low because stronger nets have not moved the chain before (§7, §12); the arms are run because the mechanism was
+never tested in this form and costs only queue time.
+
+| Item | Observed | Verdict |
+|---|---|---|
