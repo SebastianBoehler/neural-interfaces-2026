@@ -937,6 +937,20 @@ out inside Scherer.
 Reading: ≥ +2 reopens external same-task data (a shared-channel member with 19 people; ds007554 on its own 19
 shared channels becomes worth fetching). ≤ 0 means the corpus differs in more than its cap.
 
+| Item | Observed | Verdict |
+|---|---|---|
+| R19 (19 real channels, 4–58 Hz, no slow block; nine PROTEUS people) | 58.38 | **Hit**, low edge (predicted 63, range 58–67): the reduced space costs 11 points against 69.29 |
+| S19 minus R19, Scherer rows at weight 1.0 / 0.3 | **−3.18 / −3.65**; 2 of 10 people up at either weight | **Refuted** (≤ 0 at both; predicted +1.0) |
+| PROTEUS → Scherer | 43.0 (sessions 27.5 to 57.1) | **Hit** (predicted 45) |
+| Leave-one-person-out inside Scherer | 46.2 (35.8 to 58.3) | **Hit** (predicted 45) |
+
+**Reading (12 Nov 03:30 UTC; log `runs/sch19_12nov.log`).** With no interpolated channel in play, Scherer's nine
+people still lower new-person accuracy by more than three points. The corpus is not "nine more people of our kind":
+a model trained on all ten PROTEUS people decodes Scherer's sessions at 43 %, and Scherer's own people generalise to
+each other at 46 % in the same features. Patients, another protocol and another amplifier make it a different
+population. §21's closure now holds for the clean version too; by the same reasoning ds007554 (another cap, block
+design, nominal event times) is not worth fetching as training rows.
+
 ## 54. TSEMK: is the session stage limited by its 128 components? (written 12 Nov 03:20 UTC, before any result; code `studies/12nov/tsemk.py`)
 
 **Why.** §49: 512 PCs of core1's features lose four points against the full features on new people; §36: the
