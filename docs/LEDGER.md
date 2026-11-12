@@ -1376,3 +1376,22 @@ mean over the choices is reported.
 Part B (pre-registered separately, before it runs, if needed): fewer refits or steps cannot be scored from stored
 outputs and need new Leonardo runs of `ttt5.py` variants. Part B runs only if the A100 cost of the passing Part A form
 does not fit the budget.
+
+### 107. FTCOST: can the full §101 recipe be made cheap? (written 12 Nov 22:55 UTC, before the run; code `studies/13nov/ft_bench2.py`, Leonardo A100)
+
+User rule (relayed 12 Nov): research only until about 14 Nov 02:00 UTC, no package. Upload 5 used 21.5 of 60 min, so
+about 38 min are free. First bench (`ft_bench.py`, job 64311968): fine-tuning through the TorchScript traces costs
+20/58/99 ms per step for FBCNet at 30/110/190 windows, 8/10/13 ms for FBLight and 9/27/46 ms for SincShallow; CUDA-graph
+capture fails on FBCNet. That bench trained the frozen FIR banks too (requires_grad forced on) and ran the clean forward
+with grad, so it overstates the cost. Projected naively, the full recipe (30 nets, 16 refits per 190-window session)
+costs about 6.5 min per unrouted session. Second bench: dev's trained parameters only, the clean forward without
+grad, then (a) one trace, (b) one eager dev net carrying the trace's weights (equal to the trace: max |Δp| 0.0 on 40
+real windows, all four families, Mac), (c) a family's six seeds in one step with torch.func (stack_module_state +
+functional_call + vmap, one augmentation per seed).
+
+| Check (A100, per Adam step) | Prediction (80 % range) |
+|---|---|
+| trace1 against the first bench, FBCNet at t = 110 | 0.4× (0.2–0.7×) |
+| vmap6 against six × eager1, FBCNet at t = 110 | 0.35× (0.15–0.8×) |
+| Projected full recipe with vmap per family (12 fb, 6 fbraw, 6 fbl, 6 sinc), per 190-window session | 60 s (25–150 s) |
+| **Reading** | ≤ 25 s per unrouted session (60 sessions within about 25 min) → the full recipe is runtime-feasible and §106's cuts are not needed; otherwise the cheapest form passing §106's rule is costed with the same bench |
