@@ -327,6 +327,27 @@ and the sealed package's tenth person is already worth part of a step. ≤ +2 pe
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Run | First run (k = 2, 3, 5, 7 × 4 draws) stopped after 70 min without output; rerun with k = 3, 5, 7 × 2 draws and k = 9 (70 fits, 30 min; `runs/popcurve_12nov.log`) | Design reduced after the stop; no result had been seen |
+| k = 9, core alone / after rebalancing | 69.29 / 69.19 | **Hit / miss, low** (predicted 67.5 / 72): rebalancing adds nothing to core1 alone |
+| k = 3 / 5 / 7, core alone | 56.34 / 60.71 / 65.43 | **Hit** ×3 (predicted 58 / 62.5 / 65.5, each ±3) |
+| Gain from 7 to 9 people | +3.86 core, +3.26 after rebalancing | **Miss, above the range** (predicted +1.8, +0.8 to +3.0) |
+| Gain per doubling (log fit, k ≥ 3) | **+8.13 core, +7.48 after rebalancing** | **Miss, above the range** (predicted +5, +3 to +7.5) |
+| P04 held out, 3 → 9 people | +10.4 (40.5 → 50.9) | **Miss, above** (predicted +3): P04 gains as much as anyone |
+| Per person, 3 → 9 | P07 +28, P10 +20, P08 +16, P03 +11, P01 +12, P04 +10, P09 +10, P06 +9, P05 +7, P02 +6 | Everyone rises |
+
+**Reading (12 Nov 00:25 UTC).**
+- **New-person accuracy is limited by the number of training people, and the curve is not flattening**: about +2
+  points per added person at nine people, +8 per doubling. This is the largest slope measured in this project, larger
+  than any model or stage change since TSEM.
+- It is a core-level number. How much survives the session stages is not measured (the stages add most where the
+  base is weak); the chain-level slope needs a core-only chain at each k.
+- The sealed package trains on ten people, one more than every dev fold, so part of one step is already in the
+  sealed score.
+- **It names the missing ingredient for new people: more people who did these tasks.** The one external corpus with
+  all three tasks (Scherer 2015, nine patients, 22 of 41 channels interpolated, high-passed at 4 Hz) lowers core1 by
+  3–4 points (§21) and helps the nets by 1–3 (§7): it does not behave like nine more PROTEUS people. Open: other
+  public recordings of these tasks (search running), and whether variation between people can be imitated in
+  training (§46).
 
 ## 40. ADD: do personal nets (PFT) and own-space personal members add up for a returning person? (written 11 Nov 22:40 UTC, before any result; code `studies/12nov/add.py`)
 
@@ -566,3 +587,14 @@ Pass → this replay is the reference the package must reproduce (stage posterio
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Seen, six bases | +2.00 / +1.98 / +1.59 / +1.98 / +1.87 / +1.31, **mean +1.79** | **Hit** (predicted +1.7) |
+| P04 / P10, mean | +3.51 / +0.07 (P10 between −0.28 and +0.26) | **Hit / hit** |
+| New people | 0.000 on every base; no new-person session is routed | **Hit** |
+| dJ, mean | **+0.89** (+0.66 to +1.00) | **Hit** (predicted +0.85) |
+| Gate on the four seen sessions (B2_pool) | P04 session 2 routed only from window 64 (share 0.60, mean ramp 0.86); P04 session 3, P10 sessions 2 and 3 from window 10 (shares 0.95, 0.69, 0.95) | — |
+
+**Reading (12 Nov 00:28 UTC; log `runs/v5_replay_12nov.log`).** The package form keeps the gain: +1.79 on returning
+sessions against +1.93 with the true identity from window 0. This replay is the reference for the package
+(`runs/sealed/cand_v5_own`, built on Galvani 3090163; check 3090168, A100 replay 3090169, worker replay 3090170).
+One of four seen sessions is recognised late and one only on 69 % of its windows: recognition is now a lever of its
+own (§46).
