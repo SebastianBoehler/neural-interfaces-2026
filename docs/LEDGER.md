@@ -1008,3 +1008,36 @@ second, independent form of fusion.
 
 | Item | Observed | Verdict |
 |---|---|---|
+
+## 57. Follow-ups queued to use the free lanes (written 12 Nov 03:55 UTC, before any result)
+
+**57a. swa50 on the shipped nets (Galvani, `netaug.py` tasks 140–151).** Weight averaging over the second half of
+training (parameters and SessionBN running statistics alike) on the four SessionBN families; never run on them
+(§52). Prediction: standalone new +0.3 (−0.7 to +1.3) against the in-harness twin; chain as §51.
+
+**57b. BUNDLE: the small returning-person levers on top of the own-space stage (local, `studies/12nov/bundle.py`).**
+Each was "positive, not adopted" alone and inside the noise (§19 personal class templates as a TSEM prior, +0.19;
+§22 slot gain 4.5, +0.12). Under §52 a bundle of same-signed small effects is worth one test: template prior κ ∈
+{0, 10, 20} × slot gain ∈ {3, 4.5}, all with the stage, v4.1 replay, exploration bases, then the best on the fresh
+bases.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Best bundle minus the stage alone, seen (exploration) | +0.3 (−0.3 to +0.9) | ≤ +0.2 |
+| P10 with the best bundle | ≥ −0.5 | < −1.0 |
+| Fresh bases: bundle minus stage alone | +0.2 (−0.4 to +0.8) | ≤ 0 |
+
+**57c. POPSTAGE: is the stage's value personal, or would any own-space members help at the end of the chain?
+(local, `studies/12nov/popstage.py`).** The same three members (T, C, S) fitted on the nine other people's sessions
+instead of the person's own, applied as the same final stage (β 0.05 / 0.10 / 0.25) to new-person sessions of the v3
+chain. If this helps, the stage form is a way to add population members without disturbing the session stages (the
+"extra members lower the chain" closure was for members inside the mix); if not, the stage's value is the personal
+labels.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Population members alone on held-out people (T·C·S, window accuracy) | 55 (48–62) | — |
+| New people, best β | 0.0 (−0.5 to +0.4) | ≥ +0.5 on both exploration bases would reopen population members as a final stage |
+
+| Item | Observed | Verdict |
+|---|---|---|
