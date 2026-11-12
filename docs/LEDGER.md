@@ -416,3 +416,16 @@ at the edge of resolution.
 with a person-bootstrap 10th percentile above 0.** Otherwise the finding is "the session stage is slightly too weak",
 worth about +0.25, and the cheapest form (no net features) is preferred.
 
+**§73 nulls (`runs/viewnull_12nov.log`; after the routed chain, new people, B2_pool / B2_s345).**
+
+| Null | Observed |
+|---|---|
+| (i) random 64 directions of core1's 256 components, second TSEM λ 0.15, five draws | single draws −0.27 to +0.58 / −0.14 to +0.55; **mean +0.14 / +0.20** |
+| (ii) first TSEM at λ 0.20, no second pass | **+0.64 [+0.25, +1.04] / +0.30 [+0.09, +0.51]** |
+| (ii) first TSEM at λ 0.25 | +0.37 / +0.16 |
+
+Two lessons. One random view moves new people by −0.3 to +0.6: a single view arm at +0.5 is inside the spread of
+random views, and §72's "every FBCNet arm positive" is the evidence that matters, not any single arm. And the
+plain stage strength (λ 0.15 → 0.20) is worth as much as any view so far on B2_pool. By the addendum, the net view
+must reach the better null + 0.25, i.e. about +0.89 on B2_pool and +0.55 on B2_s345.
+
