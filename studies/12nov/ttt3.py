@@ -15,7 +15,7 @@ Usage: python ttt2.py TASK (seed = TASK // 5, arch = ORDER[TASK % 5]) | python t
 """
 import copy, sys, time
 from pathlib import Path
-WS = Path("/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026")
+WS = Path(__import__("os").environ.get("NI26_WS", "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026"))  # Leonardo: NI26_WS
 sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]
 import numpy as np  # noqa: E402
 import torch  # noqa: E402

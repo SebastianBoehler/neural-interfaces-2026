@@ -4,7 +4,7 @@ Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins;
 """
 import sys, time
 from pathlib import Path
-WS = Path("/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026")
+WS = Path(__import__("os").environ.get("NI26_WS", "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026"))  # Leonardo: NI26_WS
 sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]
 import numpy as np  # noqa: E402
 import torch  # noqa: E402

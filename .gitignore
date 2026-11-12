@@ -15,3 +15,4 @@ __pycache__/
 .weco/*/*.log
 .weco/*/history.jsonl
 .runs/
+studies/12nov/chain_final.npz

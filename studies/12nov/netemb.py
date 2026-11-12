@@ -4,7 +4,7 @@ the held-out person's sessions are streamed, and reduced to 64 components fitted
 through the same net. Saves proba, index, emb (n, 64). Usage (Galvani): python netemb.py TASK (arch = TASK % 4, seed = (TASK % 100) // 4; TASK >= 100: seen protocol) | smoke"""
 import sys, time
 from pathlib import Path
-WS = Path("/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026")
+WS = Path(__import__("os").environ.get("NI26_WS", "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026"))  # Leonardo: NI26_WS
 sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]
 import numpy as np  # noqa: E402
 import torch  # noqa: E402
