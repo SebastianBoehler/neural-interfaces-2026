@@ -1244,3 +1244,12 @@ steps), fixLR (lr 2.5e-4). Four SessionBN recipes, seeds 0–2.
 | Best other variant, new | +0.35 (0 to +0.7) |
 | **Lever** | a variant ≥ +0.4 on six bases with the person-bootstrap 10th percentile above 0, *and* its seeds 0–2 agreeing with fix20's seeds 0–5 within 0.2 → a gated v5.2 component (fine-tuning only on unrouted sessions; runtime checked first) |
 
+### 102. v5.2 preparation: personal nets as package members (written 12 Nov 19:28 UTC)
+
+Not an experiment and not a candidate yet: by §63 a v5.2 is built only if the v5.1b upload shows the returning block
+pays (v5.1b − v4.1 ≥ +0.4). To be ready within a day if it does: `scripts/export_pnets.py` traces the 24 × 10
+personal SessionBN nets (pfh60, §96) at the package's k values (300 traces, about 80 MB) on Leonardo, each checked
+against the eager personal net on the person's own sessions (< 1e-4). Package code (swap the recognised person's
+traces in after the gate routes, warming their session statistics on the buffered windows) is written only after the
+measurement. Dev value so far: +0.17 seen over the stage (§78), within-session proxy +2.4 (§96).
+
