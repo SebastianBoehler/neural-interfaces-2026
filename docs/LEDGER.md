@@ -1256,3 +1256,13 @@ otherwise dropped. Prediction: dJ +0.15 (−0.2 to +0.5); P(kept) 25 %.
 
 | Item | Observed | Verdict |
 |---|---|---|
+| Fresh bases (B2_s012 / B2_s0 / B2_s1 / B2_s2), dJ | +0.08 / +0.56 / +0.51 / +0.01, **mean +0.29** | Inside the range (predicted +0.15); **one hundredth below the +0.3 mark: dropped by the pre-set rule** |
+| Seen / new, mean | +0.50 (P04 +1.06, P10 −0.07) / +0.08 | The seen mark (≥ +0.4) is met |
+| All six bases | +0.21, +0.33, +0.08, +0.56, +0.51, +0.01: mean +0.28, none negative | — |
+
+**Reading (12 Nov 03:33 UTC; log `runs/ocu_fresh_12nov.log`).** Three log posteriors of a learned eye-movement
+branch, added to SessionEM's view, give a small gain that is non-negative on all six bases (+0.28 on the mean, P04's
+again). By the rule it is dropped at +0.29 against +0.30; under §52 it is recorded as "positive, small, not built":
+it would need a trained net inside the package for about +0.1 sealed. **The eye-movement lead does not explain the
+leaders' margin on our system**: the signal is real (53 % alone across people), and every way of adding it at the
+population level is worth between −7 and +0.3.
