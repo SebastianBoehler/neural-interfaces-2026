@@ -1188,3 +1188,16 @@ training sessions). Not debugged further: even a corrected version would have to
 member mix, and S2 showed the inputs are 9 points weaker than core1. Seeds 1–2 and the rest of the pack were
 cancelled to free the lanes.
 
+**16:48 UTC: framing check and the upload candidate.**
+- Dev split by session index (review §7, B2_pool / B2_s345): as new people, P04's sessions score 56, 55, 50 and P10's
+  77, 86, 82. Later sessions are easier for P10 and harder for P04: no general "later sessions are easier" effect
+  on the two people dev can show.
+- v5.1 rebuilt locally from the stored v4.1 package (`scripts/add_own_stage.py runs/sealed/cand_v41_bio
+  runs/sealed/cand_v51_own beta=0.10`): `submission.py` 34eba3b0… as built on Galvani; `weights.npz` 6a1f35c1…
+  instead of Galvani's e88bc3b3… (sklearn fits on macOS against Linux; the Galvani copy is out of reach). The local
+  build is a new package and gets its own checks.
+- **v5.1b** (`submissions/ensemble_v5b/submission.py`, SHA-256 0259d1ea…): v5.1's code plus one stderr line per
+  session from the routed tail (windows, routed, degenerate, staged, errors, first error), so a silent no-op of the
+  stage on the sealed run shows in the logs. Outputs must equal v5.1's; checked by `scripts/check_own_stage.py`
+  against v4.1 on all public windows.
+
