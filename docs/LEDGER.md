@@ -372,3 +372,25 @@ protocol (P04, P10) on fb seeds 0–1.
 | After the full routed chain, stored components, mean of the two seeds, B2_pool / B2_s345 | λ 0.10: +0.54 [+0.27, +0.81] / +0.48; **λ 0.15: +0.55 [+0.19, +0.95] / +0.49 [+0.09, +0.90]**; λ 0.20: +0.47 / +0.43; λ 0.30: +0.33 / +0.04. The optimum is 0.10–0.15; the routed chain keeps the gain |
 | Two views in succession (fb s0 then s1; fb then fbraw), or concatenated | +0.16 to +0.44: a second view adds nothing |
 
+### 74. DVIEW: is the net view's gain a property of discriminative directions? (written 12 Nov 10:19 UTC, before any result; code `studies/12nov/dview.py`)
+
+**Why.** §72–§73: the session stage gains about +0.5 for new people when it looks through a net's features, and
+nothing through foundation or random features. The nets' features are trained to separate the classes across
+people; core1's 128 components are unsupervised. If the mechanism is "a view whose directions separate classes for
+somebody", it can be built from core1's own 256 components with the training people's labels, without new nets. The
+union of per-person directions is the part aimed at P04-like people: a person nobody resembles on average may still
+separate along one other person's directions.
+
+Views, per leave-one-person-out fold from the cached 256 components (training rows centred per session), each as a
+second TSEM after the full routed chain at λ 0.10 / 0.15: (a) pooled shrinkage LDA, 2 directions; (b) PLS-DA, 16
+components; (c) per-person LDA directions of the nine training people, 18, orthonormalised; (d) null: 18 random
+orthonormal directions of the same 256 components.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| (a) pooled LDA, new | 0.0 (−0.4 to +0.4) |
+| (b) PLS-DA 16 | +0.2 (−0.3 to +0.7) |
+| (c) per-person directions, new | +0.3 (−0.2 to +0.8); P04 +1 (−1 to +3) |
+| (d) random null | 0.0 (−0.3 to +0.3) |
+| Lever | a view ≥ +0.4 on new above the null on both bases, interval above 0 → combine with or replace the net view |
+
