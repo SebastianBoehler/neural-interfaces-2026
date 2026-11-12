@@ -598,3 +598,38 @@ sessions against +1.93 with the true identity from window 0. This replay is the 
 (`runs/sealed/cand_v5_own`, built on Galvani 3090163; check 3090168, A100 replay 3090169, worker replay 3090170).
 One of four seen sessions is recognised late and one only on 69 % of its windows: recognition is now a lever of its
 own (§46).
+
+## 46. Toward 0.84: recognition head-room and virtual people (written 12 Nov 00:35 UTC, before any result)
+
+**The user's target (12 Nov): a sealed score above 0.84**, +2.4 over 0.8162. In sealed points that needs, for
+example, +3.5 on returning sessions (43 % of sessions → +1.5) and +1.6 on new-person sessions (57 % → +0.9). In hand:
+the own-space stage, dev +1.8 on returning sessions (§45). Not in hand: anything for new people beyond TTT's +0.6 dev.
+
+**46a. ORACLE: what perfect recognition of returning people would add (diagnostic; code `studies/12nov/oracle_gate.py`).**
+v4.1 and v4.1 + stage with the true identity at ramp 1 from window 0 on the seen sessions, nothing routed on new
+people, against the real gate.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| v4.1 with the oracle gate, seen, minus v4.1 | +0.5 (0 to +1.2) |
+| v4.1 + stage with the oracle gate, minus the same with the real gate | +0.6 (0 to +1.5): the late session of P04 and the 69 % session of P10 recover |
+
+**46b. ROTAUG: virtual people for core1 by random spatial rotations (code `studies/12nov/rotaug.py`).**
+§39: each added real person is worth about +2 at core level. Between people, recentred covariances differ, among
+other things, by how sources project to the sensors. For every training session two virtual copies are added whose
+tangent blocks are rotated in sensor space, L → R L Rᵀ with R = exp(ε A), A a random skew matrix scaled so that each
+channel mixes with the others at total amplitude ε; one R per session copy (a "virtual person"); the slow block is
+left unchanged. The nets already train with rotation augmentation (`rot05`); core1 never did. core1 refitted per
+held-out person on the nine others plus the copies; score as §39 (core alone, k = 9, reference 69.29).
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Best ε of 0.1 / 0.2 / 0.4, core1 new-person BA minus 69.29 | +0.8 (−0.5 to +2.5) | ≤ +0.3 at every ε |
+| People improved at the best ε | 6 of 10 (4–8) | — |
+| P(≥ +1.5, the size of most of one real person) | 20 % | — |
+
+Rule: ≥ +1.5 → the rotated core goes into the chain replay in core1's slot; between +0.3 and +1.5 → one more
+variant (rotation of the slow block as well, four copies); ≤ +0.3 → closed.
+
+| Item | Observed | Verdict |
+|---|---|---|
