@@ -482,7 +482,7 @@ SessionBN seeds already gets right.
 Verdict: the nets' own features as a second session-stage view are **not a lever**. The choosing seeds' +0.5 was
 selection on two favourable bases; fresh nets give +0.2 on the primary base and +0.07 over six. Closed in this form.
 
-### 76. SELECT: can a session choose its own chain variant without labels? (written 12 Nov 10:30 UTC, before any result; code `studies/12nov/select.py`)
+### 76. SELECT: can a session choose its own chain variant without labels? (written 12 Nov 10:30 UTC, before any result; code `studies/12nov/selectvar.py`)
 
 **Why.** Every stage change of 12 Nov moved single people by ±1–4 points and the mean by ~0 (§66 per-person optimum
 +2.4; §73 P05 +3, P01 −1.8). If a label-free statistic of a whole session's output can tell which variant fits that
@@ -1514,3 +1514,27 @@ component timers, cProfile) comes first. The fix is chosen from it.
 | Outputs against v5.2 on the same device | identical labels on all public windows; personal member posteriors within 1e-5 (same arithmetic, other scheduling) or, if the arithmetic is batched differently, within the GPU-vs-CPU spread of the shipped base traces, stated with that number |
 | Sealed worst case (v5.1b's 1,287 s on the real worker × the replay ratio) | stated for 43 % and 100 % routed sessions |
 | Prediction | the 30 personal traces at batch size 1 cost launch overhead, not compute: personal-trace time ≈ 60–80 % of the extra; overlapping or batching them reaches 1.2–1.5× |
+
+**Explore results (22:42 UTC; Leonardo `runs/leo_cpu/`).**
+
+| Item | Observed | Verdict |
+|---|---|---|
+| §104 PROC2: causal true-label means / label-free means, alone, new | 68.7 / 63.8 (LDA alone 64.6) | see below |
+| §104 label-free Procrustes fused with the chain, six bases | −2.6 to −3.3 at exponent 0.25, −5.0 to −5.8 at 0.5; 0–3 of 10 people ≥ 0 | **Refuted**: rotating with estimated class means misleads; the §103c +24 was the true labels |
+| §109 RUNTYPE: rebalancing per run type; SessionEM + TSEM per run type | −0.10 [−0.50, +0.31]; **−2.98 [−4.09, −1.89]** | **Refuted**; the run-type axis is closed (halving the statistics costs 3 points) |
+| §110 CLUSTX, §111 SEEN-DOSE | crashed at import: `studies/12nov/select.py` shadowed Python's `select` module on Leonardo's path (stdlib `subprocess` imports `select`) | not results; the file is renamed `selectvar.py`, both resubmitted |
+
+| Explore item (22:53 UTC; `runs/leo_cpu/clustx-64316017.out`, `seendose-64316018.out`) | Observed | Verdict |
+|---|---|---|
+| §110 CLUSTX alone, window accuracy: pooled / type A / type B / oracle pick / label-free pick | 56.5 / 55.8 / 50.3 / **58.6** / 57.5 | **Refuted**: the oracle best expert is +2.1 over pooled (bar +2: at the mark, not above) |
+| §110 fused into the chain (β 0.10 on the summed T·C·S logs), six bases | pooled −3.2 to −4.1; label-free pick −3.0 to −4.2; oracle pick −2.7 to −3.9 | Refuted; person-type experts are closed |
+| §111 SEEN-DOSE, proxy: v5.1's form (β 0.10, KREF 2, T·C·S) | +3.42 | as §82 |
+| Best proxy forms | β 0.25 T·C·S (any KREF): **+5.2 to +5.3**, +1.7 to +1.9 over v5.1's form, 8 of 10 ahead (P07 −3.3); β 0.15: +4.4 to +4.6 (+1.0 to +1.2) | the proxy prefers a stronger stage |
+| The same β on the real later sessions (§95, six bases, against β 0.10) | β 0.15: P04 +0.40, P10 −0.11; β 0.25: P04 −0.7, P10 −0.5 | **Rule not met** (≥ 0 on both real people): β 0.15 misses by 0.11 on P10 |
+
+Reading of §111: on ten people the proxy ranks a stronger personal stage (β 0.15–0.25) above the shipped β 0.10; on the
+two people with real later sessions the stronger stage helps P04 and costs P10 a little. Applying the sealed survival
+ratio of the stage (0.19 from proxy to sealed, §105) to the proxy's +1.0 to +1.9 gives about +0.2 to +0.35 per
+returning session, about +0.1 to +0.15 on the board. Recorded as the one form question a later sealed measurement
+should settle (β 0.15 is the cautious choice); not adopted by the pre-set rule.
+
