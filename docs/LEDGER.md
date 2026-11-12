@@ -1395,3 +1395,19 @@ functional_call + vmap, one augmentation per seed).
 | vmap6 against six × eager1, FBCNet at t = 110 | 0.35× (0.15–0.8×) |
 | Projected full recipe with vmap per family (12 fb, 6 fbraw, 6 fbl, 6 sinc), per 190-window session | 60 s (25–150 s) |
 | **Reading** | ≤ 25 s per unrouted session (60 sessions within about 25 min) → the full recipe is runtime-feasible and §106's cuts are not needed; otherwise the cheapest form passing §106's rule is costed with the same bench |
+
+### 106. RUNTYPE (explore track): calibration and feedback runs as separate session domains (written 12 Nov 21:57 UTC, before any result; code `studies/12nov/runtype.py`)
+
+Reasoning from the profile: returning people are right on 87.5 % of Graz calibration windows but 79.2 % of Graz
+feedback windows; in feedback runs the participant watches a moving display driven by an online decoder, which adds
+visual and error-related activity to every window. The session stages pool both run types into one set of statistics.
+Oracle (true run type; in a package the switch would have to be detected, e.g. as a change point in the window
+statistics): rebalancing, and separately SessionEM + TSEM, kept per run type inside each session. Grid chain without
+routing, six bases; new people.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Rebalancing per run type, new | −0.2 (−0.6 to +0.2) |
+| SessionEM + TSEM per run type, new | −0.3 (−0.9 to +0.3): fewer windows per statistic |
+| **Reading** | an oracle below +0.5 closes the run-type axis; ≥ +0.5 → a change-point detector is pre-registered |
+
