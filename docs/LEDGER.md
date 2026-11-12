@@ -1095,3 +1095,9 @@ core1 (compressing to 256 components loses most of it, as §54 found at 512) and
 average. A smaller network does not substitute for either. S3 runs on S2's inputs, so it measures one thing only:
 whether a learned adaptation beats S2's hand stage (62.2) on the same inputs.
 
+**12 Nov afternoon: Galvani access lost (2FA rejected; the MLcloud access may have expired).** Results still on
+Galvani and not fetched: §94 training length (finished), §91 TTT4 (finished or nearly), §96 personal nets (built),
+§98 S3 (queued). **Deviation from §98, stated before any S3 result:** S3 now runs locally on the Mac CPU through
+`scripts/run_capped.sh`, one fold at a time, seed 0 only (about 6 minutes per fold), instead of three seeds on
+Galvani; the reading rules stay, with one seed's noise noted.
+

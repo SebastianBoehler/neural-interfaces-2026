@@ -12,6 +12,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 - **Best sealed score:** 0.8161546323, submission 1048575, package `cand_v41_bio` (routing v4.1), 11 Nov, 1,128.6 s.
 - **Rank:** 10th on 12 Nov (user's reading of the board; leader 0.847); 9th on 11 Nov. Board on 11 Nov, about 19:00 UTC: 0.846 (seohee, ETRI), 0.830, 0.826, 0.825, 0.824, 0.821, 0.819,
   0.817, **0.816 (us)**, 0.815. Third place needs +1.0, first place +3.0, and the field keeps moving.
+- **Compute (12 Nov):** Galvani access may have expired (2FA rejected from ~14:00 UTC); local Mac only until it is restored. Results waiting on Galvani: ledger §91, §94, §96, §98.
 - **Deadline:** 21 Nov 2026, 22:59 UTC. **Uploads:** 7 per team, 1 per UTC day; 4 used, **3 left**.
 - **Candidate ready, not uploaded: `cand_v51_own`** (v4.1 + an own-space personal stage for recognised returning
   people). Dev +0.89 J; **sealed estimate about 0.819 (0.817–0.824)**, revised down on 12 Nov after an independent
