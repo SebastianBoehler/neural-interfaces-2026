@@ -766,3 +766,29 @@ Rule: an estimator at ≥ +1.5 is rebuilt on the full features and carried into 
 
 | Item | Observed | Verdict |
 |---|---|---|
+
+## 50. UPW: a returning person's own rows up-weighted in the population core (written 12 Nov 01:55 UTC, before any result; code `studies/12nov/upw_core.py`, `upw_chain.py`)
+
+**Why.** §39 read from the inside: the most valuable training person is the test person. Having session 1 in the
+population lifts P10 from 82 to 91 and P04 from 54 to 69. At core level (§17) up-weighting the person's rows helped
+P10 across sessions (+2.1 at weight 5, +4.4 at 20) where the personal head did not (−1.0), and was mixed for P04; it
+was never scored in the chain. The package can hold one core head per public person (1 MB each) and swap it in at
+recognition.
+
+**Test.** Seen folds (all other people + session 1 of P04 / P10): core1's head refitted with the person's own rows at
+weight w ∈ {3, 5, 10, 20}; w = 1 must reproduce the stored core1 posteriors. In the v4.1 chain replay core1's
+posterior on the seen sessions is replaced by the up-weighted one (as if recognised from the first window; the TSEM
+view and the personal head are unchanged). With and without the own-space stage (§45). Exploration bases first.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Harness: w = 1 against the stored core1 | equal to 1e-6 | not equal: no result is read |
+| Core alone on the later sessions, best w, P04 / P10 | +0.5 / +3 (as §17) | — |
+| v4.1 chain, best w, seen | +0.5 (−0.5 to +1.5): P10 +1.0 (−0.5 to +2.5), P04 0.0 (−1.5 to +1.5) | ≤ 0 on both exploration bases at every w |
+| On top of the own-space stage | adds +0.3 (−0.7 to +1.3) to the stage's +1.8 | — |
+
+Rule: ≥ +0.8 seen on both exploration bases with P04 ≥ −0.5 → fresh bases; then per-person cores join the v5
+candidate.
+
+| Item | Observed | Verdict |
+|---|---|---|
