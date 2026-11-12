@@ -29,11 +29,13 @@ from ensemble import rebalance  # noqa: E402
 SRC = ROOT / "submissions/ensemble/submission.py"
 
 
-def load_solver(folder, tag):
+def load_solver(folder, tag, device=None):
+    """device None: the package's default (cpu); "cuda" as the worker's harness passes it."""
     spec = importlib.util.spec_from_file_location(tag, folder / "submission.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    return mod.Solver.__new__(mod.Solver).load_model({"submission_dir": folder})
+    meta = {"submission_dir": folder} if device is None else {"submission_dir": folder, "device": device}
+    return mod.Solver.__new__(mod.Solver).load_model(meta)
 
 
 def stream(model, d, te, fn):

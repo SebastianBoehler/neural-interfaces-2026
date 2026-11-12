@@ -1,6 +1,6 @@
 """Integration check of the v5.2 package (personal SessionBN traces on routed windows) against v5.1b, public windows.
 
-Usage: python scripts/check_v52.py PKG_V52 PKG_V51B [--out JSON]
+Usage: python scripts/check_v52.py PKG_V52 PKG_V51B [--out JSON] [--device cuda]
 Main pass (all 14 public sessions, one window per call, both packages):
   (1) the shadow tail (gate input) equals v5.1b on every window and the routed output equals v5.1b on every window
       before the session's first routed window; the gate routes the same windows (v5.1b's own-stage counter);
@@ -23,6 +23,7 @@ import protocol  # noqa: E402
 from add_rebalance import load_solver  # noqa: E402
 
 TOL = 1e-4
+DEVICE = sys.argv[sys.argv.index("--device") + 1] if "--device" in sys.argv else None
 
 
 def run(m, d, sessions, sched=None):
@@ -99,13 +100,13 @@ def compare(m, d, sessions, rec, pkg):
 
 def main():
     v52, v51 = Path(sys.argv[1]), Path(sys.argv[2]); d = protocol.load(); sessions = list(dict.fromkeys(d["stream"]))
-    t0 = time.time(); m = load_solver(v52, "v52"); load_s = time.time() - t0
+    t0 = time.time(); m = load_solver(v52, "v52", DEVICE); load_s = time.time() - t0
     assert m.pnets is not None and len(m.pnets.idx) == 30 and sum(map(len, m.pnets.pristine)) == 300
     m.pnets_files = np.load(v52 / "weights.npz")["pnet_files"]
     res = dict(load_seconds_v52=round(load_s, 1))
     # main pass
     t0 = time.time(); new = run(m, d, sessions); res["stream_seconds_v52"] = round(time.time() - t0, 1)
-    b = load_solver(v51, "v51b"); t0 = time.time(); old = run(b, d, sessions); res["stream_seconds_v51b"] = round(time.time() - t0, 1)
+    b = load_solver(v51, "v51b", DEVICE); t0 = time.time(); old = run(b, d, sessions); res["stream_seconds_v51b"] = round(time.time() - t0, 1)
     Yn, Yo, Sn, So = (np.asarray(x) for x in (new["out"], old["out"], new["shadow"], old["shadow"]))
     res["shadow_equal_every_window"] = bool(np.array_equal(Sn, So))
     pre_eq, sess, names = True, {}, [str(q) for q in np.load(v52 / "weights.npz")["route_names"]]
