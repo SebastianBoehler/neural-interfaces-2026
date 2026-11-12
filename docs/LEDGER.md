@@ -1220,3 +1220,12 @@ morning). The four warm-up sessions each print one `[own-stage]` line (windows 1
 degenerate 0, errors 0). Leonardo became unreachable at about 18:40 UTC (every login node times out, also for the
 user); the A100 replay and the fetch of §91 wait for it. All polling loops were stopped.
 
+| §91 item (18:50 UTC; `runs/ttt4_score_12nov.log`, second run; Leonardo; seeds fb/fbl/fbraw 6, sinc 5) | Observed | Verdict |
+|---|---|---|
+| Nets alone, new: ple20 / fix20 / ent20 / cons20 | +4.0 to +5.6 / −0.4 to +4.5 / +3.8 to +4.8 / −1 to **−25** (consistency alone collapses fbraw and fb) | — |
+| Chain, all families swapped, new, six bases | ple20 −0.01 to −0.23 (mean −0.07); **fix20 +0.33, +0.31, +0.40, +0.01, +0.42, +0.31 (mean +0.30), every interval crossing 0**; ent20 −0.29; cons20 −0.23 | **Refuted** by the rule (≥ +0.4 with the interval above 0); fix20 is the best new-person arm of 12 Nov but inside the noise |
+| Seen, fix20 | −0.5 to −1.3 | it would cost returning people |
+
+Process note: the first scoring of §91 (18:58, from the collector after a failed copy) found no files and printed
++0.00 for every arm instead of failing. `ttt3_score.py` now asserts that it found something to score.
+

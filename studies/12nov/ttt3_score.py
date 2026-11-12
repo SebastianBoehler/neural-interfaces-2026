@@ -8,6 +8,7 @@ import env  # noqa: E402
 A = env.A; SC = A.SC; D = sys.argv[1]; rng = np.random.default_rng(0)
 IDX = {p: A.pl.B[f"idx|{p}"].astype(int) for p in A.PROTOS}; SLOT = {"fb": 6, "fbraw": 5, "sinc": 7, "fbl": 8, "sh": None}; PFX = os.environ.get("PFX", "ttt3"); VARS = os.environ.get("VARS", "pl20,ple20,plelr20,plec20,ore20").split(",")
 ARCHS = sorted({os.path.basename(f).split("_")[1] for f in glob.glob(f"{D}/{PFX}_*_base-all_loso-s*.npz")})
+assert ARCHS, f"no {PFX}_*_base files in {D}: nothing to score (an empty run printed zeros on 12 Nov)"
 
 
 def load(arch, v):
