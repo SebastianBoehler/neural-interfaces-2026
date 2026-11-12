@@ -542,3 +542,27 @@ Rule: adopt the variant with the best ten-person mean only if it also beats V0 o
 nine variants lie within half a point of each other on ten people, and on the real chain every one gives +1.5 to
 +2.0 with P10 between −0.2 and −1.6. V0 at β 0.10 stays the reference because it costs P10 least. More member
 engineering is not where the next gain is; the lever's size is set by how many returning people are P04-like.
+
+## 45. V5R: the own-space stage as the package will run it (written 12 Nov 00:25 UTC, before any result; code `studies/12nov/v5_replay.py`)
+
+**Why.** The user asked for the package candidate (12 Nov) and for exploration to continue. §43 applied the stage to
+every window of a returning person's session with the true identity. The package only knows what the identity gate
+says: nothing before window 10, a ramp r in [0, 1] afterwards, 87 % of returning sessions accepted, and about 2 % of
+new-person sessions accepted by mistake.
+
+**Mechanism (the package form).** For every window where the merged gate of v4.1 routes (r > 0) to gallery person
+q: out ∝ routed tail × (T_q · C_q · S_q)^(β·r/3), β 0.10, members V0 of §37 fitted on q's public sessions of the fold
+(seen fold: session 1; leave-one-person-out folds: all sessions of the other nine). Covariance sums run from window
+0 for everyone; the person's reference prior enters only when the stage is applied. No other change to v4.1.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| Seen, mean of six bases | +1.7 (+1.0 to +2.4): a little below §43's +1.9, the stage starts at recognition | < +1.0 |
+| P04 / P10 | +3.5 (+2.2 to +4.8) / −0.2 (−1.0 to +0.5) | P10 < −1.0 on more than one base |
+| New people, mean of six bases | 0.00 (−0.05 to +0.05); at most one of 14 new sessions touched | < −0.1 |
+| dJ | +0.85 (+0.5 to +1.2) | — |
+
+Pass → this replay is the reference the package must reproduce (stage posteriors and labels on the public windows).
+
+| Item | Observed | Verdict |
+|---|---|---|
