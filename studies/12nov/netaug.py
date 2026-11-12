@@ -1,6 +1,6 @@
 """NETAUG (ledger s51): SessionBN member families trained with chunk-wise "virtual person" augmentation.
 One random rotation and / or frequency-scaling factor per chunk of `group` same-session windows.
-Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins; 120-131: cmix4; 140-151: swa50; 160-183: focal loss; 200-211: people curve; 300-335: GroupDRO / balanced) | python netaug.py smoke
+Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins; 120-131: cmix4; 140-151: swa50; 160-183: focal loss; 200-211: people curve; 300-335: GroupDRO / balanced; 400-423: training length) | python netaug.py smoke
 """
 import sys, time
 from pathlib import Path
@@ -28,6 +28,8 @@ ARMS["focal1"] = dict(focal=1.0, pw=True); ARMS["focal2"] = dict(focal=2.0, pw=T
 FOCAL = [(a, f, s) for s in range(3) for f in ("focal1", "focal2") for a in ARCHS]  # tasks 160..183
 ARMS["dro01"] = dict(dro=0.1, pw=True); ARMS["dro001"] = dict(dro=0.01, pw=True); ARMS["pbal"] = dict(pbal=True, pw=True)  # person-robust objectives on SessionBN nets (ledger s93)
 DRO = [(a, f, s) for s in range(3) for f in ("dro01", "dro001", "pbal") for a in ARCHS]  # tasks 300..335
+ARMS["ep2"] = dict(ep=2.0, pw=True); ARMS["ep05"] = dict(ep=0.5, pw=True)  # training length x2 / x0.5 (ledger s94)
+EPS = [(a, f, s) for s in range(3) for f in ("ep2", "ep05") for a in ARCHS]  # tasks 400..423
 
 
 class VNet(SB.SessionNet):
@@ -78,6 +80,8 @@ def run(arch, arm, d, proto, seed, out, epochs=0):
     idx, P, t0 = [], [], time.time()
     for fold, tr, te in protocol.folds(d, proto):
         m = SB.make(cfg, d, seed); assert type(m) is SB.SessionNet; m.__class__ = VNet; m.vp = ARMS[arm]
+        if ARMS[arm].get("ep"):
+            m.epochs = max(1, int(round(m.epochs * ARMS[arm]["ep"]))); print(f"{arch} {arm}: epochs set to {m.epochs}", flush=True)
         if epochs:
             m.epochs = epochs
         m.fit(np.flatnonzero(tr)); m.set_k(k)
@@ -120,7 +124,7 @@ def main():
         return
     t = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True)
     if t >= 300:
-        arch, arm, seed = DRO[t - 300]
+        arch, arm, seed = EPS[t - 400] if t >= 400 else DRO[t - 300]
         for proto in ("all_loso", "seen_session"):
             run(arch, arm, d, proto, seed, OUT)
         return

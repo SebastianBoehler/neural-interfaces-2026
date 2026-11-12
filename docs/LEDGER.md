@@ -954,3 +954,16 @@ replacements against the twins (as §87).
 | P04 as a new person | +1 (−1 to +3) |
 | **Lever** | new ≥ +0.3 with the interval above 0, or P04 ≥ +2 with nobody below −1 |
 
+### 94. EPOCHS: are the SessionBN nets trained too short or too long? (written 12 Nov 12:18 UTC, before any job ran; `studies/12nov/netaug.py` tasks 400–423, Galvani)
+
+**Why.** User, 12 Nov: fill the remaining lanes. The leader's jump came with four times the runtime (review §4); our
+nets' training length was set in October on a weaker chain and never revisited for the SessionBN recipes. Arms:
+training length × 2 and × 0.5 (one-cycle schedule stretched), four recipes, three seeds, both protocols; scored as
+replacements against the twins (as §87).
+
+| Check | Prediction (80 % range) |
+|---|---|
+| × 2, new, six bases | +0.1 (−0.3 to +0.5) |
+| × 0.5, new, six bases | −0.3 (−0.8 to +0.2) |
+| **Lever** | ≥ +0.3 with the interval above 0 |
+
