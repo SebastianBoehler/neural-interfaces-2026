@@ -1352,3 +1352,27 @@ verified on the hidden worker. Within those rules the cost of in-session fine-tu
 the v5.3 research (v52-build session) first measures torch-native batching of the 30 nets' fine-tuning (torch.func
 vmap per family, CUDA graphs) on an A100 before any recipe is cut.
 
+
+### 106. V53: in-session fine-tuning for unrouted sessions, runtime-feasible forms (written 12 Nov 22:20 UTC, before any result; code `studies/13nov/ttt_reduce_score.py`, v52-build session)
+
+User, 12 Nov: build v5.3 = v5.2 + the §101 fine-tuning on sessions the identity gate does not route, within ≤ 45 min
+sealed (worst case). The full §101 form fine-tunes all 30 SessionBN members (20 Adam steps every 10 windows from window
+30). Its cost on an A100 is being measured (`studies/13nov/ft_bench.py`, directly on the package's TorchScript traces).
+Before any cut is built, each cut is scored in the chain (new people, six bases). Part A needs no new training, because
+the stored per-seed outputs of §101 (`runs/ttt/probs5`, six seeds per family) give these forms per family:
+`delta1` = frozen six-seed mean + the change of ONE fine-tuned seed (one fine-tuning per family, its change added to all
+members of the family); `delta2` = the same with two seeds; `one6` = one fine-tuned seed next to five frozen ones; `all6` =
+§101's arm (the reference, +0.36 / +0.37 / +0.36). Variants fixA, fixS, fixLR. Each seed choice is scored, and the
+mean over the choices is reported.
+
+| Check (new people, six-base mean, mean over the seed choices) | Prediction (80 % range) |
+|---|---|
+| fixA all6 (replicates §101 exactly; a code check) | +0.36 |
+| fixA delta1 | +0.22 (0.0 to +0.40) |
+| fixA delta2 | +0.28 (+0.05 to +0.42) |
+| fixA one6 | +0.06 (−0.05 to +0.15) |
+| **Rule** | the package uses the cheapest form whose six-base mean is ≥ +0.25 with ≥ 5 of 6 bases positive and whose measured A100 cost keeps the sealed worst case ≤ 45 min; if no reduced form passes, all6 if it fits the budget, otherwise the best form that fits, stated as below the rule |
+
+Part B (pre-registered separately, before it runs, if needed): fewer refits or steps cannot be scored from stored
+outputs and need new Leonardo runs of `ttt5.py` variants. Part B runs only if the A100 cost of the passing Part A form
+does not fit the budget.
