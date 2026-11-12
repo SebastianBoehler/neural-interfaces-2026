@@ -1308,3 +1308,8 @@ posterior. (ii) is fused into the routed chain as a final member (exponent 0.25 
 | (ii) fused with the chain, new, six bases | 0.0 (−0.5 to +0.4) |
 | **Lever** | ≥ +0.4 with the interval above 0 on six bases |
 
+**Process note (§101, 21:20 CET):** the collector scored FIX2 while 20 of 24 array tasks were still running (only
+FBLight's three seeds had landed): `squeue -j` on an array's master id stops matching once its tasks start, and a
+failed squeue also read as "finished". That partial score (one family) is not a result and is not used. The collector
+now waits by job name and treats a failed squeue as "still running".
+
