@@ -19,7 +19,7 @@ def boot(d):
     b = [d[rng.integers(0, 10, 10)].mean() for _ in range(4000)]; return f"{d.mean():+.2f} [{np.percentile(b, 10):+.2f}, {np.percentile(b, 90):+.2f}]"
 
 
-for bn in env.EXPL:
+for bn in env.BASES:
     sysd = A.system(bn, A.FAMS); base = sysd["out"][p]; ref = G.scores(base, p); print(f"{bn}: routed chain {ref.mean():.2f}", flush=True)
     D = []
     for draw in range(5):
