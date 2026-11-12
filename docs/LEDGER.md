@@ -1283,3 +1283,28 @@ instead of six tasks sharing one GPU slot's 8 cores (5–6 h per task); the 50 m
 result had been written. Scoring moves to Leonardo too (`scripts/cloud/leo_cpu.sh`, a booster slot per scoring run),
 once `replay/check.py` prints OK there.
 
+| §103 item (20:11 UTC) | Observed | Verdict |
+|---|---|---|
+| a. THIRDS: core1 alone, new (shipped 69.3); chain, six bases | 68.6; **−0.62 [−0.89, −0.36]**, 2 of 10 ≥ 0 | **Refuted** |
+| b. IFACE: rebalancing per interface; teacher weight per interface (cross-fit) | **−0.41 [−0.70, −0.12]**; **−0.01 [−0.20, +0.18]** (best in-sample +0.00 to +0.91) | **Refuted**; the interface axis is closed with an oracle below +0.5 |
+| c. PROC: LDA in core1's 256 components; with the labelled Procrustes rotation | **64.6 → 89.1 (+24.4)**, every person +16 to +40 | Above the range (predicted 74); the reading's mark (≥ +8) is met |
+
+Reading of c, with its caveat: the oracle uses the session's true class means computed over the whole session,
+including the windows it then classifies, so most of +24 is "knowing the class means of this session". The question
+it opens is narrower: does rotating the session into the population frame with *estimated* class means beat what
+TSEM already does with the same estimates?
+
+### 104. PROC2: Procrustes alignment with causal and label-free class means (written 12 Nov 20:11 UTC, before any result; code `studies/12nov/proc2.py`)
+
+Per new-person session, from window 15 on: class means of the earlier windows only (causal), from (i) their true labels
+(causal oracle), (ii) the chain's labels on its most confident windows (TSEM's selection rule); orthogonal Procrustes
+rotation of the session's standardised 256 components onto the training class means; population LDA; the window's
+posterior. (ii) is fused into the routed chain as a final member (exponent 0.25 / 0.5), six bases.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| (i) causal true-label means, alone, new | 78 (70–85) |
+| (ii) label-free means, alone, new | 66 (62–70), LDA alone 64.6 |
+| (ii) fused with the chain, new, six bases | 0.0 (−0.5 to +0.4) |
+| **Lever** | ≥ +0.4 with the interval above 0 on six bases |
+
