@@ -134,8 +134,7 @@ bootstrap interval (standard error 0.5–1.1 for a typical change) and P04 and P
 - **Dev resolution is about ±0.3, and exploration-base gains of that size do not survive.** Three times a +0.2 to
   +0.6 on the two exploration bases was zero on the four fresh ones [§54b, §58b, §61b]. Small levers do not stack
   [§57b].
-- **The leaders' margin is unexplained.** Ranks 1 and 2 plausibly share one lab (name and roster only); its published
-  methods (eye-movement branches, two-branch fusion, Mixup) are worth −7 to +0.3 here [§58, §59].
+- **The leaders' margin is unexplained.** Ranks 1 and 2 are one team (ETRI_EnSeption, two models; leaderboard page, 12 Nov); counted by team we are 9th and third place needs about 0.826. Most plausible source: returning people (REVIEW_12NOV §7).
 - No shortcut in slow potentials, gaze or feedback, and no usable cue-order prior after the stages (11 Nov §9, §33;
   12 Nov §55, §58).
 

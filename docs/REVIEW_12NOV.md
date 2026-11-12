@@ -97,3 +97,49 @@ moves new people by ±0.4, the exploration bases overstate stage effects by abou
 exists is per person (P04 76 % from their own data, 49 % from anyone else). The one block dev cannot measure is the
 sealed returning people with one public session; that is measured only by an upload of v5.1.
 
+
+## 7. Second review, 12 Nov evening: two independent reviewers (literature; internal audit)
+
+**Where they agree with each other and with §1–§6.**
+- No published label-free method for cross-subject or cross-session transfer is missing from the chain: recentring,
+  per-session latent alignment (SessionBN, the BEETL winner's idea), Bayesian/EM test-time adaptation (TSEM),
+  online test-time training (§60, §81), domain generalisation (§93), foundation models (§71). Published gains of
+  +2 to +6 are measured on single models; on a rebalanced ensemble with EM stages they do not stack.
+- There is no +3 left for new people on dev. §83/§88/§89 bound what label-free methods can do; §88's 78 % is a loose,
+  non-causal upper bound (the own model also saw later runs).
+- The large unmeasured block is returning people. If the sealed set holds the later sessions of the ten public people
+  (about 43 % of cells; the official FAQ keeps the allocation private, so this is plausible, not given), a strong
+  personal system worth +6 there is +2.6 on the board, which would explain most of the leaders' margin.
+
+**Corrections to our framing.**
+- **The leader is one team.** The public leaderboard page lists ranks 1 and 2 both as team ETRI_EnSeption (two
+  models, 0.847 and 0.846) and rank 3 as sungjunwang (0.830). The page lists submissions, not teams: counted by team
+  we are 9th, and third place by team needs about 0.826. STATE §9's "two accounts" item is withdrawn.
+- **Dev "new" is mostly first sessions of untrained users**, while most sealed new-person sessions are later
+  sessions of new people (PROTEUS trains users with feedback). The hard early third (§89) may be smaller there.
+- **Uploads were rationed and never used as probes.** No upload ever isolated the teacher, the routing or the
+  returning block; v5.1 has been ready since the morning of 12 Nov.
+
+**Axes never tested, with plausible head-room.**
+1. Re-referencing for core1 (surface Laplacian; CAR + Laplacian): 0 to +1 for new people. Closed by argument on
+   30 Oct. Running now (§99).
+2. Extra window offsets as training rows for the *personal* models (start0.5 never used anywhere; offsets were only
+   tried for the population core, where "only P04 gained"): small, returning people only.
+3. Gate recall against the gap between public and sealed session (sealed sessions are 1–5 sessions later).
+4. A labelled Procrustes oracle (recentre, stretch, rotate with true class means) to close the alignment family on
+   evidence rather than argument.
+5. Order robustness: risk control, not upside (the organisers dropped the chronological-order guarantee).
+
+**Mismatches the audit found.**
+- `replay/check.py` checks the v3 chain only; v4.1 and v5.1 have no reference check that must print OK.
+- The own-space stage swallows every exception (`submissions/ensemble_v5/submission.py` 850–861) and skips flat or
+  missing channels: a montage difference on the sealed run would silently turn v5.1 into v4.1, and a "+0.0" result
+  would then wrongly stop the returning branch under §63. Before any upload of v5.1 a variant that reports, at
+  session end on stderr, how many windows were staged is built (a new folder; the pinned file stays unchanged).
+
+**Plan for the next 24–48 hours (no upload before it).**
+1. Tonight: §99 Laplacian core (about 1.5 h, local); the Leonardo lines (§91, §94, §96, §98; by about 21:00 UTC).
+2. Then, in order: personal models with offset crops (returning); dev split by session index (framing check); the
+   labelled Procrustes oracle (closure); a v5.1 replay check in `replay/check.py`; the loud-failure v5.1 variant.
+3. Decision on 13 Nov evening: upload the best checked candidate — v5.1 with loud failures, plus anything that passed
+   on all six bases — as the measurement of the returning block; a v5.2 with personal nets follows only if it pays.
