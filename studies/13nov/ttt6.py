@@ -12,13 +12,14 @@ Usage (Leonardo): python studies/13nov/ttt6.py TASK (arch = ORDER[TASK % 4], see
 import copy, os, sys, time
 from pathlib import Path
 WS = Path(os.environ.get("NI26_WS", Path(__file__).resolve().parents[2]))
-sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts"), str(WS / "studies/12nov")]
+sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]  # not studies/12nov: its profile.py shadows the stdlib
 import numpy as np  # noqa: E402
 import torch  # noqa: E402
 from torch.nn import functional as F  # noqa: E402
 import protocol  # noqa: E402
 import session_bn as SB  # noqa: E402
-import ttt5 as T5  # noqa: E402
+import importlib.util  # noqa: E402
+_spec = importlib.util.spec_from_file_location("ttt5", WS / "studies/12nov/ttt5.py"); T5 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T5)
 
 OUT = WS / "runs/diag/ttt/probs6"; T0 = T5.T0
 # variant -> (steps per refit, refit every, lr, scope, consistency weight, label form, warm start, views)
