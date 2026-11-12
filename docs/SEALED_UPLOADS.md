@@ -418,8 +418,22 @@ check.
 
 | Day | Date | Arm | Submission | Status | Cell-mean BA | Duration |
 |---|---|---|---|---|---|---|
-| 5 | 12 Nov (UTC) | cand_v51b_own (`4a0bc427…`) | 1050185 | Preparing (21:12 UTC) | | |
+| 5 | 12 Nov (UTC) | cand_v51b_own (`4a0bc427…`) | 1050185 | Finished | **0.8197668759** (+0.0036122 over cand_v41_bio's 0.8161546323) | 1,287.0 s (21.5 of 60 min) |
 
 Reading rule (fixed before the score, ledger §63): against v4.1's 0.8161546323, a paired gain ≥ +0.4 means the returning
 branch pays and the remaining uploads go to it (v5.2 next, after its worker replay); ≤ +0.15 means that branch stops;
 in between is undecided. A failed run uses no quota. Never cancel it.
+
+**Result of upload 5 (read 12 Nov 21:34 UTC, owner API).** Cell-mean BA 0.8197668759; pooled BA 0.8195534707; accuracy
+0.8195488722; duration 1,287.0 s (1.14× of v4.1's 1,128.6 s; the paired replay had said 1.08×).
+- **Paired gain over v4.1: +0.361 points.** By the rule fixed beforehand (§63) this is the undecided band (+0.15 to
+  +0.4), 0.04 under its upper mark. The stated expectation was 0.819 (0.817–0.824): hit, close to the centre.
+- **Transfer:** dev +0.89 J, sealed +0.361: 0.41×, about the same as v4.1's 0.46×.
+- **What it says about the eight single-session returning people** (under the withdrawn cohort text: about 106 sealed
+  sessions, 46 of them returning, 3 of those P04's): P04 alone at its dev gain (+3.5 on 3 sessions) would give about
+  +0.10. The remaining +0.26 spread over the other 43 returning sessions is about +0.6 per session. So people other
+  than P04 respond to the own-space stage, modestly. This is arithmetic on an unconfirmed cohort, not a measurement.
+- **Board, 12 Nov 21:35 UTC (first page, three decimals):** hyejulee 0.847; seohee 0.846; sungjunwang 0.830; xmqxmq
+  0.826; bryanyahir03 0.825; timothewt 0.825; navattack 0.821; **us 0.820 (8th)**; kyalcin 0.819; liuyin 0.819.
+  Third place needs +1.0, fourth +0.6.
+- **New baseline: cand_v51b_own.** 2 uploads left.

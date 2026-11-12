@@ -9,13 +9,13 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-- **Best sealed score:** 0.8161546323, submission 1048575, package `cand_v41_bio` (routing v4.1), 11 Nov, 1,128.6 s.
+- **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage), 12 Nov, 1,287.0 s; **8th** on the board at 21:35 UTC (0.847, 0.846, 0.830, 0.826, 0.825, 0.825, 0.821, us 0.820). Previous best: 0.8161546323 (1048575, `cand_v41_bio`).
 - **Rank:** 10th on 12 Nov (user's reading of the board; leader 0.847); 9th on 11 Nov. Board on 11 Nov, about 19:00 UTC: 0.846 (seohee, ETRI), 0.830, 0.826, 0.825, 0.824, 0.821, 0.819,
   0.817, **0.816 (us)**, 0.815. Third place needs +1.0, first place +3.0, and the field keeps moving.
 - **Upload plan (user, 12 Nov evening):** no upload tonight; the next 24–48 h go to the in-depth review and to finding a method that reaches rank 3 (≈ 0.826), with sanity checks; v5.1 stays staged-ready as the fallback measurement. Three uploads over nine days leaves room.
 - **Compute (12 Nov):** Galvani access may have expired (2FA rejected from ~14:00 UTC); local Mac only until it is restored. Results waiting on Galvani: ledger §91, §94, §96, §98.
 - **Deadline:** 21 Nov 2026, 22:59 UTC. **Uploads:** 7 per team, 1 per UTC day; 5 used, **2 left**.
-- **Upload 5 (12 Nov, 21:12 UTC): `cand_v51b_own`, submission 1050185**, authorised by the user by name; score pending. Read it with the rule in ledger §63 (≥ +0.4 over 0.8162 → returning branch, v5.2 next; ≤ +0.15 → that branch stops). Details in `SEALED_UPLOADS.md`. Codabench storage: the account was full; v5.2 (85 MB) needs that much free space at upload time.
+- **Upload 5 (12 Nov, 21:12 UTC): `cand_v51b_own`, submission 1050185: 0.8197668759, +0.361 over v4.1.** By the rule of ledger §63 that is the undecided band (+0.15 to +0.4), just under its upper mark; arithmetic on the assumed cohort says returning people other than P04 gain about +0.6 per session. Whether v5.2 goes next is open (user's decision). Codabench storage: v5.2 (85 MB) needs that much free space at upload time. Details in `SEALED_UPLOADS.md`.
 - **Candidate ready, not uploaded: `cand_v51_own`** (v4.1 + an own-space personal stage for recognised returning
   people). Dev +0.89 J; **sealed estimate about 0.819 (0.817–0.824)**, revised down on 12 Nov after an independent
   review: the dev gain is P04's, and P04 is 3 of about 106 sealed sessions (ledger §63).
