@@ -1330,3 +1330,30 @@ replay on A100 (estimate from §31: about 28 extra minutes on the sealed set).
 
 | Item | Observed | Verdict |
 |---|---|---|
+
+## 61. CHAINBAG: averaging complete chains (written 12 Nov 03:40 UTC by `date -u`, before any result; code `studies/12nov/chainbag.py`)
+
+**Why.** The session stages are path-dependent (which windows become seeds depends on small differences in the mix),
+and the chain's J moves by up to 1.0 between seed sets of the same nets (79.18 to 80.21). The package pools all seeds
+into one mix and runs one chain. Averaging the final posteriors of several complete chains, each on its own seed
+subset, would average out the stage's path noise, which pooling inside one mix cannot do. Stages are cheap; the nets
+are already computed.
+
+**Test (v3 chain replay).** (a) Mean of the final posteriors of the three single-seed chains (B2_s0, B2_s1, B2_s2),
+arithmetic and geometric, against the one chain on the pooled three seeds (B2_s012, J 80.14) and against the mean of
+the three single chains' scores (79.70). (b) The same for B2_s012 + B2_s345 against B2_pool (80.01). (c) One mix,
+several stage settings: the pooled chain run with TSEM seed quota ρ ∈ {0.6, 0.7, 0.8} and rebalancing window W ∈
+{25, 30, 35}, final posteriors averaged.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| (a) bagged three chains minus the pooled chain (80.14) | +0.2 (−0.3 to +0.7) | ≤ 0 |
+| (a) bagged minus the mean single chain (79.70) | +0.6 (+0.2 to +1.1): bagging beats its parts | ≤ +0.2 |
+| (b) two bagged chains minus B2_pool | +0.1 (−0.3 to +0.5) | ≤ 0 |
+| (c) stage-setting bag minus the shipped setting | +0.1 (−0.3 to +0.5) | ≤ 0 on both exploration bases |
+
+Rule: (a) or (b) ≥ +0.4 over the pooled chain → a package variant with three parallel tails is specified and
+confirmed with a different split of the seeds.
+
+| Item | Observed | Verdict |
+|---|---|---|
