@@ -652,6 +652,12 @@ standardisation and reference have almost nothing to work with), and the real ga
 that. Earlier or more certain recognition is not a lever on dev; the only recognition loss left is returning
 sessions the gate never accepts (about 13 % by the external estimate), which dev cannot measure. Closed as a
 direction; the package keeps the v4.1 gate unchanged.
+| 46b. ROTAUG, ε 0.1 / 0.2 / 0.4 (two rotated copies per session; reference 69.29 reproduced) | 69.25 / 69.15 / 68.19: **−0.04 / −0.14 / −1.10**; people improved 5 / 3 / 2 of 10 | **Refuted** (≤ +0.3 at every ε; predicted +0.8, range −0.5 to +2.5: inside the range at the low end for the two weak strengths, below it for the strong one) |
+
+**Reading of 46b (12 Nov 03:05 UTC; `runs/rotaug_12nov.log`).** Random rotations of the recentred tangent blocks do
+not stand in for people: nothing at small strength, a loss at the strength the nets train with. Soft verdict (§52):
+closed for unstructured rotations on core1 alone; the structured ones (cap shift, gain) and the nets (§51) are still
+running.
 
 ## 47. SYNTH: virtual people for the population model (written 12 Nov 00:45 UTC, before any result; code `studies/12nov/virt.py`; Galvani CPU jobs)
 
