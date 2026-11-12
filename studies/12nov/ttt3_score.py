@@ -48,13 +48,13 @@ for a in ARCHS:
     for v in ["base"] + VARS:
         A.EXTRA[f"{a}_{v}"] = {p: P[(a, v)][p].mean(0) for p in A.PROTOS}
 print("\nchain, all families swapped (three seeds each), against the same nets frozen: new [80 % person bootstrap], people >= 0, P04, seen")
-for bn in env.EXPL:
+for bn in (env.BASES if os.environ.get("ALLBASES") else env.EXPL):
     ref = chain("base", bn)
     for v in VARS:
         r = SC.compare(chain(v, bn), ref); lo, hi = boot(r["dn"]); print(f"   {bn} {v:8s}: new {r['new']:+.2f} [{lo:+.2f}, {hi:+.2f}] {r['npos']}/10 P04 {r['dn'][3]:+.1f} | seen {r['seen']:+.2f} | dJ {r['J']:+.2f}", flush=True)
 print("\nruntime-feasible form: one fine-tuned seed next to two frozen seeds per family (three choices of the seed)")
 for v in ("pl20", "ple20", "plelr20", "plec20"):
-    for bn in env.EXPL:
+    for bn in (env.BASES if os.environ.get("ALLBASES") else env.EXPL):
         ref = chain("base", bn); res = []
         for k in range(3):
             for a in ARCHS:
