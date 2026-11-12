@@ -368,3 +368,13 @@ three members fitted on j's public sessions in j's own space). Nothing else chan
     difference 0.0. **Passed.**
   The candidate is replayed, checked, reviewed and timed. Not staged as a ZIP, not uploaded; an upload needs the user's
   go-ahead and a live phase and quota check.
+
+## 12 Nov evening: cand_v51b_own (staged locally, not uploaded)
+
+v5.1 rebuilt on the Mac from the stored v4.1 package (Galvani unreachable), code `submissions/ensemble_v5b/submission.py`
+(SHA-256 0259d1ea…; v5.1 plus one stderr line per session about the own-space stage). Package `runs/sealed/cand_v51b_own`
+(weights.npz 6a1f35c1…; ZIP 4a0bc427…, 62,308,135 bytes). Checks: `scripts/check_own_stage.py` against v4.1 passed
+(output difference 0.0, 27 labels changed, as the Galvani build); official replay on the Mac CPU 0.9932767697, equal to
+the Galvani replays of v5.1, 91.9 s. Not yet done: A100 replay and paired timing (Leonardo unreachable), worker image
+(Galvani only). Upload needs the user's go-ahead and a live phase and quota check.
+

@@ -1213,3 +1213,10 @@ unstaged window, members equal to the study class (max difference 6e-14), output
 27 labels changed in sample (the same count as the Galvani build of v5.1), staged share 0.95 per routed session; the
 new stderr line prints once per session (14 sessions). **Passed.** §96 personal nets: all 480 files built.
 
+**v5.1b official replay on the Mac (18:44 UTC; `runs/sealed/cand_v51b_own_replay_mac2/replay.json`):** the warm-up phase's
+ingestion and scoring programs on the package ZIP (sha256 4a0bc427…, 62.3 MB): files unchanged, 91.9 s on CPU,
+**score 0.9932767697 — identical to the Galvani A100 and worker-image replays of the Galvani-built v5.1** (12 Nov
+morning). The four warm-up sessions each print one `[own-stage]` line (windows 188–189, routed and staged 178–179,
+degenerate 0, errors 0). Leonardo became unreachable at about 18:40 UTC (every login node times out, also for the
+user); the A100 replay and the fetch of §91 wait for it. All polling loops were stopped.
+
