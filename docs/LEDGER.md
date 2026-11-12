@@ -1256,3 +1256,25 @@ measurement. Dev value so far: +0.17 seen over the stage (§78), within-session 
 **§101 addendum (12 Nov evening, before any FIX2 result): seeds 3–5 (tasks 12–23) queued in parallel (`ttt5_c`,
 `ttt5_d`), scored together with seeds 0–2 under the same rule, so a passing variant comes with six seeds.**
 
+### 103. Under-explored axes from the reviews (written 12 Nov 19:38 UTC, before any result)
+
+User, 12 Nov: widen the exploration inside the solution space. Three axes the reviews named that were never run on the
+current chain, each local and cheap:
+
+**103a. THIRDS: core1 with the window split in three** (`car_ov17_fs3_t0.1_le_k2`; shipped: full + two halves).
+Swapped into core1's slot (posterior only), routed chain, six bases. Prediction: core1 alone 69.5 (68–71); chain new
++0.1 (−0.3 to +0.5). Lever ≥ +0.3 with the interval above 0.
+
+**103b. IFACE: the interface as a session-stage variable** (oracle: the true interface label, which a package would
+have to detect from the run structure). Arms: rebalancing kept separately per interface inside a session; teacher
+weight per interface (3 / 5 / 7 each, chosen on one people half, scored on the other). Grid chain without routing,
+new people, six bases. Prediction: per-interface rebalancing −0.1 (−0.5 to +0.3); per-interface teacher weight,
+cross-fit, +0.1 (−0.3 to +0.4). Reading: an oracle below +0.5 closes the interface axis for good.
+
+**103c. PROC: a labelled Procrustes oracle** (closes the Riemannian alignment family on evidence). In core1's 256
+components (session-standardised), a shrinkage LDA trained on the other people; for each test session the class means
+computed **with true labels** are rotated onto the training class means (orthogonal Procrustes) before classifying.
+Prediction: LDA alone 66 (62–70); with the oracle rotation 74 (68–80). Reading: if the oracle gains < +5 over LDA
+alone, a label-free rotation (which can only approximate it) is closed; if ≥ +8, a label-free version on TSEM's
+templates is pre-registered.
+
