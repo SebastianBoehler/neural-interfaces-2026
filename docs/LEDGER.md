@@ -1484,3 +1484,19 @@ sessions routed and about 84 min if all were: **over the 60-minute limit in the 
 built. Profiling is running (`scripts/profile_v52.py`, job 64314420); the likely cost is the personal path running
 30 traces window by window on the critical path, after the base nets, without the base path's overlap.
 
+
+### 112. V52FAST: profile the v5.2 GPU runtime and bring it down (written 12 Nov 22:24 UTC, before the profile; code `studies/13nov/profile_v52.py`, v52-build session)
+
+User, 12 Nov (via the top session): profile the v5.2 runtime and bring it down. Leonardo job 64311532, one A100 node:
+the official GPU replay took 383.9 s for `cand_v52_pnets` against 97.8 s for `cand_v51b_own` (3.9×; on the Mac CPU 1.36×).
+In the same job `check_v52.py --device cuda` streamed 2,655 windows in 383.1 s against 229.5 s (1.67×). The check
+failed only on its 1e-4 tolerance for the personal posteriors (main 2.8e-4, switch 2.6e-4), with a reference that runs
+on the CPU; every other condition passed. The profile (official `predict_streams` + loader on CUDA, CUDA-synchronised
+component timers, cProfile) comes first. The fix is chosen from it.
+
+| Target | Value |
+|---|---|
+| Paired official GPU replay, new build / `cand_v51b_own`, one node | **≤ 1.3×** |
+| Outputs against v5.2 on the same device | identical labels on all public windows; personal member posteriors within 1e-5 (same arithmetic, other scheduling) or, if the arithmetic is batched differently, within the GPU-vs-CPU spread of the shipped base traces, stated with that number |
+| Sealed worst case (v5.1b's 1,287 s on the real worker × the replay ratio) | stated for 43 % and 100 % routed sessions |
+| Prediction | the 30 personal traces at batch size 1 cost launch overhead, not compute: personal-trace time ≈ 60–80 % of the extra; overlapping or batching them reaches 1.2–1.5× |
