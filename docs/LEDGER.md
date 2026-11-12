@@ -586,3 +586,26 @@ chain, (c) their mean top posterior. Data: the four real seen sessions (P04 s2, 
 | Spearman(signal (a), best β) over the 12 pairs | +0.4 (−0.1 to +0.8) |
 | **Lever** | if a signal separates the people and ranks the pairs ≥ +0.5, a trust-scaled β (0 to 0.25, map fixed from the 12 pairs) is pre-registered and scored on the six bases |
 
+| §79 diagnostic (10:44 UTC; `runs/trust_12nov.log`) | Observed | Verdict |
+|---|---|---|
+| Best β, real seen sessions (three bases) | P04 s2 0.40, s3 0.15–0.25 (+7 to +8); P10 0–0.05 (β 0.15 costs up to −2.6) | Hit |
+| Signals on the real sessions, P04 / P10 | T·C·S agreement 0.50–0.52 / 0.58–0.61; **agreement with the chain 0.57–0.59 / 0.74**; confidence 0.75–0.77 / 0.81–0.82 | All three separate the people; (b) most clearly. Miss on (b) and (c) |
+| Spearman with the best β over the 12 pairs | T·C·S agreement −0.70; **agreement with the chain −0.65 (with the gain at 0.15: −0.94)**; confidence −0.70 | **Opposite sign to the prediction (+0.4)** |
+
+The sign is the reverse of my mechanism: the stage pays most where the personal model *disagrees* with the chain,
+because that is where the chain is weak (P04) and the person's own model knows better. The pre-set lever asked for a
+rank correlation ≥ +0.5; I go past its letter on purpose, because a strong negative rank is as usable as a positive
+one. The map is fixed now from the 12 pairs, before the real-chain run: β = 0.40 at a running chain agreement ≤ 0.50,
+0.10 at ≥ 0.70, linear in between; the running agreement starts from 10 pseudo-windows at 0.65.
+
+### 80. TRUST2: personal stage with a trust-scaled β (written 12 Nov 10:44 UTC, before any result; code `studies/12nov/trust2.py`)
+
+The v5.1 replay with β_t from the map above (causal running agreement of the personal members' mean with the routed
+output before the stage), against fixed β 0.10, six bases. Then, if it passes, the false-accept cost (§65 protocol).
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Seen, six-base mean, against v5.1 | +0.4 (−0.2 to +1.0); P04 +0.9, P10 0.0 |
+| New (false accepts only) | 0.00 (−0.05 to +0.02) |
+| **Lever** | seen ≥ +0.3 on ≥ 4 of 6 bases with P10 ≥ −0.3 and new ≥ −0.05 |
+
