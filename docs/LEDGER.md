@@ -1581,3 +1581,10 @@ from window 0. Scored on windows 0–15 and 0–30 against the chain, and fused 
 | Fused, new, six bases | −0.1 (−0.5 to +0.2) |
 | **Reading** | fused ≥ +0.3 with the interval above 0 → kept for the next design |
 
+| §112 follow-up (22:59 UTC; `studies/12nov/psys_seen.py`, run locally; meant as a one-base smoke but it ran all six bases because the replay head overwrites `sys.argv`, now fixed) | Observed | Verdict |
+|---|---|---|
+| Personal system (β 0.25, at the gate's ramp) on top of v5.1, real later sessions, six bases | seen −0.36 to −1.03, **mean −0.81 (P04 −0.06, P10 −1.57)** | **Fails the §112 rule** (≥ 0 on both real people) whatever the proxy shows |
+
+Reading: an adaptive personal LDA adds nothing over the v5.1 stage on real later sessions and costs P10 1.6 points; its
+in-session EM follows the person's drift, which is what hurts P10. The proxy result (Leonardo) is still recorded when it lands.
+
