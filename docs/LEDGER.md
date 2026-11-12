@@ -1229,3 +1229,18 @@ user); the A100 replay and the fetch of §91 wait for it. All polling loops were
 Process note: the first scoring of §91 (18:58, from the collector after a failed copy) found no files and printed
 +0.00 for every arm instead of failing. `ttt3_score.py` now asserts that it found something to score.
 
+### 101. FIX2: refinements of the augmented-input fine-tuning (written 12 Nov 19:09 UTC, before any job ran; code `studies/12nov/ttt5.py`, Leonardo)
+
+User, 12 Nov: follow up the best new-person arm of the day (§91 fix20: +0.30 on six bases, every interval crossing 0;
+seen −0.5 to −1.3). Package form throughout. In a package it would run only on sessions the identity gate does not
+route (new people), so it is scored for new people with seen left at the frozen nets. Variants: fixA (fix20 again,
+the replicate), fixW / fixS (augmentation shift 5 / 30 samples, noise 0.1 / 0.3, channel dropout 0.05 / 0.2), fixPL
+(pseudo-labels on augmented inputs, no consistency), fixT (only windows with chain confidence ≥ 0.6), fix40 (40
+steps), fixLR (lr 2.5e-4). Four SessionBN recipes, seeds 0–2.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| fixA against frozen, new, six bases | +0.25 (−0.1 to +0.6): the replicate |
+| Best other variant, new | +0.35 (0 to +0.7) |
+| **Lever** | a variant ≥ +0.4 on six bases with the person-bootstrap 10th percentile above 0, *and* its seeds 0–2 agreeing with fix20's seeds 0–5 within 0.2 → a gated v5.2 component (fine-tuning only on unrouted sessions; runtime checked first) |
+
