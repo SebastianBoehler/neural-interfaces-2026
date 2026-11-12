@@ -11,6 +11,17 @@ for p in A.PROTOS:
     zs = [np.load(f) for f in sorted(glob.glob(f"{D}/oc_{arm}-{p}-s*.npz"))]; assert len(zs) == 3 and all((z["index"] == IDX[p]).all() for z in zs); P[p] = np.mean([z["proba"] for z in zs], 0)
 A.EXTRA["ocu"] = P; REF = {p: Z[f"GE|{p}"].copy() for p in A.PROTOS}; LP = {p: np.log(np.clip(P[p], 1e-3, 1)) for p in A.PROTOS}
 print(f"OCUNET ({arm}, mean of 3 seeds) alone: new {SC.person(P['all_loso'], 'all_loso').mean():.2f} seen {SC.person(P['seen_session'], 'seen_session').mean():.2f}")
+if "fresh" in sys.argv:  # s58b: the SessionEM-view form on the four fresh bases
+    rs = []
+    for bn in env.FRESH:
+        base = A.system(bn, A.FAMS)["out"]
+        for p in A.PROTOS:
+            Z[f"GE|{p}"] = np.c_[REF[p], LP[p]]
+        r = SC.compare(A.system(bn, A.FAMS)["out"], base); rs.append(r)
+        for p in A.PROTOS:
+            Z[f"GE|{p}"] = REF[p]
+        print(f"FRESH {bn}: dJ {r['J']:+.2f} new {r['new']:+.2f} seen {r['seen']:+.2f} (P04 {r['ds'][0]:+.2f}, P10 {r['ds'][1]:+.2f}) | new>=0 {r['npos']}/10", flush=True)
+    print(f"FRESH mean: dJ {np.mean([r['J'] for r in rs]):+.2f} new {np.mean([r['new'] for r in rs]):+.2f} seen {np.mean([r['seen'] for r in rs]):+.2f}"); sys.exit(0)
 for bn in env.EXPL:
     base = A.system(bn, A.FAMS)["out"]; print(SC.absline(bn + " chain", base), flush=True)
     for w in (0.5, 1.0, 2.0):

@@ -788,7 +788,7 @@ early boost, no routing.
 | Stages' gain over the core at k = 9 / k = 3 | +0.8 / +2.3 | **Miss** (predicted +7 / +9): on core1 alone the stages add almost nothing |
 | Slope per doubling after the stages | **+7.32** (core +8.13); 7 → 9: +2.85 | **Hit**, upper end (predicted +5, range +3 to +7.5); not refuted |
 
-**Reading (12 Nov 03:35 UTC by `date -u`; Galvani 3090258).**
+**Reading (12 Nov 03:28 UTC by `date -u`; Galvani 3090258).**
 - **The people curve survives the stages in this test:** +7.3 per doubling after rebalancing, SessionEM and TSEM,
   against +8.1 before. More real people would raise the adapted score nearly as much as the raw one.
 - The test is weaker than intended. A chain built on core1 alone gains only +0.8 from the stages (the full chain
@@ -920,7 +920,7 @@ never tested in this form and costs only queue time.
 | Chain, one family swapped (B2_pool, B2_s345) | all within −0.53 to +0.52; the largest, FBLight combo, is +0.52 / +0.14 | Inside the noise |
 | Chain, all four families swapped, against all twins | crot05 −0.18 / −0.09; crot10 −0.81 / −0.85; cfsc15 −0.19 / −0.12 | **Refuted** (≤ 0 on both bases for every arm) |
 
-**Reading (12 Nov 03:35 UTC; `runs/netaug_score_12nov.log`; Galvani packs 3090340, 3090364–3090368, twins 3090369).**
+**Reading (12 Nov 03:28 UTC; `runs/netaug_score_12nov.log`; Galvani packs 3090340, 3090364–3090368, twins 3090369).**
 Virtual people do not help the SessionBN nets either, alone or in the chain. Chunk-wise rotation is no better than
 the shipped per-window rotation; frequency scaling, never run on these nets before, is neutral alone and slightly
 negative in the chain. With §47 this closes generated variation for both member types in the forms tested.
@@ -1151,7 +1151,7 @@ stack with the two small returning-person levers of 11 Nov. v5 stays "v4.1 plus 
 | swa50, standalone new minus twin | FBCNet −0.03; raw FBCNet −0.26; SincShallow −0.50 (1 seed); FBLight −0.29 | Prediction +0.3: **miss** |
 | swa50 in the chain, all four swapped | −0.58 / −0.57 | **Refuted** |
 
-**Reading (12 Nov 03:35 UTC; `runs/netpc_score_12nov.log`, `runs/netaug_score_12nov.log`).**
+**Reading (12 Nov 03:28 UTC; `runs/netpc_score_12nov.log`, `runs/netaug_score_12nov.log`).**
 - **The nets flatten where core1 does not.** From seven to nine training people the two net families gain +1.4 and
   +0.8; core1 gains +3.9. Over the whole range their slopes are similar. So at ten people the linear member is the
   one still starved of people; the nets have used up most of what nine people offer them. One seed, two families.
@@ -1243,8 +1243,16 @@ two-branch model does and what the learned branch of step 3 is for.
 | Chain, SessionEM view = shipped 48 + the net's log posteriors (51) | **+0.21 / +0.33** (new +0.02 / +0.02; seen +0.41 / +0.65) | Positive on both bases, below +0.5; not refuted, no pass |
 | Chain, SessionEM view = event rates + net log posteriors (19) | −0.62 / −0.58 | Negative |
 
-**Reading of step 3 (12 Nov 03:35 UTC; Galvani pack 3090384; `runs/ocu_chain_12nov.log`).** A learned branch on the
+**Reading of step 3 (12 Nov 03:28 UTC; Galvani pack 3090384; `runs/ocu_chain_12nov.log`).** A learned branch on the
 eye-movement traces reaches 53 % across people, two points above the hand-built statistics, and Mixup does not help
 it. In the chain it behaves like every other population member: negative in the mix and as a final stage. The one
 form above zero is as three extra features of SessionEM's view (+0.2 / +0.3, all of it on returning sessions), which
 is inside the noise; a fresh-base check is run before it is kept or dropped (§58b).
+
+**58b. Fresh-base check of the one form above zero (written 12 Nov 03:30 UTC by `date -u`, before any fresh-base
+result; `ocu_chain.py nomix fresh`).** SessionEM's view = the shipped 48 features + the eye-movement net's three log
+posteriors; four fresh bases. Kept as a candidate only if the mean dJ is ≥ +0.3 and the mean seen change ≥ +0.4;
+otherwise dropped. Prediction: dJ +0.15 (−0.2 to +0.5); P(kept) 25 %.
+
+| Item | Observed | Verdict |
+|---|---|---|
