@@ -326,9 +326,8 @@ three members fitted on j's public sessions in j's own space). Nothing else chan
 | Dev replay of the package form (§45), six bases | dJ +0.89 (+0.66 to +1.00); seen +1.79 (P04 +3.51, P10 +0.07); new 0.000, no new-person session routed |
 | A100 replay 3090169 / worker-image replay 3090170 | identical scores (0.9932767697 in-sample on the public split; v4.1: 0.9748375896), files unchanged; 166.2 s / 121.8 s |
 | Runtime against v4.1 (154 s / 109 s on the same replays, different nodes; no paired timing yet) | about 1.08–1.12×, so roughly 21 min sealed against v4.1's 18.8 |
-| Integration check `scripts/check_own_stage.py` (job 3090168) | running when this was written; result in the ledger §45 addendum |
+| Integration check `scripts/check_own_stage.py` (job 3090168, 35 min, all 2,655 public windows) | **passed**: outputs equal to cand_v41_bio on every window without a stage; the package's member log posteriors equal the study class (max difference 1.6e-12) and the staged output equals base × exp(β r log members) exactly (max difference 0.0); every public session is staged from window 10 to its own person (95 % of its windows); 27 labels change, in-sample accuracy 0.9917 against 0.9819 |
 
-**Open before any upload:** the integration check; a paired timing; an independent review of the code (as for earlier
-uploads); the user's go-ahead after a live quota and phase check. **Known limits:** the in-sample rise is expected
+**Open before any upload:** a paired timing (job 3090327, running); an independent review of the code (running); the user's go-ahead after a live quota and phase check. **Known limits:** the in-sample rise is expected
 (the stage's members are fitted on the public sessions) and says nothing about sealed data; the dev gain is P04's
 (P10: +0.1); the eight single-session people are measured only within a session (§41).

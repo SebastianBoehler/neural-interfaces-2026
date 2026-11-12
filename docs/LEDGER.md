@@ -599,6 +599,12 @@ sessions against +1.93 with the true identity from window 0. This replay is the 
 One of four seen sessions is recognised late and one only on 69 % of its windows: recognition is now a lever of its
 own (§46).
 
+**Addendum, 12 Nov 02:35 UTC: the package reproduces the study code.** `scripts/check_own_stage.py` on the Galvani
+build (job 3090168): outputs equal to cand_v41_bio on every unstaged window; member log posteriors equal
+`ownspace.Personal` to 1.6e-12; staged outputs equal base × exp(β r log members) exactly; all 14 public sessions are
+staged from window 10 to their own person. A100 and worker-image replays identical (§ upload log). Open: paired
+timing (3090327), independent review.
+
 ## 46. Toward 0.84: recognition head-room and virtual people (written 12 Nov 00:35 UTC, before any result)
 
 **The user's target (12 Nov): a sealed score above 0.84**, +2.4 over 0.8162. In sealed points that needs, for
