@@ -1692,3 +1692,11 @@ stronger stage pays and P10 no longer loses: personal nets (pfh60) + own-space s
 v5.2's β 0.10 (82.75 against 82.52 absolute on B2_pool), positive for both real people, and +1.7 over the stage alone
 on the ten-person proxy. By §119's rule the next candidate's stage strength is 0.15, with the head-only personal nets.
 
+
+| §108 item (23:40 UTC; `runs/ttt6_score.log`; new people, six bases; all6 / delta1 / delta2) | Observed | Verdict |
+|---|---|---|
+| fixA (in-run reference) | +0.37 / +0.27 / +0.35 | replicates §101/§106 |
+| cum10 (warm start, 10 steps, half the cost) | **+0.46** (bases +0.16 to +0.72) / +0.26 / +0.34 | all6: +0.09 over fixA, **counts as a gain by the rule if ahead on ≥ 5 of 6 bases (per-base check pending)**; delta forms equal fixA at half the cost |
+| cons2 / soft / step5 | +0.32 / +0.27 / +0.21 (all6) | no gain |
+| head | −0.16 | refuted: the full parameter set is needed |
+| view2 | +0.25 / +0.11 / +0.15 | no gain |
