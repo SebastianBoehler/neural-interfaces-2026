@@ -242,3 +242,64 @@ in [REVIEW_12NOV.md](REVIEW_12NOV.md).
 (core1 50.9, Hilbert core 51.0, the nets 37–48, the teacher 38.2) against 52–71 % on the other nine; the mix is 48.6
 against 73.2, and the stages add 5 points for P04 and 10 for the others (chain 53.6 against 83.1). No re-weighting of
 families can rescue a P04-like person; the information is absent from every model trained on other people.
+
+## 68–71. System-level wave (written 12 Nov 09:35 UTC, before any result)
+
+**Why.** The review of 12 Nov ([REVIEW_12NOV.md](REVIEW_12NOV.md)) names four self-made limits: one chain, a baseline
+tuned on its test people, new members judged through the old stages at one fixed weight, and information only from
+our ten people. The user's instruction, 12 Nov: address each with a build before any upload. Results are reported for
+new people with a person-bootstrap interval, P04 and P10 apart.
+
+### 68. TWOSYS: two complete chains on disjoint members, fused at the end (code `studies/12nov/twosys.py`)
+
+Chain A = the two cores (+ teacher), chain B = the eight net slots (+ teacher), each with its own rebalancing,
+SessionEM and TSEM; outputs multiplied (equal exponents; also 0.7/0.3 both ways). Mechanism: the stages amplify
+session-consistent error inside one chain; two chains with different members may err on different sessions.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Chain A alone / chain B alone, new | 77.5 (75–79) / 77.5 (75–79.5), against 80.2 |
+| Fused, against the single chain, new | −0.3 (−1.2 to +0.6) |
+| Lever | ≥ +0.5 on new with the bootstrap interval above 0; otherwise the single chain stays |
+
+### 69. FAIR: stored candidates re-screened with the chain co-tuned (code `replay/fair.py`)
+
+Every stored member that was closed at one weight against shipped constants (SessionBN versions of eight net
+families, the augmentation and rest-class nets of 11–12 Nov, the two coupling cores, the eye-movement nets) is added
+at weight 0.5, 1 or 2 while rebalancing strength, both stage strengths and the slot and teacher weights are re-chosen
+(81 × 3 settings). Cross-fit: settings chosen on one half of the people, scored on the other; the baseline gets the
+same procedure without the candidate. Null: a duplicate of an existing family as the candidate.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Mean nested gain over the candidates, new | −0.1 (−0.5 to +0.3) |
+| Candidates with a nested gain ≥ +0.8 and above the null | 1 (0–3) of about 30 |
+| Lever | such a candidate that repeats on the other seed sets goes into a rebuilt mix |
+
+### 70. SEQ: a learned sequence stage as a second design (code `studies/12nov/seqstage.py`)
+
+A small causal recurrent model reads, window by window, the mix's log posterior, the 128 components and the 48
+gaze and event features of a session and outputs the class; trained on the other nine people with random
+orthogonal transforms of the components per pseudo-session, random window subsets and class-share shifts, so that it
+must learn the adaptation rule inside the session and not fixed directions. It replaces rebalancing, SessionEM and
+TSEM. Caveat: the training people's mix posteriors come from folds whose models saw the held-out person.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Learned stage alone, new | 77 (72–81), against 80.2 for the hand-built stages |
+| Product with the chain, against the chain, new | −0.3 (−2 to +0.7); P04 0 (−4 to +6) |
+| Lever | ≥ +0.5 on new with the interval above 0, or ≥ +5 on P04 with nobody else below −1 |
+
+### 71. FMVIEW: frozen foundation-model embeddings as a view of the session stage (code `studies/12nov/fmview.py`; extraction `studies/12nov/fmemb.py` on Galvani)
+
+Embeddings from pretrained encoders without any fine-tuning on our people, reduced to components fitted on the
+other nine people, used as a second TSEM view after the first and as extra columns of the first.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Linear probe on the embeddings, leave one person out | 45 (38–55) |
+| Second TSEM through the embedding view, new | 0.0 (−0.8 to +0.8) |
+| Lever | ≥ +0.5 on new with the interval above 0 |
+
+| Item | Observed | Verdict |
+|---|---|---|
