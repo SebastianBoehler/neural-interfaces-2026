@@ -1007,3 +1007,18 @@ the dose is re-read on all six bases: β 0.05, 0.075, 0.10, 0.15, 0.20.
 
 Verdict: hit. β 0.15 is +0.15 above 0.10 (rule: ≥ +0.3), and its extra is P04's. **The package keeps β 0.10.**
 
+### 96. INPOP2: personal nets and the stage together, for ten people (written 12 Nov 13:23 UTC, before any result; code `studies/12nov/inpop3.py`)
+
+**Why.** User, 12 Nov: how can the leaders score so high? The one information source we found that reaches the hard
+windows is a person's own labelled data (§88: 78 % against 61 %). Returning people have it. If the sealed set holds
+many returning sessions (the withdrawn cohort text said 43 %), a strong personal system is the most plausible place
+for a +3 board margin. Dev measures it on two people only; the §82 proxy covers ten (within a session). Here: the
+in-population chain with the nets replaced by their personally fine-tuned versions (stored §32 outputs, head-only
+`pfh60` and full `pf60`, fitted on runs 1–3), with and without the v5.1 stage.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| PFT nets + stage against the stage alone, ten people | +1.0 (0 to +2.5) |
+| People ahead | 6 of 10 |
+| **Reading** | ≥ +1.5 with ≥ 7 of 10 ahead → the personal-net component is built for all ten people now, ready for upload 2 if upload 1 shows the returning branch pays |
+
