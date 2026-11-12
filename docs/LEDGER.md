@@ -1411,7 +1411,7 @@ functional_call + vmap, one augmentation per seed).
 | Projected full recipe with vmap per family (12 fb, 6 fbraw, 6 fbl, 6 sinc), per 190-window session | 60 s (25–150 s) |
 | **Reading** | ≤ 25 s per unrouted session (60 sessions within about 25 min) → the full recipe is runtime-feasible and §106's cuts are not needed; otherwise the cheapest form passing §106's rule is costed with the same bench |
 
-| §107 item (22:33 UTC; Leonardo A100 jobs 64312661 bench2, 64314298 bench3; seconds per Adam step, t = 30 / 110 / 190) | Observed | Verdict |
+| §107 item (22:29 UTC; Leonardo A100 jobs 64312661 bench2, 64314298 bench3; seconds per Adam step, t = 30 / 110 / 190) | Observed | Verdict |
 |---|---|---|
 | trace1 (dev's trained parameters, clean forward without grad), FBCNet | 0.046 / 0.056 / 0.069: 0.95× the first bench at t = 110 | Miss (predicted 0.4×): the traces carry a fixed ~37 ms per step (TorchScript executor) |
 | eager1, CPU augmentation as in dev / GPU augmentation | FBCNet 0.016 / 0.013 at t = 110; FBLight 0.016 / 0.006; SincShallow 0.032 / 0.031; the CPU augmentation alone 3–15 ms | eager is 3–4× cheaper than the trace |
