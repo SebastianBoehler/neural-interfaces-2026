@@ -199,7 +199,7 @@ The ranking of our packages is unchanged. The step increments still transfer:
 - TSEM step: +3.57 sealed for +3.8 dev (0.94×).
 - Routing + GEB: +0.55 sealed for the honest +0.75 dev (0.73×; it was +0.43 before the fix).
 
-This points to a uniform drop from the backend fix, not a penalty on our order-dependent stages. route3geb's rescored
+This points to a uniform drop from the backend fix, not a penalty on our order-dependent stages. (12 Nov: the drop was not uniform across our packages (−0.72, −1.17, −1.05). Ten stream cuts and orders were fingerprinted against these numbers and none fits; the cause is still unknown. On 10 Nov the organisers also removed the chronological-order guarantee from the FAQ. Ledger §62.) route3geb's rescored
 duration rose by 1,045 s while the TSEM package's did not. The run is above the nominal 3,600 s limit yet finished,
 so worker speed varies and runtime headroom matters.
 

@@ -14,7 +14,8 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
   0.817, **0.816 (us)**, 0.815. Third place needs +1.0, first place +3.0, and the field keeps moving.
 - **Deadline:** 21 Nov 2026, 22:59 UTC. **Uploads:** 7 per team, 1 per UTC day; 4 used, **3 left**.
 - **Candidate ready, not uploaded: `cand_v51_own`** (v4.1 + an own-space personal stage for recognised returning
-  people). Dev +0.89 J on six bases; sealed estimate about 0.822 (0.820–0.825), i.e. rank 5–7 on the 11 Nov board.
+  people). Dev +0.89 J; **sealed estimate about 0.819 (0.817–0.824)**, revised down on 12 Nov after an independent
+  review: the dev gain is P04's, and P04 is 3 of about 106 sealed sessions (ledger §63).
   Checked, replayed on A100 and in the worker image, independently reviewed, timed. See §3 and `SEALED_UPLOADS.md`.
 - **Honest standing:** the night of 11–12 Nov scored about 65 pre-registered arms. One lever passed (the stage above).
   Nothing for new people moved, and no +3 source is known (§5, §9).
@@ -35,6 +36,10 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
   sealed submission: it costs a slot. Codabench has a bot check; the user opens the page in Chrome.
 - **Data:** public datasets are allowed if their terms permit. Scherer 2015 (CC BY-NC-ND) was cleared by the
   organisers on Discord on 11 Nov; it must be declared in the method write-up.
+- **Order (changed 10 Nov):** the organisers removed every guarantee that windows arrive chronologically within a
+  session ("the same evaluation order is used for all submissions"; commit 8734b2f6). Our chain loses 3–5 points
+  under a re-ordering. Ten cuts and orders were fingerprinted against our four sealed numbers and none fits, so the
+  sealed order is still close to acquisition order, but nothing in the rules keeps it so (ledger §62).
 - **Cue-order regularity** (Graz runs follow a weakly shuffled WORD → SUB → MI cycle): not raised with the organisers;
   it goes into the final method write-up (user decision, 11 Nov).
 
@@ -64,7 +69,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 | Package | Where | Status |
 |---|---|---|
 | `cand_v41_bio` (routing v4.1) | `runs/upload/sealed_cand_v41_bio.zip` (`53fc1679…`); code `submissions/ensemble_v4/submission.py` (`45f9f2fd…`) | **Uploaded, best** |
-| `cand_v51_own` (v4.1 + own-space stage) | Galvani `runs/sealed/cand_v51_own/` (33 files; `weights.npz` `e88bc3b3…`); code `submissions/ensemble_v5/submission.py` (`34eba3b0…`) | **Ready, not staged as a ZIP, not uploaded** |
+| `cand_v51_own` (v4.1 + own-space stage; sealed estimate +0.3, range 0.05–0.8) | Galvani `runs/sealed/cand_v51_own/` (33 files; `weights.npz` `e88bc3b3…`); code `submissions/ensemble_v5/submission.py` (`34eba3b0…`) | **Ready, not staged as a ZIP, not uploaded** |
 | Fast package (v3 outputs, half the runtime) | `submissions/ensemble_fast/submission.py` (`ccbce506…`) | Base of v4.1; not uploaded by itself |
 | route3geb (v3) | code `submissions/ensemble/submission.py` (`dacee85a…`) | Uploaded 7 Nov, 0.8135 after rescoring |
 
@@ -95,6 +100,11 @@ B2_s1 79.7214, B2_s2 80.2093) and `OK`. That is the v3 chain. The uploaded v4.1 
   Galvani in `runs/diag/replay_data/`).
 - To test a member: `A.EXTRA[name] = {proto: P}` then `A.system(base, fams, extra=[(name, w)])`; see
   `studies/11nov/ttt/score.py` for replacing a member slot.
+
+**The six bases are not independent** (ledger §63): B2_pool is the mean of B2_s012 and B2_s345, B2_s012 the mean of
+the three single seeds, and only the five SessionBN slots differ between them. "Confirmed on fresh bases" means
+robust to the net seeds, nothing more. The uncertainty that matters is across people: report "new" with a person
+bootstrap interval (standard error 0.5–1.1 for a typical change) and P04 and P10 separately.
 
 **What dev numbers are worth on the sealed set:**
 - Noise: 8 permuted-view null arms gave −0.22 to +0.18 J. Treat anything below +0.3 as noise.
@@ -192,7 +202,8 @@ more, with a runtime cost of roughly 20–40 min that must be replayed on A100 a
 ## 9. Decisions waiting for the user, and rules they set
 
 1. **Upload `cand_v51_own` or hold.** It is the next candidate and also the only way to measure the returning branch
-   on the eight single-session people. The user said on 12 Nov (several times) to keep iterating before another
+   on the eight single-session people. Reading rule fixed in ledger §63: ≥ +0.4 over v4.1 → remaining uploads go to
+   the returning branch; ≤ +0.15 → that branch stops. The user said on 12 Nov (several times) to keep iterating before another
    upload; no go-ahead has been given. Every upload needs the user's explicit go-ahead and a live phase and quota check.
 2. **The two leading accounts appear to belong to one lab** (§5). Whether to raise that with the organisers is the
    user's call.

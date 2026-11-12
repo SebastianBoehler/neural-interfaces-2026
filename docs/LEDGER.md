@@ -283,3 +283,67 @@ harness with the members recomputed) rejected all three; O6 is new. My prior tha
 
 | Item | Observed | Verdict |
 |---|---|---|
+| O1 whole-session shuffle (B2_pool; B2_s345): plain SessionEM, plain TSEM, v3, v4.1 − v3 | −1.84, −2.61, −3.99, +1.94; −1.81, −2.66, −3.79, +1.93 | Not supported |
+| O2 shuffle inside each run | +0.09, +0.02, −1.13, +0.80; +0.32, −0.27, −1.06, +0.40 | v3 fits (−1.05); the two plain levels do not: not supported |
+| O3 runs in random order | −1.29, −2.57, −4.01, +1.30; −0.91, −2.38, −4.09, +1.82 | Not supported |
+| O6 sorted by onset across runs | −2.08, −3.04, −4.76, +1.90; −2.14, −3.29, −4.82, +2.24 | Not supported |
+| Sealed, after the fix | −0.72, −1.17, −1.05, +0.27 | — |
+
+**Reading of §62 as a whole (12 Nov 04:08 UTC; logs `runs/segfp*_12nov.log`).**
+- **No cut or order tested reproduces all four sealed numbers.** Ten variants across four families (per interface,
+  per task, per run, merged per person; grouped by interface; shuffled in the session, in the run, runs permuted,
+  sorted by onset). Any strong re-ordering would have cost our routed package three to five points; it lost 1.05.
+  So the sealed windows are still delivered in, or close to, acquisition order per session, and the drop of 10 Nov
+  has another cause (data or scoring), common to all teams.
+- **The risk is real even though it has not materialised:** since 10 Nov the organisers guarantee no order, and our
+  chain loses 3–5 points under a re-ordering. Nothing in the rules stops the final evaluation from using another
+  order. This goes into STATE §2 as a hard bound.
+- The stage-level "match" of §62 is a lesson in fingerprinting with two numbers: it met a pre-set tolerance on both
+  bases and was wrong. The bases are not independent (§63), which made "both bases" worth less than it sounded.
+
+## 63. Independent review of the approach: what is accepted and what changes (12 Nov 04:08 UTC)
+
+A reviewer with the record and the code, and without my reasoning, ran five replay diagnostics of its own
+(scratchpad `d1.py`–`d5.py`). Findings I checked or accept, and what they change:
+
+1. **The dev "bases" are not independent.** B2_pool is the mean of B2_s012 and B2_s345, and B2_s012 the mean of the
+   three single seeds; only the five SessionBN slots differ (5 of 15 of the mix weight). "Six of six bases" and "4 of 4
+   fresh" mean subsets of the same nets on the same people. The ±0.3 yardstick measures seed noise; the uncertainty
+   that matters is across people: per-person changes have a standard deviation of 1.5–3.5, so the standard error of a
+   "new" change is 0.5–1.1, and "seen" is two people. **From now on results are reported as new (with a person
+   bootstrap interval), P04 and P10 separately, not as "n of 6 bases".**
+2. **My sealed estimate for cand_v51_own was too high.** P04 is 30 % of dev J and 3 of about 106 sealed sessions.
+   Sealed gain ≈ 0.10 (P04's three sessions) + 0.33 × the gain of the eight single-session people. If they are like
+   P10 the total is about +0.1; if like P04 about +0.7 to +1.2. v4.1's +0.27 points to the P10 side; the ten-person
+   proxies point to the P04 side, but the proxy got both signs wrong where it can be checked against reality (the
+   personal head: proxy P04 −1.7 and P10 +8.3, real +4.7 and 0.0). **Revised estimate: +0.3 (0.05 to 0.8), a sealed
+   score of about 0.819 (0.817 to 0.824).** An upload is still worth it: the board keeps the best score, losses are
+   bounded (the stage moves log-odds by at most about 0.7 nats), and it is the only measurement of that block.
+   **Reading rule, fixed now:** v5.1 − v4.1 ≥ +0.4 → the remaining uploads go to the returning branch (personal nets,
+   more own-space); ≤ +0.15 → the returning branch stops; in between → no further effort there, keep the package.
+3. **"Only personal labels add" holds in a narrower form.** A synthetic calibrated member with *independent* errors
+   passes through the chain at about 0.55 of its mix-level gain (70 % accuracy at weight 3: new +3.1). Real members
+   trained on the same nine people score about a point worse than independent noise of equal accuracy: their errors
+   are person-systematic and the stages amplify session-consistent error. So the rule is "stop adding members trained
+   on PROTEUS's people; screen any candidate against the synthetic curve", and the open door is members from another
+   population (the teacher is 50 % alone and carries weight 5).
+4. **"New people are limited by the number of training people" is a core1-alone result.** core1 softened to the
+   mix's confidence reaches 72.3 after the stages against the mix's 80.2; standalone core accuracy barely predicts
+   chain value. The core-level gates of §46b, §47, §49, §53 and COREFUSE filtered on the wrong quantity, and §48
+   measured the slope where the stages add 1–3 points, not 10. Status: unproven for the system, and not actionable
+   (no more people exist). Nothing more is spent on it.
+5. **The position effects are P04's.** Without P04, new-person accuracy by window is 72.7 (0–15), 80.6, 82.4, 82.3,
+   86.0, 84.3 (150+): no plateau and no late drop. The first 15 windows, where no stage is active, cost about 0.9
+   points; for new people only population information exists there.
+6. **Contradictions in the record, corrected:** the "uniform drop" reading of the rescoring (our packages moved by
+   −0.72, −1.17 and −1.05; tested in §62, unexplained); §47 said ds007554 was not fetched, but its EEG files were
+   downloaded to Galvani on 2 Nov and tested as a teacher corpus (+1.67 alone, −0.98 in the chain; OVERNIGHT_2NOV);
+   11 Nov §14's pre-set rule said the returning-person line stops at +0.267, and v5.1 was built anyway (under §52 that
+   is allowed, but it was not said at the time); 11 Nov §32 calls the within-session proxy an upper bound, §42 found
+   cross-session gains twice as large.
+
+**The review's experiments, in its order:** (1) upload v5.1 as the measurement (the user's decision); (2) the
+segmentation fingerprint (done, §62: nothing matches); (3) a ten-person proxy with the person's first runs inside the
+population (not built: the nets need retraining per fold); (4) arithmetic-versus-rest and word-versus-rest heads on
+external trunks as separate members instead of merged into the teacher (to check against the October archive
+first); (5) warm-starting the personal head at recognition (≤ +0.2); (6) TTT only if the returning branch is dead.

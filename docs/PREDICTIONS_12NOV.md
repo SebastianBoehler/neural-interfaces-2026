@@ -618,7 +618,7 @@ refuted if ≤ +0.3 at both. It counts toward "any generator ≥ +1.5" (now 30 %
   repository and site history): nm000290 v1.0.0 (10 people, 14 sessions) is the only release; the "coming soon"
   wording was about that first release. Rule 04 allows public datasets whose terms permit competition use, declared
   in the write-up. ds007554 is CC0 (30 people, 4.5 GB; per session one 3-minute arithmetic block and one arm-imagery
-  block with nominal event times); the MEG set with our tasks is CC0, 116 GB, no EEG. Neither is fetched.
+  block with nominal event times); the MEG set with our tasks is CC0, 116 GB, no EEG. Neither was fetched in this session. (Correction, §63: the EEG files of ds007554 were already downloaded to Galvani on 2 Nov and tested as a teacher corpus: +1.67 alone, −0.98 in the chain.)
 
 **Literature pass and a fifth generator (12 Nov 01:40 UTC, before any §47 or §49 result).** A search of the
 few-subject literature (primary sources read where marked in the session notes) found:
