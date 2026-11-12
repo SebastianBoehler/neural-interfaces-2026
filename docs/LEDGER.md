@@ -874,3 +874,14 @@ session twice in a row and score each window from the second pass, when the stag
 | Share of the gain in the first fifth | 60 % (40–80) |
 | Reading | ≥ +1.5 → a faster causal warm-up is worth a study; ≤ +0.5 → warm-up is not the loss |
 
+| §90 item (11:27 UTC; `runs/warmup_12nov.log`; grid chain, new people) | Observed | Verdict |
+|---|---|---|
+| Window accuracy, first fifth / last fifth (causal) | 69–71 / 75–76 | Miss on the last fifth (predicted 84: window accuracy, not balanced) |
+| Hindsight stages, gain, six bases | +0.35 to +1.78; **mean +0.92 [+0.20, +1.60]** | Inside the range (+1.5, +0.5 to +3), lower half |
+| Where | first fifth +3 to +5 points of window accuracy; last fifth ±0.5 | Hit: all of it is the warm-up |
+
+Reading: a perfectly warmed-up session stage would be worth about +0.9 for new people (core1's own recentring warm-up
+is not included; its features are cached). Between the two reading marks: a causal warm-up can recover only part of a
++0.9 bound, so it is a small lever (≈ +0.3), not a breakthrough. P05 loses with hindsight (−2.6 to −4.7): their
+session changes over time, and late information misleads early windows.
+
