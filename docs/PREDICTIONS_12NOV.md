@@ -1,4 +1,4 @@
-# Predictions and results, 11–12 Nov night session (§34–§64)
+# Predictions and results, 11–12 Nov night session (§34–§65)
 
 The full record of the session that started on 11 Nov 2026, 21:50 UTC, from the cleanup baseline `05d2335`.
 Every section was written and committed before its result existed unless it says "exploratory"; the git history is
@@ -1498,3 +1498,31 @@ OVERNIGHT_2NOV "late fusion closed"): three second teachers (m7r4, ru3, a raw-in
 first moved the dev score by −0.1 to +0.1 (77.4–77.9 against 77.4–77.8). So "a second other-population member" is not
 untested; what remains untested is narrower: arithmetic-versus-rest and word-versus-rest heads as members separate
 from the motor-imagery teacher. With the second-teacher result at zero, its prior is low (about 10 %); not queued.
+
+## 65. IMPOSTOR: what a false accept costs with the stage (written 12 Nov 06:07 UTC by `date -u`, before any result; code `studies/12nov/impostor.py`)
+
+**Why.** The review (§63) names the identity gate's false accepts as a way for cand_v51_own to lose. The gate accepts
+about 1.9 % of new-person sessions by design; on dev none is routed, so the cost has never been measured.
+
+**Test.** Every new-person session is forced to route, from window 10 at ramp 1, to the public person the identity
+gate scores highest for it (the most plausible impostor). v4.1 (personal head of the wrong person) and v5.1 (plus the
+wrong person's own-space stage) against the unrouted chain; exploration bases; per person.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| v4.1 under forced impostor routing, new people | −2.0 (−0.5 to −4.0) | — |
+| Extra loss from the stage (v5.1 − v4.1, both forced) | −0.5 (0 to −1.5) | < −3: the stage makes a false accept much worse |
+| Expected sealed cost of the stage through false accepts (1.9 % × 57 % × the extra loss) | about −0.005 | worse than −0.03 |
+
+| Item | Observed | Verdict |
+|---|---|---|
+| v4.1 under forced impostor routing, new people (B2_pool / B2_s345; all 14 sessions forced) | −1.58 / −1.58 | **Hit** (predicted −2.0) |
+| Extra loss from the stage | −0.59 / −0.62 (v5.1 forced: −2.17 / −2.20) | **Hit** (predicted −0.5); not refuted |
+| Spread across people with the stage | from +5.8 (P08 routed to P01) to **−12.6 (P05 routed to P09)**; 7 of 10 people within ±5 | One person loses heavily |
+| Expected sealed cost of the stage through false accepts | 1.9 % × 57 % × 0.6 ≈ **−0.007** | Negligible (predicted −0.005) |
+
+**Reading (12 Nov 06:05 UTC; log `runs/impostor_12nov.log`).** A false accept costs a new-person session about 1.6
+points with v4.1 and about 2.2 with the stage; one person in ten would lose 12. At the gate's false-accept rate the
+stage's share of that is under a hundredth of a point on the sealed score. False accepts are not a reason against
+cand_v51_own. What can still make it disappoint is only what §63 names: the eight single-session people responding
+like P10.

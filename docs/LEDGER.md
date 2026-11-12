@@ -10,7 +10,7 @@
 - New runs are pre-registered at the bottom of this file **before** they are scored (time stamps from `date -u`): mechanism, numeric prediction
   with an 80 % range, and the result that would refute it. Fill in the outcome and the verdict (hit, miss, refuted)
   afterwards, including for misses.
-- Sections §1–§33 are in [PREDICTIONS_11NOV.md](PREDICTIONS_11NOV.md) (the record of 11 Nov); §34–§64 are in
+- Sections §1–§33 are in [PREDICTIONS_11NOV.md](PREDICTIONS_11NOV.md) (the record of 11 Nov); §34–§65 are in
   [PREDICTIONS_12NOV.md](PREDICTIONS_12NOV.md) (the night of 11–12 Nov). A section moves there once it is scored. Earlier
   closures are in [REVIEW_5NOV.md](REVIEW_5NOV.md). Scripts cited there as `runs/archive_scratch_11nov/<path>` are
   tracked as `studies/11nov/<path>`; the chain replay is `replay/`.
@@ -136,6 +136,7 @@ None on 12 Nov 06:05 UTC.
 |---|---|
 | **Independent review of the approach:** the six bases are not independent; report per person with a bootstrap interval; the v5.1 sealed estimate is +0.3 (0.05 to 0.8); upload reading rule | §63 |
 | The 10 Nov rescoring: ten stream cuts and orders fingerprinted, none fits; the organisers removed the chronological-order guarantee | §62 |
+| A false accept costs a new-person session 1.6 points with v4.1 and 2.2 with the stage; under 0.01 on the sealed score at the gate's rate | §65 |
 | With its own labels a session holds 81–82 % in session-own representations, 74.9 % in the population PCs; P04 reaches 74–80 % (not a low-signal person) | §36 |
 | New-person accuracy rises +8 points per doubling of training people (core1), +7.3 after the stages on core1 alone; the nets flatten from 7 to 9 people | §39, §48, §56 |
 | Reducing core1's 44k features to 512 PCs costs four points | §49 |
@@ -164,21 +165,3 @@ None on 12 Nov 06:05 UTC.
 | Item | Observed | Verdict |
 |---|---|---|
 -->
-
-## 65. IMPOSTOR: what a false accept costs with the stage (written 12 Nov 06:07 UTC by `date -u`, before any result; code `studies/12nov/impostor.py`)
-
-**Why.** The review (§63) names the identity gate's false accepts as a way for cand_v51_own to lose. The gate accepts
-about 1.9 % of new-person sessions by design; on dev none is routed, so the cost has never been measured.
-
-**Test.** Every new-person session is forced to route, from window 10 at ramp 1, to the public person the identity
-gate scores highest for it (the most plausible impostor). v4.1 (personal head of the wrong person) and v5.1 (plus the
-wrong person's own-space stage) against the unrouted chain; exploration bases; per person.
-
-| Check | Prediction (80 % range) | Refuted if |
-|---|---|---|
-| v4.1 under forced impostor routing, new people | −2.0 (−0.5 to −4.0) | — |
-| Extra loss from the stage (v5.1 − v4.1, both forced) | −0.5 (0 to −1.5) | < −3: the stage makes a false accept much worse |
-| Expected sealed cost of the stage through false accepts (1.9 % × 57 % × the extra loss) | about −0.005 | worse than −0.03 |
-
-| Item | Observed | Verdict |
-|---|---|---|
