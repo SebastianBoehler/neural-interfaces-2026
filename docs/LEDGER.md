@@ -442,3 +442,14 @@ routing, the identity gate and SessionBN reweighting. Test: the full routed v4.1
 | λ chosen on one half of the new people, scored on the other, mean of the two directions and six bases | +0.2 (−0.3 to +0.6) |
 | Lever | cross-fit ≥ +0.25 with seen not below −0.5 → λ goes into the package with whatever else is built |
 
+| §75 item | Observed | Verdict |
+|---|---|---|
+| λ 0.20 against 0.15, new, per base | +0.64 (pool), +0.30 (s345), +0.03, −0.04, −0.05, +0.03 | the two exploration bases were the lucky ones |
+| Mean of six bases, new | λ 0.12 −0.45; **λ 0.20 +0.15 [−0.12, +0.41]**; λ 0.25 +0.02; λ 0.30 −0.26 | **Miss** (predicted +0.40) |
+| Seen at λ 0.20 / 0.25 / 0.30 | −0.12 / −0.91 / −1.48 | Hit |
+| Cross-fit over people halves | −0.07 (−0.79 to +0.52) | **Refuted** (< +0.25): λ 0.15 stays |
+
+Lesson recorded for every view result above: B2_pool and B2_s345 sit high for stage changes; the other four bases
+(only the SessionBN slots differ) halve or erase the effect. **NETVIEW2 (§73) is therefore reported on all six bases
+(changed in the script before any fresh result was scored); B2_pool stays the pre-registered primary.**
+

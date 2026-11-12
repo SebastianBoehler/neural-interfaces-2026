@@ -23,7 +23,7 @@ def boot(d):
 
 
 V = {s: view(s) for s in seeds}; print(f"{arch} seeds {seeds} ({p}): view dims " + " ".join(str(v.shape[1]) for v in V.values()), flush=True)
-for bn in env.EXPL:
+for bn in env.BASES:  # B2_pool primary (s73); the other five reported as well (s75 lesson)
     base = A.system(bn, A.FAMS)["out"][p]; ref = G.scores(base, p); print(f"{bn}: routed chain {ref.mean():.2f}", flush=True)
     for lam in LAMS:
         D = []
