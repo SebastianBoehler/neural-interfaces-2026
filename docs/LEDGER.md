@@ -978,6 +978,35 @@ v3 chain, exploration bases; everything else unchanged (routing still uses its o
 | k = 64 | −0.5 (−1.5 to 0) | — |
 | P(≥ +0.5 on both exploration bases) | 15 % | — |
 
+| Item | Observed (B2_pool / B2_s345) | Verdict |
+|---|---|---|
+| Harness | my PCs correlate 1.0000 with the stored ones in every one of the 128 columns; k = 128 reproduces the chain exactly (dJ 0.00) | Valid |
+| k = 64, λ 0.15 / 0.10 / 0.07 | −1.30, −1.23, −1.29 / −1.25, −1.04, −1.32 | **Hit** (predicted −0.5, range −1.5 to 0) |
+| k = 256 | −0.47, −0.14, −0.60 / −0.14, −0.17, −0.45 | Negative |
+| k = 512 | −0.08, −0.15, −0.13 / −0.05, **+0.41**, −0.22 | Mixed |
+| k = 1024 | +0.04, +0.03, −0.32 / +0.02, −0.18, −0.21 | About zero on dJ |
+| k = 1024, λ 0.15, by protocol | **new +0.61 / +0.59** (8 and 7 of 10 people ≥ 0; both halves positive on B2_pool, G1 +0.85 and G2 −0.11 on B2_s345); **seen −0.54 / −0.54** | Not pre-registered as a split |
+| Best (k > 128, λ) minus the shipped setting, dJ | no setting ≥ +0.5 on both bases; the best consistent one is +0.04 / +0.02 | Inside the range (predicted +0.3, −0.4 to +1.0); not refuted by the letter of the rule (not ≤ 0 on both), no pass |
+
+**Reading (12 Nov 01:45 UTC; log `runs/tsemk_12nov.log`; PCs cached in `runs/tsemk_pcs.npz`).**
+- 128 components are the optimum for the stage as one setting: fewer is clearly worse, more is neutral on dJ.
+- **But the two halves of dJ move in opposite directions at k = 1024: new people +0.6 on both bases, returning
+  sessions −0.5 on both.** The package runs recognised returning people through a second tail with its own TSEM, so
+  the two can differ. This split was not pre-registered; it is confirmed or dropped by §54b.
+
+**54b. Confirmation, written 12 Nov 01:46 UTC before any fresh-base result (`TSEMK_SPLIT=1 … tsemk.py`).** TSEM with
+1,024 components and λ 0.15 for new-person sessions; the shipped 128 components for the seen protocol (unchanged, so
+its change is exactly 0). Four fresh bases.
+
+| Check | Prediction (80 % range) | Refuted if |
+|---|---|---|
+| New people, mean of four fresh bases | +0.45 (+0.1 to +0.8) | mean < +0.3, or fewer than 3 of 4 bases > 0 |
+| People ≥ 0, mean | 7 of 10 (6–9) | < 6 |
+| Both halves (G1, G2) ≥ 0 on the mean | yes | either half < −0.2 |
+
+Pass → a v5 variant with the larger TSEM view for the unrouted tail is specified (new +0.45 is dJ +0.22, about +0.15
+sealed, with a runtime cost to be measured).
+
 ## 55. SEQCAL: the cue-order prior with a learned fusion (written 12 Nov 03:20 UTC, before any result; code `studies/12nov/seqcal.py`)
 
 **Why.** §9 closed the Graz cue-order prior at ≤ +0.4 J with one temperature and one weight; §52 re-read: a fusion

@@ -29,6 +29,16 @@ REF = {p: Z[f"pc128|{p}"].copy() for p in A.PROTOS}
 for p in A.PROTOS:
     c = [abs(np.corrcoef(REF[p][:, j], PC[p][:, j])[0, 1]) for j in range(128)]
     print(f"harness {p}: |corr| of my PCs with the stored ones, columns 0-127: min {min(c):.4f}, median {np.median(c):.4f}", flush=True)
+if os.environ.get("TSEMK_SPLIT"):  # s54b: 1,024 components for new-person sessions only, fresh bases
+    for bn in env.FRESH:
+        for p in A.PROTOS:
+            Z[f"pc128|{p}"] = REF[p]
+        base = A.system(bn, A.FAMS)["out"]; Z["pc128|all_loso"] = PC["all_loso"][:, :1024].astype(np.float64); out = A.system(bn, A.FAMS)["out"]; r = SC.compare(out, base)
+        print(f"SPLIT {bn}: new {r['new']:+.2f} seen {r['seen']:+.2f} | G1 {np.mean([r['dn'][SC.PEOPLE.index(q)] for q in SC.G1]):+.2f} G2 {np.mean([r['dn'][SC.PEOPLE.index(q)] for q in SC.G2]):+.2f} | new>=0 {r['npos']}/10 | "
+              + " ".join(f"{q[1:]}:{v:+.1f}" for q, v in zip(SC.PEOPLE, r["dn"])), flush=True)
+    for p in A.PROTOS:
+        Z[f"pc128|{p}"] = REF[p]
+    sys.exit(0)
 for bn in env.EXPL:
     for p in A.PROTOS:
         Z[f"pc128|{p}"] = REF[p]
