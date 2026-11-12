@@ -755,3 +755,28 @@ on the chain's error pattern and survives. This is the third time a within-sessi
 returning branch (§32, §41, §84); the cross-session behaviour of a personal model is only measured on P04, P10 and
 the sealed set.
 
+### 86. HARDVIEW: another sensor view, consulted on the hard windows (written 12 Nov 11:20 UTC, before any result; code `studies/12nov/hardview.py`)
+
+**Why.** User, 12 Nov, after §83: try another sensor view for the hard windows. §83 says a gain for new people needs
+information about the windows the chain finds hard that does not come from the chain. The 6 Nov multi-view work asked
+whether views add to TSEM over a whole session (≤ +0.5 oracle); it never asked about the hard windows alone.
+
+**Views** (no EOG channels exist; the frontal and temporal electrodes carry eye and muscle activity), each a
+population classifier (leave one person out; features z-scored causally within the session; logistic regression):
+V1 gaze/event features (48, as SessionEM); V2 muscle: log power 30–40 and 40–58 Hz per channel (82); V3 log band
+power per channel, nine bands (369); V4 temporal profile: log broadband power in eight half-second segments per
+channel (328); V5 slow time courses (as the S member). **Hard windows:** the third of each session's windows with the
+lowest top posterior of the routed chain (a causal per-window quantity).
+
+**Fusion:** out ∝ chain × P_V^(w · g), g = 1 when the chain's top posterior is below c; w ∈ {0.25, 0.5, 1},
+c ∈ {0.5, 0.6, 1.01} (1.01 = every window). The arm (view, w, c) is chosen on the two exploration bases and scored
+on the four others.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Chain accuracy on its hard windows, new people | 55 (48–62) |
+| Best view on the hard windows | 42 (37–48) |
+| Best view on the hard windows where the chain is wrong (chance 50 % among the two other classes) | 28 (20–35) for the true class |
+| Chosen arm on the four fresh bases, new | +0.1 (−0.3 to +0.5) |
+| **Lever** | ≥ +0.3 on the fresh four with the person-bootstrap 10th percentile above 0 |
+
