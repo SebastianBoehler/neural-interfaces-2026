@@ -362,5 +362,9 @@ three members fitted on j's public sessions in j's own space). Nothing else chan
     first build), files unchanged; 204.4 s and 103.7 s (different nodes);
   - paired timing 3090349 (one A100 node, worker image): cand_v41_bio 118.5 s, cand_v51_own
     123.7 / 122.0 s, cand_v41_bio again 109.7 s (all four runs in): **1.08×**, so roughly 20 min sealed.
+  - montage-reordering check 3090406 (`scripts/check_perm_stage.py`, the path the review could not cover): four
+    sessions, 758 windows, 718 with the stage active, streamed once in training channel order and once with the
+    channels permuted and announced through `ch_names`: labels equal, staged windows equal, maximum output
+    difference 0.0. **Passed.**
   The candidate is replayed, checked, reviewed and timed. Not staged as a ZIP, not uploaded; an upload needs the user's
   go-ahead and a live phase and quota check.
