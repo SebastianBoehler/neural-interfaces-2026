@@ -1313,3 +1313,16 @@ FBLight's three seeds had landed): `squeue -j` on an array's master id stops mat
 failed squeue also read as "finished". That partial score (one family) is not a result and is not used. The collector
 now waits by job name and treats a failed squeue as "still running".
 
+| §101 item (21:14 UTC; `runs/ttt5_score_12nov.log`, full run; six seeds per family, one task per A100) | Observed | Verdict |
+|---|---|---|
+| fixA (fix20 replicated), new, six bases | **+0.36** (+0.15 to +0.49 per base); fix20 earlier +0.30 | replicates (within 0.2) |
+| fixS / fixLR | **+0.37** (+0.24 to +0.56) / **+0.36** (+0.04 to +0.55; per-base interval above 0 on 3 of 6) | best arms |
+| fixW / fix40 / fixPL / fixT | +0.27 / +0.19 / +0.01 / −0.18 | the consistency term matters (fixPL ≈ 0); confident-only labels hurt |
+| Seen (would be gated off in a package) | −0.7 to −1.8 | — |
+| **Lever** (≥ +0.4 with the interval above 0) | best mean +0.37 | **Not met, narrowly** |
+
+Reading: augmented-input fine-tuning with the consistency term is a small, *replicated* gain for new people of about
++0.35 (two runs, three variants, six seeds, positive on every base), about +0.2 on the board if new people are 57 %
+of cells. It misses the pre-set bar by 0.03–0.04 and costs 20–40 minutes of runtime per sealed run; under §52 it is
+recorded as "positive, small, replicated, not built". A package would run it only on sessions the gate does not route.
+
