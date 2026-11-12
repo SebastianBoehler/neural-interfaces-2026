@@ -1656,3 +1656,12 @@ switches at window 60 to the predicted best (or stays if no gain is predicted). 
 | Learned selector from window 60 | +0.05 (−0.3 to +0.3) |
 | **Reading** | ≥ +0.3 with the interval above 0 → a package-form selector (all 17 weightings run in parallel; runtime) is pre-registered |
 
+| §118 item (23:26 UTC; `runs/leo_cpu/selmeta-64318417.out`) | Observed | Verdict |
+|---|---|---|
+| Oracle from window 60, six bases | +0.96 to +1.36 | Hit (+1.2) |
+| Learned selector from window 60 | **+0.00 on every base**: the ridge model never predicted a gain above 0, so no session switched | **Refuted**; the selector is a no-op, not a small effect (recorded as such) |
+
+Reading: the 1–2 points of per-session head-room (§76, §117, §118) are invisible to label-free statistics of the first
+60 windows, hand-made or learned. On average every alternative weighting loses, and nothing in the early outputs
+separates the sessions where one wins.
+
