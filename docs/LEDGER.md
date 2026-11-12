@@ -82,6 +82,12 @@ Numbers are dev J (0.5 new + 0.5 seen) unless stated. Anything below +0.3 is ins
 
 ## New pre-registrations
 
+> **Clock correction (12 Nov, 01:40 UTC by `date -u`).** From the addenda of §47 on, the "written … UTC" stamps in
+> §47–§57 were estimated and run ahead of the real clock by up to about 2 h 20 min (the last one says 03:55 UTC and was
+> written at about 01:25 UTC). The order of pre-registration and result is unaffected: every one of those sections
+> was committed and pushed before its result existed, and the git commit times are the authoritative record. Stamps
+> written after this note come from `date -u`.
+
 <!-- Template:
 
 ## N. NAME: one-line description (written DATE TIME UTC, before any result; code PATH)
@@ -743,6 +749,8 @@ different distribution.
 | gmix, γ 1.5 (3090257) | 67.48: **−1.81**; γ 1.0 still running | Negative |
 | cap, σ 3° / 6° (3090251, 3090252; sanity at zero shift 1.5e-3) | 68.86 / 68.07: **−0.43 / −1.22**; σ 10° still running | Negative so far (predicted +1.0) |
 | fsc, p 0.10 (3090259) | 68.69: **−0.60**; p 0.20 still running | Negative so far (predicted +0.5) |
+| cap, σ 10° (3090253) | 67.77: **−1.52** | cap is negative at every σ (−0.43 / −1.22 / −1.52): **refuted** |
+| gmix, γ 1.0 (3090256) | 68.34: **−0.95** | gmix is negative at both γ (−0.95 / −1.81): **refuted** |
 
 ## 48. CHAINSLOPE: does the people curve survive the session stages? (written 12 Nov 00:58 UTC, before any result; code `studies/12nov/chainslope.py`)
 
