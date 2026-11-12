@@ -1429,3 +1429,19 @@ run's frozen nets; `fixA` is the in-run reference.
 | head | only SessionBN affine + output layer trained | +0.25 (0 to +0.45) |
 | view2 | two augmented views per step | +0.40 (+0.20 to +0.55) |
 | **Rule** | an arm counts as a gain over fixA if it is ≥ +0.08 above fixA in the six-base mean and ahead on ≥ 5 of 6 bases; arms that cost less (cum10, head) count if they are within 0.05 of fixA; the best counting arm becomes the recipe for the costing in §107 |
+
+### 110. CLUSTX (explore track): experts for person types, bounded by an oracle first (written 12 Nov 22:11 UTC, before any result; code `studies/12nov/clustx.py`)
+
+Reasoning: people differ in structured ways (§67: transfer is symmetric; P01, P02, P07, P08 serve each other at
+56–69 %; P04, P05, P10 are isolated). A single model pooled over everyone is a compromise; one expert per person type
+could fit its members better, if a new session's type can be recognised. Experts = own-space T·C·S members (as §37)
+trained on the leave-one-out cluster members: type A {01, 02, 07, 08}, type B {03, 06, 09}, and the pooled nine.
+Per new session: (i) oracle = the expert with the best true accuracy; (ii) label-free = the expert agreeing most with
+the chain; each fused into the routed chain as a final stage (β 0.10), six bases.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| Oracle best expert alone minus pooled alone, window accuracy | +3 (0 to +6) |
+| Label-free pick fused, new, six bases | −0.2 (−0.8 to +0.3) |
+| **Reading** | oracle < +2 → person-type experts closed; label-free ≥ +0.4 with the interval above 0 → a whole-system version is pre-registered |
+
