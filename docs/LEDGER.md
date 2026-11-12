@@ -234,3 +234,23 @@ the cut or re-ordered streams. My prior: (1) 35 %, (2) 15 %, (3)–(5) together 
 
 | Item | Observed | Verdict |
 |---|---|---|
+| (1) reset per session × interface (B2_pool; B2_s345): SessionEM, TSEM, step | −0.45, −1.13, −0.69; −0.68, −1.41, −0.73 | **Match** on both bases |
+| (2) reset per session × task | −1.00, −2.16, −1.16; −1.34, −2.43, −1.08 | Too large: rejected |
+| (3) one stream, Graz runs then BrainHero | −0.94, −1.48, −0.54; −1.00, −1.50, −0.51 | **Match** on both bases |
+| (4) one stream, BrainHero then Graz | −0.61, −1.48, −0.87; −0.80, −1.39, −0.59 | Match on one base, step 0.12 outside on the other |
+| (5) one stream, tasks in alphabetical order | −0.31, −0.09, +0.22; −0.31, −0.51, −0.20 | Too small: rejected |
+| Sealed, after the fix | −0.72, −1.17, −0.45 | — |
+
+**Reading (12 Nov 04:02 UTC; log `runs/segfp2_12nov.log`).** Every variant in which a session's windows arrive
+grouped by interface reproduces the sealed drop, with or without a reset between the two groups; cutting or ordering
+by task does not. The stage-level numbers cannot tell (1) from (3)/(4). With five variants and a ±0.4 tolerance a
+chance match is possible, so the routed packages are the next fingerprints (62c).
+
+**62c (written 12 Nov 04:02 UTC, before any result; `studies/12nov/segfp3.py`).** The full routed systems (v3 as
+route3geb, v4.1) replayed with the gates run on the cut or re-ordered streams, for variants (1), (3), (4).
+Fingerprints: route3geb after the fix −1.05 against its own pre-fix score; v4.1 − route3geb = +0.267 (sealed, both
+after the fix; +0.58 on dev per session). A variant is supported if its v3 change is within 0.4 of −1.05 and its
+v4.1 − v3 step within 0.25 of +0.27. Harness check: the identity variant must reproduce the stored chain exactly.
+
+| Item | Observed | Verdict |
+|---|---|---|
