@@ -1074,3 +1074,11 @@ sessions: each training episode draws a real session and applies a random spatia
 person), a random class-share shift and a random window subset; 20,000 episodes per fold. Pre-registered when the
 code is written, before its first job.
 
+**§98 predictions (written 13:35 UTC, before S3's first job; code fixed in `studies/12nov/sys3.py`, inputs `sys3_inputs.py`).** Ten folds × three seeds, 20,000 synthetic-session episodes each.
+
+| Check | Prediction (80 % range) |
+|---|---|
+| S3 alone, new (balanced accuracy, mean of three seeds) | 72 (62–78); S2 with its hand stage as the comparison |
+| Product with the chain (exponent 0.5), new, six bases | +0.2 (−0.6 to +1.0) |
+| **Reading** | S3 ≥ S2-with-stage + 2 → learning the adaptation beats hand rules; S3 ≥ 78 → a system worth developing |
+
