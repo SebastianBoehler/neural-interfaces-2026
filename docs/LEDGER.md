@@ -1253,3 +1253,6 @@ against the eager personal net on the person's own sessions (< 1e-4). Package co
 traces in after the gate routes, warming their session statistics on the buffered windows) is written only after the
 measurement. Dev value so far: +0.17 seen over the stage (§78), within-session proxy +2.4 (§96).
 
+**§101 addendum (12 Nov evening, before any FIX2 result): seeds 3–5 (tasks 12–23) queued in parallel (`ttt5_c`,
+`ttt5_d`), scored together with seeds 0–2 under the same rule, so a passing variant comes with six seeds.**
+
