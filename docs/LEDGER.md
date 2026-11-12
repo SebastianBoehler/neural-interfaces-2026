@@ -741,6 +741,8 @@ different distribution.
 | mix, λmax 0.5 / 1.0 (3090254, 3090255) | 68.73 / 67.86: **−0.56 / −1.43** | **Refuted** (predicted +0.3; ≤ +0.3 at both) |
 | rot, ε 0.1 / 0.2 (local, §46b) | 69.25 / 69.15: −0.04 / −0.14; ε 0.4 still running | No effect so far |
 | gmix, γ 1.5 (3090257) | 67.48: **−1.81**; γ 1.0 still running | Negative |
+| cap, σ 3° / 6° (3090251, 3090252; sanity at zero shift 1.5e-3) | 68.86 / 68.07: **−0.43 / −1.22**; σ 10° still running | Negative so far (predicted +1.0) |
+| fsc, p 0.10 (3090259) | 68.69: **−0.60**; p 0.20 still running | Negative so far (predicted +0.5) |
 
 ## 48. CHAINSLOPE: does the people curve survive the session stages? (written 12 Nov 00:58 UTC, before any result; code `studies/12nov/chainslope.py`)
 
