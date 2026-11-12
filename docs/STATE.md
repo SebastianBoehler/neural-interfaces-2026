@@ -1,9 +1,10 @@
-# State: the starting point (baseline of 11 Nov 2026, 22:30 UTC)
+# State: the starting point (as of 12 Nov 2026, 03:50 UTC)
 
 This is the entry point. It is written so that a new session needs nothing from any chat history. Where an older
 document contradicts it, this file wins.
 
-**Read in this order:** this file; [LEDGER.md](LEDGER.md) (what is closed, and where new runs are pre-registered);
+**Read in this order:** this file; [LEDGER.md](LEDGER.md) (index of what is adopted, built, open and closed, and where new
+runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIONS_12NOV.md);
 [SEALED_UPLOADS.md](SEALED_UPLOADS.md) (upload log and procedure); [../OFFICIAL_CONTRACT.md](../OFFICIAL_CONTRACT.md).
 
 ## 1. Where we stand
@@ -12,8 +13,11 @@ document contradicts it, this file wins.
 - **Rank:** 9th. Board on 11 Nov, about 19:00 UTC: 0.846 (seohee, ETRI), 0.830, 0.826, 0.825, 0.824, 0.821, 0.819,
   0.817, **0.816 (us)**, 0.815. Third place needs +1.0, first place +3.0, and the field keeps moving.
 - **Deadline:** 21 Nov 2026, 22:59 UTC. **Uploads:** 7 per team, 1 per UTC day; 4 used, **3 left**.
-- **Honest standing:** nothing in hand is worth +1.0. Two levers work and add up to about +0.3 to +0.6 sealed (§6).
-  A search for a +3 source on 11 Nov found none (ledger index, "hard bounds").
+- **Candidate ready, not uploaded: `cand_v51_own`** (v4.1 + an own-space personal stage for recognised returning
+  people). Dev +0.89 J on six bases; sealed estimate about 0.822 (0.820–0.825), i.e. rank 5–7 on the 11 Nov board.
+  Checked, replayed on A100 and in the worker image, independently reviewed, timed. See §3 and `SEALED_UPLOADS.md`.
+- **Honest standing:** the night of 11–12 Nov scored about 65 pre-registered arms. One lever passed (the stage above).
+  Nothing for new people moved, and no +3 source is known (§5, §9).
 
 ## 2. Hard bounds (from the official code and rules)
 
@@ -60,6 +64,7 @@ document contradicts it, this file wins.
 | Package | Where | Status |
 |---|---|---|
 | `cand_v41_bio` (routing v4.1) | `runs/upload/sealed_cand_v41_bio.zip` (`53fc1679…`); code `submissions/ensemble_v4/submission.py` (`45f9f2fd…`) | **Uploaded, best** |
+| `cand_v51_own` (v4.1 + own-space stage) | Galvani `runs/sealed/cand_v51_own/` (33 files; `weights.npz` `e88bc3b3…`); code `submissions/ensemble_v5/submission.py` (`34eba3b0…`) | **Ready, not staged as a ZIP, not uploaded** |
 | Fast package (v3 outputs, half the runtime) | `submissions/ensemble_fast/submission.py` (`ccbce506…`) | Base of v4.1; not uploaded by itself |
 | route3geb (v3) | code `submissions/ensemble/submission.py` (`dacee85a…`) | Uploaded 7 Nov, 0.8135 after rescoring |
 
@@ -100,47 +105,52 @@ B2_s1 79.7214, B2_s2 80.2093) and `OK`. That is the v3 chain. The uploaded v4.1 
 - New people are person-equal in both, so "new" transfers more directly. P04 as a new person is 54 %; everyone else
   75–90 %.
 
-## 5. What is established about headroom
+## 5. What is established about headroom (revised 12 Nov; ledger sections in brackets)
 
-- The label-free chain (77 % of windows right on new people) is as accurate as a supervised model trained on about
-  150 labelled windows of the same session in core1's features (76 %).
-- True labels inside the session would add +3 J through a per-session head and +1.6 J through fine-tuned nets.
-  No label-free source of labels gets past 77 %: smoothing in both directions, run-balance constraints and feeding
-  improved labels back all stop there.
-- The members share their errors. The 12-member mix is 0.6 points more accurate than core1 alone before the session
-  stages; the best label-free combination adds about 1 point there and loses 1–2 J after the stages.
-- Extra members lower the chain even when they are strong alone and temperature-calibrated (five feature or model
-  families on 11 Nov). Member weights and the session stages sit at a joint optimum (29 + 8 stage arms, two Weco
-  searches: nothing passes).
-- P04 is a low-signal person (55–59 % with their own labels), not a bad recording.
-- No shortcut in slow potentials, gaze or feedback: checked per interface and per half-window.
+- **New people are limited by the number of real training people.** core1 rises +8 points per doubling (56 / 61 / 65 /
+  69 % for 3 / 5 / 7 / 9 people) with no flattening; the nets flatten from 7 to 9 [§39, §48, §56]. Nothing
+  substitutes: seven kinds of generated variation, seven people-efficient estimators, noise, and Scherer 2015 even on
+  real shared channels are all ≤ 0 [§46b, §47, §49, §53].
+- **The chain gains only from a person's own labels.** The same three own-space models are worth +1.8 fitted on the
+  person and −0.5 to −3.3 fitted on others; population members lose in the mix, as a final stage and as a view of
+  SessionEM [§57c, §58]. Member weights and stages sit at a joint optimum (11 Nov: 29 + 8 arms, two searches).
+- **In-session learning on the chain's own labels is closed in three feature families** (nets +0.6 for new people,
+  population-PC head −0.7, session-own members −0.3). With true labels each would add +2 to +3 [§35, §38, 11 Nov §31].
+- **The data hold more than core1's PCs show.** With its own labels a session reaches 81–82 % in session-own
+  representations against 74.9 % in the population PCs; P04 reaches 74–80 % and is not a low-signal person; 512 PCs of
+  core1's features lose four points [§36, §49]. This is what the own-space stage uses for returning people.
+- **Dev resolution is about ±0.3, and exploration-base gains of that size do not survive.** Three times a +0.2 to
+  +0.6 on the two exploration bases was zero on the four fresh ones [§54b, §58b, §61b]. Small levers do not stack
+  [§57b].
+- **The leaders' margin is unexplained.** Ranks 1 and 2 plausibly share one lab (name and roster only); its published
+  methods (eye-movement branches, two-branch fusion, Mixup) are worth −7 to +0.3 here [§58, §59].
+- No shortcut in slow potentials, gaze or feedback, and no usable cue-order prior after the stages (11 Nov §9, §33;
+  12 Nov §55, §58).
 
-## 6. Open levers (measured, not built)
+## 6. Levers (state on 12 Nov)
 
-**TTT: fine-tune the nets inside the session on the chain's own labels (for new people).**
-- Every 10 windows from window 30, a copy of each SessionBN net is trained for 20–60 full-batch steps on the windows
-  so far, labels = chain output, weighted by confidence.
-- Four families, three seeds each: new +0.6 to +0.7 (11 of 14 sessions gain; G1 about 0, G2 +1.6), seen −0.5.
-- Runtime-feasible form (one fine-tuned net per family next to two frozen seeds): new +0.4 to +0.65, seen −0.4 to
-  +0.6, six of six draws. About 5 s per net and session on a 2080 Ti; a sealed run has roughly 100 sessions.
-- With true labels the same procedure gives +1.6 J: the lever is label-limited.
-- Code: `studies/11nov/ttt/galv/ttt.py`, `ttt2.py`; scorers `studies/11nov/ttt/score.py`, `round.py`, `poe.py`.
+**Built: the own-space personal stage (package `cand_v51_own`).** For windows the v4.1 gate routes to public person j
+with ramp r, the routed output is multiplied by exp(0.10 · r · mean clipped log posterior of three models fitted on j's
+public sessions in j's own space: FBCSP + LDA, own tangent space + logistic regression, slow time courses + LDA).
+- Dev, six bases: seen +1.79 (P04 +3.5, P10 +0.1), new 0.00, J +0.89 [§45]. Ten-person within-session proxy: +4.2 to
+  +5.1 over a person-naive chain, twice a population-PC head [§41]; 12 real session pairs of P04 / P10: +10.4 against
+  +5.8 [§42].
+- The gain on dev is P04's. How the eight single-session returning people respond is not measurable on dev; it is the
+  whole range of the sealed estimate (+0.4 to +0.9).
+- Code: `submissions/ensemble_v5/submission.py`, `scripts/add_own_stage.py`, `scripts/check_own_stage.py`,
+  `scripts/check_perm_stage.py`; study code `studies/12nov/ownspace.py`, `v5_replay.py`.
 
-**PFT: nets fine-tuned on a returning person's own public session.**
-- Standalone +2 to +9 points per family across sessions; chain seen +1.4 to +2.0 with five families, all from P04.
-  Only the head-and-BN-affine variant has both people ≥ 0 (+1.44: P04 +2.36, P10 +0.53).
-- Ten-person within-session proxy (runs 1–3 → runs 4–6): every person gains standalone, mean +5.7 points; 7 of 10
-  gain at least half of P04's.
-  A standalone gain does not settle the chain value: P10 gains standalone and nothing in the chain.
-- Code: `studies/11nov/ttt/galv/pft.py`, `pft_proxy.py`; scorers `pft_score.py`, `pfx_score.py`.
+**Measured, not built.**
+- **TTT** (in-session fine-tuning of the nets on the chain's labels): new +0.6 to +0.7 with four families, seen −0.5;
+  runtime-feasible form new +0.4 to +0.65 (11 Nov §24, §31). The dev recipe is not what the shipped TorchScript nets
+  can run; the package form is under test [§60].
+- **PFT** (nets fine-tuned on a returning person's public session): on top of the stage seen +2.3 against +1.9; P10
+  −1.0 [§40, §43]. Needs per-person net exports and a catch-up replay.
+- Small and not built: an eye-movement net's log posteriors in SessionEM's view (+0.28 on six bases) [§58b]; REST4
+  (+0.1 to +0.3, 11 Nov §26).
 
-**A "v5" package** = v4.1 + TTT for sessions not recognised as returning + PFT nets behind the identity gate.
-Estimate +0.3 to +0.6 sealed. Needs: per-person net exports, a catch-up replay of buffered windows when a person is
-recognised, in-session training inside `submission.py`, and a timing replay on A100 and in the worker image
-(TTT adds roughly 20–40 min; a timeout costs an upload). Not started; the user has not decided.
-
-**Smaller, not adopted:** personal class templates as a TSEM prior (+0.19 J, P04 only); rest periods as a fourth
-class in net training (+0.1 to +0.3 J); slot weight 4.5 for the personal head (+0.12).
+**A possible "v6"** = v5.1 + TTT for sessions not recognised as returning, if §60 passes; estimate +0.1 to +0.2 sealed
+more, with a runtime cost of roughly 20–40 min that must be replayed on A100 and in the worker image.
 
 ## 7. Working rules and infrastructure
 
@@ -167,6 +177,8 @@ class in net training (+0.1 to +0.3 J); slot weight 4.5 for the personal head (+
 |---|---|
 | Entry point, ledger, upload log | `docs/STATE.md`, `docs/LEDGER.md`, `docs/SEALED_UPLOADS.md` |
 | Detailed record of 11 Nov (33 sections) | `docs/PREDICTIONS_11NOV.md` |
+| Detailed record of the night of 11–12 Nov (§34–§61) | `docs/PREDICTIONS_12NOV.md` |
+| Study scripts of 12 Nov (index in its README) | `studies/12nov/` |
 | Closed directions 5–10 Nov | `docs/REVIEW_5NOV.md` |
 | History (superseded; may be wrong) | `docs/archive/` (its README lists the wrong assumptions) |
 | Chain replay | `replay/` |
@@ -177,22 +189,14 @@ class in net training (+0.1 to +0.3 J); slot weight 4.5 for the personal head (+
 | Local only (gitignored) | `data/`, `runs/` (`runs/upload/` ZIPs, `runs/replay_data/`, `runs/ttt/` outputs, `runs/archive_scratch_11nov/` full scratch mirror, 3.5 GB) |
 | Galvani outputs | `runs/diag/{ttt,rest4,aec,sbnx,w12,schr,steeg}` under the work dir |
 
-## 9. Decisions waiting for the user
+## 9. Decisions waiting for the user, and rules they set
 
-**Update, 12 Nov 03:35 UTC (ledger §34–§59; scripts `studies/12nov/`).**
-- **Candidate ready: cand_v51_own** = v4.1 + an own-space personal stage for recognised returning people (§41–§45).
-  Dev +0.89 J on six bases (seen +1.79: P04 +3.5, P10 +0.1; new 0). Built, integration-checked, replayed on A100 and
-  in the worker image, independently reviewed, timed (1.08× v4.1). Sealed estimate about 0.822 (0.820–0.825). Not
-  staged, not uploaded. Details: `docs/SEALED_UPLOADS.md`, last sections.
-- **New people: limited by the number of real training people** (+8 points per doubling); synthetic people,
-  people-efficient estimators, noise and external same-task data all fail (§39, §46–§49, §53). The §5 statements
-  about the 76 % level and about P04 hold only inside core1's features (§36).
-- **Only personal labels add to the chain**; population-level additions lose in every position (§57c, §58).
-  In-session learning on the chain's labels is closed in three feature families.
-- **Rules of work (user, 12 Nov):** no gate or closure is final; reviews must hunt silent no-ops (§52, `AGENTS.md`).
-- **Open:** the sealed response of the eight single-session returning people (only an upload measures it);
-  in-session fine-tuning of the nets in a package form (§60); the leaders' margin (§58, §59).
+1. **Upload `cand_v51_own` or hold.** It is the next candidate and also the only way to measure the returning branch
+   on the eight single-session people. The user said on 12 Nov (several times) to keep iterating before another
+   upload; no go-ahead has been given. Every upload needs the user's explicit go-ahead and a live phase and quota check.
+2. **The two leading accounts appear to belong to one lab** (§5). Whether to raise that with the organisers is the
+   user's call.
 
-1. Build v5 (§6) or keep the three uploads for something larger.
-2. Any information on what the leading teams do (Discord). The leader gained +2.5 in one upload while its runtime
-   rose fourfold, which fits in-session fine-tuning; on our chain that is worth far less.
+**Rules set by the user on 12 Nov** (also in `AGENTS.md`): no gate or closure is final (check what actually ran before
+citing one); cleanups and reviews must hunt silent no-ops (options parsed but not applied); the codebase exists to
+optimise the final submission. Time stamps in the ledger come from `date -u`.
