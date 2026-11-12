@@ -1353,7 +1353,7 @@ the v5.3 research (v52-build session) first measures torch-native batching of th
 vmap per family, CUDA graphs) on an A100 before any recipe is cut.
 
 
-### 106. V53: in-session fine-tuning for unrouted sessions, runtime-feasible forms (written 12 Nov 22:20 UTC, before any result; code `studies/13nov/ttt_reduce_score.py`, v52-build session)
+### 106. V53: in-session fine-tuning for unrouted sessions, runtime-feasible forms (written 12 Nov by 21:49 UTC [stamp corrected from the commit time; it read 22:20 UTC], before any result; code `studies/13nov/ttt_reduce_score.py`, v52-build session)
 
 User, 12 Nov: build v5.3 = v5.2 + the §101 fine-tuning on sessions the identity gate does not route, within ≤ 45 min
 sealed (worst case). The full §101 form fine-tunes all 30 SessionBN members (20 Adam steps every 10 windows from window
@@ -1377,7 +1377,7 @@ Part B (pre-registered separately, before it runs, if needed): fewer refits or s
 outputs and need new Leonardo runs of `ttt5.py` variants. Part B runs only if the A100 cost of the passing Part A form
 does not fit the budget.
 
-### 107. FTCOST: can the full §101 recipe be made cheap? (written 12 Nov 22:55 UTC, before the run; code `studies/13nov/ft_bench2.py`, Leonardo A100)
+### 107. FTCOST: can the full §101 recipe be made cheap? (written 12 Nov by 21:54 UTC [corrected from the commit time; it read 22:55 UTC], before the run; code `studies/13nov/ft_bench2.py`, Leonardo A100)
 
 User rule (relayed 12 Nov): research only until about 14 Nov 02:00 UTC, no package. Upload 5 used 21.5 of 60 min, so
 about 38 min are free. First bench (`ft_bench.py`, job 64311968): fine-tuning through the TorchScript traces costs
@@ -1396,7 +1396,7 @@ functional_call + vmap, one augmentation per seed).
 | Projected full recipe with vmap per family (12 fb, 6 fbraw, 6 fbl, 6 sinc), per 190-window session | 60 s (25–150 s) |
 | **Reading** | ≤ 25 s per unrouted session (60 sessions within about 25 min) → the full recipe is runtime-feasible and §106's cuts are not needed; otherwise the cheapest form passing §106's rule is costed with the same bench |
 
-### 106. RUNTYPE (explore track): calibration and feedback runs as separate session domains (written 12 Nov 21:57 UTC, before any result; code `studies/12nov/runtype.py`)
+### 109. RUNTYPE (explore track; first numbered 106, which V53 already used): calibration and feedback runs as separate session domains (written 12 Nov 21:57 UTC, before any result; code `studies/12nov/runtype.py`)
 
 Reasoning from the profile: returning people are right on 87.5 % of Graz calibration windows but 79.2 % of Graz
 feedback windows; in feedback runs the participant watches a moving display driven by an online decoder, which adds
@@ -1412,7 +1412,7 @@ routing, six bases; new people.
 | **Reading** | an oracle below +0.5 closes the run-type axis; ≥ +0.5 → a change-point detector is pre-registered |
 
 
-### 108. TTT6 (exploit track): arms that may raise the gain of the §101 fine-tuning (written 12 Nov 23:20 UTC, before any job ran; code `studies/13nov/ttt6.py`, Leonardo, 24 tasks)
+### 108. TTT6 (exploit track): arms that may raise the gain of the §101 fine-tuning (written 12 Nov by 21:59 UTC [corrected from the commit time; it read 23:20 UTC], before any job ran; code `studies/13nov/ttt6.py`, Leonardo, 24 tasks)
 
 (Numbering note: the explore track's RUNTYPE was also written as §106; "§106" alone means V53 here.) User, 12 Nov: spend the
 free sealed runtime (about 38 of 60 min) on gain, not only on cost. Same nets, folds, augmentation and chain labels as

@@ -1,4 +1,4 @@
-"""RUNTYPE (ledger s106): calibration (Acquisition*) and feedback (OnlineRaw*) runs as separate session domains, oracle
+"""RUNTYPE (ledger s109): calibration (Acquisition*) and feedback (OnlineRaw*) runs as separate session domains, oracle
 labels; grid chain, new people, six bases. Usage: python studies/12nov/runtype.py"""
 import os, sys
 import numpy as np
