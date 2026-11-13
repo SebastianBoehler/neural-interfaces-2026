@@ -2886,3 +2886,24 @@ Reading:
 - cum10 as scored in §152 (each base's own seeds: one to six per family) does not fit as all24.
 - A window cap (fine-tune on the last W windows only) would make the cost linear. It is unscored and would need its own
   arm before use.
+
+| §155 draws 2 and 3 (13 Nov 08:52 UTC; `runs/night13/combo_d{2,3}.npz`; paired against V6F) | Draw 0 / 1 / 2 / 3 against V6F (without the best) | Verdict over four draws |
+|---|---|---|
+| orc (ORACLE view) | +3.76 / +3.71 / +3.82 / +3.87 (+3.50 to +3.69) | **the view ceiling is +3.7 to +3.9, stable** |
+| cog (cognitive teacher) | +0.07 / +0.13 / +0.09 / +0.10 (+0.02 to +0.09) | consistent but below the bar (+0.15 without the best): **not kept** |
+| mix, pls, weak, ft05, ft15, r05, r2 | negative on all four draws | **not kept**: V6F's defaults stand |
+
+| §150/§151 on seed sets B and C (13 Nov 08:52 UTC; `runs/night13/v6_set{B,C}.npz`; against v5.1b) | New / without P10 | Seen (P04, P10) |
+|---|---|---|
+| V6 (shipped + OCU + REST), set A / B / C | +0.34 / −0.07 / +0.23; without P10 +0.37 / −0.09 / +0.29 | −0.24 (−1.39, +0.91) / **+0.45 (+0.66, +0.24)** / **+0.28 (+0.44, +0.12)** |
+| OR (study base), sets B / C | −0.19 / +0.30 | +0.65 / +0.09 |
+
+**Reading.** On seed sets B and C, OCU+REST on v5.1b's members *helps* P04 (+0.66, +0.44) instead of costing it
+(−1.39 on set A). §151's P04 cost is a property of set A's eye-net and rest seeds, not of the lever. New-people gains of
+OCU+REST alone vary from −0.07 to +0.34 by seed set. The combination with FT (V6F) has so far been read on set A's
+OCU/REST seeds only (with four FT draws). Its next check is V6F on OCU/REST seed sets B and C, queued with the view
+wave.
+
+**Incident:** both view-net scorings failed loudly. `pkg.py`'s default fine-tuning path is the Mac's
+(`runs/ttt/probs6`; on Leonardo it is `runs/diag/ttt/probs6`). They are resubmitted with explicit paths, with draws 0–3
+(64363611–64363615). All ten view nets trained (90 tasks).
