@@ -3708,7 +3708,7 @@ Package-faithful plus GE (`runs/allorder_<order>_gp0_L_ge.log`). gC5 over v5.1b,
   runs 0; 64389931 for the other four orders). `shufcombo` moves Ps[0] by half the change.
 - **Teacher:** `teachshuf.py` (Leonardo 64390300/02). Causal EA in the delivery order; the map is fitted on training
   people's recording-order features and applied to the test rows' delivery-order features. The harness asserts that the
-  rebuilt teacher equals slot 10. The 24 checkpoints were copied from Galvani: the local `runs/pretrain` targets are gone.
+  rebuilt teacher equals slot 10. The 24 checkpoints were copied from Galvani. Locally, `runs/pretrain_a100all` holds symlinks from a Galvani pull whose targets never existed on the Mac; nothing was deleted (coordinator, 15:00).
 - **Still left:** the `ea` transformer and shallow slots (weights 0.5 and 1 of 15). They need GPU retraining per fold
   (`run_cv.py` with deliver.py), so not before the table. Their effect is not measured; together they carry 1.5 of the
   mix's 15 weight.
