@@ -2532,3 +2532,21 @@ Next forms for the day:
 - the cognitive heads trained into the m7 teacher as one 4-way block (`pretrain.py --unified`, R17);
 - more corpora in the m7 teacher (the map's "more corpora": the KEEP list's openly licensed MI corpora not yet
   downloaded).
+
+### 149. Teacher line, next forms (written 13 Nov 06:23 UTC, before any job ran)
+
+The rebuilt pipeline reproduces the stored teacher (§148), so the gap 2 forms that need retraining go out:
+- **m7u**: the seven m7 corpora, with PhysionetMI's and Shin2017B's classes trained into one shared 4-way block
+  (motor imagery / subtraction / word / rest; `pretrain.py --unified physionetmi,shin2017b`, R17). This puts the
+  cognitive contrast inside the teacher instead of beside it.
+- **m10**: the seven m7 corpora plus three openly licensed MI corpora from export_moabb's KEEP list (Zhou2020,
+  Weibo2014, Liu2024), downloaded tonight. This is "more corpora in the teacher", the data-side route §146 says is
+  worth its core-level size.
+Both use 12 seeds × EEGNeX and IFNet, the pre-flight check, and heads into `runs/teach/`. They are scored with teach3's
+arms (replacing the teacher, weight re-chosen 3 / 5 / 7) in the shipped and FT+OCU+REST contexts.
+
+| Check (new, six-base mean, against the stored m7c teacher at weight 5) | Prediction (80 % range) |
+|---|---|
+| m7u replacing the teacher, best weight | +0.2 (−0.4 to +0.8) |
+| m10 replacing the teacher, best weight | +0.3 (−0.4 to +1.0) |
+| **Bar** | ≥ +0.30 in both contexts, with the gain without the best person ≥ +0.15 → a teacher candidate for the next package (only the map changes; trunks are traced as today's) |
