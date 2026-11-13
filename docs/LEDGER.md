@@ -3791,3 +3791,27 @@ Per scheme, mean [range]:
 **Two of eight orders miss gC5's bar** (≥ +0.5 new): within 2 and runs 1. Runs 1 is also +0.09 without P10. The fallback
 misses its bar on within 2. Every order is positive for both forms. The order is now the largest source of spread
 (within: 1.3 points), and §185's twelve further orders measure it.
+
+**PACKAGE-FAITHFUL + TEACHER IN DELIVERY ORDER, eight orders (13 Nov 14:31 UTC; `runs/allorder_<order>_gp0_L_ge_ts.log`).** Still in
+recording order: the Hilbert member (1 of 15; re-stream running) and the ea transformer and shallow slots (1.5 of 15).
+Over v5.1b under the same order, new (without P10):
+
+| Scheme | Order | v5.1b re-streamed vs recording | gC5 | fallback |
+|---|---|---|---|---|
+| within | 0 | −1.06 | +1.47 (+1.47) | +0.96 |
+| within | 1 | −1.38 | +1.37 (+1.29) | +0.71 |
+| within | 2 | −0.97 | **+0.42** (+0.35) | **+0.14** |
+| within | 3 | −0.89 | +1.11 (+1.14) | +0.93 |
+| full | 0 | −3.20 | +1.18 (+1.17) | +0.42 |
+| full | 1 | −3.22 | +0.89 (+0.88) | +0.34 |
+| runs | 0 | −1.31 | +1.20 (+1.24) | +0.45 |
+| runs | 1 | −2.21 | +0.82 (+0.53) | +0.30 |
+
+Per scheme, mean [range]:
+- gC5: within +1.09 [+0.42, +1.47]; full +1.04 [+0.89, +1.18]; runs +1.01 [+0.82, +1.20].
+- Fallback: within +0.69 [+0.14, +0.96]; full +0.38; runs +0.38.
+
+The teacher in delivery order raises runs 1 (+0.42 → +0.82) and full 0 (+0.93 → +1.18), lowers within 0 (+1.70 → +1.47), and
+cuts the fallback on full and runs by about 0.2–0.3. **gC5 now misses its bar only on within 2** (+0.42). The fallback misses
+on within 2 (+0.14) and sits at its bar on runs 1 (+0.30). FT's own part over the fallback is +0.28 to +0.85; under full and
+runs it is larger than under within.
