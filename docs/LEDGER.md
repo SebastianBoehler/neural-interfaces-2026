@@ -4386,3 +4386,22 @@ is stopped so it does not crowd form B or SWEEP 3. The Leonardo stack copy cover
   (eye and rest in), as emitted; the package already computes the parts of that chain, but the build session must
   confirm the run time.
 - **Returning-people part:** pending (the Galvani stack copy, within 0/1).
+
+**§198 within 2 and within 7 (13 Nov 20:29 UTC; Leonardo npz, six-base means per person P01..P10).**
+- **within 2** (v6f weak, +0.32):
+  - v6f over v5.1b: +1.3 −0.1 −0.9 −1.1 +0.1 +1.1 +0.6 +1.2 −0.2 +1.2;
+  - labels R: −0.3 +0.3 −0.0 +0.7 +0.5 +0.0 +0.4 +0.3 +0.5 −0.5;
+  - s15 form: +0.3 +0.5 +0.6 +0.5 −0.4 +0.3 +0.0 −0.1 +1.6 −0.5.
+  - The stack helps (+0.49).
+- **within 7** (v6f strong, +1.76; positive for all ten people):
+  - eye + rest: +2.2 +1.7 +2.0 +0.6 +1.4 −2.7 +0.9 +0.2 +1.6 −1.0;
+  - FT: +1.8 −0.1 +1.1 +1.1 +0.1 +4.3 −0.8 +0.0 +0.3 +2.8;
+  - labels R: −0.9 −0.1 −0.2 −0.6 +0.3 −0.6 −0.1 −0.3 +0.3 −0.4;
+  - s15 form: −0.4 −0.6 −0.3 +0.2 −1.2 +0.2 +0.4 −0.9 −0.1 −0.8.
+  - The stack hurts (−0.62).
+- **Reading:** the two weak orders are weak for opposite reasons. Within 2 is weak for v6f itself, and the stack recovers some
+  of it. Within 7 is one of v6f's strongest orders (its FT gains +1.06), and there the stack gives some back. The overlap is
+  only in people: P05 and P10 lose on the s15 form part in both, and P01 on the labels part in both. The parts differ.
+- **v6.1 build path:** requested from v52-build at 20:35 UTC (new package directory; the staged ZIP stays the default). The
+  check list is as for v6f, plus a dev row in the exact package form. The coordinator is told at once if the worst case
+  passes about 50 min.
