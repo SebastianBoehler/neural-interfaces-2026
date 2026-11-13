@@ -1,0 +1,6 @@
+{"member": "eye", "seed": 0, "file": "eye_s0.pt", "epochs": 60, "trace_vs_eager": 0.0, "train_acc": 1.0, "sec": 40}
+{"member": "eye", "seed": 1, "file": "eye_s1.pt", "epochs": 60, "trace_vs_eager": 0.0, "train_acc": 1.0, "sec": 66}
+{"member": "eye", "seed": 2, "file": "eye_s2.pt", "epochs": 60, "trace_vs_eager": 0.0, "train_acc": 1.0, "sec": 54}
+{"member": "rest", "seed": 0, "file": "rest_s0.pt", "input_diff": 9.5367431640625e-07, "trace_vs_dev": 0.0, "in_sample_acc": 0.991713747645951, "rest_rows": 1344, "sec": 48}
+{"member": "rest", "seed": 1, "file": "rest_s1.pt", "input_diff": 9.5367431640625e-07, "trace_vs_dev": 0.0, "in_sample_acc": 0.9902071563088513, "rest_rows": 1344, "sec": 48}
+{"member": "rest", "seed": 2, "file": "rest_s2.pt", "input_diff": 9.5367431640625e-07, "trace_vs_dev": 0.0, "in_sample_acc": 0.9898305084745763, "rest_rows": 1344, "sec": 24}

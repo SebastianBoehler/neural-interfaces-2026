@@ -1,6 +1,6 @@
 """Replay a submission folder through the official ingestion and scoring.
 
-Usage: python scripts/replay_package.py SUBMISSION_DIR OUT_DIR [cpu|cuda]
+Usage: python scripts/replay_package.py SUBMISSION_DIR|SUBMISSION.zip OUT_DIR [cpu|cuda]
 Zips the folder's files at the archive root (like ``zip -j``), extracts the
 ZIP into OUT_DIR/extracted, makes it read-only, runs the warm-up phase's
 codabench ingestion program (inference-only Benchopt run) and scoring
@@ -41,10 +41,13 @@ def main():
     device = sys.argv[3] if len(sys.argv) > 3 else "cpu"
     out.mkdir(parents=True, exist_ok=False)
     archive = out / "submission.zip"
-    with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zf:
-        for p in sorted(src.iterdir()):
-            if p.is_file() and p.suffix in (".py", ".npz", ".pt"):
-                zf.write(p, arcname=p.name)
+    if src.suffix == ".zip":  # an existing upload ZIP: replay that very file (its bytes, its SHA-256)
+        archive.write_bytes(src.read_bytes())
+    else:
+        with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as zf:
+            for p in sorted(src.iterdir()):
+                if p.is_file() and p.suffix in (".py", ".npz", ".pt"):
+                    zf.write(p, arcname=p.name)
     sub = out / "extracted"
     with zipfile.ZipFile(archive) as zf:
         root = sorted(zf.namelist())
