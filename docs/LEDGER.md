@@ -2614,3 +2614,7 @@ for when Leonardo is back.
 - **m10.** Zhou2020 and Liu2024 failed in `export_moabb.py`: their channel names do not match the montage. Only
   Weibo2014 arrived, so the pre-flight stopped m10, as designed. The arm is resubmitted under its true corpus set as
   **m8w** (the seven m7 corpora + Weibo2014), with the same prediction and bar as m10.
+
+**§150/§151 replication queued (13 Nov 07:56 UTC, before any result):** OR and V6 on seed sets B and C (Leonardo CPU
+jobs 64357979 / 64357982, `runs/night13/v6_set{B,C}.txt`, per person `.npz`). Question: are V6's new +0.34 and its P04
+cost (−1.39) seed-specific? Prediction for V6 on each set: new +0.3 (0.0 to +0.6), seen P04 −0.8 (−1.6 to 0.0).
