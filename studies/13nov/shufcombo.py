@@ -14,6 +14,12 @@ GATE_P0=1: the combination's gate from v5.1b's chain under the same order (the p
 LABEL_OUT=name: write FT pseudo-labels (v5.1b B2_pool emitted in this order) to runs/labels/<name>.npz and exit.
 Usage: SCHEME=full PSEED=0 [OCU_DIR=runs/ocushuf/full0] [STRICT=1] python studies/13nov/shufcombo.py"""
 import glob, hashlib, os, sys
+
+
+def one_with(files, key, what):
+    """the single file among files holding key (s194: fail loudly on ambiguity instead of taking the first)."""
+    hit = [f for f in files if os.path.exists(f) and key in np.load(f)]; assert len(hit) <= 1, f"several {what} files hold {key}: {hit}"
+    return np.load(hit[0]) if hit else {}
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 SCHEME, PSEED = os.environ["SCHEME"], int(os.environ["PSEED"]); os.environ["SCHEMES"] = SCHEME; os.environ["PERMS"] = str(PSEED + 1)
@@ -55,10 +61,12 @@ REST = np.mean([ld(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p0}-s{s}.npz") for s i
 RSD, CMP = os.environ.get("RS_DIR", f"{REPO}/runs/restshuf"), os.environ.get("CM_NPZ", f"{REPO}/runs/coremember.npz")  # overrides: smoke tests only
 RSS = sorted(glob.glob(f"{RSD}/{ORD}/rest4_sh_r1-{p0}-s*.npz")); RESTR = np.mean([ld(f) for f in RSS], 0) if RSS else REST
 CMF = [CMP] if "CM_NPZ" in os.environ else sorted(glob.glob(f"{REPO}/runs/coremember*.npz"))  # coremember.py writes one file per order set
-CM = next((z for z in map(np.load, filter(os.path.exists, CMF)) if f"{SCHEME}{PSEED}|{p0}" in z), {})
+CM = one_with(CMF, f"{SCHEME}{PSEED}|{p0}", "core1 member")
 DC1 = CM[f"{ORD}|{p0}"] - CM[f"rec|{p0}"] if f"{ORD}|{p0}" in CM else None  # core1 member: delivery order - its own recording-order rebuild
-CSF = [os.environ["CS_NPZ"]] if "CS_NPZ" in os.environ else sorted(glob.glob(f"{REPO}/runs/coreshuf_p{PSEED}*.npz"))  # coreshuf.py writes one file per scheme set
-CS = next((z for z in map(np.load, filter(os.path.exists, CSF)) if f"{SCHEME}|{p0}" in z), {}); DPC = None  # CS_NPZ=none: pc128 as recorded
+CSF = [os.environ["CS_NPZ"]] if "CS_NPZ" in os.environ else sorted(glob.glob(f"{REPO}/runs/coreshuf_p{PSEED}.npz") + glob.glob(f"{REPO}/runs/coreshuf_p{PSEED}_*.npz"))
+# coreshuf.py writes coreshuf_p<seed>[_<schemes>].npz. Exact patterns (s194 bug): "p1*" also matched p10/p11, and within 1 read within 10's pc128
+CSH = [f for f in filter(os.path.exists, CSF) if f"{SCHEME}|{p0}" in np.load(f)]; assert len(CSH) <= 1, f"several pc128 files for {SCHEME} {PSEED}: {CSH}"
+CS = np.load(CSH[0]) if CSH else {}; DPC = None  # CS_NPZ=none: pc128 as recorded
 if f"{SCHEME}|{p0}" in CS:
     ref, rec = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]][f"pc128|{p0}"], CS[f"rec|{p0}"]
     sg = np.sign([np.corrcoef(ref[:, j], rec[:, j])[0, 1] for j in range(ref.shape[1])]); DPC = sg * (CS[f"{SCHEME}|{p0}"] - rec)
@@ -68,9 +76,9 @@ DGE = GS[f"{ORD}|{p0}"][IDX] - GS["rec"][IDX] if f"{ORD}|{p0}" in GS else None
 if DGE is not None:  # GE = [gaze 32 | event rates 16]; the stored event rates must be the rebuild's
     assert np.allclose(S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]][f"GE|{p0}"][:, 32:], GS["rec"][IDX]), "GE columns 32: are not the event rates"
 HBF = sorted(glob.glob(f"{REPO}/runs/hilbertmember*.npz")) if os.environ.get("HB_NPZ") != "none" else []
-HB = next((z for z in map(np.load, HBF) if f"{ORD}|{p0}" in z), {}); DHB = HB[f"{ORD}|{p0}"] - HB[f"rec|{p0}"] if f"{ORD}|{p0}" in HB else None
+HB = one_with(HBF, f"{ORD}|{p0}", "Hilbert"); DHB = HB[f"{ORD}|{p0}"] - HB[f"rec|{p0}"] if f"{ORD}|{p0}" in HB else None
 TSF = sorted(glob.glob(f"{REPO}/runs/teachshuf*.npz")) if os.environ.get("TS_NPZ") != "none" else []  # s184: teacher, slot 10
-TS = next((z for z in map(np.load, TSF) if f"{ORD}|{p0}" in z), {}); DTS = TS[f"{ORD}|{p0}"] - TS[f"rec|{p0}"] if f"{ORD}|{p0}" in TS else None
+TS = one_with(TSF, f"{ORD}|{p0}", "teacher"); DTS = TS[f"{ORD}|{p0}"] - TS[f"rec|{p0}"] if f"{ORD}|{p0}" in TS else None
 CORE = [n for n, ok in (("core1 member", DC1 is not None), ("pc128 view", DPC is not None), ("rest net", bool(RSS)), ("eye net", bool(OCD))) if not ok]
 REC_LEFT = CORE + [n for n, ok in (("GE event rates", DGE is not None), ("Hilbert member", DHB is not None), ("teacher member", DTS is not None)) if not ok] + [
     "transformer and shallow ea members (causal EA)"]

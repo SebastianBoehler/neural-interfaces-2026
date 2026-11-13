@@ -4164,3 +4164,23 @@ the form was not, under package conditions.
 - **Keep bar:** held-out gain ≥ +0.3 over gC5 on wave 1, confirmed (≥ +0.15) on wave 2's orders.
 - **Prediction:** held-out +0.1 (−0.1 to +0.3). The best single form looks better in-sample (+0.3 to +0.5), which is why
   only the nested number counts.
+
+### 195. BUG: within 1 read within 10's pc128 view after 15:02 UTC (found 13 Nov 17:56 UTC; fixed)
+
+`shufcombo` found TSEM's delivery-order pc128 file with `glob("coreshuf_p{PSEED}*.npz")`. For PSEED = 1 that also matched
+`coreshuf_p10_within.npz` and `coreshuf_p11_within.npz`, which arrived at 15:02 UTC with §185. `p10` sorts first and
+holds the key `within|all_loso`, so every within 1 score after 15:02 UTC used within 10's pc128 view. Other seeds were not
+affected (no p0x, p2x or p3x files; full and runs keys are not in the p10/p11 files).
+- **Found by:** the per-window re-run for §193 did not reproduce the logged within 1 number (+1.53 against +1.49).
+- **Fix:** exact patterns (`coreshuf_p<seed>.npz` and `coreshuf_p<seed>_*.npz`), plus a check that exactly one file
+  holds the key, for pc128, core1, Hilbert and teacher alike (`one_with`). The fixed scorer reproduces the logged within 1
+  line exactly (+1.49, fallback +0.84). Synced to Leonardo before the §194 scoring runs.
+- **Unaffected (scored before 15:02 UTC):** the most complete table (§185), the package gate (§178), labels L, §176, §180,
+  §183, the upper bounds.
+- **Affected and re-run now:**
+  - form A within 1 and the accuracy curve's within 1 half (§188);
+  - §187 R within 1;
+  - the §193 per-window outputs;
+  - §191 within 1, rescored on Leonardo (64408767). Both arms there had the same wrong view, so its pooled-minus-control
+    difference was paired but not on the right input.
+  - Old logs are overwritten in place; this entry is the record.
