@@ -3290,3 +3290,12 @@ The loss is not about which windows the templates weight. It may be the views' o
 combination gains **+1.47 to +1.87 for new people over v5.1b under the same order (without P10 +1.10 to +1.54), with
 every 80 % person interval above +0.68**, against +1.00 in recording order. The fine-tuning form here is cum10 delta1;
 gC5 delta1 (the run-time form) is §171, due about 11:20 UTC.
+
+### 172. GC5SHUF draws on Galvani (written 13 Nov 10:35 UTC, before any job ran; `studies/13nov/ttt18.py` with DRAW, `scripts/cloud/galv_array.sh`)
+
+Galvani is reachable again (the user's EDU VPN). New waves move there step by step, and Leonardo keeps a smaller share.
+The first Galvani wave: gC5 re-streamed under *within* (the plausible sealed scheme), permutations 0 and 1 × fresh
+augmentation draws 1 and 2 (96 tasks; smoke 3096130, arrays 3096131–3096134). Code and delivery orders were synced
+first. Galvani tasks skip finished outputs and requeue when preempted. Scoring as §171, against v5.1b under the same
+order. Together with §171's draw 0 this gives the shippable form three draws × two permutations under *within* before
+the decision; same prediction and bar as §171.
