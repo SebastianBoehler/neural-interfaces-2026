@@ -2563,7 +2563,7 @@ no FT) has never been scored. Same replay and seeds as PKG2 (§140).
 | FOR − OR (what FT adds inside the stack), new | +0.70 (+0.30 to +1.10); without P10 +0.45 |
 | **Reading** | if FOR − OR without P10 is ≥ +0.30, FT earns its run time inside the stack and the package carries it on never-routed sessions; if < +0.15, the package ships OR and spends no run time on FT |
 
-| §150 item (13 Nov 07:53 UTC; `runs/pkg_or_13nov.log`, per person `runs/pkg_or_13nov.npz`; against T1, six bases) | Observed | Verdict |
+| §150 item (13 Nov 07:45 UTC; `runs/pkg_or_13nov.log`, per person `runs/pkg_or_13nov.npz`; against T1, six bases) | Observed | Verdict |
 |---|---|---|
 | OR (eye-net view + rest member, no FT) | **new +0.61 [+0.22, +1.04], 8 of 10, without its best person +0.39; seen +0.61 (P04 +0.16, P10 +1.07); J +0.61** | Hit (+0.35 / +0.40) |
 | FOR − OR (what FT adds inside the stack) | new +0.47 [−0.07, +1.02], 6 of 10 people; **without P10 +0.17** (P10 +3.2); seen 0.00 | between the two readings (+0.15 / +0.30): **undecided**. FT adds +0.17 for the nine other people, and its run time is the package's largest cost |
