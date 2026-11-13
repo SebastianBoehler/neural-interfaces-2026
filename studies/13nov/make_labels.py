@@ -8,7 +8,7 @@ import os, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from stacklib import REPO, Z, run, SC  # noqa: E402
-CH = np.load(REPO + "/studies/12nov/chain_final.npz"); D = REPO + "/studies/13nov"
+CH = np.load(REPO + "/studies/12nov/chain_final.npz"); D = REPO + "/runs/labels"  # generated arrays live under runs/, not in tracked folders
 assert (CH["idx_seen"] == Z["idx|seen_session"]).all(), "chain_final's seen rows are not the replay's seen rows"
 out = run(("FT", "OCU"), "B2_pool", outputs=True)
 for p in ("all_loso", "seen_session"):

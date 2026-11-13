@@ -12,7 +12,7 @@ import numpy as np
 REPO = os.path.abspath(__file__ + "/../../..")
 sys.path.insert(0, REPO + "/replay")
 import env  # noqa: E402
-A = env.A; SC = A.SC; Z = A.L.Z; D = REPO + "/studies/13nov"
+A = env.A; SC = A.SC; Z = A.L.Z; D = REPO + "/runs/labels"  # generated arrays live under runs/, not in tracked folders
 CH = np.load(REPO + "/studies/12nov/chain_final.npz"); assert (CH["idx_seen"] == Z["idx|seen_session"]).all()
 INDEP = [f for f in A.FAMS if not f.startswith("sbn")]; assert len(INDEP) == len(A.FAMS) - 3, INDEP
 ind = A.system("B2_pool", INDEP)["out"]; out = {"indep": {}, "agree": {}, "truelow": {}, "confhalf": {}}

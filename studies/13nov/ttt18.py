@@ -1,7 +1,7 @@
 """TTT18 (13 Nov, ledger s171): gC5 (the fine-tuning form that fits the run time, s120 addendum 3) re-streamed in a
 non-chronological delivery order (runs/shuffle_perms.npz), same nets as ttt7 seeds 0-5; scored with shufcombo.py
 (FT_KIND=gC5). Saved to runs/diag/ttt/probs18 as ttt18<SCHEME><PSEED>_<arch>_{base,gC5}-<proto>-s<seed>.npz.
-CHAIN_NPZ=studies/13nov/chain_v51b_<order>.npz: package-faithful pseudo-labels (tag suffix L, s178).
+CHAIN_NPZ=runs/labels/chain_v51b_<order>.npz: package-faithful pseudo-labels (tag suffix L, s178).
 Usage (Leonardo): SCHEME=within PSEED=0 python studies/13nov/ttt18.py TASK | smoke"""
 import importlib.util, os
 from pathlib import Path

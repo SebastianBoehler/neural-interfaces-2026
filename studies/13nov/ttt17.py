@@ -1,7 +1,7 @@
 """TTT17 (13 Nov, ledger s165): the SessionBN members and their fine-tuning (cum10) re-streamed in a non-chronological
 delivery order, the same orders as studies/13nov/shuffle.py (runs/shuffle_perms.npz: SCHEME|SEED|proto -> global window
 indices in delivery order). Causal alignment, SessionBN state and the fine-tuning schedule then follow that order.
-Pseudo-labels: the v3 chain in recording order, or with CHAIN_NPZ=studies/13nov/chain_v51b_<order>.npz v5.1b as emitted in
+Pseudo-labels: the v3 chain in recording order, or with CHAIN_NPZ=runs/labels/chain_v51b_<order>.npz v5.1b as emitted in
 that order (tag suffix L, s182).
 Saved to runs/diag/ttt/probs17 as ttt17<SCHEME><SEED>_<arch>_{base,cum10}-<proto>-s<seed>.npz, keyed by window index.
 Usage (Leonardo): SCHEME=full PSEED=0 python studies/13nov/ttt17.py TASK | smoke"""

@@ -11,7 +11,7 @@ order (runs/coremember.npz, its change against its own recording-order rebuild a
 TSEM's pc128 view rebuilt in the order (runs/coreshuf_p<PSEED>.npz, sign-aligned change added), the rest net
 re-streamed (runs/restshuf/<order>/). STRICT=1 fails when any of them is missing. The header prints what stays recorded.
 GATE_P0=1: the combination's gate from v5.1b's chain under the same order (the package's gate sees its inner v5.1b).
-LABEL_OUT=name: write FT pseudo-labels (v5.1b B2_pool emitted in this order) to studies/13nov/<name>.npz and exit.
+LABEL_OUT=name: write FT pseudo-labels (v5.1b B2_pool emitted in this order) to runs/labels/<name>.npz and exit.
 Usage: SCHEME=full PSEED=0 [OCU_DIR=runs/ocushuf/full0] [STRICT=1] python studies/13nov/shufcombo.py"""
 import glob, hashlib, os, sys
 import numpy as np
@@ -153,7 +153,7 @@ if LABEL_OUT:  # FT pseudo-labels as the package sees them: v5.1b (B2_pool) emit
     chain("B2_pool", LABEL_ARM, Pperm); lab = LAB["B2_pool"]
     print(f"labels ({LABEL_ARM}): delivery-order chain acc {np.mean(lab.argmax(1) == y):.4f} | chain_final (recording order) acc {np.mean(CH[p0].argmax(1) == y):.4f} | "
           f"agreement {np.mean(lab.argmax(1) == CH[p0].argmax(1)):.4f}", flush=True)
-    np.savez(f"{REPO}/studies/13nov/{LABEL_OUT}.npz", all_loso=lab, seen_session=CH["seen_session"], idx_seen=CH["idx_seen"]); sys.exit(print("written", LABEL_OUT))
+    np.savez(f"{REPO}/runs/labels/{LABEL_OUT}.npz", all_loso=lab, seen_session=CH["seen_session"], idx_seen=CH["idx_seen"]); sys.exit(print("written", LABEL_OUT))
 for bn in S.BASES:
     R[bn] = {"P0rec": chain(bn, "P0", ident), "P0s": chain(bn, "P0", Pperm), "P0r": chain(bn, "P0r", Pperm), "V6Fr": chain(bn, "V6Fr", Pperm), "V6Frec": chain(bn, "V6Frec", ident),
               "V6r": chain(bn, "V6r", Pperm)}  # s173: the fallback without FT (eye net + rest member only)

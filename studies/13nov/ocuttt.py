@@ -7,7 +7,7 @@ steps) on the delivered windows and predicts the next STEP windows. Two label so
   true  the true labels (ceiling only, never shippable)
 New people (all_loso). Saved as runs/diag/ocuttt/<SCHEME><PSEED>/{base,pl,true}/oc_nomix-all_loso-s<seed>.npz so that
 shufcombo's OCU_DIR can read each variant directly.
-Usage: SCHEME=within PSEED=0 CHAIN_NPZ=studies/13nov/chain_v6r_within0.npz python studies/13nov/ocuttt.py SEED | smoke"""
+Usage: SCHEME=within PSEED=0 CHAIN_NPZ=runs/labels/chain_v6r_within0.npz python studies/13nov/ocuttt.py SEED | smoke"""
 import copy, importlib.util, os, sys, time
 from pathlib import Path
 import numpy as np
