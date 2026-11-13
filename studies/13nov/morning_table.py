@@ -1,8 +1,9 @@
 """MORNING TABLE (ledger s202): v6f, v6.1, v6.2-safe and v6.2 on the same orders per shuffle scheme, from scored files only.
 New people (all ten, package gate): V6Fr - P0r per person, mean over the six bases.
 - v6f: the gC5 run with v5.1b labels (L).
-- v6.1: s15 with the stack labels (KF; equal to R within GPU noise, s202).
-- Both come from the same machine (runs/leo_npz, Leonardo), so rest-net seeds are paired.
+- v6.1: s15 with the stack labels (KF; equal to R within GPU noise, s202), or with the Q labels (QF, s203; v6r on new
+  people as well).
+- Both come from the same machine (runs/leo_npz for KF, else runs/ for QF), so rest-net seeds are paired.
 - v6.2 and v6.2-safe equal v6.1 on new people: no new person is routed (s201(2)).
 Returning people (P04, P10; seen_session): retv6 gate-unchanged s15 files (runs/retv6/g1_s15_QF_seen_session_<order>.npz).
 - v6.2 = ERF - base, v6.2-safe = ER - base.
@@ -29,10 +30,13 @@ def ci(x):
 
 
 new, ret = {}, {}
-for f in sorted(glob.glob(f"{NPZ}/shufcombo_*_ocu_gC5_all_ge_hb_ts_gp0_ttt18*L.npz")):
-    o = os.path.basename(f).split("_")[1]; g = one(f"{NPZ}/shufcombo_{o}_ocu_s15_all_ge_hb_ts_gp0_ttt18{o}KF.npz")
-    if g is None:
-        continue
+PAIRS = {}  # order -> (v6f file, v6.1 file) from ONE machine (rest-net seed sets differ between machines, s198)
+for d, tag in ((REPO + "/runs", "QF"), (NPZ, "KF")):  # s203: full/runs 2-3 only exist locally (Q labels); Leonardo wins
+    for f in sorted(glob.glob(f"{d}/shufcombo_*_ocu_gC5_all_ge_hb_ts_gp0_ttt18*L.npz")):
+        o = os.path.basename(f).split("_")[1]; g = one(f"{d}/shufcombo_{o}_ocu_s15_all_ge_hb_ts_gp0_ttt18{o}{tag}.npz")
+        if g is not None:
+            PAIRS[o] = (f, g)
+for o, (f, g) in sorted(PAIRS.items()):
     # P0r takes the no-FT re-stream from each FT run's own base outputs (FR17), so GPU float noise can move it between
     # runs (runs 0: up to 0.09 on one person). Each variant is taken against its own P0r (paired); the gap is reported.
     p0 = mean_bases(f, "P0r"); p0k = mean_bases(g, "P0r"); gap = np.abs(p0 - p0k).max()
