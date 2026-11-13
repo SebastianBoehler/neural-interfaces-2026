@@ -4184,3 +4184,38 @@ affected (no p0x, p2x or p3x files; full and runs keys are not in the p10/p11 fi
   - §191 within 1, rescored on Leonardo (64408767). Both arms there had the same wrong view, so its pooled-minus-control
     difference was paired but not on the right input.
   - Old logs are overwritten in place; this entry is the record.
+
+**§195 re-runs, within 1 with the right pc128 (13 Nov 18:14 UTC).**
+- Form A: k = 1/4/16 give +1.37/+1.20/+1.02 against the baseline +1.49 (−0.12/−0.29/−0.47). Still refuted.
+- §187 R within 1: +1.71 against L +1.49 (+0.22, was +0.18). §187's within mean is now +0.16; the eight-order mean is +0.03.
+  Undecided, unchanged.
+
+**§193 RESULT, per-session selector (`runs/selector.log`; 20 orders, 6 bases).**
+- **Oracle** (the best of P0r / V6r / V6Fr per session) over always-gC5: within +0.41, full +0.49, runs +0.40.
+  Always-fallback: full −0.45, runs −0.57.
+- **Label-free causal criteria**, chosen on five people and scored on five (126 splits): agreement on the first 30/60
+  windows −0.02 / −0.06; margin difference −0.04 / −0.02. **Refuted:** no criterion recovers any of the +0.41 ceiling.
+  The ceiling is within the size an oracle over three noisy arms finds by chance (prediction +0.4 to +1.5).
+- **Within 2, who and what** (per person P01..P10):
+  - eye + rest: −0.8 +0.1 −0.3 −0.1 −0.0 −0.2 +1.0 +0.5 −0.7 +0.1;
+  - FT: +2.1 −0.2 −0.6 −0.9 +0.1 +1.3 −0.4 +0.7 +0.5 +1.1.
+  - Its low total comes from the eye/rest part, which is small and mixed (P01 −0.8, P09 −0.7), and FT being negative for
+    P03 and P04. No single part or person carries it.
+
+**§188 accuracy curve RESULT (`runs/syn_*`; within 0 and 1, right pc128).** gC5 over v5.1b, new; the real eye net beside the
+synthetic view at the same window accuracy (0.514):
+
+| | real eye net | synthetic, same accuracy | +5 | +10 | +20 (0.71) |
+|---|---|---|---|---|---|
+| SessionEM only (k = 0), within 0 / 1 | +1.39 / +1.49 | +1.57 / +1.76 | +1.55 / +1.94 | +1.63 / +1.93 | +2.01 / +2.22 |
+| SessionEM + TSEM (k = 4), within 0 / 1 | +1.21 / +1.20 | **+2.36 / +2.14** | +2.57 / +2.38 | +2.64 / +2.42 | +3.06 / +2.95 |
+
+- **Reading:** at the same accuracy, the synthetic view (errors shuffled within person × class, so independent of the EEG
+  members' errors and of time) beats the real eye net by +0.2 to +0.3 in SessionEM and **by about +1.0 in TSEM** (k = 4).
+- Accuracy itself is a weak lever: +20 points adds about +0.5 to +0.7.
+- **So the eye view's limit is error correlation, not accuracy.** Its errors are correlated over time within a session and
+  with the EEG members. TSEM's templates average independent errors away, not correlated ones.
+- **Consequence for forms B and C:** judge them on decorrelation. A session-drift-free eye view at today's accuracy would be
+  worth up to about +1.0 new in TSEM. Form A failed because the real view's errors are correlated.
+- **Caveat:** the shuffle also removes temporal structure that might be partly real signal. The +1.0 is an upper bound for
+  "decorrelation", not a promise.
