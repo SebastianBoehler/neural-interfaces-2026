@@ -143,3 +143,8 @@ personal traces are forced on every routed window (offsets 1, 4, 7), while the g
 person. Against v5.1b: mean −0.06 balanced-accuracy points, worst session-offset −1.04, none below −2. **Weakly
 informative:** in-sample the whole chain is at about 99 % on these sessions, so the cost on a real false accept of an
 unseen person is not measured here. A held-out impostor (a person left out of the personal nets) would measure it.
+
+**Status (13 Nov, ledger §105b):** v5.2 over v5.1b is restated as −0.05 sealed (−0.30 to +0.10); v5.2 and v5.2b are not
+to be uploaded as built. What carries over to the next package: v5.2b's prefetch, the trained() guard, the graft check,
+the 120 rebuilt traces, §120's v5.3 choices and the runtime measurements. Next design input (main session): FT + eye-net
+view + rest member, built only after the window and after the fresh-seed PKG3 replay.
