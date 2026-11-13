@@ -2992,3 +2992,14 @@ content hurts). **§163 (written 09:36 UTC, before the run):** put the informati
 averaging the view nets' log posteriors with the eye net's in its own 3 columns: avg4 (emg, ocuslow, ocufast, beta) and
 avgslow (ocuslow only). Prediction against V6F, new: +0.05 (−0.15 to +0.25) each; bar ≥ +0.15 without the best person
 on draw 0, then draws 1–3.
+
+| §152 on OCU/REST seed sets B and C (13 Nov 09:37 UTC; `runs/night13/v6f_set{B,C}_d{0,1}.npz`; against v5.1b) | V6F new [80 % person] / without P10 | J, recognised sessions as v5.1b | V6 (no FT) new / seen P04, P10 |
+|---|---|---|---|
+| set B, FT draw 0 / 1 | +0.63 [+0.20, +1.07] / +0.44; +0.55 [+0.05, +1.03] / +0.32 | +0.32 / +0.27 | −0.07; +0.66, +0.24 |
+| set C, FT draw 0 / 1 | +0.63 [+0.24, +1.03] / +0.41; +0.70 [+0.24, +1.17] / +0.45 | +0.32 / +0.35 | +0.23; +0.44, +0.12 |
+
+**Verdict: the bar holds on the other seed sets of the eye net and rest member** (new without P10 ≥ +0.20, 80 %
+intervals above 0, J with recognised sessions as v5.1b ≥ +0.25 on all four), at about two thirds of set A's size.
+Over three OCU/REST seed sets and four FT draws, V6F's new-people gain against v5.1b is **+0.55 to +0.95 (without P10
++0.32 to +0.70)**. The design-level expectation is about +0.7 new, J +0.35 with recognised sessions untouched, in the
+form scored here (cum10, each base's own seeds). Whether it survives the run-time forms is §160 (FITFORM), due shortly.
