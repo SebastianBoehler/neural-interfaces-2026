@@ -2292,3 +2292,23 @@ finish as data.
 - Item 8: per-window cost grows by 0.014 ms (v5.1b) and 0.021 ms (v5.2b) per window index (78 → 88 and 80 → 93 ms over
   577 windows, A100). A one-off ~11 s of TorchScript compilation when a person's traces are first used in a process,
   not per session.
+
+### 105b. Sealed expectation for v5.2 over v5.1b, restated (13 Nov 02:41 UTC; replaces §105's +0.20)
+
+§105's +0.20 (−0.10 to +0.50) rested on §78 and §119. Both gave the personal nets to whole returning sessions from
+window 0, in both tails (§140). Package-form evidence:
+
+| Source | Personal nets against their twins, seen (P04, P10) |
+|---|---|
+| Reviewer, from §119's stored outputs, package form | −0.05 (−0.10, 0.00) |
+| PKG2 (§140), six bases | −0.36 (−0.78, +0.06), negative on all six bases |
+| PKG fresh seeds (Night results 2) | −0.40 (−0.87, +0.06) |
+| Impostor study (build session, in-sample impostor at about 99 %) | −0.06 points, worst −1.04 |
+
+Limits: PKG uses study nets (pft), not the 120 rebuilt traces of `runs/pnets_jit_shipbase`. On the seen side one window
+is about 0.07 J. **Restated expectation for v5.2 over v5.1b: −0.05 sealed (−0.30 to +0.10).** The dev seen change is
+−0.05 to −0.40, J −0.03 to −0.20, scaled by §119's proxy-to-sealed ratio of about 0.2 for the returning-session
+share. No dev number supports a gain, and every package-form number has P04 below zero. **v5.2 / v5.2b should not be
+uploaded as built.** The returning-people gain of the current design comes from the rest-class member (§140 fresh:
+R alone, seen +0.45, P04 +0.42, P10 +0.47), not from personal nets. The build session's runtime and guard work (§112,
+§120, `docs/V52_BUILD.md`) carries over to the next package.
