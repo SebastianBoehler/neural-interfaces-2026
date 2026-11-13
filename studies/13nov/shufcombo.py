@@ -119,7 +119,7 @@ for bn in S.BASES:
     print(f"{bn}: P0rec {R[bn]['P0rec'].mean():.2f} | P0s {R[bn]['P0s'].mean() - R[bn]['P0rec'].mean():+.2f} P0r {R[bn]['P0r'].mean() - R[bn]['P0rec'].mean():+.2f} | "
           f"V6Fr - P0r {R[bn]['V6Fr'].mean() - R[bn]['P0r'].mean():+.2f} | V6Frec - P0rec {R[bn]['V6Frec'].mean() - R[bn]['P0rec'].mean():+.2f}", flush=True)
 S.apply({p: np.arange(S.N[p]) for p in S.PR}); rng = np.random.default_rng(0)
-for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + SessionBN members re-streamed", "P0r", "P0rec"),
+for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + members re-streamed (as header)", "P0r", "P0rec"),
                   ("combination over v5.1b, both shuffled", "V6Fr", "P0r"), ("combination over v5.1b, recording order", "V6Frec", "P0rec"),
                   ("no-FT fallback (eye net + rest) over v5.1b, shuffled", "V6r", "P0r")):
     d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0); bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])

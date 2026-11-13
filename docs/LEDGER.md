@@ -3470,3 +3470,21 @@ Either way the table quotes the package-faithful numbers (labels L, GATE_P0) whe
 
 The package gate costs 0.06 on both orders, within the prediction (0 to 0.15) and inside the noise. Recording order
 gives +0.89 and +0.71, against +0.85 and +0.81 with the own gate. Not refuted. The table uses GATE_P0 from now on.
+
+**§176 RESULT: every input re-streamed in delivery order (13 Nov 12:38 UTC; `runs/allorder_<order>_gp0.log`, STRICT, package gate).**
+- In delivery order: SessionBN members, core1 member, pc128, rest net, eye net, and gC5 fine-tuning (draw 0, labels still
+  from recording order; §178 replaces them).
+- Still in recording order: the GE view, the Hilbert member, the transformer and shallow members, and the teacher.
+- Before scoring, P0s (untouched by the new inputs) was checked against the earlier runs: equal on all four orders.
+- New people, against v5.1b under the same order [80 %], without P10:
+
+| Order | v5.1b re-streamed vs recording order | gC5 combination over v5.1b | fallback (no FT) over v5.1b |
+|---|---|---|---|
+| within 0 | −1.20 | +1.20 [+0.57, +1.83], +0.86 | +0.74 [+0.42, +1.06], +0.71 |
+| within 1 | −1.62 | +1.58 [+1.17, +1.98], +1.37 | +1.23 [+0.90, +1.57], +1.33 |
+| full 0 | −3.32 | +1.58 [+0.89, +2.28], +1.34 | +0.63 [+0.39, +0.87], +0.65 |
+| runs 0 | −2.31 | +1.78 [+1.00, +2.53], +1.54 | +0.36 [−0.02, +0.71], +0.54 |
+
+Prediction (a) of the scoring form: within mean +1.39, within 0.3 of §171; not refuted. The table bar is met on both within
+orders for gC5 (≥ +0.5, > 0 without P10) and for the fallback (≥ +0.3).
+Note: within 0 (+1.20) is the lowest of the four orders.
