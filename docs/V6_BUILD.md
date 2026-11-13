@@ -92,6 +92,10 @@ Upload ZIP (fine-tuning on) `a5db1404…cbba2`, fallback `05c0e386…e1564`, v5.
   twice through the same v6f package on one A100 (Leonardo 64421312, 4 sessions): fine-tuned posteriors differ by up to
   0.011 (P01|1; the other three about 1e-6), outputs by up to 3.6e-4, and no label differs. A sealed run is therefore
   not bit-reproducible; the effect on labels was nil in this test.
+- **Run-to-run spread in scores** (Leonardo 64422185): 5 repeats of all 14 public sessions, recognition off, on one
+  A100. The dev score (mean session balanced accuracy) is identical across repeats for v6f (0.99434) and v6.1
+  (0.99359); no session's balanced accuracy varies. The posterior-level non-determinism did not reach the labels on
+  these in-sample sessions; on unseen people it may move a few windows.
 - **Fine-tuning numerics on the worker.** The worker image (CUDA 13 build) runs fine-tuning without errors at the same
   cost as Leonardo; its posteriors were not compared with a reference there (the GPU reference check ran on Leonardo).
 
@@ -123,4 +127,4 @@ under the package gate): new people over v5.1b, within orders 0–7, **v6.1 +1.4
 | Run-to-run spread of FT on the A100 | Leonardo 64421057, the same session streamed twice through the same package | P01\|1: fine-tuned posteriors differ by up to **0.034**, outputs by 1.3e-3, labels 0; P02\|1: 3.8e-6 / 1.9e-7. GPU training is not deterministic (atomic adds in backward passes), and the refits amplify it. So 1.02e-4 against the reference is inside the package's own spread, not a logic difference; the CPU check (deterministic) matches to 1.2e-5. A sealed run of a fine-tuning package is not bit-reproducible |
 | FT acts, shuffled delivery | Leonardo 64419332, all 14 sessions, gates off, recording / within\|0 / full\|0 | Errors 0; FT on every window from 20. max \|v6.1 − noft\| on FT windows 0.14 / 0.20 / 0.17. Labels vs v5.1b: 35 / 36 / 57 (noft 38 / 42 / 60). In-sample mean BA v5.1b / noft / v6.1: 0.981 / 0.995 / 0.994; 0.982 / 0.997 / 0.995; 0.970 / 0.992 / 0.991 |
 | Worst-case run time | Leonardo 64418532, A100, warm, paired, gates off | ×1.809 (190 windows, 17 refits), ×2.082 (378, 36 refits) → 31.3 / 34.7 min at 57 %, **38.8 / 44.7 min at 100 %**, plus about 1.1 min one-off warm-up: **about 45.8 min worst case** (v6f about 45.3) |
-| FT in the worker image | Galvani 3099513 | pending (queued on Galvani) |
+| FT in the worker image | Galvani 3099908 (node cn235; the first try, 3099513 on cn228, hit a sticky CUDA hardware error, `cudaErrorContained`), unzipped from 2ca06dc0 | **OK**. Fine-tuning ran in the worker image: 17 / 36 refits, 340 / 720 steps, errors 0. Paired with v5.1b on that node (v5.1b is slower there: 21.5 s per 190 windows): ×1.426 / ×1.698 → 30.6 / 36.4 min at 100 % unrecognised |
