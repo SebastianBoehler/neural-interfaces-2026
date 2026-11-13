@@ -3108,3 +3108,22 @@ is 29 / 35 min sealed at 57 % unrouted and 37 / 48 min at 100 % (190 / 378 windo
 over 45 min, but inside 60. **All of this is recording order.** Fine-tuning's schedule is position-based and its
 pseudo-labels come from order-dependent stages, so the design is decided only after its shuffled-protocol score
 (§165 re-streaming with cum10, §166 stage re-tune).
+
+### 167. OCUSHUF and more re-streaming (written 13 Nov 10:06 UTC, before any job ran)
+
+The user restarted Claude at about 10:00 UTC, and the §166 watcher died with it. RETUNE (12 jobs) and RESTREAM
+(full0, within0) completed at about 09:55 UTC and are scored next. Queued now so that the GPUs keep running:
+- **RESTREAM, more orders:** ttt17 with runs perm 0, full perm 1 and within perm 1 (arrays 64370563–64370565).
+- **OCUSHUF:** the eye net with its causal trace standardisation done in the delivery order, for training and test
+  sessions (`studies/13nov/ocushuf.py`; traces differ from recording order by up to 6.2 sd), full and within perm 0,
+  nine seeds each.
+
+Together with §165 these give the order dependence of all three parts of the combination except the rest member,
+which is next.
+
+Scoring: `shufcombo.py` (written next). New people, with members and stages in the same delivery order:
+- v5.1b with re-streamed members, against recording order;
+- the combination (cum10 delta1 + OCU + REST) under the same order, against v5.1b under the same order.
+
+Prediction: v5.1b, full, members re-streamed on top of §164's stage loss: −0.5 (−1.5 to +0.2). The combination's gain
+over v5.1b under full shuffle: +0.4 (−0.2 to +0.9), against +0.75 to +1.00 in recording order.
