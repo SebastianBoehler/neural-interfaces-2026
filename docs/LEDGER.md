@@ -2635,3 +2635,11 @@ OCU + REST.
 | SF new / without P10 | +0.40 (0.00 to +0.80) / +0.10 (−0.20 to +0.40); seen 0.00 |
 | V6F new / J | +0.70 (+0.20 to +1.20) / +0.25 (−0.30 to +0.70) |
 | **Bar** | A package design needs, on every draw, J ≥ +0.25 against v5.1b with the new gain without P10 ≥ +0.20 and seen not falling for both P04 and P10. Short of that, nothing in the stack is a package |
+
+**§152 additions (13 Nov 08:00 UTC, before any result).**
+- cum10 draws 1–3: scorings chained on Leonardo against v5.1b (`ftship_d{1,2,3}`, jobs 64358189–64358191).
+- The cheap schedule gC5 (§113) on the shipped members, read the same way:
+  - draw 0 from the stored TTT7 outputs (`pkg.py FT_VAR=gC5`, Leonardo CPU job);
+  - fresh draws 1–3 from `studies/13nov/ttt14.py` (ttt7 gained the same DRAW offset; draw 0 stays bit-identical);
+  - scorings `ftship_gc5_d{0,1,2,3}`.
+- Same prediction and bar as cum10. gC5 costs a quarter of fixA's run time.

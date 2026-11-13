@@ -25,7 +25,7 @@ import session_bn as SB  # noqa: E402
 import importlib.util  # noqa: E402
 _spec = importlib.util.spec_from_file_location("ttt5", WS / "studies/12nov/ttt5.py"); T5 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T5)
 
-OUT = WS / "runs/diag/ttt/probs7"; T0 = T5.T0
+OUT = WS / "runs/diag/ttt/probs7"; T0 = T5.T0; TAG = "ttt7"; SMOKE_OUT = "smoke7"; DRAW = 0  # ttt14.py overrides; DRAW 0 keeps earlier runs bit-identical
 # variant -> (steps per refit, refit every, lr, scope, consistency weight, label form, warm start, views, GPU aug, first window)
 VARS = {"fixA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1, False, 30), "gA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1, True, 30),
         "gE20": (20, 20, 5e-4, "all", 1.0, "hard", False, 1, True, 30), "gC10E20": (10, 20, 5e-4, "all", 1.0, "hard", True, 1, True, 30),
@@ -56,8 +56,8 @@ def stream(m, X, Pc, seed):
     lab = torch.from_numpy(Pc.argmax(1)).to(X.device); wpl = torch.from_numpy(Pc.max(1)).float().to(X.device)
     soft = torch.from_numpy(Pc).float().to(X.device)
     for v, (steps, every, lr, scope, lam, form, warm, views, gpu, t0) in VARS.items():
-        torch.manual_seed(seed); net2 = None
-        gen = torch.Generator(device=X.device).manual_seed(seed) if gpu else torch.Generator().manual_seed(seed)
+        ds = seed + 1000 * DRAW; torch.manual_seed(ds); net2 = None
+        gen = torch.Generator(device=X.device).manual_seed(ds) if gpu else torch.Generator().manual_seed(ds)
         aug = strong_dev if gpu else T5.strong
         for t in range(t0, n, every):
             if net2 is None or not warm:
@@ -78,7 +78,7 @@ def stream(m, X, Pc, seed):
 
 
 def run(arch, d, proto, seed, out, epochs=0):
-    tag = f"ttt7_{arch}"; names = ["base"] + list(VARS)
+    tag = f"{TAG}_{arch}"; names = ["base"] + list(VARS)
     if all((out / f"{tag}_{v}-{proto}-s{seed}.npz").exists() for v in names):
         return print("exists", tag, proto, seed, flush=True)
     got = {v: [] for v in names}; rows_all = []; t0 = time.time(); Pc_all = T5.chain_labels(proto)
@@ -108,7 +108,7 @@ def run(arch, d, proto, seed, out, epochs=0):
 def main():
     d = protocol.load()
     if sys.argv[1] == "smoke":
-        out = WS / "runs/diag/ttt/smoke7"; out.mkdir(parents=True, exist_ok=True)
+        out = WS / "runs/diag/ttt" / SMOKE_OUT; out.mkdir(parents=True, exist_ok=True)
         run("fbl", d, "seen_session", 0, out, epochs=1); return print("SMOKE OK", flush=True)
     task = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True)
     for proto in ("all_loso", "seen_session"):
