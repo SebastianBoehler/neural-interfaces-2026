@@ -4049,3 +4049,20 @@ was inside the noise, in recording order, on an older chain.
   it back.
 - **Not run:** the two-class corpora with a masked loss. The SessionBN training has no per-sample class mask, and
   building one is not overnight work.
+
+**§190 RESULT (13 Nov 17:15 UTC; `runs/retv6_T.log`; FT with package-style labels on returning rows: routed v5.1b as emitted).**
+Change against routed v5.1b, six-base mean (P04, P10):
+
+| Arm | within 0 | within 1 | shuffled mean |
+|---|---|---|---|
+| eye | +0.21 | +0.07 | +0.14 (+0.38, −0.10) |
+| rest | +0.28 | +0.04 | +0.16 (+0.37, −0.06) |
+| FT | +0.69 | −0.05 | +0.32 (+0.86, −0.22) |
+| all three (ERF) | +0.36 | +0.08 | **+0.22 (+0.54, −0.09)** |
+
+**The bar (ERF ≥ +0.3 on the within mean, P10 ≥ −0.3) is missed:** +0.22. P10 passes (−0.07, −0.12). The §186.4 figure of
++0.61 came from recording-order labels; with the labels the package would have, it is about a third of that, carried by
+P04, and within 1 is flat. Recorded as "undecided" (inside the noise). No v6.1 build is requested on this. FT alone is
++0.32 but goes negative on P10 (−0.22) and on within 1 (−0.05).
+Supporting fix found on the way (§191): `protocol.load`'s `~m` (nolow) option is not read by deep.py or session_bn.py.
+It is a no-op for every SessionBN run; ttt18's EXT now refuses `~` options and states why it clears the weighting tag.

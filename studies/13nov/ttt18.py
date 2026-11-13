@@ -27,7 +27,13 @@ if EXT:
 
     def _load_ext(external=()):  # ttt7.main's protocol.load() now appends EXT; fails loudly if nothing was appended
         d = _load(external=EXT); n = int((d["split"] == "external").sum()); assert n > 0, f"EXT {EXT} appended no windows"
-        print(f"EXT {EXT}: {n} external training windows, {len(set(d['subject'][d['split'] == 'external']))} people", flush=True); return d
+        print(f"EXT {EXT}: {n} external training windows, {len(set(d['subject'][d['split'] == 'external']))} people", flush=True)
+        # deep._fit switches to a class-balanced weighted loss whenever d["tag"] is set, and SessionBN training does not support
+        # weighting. Both sets are class-balanced (PROTEUS 885/886/884, Scherer 710 each), so the weights would be about 1:
+        # assert that, then clear the tag. (protocol's "~m" nolow flag is not read by deep/session_bn at all: a no-op there.)
+        c = np.bincount(d["y"].astype(int), minlength=3); assert c.max() / c.min() < 1.02, f"classes not balanced: {c}"
+        assert not any("~" in t for t in EXT), "EXT options (~m, ~w, ~n) are not honoured by SessionBN training"
+        d["tag"] = ""; return d
     T7.protocol.load = _load_ext
 assert T7.run.__globals__["PERM"] is PERM and T7.stream.__globals__["DRAW"] == DRAW
 assert not EXT or T7.main.__globals__["protocol"].load is _load_ext, "ttt7.main would not see the external data"
