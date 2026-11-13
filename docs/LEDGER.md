@@ -4459,3 +4459,23 @@ picks (t10, t09) do not hold. Null, as predicted after §194's wave 2: raising t
   stackcmp chained (64419720–37 → stackcmp2_within8-11.txt and stackcmp2_fullruns.txt). It gives v6.1's dev row on twelve
   more orders, including full and runs.
 - v6.1's worker-image FT check stays on Galvani (v52-build), ahead of my lowered sweeps.
+
+**§198 returning people from the stack run (13 Nov 21:12 UTC; `runs/retv6_KF_*.log`; Leonardo's within 0/1 outputs).** The three v6
+additions on the routed path (eye view, rest member, FT with labels K: routed v5.1b as emitted). Against routed v5.1b,
+shuffled mean of within 0/1, mean (P04, P10):
+
+| form | FT alone | all three (ERF) |
+|---|---|---|
+| gC5 | +0.33 (+0.88, −0.22) | +0.20 (+0.49, −0.09) |
+| **s15** | +0.00 (+0.41, −0.41) | **+0.29 (+0.33, +0.24)** |
+| s03 | +0.03 (+0.21, −0.15) | +0.29 (+0.57, +0.00) |
+| c01 | −0.19 (+0.10, −0.47) | +0.19 (+0.25, +0.13) |
+| e02 | +0.12 (+0.22, +0.01) | +0.14 (+0.05, +0.24) |
+
+- With s15, all three additions on the routed path are positive for **both** returning people (+0.33, +0.24). It is the
+  first routed form with P10 above zero. §190's gC5 form gave +0.22 with P10 at −0.09.
+- Two people and two orders: not an estimate, but the sign holds for both people.
+- **Not in v6.1**, which fine-tunes only unrecognised sessions.
+- A v6.2 option would be "v6.1 + eye/rest/FT s15 also on routed sessions". Its run time is FT on every session, which is
+  the 100 %-unrecognised worst case already measured for v6.1 (about 45.8 min). Its gain for the 43 % returning share would
+  be about +0.29 × 0.43 ≈ +0.12 sealed before transfer.
