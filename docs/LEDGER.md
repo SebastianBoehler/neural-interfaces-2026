@@ -2244,3 +2244,20 @@ Not tonight, with reasons:
 - MixStyle and EEGNeX retests: low ceilings on the record and new code; they are next after the high-ceiling work.
 - Self-supervised training on the rest runs: not specified yet.
 - The fine-tuning line: its next form waits for TTT12's labels, which are scoring now.
+
+| Night results 2 (13 Nov 02:25 UTC; Leonardo `runs/night13/`; new in person terms) | Observed | Verdict |
+|---|---|---|
+| **§138/§140 package replay on fresh seeds** (FT seeds 6–11, eye-net 3–8; REST seeds 0–2 not fresh), FOR against T1 | **new +1.06, 80 % [+0.54, +1.57], 8 of 10, without P10 +0.84; seen +0.84 (P04 +0.53, P10 +1.14; every base +0.49 to +1.43); J +0.95** | **Replicates PKG2** (+1.08 / +0.83 / J +0.85). Now P04 and P10 both move ≥ +0.3, so **seen counts by §140's rule**. **FT+OCU+REST is the design input for the build after the window** (§143's bar is read again on PKG3's fully fresh seeds) |
+| same, R (REST alone) / FO / F | new +0.50 (without the best +0.26), seen +0.45 (P04 +0.42, P10 +0.47) / new +0.65 (without P10 +0.32), seen +0.06 / new +0.32 (without P10 −0.02) | The rest-class member carries the returning-people gain; FT adds only through P10 |
+| same, personal nets in package form (T1 against T1b) | seen −0.40 (P04 −0.87, P10 +0.06) | replicates §140: **v5.2's personal nets cost P04** |
+| §136 STACKF (fresh FT and eye-net seeds, `A.system`) | FT+OCU +0.65 [+0.04, +1.25]; FT+REST+OCU+MIX **+1.08** [+0.58, +1.57] | Hit for both (+0.70 / +0.95). The design input is confirmed on new (bar ≥ +0.50); its seen column is v3 and not read |
+| **§142 truelow (oracle: true labels on the low-confidence half only)**, cum10, seeds 0–5 / 6–11 | **+2.03 [+1.41, +2.69], without P10 +1.62 / +1.84, without P10 +1.41** | **Hit, above** (+1.4): true labels on the hard half alone reach the full true-label ceiling of §137. **The whole ceiling of fine-tuning sits in the labels of the low-confidence windows** |
+| §142 indep / agree labels, cum10, both seed sets | +0.24 / +0.20 and +0.29 / +0.17; without P10 −0.11 / −0.12 and −0.06 / −0.18 | **Refuted:** labels from members independent of the tuned nets do not help the nine other people either. On the hard windows every label-free source available is about as wrong as the tuned nets |
+| §113 fresh gC5, seeds 6–11 / 12–17 | +0.38 [−0.15, +0.93], without P10 +0.16 / +0.59 [+0.09, +1.11], without P01 +0.38 | **Bar missed on 6–11** (the 80 % interval includes 0, and +0.16 is below +0.25), met on 12–17. Over three seed sets gC5 averages +0.52 and is the best fine-tuning form, but its gain for the nine is not reliable |
+| §135 fresh cum10e5 / cum20 (12–17) | +0.39 (−0.02 without P10) / +0.35 on 6–11; +0.65 (+0.28) / +0.59 (+0.24) on 12–17 | no variant replicates on both fresh sets |
+
+**Reading.** The new-people stack replicates in the package's own chain on fresh seeds: J +0.95, with returning people
+gaining as well (the rest member). Fine-tuning's own share is P10. Its true ceiling (+1.4 to +1.6 for the nine)
+needs correct labels on the hard half of the windows, and no label-free source tried tonight provides them. The
+high-ceiling question for fine-tuning is now narrow: where can correct labels for the hard windows come from? Not
+from the chain, not from independent members, not from iterated rounds.
