@@ -21,6 +21,9 @@ def run(m, X, dev):
             if r is not None:
                 r.contrast.tau = r.identity.tau = np.inf
     c.reset_state()
+    ft = getattr(c, "ft", None); mod = sys.modules.get(type(ft).__module__) if ft is not None else None
+    if hasattr(mod, "ft_clock_start"):  # v6.2g: each timed run gets the whole budget (the cap is what --long times)
+        mod.ft_clock_start()
     if dev == "cuda":
         torch.cuda.synchronize()
     t0 = time.perf_counter()
@@ -29,8 +32,8 @@ def run(m, X, dev):
     if dev == "cuda":
         torch.cuda.synchronize()
     sec = time.perf_counter() - t0
-    ft = getattr(c, "ft", None)
-    return round(sec, 1), (dict(refits=ft.refits, steps=ft.steps, v6=c.log6["v6"], err=c.log6["err"]) if ft else None)
+    return round(sec, 1), (dict(refits=ft.refits, steps=ft.steps, v6=c.log6["v6"], err=c.log6["err"], capped=getattr(ft, "capped", None),
+                                frozen=getattr(ft, "frozen", None)) if ft else None)
 
 
 def main():
