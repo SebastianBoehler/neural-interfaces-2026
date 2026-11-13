@@ -4531,3 +4531,14 @@ order sets) and −0.09 under full and runs (labels −0.28 and −0.11 on full)
 (the mean of the v5.1b and v6-chain outputs) or take the v6 chain only where both agree. Both are cheap to test on stored
 outputs plus one FT wave. Recommendation: test the blend on within 0–3 and full 0/1 before choosing. Until then v6.1 stays
 as built, because the within-like reading of the sealed stream (§169) favours it.
+
+### 200. SCHEME-ROBUST LABELS: the blend of the v5.1b and v6-chain outputs (written 13 Nov 21:58 UTC, before any job ran)
+
+The v6.1 labels part is positive under within (+0.09 / +0.03) and negative under full and runs (−0.09). Blend labels =
+0.5 × (v5.1b's outputs + the v6 chain's outputs) as emitted (`shufcombo LABEL_ARM=BLEND` → `chain_blend_<order>`; ttt18 tag B).
+Accuracy within 0–3: 0.752–0.762; full 0/1: 0.736 / 0.740; runs 0/1: 0.760 / 0.742.
+- **Paired wave:** FORMS=s15 with labels L, R and B on within 0–3, full 0/1 and runs 0/1 (tags LF, RF, BF).
+- **Scoring:** most complete form; the combination under s15 with each label source, against v6f (L, gC5).
+- **Reading:** the blend is worth taking if, against R, it loses ≤ 0.05 under within and gains under full/runs, with the sign
+  holding across those orders. Then v6.1 would use blend labels.
+- **Prediction:** blend between L and R everywhere: about +0.05 against L under within, about 0 under full.

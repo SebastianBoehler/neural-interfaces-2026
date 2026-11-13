@@ -119,7 +119,7 @@ GATE_P0, LABEL_OUT, GB, LAB = bool(os.environ.get("GATE_P0")), os.environ.get("L
 SAVE_OUT, OUTS = os.environ.get("SAVE_OUT"), {}  # s193: path for per-window outputs of P0r / V6Fr / V6r (recording layout)
 OCU_TS = int(os.environ.get("OCU_TS", 0))  # s188: k copies of the eye view appended to TSEM's pc128 view (0 = off)
 LABEL_ARM = os.environ.get("LABEL_ARM", "P0r")  # s187: V6r = labels from the v6 chain itself (eye view + rest member, no FT)
-assert LABEL_ARM in ("P0r", "V6r"), LABEL_ARM
+assert LABEL_ARM in ("P0r", "V6r", "BLEND"), LABEL_ARM  # BLEND (s200): the mean of the v5.1b and v6-chain outputs as emitted
 if GATE_P0:
     print("GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)", flush=True)
 
@@ -177,8 +177,8 @@ def chain(bn, arm, P):
         A.L.Z[f"GE|{p0}"], A.L.Z[f"pc128|{p0}"] = ge0, pc0
     if SAVE_OUT and arm in ("P0r", "V6Fr", "V6r"):  # s193: per-window outputs (recording layout) for the session selector
         OUTS[f"{bn}|{arm}"] = out[np.argsort(P)].astype(np.float32)
-    if LABEL_OUT and arm == LABEL_ARM:
-        LAB[bn] = out[np.argsort(P)]  # v5.1b's outputs as emitted in the delivery order, back in recording index layout
+    if LABEL_OUT and (arm == LABEL_ARM or (LABEL_ARM == "BLEND" and arm in ("P0r", "V6r"))):
+        LAB[bn if LABEL_ARM != "BLEND" else (bn, arm)] = out[np.argsort(P)]  # outputs as emitted in the delivery order, back in recording index layout
     return SC.person(out, p0)
 
 
@@ -192,7 +192,10 @@ if LABEL_OUT:  # FT pseudo-labels as the package sees them: v5.1b (B2_pool) emit
     CH = np.load(f"{REPO}/studies/12nov/chain_final.npz"); y = Z[f"y|{p0}"].astype(int)
     if LABEL_ARM != "P0r":
         chain("B2_pool", "P0r", Pperm)  # the package gate (GATE_P0) of the v6 chain is v5.1b's
-    chain("B2_pool", LABEL_ARM, Pperm); lab = LAB["B2_pool"]
+    if LABEL_ARM == "BLEND":
+        chain("B2_pool", "V6r", Pperm); lab = 0.5 * (LAB["B2_pool", "P0r"] + LAB["B2_pool", "V6r"])
+    else:
+        chain("B2_pool", LABEL_ARM, Pperm); lab = LAB["B2_pool"]
     print(f"labels ({LABEL_ARM}): delivery-order chain acc {np.mean(lab.argmax(1) == y):.4f} | chain_final (recording order) acc {np.mean(CH[p0].argmax(1) == y):.4f} | "
           f"agreement {np.mean(lab.argmax(1) == CH[p0].argmax(1)):.4f}", flush=True)
     np.savez(f"{REPO}/runs/labels/{LABEL_OUT}.npz", all_loso=lab, seen_session=CH["seen_session"], idx_seen=CH["idx_seen"]); sys.exit(print("written", LABEL_OUT))
