@@ -2099,3 +2099,18 @@ T1 against T1b, seen −0.25 (P04 −0.52).
 | FOR against T1: new / seen | +0.95 (+0.55 to +1.35) / +0.3 (−0.4 to +1.0) |
 | T1 against T1b (personal nets, package form): seen | −0.1 (−0.5 to +0.3) |
 | **Reading rule** | New counts if its 80 % person interval excludes 0 and the gain without the best person is ≥ +0.3. Seen is read as unresolved unless both P04 and P10 move the same way by ≥ 0.3. The fresh-seed run (job 64325439, now on this code) decides |
+
+| §113 item (13 Nov 00:54 UTC; `runs/ttt7_score.log`, re-scored in person terms; new, all6, against the same run's frozen nets) | Observed | Verdict |
+|---|---|---|
+| fixA (in-run reference) | +0.34, 80 % [−0.22, +0.92], 6 of 10 people; without P10 (+2.2) +0.14 | replicates §101 |
+| gA: fixA with GPU-drawn augmentation | +0.20, [−0.33, +0.72]; without P10 −0.02 | −0.14 against fixA: **outside the ±0.08 rule**, so on-device augmentation is not accepted by the rule. But both arms use the same distribution and differ only in their random draws, so −0.14 measures how much the fine-tuning gain moves with the draws. Every earlier arm reused the same seeded CPU draws, so this noise was never sampled; the ±0.08 rule was below it |
+| gE20 (refit every 20) | −0.22 | refuted |
+| gC10E20 (warm, 10 steps every 20) | +0.28, [−0.19, +0.77]; without P10 +0.04 | no gain |
+| **gC5** (warm, 5 steps every 10, GPU-drawn, cost 0.25) | **+0.59, 80 % [+0.04, +1.14]**, 95 % [−0.25, +1.42], 5 of 10 people; **without P10 (+2.9) +0.34** | Above the range (+0.30). The cheapest arm, and the first fine-tuning form whose 80 % person interval excludes 0 and that holds ≥ +0.3 without P10. By §113's rule it is the package recipe, pending a fresh-seed replication (below) |
+| gC10T20 | +0.33 | no gain |
+
+**§113 fresh (written 13 Nov 00:54 UTC, before the job runs; `ttt7.py` tasks 24–71 = seeds 6–17, Leonardo):** the
+whole TTT7 table again on fresh nets and fresh draws, scored as SEEDS=6-11 and 12-17
+(`runs/night13/ttt7_s6-11.txt`, `ttt7_s12-17.txt`). Prediction for gC5 all6: +0.40 (+0.10 to +0.70) on each fresh set
+(winner's-curse shrinkage from +0.59). gA − fixA: 0.00 (−0.20 to +0.20). **Bar:** gC5 is the fine-tuning recipe if,
+on both fresh sets, its 80 % person interval excludes 0 or its gain without the best person is ≥ +0.25.
