@@ -2981,3 +2981,14 @@ nothing (bit-identical to v5.1b by design).
 Reading: the eye net, the rest member and the extra tail cost about 12 % on unrecognised sessions; fine-tuning dominates.
 Against a 45-min worst case (every session unrecognised), gC5 delta1 fits at both lengths (31 / 38 min). cum10 delta1
 fits at 190 windows (38 min) but not at 378 (53 min).
+
+| §162 null (13 Nov 09:36 UTC; `runs/null_d0.log`; draw 0) | Against V6F / without the best |
+|---|---|
+| 3 noise columns, seed 1 / seed 2 | −0.09 / −0.15; −0.16 / −0.23 |
+
+**Reading.** Added columns cost SessionEM about −0.12 regardless of content. Against that handicap, emg, ocufast,
+ocuslow and beta sit about +0.1 above noise (some information). scp, alpha, theta and asym fall below noise (their
+content hurts). **§163 (written 09:36 UTC, before the run):** put the information in without adding dimensions, by
+averaging the view nets' log posteriors with the eye net's in its own 3 columns: avg4 (emg, ocuslow, ocufast, beta) and
+avgslow (ocuslow only). Prediction against V6F, new: +0.05 (−0.15 to +0.25) each; bar ≥ +0.15 without the best person
+on draw 0, then draws 1–3.

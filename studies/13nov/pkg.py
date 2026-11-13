@@ -65,7 +65,11 @@ OCM = {p: np.mean([load(f"{REPO}/runs/ocunet/probs/oc_mix-{p}-s{s}.npz", p) for 
 def ge_view(sp, p, bn):
     if not sp.get("ocu"):
         return REF[p]
-    L = ORC[p] if sp.get("ocuorc") else np.log(np.clip(OC[p], 1e-3, 1)); V = np.c_[REF[p], sp.get("ocuw", 1.0) * L]
+    L = ORC[p] if sp.get("ocuorc") else np.log(np.clip(OC[p], 1e-3, 1))
+    if sp.get("vavg"):  # s163: the eye net averaged with other view nets' log posteriors in the same 3 columns (no added dimensions)
+        VNS = os.environ.get("VN_SEEDS", "0,1,2,3,4,5,6,7,8").split(",")
+        L = np.mean([L] + [np.log(np.clip(np.mean([load(f"{REPO}/runs/viewnet/{kd}/oc_nomix-{p}-s{s_}.npz", p) for s_ in VNS], 0), 1e-3, 1)) for kd in sp["vavg"]], 0)
+    V = np.c_[REF[p], sp.get("ocuw", 1.0) * L]
     if sp.get("ocmix"):
         V = np.c_[V, np.log(np.clip(OCM[p], 1e-3, 1))]
     VNS = os.environ.get("VN_SEEDS", "0,1,2,3,4,5,6,7,8").split(",")
@@ -113,7 +117,8 @@ SPEC.update({"V6F_ft05": {**_V, "ftw": 0.5}, "V6F_ft15": {**_V, "ftw": 1.5}, "V6
              "V6F_ocm": {**_V, "ocmix": True},  # s156: a second eye-net family in the view
              "V6F_vc1": {**_V, "vadd": ("c1",)}, "V6F_vte": {**_V, "vadd": (10,)}, "V6F_vre": {**_V, "vadd": ("rest",)},  # s157
              "V6F_vemg": {**_V, "vnet": "emg"}, "V6F_vscp": {**_V, "vnet": "scp"}, "V6F_vboth": {**_V, "vnet": ("emg", "scp")}})  # s158
-SPEC.update({"V6F_null": {**_V, "vnull": 1}, "V6F_null2": {**_V, "vnull": 2}})  # s162
+SPEC.update({"V6F_null": {**_V, "vnull": 1}, "V6F_null2": {**_V, "vnull": 2},  # s162
+             "V6F_avg4": {**_V, "vavg": ("emg", "ocuslow", "ocufast", "beta")}, "V6F_avgslow": {**_V, "vavg": ("ocuslow",)}})  # s163
 _VK = [k for k in os.environ.get("VN_KINDS", "").split(",") if k]  # s159: VN_KINDS=a,b,... makes V6F_v<k> for each and V6F_vall
 SPEC.update({**{f"V6F_v{k}": {**_V, "vnet": k} for k in _VK}, **({"V6F_vall": {**_V, "vnet": tuple(_VK)}} if _VK else {})})
 SPEC.update({
