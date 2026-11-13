@@ -2415,3 +2415,24 @@ people-efficient estimators, Scherer rows) failed at core level, not in the chai
 Unlabelled PROTEUS recordings (rest runs, other crops) and more corpora in the teacher are the routes left. Limit:
 one member, a surrogate core, and a PC basis shared across subsets. The slope of the full multi-member chain may
 differ.
+
+### 147. SSL1 (explore, gap 6): self-supervised trunks from the unlabelled PROTEUS recordings (written 13 Nov 03:48 UTC, before any result; code `studies/13nov/sslnet.py`, scorer `ssl_score.py`, Leonardo, seeds 0–11 after a debug smoke)
+
+**Ceiling, and why it could be large:** §146 shows the chain keeps core1's +4.7 per doubling of people; the stages do not
+substitute for people. The unlabelled recordings are allowed for training and were never used. The Graz rest periods
+alone add about half as many windows again as the labelled task windows. A trunk that learns the recordings' own
+structure (montage, artefacts, session variation) is the cheapest stand-in for more people.
+**Design:**
+- Pretraining is per left-out person, on the nine training people's recordings only: no unlabelled data of the scored
+  person is used.
+- Data: task windows plus the 4 s before each Graz cue, aligned with the official windows' statistics.
+- Objective: SimCLR between two augmented views (shift, noise, channel drop, amplitude) on the net's output layer
+  widened to 64; 1500 steps of 256 windows.
+- The trunk then initialises the shipped FBLight SessionBN recipe, trained and scored as usual against the same recipe
+  from a fresh trunk (twin, same seed), with slot 8 swapped in the chain, new people.
+
+| Check (12 seeds, new, six-base mean, against the twin) | Prediction (80 % range) |
+|---|---|
+| ssl alone against twin alone | +0.8 (−1.0 to +2.5) |
+| in the chain (slot 8 swapped) | +0.05 (−0.20 to +0.30): one family is one fifteenth of the mix |
+| **Bar** | the chain gain without the best person ≥ +0.10 with the person interval above 0 → SSL trunks for all four SessionBN families (a wave for each), then the stack; alone ≥ +1.5 with the chain flat → the trunk learns but one family cannot carry it, so the four-family wave goes anyway |
