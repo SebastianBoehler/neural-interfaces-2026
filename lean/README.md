@@ -4,7 +4,8 @@
 what that package executes. `lean/tools/bundle.py` turns the tree into the single file a package may contain,
 `submissions/lean_v5/submission.py`. With the unchanged data files of `cand_v51b_own`, the bundled file gives the
 same outputs as `submissions/ensemble_v5b/submission.py`, bit for bit on CPU ([PARITY.md](PARITY.md)).
-What was removed and what was kept, with reasons: [INVENTORY.md](INVENTORY.md).
+What was removed and what was kept, with reasons: [INVENTORY.md](INVENTORY.md). What an audit of the training
+side would still need: [AUDIT_TRAINING_SIDE.md](AUDIT_TRAINING_SIDE.md). Evidence files: `lean/evidence/`.
 
 ## Layout
 
@@ -52,13 +53,15 @@ scripts/run_capped.sh LOG $PY lean/tools/build.py $MAIN/runs/sealed/cand_v51b_ow
 D="--public $MAIN/data/proteus_windows.npz --external $MAIN/data/scherer2015/windows.npz"
 scripts/run_capped.sh LOG $PY lean/tools/record.py $MAIN/runs/sealed/cand_v51b_own runs/lean/orig.npz $D
 scripts/run_capped.sh LOG $PY lean/tools/record.py runs/lean/pkg runs/lean/lean.npz $D
-scripts/run_capped.sh LOG $PY lean/tools/parity.py runs/lean/orig.npz runs/lean/lean.npz --out lean/evidence/parity.json
+scripts/run_capped.sh LOG $PY lean/tools/parity.py runs/lean/orig.npz runs/lean/lean.npz --out runs/lean/parity.json
 scripts/run_capped.sh LOG $PY lean/tools/timing.py $MAIN/runs/sealed/cand_v51b_own runs/lean/pkg \
-    --public $MAIN/data/proteus_windows.npz --out lean/evidence/timing.json
+    --public $MAIN/data/proteus_windows.npz --out runs/lean/timing.json
 ```
 
-The official replay (`scripts/replay_package.py PKG OUT cpu`, with `BENCHOPT_DATA_HOME=$MAIN/data`) runs the
-warm-up phase's ingestion and scoring programs on a package directory.
+`record.py` takes `--cases a,b` to run a subset (a full recording takes about 10 minutes on the Mac). In zsh,
+pass `$D` as an array or as `${=D}`. The official replay (`scripts/replay_package.py PKG OUT cpu`, with
+`BENCHOPT_DATA_HOME=$MAIN/data` and `$MAIN/.venv/bin` on `PATH`) runs the warm-up phase's ingestion and scoring
+programs on a package directory; in a fresh worktree the `2026-competition` submodule must be initialised first.
 
 ## Adding a feature
 

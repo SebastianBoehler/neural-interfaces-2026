@@ -1,0 +1,7 @@
+# Line coverage of submissions/lean_v5/submission.py (sha256 315febb8...) in the lean package, streamed over the cases
+# public/P01|1, unknown, switch, lapse, stress, extreme, faults, perm, missing (2,173 windows).
+Name                          Stmts   Miss  Cover   Missing
+-----------------------------------------------------------
+runs/lean/pkg/submission.py     612     13    98%   153-154, 324, 350, 461, 581, 590, 645, 763-764, 891, 905-906
+-----------------------------------------------------------
+TOTAL                           612     13    98%

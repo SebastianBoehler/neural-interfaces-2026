@@ -1,0 +1,902 @@
+{
+ "total": {
+  "windows": 4559,
+  "cases": 23,
+  "cases_in_one_only": [
+   "lapse"
+  ],
+  "bitwise_equal": true,
+  "labels_equal": true,
+  "max_abs_diff_posterior": 0.0
+ },
+ "cases": {
+  "public/P01|1": {
+   "windows": 190,
+   "identity_gate": 180,
+   "contrast_gate": 130,
+   "staged": 180,
+   "people": [
+    0
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    21.2,
+    20.7
+   ]
+  },
+  "public/P02|1": {
+   "windows": 189,
+   "identity_gate": 179,
+   "contrast_gate": 129,
+   "staged": 179,
+   "people": [
+    1
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.6,
+    20.3
+   ]
+  },
+  "public/P03|1": {
+   "windows": 189,
+   "identity_gate": 179,
+   "contrast_gate": 129,
+   "staged": 179,
+   "people": [
+    2
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.8,
+    20.4
+   ]
+  },
+  "public/P06|1": {
+   "windows": 187,
+   "identity_gate": 177,
+   "contrast_gate": 127,
+   "staged": 177,
+   "people": [
+    5
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.5,
+    20.1
+   ]
+  },
+  "public/P07|1": {
+   "windows": 189,
+   "identity_gate": 179,
+   "contrast_gate": 129,
+   "staged": 179,
+   "people": [
+    6
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.7,
+    20.3
+   ]
+  },
+  "public/P10|1": {
+   "windows": 192,
+   "identity_gate": 182,
+   "contrast_gate": 132,
+   "staged": 182,
+   "people": [
+    9
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    21.1,
+    20.7
+   ]
+  },
+  "public/P10|2": {
+   "windows": 186,
+   "identity_gate": 176,
+   "contrast_gate": 126,
+   "staged": 176,
+   "people": [
+    9
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.4,
+    20.0
+   ]
+  },
+  "public/P10|3": {
+   "windows": 199,
+   "identity_gate": 189,
+   "contrast_gate": 139,
+   "staged": 189,
+   "people": [
+    9
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    21.5,
+    21.2
+   ]
+  },
+  "public/P05|1": {
+   "windows": 190,
+   "identity_gate": 180,
+   "contrast_gate": 130,
+   "staged": 180,
+   "people": [
+    4
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.5,
+    20.3
+   ]
+  },
+  "public/P08|1": {
+   "windows": 189,
+   "identity_gate": 179,
+   "contrast_gate": 129,
+   "staged": 179,
+   "people": [
+    7
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.4,
+    20.2
+   ]
+  },
+  "public/P04|1": {
+   "windows": 189,
+   "identity_gate": 179,
+   "contrast_gate": 129,
+   "staged": 179,
+   "people": [
+    3
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.4,
+    20.2
+   ]
+  },
+  "public/P04|2": {
+   "windows": 189,
+   "identity_gate": 179,
+   "contrast_gate": 129,
+   "staged": 179,
+   "people": [
+    3
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.3,
+    20.3
+   ]
+  },
+  "public/P04|3": {
+   "windows": 188,
+   "identity_gate": 178,
+   "contrast_gate": 128,
+   "staged": 178,
+   "people": [
+    3
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.1,
+    20.1
+   ]
+  },
+  "public/P09|1": {
+   "windows": 189,
+   "identity_gate": 179,
+   "contrast_gate": 129,
+   "staged": 179,
+   "people": [
+    8
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.1,
+    20.2
+   ]
+  },
+  "unknown/A|1": {
+   "windows": 120,
+   "identity_gate": 0,
+   "contrast_gate": 0,
+   "staged": 0,
+   "people": [],
+   "person_changes": 0,
+   "on_off_changes": 0,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    12.6,
+    12.5
+   ]
+  },
+  "unknown/A|2": {
+   "windows": 120,
+   "identity_gate": 0,
+   "contrast_gate": 0,
+   "staged": 0,
+   "people": [],
+   "person_changes": 0,
+   "on_off_changes": 0,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    12.5,
+    12.5
+   ]
+  },
+  "unknown/C|1": {
+   "windows": 120,
+   "identity_gate": 0,
+   "contrast_gate": 0,
+   "staged": 0,
+   "people": [],
+   "person_changes": 0,
+   "on_off_changes": 0,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    12.5,
+    12.5
+   ]
+  },
+  "unknown/C|2": {
+   "windows": 120,
+   "identity_gate": 0,
+   "contrast_gate": 0,
+   "staged": 0,
+   "people": [],
+   "person_changes": 0,
+   "on_off_changes": 0,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    12.5,
+    12.6
+   ]
+  },
+  "switch": {
+   "windows": 281,
+   "identity_gate": 271,
+   "contrast_gate": 221,
+   "staged": 271,
+   "people": [
+    3,
+    9
+   ],
+   "person_changes": 3,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    30.2,
+    30.3
+   ]
+  },
+  "long": {
+   "windows": 577,
+   "identity_gate": 567,
+   "contrast_gate": 517,
+   "staged": 567,
+   "people": [
+    9
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    63.0,
+    63.3
+   ]
+  },
+  "stress": {
+   "windows": 188,
+   "identity_gate": 178,
+   "contrast_gate": 45,
+   "staged": 174,
+   "people": [
+    3
+   ],
+   "person_changes": 0,
+   "on_off_changes": 7,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.1,
+    20.1
+   ]
+  },
+  "perm": {
+   "windows": 189,
+   "identity_gate": 179,
+   "contrast_gate": 129,
+   "staged": 179,
+   "people": [
+    1
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.5,
+    20.7
+   ]
+  },
+  "missing": {
+   "windows": 189,
+   "identity_gate": 179,
+   "contrast_gate": 129,
+   "staged": 0,
+   "people": [],
+   "person_changes": 0,
+   "on_off_changes": 0,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    19.4,
+    19.3
+   ]
+  }
+ }
+}

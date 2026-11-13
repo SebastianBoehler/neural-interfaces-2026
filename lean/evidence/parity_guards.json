@@ -1,0 +1,90 @@
+{
+ "total": {
+  "windows": 376,
+  "cases": 2,
+  "cases_in_one_only": [],
+  "bitwise_equal": true,
+  "labels_equal": true,
+  "max_abs_diff_posterior": 0.0
+ },
+ "cases": {
+  "extreme": {
+   "windows": 188,
+   "identity_gate": 178,
+   "contrast_gate": 0,
+   "staged": 178,
+   "people": [
+    3
+   ],
+   "person_changes": 0,
+   "on_off_changes": 1,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.2,
+    20.8
+   ]
+  },
+  "faults": {
+   "windows": 188,
+   "identity_gate": 178,
+   "contrast_gate": 128,
+   "staged": 153,
+   "people": [
+    3
+   ],
+   "person_changes": 0,
+   "on_off_changes": 51,
+   "labels_equal": true,
+   "bitwise": {
+    "label": true,
+    "out": true,
+    "mix": true,
+    "core1": true,
+    "shadow": true,
+    "u": true,
+    "contrast": true,
+    "identity": true,
+    "stage": true
+   },
+   "max_abs_diff": {
+    "label": 0.0,
+    "out": 0.0,
+    "mix": 0.0,
+    "core1": 0.0,
+    "shadow": 0.0,
+    "u": 0.0,
+    "contrast": 0.0,
+    "identity": 0.0,
+    "stage": 0.0
+   },
+   "same_gaps": true,
+   "seconds": [
+    20.1,
+    20.4
+   ]
+  }
+ }
+}
