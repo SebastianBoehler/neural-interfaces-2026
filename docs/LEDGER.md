@@ -3291,7 +3291,7 @@ combination gains **+1.47 to +1.87 for new people over v5.1b under the same orde
 every 80 % person interval above +0.68**, against +1.00 in recording order. The fine-tuning form here is cum10 delta1;
 gC5 delta1 (the run-time form) is §171, due about 11:20 UTC.
 
-### 172. GC5SHUF draws on Galvani (written 13 Nov 10:35 UTC, before any job ran; `studies/13nov/ttt18.py` with DRAW, `scripts/cloud/galv_array.sh`)
+### 172. GC5SHUF draws on Galvani (written 13 Nov 10:33 UTC, before any job ran; `studies/13nov/ttt18.py` with DRAW, `scripts/cloud/galv_array.sh`)
 
 Galvani is reachable again (the user's EDU VPN). New waves move there step by step, and Leonardo keeps a smaller share.
 The first Galvani wave: gC5 re-streamed under *within* (the plausible sealed scheme), permutations 0 and 1 × fresh
