@@ -3309,3 +3309,16 @@ J +0.05). V6r is scored under within 0/1 and full 0 (eye net re-streamed where a
 same order. Prediction: +0.6 (+0.1 to +1.1), since under shuffle the eye-net view may carry more than in recording
 order. **Bar for the fallback to be uploadable on its own:** without P10 ≥ +0.40 with the 80 % interval above 0 under
 *within* on both permutations.
+
+| §173 fallback without FT (13 Nov 10:36 UTC; `runs/fallback_*.log`; eye net + rest member on unrecognised sessions; new, over v5.1b under the same order) | New [80 % person] | Without P10 | Bar |
+|---|---|---|---|
+| within 0 (eye net re-streamed) | **+0.73 [+0.40, +1.09]** | +0.78 | met |
+| within 1 (eye net as recorded) | **+0.76 [+0.43, +1.10]** | +0.84 | met |
+| full 0 (eye net re-streamed) | +0.68 [+0.42, +0.93] | +0.64 | — |
+
+**Verdict: the fallback meets its own bar** under *within* on both permutations (prediction +0.6, hit). Its gain is not
+P10's (without P10 it is a little larger), unlike FT's. On v5.1b's shipped members and under the plausible sealed
+order, the eye-net view plus the rest member alone are worth about +0.7 for new people (J about +0.35 with recognised
+sessions untouched). FT adds about +0.8 to +0.9 more (§165). **Package decision rule from here:** if FT runs inside
+the run-time budget, ship the full combination; otherwise ship the fallback. Both pass their bars under shuffled
+delivery.
