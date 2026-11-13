@@ -3559,3 +3559,22 @@ Refuted, and an arm becomes a package candidate, if Winf beats C0 by ≥ 0.3 on 
   shufcombo now pins its SHA-256 (f9209851…) and asserts that the stage order equals the dumped order.
 - **Next guard (new jobs):** re-streamed outputs should carry the hash of the order they streamed. Not yet in the GPU
   scripts. Until then all of them read the pinned file by (scheme, seed) key.
+
+**§181 RESULT (13 Nov 12:47 UTC; `runs/emceil.log`; six bases, corrected orders, members as recorded).** New people; each arm's
+change against C0 under the same order, with C0's own loss against recording order in brackets:
+
+| Order | C0 loss | Winf | EMc (ceiling) | TSc (ceiling) | ALLc |
+|---|---|---|---|---|---|
+| recording | 0 | −1.04 | +0.07 | −0.05 | −0.71 |
+| within 0 | (−0.74) | −0.24 | −0.02 | +0.05 | +0.10 |
+| full 0 | (−3.07) | +0.21 | +0.93 | +0.77 | +1.43 |
+| runs 0 | (−1.66) | −0.18 | +0.18 | +0.92 | +0.34 |
+
+- **Winf is refuted as a candidate.** It costs 1.0 in recording order and 0.2 under within and runs, and gains only 0.2
+  under full.
+- **Within** (the scheme that matches the sealed drop) has no ceiling: whole-session knowledge recovers +0.10 of
+  −0.74. There, item 2 is closed.
+- **Full and runs** have a non-causal ceiling of about half the loss: full +1.43 (ALLc), runs +0.92 (TSc). A causal
+  form can only get part of it. Recorded as "undecided": worth a form only if later evidence points to a full or runs
+  stream.
+- **Prediction:** confirmed for within. For full and runs the ceilings sit at the stated limit (≤ 0.5 of the loss).
