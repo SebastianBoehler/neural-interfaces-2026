@@ -2849,3 +2849,14 @@ both are resubmitted (64361598, 64361599).
 **Reading.** On the SessionBN nets MixStyle hurts. Mixing feature statistics across windows works against SessionBN's
 own per-session normalisation. The screen is not passed, so it is not scored against v5.1b. The backlog item (gap 7,
 "MixStyle on SessionBN nets") is closed in this form on a valid test.
+
+| §149 m8w screen (13 Nov 08:50 UTC; `runs/teach3_m8w.log`; A.system v3 path, new; reference: the stored m7c teacher, **not v5.1b**) | Observed | Verdict |
+|---|---|---|
+| m8w alone (seven m7 corpora + Weibo2014) | 49.97 against 50.46 | no stronger alone |
+| m8w replacing the teacher, weight 3 / 5 / 7 | −0.85 / −0.66 / −0.88 (shipped); −0.19 / −0.17 / −0.49 (FT+OCU+REST) | **Refuted**; screen not passed |
+
+**Reading.** An eighth MI corpus does not make the teacher stronger, and in the chain it costs. Together with m8s
+(Scherer, §18 and §132) and m7u (§149), every teacher change tried since 11 Nov loses in the chain except the
+cognitive member cog1 (+0.07 to +0.22, below every bar). The teacher line's ceiling argument (an independent 70 %
+member) is not reached by adding corpora. It would need a member that is accurate on our windows, not one with more
+outside data. Not queued further now.
