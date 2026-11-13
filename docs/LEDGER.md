@@ -2312,3 +2312,26 @@ share. No dev number supports a gain, and every package-form number has P04 belo
 uploaded as built.** The returning-people gain of the current design comes from the rest-class member (§140 fresh:
 R alone, seen +0.45, P04 +0.42, P10 +0.47), not from personal nets. The build session's runtime and guard work (§112,
 §120, `docs/V52_BUILD.md`) carries over to the next package.
+
+| §132 TEACH2 item (13 Nov 02:46 UTC; `runs/teach2_13nov.log`; new, against the rebuilt m7c teacher at weight 5; shipped / FT+OCU context) | Observed | Verdict |
+|---|---|---|
+| Rebuilt teacher against the shipped one | +0.07 / −0.07 | harness hit (0.0) |
+| m8s (Scherer) at weight 2 / 5 | −1.56 / −1.40; −0.71 / −0.51 | replicates §18 in both contexts |
+| Session-normalised m7c (n7c) / m8s (n8s, w2 / w5) | −0.33 / −0.14; −1.37 / −1.72 and −1.00 / −0.61 | **Refuted.** Per-session normalisation does not rescue the stronger teacher, so reason (i) of §132 fails: m8s does not fail on session offsets |
+| Cognitive-heads member next to the teacher (cog7 / cog8, w1, w2) | −0.33 to +0.08; −0.22 to −0.16 | **Refuted** (≥ +0.30 needed in both contexts); seen columns are the v3 path |
+
+**Reading.** Rebuilt from stored heads, none of the teacher redesigns gains in either context. The stronger teacher
+(+3.3 alone) keeps losing about −0.5 to −1.7 in the chain, and the gap 2 forms possible without retraining are closed.
+The ceiling argument for independent members (+3.1 for a 70 % independent member) is unchanged. It needs a teacher
+trained differently (e.g. trained against the chain's errors), which needs the corpora on Galvani.
+
+| §133 WEAK item (13 Nov 02:46 UTC; `runs/weak_13nov.log`; per-base, out-of-person thresholds; new) | Observed | Verdict |
+|---|---|---|
+| FT context: ungated / q50 / q33 / q67 / inv50 | +0.46 / **+0.38** (8 of 10 people ≥ 0) / +0.09 / +0.31 / +0.08 | q50 is 0.08 below ungated, and the rule needs 0.05: **not adopted by the rule** |
+| FT+OCU context: ungated / q50 / q33 / q67 / inv50 | +0.72 / +0.54 (80 % [+0.17, +0.93], 8 of 10) / +0.17 / +0.44 / +0.17 | 0.18 below ungated: not adopted |
+| Without P10 (from the per-person rows) | FT: ungated +0.11, q50 +0.22. FT+OCU: ungated +0.37, q50 +0.32 | gating the weak half helps the nine in the FT context and is neutral with OCU |
+
+**Reading.** Gains concentrate partly in weak sessions: inv50 (strong half only) is +0.08 / +0.17, below the
+closing mark of +0.25. Gating to the weak half keeps most of the gain at half the run time, with fewer people losing
+(8 of 10 ≥ 0 instead of 6). It misses the rule's 0.05 margin, so it is recorded as a run-time option for the package,
+not as a gain. Seen columns are the v3 path and are not read.
