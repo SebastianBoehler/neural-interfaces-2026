@@ -1998,3 +1998,10 @@ parameters. Arms: head2 (20 steps every 10 windows, each refit from the frozen n
 |---|---|
 | head2 / head2c / head2x | +0.25 (−0.05 to +0.50) / +0.30 (0.00 to +0.55) / +0.30 (−0.10 to +0.60) |
 | **Bar** | A head arm is the cheap form if it is within 0.10 of the in-run cum10 **and** its gain without the best person is ≥ +0.10. Base counts are not used |
+
+| §134 item (13 Nov 00:41 UTC; Leonardo `runs/night13/stack_ocu9.txt`; eye-net seeds 0–8, FT seeds 0–5 as in §130) | Observed | Verdict |
+|---|---|---|
+| OCU alone, nine seeds | +0.15 [−0.14, +0.44], 8 of 10 people; seen +0.31 | Hit (+0.15) |
+| FT+OCU, nine seeds | +0.86 [+0.28, +1.43]; seen +0.27; over shipped +0.77, seen +0.54 | identical to three seeds |
+| OCU's share in FT+OCU (FT+OCU − FT) | **+0.40** | Hit (+0.40). **OCU stays in the design input; the three-seed result was not seed luck.** The FT side still has the §139 caveat (P10) |
+| FT+REST+OCU+MIX, nine seeds | +1.08, seen −0.44 | as §130b: REST costs seen |
