@@ -16,7 +16,11 @@ import glob, hashlib, os, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import shufpkg as K  # noqa: E402  (S, A, ns, staged, REC, NM, STREAMS, RANK, _rank, IDX)
-S, A, SC, ns = K.S, K.A, K.SC, K.ns; Z = A.L.Z; PR = K.PR; p = "seen_session"; REPO = S.REPO; IDX = K.IDX[p]
+S, A, SC, ns = K.S, K.A, K.SC, K.ns; Z = A.L.Z; PR = K.PR; p = os.environ.get("RT_PROTO", "seen_session"); REPO = S.REPO; IDX = K.IDX[p]
+# s201: RT_PROTO=all_loso runs the same arms on new people (to see whether the additions change who gets routed);
+# GATE_V51B=1 computes the shadow (the v3 gate's input, and the output before routing) from v5.1b's unchanged mix and view,
+# so the additions reach only the routed tail (the gate never sees them, as in v6f/v6.1)
+GATE_V51B = bool(os.environ.get("GATE_V51B"))
 SLOT = {"fbraw": 5, "fb": 6, "sinc": 7, "fbl": 8}; K0 = {"B2_s0": 0, "B2_s1": 1, "B2_s2": 2, "B2_s012": 0, "B2_s345": 3, "B2_pool": 0}  # delta1: first base seed
 BASES = os.environ.get("BASES", "B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2").split(","); ORDERS = os.environ.get("ORDERS", "rec,within0,within1").split(",")
 ARMS = ["base", "E", "R", "ER", "F", "ERF"]; REF = np.load(REPO + "/runs/shufpkg.npz")  # ER (s199): eye view + rest member, no FT
@@ -83,7 +87,11 @@ def system(bn, arm, Pp, oof, inp):
         Z[f"GE|{p}"] = np.c_[ge0, ocu[Pp]]
     try:
         A.RR.FOLDS = {p: folds0[p]}; K.REC.clear()  # stale REC entries would leak into staged(); only seen_session is run
-        mix, a = A.mix(bn, p, fams, extra); _, sh = A.shadow(mix, p)
+        mix, a = A.mix(bn, p, fams, extra)
+        if GATE_V51B:  # the gate and the pre-routing output see v5.1b's own shadow
+            ge_add = Z[f"GE|{p}"]; Z[f"GE|{p}"] = ge0; _, sh = A.shadow(A.mix(bn, p, list(A.FAMS))[0], p); Z[f"GE|{p}"] = ge_add
+        else:
+            _, sh = A.shadow(mix, p)
         assert abs(a - (1 / 16 if "R" in arm else 1 / 15)) < 1e-12, (arm, a)
         out0 = ns["route4"]({p: mix}, {p: sh}, a, oof, {p: A.members(bn, p)["c1"]}, "max", 10)[0]
         rt = {s.split("/")[-1]: (int(np.flatnonzero(r > 0)[0]), K.NM[(q, s)][0][int(j[np.flatnonzero(r > 0)[0]])][-3:], r.copy()) for (q, s), (r, j) in K.REC.items()}

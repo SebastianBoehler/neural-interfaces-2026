@@ -4590,3 +4590,19 @@ addition.
   - P04 is the one hurt: full 0 ERF −0.89 (FT −1.95).
   - So if the sealed stream were not within-like, ER would still help both people on all four orders. ERF would help P10
     (3/4 positive, worst −0.08) but can cost P04 about 1 point on a full-shuffle order through the routed FT.
+
+### 201. v6.2 INSERTION: the gate sees v5.1b only (coordinator's request; written 13 Nov 22:14 UTC, before any result)
+
+In v6f and v6.1 the gates never see the second chain, so recognition is exactly v5.1b's. In §199's measured form the shadow
+(the v3 gate's input) carries the additions, so recognition can move. A wrongly routed new person is the expensive error.
+- **(1) Gate-unchanged form** (`retv6 GATE_V51B=1`): the shadow, both gate input and pre-routing output, comes from v5.1b's
+  own mix and view; the additions enter only the routed tail. Arms ER and ERF (s15, labels Q), returning people, the same
+  twelve orders as §199, next to the measured form.
+- **(2) Measured form on new people** (`retv6 RT_PROTO=all_loso`): for every order and base, whether any window is routed that
+  v5.1b does not route (the routed set, first window and person), plus how returning people's first routed window moves
+  (from the §199 logs).
+- **Rule for v52-build:** build the gate-unchanged form unless (1) loses a clear part of the gain (≥ 1/3 of ERF's within mean,
+  or P10 positive on < 6/8). In that case, the measured form gets an explicit check that the routed set equals v5.1b's for
+  all LOSO people under the shuffled orders.
+- **Prediction:** (1) keeps ≥ 80 % of the gain (the bio gate decides most routing, and three of four returning sessions route
+  at window 10 either way); (2) shows no new routed new-person session.
