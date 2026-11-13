@@ -3,9 +3,10 @@
 Usage: python scripts/check_v62.py PKG_V62 [--device cuda] [--sessions N] [--ref-shapes package] [--order SCHEME:SEED:PERMS.npz] [--out JSON]
 Gates as shipped (the public sessions are recognised). Per window, from the package's recorded member posteriors:
   mix_B   (15/16)(v5.1b mix with the FT change of slots 5-8) + (1/16) rest, pkg.py's form;
-  shadow  lean/src's (v5 tree) Tail with the eye columns on mix_B;
-  routed  lean/src's Route at core1's share w0 (15/16) with the eye columns in its tail, fed mix_B and that shadow (gates,
-          personal head, routed tail, own-space stage) -> the package's output;
+  shadow  lean/src's (v5 tree) Tail on the v5.1b mix, no eye columns: v5.1b's own shadow, which its gates read (the
+          gate-unchanged v6.2 has no shadow of chain B; before recognition RouteB's tail on mix_B is the output);
+  routed  lean/src's Route at core1's share w0 (15/16) with the eye columns in its tail, fed mix_B and v5.1b's shadow
+          (its gates then decide as v5.1b's; personal head, routed tail, own-space stage) -> the package's output;
   eye, rest, FT as scripts/check_v6.py (FT labels: the inner v5.1b's routed outputs of every window, the package relabels
           at recognition; asserted to happen before the first refit).
 Also reported: chain B's first routed window against the inner v5.1b's, and the difference to v5.1b.
@@ -47,12 +48,11 @@ def main():
                 ids = z[f"v6_slot_{sl}"].astype(int); W = w[1 + ids].sum(); fam = sum(w[1 + i] * v["members"][i] for i in ids) / W
                 xx = np.clip(fam + pf - v["members"][mem[sl]], 1e-6, None); mm = mm - W * fam + W * xx / xx.sum()
             worst["mix"] = max(worst["mix"], float(np.abs((1 - wr) * mm + wr * v["rest"] - v["mix6"]).max()))
-        sh, rt = TailV5(full), RouteV5(full, w[0] * (1 - wr)); f_sh, f_rt = sh.em.features, rt.tail.em.features
+        sh, rt = TailV5(full), RouteV5(full, w[0] * (1 - wr)); f_rt = rt.tail.em.features
         n_tsem = z["tsem_V"].shape[1]
-        for t, v, x, oo in zip(tr, V, X, o):  # shadow and the routed step, v5 tree with the eye columns
-            sh.em.features = lambda xx, f0=f_sh, e=v["extra"]: np.concatenate([f0(xx), e])
+        for t, v, x, oo in zip(tr, V, X, o):  # v5.1b's shadow, then the routed step (v5 tree, eye columns in its tail)
             rt.tail.em.features = lambda xx, f0=f_rt, e=v["extra"]: np.concatenate([f0(xx), e])
-            q = sh.step(x, t["u"][:n_tsem], v["mix6"]); worst["shadow"] = max(worst["shadow"], float(np.abs(q - t["shadow"]).max()))
+            q = sh.step(x, t["u"][:n_tsem], t["mix"]); worst["shadow"] = max(worst["shadow"], float(np.abs(q - t["shadow"]).max()))
             r = rt.step(x, t["u"], v["mix6"], t["core1"], q); worst["routed"] = max(worst["routed"], float(np.abs(r - oo).max()))
         ftw = [k for k, v in enumerate(V) if v["p_ft"]]
         if routed == 2:  # FT on the whole session from t0, labels = the inner v5.1b's outputs (relabelled at recognition)

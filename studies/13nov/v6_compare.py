@@ -1,6 +1,12 @@
 """v6.2 check (a): two packages streamed over every public session, gates as shipped (and optionally forced off), one
 window per step on a fresh copy; asserts the outputs equal bit for bit (e.g. v6.2 with v6_routed = 0 against v6.1).
-Usage: python studies/13nov/v6_compare.py PKG_A PKG_B [--gates-off] [--device cuda]"""
+Usage: python studies/13nov/v6_compare.py PKG_A PKG_B [--gates-off] [--device cuda] [--fresh-clock]
+       [--from N] [--budget S] [--sessions K]
+v6.2g (module-level fine-tuning clock): --fresh-clock restarts each package's clock before each session, so a
+  process longer than the budget still tests the guards' inertness session by session (identity runs, CPU);
+  --from N asserts equality only before window N of each session and reports where they first differ (cap trigger:
+  the first skipped refit); --budget S sets B's budget on its session copy (a mid-session budget trigger; no equality
+  asserted, only errors 0 and frozen windows > 0). Each session reports both chains' errors, capped and frozen counts."""
 import copy, json, sys
 from pathlib import Path
 import numpy as np
@@ -9,23 +15,43 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "lean/tools")]
 import protocol  # noqa: E402
 from record import load_model  # noqa: E402
-DEV = sys.argv[sys.argv.index("--device") + 1] if "--device" in sys.argv else "cpu"; OFF = "--gates-off" in sys.argv
+arg = lambda k, d: type(d)(sys.argv[sys.argv.index(k) + 1]) if k in sys.argv else d  # noqa: E731
+DEV, OFF, FRESH = arg("--device", "cpu"), "--gates-off" in sys.argv, "--fresh-clock" in sys.argv
+FROM, BUDGET = arg("--from", -1), arg("--budget", -1.0)
 
 
-def run(m, X):
+def run(m, X, budget=-1.0):
     c = copy.deepcopy(m)
     if OFF:
         for r in (c.route, getattr(c, "routeB", None)):
             if r is not None:
                 r.contrast.tau = r.identity.tau = np.inf
     c.reset_state()
-    return np.array([c.step(np.nan_to_num(np.asarray(x, np.float32))) for x in X])
+    ft = getattr(c, "ft", None); mod = sys.modules.get(type(ft).__module__) if ft is not None else None
+    if budget >= 0:
+        assert hasattr(ft, "budget"), "--budget needs a v6.2g package as B"
+        ft.budget = budget
+    if FRESH and hasattr(mod, "ft_clock_start"):
+        mod.ft_clock_start()
+    o = np.array([c.step(np.nan_to_num(np.asarray(x, np.float32))) for x in X])
+    log = getattr(c, "log6", {}); info = dict(err=log.get("err"), capped=getattr(ft, "capped", None), frozen=getattr(ft, "frozen", None),
+                                              refits=getattr(ft, "refits", None), clock_stopped=getattr(mod, "FT_CLOCK", {}).get("stopped"))
+    assert not log.get("err"), log
+    return o, info
 
 
 a, b = Path(sys.argv[1]), Path(sys.argv[2]); d = protocol.load(); torch.set_num_threads(1)
-A, B = load_model(a, None, "a", DEV), load_model(b, None, "b", DEV); worst, n = 0.0, 0
-for s in dict.fromkeys(d["stream"]):
-    X = d["X"][d["stream"] == s]; oa, ob = run(A, X), run(B, X); diff = float(np.abs(oa - ob).max()); worst = max(worst, diff); n += len(X)
-    print(json.dumps(dict(session=s.split("/")[-1], windows=len(X), max_diff=diff, bitwise=bool(np.array_equal(oa, ob)))), flush=True)
-print("RESULT", json.dumps(dict(a=str(a), b=str(b), gates_off=OFF, device=DEV, windows=n, max_diff=worst, bitwise=worst == 0.0)), flush=True)
-assert worst == 0.0, "outputs differ"
+A, B = load_model(a, None, "a", DEV), load_model(b, None, "b", DEV); worst, n, ok = 0.0, 0, True
+for s in list(dict.fromkeys(d["stream"]))[:arg("--sessions", 99)]:
+    X = d["X"][d["stream"] == s]; (oa, ia), (ob, ib) = run(A, X), run(B, X, BUDGET); n += len(X)
+    neq = np.flatnonzero(np.any(oa != ob, axis=1)); first = int(neq[0]) if len(neq) else None
+    if BUDGET >= 0:
+        ok &= bool(ib["frozen"])
+    elif FROM >= 0:
+        ok &= first is None or first >= FROM
+    else:
+        diff = float(np.abs(oa - ob).max()); worst = max(worst, diff); ok &= diff == 0.0
+    print(json.dumps(dict(session=s.split("/")[-1], windows=len(X), max_diff=float(np.abs(oa - ob).max()), first_diff=first, a=ia, b=ib)), flush=True)
+print("RESULT", json.dumps(dict(a=str(a), b=str(b), gates_off=OFF, device=DEV, fresh_clock=FRESH, frm=FROM, budget=BUDGET, windows=n,
+                                max_diff=worst, ok=ok)), flush=True)
+assert ok, "check failed"
