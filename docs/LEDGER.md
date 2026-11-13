@@ -3256,3 +3256,26 @@ name. Plan:
 - **Decision table for the user at about 18:30 UTC:** dev gain per delivery scheme (recording, within, full, runs) for
   new and returning people and without P10; expected run time; what was not checked. If the evidence says "not yet",
   the table says so.
+
+| §167 OCUSHUF in the combination (13 Nov 10:30 UTC; `runs/shufcombo_{full0,within0}_ocu.log`; eye net trained and standardised in the delivery order; new, over v5.1b under the same order) | full 0 | within 0 |
+|---|---|---|
+| combination (cum10 delta1 + eye net + rest member), both shuffled | **+1.69 [+0.94, +2.46], without P10 +1.36** | **+1.51 [+0.90, +2.10], without P10 +1.20** |
+| the same, eye net from recording-order standardisation (§165) | +1.47 / +1.10 | +1.65 / +1.39 |
+| the shuffled-standardisation eye net scored in recording order | +0.85 / +0.62 | +0.94 / +0.70 |
+
+**Reading.** With the eye net trained and standardised in the delivery order, as a package would run it, the
+combination's gain holds under both schemes (+1.5 to +1.7 new, +1.2 to +1.4 without P10). The prediction (+0.4) missed
+high. The eye net is not order-fragile.
+
+| §170 TORACLE (13 Nov 10:30 UTC; `runs/toracle.log`; B2_pool and B2_s345; against v5.1b in recording order) | Shipped stages: new / seen / J | Oracle H 30 | Oracle H 90 |
+|---|---|---|---|
+| recording | 0 / 0 / 0 | −0.87 / −2.12 / −1.49 | −0.15 / −1.01 / −0.58 |
+| full | −3.05 / −4.26 / −3.66 | −2.95 / −4.73 / −3.84 | −2.99 / −4.26 / −3.62 |
+| runs | −1.72 / −4.52 / −3.12 | −2.06 / −4.43 / −3.25 | −1.69 / −3.86 / −2.78 |
+| within | −0.70 / −1.47 / −1.09 | −0.62 / −1.21 / −0.91 | −0.83 / −1.68 / −1.26 |
+
+**Verdict: refuted** (bar: ≥ 50 % of the loss recovered under within or full). The best case recovers about 17 % of J
+(within, H 30) and 11 % under runs (H 90); full is about 0. Weighting the delivered windows by true recording time does
+not restore what the stages lose, so **form A (slow-state similarity in place of time) is not given several variants**.
+The loss is not about which windows the templates weight. It may be the views' own recording-order standardisation
+(the §170 caveat), which this oracle cannot remove.
