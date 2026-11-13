@@ -3837,3 +3837,28 @@ Per scheme, mean [range]:
 
 gC5 misses its bar on within 2 only, where its interval reaches −0.03. The fallback misses on within 2 (where it is
 negative) and on full 1. FT's own part over the fallback is +0.37 to +0.80. This form scores the twelve §185 orders.
+
+**§183 follow-up: the new path against the routed path for returning people (13 Nov 16:38 UTC; `runs/shufpkg.npz` within 0/1 against
+`runs/shufcombo_seen_session_within{0,1}_*.npz`; same orders, which the fixed scheme index reproduces).** Mean over six bases, P04 and P10:
+- within 0: routed v5.1b 71.4 / 91.3; new path (gC5) 65.0 / 90.4; new path − routed **−6.4 / −0.9 (mean −3.63)**.
+- within 1: routed 73.5 / 91.5; new path 67.5 / 90.3; **−5.9 / −1.2 (mean −3.55)**.
+- Recording order, routed: 73.8 / 91.1. Routed under shuffle loses 2.4 / −0.2 (within 0) and 0.3 / −0.4 (within 1).
+Routing returning people through v6 would cost about 3.6. **Closed.**
+Limit: shufpkg keeps members as recorded, while the new path has them re-streamed. That costs the new path at most
+the ~0.5 v5.1b loses from re-streaming, far below 3.6.
+
+### 186. RANKED EXPLORE DIRECTIONS by measured or bounded ceiling on the sealed mix (written 13 Nov 16:38 UTC)
+
+The sealed mix is about 57 % new and 43 % returning sessions. A new-people ceiling counts at about 0.57 of its size
+before transfer (transfer 0.4 to 1.0). Third place by team is +1.1 sealed above us (coordinator, 16:40).
+
+| Rank | Direction | Measured ceiling | Sealed bound | Status |
+|---|---|---|---|---|
+| 1 | Eye-view quality (oracle eye view, §155) | +3.8 new over V6F (recording order) | ≤ +2.2 | Five view forms refuted (§156–§163); still the largest measured ceiling, so it needs other forms (learned eye features, more data). |
+| 2 | FT label quality (true-label FT, §142) | +1.9 against chain labels; package labels cost 0.2–0.5 more | ≤ +0.75 | Refuted: stack/indep/agree/confhalf labels (§145). Untried: labels from the v6 chain itself in the package. |
+| 3 | Stage loss under full and runs (§181) | non-causal +1.4 (full), +0.9 (runs) | ≤ +0.8, and ≈ 0 if the stream is within-like | Only a causal approximation is possible. Undecided. |
+| 4 | v6 additions on top of the routed path for returning people | unmeasured; the additions gave +1.0 to +1.25 over the unrouted tail (§183) | ≤ +0.5 | Untested. The routed path keeps personal heads; whether the eye/rest/FT additions add on top is open. |
+| 5 | More training people (PCURVE, §146) | +4.7 per doubling (chain) | large, but needs data | The teacher route mostly refuted (§148–§150); external-corpus transfer is a longer project. |
+| 6 | cum10 instead of gC5 | +0.16 mean, +0.45 on the weakest order | ≤ +0.1 | Undecided; does not fit the run time as is. |
+| — | Returning people through the v6 path | −3.6 against routed | — | Closed (above). |
+| — | Order-free stages under within | +0.10 | — | Closed (§181). |
