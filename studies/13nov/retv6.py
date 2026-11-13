@@ -20,6 +20,11 @@ S, A, SC, ns = K.S, K.A, K.SC, K.ns; Z = A.L.Z; PR = K.PR; p = "seen_session"; R
 SLOT = {"fbraw": 5, "fb": 6, "sinc": 7, "fbl": 8}; K0 = {"B2_s0": 0, "B2_s1": 1, "B2_s2": 2, "B2_s012": 0, "B2_s345": 3, "B2_pool": 0}  # delta1: first base seed
 BASES = os.environ.get("BASES", "B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2").split(","); ORDERS = os.environ.get("ORDERS", "rec,within0,within1").split(",")
 ARMS = ["base", "E", "R", "F", "ERF"]; REF = np.load(REPO + "/runs/shufpkg.npz")
+# s190: LABEL_RT=1 writes runs/labels/chain_rt_<order>.npz (new people: chain_v51b_<order>; returning: routed v5.1b as emitted)
+# and exits; FT_SFX=T reads ttt18<order>T (gC5 fine-tuned on those labels) for arm F instead of ttt18<order>
+LABEL_RT, FT_SFX, LABRT = bool(os.environ.get("LABEL_RT")), os.environ.get("FT_SFX", ""), {}
+if LABEL_RT:
+    BASES, ARMS = ["B2_pool"], ["base"]
 PERMS_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
 assert hashlib.sha256(open(f"{REPO}/runs/shuffle_perms.npz", "rb").read()).hexdigest() == PERMS_SHA, "runs/shuffle_perms.npz is not the pinned order file"
 PF = np.load(f"{REPO}/runs/shuffle_perms.npz")
@@ -40,7 +45,7 @@ def inputs(order):
         oc, no = mean_of([f"{REPO}/runs/ocunet/probs/oc_nomix-{p}-s{s}.npz" for s in range(3)], "eye")
         rs, nr = mean_of([f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p}-s{s}.npz" for s in range(3)], "rest")
     else:
-        d = f"{REPO}/runs/ttt/probs18/ttt18{order}"
+        d = f"{REPO}/runs/ttt/probs18/ttt18{order}{FT_SFX}"
         ft = {(a, s): ld(f"{d}_{a}_gC5-{p}-s{s}.npz") - ld(f"{d}_{a}_base-{p}-s{s}.npz") for a in SLOT for s in range(6)}
         oc, no = mean_of(sorted(glob.glob(f"{REPO}/runs/ocushuf/{order}/oc_nomix-{p}-s*.npz")), "eye")
         rs, nr = mean_of(sorted(glob.glob(f"{REPO}/runs/restshuf/{order}/rest4_sh_r1-{p}-s*.npz")), "rest")
@@ -82,6 +87,8 @@ def system(bn, arm, Pp, oof, inp):
         out0 = ns["route4"]({p: mix}, {p: sh}, a, oof, {p: A.members(bn, p)["c1"]}, "max", 10)[0]
         rt = {s.split("/")[-1]: (int(np.flatnonzero(r > 0)[0]), K.NM[(q, s)][0][int(j[np.flatnonzero(r > 0)[0]])][-3:], r.copy()) for (q, s), (r, j) in K.REC.items()}
         out = K.staged(out0)[0]
+        if LABEL_RT and arm == "base" and bn == "B2_pool":  # s190: the routed v5.1b outputs as emitted, back in recording layout
+            LABRT[0] = out[p][np.argsort(Pp)]
     finally:
         A.RR.FOLDS = folds0; Z[f"GE|{p}"] = ge0
         for k in [k for k in A.EXTRA if k.startswith("rt_")]:
@@ -108,8 +115,17 @@ for order in ORDERS:
             ramp = sum(not np.array_equal(r0[s][2], r1[s][2]) for s in r0 if s in r1)
             if not same_set or first or ramp:
                 print(f"    routing changes in {k}: sessions {sorted(r0)} -> {sorted(r1)}; first window/person changed {first}; ramp differs in {ramp} sessions", flush=True)
+    if LABEL_RT:
+        assert order != "rec", "LABEL_RT needs a delivery order (ttt18 has no recording-order form)"
+        L = np.load(f"{REPO}/runs/labels/chain_v51b_{order}.npz"); assert (L["idx_seen"] == IDX).all()
+        y = Z[f"y|{p}"].astype(int)[np.argsort(Pp)]; lab = LABRT[0]
+        print(f"  labels {order}: routed v5.1b acc {np.mean(lab.argmax(1) == y):.4f} | chain_final seen {np.mean(L['seen_session'].argmax(1) == y):.4f}", flush=True)
+        np.savez(f"{REPO}/runs/labels/chain_rt_{order}.npz", all_loso=L["all_loso"], seen_session=lab, idx_seen=L["idx_seen"]); print("written chain_rt_" + order, flush=True)
+        continue
     print(f"  {order}: routed sessions (base, first window, person) " + "; ".join(f"{s} w{v[0]} {v[1]}" for s, v in RT[order, BASES[0], 'base'].items()), flush=True)
 S.apply({q: np.arange(S.N[q]) for q in PR}); K.RANK["cur"] = None
+if LABEL_RT:
+    sys.exit(0)
 print(f"\nRETV6: change against routed v5.1b in the same order, mean over {len(BASES)} bases: mean (P04, P10) [per-base range of the mean]")
 for order in ORDERS:
     for k in ARMS[1:]:

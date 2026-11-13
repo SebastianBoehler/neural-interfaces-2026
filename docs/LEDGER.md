@@ -3983,3 +3983,25 @@ Three parts:
 - **(c) Pooled training** of the SessionBN families and the eye and rest nets with the corpus people as extra training
   people, scored through the chain under within shuffle. Designed after (a). Its size is bounded by (b): N extra
   people are worth about 4.7 × log2((9 + N·q)/9), where q is the corpus people's worth relative to a PROTEUS person.
+
+**§189 (b) RESULT (13 Nov 17:00 UTC; `runs/pcurve2_*.log`; core1 surrogate as §146, five draws).** The recording-order run reproduces §146
+exactly (chain +4.69 per doubling). Chain slope per doubling of training people (k 3–9; core +4.92):
+- recording + eye view: +4.60;
+- within 0: +5.03; within 0 + eye: +4.90; within 1 + eye: +4.60.
+- Ratio to core: 0.93–1.02.
+**Prediction (≥ 0.7 × core under within) confirmed.** Neither shuffled delivery nor the eye view flattens the people gain.
+A doubling of effective training people is still worth about +4.7 at chain level, and one more PROTEUS-like person
+about +0.7. (The surrogate chain at k = 9 loses nothing under within shuffle, 70.0 against 69.3. The stage loss
+measured elsewhere comes with the full member set.) Lever #5 keeps its size; (a) decides whether data exist for it.
+
+### 190. FT ON THE ROUTED PATH FOR RETURNING PEOPLE, package-style labels (§186 item 4 follow-up; written 13 Nov 17:00 UTC, before the FT jobs ran)
+
+The agent's +0.61 (§186.4) fine-tuned returning rows on chain_final's seen part (recording order). Package-style:
+returning rows labelled by routed v5.1b as emitted in the delivery order (`retv6.py LABEL_RT` →
+`runs/labels/chain_rt_<order>.npz`; new-people rows as chain_v51b). Label accuracy on returning rows: within 0 0.815,
+within 1 0.827, against chain_final 0.799. gC5 with these labels (ttt18 tag T): Leonardo 64404681/83 and Galvani
+3098657/58 (first copy wins). Scored with `retv6.py FT_SFX=T` (arms F and ERF) against routed v5.1b.
+- **Run time:** FT on every routed session means FT on 100 % of sessions. That is v52-build's worst case (44.2 min sealed,
+  margin 15.8, gc5 at 378 windows), not the 57 % case.
+- **Prediction:** ERF within mean +0.6 (+0.3 to +0.9), P10 0 (±0.3).
+- **Kept for a v6.1 build** if ERF ≥ +0.3 on the mean of within 0/1 and P10 ≥ −0.3 on both.
