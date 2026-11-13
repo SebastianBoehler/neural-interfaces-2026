@@ -4090,3 +4090,16 @@ It is a no-op for every SessionBN run; ttt18's EXT now refuses `~` options and s
   corpora through `experiments/pretrain.py`, not through these options. No description error for the audit.
 - **Note on the §191 arm:** §7 used Scherer at loss weight 0.1/0.25; §191 uses weight 1 (q-test, class-balanced). The
   smoke passed (2,130 windows, 9 people); arrays and scoring are released.
+
+**§187 RESULT (13 Nov 17:23 UTC; `runs/allorder_<order>_R.log`; most complete form, package gate).** gC5 fine-tuned on labels from the v6
+chain (R) against package labels (L), over v5.1b, new:
+- within 0: +1.51 against +1.39 (+0.12); within 1: +1.67 against +1.49 (+0.18);
+- within 2: +0.51 against +0.32 (+0.19); within 3: +1.12 against +1.02 (+0.10);
+- full 0: +0.97 against +1.27 (−0.30); full 1: +0.51 against +0.62 (−0.11);
+- runs 0: +1.32 against +1.35 (−0.03); runs 1: +0.93 against +0.91 (+0.02).
+- Mean over eight orders: **+0.02**; within mean +0.15 (all four ≥ 0); full −0.21.
+- **The keep rule (> +0.3 on the eight-order mean) is missed:** "undecided", not a package change. Prediction +0.10 (0 to +0.3):
+  inside the range.
+- Worth noting: under within (the scheme that matches the sealed drop), R lifts every order, including the weak within 2
+  (+0.32 → +0.51, above the +0.5 bar). Under full it costs. With a within-like sealed stream, R is a small positive
+  (+0.15); a second draw per within order would decide it.
