@@ -16,7 +16,8 @@ def one(pat):
 
 rows = {"labels": [], "form": [], "stack": []}
 for o in ORDERS:
-    L, KG, KF = one(f"shufcombo_{o}_ocu_gC5_*_gp0_ttt18{o}L.npz"), one(f"shufcombo_{o}_ocu_gC5_*ttt18{o}KF.npz"), one(f"shufcombo_{o}_ocu_{FORM}_*ttt18{o}KF.npz")
+    sfx = "_all_ge_hb_ts_gp0_"  # the most complete form only (older local variants of the same baseline must not match)
+    L, KG, KF = one(f"shufcombo_{o}_ocu_gC5{sfx}ttt18{o}L.npz"), one(f"shufcombo_{o}_ocu_gC5{sfx}ttt18{o}KF.npz"), one(f"shufcombo_{o}_ocu_{FORM}{sfx}ttt18{o}KF.npz")
     rows["labels"].append(KG - L); rows["form"].append(KF - KG); rows["stack"].append(KF - L)
     print(f"  {o}: stack {np.mean(KF - L):+.2f} (labels {np.mean(KG - L):+.2f}, form {np.mean(KF - KG):+.2f})", flush=True)
 for k, v in rows.items():

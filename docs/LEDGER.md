@@ -4323,3 +4323,22 @@ all stated together.
   collector now ends with a per-job count of failed tasks and exits 3. The §192 within 0 R draw 1 (12 of 24 tasks lost)
   goes to Leonardo.
 - **Prediction for the stack:** +0.3 (0 to +0.6) over v6f_gc5 on new people under within, positive on ≥ 6 of 8 orders.
+
+**13 Nov 20:12 UTC: Leonardo access lost** (the step certificate expired; only the user renews it).
+- Leonardo's queued jobs keep running, and their chained scoring writes to its runs/night13/.
+- Local fetches from Leonardo are gated behind `runs/.leo_ok`, which is created only after a renewal and a single
+  successful test; there is no login loop.
+- The stack run is duplicated on Galvani (within 0/1 now; within 2–7 are submitted by a loop as Galvani's submit limit
+  frees slots) and scored on the Mac (`runs/s198_stack_summary.txt`), including returning people via `retv6 FT_SFX=KF
+  FT_FORM`.
+
+**§192 / §198(b) so far, R − L by draw** (gC5 over v5.1b, new; R = labels from the v6 chain, L = package labels):
+
+| | within 0 | within 1 | within 2 | within 3 |
+|---|---|---|---|---|
+| draw 0 | +0.12 | +0.22 | +0.19 | +0.10 |
+| draw 1 | +0.01 | −0.07 | +0.22 | +0.15 |
+| draw 2 | (pending) | +0.15 | +0.25 | +0.18 |
+
+10 of 11 pairs are positive; the mean is +0.14. Read by sign consistency (§198), R is a small, consistent positive and stays
+in the stack.

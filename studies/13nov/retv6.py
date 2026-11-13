@@ -23,6 +23,7 @@ ARMS = ["base", "E", "R", "F", "ERF"]; REF = np.load(REPO + "/runs/shufpkg.npz")
 # s190: LABEL_RT=1 writes runs/labels/chain_rt_<order>.npz (new people: chain_v51b_<order>; returning: routed v5.1b as emitted)
 # and exits; FT_SFX=T reads ttt18<order>T (gC5 fine-tuned on those labels) for arm F instead of ttt18<order>
 LABEL_RT, FT_SFX, LABRT = bool(os.environ.get("LABEL_RT")), os.environ.get("FT_SFX", ""), {}
+FT_FORM = os.environ.get("FT_FORM", "gC5")  # s198: a form of the stack run (FT_SFX=KF), e.g. s03, c01, e02
 if LABEL_RT:
     BASES, ARMS = ["B2_pool"], ["base"]
 PERMS_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
@@ -46,7 +47,7 @@ def inputs(order):
         rs, nr = mean_of([f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p}-s{s}.npz" for s in range(3)], "rest")
     else:
         d = f"{REPO}/runs/ttt/probs18/ttt18{order}{FT_SFX}"
-        ft = {(a, s): ld(f"{d}_{a}_gC5-{p}-s{s}.npz") - ld(f"{d}_{a}_base-{p}-s{s}.npz") for a in SLOT for s in range(6)}
+        ft = {(a, s): ld(f"{d}_{a}_{FT_FORM}-{p}-s{s}.npz") - ld(f"{d}_{a}_base-{p}-s{s}.npz") for a in SLOT for s in range(6)}
         oc, no = mean_of(sorted(glob.glob(f"{REPO}/runs/ocushuf/{order}/oc_nomix-{p}-s*.npz")), "eye")
         rs, nr = mean_of(sorted(glob.glob(f"{REPO}/runs/restshuf/{order}/rest4_sh_r1-{p}-s*.npz")), "rest")
     print(f"{order}: FT gC5 delta1 ({'ttt7' if order == 'rec' else 'ttt18' + order}), eye net {no} seeds, rest net {nr} seeds", flush=True)
