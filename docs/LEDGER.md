@@ -3322,3 +3322,23 @@ order, the eye-net view plus the rest member alone are worth about +0.7 for new 
 sessions untouched). FT adds about +0.8 to +0.9 more (§165). **Package decision rule from here:** if FT runs inside
 the run-time budget, ship the full combination; otherwise ship the fallback. Both pass their bars under shuffled
 delivery.
+
+### 174. Next forms for the stage loss under shuffle (written 13 Nov 10:57 UTC)
+
+Refuted so far: RETUNE (stage constants, §166), the hard run split (§168), and the time-weighted oracle (§170). What
+comes next, in order:
+
+1. **Measurement validity first.** Core1's member output and its components, which are TSEM's view (pc128) and part of
+   the gate's input, use causal references built along the session's row order (`experiments/ts_core.py`,
+   `causal_refs`). Every shuffled number so far kept them in recording order. Recomputing core1 in the delivery order
+   (a ts_core run with a delivery-order option, like ttt6's PERM) tells how much of the −1 to −3.5 J stage loss is
+   real and how much is a recording-order artefact of the views. The same applies to the gaze and event view of
+   SessionEM. Until this runs, the size of the stage loss is uncertain in both directions.
+2. **Order-free session estimates.** At each delivered window, run SessionEM and TSEM as a fixed point over all
+   delivered windows (EM to convergence), instead of the running, prefix-built template. That is the natural estimator
+   when the delivered set is an exchangeable sample. Prediction: it recovers part of the loss under full and runs; a
+   ceiling is measured first by giving it the whole session (non-causal).
+3. **None beyond these** are specified yet. Slow-state similarity (form A) is not pursued after §170.
+
+Queue: GC5SHUF draws are duplicated on Leonardo (64374729–64374732) next to Galvani, and the first copy to land is
+used. Item 1 is built next, on Galvani or Leonardo CPU, behind the evening path.
