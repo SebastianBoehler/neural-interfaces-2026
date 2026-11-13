@@ -56,6 +56,7 @@ class MeanLinear:
         self.clf = make_clf("lr", C)
 
     def fit(self, idx):
+        from protocol import require_honoured; require_honoured(self.d, idx, set(), "MeanLinear")
         self.clf.fit(self.F[idx], self.d["y"][idx])
 
     def predict_stream(self, idx):
@@ -151,6 +152,7 @@ class TangentSpace:
         return np.concatenate(cols) if cols else np.zeros(0, int)
 
     def fit(self, idx):
+        from protocol import require_honoured; require_honoured(self.d, idx, {"w", "m"}, "TangentSpace")
         nolow = self.d.get("nolow", np.zeros(len(self.d["y"]), bool))
         hi = idx[~nolow[idx]]  # global low-band references from full-band data
         ref = idx
@@ -230,6 +232,7 @@ class ReveLinear:
         return E - E.mean(0)
 
     def fit(self, idx):
+        from protocol import require_honoured; require_honoured(self.d, idx, set(), "ReveLinear")
         st = self.d["stream"][idx]
         F = [self._feats(idx[st == s], False) for s in dict.fromkeys(st)]
         y = [self.d["y"][idx[st == s]] for s in dict.fromkeys(st)]

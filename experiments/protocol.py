@@ -100,6 +100,16 @@ def load(external=()):
     return d
 
 
+def require_honoured(d, idx, honours, who):
+    """Fail loudly when the training rows carry a protocol.load option the model does not apply (13 Nov, ledger s191:
+    ``~m`` reached deep nets that never read ``nolow``). ``~n`` is applied here in load, so every model honours it."""
+    active = {"m"} if np.asarray(d.get("nolow", np.zeros(len(d["y"]), bool)))[idx].any() else set()
+    if (np.asarray(d.get("w", np.ones(len(d["y"]))))[idx] != 1).any():
+        active.add("w")
+    missing = active - set(honours)
+    assert not missing, f"{who} does not apply the option(s) {sorted('~' + o for o in missing)} set on its training rows"
+
+
 def folds(d, protocol):
     """Yield ``(name, train_mask, test_mask)``; external data always train."""
     ext = d["split"] == "external"

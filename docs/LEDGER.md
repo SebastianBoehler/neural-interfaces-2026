@@ -4066,3 +4066,27 @@ P04, and within 1 is flat. Recorded as "undecided" (inside the noise). No v6.1 b
 +0.32 but goes negative on P10 (−0.22) and on within 1 (−0.05).
 Supporting fix found on the way (§191): `protocol.load`'s `~m` (nolow) option is not read by deep.py or session_bn.py.
 It is a no-op for every SessionBN run; ttt18's EXT now refuses `~` options and states why it clears the weighting tag.
+
+**§191 guard and audit (13 Nov 17:18 UTC; coordinator's request).**
+- **(a) Guard:** `protocol.require_honoured(d, idx, honours, who)` fails when the training rows carry an option the model
+  does not apply. Every fit calls it:
+  - deep.AlignedNet (and so SessionNet): honours `~w` only;
+  - models.TangentSpace: `~w` and `~m`;
+  - MeanLinear and ReveLinear: neither.
+  - `~n` is applied inside `protocol.load` itself.
+  - Checked: `scherer2015~m` is refused for a deep-like fit and accepted for TangentSpace; `replay/check.py` prints OK.
+- **(b) Which results passed an option the model did not apply:**
+  - Round 5 (19 Oct, `docs/archive/OPTIMIZATION_R5.md`): `~m` was used only for v2 (models.TangentSpace), which applies
+    it; the deep members ran `~n~w0.1`. Stands.
+  - **§7 (SCH, 11 Nov):** `scherer2015~n~w0.1 / ~n~w0.25 / ~n~w0.25` with HAND at weight 0, trained with a scratch copy of
+    session_bn.py that supported weighting (`runs/archive_scratch_11nov/schr/galv/`). No `~m`. Stands as a test of
+    what it ran.
+  - **§191 as first written:** `scherer2015~m` was meant to flag Scherer's missing band below 4 Hz in the SessionBN nets,
+    and deep/session_bn never read it. Caught by the smoke before any training. The run uses `scherer2015` at weight 1
+    and says so.
+  - Nothing else found with a `~` option passed to a deep net.
+- **(c) Shipped packages:** no member family in the uploaded or staged packages was trained with external rows through
+  `protocol.load`. The SessionBN, TF and shallow members are PROTEUS-only; the teacher was pretrained on external
+  corpora through `experiments/pretrain.py`, not through these options. No description error for the audit.
+- **Note on the §191 arm:** §7 used Scherer at loss weight 0.1/0.25; §191 uses weight 1 (q-test, class-balanced). The
+  smoke passed (2,130 windows, 9 people); arrays and scoring are released.

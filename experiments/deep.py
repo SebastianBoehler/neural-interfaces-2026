@@ -259,6 +259,7 @@ class AlignedNet:
         return X if self.tcrop is None else np.ascontiguousarray(X[..., slice(*self.tcrop)])
 
     def fit(self, idx):
+        from protocol import require_honoured; require_honoured(self.d, idx, {"w"}, type(self).__name__)  # nolow (~m) is not read by any deep net
         key = (id(self.d["X"]), self.arch, self.align, self.k, self.epochs, self.lr,
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
