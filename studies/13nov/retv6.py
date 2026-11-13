@@ -19,7 +19,7 @@ import shufpkg as K  # noqa: E402  (S, A, ns, staged, REC, NM, STREAMS, RANK, _r
 S, A, SC, ns = K.S, K.A, K.SC, K.ns; Z = A.L.Z; PR = K.PR; p = "seen_session"; REPO = S.REPO; IDX = K.IDX[p]
 SLOT = {"fbraw": 5, "fb": 6, "sinc": 7, "fbl": 8}; K0 = {"B2_s0": 0, "B2_s1": 1, "B2_s2": 2, "B2_s012": 0, "B2_s345": 3, "B2_pool": 0}  # delta1: first base seed
 BASES = os.environ.get("BASES", "B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2").split(","); ORDERS = os.environ.get("ORDERS", "rec,within0,within1").split(",")
-ARMS = ["base", "E", "R", "F", "ERF"]; REF = np.load(REPO + "/runs/shufpkg.npz")
+ARMS = ["base", "E", "R", "ER", "F", "ERF"]; REF = np.load(REPO + "/runs/shufpkg.npz")  # ER (s199): eye view + rest member, no FT
 # s190: LABEL_RT=1 writes runs/labels/chain_rt_<order>.npz (new people: chain_v51b_<order>; returning: routed v5.1b as emitted)
 # and exits; FT_SFX=T reads ttt18<order>T (gC5 fine-tuned on those labels) for arm F instead of ttt18<order>
 LABEL_RT, FT_SFX, LABRT = bool(os.environ.get("LABEL_RT")), os.environ.get("FT_SFX", ""), {}
@@ -107,7 +107,10 @@ for order in ORDERS:
         for arm in ARMS:
             R[order, bn, arm], RT[order, bn, arm] = system(bn, arm, Pp, OOF[bn], inp)
         key = f"rec|0|{bn}|{p}" if order == "rec" else f"{order[:-1]}|{order[-1]}|{bn}|{p}"
-        assert np.allclose(R[order, bn, "base"], REF[key], atol=1e-9), f"{order} {bn}: base {R[order, bn, 'base']} != shufpkg {REF[key]}"
+        if key in REF.files:  # shufpkg ran within 0/1 only; other orders cannot be checked against it (stated in the output)
+            assert np.allclose(R[order, bn, "base"], REF[key], atol=1e-9), f"{order} {bn}: base {R[order, bn, 'base']} != shufpkg {REF[key]}"
+        elif bn == BASES[0]:
+            print(f"  {order}: no shufpkg reference for this order; routed v5.1b is computed by the same code but not checked against one", flush=True)
         b = R[order, bn, "base"]
         print(f"  {order} {bn}: base P04 {b[0]:.2f} P10 {b[1]:.2f} (= shufpkg) | " + " ".join(f"{k} {(R[order, bn, k] - b).mean():+.2f} ({R[order, bn, k][0] - b[0]:+.2f}, {R[order, bn, k][1] - b[1]:+.2f})" for k in ARMS[1:]), flush=True)
         for k in ARMS[1:]:

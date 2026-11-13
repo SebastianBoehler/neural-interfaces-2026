@@ -9,7 +9,7 @@ import numpy as np
 WS = Path(os.environ.get("NI26_WS", Path(__file__).resolve().parents[2])); SCHEME = os.environ["SCHEME"]; PSEED = int(os.environ["PSEED"]); DRAW = int(os.environ.get("DRAW", 0))
 LB = os.environ.get("CHAIN_NPZ")  # s178: v5.1b's labels as emitted in this order (shufcombo.py LABEL_OUT); must name the same order
 LSFX = {f"chain_v51b_{SCHEME}{PSEED}.npz": "L", f"chain_v6r_{SCHEME}{PSEED}.npz": "R", f"chain_rt_{SCHEME}{PSEED}.npz": "T",
-        f"chain_stk_{SCHEME}{PSEED}.npz": "K"}  # K (s198): new people from the v6 chain, returning people from routed v5.1b where it exists  # T (s190): returning rows labelled by routed v5.1b  # s187: R = labels from the v6 chain (eye + rest)
+        f"chain_stk_{SCHEME}{PSEED}.npz": "K", f"chain_rts_{SCHEME}{PSEED}.npz": "Q"}  # Q (s199): returning rows routed for every order  # K (s198): new people from the v6 chain, returning people from routed v5.1b where it exists  # T (s190): returning rows labelled by routed v5.1b  # s187: R = labels from the v6 chain (eye + rest)
 assert LB is None or os.path.basename(LB) in LSFX, f"label file {LB} is not this order's"
 _spec = importlib.util.spec_from_file_location("ttt7", WS / "studies/13nov/ttt7.py"); T7 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T7)
 P = np.load(WS / "runs/shuffle_perms.npz"); PERM = {}

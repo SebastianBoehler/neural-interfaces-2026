@@ -4479,3 +4479,19 @@ shuffled mean of within 0/1, mean (P04, P10):
 - A v6.2 option would be "v6.1 + eye/rest/FT s15 also on routed sessions". Its run time is FT on every session, which is
   the 100 %-unrecognised worst case already measured for v6.1 (about 45.8 min). Its gain for the 43 % returning share would
   be about +0.29 × 0.43 ≈ +0.12 sealed before transfer.
+
+### 199. v6.2 OPTION: the v6 additions on the routed path, firmed up (coordinator's request; written 13 Nov 21:15 UTC, before any job ran)
+
+§198 found eye + rest + FT s15 on the routed path at +0.29 for returning people (P04 +0.33, P10 +0.24), within 0/1 only. v6.2
+would change recognised sessions, which v6f and v6.1 leave bit-identical to v5.1b, so the sign is firmed up first.
+- **Labels:** routed v5.1b as emitted (`retv6 LABEL_RT`), now also for within 2–7, full 0/1 and runs 0/1. Accuracy on
+  returning rows: within 0.797–0.827, full and runs 0.784–0.797, against chain_final's 0.799.
+- **Files:** `chain_rts_<order>` (new people from the v6 chain, returning people routed); ttt18 tag Q.
+- **GPU runs (Leonardo):** FORMS=gC5,s15 on within 0–7, full 0/1 and runs 0/1, plus draws 1 and 2 on within 0–3.
+- **Scoring:** `retv6 FT_SFX=QF FT_FORM=s15|gC5`, with arms E, R, **ER (eye + rest, no FT; new)**, F and ERF, per order, P04 and
+  P10 separately.
+- **Reading rule (an aid, not a gate):** v6.2 = ERF s15 on routed sessions is worth proposing if P10 is positive on ≥ 6 of 8
+  within orders, no order has P10 below −1.0, and the within mean (P04 + P10) is ≥ +0.15. The safer v6.2 (ER only, no
+  routed FT, same run time as v6f at 57 %) is preferred if ER carries ≥ 2/3 of ERF's mean. gC5 is reported alongside as
+  the control.
+- **Prediction:** ERF s15 within mean +0.2 (0 to +0.4), P10 positive on 5–7 of 8; ER about half of ERF.
