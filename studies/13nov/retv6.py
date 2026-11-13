@@ -112,7 +112,7 @@ for order in ORDERS:
         elif bn == BASES[0]:
             print(f"  {order}: no shufpkg reference for this order; routed v5.1b is computed by the same code but not checked against one", flush=True)
         b = R[order, bn, "base"]
-        print(f"  {order} {bn}: base P04 {b[0]:.2f} P10 {b[1]:.2f} (= shufpkg) | " + " ".join(f"{k} {(R[order, bn, k] - b).mean():+.2f} ({R[order, bn, k][0] - b[0]:+.2f}, {R[order, bn, k][1] - b[1]:+.2f})" for k in ARMS[1:]), flush=True)
+        print(f"  {order} {bn}: base P04 {b[0]:.2f} P10 {b[1]:.2f} ({'= shufpkg' if key in REF.files else 'no shufpkg reference'}) | " + " ".join(f"{k} {(R[order, bn, k] - b).mean():+.2f} ({R[order, bn, k][0] - b[0]:+.2f}, {R[order, bn, k][1] - b[1]:+.2f})" for k in ARMS[1:]), flush=True)
         for k in ARMS[1:]:
             r0, r1 = RT[order, bn, "base"], RT[order, bn, k]
             same_set = set(r0) == set(r1); first = {s: (r0[s][0], r1[s][0]) for s in r0 if s in r1 and r0[s][:2] != r1[s][:2]}

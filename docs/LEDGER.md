@@ -4571,3 +4571,22 @@ Change against routed v5.1b:
 **v6.1 + form B against v6.1** (8 orders; `runs/v61b_summary.txt`): +0.07 (6 of 8 positive; within +0.06). Per order: within 0 −0.06,
 within 1 +0.08, within 2 +0.11, within 3 +0.12, full 0 −0.05, full 1 +0.04, runs 0 +0.16, runs 1 +0.15. A small, mostly-positive
 addition.
+
+**§199 follow-ups (13 Nov 22:12 UTC).**
+- **v6.2 build requested** from v52-build (coordinator), one package with two switches:
+  - v6.2 = v6.1 + eye, rest and FT s15 on recognised sessions;
+  - v6.2-safe = eye and rest only.
+  - The exact dev insertion points are handed over (rest and FT before the personal head; eye in shadow and tail; the shadow,
+    and so the v3 gate, sees the change).
+  - Added checks: switches off ≡ v6.1 bitwise on recognised sessions; references for the routed path on CPU and A100;
+    a package-form dev row per person; run time for both variants; the worker image.
+- **Reference gap:** `shufpkg.py SCHEMES=within PERMS=8 SHUFPKG_OUT=shufpkg_within8.npz` computes routed v5.1b independently for
+  within 0–7. Within 0/1 are checked against the old reference, within 2–7 against retv6's base (`runs/shufpkg8_check.txt`).
+- **Silent mislabel fixed:** retv6 printed "(= shufpkg)" next to the base even on orders without a reference (within 2–7 in
+  `runs/s199_*`). Those lines were not checked; the label is now conditional.
+- **Robustness (coordinator):** P10 under full and runs.
+  - ERF: full 0 +0.33, full 1 +0.82, runs 0 +1.25, runs 1 −0.08.
+  - ER: +0.69, +1.15, +1.36, +0.41.
+  - P04 is the one hurt: full 0 ERF −0.89 (FT −1.95).
+  - So if the sealed stream were not within-like, ER would still help both people on all four orders. ERF would help P10
+    (3/4 positive, worst −0.08) but can cost P04 about 1 point on a full-shuffle order through the routed FT.
