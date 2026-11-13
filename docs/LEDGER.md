@@ -3624,3 +3624,27 @@ does not depend on the draw: +0.63 to +0.96.
   windows). Only if > +0.3 is a form between the two, fitting 50 min, worth building.
 - **Rest seeds 3–8** for within 0/1 (64389585/87). Prediction: 9 seeds against 3 add ≤ +0.1; kept only if > +0.3.
 - Eye-net seeds 9–17 (Galvani, §177) are scored in the same way when home.
+
+**§178/§179 RESULT, PACKAGE-FAITHFUL (13 Nov 13:32 UTC; `runs/allorder_<order>[d1]_gp0_L.log`).** Corrected orders; every input re-streamed
+except GE, Hilbert, transformer/shallow and teacher; package gate; gC5 fine-tuned on v5.1b's outputs as emitted in that
+order (Leonardo, label hashes verified). New people, over v5.1b under the same order [80 %], without P10, and the change
+against the same run with recording-order labels:
+
+| Order | gC5, package labels | labels' cost | fallback (no FT) |
+|---|---|---|---|
+| within 0, draw 0 | +1.70 [+1.28, +2.14], +1.68 | −0.27 | +0.96 [+0.55, +1.38], +1.09 |
+| within 0, draw 1 | +1.63 [+1.31, +1.95], +1.62 | −0.51 | (same) |
+| within 1, draw 0 | +1.33 [+0.79, +1.86], +1.22 | −0.22 | +0.75 [+0.47, +1.02], +0.80 |
+| within 1, draw 1 | +1.33 [+0.86, +1.81], +1.21 | −0.23 | (same) |
+| full 0 | +1.18 [+0.74, +1.64], +1.17 | −0.40 | +0.63 [+0.39, +0.87], +0.65 |
+| runs 0 | +1.51 [+1.01, +2.02], +1.44 | +0.18 | +0.93 [+0.47, +1.44], +1.04 |
+
+- **Prediction (§178):** labels cost 0.1 (0 to 0.3) under within and 0.2 (0 to 0.4) under full and runs.
+  - Within: cost 0.22 to 0.27 on draw 0. Inside the range, not refuted.
+  - Full: cost 0.40, at the edge.
+  - Within 0 draw 1: cost 0.51.
+  - The refutation rule (> 0.3) holds for full 0 and for within 0 draw 1, so §171 with recording-order labels was
+    optimistic by up to 0.5 there.
+- **The package-faithful gain** is +1.18 to +1.70 new and +1.17 to +1.68 without P10. Every row meets the bar.
+- Without P10 is almost as large as all people: the gain is spread over people, not carried by P10.
+- The mean over the four draw-0 orders is +1.43 new, against +1.6 with recording-order labels.
