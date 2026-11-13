@@ -3241,3 +3241,18 @@ people; *within* is the primary column (§169).
 | within | +1.20 (+0.70 to +1.70); cum10 gave +1.65 |
 | full | +1.00 (+0.40 to +1.60) |
 | **Bar (package form)** | without P10 ≥ +0.40 with the 80 % person interval above 0, under *within* on both permutations |
+
+**Plan for an upload decision this evening (13 Nov, written 10:28 UTC).** The user expects a decision at about
+19:00 UTC (20:00 CET), earlier than the research window they set. The upload itself still needs their go-ahead by
+name. Plan:
+- **Provisional package form,** confirmed by about 13:30 UTC on GC5SHUF (§171): v5.1b plus, on unrecognised
+  sessions only, gC5 delta1 fine-tuning, the eye-net view and the rest member. Recognised sessions stay bit-identical
+  to v5.1b.
+- **Build:** v52-build started on the lean tree, with final weights for the eye net and rest net trained on all ten
+  dev people.
+- **Checks before the decision:** the package equals the dev arm per window; warm, paired A100 run time against
+  v5.1b at worst-case session length, with the margin to 60 min; the official local replay; and the list of what is not
+  validated (the worker-image replay needs Galvani 2FA).
+- **Decision table for the user at about 18:30 UTC:** dev gain per delivery scheme (recording, within, full, runs) for
+  new and returning people and without P10; expected run time; what was not checked. If the evidence says "not yet",
+  the table says so.
