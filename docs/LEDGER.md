@@ -3459,3 +3459,14 @@ Prediction: labels cost the gC5 combination 0.1 (0 to 0.3) under within shuffle 
 That is from the true-label ceiling (+1.9 for about 23 points of label accuracy, so 1.3 to 3 points are worth 0.1 to
 0.25). The package gate costs 0 to 0.15. Refuted if either costs more than 0.3; then §171 was optimistic by that much.
 Either way the table quotes the package-faithful numbers (labels L, GATE_P0) where they exist and marks the rest.
+
+**§178 gate result (13 Nov 12:19 UTC; `runs/gatep0_within{0,1}.log`; gC5 draw 0, eye net re-streamed for within 0, other inputs as in
+§171).** With the package's gate (computed on v5.1b's chain), against the gate on the combination's own chain:
+
+| Order | gC5 combination, new [80 %], without P10 | own gate (§171) | fallback, package gate / own |
+|---|---|---|---|
+| within 0 | +1.41 [+0.85, +1.98], +1.12 | +1.47 | +0.71 / +0.72 |
+| within 1 | +1.32 [+0.91, +1.74], +1.11 | +1.38 | +0.69 / +0.78 |
+
+The package gate costs 0.06 on both orders, within the prediction (0 to 0.15) and inside the noise. Recording order
+gives +0.89 and +0.71, against +0.85 and +0.81 with the own gate. Not refuted. The table uses GATE_P0 from now on.
