@@ -56,7 +56,7 @@ Upload ZIP (fine-tuning on) `a5db1404…cbba2`, fallback `05c0e386…e1564`, v5.
 | Official local replay | Mac CPU, `scripts/replay_package.py` | a5db1404 / 05c0e386 (the replays built these ZIPs) | 0.9932767697 both (= v5.1b), files unchanged, 89.4 / 87.5 s; `[v6] … errors 0` per session |
 | Official A100 replay series | Leonardo 64381214, the copied ZIPs | 4a0bc427, a5db1404, 05c0e386 (ZIP sha256 in every replay.json) | warm-up 286.9 s, then v5.1b 101.4, gc5 104.4, noft 101.3, gc5 106.1, v5.1b 107.9 s; all 0.9932767697, files unchanged |
 | Worker-image replay | Galvani 3096606, `runs/cloud/ni26_worker.sif` (torch 2.14.1+cu130, braindecode 1.8.1), the copied ZIPs | 4a0bc427 ×2, a5db1404, 05c0e386 | v5.1b 120.4 / 117.4 s, gc5 118.0, noft 118.2; all 0.9932767697, files unchanged, `[v6] errors 0`. The replay sessions are recognised at window 10, so fine-tuning never ran here (next row) |
-| Fine-tuning inside the worker image | Galvani 3096632, gates forced off, unzipped from a5db1404 / 05c0e386 | a5db1404, 05c0e386 | WORKER_FT |
+| Fine-tuning inside the worker image | Galvani 3096632, gates forced off, unzipped from a5db1404 / 05c0e386 | a5db1404, 05c0e386 | OK: fine-tuning ran in the worker image (16 / 35 refits at 190 / 378 windows, 320 / 700 steps, errors 0). Paired against v5.1b in the same image: gc5 ×1.702 / ×2.026 (sealed 30.0 / 34.0 min at 57 %, **36.5 / 43.5 min at 100 %**); noft ×1.123 / ×1.128 (23.0 / 23.0, **24.1 / 24.2 min**) |
 | Recognised path, no-op check | Mac CPU, `scripts/check_v6.py`, 14 sessions, unzipped from each ZIP | a5db1404, 05c0e386 | OK. Inner v5.1b equals lean_v5 (= v5.1b, `lean/PARITY.md`) on every window. The output equals v5.1b from the first routed window (window 10 in all 14 sessions) bitwise. Windows 0–9 emit the v6 chain: max \|Δp\| against v5.1b 0.019–0.034 per session, 0 labels changed |
 | Unrecognised path, against references | same, gates forced off, P01\|1 and P02\|1 | a5db1404, 05c0e386 | OK. Every window differs from v5.1b (max 0.37; labels changed 5 and 2). SessionEM view 51 columns against 48; rest weight 1/16. Against references outside lean/src6: eye 1.3e-6, rest 2.9e-7, fine-tuning 1.5e-5 (ttt7 form, same labels and device RNG), mix 0, tail 0. gc5: fine-tuning on 160 of 190 windows, errors 0; noft: no refit |
 | Same on the A100 | Leonardo 64381218, `check_v6.py --device cuda`, 3 sessions (gc5) and 1 (noft) | a5db1404, 05c0e386 | GPU_CHECK |
@@ -69,8 +69,7 @@ Upload ZIP (fine-tuning on) `a5db1404…cbba2`, fallback `05c0e386…e1564`, v5.
   The package's behaviour is checked (output = v5.1b from that window, bitwise); its value is not.
 - **FT labels in delivery order.** The package uses v5.1b's own causal outputs in the order windows arrive. Dev used
   chain_final (v5.1b's chain in recording order); the shuffled-protocol runs used chain_final labels too. Being
-  checked in dev (§178): the package-form labels are about 1.5 points less accurate under shuffles; gC5 with them is
-  rerunning.
+  checked in dev (§178); its shuffled-order numbers wait for the §180 rescore (shuffle.py bug, fixed in 31870cb).
 - **The gate on the inner v5.1b.** The package's gate reads v5.1b's unchanged shadow; dev V6F's gate read the changed
   shadow. Equivalent for new people in dev (none routed), and being checked in dev (§178, GATE_P0).
 - **Members trained on all ten people.** The dev numbers come from LOSO members; the packaged eye net and rest net
@@ -82,5 +81,5 @@ Upload ZIP (fine-tuning on) `a5db1404…cbba2`, fallback `05c0e386…e1564`, v5.
   in a shuffled order here. It keeps no time-based state (it counts windows), but that is by construction, not by test.
 - **Sealed run time** assumes the Codabench worker runs like a Leonardo A100. The worker-image replay on Galvani is
   about 15 % slower than Leonardo for every package, v5.1b included.
-- **Fine-tuning numerics on the worker.** GPU against CPU agree to 1.5e-5 on Leonardo; the worker image's CUDA 13
-  build: WORKER_FT_SHORT.
+- **Fine-tuning numerics on the worker.** The worker image (CUDA 13 build) runs fine-tuning without errors at the same
+  cost as Leonardo; its posteriors were not compared with a reference there (the GPU reference check ran on Leonardo).
