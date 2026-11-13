@@ -12,13 +12,24 @@ sys.path.insert(0, REPO + "/replay")
 import env  # noqa: E402
 A = env.A; SC = A.SC; Z = A.L.Z; p = "all_loso"; N = len(Z[f"y|{p}"]); per = Z[f"person|{p}"]; gm = A.gm
 DRAWS = int(os.environ.get("DRAWS", 5)); KS = (3, 5, 7, 9); rng = np.random.default_rng(0)
+# s189: SHUF=<scheme>:<seed> runs the stages in that delivery order (shuffle.py, the pinned order file); OCU_DIR=<dir> puts the
+# eye view (mean of its oc_nomix-all_loso-s*.npz) into SessionEM's GE view, as the combination does
+SHUF, OCU_DIR = os.environ.get("SHUF"), os.environ.get("OCU_DIR"); PERM = np.arange(N); OCU = None
+if SHUF:
+    sys.path.insert(0, REPO + "/studies/13nov"); import shuffle as S  # noqa: E402
+    PERM = S.perm_for(*[(a, int(b)) for a, b in [SHUF.split(":")]][0])[p]
+    assert (A.pl.B[f"idx|{p}"].astype(int)[PERM] == np.load(REPO + "/runs/shuffle_perms.npz")[f"{SHUF.replace(':', '|')}|{p}"]).all(), "order differs from the pinned file"
+    S.apply({q: (PERM if q == p else np.arange(S.N[q])) for q in S.PR})
+if OCU_DIR:
+    fs = sorted(glob.glob(f"{REPO}/{OCU_DIR}/oc_nomix-{p}-s*.npz")); assert fs, OCU_DIR
+    OCU = np.log(np.clip(np.mean([np.load(f)["proba"] for f in fs], 0), 1e-3, 1)); GE0 = Z[f"GE|{p}"].copy(); Z[f"GE|{p}"] = np.c_[GE0, OCU[PERM]]
 FOLD = {}
 for f in sorted(glob.glob(f"{REPO}/runs/replay_data/feats_exact/all_loso-P*.npz")):
     z = np.load(f, allow_pickle=True); q = os.path.basename(f)[9:12]; itr = z["idx_tr"].astype(int)
     te = [(z[k].astype(np.float64), z[k.replace("|pc", "|idx")].astype(int)) for k in z.files if k.endswith("|pc")]
     FOLD[q] = (z["pc_tr"].astype(np.float64), z["y_tr"].astype(int), per[itr], te)
 assert sorted(FOLD) == list(SC.PEOPLE), sorted(FOLD)
-print(f"PCURVE: k {KS}, draws {DRAWS}; core1 surrogate (LR on 256 PCs, C 0.01, standardised) alone and through gm.pipe_g", flush=True)
+print(f"PCURVE: order {SHUF or 'recording'}, eye view {OCU_DIR or 'off'}; k {KS}, draws {DRAWS}; core1 surrogate (LR on 256 PCs, C 0.01, standardised) alone and through gm.pipe_g", flush=True)
 
 
 def predict(k, d):
@@ -36,7 +47,7 @@ def predict(k, d):
 R = {}
 for k in KS:
     for d in range(1 if k == 9 else DRAWS):
-        P = predict(k, d); core = SC.person(P, p); chain = SC.person(gm.pipe_g(P, p), p); R[k, d] = (core, chain)
+        P = predict(k, d)[PERM]; core = SC.person(P, p); chain = SC.person(gm.pipe_g(P, p), p); R[k, d] = (core, chain)  # rows in delivery order
         print(f"k {k} draw {d}: core {core.mean():.2f} | chain {chain.mean():.2f} (P04 {chain[3]:.1f})", flush=True)
 print("\nk | core mean [range over draws] | chain mean [range] | stage gain")
 M = {}

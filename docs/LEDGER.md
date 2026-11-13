@@ -3967,3 +3967,19 @@ k copies. gC5 over v5.1b, new; k = 0 is the baseline:
 - **Prediction:** the true-label ceiling is +0.5 to +1.5 over the current eye net; pl is +0.1 (0 to +0.3).
 - **Kept** if pl ≥ +0.3 on the mean over orders and ≥ 0 on each within order. If the ceiling stays below +0.5, form B is
   closed with it.
+
+### 189. MORE TRAINING PEOPLE (§186 item 5, the largest measured ceiling; written 13 Nov 16:58 UTC, before any result)
+
+The accuracy curve makes the eye view a small lever in SessionEM (§188: +0.6 for 20 accuracy points). The largest
+measured number left is the people slope: +4.7 per doubling at chain level (§146; the stages keep 0.95 of the core
+slope). The teacher results (§148–§150) refuted the external corpora as a teacher, not as extra training people.
+Three parts:
+- **(a) Survey** (an agent, read-only): which permitted corpora have PROTEUS's three classes or a mappable subset with a
+  compatible montage, and how many people each adds. Said plainly if empty.
+- **(b) The people slope under shuffled delivery and with the eye view** (`peoplecurve.py` with SHUF and OCU_DIR; core1
+  surrogate as in §146; five draws): recording order (regression check against §146), recording + eye, within 0 + eye,
+  within 1 + eye, within 0. Prediction: the chain slope stays ≥ 0.7 × the core slope under within (+3.5 to +5 per
+  doubling), and the eye view does not flatten it. Refuted if the within chain slope is < 0.4 × core.
+- **(c) Pooled training** of the SessionBN families and the eye and rest nets with the corpus people as extra training
+  people, scored through the chain under within shuffle. Designed after (a). Its size is bounded by (b): N extra
+  people are worth about 4.7 × log2((9 + N·q)/9), where q is the corpus people's worth relative to a PROTEUS person.
