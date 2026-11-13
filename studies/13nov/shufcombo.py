@@ -36,6 +36,8 @@ TG = os.environ.get("FT_TAG", f"ttt17{SCHEME}{PSEED}"); FR17 = {(a, s): ld(f"{T1
 CU17 = {(a, s): ld(f"{T17D}/{TG}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
 OCD = os.environ.get("OCU_DIR"); OCS = sorted(glob.glob(f"{REPO}/{OCD}/oc_nomix-{p0}-s*.npz")) if OCD else [f"{REPO}/runs/ocunet/probs/oc_nomix-{p0}-s{s}.npz" for s in range(3)]
 assert OCS, OCD; OCU = np.log(np.clip(np.mean([ld(f) for f in OCS], 0), 1e-3, 1))
+if os.environ.get("OCU_ORACLE"):  # s188 ceiling test only, never shippable: the eye view replaced by a smoothed one-hot of the true labels
+    OCU = np.log(0.6 * np.eye(3)[Z[f"y|{p0}"].astype(int)] + 0.4 / 3); print("OCU_ORACLE: the eye view is the true label (ceiling test)", flush=True)
 REST = np.mean([ld(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p0}-s{s}.npz") for s in range(3)], 0); ORD = f"{SCHEME}{PSEED}"
 RSD, CMP = os.environ.get("RS_DIR", f"{REPO}/runs/restshuf"), os.environ.get("CM_NPZ", f"{REPO}/runs/coremember.npz")  # overrides: smoke tests only
 RSS = sorted(glob.glob(f"{RSD}/{ORD}/rest4_sh_r1-{p0}-s*.npz")); RESTR = np.mean([ld(f) for f in RSS], 0) if RSS else REST
@@ -66,6 +68,7 @@ print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {R
 
 
 GATE_P0, LABEL_OUT, GB, LAB = bool(os.environ.get("GATE_P0")), os.environ.get("LABEL_OUT"), {}, {}
+OCU_TS = int(os.environ.get("OCU_TS", 0))  # s188: k copies of the eye view appended to TSEM's pc128 view (0 = off)
 LABEL_ARM = os.environ.get("LABEL_ARM", "P0r")  # s187: V6r = labels from the v6 chain itself (eye view + rest member, no FT)
 assert LABEL_ARM in ("P0r", "V6r"), LABEL_ARM
 if GATE_P0:
@@ -110,9 +113,11 @@ def chain(bn, arm, P):
         extra = [(k, w) for k, w in extra if k != sl] + [(f"sc_{a}", 1.0)]
     if arm in ("V6Fr", "V6Frec", "V6r"):
         A.EXTRA["sc_rest"] = {p0: (RESTR if arm != "V6Frec" else REST)[P], OTHER: A.L.Z[f"{bn}|Ps|{OTHER}"][3]}; extra = extra + [("sc_rest", 1.0)]
-    ge0 = A.L.Z[f"GE|{p0}"].copy()
+    ge0, pc0 = A.L.Z[f"GE|{p0}"].copy(), A.L.Z[f"pc128|{p0}"].copy()
     if arm in ("V6Fr", "V6Frec", "V6r"):
         A.L.Z[f"GE|{p0}"] = np.c_[ge0, OCU[P]]
+        if OCU_TS:  # s188 form A: the eye view in TSEM too. TSEM standardises columns, so weight = k copies (scaling would be a no-op)
+            A.L.Z[f"pc128|{p0}"] = np.c_[pc0, np.repeat(OCU[P], OCU_TS, axis=1)].astype(pc0.dtype)
     try:
         b = gm.M.rebal(A.mix(bn, p0, fams, extra)[0], p0, None); rec = (P == np.arange(len(P))).all()
         if arm in ("P0", "P0r"):
@@ -120,7 +125,7 @@ def chain(bn, arm, P):
         ref = {"V6Fr": "P0r", "V6r": "P0r", "V6Frec": "P0rec"}.get(arm)  # GATE_P0: the package's gate sees its inner v5.1b, not the v6 chain
         g = gm.gate(GB[bn, ref] if GATE_P0 and ref else b, p0); out = gm.tsem_g(gm.em_g(b, p0, g), p0, g)
     finally:
-        A.L.Z[f"GE|{p0}"] = ge0
+        A.L.Z[f"GE|{p0}"], A.L.Z[f"pc128|{p0}"] = ge0, pc0
     if LABEL_OUT and arm == LABEL_ARM:
         LAB[bn] = out[np.argsort(P)]  # v5.1b's outputs as emitted in the delivery order, back in recording index layout
     return SC.person(out, p0)
@@ -154,4 +159,4 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other
-np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})

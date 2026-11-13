@@ -3878,3 +3878,19 @@ with L labels.
 Prediction: +0.10 (0 to +0.3) over L. True-label FT gains about +1.0 per 23 points of label accuracy (§142), and R gains
 0.4 to 1.2 points. Kept as a package change only if > +0.3 on the mean over eight orders and ≥ 0 on each within order.
 It also needs no run-time change (the v6 chain is already computed when FT runs; the build session must confirm).
+
+### 188. EYE VIEW, three new forms (§186 item 1; written 13 Nov 16:42 UTC, before any result)
+
+The oracle eye view (§155) is the largest measured ceiling (+3.8 new over V6F; ≤ +2.2 sealed). The five refuted forms
+(§156–§163) changed which features feed SessionEM's view. These differ in kind; each gets its ceiling test first.
+- **A. The eye view in TSEM as well as SessionEM** (`shufcombo OCU_TS=k`: k copies of the eye log-posteriors appended to
+  pc128; copies, not scaling, because TSEM standardises columns). Ceiling: `OCU_ORACLE=1` (eye view = smoothed true label)
+  with k = 0 against k = 4. Form: k = 1, 4, 16 with the real eye net. Most complete inputs, labels L, within 0/1.
+  Prediction: ceiling +1 or more over SessionEM-only; the real form +0.1 (0 to +0.3). Kept if ≥ +0.3 on both orders.
+- **B. The eye net fine-tuned per session on the delivered windows** (TTT of the eye net with chain pseudo-labels,
+  like gC5 for the SessionBN nets). Ceiling: the same with true labels. Needs an ocunet TTT script (GPU).
+  Smoke tonight, wave overnight.
+- **C. Learned eye-trace features pretrained on public corpora** (self-supervised encoder on frontal-channel traces of
+  the permitted corpora). Ceiling: a LOSO linear probe on the embedding with true labels against the eye net's own
+  probe. Corpora with frontal channels must be checked first; this is a longer project.
+Order: A tonight on CPU, B as the overnight GPU explore wave, C after B's ceiling.
