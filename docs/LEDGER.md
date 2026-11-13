@@ -2514,3 +2514,21 @@ shipped and the FT+OCU+REST contexts: m7c2 replacing the teacher (rebuild check)
 | m7c2 against stored m7c (rebuild check) | 0.0 (−0.3 to +0.3), both contexts |
 | cog1 at its best weight | +0.15 (−0.3 to +0.6) |
 | **Bar** | the rebuild is valid if m7c2 lies within ±0.3 in both contexts. cog1 counts if it is ≥ +0.30 in both contexts with the gain without the best person ≥ +0.15. A failed rebuild check voids the cog1 reading too |
+
+| §148 TEACH3 item (13 Nov 06:23 UTC; `runs/teach3_13nov.log`; new, against the stored m7c teacher at weight 5; shipped / FT+OCU+REST) | Observed | Verdict |
+|---|---|---|
+| m7c2 alone / stored m7c alone | 50.69 / 50.46 | the retrained teacher reproduces the stored one alone |
+| m7c2 replacing the teacher in the chain | −0.17 [−0.48, +0.12] / +0.19 [−0.09, +0.46] | **Rebuild check passed** (within ±0.3 in both contexts; prediction 0.0) |
+| cog1 alone | 35.5 (a two-class subtraction-vs-rest teacher mapped to three classes) | — |
+| cog1 as an extra member, weight 0.5 / 1 / 2, shipped | +0.02 / +0.01 / −0.02 | nothing in the shipped chain |
+| cog1, FT+OCU+REST context | +0.11 / **+0.22 [+0.10, +0.34], 8 of 10 people, without P01 +0.17** / +0.18 | positive with an interval above 0 in the design context, but **below the bar** (≥ +0.30 in both contexts) |
+
+**Reading.** The teacher pipeline is rebuilt and works on Leonardo end to end: corpora → pretraining → heads → map, and
+the control reproduces the stored teacher. The cognitive teacher on Shin2017B alone adds nothing to the shipped chain
+and +0.2 inside the design input, where its interval stays above 0. It is not adopted by the rule. It is the first
+teacher variant that gains anywhere, and its word-generation half (Shin2018WG, zips on Galvani) is still missing.
+Next forms for the day:
+- cog2 with Shin2018WG (needs the zips copied from Galvani, so the user's 2FA);
+- the cognitive heads trained into the m7 teacher as one 4-way block (`pretrain.py --unified`, R17);
+- more corpora in the m7 teacher (the map's "more corpora": the KEEP list's openly licensed MI corpora not yet
+  downloaded).
