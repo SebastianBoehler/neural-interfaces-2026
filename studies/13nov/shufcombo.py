@@ -13,7 +13,7 @@ re-streamed (runs/restshuf/<order>/). STRICT=1 fails when any of them is missing
 GATE_P0=1: the combination's gate from v5.1b's chain under the same order (the package's gate sees its inner v5.1b).
 LABEL_OUT=name: write FT pseudo-labels (v5.1b B2_pool emitted in this order) to studies/13nov/<name>.npz and exit.
 Usage: SCHEME=full PSEED=0 [OCU_DIR=runs/ocushuf/full0] [STRICT=1] python studies/13nov/shufcombo.py"""
-import glob, os, sys
+import glob, hashlib, os, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 SCHEME, PSEED = os.environ["SCHEME"], int(os.environ["PSEED"]); os.environ["SCHEMES"] = SCHEME; os.environ["PERMS"] = str(PSEED + 1)
@@ -108,6 +108,8 @@ def chain(bn, arm, P):
 
 
 Pperm = S.perm_for(SCHEME, PSEED)[p0]; ident = np.arange(N); R = {}
+PERMS_SHA = "f9209851e6667bcf0c980d4e99a604f1ebb7ac0678b4616d73148343daa7a65f"  # s180: every re-streamed input (ttt17/18, ocushuf, restshuf, coremember, coreshuf) read this file
+assert hashlib.sha256(open(f"{REPO}/runs/shuffle_perms.npz", "rb").read()).hexdigest() == PERMS_SHA, "runs/shuffle_perms.npz is not the pinned order file"
 assert (IDX[Pperm] == np.load(f"{REPO}/runs/shuffle_perms.npz")[f"{SCHEME}|{PSEED}|{p0}"]).all(), "the stages' order is not the order the members were streamed in"
 if LABEL_OUT:  # FT pseudo-labels as the package sees them: v5.1b (B2_pool) emitted in this delivery order; seen rows as chain_final
     CH = np.load(f"{REPO}/studies/12nov/chain_final.npz"); y = Z[f"y|{p0}"].astype(int); chain("B2_pool", "P0r", Pperm); lab = LAB["B2_pool"]

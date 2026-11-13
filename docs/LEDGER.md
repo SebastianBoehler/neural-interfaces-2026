@@ -3543,3 +3543,19 @@ Prediction under within, full and runs: Winf ≥ C0 (the local window loses its 
 ceilings recover ≤ 0.5 of the 1.2 to 3.3 loss. Then the loss is mostly temporal structure that recording order offers
 and a shuffled stream does not; no order-free estimator can win it back, and item 2 closes as "no ceiling".
 Refuted, and an arm becomes a package candidate, if Winf beats C0 by ≥ 0.3 on both within and full (it is causal and cheap).
+**§180 scope, item by item.**
+- **Withdrawn for within and runs (rescore running):**
+  - v5.1b's own loss with re-streamed members (P0r: §165, §176 and the first column of the 12:50 table);
+  - the combination and the fallback (§165, §167, §171 and its draws, §173, §176);
+  - the package-gate cost (§178, both arms had the same mismatch).
+- **Stand:**
+  - every full-scheme number;
+  - P0s (stages only, members as recorded): consistent within itself, only a different order sample;
+  - §164;
+  - §169 returning people (`shufpkg.py`, stages only, default SCHEMES, so its permutations are unchanged);
+  - RETUNE §166, RUNORACLE §168, TORACLE §170 (stages only);
+  - the pc128 and core1 change sizes (`coreshuf.py` and `coremember.py` read the dumped orders directly).
+- **Order file:** `runs/shuffle_perms.npz` is byte-identical on the Mac, Leonardo and Galvani (md5 f9466522…).
+  shufcombo now pins its SHA-256 (f9209851…) and asserts that the stage order equals the dumped order.
+- **Next guard (new jobs):** re-streamed outputs should carry the hash of the order they streamed. Not yet in the GPU
+  scripts. Until then all of them read the pinned file by (scheme, seed) key.
