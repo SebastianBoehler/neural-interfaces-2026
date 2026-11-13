@@ -2860,3 +2860,29 @@ own per-session normalisation. The screen is not passed, so it is not scored aga
 cognitive member cog1 (+0.07 to +0.22, below every bar). The teacher line's ceiling argument (an independent 70 %
 member) is not reached by adding corpora. It would need a member that is accurate on our windows, not one with more
 outside data. Not queued further now.
+
+**§120 addendum 2: FT run time per never-routed session, warm, paired (13 Nov 08:56 UTC; Leonardo A100, debug job
+64361778; `studies/13nov/ft_cost_session.py`).** Eager dev nets carrying the shipped SessionBN weights and alignment
+(equal to the traces, `scripts/sbn_trace_base.py`); GPU-drawn augmentation; warm start; prediction pass over the prefix
+after each refit; four families (fb at k 2, slot 9 frozen). v5.1b itself, streaming the same sessions in the same job:
+15.5 s (190 windows) and 31.6 s (378). Added by FT, in seconds per session:
+
+| Schedule, form (nets) | 190 windows | 378 windows | Sealed, 57 % / 100 % of sessions unrouted (190 / 378 windows) |
+|---|---|---|---|
+| cum10, all24 (24) | +60.7 (3.9×) | +239.7 (7.6×) | 69 / 105 min; 114 / 184 min |
+| cum10, delta2 (8) | +20.2 | +79.4 | 37 / 49; 52 / 75 |
+| cum10, delta1 (4) | +10.1 | +39.7 | 29 / 35; 37 / 48 |
+| gC5, all24 (24) | +31.1 | +122.2 | 46 / 64; 69 / 104 |
+| gC5, delta2 (8) | +10.4 | +40.7 | 30 / 36; 37 / 49 |
+| gC5, delta1 (4) | +5.2 | +20.4 | 26 / 29; 29 / 35 |
+
+Sealed = 1,287 s × (1 + unrouted share × FT/v5.1b ratio), with v5.1b's real-worker 1,287 s; it does not include the
+second routed tail, the eye net or the rest member.
+
+Reading:
+- FT cost grows with the square of session length (refits × prefix): 378 windows cost 4× what 190 cost.
+- Against the 45-min worst case (every session unrouted), only gC5 delta1 fits at both lengths (29 / 35 min). cum10
+  delta1 and gC5 delta2 fit only if sessions are near 190 windows (35 / 36 min).
+- cum10 as scored in §152 (each base's own seeds: one to six per family) does not fit as all24.
+- A window cap (fine-tune on the last W windows only) would make the cost linear. It is unscored and would need its own
+  arm before use.

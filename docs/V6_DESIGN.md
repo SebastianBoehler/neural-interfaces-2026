@@ -1,6 +1,17 @@
-# v6 design: v5.1b plus the eye-net view and the rest-class member (13 Nov, during the research window)
+# v6 design: v5.1b plus fine-tuning, the eye-net view and the rest-class member on unrecognised sessions (13 Nov)
 
-**Status: design only, and by §151 not yet a package.** On v5.1b's own members the eye-net view and the rest member
+**Status (13 Nov, ledger §152): design only, no package before about 14 Nov 02:00 UTC.** The design that passes its bar
+against v5.1b as uploaded applies three things **only on sessions the identity gate does not recognise**. Recognised
+sessions stay exactly as in v5.1b. The three:
+- in-session fine-tuning cum10 (warm start, 10 steps every 10 windows from window 30; the four SessionBN families with
+  each base's own seeds; the k-5 traces of slot 9 frozen);
+- the eye-net view in SessionEM;
+- the rest-class shallow member at weight 1.
+On all four augmentation draws: new +0.84 to +0.95 (without P10 +0.58 to +0.70), dev J +0.42 to +0.48. The cheaper gC5
+schedule keeps about two thirds. The paragraphs below were written for the earlier "eye net and rest member
+everywhere" form (§151: J +0.05 on the shipped members); that form is superseded.
+
+Earlier status (§151): On v5.1b's own members the eye-net view and the rest member
 add new +0.34 (+0.14 without the best person) and seen −0.24 (P04 −1.39, P10 +0.91), J +0.05. The large gains of
 §140–§150 were measured against a study base (twins, personal nets, stage 0.15) about 0.7 below v5.1b on returning
 people. Fine-tuning on the shipped members is the unmeasured piece (next GPU job when Leonardo is back).
@@ -37,7 +48,17 @@ members).
    (`data/proteus_windows_start-4.5.npz` from `scripts/export_windows.py -4.5`). It is used 3-way, as an extra mix
    member at weight 1 in both tails, so every family's normalised weight shrinks by the same factor. Package form: a
    StreamBN trace like the other SessionBN members, several seeds averaged.
-3. **(Optional) FT**: cum10 or gC5 on the four SessionBN families, never-routed sessions only, from window 30, with
+0. **Scope switch (§152):** the three changes act only while the session is unrecognised (no routed window so far),
+   and the gate never sees them. §152 scored them with the gate fixed on v5.1b's shadow. The package form:
+   - the shadow tail (the gate's input) stays exactly v5.1b's;
+   - a second routed tail, "v6", carries FT's posteriors, the rest member and the eye-net view in its own SessionEM copy;
+   - v5.1b's own routed tail keeps running beside it;
+   - the output is the v6 tail until the first routed window. From that window the session uses v5.1b's routed tail,
+     which has never seen a change, and fine-tuning stops.
+   Recognised sessions are therefore exactly v5.1b from their first routed window, and windows before it carry v6. In dev
+   no new-person session is routed, so this equals §152's V6F for new people and v5.1b for seen. Cost: one more copy of
+   the rebalancing → SessionEM → TSEM tail (Route3.step about 19 ms per window on the A100 in v5.1b), and FT.
+3. **FT (in, §152)**: cum10 (or gC5) on the four SessionBN families, never-routed sessions only, from window 30, with
    §120's five choices: SessionBN state after a refit, slots 6 and 9, no silent no-op, late recognition, schedule from
    the scored arms. Run time from §107: about 20 s per session for one fine-tuned net per family. FT stays out unless
    that fits next to v5.1b's 21.5 min with a 45-min worst case.
