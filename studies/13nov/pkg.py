@@ -30,7 +30,7 @@ def load(pat, p, n=1):
 PF = REPO + "/runs/ttt/probs_pf"; T6 = REPO + "/" + os.environ.get("FT_DIR", "runs/ttt/probs6"); FPX = os.environ.get("FT_PFX", "ttt6")
 _a, _b = (int(x) for x in os.environ.get("FT_SEEDS", "0-5").split("-")); FTS = range(_a, _b + 1); OCS = os.environ.get("OCU_SEEDS", "0,1,2").split(",")
 FTV = os.environ.get("FT_VAR", "cum10")  # the fine-tuning arm read from FT_DIR, e.g. gC5 in runs/ttt/probs7 (FT_PFX=ttt7)
-print(f"pkg: FT {T6} {FPX} {FTV} seeds {list(FTS)}; OCU seeds {OCS}; REST seeds {os.environ.get('REST_SEEDS', '0,1,2')}; chain route4 max t10 + own-space stage (v4.1/v5), gate fixed from P0", flush=True)
+print(f"pkg: FT {T6} {FPX} {FTV} form {os.environ.get('FT_FORM', 'all')} seeds {list(FTS)}; OCU seeds {OCS}; REST seeds {os.environ.get('REST_SEEDS', '0,1,2')}; chain route4 max t10 + own-space stage (v4.1/v5), gate fixed from P0", flush=True)
 PN = {(a, v): load(f"{PF}/pft_{a}_{v}-seen_session-s*.npz", "seen_session", 3) for a in SLOT for v in ("base", "pfh60")}
 FRS = {(a, s): {p: load(f"{T6}/{FPX}_{a}_base-{p}-s{s}.npz", p) for p in PR} for a in SLOT for s in FTS}
 CUS = {(a, s): {p: load(f"{T6}/{FPX}_{a}_{FTV}-{p}-s{s}.npz", p) for p in PR} for a in SLOT for s in FTS}
@@ -38,6 +38,11 @@ FR = {a: {p: np.mean([FRS[a, s][p] for s in FTS], 0) for p in PR} for a in SLOT}
 CU = {a: {p: np.mean([CUS[a, s][p] for s in FTS], 0) for p in PR} for a in SLOT}
 # s152: the study nets of seed K reproduce base B2_sK's own SessionBN slots, so each base gets its own seeds' FT change
 BASESEEDS = {"B2_s0": [0], "B2_s1": [1], "B2_s2": [2], "B2_s012": [0, 1, 2], "B2_s345": [3, 4, 5], "B2_pool": [0, 1, 2, 3, 4, 5]}
+# s160: FT_FORM=delta1 / delta2 fine-tunes one / two nets per family and applies their change to every member (s106's
+# forms, the ones that fit the run time, s120 addendum 2); on the single-seed bases (s0, s1, s2) all forms coincide
+FT_FORM = os.environ.get("FT_FORM", "all"); assert FT_FORM in ("all", "delta1", "delta2"), FT_FORM
+if FT_FORM != "all":
+    BASESEEDS = {b: v[:1 if FT_FORM == "delta1" else 2] for b, v in BASESEEDS.items()}
 OC = {p: np.mean([load(f"{REPO}/runs/ocunet/probs/oc_nomix-{p}-s{s}.npz", p) for s in OCS], 0) for p in PR}
 RSS = os.environ.get("REST_SEEDS", "0,1,2").split(",")  # explicit seeds, as OCU_SEEDS
 A.EXTRA["rest"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}

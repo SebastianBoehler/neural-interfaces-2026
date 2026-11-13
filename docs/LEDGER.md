@@ -2912,3 +2912,22 @@ wave.
 rest seeds from sets B and C (OCU 18–26 / 27–35, REST 9–14 / 15–20) × FT draws 0 and 1, against v5.1b
 (`v6f_set{B,C}_d{0,1}`, jobs 64363637–64363641). The bar of §152 is read on these four too: the design is confirmed if
 it holds on the other seed sets of the two non-FT members, not only on new FT draws.
+
+### 160. FITFORM: the combination with fine-tuning forms that fit the run time (written 13 Nov 09:23 UTC, before any result; `pkg.py FT_FORM=delta1|delta2`, Leonardo CPU jobs)
+
+§152 confirmed V6F with cum10 on each base's own seeds. §120 addendum 2: that form costs 69–105 min sealed at 57 %
+unrouted sessions (114–184 min at 100 %), over the limit. What fits:
+- gC5 delta1: 26 / 29 min at 57 %, 29 / 35 at 100 % (190 / 378 windows);
+- cum10 delta1: 29 / 35 and 37 / 48;
+- gC5 delta2: 30 / 36 and 37 / 49.
+
+These figures leave out the eye net and the rest member. Here, V6F is scored against v5.1b with FT in the delta1 and
+delta2 forms (one or two fine-tuned nets per family, their change applied to the whole family), for cum10 and gC5,
+each on its four draws. On the single-seed bases (B2_s0, s1, s2) the forms coincide with §152's. Reported per the
+fresh-eyes rule (`docs/FRESH_EYES_13NOV.md` item 9): new people, and returning people without P04 (P10) separately.
+
+| Check (V6F against v5.1b, new, mean of four draws) | Prediction (80 % range) |
+|---|---|
+| cum10 delta1 / delta2 | +0.80 (+0.55 to +1.00) / +0.85 (+0.60 to +1.05); §152 (all seeds) +0.90 |
+| gC5 delta1 / delta2 | +0.60 (+0.35 to +0.85) / +0.62 |
+| **Bar (a package form)** | new without P10 ≥ +0.40 on every draw, with the 80 % person interval above 0, and a sealed worst case ≤ 45 min at 100 % unrouted once the eye net and rest member are timed |
