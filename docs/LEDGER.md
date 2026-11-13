@@ -3815,3 +3815,25 @@ The teacher in delivery order raises runs 1 (+0.42 → +0.82) and full 0 (+0.93 
 cuts the fallback on full and runs by about 0.2–0.3. **gC5 now misses its bar only on within 2** (+0.42). The fallback misses
 on within 2 (+0.14) and sits at its bar on runs 1 (+0.30). FT's own part over the fallback is +0.28 to +0.85; under full and
 runs it is larger than under within.
+
+**MOST COMPLETE FORM, eight orders (13 Nov 15:58 UTC; `runs/allorder_<order>_gp0_L_ge_ts_hb.log`).** Every input in delivery order except the
+ea transformer and shallow slots (1.5 of 15). The Hilbert re-stream reproduces the stored member (correlation 1.0000).
+Package labels, package gate. Over v5.1b under the same order, new (without P10):
+
+| Scheme | Order | v5.1b re-streamed vs recording | gC5 | fallback |
+|---|---|---|---|---|
+| within | 0 | −1.08 | +1.39 (+1.37) | +0.76 |
+| within | 1 | −1.51 | +1.49 (+1.46) | +0.84 |
+| within | 2 | −1.29 | **+0.32** [−0.03, +0.65] (+0.22) | **−0.05** |
+| within | 3 | −1.04 | +1.02 (+1.05) | +0.69 |
+| full | 0 | −3.30 | +1.27 (+1.18) | +0.47 |
+| full | 1 | −3.02 | +0.62 (+0.56) | **+0.21** |
+| runs | 0 | −1.38 | +1.35 (+1.37) | +0.70 |
+| runs | 1 | −2.28 | +0.91 (+0.63) | +0.43 |
+
+Per scheme, mean [range]:
+- gC5: within +1.06 [+0.32, +1.49]; full +0.95 [+0.62, +1.27]; runs +1.13 [+0.91, +1.35].
+- Fallback: within +0.56 [−0.05, +0.84]; full +0.34; runs +0.57.
+
+gC5 misses its bar on within 2 only, where its interval reaches −0.03. The fallback misses on within 2 (where it is
+negative) and on full 1. FT's own part over the fallback is +0.37 to +0.80. This form scores the twelve §185 orders.
