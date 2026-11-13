@@ -41,6 +41,7 @@ SPEC = {"T0": dict(), "T1b": dict(pn="base"), "T1": dict(pn="pfh60"), "T1w": dic
         "FO": dict(pn="pfh60", ft=True, ocu=True), "O": dict(pn="pfh60", ocu=True), "FOR": dict(pn="pfh60", ft=True, ocu=True, rest=True),
         "R": dict(pn="pfh60", rest=True),
         "OR": dict(pn="pfh60", ocu=True, rest=True),  # s150: the stack without fine-tuning (no run-time cost)
+        "V6": dict(ship=True, ocu=True, rest=True, beta=0.10), "V6b": dict(ship=True, ocu=True, rest=True, beta=0.15),  # s151: v5.1b + OCU + REST on the shipped members
         "FOR2": dict(pn="pfh60", ft=True, ocu=True, rest=True, restfb=True), "FORw2": dict(pn="pfh60", ft=True, ocu=True, rest=2.0)}  # s144
 
 
@@ -64,13 +65,14 @@ def famswap(arrs, tag, rest, restfb=False):
 
 def system(bn, arm, oof=None, RTS0=None):
     global BETA
-    sp = SPEC.get(arm, {}); BETA = 0.10 if arm == "P0" else 0.15
+    sp = SPEC.get(arm, {}); BETA = sp.get("beta", 0.10 if arm == "P0" else 0.15)
     for p in PR:
         Z[f"GE|{p}"] = GEO[p] if sp.get("ocu") else REF[p]
     try:
         c1 = {p: A.members(bn, p)["c1"] for p in PR}
-        if arm == "P0":
-            pf, pe = list(A.FAMS), []
+        if arm == "P0" or sp.get("ship"):  # the shipped members everywhere; ship arms add only the levers that need no study nets
+            pf, pe = list(A.FAMS), ([("rest", 1.0)] if sp.get("rest") else [])
+            assert not sp.get("ft") and not sp.get("pn"), f"{arm}: FT and personal nets need study nets, not the shipped members"
         else:
             pop = {a: {p: np.where(RTS0[p][:, None], FR[a][p], CU[a][p]) if sp.get("ft") else FR[a][p].copy() for p in PR} for a in SLOT}
             pf, pe = famswap(pop, arm + "_pop", sp.get("rest"), sp.get("restfb"))
@@ -78,7 +80,7 @@ def system(bn, arm, oof=None, RTS0=None):
         for p in PR:
             mp[p], a = A.mix(bn, p, pf, pe); _, sh[p] = A.shadow(mp[p], p)
         REC.clear(); out0 = ns["route4"](mp, sh, a, sh["all_loso"] if oof is None else oof, c1, "max", 10)[0]  # pass 1: routing
-        if arm not in ("P0", "T0"):
+        if arm not in ("P0", "T0") and not sp.get("ship"):
             RTW, RTS = routing(); rt = {a: {p: x.copy() for p, x in pop[a].items()} for a in SLOT}
             for k in SLOT:  # not "a": that is the core1 share route4 needs
                 m = RTS["seen_session"] if sp.get("w0") else RTW["seen_session"]; rt[k]["seen_session"][m] = PN[(k, sp["pn"])][m]
@@ -113,7 +115,7 @@ for bn in BASES:
 rng = np.random.default_rng(0)
 if os.environ.get("PKG_SAVE"):  # per-person results of every arm and base, for paired differences between arms
     np.savez(os.environ["PKG_SAVE"], **{f"{b}|{k}|{j}": R[b, k][j] for (b, k) in R for j in (0, 1)})
-for ref, arms in (("T0", ARMS), ("T1b", [k for k in ("T1", "T1w") if k in ARMS]), ("T1", [k for k in ARMS if k not in ("P0", "T0", "T1", "T1b", "T1w")])):
+for ref, arms in (("P0", [k for k in ARMS if SPEC.get(k, {}).get("ship")]), ("T0", ARMS), ("T1b", [k for k in ("T1", "T1w") if k in ARMS]), ("T1", [k for k in ARMS if k not in ("P0", "T0", "T1", "T1b", "T1w") and not SPEC.get(k, {}).get("ship")])):
     if ref not in ARMS or not arms:
         continue
     print(f"\nagainst {ref}, six-base mean: new [person 80 %] people>=0, without the best | seen (P04, P10) [per-base range] | J")

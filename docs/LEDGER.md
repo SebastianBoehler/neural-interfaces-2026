@@ -2573,3 +2573,16 @@ session) and most of its new-people gain except P10's, at no run-time cost. FT i
 if its cheap form fits the run-time budget, and its fresh-seed share is no better than +0.17 for the nine. OR
 should therefore be scored on the three seed sets as FOR was, when Leonardo is back (OCU and REST seeds of sets B and C
 are there).
+
+### 151. V6: v5.1b plus the eye-net view and the rest member, on the shipped members (written 13 Nov 07:46 UTC, before any result; `pkg.py` ARMS=V6,V6b, Mac)
+
+Every stack arm so far (§140–§150) swapped the SessionBN slots for study twins and ran the stage at 0.15, so its
+numbers are deltas between study systems. The package question is simpler: what do the eye-net view (OCU) and the
+rest member (REST) add to v5.1b as uploaded? Shipped members everywhere, REST as an extra member at weight 1, OCU in
+SessionEM's view, stage at 0.10 (V6) or 0.15 (V6b); against P0 = v5.1b.
+
+| Check (against P0, six-base mean) | Prediction (80 % range) |
+|---|---|
+| V6 new / seen / J | +0.45 (+0.05 to +0.85) / +0.45 (−0.30 to +1.10) / +0.45 (+0.05 to +0.85) |
+| V6b − V6 (stage 0.15 without personal nets) | seen −0.1 (−0.5 to +0.3) |
+| **Bar** | V6 is the next package's design if its new gain without the best person is ≥ +0.25 with the 80 % interval above 0, and seen does not fall for both P04 and P10 |
