@@ -4495,3 +4495,39 @@ would change recognised sessions, which v6f and v6.1 leave bit-identical to v5.1
   routed FT, same run time as v6f at 57 %) is preferred if ER carries ≥ 2/3 of ERF's mean. gC5 is reported alongside as
   the control.
 - **Prediction:** ERF s15 within mean +0.2 (0 to +0.4), P10 positive on 5–7 of 8; ER about half of ERF.
+
+**§198 extended (13 Nov 21:56 UTC; Leonardo stackcmp2_*).** The v6.1 stack (labels K + s15) against v6f_gc5:
+- **within 8–11:** stack +0.13 [−0.04, +0.30], 4/4 orders, 6/10 people. Labels +0.03 [−0.04, +0.09], form +0.10 [−0.06, +0.25].
+  Per order +0.01 / +0.01 / +0.37 / +0.11.
+- **full 0/1 and runs 0/1:** stack −0.07 [−0.26, +0.12], 1/4 orders. Labels −0.09 [−0.20, +0.01], form +0.02 [−0.14, +0.19].
+  Per order full 0 −0.07, full 1 −0.37, runs 0 +0.18, runs 1 −0.04.
+- **v6.1's dev row per scheme** (v6.1 = v6f + the stack, per order; full 2/3 and runs 2/3 have no stack run):
+  - within (12 orders): v6f +1.24, stack +0.20 (11/12 orders ≥ 0) → **v6.1 about +1.44**;
+  - full 0/1: v6f +0.95, stack −0.22 → about +0.73;
+  - runs 0/1: v6f +1.13, stack +0.07 → about +1.20.
+- **Reading:** v6.1's edge over v6f is about +0.2 under within (the scheme that matches the sealed drop) and about zero to
+  slightly negative under full and runs. The labels part is what turns: positive under within (+0.09, +0.03), negative
+  under full (−0.28, −0.11).
+
+**§198 SWEEP 3 wave 1 (Leonardo sweepsel3_w1.txt; within 0–3).** Nested held-out +0.21 [−0.05, +0.44]. e03 (lr 2e-3, consistency 2, start
+20, EMA 0.8) was chosen in 87 of 126 splits, then u02 and u05. e03 is the first form positive for every person but one
+(P05 −0.1), with P10 +0.4. **The clean check:** e03, u02, u05 against s15 and gC5 on the fresh orders within 4–11
+(Leonardo 64422100–70 → sweepsel_fresh.txt).
+
+**§188 form B RESULT** (eye net fine-tuned per session on v6-chain labels; `runs/formB_summary.txt`; 8 orders, 9 seeds).
+gC5 over v5.1b, new; current eye net → form B (pseudo-labels) → true-label ceiling:
+- within 0 +1.39 → +1.51 → +1.70; within 1 +1.49 → +1.68 → +1.84;
+- within 2 +0.32 → +0.42 → +0.58; within 3 +1.02 → +1.18 → +1.31;
+- full 0 +1.27 → +1.24 → +1.35; full 1 +0.62 → +0.69 → +0.82;
+- runs 0 +1.35 → +1.47 → +1.44; runs 1 +0.91 → +0.94 → +1.06.
+- **Form B against the current eye net: +0.14 within, +0.09 over all eight; positive on 7 of 8** (full 0 −0.03).
+- The true-label ceiling is +0.30 within: form B reaches about half its own ceiling. That is far below the +1.0 the
+  decorrelation curve allows, so per-session eye adaptation reduces little of the eye net's error autocorrelation.
+- By the sign rule, a small stackable positive. Combined with v6.1: being scored now (CPU). Form B on within 4–11 is queued
+  (Leonardo).
+
+**On making the label chain scheme-robust (coordinator's question):** the labels part is +0.09 / +0.03 under within (two
+order sets) and −0.09 under full and runs (labels −0.28 and −0.11 on full). A robust form would blend the two label sources
+(the mean of the v5.1b and v6-chain outputs) or take the v6 chain only where both agree. Both are cheap to test on stored
+outputs plus one FT wave. Recommendation: test the blend on within 0–3 and full 0/1 before choosing. Until then v6.1 stays
+as built, because the within-like reading of the sealed stream (§169) favours it.
