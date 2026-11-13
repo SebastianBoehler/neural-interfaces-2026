@@ -2792,3 +2792,25 @@ Scored inside V6F against v5.1b (`pkg.py` V6F_vemg, V6F_vscp, V6F_vboth), paired
 **Reading.** The eye-net view's gain does not grow with more seeds or a second family of the same net: the three-seed
 view is not noise-limited. The ceiling (+3.8) has to come from different information, which is what §158's new signals
 test.
+
+### 159. VIEWNET wide (explore, the largest label-free-reachable ceiling): eight more view nets (written 13 Nov 08:33 UTC, before any job ran; `viewnet.py` KIND=…, Leonardo, 9 seeds each)
+
+**Ceiling:** +3.8 over the combination for a perfect view (§155); only signals the mix does not carry help (§157);
+more seeds or a second family of the eye net do not (§156). §158's emg and scp are running. Eight more kinds, each 7
+derived traces through the eye net's architecture and causal per-session standardisation:
+- ocuslow (ocular derivations below 1 Hz) and ocufast (1–8 Hz): the eye net split by time scale;
+- ocuh1 / ocuh2: the first or second half of the window only;
+- asym: left-right asymmetries;
+- alpha (parietal-occipital 8–13 Hz envelopes), beta (sensorimotor 13–30 Hz), theta (frontal midline 4–8 Hz).
+
+Each is scored as an added view column inside V6F against v5.1b (`pkg.py VN_KINDS=…`), alone and all ten together
+(V6F_vall), paired with V6F. Share of the ceiling captured = (arm − V6F) / 3.76.
+
+| Check (new, paired against V6F, draw 0) | Prediction (80 % range) |
+|---|---|
+| the best single kind | +0.30 (0.00 to +0.70) |
+| all ten together | +0.40 (−0.30 to +1.00) |
+| **Bar** | a kind is kept if ≥ +0.15 without the best person on draw 0 and on two of draws 1–3; a kind of the ocular family that helps alone, while the eye net already sits in V6F, would say the eye net's architecture leaves information unused |
+
+Kinds that do not help and kinds that do are compared by what they carry (time scale, region, independence from the
+mix, measured as their posteriors' correlation with the mix's) to say what distinguishes a useful view.
