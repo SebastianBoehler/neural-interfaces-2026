@@ -140,3 +140,28 @@ is a protocol artefact and not decoding; the rules do not address it.
 4. Identity inference and personal models for represented participants: can the Discord answer be confirmed?
 5. The audit: σ of what, over how many reruns; must external pretraining be rerun; what if the best score fails?
 6. Which clock is the 60 minutes, and does a time-out end as "Failed" (no quota)?
+
+## 7. Answers from the organisers (Discord, 13 Nov 2026)
+
+The user asked questions 1, 2 and 4 of section 6. The reply, verbatim:
+
+> 1) Window order. Please don't assume recording chronology. "Previously delivered" means earlier in the evaluation
+> stream, not necessarily earlier in recording time. The same evaluation order is used for all submissions, with state
+> reset between sessions. Without going into details, but to avoid tricks we discovered of solving the track without
+> using EEG, we removed chronology. Hence why we reran all submissions earlier this week.
+> 2) Labelled public windows during adaptation. Public labelled data may be used for training. Evaluation-time
+> adaptation is of course restricted to the current session's delivered windows, without labels, as mentioned in the
+> FAQ.
+> 3) Any models trained on permitted public data are allowed, whatever its training strategy on those public data.
+> So Yes.
+
+**What this changes.**
+- **The sealed stream is not in recording order** (since the rescoring of 10 Nov). Every dev result so far was measured
+  in recording order, and the chain loses 2 to 5 points under a re-ordering on dev (ledger §2, §62). Gap 8 of section
+  4 ("order robustness, insurance") was mis-ranked: it is the first priority. The dev protocol has to score under
+  non-chronological orders, and the chain's order-dependent parts (the 30-window rebalancing, the early boost, the
+  start of routing, position-based fine-tuning schedules) have to be re-chosen under it.
+- Fine-tuning with a labelled source anchor at evaluation time is not allowed. Adaptation uses only the session's
+  delivered windows, without labels.
+- Identity inference and personal models trained offline on public data are allowed.
+
