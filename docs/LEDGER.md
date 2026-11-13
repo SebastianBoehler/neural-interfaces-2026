@@ -3594,3 +3594,9 @@ New people, against v5.1b under the same order [80 %], without P10:
 
 The mismatch was not uniformly optimistic: within 0 rose by 0.77, within 1 stayed level and runs 0 fell by 0.45.
 All rows meet the table bar.
+
+**§178 gate cost restated in corrected orders (13 Nov 12:51 UTC; `runs/allorder_*_owngate.log` against `*_gp0.log`).** Package gate
+minus the combination's own gate:
+- gC5: within 0 −0.04 (+1.97 against +2.01), within 1 +0.07 (+1.55 against +1.48), runs 0 +0.01.
+- Fallback: +0.01, +0.05, −0.03.
+The gate form makes no difference (|Δ| ≤ 0.07). Not refuted; the table keeps the package gate.
