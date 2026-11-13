@@ -2335,3 +2335,29 @@ trained differently (e.g. trained against the chain's errors), which needs the c
 closing mark of +0.25. Gating to the weak half keeps most of the gain at half the run time, with fewer people losing
 (8 of 10 ≥ 0 instead of 6). It misses the rule's 0.05 margin, so it is recorded as a run-time option for the package,
 not as a gain. Seen columns are the v3 path and are not read.
+
+### 145. Deep night queue of 13 Nov 03:04 UTC (written before any of these jobs was submitted)
+
+The parent session asked for a queue that carries itself for hours. Waves that need no pending result:
+- **A. Replication sets B and C for the stack** (the design input read on three independent seed sets): ttt8 seeds
+  18–29 (FT; tasks 72–119); eye-net nomix seeds 18–35 (tasks 37–71 odd); shallow rest-class seeds 9–20 (tasks
+  6·seed+4). Then PKG on set B (FT 18–23, OCU 18–26, REST 9–14) and set C (FT 24–29, OCU 27–35, REST 15–20):
+  `runs/night13/pkg_setB.txt`, `pkg_setC.txt`. Prediction for FOR against T1, each set: new +0.90 (+0.40 to +1.40),
+  without P10 +0.65; seen +0.5 (−0.3 to +1.2). **Bar:** the design input stands if, on both sets, its new gain without P10
+  is ≥ +0.40 and its 80 % person interval excludes 0.
+- **B. Eye-net from two families**: the mix arm of `ocunet.py` (Mixup), seeds 3–11 (tasks 6–22 even), so the view can
+  be built from both arms (scored on the Mac when they land).
+- **C. §145 CONFHALF (fine-tuning aimed at the hard windows, label-free)**: v3 labels with the low-confidence half
+  switched off (`chain_confhalf.npz`); ttt9 LAB=confhalf, seeds 0–11. Since §142 put the whole ceiling in the hard
+  half's labels, the wrong labels there may also carry the damage. Prediction, cum10 all6, without P10: +0.20 (−0.15 to
+  +0.55), against the v3 labels' +0.12 / −0.02 / +0.12. **Bar:** ≥ +0.30 without P10 on both seed sets → these labels
+  replace v3's in the fine-tuning recipe.
+- **D. The teacher line with real retraining** (gap 2): MOABB is not installed on Leonardo and the corpora are not
+  there, so a serial job installs it and serial jobs download and window the corpora (`scripts/export_moabb.py`).
+  Pretraining (12 seeds per trunk: the m7c control, +Scherer, and a cognitive-only teacher) is queued once the
+  corpora exist. This is the one line here that runs for hours, and the first step may fail (download sizes, licence
+  prompts); it is marked as an attempt.
+
+Not queued, with reasons: the chain-level people curve needs every member retrained per subset (core1, Hilbert, about
+65 nets, teacher map), which is a pipeline that does not exist yet; self-supervised trunks need a specified objective
+(next design task).

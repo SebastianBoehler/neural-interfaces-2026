@@ -5,7 +5,7 @@ Usage (Leonardo): LAB=stack|true python studies/13nov/ttt9.py TASK (arch = ORDER
 import importlib.util, os
 from pathlib import Path
 WS = Path(os.environ.get("NI26_WS", Path(__file__).resolve().parents[2])); LAB = os.environ["LAB"]
-assert LAB in ("stack", "true", "stack2", "indep", "agree", "truelow"), LAB  # stack2: round 3 (make_labels.py); indep/agree/truelow: TTT12, s142 (make_labels2.py)
+assert LAB in ("stack", "true", "stack2", "indep", "agree", "truelow", "confhalf"), LAB  # stack2: round 3 (make_labels.py); indep/agree/truelow: TTT12, s142 (make_labels2.py)
 os.environ["CHAIN_NPZ"] = str(WS / f"studies/13nov/chain_{LAB}.npz"); assert Path(os.environ["CHAIN_NPZ"]).exists()
 _spec = importlib.util.spec_from_file_location("ttt6", WS / "studies/13nov/ttt6.py"); T6 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T6)
 import numpy as np  # noqa: E402
