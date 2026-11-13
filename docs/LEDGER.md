@@ -3094,3 +3094,17 @@ land.
 | chosen against shipped constants, under shuffle | +1.0 (+0.3 to +2.0) |
 | the same configuration in recording order | −0.3 (−1.0 to +0.2) |
 | **Bar** | ≥ +0.5 under shuffle on both halves and on the fresh bases, with recording order ≥ −0.5. Then it is the stage set of the next package (the stream is not chronological, so shuffled numbers decide) |
+
+| §160 FITFORM (13 Nov 09:46 UTC; `runs/night13/fit_*.npz`; V6F against v5.1b, new, four draws; **recording order**) | New [80 % person] per draw | Without P10 per draw | Bar (without P10 ≥ +0.40, interval above 0, every draw) |
+|---|---|---|---|
+| **cum10 delta1** (4 fine-tuned nets) | +1.00 / +0.88 / +0.77 / +0.75 (lowest interval +0.22) | +0.76 / +0.61 / +0.50 / +0.47 | **met 4/4** |
+| cum10 delta2 (8 nets) | +0.91 / +0.87 / +0.71 / +0.77 | +0.66 / +0.58 / +0.44 / +0.49 | met 4/4 |
+| gC5 delta1 (4 nets, cheapest) | +0.81 / +0.55 / +0.68 / +0.69 | +0.60 / +0.32 / +0.43 / +0.47 | missed on draw 1 |
+| gC5 delta2 | +0.73 / +0.55 / +0.68 / +0.63 | +0.52 / +0.31 / +0.43 / +0.38 | missed |
+
+**Reading.** In recording order, one fine-tuned net per family (cum10 delta1) keeps the combination's full gain: new
++0.75 to +1.00, against +0.84 to +0.95 with every seed. Its cost (§120 addendum 2, without the eye net and rest member)
+is 29 / 35 min sealed at 57 % unrouted and 37 / 48 min at 100 % (190 / 378 windows). The worst case at 378 windows is
+over 45 min, but inside 60. **All of this is recording order.** Fine-tuning's schedule is position-based and its
+pseudo-labels come from order-dependent stages, so the design is decided only after its shuffled-protocol score
+(§165 re-streaming with cum10, §166 stage re-tune).
