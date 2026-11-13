@@ -1787,7 +1787,7 @@ fixA. Same nets, folds, augmentation and chain labels as ttt6; new people, six b
 | cum10c2 | consistency weight 2 | 0.5 | +0.45 (+0.25 to +0.60) |
 | **Rule** | An arm replaces cum10 as the recipe if it is ≥ +0.08 above the in-run cum10 (all6, six-base mean) and ahead on ≥ 5 of 6 bases; an arm at cost 1 must also beat §108's fixA by ≥ +0.08. delta1/delta2 are read the same way for the cheap package form. Otherwise cum10 stays |
 
-| §130b item (13 Nov 00:19 UTC; `runs/stack_13nov_sub.log`; new, six-base mean against the stack base / against the shipped chain) | Observed | Verdict |
+| §130b item (13 Nov 00:15 UTC; `runs/stack_13nov_sub.log`; new, six-base mean against the stack base / against the shipped chain) | Observed | Verdict |
 |---|---|---|
 | FT+REST+OCU+MIX (control: the same code as §130) | +1.13, 6/6; seen −0.21 / shipped +1.05, seen +0.05 | Identical to §130: the rerun is deterministic |
 | FT+REST+OCU | +1.08 [+0.64, +1.54], 6/6 (+0.83 to +1.31); **seen −0.49** / shipped +1.00, seen −0.23 | Hit (+1.0); misses the seen bound |
@@ -1801,3 +1801,23 @@ the build after the window: FT+OCU (+0.86 new, 6 of 6 bases, seen +0.18; +0.78 o
 (with MIX) is worth +0.27 more for new people only if it can stay off returning sessions. The v5 replay, where routed
 sessions take the personal tail, decides that, and it decides before any build. Packaging costs: OCU needs the eye
 net in the package, and FT needs run time (§107, §113).
+
+### 132. TEACH2 (explore track, gap 2 of the map): the teacher line redesigned and re-scored in the current design (written 13 Nov 00:17 UTC, before any result; code `studies/13nov/teach2.py`, Mac, stored head outputs)
+
+The teacher is the only member with partly independent errors, and its design dates from 1–2 Nov. The stronger
+Scherer-trained teacher (m8s: +3.3 alone) lost −0.98 J in the chain at weight 5 on 11 Nov (§18), and no weight rescued
+it. Two untested reasons: (i) its outputs carry a per-session offset that the stages amplify, and per-session
+normalisation of the head outputs would remove it; (ii) the cognitive heads (rest, subtraction, word) drown in the
+38-column map and would work better as a member of their own. Teachers are rebuilt from `runs/tsch/heads.npz` (seed
+means of both trunks, balanced logistic map C 0.01 per left-out person), new people only, in two contexts: the
+shipped chain and the STACK design input (FT+OCU, §130b). The reference is the rebuilt m7c teacher at weight 5 (the
+harness check: alone 50.46 ± 1.5, as on 11 Nov).
+
+| Arm (new, six-base mean against the rebuilt m7c teacher; shipped / FT+OCU context) | Prediction (80 % range) |
+|---|---|
+| Shipped teacher instead of the rebuilt one | 0.0 (−0.3 to +0.3) |
+| m8s at weight 5 / 2 | −1.0 (−1.8 to −0.3) / −0.3 (−0.9 to +0.3) |
+| m7c session-normalised (n7c), weight 5 | +0.2 (−0.5 to +0.8) |
+| m8s session-normalised (n8s), weight 5 / 2 | +0.3 (−0.8 to +1.2) / +0.2 (−0.5 to +0.8) |
+| Cognitive-heads member next to the teacher (cog7 / cog8 at weight 1, 2) | +0.1 (−0.3 to +0.4) |
+| **Rule** | A variant counts if it is ≥ +0.30 new over the reference in **both** contexts, on ≥ 5 of 6 bases, with seen ≥ −0.15. If n8s counts and t8s does not, reason (i) holds: the Scherer teacher failed on session offsets, not on content. A counting variant becomes a design input (it needs only a different map in the package: the trunks stay) |

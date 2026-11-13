@@ -63,6 +63,7 @@ def run(S, bn, shipped=False, teach=None, add=()):
                 fams.remove(fam); extra += list(A.FAM[fam])
             extra = [(k, w) for k, w in extra if k != slot] + [(f"{a}_{'ft' if 'FT' in S else 'fr'}", 1.0)]
     assert set(S) <= set(LEV), f"unknown lever in {S}"
+    assert not (shipped and "FT" in S), "FT swaps the SessionBN families; shipped=True would drop it silently"
     if "REST" in S:
         extra.append(("rest", 1.0))
     for p in PR:
