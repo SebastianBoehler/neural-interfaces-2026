@@ -4005,3 +4005,26 @@ within 1 0.827, against chain_final 0.799. gC5 with these labels (ttt18 tag T): 
   margin 15.8, gc5 at 378 windows), not the 57 % case.
 - **Prediction:** ERF within mean +0.6 (+0.3 to +0.9), P10 0 (±0.3).
 - **Kept for a v6.1 build** if ERF ≥ +0.3 on the mean of within 0/1 and P10 ≥ −0.3 on both.
+
+**§189 (a) RESULT: the corpus survey (13 Nov 17:01 UTC; an agent, read-only).** PROTEUS classes: 0 kinesthetic motor imagery of the
+non-dominant hand, 1 mental subtraction, 2 word generation. 41 channels, with no frontal-polar, occipital or T7/T8.
+- **All three classes:** only Scherer 2015 (BNCI 004-2015): 9 stroke or spinal-cord-injury patients × 2 days, 2,130
+  windows; 19 of 41 channels real; CC BY-NC-ND, cleared by the organisers (11 Nov). Exported at
+  `data/scherer2015/windows.npz` (Mac, Galvani).
+- **Two classes** (motor imagery, subtraction; no word generation): Shin 2017 A+B (29 people; class equals recording
+  block) and ds007554 CMx7-MM (24 exported; tasks in separate recordings).
+- **One class:** Shin 2018WG (26, word), Zyma 2019 (36, subtraction), and a few hundred motor-imagery-only people.
+- **Earlier pooling as extra training people:**
+  - Scherer in the SessionBN FBCNet and shallow nets (§7): members +1 to +3 alone, chain −0.23 nested.
+  - Scherer in core1's head (§21): −0.9 to −1.1.
+  - Scherer on its 19 real channels (§53): −3.2 to −3.7.
+  - Shin 2017 A+B (R13): every family lost.
+  - Dreyer: collapsed.
+  - The eye and rest nets never saw external data.
+- **Reading:** (a) is close to empty. 9 three-class people (patients) plus 53 two-class people with a block confound. The
+  worth per person q measured ≤ 0 each time it was tried. Still, §7's −0.23 in the chain is inside the noise (±0.3),
+  so by the rules it is "undecided", not closed. It was measured in recording order, on an older chain, without FT,
+  the eye view or the rest member.
+- **(c) form, if run:** Scherer pooled into the SessionBN families (run_cv `@scherer`), scored through today's chain
+  under within shuffle against the same families without Scherer. The ceiling from (b): 9 people at q = 1 would be
+  +4.7 × log2(18/9) = +4.7. At q = 0.2 it is +0.9. The expected value is low, given three negative measurements.
