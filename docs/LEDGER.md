@@ -3731,3 +3731,22 @@ recording order; Hilbert, teacher and the ea slots as recorded).** New people, o
 - Mean of gC5 over all eight orders (recording-order labels): +1.30, against the §177(a) prediction of +1.2 (+0.8 to
   +1.6). Not refuted.
 - The package-faithful (label L) versions of these four are on Leonardo (t18L within 2/3, full 1, runs 1).
+
+**§177(b,c) and §182 RESULT, upper bounds (13 Nov 14:07 UTC; `runs/upper_*.log`; corrected orders, package gate, GE event rates in delivery
+order).** Each comparison uses the same order, inputs and labels on both sides. gC5 combination over v5.1b, new:
+
+| Order | labels | gC5 | cum10 delta1 | cum10 − gC5 |
+|---|---|---|---|---|
+| within 0 | package (L) | +1.70 | +1.66 | −0.04 |
+| within 1 | package (L) | +1.39 | +1.68 | +0.29 |
+| full 0 | package (L) | +0.93 | +0.97 | +0.04 |
+| runs 0 | package (L) | +1.34 | +1.35 | +0.01 |
+| within 2 | recording | +0.81 | +1.26 | +0.45 |
+| within 3 | recording | +1.03 | +1.22 | +0.19 |
+
+- **cum10 against gC5:** mean +0.16 over six orders, +0.08 over the four with package labels. Prediction +0.15 (0 to +0.35):
+  confirmed. That is ≤ +0.3, so "undecided", and gC5 stays (it fits the run time; cum10 delta1 needs up to 53 min).
+  A form between the two, fitting 50 min, is not worth building on this evidence. cum10 helps most on the weakest
+  orders (within 2 +0.45, within 1 +0.29), which is worth a look after the upload if more time is found.
+- **18 against 9 eye-net seeds** (gC5, package labels): within 0 +1.63 against +1.70, within 1 +1.23 against +1.39, so
+  −0.07 and −0.16. No gain; prediction (+0.05, kept only if > +0.3) confirmed. Not kept.
