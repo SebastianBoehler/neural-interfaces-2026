@@ -1740,3 +1740,32 @@ base (frozen). The shipped chain itself is also reported, so that no lever is cr
 | All five | +0.70 (+0.20 to +1.20): the stage levers (OCU, MIX, PLS) all strengthen the session stages and overlap |
 | Stack base against the shipped chain | 0.0 (−0.3 to +0.3) |
 | **Rule** | A lever stays if leaving it out of the full stack costs ≥ +0.10 new (six-base mean), with ≥ 4 of 6 bases agreeing, and seen moves by no more than −0.15. The stack is a design input for the build after the window if its kept levers add ≥ +0.6 new on ≥ 5 of 6 bases with seen ≥ −0.15. If all five together land below the best single lever, small levers do not stack, and that is recorded as a second test of the claim |
+
+| §130 item (13 Nov 00:11 UTC; `runs/stack_13nov.log`; new people, six-base mean against the stack base; [10, 90] person bootstrap) | Observed | Verdict |
+|---|---|---|
+| FT alone | +0.46 [−0.23, +1.16], 6/6 bases; seen +0.10 | Hit (+0.45) |
+| REST alone | +0.34 [−0.01, +0.69], 6/6; **seen −0.51** | Hit (+0.10, range to +0.50); costs seen |
+| OCU alone | +0.14, 5/6; seen +0.47 | Hit (+0.20) |
+| MIX alone | +0.18, 5/6; seen +0.24 | Hit (+0.15) |
+| PLS alone | +0.41 [+0.08, +0.75], 6/6; seen 0.00 | Hit (+0.35) |
+| **All five** | **+0.86 [+0.25, +1.49], 6/6 (+0.75 to +0.98)**; seen −0.21; against the shipped chain +0.78, 6/6, seen +0.05 | Hit (+0.70). **Small levers do stack**: all five land above the best single lever (+0.46) |
+| Stack base against the shipped chain | +0.08 (−0.46 to +0.35), seen −0.26 | Hit (0.0) |
+| Leave-one-out: keep FT / REST / OCU / MIX / PLS | +0.40 (6/6, seen −0.22) / +0.33 (6/6, seen −0.11) / **+0.68 [+0.46, +0.91] (6/6, 10 of 10 people, seen +0.28)** / −0.10 (1/6) / −0.27 (0/6) | By the rule: OCU and REST stay; MIX and PLS go; **FT misses on seen** (−0.22 against the −0.15 bound) |
+| ALL without PLS (FT, REST, OCU, MIX) | **+1.13 [+0.65, +1.61], 6/6 (+0.94 to +1.24)**, 8 of 10 people; seen −0.21 | Best arm of the run, chosen after the fact: a winner's-curse risk |
+
+**Reading.** (1) The lever that looked weakest alone (OCU, +0.14) carries the stack: without it the other four drop
+to +0.18. The eye-net view in SessionEM seems to make the stage use the fine-tuned and rest-trained members. (2) The
+two stage levers that only strengthen the second pass (PLS, MIX) overlap with OCU and hurt in the stack. (3) FT's seen
+cost is a replay artefact in mechanism, not a measured package effect. FT changes only the new-person outputs, and
+`A.system` refits its routing gate on those outputs (`route(..., oof=sh["all_loso"])`). A package keeps its gate fixed.
+By the rule as written, FT still fails the seen bound, and I say so plainly. Whether it goes in the design is settled
+by the follow-up below, which measures the seen cost with FT on and off in the same subsets.
+
+**§130b follow-up (written 13 Nov 00:12 UTC, before it runs; same script, `SUBSETS=`).** The subsets the rule and
+the reading point to are scored on six bases: REST+OCU (the rule's kept levers), FT+REST+OCU, FT+OCU, and
+FT+REST+OCU+MIX (the best arm again, as a control for the rerun). Predictions against the stack base, new, six-base
+mean: REST+OCU +0.55 (+0.20 to +0.90); FT+REST+OCU +1.0 (+0.6 to +1.3); FT+OCU +0.75 (+0.4 to +1.1); FT+REST+OCU+MIX
++1.13 (identical code, so the same number). **Design input** (for the build after the window, not a candidate now): the
+smallest subset within 0.10 of the best, with ≥ 5 of 6 bases and seen ≥ −0.15. If every FT subset misses the seen
+bound, the design keeps FT only for unrouted sessions, and its seen cost is checked in the v5 replay with a fixed
+gate before any build.
