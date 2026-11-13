@@ -61,6 +61,11 @@ def ge_view(sp, p, bn):
     L = ORC[p] if sp.get("ocuorc") else np.log(np.clip(OC[p], 1e-3, 1)); V = np.c_[REF[p], sp.get("ocuw", 1.0) * L]
     if sp.get("ocmix"):
         V = np.c_[V, np.log(np.clip(OCM[p], 1e-3, 1))]
+    if sp.get("vnet2"):
+        sp = {**sp, "vnet": "emg"}; V = ge_view({**sp, "vnet2": False, "vnet": "scp"}, p, bn)
+    if sp.get("vnet"):  # s158: a view net on another label-free signal (studies/13nov/viewnet.py), seeds VN_SEEDS
+        kd = sp["vnet"]; VNS = os.environ.get("VN_SEEDS", "0,1,2,3,4,5,6,7,8").split(",")
+        V = np.c_[V, np.log(np.clip(np.mean([load(f"{REPO}/runs/viewnet/{kd}/oc_nomix-{p}-s{s_}.npz", p) for s_ in VNS], 0), 1e-3, 1))]
     for k in sp.get("vadd", ()):  # s157: other members' posteriors as view columns (c1 = core1, 10 = teacher, rest = rest member)
         V = np.c_[V, np.log(np.clip(A.EXTRA[k][p] if k == "rest" else A.members(bn, p)[k], 1e-3, 1))]
     return V
@@ -99,7 +104,8 @@ SPEC.update({"V6F_ft05": {**_V, "ftw": 0.5}, "V6F_ft15": {**_V, "ftw": 1.5}, "V6
              "V6F_o05": {**_V, "ocuw": 0.5}, "V6F_o2": {**_V, "ocuw": 2.0}, "V6F_orc": {**_V, "ocuorc": True}, "V6F_cog": {**_V, "cog": 1.0},
              "V6F_pls": {**_V, "pls": 0.15}, "V6F_mix": {**_V, "mixe": 0.9}, "V6F_weak": {**_V, "ftweak": True},
              "V6F_ocm": {**_V, "ocmix": True},  # s156: a second eye-net family in the view
-             "V6F_vc1": {**_V, "vadd": ("c1",)}, "V6F_vte": {**_V, "vadd": (10,)}, "V6F_vre": {**_V, "vadd": ("rest",)}})  # s157
+             "V6F_vc1": {**_V, "vadd": ("c1",)}, "V6F_vte": {**_V, "vadd": (10,)}, "V6F_vre": {**_V, "vadd": ("rest",)},  # s157
+             "V6F_vemg": {**_V, "vnet": "emg"}, "V6F_vscp": {**_V, "vnet": "scp"}, "V6F_vboth": {**_V, "vnet2": True}})  # s158
 SPEC.update({
         "FOR2": dict(pn="pfh60", ft=True, ocu=True, rest=True, restfb=True), "FORw2": dict(pn="pfh60", ft=True, ocu=True, rest=2.0)})  # s144
 

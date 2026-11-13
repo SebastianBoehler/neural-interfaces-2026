@@ -2768,3 +2768,18 @@ Leonardo draws.
 independent of the mix the view is meant to correct. The eye net is the only view of this kind that helps, and it sees
 a different signal (ocular traces) through a different model. Better views must come from signals or models that are
 not in the mix: more eye-net families and seeds (§156, running), and new label-free signals.
+
+### 158. VIEWNET (explore, high ceiling): view nets on label-free signals the mix does not use (written 13 Nov 08:31 UTC, before any job ran; `studies/13nov/viewnet.py`, Leonardo, 9 seeds each)
+
+**Ceiling:** §155's oracle view adds +3.8 over the combination; the eye net is the only real view that helps, and mix
+members as view columns hurt (§157). New views from other signals, through the eye net's architecture and causal
+standardisation:
+- emg: muscle activity, log 30–45 Hz envelopes at temporal and frontal sites;
+- scp: slow cortical potentials below 1 Hz at the midline and C3/C4.
+
+Scored inside V6F against v5.1b (`pkg.py` V6F_vemg, V6F_vscp, V6F_vboth), paired with V6F.
+
+| Check (new, paired against V6F) | Prediction (80 % range) |
+|---|---|
+| vemg / vscp / both | +0.10 (−0.30 to +0.50) each; both +0.15 |
+| **Bar** | ≥ +0.15 without the best person on draw 0 and on two of draws 1–3 → a view for the package |
