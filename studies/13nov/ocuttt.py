@@ -65,6 +65,9 @@ def main():
             if smoke:
                 break
         acc = {v: np.mean([res[v][i].argmax() == y[i] for i in res[v]]) for v in res}
+        dpt = max(np.abs(res["pl"][i] - res["true"][i]).max() for i in res["pl"]); dpb = max(np.abs(res["pl"][i] - res["base"][i]).max() for i in res["pl"])
+        print(f"  max |pl - true| {dpt:.4f}, max |pl - base| {dpb:.4f} (both must be > 0: the label source and the fine-tuning must act)", flush=True)
+        assert dpt > 0 and dpb > 0, "fine-tuning is a no-op or ignores the label source"
         print(f"s{seed} {fold}: window acc so far " + " ".join(f"{v} {a:.3f}" for v, a in acc.items()) + f" ({time.time() - t0:.0f}s)", flush=True)
         if smoke:
             return print("SMOKE PASS", flush=True)

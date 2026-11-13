@@ -3956,3 +3956,14 @@ k copies. gC5 over v5.1b, new; k = 0 is the baseline:
 - **Form A is refuted:** +0.04 at best, worse with more copies.
 - The perfect-view ceiling (oracle) is +6.05 in SessionEM and +12.1 with TSEM, so TSEM can use a perfect view. The real
   eye net is far from one: its window accuracy for new people (LOSO, within 0) is 0.514.
+
+**§188 form B queued (13 Nov 16:55 UTC).** `studies/13nov/ocuttt.py`.
+- **Smoke:** the second smoke checks that pseudo-label and true-label outputs differ (max 0.81) and that FT moves outputs
+  (max 0.68); the job stops otherwise.
+- **Jobs (Galvani):** 3098591–94 for within 0/1, full 0, runs 0, nine seeds each. 3098595–98 for within 2/3, full 1,
+  runs 1, afterany. Pseudo-labels from the v6 chain (chain_v6r).
+- **Scoring:** a local loop fetches from Galvani only (Leonardo's certificate may lapse tonight) and scores base / pl /
+  true per order → `runs/formB_summary.txt`.
+- **Prediction:** the true-label ceiling is +0.5 to +1.5 over the current eye net; pl is +0.1 (0 to +0.3).
+- **Kept** if pl ≥ +0.3 on the mean over orders and ≥ 0 on each within order. If the ceiling stays below +0.5, form B is
+  closed with it.
