@@ -3095,7 +3095,7 @@ land.
 | the same configuration in recording order | −0.3 (−1.0 to +0.2) |
 | **Bar** | ≥ +0.5 under shuffle on both halves and on the fresh bases, with recording order ≥ −0.5. Then it is the stage set of the next package (the stream is not chronological, so shuffled numbers decide) |
 
-| §160 FITFORM (13 Nov 09:46 UTC; `runs/night13/fit_*.npz`; V6F against v5.1b, new, four draws; **recording order**) | New [80 % person] per draw | Without P10 per draw | Bar (without P10 ≥ +0.40, interval above 0, every draw) |
+| §160 FITFORM (13 Nov 09:45 UTC; `runs/night13/fit_*.npz`; V6F against v5.1b, new, four draws; **recording order**) | New [80 % person] per draw | Without P10 per draw | Bar (without P10 ≥ +0.40, interval above 0, every draw) |
 |---|---|---|---|
 | **cum10 delta1** (4 fine-tuned nets) | +1.00 / +0.88 / +0.77 / +0.75 (lowest interval +0.22) | +0.76 / +0.61 / +0.50 / +0.47 | **met 4/4** |
 | cum10 delta2 (8 nets) | +0.91 / +0.87 / +0.71 / +0.77 | +0.66 / +0.58 / +0.44 / +0.49 | met 4/4 |
