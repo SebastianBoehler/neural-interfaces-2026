@@ -75,7 +75,7 @@ print("chain, four families, new people: mean over the choices of the fine-tuned
 summary = {}
 for v in VARS:
     for f in FORMS:
-        rows = []
+        rows, per = [], []
         for bn in env.BASES:
             ref = chain("base", bn); res = []
             for ks in CHOICES[f]:
@@ -83,9 +83,11 @@ for v in VARS:
                     A.EXTRA[f"{a}_x"] = {p: form(P[(a, "base")][p], P[(a, v)][p], f, ks) for p in A.PROTOS}
                 res.append(SC.compare(chain("x", bn), ref))
             dn = res[0]["dn"]; b = [dn[rng.integers(0, 10, 10)].mean() for _ in range(2000)]; lo, hi = np.percentile(b, [10, 90])
-            new = [r["new"] for r in res]; rows.append(np.mean(new))
+            new = [r["new"] for r in res]; rows.append(np.mean(new)); per.append(np.mean([r["dn"] for r in res], 0))
             print(f"   {v:6s} {f:6s} {bn:8s} new {np.mean(new):+.2f} [{min(new):+.2f}, {max(new):+.2f}] boot [{lo:+.2f}, {hi:+.2f}] "
                   f"{res[0]['npos']}/10 | seen {np.mean([r['seen'] for r in res]):+.2f}", flush=True)
         summary[v, f] = np.mean(rows)
-        print(f"MEAN {v} {f}: new {np.mean(rows):+.2f} (bases {min(rows):+.2f} to {max(rows):+.2f})", flush=True)
+        d = np.mean(per, 0); bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [2.5, 10, 90, 97.5]); k = int(np.argmax(d))
+        print(f"MEAN {v} {f}: new {np.mean(rows):+.2f} (bases {min(rows):+.2f} to {max(rows):+.2f}; bases are nearly one system, s139) | person "
+              f"80% [{bt[1]:+.2f}, {bt[2]:+.2f}] 95% [{bt[0]:+.2f}, {bt[3]:+.2f}] people>=0 {(d >= 0).sum()}/10 | without best (P{k + 1:02d} {d[k]:+.1f}) {np.delete(d, k).mean():+.2f}", flush=True)
 print("SUMMARY " + " | ".join(f"{v} {f} {s:+.2f}" for (v, f), s in summary.items()))
