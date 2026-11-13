@@ -4112,3 +4112,21 @@ Draw 1 with L exists for within 0/1 (§179). New: R d1 for within 0–3 (Galvani
 - At +0.15 new, it is worth about +0.05 sealed: a tie-breaker for a later build, not a reason for one.
 - It counts as "R preferred" if the pooled within mean is ≥ +0.10 with draws 0 and 1 the same sign.
 - Otherwise it stays undecided. Full and runs are not re-read.
+
+**§191 RESULT (13 Nov 17:49 UTC; Leonardo `runs/night13/poolcmp_{within0,within1,rec0}.txt`; six bases; Scherer at weight 1, retrained
+control in the same wave).** Pooled − control, new [80 %], without P10:
+
+| Order | members only (no FT, eye, rest) | combination (gC5 + eye + rest) | fallback (eye + rest) |
+|---|---|---|---|
+| within 0 | +0.16 [−0.79, +1.01], +0.03 | −0.23 [−0.64, +0.17], −0.34 | +0.08, −0.00 |
+| within 1 | +0.02 [−0.60, +0.63], −0.01 | −0.51 [−1.02, −0.04], −0.62 | −0.31, −0.38 |
+| recording | −0.42 [−1.15, +0.22], −0.53 | −0.49 [−0.89, −0.08], −0.51 | −0.54, −0.52 |
+
+- Per person, the combination's loss is carried by P05 (−2.0 to −3.6) and P01 (−1.7 to −1.8).
+- **The act bar (≥ +0.5 within mean) is clearly missed: the within mean is −0.37.**
+- By the letter of the pre-registered refutation rule (below −0.3 on both within orders) it is not refuted, since within 0
+  is −0.23. But all three orders are negative for the combination, and two of their 80 % intervals exclude 0.
+- **Reading:** the pooled members are about neutral on their own under within (+0.16, +0.02). In the chain they cost about
+  0.4 to 0.5, as in §7 (−0.23) and §21 (−0.9). Prediction −0.1 (−0.6 to +0.4): inside.
+- No further Scherer-pooling forms are planned. The remaining door would be a lower loss weight (§7 used 0.1/0.25), which
+  is §7's own result, already undecided at −0.23.
