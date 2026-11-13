@@ -36,6 +36,16 @@ TG = os.environ.get("FT_TAG", f"ttt17{SCHEME}{PSEED}"); FR17 = {(a, s): ld(f"{T1
 CU17 = {(a, s): ld(f"{T17D}/{TG}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
 OCD = os.environ.get("OCU_DIR"); OCS = sorted(glob.glob(f"{REPO}/{OCD}/oc_nomix-{p0}-s*.npz")) if OCD else [f"{REPO}/runs/ocunet/probs/oc_nomix-{p0}-s{s}.npz" for s in range(3)]
 assert OCS, OCD; OCU = np.log(np.clip(np.mean([ld(f) for f in OCS], 0), 1e-3, 1))
+if os.environ.get("OCU_SYN") is not None:  # s188 accuracy curve (ceiling test only): the eye net's posteriors shuffled within person x true class
+    # (same accuracy and confusion, no correlation with the EEG members' errors), then +d points by swapping the top class with the true one
+    pr, yy, pp = np.exp(OCU), Z[f"y|{p0}"].astype(int), Z[f"person|{p0}"]; rg = np.random.default_rng(0); a0 = np.mean(pr.argmax(1) == yy); sp = pr.copy()
+    for q in np.unique(pp):
+        for c in range(3):
+            r = np.flatnonzero((pp == q) & (yy == c)); sp[r] = pr[rg.permutation(r)]
+    wrong = np.flatnonzero(sp.argmax(1) != yy); k = int(round(float(os.environ["OCU_SYN"]) / 100 * len(yy)))
+    for r in rg.permutation(wrong)[:k]:
+        t, m = yy[r], sp[r].argmax(); sp[r, [t, m]] = sp[r, [m, t]]
+    OCU = np.log(np.clip(sp, 1e-3, 1)); print(f"OCU_SYN +{os.environ['OCU_SYN']}: eye view accuracy {a0:.4f} -> {np.mean(sp.argmax(1) == yy):.4f} (shuffled within person x class)", flush=True)
 if os.environ.get("OCU_ORACLE"):  # s188 ceiling test only, never shippable: the eye view replaced by a smoothed one-hot of the true labels
     OCU = np.log(0.6 * np.eye(3)[Z[f"y|{p0}"].astype(int)] + 0.4 / 3); print("OCU_ORACLE: the eye view is the true label (ceiling test)", flush=True)
 REST = np.mean([ld(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p0}-s{s}.npz") for s in range(3)], 0); ORD = f"{SCHEME}{PSEED}"

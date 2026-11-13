@@ -3894,3 +3894,22 @@ The oracle eye view (§155) is the largest measured ceiling (+3.8 new over V6F; 
   the permitted corpora). Ceiling: a LOSO linear probe on the embedding with true labels against the eye net's own
   probe. Corpora with frontal channels must be checked first; this is a longer project.
 Order: A tonight on CPU, B as the overnight GPU explore wave, C after B's ceiling.
+
+**§188 A, first numbers and what they mean (13 Nov 16:46 UTC; `runs/formA_*.log`).**
+- **What the oracle contains:** `OCU_ORACLE` replaces the eye view with 0.6·one-hot(true label) + 0.4/3, a perfect and
+  confident view. Its gains are the ceiling of **any** perfect extra view, not of eye signals. They mostly say how much
+  SessionEM and TSEM can use such a view.
+- **Oracle results:** within 0, gC5 over v5.1b +6.05 in SessionEM only, +12.09 with 4 copies in TSEM too.
+- **Real eye net:** 1 copy in TSEM gives +1.43 against +1.39 without.
+
+**Accuracy curve (coordinator, about 16:50; pre-registered here, before results):** `OCU_SYN=d` shuffles the eye net's
+posteriors within person × true class. That keeps its window accuracy and confusion but removes any correlation with
+the EEG members' errors (and with time). It then raises accuracy by d points, swapping the top class with the true
+class on random wrong windows. d = 0, 5, 10, 20; k = 0 (SessionEM only) and 4 (TSEM too); within 0/1; most complete
+inputs; labels L.
+**Reading:**
+- If the synthetic view at d = 0 gains and the real eye net does not, the real eye view's limit is correlation with the
+  EEG errors, and forms B/C are judged on error decorrelation.
+- The slope over d says how accurate an eye-derived view must be for +2 new.
+- Prediction: d = 0 synthetic +0.2 to +0.6 over the real eye net; slope about +0.1 per accuracy point in SessionEM only,
+  higher with TSEM.
