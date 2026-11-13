@@ -3299,3 +3299,13 @@ augmentation draws 1 and 2 (96 tasks; smoke 3096130, arrays 3096131–3096134). 
 first. Galvani tasks skip finished outputs and requeue when preempted. Scoring as §171, against v5.1b under the same
 order. Together with §171's draw 0 this gives the shippable form three draws × two permutations under *within* before
 the decision; same prediction and bar as §171.
+
+### 173. The no-FT fallback under shuffled delivery (written 13 Nov 10:42 UTC, before any result; `shufcombo.py` arm V6r)
+
+The build session reports that fine-tuning through the shipped TorchScript traces costs 3–4× eager on an A100 (about
+60 min worst case for gC5 delta1). If neither the executor fix nor eager rebuilds work, the package would ship the eye
+net and rest member without FT. That form has only a recording-order number on the shipped members (§151: new +0.34,
+J +0.05). V6r is scored under within 0/1 and full 0 (eye net re-streamed where available), new, against v5.1b in the
+same order. Prediction: +0.6 (+0.1 to +1.1), since under shuffle the eye-net view may carry more than in recording
+order. **Bar for the fallback to be uploadable on its own:** without P10 ≥ +0.40 with the 80 % interval above 0 under
+*within* on both permutations.

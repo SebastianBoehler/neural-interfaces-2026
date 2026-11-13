@@ -43,7 +43,7 @@ def chain(bn, arm, P):
     ks = BS[bn]; arrs = {}
     for a, sl in SLOT.items():
         x = base[sl].copy()
-        if arm in ("P0r", "V6Fr"):
+        if arm in ("P0r", "V6Fr", "V6r"):
             x = x + np.mean([FR17[a, k] - FR6[a, k] for k in ks], 0)
         if arm == "V6Fr":
             x = x + (CU17[a, ks[0]] - FR17[a, ks[0]])
@@ -57,10 +57,10 @@ def chain(bn, arm, P):
         if fam in fams:
             fams.remove(fam); extra += list(A.FAM[fam])
         extra = [(k, w) for k, w in extra if k != sl] + [(f"sc_{a}", 1.0)]
-    if arm in ("V6Fr", "V6Frec"):
+    if arm in ("V6Fr", "V6Frec", "V6r"):
         A.EXTRA["sc_rest"] = {p0: REST[P], "seen_session": A.L.Z[f"{bn}|Ps|seen_session"][3]}; extra = extra + [("sc_rest", 1.0)]
     ge0 = A.L.Z[f"GE|{p0}"].copy()
-    if arm in ("V6Fr", "V6Frec"):
+    if arm in ("V6Fr", "V6Frec", "V6r"):
         A.L.Z[f"GE|{p0}"] = np.c_[ge0, OCU[P]]
     try:
         out = gm.pipe_g(A.mix(bn, p0, fams, extra)[0], p0)
@@ -71,12 +71,14 @@ def chain(bn, arm, P):
 
 Pperm = S.perm_for(SCHEME, PSEED)[p0]; ident = np.arange(N); R = {}
 for bn in S.BASES:
-    R[bn] = {"P0rec": chain(bn, "P0", ident), "P0s": chain(bn, "P0", Pperm), "P0r": chain(bn, "P0r", Pperm), "V6Fr": chain(bn, "V6Fr", Pperm), "V6Frec": chain(bn, "V6Frec", ident)}
+    R[bn] = {"P0rec": chain(bn, "P0", ident), "P0s": chain(bn, "P0", Pperm), "P0r": chain(bn, "P0r", Pperm), "V6Fr": chain(bn, "V6Fr", Pperm), "V6Frec": chain(bn, "V6Frec", ident),
+              "V6r": chain(bn, "V6r", Pperm)}  # s173: the fallback without FT (eye net + rest member only)
     print(f"{bn}: P0rec {R[bn]['P0rec'].mean():.2f} | P0s {R[bn]['P0s'].mean() - R[bn]['P0rec'].mean():+.2f} P0r {R[bn]['P0r'].mean() - R[bn]['P0rec'].mean():+.2f} | "
           f"V6Fr - P0r {R[bn]['V6Fr'].mean() - R[bn]['P0r'].mean():+.2f} | V6Frec - P0rec {R[bn]['V6Frec'].mean() - R[bn]['P0rec'].mean():+.2f}", flush=True)
 S.apply({p: np.arange(S.N[p]) for p in S.PR}); rng = np.random.default_rng(0)
 for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + SessionBN members re-streamed", "P0r", "P0rec"),
-                  ("combination over v5.1b, both shuffled", "V6Fr", "P0r"), ("combination over v5.1b, recording order", "V6Frec", "P0rec")):
+                  ("combination over v5.1b, both shuffled", "V6Fr", "P0r"), ("combination over v5.1b, recording order", "V6Frec", "P0rec"),
+                  ("no-FT fallback (eye net + rest) over v5.1b, shuffled", "V6r", "P0r")):
     d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0); bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} new {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
