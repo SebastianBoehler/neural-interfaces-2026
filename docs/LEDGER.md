@@ -1949,6 +1949,6 @@ whole label gain.
 
 **Reading.** In the package's own chain the design input holds up: FT carries the new-people gain (+0.50), the
 eye-net view carries returning people (+0.43 seen, both P04 and P10 positive), and together they reach J +0.58 on the
-same nets, with all six bases positive. That is about 0.3 J below §130's `A.system` number for new people (+0.72
-against +0.86 there, +1.0 against the shipped chain). On returning people the eye-net view adds to the
+same nets, with all six bases positive. For new people it is a little below §130's `A.system`
+number (+0.72 against +0.86). On returning people the eye-net view adds to the
 personal-nets stack instead of competing with it.
