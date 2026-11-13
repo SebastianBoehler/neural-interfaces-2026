@@ -2379,3 +2379,22 @@ Not queued, with reasons: the chain-level people curve needs every member retrai
   11 Nov teachers lived in an untracked scratch folder on Galvani.
 - The honest size of tonight's GPU work: the queue does not carry many hours on its own. The one multi-hour GPU line
   (teacher pretraining, 12 seeds × 2 trunks × 3 teachers) waits on the corpus downloads.
+
+### 146. PCURVE: the chain-level people curve, reduced form (written 13 Nov 03:45 UTC, after a one-draw smoke and before the five-draw run; code `studies/13nov/peoplecurve.py`, Mac)
+
+**Why it matters (the ceiling of the whole data side):** core1 rises about +8 points per doubling of training people
+(§39, §48). Whether the session stages keep that slope or flatten it has never been measured, and every data-side
+idea (more people, synthetic people, unlabelled recordings, other corpora) is sized by it. **Cheapest honest form:**
+retraining every member per subset would need a pipeline that does not exist, so a core1 surrogate (balanced LR on
+core1's 256 exact-SVD components; it agrees with core1 on about 82 % of windows) is trained on 3, 5, 7 or 9 of the nine
+training people (five draws below 9). It is scored alone and through the shipped stages as the only member. The
+missing members make the absolute chain about 11 points lower than the shipped chain; the slopes are what is read.
+Limit: each fold's PC basis was computed on all nine training people.
+
+Smoke (one draw): core 55.7 / 60.6 / 63.1 / 64.4 and chain 59.9 / 66.6 / 68.3 / 69.3 at k = 3 / 5 / 7 / 9.
+
+| Check (five draws) | Prediction (80 % range) |
+|---|---|
+| core slope per doubling (k 3–9) | +5.5 (+4 to +7) |
+| chain slope per doubling (k 3–9) | +5 (+3 to +7) |
+| **Reading rule** | Chain slope ≥ 0.7 × core slope: the stages do not flatten the people gain, so a data-side idea worth +x at core level should be worth about +x in the chain, and the data side stays the biggest ceiling (a tenth person ≈ +1.4 in the chain at +6 per doubling). Chain slope < 0.4 × core slope: the stages already substitute for people, and data-side ideas are worth much less than their core numbers |
