@@ -111,6 +111,8 @@ for bn in BASES:
     for k in ARMS:
         R[bn, k] = s[k]
 rng = np.random.default_rng(0)
+if os.environ.get("PKG_SAVE"):  # per-person results of every arm and base, for paired differences between arms
+    np.savez(os.environ["PKG_SAVE"], **{f"{b}|{k}|{j}": R[b, k][j] for (b, k) in R for j in (0, 1)})
 for ref, arms in (("T0", ARMS), ("T1b", [k for k in ("T1", "T1w") if k in ARMS]), ("T1", [k for k in ARMS if k not in ("P0", "T0", "T1", "T1b", "T1w")])):
     if ref not in ARMS or not arms:
         continue
