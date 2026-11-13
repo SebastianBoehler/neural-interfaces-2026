@@ -3242,7 +3242,7 @@ people; *within* is the primary column (§169).
 | full | +1.00 (+0.40 to +1.60) |
 | **Bar (package form)** | without P10 ≥ +0.40 with the 80 % person interval above 0, under *within* on both permutations |
 
-**Plan for an upload decision this evening (13 Nov, written 10:28 UTC).** The user expects a decision at about
+**Plan for an upload decision this evening (13 Nov, written 10:26 UTC).** The user expects a decision at about
 19:00 UTC (20:00 CET), earlier than the research window they set. The upload itself still needs their go-ahead by
 name. Plan:
 - **Provisional package form,** confirmed by about 13:30 UTC on GC5SHUF (§171): v5.1b plus, on unrecognised
