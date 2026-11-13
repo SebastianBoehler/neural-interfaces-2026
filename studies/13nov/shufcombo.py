@@ -47,9 +47,17 @@ CS = next((z for z in map(np.load, filter(os.path.exists, CSF)) if f"{SCHEME}|{p
 if f"{SCHEME}|{p0}" in CS:
     ref, rec = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]][f"pc128|{p0}"], CS[f"rec|{p0}"]
     sg = np.sign([np.corrcoef(ref[:, j], rec[:, j])[0, 1] for j in range(ref.shape[1])]); DPC = sg * (CS[f"{SCHEME}|{p0}"] - rec)
-REC_LEFT = [n for n, ok in (("core1 member", DC1 is not None), ("pc128 view", DPC is not None), ("rest net", bool(RSS)), ("eye net", bool(OCD))) if not ok] + [
-    "GE view (SessionEM's)", "Hilbert member", "transformer and shallow members (causal statistics)", "teacher member"]
-assert not (os.environ.get("STRICT") and len(REC_LEFT) > 4), f"STRICT: still in recording order: {REC_LEFT[:-4]}"
+# s184: GE's event rates (geshuf.py) and the Hilbert member (coremember.py MEMBER=hilbert), each as a change against its own rebuild
+GS = np.load(f"{REPO}/runs/geshuf.npz") if os.path.exists(f"{REPO}/runs/geshuf.npz") and os.environ.get("GE_NPZ") != "none" else {}
+DGE = GS[f"{ORD}|{p0}"][IDX] - GS["rec"][IDX] if f"{ORD}|{p0}" in GS else None
+if DGE is not None:  # GE = [gaze 32 | event rates 16]; the stored event rates must be the rebuild's
+    assert np.allclose(S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]][f"GE|{p0}"][:, 32:], GS["rec"][IDX]), "GE columns 32: are not the event rates"
+HBF = sorted(glob.glob(f"{REPO}/runs/hilbertmember*.npz")) if os.environ.get("HB_NPZ") != "none" else []
+HB = next((z for z in map(np.load, HBF) if f"{ORD}|{p0}" in z), {}); DHB = HB[f"{ORD}|{p0}"] - HB[f"rec|{p0}"] if f"{ORD}|{p0}" in HB else None
+CORE = [n for n, ok in (("core1 member", DC1 is not None), ("pc128 view", DPC is not None), ("rest net", bool(RSS)), ("eye net", bool(OCD))) if not ok]
+REC_LEFT = CORE + [n for n, ok in (("GE event rates", DGE is not None), ("Hilbert member", DHB is not None)) if not ok] + [
+    "transformer and shallow ea members (causal EA)", "teacher member (causal EA)"]
+assert not (os.environ.get("STRICT") and CORE), f"STRICT: still in recording order: {CORE}"
 print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {RPX}; eye net {'re-streamed ' + OCD if OCD else 'recording order (3 seeds)'}; "
       f"rest net {'re-streamed ' + str(len(RSS)) + ' seeds' if RSS else 'recording order'}; core1 member {'re-streamed' if DC1 is not None else 'recording order'}; "
       f"pc128 {'rebuilt in the order' if DPC is not None else 'recording order'}; new people\nSTILL IN RECORDING ORDER: {', '.join(REC_LEFT)}", flush=True)
@@ -72,6 +80,10 @@ def chain(bn, arm, P):
             A.C1[p0] = A.C1[p0] + DC1[P]; Z[f"{bn}|Ps|{p0}"][0] = Z[f"{bn}|Ps|{p0}"][0] + DC1[P] / 2
         if DPC is not None:
             Z[f"pc128|{p0}"] = Z[f"pc128|{p0}"] + DPC[P].astype(Z[f"pc128|{p0}"].dtype)
+        if DHB is not None:  # hb = 2 Ps[0] - c1: Ps[0] moves by half the Hilbert change
+            Z[f"{bn}|Ps|{p0}"][0] = Z[f"{bn}|Ps|{p0}"][0] + DHB[P] / 2
+        if DGE is not None:
+            Z[f"GE|{p0}"] = Z[f"GE|{p0}"].copy(); Z[f"GE|{p0}"][:, 32:] = Z[f"GE|{p0}"][:, 32:] + DGE[P]
     base = {s_: A.L.Z[f"{bn}|Ps|{p0}"][s_][np.argsort(P)] for s_ in SLOT.values()}  # undo P: recording order
     ks = BS[bn]; arrs = {}
     for a, sl in SLOT.items():
@@ -133,4 +145,4 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other
-np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if len(REC_LEFT) == 4 else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})

@@ -3679,3 +3679,37 @@ In recording order the combination gives +1.27 / +1.31.
 - **Limit (unchanged):** the package routes returning people through personal heads, and this does not compare against
   that path. The gain is ≥ +1.0 on one order, so the direct comparison (v6 path against the routed path, §169
   machinery) is the next step; it is not for tonight's upload.
+
+### 184. THE LAST RECORDING-ORDER INPUTS: GE event rates, Hilbert, teacher (written 13 Nov 13:42 UTC)
+
+An agent traced the five inputs still in recording order and recomputed slots 1–4, 10 and GE from their sources, exactly.
+- **GE:** the gaze half is per window; the event rates (16 columns, a running median per session) depend on order.
+- **Hilbert:** `ts_core2` `car_fb7_hfs2_t0.1_le_k2`, head lr3 (C = 3); causal log-Euclidean reference and slow centring.
+- **Transformer and shallow:** only the `ea` slots (causal EA, k 5) depend on order; `raw` uses a fixed scale with BN in
+  eval mode.
+- **Teacher:** depends on order through the causal EA of its inputs.
+- **Head naming in coremember.py:** heads are C values (`fit_head`: C = float(h[2:])). The core1 re-stream used lr0.3
+  (C 0.3) against a stored lr10. It passed the 0.99 harness (0.9976), and only its change enters.
+
+**GE (`geshuf.py`, done; scored before this entry was written, so not pre-registered; stated here).** The recording-order
+rebuild equals the stored event rates exactly. In delivery order they change by 1.4 % of an sd under within and 2.4–4 %
+under full and runs. `shufcombo` adds the change to GE columns 32–47 (asserted to be the event rates). The regression
+check with GE and Hilbert off reproduces the logged package-faithful within 0 line exactly.
+Package-faithful plus GE (`runs/allorder_<order>_gp0_L_ge.log`). gC5 over v5.1b, new (without P10), and the change from GE:
+- within 0: +1.70 (+1.67), change 0.00.
+- within 1: +1.39 (+1.30), change +0.06.
+- full 0: +0.93 (+0.85), change −0.25.
+- runs 0: +1.34 (+1.30), change −0.17.
+- Fallback: +1.03, +0.91, +0.59, +0.73.
+- All meet the bar. Full 0 is now the lowest order at +0.93.
+
+**Queued:**
+- **Hilbert:** `coremember.py MEMBER=hilbert CFG=car_fb7_hfs2_t0.1_le_k2 HEADS=lr3` (Leonardo 64389930 for within 0/1, full 0,
+  runs 0; 64389931 for the other four orders). `shufcombo` moves Ps[0] by half the change.
+- **Teacher:** `teachshuf.py` (Leonardo 64390300/02). Causal EA in the delivery order; the map is fitted on training
+  people's recording-order features and applied to the test rows' delivery-order features. The harness asserts that the
+  rebuilt teacher equals slot 10. The 24 checkpoints were copied from Galvani: the local `runs/pretrain` targets are gone.
+- **Still left:** the `ea` transformer and shallow slots (weights 0.5 and 1 of 15). They need GPU retraining per fold
+  (`run_cv.py` with deliver.py), so not before the table. Their size is bounded below.
+- **Prediction** (Hilbert and teacher together): v5.1b loses 0 to 0.5 more under within, and the combination's gain
+  changes by ±0.3. The teacher has weight 5, so if it moves more than that, the table carries the teacher-included number.
