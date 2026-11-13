@@ -127,7 +127,10 @@ S.apply({p: np.arange(S.N[p]) for p in S.PR}); rng = np.random.default_rng(0)
 for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + members re-streamed (as header)", "P0r", "P0rec"),
                   ("combination over v5.1b, both shuffled", "V6Fr", "P0r"), ("combination over v5.1b, recording order", "V6Frec", "P0rec"),
                   ("no-FT fallback (eye net + rest) over v5.1b, shuffled", "V6r", "P0r")):
-    d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0); assert len(d) == 10, "person count"; bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
+    d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0)
+    if len(d) != 10:  # returning people (PROTO=seen_session): too few people for a bootstrap; per person instead
+        print(f"{lab:48s} {p0} mean {d.mean():+.2f} | per person " + " ".join(f"{q} {v:+.2f}" for q, v in zip(np.unique(Z[f'person|{p0}']), d)), flush=True); continue
+    bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other
 np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if len(REC_LEFT) == 4 else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})

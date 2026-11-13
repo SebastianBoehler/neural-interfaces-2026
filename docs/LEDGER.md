@@ -3663,3 +3663,19 @@ would beat routing.
 Prediction: +0.8 (+0.3 to +1.3) over unrouted v5.1b under within. That is smaller than for new people, because the
 members already fit these people and fine-tuning has less to correct. If it is ≥ +1.0, routing returning people through
 v6 is worth a direct comparison against the routed path (§169 machinery) after the table.
+
+**§183 RESULT (13 Nov 13:35 UTC; `runs/returning_within{0,1}.log`; regression check OK, the new-people path is unchanged).** Returning people
+(P04, P10) with recognition forced off. Each line is against v5.1b's unrouted tail under the same order: mean | P04 | P10.
+
+| Order | v5.1b re-streamed vs recording | gC5 combination | fallback (no FT) |
+|---|---|---|---|
+| within 0 | −0.46 (P04 −0.67, P10 −0.25) | +0.98 (+1.95, +0.02) | +1.05 (+1.51, +0.59) |
+| within 1 | +0.48 (P04 +1.73, P10 −0.77) | +1.25 (+2.07, +0.44) | +0.79 (+1.29, +0.29) |
+
+In recording order the combination gives +1.27 / +1.31.
+- **Prediction** +0.8 (+0.3 to +1.3): inside; not refuted.
+- The gain sits on P04. P10 gets +0.0 to +0.6.
+- With two people this is not an estimate. It shows the v6 additions do not hurt returning people on the unrouted path.
+- **Limit (unchanged):** the package routes returning people through personal heads, and this does not compare against
+  that path. The gain is ≥ +1.0 on one order, so the direct comparison (v6 path against the routed path, §169
+  machinery) is the next step; it is not for tonight's upload.
