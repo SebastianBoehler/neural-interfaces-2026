@@ -3648,3 +3648,18 @@ against the same run with recording-order labels:
 - **The package-faithful gain** is +1.18 to +1.70 new and +1.17 to +1.68 without P10. Every row meets the bar.
 - Without P10 is almost as large as all people: the gain is spread over people, not carried by P10.
 - The mean over the four draw-0 orders is +1.43 new, against +1.6 with recording-order labels.
+
+### 183. RETURNING PEOPLE THROUGH THE NEW PATH under shuffle (written 13 Nov 13:33 UTC, before any result)
+
+The coordinator asks what the new path would give returning people, who lose most under shuffle and get 0 from the
+package by design. `shufcombo.py PROTO=seen_session` runs the same arms on the returning-people protocol with
+recognition forced off: every window goes through the unrouted tail (`gm.pipe_g`). Inputs are re-streamed as for new
+people. FT labels are chain_final's seen part (recording order; no delivery-order labels exist for seen rows yet).
+Package gate, STRICT. Orders within 0 and 1. A regression check first confirms the new-people path gives the logged
+within 0 numbers unchanged.
+**Limit:** the comparison is against v5.1b's unrouted tail, not against the package's routed path for returning people
+(personal heads, §169 J). It shows what the v6 additions do on these sessions, not whether routing them through v6
+would beat routing.
+Prediction: +0.8 (+0.3 to +1.3) over unrouted v5.1b under within. That is smaller than for new people, because the
+members already fit these people and fine-tuning has less to correct. If it is ≥ +1.0, routing returning people through
+v6 is worth a direct comparison against the routed path (§169 machinery) after the table.

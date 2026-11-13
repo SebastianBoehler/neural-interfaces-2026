@@ -18,10 +18,11 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 SCHEME, PSEED = os.environ["SCHEME"], int(os.environ["PSEED"]); os.environ["SCHEMES"] = SCHEME; os.environ["PERMS"] = str(PSEED + 1)
 import shuffle as S  # noqa: E402
-A, SC, gm, p0 = S.A, S.SC, S.gm, S.p0; REPO = S.REPO; Z = A.L.Z; N = S.N[p0]
+A, SC, gm = S.A, S.SC, S.gm; p0 = os.environ.get("PROTO", S.p0); OTHER = next(p for p in S.PR if p != p0); REPO = S.REPO; Z = A.L.Z; N = S.N[p0]
+# PROTO=seen_session (s183): returning people with recognition forced off, i.e. through the new-person path (gm.pipe_g)
 SLOT = {"fbraw": 5, "fb": 6, "sinc": 7, "fbl": 8}; BS = {"B2_s0": [0], "B2_s1": [1], "B2_s2": [2], "B2_s012": [0, 1, 2], "B2_s345": [3, 4, 5], "B2_pool": [0, 1, 2, 3, 4, 5]}
 T6D, T17D = os.environ.get("T6_DIR", REPO + "/runs/ttt/probs6"), os.environ.get("T17_DIR", REPO + "/runs/ttt/probs17")
-IDX = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is A.pl.B][0]][f"idx|{p0}"].astype(int); assert (IDX == np.arange(N)).all()
+IDX = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is A.pl.B][0]][f"idx|{p0}"].astype(int); assert p0 != "all_loso" or (IDX == np.arange(N)).all()
 
 
 def ld(path):
@@ -84,13 +85,13 @@ def chain(bn, arm, P):
         arrs[a] = norm(x)
     fams, extra = list(A.FAMS), []
     for a, sl in SLOT.items():
-        A.EXTRA[f"sc_{a}"] = {p0: arrs[a][P], "seen_session": A.L.Z[f"{bn}|Ps|seen_session"][sl]}
+        A.EXTRA[f"sc_{a}"] = {p0: arrs[a][P], OTHER: A.L.Z[f"{bn}|Ps|{OTHER}"][sl]}
         fam = next(f for f, it in A.FAM.items() if any(k == sl for k, _ in it))
         if fam in fams:
             fams.remove(fam); extra += list(A.FAM[fam])
         extra = [(k, w) for k, w in extra if k != sl] + [(f"sc_{a}", 1.0)]
     if arm in ("V6Fr", "V6Frec", "V6r"):
-        A.EXTRA["sc_rest"] = {p0: (RESTR if arm != "V6Frec" else REST)[P], "seen_session": A.L.Z[f"{bn}|Ps|seen_session"][3]}; extra = extra + [("sc_rest", 1.0)]
+        A.EXTRA["sc_rest"] = {p0: (RESTR if arm != "V6Frec" else REST)[P], OTHER: A.L.Z[f"{bn}|Ps|{OTHER}"][3]}; extra = extra + [("sc_rest", 1.0)]
     ge0 = A.L.Z[f"GE|{p0}"].copy()
     if arm in ("V6Fr", "V6Frec", "V6r"):
         A.L.Z[f"GE|{p0}"] = np.c_[ge0, OCU[P]]
@@ -111,6 +112,7 @@ Pperm = S.perm_for(SCHEME, PSEED)[p0]; ident = np.arange(N); R = {}
 PERMS_SHA = "f9209851e6667bcf0c980d4e99a604f1ebb7ac0678b4616d73148343daa7a65f"  # s180: every re-streamed input (ttt17/18, ocushuf, restshuf, coremember, coreshuf) read this file
 assert hashlib.sha256(open(f"{REPO}/runs/shuffle_perms.npz", "rb").read()).hexdigest() == PERMS_SHA, "runs/shuffle_perms.npz is not the pinned order file"
 assert (IDX[Pperm] == np.load(f"{REPO}/runs/shuffle_perms.npz")[f"{SCHEME}|{PSEED}|{p0}"]).all(), "the stages' order is not the order the members were streamed in"
+assert not (LABEL_OUT and p0 != "all_loso"), "LABEL_OUT is for new people"
 if LABEL_OUT:  # FT pseudo-labels as the package sees them: v5.1b (B2_pool) emitted in this delivery order; seen rows as chain_final
     CH = np.load(f"{REPO}/studies/12nov/chain_final.npz"); y = Z[f"y|{p0}"].astype(int); chain("B2_pool", "P0r", Pperm); lab = LAB["B2_pool"]
     print(f"labels: delivery-order v5.1b acc {np.mean(lab.argmax(1) == y):.4f} | chain_final (recording order) acc {np.mean(CH[p0].argmax(1) == y):.4f} | "
@@ -125,7 +127,7 @@ S.apply({p: np.arange(S.N[p]) for p in S.PR}); rng = np.random.default_rng(0)
 for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + members re-streamed (as header)", "P0r", "P0rec"),
                   ("combination over v5.1b, both shuffled", "V6Fr", "P0r"), ("combination over v5.1b, recording order", "V6Frec", "P0rec"),
                   ("no-FT fallback (eye net + rest) over v5.1b, shuffled", "V6r", "P0r")):
-    d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0); bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
-    print(f"{lab:48s} new {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
+    d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0); assert len(d) == 10, "person count"; bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
+    print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other
-np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if len(REC_LEFT) == 4 else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if len(REC_LEFT) == 4 else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
