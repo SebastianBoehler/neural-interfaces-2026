@@ -2643,3 +2643,20 @@ OCU + REST.
   - fresh draws 1–3 from `studies/13nov/ttt14.py` (ttt7 gained the same DRAW offset; draw 0 stays bit-identical);
   - scorings `ftship_gc5_d{0,1,2,3}`.
 - Same prediction and bar as cum10. gC5 costs a quarter of fixA's run time.
+
+| §152 item, draw 0 (13 Nov 08:03 UTC; `runs/pkg_ftship_d0.log`, per person `.npz`; **against v5.1b as uploaded**, six bases) | New [80 % person] / without P10 | Seen (P04, P10) | J |
+|---|---|---|---|
+| SF: v5.1b + FT on never-routed sessions (each base's own seeds' change) | +0.23 [−0.44, +0.91] / −0.12 | 0.00 | +0.11 |
+| V6: v5.1b + OCU + REST (§151) | +0.34 [−0.03, +0.71] / +0.37 | −0.24 (−1.39, +0.91) | +0.05 |
+| **V6F: v5.1b + FT + OCU + REST** | **+0.95 [+0.49, +1.42] / +0.70** | −0.24 (−1.39, +0.91) | **+0.36** |
+
+**Verdict on draw 0: the bar is met** (J ≥ +0.25, new without P10 ≥ +0.20, P04 and P10 do not both fall). The three
+parts are strongly super-additive for new people: alone +0.23 and +0.34, together +0.95, and +0.70 without P10. The bar
+asks for every draw; draws 1–3 (cum10) and 0–3 (gC5) are running.
+
+**The seen side needs a design rule.** All of V6F's seen change (P04 −1.39, P10 +0.91) comes from OCU and REST on
+routed sessions; FT never reaches them. Every chain stage works per session and the gate is fixed, so a package that
+applies FT, OCU and REST only to sessions the gate has not recognised, and leaves recognised sessions exactly as v5.1b,
+has new = V6F's new and seen = v5.1b's. **Dev reading of that form: J = +0.95 / 2 = +0.48 on draw 0, seen
+exactly 0.** It is exact in the replay because no new-person session is routed in dev. A false accept on the sealed
+set would send that session down v5.1b's routed path, which is what v5.1b does today.
