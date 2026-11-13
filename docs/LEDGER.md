@@ -3527,3 +3527,19 @@ for the adaptive parts, but it was not measured.
   with all inputs and the package gate, plus the within draws 1 and 2.
 - **Also found:** 349b1bf left `shufcombo.py` with a syntax error (a comment inside the savez call). Fixed before any job
   used it; Leonardo had the earlier version.
+
+### 181. EMCEIL: where the stage loss under shuffle comes from (§174 item 2; written 13 Nov 12:45 UTC, after a one-base smoke in recording order only)
+
+`studies/13nov/emceil.py`. Item 2's premise is mostly already true. SessionEM refits an EM fixed point over every
+delivered window at each step, and TSEM rebuilds its template from all earlier windows. What carries the order is:
+- the rebalancer's running window (W 30);
+- the prefix itself;
+- TSEM labels fixed at emission.
+Arms, members as recorded, six bases: C0 (shipped, asserted equal to pipe_g), Winf (rebalancer over the whole prefix:
+causal, order-free), EMc and TSc (non-causal ceilings fitted on the whole session), ALLc (Winf + EMc + TSc).
+Smoke (B2_s0, recording order): Winf −1.24, EMc +0.24, TSc +0.37, ALLc −0.44 against C0. So the W 30 window is worth
+1.2 in recording order, consistent with it exploiting temporal class blocks. Whole-session knowledge adds little.
+Prediction under within, full and runs: Winf ≥ C0 (the local window loses its edge when there are no blocks), and the
+ceilings recover ≤ 0.5 of the 1.2 to 3.3 loss. Then the loss is mostly temporal structure that recording order offers
+and a shuffled stream does not; no order-free estimator can win it back, and item 2 closes as "no ceiling".
+Refuted, and an arm becomes a package candidate, if Winf beats C0 by ≥ 0.3 on both within and full (it is causal and cheap).
