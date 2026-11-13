@@ -128,3 +128,65 @@ under the package gate): new people over v5.1b, within orders 0–7, **v6.1 +1.4
 | FT acts, shuffled delivery | Leonardo 64419332, all 14 sessions, gates off, recording / within\|0 / full\|0 | Errors 0; FT on every window from 20. max \|v6.1 − noft\| on FT windows 0.14 / 0.20 / 0.17. Labels vs v5.1b: 35 / 36 / 57 (noft 38 / 42 / 60). In-sample mean BA v5.1b / noft / v6.1: 0.981 / 0.995 / 0.994; 0.982 / 0.997 / 0.995; 0.970 / 0.992 / 0.991 |
 | Worst-case run time | Leonardo 64418532, A100, warm, paired, gates off | ×1.809 (190 windows, 17 refits), ×2.082 (378, 36 refits) → 31.3 / 34.7 min at 57 %, **38.8 / 44.7 min at 100 %**, plus about 1.1 min one-off warm-up: **about 45.8 min worst case** (v6f about 45.3) |
 | FT in the worker image | Galvani 3099908 (node cn235; the first try, 3099513 on cn228, hit a sticky CUDA hardware error, `cudaErrorContained`), unzipped from 2ca06dc0 | **OK**. Fine-tuning ran in the worker image: 17 / 36 refits, 340 / 720 steps, errors 0. Paired with v5.1b on that node (v5.1b is slower there: 21.5 s per 190 windows): ×1.426 / ×1.698 → 30.6 / 36.4 min at 100 % unrecognised |
+
+## v6.2 (13–14 Nov night): the additions also on recognised sessions, gate-unchanged (ledger §199, §201)
+
+Prepared for the user's choice next to v6f and v6.1, which stay untouched. Code: `lean/src62` → `submissions/lean_v62`
+(`bundle.py --v62`), one bundle with the switch `v6_routed`: 0 = v6.1, 1 = **v6.2-safe**, 2 = **v6.2**.
+- v5.1b runs unchanged on every window: its mix, its shadow (GE view unchanged) and its gates, which decide
+  recognition. The routed set and the first routed window are v5.1b's by construction.
+- The output is `RouteB`: lean's `Route.step` code unchanged, with the gate objects replaced by stubs that return v5.1b's
+  own decisions of the window. It runs from window 0 on mix_B = (15/16)·(v5.1b mix with the FT delta1 change of slots
+  5–8) + (1/16)·rest. Its personal head enters at core1's share of the new mix (w0·15/16 = 1/16), and its routed tail
+  carries the eye-net view (SessionEM 48 → 51 columns). Then the own-space stage.
+- Before recognition r = 0, so RouteB is exactly v6.1's second chain.
+- Fine-tuning: s15 (start window 20, every 10, 5 steps, lr 1e-3). Before recognition it uses v6.1's labels. At
+  recognition every stored label is replaced by v5.1b's routed output of that window, which then labels every later
+  window. v6.2 keeps fine-tuning after recognition; v6.2-safe stops it there and keeps the rest member and the eye view.
+- Deviation from dev (`retv6.py`, GATE_V51B=1), confirmed by the explore track:
+  - on windows 0–9 of returning sessions the package emits v6.1's chain, where dev emits v5.1b's shadow;
+  - a session recognised after window 20 has had refits on v6.1 labels before recognition (none in the public data,
+    all recognised at window 10).
+
+| Package | ZIP SHA-256 | Bytes | Official local replay |
+|---|---|---|---|
+| v6.2 switch off (`cand_v62_r0`, check only) | `8ee5600eab15243af57953a875a5e0f5b2edf3b4c3bbbf47a8a7cb4b0006b38f` | 66,739,734 | 0.9932767697 (= v5.1b), files unchanged, 90.6 s |
+| **v6.2-safe** (`cand_v62_r1`) | `f965ffc1c29abb0db9b52c3149ec26063dc5346f57311b78edd8156564214823` | 66,739,731 | **0.9945788530**, files unchanged, 100.9 s |
+| **v6.2** (`cand_v62_r2`) | `5d4bb3a01a526ae9ac03d92410828667c1b79e57fc99525af391a83913263161` | 66,739,739 | **0.9945788530**, files unchanged, 892.7 s on the Mac CPU (fine-tuning on every session: 17 refits per session, errors 0) |
+
+Dev in the package's form (explore track; returning people P04 / P10 against routed v5.1b, within 0–7): v6.2 (ERF s15)
+**+0.89** (P10 > 0 on 8 of 8, min +0.10); v6.2-safe (ER) **+0.65**, positive on all 12 orders. Under full/runs, ER is
+positive on all four orders; ERF loses only P04 on full 0 (−0.89). New people as v6.1 (+1.49 within 0–7).
+
+| Check (v6.2) | Where | Result |
+|---|---|---|
+| (a) Switch off = v6.1, gates as shipped | Mac CPU, `v6_compare.py`, all 14 sessions, unzipped from `8ee5600e` vs `2ca06dc0` | **bitwise equal** on 2,655 windows (max 0.0) |
+| (a) Switch off = v6.1, gates forced off | Leonardo CPU 64428710 | pending |
+| (a) Routed set and first routed window = v5.1b | construction: recognition is v5.1b's own gate decision; every check session recognised at window 10 in both | by construction |
+| v6.2 / v6.2-safe = v6.1 before recognition | Mac CPU smoke | bitwise on windows 0–9 |
+| (b) Routed path against references | `scripts/check_v62.py` (v5 tree's Tail and Route with the eye columns, mix formula, eye, FT with the relabelled labels); CPU and A100 with package shapes, recording / within\|0 / full\|0 | v6.2-safe: Leonardo 64428710 (CPU), 64428711 (A100); v6.2: after its ZIP reaches Leonardo |
+| Worst-case run time | Leonardo 64424648, A100, on the package directories (ZIP rerun pending) | v6.2: gates off ×1.923 / ×2.233, as shipped ×1.918 / ×2.168 → **worst about 49.0 min** with warm-up, expected (43 % recognised) about 42 / 48 min. v6.2-safe: gates off ×1.894 / ×2.205, as shipped ×1.316 / ×1.261 → **worst about 48.4 min**, expected about 31 / 40 min |
+
+## v6.2g: fine-tuning cost guards (14 Nov)
+
+v6f, v6.1 and v6.2 have **no guard** on fine-tuning cost, which grows with the square of session length. The sealed
+sessions' lengths are unknown, so v6.2g adds two guards (`lean/src62g` → `submissions/lean_v62g`; v6.2's bundle and
+ZIPs untouched):
+- **per-session cap** `v6_ft_cap` = 400: no refit starts once the prefix exceeds 400 windows, and the last fine-tuned nets
+  keep predicting at batch-1 cost. Inert for sessions up to 400 windows; our longest check session has 378.
+- **process wall-clock budget** `v6_ft_budget_s` = 2700 (45 min): a module-level clock set at `load_model`, untouched by
+  the evaluator's per-session deep copy. Once exceeded, no refit starts and every later window uses the frozen nets
+  (no FT swap); one stderr line per process says so.
+
+The budget gives a tolerance. With the frozen path at about 1.3× v5.1b (v6.2) or 1.15× (v6.2-safe, unrecognised) and
+v5.1b's real 21.45 min, the run still finishes inside 60 min:
+- v6.2: if the fine-tuning path runs at up to 4.5× v5.1b (2.2× measured), or the whole worker is up to 1.48× slower
+  than the A100 measurements;
+- v6.2-safe: up to 5.35×, or 1.56×.
+With 3000 s the limits would be 3.6× / 1.40×. In the expected case v6.2 (about 42–48 min) trips the budget near the
+end: about the last 7 % of the stream, some 7 of 106 sessions, runs without fine-tuning. v6.2-safe trips only in its
+worst case.
+
+Smoke (Mac CPU, one session, 75 windows):
+- cap 50: bitwise equal to the unguarded run through window 59, then no refit (2 skipped), errors 0;
+- budget ≈ 0: bitwise equal to the fine-tuning-off package on all windows, stderr line printed once.
