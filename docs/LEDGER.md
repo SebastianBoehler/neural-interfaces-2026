@@ -2133,3 +2133,17 @@ Smoke (fold P01 only, 20 steps): on the chain's output, P01 +1.6, the other peop
 | Learned stage on the chain's output, against the chain | −0.5 (−3 to +0.8); §70 gave −11 |
 | Product with the chain | 0.0 (−1.5 to +0.8) |
 | **Bar** | A third form is queued if the stage on the chain's output, or its product, is ≥ +0.3 new with the 80 % person interval above 0, or if the stage alone on the mix comes within 2 points of the hand-built stages. Otherwise the basis fix alone does not rescue this model, and the record says that, not that learned stages fail |
+
+| §140 PKG2 item (13 Nov 01:00 UTC; `runs/pkg2_13nov.log`; six bases; seen read as P04 and P10) | Observed | Verdict |
+|---|---|---|
+| Routing | all 762 seen rows and none of the 2,655 new rows routed, on every base | as before |
+| FO (FT + OCU) against T1 | **new +0.86, 80 % [+0.31, +1.42], 7 of 10, without P10 +0.55**; seen +0.01 (P04 +0.19, P10 −0.18; bases −0.68 to +0.37); J +0.43 | Hit (+0.75): **new counts by the rule**; seen unresolved (prediction 0.0) |
+| **FOR (FT + OCU + REST)** against T1 | **new +1.08, 80 % [+0.62, +1.51], 8 of 10, without P10 +0.83**; seen +0.61 (P04 +0.16, P10 +1.07; bases +0.11 to +1.03); **J +0.85** | Hit (+0.95 / +0.3): **new counts**; seen positive on all six bases but P04 only +0.16, so unresolved by the rule. **The v4.1 path reverses §130b's verdict: REST does not cost returning people here** |
+| F, O, R alone against T1 | new +0.46 (without P10 +0.12) / +0.14 / +0.34; seen 0.00 / +0.01 / +0.05 | singles are small; the stack is where the gain is |
+| **Personal nets, package form** (T1 against T1b, routed tail from the first routed window) | **seen −0.36 (P04 −0.78, P10 +0.06; bases −0.77 to −0.12)** | Prediction −0.1 (−0.5 to +0.3): hit. Unresolved by the rule (P04 and P10 disagree), **but negative on all six bases and −0.78 for P04**. The dev form (T1w against T1b) is −0.42 here as well: with this harness's twins neither form gains |
+
+**Reading.** In the package's own chain, the new-people stack (FT + eye-net view + rest member) gives +1.08 for new
+people, +0.83 without P10, with an 80 % person interval of +0.62 to +1.51. Returning people do not lose from it (+0.61,
+positive on every base, but unresolved). This is now the strongest measured design input. The personal nets of v5.2 do not
+gain in package form, and they cost P04 about 0.8 here. The fresh-seed run of this replay (job 64325439) and the
+§113/§135 replications of the fine-tuning decide the next candidate after the window.
