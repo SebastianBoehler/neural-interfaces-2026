@@ -28,7 +28,7 @@ def seeds(pat, p):
     return np.mean([load(pat.replace("SEED", str(s)), p, 1) for s in FTS], 0)
 
 
-print(f"stacklib: FT from {D6} {FPX} seeds {list(FTS)}; OCU seeds {os.environ.get('OCU_SEEDS', '0,1,2')}; chain A.system (routing v3 dev chain)", flush=True)
+print(f"stacklib: FT from {D6} {FPX} seeds {list(FTS)}; OCU seeds {os.environ.get('OCU_SEEDS', '0,1,2')}; chain A.system (routing v3 dev chain); REFERENCE: a study twin base, NOT v5.1b as uploaded (use pkg.py arms against P0)", flush=True)
 for a in SLOT:
     fr = {p: seeds(f"{D6}/{FPX}_{a}_base-PROTO-sSEED.npz", p) for p in PR}
     cu = seeds(f"{D6}/{FPX}_{a}_cum10-all_loso-sSEED.npz", "all_loso")

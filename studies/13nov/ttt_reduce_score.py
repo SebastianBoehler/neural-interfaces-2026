@@ -18,7 +18,7 @@ PFX = os.environ.get("PFX", "ttt5"); VARS = os.environ.get("VARS", "fixA,fixS,fi
 FORMS = os.environ.get("FORMS", "all6,delta1,delta2,one6").split(",")
 _a, _b = (int(x) for x in os.environ.get("SEEDS", "0-5").split("-")); SEEDS = list(range(_a, _b + 1))  # six seeds per run, e.g. SEEDS=6-11
 assert len(SEEDS) == 6, f"SEEDS must name six seeds (the forms assume six), got {SEEDS}"
-print(f"scoring {D} prefix {PFX} seeds {SEEDS} in A.system (routing v3 dev chain, not the shipped v4.1/v5 chain)", flush=True)
+print(f"scoring {D} prefix {PFX} seeds {SEEDS} in A.system (routing v3 dev chain, not the shipped v4.1/v5 chain); REFERENCE: the same run's frozen study nets, NOT v5.1b as uploaded", flush=True)
 ARCHS = sorted({os.path.basename(f).split("_")[1] for f in glob.glob(f"{D}/{PFX}_*_base-all_loso-s*.npz")})
 assert sorted(ARCHS) == sorted(SLOT), f"families found in {D}: {ARCHS} (need all four; nothing scored)"
 
