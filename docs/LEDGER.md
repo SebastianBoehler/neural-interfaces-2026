@@ -1903,3 +1903,7 @@ reference is §108/§131 on the same seeds 0–5.
 | true labels, cum10 / fixA | +2.0 (+1.0 to +3.0) / +2.2 (+1.2 to +3.2) |
 | stack labels, cum10 | +0.55 (+0.30 to +0.80); v3 labels +0.46 |
 | **Bar** | true-label cum10 ≥ +1.5: label quality is the lever, and it gets several more forms (iterated rounds, per-session label filtering). Stack labels ≥ +0.10 over v3 labels on ≥ 5 of 6 bases: a round-3 label refresh is queued on 13 Nov. True-label gain < +1.0: the recipe, not the labels, limits fine-tuning |
+
+**§137 addendum (13 Nov 00:31 UTC, before any TTT9 result):** wave 2 (`scripts/cloud/night13b.sh`, arrays 64324823
+and 64324824, held until wave 1's TTT9 arrays end) repeats TTT9 on fresh seeds 6–11 (`runs/night13/ttt9_*_s6-11.txt`).
+The bar of §137 is read on both seed sets; a label effect counts only if it holds on both.
