@@ -284,7 +284,7 @@ same procedure without the candidate. Null: a duplicate of an existing family as
 | Candidates with a nested gain ≥ +0.8 and above the null | 1 (0–3) of about 30 |
 | Lever | such a candidate that repeats on the other seed sets goes into a rebuilt mix |
 
-### 70. SEQ: a learned sequence stage as a second design (code `studies/12nov/seqstage.py`)
+### 70. SEQ: a learned sequence stage as a second design (code `studies/12nov/seqstage.py`) [review 13 Nov: confounded: fold-specific PCA bases pooled; withdrawn [§140]]
 
 A small causal recurrent model reads, window by window, the mix's log posterior, the 128 components and the 48
 gaze and event features of a session and outputs the class; trained on the other nine people with random
@@ -359,7 +359,7 @@ Verdict: **lever met for the fb recipe** (≥ +0.5 with the interval above 0 on 
 pattern), every FBCNet arm is positive at λ 0.15, the gain grows with λ, and P04 gains 2–3 points. λ 0.15 is the edge of
 the tried range and was picked after seeing it: the confirmation below fixes it in advance.
 
-### 73. NETVIEW2: confirmation on fresh nets, after the full routed chain (written 12 Nov 10:10 UTC, before any result; code `studies/12nov/netview2.py`; Galvani packs 3091329, 3091330)
+### 73. NETVIEW2: confirmation on fresh nets, after the full routed chain (written 12 Nov 10:10 UTC, before any result; code `studies/12nov/netview2.py`; Galvani packs 3091329, 3091330) [review 13 Nov: seen/J are routing v3 (A.system), not v4.1 [§140]]
 
 Fixed arm: the fb recipe's classifier input exactly as stored by `netemb.py` (64 components fitted inside the fold on
 four training sessions, no further rotation), second TSEM at λ 0.15 applied **after the full v4.1 replay chain with
@@ -437,7 +437,7 @@ random views, and §72's "every FBCNet arm positive" is the evidence that matter
 plain stage strength (λ 0.15 → 0.20) is worth as much as any view so far on B2_pool. By the addendum, the net view
 must reach the better null + 0.25, i.e. about +0.89 on B2_pool and +0.55 on B2_s345.
 
-### 75. LAMS: is the session stage too weak? (written 12 Nov 10:21 UTC, before any result; code `studies/12nov/lams.py`)
+### 75. LAMS: is the session stage too weak? (written 12 Nov 10:21 UTC, before any result; code `studies/12nov/lams.py`) [review 13 Nov: seen/J are routing v3 (A.system), not v4.1 [§140]]
 
 §73's null (ii) found TSEM λ 0.20 worth +0.64 / +0.30 for new people on two bases. λ 0.15 was set on 6 Nov, before
 routing, the identity gate and SessionBN reweighting. Test: the full routed v4.1 replay at λ 0.12, 0.15, 0.20, 0.25,
@@ -549,7 +549,7 @@ potentials, and in exactly those families P04 runs against the population (slow 
 P04-like people, from our nine training people, is closed in feature space as well as in model space (§67).
 The P05 swap is a second kind of person difference (a class relabelling in alpha); the chain already reads P05 at 80.5.
 
-### 78. PNET: personal nets on top of the v5.1 stage, six bases (written 12 Nov 10:38 UTC, before any result; code `studies/12nov/pnet.py`)
+### 78. PNET: personal nets on top of the v5.1 stage, six bases (written 12 Nov 10:38 UTC, before any result; code `studies/12nov/pnet.py`) [review 13 Nov: personal nets from window 0 in both tails, not the package form [§140]]
 
 **Why.** User, 12 Nov: build the personal-net component of the returning branch now (no package). Dev evidence so far
 is on two bases and partly in older forms (§40 in-slot, §43 dose). Test in the exact v5.1 form: the five net families
@@ -1340,7 +1340,7 @@ Reading: augmented-input fine-tuning with the consistency term is a small, *repl
 of cells. It misses the pre-set bar by 0.03–0.04 and costs 20–40 minutes of runtime per sealed run; under §52 it is
 recorded as "positive, small, replicated, not built". A package would run it only on sessions the gate does not route.
 
-### 105. Sealed expectation for v5.2 over v5.1b (written 12 Nov 21:43 UTC, before any upload of v5.2 is discussed)
+### 105. Sealed expectation for v5.2 over v5.1b (written 12 Nov 21:43 UTC, before any upload of v5.2 is discussed) [review 13 Nov: its dev basis (§78/§119) is not the package form [§140]]
 
 Inputs: upload 5 measured v5.1b − v4.1 = +0.361 (0.8197668759); with the assumed cohort (106 sessions, 46 returning,
 3 of them P04's) the non-P04 returning sessions gained about +0.6 each, while the within-session proxy had promised
@@ -1686,7 +1686,7 @@ Reading: the 1–2 points of per-session head-room (§76, §117, §118) are invi
 60 windows, hand-made or learned. On average every alternative weighting loses, and nothing in the early outputs
 separates the sessions where one wins.
 
-### 119. RETSTACK (explore → design input): the returning-people stack at stage strength 0.15 (written 12 Nov 23:26 UTC [date corrected 13 Nov: it read 13 Nov], before any result)
+### 119. RETSTACK (explore → design input): the returning-people stack at stage strength 0.15 (written 12 Nov 23:26 UTC [date corrected 13 Nov: it read 13 Nov], before any result) [review 13 Nov: personal nets from window 0 in both tails; package form ≈ −0.05 [§140]]
 
 The returning block is the one lever measured on the sealed set. Two of its parts were tested apart: personal nets
 (v5.2) and a stronger stage (§111: β 0.15 ahead on the proxy, P10 −0.11 on real later sessions). Here together, so the

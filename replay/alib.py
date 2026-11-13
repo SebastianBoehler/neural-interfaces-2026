@@ -85,8 +85,12 @@ def route(mixes, shadows, a, oof, c1=None):
     return outs, nr["all_loso"], nr["seen_session"]
 
 
+PATH = "A.system: routing v3 with the gate refit on the arm's own outputs; its seen and J are NOT v4.1 (review 13 Nov, ledger s140)"
+
+
 def system(bn, fams, extra=(), wscale=None, routing=True, slot="c1"):
-    """-> dict(out={proto: final}, pre={proto: TSEM input}, nnew, nseen)."""
+    """Not the uploaded chain for seen people: see PATH; use studies/13nov/pkg.py (route4 + stage, gate fixed) for seen and J.
+    -> dict(out={proto: final}, pre={proto: TSEM input}, nnew, nseen)."""
     mixes, sh, pre, a = {}, {}, {}, 0.0
     for p in PROTOS:
         mixes[p], a = mix(bn, p, fams, extra, wscale, slot); pre[p], sh[p] = shadow(mixes[p], p)

@@ -23,8 +23,9 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 - **Compute:** Leonardo (`cineca-leonardo`); the user lifted any cap ("use as much compute as needed"); keep GPUs busy
   with parallel waves, also overnight. Galvani is unreachable until the user logs in with 2FA; the worker image lives
   there, so worker-image replays are missing for everything built since 12 Nov.
-- **Measured stack, not built (13 Nov):** personal nets for returning people (v5.2 / v5.2b, about +0.2 sealed expected,
-  ledger §105) and in-session fine-tuning for new people (+0.46 dev in its warm-start form, §108; mostly P10 as a
+- **Measured stack, not built (13 Nov):** personal nets for returning people (v5.2 / v5.2b; in package form, swapped in
+  only after the gate routes, their dev support is about zero, so the §105 expectation of +0.2 no longer has dev
+  evidence behind it [§140]) and in-session fine-tuning for new people (+0.46 dev in its warm-start form, §108; mostly P10 as a
   new person: +0.12 for the other nine, §139). Together about
   0.823 to 0.825 sealed if they transfer as the last two uploads did; 0.826 to 0.827 at best. Nothing measured so far
   reaches 0.830.
@@ -180,21 +181,26 @@ Code: `submissions/ensemble_v5b/submission.py`, `scripts/add_own_stage.py`, `scr
 `scripts/check_perm_stage.py`; study code `studies/12nov/ownspace.py`, `v5_replay.py`.
 
 **Measured, not uploaded:**
-- **Personal nets for returning people (v5.2 / v5.2b):** on real later sessions +0.17 to +0.25 over the stage; with a
-  stronger stage (β 0.15) +0.55 seen over that stage alone, P10 +0.28, six of six bases [§78, §119]. Sealed
-  expectation +0.20 (−0.10 to +0.50) [§105]. Built and checked on GPU; no worker-image replay.
+- **Personal nets for returning people (v5.2 / v5.2b):** the dev numbers (+0.17 [§78], +0.55 with stage 0.15 [§119])
+  gave the nets to whole sessions from window 0 in both tails. In package form (only after the gate routes, routed
+  tail only) the reviewer measures −0.05 (P04 −0.10, P10 0.00) [§140]; PKG2 re-scores it on six bases [§140]. The
+  §105 expectation (+0.20) therefore has no dev evidence behind it. Built and checked on GPU; no worker-image replay.
 - **In-session fine-tuning for new people** (augmented inputs, consistency term, the chain's labels): +0.37 dev;
   warm-start form (each refit continues the previous one, 10 steps) +0.46 at half the cost; one or two fine-tuned
   nets per family keep +0.26 / +0.34 [§101, §106, §108]. "Six bases" adds nothing here (the scorers swap the slots
   that differ between bases; deltas correlate 0.83–0.99): the person interval for cum10 is −0.56 to +1.52 (95 %) and
-  P10 as a new person carries it (+3.5; the other nine +0.12) [§139]. Fresh-seed replications run on 13 Nov [§135]. It lowers returning sessions, so a
-  package runs it only where nobody is recognised. Cost on an A100: about 142 s per session for all 30 nets, 20 to
+  P10 as a new person carries it (+3.5; the other nine +0.12) [§139]. The cheapest form so far, gC5 (warm start,
+  5 steps every 10 windows, GPU-drawn augmentation), is +0.59 with an 80 % person interval of +0.04 to +1.14 and
+  +0.34 without P10 [§113]. Fresh-seed replications run on 13 Nov [§113, §135]. A package runs it only on sessions
+  the gate never routes (the gate routes no new-person window in the dev replay) [§138]. Cost on an A100: about 142 s per session for all 30 nets, 20 to
   39 s for the reduced forms [§107].
-- **Small positives, combined (13 Nov):** fine-tuning, eye-net view, rest member, mix exponent and PLS view stack:
-  together +0.86 new, without PLS +1.13 (95 % person interval +0.45 to +1.85; the nine people other than P10 +0.86)
-  [§130, §139]. In the package's own chain (v4.1 routing + stage, gate fixed) fine-tuning + eye-net view is J +0.58 on
-  the same nets: new +0.72, seen +0.43 (the eye-net view helps returning people too) [§138]; fresh-seed checks run
-  on 13 Nov [§136, §138]. Not yet combined: personal template prior (+0.19) [§19]; slot weight 4.5 (+0.12) [§22].
+- **Small positives, combined (13 Nov):** fine-tuning, eye-net view, rest member, mix exponent and PLS view stack for
+  new people: together +0.86, without PLS +1.13 (95 % person interval +0.45 to +1.85; the nine people other than
+  P10 +0.86) [§130, §139]. Their seen columns came from `A.system` (routing v3, gate refit on the arm's outputs) and do
+  not hold on v4.1, so the §130b seen verdicts ("REST costs seen") are withdrawn; seen is unresolved [§140]. The
+  package-form replay (PKG2: v4.1 routing + stage, gate fixed, personal nets only after routing) re-scores FT, OCU and
+  REST together on six bases [§140]. Not yet combined: personal template prior (+0.19, possibly over-scaled [§140])
+  [§19]; slot weight 4.5 (+0.12) [§22].
 
 **The next candidate** is decided after the research window. Candidates for its parts: v5.2b, the stronger stage, the
 fine-tuning for unrecognised sessions, and whatever the stacking test supports.
