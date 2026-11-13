@@ -31,10 +31,17 @@ def teacher(X):
 
 T = {"t7c": teacher(heads(REPO + "/runs/tsch/heads.npz", "m7c", range(6))), "m7c2": teacher(heads(REPO + "/runs/teach/heads_m7c2.npz", "m7c2")),
      "cog1": teacher(heads(REPO + "/runs/teach/heads_cog1.npz", "cog1"))}
+for tg in [t for t in os.environ.get("TEACHERS", "").split(",") if t]:  # s149: e.g. TEACHERS=m7u,m8w (runs/teach/heads_<tag>.npz)
+    T[tg] = teacher(heads(f"{REPO}/runs/teach/heads_{tg}.npz", tg))
+print("TEACH3: A.system (routing v3 dev path), new people only; REFERENCE: the stored m7c teacher in that path, NOT v5.1b as uploaded (a screen)", flush=True)
 for k, P in T.items():
     A.EXTRA[k] = {p0: P, "seen_session": SHIP}; print(f"{k:5s} alone new {SC.person(P, p0).mean():.2f}", flush=True)
+    np.save(f"{REPO}/runs/teach/teacher_{k}_all_loso.npy", P)  # for pkg.py arms against v5.1b
 ARMS = {"ref": dict(teach=("t7c", 5.0)), "m7c2": dict(teach=("m7c2", 5.0)), "cog1_w1": dict(teach=("t7c", 5.0), add=[("cog1", 1.0)]),
         "cog1_w2": dict(teach=("t7c", 5.0), add=[("cog1", 2.0)]), "cog1_w05": dict(teach=("t7c", 5.0), add=[("cog1", 0.5)])}
+ARMS.update({f"{tg}_w{w}": dict(teach=(tg, float(w))) for tg in T if tg not in ("t7c", "m7c2", "cog1") for w in (3, 5, 7)})
+if os.environ.get("TEACHERS"):  # only the new teachers' arms (and the reference)
+    ARMS = {k: v for k, v in ARMS.items() if k == "ref" or k.split("_w")[0] in os.environ["TEACHERS"].split(",")}
 CTX = {"shipped": ((), True), "FT+OCU+REST": (("FT", "OCU", "REST"), False)}
 R = {}
 for bn in BASES:
