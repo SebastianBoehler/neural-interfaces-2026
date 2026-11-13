@@ -65,3 +65,14 @@ studies of 11 Nov or any current document. Everything is in git history; `git sh
 
 Kept on purpose although old: `scripts/sealed_r19.json`, `sealed_r19e.json`, `sealed_r9.json`, `sealed_r6nf.json` and two
 warm-up configs (referenced by the upload log, the build script or the competition notes).
+
+## Code removed on 13 Nov 2026
+
+Study scripts of closed 11 Nov directions that nothing imports, runs or builds from any more (`git show fc5f497:<path>`
+recovers a file; the ledger sections that cite them are unchanged):
+`experiments/core_scherer.py` (§21), `forget_ref.py` (§20), `pers_proxy.py` (§15), `pers_variants.py` (§17),
+`wsp_build.py`, `wsp_core.py`, `wsp_gains.py` and the finished Weco task `.weco/wsp-core1/` (§13), and
+`scripts/add_session_em.py` (the R19 package step of 30 Oct). The reachability check of that day found every other
+tracked code file either live, touched within 30 hours or named by a running job, so nothing else was removed while
+the overnight jobs ran.
+
