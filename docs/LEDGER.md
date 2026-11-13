@@ -3128,7 +3128,7 @@ Scoring: `shufcombo.py` (written next). New people, with members and stages in t
 Prediction: v5.1b, full, members re-streamed on top of §164's stage loss: −0.5 (−1.5 to +0.2). The combination's gain
 over v5.1b under full shuffle: +0.4 (−0.2 to +0.9), against +0.75 to +1.00 in recording order.
 
-| §166 RETUNE (13 Nov 10:07 UTC; `runs/night13/retune_*.npz`, `select_retune.py`; new, B2_pool and B2_s345; shuffled = mean of full, runs and within, two permutations each) | Held-out half: shuffled / recording order | Verdict |
+| §166 RETUNE (13 Nov 10:06 UTC; `runs/night13/retune_*.npz`, `select_retune.py`; new, B2_pool and B2_s345; shuffled = mean of full, runs and within, two permutations each) | Held-out half: shuffled / recording order | Verdict |
 |---|---|---|
 | half 0 chooses #8 (SessionEM n0 20, TSEM λ 0.30) | −0.02 / −0.02 | no gain |
 | half 1 chooses #97 (cumulative rebalancing, TSEM n0 20) | +0.16 / **−0.91** | no gain under shuffle, a cost in recording order |
