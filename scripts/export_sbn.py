@@ -48,8 +48,12 @@ def span(s):
     return list(range(int(lo), int(hi or lo) + 1))
 
 
-def trained(cfg, d, seed, ckpt_dir):
+def trained(cfg, d, seed, ckpt_dir, train=False):
+    """The cached net CKPT_DIR/<cfg>-s<seed>.pt; a missing checkpoint is trained anew only with train=True (review 13 Nov:
+    a silent retrain gave the personal nets of s96 a twin base that their guard could not see)."""
     f = ckpt_dir / f"{cfg}-s{seed}.pt"
+    if not f.exists() and not train:
+        raise FileNotFoundError(f"{f}: no checkpoint; pass train=True (export_sbn.py --train-missing) to train a new net")
     m = make(cfg, d, seed)
     if f.exists():
         ck = torch.load(f, map_location="cpu", weights_only=False)
@@ -88,6 +92,7 @@ def main():
     ap.add_argument("--extra", action="append", default=[], help="CFG:DROP:KS, e.g. fbcnet_raw_sbn:15-19:20")
     ap.add_argument("--ref-labels", action="append", default=[], help="NAME=PATH of a *_harness.npz (key new)")
     ap.add_argument("--ckpt-dir", type=Path, default=ROOT / "runs/sbn")
+    ap.add_argument("--train-missing", action="store_true", help="train nets whose checkpoint is missing (otherwise fail)")
     a = ap.parse_args()
     torch.set_num_threads(int(os.environ.get("NI26_TORCH_THREADS", "4")))
     seeds = span(a.seeds)
@@ -118,7 +123,7 @@ def main():
         gr = res["groups"][pre] = {"cfg": cfg, "arch": arch, "dropped_nets": drop, "ks": ks,
                                    "group_weight": float(w[[1 + i for i in drop]].sum()), "members": {}}
         for s in seeds:
-            nets[pre, s], gr["members"][f"s{s}"] = trained(cfg, d, s, a.ckpt_dir)
+            nets[pre, s], gr["members"][f"s{s}"] = trained(cfg, d, s, a.ckpt_dir, train=a.train_missing)
             print(pre, "net", s, gr["members"][f"s{s}"], flush=True)
 
         # train-time input (EA or raw scale) == the package's input stream for these nets
