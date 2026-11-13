@@ -2208,3 +2208,39 @@ Label files (B2_pool dev chain):
 | agree | +0.50 (+0.10 to +0.90); without P10 +0.25 |
 | truelow (oracle) | +1.4 (+0.8 to +2.0); without P10 +1.0 |
 | **Bar** | A label-free source counts if, without P10, it is ≥ +0.30 on both seed sets: then it replaces the v3 labels in the fine-tuning recipe. truelow ≥ +1.0 without P10 means the ceiling sits in the hard windows, and the next forms aim there (labels on low-confidence windows from the independent members only) |
+
+| §141 item (13 Nov 02:23 UTC; Leonardo `runs/night13/seq2.txt`; B2_pool / B2_s345, new) | Observed | Verdict |
+|---|---|---|
+| Learned stage alone on the mix | 67.6 / 68.4, against 80.2 / 80.1 hand-built (the mix is 70.8 / 70.5) | **Miss** (75 predicted): still below the mix itself |
+| On the chain's output, against the chain | −8.0 / −8.8, 0 of 10 people | **Miss** (−0.5 predicted) |
+| Product with the chain | −3.7 / −4.0 | Miss |
+
+**Reading.** The basis fix did not rescue this model: in a fold-consistent basis it still loses 8–12 points, almost
+as in §70. What fails is therefore this architecture or its training (attention over the session's windows,
+trained with true labels on nine people, 400 steps), not only the basis. Per §141's rule the record says this form
+fails; it does not say learned stages fail. A third form would need a different inductive bias (e.g. learning only the
+parameters of the hand-built stages, per session type) and is not queued tonight.
+
+### 143. Night wave of 13 Nov 02:25 UTC: fresh seeds for the stack's non-fine-tuning members (written before any job ran)
+
+Since fine-tuning's share of the stack is a P10 effect (§135), the stack's gain for the nine other people rests on the
+eye-net view (OCU) and the rest-class member (REST). Both have three seeds so far (OCU nine since §134).
+- **OCU seeds 9–17** (`ocunet.py` nomix, tasks 19–35 odd; already smoke-tested on Leonardo).
+- **REST seeds 3–8**: the rest windows (`data/proteus_windows_start-4.5.npz`) exist only on Galvani, so a serial job
+  rebuilds them with the official pipeline (`scripts/export_windows.py -4.5`). A debug smoke of `rest4.py` follows, then
+  rest4 shallow r1 and c3 at seeds 3–8 (tasks 21, 22, 27, 28, …, 51, 52).
+- **PKG3, fresh everything**: the package-form replay (§140 arms) with FT seeds 6–11, OCU seeds 9–17 and REST seeds 3–8,
+  none used in any choice (`runs/night13/pkg_fresh2.txt`). REST seeds are now named explicitly in `stacklib.py` and
+  `pkg.py`, as OCU's are.
+
+| Check (PKG3, against T1, six-base mean; read without P10) | Prediction (80 % range) |
+|---|---|
+| FO new / FOR new | +0.70 (+0.25 to +1.15) / +0.90 (+0.45 to +1.35); without P10 +0.45 / +0.65 |
+| FOR seen | +0.3 (−0.4 to +1.0) |
+| **Bar** | The new-people stack (FT+OCU+REST) is the design input for the build after the window if FOR's new gain without P10 is ≥ +0.40 with its 80 % person interval above 0 on these fresh seeds |
+
+Not tonight, with reasons:
+- The teacher line: the corpora are not on Leonardo and Galvani needs the user's 2FA.
+- MixStyle and EEGNeX retests: low ceilings on the record and new code; they are next after the high-ceiling work.
+- Self-supervised training on the rest runs: not specified yet.
+- The fine-tuning line: its next form waits for TTT12's labels, which are scoring now.

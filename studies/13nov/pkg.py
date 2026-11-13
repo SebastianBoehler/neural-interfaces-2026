@@ -28,12 +28,13 @@ def load(pat, p, n=1):
 
 PF = REPO + "/runs/ttt/probs_pf"; T6 = REPO + "/" + os.environ.get("FT_DIR", "runs/ttt/probs6"); FPX = os.environ.get("FT_PFX", "ttt6")
 _a, _b = (int(x) for x in os.environ.get("FT_SEEDS", "0-5").split("-")); FTS = range(_a, _b + 1); OCS = os.environ.get("OCU_SEEDS", "0,1,2").split(",")
-print(f"pkg: FT {T6} {FPX} seeds {list(FTS)}; OCU seeds {OCS}; chain route4 max t10 + own-space stage (v4.1/v5), gate fixed from P0", flush=True)
+print(f"pkg: FT {T6} {FPX} seeds {list(FTS)}; OCU seeds {OCS}; REST seeds {os.environ.get('REST_SEEDS', '0,1,2')}; chain route4 max t10 + own-space stage (v4.1/v5), gate fixed from P0", flush=True)
 PN = {(a, v): load(f"{PF}/pft_{a}_{v}-seen_session-s*.npz", "seen_session", 3) for a in SLOT for v in ("base", "pfh60")}
 FR = {a: {p: np.mean([load(f"{T6}/{FPX}_{a}_base-{p}-s{s}.npz", p) for s in FTS], 0) for p in PR} for a in SLOT}
 CU = {a: {p: np.mean([load(f"{T6}/{FPX}_{a}_cum10-{p}-s{s}.npz", p) for s in FTS], 0) for p in PR} for a in SLOT}
 OC = {p: np.mean([load(f"{REPO}/runs/ocunet/probs/oc_nomix-{p}-s{s}.npz", p) for s in OCS], 0) for p in PR}
-A.EXTRA["rest"] = {p: load(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p}-s*.npz", p, 3) for p in PR}
+RSS = os.environ.get("REST_SEEDS", "0,1,2").split(",")  # explicit seeds, as OCU_SEEDS
+A.EXTRA["rest"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}
 REF = {p: Z[f"GE|{p}"].copy() for p in PR}; GEO = {p: np.c_[REF[p], np.log(np.clip(OC[p], 1e-3, 1))] for p in PR}
 SPEC = {"T0": dict(), "T1b": dict(pn="base"), "T1": dict(pn="pfh60"), "T1w": dict(pn="pfh60", w0=True), "F": dict(pn="pfh60", ft=True),
         "FO": dict(pn="pfh60", ft=True, ocu=True), "O": dict(pn="pfh60", ocu=True), "FOR": dict(pn="pfh60", ft=True, ocu=True, rest=True),

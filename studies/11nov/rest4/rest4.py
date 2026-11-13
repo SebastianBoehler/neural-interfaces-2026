@@ -8,8 +8,9 @@ Conditions: c3 (control: same code, no rest rows, 3 outputs), r1 (rest loss weig
 Usage: python rest4.py TASK (seed = TASK // 6, arch = ("fb", "sh")[(TASK % 6) // 3], cond = CONDS[TASK % 3]) | python rest4.py smoke
 """
 import sys, time
+import os
 from pathlib import Path
-WS = Path("/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026")
+WS = Path(os.environ.get("NI26_WS", Path(__file__).resolve().parents[3]))
 sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]
 import numpy as np  # noqa: E402
 import torch  # noqa: E402

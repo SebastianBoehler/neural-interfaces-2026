@@ -35,7 +35,8 @@ for a in SLOT:
     assert np.abs(cu - fr["all_loso"]).max() > 1e-3, f"{a}: cum10 equals frozen (no-op)"
     A.EXTRA[f"{a}_fr"] = fr; A.EXTRA[f"{a}_ft"] = {"all_loso": cu, "seen_session": fr["seen_session"]}
 # REST: rest-as-fourth-class ShallowConvNet as an extra member
-A.EXTRA["rest"] = {p: load(REPO + "/runs/rest4/probs/rest4_sh_r1-PROTO-s*.npz", p, 3) for p in PR}
+RSS = os.environ.get("REST_SEEDS", "0,1,2").split(",")  # explicit seeds, as OCU_SEEDS
+A.EXTRA["rest"] = {p: np.mean([load(REPO + f"/runs/rest4/probs/rest4_sh_r1-PROTO-s{s}.npz", p, 1) for s in RSS], 0) for p in PR}
 # OCU: eye-net log posteriors appended to SessionEM's GE view
 OCS = os.environ.get("OCU_SEEDS", "0,1,2").split(",")  # explicit seeds: new seed files must not change old results silently
 OC = {p: np.mean([load(REPO + f"/runs/ocunet/probs/oc_nomix-PROTO-s{s}.npz", p, 1) for s in OCS], 0) for p in PR}
