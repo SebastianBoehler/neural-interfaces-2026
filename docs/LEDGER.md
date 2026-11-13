@@ -4663,3 +4663,13 @@ SingularityPRO 4.3.1 runs a prebuilt one. Galvani's `runs/cloud/ni26_worker.sif`
   ×1.3 is reported and sent to the worst-case run-time row; it does not fail the check.
 - **Also (s202):** `retv6.py` wrote every run to `runs/retv6.npz`, so runs with other settings overwrote each other (gate a/b).
   It now writes `runs/retv6/<gate>_<form>_<sfx>_<proto>_<orders>.npz`. Smoke: within 7 gate-unchanged must reproduce s201's row.
+- **s202 (22:50 UTC): table builder** `studies/13nov/morning_table.py` (new people from runs/leo_npz, v6f L and v6.1 KF from the
+  same machine; returning people from runs/retv6/g1_s15_QF_*).
+  - Pairing found: v5.1b's P0r is not identical across FT runs of one order. P0r takes the no-FT re-stream from each FT job's
+    own base outputs (FR17), and GPU float noise moves it by up to 0.10 on one person (runs 0, within 1/7/8/10). Not an input
+    error: each file reproduces exactly on both machines. Each variant is now taken against its own P0r.
+  - Earlier cross-file comparisons (s200 subtracted v6f's V6Fr from the s15 file's) carry up to ±0.1 of that noise per person.
+  - New people (v6.2 = v6.1 here, no new person routed): within 0–11 v6f +1.24 [+1.07, +1.41], v6.1 +1.44 [+1.28, +1.60];
+    full 0/1 +0.94 vs +0.72 (P10 +1.64 vs +0.19); runs 0/1 +1.13 vs +1.21.
+- **Galvani worker jobs** 3099908/09 estimate 14 Nov 21:56 / 22:27 UTC. The cluster is full (5 of our GPU jobs running), and
+  `scontrol top` is not available there. The Leonardo image upload (8 chunks, about 0.6 MB/s) lands about 00:30 UTC.
