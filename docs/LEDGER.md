@@ -2550,3 +2550,15 @@ arms (replacing the teacher, weight re-chosen 3 / 5 / 7) in the shipped and FT+O
 | m7u replacing the teacher, best weight | +0.2 (−0.4 to +0.8) |
 | m10 replacing the teacher, best weight | +0.3 (−0.4 to +1.0) |
 | **Bar** | ≥ +0.30 in both contexts, with the gain without the best person ≥ +0.15 → a teacher candidate for the next package (only the map changes; trunks are traced as today's) |
+
+### 150. OR: the stack without fine-tuning (written 13 Nov 07:37 UTC, before any result; `pkg.py` ARMS=FOR,FO,OR, Mac, seed set of PKG2)
+
+Fine-tuning is the package's run-time cost (§107), and its own share of the stack is P10 (§135). But on sets B and C,
+REST alone was about 0 while FOR gained, so FT may matter through the combination. OR (eye-net view + rest member,
+no FT) has never been scored. Same replay and seeds as PKG2 (§140).
+
+| Check (against T1, six-base mean) | Prediction (80 % range) |
+|---|---|
+| OR new / seen | +0.35 (0.00 to +0.70) / +0.40 (−0.30 to +1.00) |
+| FOR − OR (what FT adds inside the stack), new | +0.70 (+0.30 to +1.10); without P10 +0.45 |
+| **Reading** | if FOR − OR without P10 is ≥ +0.30, FT earns its run time inside the stack and the package carries it on never-routed sessions; if < +0.15, the package ships OR and spends no run time on FT |
