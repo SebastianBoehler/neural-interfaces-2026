@@ -35,10 +35,12 @@ CU = {a: {p: np.mean([load(f"{T6}/{FPX}_{a}_cum10-{p}-s{s}.npz", p) for s in FTS
 OC = {p: np.mean([load(f"{REPO}/runs/ocunet/probs/oc_nomix-{p}-s{s}.npz", p) for s in OCS], 0) for p in PR}
 RSS = os.environ.get("REST_SEEDS", "0,1,2").split(",")  # explicit seeds, as OCU_SEEDS
 A.EXTRA["rest"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}
+A.EXTRA["restfb"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_fb_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}  # s144: the FBCNet rest-class net
 REF = {p: Z[f"GE|{p}"].copy() for p in PR}; GEO = {p: np.c_[REF[p], np.log(np.clip(OC[p], 1e-3, 1))] for p in PR}
 SPEC = {"T0": dict(), "T1b": dict(pn="base"), "T1": dict(pn="pfh60"), "T1w": dict(pn="pfh60", w0=True), "F": dict(pn="pfh60", ft=True),
         "FO": dict(pn="pfh60", ft=True, ocu=True), "O": dict(pn="pfh60", ocu=True), "FOR": dict(pn="pfh60", ft=True, ocu=True, rest=True),
-        "R": dict(pn="pfh60", rest=True)}
+        "R": dict(pn="pfh60", rest=True),
+        "FOR2": dict(pn="pfh60", ft=True, ocu=True, rest=True, restfb=True), "FORw2": dict(pn="pfh60", ft=True, ocu=True, rest=2.0)}  # s144
 
 
 def routing():  # -> rows from each routed session's first routed window on (RTW), rows of routed sessions (RTS), from the last route4 call
@@ -49,14 +51,14 @@ def routing():  # -> rows from each routed session's first routed window on (RTW
     return W, S
 
 
-def famswap(arrs, tag, rest):
+def famswap(arrs, tag, rest, restfb=False):
     fams, extra = list(A.FAMS), []
     for a, slot in SLOT.items():
         A.EXTRA[f"pk_{a}_{tag}"] = arrs[a]; fam = next(f for f, items in A.FAM.items() if any(k == slot for k, _ in items))
         if fam in fams:
             fams.remove(fam); extra += list(A.FAM[fam])
         extra = [(k, w) for k, w in extra if k != slot] + [(f"pk_{a}_{tag}", 1.0)]
-    return fams, extra + ([("rest", 1.0)] if rest else [])
+    return fams, extra + ([("rest", float(rest))] if rest else []) + ([("restfb", 1.0)] if restfb else [])
 
 
 def system(bn, arm, oof=None, RTS0=None):
@@ -70,7 +72,7 @@ def system(bn, arm, oof=None, RTS0=None):
             pf, pe = list(A.FAMS), []
         else:
             pop = {a: {p: np.where(RTS0[p][:, None], FR[a][p], CU[a][p]) if sp.get("ft") else FR[a][p].copy() for p in PR} for a in SLOT}
-            pf, pe = famswap(pop, arm + "_pop", sp.get("rest"))
+            pf, pe = famswap(pop, arm + "_pop", sp.get("rest"), sp.get("restfb"))
         mp, sh, a = {}, {}, 0.0
         for p in PR:
             mp[p], a = A.mix(bn, p, pf, pe); _, sh[p] = A.shadow(mp[p], p)
@@ -83,9 +85,9 @@ def system(bn, arm, oof=None, RTS0=None):
                     pop[k]["seen_session"][m] = PN[(k, sp["pn"])][m]
             if RTW["all_loso"].any():
                 print(f"   {arm}: {int(RTW['all_loso'].sum())} new rows routed (false accepts); no personal nets exist for them here", flush=True)
-            rf, re_ = famswap(rt, arm + "_rt", sp.get("rest"))
+            rf, re_ = famswap(rt, arm + "_rt", sp.get("rest"), sp.get("restfb"))
             if sp.get("w0"):  # dev form: the shadow (and so the gate's input) also sees the personal nets
-                pf, pe = famswap(pop, arm + "_pop", sp.get("rest"))
+                pf, pe = famswap(pop, arm + "_pop", sp.get("rest"), sp.get("restfb"))
                 for p in PR:
                     mp[p], a = A.mix(bn, p, pf, pe); _, sh[p] = A.shadow(mp[p], p)
             mr = {p: A.mix(bn, p, rf, re_)[0] for p in PR}
@@ -96,7 +98,7 @@ def system(bn, arm, oof=None, RTS0=None):
             Z[f"GE|{p}"] = REF[p]
 
 
-ARMS = ["P0"] + list(SPEC); R = {}
+ARMS = ["P0"] + [k for k in SPEC if k in ("T0", "T1") or not os.environ.get("ARMS") or k in os.environ["ARMS"].split(",")]; R = {}  # ARMS=FOR,FOR2 runs a subset (P0, T0, T1 always)
 for bn in BASES:
     out, oof = system(bn, "P0"); R[bn, "P0"] = out
     R[bn, "T0"] = system(bn, "T0", oof, {p: np.zeros(len(IDX[p]), bool) for p in PR})[0]; _, RTS0 = routing()  # T0 uses no FT, so its mask is unused
@@ -108,7 +110,9 @@ for bn in BASES:
     for k in ARMS:
         R[bn, k] = s[k]
 rng = np.random.default_rng(0)
-for ref, arms in (("T0", ARMS), ("T1b", ["T1", "T1w"]), ("T1", ["F", "O", "FO", "FOR", "R"])):
+for ref, arms in (("T0", ARMS), ("T1b", [k for k in ("T1", "T1w") if k in ARMS]), ("T1", [k for k in ARMS if k not in ("P0", "T0", "T1", "T1b", "T1w")])):
+    if ref not in ARMS or not arms:
+        continue
     print(f"\nagainst {ref}, six-base mean: new [person 80 %] people>=0, without the best | seen (P04, P10) [per-base range] | J")
     for k in arms:
         if k == ref:

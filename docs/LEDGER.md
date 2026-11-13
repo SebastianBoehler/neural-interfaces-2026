@@ -2261,3 +2261,15 @@ gaining as well (the rest member). Fine-tuning's own share is P10. Its true ceil
 needs correct labels on the hard half of the windows, and no label-free source tried tonight provides them. The
 high-ceiling question for fine-tuning is now narrow: where can correct labels for the hard windows come from? Not
 from the chain, not from independent members, not from iterated rounds.
+
+### 144. REST2 (exploit): more of the rest-class lever in the package chain (written 13 Nov 02:26 UTC, before any result; `pkg.py` ARMS=FOR,FOR2,FORw2, Mac, stored seeds 0–2; fresh FBCNet rest seeds 3–8 queued on Leonardo as array 64335969)
+
+The rest-class member carries the returning-people gain of the stack, and part of the new one (§140 fresh: R alone new
++0.50, seen +0.45, both P04 and P10 up). Two forms that may add: FOR2 adds the FBCNet rest-class net (rest4_fb_r1) as a
+second member; FORw2 doubles the shallow rest member's weight.
+
+| Check (against FOR, six-base mean, person terms) | Prediction (80 % range) |
+|---|---|
+| FOR2: new / seen | +0.15 (−0.20 to +0.50) / +0.10 (−0.40 to +0.60) |
+| FORw2: new / seen | +0.05 (−0.30 to +0.40) / +0.10 (−0.40 to +0.60) |
+| **Bar** | An arm replaces FOR in the design input if new without the best person is ≥ +0.20 over FOR and seen does not fall on both P04 and P10 |
