@@ -3127,3 +3127,17 @@ Scoring: `shufcombo.py` (written next). New people, with members and stages in t
 
 Prediction: v5.1b, full, members re-streamed on top of §164's stage loss: −0.5 (−1.5 to +0.2). The combination's gain
 over v5.1b under full shuffle: +0.4 (−0.2 to +0.9), against +0.75 to +1.00 in recording order.
+
+| §166 RETUNE (13 Nov 10:07 UTC; `runs/night13/retune_*.npz`, `select_retune.py`; new, B2_pool and B2_s345; shuffled = mean of full, runs and within, two permutations each) | Held-out half: shuffled / recording order | Verdict |
+|---|---|---|
+| half 0 chooses #8 (SessionEM n0 20, TSEM λ 0.30) | −0.02 / −0.02 | no gain |
+| half 1 chooses #97 (cumulative rebalancing, TSEM n0 20) | +0.16 / **−0.91** | no gain under shuffle, a cost in recording order |
+| best on all ten (#8, not nested) | +0.44 / +0.07; per permutation −0.49 to +1.15 | selection on the same people; the spread across permutations is as large as the gain |
+
+**Verdict: refuted (predicted +1.0, bar +0.5 nested).** Re-choosing the constants of the existing stages (rebalancing
+window and strength, SessionEM and TSEM λ and n0) does not recover the shuffle loss of §164. The loss is structural:
+the stages' running templates profit from local continuity in recording order, and no constant in this grid replaces
+it. **Also closed by this:** "cumulative rebalancing" and "longer memory" as the fix (half 1 picked cumulative
+rebalancing; it gains +0.16 held out and costs −0.91 in recording order). Next: forms built for an unordered session
+(whole-session iterative estimates instead of running ones, e.g. EM over all delivered windows at each step; an
+order-free session embedding), scored under the shuffled protocol from the start.
