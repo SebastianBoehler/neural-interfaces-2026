@@ -2437,6 +2437,6 @@ structure (montage, artefacts, session variation) is the cheapest stand-in for m
 | in the chain (slot 8 swapped) | +0.05 (−0.20 to +0.30): one family is one fifteenth of the mix |
 | **Bar** | the chain gain without the best person ≥ +0.10 with the person interval above 0 → SSL trunks for all four SessionBN families (a wave for each), then the stack; alone ≥ +1.5 with the chain flat → the trunk learns but one family cannot carry it, so the four-family wave goes anyway |
 
-| §145 C item (13 Nov 03:50 UTC; Leonardo `runs/night13/confhalf_s*.txt`; cum10 all6, new, against frozen) | Observed | Verdict |
+| §145 C item (13 Nov 03:48 UTC; Leonardo `runs/night13/confhalf_s*.txt`; cum10 all6, new, against frozen) | Observed | Verdict |
 |---|---|---|
 | CONFHALF (v3 labels, low-confidence half switched off), seeds 0–5 / 6–11 | **−0.32** (without P10 −0.59) / **−0.14** (without P10 −0.39); fixA −0.07 / −0.23 | **Refuted, below the range** (+0.20 predicted). Fine-tuning on the confident half only *hurts*; the hard half's labels carry fine-tuning's gain even though they are only 62 % right. Together with §142 (true labels on the hard half alone reach the full ceiling): fine-tuning learns from the hard windows. Removing their labels removes the signal, and correcting them gives +1.6 |
