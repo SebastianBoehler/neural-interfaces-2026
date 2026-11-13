@@ -2840,3 +2840,12 @@ Draws 2 and 3 are scoring. Nothing has passed the +0.15 bar on two draws; cog is
 **Incident:** `pkg.py` loaded the FBCNet rest net for every run, and its seeds stop at 8, so the set B/C replications
 (§150/§151, `v6_set{B,C}`) failed loudly on the missing seed-9 files. It now loads only for the arms that use it, and
 both are resubmitted (64361598, 64361599).
+
+| §153 MSTYLE screen (13 Nov 08:38 UTC; `focal_swap.py ARMS=ms05,ms10`, A.system; **reference: study twins, not v5.1b**) | New [80 % person], people ≥ 0 | Verdict |
+|---|---|---|
+| ms05 (MixStyle, probability 0.5) | −0.22 [−0.58, +0.10], 4 of 10; seen (v3 path) −0.38 | **Refuted** (prediction 0.0) |
+| ms10 (probability 1) | −0.55 [−0.90, −0.18], 1 of 10 | **Refuted** |
+
+**Reading.** On the SessionBN nets MixStyle hurts. Mixing feature statistics across windows works against SessionBN's
+own per-session normalisation. The screen is not passed, so it is not scored against v5.1b. The backlog item (gap 7,
+"MixStyle on SessionBN nets") is closed in this form on a valid test.
