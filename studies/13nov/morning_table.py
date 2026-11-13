@@ -57,8 +57,8 @@ for grp, D, np_ in (("new people (10)", new, 10), ("returning (P04, P10)", ret, 
         print(f"\n{grp}, {sch} {', '.join(o[len(sch):] for o in os_)} ({len(os_)} orders)")
         for v in VARS:
             M = np.array([D[o][v] for o in os_]); m = M.mean(1); lo, hi = ci(m) if len(m) > 1 else (m[0], m[0])
-            noP10 = np.delete(M, -1, 1).mean(); P10 = M[:, -1]
-            print(f"  {v:9s} {m.mean():+.2f} [{lo:+.2f}, {hi:+.2f}] | without P10 {noP10:+.2f} | P10 {P10.mean():+.2f} "
+            noP10 = np.delete(M, -1, 1).mean(); P10 = M[:, -1]; lab = "P04 alone" if np_ == 2 else "without P10"
+            print(f"  {v:9s} {m.mean():+.2f} [{lo:+.2f}, {hi:+.2f}] | {lab} {noP10:+.2f} | P10 {P10.mean():+.2f} "
                   f"(min {P10.min():+.2f}) | orders > 0 {int((m > 0).sum())}/{len(m)} | people > 0 {int((M.mean(0) > 0).sum())}/{np_}")
 print("\nNot in this table: windows 0-9 of returning sessions (package emits v6.1 there, dev v5.1b's shadow); run time and "
       "worker-image checks (V6_BUILD.md); FT run-to-run spread on the GPU (up to 0.034 in posteriors, 64421057).")

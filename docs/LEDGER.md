@@ -4684,3 +4684,27 @@ SingularityPRO 4.3.1 runs a prebuilt one. Galvani's `runs/cloud/ni26_worker.sif`
     would also have caught it.
   - FT-path prediction: errors 0, run-time ratios within 10 % of the Galvani image run (v6.1 ×1.72 at 190 windows) and
     of the venv A100 rows (×1.81 / ×2.08).
+
+**§200 RESULT (13 Nov 22:59 UTC; runs/s200_*; paired, each file against its own P0r).** Blend labels against R
+(v6.1), new people, s15: within 0–3 −0.05, full 0/1 +0.11, runs 0/1 −0.14 (orders up 2/4, 2/2, 0/2). The blend lowers the full
+loss a little but costs within and runs. Inside the noise with mixed sign: **undecided, not added**; R stays in v6.1/v6.2. L
+labels against R: within −0.10, full +0.21, runs −0.03.
+
+### 203. FULL AND RUNS ORDERS 2/3 FOR THE MORNING TABLE (written 13 Nov 22:59 UTC, before any job ran)
+- **Why:** the organisers removed chronology "to avoid tricks" without EEG. Of our schemes, full (a uniform permutation of
+  the session's windows) matches that best. Yet full has two orders for v6.1/v6.2, and it is where v6.1 trails v6f on new
+  people (−0.22 Leonardo files, −0.35 local, P10 driving it).
+- **What:** for full 2/3 and runs 2/3 (all inputs exist):
+  - chain_v51b and chain_v6r labels (shufcombo LABEL_OUT);
+  - chain_rt (retv6 LABEL_RT);
+  - chain_rts (v6r on new people, rt on returning, as for full 0);
+  - ttt18 FORMS=s15 on the Q labels (Leonardo, 24 tasks per order), then shufcombo FT_V=s15 (new people, v6.1 = v6.2) and
+    retv6 GATE_V51B=1 FT_SFX=QF FT_FORM=s15 (returning people, v6.2 and v6.2-safe).
+  - The Q run's new-people labels equal v6.1's R labels (v6r), checked on the files.
+- **Prediction:** new people v6.1 − v6f on full 2/3 −0.2 (−0.6 to +0.2), runs 2/3 +0.05. Returning people v6.2 on full 2/3
+  +0.8 (−0.3 to +1.9), v6.2-safe +0.9.
+- **Reading rule (stated now):**
+  - If v6.1 − v6f on full over four orders is ≤ −0.2 with ≥ 3/4 orders below zero, the coordinator is told: on the scheme
+    closest to the organisers' statement, v6f's FT (gC5, v5.1b labels) beats v6.1's on new people. A v6.2 on v6f's FT would
+    be the alternative, the user's choice.
+  - Otherwise the four-order full rows go into the table as they are.
