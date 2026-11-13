@@ -2502,3 +2502,15 @@ for new-people levers.
     copied from Galvani.
 - Why no session woke on the failure: these chains have Slurm-held scoring but no local collector. A failure inside
   the chain therefore shows only in sacct or in the next check. The morning note now says this for every chain.
+
+**§148 scoring, TEACH3 (written 13 Nov 06:18 UTC, after the chain completed and before any score; `studies/13nov/teach3.py`).**
+The pre-flight passed, all 48 pretraining tasks and both head exports completed, and the heads have the stored layout
+(m7c2: the same 19 corpus heads in the same order). Arms against the stored m7c teacher at weight 5, new people, in the
+shipped and the FT+OCU+REST contexts: m7c2 replacing the teacher (rebuild check), and cog1 as an extra member at weight
+0.5, 1 or 2.
+
+| Check (six-base mean, new) | Prediction (80 % range) |
+|---|---|
+| m7c2 against stored m7c (rebuild check) | 0.0 (−0.3 to +0.3), both contexts |
+| cog1 at its best weight | +0.15 (−0.3 to +0.6) |
+| **Bar** | the rebuild is valid if m7c2 lies within ±0.3 in both contexts. cog1 counts if it is ≥ +0.30 in both contexts with the gain without the best person ≥ +0.15. A failed rebuild check voids the cog1 reading too |
