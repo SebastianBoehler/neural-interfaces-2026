@@ -4342,3 +4342,22 @@ all stated together.
 
 10 of 11 pairs are positive; the mean is +0.14. Read by sign consistency (§198), R is a small, consistent positive and stays
 in the stack.
+
+**20:17 UTC: Leonardo access back** (the user renewed the certificate; a single test passed). `runs/.leo_ok` is set and the
+Leonardo fetches resume. The Galvani stack duplicates for within 2–7 were never placed (the submit limit), and that loop
+is stopped so it does not crowd form B or SWEEP 3. The Leonardo stack copy covers within 0–7; Galvani keeps within 0/1.
+
+**§194 wave 2 RESULT (Leonardo `runs/night13/sweepsel_w2.txt`; within 4–7, orders not used to choose).**
+- Form minus gC5:
+  - learning rate: s03 (lr 2e-3) −0.00, s02 (1e-3) −0.01;
+  - s14 (1e-3, consistency 2) −0.05;
+  - **s15 (1e-3, start 20) +0.13** (without P10 +0.15);
+  - head-only s04 −0.39, s05 −0.28; low lr s01 −0.12.
+- Nested held-out on wave 2: −0.07 [−0.36, +0.14].
+- **The confirmation rule (s03 ≥ +0.15 on within 4–7) is missed: −0.00.** Wave 1's monotone learning-rate effect does not
+  replicate on fresh orders; it was selection on four orders.
+- What does replicate: head-only and low learning rates lose on both waves. **s15 is the only form positive on both
+  waves (+0.24, +0.13).**
+- Consequences:
+  - SWEEP 2 (§197, lr 3e-3 to 8e-3) was premised on the learning-rate effect; it is read with that in mind.
+  - The stack's form part is judged on within 4–7 as well as 0–3. s15 is the form to carry, s03 is not.
