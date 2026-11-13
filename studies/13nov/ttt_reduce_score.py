@@ -23,11 +23,18 @@ ARCHS = sorted({os.path.basename(f).split("_")[1] for f in glob.glob(f"{D}/{PFX}
 assert sorted(ARCHS) == sorted(SLOT), f"families found in {D}: {ARCHS} (need all four; nothing scored)"
 
 
+LABELS = set()
+
+
 def load(arch, v):
     out = {}
     for p in A.PROTOS:
         fs = [f"{D}/{PFX}_{arch}_{v}-{p}-s{s}.npz" for s in SEEDS]; zs = [np.load(f) for f in fs if os.path.exists(f)]
         assert len(zs) == 6 and all((z["index"] == IDX[p]).all() for z in zs), (arch, v, p, len(zs))
+        tags = {str(z["labels"]) if "labels" in z.files else "untagged (before 13 Nov 00:50 UTC)" for z in zs}
+        assert len({t for t in tags if not t.startswith("untagged")}) <= 1, f"{arch} {v} {p}: mixed label sources {tags}"  # untagged = written before the hash existed
+        assert "true" in PFX or not any("chain_true" in t for t in tags), f"{arch} {v} {p}: oracle labels under a packageable name {tags}"
+        LABELS.update(tags)
         out[p] = np.stack([z["proba"] for z in zs])
     return out  # {proto: (6, n, 3)}
 
@@ -60,6 +67,7 @@ def form(base, ft, f, ks):
 
 CHOICES = {"all6": [None], "delta1": [(k,) for k in range(6)], "delta2": [(0, 1), (2, 3), (4, 5)], "one6": [(k,) for k in range(6)]}
 P = {(a, v): load(a, v) for a in ARCHS for v in ["base"] + VARS}
+print("label sources of the scored files:", sorted(LABELS), flush=True)
 for a in ARCHS:
     A.EXTRA[f"{a}_base"] = {p: P[(a, "base")][p].mean(0) for p in A.PROTOS}
 print("chain, four families, new people: mean over the choices of the fine-tuned seed(s) [range over choices]; 80 % person "

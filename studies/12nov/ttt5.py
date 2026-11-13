@@ -32,7 +32,10 @@ import session_bn as SB  # noqa: E402
 
 HERE = Path(__file__).resolve().parent; OUT = WS / "runs/diag/ttt/probs5"
 CH = np.load(os.environ.get("CHAIN_NPZ") or HERE / "chain_final.npz"); T0, STEP = 30, 10  # CHAIN_NPZ: other pseudo-labels (ttt9.py)
-print("pseudo-labels from", os.environ.get("CHAIN_NPZ") or "chain_final.npz (v3 chain, B2_pool)", flush=True)
+import hashlib  # noqa: E402
+_LP = os.environ.get("CHAIN_NPZ") or str(HERE / "chain_final.npz")  # the label file's name and hash go into every output (review 13 Nov)
+LABEL_TAG = f"{os.path.basename(_LP)}:{hashlib.sha256(open(_LP, 'rb').read()).hexdigest()[:12]}"
+print("pseudo-labels from", _LP, LABEL_TAG, flush=True)
 # variant -> (label source, steps, learning rate, parameter scope)
 VARS = {"fixA": ("fix", 20, 5e-4, "all", "eval"), "fixW": ("fix", 20, 5e-4, "all", "eval"), "fixS": ("fix", 20, 5e-4, "all", "eval"),
         "fixPL": ("fixpl", 20, 5e-4, "all", "eval"), "fixT": ("fixt", 20, 5e-4, "all", "eval"), "fix40": ("fix", 40, 5e-4, "all", "eval"),

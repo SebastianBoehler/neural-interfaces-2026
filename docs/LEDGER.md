@@ -1237,7 +1237,7 @@ user); the A100 replay and the fetch of §91 wait for it. All polling loops were
 Process note: the first scoring of §91 (18:58, from the collector after a failed copy) found no files and printed
 +0.00 for every arm instead of failing. `ttt3_score.py` now asserts that it found something to score.
 
-### 101. FIX2: refinements of the augmented-input fine-tuning (written 12 Nov 19:09 UTC, before any job ran; code `studies/12nov/ttt5.py`, Leonardo)
+### 101. FIX2: refinements of the augmented-input fine-tuning (written 12 Nov 19:09 UTC, before any job ran; code `studies/12nov/ttt5.py`, Leonardo) [review 13 Nov: base counts here carry almost no information, read the person uncertainty in §139]
 
 User, 12 Nov: follow up the best new-person arm of the day (§91 fix20: +0.30 on six bases, every interval crossing 0;
 seen −0.5 to −1.3). Package form throughout. In a package it would run only on sessions the identity gate does not
@@ -1361,7 +1361,7 @@ the v5.3 research (v52-build session) first measures torch-native batching of th
 vmap per family, CUDA graphs) on an A100 before any recipe is cut.
 
 
-### 106. V53: in-session fine-tuning for unrouted sessions, runtime-feasible forms (written 12 Nov by 21:49 UTC [stamp corrected from the commit time; it read 22:20 UTC], before any result; code `studies/13nov/ttt_reduce_score.py`, v52-build session)
+### 106. V53: in-session fine-tuning for unrouted sessions, runtime-feasible forms (written 12 Nov by 21:49 UTC [stamp corrected from the commit time; it read 22:20 UTC], before any result; code `studies/13nov/ttt_reduce_score.py`, v52-build session) [review 13 Nov: base counts here carry almost no information, read the person uncertainty in §139]
 
 User, 12 Nov: build v5.3 = v5.2 + the §101 fine-tuning on sessions the identity gate does not route, within ≤ 45 min
 sealed (worst case). The full §101 form fine-tunes all 30 SessionBN members (20 Adam steps every 10 windows from window
@@ -1449,7 +1449,7 @@ routing, six bases; new people.
 | **Reading** | an oracle below +0.5 closes the run-type axis; ≥ +0.5 → a change-point detector is pre-registered |
 
 
-### 108. TTT6 (exploit track): arms that may raise the gain of the §101 fine-tuning (written 12 Nov by 21:59 UTC [corrected from the commit time; it read 23:20 UTC], before any job ran; code `studies/13nov/ttt6.py`, Leonardo, 24 tasks)
+### 108. TTT6 (exploit track): arms that may raise the gain of the §101 fine-tuning (written 12 Nov by 21:59 UTC [corrected from the commit time; it read 23:20 UTC], before any job ran; code `studies/13nov/ttt6.py`, Leonardo, 24 tasks) [review 13 Nov: base counts here carry almost no information, read the person uncertainty in §139]
 
 User, 12 Nov: spend the
 free sealed runtime (about 38 of 60 min) on gain, not only on cost. Same nets, folds, augmentation and chain labels as
@@ -1709,7 +1709,7 @@ on the ten-person proxy. By §119's rule the next candidate's stage strength is 
 | head | −0.16 | refuted: the full parameter set is needed |
 | view2 | +0.25 / +0.11 / +0.15 | no gain |
 
-### 130. STACK (explore track, gap 1 of `docs/SOLUTION_SPACE_MAP.md`): the replicated small positives for new people as one system (written 13 Nov 00:05 UTC, before any result; code `studies/13nov/stack.py`, Mac, stored outputs only)
+### 130. STACK (explore track, gap 1 of `docs/SOLUTION_SPACE_MAP.md`): the replicated small positives for new people as one system (written 13 Nov 00:05 UTC, before any result; code `studies/13nov/stack.py`, Mac, stored outputs only) [review 13 Nov: base counts here carry almost no information, read the person uncertainty in §139]
 
 Numbering: the explore track's §114–§119 are used, and the build session continues from §120, so the explore track
 uses §130–§139 from here on. "Small levers do not stack" rests on one test of two levers. Here five levers for new
@@ -1952,3 +1952,49 @@ eye-net view carries returning people (+0.43 seen, both P04 and P10 positive), a
 same nets, with all six bases positive. For new people it is a little below §130's `A.system`
 number (+0.72 against +0.86). On returning people the eye-net view adds to the
 personal-nets stack instead of competing with it.
+
+### 139. Review of 13 Nov on the fine-tuning paths: corrections, and TTT10 (written 13 Nov 00:39 UTC; TTT10 before any job ran)
+
+**Correction 1: six bases are almost one system wherever slots 5–8 are swapped** (independent reviewer, confirmed
+here). The TTT scorers (§101, §106, §108, §131, §135, §137) replace the four SessionBN slots with the run's own nets on
+every base, so only slot 9 (weight 1/15) and the non-SessionBN members differ between bases. Per-person deltas
+correlate 0.83–0.99 across bases. "Ahead on 5 of 6 bases" and base ranges therefore carry almost no information, and
+every rule above that counts bases is restated in person terms:
+
+| Result | New people, six-base mean | 80 % / 95 % person bootstrap | People ≥ 0 | Without the best person |
+|---|---|---|---|---|
+| fixA (§101/§108) | +0.37 | −0.20 to +0.92 / — | — | +0.17 |
+| cum10 (§108) | +0.46 | −0.23 to +1.16 / −0.56 to +1.52 | 6 of 10 | +0.12 (P10 as a new person: +3.5) |
+| §130 FT alone | +0.46 | −0.22 to +1.14 / −0.56 to +1.50 | 6 of 10 | +0.12 (P10); bases correlate 0.92–0.99 |
+| §130 all five | +0.86 | +0.24 to +1.49 / −0.07 to +1.81 | 7 of 10 | +0.55 (P10 +3.7); 0.84–0.98 |
+| §130 without PLS | +1.13 | +0.67 to +1.60 / **+0.45 to +1.85** | 8 of 10 | +0.86 (P10 +3.6); 0.77–0.97 |
+| §130 OCU / MIX / REST alone | +0.14 / +0.18 / +0.34 | 95 % lower ends −0.16 / −0.13 / −0.21 | 7 / 6 / 8 of 10 | +0.06 / +0.11 / +0.17; bases correlate less (0.07–0.90) |
+
+**Reading.** FT's gain for new people is mostly one person: P10 scored as a new person gains +3.5, and the other nine
+average +0.12. The "counts narrowly, 5 of 6 bases" of §108 is restated as **undecided: +0.09 over fixA, inside the
+person noise**. §130's stack holds up better on this measure: without PLS, its 95 % person interval stays above zero
+and the nine people other than P10 gain +0.86. A real replication needs fresh fine-tuned seeds (§135, tonight) and
+ideally other people. The §130b and §138 bars that counted bases are read in these terms when their fresh-seed runs
+land.
+
+**Correction 2: §108's "head refuted" closes only that form.** Its selector (`p.dim() > 1 and p.shape[0] >= 3`) took
+the final weight matrix without the output bias, and it ran at 5e-4. The personal-head recipe that worked trains the
+last two parameters at 2e-3. Head-only fine-tuning is the cheap form, so it is rerun here as TTT10.
+
+**Fixes in code (13 Nov ~00:37 UTC):**
+- Every fine-tuning output now stores its label file's name and hash (`labels`, from `ttt5.LABEL_TAG`).
+  `ttt_reduce_score.py` prints the label sources, fails on mixed sources, and fails on oracle labels under a
+  packageable prefix. No submit script of tonight exports `CHAIN_NPZ`; `ttt9.py` sets it inside the process from
+  `LAB`, and `ttt10.py` refuses to start if it is set.
+- `ttt6.run` now asserts the base-vs-harness difference (< 1e-6) instead of only printing it.
+- Package items 4–8 of the review (the §78 form, the personal traces fine-tuned from retrained twins, the
+  false-accept risk, the v5.3 choices, runtime against window index) went to the build session.
+
+**TTT10** (`studies/13nov/ttt10.py`, tasks 0–23, after a debug smoke). Scope head2 = SessionBN affine + the last two
+parameters. Arms: head2 (20 steps every 10 windows, each refit from the frozen net, 2e-3), head2c (warm, 10 steps,
+2e-3), head2x (warm, 20 steps, 5e-3); in-run reference cum10.
+
+| Check (all6, new, against frozen) | Prediction (80 % range) |
+|---|---|
+| head2 / head2c / head2x | +0.25 (−0.05 to +0.50) / +0.30 (0.00 to +0.55) / +0.30 (−0.10 to +0.60) |
+| **Bar** | A head arm is the cheap form if it is within 0.10 of the in-run cum10 **and** its gain without the best person is ≥ +0.10. Base counts are not used |

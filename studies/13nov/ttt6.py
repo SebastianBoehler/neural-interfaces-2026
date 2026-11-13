@@ -30,7 +30,11 @@ VARS = {"fixA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1), "cum10": (10, 10, 
 
 
 def params_of(net, scope):
-    if scope == "head":
+    if scope == "head2":  # review 13 Nov: the personal-head recipe, the last two parameters (output weight and bias) + SessionBN affine
+        sbn = {id(p) for mod in net.modules() if isinstance(mod, SB.SessionBN) for p in mod.parameters()}; last2 = {id(p) for p in list(net.parameters())[-2:]}
+        assert any(p.dim() == 1 for p in list(net.parameters())[-2:]), "the last two parameters do not include a bias"
+        return [p for p in net.parameters() if id(p) in sbn or id(p) in last2]
+    if scope == "head":  # s108's form: never trained the output bias (selector takes only the final weight matrix)
         sbn = {id(p) for mod in net.modules() if isinstance(mod, SB.SessionBN) for p in mod.parameters()}
         last = [p for p in net.parameters() if p.dim() > 1 and p.shape[0] >= 3][-1]
         return [p for p in net.parameters() if id(p) in sbn or p is last]
@@ -84,12 +88,13 @@ def run(arch, d, proto, seed, out, epochs=0):
             rows_all.append(r)
         base = np.concatenate(got["base"][-len(dict.fromkeys(st)):])
         print(f"{tag} s{seed} {proto} {fold} base-vs-harness max diff {np.abs(base - ref).max():.2e} {time.time() - t0:.0f}s", flush=True)
+        assert np.abs(base - ref).max() < 1e-6, "the streamed frozen net does not reproduce the harness"
         if epochs:
             break
     idx = np.concatenate(rows_all); o = np.argsort(idx)
     for v in names:
         P = np.concatenate(got[v])[o]; assert np.isfinite(P).all()
-        np.savez(out / f"{tag}_{v}-{proto}-s{seed}.npz", proba=P, index=idx[o])
+        np.savez(out / f"{tag}_{v}-{proto}-s{seed}.npz", proba=P, index=idx[o], labels=T5.LABEL_TAG)
         print(f"TOTAL {tag}_{v} s{seed} {proto} n={len(idx)} acc={np.mean(P.argmax(1) == d['y'][idx[o]]):.4f} {time.time() - t0:.0f}s", flush=True)
 
 
