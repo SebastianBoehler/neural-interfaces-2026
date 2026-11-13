@@ -3169,3 +3169,19 @@ Smoke (B2_pool, full perm 0): the run split costs **−3.23 even in recording or
 Prediction for the six-base run: the oracle split below the shipped stages under every scheme. **Reading rule:** if so,
 hard run-split forms (form B as specified) are closed. The loss is not "templates mix runs" but the amount of local
 data. Form A (similarity-weighted templates over the whole delivered set, no hard split) remains the open form.
+
+### 169. SHUFPKG: v5.1b as uploaded under non-chronological delivery, returning people included (written 13 Nov 10:13 UTC after a one-base smoke, before the six-base run; `studies/13nov/shufpkg.py`)
+
+Routing v4.1 plus the own-space stage, with the gate's calibration fixed from v5.1b in recording order. Every store is
+permuted, each gate test session is delivered in the same order, and session-keyed caches are cleared per order.
+Members are as recorded (§165: re-streaming them adds no loss). The check reproduces recording order exactly (B2_pool new
+80.18, seen 82.89).
+
+Smoke (B2_pool, full perm 0), against recording order: new −3.14, **seen −4.66 (P04 −6.67, P10 −2.64), J −3.90**; all
+four returning sessions are still routed.
+
+| Check (six bases, full / runs / within, two permutations each) | Prediction (80 % range) |
+|---|---|
+| seen, full | −4 (−6 to −2) |
+| J, full / runs / within | −3.5 / −2.0 / −1.0 |
+| **Reading** | the sealed rescoring cost 0.7–1.2 J. A scheme whose J loss lands near that range is the more plausible sealed scheme. Returning people's order loss sizes the next re-design (the own-space stage and the routed tail built for unordered sessions) |
