@@ -4103,3 +4103,12 @@ chain (R) against package labels (L), over v5.1b, new:
 - Worth noting: under within (the scheme that matches the sealed drop), R lifts every order, including the weak within 2
   (+0.32 → +0.51, above the +0.5 bar). Under full it costs. With a within-like sealed stream, R is a small positive
   (+0.15); a second draw per within order would decide it.
+
+### 192. §187 SECOND DRAW under within (written 13 Nov 17:24 UTC, before any job ran; coordinator's request)
+
+gC5 draw 1 with R labels (v6 chain) and with L labels (package) on within 0–3, at low priority behind §191 and form B.
+Draw 1 with L exists for within 0/1 (§179). New: R d1 for within 0–3 (Galvani), L d1 for within 2/3 (Leonardo).
+**Reading, within mean only:** R − L over the four within orders, draw 1, and pooled with draw 0 (+0.15).
+- At +0.15 new, it is worth about +0.05 sealed: a tie-breaker for a later build, not a reason for one.
+- It counts as "R preferred" if the pooled within mean is ≥ +0.10 with draws 0 and 1 the same sign.
+- Otherwise it stays undecided. Full and runs are not re-read.
