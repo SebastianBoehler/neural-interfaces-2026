@@ -3750,3 +3750,21 @@ order).** Each comparison uses the same order, inputs and labels on both sides. 
   orders (within 2 +0.45, within 1 +0.29), which is worth a look after the upload if more time is found.
 - **18 against 9 eye-net seeds** (gC5, package labels): within 0 +1.63 against +1.70, within 1 +1.23 against +1.39, so
   −0.07 and −0.16. No gain; prediction (+0.05, kept only if > +0.3) confirmed. Not kept.
+
+### 185. ORDER SPREAD: twelve more delivery orders, package-faithful (written 13 Nov 14:23 UTC, before any job ran)
+
+The coordinator (14:17 UTC): the spread between delivery orders (+0.81 to +1.70 under within) is now the largest
+uncertainty in tonight's number.
+- **Order file:** `runs/shuffle_perms.npz` is extended to seeds 0–11 per scheme. The 30 old keys are unchanged (checked);
+  the old file is kept as `runs/shuffle_perms_5seeds.npz`. The new SHA-256 is pinned in shufcombo (6046bf5b…). The file is
+  identical on the Mac, Leonardo and Galvani (md5 590a19e5…). GE event rates for all 36 orders: `runs/geshuf.npz`.
+- **New orders:** within 4–11, full 2 and 3, runs 2 and 3.
+  - Leonardo: within 4–9, every stage. Stage 1: ttt18 (base and gC5), rest net, eye net, pc128, core1 member, Hilbert,
+    teacher. Stage 2: labels. Stage 3: ttt18 L.
+  - Galvani: GPU stage 1 for within 10 and 11, full 2 and 3, runs 2 and 3. Their pc128, core1, Hilbert and teacher run on
+    Leonardo. Labels and the L runs follow once the base files are relayed.
+- **Scored** package-faithful (labels L, package gate, every input in delivery order except the ea slots), gC5 and fallback.
+- **Prediction:** gC5's mean over all within orders is +1.2 (+0.9 to +1.5), with ≥ 80 % of within orders ≥ +0.5. The
+  fallback misses +0.3 on 10–30 % of within orders.
+- **Refuted** if gC5's within mean is < +0.8 or more than 20 % of within orders fall below +0.5. Then the table says "not
+  robust over orders".

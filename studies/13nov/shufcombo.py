@@ -125,7 +125,7 @@ def chain(bn, arm, P):
 
 
 Pperm = S.perm_for(SCHEME, PSEED)[p0]; ident = np.arange(N); R = {}
-PERMS_SHA = "f9209851e6667bcf0c980d4e99a604f1ebb7ac0678b4616d73148343daa7a65f"  # s180: every re-streamed input (ttt17/18, ocushuf, restshuf, coremember, coreshuf) read this file
+PERMS_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"  # s180: every re-streamed input (ttt17/18, ocushuf, restshuf, coremember, coreshuf) read this file
 assert hashlib.sha256(open(f"{REPO}/runs/shuffle_perms.npz", "rb").read()).hexdigest() == PERMS_SHA, "runs/shuffle_perms.npz is not the pinned order file"
 assert (IDX[Pperm] == np.load(f"{REPO}/runs/shuffle_perms.npz")[f"{SCHEME}|{PSEED}|{p0}"]).all(), "the stages' order is not the order the members were streamed in"
 assert not (LABEL_OUT and p0 != "all_loso"), "LABEL_OUT is for new people"
