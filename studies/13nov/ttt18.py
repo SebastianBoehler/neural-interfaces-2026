@@ -8,7 +8,8 @@ from pathlib import Path
 import numpy as np
 WS = Path(os.environ.get("NI26_WS", Path(__file__).resolve().parents[2])); SCHEME = os.environ["SCHEME"]; PSEED = int(os.environ["PSEED"]); DRAW = int(os.environ.get("DRAW", 0))
 LB = os.environ.get("CHAIN_NPZ")  # s178: v5.1b's labels as emitted in this order (shufcombo.py LABEL_OUT); must name the same order
-LSFX = {f"chain_v51b_{SCHEME}{PSEED}.npz": "L", f"chain_v6r_{SCHEME}{PSEED}.npz": "R", f"chain_rt_{SCHEME}{PSEED}.npz": "T"}  # T (s190): returning rows labelled by routed v5.1b  # s187: R = labels from the v6 chain (eye + rest)
+LSFX = {f"chain_v51b_{SCHEME}{PSEED}.npz": "L", f"chain_v6r_{SCHEME}{PSEED}.npz": "R", f"chain_rt_{SCHEME}{PSEED}.npz": "T",
+        f"chain_stk_{SCHEME}{PSEED}.npz": "K"}  # K (s198): new people from the v6 chain, returning people from routed v5.1b where it exists  # T (s190): returning rows labelled by routed v5.1b  # s187: R = labels from the v6 chain (eye + rest)
 assert LB is None or os.path.basename(LB) in LSFX, f"label file {LB} is not this order's"
 _spec = importlib.util.spec_from_file_location("ttt7", WS / "studies/13nov/ttt7.py"); T7 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T7)
 P = np.load(WS / "runs/shuffle_perms.npz"); PERM = {}
@@ -40,8 +41,21 @@ SWEEP2 = {"gC5": SWEEP["gC5"], "s03": SWEEP["s03"],
           "t07": (5, 10, 2e-3, "all", 1.0, "hard", True, 1, True, 20), "t08": (5, 10, 4e-3, "all", 1.0, "hard", True, 1, True, 20),
           "t09": (5, 10, 2e-3, "all", 1.0, "soft", True, 1, True, 30), "t10": (5, 10, 2e-3, "all", 0.0, "hard", True, 1, True, 30),
           "t11": (5, 10, 3e-3, "all", 2.0, "hard", True, 1, True, 20), "t12": (5, 10, 2e-3, "all", 4.0, "hard", True, 1, True, 30)}
+# s198: the stack's combined form (the three axes that helped) and EMA forms; SWEEP=3 is a finer sweep around s03/s14/s15
+EXTRA = {"c01": (5, 10, 2e-3, "all", 2.0, "hard", True, 1, True, 20), "e01": SWEEP["s03"], "e02": SWEEP["s03"], "e03": (5, 10, 2e-3, "all", 2.0, "hard", True, 1, True, 20)}
+EMA_OF = {"e01": 0.5, "e02": 0.8, "e03": 0.8, "u07": 0.8, "u08": 0.9}
+SWEEP3 = {"gC5": SWEEP["gC5"], "s03": SWEEP["s03"], "c01": EXTRA["c01"],
+          "u01": (5, 10, 1.5e-3, "all", 1.0, "hard", True, 1, True, 30), "u02": (5, 10, 2.5e-3, "all", 1.0, "hard", True, 1, True, 30),
+          "u03": (5, 10, 2e-3, "all", 1.5, "hard", True, 1, True, 30), "u04": (5, 10, 2e-3, "all", 3.0, "hard", True, 1, True, 30),
+          "u05": (5, 10, 2e-3, "all", 1.0, "hard", True, 1, True, 15), "u06": (5, 10, 2e-3, "all", 1.0, "hard", True, 1, True, 25),
+          "u07": SWEEP["s03"], "u08": SWEEP["s03"], "e03": EXTRA["e03"]}
+ALL = {**SWEEP, **SWEEP2, **EXTRA, **SWEEP3}
 if os.environ.get("SWEEP"):
-    T7.VARS = SWEEP2 if os.environ["SWEEP"] == "2" else SWEEP; T7.TAG += "S2" if os.environ["SWEEP"] == "2" else "S"
+    sw = os.environ["SWEEP"]; T7.VARS = {"1": SWEEP, "2": SWEEP2, "3": SWEEP3}[sw]; T7.TAG += {"1": "S", "2": "S2", "3": "S3"}[sw]
+if os.environ.get("FORMS"):  # s198: a named subset (the stack run); tag suffix F
+    T7.VARS = {k: ALL[k] for k in os.environ["FORMS"].split(",")}; T7.TAG += "F"
+T7.EMA = {k: d for k, d in EMA_OF.items() if k in T7.VARS}
+assert all(k in T7.VARS for k in T7.EMA), "EMA set for a form that does not run"
 T7.TAG += "X" if EXT else ("C" if CTRL else "")
 if EXT:
     _load = T7.protocol.load

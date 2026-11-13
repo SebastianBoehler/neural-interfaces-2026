@@ -25,7 +25,7 @@ import session_bn as SB  # noqa: E402
 import importlib.util  # noqa: E402
 _spec = importlib.util.spec_from_file_location("ttt5", WS / "studies/12nov/ttt5.py"); T5 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T5)
 
-OUT = WS / "runs/diag/ttt/probs7"; T0 = T5.T0; TAG = "ttt7"; SMOKE_OUT = "smoke7"; DRAW = 0; CAP = 0; PERM = None  # ttt14/16/18 override; DRAW 0, CAP 0 and PERM None keep earlier runs bit-identical
+OUT = WS / "runs/diag/ttt/probs7"; T0 = T5.T0; TAG = "ttt7"; SMOKE_OUT = "smoke7"; DRAW = 0; CAP = 0; PERM = None; EMA = {}  # EMA (s197): {variant: decay}, predictions from an EMA of the refitted weights  # ttt14/16/18 override; DRAW 0, CAP 0 and PERM None keep earlier runs bit-identical
 # variant -> (steps per refit, refit every, lr, scope, consistency weight, label form, warm start, views, GPU aug, first window)
 VARS = {"fixA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1, False, 30), "gA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1, True, 30),
         "gE20": (20, 20, 5e-4, "all", 1.0, "hard", False, 1, True, 30), "gC10E20": (10, 20, 5e-4, "all", 1.0, "hard", True, 1, True, 30),
@@ -59,6 +59,7 @@ def stream(m, X, Pc, seed):
         ds = seed + 1000 * DRAW; torch.manual_seed(ds); net2 = None
         gen = torch.Generator(device=X.device).manual_seed(ds) if gpu else torch.Generator().manual_seed(ds)
         aug = strong_dev if gpu else T5.strong
+        ema = None
         for t in range(t0, n, every):
             if net2 is None or not warm:
                 net2 = copy.deepcopy(net).eval()
@@ -72,9 +73,17 @@ def stream(m, X, Pc, seed):
                           (wpl[lo:t] * F.cross_entropy(zs, lab[lo:t], reduction="none")).sum() / wpl[lo:t].sum().clamp_min(1e-6))
                     loss = loss + (ce + lam * F.kl_div(F.log_softmax(zs, 1), F.softmax(z.detach(), 1), reduction="batchmean")) / views
                 loss.backward(); opt.step()
-            hi = min(n, t + every)
+            hi = min(n, t + every); pred = net2
+            if v in EMA:  # an exponential moving average of the weights across refits; the refits themselves continue from net2
+                with torch.no_grad():
+                    if ema is None:
+                        ema = copy.deepcopy(net2).eval()
+                    else:
+                        for pe, pn in zip(ema.parameters(), net2.parameters()):
+                            pe.mul_(EMA[v]).add_(pn, alpha=1 - EMA[v])
+                pred = ema
             with torch.no_grad():
-                out[v][t:hi] = torch.softmax(net2(X[:hi])[:, :3].double(), 1).cpu().numpy()[t:hi]
+                out[v][t:hi] = torch.softmax(pred(X[:hi])[:, :3].double(), 1).cpu().numpy()[t:hi]
     return out
 
 

@@ -4300,3 +4300,26 @@ Wave 1: within 0–3; wave 2 (afterany): within 4–7. Nested selection on Leona
 **Keep bar:** the held-out gain over gC5 ≥ +0.3 on wave 1, and the selected form ≥ +0.15 on wave 2's orders. Then it is a
 package change (constants only, same run time), and a v6.1 build would be proposed.
 **Prediction:** the learning-rate curve peaks between 2e-3 and 4e-3. Held-out +0.2 (0 to +0.4).
+
+### 198. THE STACK OF TONIGHT'S SMALL POSITIVES, and pushing each further (written 13 Nov 19:24 UTC, before any job ran)
+
+**The user (via the coordinator, about 19:40 UTC):** "Don't treat the 0.3 as a hard threshold but we should push further and
+keep iterating". From here, +0.3 bars are reading aids, not gates. Small positives that keep their sign are pushed and
+stacked. **Reading rule for §198:** sign consistency across orders and people, the size of the stack, and its interval,
+all stated together.
+- **Stack run** (`ttt18 FORMS=gC5,s03,s14,s15,c01,e02`, labels K = `chain_stk_<order>`, tag KF), within 0–7.
+  - New people get labels from the v6 chain.
+  - Returning people get routed v5.1b as emitted where it exists (within 0/1), otherwise chain_final.
+  - c01 combines the three axes that helped (lr 2e-3, consistency 2, start 20). e02 is s03 with an EMA (0.8) of the
+    weights across refits, newly coded in ttt7 (`EMA`; existing variants unchanged).
+  - Scored on Leonardo by `stackcmp.py`, per order and pooled: stack = <form> under K − gC5 under L (= v6f_gc5), split into
+    labels (gC5 K − gC5 L) and form (<form> K − gC5 K).
+  - Returning people: `retv6` with the K run (within 0/1).
+- **Push further:**
+  - (a) `SWEEP=3` (tag LS3): lr 1.5e-3 and 2.5e-3, consistency 1.5 and 3 at 2e-3, start 15 and 25, EMA 0.8 and 0.9, c01,
+    e03; s03 and gC5 as references. Within 0–3, then within 4–7.
+  - (b) More draws of R against L, paired by draw: draw 1 on within 4–7, draw 2 on within 0–7.
+- **Infrastructure:** the 2080 partition is out of the Galvani default (it caused the CUDA-unavailable failures). The
+  collector now ends with a per-job count of failed tasks and exits 3. The §192 within 0 R draw 1 (12 of 24 tasks lost)
+  goes to Leonardo.
+- **Prediction for the stack:** +0.3 (0 to +0.6) over v6f_gc5 on new people under within, positive on ≥ 6 of 8 orders.

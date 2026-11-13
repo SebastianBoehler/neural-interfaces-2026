@@ -10,7 +10,9 @@ R="ssh -o BatchMode=yes $H"
 Q="squeue -h -u \$USER -o %i | grep -E '^(${JOBS//,/|})(_|\$)' ; true"; case "$JOBS" in name:*) Q="squeue -h -u \$USER --name=${JOBS#name:}";; esac
 while :; do OUT=$($R "$Q && echo __OK" 2>/dev/null); case "$OUT" in *__OK) [ "$OUT" = "__OK" ] && break;; esac; sleep ${INTERVAL:-1200}; done
 # a failed job must be as loud as a finished one: print every job's final state
-ST=$($R "sacct -X -n -P -u \$USER -S now-3days -o JobID,JobName,State,ExitCode | grep -E '$(J=${JOBS#name:}; echo ${J//,/|})' | tail -n 60" 2>/dev/null); echo "$ST"
-echo "$ST" | grep -q -E "FAILED|CANCELLED|TIMEOUT|OUT_OF_ME|NODE_FAIL" && echo "WARNING: at least one job did not complete"
+ST=$($R "sacct -X -n -P -u \$USER -S now-3days -o JobID,JobName,State,ExitCode | grep -E '$(J=${JOBS#name:}; echo ${J//,/|})'" 2>/dev/null); echo "$ST" | tail -n 60
+# 13 Nov (s197): failed array tasks hid inside 60 lines of output; end with a per-job count and a non-zero exit instead
+BAD=$(echo "$ST" | awk -F'|' '$3 ~ /FAILED|CANCELLED|TIMEOUT|OUT_OF_ME|NODE_FAIL/ {n[$2]++} END {for (k in n) printf "%s:%d ", k, n[k]}')
 mkdir -p "$LDIR"; rsync -az -e "ssh -o BatchMode=yes" "$H:$ROOT/$RSUB/" "$LDIR/" 2>&1 | grep -v "WARNING\|vulnerable\|upgraded"
 echo "copied $(ls "$LDIR" | wc -l) files to $LDIR"; NI26_MAX_GB=24 scripts/run_capped.sh "$LOG" "$@" > /dev/null 2>&1; echo "scored -> $LOG"
+[ -n "$BAD" ] && { echo "FAILED TASKS (job:count): $BAD"; exit 3; }; exit 0
