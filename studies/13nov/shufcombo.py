@@ -38,7 +38,8 @@ RSD, CMP = os.environ.get("RS_DIR", f"{REPO}/runs/restshuf"), os.environ.get("CM
 RSS = sorted(glob.glob(f"{RSD}/{ORD}/rest4_sh_r1-{p0}-s*.npz")); RESTR = np.mean([ld(f) for f in RSS], 0) if RSS else REST
 CM = np.load(CMP) if os.path.exists(CMP) else {}
 DC1 = CM[f"{ORD}|{p0}"] - CM[f"rec|{p0}"] if f"{ORD}|{p0}" in CM else None  # core1 member: delivery order - its own recording-order rebuild
-CS = os.environ.get("CS_NPZ", f"{REPO}/runs/coreshuf_p{PSEED}.npz"); CS = np.load(CS) if os.path.exists(CS) else {}; DPC = None
+CSF = [os.environ["CS_NPZ"]] if "CS_NPZ" in os.environ else sorted(glob.glob(f"{REPO}/runs/coreshuf_p{PSEED}*.npz"))  # coreshuf.py writes one file per scheme set
+CS = next((z for z in map(np.load, CSF) if f"{SCHEME}|{p0}" in z), {}); DPC = None
 if f"{SCHEME}|{p0}" in CS:
     ref, rec = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]][f"pc128|{p0}"], CS[f"rec|{p0}"]
     sg = np.sign([np.corrcoef(ref[:, j], rec[:, j])[0, 1] for j in range(ref.shape[1])]); DPC = sg * (CS[f"{SCHEME}|{p0}"] - rec)

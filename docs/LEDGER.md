@@ -3404,3 +3404,8 @@ v5.1b, both fully re-streamed, stays within 0.3 of §171 (+1.38 to +1.67). Refut
 of within 0 and 1. That is still a gain, but then the table quotes the lower figure and calls §171 optimistic. Bar for the
 table: ≥ +0.5 new and > 0 without P10 on both within orders, otherwise "not yet". The fallback (V6r) is under the same
 bar at ≥ +0.3.
+No-op check passed (13 Nov 11:40 UTC). The zero-change stand-ins reproduce the earlier within 0 run exactly (max
+difference 0.0). The perturbed stand-ins move P0r, V6Fr and V6r (up to 3.1 points per person) and leave P0rec, P0s and
+V6Frec at 0.0. CORESHUF covered only within 0 and full 0, so pc128 for within 1 (PSEED 1) and runs 0 is queued
+(Leonardo 64376116, 64376119; `coreshuf_p<seed>_<schemes>.npz`). Scored per order when complete:
+`runs/allorder_<order>.log`.

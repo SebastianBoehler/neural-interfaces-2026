@@ -2,7 +2,7 @@
 order instead of recording order (ts_core2.Feats.causal over the session's rows in delivery order; the TSEMK recipe of
 s54). The recording-order rebuild is checked against the stored pc128 (median |corr| per column). Saves, per scheme,
 pc128 keyed by replay row (recording index) so that shuffle.py can permute it with everything else.
-Usage: [SCHEMES=within,full] [PSEED=0] python studies/13nov/coreshuf.py   -> runs/coreshuf.npz"""
+Usage: [SCHEMES=within,full] [PSEED=0] python studies/13nov/coreshuf.py   -> runs/coreshuf_p<PSEED>[_<schemes>].npz"""
 import os, sys, time
 import numpy as np
 from sklearn.decomposition import PCA
@@ -39,4 +39,4 @@ for proto in A.PROTOS:
         dd = np.abs(out[key] - out["rec"]).mean() / np.abs(out["rec"]).mean()
         print(f"  {proto} {key}: mean relative change of the view against recording order {dd:.3f}", flush=True)
     OUT.update({f"{key}|{proto}": v for key, v in out.items()})
-np.savez_compressed(REPO + f"/runs/coreshuf_p{PSEED}.npz", **OUT); print("saved", f"{time.time() - T0:.0f}s")
+np.savez_compressed(REPO + f"/runs/coreshuf_p{PSEED}{'' if SCHEMES == ['within', 'full'] else '_' + '_'.join(SCHEMES)}.npz", **OUT); print("saved", f"{time.time() - T0:.0f}s")
