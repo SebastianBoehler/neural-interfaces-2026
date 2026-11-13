@@ -21,6 +21,19 @@ EXT, CTRL = tuple(t for t in os.environ.get("EXT", "").split(",") if t), bool(os
 assert not (EXT and CTRL), "EXT and CTRL are the two arms of one comparison"
 T7.TAG, T7.OUT, T7.SMOKE_OUT, T7.PERM, T7.DRAW = f"ttt18{SCHEME}{PSEED}" + (f"d{DRAW}" if DRAW else "") + (LSFX[os.path.basename(LB)] if LB else ""), WS / "runs/diag/ttt/probs18", f"smoke18{SCHEME}", PERM, DRAW  # DRAW > 0: fresh augmentation draws
 T7.VARS = {"gC5": T7.VARS["gC5"]}
+# s194: SWEEP=1 runs run-time-neutral forms of gC5 side by side (5 steps per refit, every 10 windows, warm, 1 view, GPU draw);
+# fields (steps, every, lr, scope, lam, form, warm, views, gpu, t0); gC5 itself is the in-run control. Tag suffix S.
+SWEEP = {"gC5": (5, 10, 5e-4, "all", 1.0, "hard", True, 1, True, 30),
+         "s01": (5, 10, 2.5e-4, "all", 1.0, "hard", True, 1, True, 30), "s02": (5, 10, 1e-3, "all", 1.0, "hard", True, 1, True, 30),
+         "s03": (5, 10, 2e-3, "all", 1.0, "hard", True, 1, True, 30), "s04": (5, 10, 5e-4, "head", 1.0, "hard", True, 1, True, 30),
+         "s05": (5, 10, 2e-3, "head", 1.0, "hard", True, 1, True, 30), "s06": (5, 10, 5e-4, "all", 0.0, "hard", True, 1, True, 30),
+         "s07": (5, 10, 5e-4, "all", 0.5, "hard", True, 1, True, 30), "s08": (5, 10, 5e-4, "all", 2.0, "hard", True, 1, True, 30),
+         "s09": (5, 10, 5e-4, "all", 4.0, "hard", True, 1, True, 30), "s10": (5, 10, 5e-4, "all", 1.0, "soft", True, 1, True, 30),
+         "s11": (5, 10, 1e-3, "all", 1.0, "soft", True, 1, True, 30), "s12": (5, 10, 5e-4, "all", 1.0, "hard", True, 1, True, 20),
+         "s13": (5, 10, 5e-4, "all", 1.0, "hard", True, 1, True, 40), "s14": (5, 10, 1e-3, "all", 2.0, "hard", True, 1, True, 30),
+         "s15": (5, 10, 1e-3, "all", 1.0, "hard", True, 1, True, 20)}
+if os.environ.get("SWEEP"):
+    T7.VARS = SWEEP; T7.TAG += "S"
 T7.TAG += "X" if EXT else ("C" if CTRL else "")
 if EXT:
     _load = T7.protocol.load

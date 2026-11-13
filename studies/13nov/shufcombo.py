@@ -31,7 +31,10 @@ def ld(path):
 
 FV = os.environ.get("FT_V", "cum10"); RPX = os.environ.get("REC_PFX", "ttt6")  # s171: FT_V=gC5 with REC_PFX=ttt7, T6_DIR=runs/ttt/probs7, T17_DIR=.../probs18, FT_TAG=ttt18...
 FR6 = {(a, s): ld(f"{T6D}/{RPX}_{a}_base-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
-CU6 = {(a, s): ld(f"{T6D}/{RPX}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
+HAS_REC = all(os.path.exists(f"{T6D}/{RPX}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6))  # s194: sweep forms have no recording-order run
+CU6 = {(a, s): ld(f"{T6D}/{RPX}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6)} if HAS_REC else None
+if not HAS_REC:
+    print(f"no recording-order {RPX} {FV} files: arm V6Frec is skipped (its line is left out)", flush=True)
 TG = os.environ.get("FT_TAG", f"ttt17{SCHEME}{PSEED}"); FR17 = {(a, s): ld(f"{T17D}/{TG}_{a}_base-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
 CU17 = {(a, s): ld(f"{T17D}/{TG}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
 OCD = os.environ.get("OCU_DIR"); OCS = sorted(glob.glob(f"{REPO}/{OCD}/oc_nomix-{p0}-s*.npz")) if OCD else [f"{REPO}/runs/ocunet/probs/oc_nomix-{p0}-s{s}.npz" for s in range(3)]
@@ -78,6 +81,7 @@ print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {R
 
 
 GATE_P0, LABEL_OUT, GB, LAB = bool(os.environ.get("GATE_P0")), os.environ.get("LABEL_OUT"), {}, {}
+SAVE_OUT, OUTS = os.environ.get("SAVE_OUT"), {}  # s193: path for per-window outputs of P0r / V6Fr / V6r (recording layout)
 OCU_TS = int(os.environ.get("OCU_TS", 0))  # s188: k copies of the eye view appended to TSEM's pc128 view (0 = off)
 LABEL_ARM = os.environ.get("LABEL_ARM", "P0r")  # s187: V6r = labels from the v6 chain itself (eye view + rest member, no FT)
 assert LABEL_ARM in ("P0r", "V6r"), LABEL_ARM
@@ -136,6 +140,8 @@ def chain(bn, arm, P):
         g = gm.gate(GB[bn, ref] if GATE_P0 and ref else b, p0); out = gm.tsem_g(gm.em_g(b, p0, g), p0, g)
     finally:
         A.L.Z[f"GE|{p0}"], A.L.Z[f"pc128|{p0}"] = ge0, pc0
+    if SAVE_OUT and arm in ("P0r", "V6Fr", "V6r"):  # s193: per-window outputs (recording layout) for the session selector
+        OUTS[f"{bn}|{arm}"] = out[np.argsort(P)].astype(np.float32)
     if LABEL_OUT and arm == LABEL_ARM:
         LAB[bn] = out[np.argsort(P)]  # v5.1b's outputs as emitted in the delivery order, back in recording index layout
     return SC.person(out, p0)
@@ -156,14 +162,18 @@ if LABEL_OUT:  # FT pseudo-labels as the package sees them: v5.1b (B2_pool) emit
           f"agreement {np.mean(lab.argmax(1) == CH[p0].argmax(1)):.4f}", flush=True)
     np.savez(f"{REPO}/runs/labels/{LABEL_OUT}.npz", all_loso=lab, seen_session=CH["seen_session"], idx_seen=CH["idx_seen"]); sys.exit(print("written", LABEL_OUT))
 for bn in S.BASES:
-    R[bn] = {"P0rec": chain(bn, "P0", ident), "P0s": chain(bn, "P0", Pperm), "P0r": chain(bn, "P0r", Pperm), "V6Fr": chain(bn, "V6Fr", Pperm), "V6Frec": chain(bn, "V6Frec", ident),
+    R[bn] = {"P0rec": chain(bn, "P0", ident), "P0s": chain(bn, "P0", Pperm), "P0r": chain(bn, "P0r", Pperm), "V6Fr": chain(bn, "V6Fr", Pperm),
               "V6r": chain(bn, "V6r", Pperm)}  # s173: the fallback without FT (eye net + rest member only)
+    if HAS_REC:
+        R[bn]["V6Frec"] = chain(bn, "V6Frec", ident)
     print(f"{bn}: P0rec {R[bn]['P0rec'].mean():.2f} | P0s {R[bn]['P0s'].mean() - R[bn]['P0rec'].mean():+.2f} P0r {R[bn]['P0r'].mean() - R[bn]['P0rec'].mean():+.2f} | "
-          f"V6Fr - P0r {R[bn]['V6Fr'].mean() - R[bn]['P0r'].mean():+.2f} | V6Frec - P0rec {R[bn]['V6Frec'].mean() - R[bn]['P0rec'].mean():+.2f}", flush=True)
+          f"V6Fr - P0r {R[bn]['V6Fr'].mean() - R[bn]['P0r'].mean():+.2f}" + (f" | V6Frec - P0rec {R[bn]['V6Frec'].mean() - R[bn]['P0rec'].mean():+.2f}" if HAS_REC else ""), flush=True)
 S.apply({p: np.arange(S.N[p]) for p in S.PR}); rng = np.random.default_rng(0)
 for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + members re-streamed (as header)", "P0r", "P0rec"),
                   ("combination over v5.1b, both shuffled", "V6Fr", "P0r"), ("combination over v5.1b, recording order", "V6Frec", "P0rec"),
                   ("no-FT fallback (eye net + rest) over v5.1b, shuffled", "V6r", "P0r")):
+    if a not in R[S.BASES[0]]:
+        continue
     d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0)
     if len(d) != 10:  # returning people (PROTO=seen_session): too few people for a bootstrap; per person instead
         print(f"{lab:48s} {p0} mean {d.mean():+.2f} | per person " + " ".join(f"{q} {v:+.2f}" for q, v in zip(np.unique(Z[f'person|{p0}']), d)), flush=True); continue
@@ -171,3 +181,5 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other
 np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+if SAVE_OUT:
+    np.savez_compressed(f"{REPO}/{SAVE_OUT}", **OUTS); print("per-window outputs ->", SAVE_OUT, flush=True)

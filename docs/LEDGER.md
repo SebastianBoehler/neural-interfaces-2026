@@ -4130,3 +4130,37 @@ control in the same wave).** Pooled − control, new [80 %], without P10:
   0.4 to 0.5, as in §7 (−0.23) and §21 (−0.9). Prediction −0.1 (−0.6 to +0.4): inside.
 - No further Scherer-pooling forms are planned. The remaining door would be a lower loss weight (§7 used 0.1/0.25), which
   is §7's own result, already undecided at −0.23.
+
+### 193. PER-SESSION SELECTOR between v5.1b's tail, the fallback and gC5 (coordinator's suggestion; written 13 Nov 17:53 UTC, before any result)
+
+The order spread (within +0.32 to +1.86) is the largest avoidable loss left. `studies/13nov/selector.py` reads per-window
+outputs (`shufcombo SAVE_OUT`, all 20 orders, most complete form; each re-run checked against its logged number).
+- **Ceiling first:** per base and new-person session, the arm (P0r, V6r, V6Fr) with the best session balanced accuracy,
+  against always-gC5. **Stop if the within ceiling is < +0.3.**
+- **Otherwise, label-free causal criteria** read on a session's first N = 30 or 60 delivered windows (gC5 is emitted for
+  them): agreement between P0r and V6Fr, and the mean margin difference V6Fr − P0r. Threshold and alternative arm are
+  chosen on five people and scored on the other five (all 126 splits).
+- **Keep bar:** held-out gain ≥ +0.3 over always-gC5 under within, with the 10th percentile over splits ≥ 0.
+- Also: per person on within 2, eye + rest (V6r − P0r) and FT (V6Fr − V6r).
+- **Prediction:** ceiling +0.8 (+0.4 to +1.5; any oracle over three arms gains from noise alone); held-out criteria +0.05
+  (−0.1 to +0.2).
+
+### 194. FINE-TUNING FORM SWEEP under package conditions (coordinator's suggestion; written 13 Nov 17:53 UTC, before any job ran)
+
+The true-label ceiling of FT is +1.9 (§142); the package form (gC5) sits far under it. Labels were varied (§145, §187), but
+the form was not, under package conditions.
+- **Sweep:** `ttt18 SWEEP=1` (tag LS), 16 run-time-neutral forms side by side in one run. All keep 5 steps per refit,
+  every 10 windows, warm start, one view. gC5 itself is the in-run control.
+  - learning rate: 2.5e-4, 1e-3, 2e-3;
+  - head-only (SessionBN affine and the output layer) at 5e-4 and 2e-3;
+  - consistency weight: 0, 0.5, 2, 4;
+  - soft labels at 5e-4 and 1e-3;
+  - start window: 20, 40;
+  - two combinations.
+  - Not in the sweep: an EMA of the weights between refits (not implemented in ttt7; it needs code).
+- **Wave 1:** within 0–3, package labels (L), Leonardo. **Wave 2 (afterany):** within 4–7.
+- **Scoring and nested selection** run on Leonardo: shufcombo per form, most complete form; then `sweepsel.py`, which picks
+  a form on five people and scores it on five (126 splits).
+- **Keep bar:** held-out gain ≥ +0.3 over gC5 on wave 1, confirmed (≥ +0.15) on wave 2's orders.
+- **Prediction:** held-out +0.1 (−0.1 to +0.3). The best single form looks better in-sample (+0.3 to +0.5), which is why
+  only the nested number counts.
