@@ -26,9 +26,15 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 - **What is measured against v5.1b as uploaded (13 Nov, the only reference from now on):**
   - The eye-net view and the rest member on v5.1b's own members: J +0.05 (new +0.34, seen −0.24, P04 −1.4) [§151].
   - v5.2's personal nets in package form: about 0 to −0.4 seen, and P04 loses every time [§105b, §140].
-  - Fine-tuning applied to the shipped members: being measured [§152].
-  - Nothing measured against v5.1b so far reaches a package bar. The larger numbers of 12–13 Nov (J +0.5 to +0.95 for
-    the stack) were against study bases about 0.7 below v5.1b on returning people [§151].
+  - **Fine-tuning (cum10) + eye-net view + rest member, on sessions the gate does not recognise: meets its bar on all
+    four augmentation draws** [§152]. New people +0.84 to +0.95 (without P10 +0.58 to +0.70, 80 % person intervals
+    above 0); with recognised sessions left exactly as v5.1b, dev J +0.42 to +0.48. Fine-tuning alone is about 0 beyond
+    P10, and the three parts are strongly super-additive. The cheap gC5 schedule keeps about two thirds of the gain
+    (J +0.28 to +0.36, recognised sessions as v5.1b).
+  - The ceiling of the eye-net kind of view is about +3.7 more (oracle, two draws) [§155]; better views are the
+    explore lever [§158, §159].
+  - The larger stack numbers of 12–13 Nov (J +0.5 to +0.95) were against study bases about 0.7 below v5.1b on
+    returning people [§151]; the line above replaces them.
 - **Map of tested against allowed space:** [SOLUTION_SPACE_MAP.md](SOLUTION_SPACE_MAP.md) (13 Nov) lists the gaps, the
   closures that rest on weak tests, and the backlog of ideas never run.
 
