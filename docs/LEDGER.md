@@ -3156,3 +3156,16 @@ stages lose without chronology. Prediction (+0.4) missed, high. Still to add: th
 (§167, running); more orders (runs, second permutations); returning people under shuffle. Under the organisers' stream
 this is the strongest result on record: dev new +1.1 to +1.7 over v5.1b under the same order, the measure that
 decides now.
+
+### 168. RUNORACLE (explore; the coordinator's suggestion; ceiling first): do the stages lose under shuffle because they mix runs? (written 13 Nov 10:12 UTC after a one-base smoke, before the six-base run; `studies/13nov/runoracle.py`)
+
+The oracle (never shippable) gives the stages the true run of each delivered window, and each run is processed as
+its own sub-session. No cue-order prior and no labels: the run id is its only extra input. Form B (latent runs from
+slow EEG state) would be the shippable version.
+
+Smoke (B2_pool, full perm 0): the run split costs **−3.23 even in recording order** and −4.22 under full shuffle
+(shipped stages −3.14). Each run has only about 32 windows, too few for its own templates.
+
+Prediction for the six-base run: the oracle split below the shipped stages under every scheme. **Reading rule:** if so,
+hard run-split forms (form B as specified) are closed. The loss is not "templates mix runs" but the amount of local
+data. Form A (similarity-weighted templates over the whole delivered set, no hard split) remains the open form.
