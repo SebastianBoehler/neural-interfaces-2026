@@ -68,8 +68,9 @@ also what the SessionBN members need.
   `Tail`, a class holding the three stages; the model builds two. The gate is passed as an argument.
 - `SessionEM.gates` kept every window's gate; only the current one is read → one float.
 - `Route3` held both gates' logic and the stage; now `ContrastGate`, `IdentityGate`, `OwnStage`, `Route`.
-- Unused attributes (`Shallow.dev`, `Jit.dev`, `FBC.dev`, `Bio.last`, `Route3.G`) and the 39-line history
-  docstring.
+- Diagnostics that were spread over `Route3.last`, `Bio.last` and `Route3.stage` → the gates return their
+  (person, score, ramp), `Route.last` keeps the window's three records, `Ensemble.trace` adds the posteriors.
+- Attributes nothing read (`Shallow.dev`, `Jit.dev`, `FBC.dev`, `Route3.G`) and the 39-line history docstring.
 
 ## 3. Kept although it never ran on the public data, and why
 
@@ -95,6 +96,17 @@ the 20 zero-weight net exports (2.7 MB), `route_pop`, `route_b`, `route_names`, 
 copies of the whitening reference `G` (0.6 MB), together 3.3 of 62.7 MB. A rebuilt `weights.npz` could drop them;
 that changes a pinned data file and is left for the next package build.
 
-## 5. Line counts
+## 5. Consequence for the project's scripts
+
+Fifteen scripts reach into the original's classes (`mixed_proba`, `route.step`, `route.stage`, `route.bio`,
+`_neural_batch`): the checkers `scripts/check_*.py`, the exporters `scripts/export_*.py`, `add_rebalance.py`,
+`add_fbcnet.py`, `set_params.py`, `build_sealed.py`, `device_agreement.py` and `studies/13nov/profile_v52.py`.
+They keep working with the old `submissions/*/submission.py` files, which are unchanged. They do not work on
+the lean model; `lean/tools/record.py` and `parity.py` take over the checkers' role, and the name map in
+[README.md](README.md) says where each attribute went. `scripts/add_own_stage.py` and `scripts/build_v52.py`
+copy an old `submission.py` into the package they build; a build on the lean base ends with
+`lean/tools/build.py` instead.
+
+## 6. Line counts
 
 See [PARITY.md](PARITY.md), last section.

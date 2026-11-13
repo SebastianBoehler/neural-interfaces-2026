@@ -25,6 +25,20 @@ side would still need: [AUDIT_TRAINING_SIDE.md](AUDIT_TRAINING_SIDE.md). Evidenc
 Per window: `Ensemble.step` computes the cores (worker thread) and the nets, mixes them, runs the unrouted `Tail`
 (its output and the 256-PC view feed the gates), then `Route.step`, whose output is the answer.
 
+## Where the original's names went
+
+| `submissions/ensemble_v5b` | `lean/src` |
+|---|---|
+| `AlignedTangent.proba(x)`, then `.z` | `TangentCore.step(x)` → (posterior, standardised features) |
+| `Ensemble.mixed_proba(X)`, `_tangent_batch`, `_neural_batch` | `Ensemble.step(x)` (mix in `trace["mix"]`), `Ensemble._tangents`, `NetBank.__call__` |
+| `Ensemble.rb`, `.em`, `.tsem` | `Ensemble.shadow.rb`, `.em`, `.tsem` (a `Tail`) |
+| `Ensemble.groups` (dict by input key) | `Ensemble.nets.groups` (list of (stream, members)) |
+| `Route3` and its copies of the stages | `Route`, with `.contrast`, `.identity`, `.own`, `.tail` |
+| `Bio` | `IdentityGate` |
+| `Route3.last`, `Bio.last`, `Route3.stage` | `Route.last["contrast"]`, `["identity"]`, `["stage"]` |
+| `_sjit(p, dev, root)` | `build_net(p, dev, root)` (all net kinds) |
+| `_eig_fn`, `_eig_b`, `_filtfilt`, `_softmax`, `_softmax_rows`, `SessionEM._lik` | `eig_apply`, `eig_apply_batch`, `filtfilt`, `softmax`, `softmax`, `lda_posterior` |
+
 ## Rules of the tree
 
 - **One file per package.** Modules import each other with relative imports (`from .numerics import softmax`), only
