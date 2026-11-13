@@ -1369,7 +1369,10 @@ vmap per family, CUDA graphs) on an A100 before any recipe is cut.
 
 **Review note on §105 (13 Nov 00:42 UTC):** its dev input "+0.17 on the real later sessions (§78)" was not measured in
 the package form (see the note under §78; package form +0.39, or +0.02 with the shallow member). The prediction stands
-as written, with weaker support than stated.
+as written, with weaker support than stated. **Second review (evaluation path, 13 Nov ~01:00 UTC, confirmed): with
+the personal nets only from the first routed window (window 10; 60–63 for P04 session 2), in the routed tail, and the
+gate on the population shadow, which is what the package does, §119's +0.55 becomes −0.05 (P04 −0.10, P10 0.00). The
+package-form dev support for v5.2 is about zero; §105's +0.20 needs restating on that basis (main session).**
 
 ### 106. V53: in-session fine-tuning for unrouted sessions, runtime-feasible forms (written 12 Nov by 21:49 UTC [stamp corrected from the commit time; it read 22:20 UTC], before any result; code `studies/13nov/ttt_reduce_score.py`, v52-build session) [review 13 Nov: base counts here carry almost no information, read the person uncertainty in §139]
 
