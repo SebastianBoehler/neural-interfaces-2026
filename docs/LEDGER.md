@@ -4626,3 +4626,11 @@ all to galvani").**
 - **Duplicated on Galvani:** the fresh-order sweep check (within 4–11; 3099592–645), with scoring and selection chained on
   Galvani's CPU partition (3099880–88 → runs/diag/cpu/sweepsel_fresh.txt); the pending part of the blend wave (runs 0/1;
   3099646–49).
+- **22:25 UTC, Galvani's submit limit binds.** v52-build could not resubmit v6.1's worker-image check (QOSMaxSubmitJobPerUserLimit at
+  302 of 300). I cancelled the four blend-wave duplicates on Galvani (3099646–49; Leonardo keeps its copies), leaving 206 queued
+  and room for both worker jobs.
+- The first v6.1 worker run failed on node galvani-cn228 with a hardware fault ("CUDA error: Invalid access of peer GPU memory over
+  nvlink or a hardware error", sticky), not our code. Its 190-window session completed in the worker image at ×1.721, 17
+  refits, errors 0.
+- **Lesson for a Galvani-only workflow:** with 300 slots, a 24-task array per order allows about 12 orders queued at once. Waves
+  have to be chained (afterany) rather than all submitted up front.
