@@ -60,8 +60,7 @@ members).
    the rebalancing → SessionEM → TSEM tail (Route3.step about 19 ms per window on the A100 in v5.1b), and FT.
 3. **FT (in, §152)**: cum10 (or gC5) on the four SessionBN families, never-routed sessions only, from window 30, with
    §120's five choices: SessionBN state after a refit, slots 6 and 9, no silent no-op, late recognition, schedule from
-   the scored arms. Run time from §107: about 20 s per session for one fine-tuned net per family. FT stays out unless
-   that fits next to v5.1b's 21.5 min with a 45-min worst case.
+   the scored arms. Run time (§120 addendum 2, A100, paired with v5.1b): per never-routed session of 190 / 378 windows, cum10 adds 60.7 / 239.7 s for all 24 nets, 10.1 / 39.7 s for one net per family; gC5 31.1 / 122.2 and 5.2 / 20.4 s (v5.1b itself 15.5 / 31.6 s). The cost grows with the square of session length. Against a 45-min worst case (every session unrouted), only gC5 with one net per family fits at both lengths (29 / 35 min); a window cap would make it linear but is unscored.
 
 ## Checks before any upload
 
