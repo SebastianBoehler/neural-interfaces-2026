@@ -4405,3 +4405,28 @@ is stopped so it does not crowd form B or SWEEP 3. The Leonardo stack copy cover
 - **v6.1 build path:** requested from v52-build at 20:35 UTC (new package directory; the staged ZIP stays the default). The
   check list is as for v6f, plus a dev row in the exact package form. The coordinator is told at once if the worst case
   passes about 50 min.
+
+**§198 v6.1 dev row in the package's form (13 Nov 20:47 UTC).** v52-build's label chain (lean/src61/v6chain.py) is the same computation as dev's V6r
+under the package gate:
+- (15/16)·mix_v51b + (1/16)·rest, with the eye log-posteriors in GE;
+- v5.1b's gated rebalancing, SessionEM and TSEM, with no FT and the gate never seeing it;
+- labels = argmax and max-probability weights, causal in the delivery order;
+- FT s15 delta1, one net per family.
+So the stack's s15 arm is the package-form dev row. New people, over v5.1b under the same order (Leonardo npz, six bases):
+
+| order | v6f | v6.1 |
+|---|---|---|
+| within 0 | +1.39 | +1.85 |
+| within 1 | +1.49 | +1.89 |
+| within 2 | +0.32 | +0.80 |
+| within 3 | +1.02 | +1.08 |
+| within 4 | +0.94 | +1.16 |
+| within 5 | +1.36 | +2.02 |
+| within 6 | +1.72 | +1.98 |
+| within 7 | +1.76 | +1.14 |
+| **mean [80 %]** | **+1.25 [+0.94, +1.59]**, without P10 +1.20 | **+1.49 [+1.14, +1.84]**, without P10 +1.49 |
+
+- v6.1 has 8 of 8 orders ≥ +0.5 (v6f: 7 of 8).
+- Within 4's v6f +0.94 differs from the local table's +0.91: Leonardo's rest-net seed set differs; same code.
+- The v6.1 ZIP is cand_v61_s15 (sha256 2ca06dc0…). Official local replay 0.9932767697. Worst case at 100 % unrecognised
+  about 45.8 min sealed with warm-up (v6f about 45.3). The other checks are running (v52-build).
