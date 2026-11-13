@@ -3142,7 +3142,7 @@ rebalancing; it gains +0.16 held out and costs −0.91 in recording order). Next
 (whole-session iterative estimates instead of running ones, e.g. EM over all delivered windows at each step; an
 order-free session embedding), scored under the shuffled protocol from the start.
 
-| §165 RESTREAM, six bases (13 Nov 10:11 UTC; `runs/shufcombo_{full0,within0}.log`, `.npz`; new [80 % person] / without P10; members re-streamed: the SessionBN slots and fine-tuning; eye net and rest member still as recorded) | full, permutation 0 | within, permutation 0 |
+| §165 RESTREAM, six bases (13 Nov 10:10 UTC; `runs/shufcombo_{full0,within0}.log`, `.npz`; new [80 % person] / without P10; members re-streamed: the SessionBN slots and fine-tuning; eye net and rest member still as recorded) | full, permutation 0 | within, permutation 0 |
 |---|---|---|
 | v5.1b, stages shuffled, against recording order | −3.07 [−4.30, −1.91] / −3.06 | −1.28 [−2.07, −0.51] / −1.17 |
 | v5.1b, stages and SessionBN members re-streamed | −3.10 / −3.12 | −1.29 / −1.23 |
@@ -3157,7 +3157,7 @@ stages lose without chronology. Prediction (+0.4) missed, high. Still to add: th
 this is the strongest result on record: dev new +1.1 to +1.7 over v5.1b under the same order, the measure that
 decides now.
 
-### 168. RUNORACLE (explore; the coordinator's suggestion; ceiling first): do the stages lose under shuffle because they mix runs? (written 13 Nov 10:12 UTC after a one-base smoke, before the six-base run; `studies/13nov/runoracle.py`)
+### 168. RUNORACLE (explore; the coordinator's suggestion; ceiling first): do the stages lose under shuffle because they mix runs? (written 13 Nov 10:10 UTC after a one-base smoke, before the six-base run; `studies/13nov/runoracle.py`)
 
 The oracle (never shippable) gives the stages the true run of each delivered window, and each run is processed as
 its own sub-session. No cue-order prior and no labels: the run id is its only extra input. Form B (latent runs from
