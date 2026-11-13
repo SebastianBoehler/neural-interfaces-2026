@@ -3943,3 +3943,16 @@ reproduces `runs/shufpkg.npz` to 1e-9 on all six bases. Change against routed v5
   ship form switches FT off on routed sessions, so as built the package gives returning people 0.
 - Turning eye + rest on for routed sessions would be +0.2 to +0.3 on P04 and about 0 on P10. Two people, four sessions:
   not an estimate. **"Undecided"; not for this upload.**
+
+**§188 form A RESULT (13 Nov 16:52 UTC; `runs/formA_*.log`; most complete inputs, labels L).** The real eye net appended to TSEM in
+k copies. gC5 over v5.1b, new; k = 0 is the baseline:
+
+| Order | k = 0 | k = 1 | k = 4 | k = 16 |
+|---|---|---|---|---|
+| within 0 | +1.39 | +1.43 | +1.21 | +0.96 |
+| within 1 | +1.49 | +1.52 | +1.43 | +1.13 |
+
+- The fallback falls with k (within 1: +0.88, +0.60, +0.09 for k = 1/4/16).
+- **Form A is refuted:** +0.04 at best, worse with more copies.
+- The perfect-view ceiling (oracle) is +6.05 in SessionEM and +12.1 with TSEM, so TSEM can use a perfect view. The real
+  eye net is far from one: its window accuracy for new people (LOSO, within 0) is 0.514.
