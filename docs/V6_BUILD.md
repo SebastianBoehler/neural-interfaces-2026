@@ -69,16 +69,21 @@ Upload ZIP (fine-tuning on) `a5db1404…cbba2`, fallback `05c0e386…e1564`, v5.
 
 - **The switch at the first routed window.** Dev never exercised it, because no new-person session is routed in dev.
   The package's behaviour is checked (output = v5.1b from that window, bitwise); its value is not.
-- **FT labels in delivery order.** The package uses v5.1b's own causal outputs in the order windows arrive. Dev used
-  chain_final (v5.1b's chain in recording order); the shuffled-protocol runs used chain_final labels too. Being
-  checked in dev (§178); its shuffled-order numbers wait for the §180 rescore (shuffle.py bug, fixed in 31870cb).
-- **The gate on the inner v5.1b.** The package's gate reads v5.1b's unchanged shadow; dev V6F's gate read the changed
-  shadow. Equivalent for new people in dev (none routed), and being checked in dev (§178, GATE_P0).
+- **FT labels in delivery order: checked in dev** (ledger §178–§184, commits 46af254, 623602c, 3773060). gC5 rerun
+  with v5.1b's delivery-order outputs as labels; all 144 tasks' label hashes verified. Gain over v5.1b, new people:
+  within 0 +1.70, within 1 +1.33 to +1.39, full 0 +0.93 to +1.18, runs 0 +1.34 to +1.51 (the lower values include the GE
+  event rates in delivery order). The delivery-order labels cost 0.2–0.4 against recording-order labels, and every
+  order still passes the bar.
+- **The gate on the inner v5.1b: checked in dev** (same sections). Against the gate on the combination's own chain,
+  |Δ| ≤ 0.07 for gC5 and the fallback on within 0/1 and runs 0 (corrected orders).
+- **Members re-streamed in delivery order (dev):** the Hilbert member and the teacher land at about 16:15–17:00 UTC.
+  The ea transformer and shallow slots (1.5 of 15 mix weight) stay in recording order in dev and are not checked.
 - **Members trained on all ten people.** The dev numbers come from LOSO members; the packaged eye net and rest net
   (and the shipped SessionBN nets) have seen every public person. In-sample checks here (accuracy about 99 %) cannot
   show the gain.
 - **Eye-net standardisation order.** The eye net was trained on traces standardised in recording order; the package
-  standardises in delivery order.
+  standardises in delivery order. Dev's ocushuf standardises training and test sessions in delivery order, so it does not
+  test this exact combination: open.
 - **Order independence of the package itself** is now tested on the public sessions in the within|0 and full|0
   orders (rows above), not on other orders or on unseen people.
 - **Sealed run time** assumes the Codabench worker runs like a Leonardo A100. The worker-image replay on Galvani is
