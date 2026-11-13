@@ -2159,3 +2159,15 @@ printed. The smoke tests used seed 0 and could not catch it. Fixes:
   scorings were resubmitted behind them (64328028–64328033).
 
 From now on a smoke covers the highest seed an array will use.
+
+| §131 item (13 Nov 01:03 UTC; `runs/ttt8_score.log`; seeds 0–5, new, all6 against frozen; person terms) | Observed | Verdict |
+|---|---|---|
+| cum10 (in-run reference) | +0.46, 80 % [−0.24, +1.14]; without P10 (+3.5) +0.12 | identical to §108 (same nets and same draws, deterministic) |
+| cum20 / cum5e5 / cum10c2 | +0.38 / +0.19 / +0.34; without P10 −0.08 / −0.19 / −0.02 | no gain |
+| cum10e5 (10 steps every 5 windows, cost 1) | +0.61, [−0.24, +1.49]; without P10 (+4.9) +0.14 | +0.15 over cum10, but all of it is P10; the rule waits for the fresh sets (§135) |
+| cum10lr (lr 1e-3) | +0.49; without P10 +0.12 | no gain |
+
+**Reading.** On seeds 0–5 every warm-start variant is P10 plus about ±0.15 for the other nine. Variants of steps,
+spacing, learning rate and consistency weight do not move the nine. The exception so far is gC5 of §113 (+0.34 without
+P10), which differs in its augmentation draws. That points again at draw noise in the "without P10" figure. The
+fresh-seed sets (§113 fresh, §135) decide whether any form gains for people other than P10.
