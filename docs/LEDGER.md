@@ -2282,3 +2282,13 @@ second member; FORw2 doubles the shallow rest member's weight.
 **Reading.** The rest lever is at its best as one shallow member at weight 1. More of it hurts. FOR stays the
 design input. The fresh FBCNet rest seeds (array 64335969) are no longer needed for this question; they are left to
 finish as data.
+
+**§120 addendum (13 Nov 01:23 UTC; review items 5, 6 and 8, v52-build session; details in `docs/V52_BUILD.md`):**
+- Item 5: the 12 twin-based personal bases (raw FBCNet, SincShallow) were rebuilt from the shipped traces themselves:
+  120 traces, traced vs eager 0.0, graft check 0.0. Corrected set of 300 in `runs/pnets_jit_shipbase`. `trained()` now
+  fails unless asked to train, and `build_v52.py` refuses twin bases (tested: it lists the 12 old ones).
+- Item 6: forced impostor personal nets on the 14 public sessions cost −0.06 points (worst −1.04). This is in-sample at
+  a ceiling of about 99 %, so it is weakly informative.
+- Item 8: per-window cost grows by 0.014 ms (v5.1b) and 0.021 ms (v5.2b) per window index (78 → 88 and 80 → 93 ms over
+  577 windows, A100). A one-off ~11 s of TorchScript compilation when a person's traces are first used in a process,
+  not per session.

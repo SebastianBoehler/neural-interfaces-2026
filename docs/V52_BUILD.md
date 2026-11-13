@@ -135,3 +135,11 @@ behind, so the arithmetic is v5.2's).
 −0.36 (P04 −0.78), fresh seeds −0.40 (P04 −0.87); the review of §119 gives −0.05. The dev support of §78, §96 and §119
 came from forms a package cannot run (nets from window 0, also in the gate's shadow). v5.2 / v5.2b stay engineering
 results, not candidates, unless a package-form measurement changes that.
+- **Guard tested:** `build_v52.py` on the old traces fails and lists exactly the 12 twin-based bases (graft
+  0.020–0.146), with no output folder left behind. On the rebuilt set, the graft check is 0.0 for all 120 new traces.
+
+**Review item 6, false accepts** (`studies/13nov/impostor_pnets.py`, Mac CPU, 14 public sessions). Another person's
+personal traces are forced on every routed window (offsets 1, 4, 7), while the gate, head and stage keep the routed
+person. Against v5.1b: mean −0.06 balanced-accuracy points, worst session-offset −1.04, none below −2. **Weakly
+informative:** in-sample the whole chain is at about 99 % on these sessions, so the cost on a real false accept of an
+unseen person is not measured here. A held-out impostor (a person left out of the personal nets) would measure it.
