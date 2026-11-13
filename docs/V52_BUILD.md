@@ -95,3 +95,43 @@ are not routed. Limit 60 min. Not measured on the A100 or the worker image (Leon
 4. `scripts/export_pnets.py`'s own per-trace check (traced vs eager personal net on the person's public sessions,
    < 1e-4) ran on Leonardo. Logs in `runs/pnets_jit_logs/pexport-*-task*.out`: 300 JSON lines for 300 distinct traces,
    maximum difference **0.0**, and all 24 tasks printed DONE.
+
+## 13 Nov: v5.2b (runtime build) and the reviews' package items
+
+**v5.2b** (`submissions/ensemble_v52b/submission.py`, package `runs/sealed/cand_v52b_pnets`, same `weights.npz` and
+traces as v5.2; ledger §112). While the CPU tangent thread finishes a window, the main thread runs the personal traces
+of the person routed on the previous window (`PersonalNets.prefetch`, only when those traces are exactly one window
+behind, so the arithmetic is v5.2's).
+- Equal to v5.2 on all 2,655 public windows through the official `predict_streams`: identical labels, posterior
+  difference 0.0 on CPU and on an A100 (`scripts/check_v52b.py`; 2,501 of 2,515 routed calls prefetched).
+- `check_v52.py --device cuda --ref-schedule` passes on v5.2b: the reference runs on the package's device with its batch
+  shapes; personal posteriors 5.2e-6 (main pass) and 2.5e-5 (switch pass).
+- **Why the GPU check failed before:** the reference ran as one CPU batch per session. GPU-vs-CPU float32 and
+  batch-shape numerics give 1e-4 to 3e-4 (shipped base traces 5e-5; personal traces 1.9e-4 window by window).
+  Equal to the digit with deterministic algorithms.
+- **Runtime.** The 3.9× of job 64311532 was a cold start: the first replay in a fresh Leonardo job pays about 230 s of
+  neuralbench setup. Paired A100 replays after a warm-up: v5.2 1.40× v5.1b (ABBA 64316388), v5.2b **1.27×** (series
+  64316761). Sealed estimate (v5.1b 1,287 s on the real worker): v5.2b about 27 min if every session is routed,
+  about 24 min at 43 %.
+- **Per window against window index** (A100, warm; `studies/13nov/time_by_window.py`): v5.1b 78 → 88 ms over a
+  577-window session (slope 0.014 ms per window); v5.2b 80 → 93 ms (0.021). A one-off ~11 s when a person's traces are
+  first used in the process (TorchScript compiling 30 traces for new shapes), not per session. On the sealed run that is
+  at most about 2 min for 10 people.
+
+**Review item 5, twin bases, fixed:**
+- `scripts/export_sbn.py::trained()` fails unless asked to train (`train=True`, `--train-missing`).
+- `scripts/sbn_trace_base.py` rebuilds a shipped SessionBN member as a dev net from the package itself. Its inputs and
+  outputs equal the shipped trace exactly (0.0) for all five families.
+- `build_pnets.py` and `export_pnets.py` take `BASE_PKG=<package>` and use the tracked `studies/11nov/ttt/galv/pft.py`,
+  identical to the cluster copy (md5).
+- `build_v52.py` now refuses personal traces not on their shipped base. The graft check: the personal trace with the
+  shipped output layer and StreamBN affine must equal the shipped trace (< 1e-5). Old traces: fb 1.4e-6, FBLight 2e-7,
+  raw FBCNet 0.062, SincShallow 0.086. `--allow-twin-bases` only records the differences.
+- The 12 raw-FBCNet and SincShallow bases × 10 people were rebuilt from the shipped weights (Leonardo 64326518 /
+  64326519): 120 traces, traced vs eager 0.0, graft 0.0. The complete corrected set (300 traces) is in
+  `runs/pnets_jit_shipbase`. Not built into a package: no package before about 14 Nov 02:00 UTC.
+
+**What the reviews mean for v5.2 itself:** in the package form, the personal nets gain about nothing or lose: §140 seen
+−0.36 (P04 −0.78), fresh seeds −0.40 (P04 −0.87); the review of §119 gives −0.05. The dev support of §78, §96 and §119
+came from forms a package cannot run (nets from window 0, also in the gate's shadow). v5.2 / v5.2b stay engineering
+results, not candidates, unless a package-form measurement changes that.
