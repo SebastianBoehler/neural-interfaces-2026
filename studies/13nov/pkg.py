@@ -51,10 +51,15 @@ if os.path.exists(_cog):
 _mix0 = A.mix
 
 
+MXS = os.environ.get("OCU_MIX_SEEDS", "0,1,2").split(",")  # s156: the eye net's Mixup arm as a second view family
+OCM = {p: np.mean([load(f"{REPO}/runs/ocunet/probs/oc_mix-{p}-s{s}.npz", p) for s in MXS], 0) for p in PR}
+
+
 def ge_view(sp, p):
     if not sp.get("ocu"):
         return REF[p]
-    L = ORC[p] if sp.get("ocuorc") else np.log(np.clip(OC[p], 1e-3, 1)); return np.c_[REF[p], sp.get("ocuw", 1.0) * L]
+    L = ORC[p] if sp.get("ocuorc") else np.log(np.clip(OC[p], 1e-3, 1)); V = np.c_[REF[p], sp.get("ocuw", 1.0) * L]
+    return np.c_[V, np.log(np.clip(OCM[p], 1e-3, 1))] if sp.get("ocmix") else V
 
 
 def weak_rows(bn, p, RTS0, q=0.5, T0=30):  # weak-session gate (s133 form): out-of-person quantile of the shipped mix's early confidence
@@ -88,7 +93,8 @@ SPEC = {"T0": dict(), "T1b": dict(pn="base"), "T1": dict(pn="pfh60"), "T1w": dic
 _V = dict(ship=True, ft=True, ocu=True, rest=True, beta=0.10)  # s155: refinements and retests inside V6F
 SPEC.update({"V6F_ft05": {**_V, "ftw": 0.5}, "V6F_ft15": {**_V, "ftw": 1.5}, "V6F_r05": {**_V, "rest": 0.5}, "V6F_r2": {**_V, "rest": 2.0},
              "V6F_o05": {**_V, "ocuw": 0.5}, "V6F_o2": {**_V, "ocuw": 2.0}, "V6F_orc": {**_V, "ocuorc": True}, "V6F_cog": {**_V, "cog": 1.0},
-             "V6F_pls": {**_V, "pls": 0.15}, "V6F_mix": {**_V, "mixe": 0.9}, "V6F_weak": {**_V, "ftweak": True}})
+             "V6F_pls": {**_V, "pls": 0.15}, "V6F_mix": {**_V, "mixe": 0.9}, "V6F_weak": {**_V, "ftweak": True},
+             "V6F_ocm": {**_V, "ocmix": True}})  # s156: a second eye-net family in the view
 SPEC.update({
         "FOR2": dict(pn="pfh60", ft=True, ocu=True, rest=True, restfb=True), "FORw2": dict(pn="pfh60", ft=True, ocu=True, rest=2.0)})  # s144
 

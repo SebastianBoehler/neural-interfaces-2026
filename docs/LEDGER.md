@@ -2738,3 +2738,15 @@ adds on top (cog +0.07 is the closest). The headroom is in the eye-net view's co
 +3.8 more. The super-additivity looks like the view letting SessionEM sort sessions by what the fine-tuned members get
 wrong. So the next lever is better views of the same kind: more eye-net seeds and families, views from other
 label-free signals, and the SessionBN nets' own embeddings (§72–73, closed on the v3 path) scored inside V6F.
+
+### 156. VIEWS: better eye-net views inside the combination (written 13 Nov 08:26 UTC, before any result; `pkg.py`, against v5.1b, paired with V6F, Mac, draw 0)
+
+§155: a perfect view of this kind adds +3.8. Cheap steps towards it from stored outputs:
+- (a) ocm, a second eye-net family (the Mixup arm, seeds 0–2) appended to the view.
+- (b) V6F with the nomix eye net averaged over nine seeds (0–8) instead of three: the same view, less noise.
+
+| Check (new, paired against V6F with the 3-seed nomix view) | Prediction (80 % range) |
+|---|---|
+| (a) ocm | +0.10 (−0.20 to +0.40) |
+| (b) nine seeds | +0.10 (−0.15 to +0.35) |
+| **Bar** | ≥ +0.15 without the best person on draw 0, then draws 1–3 on Leonardo (mix seeds 3–11 are there) |
