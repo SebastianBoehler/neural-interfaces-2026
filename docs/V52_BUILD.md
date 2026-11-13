@@ -146,5 +146,7 @@ unseen person is not measured here. A held-out impostor (a person left out of th
 
 **Status (13 Nov, ledger §105b):** v5.2 over v5.1b is restated as −0.05 sealed (−0.30 to +0.10); v5.2 and v5.2b are not
 to be uploaded as built. What carries over to the next package: v5.2b's prefetch, the trained() guard, the graft check,
-the 120 rebuilt traces, §120's v5.3 choices and the runtime measurements. Next design input (main session): FT + eye-net
-view + rest member, built only after the window and after the fresh-seed PKG3 replay.
+the 120 rebuilt traces, §120's v5.3 choices and the runtime measurements. Next design (ledger §151,
+`docs/V6_DESIGN.md`): on v5.1b's own shipped members, the eye-net view plus the rest member gives J +0.05, below the bar
+(the earlier +0.5 to +0.95 was against a study base about 0.7 below v5.1b on returning people). Fine-tuning from the
+shipped SessionBN nets is unmeasured. Nothing is built from it until those runs exist.
