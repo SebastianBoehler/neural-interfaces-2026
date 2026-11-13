@@ -3439,5 +3439,5 @@ eye net re-streamed for within 0 only).** gC5 combination over v5.1b, both under
 All six pass the bar (≥ +0.5 new, > 0 without P10). The spread between draws (0.27) is inside the measure's noise.
 **Worker image (Galvani 3096279, CUDA, image torch 2.14.1+cu130):** v5.1b own, own_b, lean_v5, cand_v6f_gc5 and
 cand_v6f_noft all give 0.99328 on the local replay sample (files unchanged, about 100 s each). This ran on a build from
-before the executor fix, so it is "not on the final ZIP". The sample's windows are all from recognised sessions, so equal
-scores do not test the new-person path.
+before the executor fix, so it is "not on the final ZIP". Equal scores here do not show that the new-person path ran;
+v52-build's no-op check (recognition off) covers that.
