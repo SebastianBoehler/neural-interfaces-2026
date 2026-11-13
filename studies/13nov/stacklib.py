@@ -28,7 +28,8 @@ for a in SLOT:
 # REST: rest-as-fourth-class ShallowConvNet as an extra member
 A.EXTRA["rest"] = {p: load(REPO + "/runs/rest4/probs/rest4_sh_r1-PROTO-s*.npz", p, 3) for p in PR}
 # OCU: eye-net log posteriors appended to SessionEM's GE view
-OC = {p: load(REPO + "/runs/ocunet/probs/oc_nomix-PROTO-s*.npz", p, 3) for p in PR}
+OCS = os.environ.get("OCU_SEEDS", "0,1,2").split(",")  # explicit seeds: new seed files must not change old results silently
+OC = {p: np.mean([load(REPO + f"/runs/ocunet/probs/oc_nomix-PROTO-s{s}.npz", p, 1) for s in OCS], 0) for p in PR}
 REF = {p: Z[f"GE|{p}"].copy() for p in PR}; GEO = {p: np.c_[REF[p], np.log(np.clip(OC[p], 1e-3, 1))] for p in PR}
 # MIX: member mix to the power 0.9, renormalised
 _mix = A.mix

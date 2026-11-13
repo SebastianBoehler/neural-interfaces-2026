@@ -1837,3 +1837,14 @@ against OCU (§130b's design input). Six bases, new people.
 | q33 / q67 | +0.35 (+0.10 to +0.60) / +0.48 (+0.25 to +0.70) |
 | inv50: strong half only (control) | +0.05 (−0.20 to +0.25) |
 | **Rule** | A gate is worth adopting if it lands within 0.05 of the ungated arm (or above) in both contexts at ≤ 2/3 of the sessions, with ≥ 5 of 6 bases ahead of frozen. It saves run time, which pays for the rest of the design. If inv50 ≥ +0.25, the gains are not concentrated in weak sessions and gating is closed. If a gate is ≥ +0.10 above the ungated arm on ≥ 5 of 6 bases, strong sessions lose from FT and the gate is a gain, not only a saving |
+
+### 134. OCU9 (explore → consolidation): is OCU's role in the stack seed luck? (written 13 Nov 00:18 UTC, before any job ran; `studies/12nov/ocunet.py` tasks 7–17 odd = nomix seeds 3–8, Leonardo)
+
+In §130, OCU was +0.14 alone but +0.68 when left out of the stack (10 of 10 people), and that rests on three eye-net
+seeds. Six more nomix seeds are trained, and §130b's FT+OCU is re-scored with all nine (`stack.py`, after the run).
+
+| Check (new, six-base mean) | Prediction (80 % range) |
+|---|---|
+| OCU alone, nine seeds | +0.15 (−0.05 to +0.35) |
+| FT+OCU against FT alone (OCU's share of the design input), nine seeds | +0.40 (+0.20 to +0.60); three seeds gave +0.40 (0.86 − 0.46) |
+| **Rule** | If OCU's share in FT+OCU falls below +0.20 with nine seeds, the three-seed result was seed luck and OCU leaves the design input; otherwise it stays, scored with nine seeds |

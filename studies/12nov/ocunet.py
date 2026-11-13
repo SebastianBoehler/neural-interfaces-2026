@@ -1,10 +1,10 @@
 """OCUNET (ledger s58, step 3): a learned eye-movement branch. Derived ocular traces -> 1-D ResNet with channel attention,
 Mixup; leave one person out and the seen protocol. Saves proba, index and the 128-d embedding per (arm, protocol, seed).
-Usage (Galvani): python ocunet.py TASK   (0-5: arm = ("mix", "nomix")[TASK % 2], seed = TASK // 2) | python ocunet.py smoke
+Usage (Leonardo or Galvani, NI26_WS): python ocunet.py TASK   (0-5: arm = ("mix", "nomix")[TASK % 2], seed = TASK // 2) | python ocunet.py smoke
 """
-import sys, time
+import os, sys, time
 from pathlib import Path
-WS = Path("/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026")
+WS = Path(os.environ.get("NI26_WS", Path(__file__).resolve().parents[2]))
 sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]
 import numpy as np  # noqa: E402
 import torch  # noqa: E402
