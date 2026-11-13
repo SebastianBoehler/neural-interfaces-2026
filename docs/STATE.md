@@ -42,7 +42,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 - **Input:** one window per call, float32 `(1, 41, 480)`: 4 s at 120 Hz, starting 1 s after the cue. Output: one label
   (0 motor imagery, 1 mental subtraction, 2 word generation). No labels, no person, session or interface metadata.
-- **Stream:** one participant-session; runs in order, windows in recording time; Graz and BrainHero share the session.
+- **Stream:** one participant-session, delivered in a fixed evaluation order that is not recording order (organisers, 13 Nov); Graz and BrainHero share the session; state resets between sessions.
 - **State:** the evaluator deep-copies the loaded model at every session boundary. Nothing may cross sessions.
   Inside a session everything causal is allowed (adaptation, fine-tuning, identity inference from EEG).
 - **Metric:** balanced accuracy per participant × session × interface cell, then the plain mean over cells.
@@ -54,10 +54,21 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
   sealed submission: it costs a slot. Codabench has a bot check; the user opens the page in Chrome.
 - **Data:** public datasets are allowed if their terms permit. Scherer 2015 (CC BY-NC-ND) was cleared by the
   organisers on Discord on 11 Nov; it must be declared in the method write-up.
-- **Order (changed 10 Nov):** the organisers removed every guarantee that windows arrive chronologically within a
-  session ("the same evaluation order is used for all submissions"; commit 8734b2f6). Our chain loses 3–5 points
-  under a re-ordering. Ten cuts and orders were fingerprinted against our four sealed numbers and none fits, so the
-  sealed order is still close to acquisition order, but nothing in the rules keeps it so (ledger §62).
+- **Order (organisers, 13 Nov, Discord, verbatim):** "1) Window order. Please don't assume recording chronology.
+  'Previously delivered' means earlier in the evaluation stream, not necessarily earlier in recording time. The same
+  evaluation order is used for all submissions, with state reset between sessions. Without going into details, but to
+  avoid tricks we discovered of solving the track without using EEG, we removed chronology. Hence why we reran all
+  submissions earlier this week. 2) Labelled public windows during adaptation. Public labelled data may be used for
+  training. Evaluation-time adaptation is of course restricted to the current session's delivered windows, without
+  labels, as mentioned in the FAQ. 3) Any models trained on permitted public data are allowed, whatever its training
+  strategy on those public data. So Yes."
+  **Consequences:** the sealed stream has not been in recording order since the rescoring of 10 Nov. §62's conclusion
+  ("the sealed order is still close to acquisition order") is withdrawn: the fingerprint failing to match meant we did
+  not find the order, not that there is none. Every dev number so far was measured in recording order. The primary dev
+  protocol is now non-chronological within a session, scored under several schemes with fixed permutations
+  (ledger §164); recording order is a secondary column. Evaluation-time adaptation may use only the session's delivered
+  windows, without labels. v5.1b and the combination fit nothing on labelled public data during a session (checked
+  13 Nov: the own-space stage and the personal heads load precomputed parameters).
 - **Cue-order regularity** (Graz runs follow a weakly shuffled WORD → SUB → MI cycle): not raised with the organisers;
   it goes into the final method write-up (user decision, 11 Nov).
 
