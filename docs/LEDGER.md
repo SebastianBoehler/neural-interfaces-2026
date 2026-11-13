@@ -3195,3 +3195,33 @@ four returning sessions are still routed.
 windows) are too short for their own templates. **Form B as specified (latent runs with per-run templates) is
 closed.** The shuffle loss is not that templates mix runs. Form A (similarity-weighted templates over the whole
 delivered set, no hard split) stays open; its oracle would weight by recording-time distance instead of splitting.
+
+| §169 SHUFPKG (13 Nov 10:17 UTC; `runs/shufpkg.log`, `.npz`; v5.1b as uploaded against itself in recording order; six bases × two permutations) | New | Seen (P04, P10) | J |
+|---|---|---|---|
+| full | −3.10 | −3.95 (−5.64, −2.25) | −3.52 |
+| runs | −1.95 | −3.41 (−6.12, −0.70) | −2.68 |
+| **within** | −0.97 | −0.52 (−1.32, +0.29) | **−0.74** |
+
+**Reading.** Returning people lose as much as new people under full and runs; P04 loses most (−5.6 to −6.1). **Sealed
+check:** the rescoring of 10 Nov cost the uploaded packages 0.72 to 1.17 J. Only *within* (runs kept in order, windows
+shuffled inside each run) lands in that range; full (−3.5) and runs (−2.7) are far outside. **The sealed scheme is most
+plausibly a within-run shuffle**, or something as mild. From here, *within* is the primary column and full / runs are
+stress columns. This also explains why the combination's sealed value was hard to predict from recording-order
+numbers: under *within*, the combination's gain over v5.1b was +1.65 (§165), against +1.00 in recording order.
+
+**§170 TORACLE smoke (B2_pool, full perm 0; pre-registration below):** ORACLE stages weighting delivered windows by
+true recording distance (H = 30). Full shuffle, against v5.1b in recording order: new −2.97 (shipped −3.14), seen
+−4.80 (shipped −4.66). Recording order: new −0.82, seen −2.26. The oracle recovers about 5 % of the new-people loss and
+none of the seen loss.
+
+### 170. TORACLE: stages with delivered windows weighted by true recording distance (form A's ceiling) (written 13 Nov 10:17 UTC after the one-base smoke above, before the two-base run; `timeoracle.py`, `toracle.py`)
+
+The H = ∞ check reproduces the shipped stages exactly. Bar, stated before the two-base run: form A (slow-state
+similarity in place of true time) gets several variants only if the oracle recovers ≥ 50 % of the shuffle loss under
+*within* or *full* for new or returning people, at some H. The smoke recovers about 5 % and 0 %. Running B2_pool and
+B2_s345, H 30 / 90, all three schemes.
+
+**Caveat for every shuffled number so far:** the stored stage views (GE for SessionEM, pc128 for TSEM) were standardised
+causally in recording order. Under a real shuffled stream their standardisation would follow the delivery order. The
+SessionBN members re-streamed without extra loss (§165), and the eye net is re-streamed now (§167). GE and pc128
+cannot be re-streamed from stored outputs, so the shuffled losses may be partly an artefact of that mismatch.

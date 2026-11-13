@@ -43,20 +43,21 @@ def _rank(order):
     rk = np.full(int(order.max()) + 1, -1); rk[order] = np.arange(len(order)); return rk
 
 
-ident = {p: np.arange(S.N[p]) for p in PR}; REF, OOF, R = {}, {}, {}
-for bn in BASES:
-    REF[bn], OOF[bn], nr = system(bn, ident, None)  # v5.1b in recording order; its new-people shadow fixes the gate's calibration
-    print(f"{bn} recording order: new {REF[bn]['all_loso'].mean():.2f} seen {REF[bn]['seen_session'].mean():.2f} (P04 {REF[bn]['seen_session'][0]:.1f}, P10 {REF[bn]['seen_session'][1]:.1f}), routed sessions {nr}", flush=True)
-for sc in S.SCHEMES:
-    for sd in range(S.PERMS):
-        P = S.perm_for(sc, sd)
-        for bn in BASES:
-            R[sc, sd, bn], _, nr = system(bn, P, OOF[bn])
-        print(f"  {sc} {sd}: routed sessions {nr} (last base)", flush=True)
-S.apply(ident); RANK["cur"] = None
-print("v5.1b against itself in recording order, six-base mean (new | seen: P04, P10 | J)")
-for sc in S.SCHEMES:
-    dn = np.mean([[R[sc, sd, bn]["all_loso"] - REF[bn]["all_loso"] for bn in BASES] for sd in range(S.PERMS)], axis=(0, 1))
-    ds = np.mean([[R[sc, sd, bn]["seen_session"] - REF[bn]["seen_session"] for bn in BASES] for sd in range(S.PERMS)], axis=(0, 1))
-    print(f"  {sc:7s} new {dn.mean():+.2f} | seen {ds.mean():+.2f} (P04 {ds[0]:+.2f}, P10 {ds[1]:+.2f}) | J {0.5 * dn.mean() + 0.5 * ds.mean():+.2f}", flush=True)
-np.savez(REPO + "/runs/shufpkg.npz", **{f"rec|0|{bn}|{p}": v[p] for bn, v in REF.items() for p in PR}, **{f"{sc}|{sd}|{bn}|{p}": v[p] for (sc, sd, bn), v in R.items() for p in PR})
+if __name__ == "__main__":  # importable by toracle.py (system, S, PR, BASES)
+    ident = {p: np.arange(S.N[p]) for p in PR}; REF, OOF, R = {}, {}, {}
+    for bn in BASES:
+        REF[bn], OOF[bn], nr = system(bn, ident, None)  # v5.1b in recording order; its new-people shadow fixes the gate's calibration
+        print(f"{bn} recording order: new {REF[bn]['all_loso'].mean():.2f} seen {REF[bn]['seen_session'].mean():.2f} (P04 {REF[bn]['seen_session'][0]:.1f}, P10 {REF[bn]['seen_session'][1]:.1f}), routed sessions {nr}", flush=True)
+    for sc in S.SCHEMES:
+        for sd in range(S.PERMS):
+            P = S.perm_for(sc, sd)
+            for bn in BASES:
+                R[sc, sd, bn], _, nr = system(bn, P, OOF[bn])
+            print(f"  {sc} {sd}: routed sessions {nr} (last base)", flush=True)
+    S.apply(ident); RANK["cur"] = None
+    print("v5.1b against itself in recording order, six-base mean (new | seen: P04, P10 | J)")
+    for sc in S.SCHEMES:
+        dn = np.mean([[R[sc, sd, bn]["all_loso"] - REF[bn]["all_loso"] for bn in BASES] for sd in range(S.PERMS)], axis=(0, 1))
+        ds = np.mean([[R[sc, sd, bn]["seen_session"] - REF[bn]["seen_session"] for bn in BASES] for sd in range(S.PERMS)], axis=(0, 1))
+        print(f"  {sc:7s} new {dn.mean():+.2f} | seen {ds.mean():+.2f} (P04 {ds[0]:+.2f}, P10 {ds[1]:+.2f}) | J {0.5 * dn.mean() + 0.5 * ds.mean():+.2f}", flush=True)
+    np.savez(REPO + "/runs/shufpkg.npz", **{f"rec|0|{bn}|{p}": v[p] for bn, v in REF.items() for p in PR}, **{f"{sc}|{sd}|{bn}|{p}": v[p] for (sc, sd, bn), v in R.items() for p in PR})
