@@ -54,9 +54,11 @@ if DGE is not None:  # GE = [gaze 32 | event rates 16]; the stored event rates m
     assert np.allclose(S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]][f"GE|{p0}"][:, 32:], GS["rec"][IDX]), "GE columns 32: are not the event rates"
 HBF = sorted(glob.glob(f"{REPO}/runs/hilbertmember*.npz")) if os.environ.get("HB_NPZ") != "none" else []
 HB = next((z for z in map(np.load, HBF) if f"{ORD}|{p0}" in z), {}); DHB = HB[f"{ORD}|{p0}"] - HB[f"rec|{p0}"] if f"{ORD}|{p0}" in HB else None
+TSF = sorted(glob.glob(f"{REPO}/runs/teachshuf*.npz")) if os.environ.get("TS_NPZ") != "none" else []  # s184: teacher, slot 10
+TS = next((z for z in map(np.load, TSF) if f"{ORD}|{p0}" in z), {}); DTS = TS[f"{ORD}|{p0}"] - TS[f"rec|{p0}"] if f"{ORD}|{p0}" in TS else None
 CORE = [n for n, ok in (("core1 member", DC1 is not None), ("pc128 view", DPC is not None), ("rest net", bool(RSS)), ("eye net", bool(OCD))) if not ok]
-REC_LEFT = CORE + [n for n, ok in (("GE event rates", DGE is not None), ("Hilbert member", DHB is not None)) if not ok] + [
-    "transformer and shallow ea members (causal EA)", "teacher member (causal EA)"]
+REC_LEFT = CORE + [n for n, ok in (("GE event rates", DGE is not None), ("Hilbert member", DHB is not None), ("teacher member", DTS is not None)) if not ok] + [
+    "transformer and shallow ea members (causal EA)"]
 assert not (os.environ.get("STRICT") and CORE), f"STRICT: still in recording order: {CORE}"
 print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {RPX}; eye net {'re-streamed ' + OCD if OCD else 'recording order (3 seeds)'}; "
       f"rest net {'re-streamed ' + str(len(RSS)) + ' seeds' if RSS else 'recording order'}; core1 member {'re-streamed' if DC1 is not None else 'recording order'}; "
@@ -82,6 +84,8 @@ def chain(bn, arm, P):
             Z[f"pc128|{p0}"] = Z[f"pc128|{p0}"] + DPC[P].astype(Z[f"pc128|{p0}"].dtype)
         if DHB is not None:  # hb = 2 Ps[0] - c1: Ps[0] moves by half the Hilbert change
             Z[f"{bn}|Ps|{p0}"][0] = Z[f"{bn}|Ps|{p0}"][0] + DHB[P] / 2
+        if DTS is not None:
+            Z[f"{bn}|Ps|{p0}"][10] = Z[f"{bn}|Ps|{p0}"][10] + DTS[P]
         if DGE is not None:
             Z[f"GE|{p0}"] = Z[f"GE|{p0}"].copy(); Z[f"GE|{p0}"][:, 32:] = Z[f"GE|{p0}"][:, 32:] + DGE[P]
     base = {s_: A.L.Z[f"{bn}|Ps|{p0}"][s_][np.argsort(P)] for s_ in SLOT.values()}  # undo P: recording order
@@ -145,4 +149,4 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other
-np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
