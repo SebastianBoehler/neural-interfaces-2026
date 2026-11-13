@@ -17,6 +17,14 @@
 
 Numbers are dev J (0.5 new + 0.5 seen) unless stated. Anything below +0.3 is inside the noise of the dev metric.
 
+**Read the "closed" tables with the map** ([SOLUTION_SPACE_MAP.md](SOLUTION_SPACE_MAP.md), 13 Nov). An audit of all
+119 sections found that many closures rest on weak tests: new members scored as one more member at a fixed weight,
+new cores swapped in as posteriors only, whole systems in one configuration, directions dropped within 0.01 to 0.1 of
+a bar inside the noise, and returning-person levers dropped on P10 alone. Those are backlog, not verdicts:
+`evidence/map_13nov/map_experiments_11_13nov.md` part 2 lists them, part 4 the positives never combined, part 6 the
+ideas never run; `evidence/map_13nov/map_history_to_10nov.md` covers the closures before 11 Nov. A verdict of
+"refuted" below a bar it missed by less than the noise should be read as "undecided".
+
 ## Index of 11 Nov
 
 ### Adopted

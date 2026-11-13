@@ -18,6 +18,17 @@ wins. Read them only to look up how something was tested.
 
 ## Assumptions in these files that are now known to be wrong or outdated
 
+- **"Rank 1 is the ceiling" / "no +3 source exists".** The leaderboard shows such scores are reachable; the ceilings
+  we measured were ceilings of our representation (user, 11 and 13 Nov; docs/STATE.md §5).
+- **"In-session learning on the chain's own labels is closed."** The augmented-input form gains for new people on
+  every base (+0.36 to +0.46 dev; ledger §101, §108).
+- **"Small levers do not stack."** One test of two returning-person levers; the joint test is ledger §130.
+- **"The label-free chain already matches what a session's own labels can give."** True only in core1's PC space;
+  session-own representations reach 81–82 % (ledger §36).
+- **"v5.2 is three to four times slower than v5.1b."** A cold-start artefact of one unpaired run; warm and paired it
+  is 1.40× (ledger §112).
+- **A closure in an index table is a verdict.** Many rest on weak tests; docs/SOLUTION_SPACE_MAP.md tags them.
+
 - **"A stronger or different member will lift the chain."** Twelve cases say no, including calibrated ones
   (docs/LEDGER.md, "Members and features"). Members share their errors.
 - **"Dev seen gains transfer like dev new gains."** Dev weights P04 and P10 equally; on the sealed set P04 probably
