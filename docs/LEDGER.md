@@ -2188,3 +2188,23 @@ rounds, made it worse. This is the high-ceiling gap to attack next. The labels m
 get wrong, and errors independent of the nets are what the labels need. Next forms: labels from members that do not
 include the nets being tuned (core1, Hilbert and teacher only); the true-label ceiling by window confidence, to find
 which windows' labels matter; and fine-tuning only on windows where independent members agree.
+
+### 142. TTT12 (explore, high ceiling): labels whose errors are independent of the nets being tuned (written 13 Nov 01:28 UTC, before any job ran; `ttt9.py` LAB=indep / agree / truelow, labels from `studies/13nov/make_labels2.py`, seeds 0–11, Leonardo)
+
+**Ceiling, and why it could be large:** true labels give +1.4 to +1.5 for the nine people other than P10 (§137); the
+v3 chain's labels give about 0 for them; the stack chain's labels, which contain the tuned nets' own outputs, give
+less. Hypothesis: what limits fine-tuning is not label accuracy but that the labels share the tuned nets' errors.
+Label files (B2_pool dev chain):
+- indep: a chain without the three SessionBN families (core1, Hilbert, transformer, shallow nets, teacher). New
+  77.4 against v3's 80.2: less accurate, but its errors are not the tuned nets'.
+- agree: v3's labels, kept only where the independent chain agrees (91 % of new windows; label accuracy 78.7 % there,
+  54.3 % on the other 9 %).
+- truelow (ORACLE, never shippable): true labels on the low-confidence half (where v3 is right 62 %), v3 elsewhere.
+  This decomposes the §137 ceiling.
+
+| Check (cum10 all6, new, against frozen; seeds 0–5 and fresh 6–11; read without P10) | Prediction (80 % range) |
+|---|---|
+| indep | +0.35 (−0.10 to +0.80); without P10 +0.20 |
+| agree | +0.50 (+0.10 to +0.90); without P10 +0.25 |
+| truelow (oracle) | +1.4 (+0.8 to +2.0); without P10 +1.0 |
+| **Bar** | A label-free source counts if, without P10, it is ≥ +0.30 on both seed sets: then it replaces the v3 labels in the fine-tuning recipe. truelow ≥ +1.0 without P10 means the ceiling sits in the hard windows, and the next forms aim there (labels on low-confidence windows from the independent members only) |
