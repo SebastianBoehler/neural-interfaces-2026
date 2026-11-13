@@ -2723,3 +2723,18 @@ Smoke, B2_pool, new against v5.1b: V6F +0.99; orc **+4.89**; cog +1.22; pls +1.0
 | pls − V6F | 0.0 (−0.3 to +0.3) |
 | the best of the part strengths − V6F | +0.10 (−0.10 to +0.30) |
 | **Bar** | a change is kept if it is ≥ +0.15 over V6F without the best person, on draw 0 and on at least two of draws 1–3 |
+
+| §155 item, draw 0 (13 Nov 08:25 UTC; `runs/combo_d0.log`, per person `.npz`; new, paired against V6F; V6F against v5.1b +0.95, without P10 +0.70) | Against V6F [80 % person] / without P10 / without the best person | Verdict |
+|---|---|---|
+| **orc** (ORACLE view: true labels in SessionEM's view) | **+3.76 [+3.26, +4.27] / +3.78 / +3.60** (against v5.1b +4.71) | Hit (+3.5). **The ceiling of this kind of view is about +3.8 over the combination** |
+| cog (cognitive teacher at weight 1) | +0.07 [−0.02, +0.17] / +0.08 / +0.02 | below the bar |
+| mix (0.9) / pls / weak gate | −0.07 / −0.18 / −0.11; without P10 −0.07 / −0.21 / +0.03 | no gain on top |
+| ft05 / ft15 (FT change ×0.5 / ×1.5) | −0.07 / **−0.35** | the shipped FT strength is best of the three |
+| r05 / r2 (rest weight 0.5 / 2) | −0.19 / −0.15 | weight 1 is best |
+| o05 / o2 (eye-net view ×0.5 / ×2) | **exactly 0.00** | **Structural no-op**: SessionEM standardises every view column by its session's spread (`replay/gm.py` EMg, `A.std(0)`), so a column's scale cannot matter. The arms are withdrawn; view strength needs another form (more columns, or a different weight in the likelihood) |
+
+**Reading (draw 0; draws 1–3 decide).** V6F's defaults are a local optimum for the knobs tried. None of the retests
+adds on top (cog +0.07 is the closest). The headroom is in the eye-net view's content: a perfect view of this kind gives
++3.8 more. The super-additivity looks like the view letting SessionEM sort sessions by what the fine-tuned members get
+wrong. So the next lever is better views of the same kind: more eye-net seeds and families, views from other
+label-free signals, and the SessionBN nets' own embeddings (§72–73, closed on the v3 path) scored inside V6F.
