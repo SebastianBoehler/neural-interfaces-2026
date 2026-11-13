@@ -66,6 +66,8 @@ print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {R
 
 
 GATE_P0, LABEL_OUT, GB, LAB = bool(os.environ.get("GATE_P0")), os.environ.get("LABEL_OUT"), {}, {}
+LABEL_ARM = os.environ.get("LABEL_ARM", "P0r")  # s187: V6r = labels from the v6 chain itself (eye view + rest member, no FT)
+assert LABEL_ARM in ("P0r", "V6r"), LABEL_ARM
 if GATE_P0:
     print("GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)", flush=True)
 
@@ -119,7 +121,7 @@ def chain(bn, arm, P):
         g = gm.gate(GB[bn, ref] if GATE_P0 and ref else b, p0); out = gm.tsem_g(gm.em_g(b, p0, g), p0, g)
     finally:
         A.L.Z[f"GE|{p0}"] = ge0
-    if LABEL_OUT and arm == "P0r":
+    if LABEL_OUT and arm == LABEL_ARM:
         LAB[bn] = out[np.argsort(P)]  # v5.1b's outputs as emitted in the delivery order, back in recording index layout
     return SC.person(out, p0)
 
@@ -130,8 +132,11 @@ assert hashlib.sha256(open(f"{REPO}/runs/shuffle_perms.npz", "rb").read()).hexdi
 assert (IDX[Pperm] == np.load(f"{REPO}/runs/shuffle_perms.npz")[f"{SCHEME}|{PSEED}|{p0}"]).all(), "the stages' order is not the order the members were streamed in"
 assert not (LABEL_OUT and p0 != "all_loso"), "LABEL_OUT is for new people"
 if LABEL_OUT:  # FT pseudo-labels as the package sees them: v5.1b (B2_pool) emitted in this delivery order; seen rows as chain_final
-    CH = np.load(f"{REPO}/studies/12nov/chain_final.npz"); y = Z[f"y|{p0}"].astype(int); chain("B2_pool", "P0r", Pperm); lab = LAB["B2_pool"]
-    print(f"labels: delivery-order v5.1b acc {np.mean(lab.argmax(1) == y):.4f} | chain_final (recording order) acc {np.mean(CH[p0].argmax(1) == y):.4f} | "
+    CH = np.load(f"{REPO}/studies/12nov/chain_final.npz"); y = Z[f"y|{p0}"].astype(int)
+    if LABEL_ARM != "P0r":
+        chain("B2_pool", "P0r", Pperm)  # the package gate (GATE_P0) of the v6 chain is v5.1b's
+    chain("B2_pool", LABEL_ARM, Pperm); lab = LAB["B2_pool"]
+    print(f"labels ({LABEL_ARM}): delivery-order chain acc {np.mean(lab.argmax(1) == y):.4f} | chain_final (recording order) acc {np.mean(CH[p0].argmax(1) == y):.4f} | "
           f"agreement {np.mean(lab.argmax(1) == CH[p0].argmax(1)):.4f}", flush=True)
     np.savez(f"{REPO}/studies/13nov/{LABEL_OUT}.npz", all_loso=lab, seen_session=CH["seen_session"], idx_seen=CH["idx_seen"]); sys.exit(print("written", LABEL_OUT))
 for bn in S.BASES:

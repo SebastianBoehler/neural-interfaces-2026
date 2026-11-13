@@ -3862,3 +3862,19 @@ before transfer (transfer 0.4 to 1.0). Third place by team is +1.1 sealed above 
 | 6 | cum10 instead of gC5 | +0.16 mean, +0.45 on the weakest order | ≤ +0.1 | Undecided; does not fit the run time as is. |
 | — | Returning people through the v6 path | −3.6 against routed | — | Closed (above). |
 | — | Order-free stages under within | +0.10 | — | Closed (§181). |
+
+### 187. FT LABELS FROM THE V6 CHAIN (§186 item 2; written 13 Nov 16:40 UTC, before any FT job ran)
+
+The package fine-tunes on its inner v5.1b's outputs. Here the labels instead come from the v6 chain without FT (V6r: eye
+view and rest member in, package gate), as emitted in the delivery order (`shufcombo LABEL_OUT LABEL_ARM=V6r` →
+`chain_v6r_<order>.npz`; ttt18 tag suffix R).
+Label accuracy, new people, against v5.1b's labels (L):
+- within 0: 0.7642 against 0.7552; within 1: 0.7646 against 0.7589;
+- runs 0: 0.7653 against 0.7533;
+- within 2/3: 0.7537 / 0.7605; full 0/1: 0.7379 / 0.7405; runs 1: 0.7461.
+- Recording-order chain_final: 0.7657.
+Queued on Galvani: gC5 with R labels on the eight scored orders. Scored in the most complete form against the same run
+with L labels.
+Prediction: +0.10 (0 to +0.3) over L. True-label FT gains about +1.0 per 23 points of label accuracy (§142), and R gains
+0.4 to 1.2 points. Kept as a package change only if > +0.3 on the mean over eight orders and ≥ 0 on each within order.
+It also needs no run-time change (the v6 chain is already computed when FT runs; the build session must confirm).
