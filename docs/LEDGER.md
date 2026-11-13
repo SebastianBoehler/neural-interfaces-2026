@@ -3441,3 +3441,21 @@ All six pass the bar (≥ +0.5 new, > 0 without P10). The spread between draws (
 cand_v6f_noft all give 0.99328 on the local replay sample (files unchanged, about 100 s each). This ran on a build from
 before the executor fix, so it is "not on the final ZIP". Equal scores here do not show that the new-person path ran;
 v52-build's no-op check (recognition off) covers that.
+
+### 178. PACKAGE-FAITHFUL FINE-TUNING LABELS AND GATE under shuffle (written 13 Nov 12:16 UTC, before any job ran)
+
+v52-build's list of what was not validated (12:00 UTC) names two ways that dev's shuffle scores differ from the package:
+- **Labels.** Under shuffle, ttt18 fine-tunes on `chain_final.npz`, which is v5.1b's chain in recording order (checked:
+  equal to `gm.pipe_g` on B2_pool in recording order, agreement 1.0000, max |Δp| 0). The package fine-tunes on v5.1b's
+  outputs as emitted in the delivery order. `shufcombo.py LABEL_OUT` writes those: `studies/13nov/chain_v51b_<order>.npz`,
+  with pc128 and the SessionBN members re-streamed and core1 as recorded. Label accuracy, new people:
+  within 0 0.7518 and within 1 0.7533, full 0 0.7348, runs 0 0.7405, against 0.7657 in recording order
+  (agreement 0.91, 0.92, 0.86, 0.88). ttt18 now takes `CHAIN_NPZ` (only this order's file, asserted; tag suffix L).
+  Queued on Galvani: gC5 with these labels for the four orders.
+- **Gate.** In dev the combination's gate is computed on the combination's own chain; the package computes it on its
+  inner v5.1b. `shufcombo.py GATE_P0=1` takes the gate from v5.1b's chain under the same order.
+
+Prediction: labels cost the gC5 combination 0.1 (0 to 0.3) under within shuffle and 0.2 (0 to 0.4) under full and runs.
+That is from the true-label ceiling (+1.9 for about 23 points of label accuracy, so 1.3 to 3 points are worth 0.1 to
+0.25). The package gate costs 0 to 0.15. Refuted if either costs more than 0.3; then §171 was optimistic by that much.
+Either way the table quotes the package-faithful numbers (labels L, GATE_P0) where they exist and marks the rest.

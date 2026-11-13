@@ -10,6 +10,8 @@ s176, every re-streamed arm (P0r, V6Fr, V6r) also takes, when present for this o
 order (runs/coremember.npz, its change against its own recording-order rebuild added to the stored member, hb kept),
 TSEM's pc128 view rebuilt in the order (runs/coreshuf_p<PSEED>.npz, sign-aligned change added), the rest net
 re-streamed (runs/restshuf/<order>/). STRICT=1 fails when any of them is missing. The header prints what stays recorded.
+GATE_P0=1: the combination's gate from v5.1b's chain under the same order (the package's gate sees its inner v5.1b).
+LABEL_OUT=name: write FT pseudo-labels (v5.1b B2_pool emitted in this order) to studies/13nov/<name>.npz and exit.
 Usage: SCHEME=full PSEED=0 [OCU_DIR=runs/ocushuf/full0] [STRICT=1] python studies/13nov/shufcombo.py"""
 import glob, os, sys
 import numpy as np
@@ -52,6 +54,11 @@ print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {R
       f"pc128 {'rebuilt in the order' if DPC is not None else 'recording order'}; new people\nSTILL IN RECORDING ORDER: {', '.join(REC_LEFT)}", flush=True)
 
 
+GATE_P0, LABEL_OUT, GB, LAB = bool(os.environ.get("GATE_P0")), os.environ.get("LABEL_OUT"), {}, {}
+if GATE_P0:
+    print("GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)", flush=True)
+
+
 def norm(x):
     x = np.clip(x, 1e-6, None); return x / x.sum(1, keepdims=True)
 
@@ -88,13 +95,24 @@ def chain(bn, arm, P):
     if arm in ("V6Fr", "V6Frec", "V6r"):
         A.L.Z[f"GE|{p0}"] = np.c_[ge0, OCU[P]]
     try:
-        out = gm.pipe_g(A.mix(bn, p0, fams, extra)[0], p0)
+        b = gm.M.rebal(A.mix(bn, p0, fams, extra)[0], p0, None); rec = (P == np.arange(len(P))).all()
+        if arm in ("P0", "P0r"):
+            GB[bn, "P0rec" if rec and arm == "P0" else arm] = b
+        ref = {"V6Fr": "P0r", "V6r": "P0r", "V6Frec": "P0rec"}.get(arm)  # GATE_P0: the package's gate sees its inner v5.1b, not the v6 chain
+        g = gm.gate(GB[bn, ref] if GATE_P0 and ref else b, p0); out = gm.tsem_g(gm.em_g(b, p0, g), p0, g)
     finally:
         A.L.Z[f"GE|{p0}"] = ge0
+    if LABEL_OUT and arm == "P0r":
+        LAB[bn] = out[np.argsort(P)]  # v5.1b's outputs as emitted in the delivery order, back in recording index layout
     return SC.person(out, p0)
 
 
 Pperm = S.perm_for(SCHEME, PSEED)[p0]; ident = np.arange(N); R = {}
+if LABEL_OUT:  # FT pseudo-labels as the package sees them: v5.1b (B2_pool) emitted in this delivery order; seen rows as chain_final
+    CH = np.load(f"{REPO}/studies/12nov/chain_final.npz"); y = Z[f"y|{p0}"].astype(int); chain("B2_pool", "P0r", Pperm); lab = LAB["B2_pool"]
+    print(f"labels: delivery-order v5.1b acc {np.mean(lab.argmax(1) == y):.4f} | chain_final (recording order) acc {np.mean(CH[p0].argmax(1) == y):.4f} | "
+          f"agreement {np.mean(lab.argmax(1) == CH[p0].argmax(1)):.4f}", flush=True)
+    np.savez(f"{REPO}/studies/13nov/{LABEL_OUT}.npz", all_loso=lab, seen_session=CH["seen_session"], idx_seen=CH["idx_seen"]); sys.exit(print("written", LABEL_OUT))
 for bn in S.BASES:
     R[bn] = {"P0rec": chain(bn, "P0", ident), "P0s": chain(bn, "P0", Pperm), "P0r": chain(bn, "P0r", Pperm), "V6Fr": chain(bn, "V6Fr", Pperm), "V6Frec": chain(bn, "V6Frec", ident),
               "V6r": chain(bn, "V6r", Pperm)}  # s173: the fallback without FT (eye net + rest member only)
@@ -106,4 +124,4 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
                   ("no-FT fallback (eye net + rest) over v5.1b, shuffled", "V6r", "P0r")):
     d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0); bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} new {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
-np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if len(REC_LEFT) == 4 else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if len(REC_LEFT) == 4 else ''}{'_gp0' if GATE_P0 else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
