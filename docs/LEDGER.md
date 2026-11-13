@@ -3370,3 +3370,22 @@ this is a partial correction.
 sessions the gate has not recognised; recognised sessions stay bit-identical to v5.1b. Dev expectation under the
 plausible sealed order (*within*): new +1.4 (without P10 +1.1), returning 0, J about +0.7. Fresh FT draws (§172) are
 still to come.
+
+### 176. EVERYTHING IN DELIVERY ORDER: the remaining inputs re-streamed (written 13 Nov 11:01 UTC, before any job ran; Leonardo)
+
+The coordinator asks that tonight's table score v5.1b and both package forms with every order-dependent input in the
+delivery order, and list any input still in recording order. Done so far: the SessionBN members and fine-tuning (§165,
+§171), the eye net (§167), and TSEM's view (§175, running). Added now:
+- **COREMEMBER** (`coremember.py`, CPU job): core1 as a member (slot c1) streamed in the delivery orders within 0/1,
+  full 0 and runs 0 through `deliver.py`, a generic hook that reorders each session inside `protocol.predict_streams`.
+  The head is chosen by reproducing the stored member in recording order (asserted correlation ≥ 0.99).
+- **RESTSHUF** (`restshuf.py`): the rest net (sh, r1, seeds 0–2) streamed in the same four orders.
+- **More orders for the package form:** gC5 via ttt18 for within 2 and 3, full 1, runs 1; eye net via ocushuf for
+  within 1 and runs 0.
+- **Follow-up wave queued behind:** gC5 draw 3 under within 0 and 1.
+
+**Still in recording order after this:** the gaze and event view of SessionEM (GE: 48 hand-built features; its
+causal standardisation would need its own export), and the Hilbert core and transformer members (their causal
+statistics). These go into the table's "not checked" line unless a later job removes them.
+Scoring when all land: `shufcombo.py` with core1 (member and view), the rest net and the eye net all from their
+delivery-order files.
