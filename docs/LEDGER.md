@@ -574,6 +574,12 @@ same chain with the frozen twins and the stage. Variants: head and BN affine onl
 Reading: with the own-space stage in place, personal nets add +0.2 for returning people, all of it P04's, and cost
 P10 up to 1 point. The stage already holds what the nets would add. The returning branch on dev ends at v5.1.
 
+**Review note (13 Nov 00:42 UTC, independent reviewer, confirmed; written by the v52-build session):** the §78 form is
+not the package form. Dev swaps the personal nets from window 0 and also in the gate's shadow path, adds a SessionBN
+shallow member the package does not have, and leaves slot 9 unswapped. Re-scored from the stored outputs in the
+package form without the shallow member: +0.39 seen (P04 +0.33, P10 +0.45; per base +0.28 to +0.55); with it: +0.02.
+Each person moves in steps of about 0.27 (one or two windows). §78 therefore neither supports nor contradicts §105.
+
 ### 79. TRUST: can a returning session tell how much to trust its personal stage? (written 12 Nov 10:42 UTC, before any result; code `studies/12nov/trust.py`)
 
 **Why.** User, 12 Nov: push on the personal stage. Its dev gain (+1.7 to +2.3 seen on six bases) is P04's: P04
@@ -1361,6 +1367,10 @@ the v5.3 research (v52-build session) first measures torch-native batching of th
 vmap per family, CUDA graphs) on an A100 before any recipe is cut.
 
 
+**Review note on §105 (13 Nov 00:42 UTC):** its dev input "+0.17 on the real later sessions (§78)" was not measured in
+the package form (see the note under §78; package form +0.39, or +0.02 with the shallow member). The prediction stands
+as written, with weaker support than stated.
+
 ### 106. V53: in-session fine-tuning for unrouted sessions, runtime-feasible forms (written 12 Nov by 21:49 UTC [stamp corrected from the commit time; it read 22:20 UTC], before any result; code `studies/13nov/ttt_reduce_score.py`, v52-build session) [review 13 Nov: base counts here carry almost no information, read the person uncertainty in §139]
 
 User, 12 Nov: build v5.3 = v5.2 + the §101 fine-tuning on sessions the identity gate does not route, within ≤ 45 min
@@ -2005,3 +2015,26 @@ parameters. Arms: head2 (20 steps every 10 windows, each refit from the frozen n
 | FT+OCU, nine seeds | +0.86 [+0.28, +1.43]; seen +0.27; over shipped +0.77, seen +0.54 | identical to three seeds |
 | OCU's share in FT+OCU (FT+OCU − FT) | **+0.40** | Hit (+0.40). **OCU stays in the design input; the three-seed result was not seed luck.** The FT side still has the §139 caveat (P10) |
 | FT+REST+OCU+MIX, nine seeds | +1.08, seen −0.44 | as §130b: REST costs seen |
+
+### 120. V53 package choices, fixed before any v5.3 code (written 13 Nov 00:42 UTC; review of 13 Nov, item 7; v52-build session)
+
+No package before about 14 Nov 02:00 UTC. A fine-tuning package (v5.3 = v5.2b + in-session fine-tuning on unrouted
+sessions) makes the following choices. Each differs from or is missing in the dev runs, so each is fixed here before
+it is built:
+
+1. **SessionBN state after a refit.** Dev recomputes the state by re-running the whole prefix (net2(X[:hi])) after each
+   refit. The package does the same once per refit (one no-grad pass over the buffered windows), then advances window by
+   window. Equal by the causal formula. Checked against a dev-form reference on the same device and batch shapes (as
+   `check_v52.py --ref-schedule`), tolerance 1e-5.
+2. **Slots 6 and 9.** Dev fine-tunes slot 6 (fb at k 2) and not slot 9 (the same nets at k 5). The package fine-tunes the
+   k-2 traces and applies their change to the k-5 traces of the same seeds: the dev form scored with slot 9 also swapped
+   is scored before the build. If that is below the slot-6-only form, the k-5 traces stay frozen.
+3. **No silent no-op.** The package's forward paths run under no_grad, and a v5.2-style `except Exception` fallback would
+   turn a broken fine-tune into the frozen output. The package therefore counts refits, steps and the parameter change
+   per session in its stderr line. The replay check asserts that, on every unrouted public session (forced unrouted),
+   refits happened, parameters changed (max |Δθ| > 0) and the fine-tuned posteriors differ from the frozen ones.
+4. **Late recognition.** A session first routed after fine-tuning has started (P04 session 2: first routed at window 63)
+   has no dev arm. Rule: fine-tuning stops at the first routed window, and v5.2b's path takes over from there. The cost of
+   the fine-tuned windows before it is measured in the package-faithful replay (§138 form) before the build.
+5. **On-device augmentation** (§113 gA against fixA) and the schedule (§113, §131) are taken from their scored arms
+   only. The person-level reading of §139 (people ≥ 0, the gain without the best person) applies, not base counts.
