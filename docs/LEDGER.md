@@ -3003,3 +3003,31 @@ intervals above 0, J with recognised sessions as v5.1b ≥ +0.25 on all four), a
 Over three OCU/REST seed sets and four FT draws, V6F's new-people gain against v5.1b is **+0.55 to +0.95 (without P10
 +0.32 to +0.70)**. The design-level expectation is about +0.7 new, J +0.35 with recognised sessions untouched, in the
 form scored here (cum10, each base's own seeds). Whether it survives the run-time forms is §160 (FITFORM), due shortly.
+
+### 164. SHUF: the chain under non-chronological delivery (written 13 Nov 09:39 UTC, after a one-permutation smoke, before the full run; `studies/13nov/shuffle.py`, Mac)
+
+**Organisers, 13 Nov (STATE §2, verbatim there):** the sealed stream is not in recording order and has not been since
+the rescoring of 10 Nov. §62's conclusion ("the sealed order is still close to acquisition order") is **withdrawn**: a
+failed fingerprint meant we did not find the order, not that there is none. Every dev number in this ledger was
+measured in recording order. From here the primary protocol is non-chronological, under several schemes with fixed
+permutations; recording order is a secondary column.
+
+**Method.** Every per-window array of the replay (members, views, labels, cells, sessions; three stores and `A.C1`) is
+permuted within each session and the stages are rerun. Schemes: full (uniform within the session), runs (runs in a
+random order, recording order inside), within (runs in order, windows shuffled inside each run); five permutations
+each, six bases, new people, stage by stage (mix → rebalancing → gated SessionEM → gated TSEM, i.e. gm.pipe_g, the
+tail every new-person window takes). Checks (asserted): the identity permutation reproduces the chain (B2_pool
+80.18), and the per-window mix scores the same under every permutation. **Limit:** members stay as computed in
+recording order. Their own causal session statistics (SessionBN, core1's running recentring, the eye net's
+standardisation, fine-tuning's schedule) are not re-streamed, so this measures the stages' order dependence only;
+member re-streaming needs GPU runs and comes next.
+
+Smoke (B2_pool, one full permutation), new against recording order: rebalancing +0.06, SessionEM −1.40, TSEM (the
+whole chain) **−3.14**.
+
+| Check (new, against recording order, six-base mean over five permutations) | Prediction (80 % range) |
+|---|---|
+| full: whole chain | −3.0 (−4.0 to −2.0) |
+| runs: whole chain | −1.0 (−2.0 to 0.0) |
+| within: whole chain | −2.5 (−3.5 to −1.5) |
+| **Use** | the stage that loses most under each scheme is the first target of the order-robust re-tune (§165, next) |
