@@ -5,7 +5,7 @@ add new +0.34 (+0.14 without the best person) and seen −0.24 (P04 −1.39, P10
 §140–§150 were measured against a study base (twins, personal nets, stage 0.15) about 0.7 below v5.1b on returning
 people. Fine-tuning on the shipped members is the unmeasured piece (next GPU job when Leonardo is back).
 
- No package is built before the research window ends (about 14 Nov 02:00 UTC), and no upload
+No package is built before the research window ends (about 14 Nov 02:00 UTC), and no upload
 without the user's go-ahead. This file collects what the measurements of 12–13 Nov say a next package should
 contain, and what a build has to check. The numbers are in ledger §140–§151.
 
