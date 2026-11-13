@@ -3610,3 +3610,17 @@ The gate form makes no difference (|Δ| ≤ 0.07). Not refuted; the table keeps 
 Across draws 0–4: within 0 +1.97 to +2.18 (5 draws), within 1 +1.40 to +1.56 (5), full 0 +1.54 to +1.58 (2), runs 0 +1.30
 to +1.33 (2). The spread between draws is ≤ 0.21, inside the noise; the order matters more than the draw. The fallback
 does not depend on the draw: +0.63 to +0.96.
+
+### 182. UPPER BOUND OF THE FT FORM WITH PACKAGE LABELS; more rest seeds (written 13 Nov 13:32 UTC, before any job ran)
+
+- The label-faithful gC5 copies landed on Leonardo first. All 144 tasks read the rebuilt labels (the hashes in the logs
+  equal the local files), and the local files are identical to Leonardo's. The Galvani duplicates were cancelled and
+  their partial outputs deleted.
+- **cum10 with package labels** (`ttt17.py` now takes CHAIN_NPZ, tag suffix L): within 0/1, full 0 and runs 0
+  (64389580–83, behind smoke 64389579). Chained: within 2/3 after labels2 (64389588/89). Scored with `shufcombo`
+  FT_V=cum10, delta1, every input re-streamed, package gate.
+  Prediction: cum10 over gC5 under the same order and labels +0.15 (0 to +0.35), the §171 recording-order gap.
+  If ≤ +0.3 it is "undecided", and gC5 stays, because it fits the run time (cum10 delta1 needs up to 53 min at 378
+  windows). Only if > +0.3 is a form between the two, fitting 50 min, worth building.
+- **Rest seeds 3–8** for within 0/1 (64389585/87). Prediction: 9 seeds against 3 add ≤ +0.1; kept only if > +0.3.
+- Eye-net seeds 9–17 (Galvani, §177) are scored in the same way when home.
