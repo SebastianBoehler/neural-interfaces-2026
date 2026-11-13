@@ -2273,3 +2273,12 @@ second member; FORw2 doubles the shallow rest member's weight.
 | FOR2: new / seen | +0.15 (−0.20 to +0.50) / +0.10 (−0.40 to +0.60) |
 | FORw2: new / seen | +0.05 (−0.30 to +0.40) / +0.10 (−0.40 to +0.60) |
 | **Bar** | An arm replaces FOR in the design input if new without the best person is ≥ +0.20 over FOR and seen does not fall on both P04 and P10 |
+
+| §144 item (13 Nov 02:31 UTC; `runs/pkg_rest2_13nov.log`; against FOR, six bases) | Observed | Verdict |
+|---|---|---|
+| FOR2 (+ the FBCNet rest-class net) | new −0.27 (without P10 −0.22); seen −0.08 (P04 −0.22, P10 +0.05) | **Refuted**: a second rest member costs new people |
+| FORw2 (shallow rest member at weight 2) | new −0.14 (without P10 −0.19); seen −0.64 (**P04 −1.43**, P10 +0.13) | **Refuted**: a heavier rest member costs P04 |
+
+**Reading.** The rest lever is at its best as one shallow member at weight 1. More of it hurts. FOR stays the
+design input. The fresh FBCNet rest seeds (array 64335969) are no longer needed for this question; they are left to
+finish as data.
