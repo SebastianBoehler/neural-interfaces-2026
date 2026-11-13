@@ -2,7 +2,7 @@
 Both packages stream the same sessions window by window on a fresh deepcopy with both gates forced off (v5.1b then runs
 its unrouted path; v6 runs v5.1b plus the v6 chain and fine-tuning on every window). Sessions: P02|1 (warm-up, not
 reported), P01|1 (190 windows) and P04|1+2 streamed as one session (378). Order A B B A per session length.
-Usage: python studies/13nov/v6_time.py DEVICE PKG_V51B PKG_V6 -> JSON lines"""
+Usage: python studies/13nov/v6_time.py DEVICE PKG_V51B PKG_V6 [--gates-on] -> JSON lines"""
 import copy, json, sys, time
 from pathlib import Path
 import numpy as np
@@ -10,11 +10,17 @@ import torch
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "lean/tools")]
 import protocol  # noqa: E402
+GATES_ON = "--gates-on" in sys.argv  # time the recognised path instead (gates as shipped)
 from record import load_model  # noqa: E402
 
 
 def run(m, X, dev):
-    c = copy.deepcopy(m); c.route.contrast.tau = c.route.identity.tau = np.inf; c.reset_state()
+    c = copy.deepcopy(m)
+    if not GATES_ON:  # the unrecognised path; v6.2's main chain has gates of its own (routeB)
+        for r in (c.route, getattr(c, "routeB", None)):
+            if r is not None:
+                r.contrast.tau = r.identity.tau = np.inf
+    c.reset_state()
     if dev == "cuda":
         torch.cuda.synchronize()
     t0 = time.perf_counter()
