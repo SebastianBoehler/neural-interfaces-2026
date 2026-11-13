@@ -4,7 +4,7 @@ Usage: [BASES=B2_pool] [SMOKE=1] [SUBSETS=FT+OCU,...] python studies/13nov/stack
 import os, sys, time
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from stacklib import A, BASES, LEV, SMOKE, rng, run  # noqa: E402
+from stacklib import A, BASES, LEV, REPO, SMOKE, rng, run  # noqa: E402
 
 ARMS = {"shipped": None, "base": ()}
 ARMS.update({k: (k,) for k in LEV}); ARMS["ALL"] = LEV; ARMS.update({f"ALL-{k}": tuple(x for x in LEV if x != k) for k in LEV})
@@ -46,4 +46,4 @@ if not SMOKE and "ALL" not in ARMS:
     for k in SUB:
         summ(f"{k}-shipped", lambda bn, i, k=k: R[bn, k][i] - R[bn, "shipped"][i])
 if not SMOKE:
-    np.savez(REPO + f"/runs/stack_13nov{'_sub' if os.environ.get('SUBSETS') else ''}.npz", **{f"{bn}|{k}|{j}": R[bn, k][j] for (bn, k) in R for j in (0, 1)})
+    np.savez(REPO + f"/runs/stack_13nov{os.environ.get('STACK_TAG', '_sub' if os.environ.get('SUBSETS') else '')}.npz", **{f"{bn}|{k}|{j}": R[bn, k][j] for (bn, k) in R for j in (0, 1)})
