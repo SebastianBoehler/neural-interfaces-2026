@@ -1770,7 +1770,7 @@ smallest subset within 0.10 of the best, with ≥ 5 of 6 bases and seen ≥ −0
 bound, the design keeps FT only for unrouted sessions, and its seen cost is checked in the v5 replay with a fixed
 gate before any build.
 
-### 131. TTT8 (exploit track): follow-ups of cum10 (written 13 Nov 00:24 UTC, before any job ran; code `studies/13nov/ttt8.py` on `ttt6.py`, Leonardo, 24 tasks)
+### 131. TTT8 (exploit track): follow-ups of cum10 (written 13 Nov 00:13 UTC, before any job ran; code `studies/13nov/ttt8.py` on `ttt6.py`, Leonardo, 24 tasks)
 
 cum10 (warm start) counted narrowly in §108: +0.46, ahead of fixA on 5 of 6 bases. Warm start lets the steps add up
 over a session, so the step count, refit spacing, learning rate and consistency weight trade differently than for
@@ -1786,3 +1786,18 @@ fixA. Same nets, folds, augmentation and chain labels as ttt6; new people, six b
 | cum10lr | learning rate 1e-3 | 0.5 | +0.40 (+0.15 to +0.60) |
 | cum10c2 | consistency weight 2 | 0.5 | +0.45 (+0.25 to +0.60) |
 | **Rule** | An arm replaces cum10 as the recipe if it is ≥ +0.08 above the in-run cum10 (all6, six-base mean) and ahead on ≥ 5 of 6 bases; an arm at cost 1 must also beat §108's fixA by ≥ +0.08. delta1/delta2 are read the same way for the cheap package form. Otherwise cum10 stays |
+
+| §130b item (13 Nov 00:19 UTC; `runs/stack_13nov_sub.log`; new, six-base mean against the stack base / against the shipped chain) | Observed | Verdict |
+|---|---|---|
+| FT+REST+OCU+MIX (control: the same code as §130) | +1.13, 6/6; seen −0.21 / shipped +1.05, seen +0.05 | Identical to §130: the rerun is deterministic |
+| FT+REST+OCU | +1.08 [+0.64, +1.54], 6/6 (+0.83 to +1.31); **seen −0.49** / shipped +1.00, seen −0.23 | Hit (+1.0); misses the seen bound |
+| FT+OCU | **+0.86 [+0.30, +1.41], 6/6 (+0.71 to +1.01); seen +0.18** / shipped +0.78, seen +0.45 | Hit (+0.75); the only subset within the seen bound |
+| REST+OCU | +0.61, 6/6; seen −0.34 / shipped +0.53, seen −0.08 | Hit (+0.55) |
+
+**Verdict by the rule: no subset passes as written.** The two subsets within 0.10 of the best (+1.13) both miss the
+seen bound (−0.21, −0.49), and FT+OCU, which keeps seen people safe, is 0.27 below the best. The seen cost comes with
+REST: the rest-trained member is applied to seen sessions too, and it costs them about 0.3–0.5. **Design input for
+the build after the window: FT+OCU (+0.86 new, 6 of 6 bases, seen +0.18; +0.78 over the shipped chain).** REST
+(with MIX) is worth +0.27 more for new people only if it can stay off returning sessions. The v5 replay, where routed
+sessions take the personal tail, decides that, and it decides before any build. Packaging costs: OCU needs the eye
+net in the package, and FT needs run time (§107, §113).
