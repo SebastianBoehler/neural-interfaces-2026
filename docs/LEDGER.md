@@ -3427,3 +3427,17 @@ were the lucky ones. (b) cum10 against gC5 under the same order: +0.15 (0 to +0.
 and gC5 stays (it fits the time budget). (c) 18 against 9 eye-net seeds: +0.05. Kept only if > +0.3.
 **Explore items not yet queued (they need code first, after the evening table):** the order-free EM fixed point
 (§174 item 2), and a stage for returning people under shuffle (they lose most to shuffling, and the package gives them 0).
+
+**§171 draws 1 and 2 (13 Nov 11:52 UTC; `runs/gc5shuf_within{0,1}d{1,2}.log`; Galvani; core1, pc128 and rest net as recorded,
+eye net re-streamed for within 0 only).** gC5 combination over v5.1b, both under the same order, new [80 %], without P10:
+
+| Order | draw 0 (§171) | draw 1 | draw 2 | fallback (no FT), draws 1/2 |
+|---|---|---|---|---|
+| within 0 | +1.47 | +1.20 [+0.66, +1.73], +0.95 | +1.29 [+0.74, +1.84], +1.02 | +0.68 / +0.76 |
+| within 1 | +1.38 | +1.44 [+0.97, +1.93], +1.17 | +1.28 [+0.86, +1.73], +1.00 | +0.79 / +0.77 |
+
+All six pass the bar (≥ +0.5 new, > 0 without P10). The spread between draws (0.27) is inside the measure's noise.
+**Worker image (Galvani 3096279, CUDA, image torch 2.14.1+cu130):** v5.1b own, own_b, lean_v5, cand_v6f_gc5 and
+cand_v6f_noft all give 0.99328 on the local replay sample (files unchanged, about 100 s each). This ran on a build from
+before the executor fix, so it is "not on the final ZIP". The sample's windows are all from recognised sessions, so equal
+scores do not test the new-person path.
