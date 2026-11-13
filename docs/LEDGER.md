@@ -2134,7 +2134,7 @@ Smoke (fold P01 only, 20 steps): on the chain's output, P01 +1.6, the other peop
 | Product with the chain | 0.0 (−1.5 to +0.8) |
 | **Bar** | A third form is queued if the stage on the chain's output, or its product, is ≥ +0.3 new with the 80 % person interval above 0, or if the stage alone on the mix comes within 2 points of the hand-built stages. Otherwise the basis fix alone does not rescue this model, and the record says that, not that learned stages fail |
 
-| §140 PKG2 item (13 Nov 01:00 UTC; `runs/pkg2_13nov.log`; six bases; seen read as P04 and P10) | Observed | Verdict |
+| §140 PKG2 item (13 Nov 00:58 UTC; `runs/pkg2_13nov.log`; six bases; seen read as P04 and P10) | Observed | Verdict |
 |---|---|---|
 | Routing | all 762 seen rows and none of the 2,655 new rows routed, on every base | as before |
 | FO (FT + OCU) against T1 | **new +0.86, 80 % [+0.31, +1.42], 7 of 10, without P10 +0.55**; seen +0.01 (P04 +0.19, P10 −0.18; bases −0.68 to +0.37); J +0.43 | Hit (+0.75): **new counts by the rule**; seen unresolved (prediction 0.0) |
