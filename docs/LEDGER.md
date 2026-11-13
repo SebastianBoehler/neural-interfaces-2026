@@ -3042,7 +3042,7 @@ columns. The +3.8 oracle stays out of reach with the signals tried. This line is
 non-chronological delivery (§164): the view nets' causal standardisation and SessionEM's use of the view are both
 order-dependent.
 
-### 165. RESTREAM: the SessionBN members and fine-tuning re-streamed in a non-chronological order (written 13 Nov 09:44 UTC, before any job ran; `studies/13nov/ttt17.py`, Leonardo)
+### 165. RESTREAM: the SessionBN members and fine-tuning re-streamed in a non-chronological order (written 13 Nov 09:41 UTC, before any job ran; `studies/13nov/ttt17.py`, Leonardo)
 
 §164 measures the stages with members fixed in recording order. The SessionBN nets (causal session statistics),
 their causal alignment, and the fine-tuning schedule are order-dependent too. TTT17 streams each session in the exact
@@ -3055,3 +3055,18 @@ are both in the new order. Checks against v5.1b under the same order.
 |---|---|
 | members re-streamed vs fixed (on top of §164's stage loss) | −0.5 (−1.5 to +0.2) |
 | V6F's FT share under the new order | +0.2 (−0.3 to +0.6), against about +0.6 inside V6F in recording order |
+
+| §164 SHUF (13 Nov 09:45 UTC; `runs/shuffle_13nov.log`, `.npz`; new, against recording order, six bases × five permutations; members fixed) | mix / rebalancing / SessionEM / whole chain | Whole chain: 80 % person interval, people losing |
+|---|---|---|
+| **full** (uniform within the session) | 0.00 / −0.61 / −2.17 / **−3.75** (permutations −4.39 to −3.07) | [−4.72, −2.85], 10 of 10 |
+| **runs** (runs in random order, recording order inside) | 0.00 / +0.05 / −0.86 / **−2.11** (−2.54 to −1.66) | [−2.75, −1.47], 9 of 10 |
+| **within** (runs in order, shuffled inside) | 0.00 / −0.10 / −0.38 / **−1.11** (−1.27 to −0.74) | [−1.74, −0.52], 7 of 10 |
+
+Predictions (−3.0 / −1.0 / −2.5): full and runs worse than predicted, within better. **Reading.** The stages, not the
+30-window rebalancing, carry the order dependence. SessionEM and TSEM build running class templates that track drift
+across the session, and a full shuffle takes away 40 % of the stages' +9.4 over the mix. Even run order alone matters
+(−2.1): the templates follow slow change between runs. With the members' own order dependence still to add (§165), v5.1b
+on new people loses 1 to 4 points under the schemes the organisers may use. **The re-tune of the stages under a
+non-chronological protocol (§166, next) is now the largest lever on record.** Sealed check: the rescoring cost the
+packages 0.72 to 1.17 J, which fits a mild scheme or a mixture better than a full shuffle (seen people not yet
+measured here).
