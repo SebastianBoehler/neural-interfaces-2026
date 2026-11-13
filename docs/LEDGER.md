@@ -1931,3 +1931,10 @@ seen 0.00; P4 (OCU) new +0.32, seen +0.78; P3 (FT+OCU) new +0.92, seen +0.78 (P0
 **§138 addendum (13 Nov 00:32 UTC, before any six-base result):** the same replay on fresh seeds (FT from ttt8 seeds
 6–11, eye-net seeds 3–8) is queued on Leonardo (job 64325439, after §135 and §134; `runs/night13/pkg_fresh.txt`). The
 §138 bar is read on both seed sets.
+
+**§137 round 3 (13 Nov 00:34 UTC, before any TTT9 result; `scripts/cloud/night13c.sh`, jobs 64325581 → 64325584 →
+64325585):** after round 2 (stack labels) ends, a CPU job builds new labels from round 2's fine-tuned outputs plus the
+nine-seed eye-net (`chain_stack2.npz`), then cum10 and fixA fine-tune on them (seeds 0–5, `runs/night13/ttt9_stack2.txt`).
+Prediction: round 3 over round 2, cum10 all6, +0.05 (−0.10 to +0.20). **Bar:** ≥ +0.10 on ≥ 5 of 6 bases means iterated
+self-training climbs, and more rounds are worth building into the package's run time; ≤ 0 means one refresh is the
+whole label gain.
