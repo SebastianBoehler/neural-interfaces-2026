@@ -1938,3 +1938,17 @@ nine-seed eye-net (`chain_stack2.npz`), then cum10 and fixA fine-tune on them (s
 Prediction: round 3 over round 2, cum10 all6, +0.05 (−0.10 to +0.20). **Bar:** ≥ +0.10 on ≥ 5 of 6 bases means iterated
 self-training climbs, and more rounds are worth building into the package's run time; ≤ 0 means one refresh is the
 whole label gain.
+
+| §138 item (13 Nov 00:36 UTC; `runs/pkg_13nov.log`; six bases, against P1t: the same nets without FT and OCU) | Observed | Verdict |
+|---|---|---|
+| Routing | on every base the gate routes all 762 seen rows and none of the 2,655 new rows | FT reaches only new people, as in a package. Also: for new people, routing v4.1 leaves the grid chain unchanged, so the unrouted grid-chain studies of 12 Nov stand for new people (their seen numbers do not transfer) |
+| P2, FT alone | new +0.50 [−0.13, +1.12], 6/6; seen 0.00 | Hit (+0.60) |
+| P4, OCU alone | new +0.16, 5/6; **seen +0.43 (P04 +0.62, P10 +0.25), 5/6** | Hit (+0.40) |
+| **P3, FT+OCU** | **new +0.72 [+0.27, +1.19], 6/6; seen +0.43, 5/6; J +0.58**. Per base J: pool +0.85, s345 +0.39, s012 +0.68, s0 +0.49, s1 +0.77, s2 +0.29 | Hit on the mean (+0.60). **The bar is missed narrowly**: J ≥ +0.40 on 4 of 6 bases (s345 is +0.39), though all six are positive. By the header rule this reads **undecided, leaning positive**. The fresh-seed run (job 64325439, `runs/night13/pkg_fresh.txt`) decides |
+| P1/P1t against P0 | new −0.46 / −0.30, seen +0.38 | Not a result (net swap; see the harness limit above) |
+
+**Reading.** In the package's own chain the design input holds up: FT carries the new-people gain (+0.50), the
+eye-net view carries returning people (+0.43 seen, both P04 and P10 positive), and together they reach J +0.58 on the
+same nets, with all six bases positive. That is about 0.3 J below §130's `A.system` number for new people (+0.72
+against +0.86 there, +1.0 against the shipped chain). On returning people the eye-net view adds to the
+personal-nets stack instead of competing with it.
