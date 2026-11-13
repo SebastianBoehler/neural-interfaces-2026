@@ -3768,3 +3768,26 @@ uncertainty in tonight's number.
   fallback misses +0.3 on 10–30 % of within orders.
 - **Refuted** if gC5's within mean is < +0.8 or more than 20 % of within orders fall below +0.5. Then the table says "not
   robust over orders".
+
+**PACKAGE-FAITHFUL, all eight orders so far (13 Nov 14:26 UTC; labels L, package gate, GE event rates in delivery order;
+Hilbert, teacher and the ea slots as recorded; `runs/allorder_<order>_gp0_L_ge.log`).** Over v5.1b under the same order,
+new (without P10):
+
+| Scheme | Order | gC5 | fallback | FT's own part (gC5 − fallback) |
+|---|---|---|---|---|
+| within | 0 | +1.70 (+1.67) | +1.03 | +0.67 |
+| within | 1 | +1.39 (+1.30) | +0.91 | +0.48 |
+| within | 2 | **+0.41** (+0.38) | **+0.18** | +0.23 |
+| within | 3 | +0.99 (+0.99) | +0.73 | +0.26 |
+| full | 0 | +0.93 (+0.85) | +0.59 | +0.34 |
+| full | 1 | +0.99 (+0.82) | +0.59 | +0.40 |
+| runs | 0 | +1.34 (+1.30) | +0.73 | +0.61 |
+| runs | 1 | **+0.42** (+0.09) | +0.40 | +0.02 |
+
+Per scheme, mean [range]:
+- within: gC5 +1.12 [+0.41, +1.70], without P10 +1.09; fallback +0.71 [+0.18, +1.03].
+- full: gC5 +0.96 [+0.93, +0.99]; fallback +0.59.
+- runs: gC5 +0.88 [+0.42, +1.34]; fallback +0.57 [+0.40, +0.73].
+**Two of eight orders miss gC5's bar** (≥ +0.5 new): within 2 and runs 1. Runs 1 is also +0.09 without P10. The fallback
+misses its bar on within 2. Every order is positive for both forms. The order is now the largest source of spread
+(within: 1.3 points), and §185's twelve further orders measure it.
