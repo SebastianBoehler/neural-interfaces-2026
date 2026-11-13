@@ -2441,7 +2441,7 @@ structure (montage, artefacts, session variation) is the cheapest stand-in for m
 |---|---|---|
 | CONFHALF (v3 labels, low-confidence half switched off), seeds 0–5 / 6–11 | **−0.32** (without P10 −0.59) / **−0.14** (without P10 −0.39); fixA −0.07 / −0.23 | **Refuted, below the range** (+0.20 predicted). Fine-tuning on the confident half only *hurts*; the hard half's labels carry fine-tuning's gain even though they are only 62 % right. Together with §142 (true labels on the hard half alone reach the full ceiling): fine-tuning learns from the hard windows. Removing their labels removes the signal, and correcting them gives +1.6 |
 
-### 148. Teacher retraining queued (gap 2; written 13 Nov 03:55 UTC, before any job ran)
+### 148. Teacher retraining queued (gap 2; written 13 Nov 03:50 UTC, before any job ran)
 
 - Corpus downloads (serial QOS: four at a time, the rest wait):
   - PhysionetMI and Cho2017 are windowed.
