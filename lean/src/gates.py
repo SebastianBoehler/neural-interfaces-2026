@@ -57,7 +57,8 @@ class IdentityGate:
 
     def __init__(self, z):
         f = lambda k: np.asarray(z[k], dtype=np.float64)
-        self.mu, self.sd, self.V, self.B, self.W, self.S = (f(k) for k in ("bio_mu", "bio_sd", "bio_V", "bio_B", "bio_W", "bio_S"))
+        self.mu, self.sd, self.V = f("bio_mu"), f("bio_sd"), f("bio_V")
+        self.B, self.W, self.S = f("bio_B"), f("bio_W"), f("bio_S")
         self.G, self.m = f("bio_gal"), np.asarray(z["bio_m"]).astype(int)  # gallery means and their session counts
         self.tau, self.width, self.t0 = float(z["bio_tau"]), float(z["bio_ramp"]), int(z["bio_t0"])
         self.win, self.d = np.hanning(120), self.V.shape[1]
@@ -88,7 +89,8 @@ class IdentityGate:
             ld = np.linalg.slogdet(same)[1]
             for i in np.flatnonzero(self.m == m):
                 v = np.concatenate([self.G[i], x])
-                out[i] = (-0.5 * (v @ np.linalg.solve(same, v) + ld) + 0.5 * (self.gAg[i] + xCx + self.ldA[m] + ldC)) / d
+                out[i] = (-0.5 * (v @ np.linalg.solve(same, v) + ld)
+                          + 0.5 * (self.gAg[i] + xCx + self.ldA[m] + ldC)) / d
         return out
 
     def step(self, x):

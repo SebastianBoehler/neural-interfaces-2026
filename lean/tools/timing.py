@@ -53,11 +53,10 @@ def main():
             rows.append(dict(session=s.split("/")[-1], round=rnd, first=order[0], windows=len(X[s]), **sec))
             print(f"{rows[-1]['session']:8s} round {rnd} first {order[0]}  a {sec['a']:6.2f} s  b {sec['b']:6.2f} s  "
                   f"b/a {sec['b'] / sec['a']:.3f}", flush=True)
-    n = sum(r["windows"] for r in rows)
+    n, sa, sb = (sum(r[k] for r in rows) for k in ("windows", "a", "b"))
     ratio = np.array([r["b"] / r["a"] for r in rows])
-    res = dict(a=str(args.a), b=str(args.b), windows=n, seconds_a=sum(r["a"] for r in rows), seconds_b=sum(r["b"] for r in rows),
-               ms_per_window_a=1e3 * sum(r["a"] for r in rows) / n, ms_per_window_b=1e3 * sum(r["b"] for r in rows) / n,
-               ratio_of_sums=sum(r["b"] for r in rows) / sum(r["a"] for r in rows), ratio_median=float(np.median(ratio)),
+    res = dict(a=str(args.a), b=str(args.b), windows=n, seconds_a=sa, seconds_b=sb, ms_per_window_a=1e3 * sa / n,
+               ms_per_window_b=1e3 * sb / n, ratio_of_sums=sb / sa, ratio_median=float(np.median(ratio)),
                ratio_min=float(ratio.min()), ratio_max=float(ratio.max()), runs=rows)
     print(json.dumps({k: v for k, v in res.items() if k != "runs"}, indent=1))
     if args.out:

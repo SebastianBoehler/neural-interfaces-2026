@@ -35,12 +35,11 @@ def main():
     for p in files:
         shutil.copyfile(p, out / p.name)
     load_model(out, None)  # the package must load (weights checked against the code, every net file opened)
-    lines = [f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}" for p in sorted(out.iterdir())]
-    Path(f"{out}.sha256").write_text("\n".join(lines) + "\n")
-    same = all(hashlib.sha256((data / p.name).read_bytes()).hexdigest() == hashlib.sha256((out / p.name).read_bytes()).hexdigest()
-               for p in files)
-    assert same, "a data file changed while copying"
-    print(f"built {out}: submission.py + {len(files)} data files, {sum(p.stat().st_size for p in out.iterdir()) / 1e6:.1f} MB")
+    sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+    assert all(sha(data / p.name) == sha(out / p.name) for p in files), "a data file changed while copying"
+    Path(f"{out}.sha256").write_text("".join(f"{sha(p)}  {p.name}\n" for p in sorted(out.iterdir())))
+    size = sum(p.stat().st_size for p in out.iterdir()) / 1e6
+    print(f"built {out}: submission.py + {len(files)} data files, {size:.1f} MB")
 
 
 if __name__ == "__main__":

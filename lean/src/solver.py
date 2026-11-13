@@ -19,7 +19,8 @@ def check_package(z):
         "core1 real, second core Hilbert": "ts_hilbert" not in z and int(z["ts2_hilbert"]) == 1,
         "rebalancing on": float(z["rb_alpha"]) != 0 and int(z["rb_w"]) > 0,
         "TSEM on": float(z["tsem_lam"]) > 0,
-        "routing v3 with identity gate and own-space stage": int(z["route_v3"]) == 1 and "bio_V" in z and "own_beta" in z,
+        "routing v3 with identity gate and own-space stage":
+            int(z["route_v3"]) == 1 and "bio_V" in z and "own_beta" in z,
         "view = TSEM PCs + routing PCs": z["tsem_V"].shape[1] + z["route_V_hi"].shape[1] == z["route_gal"].shape[2],
         "one gallery row, head and own-space model per public person":
             len(z["route_gal"]) == len(z["route_ps1_W"]) == len(z["bio_gal"]) == len(z["own_prior"]),

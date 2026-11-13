@@ -599,7 +599,8 @@ class IdentityGate:
 
     def __init__(self, z):
         f = lambda k: np.asarray(z[k], dtype=np.float64)
-        self.mu, self.sd, self.V, self.B, self.W, self.S = (f(k) for k in ("bio_mu", "bio_sd", "bio_V", "bio_B", "bio_W", "bio_S"))
+        self.mu, self.sd, self.V = f("bio_mu"), f("bio_sd"), f("bio_V")
+        self.B, self.W, self.S = f("bio_B"), f("bio_W"), f("bio_S")
         self.G, self.m = f("bio_gal"), np.asarray(z["bio_m"]).astype(int)  # gallery means and their session counts
         self.tau, self.width, self.t0 = float(z["bio_tau"]), float(z["bio_ramp"]), int(z["bio_t0"])
         self.win, self.d = np.hanning(120), self.V.shape[1]
@@ -630,7 +631,8 @@ class IdentityGate:
             ld = np.linalg.slogdet(same)[1]
             for i in np.flatnonzero(self.m == m):
                 v = np.concatenate([self.G[i], x])
-                out[i] = (-0.5 * (v @ np.linalg.solve(same, v) + ld) + 0.5 * (self.gAg[i] + xCx + self.ldA[m] + ldC)) / d
+                out[i] = (-0.5 * (v @ np.linalg.solve(same, v) + ld)
+                          + 0.5 * (self.gAg[i] + xCx + self.ldA[m] + ldC)) / d
         return out
 
     def step(self, x):
@@ -659,7 +661,8 @@ class OwnStage:
     def __init__(self, z):
         f = lambda k: np.asarray(z[k], dtype=np.float64)
         self.beta, self.kref = float(z["own_beta"]), float(z["own_kref"])
-        self.sos = [butter(4, [float(lo), float(hi)], btype="band", fs=SFREQ, output="sos") for lo, hi in f("own_bands")]
+        self.sos = [butter(4, [float(lo), float(hi)], btype="band", fs=SFREQ, output="sos")
+                    for lo, hi in f("own_bands")]
         self.sos_slow = butter(2, 4, btype="low", fs=SFREQ, output="sos")
         self.prior, self.csp = f("own_prior"), f("own_csp")  # (people, bands, C, C), (people, bands, C, filters)
         self.t_mu, self.t_sd, self.t_W, self.t_c = f("own_t_mu"), f("own_t_sd"), f("own_t_W"), f("own_t_c")
@@ -877,7 +880,8 @@ def check_package(z):
         "core1 real, second core Hilbert": "ts_hilbert" not in z and int(z["ts2_hilbert"]) == 1,
         "rebalancing on": float(z["rb_alpha"]) != 0 and int(z["rb_w"]) > 0,
         "TSEM on": float(z["tsem_lam"]) > 0,
-        "routing v3 with identity gate and own-space stage": int(z["route_v3"]) == 1 and "bio_V" in z and "own_beta" in z,
+        "routing v3 with identity gate and own-space stage":
+            int(z["route_v3"]) == 1 and "bio_V" in z and "own_beta" in z,
         "view = TSEM PCs + routing PCs": z["tsem_V"].shape[1] + z["route_V_hi"].shape[1] == z["route_gal"].shape[2],
         "one gallery row, head and own-space model per public person":
             len(z["route_gal"]) == len(z["route_ps1_W"]) == len(z["bio_gal"]) == len(z["own_prior"]),

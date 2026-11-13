@@ -1,5 +1,5 @@
 # Line coverage of submissions/ensemble_v5b/submission.py (sha256 0259d1ea...) in package cand_v51b_own,
-# streamed over all parity cases of lean/tools/record.py (4,563 windows; coverage.py 7.16, thread-aware).
+# streamed over all parity cases of lean/tools/record.py (4,559 windows in 23 cases; coverage.py 7.16, thread-aware).
 Name                                                                                                      Stmts   Miss  Cover   Missing
 ---------------------------------------------------------------------------------------------------------------------------------------
 runs/sealed/cand_v51b_own/submission.py     774     72    91%   69, 73-74, 156-159, 166-181, 300, 303, 308, 311, 334-335, 413-415, 419-425, 434-438, 442-450, 517-518, 520, 574-575, 680, 794-795, 824, 845-846, 850-851, 863-864, 881-882, 984, 1039-1040, 1076-1077

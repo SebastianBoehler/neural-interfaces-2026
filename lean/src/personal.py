@@ -15,7 +15,8 @@ class OwnStage:
     def __init__(self, z):
         f = lambda k: np.asarray(z[k], dtype=np.float64)
         self.beta, self.kref = float(z["own_beta"]), float(z["own_kref"])
-        self.sos = [butter(4, [float(lo), float(hi)], btype="band", fs=SFREQ, output="sos") for lo, hi in f("own_bands")]
+        self.sos = [butter(4, [float(lo), float(hi)], btype="band", fs=SFREQ, output="sos")
+                    for lo, hi in f("own_bands")]
         self.sos_slow = butter(2, 4, btype="low", fs=SFREQ, output="sos")
         self.prior, self.csp = f("own_prior"), f("own_csp")  # (people, bands, C, C), (people, bands, C, filters)
         self.t_mu, self.t_sd, self.t_W, self.t_c = f("own_t_mu"), f("own_t_sd"), f("own_t_W"), f("own_t_c")
