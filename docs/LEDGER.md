@@ -3343,7 +3343,7 @@ comes next, in order:
 Queue: GC5SHUF draws are duplicated on Leonardo (64374729–64374732) next to Galvani, and the first copy to land is
 used. Item 1 is built next, on Galvani or Leonardo CPU, behind the evening path.
 
-### 175. CORESHUF: TSEM's view recomputed in the delivery order (written 13 Nov 11:00 UTC, before any result; `studies/13nov/coreshuf.py`, Leonardo CPU job; §174 item 1)
+### 175. CORESHUF: TSEM's view recomputed in the delivery order (written 13 Nov 10:57 UTC, before any result; `studies/13nov/coreshuf.py`, Leonardo CPU job; §174 item 1)
 
 Core1's causal references are rebuilt along the delivery order (within 0 and full 0) and projected to the fold's 128
 PCs, the TSEMK recipe of §54, with a harness check of the recording-order rebuild against the stored view. The view
@@ -3356,3 +3356,17 @@ this is a partial correction.
 | within, TSEM view in delivery order against §164 (−0.97) | −0.8 (−1.5 to −0.2) |
 | full, against §164 (−3.10) | −2.5 (−3.5 to −1.5) |
 | **Reading** | if the loss shrinks by more than a third, part of every shuffled number so far is a view artefact, and the package expectation for v5.1b under the sealed order is better than measured |
+
+| §171 GC5SHUF (13 Nov 10:58 UTC; `runs/gc5shuf_*.log`; gC5 delta1 + eye net + rest member on unrecognised sessions; new, over v5.1b under the same order) | Combination, shuffled [80 %] / without P10 | Recording order | No-FT fallback, shuffled |
+|---|---|---|---|
+| **within 0** (eye net re-streamed) | **+1.47 [+0.91, +2.02] / +1.18** | +0.85 | +0.72 |
+| **within 1** | **+1.38 [+0.89, +1.90] / +1.11** | +0.81 | +0.78 |
+| full 0 (eye net re-streamed) | +1.60 [+0.97, +2.27] / +1.31 | +0.70 | +0.69 |
+| runs 0 | +1.67 [+1.03, +2.32] / +1.37 | +0.81 | +0.53 |
+
+**Verdict: the bar is met** (without P10 ≥ +0.40 with the interval above 0, *within* on both permutations; prediction
++1.20 within, hit high). gC5 delta1 keeps nearly all of cum10's gain under shuffle (+1.38 to +1.67 against +1.47 to
++1.87). **The package form is confirmed:** v5.1b, plus gC5 delta1 fine-tuning, the eye-net view and the rest member on
+sessions the gate has not recognised; recognised sessions stay bit-identical to v5.1b. Dev expectation under the
+plausible sealed order (*within*): new +1.4 (without P10 +1.1), returning 0, J about +0.7. Fresh FT draws (§172) are
+still to come.
