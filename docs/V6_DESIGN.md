@@ -75,6 +75,12 @@ cum10 delta1 fits only if sessions are near 190 windows.
 
 ## Checks before any upload
 
+- **No chronology (organisers, 13 Nov; ledger §165, §169, §171):** windows may arrive in any order within a run (the
+  *within* shuffle is the primary dev column). No part of v5.1b or v6 may rely on recording order. That covers the
+  30-window rebalancing memory, the early boost at windows 30–60 and the fine-tuning schedule from window 30; they
+  count windows, not time. The package replay is run under the *within* shuffle as well as in recording order, and its
+  dev numbers are read in the *within* column.
+
 - The package replay equals the dev replay of V6 (§151) on the public sessions, per window, on CPU and GPU (as
   `check_v52.py --ref-schedule`).
 - Both new members are present and load (assert at `load_model`).
