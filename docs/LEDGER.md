@@ -3279,3 +3279,14 @@ high. The eye net is not order-fragile.
 not restore what the stages lose, so **form A (slow-state similarity in place of time) is not given several variants**.
 The loss is not about which windows the templates weight. It may be the views' own recording-order standardisation
 (the §170 caveat), which this oracle cannot remove.
+
+| §165 more orders (13 Nov 10:31 UTC; `runs/shufcombo_{runs0,full1,within1}.log`; cum10 delta1, eye net as recorded; new) | v5.1b shuffled (members re-streamed) against recording order | **combination over v5.1b, both shuffled** [80 %], without P10 |
+|---|---|---|
+| runs 0 | −2.25 | **+1.87 [+1.14, +2.58], +1.54** |
+| full 1 | −2.90 | **+1.54 [+0.94, +2.18], +1.36** |
+| within 1 | −1.26 | **+1.65 [+1.10, +2.24], +1.35** |
+
+**Over six delivery orders** (full 0/1, within 0/1, runs 0; plus full 0 and within 0 with the eye net re-streamed), the
+combination gains **+1.47 to +1.87 for new people over v5.1b under the same order (without P10 +1.10 to +1.54), with
+every 80 % person interval above +0.68**, against +1.00 in recording order. The fine-tuning form here is cum10 delta1;
+gC5 delta1 (the run-time form) is §171, due about 11:20 UTC.
