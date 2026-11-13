@@ -4430,3 +4430,17 @@ So the stack's s15 arm is the package-form dev row. New people, over v5.1b under
 - Within 4's v6f +0.94 differs from the local table's +0.91: Leonardo's rest-net seed set differs; same code.
 - The v6.1 ZIP is cand_v61_s15 (sha256 2ca06dc0…). Official local replay 0.9932767697. Worst case at 100 % unrecognised
   about 45.8 min sealed with warm-up (v6f about 45.3). The other checks are running (v52-build).
+
+**§198(b) R against L, all paired draws so far (13 Nov 20:51 UTC).** gC5 over v5.1b, new; R − L:
+- draw 0, within 0–3: +0.12 +0.22 +0.19 +0.10;
+- draw 1: within 0 +0.01, within 1 −0.07, within 2 +0.22, within 3 +0.15, within 4 +0.02, within 5 +0.27, within 6 +0.12,
+  within 7 −0.07;
+- draw 2: within 0 +0.13, within 1 +0.15, within 2 +0.25, within 3 +0.18, within 4 +0.04, within 5 +0.31, within 6 +0.09
+  (within 7 waits for Galvani).
+- **17 of 19 pairs positive, mean +0.13.** By the sign rule, the v6-chain labels are a small positive that holds over
+  orders and draws. It is part of v6.1.
+
+**About 20:50 UTC: Galvani's SSH master dropped** ("Permission denied (keyboard-interactive)"); it needs the user's 2FA.
+Local Galvani fetches are gated behind `runs/.galv_ok` (the four loops were restarted gated; no login loop). Waiting on
+Galvani: form B's resubmits, SWEEP 2 within 8–11, SWEEP 3 within 0–3, the stack's returning-people copy (within 0/1), L draw 2
+within 7, and v6.1's worker-image FT row (v52-build's staged script).
