@@ -1907,3 +1907,23 @@ reference is §108/§131 on the same seeds 0–5.
 **§137 addendum (13 Nov 00:31 UTC, before any TTT9 result):** wave 2 (`scripts/cloud/night13b.sh`, arrays 64324823
 and 64324824, held until wave 1's TTT9 arrays end) repeats TTT9 on fresh seeds 6–11 (`runs/night13/ttt9_*_s6-11.txt`).
 The bar of §137 is read on both seed sets; a label effect counts only if it holds on both.
+
+### 138. PKG: the design inputs in the package-faithful replay (written 13 Nov 00:31 UTC, after a one-base smoke on B2_pool and before the six-base run; code `studies/13nov/pkg.py`)
+
+The §130 scores came from `A.system` (routing v3, gate refit on the scored outputs). This replay is the uploaded
+chain: routing v4.1 (route4 "max", t10), then the own-space stage on routed windows. The gate's calibration is fixed to
+the shipped members' outputs. Fine-tuning (cum10) runs only on sessions the gate never routes. Returning people get
+the personal nets (pfh60) and the stage at 0.15. OCU is applied everywhere. On B2_pool the gate routes all 762 seen
+rows and none of the 2,655 new rows, so FT reaches only new people, as a package would apply it.
+
+**Harness limit, stated before the run:** the personal nets and the FT twins are study nets (pft, ttt2, ttt6), not the
+shipped members. Arms are compared only against arms with the same nets: P2, P3 and P4 against P1t. P1 against P0
+mixes a net swap with the design and is not read as a result. The smoke (B2_pool) gave, against P1t: P2 (FT) new +0.71,
+seen 0.00; P4 (OCU) new +0.32, seen +0.78; P3 (FT+OCU) new +0.92, seen +0.78 (P04 +1.32, P10 +0.25), J +0.85.
+
+| Check (six-base mean against P1t) | Prediction (80 % range) |
+|---|---|
+| P3, FT+OCU: new / seen / J | +0.80 (+0.45 to +1.15) / +0.40 (0.00 to +0.80) / +0.60 (+0.30 to +0.90) |
+| P2, FT alone: new | +0.60 (+0.30 to +0.90); seen 0.00 (FT does not reach routed sessions) |
+| P4, OCU alone: seen | +0.40 (0.00 to +0.80) |
+| **Bar** | FT+OCU is confirmed in the package chain if P3's J is ≥ +0.40 on ≥ 5 of 6 bases with seen ≥ −0.15. That makes it the design for the build after the window, with the eye net and the cheap FT form as package work |
