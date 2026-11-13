@@ -152,8 +152,11 @@ def check_unrecognised(v6, pkg, d, sessions):
         worst["rest"] = max(worst["rest"], float(np.abs(pr - np.array([v["rest"] for v in V])).max()))
         mem = {sl: int(k) for sl, k in zip(z["v6_slots"], z["v6_ft_member"])}  # ft
         X = {sl: np.stack([v["ft_inputs"][k] for v in V]) for sl, k in mem.items()}
-        outs = np.array([t["out_v5"] for t in tr]); ref = {} if not ft_on else ft_reference({sl: pkg / str(z[f"net{k}_sjit_file"]) for sl, k in mem.items()}, X,
-                                                                       outs.argmax(1), outs.max(1).astype(np.float32))
+        v61 = bool(int(z["v6_ft_labels"])) if "v6_ft_labels" in z.files else False  # v6.1: labels from the v6 chain without FT
+        outs = np.array([v["label"] for v in V]) if v61 else np.array([t["out_v5"] for t in tr])
+        sched = dict(steps=int(z["v6_ft_steps"]), every=int(z["v6_ft_every"]), t0=int(z["v6_ft_t0"]), lr=float(z["v6_ft_lr"]))
+        ref = {} if not ft_on else ft_reference({sl: pkg / str(z[f"net{k}_sjit_file"]) for sl, k in mem.items()}, X,
+                                                                       outs.argmax(1), outs.max(1).astype(np.float32), **sched)
         for sl in (mem if ft_on else ()):
             got = np.array([v["p_ft"].get(sl, [np.nan] * 3) for v in V]); m_ = ~np.isnan(ref[sl][:, 0])
             assert np.array_equal(m_, ~np.isnan(got[:, 0])), "fine-tuned windows differ from the schedule"
@@ -165,7 +168,14 @@ def check_unrecognised(v6, pkg, d, sessions):
                 ids = z[f"v6_slot_{sl}"].astype(int); fam = sum(w[1 + i] * v["members"][i] for i in ids) / w[1 + ids].sum()
                 xx = np.clip(fam + pf - v["members"][mem[sl]], 1e-6, None); mm = mm - w[1 + ids].sum() * fam + w[1 + ids].sum() * xx / xx.sum()
             worst["mix6"] = max(worst["mix6"], float(np.abs(((1 - wr) * mm + wr * v["rest"]) - v["mix6"]).max()))
-        full = {k: z[k] for k in z.files}; tail = TailV5(full); feat0 = tail.em.features  # tail
+        full = {k: z[k] for k in z.files}
+        if v61:  # the label chain: lean/src's tail on (1 - w_rest) mix + w_rest rest, with the eye columns
+            lt = TailV5(full); lf0 = lt.em.features; worst.setdefault("label", 0.0)
+            for t, v, i in zip(tr, V, rows):
+                lt.em.features = lambda x, f0=lf0, e=v["extra"]: np.concatenate([f0(x), e])
+                q = lt.step(np.nan_to_num(np.asarray(d["X"][i], np.float32)), t["u"][:z["tsem_V"].shape[1]], (1 - wr) * t["mix"] + wr * v["rest"])
+                worst["label"] = max(worst["label"], float(np.abs(q - v["label"]).max()))
+        tail = TailV5(full); feat0 = tail.em.features  # tail
         for (t, v), i, o in zip(zip(tr, V), rows, o6):
             tail.em.features = lambda x, f0=feat0, e=v["extra"]: np.concatenate([f0(x), e])
             q = tail.step(np.nan_to_num(np.asarray(d["X"][i], np.float32)), t["u"][:z["tsem_V"].shape[1]], v["mix6"])
@@ -183,8 +193,8 @@ def main():
     okA, resA = (True, "skipped") if "--skip-recognised" in sys.argv else check_recognised(v6, v5, d)
     ss = list(dict.fromkeys(d["stream"]))[:arg("--sessions", 3)]
     worst, logs = check_unrecognised(v6, pkg6, d, ss)
-    tol = dict(eye=1e-5, rest=1e-4, ft=1e-4, mix6=1e-12, tail=1e-10)
-    okB = all(worst[k] < tol[k] for k in tol)
+    tol = dict(eye=1e-5, rest=1e-4, ft=1e-4, mix6=1e-12, tail=1e-10, label=1e-10)
+    okB = all(worst[k] < tol[k] for k in tol if k in worst)
     res = dict(order=arg("--order", "recording"), recognised_ok=okA, recognised=resA, unrecognised_max_diff=worst, tolerances=tol, unrecognised_logs=logs, ok=okA and okB)
     print(json.dumps(res, indent=1, default=str))
     if "--out" in sys.argv:

@@ -37,7 +37,8 @@ def main():
         rows = order[d["stream"][order] == s] if order is not None else np.flatnonzero(d["stream"] == s); X, y = d["X"][rows], d["y"][rows]
         t0 = time.perf_counter()
         og, i5, ftw = run(G, X); tg = time.perf_counter() - t0; t1 = time.perf_counter(); on, i5n, ftn = run(N, X); tn = time.perf_counter() - t1
-        assert np.array_equal(i5, i5n) and not ftn.any() and ftw.sum() == max(0, len(rows) - 30)
+        t0 = int(np.load(pg / "weights.npz")["v6_ft_t0"])  # start window of the fine-tuned package (30 for gC5, 20 for v6.1's s15)
+        assert np.array_equal(i5, i5n) and not ftn.any() and ftw.sum() == max(0, len(rows) - t0)
         l5, lg, ln = i5.argmax(1), og.argmax(1), on.argmax(1); Y.append(y); L5.append(l5); LG.append(lg); LN.append(ln)
         res[s.split("/")[-1]] = dict(windows=len(rows), ft_windows=int(ftw.sum()), changed_gc5=int((lg != l5).sum()), changed_noft=int((ln != l5).sum()),
                                      gc5_vs_noft=int((lg != ln).sum()), max_dp_gc5_noft_ft=float(np.abs(og[ftw] - on[ftw]).max()),

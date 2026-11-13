@@ -88,5 +88,39 @@ Upload ZIP (fine-tuning on) `a5db1404…cbba2`, fallback `05c0e386…e1564`, v5.
   orders (rows above), not on other orders or on unseen people.
 - **Sealed run time** assumes the Codabench worker runs like a Leonardo A100. The worker-image replay on Galvani is
   about 15 % slower than Leonardo for every package, v5.1b included.
+- **Run-to-run reproducibility on the GPU.** Fine-tuning on the GPU is not deterministic. Streaming the same session
+  twice through the same v6f package on one A100 (Leonardo 64421312, 4 sessions): fine-tuned posteriors differ by up to
+  0.011 (P01|1; the other three about 1e-6), outputs by up to 3.6e-4, and no label differs. A sealed run is therefore
+  not bit-reproducible; the effect on labels was nil in this test.
 - **Fine-tuning numerics on the worker.** The worker image (CUDA 13 build) runs fine-tuning without errors at the same
   cost as Leonardo; its posteriors were not compared with a reference there (the GPU reference check ran on Leonardo).
+
+## v6.1 (13 Nov evening): labels from the v6 chain, schedule s15
+
+Prepared next to v6f for the user's choice. The staged v6f ZIP `a5db1404…` stays untouched and remains the default.
+Code: `lean/src61` → `submissions/lean_v61/submission.py` (`bundle.py --v61`); `lean/src6` and `lean_v6` are unchanged.
+Package: `runs/sealed/cand_v61_s15` (`build6.py --v61 --labels v6r --t0 20 --lr 1e-3`). **ZIP SHA-256
+`2ca06dc085a0a3a6eeebaac4e89113dd7793cc38b5425e68cb1bc50cd85dfe32`, 66,738,606 bytes.**
+
+Two changes against v6f, both on the fine-tuning of unrecognised sessions (ledger §198):
+- **Labels** from the v6 chain without fine-tuning instead of the inner v5.1b. A third tail (`TailX`) runs on
+  (15/16)·mix_v5.1b + (1/16)·rest, with the eye-net columns in SessionEM's view. It is v5.1b's gated tail with its own
+  state, takes no FT change, and the gate never sees it. Its causal outputs (argmax, weight = max) are the labels
+  (key `v6_ft_labels` = 1).
+- **Schedule s15:** start window 20 instead of 30, Adam lr 1e-3 instead of 5e-4 (5 steps every 10 windows, warm start,
+  GPU-drawn augmentation, as gC5).
+
+Dev in the package's form (explore track, Leonardo, six bases; the label chain is the same computation as dev's V6r
+under the package gate): new people over v5.1b, within orders 0–7, **v6.1 +1.49 [+1.14, +1.84]** (without P10 +1.49,
+8 of 8 orders ≥ +0.5), against v6f +1.25 [+0.94, +1.59]. Returning people: unchanged against v5.1b (as v6f).
+
+| Check on the v6.1 ZIP | Where | Result |
+|---|---|---|
+| Official local replay | Mac CPU (built the ZIP) | 0.9932767697, files unchanged, 98.1 s |
+| Official A100 replay series | Leonardo 64419124, copied ZIP | warm-up 230.3 s; v5.1b 103.1, v6.1 102.9, v6.1 107.2, v5.1b 101.6 s; all 0.9932767697, files unchanged, ZIP sha256 = `2ca06dc0…` |
+| Recognised path, references (CPU) | Mac, `check_v6.py`, unzipped | **OK**. 14/14 sessions bitwise v5.1b from window 10. References: eye 1.3e-6, rest 2.9e-7, FT 1.2e-5, mix 3e-18, tail 0, **label chain 0.0** |
+| Same on the A100, package shapes | Leonardo 64419125 | Recognised path 14/14 bitwise. Recording order: eye 1.3e-9, rest 9.9e-6, label 0, mix 3e-17, tail 0, but **FT 1.02e-4 against the 1e-4 tolerance** (see the next row). within\|0: FT 8.5e-6, OK; full\|0: FT 4.9e-5, OK |
+| Run-to-run spread of FT on the A100 | Leonardo 64421057, the same session streamed twice through the same package | P01\|1: fine-tuned posteriors differ by up to **0.034**, outputs by 1.3e-3, labels 0; P02\|1: 3.8e-6 / 1.9e-7. GPU training is not deterministic (atomic adds in backward passes), and the refits amplify it. So 1.02e-4 against the reference is inside the package's own spread, not a logic difference; the CPU check (deterministic) matches to 1.2e-5. A sealed run of a fine-tuning package is not bit-reproducible |
+| FT acts, shuffled delivery | Leonardo 64419332, all 14 sessions, gates off, recording / within\|0 / full\|0 | Errors 0; FT on every window from 20. max \|v6.1 − noft\| on FT windows 0.14 / 0.20 / 0.17. Labels vs v5.1b: 35 / 36 / 57 (noft 38 / 42 / 60). In-sample mean BA v5.1b / noft / v6.1: 0.981 / 0.995 / 0.994; 0.982 / 0.997 / 0.995; 0.970 / 0.992 / 0.991 |
+| Worst-case run time | Leonardo 64418532, A100, warm, paired, gates off | ×1.809 (190 windows, 17 refits), ×2.082 (378, 36 refits) → 31.3 / 34.7 min at 57 %, **38.8 / 44.7 min at 100 %**, plus about 1.1 min one-off warm-up: **about 45.8 min worst case** (v6f about 45.3) |
+| FT in the worker image | Galvani 3099513 | V61_WORKER |

@@ -18,6 +18,10 @@ if "--v6" in sys.argv:  # the v6 tree (lean/src6) and its bundle; lean/src and l
     SRC, OUT = ROOT / "lean/src6", ROOT / "submissions/lean_v6/submission.py"
     MODULES = MODULES[:-1] + ("extras", "finetune", "v6chain", "solver")
     sys.argv.remove("--v6")
+if "--v61" in sys.argv:  # v6.1 tree (lean/src61); lean/src6 and lean_v6 untouched
+    SRC, OUT = ROOT / "lean/src61", ROOT / "submissions/lean_v61/submission.py"
+    MODULES = MODULES[:-1] + ("extras", "finetune", "v6chain", "solver")
+    sys.argv.remove("--v61")
 
 
 def top_names(tree):
