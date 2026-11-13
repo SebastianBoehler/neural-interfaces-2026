@@ -2943,3 +2943,18 @@ against v5.1b, all and delta1 forms (`pkg.py FT_DIR=runs/diag/ttt/probs16 FT_PFX
 |---|---|
 | gC5 CAP 100 / CAP 60, against uncapped gC5 | −0.05 (−0.25 to +0.10) / −0.10 (−0.30 to +0.10) |
 | **Bar** | a cap that loses ≤ 0.10 against uncapped gC5 on the mean of four draws makes the cost linear; then it is timed |
+
+| §158/§159 VIEWNET, four draws (13 Nov 09:28 UTC; `runs/night13/viewnet_wide*.npz`; new, paired against V6F; V6F against v5.1b +0.95 on draw 0) | Against V6F, draws 0 / 1 / 2 / 3 | Verdict |
+|---|---|---|
+| emg / ocufast / ocuslow / beta | about 0: −0.01 to +0.10 / −0.11 to 0.00 / −0.07 to +0.09 / −0.05 to −0.01 | no gain |
+| alpha / asym / ocuh1 / ocuh2 / theta | −0.08 to −0.32 on every draw | cost |
+| scp | −0.27 to −0.36 | cost |
+| all ten together | −0.34 to −0.47 | cost |
+
+**Verdict: refuted, every kind.** None captures any part of the +3.8 ceiling. The eye net's view stays the only real view
+that helps inside the combination. Before reading this as "only ocular information helps", a null is needed: if
+any three added columns cost SessionEM something (its covariance in a higher dimension, with fixed shrinkage), real
+views are judged against a handicap. **§162 null (written 13 Nov 09:28 UTC, before the run):** V6F + 3 columns of
+seeded Gaussian noise, on the Mac, draw 0. Prediction −0.10 (−0.30 to +0.05). If the null costs about as much as the
+weak views (−0.1 to −0.2), the view test needs a form without that handicap (views that replace columns, or a
+dimension-aware SessionEM). If it costs about 0, the views themselves carry nothing useful.

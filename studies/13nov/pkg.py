@@ -71,6 +71,8 @@ def ge_view(sp, p, bn):
     VNS = os.environ.get("VN_SEEDS", "0,1,2,3,4,5,6,7,8").split(",")
     for kd in ((sp["vnet"],) if isinstance(sp.get("vnet"), str) else sp.get("vnet", ())):  # s158/s159: view nets on other label-free signals (viewnet.py)
         V = np.c_[V, np.log(np.clip(np.mean([load(f"{REPO}/runs/viewnet/{kd}/oc_nomix-{p}-s{s_}.npz", p) for s_ in VNS], 0), 1e-3, 1))]
+    if sp.get("vnull"):  # s162: seeded Gaussian noise columns (the cost of added dimensions alone)
+        V = np.c_[V, np.random.default_rng(sp["vnull"]).standard_normal((len(V), 3))]
     for k in sp.get("vadd", ()):  # s157: other members' posteriors as view columns (c1 = core1, 10 = teacher, rest = rest member)
         V = np.c_[V, np.log(np.clip(A.EXTRA[k][p] if k == "rest" else A.members(bn, p)[k], 1e-3, 1))]
     return V
@@ -111,6 +113,7 @@ SPEC.update({"V6F_ft05": {**_V, "ftw": 0.5}, "V6F_ft15": {**_V, "ftw": 1.5}, "V6
              "V6F_ocm": {**_V, "ocmix": True},  # s156: a second eye-net family in the view
              "V6F_vc1": {**_V, "vadd": ("c1",)}, "V6F_vte": {**_V, "vadd": (10,)}, "V6F_vre": {**_V, "vadd": ("rest",)},  # s157
              "V6F_vemg": {**_V, "vnet": "emg"}, "V6F_vscp": {**_V, "vnet": "scp"}, "V6F_vboth": {**_V, "vnet": ("emg", "scp")}})  # s158
+SPEC.update({"V6F_null": {**_V, "vnull": 1}, "V6F_null2": {**_V, "vnull": 2}})  # s162
 _VK = [k for k in os.environ.get("VN_KINDS", "").split(",") if k]  # s159: VN_KINDS=a,b,... makes V6F_v<k> for each and V6F_vall
 SPEC.update({**{f"V6F_v{k}": {**_V, "vnet": k} for k in _VK}, **({"V6F_vall": {**_V, "vnet": tuple(_VK)}} if _VK else {})})
 SPEC.update({
