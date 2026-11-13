@@ -43,7 +43,7 @@ def load_windows(path):
     return d
 
 
-def load_model(pkg, ch_names, tag="pkg"):
+def load_model(pkg, ch_names, tag="pkg", device="cpu"):
     """The package's model as the harness builds it; the base solver is stubbed (no Benchopt needed here)."""
     if "benchmark_utils.base_solver" not in sys.modules:
         base = types.ModuleType("benchmark_utils.base_solver")
@@ -52,7 +52,7 @@ def load_model(pkg, ch_names, tag="pkg"):
     spec = importlib.util.spec_from_file_location(tag, Path(pkg) / "submission.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    meta = {"submission_dir": Path(pkg), "device": "cpu", "ch_names": ch_names}
+    meta = {"submission_dir": Path(pkg), "device": device, "ch_names": ch_names}
     return mod.Solver.__new__(mod.Solver).load_model(meta)
 
 

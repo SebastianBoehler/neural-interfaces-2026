@@ -14,6 +14,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SRC, OUT = ROOT / "lean/src", ROOT / "submissions/lean_v5/submission.py"
 MODULES = ("numerics", "tangent", "inputs", "nets", "stages", "gates", "personal", "routing", "ensemble", "solver")
+if "--v6" in sys.argv:  # the v6 tree (lean/src6) and its bundle; lean/src and lean_v5 are untouched
+    SRC, OUT = ROOT / "lean/src6", ROOT / "submissions/lean_v6/submission.py"
+    MODULES = MODULES[:-1] + ("extras", "finetune", "v6chain", "solver")
+    sys.argv.remove("--v6")
 
 
 def top_names(tree):

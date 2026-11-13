@@ -3323,7 +3323,7 @@ sessions untouched). FT adds about +0.8 to +0.9 more (§165). **Package decision
 the run-time budget, ship the full combination; otherwise ship the fallback. Both pass their bars under shuffled
 delivery.
 
-### 174. Next forms for the stage loss under shuffle (written 13 Nov 10:57 UTC)
+### 174. Next forms for the stage loss under shuffle (written 13 Nov 10:56 UTC)
 
 Refuted so far: RETUNE (stage constants, §166), the hard run split (§168), and the time-weighted oracle (§170). What
 comes next, in order:
