@@ -2440,3 +2440,21 @@ structure (montage, artefacts, session variation) is the cheapest stand-in for m
 | §145 C item (13 Nov 03:48 UTC; Leonardo `runs/night13/confhalf_s*.txt`; cum10 all6, new, against frozen) | Observed | Verdict |
 |---|---|---|
 | CONFHALF (v3 labels, low-confidence half switched off), seeds 0–5 / 6–11 | **−0.32** (without P10 −0.59) / **−0.14** (without P10 −0.39); fixA −0.07 / −0.23 | **Refuted, below the range** (+0.20 predicted). Fine-tuning on the confident half only *hurts*; the hard half's labels carry fine-tuning's gain even though they are only 62 % right. Together with §142 (true labels on the hard half alone reach the full ceiling): fine-tuning learns from the hard windows. Removing their labels removes the signal, and correcting them gives +1.6 |
+
+### 148. Teacher retraining queued (gap 2; written 13 Nov 03:55 UTC, before any job ran)
+
+- Corpus downloads (serial QOS: four at a time, the rest wait):
+  - PhysionetMI and Cho2017 are windowed.
+  - Lee2019_MI was resubmitted at 16 GB (it ran out of memory at 8 GB).
+  - Dreyer2023, Schirrmeister2017, Shin2017A, Shin2017B and Shin2018WG (word generation) are queued.
+- Rebuilt from tracked code: `scripts/export_heads.py` (per-corpus head log-probabilities on the 2,655 PROTEUS
+  windows, the format `teach2.py` reads; smoke on an 11 Nov FBCNet checkpoint: 19 outputs, as the m7r corpora give)
+  and `scripts/cloud/leo_teach.sh` (EEGNeX and IFNet, seeds 0–11, the m7r recipe, then the head export).
+- Queued behind the corpus jobs:
+  - **m7c2**, the seven m7 corpora again on Leonardo (the control, and a check of the rebuild against
+    `runs/tsch/heads.npz`): 64341544 / 64341545 → heads 64341546.
+  - **cog2**, a cognitive-task teacher on Shin2017B (subtraction vs rest) and Shin2018WG (word generation vs rest),
+    meant as a member of its own: 64341548 / 64341549 → heads 64341551.
+- Scoring (`teach2.py` reading the new heads files, in the shipped and FT+OCU+REST contexts with the weight re-chosen)
+  follows when the heads exist. Prediction: cog2 as an extra member, new, +0.2 (−0.3 to +0.7). The rebuild check:
+  m7c2 within ±0.3 of the stored m7c teacher in the chain.
