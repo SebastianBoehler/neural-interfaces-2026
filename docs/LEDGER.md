@@ -4760,3 +4760,7 @@ labels against R: within −0.10, full +0.21, runs −0.03.
 - **Reading rule:** as §203, now over up to eight full orders. With ≥ 6/8 orders below zero and a mean ≤ −0.2, the coordinator
   is told that v6.1's FT form or labels cost on full, and the alternative (v6.2 on v6f's FT) is named.
 - **Timing:** members take 2–5 h, so this lands after the 06:00 UTC table. It serves the remaining uploads (deadline 21 Nov).
+- **Form B within 4–11 (23:26 UTC; runs/formB411_*, local, paired per file):** the eye net fine-tuned on the session (ocuttt
+  pl) against v6.1's eye view, both inside v6.1 (s15, K labels): **+0.03 [+0.01, +0.05]**, 6/8 orders up, 5/10 people up,
+  without P10 −0.00. Together with within 0–3 (+0.07 on top of v6.1), form B is a real but negligible gain that costs run
+  time. **Not added.**
