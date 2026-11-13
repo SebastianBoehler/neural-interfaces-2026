@@ -4673,3 +4673,14 @@ SingularityPRO 4.3.1 runs a prebuilt one. Galvani's `runs/cloud/ni26_worker.sif`
     full 0/1 +0.94 vs +0.72 (P10 +1.64 vs +0.19); runs 0/1 +1.13 vs +1.21.
 - **Galvani worker jobs** 3099908/09 estimate 14 Nov 21:56 / 22:27 UTC. The cluster is full (5 of our GPU jobs running), and
   `scontrol top` is not available there. The Leonardo image upload (8 chunks, about 0.6 MB/s) lands about 00:30 UTC.
+- **§202 amended (22:55 UTC, v52-build's three changes):**
+  1. ZIPs only, each checked against its folder's SHA256SUMS before any GPU time. Order: v5.1b, v62_r0, r1, r2, v6.1, v5.1b.
+  2. The FT path inside the image: `v6_time.py cuda lean_v5_pkg final_unz_61/c`, then `… cand_v62_r2` with and without
+     `--gates-on`. Replays never reach FT, because their sessions are recognised at window 10.
+  3. A CUDA error fails the job and names the node for `--exclude`.
+  - A watcher submits the job when the 8 chunks (3,472,891,904 bytes) and the three v62 ZIPs listed in SHA256SUMS are on
+    Leonardo.
+  - A truncated v62_r0.zip (23.5 MB) that my stopped rsync had left under the real name was deleted. The SHA256SUMS check
+    would also have caught it.
+  - FT-path prediction: errors 0, run-time ratios within 10 % of the Galvani image run (v6.1 ×1.72 at 190 windows) and
+    of the venv A100 rows (×1.81 / ×2.08).
