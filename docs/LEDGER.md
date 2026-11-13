@@ -4634,3 +4634,17 @@ all to galvani").**
   refits, errors 0.
 - **Lesson for a Galvani-only workflow:** with 300 slots, a 24-task array per order allows about 12 orders queued at once. Waves
   have to be chained (afterany) rather than all submitted up front.
+
+**§201 RESULT (13 Nov 22:26 UTC; `runs/s201_*`).**
+- **(1) Gate-unchanged form** (the gates and the shadow see only v5.1b; the additions reach the routed tail). Returning people,
+  against routed v5.1b:
+  - within 0–7 ERF s15: +0.33 / +0.19 / +1.23 / +1.18 / +0.90 / +0.84 / +1.22 / +1.24, **mean +0.89** (measured form +0.86);
+    P10 > 0 on **8/8**, min +0.10.
+  - ER: mean **+0.65** (measured +0.53); P10 > 0 6/8, min −0.15.
+  - full 0/1, runs 0/1: as in the measured form (ERF −0.28 / +1.91 / +2.10 / +1.06; ER +0.40 / +1.78 / +0.90 / +0.83).
+  - **It loses nothing, so it is built** (rule met). Recognition stays exactly v5.1b's by construction.
+- **(2) Measured form on new people:** no arm changes routing on any order (within 0–3 checked) or base, and no new person is
+  routed by v5.1b or by any arm. For returning people the routed set never changes; only P04|2's late first routed window
+  moves by 1 to 4 (§199 logs).
+- **v52-build told (22:30 UTC)** to build the gate-unchanged insertion (dev reference `retv6 GATE_V51B=1`). Check (a) becomes
+  "routed set and first routed window bitwise equal to v5.1b's for every session", including new people.
