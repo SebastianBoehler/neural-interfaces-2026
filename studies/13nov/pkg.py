@@ -18,6 +18,7 @@ import glob, os, sys
 import numpy as np
 REPO = os.path.abspath(__file__ + "/../../..")
 F_ = REPO + "/studies/12nov/v5_replay.py"; exec(compile(open(F_).read().split("\nres = []")[0], F_, "exec"))  # noqa: S102  (A, SC, ns, REC, NM, staged, BETA)
+import grid as G_  # noqa: E402  (second TSEM for the PLS lever; replay/ is on the path after v5_replay)
 Z = A.L.Z; PR = A.PROTOS; IDX = {p: A.pl.B[f"idx|{p}"].astype(int) for p in PR}; SLOT = {"fb": 6, "fbraw": 5, "sinc": 7, "fbl": 8}
 BASES = os.environ.get("BASES", "B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2").split(",")
 
@@ -28,10 +29,10 @@ def load(pat, p, n=1):
 
 PF = REPO + "/runs/ttt/probs_pf"; T6 = REPO + "/" + os.environ.get("FT_DIR", "runs/ttt/probs6"); FPX = os.environ.get("FT_PFX", "ttt6")
 _a, _b = (int(x) for x in os.environ.get("FT_SEEDS", "0-5").split("-")); FTS = range(_a, _b + 1); OCS = os.environ.get("OCU_SEEDS", "0,1,2").split(",")
+FTV = os.environ.get("FT_VAR", "cum10")  # the fine-tuning arm read from FT_DIR, e.g. gC5 in runs/ttt/probs7 (FT_PFX=ttt7)
 print(f"pkg: FT {T6} {FPX} {FTV} seeds {list(FTS)}; OCU seeds {OCS}; REST seeds {os.environ.get('REST_SEEDS', '0,1,2')}; chain route4 max t10 + own-space stage (v4.1/v5), gate fixed from P0", flush=True)
 PN = {(a, v): load(f"{PF}/pft_{a}_{v}-seen_session-s*.npz", "seen_session", 3) for a in SLOT for v in ("base", "pfh60")}
 FRS = {(a, s): {p: load(f"{T6}/{FPX}_{a}_base-{p}-s{s}.npz", p) for p in PR} for a in SLOT for s in FTS}
-FTV = os.environ.get("FT_VAR", "cum10")  # the fine-tuning arm read from FT_DIR, e.g. gC5 in runs/ttt/probs7 (FT_PFX=ttt7)
 CUS = {(a, s): {p: load(f"{T6}/{FPX}_{a}_{FTV}-{p}-s{s}.npz", p) for p in PR} for a in SLOT for s in FTS}
 FR = {a: {p: np.mean([FRS[a, s][p] for s in FTS], 0) for p in PR} for a in SLOT}
 CU = {a: {p: np.mean([CUS[a, s][p] for s in FTS], 0) for p in PR} for a in SLOT}
@@ -42,12 +43,52 @@ RSS = os.environ.get("REST_SEEDS", "0,1,2").split(",")  # explicit seeds, as OCU
 A.EXTRA["rest"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}
 A.EXTRA["restfb"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_fb_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}  # s144: the FBCNet rest-class net
 REF = {p: Z[f"GE|{p}"].copy() for p in PR}; GEO = {p: np.c_[REF[p], np.log(np.clip(OC[p], 1e-3, 1))] for p in PR}
+# s155 levers inside the combination (all on the shipped path): view scale or oracle, cognitive teacher, mix exponent, PLS view, weak gate
+ORC = {p: np.log(0.05 + 0.85 * np.eye(3)[Z[f"y|{p}"].astype(int)]) for p in PR}  # ORACLE eye-net view: true labels (ceiling only)
+_cog = f"{REPO}/runs/teach/teacher_cog1_all_loso.npy"
+if os.path.exists(_cog):
+    A.EXTRA["cog1"] = {"all_loso": np.load(_cog), "seen_session": Z["B2_pool|Ps|seen_session"][10]}
+_mix0 = A.mix
+
+
+def ge_view(sp, p):
+    if not sp.get("ocu"):
+        return REF[p]
+    L = ORC[p] if sp.get("ocuorc") else np.log(np.clip(OC[p], 1e-3, 1)); return np.c_[REF[p], sp.get("ocuw", 1.0) * L]
+
+
+def weak_rows(bn, p, RTS0, q=0.5, T0=30):  # weak-session gate (s133 form): out-of-person quantile of the shipped mix's early confidence
+    mix = _mix0(bn, p, A.FAMS)[0]; sess = Z[f"sess|{p}"]; per = Z[f"person|{p}"]; ss = np.unique(sess)
+    conf = {u: mix[np.flatnonzero(sess == u)[:T0]].max(1).mean() for u in ss}; sp_ = {u: per[np.flatnonzero(sess == u)[0]] for u in ss}
+    thr = {u: np.quantile([conf[v] for v in ss if sp_[v] != sp_[u]], q) for u in ss}; return np.array([conf[u] < thr[u] for u in sess])
+
+
+_PLS = {}
+
+
+def pls_view():  # s74's PLS-DA view of core1's 256 components, per fold on training people only
+    if not _PLS:
+        from sklearn.cross_decomposition import PLSRegression
+        p = "all_loso"; sess = Z[f"sess|{p}"]; V = np.zeros((len(sess), 16))
+        for f in sorted(glob.glob(f"{REPO}/runs/replay_data/feats_exact/all_loso-P*.npz")):
+            z = np.load(f, allow_pickle=True); Xc = z["pc_tr"].copy(); itr = z["idx_tr"].astype(int)
+            for u in np.unique(sess[itr]):
+                m = sess[itr] == u; Xc[m] -= Xc[m].mean(0)
+            sd = Xc.std(0); W = PLSRegression(16, scale=False).fit(Xc / sd, np.eye(3)[z["y_tr"].astype(int)]).x_rotations_
+            for k in [k for k in z.files if k.endswith("|pc")]:
+                V[z[k.replace("|pc", "|idx")].astype(int)] = (z[k] / sd) @ W
+        assert np.abs(V).sum(1).min() > 0; _PLS["v"] = V
+    return _PLS["v"]
 SPEC = {"T0": dict(), "T1b": dict(pn="base"), "T1": dict(pn="pfh60"), "T1w": dict(pn="pfh60", w0=True), "F": dict(pn="pfh60", ft=True),
         "FO": dict(pn="pfh60", ft=True, ocu=True), "O": dict(pn="pfh60", ocu=True), "FOR": dict(pn="pfh60", ft=True, ocu=True, rest=True),
         "R": dict(pn="pfh60", rest=True),
         "OR": dict(pn="pfh60", ocu=True, rest=True),  # s150: the stack without fine-tuning (no run-time cost)
         "V6": dict(ship=True, ocu=True, rest=True, beta=0.10), "V6b": dict(ship=True, ocu=True, rest=True, beta=0.15),  # s151: v5.1b + OCU + REST on the shipped members
         "SF": dict(ship=True, ft=True, beta=0.10), "V6F": dict(ship=True, ft=True, ocu=True, rest=True, beta=0.10)}  # s152: FT as a change to the shipped members
+_V = dict(ship=True, ft=True, ocu=True, rest=True, beta=0.10)  # s155: refinements and retests inside V6F
+SPEC.update({"V6F_ft05": {**_V, "ftw": 0.5}, "V6F_ft15": {**_V, "ftw": 1.5}, "V6F_r05": {**_V, "rest": 0.5}, "V6F_r2": {**_V, "rest": 2.0},
+             "V6F_o05": {**_V, "ocuw": 0.5}, "V6F_o2": {**_V, "ocuw": 2.0}, "V6F_orc": {**_V, "ocuorc": True}, "V6F_cog": {**_V, "cog": 1.0},
+             "V6F_pls": {**_V, "pls": 0.15}, "V6F_mix": {**_V, "mixe": 0.9}, "V6F_weak": {**_V, "ftweak": True}})
 SPEC.update({
         "FOR2": dict(pn="pfh60", ft=True, ocu=True, rest=True, restfb=True), "FORw2": dict(pn="pfh60", ft=True, ocu=True, rest=2.0)})  # s144
 
@@ -74,22 +115,27 @@ def system(bn, arm, oof=None, RTS0=None):
     global BETA
     sp = SPEC.get(arm, {}); BETA = sp.get("beta", 0.10 if arm == "P0" else 0.15)
     for p in PR:
-        Z[f"GE|{p}"] = GEO[p] if sp.get("ocu") else REF[p]
+        Z[f"GE|{p}"] = ge_view(sp, p)
+    if sp.get("mixe"):
+        A.mix = lambda *a_, **k_: (lambda m, s_: ((m ** sp["mixe"]) / (m ** sp["mixe"]).sum(1, keepdims=True), s_))(*_mix0(*a_, **k_))
     try:
         c1 = {p: A.members(bn, p)["c1"] for p in PR}
         if arm == "P0" or sp.get("ship"):  # the shipped members everywhere; FT enters only as each base's own seeds' change on never-routed rows
             assert not sp.get("pn"), f"{arm}: personal nets need study nets, not the shipped members"
-            pf, pe = list(A.FAMS), ([("rest", 1.0)] if sp.get("rest") else [])
+            pf, pe = list(A.FAMS), ([("rest", float(sp["rest"]))] if sp.get("rest") else [])
+            cogx = [("cog1", float(sp["cog"]))] if sp.get("cog") else []
             if sp.get("ft"):
                 assert bn in BASESEEDS and all(k in FTS for k in BASESEEDS[bn]), (bn, list(FTS))
                 arrs = {}
                 for a, slot in SLOT.items():
                     arrs[a] = {}
                     for p in PR:
-                        base = A.members(bn, p)[slot].copy(); dlt = np.mean([CUS[a, k][p] - FRS[a, k][p] for k in BASESEEDS[bn]], 0)
-                        x = np.where(RTS0[p][:, None], base, np.clip(base + dlt, 1e-6, None)); arrs[a][p] = x / x.sum(1, keepdims=True)
+                        base = A.members(bn, p)[slot].copy(); dlt = sp.get("ftw", 1.0) * np.mean([CUS[a, k][p] - FRS[a, k][p] for k in BASESEEDS[bn]], 0)
+                        off = RTS0[p] | (~weak_rows(bn, p, RTS0) if sp.get("ftweak") else False)
+                        x = np.where(off[:, None], base, np.clip(base + dlt, 1e-6, None)); arrs[a][p] = x / x.sum(1, keepdims=True)
                     assert np.abs(arrs[a]["all_loso"] - A.members(bn, "all_loso")[slot]).max() > 1e-3, f"{arm}: the FT change is a no-op"
                 pf, pe = famswap(arrs, arm + "_ship", sp.get("rest"))
+            pe = pe + cogx
         else:
             pop = {a: {p: np.where(RTS0[p][:, None], FR[a][p], CU[a][p]) if sp.get("ft") else FR[a][p].copy() for p in PR} for a in SLOT}
             pf, pe = famswap(pop, arm + "_pop", sp.get("rest"), sp.get("restfb"))
@@ -112,8 +158,13 @@ def system(bn, arm, oof=None, RTS0=None):
                     mp[p], a = A.mix(bn, p, pf, pe); _, sh[p] = A.shadow(mp[p], p)
             mr = {p: A.mix(bn, p, rf, re_)[0] for p in PR}
             REC.clear(); out0 = ns["route4"](mr, sh, a, sh["all_loso"] if oof is None else oof, c1, "max", 10)[0]  # pass 2: routed tail with personal nets
-        return staged(out0)[0], sh["all_loso"]
+        out = staged(out0)[0]
+        if sp.get("pls"):  # s74 form: a second TSEM pass through the PLS view after the chain, new people's never-routed rows only
+            P = out["all_loso"]; L, tt = G_.tsem_lik(P, Z["sess|all_loso"], pls_view())
+            Q = G_.apply_lam(P, L, tt, sp["pls"]); out["all_loso"] = np.where(RTS0["all_loso"][:, None], P, Q)
+        return out, sh["all_loso"]
     finally:
+        A.mix = _mix0
         for p in PR:
             Z[f"GE|{p}"] = REF[p]
 

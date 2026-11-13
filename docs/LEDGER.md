@@ -2695,3 +2695,31 @@ v5.1b as uploaded** (`pkg.py` SF / V6F with FT_VAR=hent), paired with §152's cu
 **Reading.** Saving only the shared block's 3-class head drops the per-corpus heads that carry the stored teacher's
 signal. A unified teacher would need its corpus heads kept as well (a `pretrain.py` change that saves the full
 final layer). That is recorded as the next form, not queued yet. m8w (eight corpora, standard heads) is pretraining.
+
+**Incident (13 Nov 08:12 UTC).** `pkg.py` printed `FT_VAR` before defining it, after my 08:00 edit, so the chained
+scorings `ftship_d1` and `ftship_gc5_d0` failed loudly (NameError) on Leonardo. The line is moved and both are
+resubmitted (64359839, 64359876); the others had not started.
+
+### 155. Inside the combination (V6F): part strengths, an oracle view, and retests on top (written 13 Nov 08:17 UTC, after a one-base smoke, before the six-base run; `pkg.py`, against v5.1b as uploaded, paired with V6F on the same draw)
+
+The user: push the super-additive combination, measure its ceiling, retest earlier methods on top of it. Arms, all
+V6F plus one change:
+- **Part strengths:** ft05 / ft15 (FT change ×0.5 / ×1.5); r05 / r2 (rest member weight 0.5 / 2); o05 / o2 (eye-net
+  view ×0.5 / ×2).
+- **Ceiling:** orc, an ORACLE view (true labels in place of the eye-net posteriors in SessionEM's view, never
+  shippable): what a perfect view of this kind would give.
+- **Retests on top:** cog (the cognitive teacher, §148, as a member at weight 1); pls (§74's PLS-DA view, a second TSEM
+  pass on never-routed new rows); mix (member mix to the power 0.9); weak (FT only on sessions below the
+  out-of-person median of early confidence, §133).
+- **Reading:** new people only. The design applies the combination to unrecognised sessions, so seen is v5.1b's by
+  construction. Seen is still printed.
+
+Smoke, B2_pool, new against v5.1b: V6F +0.99; orc **+4.89**; cog +1.22; pls +1.00; mix +1.19.
+
+| Check (new, six-base mean, paired against V6F on the same draw; draw 0 on the Mac, draws 1–3 on Leonardo) | Prediction (80 % range) |
+|---|---|
+| orc − V6F (ceiling of the view) | +3.5 (+2.0 to +5.0) |
+| cog, mix − V6F | +0.15 (−0.15 to +0.45) each |
+| pls − V6F | 0.0 (−0.3 to +0.3) |
+| the best of the part strengths − V6F | +0.10 (−0.10 to +0.30) |
+| **Bar** | a change is kept if it is ≥ +0.15 over V6F without the best person, on draw 0 and on at least two of draws 1–3 |
