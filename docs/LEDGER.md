@@ -2958,3 +2958,26 @@ views are judged against a handicap. **§162 null (written 13 Nov 09:28 UTC, bef
 seeded Gaussian noise, on the Mac, draw 0. Prediction −0.10 (−0.30 to +0.05). If the null costs about as much as the
 weak views (−0.1 to −0.2), the view test needs a form without that handicap (views that replace columns, or a
 dimension-aware SessionEM). If it costs about 0, the views themselves carry nothing useful.
+
+**§120 addendum 3: the whole v6 candidate path on an unrecognised session, warm, paired (13 Nov 09:35 UTC; Leonardo A100,
+debug job 64366211; `studies/13nov/v6_cost.py`).** Same node, same sessions:
+- v5.1b streaming the session: 15.2 s (190 windows) and 30.7 s (378).
+- Added per unrecognised session: the second routed tail (rebalancing, SessionEM, TSEM, timed as v5.1b's own routed-tail
+  stages) 0.47 / 1.09 s; the eye net (7 derived traces with running standardisation, three seeds at batch 1) 1.16 / 2.31
+  s; the rest member (a shallow StreamBN trace at batch 1) 0.20 / 0.43 s; fine-tuning with one net per family (delta1),
+  gC5 5.2 / 20.4 s and cum10 10.0 / 41.0 s.
+- The eye-net and rest weights were untrained (timing only); SessionEM's three extra view columns are not timed (a 51-
+  instead of a 48-column view).
+
+| Path on unrecognised sessions | Added, 190 / 378 windows | Sealed at 57 % unrecognised (190 / 378) | at 100 % (190 / 378) |
+|---|---|---|---|
+| tail + eye net + rest, no FT | +1.8 s / +3.8 s (×0.12) | 22.9 / 23.0 min | 24.0 / 24.1 min |
+| + FT gC5 delta1 | +7.0 / +24.2 s (×0.46 / ×0.79) | 27.1 / 31.1 | 31.4 / 38.4 |
+| + FT cum10 delta1 | +11.8 / +44.8 s (×0.78 / ×1.46) | 31.0 / 39.3 | 38.1 / **52.8** |
+
+Sealed = 1,287 s × (1 + unrecognised share × added / v5.1b), with v5.1b's real-worker 1,287 s; recognised sessions add
+nothing (bit-identical to v5.1b by design).
+
+Reading: the eye net, the rest member and the extra tail cost about 12 % on unrecognised sessions; fine-tuning dominates.
+Against a 45-min worst case (every session unrecognised), gC5 delta1 fits at both lengths (31 / 38 min). cum10 delta1
+fits at 190 windows (38 min) but not at 378 (53 min).

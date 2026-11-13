@@ -62,6 +62,17 @@ members).
    §120's five choices: SessionBN state after a refit, slots 6 and 9, no silent no-op, late recognition, schedule from
    the scored arms. Run time (§120 addendum 2, A100, paired with v5.1b): per never-routed session of 190 / 378 windows, cum10 adds 60.7 / 239.7 s for all 24 nets, 10.1 / 39.7 s for one net per family; gC5 31.1 / 122.2 and 5.2 / 20.4 s (v5.1b itself 15.5 / 31.6 s). The cost grows with the square of session length. Against a 45-min worst case (every session unrouted), only gC5 with one net per family fits at both lengths (29 / 35 min); a window cap would make it linear but is unscored.
 
+## Run time of the whole path (ledger §120 addenda 2 and 3; A100, warm, paired with v5.1b)
+
+Per unrecognised session the second routed tail, the eye net and the rest member add about 12 % (1.8 s at 190 windows,
+3.8 s at 378). Fine-tuning dominates. Sealed estimates (v5.1b 1,287 s on the real worker), at 57 % / 100 %
+unrecognised sessions:
+- without FT: 23 / 24 min;
+- with gC5 delta1: 27–31 / 31–38 min;
+- with cum10 delta1: 31–39 / 38–53 min.
+The ranges are 190- to 378-window sessions. With a 45-min worst case, gC5 delta1 fits at both session lengths, and
+cum10 delta1 fits only if sessions are near 190 windows.
+
 ## Checks before any upload
 
 - The package replay equals the dev replay of V6 (§151) on the public sessions, per window, on CPU and GPU (as
