@@ -2147,3 +2147,15 @@ people, +0.83 without P10, with an 80 % person interval of +0.62 to +1.51. Retur
 positive on every base, but unresolved). This is now the strongest measured design input. The personal nets of v5.2 do not
 gain in package form, and they cost P04 about 0.8 here. The fresh-seed run of this replay (job 64325439) and the
 §113/§135 replications of the fine-tuning decide the next candidate after the window.
+
+**Night incident (13 Nov 01:01 UTC).** The fresh-seed SincShallow tasks of §135 and §137 wave 2 (seeds ≥ 6) died at
+start: the pretrained SincShallow trunks exist for seeds 0–5 only. `leo_array.sh` ended each task with `echo EXIT
+$?`, so Slurm showed them as COMPLETED. The scorers refused to run on the missing files, as designed, so no zeros were
+printed. The smoke tests used seed 0 and could not catch it. Fixes:
+- `ttt5.make` uses the trunk of seed mod 6 for seeds ≥ 6 and prints it. Fresh SincShallow nets share their
+  pretrained trunks with seeds 0–5 but have their own training seed; the other three families are fully fresh.
+- `leo_array.sh`, `leo_cpu.sh` and `leo_dbg.sh` now exit with the task's own exit code.
+- Only the sinc tasks were rerun (`scripts/cloud/night13d.sh`: arrays 64328025–64328027), and the six failed
+  scorings were resubmitted behind them (64328028–64328033).
+
+From now on a smoke covers the highest seed an array will use.

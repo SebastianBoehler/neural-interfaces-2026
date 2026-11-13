@@ -7,4 +7,4 @@ NAME=$1; ACC=$2; TIME=$3; CMD=$4; mkdir -p runs/diag/cpu
 sbatch --parsable ${DEP:-} --account=$ACC -p boost_usr_prod --gres=gpu:1 --cpus-per-task=8 --mem=120G --time=$TIME -J ni26c-$NAME -o runs/diag/cpu/$NAME-%j.out --wrap "
 module load python/3.11.7 >/dev/null 2>&1; unset PYTHONPATH; . .venv/bin/activate
 export NI26_WS=\$PWD NI26_ROOT=\$PWD OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 NJ=6 PYTHONWARNINGS=ignore
-date -u; $CMD; echo EXIT \$?; date -u"
+date -u; $CMD; rc=\$?; echo EXIT \$rc; date -u; exit \$rc"

@@ -55,7 +55,10 @@ def strong(X, g, shift=15, noise=0.2, drop=0.1):
 def make(arch, d, seed):
     cfg = ARCHS[arch][0]
     if cfg is not None:
-        return SB.make(cfg, d, seed)
+        m = SB.make(cfg, d, seed)
+        if seed >= 6 and "{seed}" in (getattr(m, "init", None) or ""):  # pretrained trunks exist for seeds 0-5 only (13 Nov: fresh sinc tasks died on a missing file)
+            m.init = m.init.replace("{seed}", str(seed % 6)); print(f"{arch} seed {seed}: pretrained trunk of seed {seed % 6}, training seed {seed}", flush=True)
+        return m
     m = SB.SessionNet(d, arch=SB.ARCH["sh"], seed=seed, **SB.CFGS["sbn"]); m.rot = 0.0; return m
 
 
