@@ -3600,3 +3600,13 @@ minus the combination's own gate:
 - gC5: within 0 −0.04 (+1.97 against +2.01), within 1 +0.07 (+1.55 against +1.48), runs 0 +0.01.
 - Fallback: +0.01, +0.05, −0.03.
 The gate form makes no difference (|Δ| ≤ 0.07). Not refuted; the table keeps the package gate.
+
+**§171/§179 draws 3 and 4 (13 Nov 13:08 UTC; corrected orders, every input re-streamed, package gate, labels from recording order;
+`runs/allorder_<order>d<draw>_gp0.log`).** gC5 combination over v5.1b, new (without P10):
+- within 0: draw 3 +2.18 (+2.08), draw 4 +1.99 (+1.86).
+- within 1: draw 3 +1.56 (+1.38), draw 4 +1.52 (+1.32).
+- full 0: draw 3 +1.54 (+1.29).
+- runs 0: draw 3 +1.30 (+1.20).
+Across draws 0–4: within 0 +1.97 to +2.18 (5 draws), within 1 +1.40 to +1.56 (5), full 0 +1.54 to +1.58 (2), runs 0 +1.30
+to +1.33 (2). The spread between draws is ≤ 0.21, inside the noise; the order matters more than the draw. The fallback
+does not depend on the draw: +0.63 to +0.96.
