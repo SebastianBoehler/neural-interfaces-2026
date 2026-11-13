@@ -3041,3 +3041,17 @@ whole chain) **−3.14**.
 columns. The +3.8 oracle stays out of reach with the signals tried. This line is paused until it is re-scored under
 non-chronological delivery (§164): the view nets' causal standardisation and SessionEM's use of the view are both
 order-dependent.
+
+### 165. RESTREAM: the SessionBN members and fine-tuning re-streamed in a non-chronological order (written 13 Nov 09:44 UTC, before any job ran; `studies/13nov/ttt17.py`, Leonardo)
+
+§164 measures the stages with members fixed in recording order. The SessionBN nets (causal session statistics),
+their causal alignment, and the fine-tuning schedule are order-dependent too. TTT17 streams each session in the exact
+delivery orders of §164 (`runs/shuffle_perms.npz`, schemes full and within, permutation 0), with seeds 0–5 nets:
+frozen ("base", the members under the new order) and cum10. Pseudo-labels still come from the v3 chain in recording
+order (an approximation). Scoring: §164's replay with slots 5–8 replaced by these outputs, so that members and stages
+are both in the new order. Checks against v5.1b under the same order.
+
+| Check (new, full scheme, permutation 0) | Prediction (80 % range) |
+|---|---|
+| members re-streamed vs fixed (on top of §164's stage loss) | −0.5 (−1.5 to +0.2) |
+| V6F's FT share under the new order | +0.2 (−0.3 to +0.6), against about +0.6 inside V6F in recording order |

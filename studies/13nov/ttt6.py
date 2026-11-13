@@ -21,7 +21,7 @@ import session_bn as SB  # noqa: E402
 import importlib.util  # noqa: E402
 _spec = importlib.util.spec_from_file_location("ttt5", WS / "studies/12nov/ttt5.py"); T5 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T5)
 
-OUT = WS / "runs/diag/ttt/probs6"; T0 = T5.T0; TAG = "ttt6"; SMOKE_OUT = "smoke6"; DRAW = 0  # ttt8.py etc. override these; DRAW 0 keeps every earlier run bit-identical
+OUT = WS / "runs/diag/ttt/probs6"; T0 = T5.T0; TAG = "ttt6"; SMOKE_OUT = "smoke6"; DRAW = 0; PERM = None  # ttt8.py etc. override these; DRAW 0 and PERM None keep every earlier run bit-identical
 # variant -> (steps per refit, refit every, lr, scope, consistency weight, label form, warm start, views)
 VARS = {"fixA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1), "cum10": (10, 10, 5e-4, "all", 1.0, "hard", True, 1),
         "cons2": (20, 10, 5e-4, "all", 2.0, "hard", False, 1), "soft": (20, 10, 5e-4, "all", 1.0, "soft", False, 1),
@@ -86,14 +86,17 @@ def run(arch, d, proto, seed, out, epochs=0):
         m.fit(np.flatnonzero(tr)); m.set_k(T5.ARCHS[arch][1]); rows = np.flatnonzero(te); st = d["stream"][rows]
         ref = protocol.predict_streams(m, d, te, proba=True)
         for s in dict.fromkeys(st):
-            r = rows[st == s]; X = torch.from_numpy(m._aligned(r, causal=True)).to(m.dev)
+            r = rows[st == s]
+            if PERM:  # s165: deliver the session in another order (global window index -> rank); outputs stay keyed by index
+                r = r[np.argsort(PERM[proto][r], kind="stable")]; assert len(set(PERM[proto][r])) == len(r)
+            X = torch.from_numpy(m._aligned(r, causal=True)).to(m.dev)
             res = stream(m, X, np.stack([Pc_all[int(g)] for g in r]), seed)
             for v in names:
                 got[v].append(res[v])
             rows_all.append(r)
         base = np.concatenate(got["base"][-len(dict.fromkeys(st)):])
         print(f"{tag} s{seed} {proto} {fold} base-vs-harness max diff {np.abs(base - ref).max():.2e} {time.time() - t0:.0f}s", flush=True)
-        assert np.abs(base - ref).max() < 1e-6, "the streamed frozen net does not reproduce the harness"
+        assert PERM or np.abs(base - ref).max() < 1e-6, "the streamed frozen net does not reproduce the harness"  # another delivery order changes the causal state by design
         if epochs:
             break
     idx = np.concatenate(rows_all); o = np.argsort(idx)
