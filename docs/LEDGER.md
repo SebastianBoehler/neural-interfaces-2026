@@ -1802,7 +1802,7 @@ the build after the window: FT+OCU (+0.86 new, 6 of 6 bases, seen +0.18; +0.78 o
 sessions take the personal tail, decides that, and it decides before any build. Packaging costs: OCU needs the eye
 net in the package, and FT needs run time (§107, §113).
 
-### 132. TEACH2 (explore track, gap 2 of the map): the teacher line redesigned and re-scored in the current design (written 13 Nov 00:17 UTC, before any result; code `studies/13nov/teach2.py`, Mac, stored head outputs)
+### 132. TEACH2 (explore track, gap 2 of the map): the teacher line redesigned and re-scored in the current design (written 13 Nov 00:15 UTC, before any result; code `studies/13nov/teach2.py`, Mac, stored head outputs)
 
 The teacher is the only member with partly independent errors, and its design dates from 1–2 Nov. The stronger
 Scherer-trained teacher (m8s: +3.3 alone) lost −0.98 J in the chain at weight 5 on 11 Nov (§18), and no weight rescued
@@ -1821,3 +1821,19 @@ harness check: alone 50.46 ± 1.5, as on 11 Nov).
 | m8s session-normalised (n8s), weight 5 / 2 | +0.3 (−0.8 to +1.2) / +0.2 (−0.5 to +0.8) |
 | Cognitive-heads member next to the teacher (cog7 / cog8 at weight 1, 2) | +0.1 (−0.3 to +0.4) |
 | **Rule** | A variant counts if it is ≥ +0.30 new over the reference in **both** contexts, on ≥ 5 of 6 bases, with seen ≥ −0.15. If n8s counts and t8s does not, reason (i) holds: the Scherer teacher failed on session offsets, not on content. A counting variant becomes a design input (it needs only a different map in the package: the trunks stay) |
+
+### 133. WEAK (gap 3 of the map, alongside the fine-tuning arms): fine-tune only sessions that look weak without labels (written 13 Nov 00:17 UTC, before any result; code `studies/13nov/weak.py`, Mac, stored outputs)
+
+Fine-tuning gains concentrated on P04-like sessions on 11 Nov, and strong sessions lost. A package can only gate on
+what it sees: at window 30, where fine-tuning starts, the session's mean top probability of the shipped member mix
+over its first 30 windows. cum10 (FT) is applied below a fixed quantile of the dev new-people sessions (q33, q50,
+q67), and the inverse gate (inv50, strong half only) is the control. Contexts: FT alone against frozen, and FT+OCU
+against OCU (§130b's design input). Six bases, new people.
+
+| Arm (new, six-base mean against the same context without FT) | Prediction (80 % range) |
+|---|---|
+| ungated (§130 FT; FT+OCU − OCU) | +0.46 / +0.72 (both measured) |
+| q50: weak half only | +0.45 (+0.20 to +0.70) |
+| q33 / q67 | +0.35 (+0.10 to +0.60) / +0.48 (+0.25 to +0.70) |
+| inv50: strong half only (control) | +0.05 (−0.20 to +0.25) |
+| **Rule** | A gate is worth adopting if it lands within 0.05 of the ungated arm (or above) in both contexts at ≤ 2/3 of the sessions, with ≥ 5 of 6 bases ahead of frozen. It saves run time, which pays for the rest of the design. If inv50 ≥ +0.25, the gains are not concentrated in weak sessions and gating is closed. If a gate is ≥ +0.10 above the ungated arm on ≥ 5 of 6 bases, strong sessions lose from FT and the gate is a gain, not only a saving |

@@ -51,7 +51,7 @@ for f in sorted(glob.glob(f"{REPO}/runs/replay_data/feats_exact/all_loso-P*.npz"
 assert np.abs(VIEW).sum(1).min() > 0, "a test row never got a PLS view"
 
 
-def run(S, bn, shipped=False, teach=None, add=()):
+def run(S, bn, shipped=False, teach=None, add=(), ft="ft"):
     """S: levers; teach: (EXTRA name, weight) replacing the teacher family; add: extra [(EXTRA name, weight)] members."""
     fams, extra = list(A.FAMS), list(add)
     if teach:
@@ -61,8 +61,9 @@ def run(S, bn, shipped=False, teach=None, add=()):
             fam = next(f for f, items in A.FAM.items() if any(k == slot for k, _ in items))
             if fam in fams:
                 fams.remove(fam); extra += list(A.FAM[fam])
-            extra = [(k, w) for k, w in extra if k != slot] + [(f"{a}_{'ft' if 'FT' in S else 'fr'}", 1.0)]
+            extra = [(k, w) for k, w in extra if k != slot] + [(f"{a}_{ft if 'FT' in S else 'fr'}", 1.0)]
     assert set(S) <= set(LEV), f"unknown lever in {S}"
+    assert ft == "ft" or "FT" in S, f"ft={ft} has no effect without the FT lever"
     assert not (shipped and "FT" in S), "FT swaps the SessionBN families; shipped=True would drop it silently"
     if "REST" in S:
         extra.append(("rest", 1.0))
