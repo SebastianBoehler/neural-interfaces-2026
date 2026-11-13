@@ -66,7 +66,9 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
   ("the sealed order is still close to acquisition order") is withdrawn: the fingerprint failing to match meant we did
   not find the order, not that there is none. Every dev number so far was measured in recording order. The primary dev
   protocol is now non-chronological within a session, scored under several schemes with fixed permutations
-  (ledger §164); recording order is a secondary column. Evaluation-time adaptation may use only the session's delivered
+  (ledger §164); recording order is a secondary column. No scheme is primary: the 10 Nov rescoring does not identify one,
+  and its per-package drops fit full better than within unless half a point was a uniform backend effect (correction
+  under §169). Evaluation-time adaptation may use only the session's delivered
   windows, without labels. v5.1b and the combination fit nothing on labelled public data during a session (checked
   13 Nov: the own-space stage and the personal heads load precomputed parameters).
 - **Cue-order regularity** (Graz runs follow a weakly shuffled WORD → SUB → MI cycle): not raised with the organisers;

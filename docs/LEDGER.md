@@ -3209,6 +3209,31 @@ plausibly a within-run shuffle**, or something as mild. From here, *within* is t
 stress columns. This also explains why the combination's sealed value was hard to predict from recording-order
 numbers: under *within*, the combination's gain over v5.1b was +1.65 (§165), against +1.00 in recording order.
 
+**Correction to this reading (14 Nov 00:00 UTC, coordinator and s205): the rescoring does not identify the scheme, and
+if anything leans away from within.**
+- **Transfer:** the reading above compared dev losses with sealed drops 1:1. Dev-to-sealed transfer on the last two
+  uploads was 0.41–0.46. At that rate v5.1b would drop about 0.3–0.35 sealed under within and 1.4–1.6 under full. The
+  observed 0.7–1.2 sits between the two.
+- **Per package:** the rescored packages' dev order losses come from the stage-wise shuffle (runs/shuffle_13nov.log, new
+  people, members fixed). cand_nxif = R19e members + SessionEM, so the cumulative loss to SessionEM: full −2.17, runs −0.86,
+  within −0.38. cand_rec_ts2_tsem adds TSEM: −3.75 / −2.11 / −1.11. Sealed drops: −0.72 and −1.17, a ratio of 1.63.
+  - Dev ratios: full 1.73, runs 2.45, within 2.92.
+  - Proportional slope (drop / loss, no offset): full 0.33 and 0.31 (consistent); runs 0.84 / 0.55; within 1.89 / 1.05
+    (inconsistent).
+  - With a uniform offset c (drop = c + k·loss, fitted exactly through the two packages): full k 0.28, c +0.10; runs k 0.36,
+    c +0.41; within k 0.62, c +0.49. Within fits only if about half a point of the drop was a backend effect unrelated to
+    order.
+- **Noise:** each package saw one sealed order. At ±0.15 per drop the sealed ratio ranges 1.17–2.32, which holds full and
+  runs but not within. At ±0.25 it ranges 0.95–3.02, which holds all three.
+- **Limits:**
+  - two packages carry the fit (route3geb's −1.05 adds returning people, whose pre-routing loss is not measured);
+  - nxif's SessionEM was an older form;
+  - members' own order dependence is not in the stage-wise loss;
+  - the sealed set also holds returning sessions.
+- **Consequence:** no scheme is primary. The morning table gives every candidate per scheme without a preference, plus the
+  equal-weight and within-only averages. The scheme can be settled only by the organisers (the coordinator suggests that
+  the user ask how windows are ordered within a session).
+
 **§170 TORACLE smoke (B2_pool, full perm 0; pre-registration below):** ORACLE stages weighting delivered windows by
 true recording distance (H = 30). Full shuffle, against v5.1b in recording order: new −2.97 (shipped −3.14), seen
 −4.80 (shipped −4.66). Recording order: new −0.82, seen −2.26. The oracle recovers about 5 % of the new-people loss and

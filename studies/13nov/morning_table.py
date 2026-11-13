@@ -64,5 +64,14 @@ for grp, D, np_ in (("new people (10)", new, 10), ("returning (P04, P10)", ret, 
             noP10 = np.delete(M, -1, 1).mean(); P10 = M[:, -1]; lab = "P04 alone" if np_ == 2 else "without P10"
             print(f"  {v:9s} {m.mean():+.2f} [{lo:+.2f}, {hi:+.2f}] | {lab} {noP10:+.2f} | P10 {P10.mean():+.2f} "
                   f"(min {P10.min():+.2f}) | orders > 0 {int((m > 0).sum())}/{len(m)} | people > 0 {int((M.mean(0) > 0).sum())}/{np_}")
+# s205 (coordinator): no preferred scheme; scheme-averaged gains under equal weights and under within only
+MEAN = {(g, sch, v): np.mean([D[o][v].mean() for o in D if o.startswith(sch)]) for g, D in (("new", new), ("ret", ret))
+        for sch in ("within", "full", "runs") for v in VARS if any(o.startswith(sch) for o in D)}
+print("\nScheme-averaged (mean of the per-scheme means; J = 0.5 new + 0.5 returning, the dev metric):")
+for v in VARS:
+    eq = {g: np.mean([MEAN[g, sch, v] for sch in ("within", "full", "runs") if (g, sch, v) in MEAN]) for g in ("new", "ret")}
+    wi = {g: MEAN.get((g, "within", v), np.nan) for g in ("new", "ret")}
+    print(f"  {v:9s} equal weights: new {eq['new']:+.2f} returning {eq['ret']:+.2f} J {0.5 * (eq['new'] + eq['ret']):+.2f} | "
+          f"within only: new {wi['new']:+.2f} returning {wi['ret']:+.2f} J {0.5 * (wi['new'] + wi['ret']):+.2f}")
 print("\nNot in this table: windows 0-9 of returning sessions (package emits v6.1 there, dev v5.1b's shadow); run time and "
       "worker-image checks (V6_BUILD.md); FT run-to-run spread on the GPU (up to 0.034 in posteriors, 64421057).")
