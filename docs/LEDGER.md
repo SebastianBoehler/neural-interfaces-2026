@@ -4648,3 +4648,18 @@ all to galvani").**
   moves by 1 to 4 (§199 logs).
 - **v52-build told (22:30 UTC)** to build the gate-unchanged insertion (dev reference `retv6 GATE_V51B=1`). Check (a) becomes
   "routed set and first routed window bitwise equal to v5.1b's for every session", including new people.
+
+**§202 PRE-REGISTRATION (13 Nov 22:37 UTC): v6.2's worker-image check on Leonardo.** Galvani's queue estimates the v6.1
+worker job (3099908) for 14 Nov 21:56 UTC, after the 06:30 decision. Leonardo cannot build the image (12 Nov: no fakeroot), but
+SingularityPRO 4.3.1 runs a prebuilt one. Galvani's `runs/cloud/ni26_worker.sif` (md5 d5e978f4…) was copied there.
+`scripts/cloud/leo_worker_replay.sbatch` checks the md5, CUDA in the image and the pip freeze. It then runs
+`scripts/replay_package.py` on the exact ZIPs inside the image, in the order v5.1b, v6.2 ZIPs, v5.1b.
+- **Mechanism:** the warm-up replay sessions are recognised at window 10. Under v6.2 the eye view, the rest member and (r2)
+  fine-tuning act on the routed tail, so unlike v6f and v6.1 this replay exercises the new path in the worker's torch.
+- **Prediction:** errors 0, files unchanged, CUDA visible. Score within 0.01 of v5.1b's 0.9932767697 (the warm-up set is near
+  ceiling). Ingestion time against the paired v5.1b at most ×1.3 (FT on about 180 of 190 windows per replay session, short
+  sessions).
+- **Refuted if:** any error or traceback, files changed, CUDA not visible in the image, or a score below 0.983. A time ratio above
+  ×1.3 is reported and sent to the worst-case run-time row; it does not fail the check.
+- **Also (s202):** `retv6.py` wrote every run to `runs/retv6.npz`, so runs with other settings overwrote each other (gate a/b).
+  It now writes `runs/retv6/<gate>_<form>_<sfx>_<proto>_<orders>.npz`. Smoke: within 7 gate-unchanged must reproduce s201's row.
