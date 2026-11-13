@@ -3710,6 +3710,7 @@ Package-faithful plus GE (`runs/allorder_<order>_gp0_L_ge.log`). gC5 over v5.1b,
   people's recording-order features and applied to the test rows' delivery-order features. The harness asserts that the
   rebuilt teacher equals slot 10. The 24 checkpoints were copied from Galvani: the local `runs/pretrain` targets are gone.
 - **Still left:** the `ea` transformer and shallow slots (weights 0.5 and 1 of 15). They need GPU retraining per fold
-  (`run_cv.py` with deliver.py), so not before the table. Their size is bounded below.
+  (`run_cv.py` with deliver.py), so not before the table. Their effect is not measured; together they carry 1.5 of the
+  mix's 15 weight.
 - **Prediction** (Hilbert and teacher together): v5.1b loses 0 to 0.5 more under within, and the combination's gain
   changes by ±0.3. The teacher has weight 5, so if it moves more than that, the table carries the teacher-included number.
