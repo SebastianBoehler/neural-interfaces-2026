@@ -19,10 +19,19 @@ def load(pat, p, nmin):
 
 
 # FT: cum10 fine-tuned SessionBN families (new people only) against the same nets frozen (ttt6 base)
-D6 = REPO + "/runs/ttt/probs6"
+# FT_DIR / FT_PFX / FT_SEEDS (a-b) select other runs, e.g. the fresh nets of ttt8 seeds 6-11; seeds are named explicitly
+D6 = REPO + "/" + os.environ.get("FT_DIR", "runs/ttt/probs6"); FPX = os.environ.get("FT_PFX", "ttt6")
+_a, _b = (int(x) for x in os.environ.get("FT_SEEDS", "0-5").split("-")); FTS = range(_a, _b + 1)
+
+
+def seeds(pat, p):
+    return np.mean([load(pat.replace("SEED", str(s)), p, 1) for s in FTS], 0)
+
+
+print(f"stacklib: FT from {D6} {FPX} seeds {list(FTS)}; OCU seeds {os.environ.get('OCU_SEEDS', '0,1,2')}; chain A.system (routing v3 dev chain)", flush=True)
 for a in SLOT:
-    fr = {p: load(f"{D6}/ttt6_{a}_base-PROTO-s*.npz", p, 6) for p in PR}
-    cu = load(f"{D6}/ttt6_{a}_cum10-all_loso-s*.npz", "all_loso", 6)
+    fr = {p: seeds(f"{D6}/{FPX}_{a}_base-PROTO-sSEED.npz", p) for p in PR}
+    cu = seeds(f"{D6}/{FPX}_{a}_cum10-all_loso-sSEED.npz", "all_loso")
     assert np.abs(cu - fr["all_loso"]).max() > 1e-3, f"{a}: cum10 equals frozen (no-op)"
     A.EXTRA[f"{a}_fr"] = fr; A.EXTRA[f"{a}_ft"] = {"all_loso": cu, "seen_session": fr["seen_session"]}
 # REST: rest-as-fourth-class ShallowConvNet as an extra member
@@ -52,7 +61,7 @@ for f in sorted(glob.glob(f"{REPO}/runs/replay_data/feats_exact/all_loso-P*.npz"
 assert np.abs(VIEW).sum(1).min() > 0, "a test row never got a PLS view"
 
 
-def run(S, bn, shipped=False, teach=None, add=(), ft="ft"):
+def run(S, bn, shipped=False, teach=None, add=(), ft="ft", outputs=False):
     """S: levers; teach: (EXTRA name, weight) replacing the teacher family; add: extra [(EXTRA name, weight)] members."""
     fams, extra = list(A.FAMS), list(add)
     if teach:
@@ -79,4 +88,6 @@ def run(S, bn, shipped=False, teach=None, add=(), ft="ft"):
             Z[f"GE|{p}"] = REF[p]
     if "PLS" in S:
         L, tt = G.tsem_lik(out[p0], sess, VIEW); out[p0] = G.apply_lam(out[p0], L, tt, LAM)
+    if outputs:
+        return out
     return SC.person(out["all_loso"], "all_loso"), SC.person(out["seen_session"], "seen_session")

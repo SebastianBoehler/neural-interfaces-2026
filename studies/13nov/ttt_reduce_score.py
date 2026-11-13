@@ -16,6 +16,9 @@ A = env.A; SC = A.SC; D = sys.argv[1]; rng = np.random.default_rng(0)
 IDX = {p: A.pl.B[f"idx|{p}"].astype(int) for p in A.PROTOS}; SLOT = {"fb": 6, "fbraw": 5, "sinc": 7, "fbl": 8}
 PFX = os.environ.get("PFX", "ttt5"); VARS = os.environ.get("VARS", "fixA,fixS,fixLR").split(",")
 FORMS = os.environ.get("FORMS", "all6,delta1,delta2,one6").split(",")
+_a, _b = (int(x) for x in os.environ.get("SEEDS", "0-5").split("-")); SEEDS = list(range(_a, _b + 1))  # six seeds per run, e.g. SEEDS=6-11
+assert len(SEEDS) == 6, f"SEEDS must name six seeds (the forms assume six), got {SEEDS}"
+print(f"scoring {D} prefix {PFX} seeds {SEEDS} in A.system (routing v3 dev chain, not the shipped v4.1/v5 chain)", flush=True)
 ARCHS = sorted({os.path.basename(f).split("_")[1] for f in glob.glob(f"{D}/{PFX}_*_base-all_loso-s*.npz")})
 assert sorted(ARCHS) == sorted(SLOT), f"families found in {D}: {ARCHS} (need all four; nothing scored)"
 
@@ -23,7 +26,7 @@ assert sorted(ARCHS) == sorted(SLOT), f"families found in {D}: {ARCHS} (need all
 def load(arch, v):
     out = {}
     for p in A.PROTOS:
-        fs = sorted(glob.glob(f"{D}/{PFX}_{arch}_{v}-{p}-s*.npz")); zs = [np.load(f) for f in fs]
+        fs = [f"{D}/{PFX}_{arch}_{v}-{p}-s{s}.npz" for s in SEEDS]; zs = [np.load(f) for f in fs if os.path.exists(f)]
         assert len(zs) == 6 and all((z["index"] == IDX[p]).all() for z in zs), (arch, v, p, len(zs))
         out[p] = np.stack([z["proba"] for z in zs])
     return out  # {proto: (6, n, 3)}

@@ -1848,3 +1848,58 @@ seeds. Six more nomix seeds are trained, and §130b's FT+OCU is re-scored with a
 | OCU alone, nine seeds | +0.15 (−0.05 to +0.35) |
 | FT+OCU against FT alone (OCU's share of the design input), nine seeds | +0.40 (+0.20 to +0.60); three seeds gave +0.40 (0.86 − 0.46) |
 | **Rule** | If OCU's share in FT+OCU falls below +0.20 with nine seeds, the three-seed result was seed luck and OCU leaves the design input; otherwise it stays, scored with nine seeds |
+
+## 135–137. Night plan, 13 Nov (written 13 Nov 00:23 UTC, before any of these jobs was submitted)
+
+The user wants the GPUs busy overnight, with no session awake between waves. Everything below goes in at once: arrays
+released now, scorings held by Slurm dependencies (`afterany`). Every table is written to `runs/night13/` on Leonardo,
+and each scorer asserts its inputs, so missing files fail loudly instead of printing zeros. Arrays skip outputs that
+already exist, so a resubmission is cheap. Track ratio: exploit §131, §135, §136; explore §132 (Mac), §133 (Mac),
+§134, §137. Every scorer here uses `A.system`, the routing-v3 dev chain, not the shipped v4.1/v5 chain, and every
+script prints that; the package-faithful replay is §138, built on the Mac tonight.
+
+**Ceilings of the explore studies** (user, 13 Nov: size explore work by its ceiling, rank 1 is no upper bound):
+- §137 TTT9, fine-tuning with better labels. Ceiling: fine-tuning on true labels gave +1.6 to +2.9 on 11 Nov, and
+  session-own models reach 81–82 % with labels against 74.9 %. This study measures that ceiling for the current recipe
+  (oracle arm) and takes a second label-free step towards it (labels from the stack chain instead of the v3 chain).
+- §132 TEACH2 (Mac). Ceiling: an independent member at 70 % was estimated at +3.1 for new people.
+- §134 OCU9: consolidation of the lever that carries the stack, not a ceiling study.
+- Not tonight, with reasons. Teacher retraining: the pretraining corpora are not on Leonardo, and Galvani needs the
+  user's 2FA. Gap 7 retests (MixStyle, EEGNeX in the filter slot): low ceilings (≤ +1 on the record), so they rank
+  below. Gap 6, self-supervised training on the rest runs: high ceiling, but it cannot be specified and smoke-tested
+  well within the hour. It is the first design for 13 Nov day.
+
+### 135. TTT8F (exploit): cum10 and its neighbours on fresh nets (ttt8.py tasks 24–71 = seeds 6–17, account 1675)
+
+The fine-tuned arms so far used seeds 0–5, the nets they were chosen on. Seeds 6–11 and 12–17 are two fresh
+replications, scored separately (`ttt_reduce_score.py SEEDS=6-11` and `SEEDS=12-17`).
+
+| Check (all6, new, six-base mean against the same run's frozen nets) | Prediction (80 % range) |
+|---|---|
+| cum10, seeds 6–11 / 12–17 | +0.40 (+0.20 to +0.60) each |
+| **Bar** | cum10 replicates if ≥ +0.25 on both fresh sets with ≥ 5 of 6 bases; a neighbour replaces it only if it is ≥ +0.08 above cum10 on all three seed sets (0–5, 6–11, 12–17) |
+
+### 136. STACKF (exploit): the stack on seeds that did not choose it (Leonardo CPU job after §135 and §134)
+
+§130b chose FT+OCU and "without PLS" after seeing the results. Here they are scored once more, with FT from fresh nets
+(ttt8 seeds 6–11) and the eye-net from fresh seeds 3–8 (`stack.py`, `FT_DIR=runs/diag/ttt/probs8 FT_PFX=ttt8
+FT_SEEDS=6-11 OCU_SEEDS=3,…,8`).
+
+| Arm (new, six-base mean against the stack base) | Prediction (80 % range) |
+|---|---|
+| FT+OCU | +0.70 (+0.40 to +1.00); §130b +0.86 |
+| FT+REST+OCU+MIX | +0.95 (+0.50 to +1.30); §130b +1.13 |
+| **Bar** | the design input (FT+OCU) is confirmed if it is ≥ +0.50 on ≥ 5 of 6 bases with seen ≥ −0.15; below +0.30, §130b was mostly selection |
+
+### 137. TTT9 (explore, high ceiling): fine-tuning with better labels (ttt9.py, LAB=true and LAB=stack, seeds 0–5, after a debug smoke)
+
+Pseudo-labels for all fine-tuning so far came from the v3 chain on B2_pool (`chain_final.npz`: new 80.18). LAB=stack
+uses the FT+OCU stack's outputs on B2_pool (`chain_stack.npz`: new 80.93, seen 79.60). LAB=true uses one-hot true
+labels: the oracle ceiling, never shippable. Arms cum10 and fixA, against the same run's frozen nets; the v3-label
+reference is §108/§131 on the same seeds 0–5.
+
+| Check (all6, new, six-base mean) | Prediction (80 % range) |
+|---|---|
+| true labels, cum10 / fixA | +2.0 (+1.0 to +3.0) / +2.2 (+1.2 to +3.2) |
+| stack labels, cum10 | +0.55 (+0.30 to +0.80); v3 labels +0.46 |
+| **Bar** | true-label cum10 ≥ +1.5: label quality is the lever, and it gets several more forms (iterated rounds, per-session label filtering). Stack labels ≥ +0.10 over v3 labels on ≥ 5 of 6 bases: a round-3 label refresh is queued on 13 Nov. True-label gain < +1.0: the recipe, not the labels, limits fine-tuning |

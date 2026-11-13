@@ -20,7 +20,7 @@ STEP windows (SessionBN statistics stay causal). Label source for the fine-tunin
 Saved proba (n, 3) per variant, rows sorted by index: base (no fine-tuning), pl20, or20, or60.
 Usage (Leonardo/Galvani, from the work folder): python studies/12nov/ttt5.py TASK (arch = ORDER[TASK % 4], seed = TASK // 4) | smoke
 """
-import copy, sys, time
+import copy, os, sys, time
 from pathlib import Path
 WS = Path(__import__("os").environ.get("NI26_WS", "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026"))  # Leonardo: NI26_WS
 sys.path[:0] = [str(WS / "experiments"), str(WS / "scripts")]
@@ -31,7 +31,8 @@ import protocol  # noqa: E402
 import session_bn as SB  # noqa: E402
 
 HERE = Path(__file__).resolve().parent; OUT = WS / "runs/diag/ttt/probs5"
-CH = np.load(HERE / "chain_final.npz"); T0, STEP = 30, 10
+CH = np.load(os.environ.get("CHAIN_NPZ") or HERE / "chain_final.npz"); T0, STEP = 30, 10  # CHAIN_NPZ: other pseudo-labels (ttt9.py)
+print("pseudo-labels from", os.environ.get("CHAIN_NPZ") or "chain_final.npz (v3 chain, B2_pool)", flush=True)
 # variant -> (label source, steps, learning rate, parameter scope)
 VARS = {"fixA": ("fix", 20, 5e-4, "all", "eval"), "fixW": ("fix", 20, 5e-4, "all", "eval"), "fixS": ("fix", 20, 5e-4, "all", "eval"),
         "fixPL": ("fixpl", 20, 5e-4, "all", "eval"), "fixT": ("fixt", 20, 5e-4, "all", "eval"), "fix40": ("fix", 40, 5e-4, "all", "eval"),
