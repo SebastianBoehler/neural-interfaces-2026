@@ -2605,3 +2605,12 @@ for new people). **v6 as designed (no FT) is not a package by its own bar.** Wha
 members (FT outputs exist only for study nets). FT carries most of the new-people gain, P10 included, and P10's +3 as a
 new person is real in dev. Measuring it needs fine-tuning runs that start from the shipped SessionBN nets, a GPU job
 for when Leonardo is back.
+
+**§149 incidents and resubmission (13 Nov 07:55 UTC, before any §149 score).**
+- **m7u.** All 24 pretraining tasks completed, but the head export failed. With `--unified`, `pretrain.py` keeps only
+  the shared block's 3-class head (MI / SUB / WORD) and drops the per-corpus heads. `export_heads.py` now reads that
+  head directly as the teacher's input ("unified:MI/SUB/WORD", 3 log-probabilities per trunk) and asserts `--unified`
+  in the meta; the export is resubmitted.
+- **m10.** Zhou2020 and Liu2024 failed in `export_moabb.py`: their channel names do not match the montage. Only
+  Weibo2014 arrived, so the pre-flight stopped m10, as designed. The arm is resubmitted under its true corpus set as
+  **m8w** (the seven m7 corpora + Weibo2014), with the same prediction and bar as m10.

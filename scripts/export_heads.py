@@ -31,6 +31,9 @@ def main():
         for v in corp.values():  # checkpoints before the unified block (R17) store no "n"
             v.setdefault("n", len(v["classes"]))
         off = max(v["offset"] + v["n"] for v in corp.values()); cls = getattr(bd, ARCHS[meta["arch"]])
+        if ck["state"]["final_layer.bias"].shape[0] == 3 and off != 3:  # --unified (R17): only the shared block's 3-class head is saved
+            assert meta.get("unified"), f"{c}: a 3-output head without --unified"
+            corp = {"unified": {"offset": 0, "n": 3, "classes": ["MI", "SUB", "WORD"]}}; off = 3
         kw = dict(n_chans=41, n_outputs=off, n_times=480)
         if "sfreq" in inspect.signature(cls).parameters:
             kw["sfreq"] = 120.0
