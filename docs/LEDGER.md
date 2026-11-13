@@ -4444,3 +4444,18 @@ So the stack's s15 arm is the package-form dev row. New people, over v5.1b under
 Local Galvani fetches are gated behind `runs/.galv_ok` (the four loops were restarted gated; no login loop). Waiting on
 Galvani: form B's resubmits, SWEEP 2 within 8–11, SWEEP 3 within 0–3, the stack's returning-people copy (within 0/1), L draw 2
 within 7, and v6.1's worker-image FT row (v52-build's staged script).
+
+**§197 SWEEP 2 RESULT (Leonardo `runs/night13/sweepsel2_w{1,2}.txt`).** Nested held-out over gC5: within 0–3 **+0.10 [−0.26, +0.41]**;
+within 4–7 **−0.02 [−0.42, +0.25]**. In-sample on wave 1, every higher-lr form is +0.17 to +0.33 (the s03 pattern). On wave 2 the
+picks (t10, t09) do not hold. Null, as predicted after §194's wave 2: raising the learning rate further adds nothing.
+
+**21:03 UTC, work moved to Leonardo** (Galvani: about 295 tasks pending, none running; Leonardo idle).
+- Form B's missing seeds per order (64419694–707; first copy wins against Galvani; the local loop fetches from both).
+- L draw 2 within 7 (64419709).
+- SWEEP 3 within 0–3 with scoring and nested selection chained (64419711–19 → sweepsel3_w1.txt).
+- Galvani duplicates of SWEEP 3 and L d2 within 7 cancelled; the Galvani stack copy cancelled too, because Leonardo's stack
+  run already has within 0/1's returning-people outputs (scored locally via `retv6 FT_SFX=KF`).
+- **Follow-up wave:** the v6.1 stack (FORMS=gC5,s15, labels K) on within 8–11, full 0/1 and runs 0/1, with scoring and
+  stackcmp chained (64419720–37 → stackcmp2_within8-11.txt and stackcmp2_fullruns.txt). It gives v6.1's dev row on twelve
+  more orders, including full and runs.
+- v6.1's worker-image FT check stays on Galvani (v52-build), ahead of my lowered sweeps.
