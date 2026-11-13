@@ -3342,3 +3342,17 @@ comes next, in order:
 
 Queue: GC5SHUF draws are duplicated on Leonardo (64374729–64374732) next to Galvani, and the first copy to land is
 used. Item 1 is built next, on Galvani or Leonardo CPU, behind the evening path.
+
+### 175. CORESHUF: TSEM's view recomputed in the delivery order (written 13 Nov 11:00 UTC, before any result; `studies/13nov/coreshuf.py`, Leonardo CPU job; §174 item 1)
+
+Core1's causal references are rebuilt along the delivery order (within 0 and full 0) and projected to the fold's 128
+PCs, the TSEMK recipe of §54, with a harness check of the recording-order rebuild against the stored view. The view
+then replaces pc128 in §164's replay, permuted with everything else, to give v5.1b's stage loss with TSEM's view built
+as a shuffled stream would build it. Core1 as a member (slot c1) and the gaze and event view stay as recorded, so
+this is a partial correction.
+
+| Check (new, B2_pool and B2_s345, v5.1b against recording order) | Prediction (80 % range) |
+|---|---|
+| within, TSEM view in delivery order against §164 (−0.97) | −0.8 (−1.5 to −0.2) |
+| full, against §164 (−3.10) | −2.5 (−3.5 to −1.5) |
+| **Reading** | if the loss shrinks by more than a third, part of every shuffled number so far is a view artefact, and the package expectation for v5.1b under the sealed order is better than measured |
