@@ -3031,3 +3031,13 @@ whole chain) **−3.14**.
 | runs: whole chain | −1.0 (−2.0 to 0.0) |
 | within: whole chain | −2.5 (−3.5 to −1.5) |
 | **Use** | the stage that loses most under each scheme is the first target of the order-robust re-tune (§165, next) |
+
+| §163 item (13 Nov 09:42 UTC; `runs/avg_d0.npz`; new, paired against V6F, draw 0) | Against V6F / without the best | Verdict |
+|---|---|---|
+| avg4 (eye net averaged with emg, ocuslow, ocufast, beta in its own 3 columns) | −0.10 / −0.15 | **Refuted** |
+| avgslow (eye net averaged with ocuslow) | −0.10 / −0.15 (equal six-base means by coincidence: the per-base values differ, up to 2.6 for single people; checked) | **Refuted** |
+
+**Reading (view line, recording order).** No view built tonight adds to the eye net's, alone, together, or averaged into its
+columns. The +3.8 oracle stays out of reach with the signals tried. This line is paused until it is re-scored under
+non-chronological delivery (§164): the view nets' causal standardisation and SessionEM's use of the view are both
+order-dependent.

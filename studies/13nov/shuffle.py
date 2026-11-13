@@ -64,6 +64,10 @@ def stages(bn):
     return {k: SC.person(v, p0) for k, v in (("mix", mix), ("rebal", b), ("sessionem", e), ("tsem", t))}
 
 
+if os.environ.get("DUMP_PERMS"):  # s165: the delivery orders as global window indices, for re-streaming members on GPU
+    IDX0 = ORIG[[i for i, d in enumerate(DICTS) if d is A.pl.B][0]]
+    np.savez(os.environ["DUMP_PERMS"], **{f"{sc}|{sd}|{p}": IDX0[f"idx|{p}"].astype(int)[perm_for(sc, sd)[p]] for sc in SCHEMES for sd in range(PERMS) for p in PR})
+    sys.exit(print("dumped", os.environ["DUMP_PERMS"]))
 ident = {p: np.arange(N[p]) for p in PR}
 REF = {}
 for bn in BASES:
