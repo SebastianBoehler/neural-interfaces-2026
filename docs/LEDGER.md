@@ -2750,3 +2750,10 @@ label-free signals, and the SessionBN nets' own embeddings (§72–73, closed on
 | (a) ocm | +0.10 (−0.20 to +0.40) |
 | (b) nine seeds | +0.10 (−0.15 to +0.35) |
 | **Bar** | ≥ +0.15 without the best person on draw 0, then draws 1–3 on Leonardo (mix seeds 3–11 are there) |
+
+### 157. VIEWS2: other members' posteriors as SessionEM view columns inside V6F (written 13 Nov 08:26 UTC, before any result; `pkg.py`, Mac, draw 0)
+
+If the eye-net view works because its errors are independent of the mix, other members' posteriors in the view (rather
+than, or as well as, in the mix) may act the same way: vc1 (core1), vte (the teacher), vre (the rest member). Paired
+against V6F, new. Prediction for each: +0.05 (−0.30 to +0.40). Bar: ≥ +0.15 without the best person on draw 0, then
+Leonardo draws.

@@ -55,11 +55,15 @@ MXS = os.environ.get("OCU_MIX_SEEDS", "0,1,2").split(",")  # s156: the eye net's
 OCM = {p: np.mean([load(f"{REPO}/runs/ocunet/probs/oc_mix-{p}-s{s}.npz", p) for s in MXS], 0) for p in PR}
 
 
-def ge_view(sp, p):
+def ge_view(sp, p, bn):
     if not sp.get("ocu"):
         return REF[p]
     L = ORC[p] if sp.get("ocuorc") else np.log(np.clip(OC[p], 1e-3, 1)); V = np.c_[REF[p], sp.get("ocuw", 1.0) * L]
-    return np.c_[V, np.log(np.clip(OCM[p], 1e-3, 1))] if sp.get("ocmix") else V
+    if sp.get("ocmix"):
+        V = np.c_[V, np.log(np.clip(OCM[p], 1e-3, 1))]
+    for k in sp.get("vadd", ()):  # s157: other members' posteriors as view columns (c1 = core1, 10 = teacher, rest = rest member)
+        V = np.c_[V, np.log(np.clip(A.EXTRA[k][p] if k == "rest" else A.members(bn, p)[k], 1e-3, 1))]
+    return V
 
 
 def weak_rows(bn, p, RTS0, q=0.5, T0=30):  # weak-session gate (s133 form): out-of-person quantile of the shipped mix's early confidence
@@ -94,7 +98,8 @@ _V = dict(ship=True, ft=True, ocu=True, rest=True, beta=0.10)  # s155: refinemen
 SPEC.update({"V6F_ft05": {**_V, "ftw": 0.5}, "V6F_ft15": {**_V, "ftw": 1.5}, "V6F_r05": {**_V, "rest": 0.5}, "V6F_r2": {**_V, "rest": 2.0},
              "V6F_o05": {**_V, "ocuw": 0.5}, "V6F_o2": {**_V, "ocuw": 2.0}, "V6F_orc": {**_V, "ocuorc": True}, "V6F_cog": {**_V, "cog": 1.0},
              "V6F_pls": {**_V, "pls": 0.15}, "V6F_mix": {**_V, "mixe": 0.9}, "V6F_weak": {**_V, "ftweak": True},
-             "V6F_ocm": {**_V, "ocmix": True}})  # s156: a second eye-net family in the view
+             "V6F_ocm": {**_V, "ocmix": True},  # s156: a second eye-net family in the view
+             "V6F_vc1": {**_V, "vadd": ("c1",)}, "V6F_vte": {**_V, "vadd": (10,)}, "V6F_vre": {**_V, "vadd": ("rest",)}})  # s157
 SPEC.update({
         "FOR2": dict(pn="pfh60", ft=True, ocu=True, rest=True, restfb=True), "FORw2": dict(pn="pfh60", ft=True, ocu=True, rest=2.0)})  # s144
 
@@ -121,7 +126,7 @@ def system(bn, arm, oof=None, RTS0=None):
     global BETA
     sp = SPEC.get(arm, {}); BETA = sp.get("beta", 0.10 if arm == "P0" else 0.15)
     for p in PR:
-        Z[f"GE|{p}"] = ge_view(sp, p)
+        Z[f"GE|{p}"] = ge_view(sp, p, bn)
     if sp.get("mixe"):
         A.mix = lambda *a_, **k_: (lambda m, s_: ((m ** sp["mixe"]) / (m ** sp["mixe"]).sum(1, keepdims=True), s_))(*_mix0(*a_, **k_))
     try:
