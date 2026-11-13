@@ -4361,3 +4361,28 @@ is stopped so it does not crowd form B or SWEEP 3. The Leonardo stack copy cover
 - Consequences:
   - SWEEP 2 (§197, lr 3e-3 to 8e-3) was premised on the learning-rate effect; it is read with that in mind.
   - The stack's form part is judged on within 4–7 as well as 0–3. s15 is the form to carry, s03 is not.
+
+**§198 STACK RESULT (13 Nov 20:28 UTC; Leonardo `runs/night13/stackcmp.txt`; within 0–7, package conditions; new people).** The stack
+(labels K from the v6 chain plus a form) against v6f_gc5 (gC5 with package labels L). Combination over v5.1b, six bases:
+
+| form | stack [80 %] | without P10 | form part [80 %] | orders + | people + |
+|---|---|---|---|---|---|
+| **s15** (lr 1e-3, start 20) | **+0.24 [+0.11, +0.38]** | +0.28 | +0.15 [+0.05, +0.26] | 7/8 | 7/10 |
+| c01 (lr 2e-3, cons 2, start 20) | +0.21 [−0.00, +0.43] | +0.25 | +0.12 [−0.06, +0.31] | 7/8 | 6/10 |
+| s03 (lr 2e-3) | +0.19 [−0.01, +0.40] | +0.22 | +0.10 [−0.08, +0.30] | 7/8 | 5/10 |
+| s14 (lr 1e-3, cons 2) | +0.18 [+0.07, +0.29] | +0.20 | +0.09 [+0.00, +0.18] | 7/8 | 8/10 |
+| e02 (s03 + EMA 0.8) | +0.18 [+0.04, +0.33] | +0.21 | +0.09 [−0.04, +0.23] | 7/8 | 6/10 |
+| gC5 (labels only) | +0.09 [+0.04, +0.14] | +0.11 | 0 | 6/8 | 7/10 |
+
+- **Labels part (v6 chain against package):** +0.09 [+0.03, +0.14], positive on 6 of 8 orders and 7 of 10 people. It agrees
+  with §192 (10 of 11 draw pairs positive).
+- **s15's form part by wave:** within 0–3 +0.36 / +0.18 / +0.30 / −0.05 (mean +0.20); within 4–7 −0.06 / +0.59 / +0.28 / −0.36
+  (mean +0.11). Positive on both waves, as in §194.
+- **Within 7** is negative for every form (−0.4 to −0.6), from both its labels part (−0.26) and its form part.
+- **Prediction** +0.3 (0 to +0.6), ≥ 6/8 orders: +0.24 with 7/8. Inside the range.
+- **Reading by the §198 rule:** labels and the s15 form keep their sign across orders and people. The stack is small but
+  consistent: about +0.24 new, so about +0.06 to +0.14 sealed (57 % × transfer 0.4 to 1.0).
+- **Package cost:** s15 is constants only (same run time). The labels need the v6 chain's own outputs without FT
+  (eye and rest in), as emitted; the package already computes the parts of that chain, but the build session must
+  confirm the run time.
+- **Returning-people part:** pending (the Galvani stack copy, within 0/1).
