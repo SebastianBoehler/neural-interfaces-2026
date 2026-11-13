@@ -2757,3 +2757,14 @@ If the eye-net view works because its errors are independent of the mix, other m
 than, or as well as, in the mix) may act the same way: vc1 (core1), vte (the teacher), vre (the rest member). Paired
 against V6F, new. Prediction for each: +0.05 (−0.30 to +0.40). Bar: ≥ +0.15 without the best person on draw 0, then
 Leonardo draws.
+
+| §157 item (13 Nov 08:30 UTC; `runs/views2.log`, `.npz`; new, paired against V6F, draw 0) | Against V6F / without P10 / without the best | Verdict |
+|---|---|---|
+| vc1 (core1 posteriors in the view) | −0.59 / −0.50 / −0.72 | **Refuted** |
+| vte (teacher posteriors in the view) | −0.87 / −0.98 / −1.04 | **Refuted** |
+| vre (rest member posteriors in the view) | −0.37 / −0.43 / −0.49 | **Refuted** |
+
+**Reading.** Members that already sit in the mix hurt when they are added to SessionEM's view: their errors are not
+independent of the mix the view is meant to correct. The eye net is the only view of this kind that helps, and it sees
+a different signal (ocular traces) through a different model. Better views must come from signals or models that are
+not in the mix: more eye-net families and seeds (§156, running), and new label-free signals.
