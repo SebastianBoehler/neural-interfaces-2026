@@ -50,8 +50,11 @@ for f in sorted(glob.glob(f"{RET}/g1_s15_QF_seen_session_*.npz")):
     ret[o] = {"v6f": np.zeros(2), "v6.1": np.zeros(2), "v6.2-safe": d["ER"], "v6.2": d["ERF"]}
 for o in new:
     new[o]["v6.2-safe"] = new[o]["v6.2"] = new[o]["v6.1"]
+    new[o]["v6f+ER"] = new[o]["v6f+ERF"] = new[o]["v6f"]  # s206: v6f's new-people path (L labels, gC5) + the routed additions
+for o in ret:  # returning people: the routed additions do not depend on the new people's label source (FT on routed v5.1b)
+    ret[o]["v6f+ER"], ret[o]["v6f+ERF"] = ret[o]["v6.2-safe"], ret[o]["v6.2"]
 
-VARS = ("v6f", "v6.1", "v6.2-safe", "v6.2")
+VARS = ("v6f", "v6.1", "v6.2-safe", "v6.2", "v6f+ER", "v6f+ERF")
 print("MORNING TABLE: change over v5.1b in balanced-accuracy points, same orders per row")
 for grp, D, np_ in (("new people (10)", new, 10), ("returning (P04, P10)", ret, 2)):
     for sch in ("within", "full", "runs"):

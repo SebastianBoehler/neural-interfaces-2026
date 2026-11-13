@@ -4764,3 +4764,24 @@ labels against R: within −0.10, full +0.21, runs −0.03.
   pl) against v6.1's eye view, both inside v6.1 (s15, K labels): **+0.03 [+0.01, +0.05]**, 6/8 orders up, 5/10 people up,
   without P10 −0.00. Together with within 0–3 (+0.07 on top of v6.1), form B is a real but negligible gain that costs run
   time. **Not added.**
+
+**§206 (14 Nov 00:10 UTC, coordinator's question): a scheme-neutral form of v6.2.** No new runs were needed.
+- **Candidate:** "v6f + routed additions", meaning v6f's new-people path (gC5, v5.1b labels L) plus v6.2's returning-people
+  additions. Returning people in v6.2 are fine-tuned on v5.1b's routed output, so their gain does not depend on the
+  new-people label source. morning_table.py now prints this candidate as v6f+ER and v6f+ERF.
+- **Result (full over 4 orders; J = 0.5 new + 0.5 returning):**
+
+| Candidate | Full: new / returning / J | Equal weights J | Within-only J |
+|---|---|---|---|
+| v6.2 | +0.73 / +1.18 / +0.95 | +1.17 | +1.17 |
+| v6f + ERF | +0.87 / +1.18 / +1.03 | +1.15 | +1.07 |
+
+  Level under equal weights (−0.02), +0.07 under full, −0.10 under within.
+- **Where v6.1's scheme dependence sits** (new people, paired per file):
+  - The s15 form alone (s15 with L labels − v6f) is about neutral everywhere: within 0–3 +0.01; full 0/1 −0.15 locally and
+    −0.02 on Leonardo (stackcmp2, K labels); runs −0.07 / +0.07.
+  - The label change (R − L) gains within (+0.10 on 0–3, +0.03 on 8–11) and costs full (−0.21 locally, −0.20 on Leonardo),
+    with runs about 0.
+  - So the bet on the scheme is the label source, not the form.
+- **Package question (coordinator → v52-build):** can v6.2g emit this by a switch (label source L instead of the v6 chain
+  on unrecognised sessions) without a new code path?
