@@ -2586,3 +2586,22 @@ SessionEM's view, stage at 0.10 (V6) or 0.15 (V6b); against P0 = v5.1b.
 | V6 new / seen / J | +0.45 (+0.05 to +0.85) / +0.45 (−0.30 to +1.10) / +0.45 (+0.05 to +0.85) |
 | V6b − V6 (stage 0.15 without personal nets) | seen −0.1 (−0.5 to +0.3) |
 | **Bar** | V6 is the next package's design if its new gain without the best person is ≥ +0.25 with the 80 % interval above 0, and seen does not fall for both P04 and P10 |
+
+| §151 item (13 Nov 07:49 UTC; `runs/pkg_v6_13nov.log`, per person `runs/pkg_v6_13nov.npz`; against P0 = v5.1b, six bases) | Observed | Verdict |
+|---|---|---|
+| **V6** (shipped members + OCU + REST, stage 0.10) | **new +0.34 [−0.04, +0.72], 7 of 10, without the best +0.14; seen −0.24 (P04 −1.39, P10 +0.91; bases −1.21 to +1.43); J +0.05** | **Miss, bar not met** (prediction +0.45 / +0.45 / +0.45) |
+| V6b (the same at stage 0.15) | new +0.34; seen −0.06 (P04 −1.03, P10 +0.90); J +0.14 | Miss |
+
+**Reading. This changes what §140–§150 mean.** Those arms were measured against T1: study twins in the SessionBN
+slots, personal nets in the routed tail, stage 0.15. T1 sits about 0.7 below v5.1b on returning people (T0 against P0
+−0.26 seen; T1 against T0 −0.45). Most of the stack's "seen" gain (+0.6 to +0.9) was the rest member and eye-net view
+repairing that weaker base, not a gain over the uploaded system. On v5.1b's own members:
+- OCU and REST add +0.34 for new people, +0.14 without the best person;
+- they cost P04 1.0–1.4 and help P10 by about 0.9;
+- J is +0.05 to +0.14.
+
+The new-people part is also smaller on the shipped members than on twins (OR against the twin base gave about +0.53
+for new people). **v6 as designed (no FT) is not a package by its own bar.** What is not measured: FT on the shipped
+members (FT outputs exist only for study nets). FT carries most of the new-people gain, P10 included, and P10's +3 as a
+new person is real in dev. Measuring it needs fine-tuning runs that start from the shipped SessionBN nets, a GPU job
+for when Leonardo is back.
