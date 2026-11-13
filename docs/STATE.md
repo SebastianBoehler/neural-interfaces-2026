@@ -23,12 +23,12 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 - **Compute:** Leonardo (`cineca-leonardo`); the user lifted any cap ("use as much compute as needed"); keep GPUs busy
   with parallel waves, also overnight. Galvani is unreachable until the user logs in with 2FA; the worker image lives
   there, so worker-image replays are missing for everything built since 12 Nov.
-- **Measured stack, not built (13 Nov):** personal nets for returning people (v5.2 / v5.2b; in package form, swapped in
-  only after the gate routes, their dev support is about zero, so the §105 expectation of +0.2 no longer has dev
-  evidence behind it [§140]) and in-session fine-tuning for new people (+0.46 dev in its warm-start form, §108; mostly P10 as a
-  new person: +0.12 for the other nine, §139). Together about
-  0.823 to 0.825 sealed if they transfer as the last two uploads did; 0.826 to 0.827 at best. Nothing measured so far
-  reaches 0.830.
+- **What is measured against v5.1b as uploaded (13 Nov, the only reference from now on):**
+  - The eye-net view and the rest member on v5.1b's own members: J +0.05 (new +0.34, seen −0.24, P04 −1.4) [§151].
+  - v5.2's personal nets in package form: about 0 to −0.4 seen, and P04 loses every time [§105b, §140].
+  - Fine-tuning applied to the shipped members: being measured [§152].
+  - Nothing measured against v5.1b so far reaches a package bar. The larger numbers of 12–13 Nov (J +0.5 to +0.95 for
+    the stack) were against study bases about 0.7 below v5.1b on returning people [§151].
 - **Map of tested against allowed space:** [SOLUTION_SPACE_MAP.md](SOLUTION_SPACE_MAP.md) (13 Nov) lists the gaps, the
   closures that rest on weak tests, and the backlog of ideas never run.
 
@@ -200,8 +200,9 @@ Code: `submissions/ensemble_v5b/submission.py`, `scripts/add_own_stage.py`, `scr
   (new +0.34, seen −0.24, P04 −1.4) [§151]. Fine-tuning on the shipped members is not measured yet. The design notes
   are in [V6_DESIGN.md](V6_DESIGN.md).
 
-**The next candidate** is decided after the research window. Candidates for its parts: v5.2b, the stronger stage, the
-fine-tuning for unrecognised sessions, and whatever the stacking test supports.
+**The next candidate** is decided after the research window, and only from arms scored against v5.1b as uploaded
+(shipped members, shipped gate, stage 0.10; `studies/13nov/pkg.py` reports every arm against it first). v5.2 / v5.2b
+are not candidates as built (§105b). The open question is fine-tuning on the shipped members (§152).
 
 ## 7. Working rules and infrastructure
 
