@@ -19,6 +19,8 @@ _s = importlib.util.spec_from_file_location("seh", REPO + "/scripts/diag/screen_
 A = env.A; d = SEH.d; st, subj = d["stream"], d["subject"]; DEV = "cuda" if torch.cuda.is_available() else "cpu"
 ORDERS = os.environ.get("ORDERS", "within:0,within:1,full:0,runs:0").split(",")
 PERMS = np.load(REPO + "/runs/shuffle_perms.npz"); FAMS = ("eegnex_ea-m7r", "ifnet_ea-m7r"); SEEDS = range(12)
+PT_DIR = os.environ.get("PT_DIR", REPO + "/runs/pretrain_m7r")  # the original m7r nets (1 Nov) that runs/diag/screenW5.npz was made with,
+# not runs/pretrain_a100all, whose eegnex names link to the later m7ra100 retrain (s184: that mismatch failed the harness, 0.09)
 C = np.concatenate([SEH.covariances(d["X"][i:i + 512]) for i in range(0, len(d["X"]), 512)]); G = C.mean(0)
 
 
@@ -40,7 +42,7 @@ def feats(X):
     for f in FAMS:
         acc = 0
         for s in SEEDS:
-            p = f"{REPO}/runs/pretrain_a100all/{f}-s{s}.pt"
+            p = f"{PT_DIR}/{f}-s{s}.pt"
             if p not in NETS:
                 ck = torch.load(p, weights_only=False, map_location="cpu"); meta = json.loads(ck["meta"]); assert meta.get("align", "ea") == "ea"
                 cls = getattr(SEH.bd, SEH.ARCHS[os.path.basename(p).split("_")[0]]); blocks = {(m["offset"], m.get("n", len(m["classes"]))): c for c, m in meta["corpora"].items()}
@@ -71,6 +73,9 @@ def teacher(Frec, Fte, proto):
 
 Frec = feats(SEH.causal_ea(d["X"])); OUT = {}
 print(f"TEACHSHUF: recording-order features {Frec.shape} on {DEV} ({time.time() - T0:.0f}s)", flush=True)
+H = np.load(REPO + "/runs/diag/screenW5.npz"); Fst = np.concatenate([np.mean([H[f"{f}-s{s}"] for s in SEEDS], 0) for f in FAMS], 1)
+print(f"harness features: rebuilt against screenW5, max |diff| {np.abs(Frec - Fst).max():.2e}", flush=True)
+assert np.abs(Frec - Fst).max() < 1e-3, "the rebuilt head features are not screenW5's"
 for proto in A.PROTOS:
     idx = A.L.Z[f"idx|{proto}"].astype(int); T = teacher(Frec, Frec, proto)[idx]; ref = A.L.Z[f"B2_pool|Ps|{proto}"][10]
     print(f"harness {proto}: rebuilt recording-order teacher against the stored slot 10, max |diff| {np.abs(T - ref).max():.2e}", flush=True)

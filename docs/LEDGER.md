@@ -3714,3 +3714,20 @@ Package-faithful plus GE (`runs/allorder_<order>_gp0_L_ge.log`). gC5 over v5.1b,
   mix's 15 weight.
 - **Prediction** (Hilbert and teacher together): v5.1b loses 0 to 0.5 more under within, and the combination's gain
   changes by ±0.3. The teacher has weight 5, so if it moves more than that, the table carries the teacher-included number.
+
+**§177 RESULT, four further orders (13 Nov 13:58 UTC; `runs/allorder_{within2,within3,full1,runs1}_gp0.log`; corrected orders; core1
+member, pc128, GE event rates, rest net, eye net, SessionBN and gC5 in delivery order; package gate; labels still from
+recording order; Hilbert, teacher and the ea slots as recorded).** New people, over v5.1b under the same order [80 %], without P10:
+
+| Order | v5.1b re-streamed vs recording | gC5 combination | fallback (no FT) |
+|---|---|---|---|
+| within 2 | −1.04 | +0.81 [+0.43, +1.17], +0.66 | **+0.17** [−0.10, +0.45], +0.23 |
+| within 3 | −0.95 | +1.03 [+0.64, +1.44], +0.97 | +0.74 [+0.44, +1.05], +0.83 |
+| full 1 | −3.44 | +1.28 [+0.81, +1.76], +1.05 | +0.59 [+0.20, +0.97], +0.68 |
+| runs 1 | −2.04 | +0.82 [+0.18, +1.45], +0.49 | +0.40 [−0.00, +0.78], +0.46 |
+
+- gC5 passes the bar on all four.
+- **The fallback misses its +0.3 bar on within 2 (+0.17).** It is the first order where it fails.
+- Mean of gC5 over all eight orders (recording-order labels): +1.30, against the §177(a) prediction of +1.2 (+0.8 to
+  +1.6). Not refuted.
+- The package-faithful (label L) versions of these four are on Leonardo (t18L within 2/3, full 1, runs 1).
