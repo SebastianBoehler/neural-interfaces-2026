@@ -2907,3 +2907,8 @@ wave.
 **Incident:** both view-net scorings failed loudly. `pkg.py`'s default fine-tuning path is the Mac's
 (`runs/ttt/probs6`; on Leonardo it is `runs/diag/ttt/probs6`). They are resubmitted with explicit paths, with draws 0–3
 (64363611–64363615). All ten view nets trained (90 tasks).
+
+**§152 on other OCU/REST seeds (queued 13 Nov 09:00 UTC, before any result):** V6F (and SF, V6) with eye-net and
+rest seeds from sets B and C (OCU 18–26 / 27–35, REST 9–14 / 15–20) × FT draws 0 and 1, against v5.1b
+(`v6f_set{B,C}_d{0,1}`, jobs 64363637–64363641). The bar of §152 is read on these four too: the design is confirmed if
+it holds on the other seed sets of the two non-FT members, not only on new FT draws.
