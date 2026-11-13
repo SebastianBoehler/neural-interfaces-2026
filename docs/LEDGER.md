@@ -1601,7 +1601,7 @@ from window 0. Scored on windows 0–15 and 0–30 against the chain, and fused 
 Reading: an adaptive personal LDA adds nothing over the v5.1 stage on real later sessions and costs P10 1.6 points; its
 in-session EM follows the person's drift, which is what hurts P10. The proxy result (Leonardo) is still recorded when it lands.
 
-### 116–117. Explore wave 3 (written 13 Nov 23:04 UTC, before any full result; two-person smokes only checked that the code runs)
+### 116–117. Explore wave 3 (written 12 Nov 23:04 UTC [date corrected 13 Nov: it read 13 Nov], before any full result; two-person smokes only checked that the code runs)
 
 **116. BANDSEL** (`studies/12nov/bandsel.py`): people carry their classes in different bands (§77). Per-band population
 models (tangent and CSP, nine bands) combined per new session with weights from their causal agreement with the chain,
@@ -1642,7 +1642,7 @@ Reading: per-session choice among member weightings has 1–2 points of head-roo
 variants (§76), and agreement-based criteria cannot see it. The open question for this family is a criterion, not a
 weighting; none is known.
 
-### 118. SELMETA (explore): a learned selector for the 1–2 points of per-session head-room (written 13 Nov 23:15 UTC, before any full result; code `studies/12nov/selmeta.py`)
+### 118. SELMETA (explore): a learned selector for the 1–2 points of per-session head-room (written 12 Nov 23:15 UTC [date corrected 13 Nov: it read 13 Nov], before any full result; code `studies/12nov/selmeta.py`)
 
 §76 and §117 both found 1–2 points available from choosing per session (stage variants, member weightings) and no
 hand-made label-free criterion that finds them. Instead of a hand criterion, learn one: for each of the 17 weightings,
@@ -1665,7 +1665,7 @@ Reading: the 1–2 points of per-session head-room (§76, §117, §118) are invi
 60 windows, hand-made or learned. On average every alternative weighting loses, and nothing in the early outputs
 separates the sessions where one wins.
 
-### 119. RETSTACK (explore → design input): the returning-people stack at stage strength 0.15 (written 13 Nov 23:26 UTC, before any result)
+### 119. RETSTACK (explore → design input): the returning-people stack at stage strength 0.15 (written 12 Nov 23:26 UTC [date corrected 13 Nov: it read 13 Nov], before any result)
 
 The returning block is the one lever measured on the sealed set. Two of its parts were tested apart: personal nets
 (v5.2) and a stronger stage (§111: β 0.15 ahead on the proxy, P10 −0.11 on real later sessions). Here together, so the
@@ -1696,7 +1696,39 @@ on the ten-person proxy. By §119's rule the next candidate's stage strength is 
 | §108 item (23:40 UTC; `runs/ttt6_score.log`; new people, six bases; all6 / delta1 / delta2) | Observed | Verdict |
 |---|---|---|
 | fixA (in-run reference) | +0.37 / +0.27 / +0.35 | replicates §101/§106 |
-| cum10 (warm start, 10 steps, half the cost) | **+0.46** (bases +0.16 to +0.72) / +0.26 / +0.34 | all6: +0.09 over fixA, **counts as a gain by the rule if ahead on ≥ 5 of 6 bases (per-base check pending)**; delta forms equal fixA at half the cost |
+| cum10 (warm start, 10 steps, half the cost) | **+0.46** (bases +0.16 to +0.72) / +0.26 / +0.34 | all6: +0.09 over fixA, **counts as a gain by the rule, narrowly: ahead of fixA on 5 of 6 bases** (cum10 − fixA: pool +0.13, s345 +0.09, s012 +0.30, s0 +0.01, s1 −0.04, s2 +0.04; check 13 Nov 00:03 UTC from `runs/ttt6_score.log`); s0 and s2 sit at +0.01 and +0.04, so most of the margin comes from one base (s012); delta forms equal fixA at half the cost |
 | cons2 / soft / step5 | +0.32 / +0.27 / +0.21 (all6) | no gain |
 | head | −0.16 | refuted: the full parameter set is needed |
 | view2 | +0.25 / +0.11 / +0.15 | no gain |
+
+### 130. STACK (explore track, gap 1 of `docs/SOLUTION_SPACE_MAP.md`): the replicated small positives for new people as one system (written 13 Nov 00:05 UTC, before any result; code `studies/13nov/stack.py`, Mac, stored outputs only)
+
+Numbering: the explore track's §114–§119 are used, and the build session continues from §120, so the explore track
+uses §130–§139 from here on. "Small levers do not stack" rests on one test of two levers. Here five levers for new
+people are scored alone, all together, and with each one left out, in the routed chain (`A.system`) on six bases, with
+a person bootstrap. Returning people already have their joint test (§119). The levers:
+
+- **FT**: cum10 in-session fine-tuning (§108, the counting arm). The four SessionBN families are swapped for
+  `runs/ttt/probs6` ttt6_*_cum10, against ttt6_*_base (the same nets frozen), new people only. In the package it would
+  run on unrouted sessions; seen sessions keep the frozen nets here.
+- **REST**: the rest-as-fourth-class ShallowConvNet (rest4_sh_r1, three seeds) as an extra member at weight 1. §26
+  measured it against its own twin (rest4_sh_c3), but the twin's chain sits 0.7 J below the shipped chain. Here it is
+  measured against the chain without it, which is what a package would ship.
+- **OCU**: the eye-net log posteriors (oc_nomix, three seeds) appended to SessionEM's GE view (§58b form).
+- **MIX**: the member mix raised to the power 0.9 and renormalised before the stages (11 Nov: +0.2 J).
+- **PLS**: a second TSEM pass after the routed chain through 16 PLS-DA directions of core1's components, λ 0.15, new
+  people only (§74; the random-direction null was +0.25 of its +0.5).
+
+The reference for every arm is the stack base: the shipped chain with the four SessionBN families replaced by ttt6
+base (frozen). The shipped chain itself is also reported, so that no lever is credited for repairing a weaker base.
+
+| Arm (new people, six-base mean, against the stack base) | Prediction (80 % range) |
+|---|---|
+| FT alone | +0.45 (+0.30 to +0.60) |
+| REST alone | +0.10 (−0.40 to +0.50) |
+| OCU alone | +0.20 (−0.10 to +0.40) |
+| MIX alone | +0.15 (−0.20 to +0.40) |
+| PLS alone | +0.35 (+0.10 to +0.60) |
+| All five | +0.70 (+0.20 to +1.20): the stage levers (OCU, MIX, PLS) all strengthen the session stages and overlap |
+| Stack base against the shipped chain | 0.0 (−0.3 to +0.3) |
+| **Rule** | A lever stays if leaving it out of the full stack costs ≥ +0.10 new (six-base mean), with ≥ 4 of 6 bases agreeing, and seen moves by no more than −0.15. The stack is a design input for the build after the window if its kept levers add ≥ +0.6 new on ≥ 5 of 6 bases with seen ≥ −0.15. If all five together land below the best single lever, small levers do not stack, and that is recorded as a second test of the claim |
