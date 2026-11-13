@@ -2041,3 +2041,61 @@ it is built:
    the fine-tuned windows before it is measured in the package-faithful replay (§138 form) before the build.
 5. **On-device augmentation** (§113 gA against fixA) and the schedule (§113, §131) are taken from their scored arms
    only. The person-level reading of §139 (people ≥ 0, the gain without the best person) applies, not base counts.
+
+### 140. Evaluation-path review of 13 Nov: three verdicts reverse; PKG2 in package form (written 13 Nov 00:49 UTC; PKG2 after a one-base smoke on B2_pool, before the six-base run)
+
+Second independent reviewer (`evidence/map_13nov/review_evaluation_path_13nov.md`). The core replay is sound for new
+people. The defects are in the studies around it. Below, what changes, and what I verified here.
+
+**1. Seen and J from `A.system` do not hold on v4.1** (`replay/alib.py:88-96`: routing v3 with the gate refitted on
+the arm's own outputs). New-people numbers are unaffected. On v4.1 with a fixed gate (reviewer's re-score): §58b's
+eye-net view seen +0.51 → −0.33, dJ +0.28 → −0.14. In the stack, FT alone seen 0.00, OCU −0.03, FT+OCU −0.03,
+FT+REST+OCU +0.31 (recorded −0.49). **§130b's seen verdicts reverse.** "REST costs seen" and "FT+OCU is the only
+subset within the bound" are artefacts of the scoring path. The stack reads: **new +0.86 (all five) / +1.13 (without
+PLS), with the person intervals of §139; seen unresolved on that path.** §73 and §75 say "full routed v4.1 replay"
+but call `A.system`; their seen and J columns are v3. Also affected on seen or J: §54, §61, §87, §99, §132, §133 and the
+seen columns of the TTT scorers. Per-base seen deltas of one arm range over about 1 point and one window is 0.07 J,
+so a ±0.15 seen bound cannot be resolved on any single path.
+
+**2. Personal nets were given to whole returning sessions from window 0, in both tails** (pnet.py, the first pkg.py,
+the PFT arms of add.py and dose.py). A package swaps them in only after the gate routes (window 10 for three sessions,
+60–63 for P04 session 2). Reviewer: §119 as coded +0.55 (P04 +0.81, P10 +0.28); in package form −0.05 (P04 −0.10,
+P10 0.00). P10's +0.28 was one window inside windows 0–9. **§78, §119 and §138 P1–P4 do not measure the package. The
+package-form dev support for v5.2 is about zero, so §105's expectation is restated: no dev evidence for a sealed gain
+from the personal nets.** v5.1b's sealed gain came from the stage, not from personal nets. Passed to the build session.
+
+**3. The six bases are about two independent ones** (B2_pool is the mean of s012 and s345; slots 0–4 and 10, two
+thirds of the weight, are identical in all six; with the SessionBN slots swapped they agree on 99.0–99.8 % of labels).
+Sixteen random-view null arms give a six-base-mean SD of 0.16 for new, and the best of 16 nulls reached +0.61 on the
+exploration bases. "6/6 bases" in §106, §108, §130, §130b and §138 is not replication; fresh seeds are (§135, §136).
+
+**4. §70's learned sequence stage is confounded** (`seqstage.py` pools fold-specific PCA coordinates, and 52–54 of
+128 components flip sign between folds). The same fault is in `studies/11nov/clus/ceiling.py`, §30's "lda2" row.
+The −11 to −16 result, and §98's lesson "a similarity learned on nine people does not carry to a tenth", are
+withdrawn. **A learned session stage has never had a valid test.** It goes to the top of the explore backlog, in a
+fold-consistent basis.
+
+**5.** MIX's seen column in `stacklib.py` substitutes the personal head into the already-powered mix (seen changes
+sign on one base when done before the power). LIKELY: `route4.py:54`'s KAPPA template prior adds κ·PM to the
+numerator but not κ to the denominator (`replay/pl.py:109` does), so §19 (+0.19) and §57b used an over-scaled
+template; all runs tonight use KAPPA 0. The grid chain has no gated early boost and sits 0.6–1.0 below the shipped
+chain on new, so §69, §71, §90, §92, §103b, §109, §117 and §118 were measured against a weaker baseline.
+
+**6.** Small: `segfp3.py` passes the gate's out-of-fold array in permuted order (≤ 0.07 J); `netaug_score.py`
+compares arms with fewer seeds against a three-seed twin; `replay/score.py` reports JG1 and JG2 on different scales;
+`weak.py` used an in-sample quantile and the B2_pool mix for every base (fixed before its run, §133 below).
+
+**PKG2** (`studies/13nov/pkg.py`, rewritten). The gate is calibrated from the shipped members' population shadow, and
+routing comes from that shadow. Personal nets enter the routed tail only, from the first routed window. FT runs on
+sessions the gate never routes. There is no shallow personal member. Arms: T0 (FT twins in both tails), T1b (the
+personal nets' frozen twins in the routed tail), T1 (personal nets in the routed tail, v5.2's form), T1w (the dev
+form, from window 0 in both tails), F (T1 + FT), O (T1 + OCU), FO, R (T1 + REST), FOR. Smoke on B2_pool, against T1:
+F new +0.57 / seen 0.00; O +0.19 / +0.12; FO +0.83 / +0.12 (J +0.48); R +0.40 / 0.00; FOR +0.99 / +1.03 (J +1.01);
+T1 against T1b, seen −0.25 (P04 −0.52).
+
+| Check (six-base mean; read new in person terms, seen as P04 and P10 separately) | Prediction (80 % range) |
+|---|---|
+| FO against T1: new / seen | +0.75 (+0.40 to +1.10) / 0.0 (−0.5 to +0.5) |
+| FOR against T1: new / seen | +0.95 (+0.55 to +1.35) / +0.3 (−0.4 to +1.0) |
+| T1 against T1b (personal nets, package form): seen | −0.1 (−0.5 to +0.3) |
+| **Reading rule** | New counts if its 80 % person interval excludes 0 and the gain without the best person is ≥ +0.3. Seen is read as unresolved unless both P04 and P10 move the same way by ≥ 0.3. The fresh-seed run (job 64325439, now on this code) decides |
