@@ -124,4 +124,4 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
                   ("no-FT fallback (eye net + rest) over v5.1b, shuffled", "V6r", "P0r")):
     d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0); bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} new {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
-np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if len(REC_LEFT) == 4 else ''}{'_gp0' if GATE_P0 else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if len(REC_LEFT) == 4 else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz"  # FT tag in the name: draws and label forms do not overwrite each other, **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})

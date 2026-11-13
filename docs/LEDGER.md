@@ -3488,3 +3488,18 @@ gives +0.89 and +0.71, against +0.85 and +0.81 with the own gate. Not refuted. T
 Prediction (a) of the scoring form: within mean +1.39, within 0.3 of §171; not refuted. The table bar is met on both within
 orders for gC5 (≥ +0.5, > 0 without P10) and for the fallback (≥ +0.3).
 Note: within 0 (+1.20) is the lowest of the four orders.
+
+### 179. LEONARDO WAVE: label-faithful gC5 copies, four more orders, more draws (written 13 Nov 12:38 UTC; jobs were queued 12:44 UTC, before any of them ran or was scored)
+
+The coordinator (12:36) asks that the label-faithful number not depend on Galvani's queue (4 of 96 tasks running).
+- **Copies:** t18L on Leonardo for within 0 and 1, full 0, runs 0 (64385496–500). The first copy to land is used, as
+  with the draws.
+- **Four more orders:** labels job 64385503 (afterok coremember2) writes chain_v51b_<order> for within 2 and 3,
+  full 1 and runs 1. This is fully re-streamed (core1 member and pc128 included, STRICT). Then t18L arrays
+  64385506–14 run afterok.
+- **Chained:** t18L draw 1 for within 0 and 1 (64385516/20, afterany the copies).
+- Scoring: `score_L` loop, STRICT, GATE_P0, FT tag …L. All eight orders → `runs/allorder_<order>_gp0_L.log`.
+Predictions as §178: labels cost the combination 0.1 (0 to 0.3) under within and 0.2 under full and runs. The
+label-faithful mean over eight orders is +1.2 (+0.9 to +1.5) new. Refuted if it is < +0.8; then the table says so.
+Explore code still to write: the order-free EM fixed point and a stage for returning people under shuffle. Due by
+16:00 UTC, smoke-tested and then queued.
