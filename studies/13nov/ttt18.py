@@ -32,8 +32,16 @@ SWEEP = {"gC5": (5, 10, 5e-4, "all", 1.0, "hard", True, 1, True, 30),
          "s11": (5, 10, 1e-3, "all", 1.0, "soft", True, 1, True, 30), "s12": (5, 10, 5e-4, "all", 1.0, "hard", True, 1, True, 20),
          "s13": (5, 10, 5e-4, "all", 1.0, "hard", True, 1, True, 40), "s14": (5, 10, 1e-3, "all", 2.0, "hard", True, 1, True, 30),
          "s15": (5, 10, 1e-3, "all", 1.0, "hard", True, 1, True, 20)}
+# s197: SWEEP=2 continues along the axis that wave 1 found (higher learning rate), run-time neutral as before. Tag S2.
+SWEEP2 = {"gC5": SWEEP["gC5"], "s03": SWEEP["s03"],
+          "t01": (5, 10, 3e-3, "all", 1.0, "hard", True, 1, True, 30), "t02": (5, 10, 4e-3, "all", 1.0, "hard", True, 1, True, 30),
+          "t03": (5, 10, 6e-3, "all", 1.0, "hard", True, 1, True, 30), "t04": (5, 10, 8e-3, "all", 1.0, "hard", True, 1, True, 30),
+          "t05": (5, 10, 2e-3, "all", 2.0, "hard", True, 1, True, 30), "t06": (5, 10, 4e-3, "all", 2.0, "hard", True, 1, True, 30),
+          "t07": (5, 10, 2e-3, "all", 1.0, "hard", True, 1, True, 20), "t08": (5, 10, 4e-3, "all", 1.0, "hard", True, 1, True, 20),
+          "t09": (5, 10, 2e-3, "all", 1.0, "soft", True, 1, True, 30), "t10": (5, 10, 2e-3, "all", 0.0, "hard", True, 1, True, 30),
+          "t11": (5, 10, 3e-3, "all", 2.0, "hard", True, 1, True, 20), "t12": (5, 10, 2e-3, "all", 4.0, "hard", True, 1, True, 30)}
 if os.environ.get("SWEEP"):
-    T7.VARS = SWEEP; T7.TAG += "S"
+    T7.VARS = SWEEP2 if os.environ["SWEEP"] == "2" else SWEEP; T7.TAG += "S2" if os.environ["SWEEP"] == "2" else "S"
 T7.TAG += "X" if EXT else ("C" if CTRL else "")
 if EXT:
     _load = T7.protocol.load

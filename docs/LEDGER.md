@@ -4246,3 +4246,57 @@ synthetic view at the same window accuracy (0.514):
   continue and are reported as the no-op check). The causal centring is not a constant per session and is not affected.
   First within 0 k = 0 numbers: real +1.39, causal +1.36, causal30 +1.30, demeanrun +1.32, shufrun **+1.54**. Only removing the
   time structure inside runs helps so far.
+
+**§196 RESULT (13 Nov 19:19 UTC; `runs/s196_summary.txt`; within 0–3, most complete inputs, labels L).** Mean gC5 over v5.1b, new; change
+against the real eye net at the same k:
+
+| Transform | k = 0 | k = 4 |
+|---|---|---|
+| real eye net | +1.06 | +0.82 |
+| D2 causal (prefix mean) | +1.07 (+0.02) | +0.85 (+0.03) |
+| D2 causal30 | +1.10 (+0.05) | +0.94 (+0.12) |
+| demeanrun (diagnostic) | +1.11 (+0.05) | +0.98 (+0.16) |
+| shufrun (diagnostic) | **+1.28 (+0.22)** | **+1.49 (+0.67)** |
+| demeansess (structural no-op) | +1.06 | +0.82 |
+
+- **D2 fails its bar.** The best real setting is k = 0 (+1.06); causal centring adds at most +0.05 there, and k = 4 stays
+  below k = 0 even with centring.
+- **D1 reading:** removing per-run bias (demeanrun) is worth +0.05/+0.16. Removing the time structure inside runs
+  (shufrun) is worth +0.22/+0.67. So the harmful part is the eye net's error structure over time within a run
+  (autocorrelated errors), not a slow per-run or per-session bias (a per-session bias is removed by the stages anyway).
+- No causal fix for within-run autocorrelation is in hand. Forms B and C are judged on whether they reduce it.
+
+**§194 wave 1 RESULT (Leonardo `runs/night13/sweepsel_w1.txt`).**
+- **Nested held-out gain over gC5: +0.11 [−0.11, +0.29]. Misses the +0.3 bar.**
+- In-sample, per form: s03 (lr 2e-3) +0.29, s14 (lr 1e-3, consistency 2) +0.27, s15 (lr 1e-3, start 20) +0.24, s02 (lr 1e-3)
+  +0.23, s11 (soft, lr 1e-3) +0.19.
+- Losing forms: lower learning rate (s01 −0.17), head-only (s04 −0.36, s05 −0.18), consistency 4 (s09 −0.18).
+- Selection chose s03 in 95 of 126 splits.
+- **Reading:** a monotone learning-rate effect (2.5e-4 < 5e-4 < 1e-3 < 2e-3), not yet at a plateau on that axis. Wave 2
+  (within 4–7) is a clean out-of-sample check for s03 because it was not used to choose. Rule: s03 − gC5 ≥ +0.15 on the
+  within 4–7 mean confirms the direction.
+
+**§191 within 1 rescored with the right pc128 (Leonardo 64408767).** Combination pooled − control −0.81 [−1.39, −0.27] (was
+−0.51); members −0.27; fallback −0.30. Verdict: within 0 −0.23, within 1 −0.81, recording −0.49, within mean −0.52. By the
+letter of the rule still not "both below −0.3"; in substance negative. No further Scherer forms.
+
+**§192 so far** (draw 1, R − L): within 1 −0.07, within 2 +0.22, within 3 +0.15; within 0 pending (Galvani). With draw 0 (+0.12,
++0.22, +0.19, +0.10), the pooled within mean so far is +0.13.
+
+**Form B:** about half its Galvani tasks died on "CUDA-capable device busy or unavailable" (shared nodes, not the code).
+The missing seeds were resubmitted on a100-galvani only (3099147–54). Scoring waits for 9 seeds per order.
+
+### 197. SWEEP 2: further along the learning-rate axis (written 13 Nov 19:19 UTC, before any job ran)
+
+`ttt18 SWEEP=2` (tag LS2), run-time neutral as before; gC5 and s03 included as in-run references.
+- lr 3e-3, 4e-3, 6e-3, 8e-3;
+- lr 2e-3 / 4e-3 with consistency 2;
+- lr 2e-3 / 4e-3 starting at window 20;
+- lr 2e-3 soft;
+- lr 2e-3 without consistency;
+- lr 3e-3 with consistency 2 and start 20;
+- lr 2e-3 with consistency 4.
+Wave 1: within 0–3; wave 2 (afterany): within 4–7. Nested selection on Leonardo (`sweepsel.py TAG=LS2`).
+**Keep bar:** the held-out gain over gC5 ≥ +0.3 on wave 1, and the selected form ≥ +0.15 on wave 2's orders. Then it is a
+package change (constants only, same run time), and a v6.1 build would be proposed.
+**Prediction:** the learning-rate curve peaks between 2e-3 and 4e-3. Held-out +0.2 (0 to +0.4).

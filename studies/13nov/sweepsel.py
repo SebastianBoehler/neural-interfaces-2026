@@ -6,13 +6,13 @@ often each configuration is chosen.
 Usage: python studies/13nov/sweepsel.py within0 within1 within2 within3"""
 import glob, itertools, os, sys
 import numpy as np
-REPO = os.path.abspath(__file__ + "/../../.."); ORDERS = sys.argv[1:]
-CF = ["gC5"] + [f"s{i:02d}" for i in range(1, 16)]
+REPO = os.path.abspath(__file__ + "/../../.."); ORDERS = sys.argv[1:]; TAG = os.environ.get("TAG", "LS")  # s197: TAG=LS2 for SWEEP=2
+CF = os.environ.get("CF", " ".join(["gC5"] + [f"s{i:02d}" for i in range(1, 16)])).split()
 G = {}
 for c in CF:
     rows = []
     for o in ORDERS:
-        fs = sorted(glob.glob(f"{REPO}/runs/shufcombo_{o}_ocu_{c}_*ttt18{o}LS.npz")); f0 = sorted(glob.glob(f"{REPO}/runs/shufcombo_{o}_ocu_gC5_*ttt18{o}LS.npz"))
+        fs = sorted(glob.glob(f"{REPO}/runs/shufcombo_{o}_ocu_{c}_*ttt18{o}{TAG}.npz")); f0 = sorted(glob.glob(f"{REPO}/runs/shufcombo_{o}_ocu_gC5_*ttt18{o}{TAG}.npz"))
         assert len(fs) == 1 and len(f0) == 1, (o, c, fs, f0)
         a, b = np.load(fs[0]), np.load(f0[0]); bases = sorted({k.split("|")[0] for k in a.files})
         rows.append(np.mean([a[f"{bn}|V6Fr"] - b[f"{bn}|V6Fr"] for bn in bases], 0))
