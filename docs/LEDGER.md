@@ -4606,3 +4606,23 @@ In v6f and v6.1 the gates never see the second chain, so recognition is exactly 
   all LOSO people under the shuffled orders.
 - **Prediction:** (1) keeps ≥ 80 % of the gain (the bio gate decides most routing, and three of four returning sessions route
   at window 10 either way); (2) shows no new routed new-person session.
+
+**§199/§201 reference gap closed (13 Nov 22:23 UTC; `runs/shufpkg8_check.txt`).** `shufpkg.py SCHEMES=within PERMS=8` recomputed routed v5.1b
+independently for within 0–7.
+- within 0/1 reproduce the old reference exactly (max |diff| 0).
+- On within 2–7, retv6's routed v5.1b matches the independent reference to ≤ 0.005 over all bases and both people (the logs
+  round to 0.01).
+- All eight within orders of §199 are now cross-checked. The new keys are merged into `runs/shufpkg.npz` (shared keys
+  identical).
+
+**22:23 UTC, Galvani becomes the primary cluster (the user: "queue on galvani bc ultimatly I wanna switch away from leaonardo
+all to galvani").**
+- **Limits** (sacctmgr, QOS normal): 300 submitted jobs per user (array tasks count), 36 running jobs and 36 GPUs per user.
+- **Galvani lacked the replay environment** (no `replay/`, no `runs/replay_data`). A bundle of about 1.4 GB is being
+  copied from the Mac, which holds the union of both clusters' outputs: replay code, replay_data (59 MB), stored and
+  delivery-order member outputs (probs6/7/17/18 together about 1 GB, ocushuf 320 MB, restshuf, rest4, ocunet), core1, pc128,
+  Hilbert and teacher files, labels, form B outputs and the pinned order file.
+- **`scripts/cloud/galv_cpu.sh`** chains scoring on Galvani's CPU partition.
+- **Duplicated on Galvani:** the fresh-order sweep check (within 4–11; 3099592–645), with scoring and selection chained on
+  Galvani's CPU partition (3099880–88 → runs/diag/cpu/sweepsel_fresh.txt); the pending part of the blend wave (runs 0/1;
+  3099646–49).
