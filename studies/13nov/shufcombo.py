@@ -36,10 +36,11 @@ assert OCS, OCD; OCU = np.log(np.clip(np.mean([ld(f) for f in OCS], 0), 1e-3, 1)
 REST = np.mean([ld(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p0}-s{s}.npz") for s in range(3)], 0); ORD = f"{SCHEME}{PSEED}"
 RSD, CMP = os.environ.get("RS_DIR", f"{REPO}/runs/restshuf"), os.environ.get("CM_NPZ", f"{REPO}/runs/coremember.npz")  # overrides: smoke tests only
 RSS = sorted(glob.glob(f"{RSD}/{ORD}/rest4_sh_r1-{p0}-s*.npz")); RESTR = np.mean([ld(f) for f in RSS], 0) if RSS else REST
-CM = np.load(CMP) if os.path.exists(CMP) else {}
+CMF = [CMP] if "CM_NPZ" in os.environ else sorted(glob.glob(f"{REPO}/runs/coremember*.npz"))  # coremember.py writes one file per order set
+CM = next((z for z in map(np.load, filter(os.path.exists, CMF)) if f"{SCHEME}{PSEED}|{p0}" in z), {})
 DC1 = CM[f"{ORD}|{p0}"] - CM[f"rec|{p0}"] if f"{ORD}|{p0}" in CM else None  # core1 member: delivery order - its own recording-order rebuild
 CSF = [os.environ["CS_NPZ"]] if "CS_NPZ" in os.environ else sorted(glob.glob(f"{REPO}/runs/coreshuf_p{PSEED}*.npz"))  # coreshuf.py writes one file per scheme set
-CS = next((z for z in map(np.load, CSF) if f"{SCHEME}|{p0}" in z), {}); DPC = None
+CS = next((z for z in map(np.load, filter(os.path.exists, CSF)) if f"{SCHEME}|{p0}" in z), {}); DPC = None  # CS_NPZ=none: pc128 as recorded
 if f"{SCHEME}|{p0}" in CS:
     ref, rec = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]][f"pc128|{p0}"], CS[f"rec|{p0}"]
     sg = np.sign([np.corrcoef(ref[:, j], rec[:, j])[0, 1] for j in range(ref.shape[1])]); DPC = sg * (CS[f"{SCHEME}|{p0}"] - rec)

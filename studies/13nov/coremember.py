@@ -1,7 +1,7 @@
 """COREMEMBER (ledger s176): core1 as a member (slot c1) streamed in delivery orders. ts_core2.Core with the shipped
 config, heads lr0.01 / 0.03 / 0.1 / 0.3; the head that reproduces the stored member in recording order is used (asserted
 correlation >= 0.99), then each order of runs/shuffle_perms.npz is streamed through deliver.py. Saves the member per
-order keyed by replay row: runs/coremember.npz (rec|proto, <scheme><seed>|proto).
+order keyed by replay row: runs/coremember[_<orders>].npz (rec|proto, <scheme><seed>|proto).
 Usage: [ORDERS=within:0,within:1,full:0,runs:0] python studies/13nov/coremember.py"""
 import os, sys, time
 import numpy as np
@@ -35,4 +35,5 @@ for proto in A.PROTOS:
         finally:
             deliver.uninstall(protocol)
         print(f"  {proto} {sc}{sd}: mean |change| against recording order {np.abs(OUT[f'{sc}{sd}|{proto}'] - OUT[f'rec|{proto}']).mean():.4f} ({time.time() - T0:.0f}s)", flush=True)
-np.savez_compressed(REPO + "/runs/coremember.npz", **OUT); print("saved", f"{time.time() - T0:.0f}s")
+SFX = "" if "ORDERS" not in os.environ else "_" + "_".join(f"{a}{b}" for a, b in ORDERS)  # one file per order set (shufcombo globs them)
+np.savez_compressed(REPO + f"/runs/coremember{SFX}.npz", **OUT); print("saved", f"{time.time() - T0:.0f}s")

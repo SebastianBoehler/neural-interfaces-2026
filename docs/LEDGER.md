@@ -3409,3 +3409,21 @@ difference 0.0). The perturbed stand-ins move P0r, V6Fr and V6r (up to 3.1 point
 V6Frec at 0.0. CORESHUF covered only within 0 and full 0, so pc128 for within 1 (PSEED 1) and runs 0 is queued
 (Leonardo 64376116, 64376119; `coreshuf_p<seed>_<schemes>.npz`). Scored per order when complete:
 `runs/allorder_<order>.log`.
+
+### 177. AFTERNOON WAVE: four more orders with every input in delivery order; upper-bound forms on Galvani (written 13 Nov 11:50 UTC, before any job ran)
+
+The coordinator (11:46 UTC) asks for both clusters to be filled, with a second wave chained behind each.
+- **Leonardo, wave 1 (exploit):** within 2, within 3, full 1 and runs 1 are covered for gC5 (ttt18, home). Add for the
+  same four orders: core1 member (`coremember.py`, ORDERS env, `runs/coremember_<orders>.npz`), pc128 (`coreshuf.py`, one CPU
+  job per order), rest net (`restshuf.py`, seeds 0–2), eye net (`ocushuf.py`, seeds 0–8).
+  **Wave 2 (afterany wave 1):** gC5 draw 3 for full 0 and runs 0, draw 4 for within 0 and 1.
+- **Galvani, explore (upper bound under shuffle):** cum10, the heavier fine-tuning form, re-streamed (ttt17) for within 2
+  and 3. The eye net with nine more seeds (9–17) for within 0 and 1. Smoke first, arrays afterok.
+  **Wave 2:** ttt17 for full 1 and runs 1.
+
+Predictions. (a) The gC5 combination over v5.1b with all inputs in delivery order, mean over the eight orders: +1.2
+(+0.8 to +1.6) new; the fallback +0.6 (+0.3 to +0.8). Refuted if the mean is < +0.8, which would mean §171's four orders
+were the lucky ones. (b) cum10 against gC5 under the same order: +0.15 (0 to +0.3). Within noise this is "undecided",
+and gC5 stays (it fits the time budget). (c) 18 against 9 eye-net seeds: +0.05. Kept only if > +0.3.
+**Explore items not yet queued (they need code first, after the evening table):** the order-free EM fixed point
+(§174 item 2), and a stage for returning people under shuffle (they lose most to shuffling, and the package gives them 0).
