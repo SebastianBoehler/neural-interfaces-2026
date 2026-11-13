@@ -2686,3 +2686,12 @@ v5.1b as uploaded** (`pkg.py` SF / V6F with FT_VAR=hent), paired with §152's cu
 |---|---|
 | SF with hent / V6F with hent, new without P10 | +0.10 (−0.20 to +0.40) / +0.75 (+0.30 to +1.20) |
 | **Bar** | replaces cum10 in the package design if V6F-hent is ≥ +0.15 above V6F-cum10 without P10, on the same draw |
+
+| §149 m7u screen (13 Nov 08:09 UTC; `runs/teach3_m7u.log`; A.system v3 path, new; reference: the stored m7c teacher, **not v5.1b**) | Observed | Verdict |
+|---|---|---|
+| m7u alone (3-class unified head of both trunks, mapped) | 42.3 against 50.5 for the stored teacher | far weaker: the shared block's 3-class head alone carries less than the 19 corpus heads |
+| m7u replacing the teacher, weight 3 / 5 / 7 | −1.62 / −1.56 / −1.64 (shipped); −1.13 / −1.18 / −1.19 (FT+OCU+REST) | **Refuted** in this form; screen not passed, so not scored against v5.1b |
+
+**Reading.** Saving only the shared block's 3-class head drops the per-corpus heads that carry the stored teacher's
+signal. A unified teacher would need its corpus heads kept as well (a `pretrain.py` change that saves the full
+final layer). That is recorded as the next form, not queued yet. m8w (eight corpora, standard heads) is pretraining.
