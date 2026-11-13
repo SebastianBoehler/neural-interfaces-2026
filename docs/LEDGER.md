@@ -4028,3 +4028,24 @@ non-dominant hand, 1 mental subtraction, 2 word generation. 41 channels, with no
 - **(c) form, if run:** Scherer pooled into the SessionBN families (run_cv `@scherer`), scored through today's chain
   under within shuffle against the same families without Scherer. The ceiling from (b): 9 people at q = 1 would be
   +4.7 × log2(18/9) = +4.7. At q = 0.2 it is +0.9. The expected value is low, given three negative measurements.
+
+### 191. SCHERER POOLED INTO THE SESSIONBN FAMILIES, retested on today's chain (§189 c; written 13 Nov 17:04 UTC, before any job ran)
+
+The coordinator asked for this on Leonardo's idle GPUs, behind §187 and §190 in priority. The user's line from this
+morning applies: "throw even existing or already tried methods again on top and see whether they work now". §7's −0.23
+was inside the noise, in recording order, on an older chain.
+- **Pooled arm (X):** `ttt18.py EXT=scherer2015~m`. The four SessionBN families (fbraw, fb, sinc, fbl; six seeds each)
+  are retrained per fold with Scherer's 9 people (2,130 windows; `~m` flags their missing band below 4 Hz) as extra
+  training people. They are re-streamed in the delivery order and fine-tuned (gC5, labels L).
+- **Control (C):** the same run without Scherer (`CTRL=1`), retrained in the same wave (paired, warm).
+- **Orders:** within 0 and 1 (most complete inputs, package gate) and recording order (`SCHEME=rec`).
+- **Scoring:** chained on Leonardo (shufcombo per arm, then `poolcmp.py` X − C), so no fetch is needed overnight.
+- **Bar, in the q framing:** 9 people at worth q are worth about 4.7 × log2(1 + q).
+  - Act (a v6.x candidate) if the combination's X − C is ≥ +0.5 on the mean of within 0 and 1 (q ≈ 0.08 or more), each
+    within order ≥ +0.2, and recording order ≥ 0.
+  - Between −0.3 and +0.3: "undecided" again.
+  - Below −0.3 on both within orders: refuted on today's chain.
+- **Prediction:** −0.1 (−0.6 to +0.4), from §7 and §21. The members gain alone (§7: +1 to +3), and the chain gives most of
+  it back.
+- **Not run:** the two-class corpora with a masked loss. The SessionBN training has no per-sample class mask, and
+  building one is not overnight work.

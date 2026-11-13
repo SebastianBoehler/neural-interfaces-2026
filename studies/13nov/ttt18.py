@@ -12,11 +12,25 @@ LSFX = {f"chain_v51b_{SCHEME}{PSEED}.npz": "L", f"chain_v6r_{SCHEME}{PSEED}.npz"
 assert LB is None or os.path.basename(LB) in LSFX, f"label file {LB} is not this order's"
 _spec = importlib.util.spec_from_file_location("ttt7", WS / "studies/13nov/ttt7.py"); T7 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T7)
 P = np.load(WS / "runs/shuffle_perms.npz"); PERM = {}
-for proto in ("all_loso", "seen_session"):
+for proto in ("all_loso", "seen_session") if SCHEME != "rec" else ():  # s191: SCHEME=rec streams in recording order (PERM None)
     order = P[f"{SCHEME}|{PSEED}|{proto}"]; rk = np.full(int(order.max()) + 10000, -1); rk[order] = np.arange(len(order)); PERM[proto] = rk
+PERM = PERM or None
+# s191: EXT=<tokens> pools external corpora as extra training people (protocol.load(external=...); folds keep them in training);
+# tag X. CTRL=1 is the same run without them (tag C), a retrained control for a paired comparison.
+EXT, CTRL = tuple(t for t in os.environ.get("EXT", "").split(",") if t), bool(os.environ.get("CTRL"))
+assert not (EXT and CTRL), "EXT and CTRL are the two arms of one comparison"
 T7.TAG, T7.OUT, T7.SMOKE_OUT, T7.PERM, T7.DRAW = f"ttt18{SCHEME}{PSEED}" + (f"d{DRAW}" if DRAW else "") + (LSFX[os.path.basename(LB)] if LB else ""), WS / "runs/diag/ttt/probs18", f"smoke18{SCHEME}", PERM, DRAW  # DRAW > 0: fresh augmentation draws
 T7.VARS = {"gC5": T7.VARS["gC5"]}
+T7.TAG += "X" if EXT else ("C" if CTRL else "")
+if EXT:
+    _load = T7.protocol.load
+
+    def _load_ext(external=()):  # ttt7.main's protocol.load() now appends EXT; fails loudly if nothing was appended
+        d = _load(external=EXT); n = int((d["split"] == "external").sum()); assert n > 0, f"EXT {EXT} appended no windows"
+        print(f"EXT {EXT}: {n} external training windows, {len(set(d['subject'][d['split'] == 'external']))} people", flush=True); return d
+    T7.protocol.load = _load_ext
 assert T7.run.__globals__["PERM"] is PERM and T7.stream.__globals__["DRAW"] == DRAW
+assert not EXT or T7.main.__globals__["protocol"].load is _load_ext, "ttt7.main would not see the external data"
 
 if __name__ == "__main__":
     T7.main()

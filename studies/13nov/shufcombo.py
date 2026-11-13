@@ -141,10 +141,11 @@ def chain(bn, arm, P):
     return SC.person(out, p0)
 
 
-Pperm = S.perm_for(SCHEME, PSEED)[p0]; ident = np.arange(N); R = {}
+ident = np.arange(N); R = {}; Pperm = ident if SCHEME == "rec" else S.perm_for(SCHEME, PSEED)[p0]  # s191: SCHEME=rec = recording order
 PERMS_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"  # s180: every re-streamed input (ttt17/18, ocushuf, restshuf, coremember, coreshuf) read this file
 assert hashlib.sha256(open(f"{REPO}/runs/shuffle_perms.npz", "rb").read()).hexdigest() == PERMS_SHA, "runs/shuffle_perms.npz is not the pinned order file"
-assert (IDX[Pperm] == np.load(f"{REPO}/runs/shuffle_perms.npz")[f"{SCHEME}|{PSEED}|{p0}"]).all(), "the stages' order is not the order the members were streamed in"
+assert SCHEME == "rec" or (IDX[Pperm] == np.load(f"{REPO}/runs/shuffle_perms.npz")[f"{SCHEME}|{PSEED}|{p0}"]).all(), "the stages' order is not the order the members were streamed in"
+assert not (SCHEME == "rec" and os.environ.get("STRICT")), "STRICT has no meaning in recording order (nothing is re-streamed)"
 assert not (LABEL_OUT and p0 != "all_loso"), "LABEL_OUT is for new people"
 if LABEL_OUT:  # FT pseudo-labels as the package sees them: v5.1b (B2_pool) emitted in this delivery order; seen rows as chain_final
     CH = np.load(f"{REPO}/studies/12nov/chain_final.npz"); y = Z[f"y|{p0}"].astype(int)
