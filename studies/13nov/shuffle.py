@@ -64,26 +64,29 @@ def stages(bn):
     return {k: SC.person(v, p0) for k, v in (("mix", mix), ("rebal", b), ("sessionem", e), ("tsem", t))}
 
 
-if os.environ.get("DUMP_PERMS"):  # s165: the delivery orders as global window indices, for re-streaming members on GPU
+if __name__ != "__main__":  # imported as a library (retune.py): stores, perm_for, apply, stages; no run
+    pass
+elif os.environ.get("DUMP_PERMS"):  # s165: the delivery orders as global window indices, for re-streaming members on GPU
     IDX0 = ORIG[[i for i, d in enumerate(DICTS) if d is A.pl.B][0]]
     np.savez(os.environ["DUMP_PERMS"], **{f"{sc}|{sd}|{p}": IDX0[f"idx|{p}"].astype(int)[perm_for(sc, sd)[p]] for sc in SCHEMES for sd in range(PERMS) for p in PR})
     sys.exit(print("dumped", os.environ["DUMP_PERMS"]))
-ident = {p: np.arange(N[p]) for p in PR}
-REF = {}
-for bn in BASES:
-    apply(ident); REF[bn] = stages(bn)
-    assert np.allclose(SC.person(gm.pipe_g(A.mix(bn, p0, A.FAMS)[0], p0), p0), REF[bn]["tsem"]), "stages() does not equal gm.pipe_g"
-print("recording order, new people: " + " | ".join(f"{bn} " + " ".join(f"{k} {v.mean():.2f}" for k, v in REF[bn].items()) for bn in BASES[:2]), flush=True)
-R = {}
-for sc in SCHEMES:
-    for seed in range(PERMS):
-        P = perm_for(sc, seed)
-        for bn in BASES:
-            apply(P); R[sc, seed, bn] = stages(bn)
-            assert np.allclose(R[sc, seed, bn]["mix"], REF[bn]["mix"]), f"{sc}: the per-window mix scored differently, the permutation bookkeeping is broken"
-    d = {k: np.mean([[R[sc, s, bn][k].mean() - REF[bn][k].mean() for bn in BASES] for s in range(PERMS)]) for k in REF[BASES[0]]}
-    rng_ = [np.mean([R[sc, s, bn]["tsem"].mean() - REF[bn]["tsem"].mean() for bn in BASES]) for s in range(PERMS)]
-    print(f"{sc:7s}: against recording order, new, mean over bases and permutations: " + " ".join(f"{k} {v:+.2f}" for k, v in d.items())
-          + f" | chain per permutation {min(rng_):+.2f} to {max(rng_):+.2f}", flush=True)
-apply(ident)
-np.savez(REPO + "/runs/shuffle_13nov.npz", **{f"{sc}|{s}|{bn}|{k}": v for (sc, s, bn), st in R.items() for k, v in st.items()}, **{f"rec|0|{bn}|{k}": v for bn, st in REF.items() for k, v in st.items()})
+else:
+    ident = {p: np.arange(N[p]) for p in PR}
+    REF = {}
+    for bn in BASES:
+        apply(ident); REF[bn] = stages(bn)
+        assert np.allclose(SC.person(gm.pipe_g(A.mix(bn, p0, A.FAMS)[0], p0), p0), REF[bn]["tsem"]), "stages() does not equal gm.pipe_g"
+    print("recording order, new people: " + " | ".join(f"{bn} " + " ".join(f"{k} {v.mean():.2f}" for k, v in REF[bn].items()) for bn in BASES[:2]), flush=True)
+    R = {}
+    for sc in SCHEMES:
+        for seed in range(PERMS):
+            P = perm_for(sc, seed)
+            for bn in BASES:
+                apply(P); R[sc, seed, bn] = stages(bn)
+                assert np.allclose(R[sc, seed, bn]["mix"], REF[bn]["mix"]), f"{sc}: the per-window mix scored differently, the permutation bookkeeping is broken"
+        d = {k: np.mean([[R[sc, s, bn][k].mean() - REF[bn][k].mean() for bn in BASES] for s in range(PERMS)]) for k in REF[BASES[0]]}
+        rng_ = [np.mean([R[sc, s, bn]["tsem"].mean() - REF[bn]["tsem"].mean() for bn in BASES]) for s in range(PERMS)]
+        print(f"{sc:7s}: against recording order, new, mean over bases and permutations: " + " ".join(f"{k} {v:+.2f}" for k, v in d.items())
+              + f" | chain per permutation {min(rng_):+.2f} to {max(rng_):+.2f}", flush=True)
+    apply(ident)
+    np.savez(REPO + "/runs/shuffle_13nov.npz", **{f"{sc}|{s}|{bn}|{k}": v for (sc, s, bn), st in R.items() for k, v in st.items()}, **{f"rec|0|{bn}|{k}": v for bn, st in REF.items() for k, v in st.items()})

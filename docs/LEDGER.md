@@ -3056,7 +3056,7 @@ are both in the new order. Checks against v5.1b under the same order.
 | members re-streamed vs fixed (on top of §164's stage loss) | −0.5 (−1.5 to +0.2) |
 | V6F's FT share under the new order | +0.2 (−0.3 to +0.6), against about +0.6 inside V6F in recording order |
 
-| §164 SHUF (13 Nov 09:45 UTC; `runs/shuffle_13nov.log`, `.npz`; new, against recording order, six bases × five permutations; members fixed) | mix / rebalancing / SessionEM / whole chain | Whole chain: 80 % person interval, people losing |
+| §164 SHUF (13 Nov 09:42 UTC; `runs/shuffle_13nov.log`, `.npz`; new, against recording order, six bases × five permutations; members fixed) | mix / rebalancing / SessionEM / whole chain | Whole chain: 80 % person interval, people losing |
 |---|---|---|
 | **full** (uniform within the session) | 0.00 / −0.61 / −2.17 / **−3.75** (permutations −4.39 to −3.07) | [−4.72, −2.85], 10 of 10 |
 | **runs** (runs in random order, recording order inside) | 0.00 / +0.05 / −0.86 / **−2.11** (−2.54 to −1.66) | [−2.75, −1.47], 9 of 10 |
@@ -3070,3 +3070,27 @@ on new people loses 1 to 4 points under the schemes the organisers may use. **Th
 non-chronological protocol (§166, next) is now the largest lever on record.** Sealed check: the rescoring cost the
 packages 0.72 to 1.17 J, which fits a mild scheme or a mixture better than a full shuffle (seen people not yet
 measured here).
+
+### 166. RETUNE: the stage constants re-chosen under non-chronological delivery (written 13 Nov 09:43 UTC, before any result; `studies/13nov/retune.py`, 12 Leonardo CPU jobs; selection `select_retune.py`)
+
+§164: v5.1b's stages lose 1.1 to 3.8 for new people under shuffled delivery. Under a shuffle, a session's earlier
+windows are an unbiased sample of the whole session, which argues for longer memory and stronger session templates.
+
+**Grid (144 configurations):**
+- rebalancing window 30 / 90 / cumulative, strength 1.15 / 1.5;
+- SessionEM λ 0.5 / 0.8, n0 60 / 20;
+- TSEM λ 0.15 / 0.30 / 0.45, n0 60 / 20.
+
+Each configuration is scored on new people in recording order and under full / runs / within (two permutations each),
+on the exploration bases B2_pool and B2_s345. The shipped configuration reproduces gm.pipe_g, which is asserted; the
+smoke gave rec 80.18 and full 77.04.
+
+**Selection:** nested over people. Choose on five people (mean over the three shuffled schemes), score on the other five,
+both ways. The chosen configuration is then scored on the four fresh bases, with members re-streamed (§165) when those
+land.
+
+| Check (new, mean of the three shuffled schemes, nested) | Prediction (80 % range) |
+|---|---|
+| chosen against shipped constants, under shuffle | +1.0 (+0.3 to +2.0) |
+| the same configuration in recording order | −0.3 (−1.0 to +0.2) |
+| **Bar** | ≥ +0.5 under shuffle on both halves and on the fresh bases, with recording order ≥ −0.5. Then it is the stage set of the next package (the stream is not chronological, so shuffled numbers decide) |
