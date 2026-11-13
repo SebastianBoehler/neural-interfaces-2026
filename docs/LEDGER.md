@@ -2458,3 +2458,47 @@ structure (montage, artefacts, session variation) is the cheapest stand-in for m
 - Scoring (`teach2.py` reading the new heads files, in the shipped and FT+OCU+REST contexts with the weight re-chosen)
   follows when the heads exist. Prediction: cog2 as an extra member, new, +0.2 (−0.3 to +0.7). The rebuild check:
   m7c2 within ±0.3 of the stored m7c teacher in the chain.
+
+| §145 A item (13 Nov 05:16 UTC; Leonardo `runs/night13/pkg_set{B,C}.txt`; package-form replay; FOR against T1; three disjoint seed sets for all three members) | New [80 % person] / without P10 | Seen (P04, P10) | J |
+|---|---|---|---|
+| Set A (fresh FT and eye-net, REST seeds 0–2; "Night results 2") | +1.06 [+0.54, +1.57] / +0.84 | +0.84 (+0.53, +1.14) | +0.95 |
+| **Set B** (FT 18–23, OCU 18–26, REST 9–14) | +0.55 [−0.04, +1.09] / **+0.30** | +0.94 (+1.54, +0.33) | +0.74 |
+| **Set C** (FT 24–29, OCU 27–35, REST 15–20) | +0.80 [+0.26, +1.26] / +0.60 | +0.22 (+0.24, +0.19) | +0.51 |
+| FO (no REST), sets B / C | +0.50 / +0.68; without P10 +0.20 / +0.38 | +0.45 / +0.27 | +0.48 / +0.48 |
+| R (REST alone), sets B / C | +0.20 / +0.15 | −0.01 / +0.08 | +0.09 / +0.12 |
+
+**Verdict by §145's bar (new without P10 ≥ +0.40 with the 80 % interval above 0, on both sets): met on C, missed on B**
+(+0.30, interval reaching −0.04). Over the three independent seed sets the design input is positive every time:
+- new +0.55 to +1.06, mean +0.80; without P10 +0.30 to +0.84, mean +0.58;
+- seen +0.22 to +0.94, every set positive for both P04 and P10;
+- J +0.51 to +0.95, mean +0.73.
+
+The first measurement was the highest. Its strength is about two thirds of it, which is what the winner's curse leads one
+to expect. REST alone replicates neither its new nor its seen gain (sets B and C about 0); its effect shows only
+together with FT and OCU. **Reading: the design input stands as a design (positive on all three sets, both groups),
+with an expected dev J of about +0.7, not +0.95.** Translated to sealed with the stage's survival ratio it is small.
+With a new-people survival nearer the stage's own it would be about +0.2 to +0.4 sealed; neither ratio has been measured
+for new-people levers.
+
+| §147 SSL1 item (13 Nov 05:16 UTC; `runs/night13/ssl1.txt`; 12 seeds; slot 8 swapped; new) | Observed | Verdict |
+|---|---|---|
+| ssl alone against twin alone | 58.36 against 58.13 (+0.23) | Miss, low (+0.8 predicted) |
+| in the chain | **+0.08, 80 % [+0.02, +0.14], 8 of 10 people ≥ 0; without the best +0.05** | Hit on the chain (+0.05 predicted), but below the bar (+0.10 without the best). The four-family wave is not triggered; small, consistent and positive, it stays recorded as an option to stack |
+
+**Teacher retraining (§148), first release failed and resubmitted.**
+- All 48 pretraining tasks and both head exports failed within three minutes at 04:31 UTC (`AssertionError: no
+  windows for schirrmeister2017`): the pretraining was held behind the download jobs with `afterany`, and both
+  Schirrmeister chunks had run out of memory at 8 GB. The failure was loud, as designed.
+- Shin2018WG cannot be fetched by MOABB: it expects the raw zip files under `data/shin2018/raw`, which are only on
+  Galvani, so **cog2 as specified cannot run**.
+- Fixes and resubmission (05:15 UTC):
+  - Schirrmeister in five chunks of 2–3 subjects at 16 GB (64347045–64347049).
+  - `leo_teach.sh` now runs a pre-flight serial job that checks every listed corpus has windows; the arrays start
+    only if it succeeds.
+  - m7c2 with the same seven corpora as the shipped teacher (pre-flight 64347050 → 64347051 / 64347052 → heads
+    64347053).
+  - A changed arm under its own name, **cog1**: a cognitive teacher on Shin2017B alone, subtraction vs rest
+    (64347054 → 64347055 / 64347056 → heads 64347058). The word-generation part is missing until the Shin2018 zips are
+    copied from Galvani.
+- Why no session woke on the failure: these chains have Slurm-held scoring but no local collector. A failure inside
+  the chain therefore shows only in sacct or in the next check. The morning note now says this for every chain.
