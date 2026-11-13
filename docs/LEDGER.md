@@ -2674,3 +2674,15 @@ claim.
 |---|---|
 | ms05 / ms10 | 0.0 (−0.4 to +0.4) / −0.1 (−0.5 to +0.3) |
 | **Screen** | ≥ +0.30 without the best person → scored against v5.1b |
+
+### 154. HENT (fine-tuning, hard windows): keep the hard windows, drop their labels (written 13 Nov 08:04 UTC, before any job ran; `studies/13nov/ttt15.py`, Leonardo)
+
+§142: the whole fine-tuning ceiling sits in the hard half's labels. §145 C: removing the hard half hurts. This form keeps
+the hard windows as a training signal without trusting their labels: hard labels on the confident half of the prefix,
+entropy minimisation on the low-confidence half. Same nets as ttt6 seeds 0–5, cum10 schedule. **Scored against
+v5.1b as uploaded** (`pkg.py` SF / V6F with FT_VAR=hent), paired with §152's cum10 on the same draw.
+
+| Check (against v5.1b, six bases) | Prediction (80 % range) |
+|---|---|
+| SF with hent / V6F with hent, new without P10 | +0.10 (−0.20 to +0.40) / +0.75 (+0.30 to +1.20) |
+| **Bar** | replaces cum10 in the package design if V6F-hent is ≥ +0.15 above V6F-cum10 without P10, on the same draw |

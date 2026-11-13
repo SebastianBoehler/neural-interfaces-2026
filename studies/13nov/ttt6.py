@@ -59,8 +59,13 @@ def stream(m, X, Pc, seed):
                 opt.zero_grad(); z = net2(X[:t])[:, :3]; loss = 0.0
                 for _ in range(views):
                     zs = net2(T5.strong(X[:t], gen))[:, :3]
-                    ce = (-(soft[:t] * F.log_softmax(zs, 1)).sum(1).mean() if form == "soft" else
-                          (wpl[:t] * F.cross_entropy(zs, lab[:t], reduction="none")).sum() / wpl[:t].sum().clamp_min(1e-6))
+                    if form == "hent":  # s154: hard labels on the confident half of the prefix, entropy minimisation on the rest
+                        m = wpl[:t] >= wpl[:t].median(); pr = F.softmax(zs[~m], 1)
+                        ce = ((wpl[:t][m] * F.cross_entropy(zs[m], lab[:t][m], reduction="none")).sum() / wpl[:t][m].sum().clamp_min(1e-6)
+                              + (-(pr * torch.log(pr + 1e-8)).sum(1)).mean())
+                    else:
+                        ce = (-(soft[:t] * F.log_softmax(zs, 1)).sum(1).mean() if form == "soft" else
+                              (wpl[:t] * F.cross_entropy(zs, lab[:t], reduction="none")).sum() / wpl[:t].sum().clamp_min(1e-6))
                     loss = loss + (ce + lam * F.kl_div(F.log_softmax(zs, 1), F.softmax(z.detach(), 1), reduction="batchmean")) / views
                 loss.backward(); opt.step()
             hi = min(n, t + every)
