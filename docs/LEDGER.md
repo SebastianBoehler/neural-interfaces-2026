@@ -3141,3 +3141,18 @@ it. **Also closed by this:** "cumulative rebalancing" and "longer memory" as the
 rebalancing; it gains +0.16 held out and costs −0.91 in recording order). Next: forms built for an unordered session
 (whole-session iterative estimates instead of running ones, e.g. EM over all delivered windows at each step; an
 order-free session embedding), scored under the shuffled protocol from the start.
+
+| §165 RESTREAM, six bases (13 Nov 10:11 UTC; `runs/shufcombo_{full0,within0}.log`, `.npz`; new [80 % person] / without P10; members re-streamed: the SessionBN slots and fine-tuning; eye net and rest member still as recorded) | full, permutation 0 | within, permutation 0 |
+|---|---|---|
+| v5.1b, stages shuffled, against recording order | −3.07 [−4.30, −1.91] / −3.06 | −1.28 [−2.07, −0.51] / −1.17 |
+| v5.1b, stages and SessionBN members re-streamed | −3.10 / −3.12 | −1.29 / −1.23 |
+| **the combination (cum10 delta1 + eye net + rest member) over v5.1b, both shuffled** | **+1.47 [+0.68, +2.30] / +1.10** | **+1.65 [+1.19, +2.12] / +1.39** |
+| the combination over v5.1b, recording order (check: FITFORM draw 0 gave +1.00) | +1.00 [+0.55, +1.47] / +0.76 | the same |
+
+**Reading.** Re-streaming the SessionBN members in the delivery order adds no loss beyond the stages' (−3.10 vs −3.07):
+v5.1b's order loss is in the stages. **The combination gains more under shuffled delivery than in recording order**
+(+1.47 / +1.65 against +1.00, without P10 +1.10 / +1.39). Fine-tuning and the eye-net view partly replace what the
+stages lose without chronology. Prediction (+0.4) missed, high. Still to add: the eye net and rest member re-streamed
+(§167, running); more orders (runs, second permutations); returning people under shuffle. Under the organisers' stream
+this is the strongest result on record: dev new +1.1 to +1.7 over v5.1b under the same order, the measure that
+decides now.
