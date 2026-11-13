@@ -6,7 +6,11 @@ new people (all_loso; their windows take the unrouted tail, gm.pipe_g). For a de
   V6Fr   P0r + fine-tuning re-streamed (delta1: the first base seed's cum10 - base change of ttt17, applied to the slot)
          + eye-net view + rest member (both as computed in recording order unless OCU_DIR points at ocushuf outputs)
   V6Frec the same combination in recording order (ttt6 cum10 delta1), for the order loss of the combination itself
-Usage: SCHEME=full PSEED=0 [OCU_DIR=runs/ocushuf/full0] python studies/13nov/shufcombo.py"""
+s176, every re-streamed arm (P0r, V6Fr, V6r) also takes, when present for this order: core1 as member streamed in the
+order (runs/coremember.npz, its change against its own recording-order rebuild added to the stored member, hb kept),
+TSEM's pc128 view rebuilt in the order (runs/coreshuf_p<PSEED>.npz, sign-aligned change added), the rest net
+re-streamed (runs/restshuf/<order>/). STRICT=1 fails when any of them is missing. The header prints what stays recorded.
+Usage: SCHEME=full PSEED=0 [OCU_DIR=runs/ocushuf/full0] [STRICT=1] python studies/13nov/shufcombo.py"""
 import glob, os, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -29,8 +33,21 @@ TG = os.environ.get("FT_TAG", f"ttt17{SCHEME}{PSEED}"); FR17 = {(a, s): ld(f"{T1
 CU17 = {(a, s): ld(f"{T17D}/{TG}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
 OCD = os.environ.get("OCU_DIR"); OCS = sorted(glob.glob(f"{REPO}/{OCD}/oc_nomix-{p0}-s*.npz")) if OCD else [f"{REPO}/runs/ocunet/probs/oc_nomix-{p0}-s{s}.npz" for s in range(3)]
 assert OCS, OCD; OCU = np.log(np.clip(np.mean([ld(f) for f in OCS], 0), 1e-3, 1))
-REST = np.mean([ld(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p0}-s{s}.npz") for s in range(3)], 0)
-print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {RPX}; eye net {'re-streamed ' + OCD if OCD else 'recording order (3 seeds)'}; rest member recording order; new people", flush=True)
+REST = np.mean([ld(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p0}-s{s}.npz") for s in range(3)], 0); ORD = f"{SCHEME}{PSEED}"
+RSD, CMP = os.environ.get("RS_DIR", f"{REPO}/runs/restshuf"), os.environ.get("CM_NPZ", f"{REPO}/runs/coremember.npz")  # overrides: smoke tests only
+RSS = sorted(glob.glob(f"{RSD}/{ORD}/rest4_sh_r1-{p0}-s*.npz")); RESTR = np.mean([ld(f) for f in RSS], 0) if RSS else REST
+CM = np.load(CMP) if os.path.exists(CMP) else {}
+DC1 = CM[f"{ORD}|{p0}"] - CM[f"rec|{p0}"] if f"{ORD}|{p0}" in CM else None  # core1 member: delivery order - its own recording-order rebuild
+CS = os.environ.get("CS_NPZ", f"{REPO}/runs/coreshuf_p{PSEED}.npz"); CS = np.load(CS) if os.path.exists(CS) else {}; DPC = None
+if f"{SCHEME}|{p0}" in CS:
+    ref, rec = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]][f"pc128|{p0}"], CS[f"rec|{p0}"]
+    sg = np.sign([np.corrcoef(ref[:, j], rec[:, j])[0, 1] for j in range(ref.shape[1])]); DPC = sg * (CS[f"{SCHEME}|{p0}"] - rec)
+REC_LEFT = [n for n, ok in (("core1 member", DC1 is not None), ("pc128 view", DPC is not None), ("rest net", bool(RSS)), ("eye net", bool(OCD))) if not ok] + [
+    "GE view (SessionEM's)", "Hilbert member", "transformer and shallow members (causal statistics)", "teacher member"]
+assert not (os.environ.get("STRICT") and len(REC_LEFT) > 4), f"STRICT: still in recording order: {REC_LEFT[:-4]}"
+print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {RPX}; eye net {'re-streamed ' + OCD if OCD else 'recording order (3 seeds)'}; "
+      f"rest net {'re-streamed ' + str(len(RSS)) + ' seeds' if RSS else 'recording order'}; core1 member {'re-streamed' if DC1 is not None else 'recording order'}; "
+      f"pc128 {'rebuilt in the order' if DPC is not None else 'recording order'}; new people\nSTILL IN RECORDING ORDER: {', '.join(REC_LEFT)}", flush=True)
 
 
 def norm(x):
@@ -39,7 +56,13 @@ def norm(x):
 
 def chain(bn, arm, P):
     """members for the arm in recording index order, then everything permuted by P, stages run in that order."""
-    S.apply({p: (P if p == p0 else np.arange(S.N[p])) for p in S.PR}); base = {s_: A.L.Z[f"{bn}|Ps|{p0}"][s_][np.argsort(P)] for s_ in SLOT.values()}  # undo P: recording order
+    S.apply({p: (P if p == p0 else np.arange(S.N[p])) for p in S.PR})
+    if arm in ("P0r", "V6Fr", "V6r"):  # s176: core1 (member, keeping hb = 2 Ps[0] - c1 fixed) and pc128 in the delivery order
+        if DC1 is not None:
+            A.C1[p0] = A.C1[p0] + DC1[P]; Z[f"{bn}|Ps|{p0}"][0] = Z[f"{bn}|Ps|{p0}"][0] + DC1[P] / 2
+        if DPC is not None:
+            Z[f"pc128|{p0}"] = Z[f"pc128|{p0}"] + DPC[P].astype(Z[f"pc128|{p0}"].dtype)
+    base = {s_: A.L.Z[f"{bn}|Ps|{p0}"][s_][np.argsort(P)] for s_ in SLOT.values()}  # undo P: recording order
     ks = BS[bn]; arrs = {}
     for a, sl in SLOT.items():
         x = base[sl].copy()
@@ -58,7 +81,7 @@ def chain(bn, arm, P):
             fams.remove(fam); extra += list(A.FAM[fam])
         extra = [(k, w) for k, w in extra if k != sl] + [(f"sc_{a}", 1.0)]
     if arm in ("V6Fr", "V6Frec", "V6r"):
-        A.EXTRA["sc_rest"] = {p0: REST[P], "seen_session": A.L.Z[f"{bn}|Ps|seen_session"][3]}; extra = extra + [("sc_rest", 1.0)]
+        A.EXTRA["sc_rest"] = {p0: (RESTR if arm != "V6Frec" else REST)[P], "seen_session": A.L.Z[f"{bn}|Ps|seen_session"][3]}; extra = extra + [("sc_rest", 1.0)]
     ge0 = A.L.Z[f"GE|{p0}"].copy()
     if arm in ("V6Fr", "V6Frec", "V6r"):
         A.L.Z[f"GE|{p0}"] = np.c_[ge0, OCU[P]]
@@ -81,4 +104,4 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
                   ("no-FT fallback (eye net + rest) over v5.1b, shuffled", "V6r", "P0r")):
     d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0); bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} new {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
-np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if len(REC_LEFT) == 4 else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})

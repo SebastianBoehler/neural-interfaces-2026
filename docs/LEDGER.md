@@ -3389,3 +3389,18 @@ causal standardisation would need its own export), and the Hilbert core and tran
 statistics). These go into the table's "not checked" line unless a later job removes them.
 Scoring when all land: `shufcombo.py` with core1 (member and view), the rest net and the eye net all from their
 delivery-order files.
+
+**Scoring form and bar (written 13 Nov 11:07 UTC, before any delivery-order core1 or rest-net result).** `shufcombo.py`
+now takes each re-streamed input as a change against its own recording-order rebuild, added to the stored input, so
+recording order stays bit-identical to v5.1b. Core1 the member: c1 plus the change, with Ps[0] moved by half of it so
+that the Hilbert member (hb = 2 Ps[0] − c1) stays as stored. pc128: the column-sign-aligned change. Rest net: the
+re-streamed seeds replace the recorded ones in V6Fr and V6r. All of these go into P0r, V6Fr and V6r; P0rec, P0s and
+V6Frec stay as stored. `STRICT=1` fails when any of them is missing for the order. The header prints what is still in
+recording order.
+No-op check before scoring: zero-change stand-ins must reproduce `runs/shufcombo_within0_ocu_gC5.npz`, and perturbed
+stand-ins must change P0r, V6Fr and V6r but not P0rec, P0s or V6Frec.
+Prediction: re-streaming core1 costs v5.1b 0 to 0.5 more under within (P0r against P0rec). The gC5 combination's gain over
+v5.1b, both fully re-streamed, stays within 0.3 of §171 (+1.38 to +1.67). Refuted if it falls below +0.8 new on the mean
+of within 0 and 1. That is still a gain, but then the table quotes the lower figure and calls §171 optimistic. Bar for the
+table: ≥ +0.5 new and > 0 without P10 on both within orders, otherwise "not yet". The fallback (V6r) is under the same
+bar at ≥ +0.3.
