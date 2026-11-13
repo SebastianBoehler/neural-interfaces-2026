@@ -4239,3 +4239,10 @@ synthetic view at the same window accuracy (0.514):
 - **Keep bar (D2):** ≥ +0.3 over the real eye net on the within 0–3 mean at the better k, ≥ 0 on each order. If it passes,
   it is a package-level change of a few lines.
 - **Prediction:** demeansess / demeanrun +0.3 to +0.8 at k = 4; causal +0.2 to +0.6 at k = 4; about +0.1 at k = 0.
+- **§196 note (13 Nov 18:20 UTC, after the first within 0 k = 0 block):** demeansess is **structurally a no-op**. SessionEM
+  (`gm.EMg._adapt`) and TSEM (`tsem_lik`) both standardise each view column on the session's earlier windows, so
+  subtracting a per-session constant cancels exactly. Observed: +1.39 / +0.76, identical to the real eye net. A per-session
+  bias of the eye net is therefore already removed by the stages. demeansess is withdrawn as a diagnostic (its runs
+  continue and are reported as the no-op check). The causal centring is not a constant per session and is not affected.
+  First within 0 k = 0 numbers: real +1.39, causal +1.36, causal30 +1.30, demeanrun +1.32, shufrun **+1.54**. Only removing the
+  time structure inside runs helps so far.
