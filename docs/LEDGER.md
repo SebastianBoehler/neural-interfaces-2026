@@ -2114,3 +2114,22 @@ whole TTT7 table again on fresh nets and fresh draws, scored as SEEDS=6-11 and 1
 (`runs/night13/ttt7_s6-11.txt`, `ttt7_s12-17.txt`). Prediction for gC5 all6: +0.40 (+0.10 to +0.70) on each fresh set
 (winner's-curse shrinkage from +0.59). gA − fixA: 0.00 (−0.20 to +0.20). **Bar:** gC5 is the fine-tuning recipe if,
 on both fresh sets, its 80 % person interval excludes 0 or its gain without the best person is ≥ +0.25.
+
+### 141. SEQ2 (explore, top of the backlog after §140): the learned sequence stage in a fold-consistent basis (written 13 Nov 00:58 UTC, after a one-fold smoke and before the full run; code `studies/13nov/seqstage2.py`, Leonardo CPU job)
+
+**Ceiling, and why it could be large:** the hand-built session stages (rebalancing, SessionEM, TSEM) are worth about
++9.4 points over the mix for new people (70.8 → 80.2). Session-own representations with labels reach 81–82 %, and
+the whole-session class-geometry oracle reaches 89. A stage that learns how to adapt to a session, instead of
+following three fixed rules, aims at that gap. It has never had a valid test: §70 pooled fold-specific coordinates
+(§140). This is the second form of the idea, with §70's model unchanged so that only the basis fix is tested. A third
+form (a recurrent reader with random rotations per pseudo-session, as §70's text described) follows if this one
+moves.
+
+Smoke (fold P01 only, 20 steps): on the chain's output, P01 +1.6, the other people untouched.
+
+| Check (B2_pool / B2_s345; new; 400 steps, d 24, seeds 0–2) | Prediction (80 % range) |
+|---|---|
+| Learned stage alone on the mix | 75 (70–79), against 80.2 for the hand-built stages; §70 gave 64.6 |
+| Learned stage on the chain's output, against the chain | −0.5 (−3 to +0.8); §70 gave −11 |
+| Product with the chain | 0.0 (−1.5 to +0.8) |
+| **Bar** | A third form is queued if the stage on the chain's output, or its product, is ≥ +0.3 new with the 80 % person interval above 0, or if the stage alone on the mix comes within 2 points of the hand-built stages. Otherwise the basis fix alone does not rescue this model, and the record says that, not that learned stages fail |
