@@ -2783,3 +2783,12 @@ Scored inside V6F against v5.1b (`pkg.py` V6F_vemg, V6F_vscp, V6F_vboth), paired
 |---|---|
 | vemg / vscp / both | +0.10 (−0.30 to +0.50) each; both +0.15 |
 | **Bar** | ≥ +0.15 without the best person on draw 0 and on two of draws 1–3 → a view for the package |
+
+| §156 item (13 Nov 08:32 UTC; `runs/views_{a,b}.log`, `.npz`; new, paired against V6F with the 3-seed nomix view, draw 0) | Against V6F / without P10 / without the best | Verdict |
+|---|---|---|
+| (a) ocm: the Mixup eye-net family appended | −0.07 / −0.09 / −0.13 | Miss (+0.10 predicted): no gain |
+| (b) the nomix eye net averaged over nine seeds | −0.11 / −0.12 / −0.16; against v5.1b +0.84 | Miss: more seeds of the same view do not help, they cost a little |
+
+**Reading.** The eye-net view's gain does not grow with more seeds or a second family of the same net: the three-seed
+view is not noise-limited. The ceiling (+3.8) has to come from different information, which is what §158's new signals
+test.
