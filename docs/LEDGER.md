@@ -1928,6 +1928,6 @@ seen 0.00; P4 (OCU) new +0.32, seen +0.78; P3 (FT+OCU) new +0.92, seen +0.78 (P0
 | P4, OCU alone: seen | +0.40 (0.00 to +0.80) |
 | **Bar** | FT+OCU is confirmed in the package chain if P3's J is ≥ +0.40 on ≥ 5 of 6 bases with seen ≥ −0.15. That makes it the design for the build after the window, with the eye net and the cheap FT form as package work |
 
-**§138 addendum (13 Nov 00:35 UTC, before any six-base result):** the same replay on fresh seeds (FT from ttt8 seeds
+**§138 addendum (13 Nov 00:32 UTC, before any six-base result):** the same replay on fresh seeds (FT from ttt8 seeds
 6–11, eye-net seeds 3–8) is queued on Leonardo (job 64325439, after §135 and §134; `runs/night13/pkg_fresh.txt`). The
 §138 bar is read on both seed sets.
