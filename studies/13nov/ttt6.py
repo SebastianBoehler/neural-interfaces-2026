@@ -21,7 +21,7 @@ import session_bn as SB  # noqa: E402
 import importlib.util  # noqa: E402
 _spec = importlib.util.spec_from_file_location("ttt5", WS / "studies/12nov/ttt5.py"); T5 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T5)
 
-OUT = WS / "runs/diag/ttt/probs6"; T0 = T5.T0
+OUT = WS / "runs/diag/ttt/probs6"; T0 = T5.T0; TAG = "ttt6"; SMOKE_OUT = "smoke6"  # ttt8.py overrides these
 # variant -> (steps per refit, refit every, lr, scope, consistency weight, label form, warm start, views)
 VARS = {"fixA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1), "cum10": (10, 10, 5e-4, "all", 1.0, "hard", True, 1),
         "cons2": (20, 10, 5e-4, "all", 2.0, "hard", False, 1), "soft": (20, 10, 5e-4, "all", 1.0, "soft", False, 1),
@@ -66,7 +66,7 @@ def stream(m, X, Pc, seed):
 
 
 def run(arch, d, proto, seed, out, epochs=0):
-    tag = f"ttt6_{arch}"; names = ["base"] + list(VARS)
+    tag = f"{TAG}_{arch}"; names = ["base"] + list(VARS)
     if all((out / f"{tag}_{v}-{proto}-s{seed}.npz").exists() for v in names):
         return print("exists", tag, proto, seed, flush=True)
     got = {v: [] for v in names}; rows_all = []; t0 = time.time(); Pc_all = T5.chain_labels(proto)
@@ -96,7 +96,7 @@ def run(arch, d, proto, seed, out, epochs=0):
 def main():
     d = protocol.load()
     if sys.argv[1] == "smoke":
-        out = WS / "runs/diag/ttt/smoke6"; out.mkdir(parents=True, exist_ok=True)
+        out = WS / "runs/diag/ttt" / SMOKE_OUT; out.mkdir(parents=True, exist_ok=True)
         run("fbl", d, "seen_session", 0, out, epochs=1); return print("SMOKE OK", flush=True)
     task = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True)
     for proto in ("all_loso", "seen_session"):

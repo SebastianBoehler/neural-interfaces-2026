@@ -1769,3 +1769,20 @@ mean: REST+OCU +0.55 (+0.20 to +0.90); FT+REST+OCU +1.0 (+0.6 to +1.3); FT+OCU +
 smallest subset within 0.10 of the best, with ≥ 5 of 6 bases and seen ≥ −0.15. If every FT subset misses the seen
 bound, the design keeps FT only for unrouted sessions, and its seen cost is checked in the v5 replay with a fixed
 gate before any build.
+
+### 131. TTT8 (exploit track): follow-ups of cum10 (written 13 Nov 00:24 UTC, before any job ran; code `studies/13nov/ttt8.py` on `ttt6.py`, Leonardo, 24 tasks)
+
+cum10 (warm start) counted narrowly in §108: +0.46, ahead of fixA on 5 of 6 bases. Warm start lets the steps add up
+over a session, so the step count, refit spacing, learning rate and consistency weight trade differently than for
+fixA. Same nets, folds, augmentation and chain labels as ttt6; new people, six bases, `ttt_reduce_score.py`
+(all6 / delta1 / delta2) against the same run's frozen nets.
+
+| Arm | Change (all warm start) | Cost against fixA | Prediction, all6, six-base mean (80 % range) |
+|---|---|---|---|
+| cum10 | §108 again, in-run reference | 0.5 | +0.46 (+0.30 to +0.60) |
+| cum20 | 20 steps every 10 windows | 1 | +0.45 (+0.25 to +0.60) |
+| cum10e5 | 10 steps every 5 windows | 1 | +0.50 (+0.30 to +0.65) |
+| cum5e5 | 5 steps every 5 windows | 0.5 | +0.45 (+0.30 to +0.60) |
+| cum10lr | learning rate 1e-3 | 0.5 | +0.40 (+0.15 to +0.60) |
+| cum10c2 | consistency weight 2 | 0.5 | +0.45 (+0.25 to +0.60) |
+| **Rule** | An arm replaces cum10 as the recipe if it is ≥ +0.08 above the in-run cum10 (all6, six-base mean) and ahead on ≥ 5 of 6 bases; an arm at cost 1 must also beat §108's fixA by ≥ +0.08. delta1/delta2 are read the same way for the cheap package form. Otherwise cum10 stays |
