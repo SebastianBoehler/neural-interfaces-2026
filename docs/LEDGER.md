@@ -2361,3 +2361,21 @@ The parent session asked for a queue that carries itself for hours. Waves that n
 Not queued, with reasons: the chain-level people curve needs every member retrained per subset (core1, Hilbert, about
 65 nets, teacher map), which is a pipeline that does not exist yet; self-supervised trunks need a specified objective
 (next design task).
+
+**§145 submitted (13 Nov 03:10 UTC).**
+- A–C (`scripts/cloud/night13g.sh`):
+  - ttt8 sets B and C: 64338742, 48 tasks
+  - eye-net nomix seeds 18–35: 64338744
+  - eye-net mix seeds 3–11: 64338745
+  - rest-class seeds 9–20: 64338746
+  - CONFHALF: 64338747, 48 tasks
+  - scorings: pkg_setB and pkg_setC (64338748, 64338749), confhalf_s0-5 / s6-11
+  - GPU size: about 28 GPU-hours (fine-tuning tasks about 20 min, eye-net about 5 min, rest net about 3 min). With
+    Leonardo's free GPUs they drain in about 1.5 h; the CPU scorings follow within about 1 h.
+- D (`scripts/cloud/leo_corpora.sh`): MOABB install 64338786, then 9 of 14 corpus chunks (PhysionetMI, Cho2017,
+  Lee2019_MI, Dreyer2023 1–44). The serial QOS refuses more than about ten jobs per user. Still to submit when slots
+  free: Dreyer2023 45–87, Schirrmeister2017 1–7 and 8–14, Shin2017A, Shin2017B.
+- Missing, to rebuild in the day once the corpora exist: the pretraining submit and the head-export scripts of the
+  11 Nov teachers lived in an untracked scratch folder on Galvani.
+- The honest size of tonight's GPU work: the queue does not carry many hours on its own. The one multi-hour GPU line
+  (teacher pretraining, 12 seeds × 2 trunks × 3 teachers) waits on the corpus downloads.
