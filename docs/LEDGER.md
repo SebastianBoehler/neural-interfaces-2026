@@ -3578,3 +3578,19 @@ change against C0 under the same order, with C0's own loss against recording ord
   form can only get part of it. Recorded as "undecided": worth a form only if later evidence points to a full or runs
   stream.
 - **Prediction:** confirmed for within. For full and runs the ceilings sit at the stated limit (≤ 0.5 of the loss).
+
+**§180 RESCORE (13 Nov 12:49 UTC; corrected orders; `runs/allorder_*_gp0.log`).** Every input is re-streamed except GE, Hilbert,
+transformer/shallow and teacher; package gate; STRICT; FT labels still from recording order (§178/§179 replace them).
+New people, against v5.1b under the same order [80 %], without P10:
+
+| Order | v5.1b re-streamed vs recording order | gC5 combination | fallback (no FT) |
+|---|---|---|---|
+| within 0 | −1.25 | +1.97 [+1.51, +2.41], +1.83 | +0.96 [+0.55, +1.38], +1.09 |
+| within 0, draws 1 and 2 | | +2.14, +2.12 (without P10 +2.04, +2.02) | +1.01, +0.93 |
+| within 1 | −1.31 | +1.55 [+0.89, +2.24], +1.37 | +0.76 [+0.48, +1.02], +0.81 |
+| within 1, draws 1 and 2 | | +1.56, +1.40 (without P10 +1.38, +1.20) | +0.73, +0.76 |
+| full 0 (unaffected) | −3.32 | +1.58 [+0.89, +2.28], +1.34 | +0.63 [+0.39, +0.87], +0.65 |
+| runs 0 | −1.70 | +1.33 [+0.76, +1.93], +1.24 | +0.94 [+0.47, +1.45], +1.05 |
+
+The mismatch was not uniformly optimistic: within 0 rose by 0.77, within 1 stayed level and runs 0 fell by 0.45.
+All rows meet the table bar.
