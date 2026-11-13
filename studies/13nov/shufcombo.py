@@ -55,6 +55,33 @@ if os.environ.get("OCU_SYN") is not None:  # s188 accuracy curve (ceiling test o
     for r in rg.permutation(wrong)[:k]:
         t, m = yy[r], sp[r].argmax(); sp[r, [t, m]] = sp[r, [m, t]]
     OCU = np.log(np.clip(sp, 1e-3, 1)); print(f"OCU_SYN +{os.environ['OCU_SYN']}: eye view accuracy {a0:.4f} -> {np.mean(sp.argmax(1) == yy):.4f} (shuffled within person x class)", flush=True)
+OCU_TX = os.environ.get("OCU_TX", "")  # s196 (D1/D2): transforms of the eye log-posterior columns
+if OCU_TX in ("shufrun", "demeanrun", "demeansess"):  # diagnostics (non-causal): which part of the eye view's error correlation hurts
+    yy, pp, rr, ss = Z[f"y|{p0}"].astype(int), Z[f"person|{p0}"], S.RUN[IDX], Z[f"sess|{p0}"]; rg = np.random.default_rng(0); o2 = OCU.copy()
+    if OCU_TX == "shufrun":  # keeps each run's bias, removes the time structure inside a run
+        for key in set(zip(pp, yy, rr)):
+            r = np.flatnonzero((pp == key[0]) & (yy == key[1]) & (rr == key[2])); o2[r] = OCU[rg.permutation(r)]
+    else:  # remove the per-run (or per-session) mean; demeanrun adds the session mean back
+        grp = np.char.add(ss.astype(str), "|" + rr.astype(str)) if OCU_TX == "demeanrun" else ss
+        for g in np.unique(grp):
+            r = grp == g; o2[r] = OCU[r] - OCU[r].mean(0) + (OCU[ss == ss[r][0]].mean(0) if OCU_TX == "demeanrun" else 0)
+    OCU = o2; print(f"OCU_TX {OCU_TX}: diagnostic transform of the eye view (non-causal)", flush=True)
+elif OCU_TX:
+    assert OCU_TX.startswith("causal"), OCU_TX; print(f"OCU_TX {OCU_TX}: causal centring of the eye view in the delivery order (package form)", flush=True)
+
+
+def ocu_view(P):
+    """the eye view rows in delivery order; causal[W] subtracts the running mean of the session's earlier windows (window W)."""
+    v = OCU[P]
+    if not OCU_TX.startswith("causal"):
+        return v
+    W = int(OCU_TX[6:] or 10 ** 6); ss = A.L.Z[f"sess|{p0}"]; out = v.copy()
+    for g in dict.fromkeys(ss):
+        r = np.flatnonzero(ss == g); cs = np.vstack([np.zeros((1, v.shape[1])), np.cumsum(v[r], 0)]); n = np.arange(len(r)); lo = np.maximum(0, n - W)
+        m = np.where((n - lo)[:, None] > 0, (cs[n] - cs[lo]) / np.maximum(n - lo, 1)[:, None], 0.0); out[r] = v[r] - m  # prefix mean, current window excluded
+    return out
+
+
 if os.environ.get("OCU_ORACLE"):  # s188 ceiling test only, never shippable: the eye view replaced by a smoothed one-hot of the true labels
     OCU = np.log(0.6 * np.eye(3)[Z[f"y|{p0}"].astype(int)] + 0.4 / 3); print("OCU_ORACLE: the eye view is the true label (ceiling test)", flush=True)
 REST = np.mean([ld(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p0}-s{s}.npz") for s in range(3)], 0); ORD = f"{SCHEME}{PSEED}"
@@ -137,9 +164,9 @@ def chain(bn, arm, P):
         A.EXTRA["sc_rest"] = {p0: (RESTR if arm != "V6Frec" else REST)[P], OTHER: A.L.Z[f"{bn}|Ps|{OTHER}"][3]}; extra = extra + [("sc_rest", 1.0)]
     ge0, pc0 = A.L.Z[f"GE|{p0}"].copy(), A.L.Z[f"pc128|{p0}"].copy()
     if arm in ("V6Fr", "V6Frec", "V6r"):
-        A.L.Z[f"GE|{p0}"] = np.c_[ge0, OCU[P]]
+        ov = ocu_view(P); A.L.Z[f"GE|{p0}"] = np.c_[ge0, ov]
         if OCU_TS:  # s188 form A: the eye view in TSEM too. TSEM standardises columns, so weight = k copies (scaling would be a no-op)
-            A.L.Z[f"pc128|{p0}"] = np.c_[pc0, np.repeat(OCU[P], OCU_TS, axis=1)].astype(pc0.dtype)
+            A.L.Z[f"pc128|{p0}"] = np.c_[pc0, np.repeat(ov, OCU_TS, axis=1)].astype(pc0.dtype)
     try:
         b = gm.M.rebal(A.mix(bn, p0, fams, extra)[0], p0, None); rec = (P == np.arange(len(P))).all()
         if arm in ("P0", "P0r"):
@@ -188,6 +215,6 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other
-np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
 if SAVE_OUT:
     np.savez_compressed(f"{REPO}/{SAVE_OUT}", **OUTS); print("per-window outputs ->", SAVE_OUT, flush=True)

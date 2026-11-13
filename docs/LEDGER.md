@@ -4219,3 +4219,23 @@ synthetic view at the same window accuracy (0.514):
   worth up to about +1.0 new in TSEM. Form A failed because the real view's errors are correlated.
 - **Caveat:** the shuffle also removes temporal structure that might be partly real signal. The +1.0 is an upper bound for
   "decorrelation", not a promise.
+
+### 196. EYE-VIEW ERROR CORRELATION, split and removed (coordinator's D1/D2; written 13 Nov 18:15 UTC, before any result)
+
+§188: at unchanged accuracy, decorrelated eye errors are worth about +1.0 new in TSEM. `shufcombo OCU_TX`:
+- **D1, diagnostics (non-causal):**
+  - shufrun: shuffle within person × class × run; keeps each run's bias, removes time structure inside runs.
+  - demeanrun: subtract each run's mean eye log-posterior, add the session mean back.
+  - demeansess: subtract each session's mean.
+- **D2, causal and package-ready** (a few lines; running mean over the session's earlier delivered windows, subtracted
+  before SessionEM/TSEM):
+  - causal: whole prefix;
+  - causal30: the last 30 windows.
+- **Scope:** within 0–3, k = 0 and k = 4, most complete inputs, labels L; against the real eye net at the same k.
+- **Reading:** if demeanrun or demeansess recovers most of the synthetic gain, the harmful part is a slow per-run or
+  per-session bias, and D2 causal centring should take it. If only shufrun helps, it is within-run time structure. If none
+  helps, it is correlation with the EEG members' errors, and D2-residualisation (eye on the member mix, map fitted on
+  training people) is next.
+- **Keep bar (D2):** ≥ +0.3 over the real eye net on the within 0–3 mean at the better k, ≥ 0 on each order. If it passes,
+  it is a package-level change of a few lines.
+- **Prediction:** demeansess / demeanrun +0.3 to +0.8 at k = 4; causal +0.2 to +0.6 at k = 4; about +0.1 at k = 0.
