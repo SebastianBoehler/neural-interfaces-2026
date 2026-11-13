@@ -2160,7 +2160,7 @@ printed. The smoke tests used seed 0 and could not catch it. Fixes:
 
 From now on a smoke covers the highest seed an array will use.
 
-| §131 item (13 Nov 01:03 UTC; `runs/ttt8_score.log`; seeds 0–5, new, all6 against frozen; person terms) | Observed | Verdict |
+| §131 item (13 Nov 01:26 UTC; `runs/ttt8_score.log`; seeds 0–5, new, all6 against frozen; person terms) | Observed | Verdict |
 |---|---|---|
 | cum10 (in-run reference) | +0.46, 80 % [−0.24, +1.14]; without P10 (+3.5) +0.12 | identical to §108 (same nets and same draws, deterministic) |
 | cum20 / cum5e5 / cum10c2 | +0.38 / +0.19 / +0.34; without P10 −0.08 / −0.19 / −0.02 | no gain |
