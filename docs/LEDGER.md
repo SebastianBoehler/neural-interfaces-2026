@@ -2931,3 +2931,15 @@ fresh-eyes rule (`docs/FRESH_EYES_13NOV.md` item 9): new people, and returning p
 | cum10 delta1 / delta2 | +0.80 (+0.55 to +1.00) / +0.85 (+0.60 to +1.05); §152 (all seeds) +0.90 |
 | gC5 delta1 / delta2 | +0.60 (+0.35 to +0.85) / +0.62 |
 | **Bar (a package form)** | new without P10 ≥ +0.40 on every draw, with the 80 % person interval above 0, and a sealed worst case ≤ 45 min at 100 % unrouted once the eye net and rest member are timed |
+
+### 161. FTCAP: gC5 with a window cap, linear cost (written 13 Nov 09:24 UTC, before any job ran; `studies/13nov/ttt16.py`, Leonardo)
+
+§120 addendum 2: FT cost grows with the square of session length, because each refit trains on the whole prefix. A
+cap that trains on the last CAP windows only makes it linear (the prediction pass still uses the whole prefix, for the
+SessionBN state). Arms: gC5 with CAP 60 and CAP 100, draws 0–3, same nets as ttt7 seeds 0–5. Scored inside V6F
+against v5.1b, all and delta1 forms (`pkg.py FT_DIR=runs/diag/ttt/probs16 FT_PFX=ttt16c<CAP>d<D> FT_VAR=gC5`).
+
+| Check (V6F against v5.1b, new, mean of four draws) | Prediction (80 % range) |
+|---|---|
+| gC5 CAP 100 / CAP 60, against uncapped gC5 | −0.05 (−0.25 to +0.10) / −0.10 (−0.30 to +0.10) |
+| **Bar** | a cap that loses ≤ 0.10 against uncapped gC5 on the mean of four draws makes the cost linear; then it is timed |

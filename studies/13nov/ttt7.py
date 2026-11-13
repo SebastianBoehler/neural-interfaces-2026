@@ -25,7 +25,7 @@ import session_bn as SB  # noqa: E402
 import importlib.util  # noqa: E402
 _spec = importlib.util.spec_from_file_location("ttt5", WS / "studies/12nov/ttt5.py"); T5 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T5)
 
-OUT = WS / "runs/diag/ttt/probs7"; T0 = T5.T0; TAG = "ttt7"; SMOKE_OUT = "smoke7"; DRAW = 0  # ttt14.py overrides; DRAW 0 keeps earlier runs bit-identical
+OUT = WS / "runs/diag/ttt/probs7"; T0 = T5.T0; TAG = "ttt7"; SMOKE_OUT = "smoke7"; DRAW = 0; CAP = 0  # ttt14/16 override; DRAW 0 and CAP 0 keep earlier runs bit-identical
 # variant -> (steps per refit, refit every, lr, scope, consistency weight, label form, warm start, views, GPU aug, first window)
 VARS = {"fixA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1, False, 30), "gA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1, True, 30),
         "gE20": (20, 20, 5e-4, "all", 1.0, "hard", False, 1, True, 30), "gC10E20": (10, 20, 5e-4, "all", 1.0, "hard", True, 1, True, 30),
@@ -64,11 +64,12 @@ def stream(m, X, Pc, seed):
                 net2 = copy.deepcopy(net).eval()
             opt = torch.optim.AdamW(params_of(net2, scope), lr=lr, weight_decay=0.0)
             for _ in range(steps):
-                opt.zero_grad(); z = net2(X[:t])[:, :3]; loss = 0.0
+                lo = max(0, t - CAP) if CAP else 0  # s161: train on the last CAP windows only (linear cost); predictions still use the whole prefix
+                opt.zero_grad(); z = net2(X[lo:t])[:, :3]; loss = 0.0
                 for _ in range(views):
-                    zs = net2(aug(X[:t], gen))[:, :3]
-                    ce = (-(soft[:t] * F.log_softmax(zs, 1)).sum(1).mean() if form == "soft" else
-                          (wpl[:t] * F.cross_entropy(zs, lab[:t], reduction="none")).sum() / wpl[:t].sum().clamp_min(1e-6))
+                    zs = net2(aug(X[lo:t], gen))[:, :3]
+                    ce = (-(soft[lo:t] * F.log_softmax(zs, 1)).sum(1).mean() if form == "soft" else
+                          (wpl[lo:t] * F.cross_entropy(zs, lab[lo:t], reduction="none")).sum() / wpl[lo:t].sum().clamp_min(1e-6))
                     loss = loss + (ce + lam * F.kl_div(F.log_softmax(zs, 1), F.softmax(z.detach(), 1), reduction="batchmean")) / views
                 loss.backward(); opt.step()
             hi = min(n, t + every)
