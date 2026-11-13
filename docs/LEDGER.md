@@ -3185,3 +3185,13 @@ four returning sessions are still routed.
 | seen, full | −4 (−6 to −2) |
 | J, full / runs / within | −3.5 / −2.0 / −1.0 |
 | **Reading** | the sealed rescoring cost 0.7–1.2 J. A scheme whose J loss lands near that range is the more plausible sealed scheme. Returning people's order loss sizes the next re-design (the own-space stage and the routed tail built for unordered sessions) |
+
+| §168 RUNORACLE (13 Nov 10:14 UTC; `runs/runoracle.log`; new, six bases, two permutations; against the shipped stages in recording order) | Shipped stages | ORACLE run split |
+|---|---|---|
+| recording order | 0.00 | **−3.48** |
+| full / runs / within | −3.10 / −1.95 / −0.97 | −4.61 / −3.48 / −4.10 |
+
+**Verdict:** as predicted, the hard run split loses under every order, including recording order. Runs (about 32
+windows) are too short for their own templates. **Form B as specified (latent runs with per-run templates) is
+closed.** The shuffle loss is not that templates mix runs. Form A (similarity-weighted templates over the whole
+delivered set, no hard split) stays open; its oracle would weight by recording-time distance instead of splitting.
