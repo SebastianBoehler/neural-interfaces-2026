@@ -3913,3 +3913,33 @@ inputs; labels L.
 - The slope over d says how accurate an eye-derived view must be for +2 new.
 - Prediction: d = 0 synthetic +0.2 to +0.6 over the real eye net; slope about +0.1 per accuracy point in SessionEM only,
   higher with TSEM.
+
+**§185 RESULT: all twenty orders in the most complete form (13 Nov 16:47 UTC; `runs/allorder_<order>_gp0_L_ge_ts_hb.log`).** Every input in
+delivery order except the ea transformer and shallow slots (1.5 of 15); package labels L; package gate; FT draw 0.
+New people, over v5.1b under the same order:
+
+| Scheme | Orders | gC5 mean [range], median | without P10 | gC5 < +0.5 | fallback mean [range] | fallback < +0.3 | FT's part | v5.1b's loss |
+|---|---|---|---|---|---|---|---|---|
+| within | 12 | +1.24 [+0.32, +1.86], +1.35 | +1.18 | 1 (within 2) | +0.69 [−0.05, +1.02] | 2 (within 2, 4) | +0.55 | −1.46 |
+| full | 4 | +0.87 [+0.62, +1.27], +0.79 | +0.81 | 0 | +0.42 [+0.21, +0.67] | 1 (full 1) | +0.45 | −3.82 |
+| runs | 4 | +1.00 [+0.78, +1.35], +0.94 | +0.88 | 0 | +0.42 [+0.20, +0.70] | 1 (runs 3) | +0.58 | −1.88 |
+| all | 20 | +1.12 [+0.32, +1.86] | +1.05 | 1 | +0.58 | 4 | | |
+
+Within orders 4–11, gC5 (fallback): +0.91 (+0.26), +1.36 (+1.02), +1.72 (+0.99), +1.76 (+0.69), +1.86 (+1.00), +1.08 (+0.75),
++0.63 (+0.67), +1.33 (+0.62). Full 2/3: +0.89, +0.70. Runs 2/3: +0.78, +0.97.
+- **Prediction:** within mean +1.2 (+0.9 to +1.5) with ≥ 80 % of within orders ≥ +0.5. Result: +1.24, 11 of 12.
+  **Not refuted.**
+- The fallback misses on 2 of 12 within orders (predicted 10–30 %).
+- FT's own part is positive on 19 of 20 orders. The exception is within 10 (−0.04).
+- gC5 is above v5.1b on all 20 orders. Within 2 is the only one whose 80 % interval reaches below 0.
+
+**§186 item 4 RESULT: v6 additions on the routed path for returning people (`studies/13nov/retv6.py`, an agent; `runs/retv6.log`).
+Scored before a prediction was written** (the coordinator asked to start at once; stated here). The routed v5.1b arm
+reproduces `runs/shufpkg.npz` to 1e-9 on all six bases. Change against routed v5.1b under the same order, mean (P04, P10):
+- Recording order: eye +0.27, rest +0.18, FT −0.41, all three +0.49 (P04 +0.37, P10 +0.61).
+- Within mean: eye +0.14, rest +0.16, FT +0.52, all three **+0.61 (P04 +1.24, P10 −0.03)**.
+- The routed set never changes. Only P04|2, which routes late through the v3 gate, moves its first routed window.
+- **Reading:** under shuffle the gain sits on P04 and comes mostly from FT. P10 is unchanged (inside ±0.3). The package's
+  ship form switches FT off on routed sessions, so as built the package gives returning people 0.
+- Turning eye + rest on for routed sessions would be +0.2 to +0.3 on P04 and about 0 on P10. Two people, four sessions:
+  not an estimate. **"Undecided"; not for this upload.**
