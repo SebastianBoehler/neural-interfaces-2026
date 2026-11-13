@@ -2814,3 +2814,29 @@ Each is scored as an added view column inside V6F against v5.1b (`pkg.py VN_KIND
 
 Kinds that do not help and kinds that do are compared by what they carry (time scale, region, independence from the
 mix, measured as their posteriors' correlation with the mix's) to say what distinguishes a useful view.
+
+| §152 FTSHIP, all draws (13 Nov 08:34 UTC; `runs/night13/ftship_*.npz`, draw 0 `runs/pkg_ftship_d0.npz`; **against v5.1b as uploaded**, six bases) | New [80 % person] / without P10 | J (as scored) / J with recognised sessions left as v5.1b | Verdict |
+|---|---|---|---|
+| V6F, cum10, draw 0 / 1 / 2 / 3 | +0.95 / +0.93 / +0.84 / +0.86; without P10 **+0.70 / +0.65 / +0.58 / +0.59**; 80 % intervals all above 0 (lowest +0.36) | +0.36 / +0.35 / +0.30 / +0.31; **+0.48 / +0.47 / +0.42 / +0.43** | **Bar met on every draw** (J ≥ +0.25, new without P10 ≥ +0.20, P04 and P10 never both down) |
+| SF (FT alone), cum10, draws 0–3 | +0.23 / +0.09 / +0.00 / +0.21; without P10 −0.12 to −0.38 | +0.11 / +0.05 / 0.00 / +0.11 | FT alone is P10 |
+| V6F, gC5, draw 0 / 1 / 2 / 3 | +0.70 / +0.56 / +0.71 / +0.58; without P10 +0.48 / +0.33 / +0.47 / +0.33 | +0.23 / +0.16 / +0.23 / +0.17; recognised as v5.1b +0.35 / +0.28 / +0.36 / +0.29 | **Bar missed on every draw** (J < +0.25). gC5 is about 0.25 below cum10 inside the combination; the cheap schedule costs gain |
+| §154 HENT inside V6F (draw 0) | +0.09, without P10 −0.07 | −0.08 | **Refuted**: entropy on the hard windows destroys the combination's gain |
+
+**Reading. The combination (cum10 FT + eye-net view + rest member, on sessions the gate does not recognise) is the
+first design that meets its bar against v5.1b on every one of four augmentation draws.** New people gain +0.84 to
++0.95 (without P10 +0.58 to +0.70); with recognised sessions left exactly as v5.1b, dev J is +0.42 to +0.48. The
+cheaper gC5 schedule keeps about two thirds of it. Its run time is the next fact a build needs: cum10 on 4 families ×
+never-routed sessions, §107's bench at half fixA's steps.
+
+| §155 draw 1 (13 Nov 08:34 UTC; `runs/night13/combo_d1.npz`; paired against V6F) | Against V6F / without the best |
+|---|---|
+| orc (oracle view) | **+3.71 / +3.50** (draw 0: +3.76) |
+| cog | +0.13 / +0.09 (draw 0: +0.07 / +0.02) |
+| mix, pls, weak, ft05, ft15, r05, r2 | −0.03 to −0.29; without the best −0.08 to −0.42 |
+| o05, o2 | 0.00 (structural no-ops, §155) |
+
+Draws 2 and 3 are scoring. Nothing has passed the +0.15 bar on two draws; cog is the closest at +0.07 to +0.13.
+
+**Incident:** `pkg.py` loaded the FBCNet rest net for every run, and its seeds stop at 8, so the set B/C replications
+(§150/§151, `v6_set{B,C}`) failed loudly on the missing seed-9 files. It now loads only for the arms that use it, and
+both are resubmitted (64361598, 64361599).

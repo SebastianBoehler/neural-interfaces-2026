@@ -41,7 +41,9 @@ BASESEEDS = {"B2_s0": [0], "B2_s1": [1], "B2_s2": [2], "B2_s012": [0, 1, 2], "B2
 OC = {p: np.mean([load(f"{REPO}/runs/ocunet/probs/oc_nomix-{p}-s{s}.npz", p) for s in OCS], 0) for p in PR}
 RSS = os.environ.get("REST_SEEDS", "0,1,2").split(",")  # explicit seeds, as OCU_SEEDS
 A.EXTRA["rest"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}
-A.EXTRA["restfb"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_fb_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}  # s144: the FBCNet rest-class net
+def restfb():  # s144's FBCNet rest-class net, loaded only by the arms that use it (its seeds stop at 8; sets B/C failed on it, 13 Nov)
+    if "restfb" not in A.EXTRA:
+        A.EXTRA["restfb"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_fb_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}
 REF = {p: Z[f"GE|{p}"].copy() for p in PR}; GEO = {p: np.c_[REF[p], np.log(np.clip(OC[p], 1e-3, 1))] for p in PR}
 # s155 levers inside the combination (all on the shipped path): view scale or oracle, cognitive teacher, mix exponent, PLS view, weak gate
 ORC = {p: np.log(0.05 + 0.85 * np.eye(3)[Z[f"y|{p}"].astype(int)]) for p in PR}  # ORACLE eye-net view: true labels (ceiling only)
@@ -118,14 +120,16 @@ def routing():  # -> rows from each routed session's first routed window on (RTW
     return W, S
 
 
-def famswap(arrs, tag, rest, restfb=False):
+def famswap(arrs, tag, rest, use_restfb=False):
     fams, extra = list(A.FAMS), []
     for a, slot in SLOT.items():
         A.EXTRA[f"pk_{a}_{tag}"] = arrs[a]; fam = next(f for f, items in A.FAM.items() if any(k == slot for k, _ in items))
         if fam in fams:
             fams.remove(fam); extra += list(A.FAM[fam])
         extra = [(k, w) for k, w in extra if k != slot] + [(f"pk_{a}_{tag}", 1.0)]
-    return fams, extra + ([("rest", float(rest))] if rest else []) + ([("restfb", 1.0)] if restfb else [])
+    if use_restfb:
+        restfb()
+    return fams, extra + ([("rest", float(rest))] if rest else []) + ([("restfb", 1.0)] if use_restfb else [])
 
 
 def system(bn, arm, oof=None, RTS0=None):
