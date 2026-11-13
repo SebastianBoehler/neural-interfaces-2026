@@ -2171,3 +2171,20 @@ From now on a smoke covers the highest seed an array will use.
 spacing, learning rate and consistency weight do not move the nine. The exception so far is gC5 of §113 (+0.34 without
 P10), which differs in its augmentation draws. That points again at draw noise in the "without P10" figure. The
 fresh-seed sets (§113 fresh, §135) decide whether any form gains for people other than P10.
+
+| Night results (13 Nov 01:27 UTC; Leonardo `runs/night13/`; new, all6 against the same run's frozen nets; person terms) | Observed | Verdict |
+|---|---|---|
+| **§137 true labels (oracle), cum10**, seeds 0–5 / fresh 6–11 | **+1.89, 80 % [+1.26, +2.55], 9 of 10, without P10 +1.49 / +1.78 [+1.06, +2.52], without P10 +1.39** | **Hit (+2.0). The bar (≥ +1.5) is met: label quality is the lever, with a ceiling of about +1.5 for the nine people other than P10, four times what any label-free form reaches** |
+| §137 true labels, fixA | +1.14, without P10 +0.81 | the warm start uses labels better than the refit-from-frozen form |
+| §137 stack-chain labels, cum10, seeds 0–5 / fresh 6–11 | +0.20, without P10 −0.20 / **+0.00**, without P10 −0.40 | **Miss** (+0.55 predicted): labels from the FT+OCU stack chain are *worse* for fine-tuning than the v3 chain's (+0.46), although that chain is 0.75 more accurate. A plausible mechanism, not tested: the stack's labels already contain the fine-tuned nets' own errors (FT is in the stack), so the nets learn to agree with themselves. The bar for a round-3 refresh is not met |
+| §137 round 3 (labels from round 2 + nine-seed eye-net), cum10 | +0.21, without P10 −0.21 | no climb: iterated self-training does not help in this form |
+| §139 TTT10 head2 (bias included, lr 2e-3) | **−0.02**, without P10 −0.21; cum10 in-run +0.46 | **Refuted** in its reviewed form too: head-only fine-tuning does not carry the gain |
+| §135 fresh cum10, seeds 6–11 / 12–17 | +0.32, without P10 −0.02 / +0.40, without P10 +0.12 | Below the bar (+0.25 on both sets with the rule's base count; in person terms: the nine people other than P10 gain about 0). **Fine-tuning on the v3 chain's labels is a P10 effect** |
+| §113 fresh fixA, seeds 6–11 / 12–17 | +0.17 / +0.39; without the best −0.01 / +0.17 | the same; gC5 rows still scoring |
+
+**Reading.** Fine-tuning works when its labels are right (+1.4 to +1.5 for the nine people other than P10). With the
+chain's own labels it works only for P10. The label-free routes tried tonight, better chain labels and iterated
+rounds, made it worse. This is the high-ceiling gap to attack next. The labels must be right on the windows the nets
+get wrong, and errors independent of the nets are what the labels need. Next forms: labels from members that do not
+include the nets being tuned (core1, Hilbert and teacher only); the true-label ceiling by window confidence, to find
+which windows' labels matter; and fine-tuning only on windows where independent members agree.
