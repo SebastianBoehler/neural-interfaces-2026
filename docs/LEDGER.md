@@ -2398,3 +2398,20 @@ Smoke (one draw): core 55.7 / 60.6 / 63.1 / 64.4 and chain 59.9 / 66.6 / 68.3 / 
 | core slope per doubling (k 3–9) | +5.5 (+4 to +7) |
 | chain slope per doubling (k 3–9) | +5 (+3 to +7) |
 | **Reading rule** | Chain slope ≥ 0.7 × core slope: the stages do not flatten the people gain, so a data-side idea worth +x at core level should be worth about +x in the chain, and the data side stays the biggest ceiling (a tenth person ≈ +1.4 in the chain at +6 per doubling). Chain slope < 0.4 × core slope: the stages already substitute for people, and data-side ideas are worth much less than their core numbers |
+
+| §146 item (13 Nov 03:46 UTC; `runs/pcurve_13nov.log`; new people; five draws below k 9) | Observed | Verdict |
+|---|---|---|
+| core surrogate, k 3 / 5 / 7 / 9 | 56.7 / 59.8 / 62.7 / 64.4 | **slope +4.9 per doubling** (k 5–9: +5.4); prediction +5.5, hit |
+| chain (surrogate through the stages), k 3 / 5 / 7 / 9 | 61.9 / 64.5 / 67.4 / 69.3; stage gain +5.2 / +4.6 / +4.7 / +4.9 | **slope +4.7 per doubling** (k 5–9: +5.7); prediction +5, hit |
+
+**Reading (the rule's first branch):** the chain slope is 0.95 of the core slope. **The session stages do not flatten
+the people gain; they add a constant +5 at every number of people.** For the data side this means:
+- a data-side idea worth +x at core level is worth about +x in the chain;
+- one more real person is worth about +0.7 in the chain (log2(10/9) × 4.7);
+- a doubling of effective people is worth about +4.7.
+
+The data side is the largest ceiling on record. The earlier data-side substitutes (generated variation,
+people-efficient estimators, Scherer rows) failed at core level, not in the chain, and that conclusion stands.
+Unlabelled PROTEUS recordings (rest runs, other crops) and more corpora in the teacher are the routes left. Limit:
+one member, a surrogate core, and a PC basis shared across subsets. The slope of the full multi-member chain may
+differ.
