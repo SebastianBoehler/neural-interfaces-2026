@@ -28,11 +28,16 @@ with np.load(REPO + "/data/proteus_windows.npz") as w:
 print(f"SHUF: {len(DICTS)} stores permuted; schemes {SCHEMES} x {PERMS} permutations; members fixed as computed in recording order", flush=True)
 
 
+SCHEME_ID = {"full": 0, "runs": 1, "within": 2}  # fixed (s180 bug): the seed used to be the scheme's position in the SCHEMES env, so
+# shufcombo (SCHEMES=<one scheme>) ran the stages in another order than runs/shuffle_perms.npz (dumped with full,runs,within)
+# for within and runs, while every re-streamed member followed the dumped order.
+
+
 def perm_for(scheme, seed):
     out = {}
     for p in PR:
         sess = ORIG[0][f"sess|{p}"] if f"sess|{p}" in ORIG[0] else A.L.Z[f"sess|{p}"]; run = RUN[A.pl.B[f"idx|{p}"].astype(int)] if False else RUN[ORIG[[i for i, d in enumerate(DICTS) if d is A.pl.B][0]][f"idx|{p}"].astype(int)]
-        r = np.random.default_rng([seed, PR.index(p), SCHEMES.index(scheme) if scheme in SCHEMES else 99]); P = np.arange(N[p])
+        r = np.random.default_rng([seed, PR.index(p), SCHEME_ID[scheme]]); P = np.arange(N[p])
         for s in dict.fromkeys(sess):
             rows = np.flatnonzero(sess == s); assert (np.diff(rows) == 1).all(), "a session's rows are not contiguous"
             if scheme == "full":

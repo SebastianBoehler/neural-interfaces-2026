@@ -3503,3 +3503,27 @@ Predictions as §178: labels cost the combination 0.1 (0 to 0.3) under within an
 label-faithful mean over eight orders is +1.2 (+0.9 to +1.5) new. Refuted if it is < +0.8; then the table says so.
 Explore code still to write: the order-free EM fixed point and a stage for returning people under shuffle. Due by
 16:00 UTC, smoke-tested and then queued.
+
+### 180. BUG: stages and re-streamed members used different delivery orders for within and runs (found 13 Nov 12:45 UTC; fixed)
+
+`shuffle.perm_for` seeded its RNG with the scheme's position in the SCHEMES env. `shufcombo.py` sets SCHEMES to one
+scheme (index 0), while `runs/shuffle_perms.npz` was dumped with the default `full,runs,within` (full 0, runs 1, within 2).
+Every re-streamed member follows the dumped orders: ttt17/ttt18, ocushuf, restshuf, coremember, coreshuf.
+For **full** the two agree. For **within** and **runs**, the stages ran in another random permutation of the same kind
+than the members were streamed in. A window early in the stage order could carry a member output (fine-tuning,
+SessionBN, standardisation) adapted on windows that come later in the stage order. The direction is likely optimistic
+for the adaptive parts, but it was not measured.
+- **Fix:** `SCHEME_ID = {full: 0, runs: 1, within: 2}`, independent of the env. Checked for within, runs and full, seeds
+  0–3, both protocols: the stage order equals the dumped order. `shufcombo.py` now asserts this and stops otherwise.
+  Callers of shuffle.py with the default SCHEMES keep the same permutations: §164, §166 RETUNE, `DUMP_PERMS`.
+- **Affected (within and runs only):** §165, §167 (within), §171 and its draws, §173, the §176 result, and §178 (the gate
+  check on within; the label files for within 0/1 and runs 0, built in the stage order). Their full-scheme numbers stand.
+- **Withdrawn and redone:** the t18L runs for within 0/1 and runs 0 were cancelled (Galvani 3096653/54/56, Leonardo
+  64385496/97/500 and draws 64385516/20). 28 wrong-label outputs were deleted on Galvani. The labels were rebuilt in the
+  dumped order with every input re-streamed (STRICT): accuracy 0.7552 / 0.7589 / 0.7533. They were resubmitted on both
+  clusters (Leonardo 64386161/64/66, draws 64386167/69; Galvani 3096837–39). Hashes match on both clusters.
+  The labels2 job (within 2/3, full 1, runs 1) had not started and uses the fixed code.
+- **Rescoring without new GPU work** (`runs/allorder_*_gp0.log`; old logs kept as `*_WRONGORDER.log`): within 0/1 and runs 0
+  with all inputs and the package gate, plus the within draws 1 and 2.
+- **Also found:** 349b1bf left `shufcombo.py` with a syntax error (a comment inside the savez call). Fixed before any job
+  used it; Leonardo had the earlier version.
