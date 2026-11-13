@@ -30,8 +30,12 @@ PF = REPO + "/runs/ttt/probs_pf"; T6 = REPO + "/" + os.environ.get("FT_DIR", "ru
 _a, _b = (int(x) for x in os.environ.get("FT_SEEDS", "0-5").split("-")); FTS = range(_a, _b + 1); OCS = os.environ.get("OCU_SEEDS", "0,1,2").split(",")
 print(f"pkg: FT {T6} {FPX} seeds {list(FTS)}; OCU seeds {OCS}; REST seeds {os.environ.get('REST_SEEDS', '0,1,2')}; chain route4 max t10 + own-space stage (v4.1/v5), gate fixed from P0", flush=True)
 PN = {(a, v): load(f"{PF}/pft_{a}_{v}-seen_session-s*.npz", "seen_session", 3) for a in SLOT for v in ("base", "pfh60")}
-FR = {a: {p: np.mean([load(f"{T6}/{FPX}_{a}_base-{p}-s{s}.npz", p) for s in FTS], 0) for p in PR} for a in SLOT}
-CU = {a: {p: np.mean([load(f"{T6}/{FPX}_{a}_cum10-{p}-s{s}.npz", p) for s in FTS], 0) for p in PR} for a in SLOT}
+FRS = {(a, s): {p: load(f"{T6}/{FPX}_{a}_base-{p}-s{s}.npz", p) for p in PR} for a in SLOT for s in FTS}
+CUS = {(a, s): {p: load(f"{T6}/{FPX}_{a}_cum10-{p}-s{s}.npz", p) for p in PR} for a in SLOT for s in FTS}
+FR = {a: {p: np.mean([FRS[a, s][p] for s in FTS], 0) for p in PR} for a in SLOT}
+CU = {a: {p: np.mean([CUS[a, s][p] for s in FTS], 0) for p in PR} for a in SLOT}
+# s152: the study nets of seed K reproduce base B2_sK's own SessionBN slots, so each base gets its own seeds' FT change
+BASESEEDS = {"B2_s0": [0], "B2_s1": [1], "B2_s2": [2], "B2_s012": [0, 1, 2], "B2_s345": [3, 4, 5], "B2_pool": [0, 1, 2, 3, 4, 5]}
 OC = {p: np.mean([load(f"{REPO}/runs/ocunet/probs/oc_nomix-{p}-s{s}.npz", p) for s in OCS], 0) for p in PR}
 RSS = os.environ.get("REST_SEEDS", "0,1,2").split(",")  # explicit seeds, as OCU_SEEDS
 A.EXTRA["rest"] = {p: np.mean([load(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p}-s{s}.npz", p) for s in RSS], 0) for p in PR}
@@ -42,7 +46,9 @@ SPEC = {"T0": dict(), "T1b": dict(pn="base"), "T1": dict(pn="pfh60"), "T1w": dic
         "R": dict(pn="pfh60", rest=True),
         "OR": dict(pn="pfh60", ocu=True, rest=True),  # s150: the stack without fine-tuning (no run-time cost)
         "V6": dict(ship=True, ocu=True, rest=True, beta=0.10), "V6b": dict(ship=True, ocu=True, rest=True, beta=0.15),  # s151: v5.1b + OCU + REST on the shipped members
-        "FOR2": dict(pn="pfh60", ft=True, ocu=True, rest=True, restfb=True), "FORw2": dict(pn="pfh60", ft=True, ocu=True, rest=2.0)}  # s144
+        "SF": dict(ship=True, ft=True, beta=0.10), "V6F": dict(ship=True, ft=True, ocu=True, rest=True, beta=0.10)}  # s152: FT as a change to the shipped members
+SPEC.update({
+        "FOR2": dict(pn="pfh60", ft=True, ocu=True, rest=True, restfb=True), "FORw2": dict(pn="pfh60", ft=True, ocu=True, rest=2.0)})  # s144
 
 
 def routing():  # -> rows from each routed session's first routed window on (RTW), rows of routed sessions (RTS), from the last route4 call
@@ -70,9 +76,19 @@ def system(bn, arm, oof=None, RTS0=None):
         Z[f"GE|{p}"] = GEO[p] if sp.get("ocu") else REF[p]
     try:
         c1 = {p: A.members(bn, p)["c1"] for p in PR}
-        if arm == "P0" or sp.get("ship"):  # the shipped members everywhere; ship arms add only the levers that need no study nets
+        if arm == "P0" or sp.get("ship"):  # the shipped members everywhere; FT enters only as each base's own seeds' change on never-routed rows
+            assert not sp.get("pn"), f"{arm}: personal nets need study nets, not the shipped members"
             pf, pe = list(A.FAMS), ([("rest", 1.0)] if sp.get("rest") else [])
-            assert not sp.get("ft") and not sp.get("pn"), f"{arm}: FT and personal nets need study nets, not the shipped members"
+            if sp.get("ft"):
+                assert bn in BASESEEDS and all(k in FTS for k in BASESEEDS[bn]), (bn, list(FTS))
+                arrs = {}
+                for a, slot in SLOT.items():
+                    arrs[a] = {}
+                    for p in PR:
+                        base = A.members(bn, p)[slot].copy(); dlt = np.mean([CUS[a, k][p] - FRS[a, k][p] for k in BASESEEDS[bn]], 0)
+                        x = np.where(RTS0[p][:, None], base, np.clip(base + dlt, 1e-6, None)); arrs[a][p] = x / x.sum(1, keepdims=True)
+                    assert np.abs(arrs[a]["all_loso"] - A.members(bn, "all_loso")[slot]).max() > 1e-3, f"{arm}: the FT change is a no-op"
+                pf, pe = famswap(arrs, arm + "_ship", sp.get("rest"))
         else:
             pop = {a: {p: np.where(RTS0[p][:, None], FR[a][p], CU[a][p]) if sp.get("ft") else FR[a][p].copy() for p in PR} for a in SLOT}
             pf, pe = famswap(pop, arm + "_pop", sp.get("rest"), sp.get("restfb"))
@@ -103,11 +119,11 @@ def system(bn, arm, oof=None, RTS0=None):
 
 ARMS = ["P0"] + [k for k in SPEC if k in ("T0", "T1") or not os.environ.get("ARMS") or k in os.environ["ARMS"].split(",")]; R = {}  # ARMS=FOR,FOR2 runs a subset (P0, T0, T1 always)
 for bn in BASES:
-    out, oof = system(bn, "P0"); R[bn, "P0"] = out
+    out, oof = system(bn, "P0"); R[bn, "P0"] = out; _, RP0 = routing()  # ship arms take never-routed rows from v5.1b's own routing
     R[bn, "T0"] = system(bn, "T0", oof, {p: np.zeros(len(IDX[p]), bool) for p in PR})[0]; _, RTS0 = routing()  # T0 uses no FT, so its mask is unused
     print(f"{bn}: routed sessions' rows new {RTS0['all_loso'].sum()} of {len(IDX['all_loso'])}, seen {RTS0['seen_session'].sum()} of {len(IDX['seen_session'])}; FT on the rest", flush=True)
     for arm in ARMS[2:]:
-        R[bn, arm] = system(bn, arm, oof, RTS0)[0]
+        R[bn, arm] = system(bn, arm, oof, RP0 if SPEC.get(arm, {}).get("ship") else RTS0)[0]
     s = {k: (SC.person(R[bn, k]["all_loso"], "all_loso"), SC.person(R[bn, k]["seen_session"], "seen_session")) for k in ARMS}
     print(f"   T0 new {s['T0'][0].mean():.2f} seen {s['T0'][1].mean():.2f} | " + " | ".join(f"{k} {s[k][0].mean() - s['T0'][0].mean():+.2f}/{s[k][1].mean() - s['T0'][1].mean():+.2f}" for k in ARMS if k != "T0"), flush=True)
     for k in ARMS:
@@ -115,10 +131,11 @@ for bn in BASES:
 rng = np.random.default_rng(0)
 if os.environ.get("PKG_SAVE"):  # per-person results of every arm and base, for paired differences between arms
     np.savez(os.environ["PKG_SAVE"], **{f"{b}|{k}|{j}": R[b, k][j] for (b, k) in R for j in (0, 1)})
-for ref, arms in (("P0", [k for k in ARMS if SPEC.get(k, {}).get("ship")]), ("T0", ARMS), ("T1b", [k for k in ("T1", "T1w") if k in ARMS]), ("T1", [k for k in ARMS if k not in ("P0", "T0", "T1", "T1b", "T1w") and not SPEC.get(k, {}).get("ship")])):
+for ref, arms in (("P0", [k for k in ARMS if k != "P0"]), ("T0", ARMS), ("T1b", [k for k in ("T1", "T1w") if k in ARMS]), ("T1", [k for k in ARMS if k not in ("P0", "T0", "T1", "T1b", "T1w") and not SPEC.get(k, {}).get("ship")])):
     if ref not in ARMS or not arms:
         continue
-    print(f"\nagainst {ref}, six-base mean: new [person 80 %] people>=0, without the best | seen (P04, P10) [per-base range] | J")
+    print(f"\n{'=== THE UPLOADED SYSTEM' if ref == 'P0' else '--- a STUDY BASE, not the uploaded system'} ({ref})", flush=True)
+    print(f"against {ref}, six-base mean: new [person 80 %] people>=0, without the best | seen (P04, P10) [per-base range] | J")
     for k in arms:
         if k == ref:
             continue
