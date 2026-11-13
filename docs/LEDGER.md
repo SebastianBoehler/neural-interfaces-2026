@@ -4708,3 +4708,30 @@ labels against R: within −0.10, full +0.21, runs −0.03.
     closest to the organisers' statement, v6f's FT (gC5, v5.1b labels) beats v6.1's on new people. A v6.2 on v6f's FT would
     be the alternative, the user's choice.
   - Otherwise the four-order full rows go into the table as they are.
+
+**23:15 UTC, after the app restart (about 23:02 UTC):** watchers, loops and the image upload died with the app.
+- Leonardo's login01 timed out on port 22, so scripts now use login02 (`-o HostName=login02-ext…`; ssh config unchanged).
+- The image upload resumes per chunk by appending the missing bytes, with md5 per chunk (macOS openrsync has no
+  `--append-verify`). Detached with nohup; landing about 00:10 UTC.
+- s203 labels are built (full 2/3, runs 2/3). The Q-label FT wave is going to Leonardo.
+- **Silent no-op fixed:** shufcombo's STRICT checked only the core members. A missing GE, Hilbert or teacher input fell back to
+  recording order silently (only the file name changed). STRICT now requires all of them. Every scored file so far carries
+  `_ge_hb_ts`, so no past result is affected.
+- **Fresh-order sweep (§194/SWEEP 3, within 4–11, Leonardo sweepsel_fresh.txt), recorded:** over gC5, s15 +0.14 (without
+  P10 +0.17), e03 +0.03, u05 +0.04, u02 −0.12. Nested held-out −0.00 [−0.23, +0.18]; s15 chosen in 137 of 252 picks. s15 is
+  confirmed as the form, and SWEEP 3's winner adds nothing.
+
+### 204. FULL ORDERS 4–7 FROM SCRATCH (written 14 Nov 23:15 UTC, before any job ran)
+- **Why:** full (a uniform permutation of each session's windows) is the scheme closest to the organisers' statement. Even
+  with §203 it has four orders, and v6.1 trails v6f there on new people.
+- **What, Leonardo, per order:**
+  - members re-streamed: core1, Hilbert, teacher, pc128;
+  - base FT (gC5) with the eye and rest re-streams;
+  - labels chain_v51b and chain_v6r;
+  - then t18L (gC5 on v5.1b labels = v6f) and t18R (s15 on v6r labels = v6.1, new people);
+  - scoring on Leonardo by shufcombo for both; fetched to runs/leo_npz.
+  - Returning people need chain_rt, which retv6 builds on the Mac. That relay follows once the labels exist.
+- **Prediction:** new people, v6.1 − v6f on full 4–7: −0.15 (−0.5 to +0.2).
+- **Reading rule:** as §203, now over up to eight full orders. With ≥ 6/8 orders below zero and a mean ≤ −0.2, the coordinator
+  is told that v6.1's FT form or labels cost on full, and the alternative (v6.2 on v6f's FT) is named.
+- **Timing:** members take 2–5 h, so this lands after the 06:00 UTC table. It serves the remaining uploads (deadline 21 Nov).

@@ -109,7 +109,8 @@ TS = one_with(TSF, f"{ORD}|{p0}", "teacher"); DTS = TS[f"{ORD}|{p0}"] - TS[f"rec
 CORE = [n for n, ok in (("core1 member", DC1 is not None), ("pc128 view", DPC is not None), ("rest net", bool(RSS)), ("eye net", bool(OCD))) if not ok]
 REC_LEFT = CORE + [n for n, ok in (("GE event rates", DGE is not None), ("Hilbert member", DHB is not None), ("teacher member", DTS is not None)) if not ok] + [
     "transformer and shallow ea members (causal EA)"]
-assert not (os.environ.get("STRICT") and CORE), f"STRICT: still in recording order: {CORE}"
+# s203: STRICT also requires GE, Hilbert and teacher; it used to check only CORE, so a missing one dropped out silently
+assert not (os.environ.get("STRICT") and REC_LEFT[:-1]), f"STRICT: still in recording order: {REC_LEFT[:-1]}"
 print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {RPX}; eye net {'re-streamed ' + OCD if OCD else 'recording order (3 seeds)'}; "
       f"rest net {'re-streamed ' + str(len(RSS)) + ' seeds' if RSS else 'recording order'}; core1 member {'re-streamed' if DC1 is not None else 'recording order'}; "
       f"pc128 {'rebuilt in the order' if DPC is not None else 'recording order'}; new people\nSTILL IN RECORDING ORDER: {', '.join(REC_LEFT)}", flush=True)
