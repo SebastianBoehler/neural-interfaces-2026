@@ -194,13 +194,11 @@ Code: `submissions/ensemble_v5b/submission.py`, `scripts/add_own_stage.py`, `scr
   +0.34 without P10 [§113]. Fresh-seed replications run on 13 Nov [§113, §135]. A package runs it only on sessions
   the gate never routes (the gate routes no new-person window in the dev replay) [§138]. Cost on an A100: about 142 s per session for all 30 nets, 20 to
   39 s for the reduced forms [§107].
-- **Small positives, combined (13 Nov):** fine-tuning, eye-net view, rest member, mix exponent and PLS view stack for
-  new people: together +0.86, without PLS +1.13 (95 % person interval +0.45 to +1.85; the nine people other than
-  P10 +0.86) [§130, §139]. Their seen columns came from `A.system` (routing v3, gate refit on the arm's outputs) and do
-  not hold on v4.1, so the §130b seen verdicts ("REST costs seen") are withdrawn; seen is unresolved [§140]. The
-  package-form replay (PKG2: v4.1 routing + stage, gate fixed, personal nets only after routing) re-scores FT, OCU and
-  REST together on six bases [§140]. Not yet combined: personal template prior (+0.19, possibly over-scaled [§140])
-  [§19]; slot weight 4.5 (+0.12) [§22].
+- **Small positives, combined (13 Nov):** in package form against a study base, FT + eye-net view + rest member gave
+  J +0.51 to +0.95 on three seed sets [§140, §145]. That base (study twins, personal nets, stage 0.15) sits about 0.7
+  below v5.1b on returning people. **On v5.1b's own members the eye-net view and the rest member give J +0.05**
+  (new +0.34, seen −0.24, P04 −1.4) [§151]. Fine-tuning on the shipped members is not measured yet. The design notes
+  are in [V6_DESIGN.md](V6_DESIGN.md).
 
 **The next candidate** is decided after the research window. Candidates for its parts: v5.2b, the stronger stage, the
 fine-tuning for unrecognised sessions, and whatever the stacking test supports.
