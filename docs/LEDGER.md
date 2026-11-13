@@ -4542,3 +4542,32 @@ Accuracy within 0–3: 0.752–0.762; full 0/1: 0.736 / 0.740; runs 0/1: 0.760 /
 - **Reading:** the blend is worth taking if, against R, it loses ≤ 0.05 under within and gains under full/runs, with the sign
   holding across those orders. Then v6.1 would use blend labels.
 - **Prediction:** blend between L and R everywhere: about +0.05 against L under within, about 0 under full.
+
+**§199 RESULT (13 Nov 22:10 UTC; `runs/s199_*`; returning people P04 and P10, routed path, labels = routed v5.1b as emitted).**
+Change against routed v5.1b:
+
+| arm (form) | within 0–7: mean, P04, P10 | P10 > 0 | min P10 | orders > 0 | full 0/1 + runs 0/1: mean, P10 > 0 | draws 1–2 within 0–3 |
+|---|---|---|---|---|---|---|
+| **ERF (s15)** | **+0.86**, +1.09, +0.62 | **8/8** | +0.10 | 8/8 | +1.17, 3/4 (full 0 −0.28) | +0.74, P10 > 0 8/8 |
+| ERF (gC5) | +0.87, +1.13, +0.62 | 6/8 | −0.12 | 8/8 | +1.15, 4/4 | +0.67, 6/8 |
+| **ER (eye + rest, no FT)** | **+0.53**, +0.61, +0.45 | 6/8 | −0.15 | 8/8 | **+0.98, 4/4** (all orders > 0) | +0.52, 4/8 |
+| F (s15) alone | +0.34, +0.74, −0.07 | 3/8 | −0.57 | 6/8 | −0.00 | +0.22 |
+
+- **Check:** routed v5.1b on within 2–7 has no shufpkg reference. Its absolute values sit in the range of the checked orders
+  (P04 69–74, P10 89.6–91.9). Full 0/1 and runs 0/1 do have references, and they match.
+- Within 0/1 (the first measured, §198) are the lowest orders. Across twelve orders the routed gain is larger.
+- **Rule** (P10 > 0 on ≥ 6/8 within orders, no P10 < −1.0, within mean ≥ +0.15):
+  - **ERF s15 passes clearly** (8/8, min +0.10, +0.86);
+  - ER passes too (6/8, min −0.15, +0.53).
+- ER's share of ERF is 0.62, under the 2/3 needed to prefer it by the rule. But ER is the more robust form: positive on all
+  twelve orders, including full 0 where ERF's FT costs −1.06 (P04 −1.95). It also needs no FT on recognised sessions, so its run
+  time stays at v6f's 57 % figure. ERF's FT needs the 100 % worst case (about 45.8 min).
+- The FT form on the routed path hardly matters (ERF s15 +0.86 against gC5 +0.87). FT alone is weak for P10 (3/8 positive).
+- **Size for the sealed mix** (43 % returning, before transfer): ERF about +0.37, ER about +0.23. That is larger than v6.1's
+  new-people edge (about +0.1).
+- **Limit:** P04 and P10 are the only returning people in dev (two people, four sessions); every order reuses them.
+  Sealed returning sessions may be other people.
+
+**v6.1 + form B against v6.1** (8 orders; `runs/v61b_summary.txt`): +0.07 (6 of 8 positive; within +0.06). Per order: within 0 −0.06,
+within 1 +0.08, within 2 +0.11, within 3 +0.12, full 0 −0.05, full 1 +0.04, runs 0 +0.16, runs 1 +0.15. A small, mostly-positive
+addition.
