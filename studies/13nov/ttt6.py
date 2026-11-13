@@ -21,7 +21,7 @@ import session_bn as SB  # noqa: E402
 import importlib.util  # noqa: E402
 _spec = importlib.util.spec_from_file_location("ttt5", WS / "studies/12nov/ttt5.py"); T5 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T5)
 
-OUT = WS / "runs/diag/ttt/probs6"; T0 = T5.T0; TAG = "ttt6"; SMOKE_OUT = "smoke6"  # ttt8.py overrides these
+OUT = WS / "runs/diag/ttt/probs6"; T0 = T5.T0; TAG = "ttt6"; SMOKE_OUT = "smoke6"; DRAW = 0  # ttt8.py etc. override these; DRAW 0 keeps every earlier run bit-identical
 # variant -> (steps per refit, refit every, lr, scope, consistency weight, label form, warm start, views)
 VARS = {"fixA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1), "cum10": (10, 10, 5e-4, "all", 1.0, "hard", True, 1),
         "cons2": (20, 10, 5e-4, "all", 2.0, "hard", False, 1), "soft": (20, 10, 5e-4, "all", 1.0, "soft", False, 1),
@@ -50,7 +50,7 @@ def stream(m, X, Pc, seed):
     lab = torch.from_numpy(Pc.argmax(1)).to(X.device); wpl = torch.from_numpy(Pc.max(1)).float().to(X.device)
     soft = torch.from_numpy(Pc).float().to(X.device)
     for v, (steps, every, lr, scope, lam, form, warm, views) in VARS.items():
-        torch.manual_seed(seed); gen = torch.Generator().manual_seed(seed); net2 = None
+        ds = seed + 1000 * DRAW; torch.manual_seed(ds); gen = torch.Generator().manual_seed(ds); net2 = None  # DRAW > 0: fresh augmentation draws on the same nets
         for t in range(T0, n, every):
             if net2 is None or not warm:
                 net2 = copy.deepcopy(net).eval()

@@ -2618,3 +2618,20 @@ for when Leonardo is back.
 **§150/§151 replication queued (13 Nov 07:56 UTC, before any result):** OR and V6 on seed sets B and C (Leonardo CPU
 jobs 64357979 / 64357982, `runs/night13/v6_set{B,C}.txt`, per person `.npz`). Question: are V6's new +0.34 and its P04
 cost (−1.39) seed-specific? Prediction for V6 on each set: new +0.3 (0.0 to +0.6), seen P04 −0.8 (−1.6 to 0.0).
+
+### 152. FTSHIP: fine-tuning applied to the shipped members, scored against v5.1b (written 13 Nov 07:57 UTC, before any result)
+
+**The reference from here on is v5.1b as uploaded** (shipped members, shipped gate, stage 0.10). The study nets of
+seed K reproduce dev base B2_sK's own SessionBN slots (fb and fbl exactly, sinc to 0.016, raw fbcnet to 0.149), so
+fine-tuning becomes a change to the shipped members. On rows of never-routed sessions only, each base's slots 5–8 get
+the mean fine-tuning change of that base's own seeds (B2_s0: seed 0, …, B2_s012: seeds 0–2, B2_s345: 3–5, B2_pool:
+0–5); slot 9 (fb at k 5) stays frozen, as in dev; every other window keeps the shipped outputs exactly. Draws: ttt6's
+cum10 (draw 0) and three fresh augmentation draws on the same nets (`studies/13nov/ttt13.py`, DRAW 1–3, Leonardo; ttt6
+gained a DRAW offset that leaves draw 0 bit-identical). Arms against P0 (`pkg.py`): SF = v5.1b + FT; V6F = v5.1b + FT +
+OCU + REST.
+
+| Check (against v5.1b, six-base mean; per draw and over draws) | Prediction (80 % range) |
+|---|---|
+| SF new / without P10 | +0.40 (0.00 to +0.80) / +0.10 (−0.20 to +0.40); seen 0.00 |
+| V6F new / J | +0.70 (+0.20 to +1.20) / +0.25 (−0.30 to +0.70) |
+| **Bar** | A package design needs, on every draw, J ≥ +0.25 against v5.1b with the new gain without P10 ≥ +0.20 and seen not falling for both P04 and P10. Short of that, nothing in the stack is a package |
