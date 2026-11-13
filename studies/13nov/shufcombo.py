@@ -22,14 +22,15 @@ def ld(path):
     z = np.load(path); assert (z["index"] == IDX).all(), path; return z["proba"]
 
 
-FR6 = {(a, s): ld(f"{T6D}/ttt6_{a}_base-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
-CU6 = {(a, s): ld(f"{T6D}/ttt6_{a}_cum10-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
-TG = f"ttt17{SCHEME}{PSEED}"; FR17 = {(a, s): ld(f"{T17D}/{TG}_{a}_base-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
-CU17 = {(a, s): ld(f"{T17D}/{TG}_{a}_cum10-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
+FV = os.environ.get("FT_V", "cum10"); RPX = os.environ.get("REC_PFX", "ttt6")  # s171: FT_V=gC5 with REC_PFX=ttt7, T6_DIR=runs/ttt/probs7, T17_DIR=.../probs18, FT_TAG=ttt18...
+FR6 = {(a, s): ld(f"{T6D}/{RPX}_{a}_base-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
+CU6 = {(a, s): ld(f"{T6D}/{RPX}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
+TG = os.environ.get("FT_TAG", f"ttt17{SCHEME}{PSEED}"); FR17 = {(a, s): ld(f"{T17D}/{TG}_{a}_base-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
+CU17 = {(a, s): ld(f"{T17D}/{TG}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
 OCD = os.environ.get("OCU_DIR"); OCS = sorted(glob.glob(f"{REPO}/{OCD}/oc_nomix-{p0}-s*.npz")) if OCD else [f"{REPO}/runs/ocunet/probs/oc_nomix-{p0}-s{s}.npz" for s in range(3)]
 assert OCS, OCD; OCU = np.log(np.clip(np.mean([ld(f) for f in OCS], 0), 1e-3, 1))
 REST = np.mean([ld(f"{REPO}/runs/rest4/probs/rest4_sh_r1-{p0}-s{s}.npz") for s in range(3)], 0)
-print(f"SHUFCOMBO {SCHEME} {PSEED}: ttt17 {TG}; eye net {'re-streamed ' + OCD if OCD else 'recording order (3 seeds)'}; rest member recording order; new people", flush=True)
+print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {RPX}; eye net {'re-streamed ' + OCD if OCD else 'recording order (3 seeds)'}; rest member recording order; new people", flush=True)
 
 
 def norm(x):
@@ -78,4 +79,4 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
                   ("combination over v5.1b, both shuffled", "V6Fr", "P0r"), ("combination over v5.1b, recording order", "V6Frec", "P0rec")):
     d = np.mean([R[bn][a] - R[bn][b] for bn in S.BASES], 0); bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} new {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
-np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})

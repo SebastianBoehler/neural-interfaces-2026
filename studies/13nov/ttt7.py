@@ -25,7 +25,7 @@ import session_bn as SB  # noqa: E402
 import importlib.util  # noqa: E402
 _spec = importlib.util.spec_from_file_location("ttt5", WS / "studies/12nov/ttt5.py"); T5 = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(T5)
 
-OUT = WS / "runs/diag/ttt/probs7"; T0 = T5.T0; TAG = "ttt7"; SMOKE_OUT = "smoke7"; DRAW = 0; CAP = 0  # ttt14/16 override; DRAW 0 and CAP 0 keep earlier runs bit-identical
+OUT = WS / "runs/diag/ttt/probs7"; T0 = T5.T0; TAG = "ttt7"; SMOKE_OUT = "smoke7"; DRAW = 0; CAP = 0; PERM = None  # ttt14/16/18 override; DRAW 0, CAP 0 and PERM None keep earlier runs bit-identical
 # variant -> (steps per refit, refit every, lr, scope, consistency weight, label form, warm start, views, GPU aug, first window)
 VARS = {"fixA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1, False, 30), "gA": (20, 10, 5e-4, "all", 1.0, "hard", False, 1, True, 30),
         "gE20": (20, 20, 5e-4, "all", 1.0, "hard", False, 1, True, 30), "gC10E20": (10, 20, 5e-4, "all", 1.0, "hard", True, 1, True, 30),
@@ -90,7 +90,10 @@ def run(arch, d, proto, seed, out, epochs=0):
         m.fit(np.flatnonzero(tr)); m.set_k(T5.ARCHS[arch][1]); rows = np.flatnonzero(te); st = d["stream"][rows]
         ref = protocol.predict_streams(m, d, te, proba=True)
         for s in dict.fromkeys(st):
-            r = rows[st == s]; X = torch.from_numpy(m._aligned(r, causal=True)).to(m.dev)
+            r = rows[st == s]
+            if PERM:  # s171: deliver the session in another order (global window index -> rank); outputs stay keyed by index
+                r = r[np.argsort(PERM[proto][r], kind="stable")]; assert len(set(PERM[proto][r])) == len(r)
+            X = torch.from_numpy(m._aligned(r, causal=True)).to(m.dev)
             res = stream(m, X, np.stack([Pc_all[int(g)] for g in r]), seed)
             for v in names:
                 got[v].append(res[v])
