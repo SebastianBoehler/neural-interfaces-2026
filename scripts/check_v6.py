@@ -1,6 +1,11 @@
 """Checks of the v6 package (lean/src6; docs/V6_DESIGN.md) against v5.1b and against the dev formulas, public sessions.
 
-Usage: python scripts/check_v6.py PKG_V6 PKG_V51B [--device cuda] [--sessions N] [--out JSON]
+Usage: python scripts/check_v6.py PKG_V6 PKG_V51B [--device cuda] [--sessions N] [--order SCHEME:SEED:PERMS.npz] [--out JSON]
+--order streams every session in a delivery order dumped by studies/13nov/shuffle.py (DUMP_PERMS; key
+SCHEME|SEED|all_loso, global window indices), and builds the references in that same order.
+--ref-shapes package: the references use the package's shapes and executor (eye nets at batch 1; fine-tuning refits
+with torch.jit.optimized_execution(False) and predictions window by window from the rebuilt StreamBN state), so that
+GPU float32 differences of batch shape and kernel fusion are separated from logic. --skip-recognised skips part A.
 A. Recognised path (gates as shipped, all 14 sessions): v6's internal v5.1b output equals PKG_V51B's on every window,
    v6's output equals v5.1b's from each session's first routed window on (bitwise), the v6 chain ran before it, and
    no session logged a v6 error.
@@ -26,6 +31,13 @@ import protocol  # noqa: E402
 from record import load_model  # noqa: E402
 arg = lambda k, d: type(d)(sys.argv[sys.argv.index(k) + 1]) if k in sys.argv else d  # noqa: E731
 DEV = arg("--device", "cpu")
+ORDER = {}
+PKG_SHAPES = arg("--ref-shapes", "dev") == "package"
+
+
+def session_rows(d, s):
+    """the session's windows in delivery order (recording order without --order)"""
+    return ORDER[s] if s in ORDER else np.flatnonzero(d["stream"] == s)
 
 
 def stream(m, d, rows, gates_off=False):
@@ -43,7 +55,7 @@ def stream(m, d, rows, gates_off=False):
 def check_recognised(v6, v5, d):
     res, ok = {}, True
     for s in dict.fromkeys(d["stream"]):
-        rows = np.flatnonzero(d["stream"] == s); o6, t6, log, _ = stream(v6, d, rows); o5, _, _, _ = stream(v5, d, rows)
+        rows = session_rows(d, s); o6, t6, log, _ = stream(v6, d, rows); o5, _, _, _ = stream(v5, d, rows)
         inner = np.array([t["out_v5"] for t in t6]); rec = log["rec"]
         tail6 = np.array([t["out"] for t in t6])  # what the package emitted
         pre = slice(0, rec if rec >= 0 else len(rows))
@@ -73,6 +85,7 @@ def ft_reference(files, X, lab, wt, steps=5, every=10, t0=30, lr=5e-4, seed=0):
             for b in st:
                 b.detach_(); b.zero_()
         for t in range(t0, n, every):
+          with torch.jit.optimized_execution(not PKG_SHAPES):
             opt = torch.optim.Adam(ps, lr=lr)
             for _ in range(steps):
                 opt.zero_grad(); zero()
@@ -85,6 +98,14 @@ def ft_reference(files, X, lab, wt, steps=5, every=10, t0=30, lr=5e-4, seed=0):
                 loss.backward(); opt.step()
             hi = min(n, t + every); zero()
             with torch.no_grad():
+                if PKG_SHAPES:  # the package: one pass over windows 0..t-1 (unoptimised), then window by window
+                    m(x[:t])
+          if PKG_SHAPES:
+            with torch.no_grad():
+                for k in range(t, hi):
+                    P[k] = torch.softmax(m(x[k:k + 1])[:, :3].double(), 1).cpu().numpy()[0]
+          else:
+            with torch.no_grad():
                 P[t:hi] = torch.softmax(m(x[:hi])[:, :3].double(), 1).cpu().numpy()[t:hi]
         out[s] = P
     return out
@@ -92,13 +113,13 @@ def ft_reference(files, X, lab, wt, steps=5, every=10, t0=30, lr=5e-4, seed=0):
 
 def check_unrecognised(v6, pkg, d, sessions):
     z = np.load(pkg / "weights.npz"); O = importlib.util.spec_from_file_location("ocunet", ROOT / "studies/12nov/ocunet.py")
-    O_ = importlib.util.module_from_spec(O); O.loader.exec_module(O_); T = O_.traces(d)
+    O_ = importlib.util.module_from_spec(O); O.loader.exec_module(O_)
     eyes = [torch.jit.load(str(pkg / str(f)), map_location=DEV).eval() for f in z["v6_eye_files"]]
     rests = [torch.jit.load(str(pkg / str(f)), map_location=DEV).eval() for f in z["v6_rest_files"]]
     from lean.src.stages import Tail as TailV5  # the v5 tree, not lean/src6
     worst = dict(eye=0.0, rest=0.0, ft=0.0, mix6=0.0, tail=0.0); logs = {}
     for s in sessions:
-        rows = np.flatnonzero(d["stream"] == s); o6, tr, log, c = stream(v6, d, rows, gates_off=True); logs[s.split("/")[-1]] = log
+        rows = session_rows(d, s); o6, tr, log, c = stream(v6, d, rows, gates_off=True); logs[s.split("/")[-1]] = log
         assert log["v6"] == len(rows) and log["err"] == 0, (s, log)
         ft_on = bool(int(z["v6_ft_on"]))
         assert (c.ft.refits > 0 and c.ft.dtheta > 0) if ft_on else (c.ft.refits == 0 and not any(t["v6"]["p_ft"] for t in tr)), \
@@ -110,7 +131,10 @@ def check_unrecognised(v6, pkg, d, sessions):
             shadow_view_cols=int(c.shadow.em.A[0].shape[0]), rest_w=float(c.w_rest))
         assert logs[s.split("/")[-1]]["em_view_cols"] == logs[s.split("/")[-1]]["shadow_view_cols"] + 3 and abs(c.w_rest - 1 / 16) < 1e-15
         with torch.no_grad():  # eye
-            Tt = torch.from_numpy(T[rows]).to(DEV); pe = torch.stack([torch.softmax(e(Tt).double(), 1) for e in eyes]).mean(0).cpu().numpy()
+            T = O_.traces(dict(X=d["X"][rows], ch_names=d["ch_names"], stream=np.zeros(len(rows), int)))  # running statistics in delivery order
+            Tt = torch.from_numpy(T).to(DEV)
+            run_e = (lambda e: torch.cat([e(Tt[k:k + 1]) for k in range(len(Tt))])) if PKG_SHAPES else (lambda e: e(Tt))
+            pe = torch.stack([torch.softmax(run_e(e).double(), 1) for e in eyes]).mean(0).cpu().numpy()
         worst["eye"] = max(worst["eye"], float(np.abs(np.log(np.clip(pe, 1e-3, 1)) - np.array([v["extra"] for v in V])).max()))
         p = {k: z[f"v6_rest_{k}"] for k in ("k", "G", "shrink")}; cs, H = 0.0, []  # rest
         for n_, i in enumerate(rows, 1):
@@ -151,13 +175,17 @@ def check_unrecognised(v6, pkg, d, sessions):
 
 def main():
     pkg6, pkg5 = Path(sys.argv[1]), Path(sys.argv[2]); d = protocol.load(); torch.set_num_threads(1)
+    if "--order" in sys.argv:
+        sc, sd, f = arg("--order", "").split(":"); g = np.load(f)[f"{sc}|{sd}|all_loso"]
+        assert sorted(g.tolist()) == list(range(len(d["y"]))), "the order is not a permutation of the public windows"
+        ORDER.update({s: g[d["stream"][g] == s] for s in dict.fromkeys(d["stream"])})
     v6, v5 = load_model(pkg6, None, "v6", DEV), load_model(pkg5, None, "v51b", DEV)
-    okA, resA = check_recognised(v6, v5, d)
+    okA, resA = (True, "skipped") if "--skip-recognised" in sys.argv else check_recognised(v6, v5, d)
     ss = list(dict.fromkeys(d["stream"]))[:arg("--sessions", 3)]
     worst, logs = check_unrecognised(v6, pkg6, d, ss)
     tol = dict(eye=1e-5, rest=1e-4, ft=1e-4, mix6=1e-12, tail=1e-10)
     okB = all(worst[k] < tol[k] for k in tol)
-    res = dict(recognised_ok=okA, recognised=resA, unrecognised_max_diff=worst, tolerances=tol, unrecognised_logs=logs, ok=okA and okB)
+    res = dict(order=arg("--order", "recording"), recognised_ok=okA, recognised=resA, unrecognised_max_diff=worst, tolerances=tol, unrecognised_logs=logs, ok=okA and okB)
     print(json.dumps(res, indent=1, default=str))
     if "--out" in sys.argv:
         Path(arg("--out", "")).write_text(json.dumps(res, indent=1, default=str))
