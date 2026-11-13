@@ -1,6 +1,6 @@
 """NETAUG (ledger s51): SessionBN member families trained with chunk-wise "virtual person" augmentation.
 One random rotation and / or frequency-scaling factor per chunk of `group` same-session windows.
-Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins; 120-131: cmix4; 140-151: swa50; 160-183: focal loss; 200-211: people curve; 300-335: GroupDRO / balanced; 400-423: training length) | python netaug.py smoke
+Usage (Galvani): python netaug.py TASK   (0-47: arms; 100-111: in-harness twins; 120-131: cmix4; 140-151: swa50; 160-183: focal loss; 200-211: people curve; 300-335: GroupDRO / balanced; 400-423: training length; 500-523: MixStyle) | python netaug.py smoke | smoke_ms
 """
 import sys, time
 from pathlib import Path
@@ -30,11 +30,18 @@ ARMS["dro01"] = dict(dro=0.1, pw=True); ARMS["dro001"] = dict(dro=0.01, pw=True)
 DRO = [(a, f, s) for s in range(3) for f in ("dro01", "dro001", "pbal") for a in ARCHS]  # tasks 300..335
 ARMS["ep2"] = dict(ep=2.0, pw=True); ARMS["ep05"] = dict(ep=0.5, pw=True)  # training length x2 / x0.5 (ledger s94)
 EPS = [(a, f, s) for s in range(3) for f in ("ep2", "ep05") for a in ARCHS]  # tasks 400..423
+ARMS["ms05"] = dict(ms=0.5, pw=True); ARMS["ms10"] = dict(ms=1.0, pw=True)  # MixStyle on the SessionBN nets, never tried on them (gap 7; ledger s153)
+MSTY = [(a, f, s) for s in range(3) for f in ("ms05", "ms10") for a in ARCHS]  # tasks 500..523
+
+
+def vp_ms(m):
+    return getattr(m, "vp", {}).get("ms", 0.0) > 0
 
 
 class VNet(SB.SessionNet):
     def _train(self, X, y, sw, rows, epochs, lr, rng, gen, loss_fn, weighted, head_only=False, avg=None):
         assert not (head_only or avg is not None or weighted or self.dro or self.pbal or self.mstyle or self.adv)
+        ms = dg.MixStyle(self.net, gen) if vp_ms(self) else None  # MixStyle hooks on the first two convolutions (dg.MixStyle)
         self._prepare(); vp, m = self.vp, self.group
         groups = param_groups(self.net, lr, self.lld, head_only); opt = torch.optim.AdamW(groups, lr=lr, weight_decay=self.wd)
         nb = len(self._batches(rows, np.random.default_rng(0)))
@@ -54,6 +61,8 @@ class VNet(SB.SessionNet):
                     xb = dg.class_mix(xb, yb, gen, vp["cmix"])
                 if vp.get("cfsc"):
                     xb = torch.cat([dg.freq_scale(xb[c * m:(c + 1) * m], gen, vp["cfsc"]) for c in range(G)])
+                if ms:
+                    ms.on = float(torch.rand(1, generator=gen)) < self.vp["ms"]
                 opt.zero_grad(); lo = self.net(xb)[:, :3]
                 if vp.get("dro") or vp.get("pbal"):  # deep.AlignedNet._group_loss: GroupDRO over participants, or participant-balanced mean
                     old, self.dro = self.dro, vp.get("dro", 0.0)
@@ -69,6 +78,8 @@ class VNet(SB.SessionNet):
                 if vp.get("swa") and step > start:  # parameters and the SessionBN running statistics are averaged alike
                     sd = {k: v.detach().clone() for k, v in self.net.state_dict().items() if v.dtype.is_floating_point}; cnt += 1
                     mean = sd if mean is None else {k: mean[k] + (sd[k] - mean[k]) / cnt for k in sd}
+        if ms:
+            ms.remove()
         if vp.get("swa") and mean is not None:
             full = self.net.state_dict(); full.update(mean); self.net.load_state_dict(full); print(f"swa: averaged {cnt} steps", flush=True)
 
@@ -117,6 +128,9 @@ def main():
         for arm in ("dro01", "pbal"):
             run("fb", arm, d, "seen_session", 0, out, epochs=1); print("SMOKE PASS", arm, flush=True)
         return
+    if sys.argv[1] == "smoke_ms":
+        out = WS / "runs/diag/netaug/smoke"; out.mkdir(parents=True, exist_ok=True)
+        run("fbl", "ms05", d, "seen_session", 0, out, epochs=1); return print("SMOKE PASS ms05", flush=True)
     if sys.argv[1] == "smoke":
         out = WS / "runs/diag/netaug/smoke"; out.mkdir(parents=True, exist_ok=True)
         for arch in ARCHS:
@@ -124,7 +138,7 @@ def main():
         return
     t = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True)
     if t >= 300:
-        arch, arm, seed = EPS[t - 400] if t >= 400 else DRO[t - 300]
+        arch, arm, seed = MSTY[t - 500] if t >= 500 else EPS[t - 400] if t >= 400 else DRO[t - 300]
         for proto in ("all_loso", "seen_session"):
             run(arch, arm, d, proto, seed, OUT)
         return

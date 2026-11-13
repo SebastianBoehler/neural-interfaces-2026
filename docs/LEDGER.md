@@ -2660,3 +2660,17 @@ applies FT, OCU and REST only to sessions the gate has not recognised, and leave
 has new = V6F's new and seen = v5.1b's. **Dev reading of that form: J = +0.95 / 2 = +0.48 on draw 0, seen
 exactly 0.** It is exact in the replay because no new-person session is routed in dev. A false accept on the sealed
 set would send that session down v5.1b's routed path, which is what v5.1b does today.
+
+### 153. MSTYLE (backlog, gap 7): MixStyle on the SessionBN nets (written 13 Nov 08:03 UTC, before any job ran; `netaug.py` tasks 500–523, Leonardo)
+
+MixStyle was closed on 2 Nov on teacher pretraining, an earlier pipeline, and never tried on the SessionBN nets. Its
+mechanism (mixing feature statistics across windows) is close to what SessionBN normalises away per session, so it
+may be redundant there or complementary. Arms ms05 / ms10 (MixStyle on the first two convolutions with probability
+0.5 / 1 per batch), four families, seeds 0–2. **Screen:** against the in-harness twins (`focal_swap.py ARMS=ms05,ms10`;
+**reference: study twins, not v5.1b**). An arm passing the screen is then scored against v5.1b in `pkg.py` before any
+claim.
+
+| Check (new, six-base mean, against twins) | Prediction (80 % range) |
+|---|---|
+| ms05 / ms10 | 0.0 (−0.4 to +0.4) / −0.1 (−0.5 to +0.3) |
+| **Screen** | ≥ +0.30 without the best person → scored against v5.1b |
