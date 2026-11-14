@@ -187,5 +187,5 @@ for k in ARMS[1:] if sh_ else []:
     m = np.mean([R[o, bn, k] - R[o, bn, "base"] for o in sh_ for bn in BASES], 0)
     print(f"  shuffled mean ({','.join(sh_)}) {k:4s} {m.mean():+.2f} (P04 {m[0]:+.2f}, P10 {m[1]:+.2f})", flush=True)
 # one file per setting and order set (s202): runs with other settings no longer overwrite each other's results
-TAGS = "_".join(x for x in ("" if len(BASES) == 6 else "smoke", f"g{int(GATE_V51B)}", FT_FORM, FT_SFX, p, "-".join(ORDERS)) if x)
+TAGS = "_".join(x for x in ("p0" if RT_MEMBERS else "", "" if len(BASES) == 6 else "smoke", f"g{int(GATE_V51B)}", FT_FORM, FT_SFX, p, "-".join(ORDERS)) if x)  # p0: s214 fixes
 os.makedirs(f"{REPO}/runs/retv6", exist_ok=True); np.savez(f"{REPO}/runs/retv6/{TAGS}.npz", **{f"{o}|{bn}|{k}": v for (o, bn, k), v in R.items()}); print(f"written runs/retv6/{TAGS}.npz", flush=True)
