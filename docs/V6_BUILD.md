@@ -311,5 +311,24 @@ v6.2i rev2 (`lean/src62i` → `submissions/lean_v62i`, `submission.py` `ba2cf3a7
 | `record.py` stress, extreme, faults, long (577), switch, lapse; v6.2iL ERF and ER | Galvani CPU, 12 jobs | **all complete**, outputs finite, labels in {0, 1, 2}. The extreme case (float32-edge windows) raises once per run: v6.2's mix is not finite; the guard counts it, and the session continues on v5.1b |
 | Identity to v6.2h / v6.2hL, limit lifted, 14 sessions (r2 both gate modes, r1 off) | Galvani CPU `K*` (84) | pending |
 | `check_v6` / `check_v62` on the unzipped ZIPs, limit lifted (P01–P03) | Galvani CPU `Q*` (24) | pending |
-| A100 with 40 of 68 GB (`set_per_process_memory_fraction`), 190 / 378 / 800 windows | Galvani 3100458 | pending |
+| A100 memory share 40/68 (`set_per_process_memory_fraction`), 190 / 378 / 800 windows, v6.2iL ERF | Galvani 3100458, which is an **A100-PCIE-40GB**, so the share was about 23.5 GB | **pass**: errors 0; peak live 3.26 / 6.64 / 7.17 GB, peak reserved ≤ 24.7 GB; ratios ×1.73 / ×1.99 / ×1.65 (capped) against v5.1b on that card |
 | Worker image on a GPU (v5.1b, the four, v5.1b; SHA-checked) | Galvani 3100604 | pending |
+
+## v6.2iu: the time limit off (14 Nov, upload variant)
+
+Finalists are audited for reproducibility, and an audit rerun on other hardware must give the same labels. v6.2i rev2's
+per-session time limit makes outputs depend on machine speed (it binds on CPUs), and it protects nothing the 400-window
+cap does not already bound. v6.2iu sets `v6_ft_session_s` = 1e9 s, so it never binds: same code (`submission.py`
+`ba2cf3a7…`), same cap, every other file and array identical to rev2. **Run-time protection is the 400-window cap plus
+slack; outputs do not depend on timing.** The deterministic work bound (fixed-size refit batches, constant cost per
+window) belongs to track B. Packages `cand_v62_r1iLu` (**v6.2iLu ER, the upload candidate**, ledger §214), `r2iLu`,
+`r1iu`, `r2iu`; ZIPs `v62_*u.zip`.
+
+**Sealed run-time estimate, v6.2iLu ER.**
+- Formula: 1287 s (v5.1b's real sealed run, 21.45 min) × ratio + 1.1 min warm-up.
+- Ratios against v5.1b on the A100: unrecognised sessions (fine-tuned) ×1.85 at 190 windows and ×2.13 at 378
+  (Leonardo SXM); recognised sessions (no fine-tuning) ×1.29 and ×1.30. Track record of this estimate: −7 % to +6 %.
+- **Expected** (about 43 % of sessions recognised): **≈ 36 min** (190-window ratios) to **≈ 39 min** (378). **Worst
+  case** (no session recognised): **≈ 41 min** to **≈ 47 min**.
+- **Slowdown at which 60 min is exceeded** (uniform, against the A100 measurements): about **1.53–1.68×** expected,
+  **1.28–1.46×** worst case.
