@@ -346,3 +346,43 @@ ER 118.7 s, all 0.9945788530. Pending at 08:35 UTC on Galvani (141 jobs):
 - the stress cases on the r1iLu / r2iLu ZIPs (`W*`);
 - the ZIP reference checks (`Q*`);
 - the r1iLu 40 GB-share run (3100821).
+
+### Check table: v6.2iLu ER, the upload candidate (14 Nov 12:30 UTC)
+
+`cand_v62_r1iLu`. ZIP `v62_r1iLu.zip` SHA-256 `d0dd9934a77ceabb283b1c94e011c6d3b1c6ce4606480b0353408587a5df6fd3`;
+`submission.py` `ba2cf3a7…` (lean/src62i rev2).
+Keys:
+- fine-tuning labels L (the inner v5.1b's output); `v6_routed` 1 (no fine-tuning once recognised);
+- s15 schedule (t0 20, every 10, 5 steps, lr 1e-3);
+- cap 400; `v6_ft_session_s` 1e9 (time limit off).
+
+| # | Check | Where | Result |
+|---|---|---|---|
+| 1 | Build: data identical to rev2 except `v6_ft_session_s` (120 → 1e9); rev2 identical to v6.2hL except the guard key; code reviewed (package review, `evidence/review_14nov/`) | Mac, build6 asserts | pass |
+| 2 | Key ranges refused at load (cap 0, session_s 0, routed 3, every 0); build6 has no guard defaults | Mac | pass |
+| 3 | Official local replay of the ZIP | Mac CPU | 0.9945788530, files unchanged, 109.5 s |
+| 4 | Worker image on a GPU (the ZIP, SHA-checked) | Galvani 3100822, A100-PCIE-40GB, torch 2.14.1+cu130 | 0.9945788530 in 136.3 s (v5.1b 100.5 / 116.2 s), no errors |
+| 5 | Identity to rev2 (rev2's limit lifted), 14 sessions, gates forced off | Galvani CPU `Ur1iLuo*` | 14/14 bitwise |
+| 6 | Identity chain rev2 → v6.2hL (14 sessions, gates off) | Galvani CPU `Kr1iLo*` | 14/14 bitwise |
+| 7 | `check_v6` on the unzipped ZIP (eye, rest, FT from the L labels, mix6, tail against references outside the package), P01–P03, gates off | Galvani CPU `Z6r1iLu*` | pass: eye ≤ 6.4e-7, rest ≤ 3.6e-7, FT ≤ 1.2e-5 (tolerance 1e-4), mix6 ≤ 2.8e-17, tail 0 |
+| 8 | `check_v62` on the unzipped ZIP (routed path, gates as shipped), P01–P03 | Galvani CPU `Z62r1iLu*` | pass: routed 0, shadow 0, mix 0, eye ≤ 6.4e-7 |
+| 9 | Forced exception at window 30 on the unzipped ZIP (eye as shipped, FT gates off), P01–P03 | Galvani CPU `ZX*` | 6/6: completes, errors 1, windows 0–29 bitwise as the unforced run, 30 on bitwise v5.1b (inner and package) |
+| 10 | `record.py` stress / extreme / faults / long (577) / switch / lapse on the unzipped ZIP | Galvani CPU `W*` | 6/6 complete, outputs finite, labels in {0, 1, 2}; extreme: one caught error (v6.2 mix not finite) |
+| 11 | Memory: 40/68 share of a 40 GB A100 (about 23.5 GB) | Galvani 3100821 | errors 0; peak live 3.26 / 6.64 / 7.17 GB (190 / 378 / 800), reserved ≤ 24.7 GB |
+| 12 | Run time on that card | Galvani 3100821 | gates off ×1.73 / ×1.96 (190 / 378), as shipped ×1.24 / ×1.25, 800 windows capped ×1.65 |
+| 13 | Run time on an A100 SXM | Leonardo, on v6.2h / v6.2g (identical computation) | gates off ×1.85 / ×2.13, as shipped ×1.29 / ×1.30 |
+| 14 | Sealed estimate (1287 s × ratio + 1.1 min) | from 12–13 | expected ≈ 36–39 min, worst ≈ 41–47 min; 60 min at a uniform slowdown of 1.53–1.68× (expected) / 1.28–1.46× (worst) |
+| 15 | Cross-session state | code audit | none that changes predictions (no module-level state; fine-tuning reloads and reseeds per session) |
+| 16 | NaN-safe comparisons in the check scripts; forced NaN must fail | Mac | pass (ft = inf, exit 1) |
+
+Not validated:
+- The real Codabench worker. Only a replica of its image was run, on Galvani's A100-PCIE-40GB; the worker's GPU type,
+  driver and CPU count are unknown. The run-time estimate's track record is −7 % … +6 %.
+- **Reproducibility of fine-tuned labels on a GPU.** cuDNN is not set to deterministic, so fine-tuning on a GPU differs
+  run to run (the A100 FT reference spread reached 2–4e-4 in posteriors). An audit rerun on a GPU may change labels in
+  unrecognised sessions; on a CPU it is bitwise reproducible. Deterministic cuDNN is in track B.
+- The A100 package-shape reference checks (`--ref-shapes package`) were last run on v6.2g / v6.2gL / v6.2hL, not on this
+  ZIP. The code path is identical, and the CPU checks above are on this ZIP.
+- A poisoned CUDA context (a sticky CUDA error) also hits v5.1b's nets; the exception guard does not cover it.
+- There is no timeout on the core threads.
+- The sealed data: session lengths, recognition share and delivery order are unknown.
