@@ -5026,7 +5026,7 @@ braindecode 1.8.1).**
 | v6.2g ERF 90a62470… (pre-guard) | 0.994579, files unchanged, 2,786 s (FT on CPU) |
 | v6.2hL ER 2f53c3f9… | 0.994579, files unchanged, [v6] errors 0, 288 s |
 | v6.2h ER 9bf9f6e4… | 0.994579, files unchanged, [v6] errors 0, 268 s |
-| v6.2hL ERF e22f67e7… | running (64445340), then the FT path in the image (64445345) |
+| v6.2hL ERF e22f67e7… | 0.994579, files unchanged, 2,786 s; [v6] 17 refits / 340 steps, errors 0; one session frozen 48 by the FT wall-clock budget on CPU (guard as designed) |
 | v6.2h ERF 3b13ff96… | running (64445997), then the FT path (64445998) |
 
 GPU runs of the image need Galvani (3100010 / 3100013).
