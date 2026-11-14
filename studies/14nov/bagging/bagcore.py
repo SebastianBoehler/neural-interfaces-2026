@@ -14,7 +14,7 @@ sys.path[:0] = [REPO + "/experiments"]
 import protocol  # noqa: E402
 import ts_core2 as T  # noqa: E402
 
-CFG, C = "car_ov17_fs2_t0.1_le_k2", 0.3
+CFG, C = os.environ.get("CFG", "car_ov17_fs2_t0.1_le_k2"), 0.3  # CFG override: smoke tests only
 NL2, NJ = int(os.environ.get("NL2", 8)), int(os.environ.get("NJ", 4))
 PROTOS = os.environ.get("PROTOS", "all_loso,seen_session").split(",")
 T0 = time.time(); d = protocol.load(); fe = T.Feats(d, T.parse(CFG)); N = len(d["y"]); subj = d["subject"]
@@ -50,5 +50,5 @@ for proto in PROTOS:
         print(f"  {proto} {name}: {len(jobs)} fits, mean {np.mean([r[1] for r in res]):.0f}s per fit ({time.time() - T0:.0f}s)", flush=True)
     OUT.update({f"{proto}|full": full, f"{proto}|l1": l1.astype(np.float32), f"{proto}|l2": l2.astype(np.float32)})
 os.makedirs(REPO + "/runs/bagging", exist_ok=True)
-np.savez_compressed(REPO + "/runs/bagging/bagcore.npz", secs=np.array(SECS), **OUT)
-print("saved runs/bagging/bagcore.npz", f"{time.time() - T0:.0f}s")
+np.savez_compressed(os.environ.get("OUT", REPO + "/runs/bagging/bagcore.npz"), secs=np.array(SECS), **OUT)
+print("saved", f"{time.time() - T0:.0f}s")

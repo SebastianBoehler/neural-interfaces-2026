@@ -5494,3 +5494,31 @@ fixes in brackets:
 - **Consequence:** v6.2hL-safe (ER) is the scheme-robust candidate. It leads or ties under every scheme, with no
   routed-FT fragility. The "eye order mismatched, members as recorded" mark on the returning rows is lifted for these
   corrected rows.
+
+**§222 RESULT (14 Nov 08:01 UTC; runs/views/{bands,sub8_*,tview_*}.log; check.py OK; recording order).** Refuted: the sub-8 view
+fails the panel's kill in every form and loses in the chain.
+- **Per band, member alone (LOPO, new / seen):** 1–4 40.5 / 45.4; 4–8 42.0 / 42.5; 8–13 **44.8** / 42.0; 13–20 42.4 / 44.3;
+  20–30 36.9 / 37.6; 30–45 34.3 / 33.6. 1–4 + 4–8 full 41 × 41: 45.0 / 49.5. All six bands concatenated: 58.1 new (core1 with
+  17 bands, halves and the slow block: 69.3).
+- **Per band, template ceiling** (TSEM with true labels, new / seen; pc128 71.7 / 66.0): 1–4 54.4 / 53.4; 4–8 57.2 / 56.3;
+  8–13 **66.6** / 53.6; 13–20 54.4 / 52.8; 20–30 51.5 / 40.7; 30–45 47.7 / 46.2. The panel's variance shares are not
+  discriminability: 8–13 Hz carries the most class information both across people and within a session. The
+  prediction (sub-8 bands the two best) is refuted.
+- **The view** (member new / seen; template ceiling new; TSEM-alone new; chain dJ replacing pc128 / appended):
+
+| form | dim | member | ceiling | TSEM | replace | append |
+|---|---|---|---|---|---|---|
+| full 41 × 41, 2 bands | 1722 | 45.0 / 49.5 | 60.1 | – | – | – |
+| CSP 12 | 156 | 40.4 / 40.5 | 54.0 | 52.6 | −2.96 | −1.40 |
+| CSP 16 | 272 | 38.6 / 38.5 | 53.2 | 50.9 | −2.77 | −1.22 |
+| CSP 12, no recentring (order-free) | 156 | 36.2 / 36.0 | 56.4 | 53.2 | −2.31 | −0.95 |
+| PCA 12, recentred after projection | 156 | **51.0** / 50.5 | **63.1** | 61.0 | −1.50 | −0.78 |
+| CSP 12, 4 sub-bands | 312 | 39.7 / 40.1 | 54.6 | 53.6 | −3.63 | −1.60 |
+| CSP 12 + ERP-prototype covariance | 292 | 41.1 / 39.2 | 53.2 | 51.6 | −3.53 | −1.96 |
+
+  pc128 for reference: TSEM alone 69.8 new. Phi of correctness with the eye net 0.10–0.17 (the panel's streak risk is
+  absent, but there is nothing to add).
+- **Reading:** spatial reduction fit on other people hurts (CSP below the full 41 × 41 in every measure); PCA with
+  in-session recentring is the best form and still below 55 % alone and 9 points below pc128 as a template view. The ERP
+  augmentation adds nothing (−0.5 to −1). Every append loses (−0.8 to −2.0), far outside ±0.3. **Closed as a view**
+  (kill met: best member 51.0 < 55; no form reaches pc128's ceiling). No shuffled chain test is warranted.
