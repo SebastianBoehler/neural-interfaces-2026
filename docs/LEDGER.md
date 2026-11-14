@@ -5338,3 +5338,33 @@ filter off).** τ 2 (τ 1 similar). Means over six orders:
   "undecided" for the direction (prototype step, other families, both stratified and unstratified episodes remain open);
   it is closed for this form only if the chain is ≤ −0.3 or the balanced family-alone change is ≤ 0. If E0 − stock is
   as large as E − stock, the difference is read as retraining noise, not as the mechanism.
+
+### 221. FT PREFIX RELABELLING AND EVEN SAMPLING (written 14 Nov 07:33 UTC, before any result; performance panel 14 Nov P3)
+- **Mechanism:** the s15 refits train on the whole prefix with each window's label as emitted when it arrived, and full
+  batches visit early windows far more often (window 0 about 85 steps, window 175 about 5 in a 190-window session), so
+  the oldest, worst labels weigh most. (a) Relabel: at the refit at t, every window 0..t-1 takes the label chain's
+  output under its state at t. (b) Even visits: every window in the prefix has the same cumulative visits.
+- **What the label files allow:** `runs/labels/chain_*_<order>.npz` hold one output per window, as emitted when it
+  arrived (shufcombo LAB = stage output in delivery order). The chain's output for an old window at a later state is not
+  in them. `studies/14nov/ftrelabel/relabel.py` reruns the label chain (shufcombo LABEL_OUT, LABEL_ARM=V6r, GATE_P0 =
+  chain_v6r = v6.1's labels K for new people) with hooks on gm.em_g and gm.tsem_g: at each s15 refit time (t = 20, 30,
+  …) it applies EM's and TSEM's state at t (fitted on windows < t exactly as the stock stage, gate of the window at t)
+  to all earlier windows; the stage inputs (rebalanced mix) stay as emitted. Causal. Checks: the state applied to window
+  t reproduces the stock output for window t (1e-9); the as-emitted labels agree with chain_v6r (argmax 0.984 within 1,
+  ≥ 0.998 elsewhere: today's chain carries s214's eye-order fix, so every arm takes its labels from the new file).
+  Label accuracy, relabelled against as emitted over the same windows, refits at t = 60–180: about +0.5 to +1.5 points
+  on most orders, −0.6 to +0.8 on within 1 and 3. Files `runs/labels/relab_v6r_{within0-3,full0,full1}.npz`.
+- **Arms** (`studies/14nov/ftrelabel/ftrel.py`, s15 hyperparameters, new people only, tag `ttt18<order>RP`, in-run
+  control s15 on the same labels; one Galvani array of 24 tasks per order): r15 relabel; e15 even visits = loss
+  weights water-filled so that cumulative weights are level after every refit, budget t per refit (today's batch size,
+  in expectation; first refit uniform); b15 both (the proposal); q15 even visits at a fixed budget of 20 (a fixed batch
+  of 20 in expectation; drifts to the newest windows). Weights replace drawn batches (same expected gradient; SessionBN
+  statistics, KL anchor and cost unchanged). Smoke: control s15 must equal ttt7.stream's s15 (≤ 1e-4).
+- **Scoring:** shufcombo (OCU_DIR=runs/ocushuf/<order>, GATE_P0=1, FT_TAG=ttt18<order>RP, FT_V=<arm>, REC_PFX=ttt7,
+  T6_DIR=runs/ttt/probs7, T17_DIR=runs/ttt/probs18), line "combination over v5.1b, both shuffled", new people, each arm
+  minus the in-run s15 on within 0–3 and full 0/1; RF/KF s15 rows of §198/§200 alongside as references.
+- **Prediction:** b15 − s15: within mean +0.15 (−0.1 to +0.4), full mean +0.1 (−0.2 to +0.4). r15 about +0.1, e15 about
+  0 (±0.2), q15 −0.2 (−0.6 to +0.1; recency, cf. §161's cap −0.05/−0.10).
+- **Kill (panel's, adopted) for b15:** under +0.15 over s15 within (mean of 0–3), or negative on full (mean of 0/1) → not
+  adopted. Per AGENTS a delta inside ±0.3 is recorded "undecided" for the direction (other forms: soft relabelled
+  labels, relabel with the FT chain itself, sampled batches), not closed; closed for these forms only if ≤ −0.3.
