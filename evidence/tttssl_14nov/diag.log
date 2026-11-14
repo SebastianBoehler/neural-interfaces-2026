@@ -1,0 +1,372 @@
+DIAG tttssl_twin s0 Dreyer2026Proteus/P01|1 n=190 na acc 0.668 | pl40 acc 0.763 | tent40 acc 0.337
+DIAG tttssl_twin s0 Dreyer2026Proteus/P02|1 n=189 na acc 0.635 | pl40 acc 0.852 | tent40 acc 0.360
+DIAG tttssl_twin s0 Dreyer2026Proteus/P03|1 n=189 na acc 0.429 | pl40 acc 0.746 | tent40 acc 0.333
+DIAG tttssl_twin s0 Dreyer2026Proteus/P04|1 n=189 na acc 0.497 | pl40 acc 0.519 | tent40 acc 0.328
+DIAG tttssl_twin s0 Dreyer2026Proteus/P04|2 n=189 na acc 0.444 | pl40 acc 0.492 | tent40 acc 0.333
+DIAG tttssl_twin s0 Dreyer2026Proteus/P04|3 n=188 na acc 0.410 | pl40 acc 0.580 | tent40 acc 0.330
+DIAG tttssl_twin s0 Dreyer2026Proteus/P05|1 n=190 na acc 0.489 | pl40 acc 0.726 | tent40 acc 0.332
+DIAG tttssl_twin s0 Dreyer2026Proteus/P06|1 n=187 na acc 0.556 | pl40 acc 0.845 | tent40 acc 0.332
+DIAG tttssl_twin s0 Dreyer2026Proteus/P07|1 n=189 na acc 0.672 | pl40 acc 0.899 | tent40 acc 0.333
+DIAG tttssl_twin s0 Dreyer2026Proteus/P08|1 n=189 na acc 0.704 | pl40 acc 0.884 | tent40 acc 0.571
+DIAG tttssl_twin s0 Dreyer2026Proteus/P09|1 n=189 na acc 0.630 | pl40 acc 0.868 | tent40 acc 0.323
+DIAG tttssl_twin s0 Dreyer2026Proteus/P10|1 n=192 na acc 0.568 | pl40 acc 0.760 | tent40 acc 0.333
+DIAG tttssl_twin s0 Dreyer2026Proteus/P10|2 n=186 na acc 0.656 | pl40 acc 0.930 | tent40 acc 0.344
+DIAG tttssl_twin s0 Dreyer2026Proteus/P10|3 n=199 na acc 0.633 | pl40 acc 0.905 | tent40 acc 0.337
+   joint C: aux loss 3.960 -> 0.406
+DIAG tttssl_C s3 Dreyer2026Proteus/P01|1 n=190 na acc 0.532 | sA10 acc 0.542 aux 1.534->0.681 | sA40 acc 0.516 aux 1.534->0.367 | sA100 acc 0.500 aux 1.534->0.348 | sB40 acc 0.532 aux 1.534->0.944 | pl40 acc 0.742 | spl40 acc 0.642 aux 1.534->0.536
+   joint C: aux loss 4.176 -> 0.413
+DIAG tttssl_C s3 Dreyer2026Proteus/P02|1 n=189 na acc 0.519 | sA10 acc 0.545 aux 1.314->0.606 | sA40 acc 0.571 aux 1.314->0.341 | sA100 acc 0.577 aux 1.314->0.307 | sB40 acc 0.556 aux 1.314->0.803 | pl40 acc 0.852 | spl40 acc 0.730 aux 1.314->0.429
+   joint C: aux loss 4.176 -> 0.424
+DIAG tttssl_C s3 Dreyer2026Proteus/P03|1 n=189 na acc 0.503 | sA10 acc 0.529 aux 1.647->0.605 | sA40 acc 0.508 aux 1.647->0.371 | sA100 acc 0.524 aux 1.647->0.331 | sB40 acc 0.508 aux 1.647->1.000 | pl40 acc 0.735 | spl40 acc 0.672 aux 1.647->0.514
+   joint C: aux loss 4.219 -> 0.865
+DIAG tttssl_C s3 Dreyer2026Proteus/P04|1 n=189 na acc 0.439 | sA10 acc 0.402 aux 1.689->0.785 | sA40 acc 0.392 aux 1.689->0.399 | sA100 acc 0.402 aux 1.689->0.411 | sB40 acc 0.429 aux 1.689->0.957 | pl40 acc 0.503 | spl40 acc 0.476 aux 1.689->0.633
+DIAG tttssl_C s3 Dreyer2026Proteus/P04|2 n=189 na acc 0.423 | sA10 acc 0.423 aux 1.871->0.805 | sA40 acc 0.444 aux 1.871->0.375 | sA100 acc 0.429 aux 1.871->0.386 | sB40 acc 0.397 aux 1.871->0.968 | pl40 acc 0.497 | spl40 acc 0.429 aux 1.871->0.608
+DIAG tttssl_C s3 Dreyer2026Proteus/P04|3 n=188 na acc 0.410 | sA10 acc 0.404 aux 1.747->0.773 | sA40 acc 0.388 aux 1.747->0.384 | sA100 acc 0.378 aux 1.747->0.382 | sB40 acc 0.404 aux 1.747->1.015 | pl40 acc 0.569 | spl40 acc 0.511 aux 1.747->0.556
+   joint C: aux loss 4.372 -> 0.354
+DIAG tttssl_C s3 Dreyer2026Proteus/P05|1 n=190 na acc 0.479 | sA10 acc 0.453 aux 2.781->1.313 | sA40 acc 0.437 aux 2.781->0.612 | sA100 acc 0.411 aux 2.781->0.567 | sB40 acc 0.474 aux 2.781->1.360 | pl40 acc 0.711 | spl40 acc 0.605 aux 2.781->0.937
+   joint C: aux loss 4.176 -> 0.383
+DIAG tttssl_C s3 Dreyer2026Proteus/P06|1 n=187 na acc 0.583 | sA10 acc 0.578 aux 1.693->0.641 | sA40 acc 0.599 aux 1.693->0.323 | sA100 acc 0.551 aux 1.693->0.277 | sB40 acc 0.599 aux 1.693->0.930 | pl40 acc 0.829 | spl40 acc 0.775 aux 1.693->0.486
+   joint C: aux loss 4.372 -> 0.470
+DIAG tttssl_C s3 Dreyer2026Proteus/P07|1 n=189 na acc 0.593 | sA10 acc 0.593 aux 1.690->0.712 | sA40 acc 0.587 aux 1.690->0.352 | sA100 acc 0.593 aux 1.690->0.369 | sB40 acc 0.630 aux 1.690->0.834 | pl40 acc 0.894 | spl40 acc 0.820 aux 1.690->0.537
+   joint C: aux loss 4.372 -> 0.315
+DIAG tttssl_C s3 Dreyer2026Proteus/P08|1 n=189 na acc 0.698 | sA10 acc 0.698 aux 1.671->0.720 | sA40 acc 0.698 aux 1.671->0.411 | sA100 acc 0.693 aux 1.671->0.394 | sB40 acc 0.704 aux 1.671->1.277 | pl40 acc 0.873 | spl40 acc 0.810 aux 1.671->0.504
+   joint C: aux loss 4.250 -> 0.373
+DIAG tttssl_C s3 Dreyer2026Proteus/P09|1 n=189 na acc 0.593 | sA10 acc 0.603 aux 1.565->0.753 | sA40 acc 0.582 aux 1.565->0.397 | sA100 acc 0.582 aux 1.565->0.359 | sB40 acc 0.593 aux 1.565->1.043 | pl40 acc 0.852 | spl40 acc 0.772 aux 1.565->0.523
+   joint C: aux loss 4.183 -> 0.432
+DIAG tttssl_C s3 Dreyer2026Proteus/P10|1 n=192 na acc 0.573 | sA10 acc 0.526 aux 1.708->0.765 | sA40 acc 0.484 aux 1.708->0.368 | sA100 acc 0.495 aux 1.708->0.332 | sB40 acc 0.547 aux 1.708->0.999 | pl40 acc 0.766 | spl40 acc 0.677 aux 1.708->0.501
+DIAG tttssl_C s3 Dreyer2026Proteus/P10|2 n=186 na acc 0.618 | sA10 acc 0.608 aux 1.794->0.795 | sA40 acc 0.629 aux 1.794->0.345 | sA100 acc 0.640 aux 1.794->0.327 | sB40 acc 0.629 aux 1.794->1.096 | pl40 acc 0.887 | spl40 acc 0.774 aux 1.794->0.498
+DIAG tttssl_C s3 Dreyer2026Proteus/P10|3 n=199 na acc 0.603 | sA10 acc 0.598 aux 1.210->0.692 | sA40 acc 0.603 aux 1.210->0.408 | sA100 acc 0.593 aux 1.210->0.233 | sB40 acc 0.608 aux 1.210->1.150 | pl40 acc 0.884 | spl40 acc 0.749 aux 1.210->0.368
+   joint P: aux loss 0.712 -> 0.054
+DIAG tttssl_P s3 Dreyer2026Proteus/P01|1 n=190 na acc 0.653 | mirror_acc 0.642 | sA10 acc 0.653 aux 0.676->0.125 | sA40 acc 0.632 aux 0.676->0.009 | sA100 acc 0.600 aux 0.676->0.003 | sB40 acc 0.653 aux 0.676->0.626 | pl40 acc 0.779 | spl40 acc 0.758 aux 0.676->0.019
+   joint P: aux loss 0.687 -> 0.068
+DIAG tttssl_P s3 Dreyer2026Proteus/P02|1 n=189 na acc 0.598 | mirror_acc 1.000 | sA10 acc 0.603 aux 0.067->0.006 | sA40 acc 0.593 aux 0.067->0.001 | sA100 acc 0.561 aux 0.067->0.000 | sB40 acc 0.593 aux 0.067->0.052 | pl40 acc 0.857 | spl40 acc 0.857 aux 0.067->0.005
+   joint P: aux loss 0.687 -> 0.069
+DIAG tttssl_P s3 Dreyer2026Proteus/P03|1 n=189 na acc 0.450 | mirror_acc 1.000 | sA10 acc 0.455 aux 0.089->0.009 | sA40 acc 0.460 aux 0.089->0.001 | sA100 acc 0.429 aux 0.089->0.001 | sB40 acc 0.444 aux 0.089->0.073 | pl40 acc 0.746 | spl40 acc 0.725 aux 0.089->0.007
+   joint P: aux loss 0.717 -> 0.128
+DIAG tttssl_P s3 Dreyer2026Proteus/P04|1 n=189 na acc 0.492 | mirror_acc 0.841 | sA10 acc 0.476 aux 0.489->0.124 | sA40 acc 0.497 aux 0.489->0.013 | sA100 acc 0.471 aux 0.489->0.004 | sB40 acc 0.481 aux 0.489->0.445 | pl40 acc 0.524 | spl40 acc 0.519 aux 0.489->0.025
+DIAG tttssl_P s3 Dreyer2026Proteus/P04|2 n=189 na acc 0.471 | mirror_acc 1.000 | sA10 acc 0.434 aux 0.064->0.008 | sA40 acc 0.455 aux 0.064->0.001 | sA100 acc 0.444 aux 0.064->0.000 | sB40 acc 0.466 aux 0.064->0.054 | pl40 acc 0.497 | spl40 acc 0.497 aux 0.064->0.008
+DIAG tttssl_P s3 Dreyer2026Proteus/P04|3 n=188 na acc 0.399 | mirror_acc 0.968 | sA10 acc 0.399 aux 0.179->0.023 | sA40 acc 0.404 aux 0.179->0.003 | sA100 acc 0.410 aux 0.179->0.001 | sB40 acc 0.404 aux 0.179->0.149 | pl40 acc 0.580 | spl40 acc 0.569 aux 0.179->0.011
+   joint P: aux loss 0.679 -> 0.048
+DIAG tttssl_P s3 Dreyer2026Proteus/P05|1 n=190 na acc 0.437 | mirror_acc 0.726 | sA10 acc 0.395 aux 0.641->0.061 | sA40 acc 0.374 aux 0.641->0.005 | sA100 acc 0.389 aux 0.641->0.002 | sB40 acc 0.437 aux 0.641->0.544 | pl40 acc 0.705 | spl40 acc 0.689 aux 0.641->0.012
+   joint P: aux loss 0.687 -> 0.070
+DIAG tttssl_P s3 Dreyer2026Proteus/P06|1 n=187 na acc 0.551 | mirror_acc 0.984 | sA10 acc 0.540 aux 0.099->0.013 | sA40 acc 0.519 aux 0.099->0.002 | sA100 acc 0.492 aux 0.099->0.001 | sB40 acc 0.535 aux 0.099->0.095 | pl40 acc 0.829 | spl40 acc 0.840 aux 0.099->0.010
+   joint P: aux loss 0.679 -> 0.076
+DIAG tttssl_P s3 Dreyer2026Proteus/P07|1 n=189 na acc 0.688 | mirror_acc 0.995 | sA10 acc 0.698 aux 0.148->0.018 | sA40 acc 0.688 aux 0.148->0.002 | sA100 acc 0.677 aux 0.148->0.001 | sB40 acc 0.688 aux 0.148->0.130 | pl40 acc 0.899 | spl40 acc 0.884 aux 0.148->0.012
+   joint P: aux loss 0.679 -> 0.079
+DIAG tttssl_P s3 Dreyer2026Proteus/P08|1 n=189 na acc 0.693 | mirror_acc 0.979 | sA10 acc 0.704 aux 0.166->0.016 | sA40 acc 0.709 aux 0.166->0.001 | sA100 acc 0.720 aux 0.166->0.001 | sB40 acc 0.693 aux 0.166->0.143 | pl40 acc 0.878 | spl40 acc 0.862 aux 0.166->0.005
+   joint P: aux loss 0.717 -> 0.081
+DIAG tttssl_P s3 Dreyer2026Proteus/P09|1 n=189 na acc 0.646 | mirror_acc 0.614 | sA10 acc 0.630 aux 0.662->0.089 | sA40 acc 0.582 aux 0.662->0.005 | sA100 acc 0.593 aux 0.662->0.002 | sB40 acc 0.630 aux 0.662->0.599 | pl40 acc 0.857 | spl40 acc 0.841 aux 0.662->0.012
+   joint P: aux loss 0.692 -> 0.082
+DIAG tttssl_P s3 Dreyer2026Proteus/P10|1 n=192 na acc 0.583 | mirror_acc 0.984 | sA10 acc 0.542 aux 0.255->0.017 | sA40 acc 0.510 aux 0.255->0.002 | sA100 acc 0.516 aux 0.255->0.001 | sB40 acc 0.589 aux 0.255->0.220 | pl40 acc 0.781 | spl40 acc 0.792 aux 0.255->0.007
+DIAG tttssl_P s3 Dreyer2026Proteus/P10|2 n=186 na acc 0.720 | mirror_acc 0.989 | sA10 acc 0.683 aux 0.251->0.016 | sA40 acc 0.667 aux 0.251->0.001 | sA100 acc 0.645 aux 0.251->0.001 | sB40 acc 0.726 aux 0.251->0.229 | pl40 acc 0.909 | spl40 acc 0.909 aux 0.251->0.006
+DIAG tttssl_P s3 Dreyer2026Proteus/P10|3 n=199 na acc 0.623 | mirror_acc 1.000 | sA10 acc 0.578 aux 0.157->0.012 | sA40 acc 0.573 aux 0.157->0.001 | sA100 acc 0.558 aux 0.157->0.000 | sB40 acc 0.623 aux 0.157->0.137 | pl40 acc 0.889 | spl40 acc 0.879 aux 0.157->0.009
+DIAG tttssl_twin s4 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | pl40 acc 0.768 | tent40 acc 0.374
+DIAG tttssl_twin s4 Dreyer2026Proteus/P02|1 n=189 na acc 0.603 | pl40 acc 0.857 | tent40 acc 0.360
+DIAG tttssl_twin s4 Dreyer2026Proteus/P03|1 n=189 na acc 0.407 | pl40 acc 0.757 | tent40 acc 0.333
+DIAG tttssl_twin s4 Dreyer2026Proteus/P04|1 n=189 na acc 0.476 | pl40 acc 0.508 | tent40 acc 0.339
+DIAG tttssl_twin s4 Dreyer2026Proteus/P04|2 n=189 na acc 0.423 | pl40 acc 0.492 | tent40 acc 0.333
+DIAG tttssl_twin s4 Dreyer2026Proteus/P04|3 n=188 na acc 0.383 | pl40 acc 0.585 | tent40 acc 0.335
+DIAG tttssl_twin s4 Dreyer2026Proteus/P05|1 n=190 na acc 0.495 | pl40 acc 0.732 | tent40 acc 0.332
+DIAG tttssl_twin s4 Dreyer2026Proteus/P06|1 n=187 na acc 0.524 | pl40 acc 0.840 | tent40 acc 0.332
+DIAG tttssl_twin s4 Dreyer2026Proteus/P07|1 n=189 na acc 0.709 | pl40 acc 0.889 | tent40 acc 0.333
+DIAG tttssl_twin s4 Dreyer2026Proteus/P08|1 n=189 na acc 0.698 | pl40 acc 0.862 | tent40 acc 0.614
+DIAG tttssl_twin s4 Dreyer2026Proteus/P09|1 n=189 na acc 0.635 | pl40 acc 0.852 | tent40 acc 0.323
+DIAG tttssl_twin s4 Dreyer2026Proteus/P10|1 n=192 na acc 0.557 | pl40 acc 0.776 | tent40 acc 0.333
+DIAG tttssl_twin s4 Dreyer2026Proteus/P10|2 n=186 na acc 0.694 | pl40 acc 0.925 | tent40 acc 0.344
+DIAG tttssl_twin s4 Dreyer2026Proteus/P10|3 n=199 na acc 0.608 | pl40 acc 0.899 | tent40 acc 0.347
+   joint C: aux loss 4.345 -> 0.267
+DIAG tttssl_C s4 Dreyer2026Proteus/P01|1 n=190 na acc 0.563 | sA10 acc 0.579 aux 1.498->0.723 | sA40 acc 0.574 aux 1.498->0.372 | sA100 acc 0.547 aux 1.498->0.284 | sB40 acc 0.584 aux 1.498->1.027 | pl40 acc 0.779 | spl40 acc 0.632 aux 1.498->0.421
+   joint C: aux loss 4.345 -> 0.356
+DIAG tttssl_C s4 Dreyer2026Proteus/P02|1 n=189 na acc 0.582 | sA10 acc 0.566 aux 1.154->0.592 | sA40 acc 0.561 aux 1.154->0.349 | sA100 acc 0.566 aux 1.154->0.243 | sB40 acc 0.598 aux 1.154->0.848 | pl40 acc 0.852 | spl40 acc 0.693 aux 1.154->0.377
+   joint C: aux loss 4.345 -> 0.242
+DIAG tttssl_C s4 Dreyer2026Proteus/P03|1 n=189 na acc 0.471 | sA10 acc 0.471 aux 1.483->0.707 | sA40 acc 0.503 aux 1.483->0.361 | sA100 acc 0.481 aux 1.483->0.274 | sB40 acc 0.503 aux 1.483->1.026 | pl40 acc 0.730 | spl40 acc 0.624 aux 1.483->0.399
+   joint C: aux loss 4.679 -> 0.137
+DIAG tttssl_C s4 Dreyer2026Proteus/P04|1 n=189 na acc 0.402 | sA10 acc 0.413 aux 1.695->0.853 | sA40 acc 0.386 aux 1.695->0.430 | sA100 acc 0.386 aux 1.695->0.309 | sB40 acc 0.386 aux 1.695->1.029 | pl40 acc 0.481 | spl40 acc 0.429 aux 1.695->0.480
+DIAG tttssl_C s4 Dreyer2026Proteus/P04|2 n=189 na acc 0.407 | sA10 acc 0.386 aux 1.748->0.751 | sA40 acc 0.407 aux 1.748->0.388 | sA100 acc 0.392 aux 1.748->0.276 | sB40 acc 0.397 aux 1.748->1.018 | pl40 acc 0.466 | spl40 acc 0.423 aux 1.748->0.441
+DIAG tttssl_C s4 Dreyer2026Proteus/P04|3 n=188 na acc 0.372 | sA10 acc 0.378 aux 1.582->0.680 | sA40 acc 0.394 aux 1.582->0.399 | sA100 acc 0.394 aux 1.582->0.277 | sB40 acc 0.372 aux 1.582->1.107 | pl40 acc 0.580 | spl40 acc 0.457 aux 1.582->0.455
+   joint C: aux loss 4.614 -> 0.359
+DIAG tttssl_C s4 Dreyer2026Proteus/P05|1 n=190 na acc 0.426 | sA10 acc 0.453 aux 2.526->1.370 | sA40 acc 0.416 aux 2.526->0.584 | sA100 acc 0.416 aux 2.526->0.477 | sB40 acc 0.474 aux 2.526->1.346 | pl40 acc 0.695 | spl40 acc 0.579 aux 2.526->0.687
+   joint C: aux loss 4.345 -> 0.201
+DIAG tttssl_C s4 Dreyer2026Proteus/P06|1 n=187 na acc 0.572 | sA10 acc 0.578 aux 1.633->0.696 | sA40 acc 0.556 aux 1.633->0.318 | sA100 acc 0.524 aux 1.633->0.246 | sB40 acc 0.578 aux 1.633->0.930 | pl40 acc 0.850 | spl40 acc 0.791 aux 1.633->0.389
+   joint C: aux loss 4.345 -> 0.224
+DIAG tttssl_C s4 Dreyer2026Proteus/P07|1 n=189 na acc 0.608 | sA10 acc 0.614 aux 1.487->0.705 | sA40 acc 0.545 aux 1.487->0.367 | sA100 acc 0.561 aux 1.487->0.297 | sB40 acc 0.635 aux 1.487->0.878 | pl40 acc 0.899 | spl40 acc 0.794 aux 1.487->0.426
+   joint C: aux loss 4.644 -> 0.282
+DIAG tttssl_C s4 Dreyer2026Proteus/P08|1 n=189 na acc 0.714 | sA10 acc 0.735 aux 1.479->0.709 | sA40 acc 0.735 aux 1.479->0.420 | sA100 acc 0.698 aux 1.479->0.270 | sB40 acc 0.709 aux 1.479->1.230 | pl40 acc 0.873 | spl40 acc 0.804 aux 1.479->0.435
+   joint C: aux loss 4.481 -> 0.280
+DIAG tttssl_C s4 Dreyer2026Proteus/P09|1 n=189 na acc 0.534 | sA10 acc 0.550 aux 1.512->0.676 | sA40 acc 0.513 aux 1.512->0.374 | sA100 acc 0.481 aux 1.512->0.275 | sB40 acc 0.561 aux 1.512->1.036 | pl40 acc 0.841 | spl40 acc 0.725 aux 1.512->0.436
+   joint C: aux loss 4.397 -> 0.474
+DIAG tttssl_C s4 Dreyer2026Proteus/P10|1 n=192 na acc 0.469 | sA10 acc 0.484 aux 1.636->0.760 | sA40 acc 0.448 aux 1.636->0.368 | sA100 acc 0.401 aux 1.636->0.272 | sB40 acc 0.490 aux 1.636->0.928 | pl40 acc 0.781 | spl40 acc 0.615 aux 1.636->0.360
+DIAG tttssl_C s4 Dreyer2026Proteus/P10|2 n=186 na acc 0.661 | sA10 acc 0.629 aux 1.662->0.817 | sA40 acc 0.591 aux 1.662->0.355 | sA100 acc 0.581 aux 1.662->0.263 | sB40 acc 0.656 aux 1.662->1.051 | pl40 acc 0.892 | spl40 acc 0.801 aux 1.662->0.400
+DIAG tttssl_C s4 Dreyer2026Proteus/P10|3 n=199 na acc 0.538 | sA10 acc 0.513 aux 1.661->0.747 | sA40 acc 0.477 aux 1.661->0.399 | sA100 acc 0.497 aux 1.661->0.271 | sB40 acc 0.518 aux 1.661->1.032 | pl40 acc 0.859 | spl40 acc 0.663 aux 1.661->0.479
+   joint P: aux loss 0.835 -> 0.154
+DIAG tttssl_P s4 Dreyer2026Proteus/P01|1 n=190 na acc 0.616 | mirror_acc 0.663 | sA10 acc 0.632 aux 0.643->0.141 | sA40 acc 0.626 aux 0.643->0.011 | sA100 acc 0.637 aux 0.643->0.004 | sB40 acc 0.637 aux 0.643->0.629 | pl40 acc 0.779 | spl40 acc 0.758 aux 0.643->0.031
+   joint P: aux loss 0.835 -> 0.146
+DIAG tttssl_P s4 Dreyer2026Proteus/P02|1 n=189 na acc 0.587 | mirror_acc 0.995 | sA10 acc 0.603 aux 0.080->0.011 | sA40 acc 0.582 aux 0.080->0.001 | sA100 acc 0.593 aux 0.080->0.000 | sB40 acc 0.582 aux 0.080->0.074 | pl40 acc 0.862 | spl40 acc 0.857 aux 0.080->0.011
+   joint P: aux loss 0.835 -> 0.120
+DIAG tttssl_P s4 Dreyer2026Proteus/P03|1 n=189 na acc 0.397 | mirror_acc 0.995 | sA10 acc 0.376 aux 0.122->0.010 | sA40 acc 0.386 aux 0.122->0.001 | sA100 acc 0.402 aux 0.122->0.001 | sB40 acc 0.392 aux 0.122->0.103 | pl40 acc 0.751 | spl40 acc 0.741 aux 0.122->0.014
+   joint P: aux loss 0.906 -> 0.070
+DIAG tttssl_P s4 Dreyer2026Proteus/P04|1 n=189 na acc 0.508 | mirror_acc 0.836 | sA10 acc 0.487 aux 0.460->0.140 | sA40 acc 0.503 aux 0.460->0.015 | sA100 acc 0.466 aux 0.460->0.006 | sB40 acc 0.508 aux 0.460->0.464 | pl40 acc 0.513 | spl40 acc 0.508 aux 0.460->0.041
+DIAG tttssl_P s4 Dreyer2026Proteus/P04|2 n=189 na acc 0.423 | mirror_acc 1.000 | sA10 acc 0.418 aux 0.105->0.014 | sA40 acc 0.423 aux 0.105->0.002 | sA100 acc 0.402 aux 0.105->0.001 | sB40 acc 0.423 aux 0.105->0.089 | pl40 acc 0.492 | spl40 acc 0.497 aux 0.105->0.014
+DIAG tttssl_P s4 Dreyer2026Proteus/P04|3 n=188 na acc 0.399 | mirror_acc 0.941 | sA10 acc 0.394 aux 0.217->0.033 | sA40 acc 0.426 aux 0.217->0.004 | sA100 acc 0.404 aux 0.217->0.002 | sB40 acc 0.399 aux 0.217->0.201 | pl40 acc 0.596 | spl40 acc 0.596 aux 0.217->0.018
+   joint P: aux loss 0.856 -> 0.145
+DIAG tttssl_P s4 Dreyer2026Proteus/P05|1 n=190 na acc 0.463 | mirror_acc 0.663 | sA10 acc 0.432 aux 0.637->0.079 | sA40 acc 0.432 aux 0.637->0.006 | sA100 acc 0.416 aux 0.637->0.002 | sB40 acc 0.442 aux 0.637->0.583 | pl40 acc 0.716 | spl40 acc 0.700 aux 0.637->0.021
+   joint P: aux loss 0.835 -> 0.110
+DIAG tttssl_P s4 Dreyer2026Proteus/P06|1 n=187 na acc 0.545 | mirror_acc 0.984 | sA10 acc 0.513 aux 0.096->0.013 | sA40 acc 0.487 aux 0.096->0.002 | sA100 acc 0.471 aux 0.096->0.001 | sB40 acc 0.551 aux 0.096->0.081 | pl40 acc 0.845 | spl40 acc 0.850 aux 0.096->0.020
+   joint P: aux loss 0.835 -> 0.122
+DIAG tttssl_P s4 Dreyer2026Proteus/P07|1 n=189 na acc 0.672 | mirror_acc 0.989 | sA10 acc 0.672 aux 0.165->0.022 | sA40 acc 0.683 aux 0.165->0.003 | sA100 acc 0.667 aux 0.165->0.001 | sB40 acc 0.656 aux 0.165->0.142 | pl40 acc 0.889 | spl40 acc 0.894 aux 0.165->0.019
+   joint P: aux loss 0.783 -> 0.135
+DIAG tttssl_P s4 Dreyer2026Proteus/P08|1 n=189 na acc 0.698 | mirror_acc 0.984 | sA10 acc 0.698 aux 0.169->0.019 | sA40 acc 0.693 aux 0.169->0.002 | sA100 acc 0.704 aux 0.169->0.001 | sB40 acc 0.698 aux 0.169->0.161 | pl40 acc 0.868 | spl40 acc 0.862 aux 0.169->0.009
+   joint P: aux loss 0.801 -> 0.086
+DIAG tttssl_P s4 Dreyer2026Proteus/P09|1 n=189 na acc 0.624 | mirror_acc 0.556 | sA10 acc 0.608 aux 0.732->0.118 | sA40 acc 0.582 aux 0.732->0.006 | sA100 acc 0.561 aux 0.732->0.003 | sB40 acc 0.624 aux 0.732->0.715 | pl40 acc 0.862 | spl40 acc 0.836 aux 0.732->0.024
+   joint P: aux loss 0.841 -> 0.112
+DIAG tttssl_P s4 Dreyer2026Proteus/P10|1 n=192 na acc 0.526 | mirror_acc 0.964 | sA10 acc 0.516 aux 0.298->0.022 | sA40 acc 0.505 aux 0.298->0.002 | sA100 acc 0.495 aux 0.298->0.001 | sB40 acc 0.526 aux 0.298->0.280 | pl40 acc 0.760 | spl40 acc 0.766 aux 0.298->0.013
+DIAG tttssl_P s4 Dreyer2026Proteus/P10|2 n=186 na acc 0.694 | mirror_acc 0.973 | sA10 acc 0.672 aux 0.253->0.017 | sA40 acc 0.613 aux 0.253->0.001 | sA100 acc 0.597 aux 0.253->0.001 | sB40 acc 0.694 aux 0.253->0.248 | pl40 acc 0.903 | spl40 acc 0.914 aux 0.253->0.010
+DIAG tttssl_P s4 Dreyer2026Proteus/P10|3 n=199 na acc 0.628 | mirror_acc 0.990 | sA10 acc 0.608 aux 0.191->0.017 | sA40 acc 0.538 aux 0.191->0.002 | sA100 acc 0.513 aux 0.191->0.001 | sB40 acc 0.633 aux 0.191->0.173 | pl40 acc 0.894 | spl40 acc 0.884 aux 0.191->0.013
+DIAG tttssl_twin s5 Dreyer2026Proteus/P01|1 n=190 na acc 0.632 | pl40 acc 0.779 | tent40 acc 0.389
+DIAG tttssl_twin s5 Dreyer2026Proteus/P02|1 n=189 na acc 0.619 | pl40 acc 0.878 | tent40 acc 0.365
+DIAG tttssl_twin s5 Dreyer2026Proteus/P03|1 n=189 na acc 0.413 | pl40 acc 0.735 | tent40 acc 0.333
+DIAG tttssl_twin s5 Dreyer2026Proteus/P04|1 n=189 na acc 0.476 | pl40 acc 0.513 | tent40 acc 0.339
+DIAG tttssl_twin s5 Dreyer2026Proteus/P04|2 n=189 na acc 0.471 | pl40 acc 0.524 | tent40 acc 0.333
+DIAG tttssl_twin s5 Dreyer2026Proteus/P04|3 n=188 na acc 0.399 | pl40 acc 0.585 | tent40 acc 0.335
+DIAG tttssl_twin s5 Dreyer2026Proteus/P05|1 n=190 na acc 0.463 | pl40 acc 0.753 | tent40 acc 0.358
+DIAG tttssl_twin s5 Dreyer2026Proteus/P06|1 n=187 na acc 0.535 | pl40 acc 0.856 | tent40 acc 0.332
+DIAG tttssl_twin s5 Dreyer2026Proteus/P07|1 n=189 na acc 0.693 | pl40 acc 0.889 | tent40 acc 0.333
+DIAG tttssl_twin s5 Dreyer2026Proteus/P08|1 n=189 na acc 0.720 | pl40 acc 0.878 | tent40 acc 0.624
+DIAG tttssl_twin s5 Dreyer2026Proteus/P09|1 n=189 na acc 0.614 | pl40 acc 0.868 | tent40 acc 0.323
+DIAG tttssl_twin s5 Dreyer2026Proteus/P10|1 n=192 na acc 0.526 | pl40 acc 0.792 | tent40 acc 0.333
+DIAG tttssl_twin s5 Dreyer2026Proteus/P10|2 n=186 na acc 0.694 | pl40 acc 0.914 | tent40 acc 0.339
+DIAG tttssl_twin s5 Dreyer2026Proteus/P10|3 n=199 na acc 0.573 | pl40 acc 0.899 | tent40 acc 0.337
+   joint C: aux loss 4.234 -> 0.281
+DIAG tttssl_C s5 Dreyer2026Proteus/P01|1 n=190 na acc 0.558 | sA10 acc 0.558 aux 1.207->0.739 | sA40 acc 0.542 aux 1.207->0.453 | sA100 acc 0.563 aux 1.207->0.293 | sB40 acc 0.579 aux 1.207->1.142 | pl40 acc 0.779 | spl40 acc 0.663 aux 1.207->0.701
+   joint C: aux loss 4.234 -> 0.252
+DIAG tttssl_C s5 Dreyer2026Proteus/P02|1 n=189 na acc 0.571 | sA10 acc 0.571 aux 1.011->0.641 | sA40 acc 0.566 aux 1.011->0.368 | sA100 acc 0.582 aux 1.011->0.247 | sB40 acc 0.587 aux 1.011->0.942 | pl40 acc 0.841 | spl40 acc 0.772 aux 1.011->0.577
+   joint C: aux loss 4.234 -> 0.268
+DIAG tttssl_C s5 Dreyer2026Proteus/P03|1 n=189 na acc 0.492 | sA10 acc 0.519 aux 1.107->0.732 | sA40 acc 0.545 aux 1.107->0.440 | sA100 acc 0.476 aux 1.107->0.277 | sB40 acc 0.540 aux 1.107->1.219 | pl40 acc 0.746 | spl40 acc 0.624 aux 1.107->0.602
+   joint C: aux loss 4.374 -> 0.435
+DIAG tttssl_C s5 Dreyer2026Proteus/P04|1 n=189 na acc 0.455 | sA10 acc 0.455 aux 1.355->0.840 | sA40 acc 0.450 aux 1.355->0.524 | sA100 acc 0.466 aux 1.355->0.342 | sB40 acc 0.450 aux 1.355->1.256 | pl40 acc 0.481 | spl40 acc 0.434 aux 1.355->0.773
+DIAG tttssl_C s5 Dreyer2026Proteus/P04|2 n=189 na acc 0.402 | sA10 acc 0.392 aux 1.363->0.860 | sA40 acc 0.402 aux 1.363->0.473 | sA100 acc 0.402 aux 1.363->0.335 | sB40 acc 0.413 aux 1.363->1.412 | pl40 acc 0.487 | spl40 acc 0.418 aux 1.363->0.757
+DIAG tttssl_C s5 Dreyer2026Proteus/P04|3 n=188 na acc 0.388 | sA10 acc 0.404 aux 1.169->0.783 | sA40 acc 0.394 aux 1.169->0.479 | sA100 acc 0.388 aux 1.169->0.297 | sB40 acc 0.399 aux 1.169->1.109 | pl40 acc 0.548 | spl40 acc 0.516 aux 1.169->0.712
+   joint C: aux loss 4.390 -> 0.207
+DIAG tttssl_C s5 Dreyer2026Proteus/P05|1 n=190 na acc 0.521 | sA10 acc 0.558 aux 1.920->1.321 | sA40 acc 0.547 aux 1.920->0.804 | sA100 acc 0.495 aux 1.920->0.505 | sB40 acc 0.511 aux 1.920->1.788 | pl40 acc 0.732 | spl40 acc 0.689 aux 1.920->1.153
+   joint C: aux loss 4.192 -> 0.286
+DIAG tttssl_C s5 Dreyer2026Proteus/P06|1 n=187 na acc 0.572 | sA10 acc 0.551 aux 1.245->0.657 | sA40 acc 0.556 aux 1.245->0.379 | sA100 acc 0.561 aux 1.245->0.275 | sB40 acc 0.572 aux 1.245->1.095 | pl40 acc 0.845 | spl40 acc 0.781 aux 1.245->0.567
+   joint C: aux loss 4.234 -> 0.223
+DIAG tttssl_C s5 Dreyer2026Proteus/P07|1 n=189 na acc 0.587 | sA10 acc 0.587 aux 1.199->0.717 | sA40 acc 0.603 aux 1.199->0.443 | sA100 acc 0.608 aux 1.199->0.325 | sB40 acc 0.624 aux 1.199->1.030 | pl40 acc 0.873 | spl40 acc 0.810 aux 1.199->0.774
+   joint C: aux loss 4.390 -> 0.235
+DIAG tttssl_C s5 Dreyer2026Proteus/P08|1 n=189 na acc 0.698 | sA10 acc 0.698 aux 1.195->0.700 | sA40 acc 0.677 aux 1.195->0.448 | sA100 acc 0.661 aux 1.195->0.277 | sB40 acc 0.704 aux 1.195->1.286 | pl40 acc 0.873 | spl40 acc 0.778 aux 1.195->0.637
+   joint C: aux loss 4.452 -> 0.184
+DIAG tttssl_C s5 Dreyer2026Proteus/P09|1 n=189 na acc 0.571 | sA10 acc 0.571 aux 1.121->0.787 | sA40 acc 0.561 aux 1.121->0.412 | sA100 acc 0.540 aux 1.121->0.270 | sB40 acc 0.582 aux 1.121->1.139 | pl40 acc 0.825 | spl40 acc 0.757 aux 1.121->0.634
+   joint C: aux loss 4.080 -> 0.668
+DIAG tttssl_C s5 Dreyer2026Proteus/P10|1 n=192 na acc 0.505 | sA10 acc 0.536 aux 1.193->0.783 | sA40 acc 0.510 aux 1.193->0.437 | sA100 acc 0.495 aux 1.193->0.287 | sB40 acc 0.542 aux 1.193->1.173 | pl40 acc 0.792 | spl40 acc 0.651 aux 1.193->0.662
+DIAG tttssl_C s5 Dreyer2026Proteus/P10|2 n=186 na acc 0.661 | sA10 acc 0.677 aux 1.420->0.886 | sA40 acc 0.645 aux 1.420->0.467 | sA100 acc 0.624 aux 1.420->0.299 | sB40 acc 0.656 aux 1.420->1.370 | pl40 acc 0.898 | spl40 acc 0.769 aux 1.420->0.707
+DIAG tttssl_C s5 Dreyer2026Proteus/P10|3 n=199 na acc 0.528 | sA10 acc 0.548 aux 1.105->0.986 | sA40 acc 0.533 aux 1.105->0.603 | sA100 acc 0.538 aux 1.105->0.239 | sB40 acc 0.558 aux 1.105->1.704 | pl40 acc 0.879 | spl40 acc 0.724 aux 1.105->0.407
+   joint P: aux loss 0.737 -> 0.054
+DIAG tttssl_P s5 Dreyer2026Proteus/P01|1 n=190 na acc 0.653 | mirror_acc 0.568 | sA10 acc 0.632 aux 0.712->0.162 | sA40 acc 0.616 aux 0.712->0.017 | sA100 acc 0.616 aux 0.712->0.003 | sB40 acc 0.632 aux 0.712->0.706 | pl40 acc 0.763 | spl40 acc 0.737 aux 0.712->0.022
+   joint P: aux loss 0.737 -> 0.049
+DIAG tttssl_P s5 Dreyer2026Proteus/P02|1 n=189 na acc 0.598 | mirror_acc 1.000 | sA10 acc 0.598 aux 0.064->0.008 | sA40 acc 0.561 aux 0.064->0.001 | sA100 acc 0.556 aux 0.064->0.000 | sB40 acc 0.598 aux 0.064->0.059 | pl40 acc 0.873 | spl40 acc 0.868 aux 0.064->0.007
+   joint P: aux loss 0.737 -> 0.058
+DIAG tttssl_P s5 Dreyer2026Proteus/P03|1 n=189 na acc 0.386 | mirror_acc 1.000 | sA10 acc 0.402 aux 0.101->0.011 | sA40 acc 0.397 aux 0.101->0.003 | sA100 acc 0.434 aux 0.101->0.001 | sB40 acc 0.407 aux 0.101->0.102 | pl40 acc 0.735 | spl40 acc 0.725 aux 0.101->0.008
+   joint P: aux loss 0.747 -> 0.174
+DIAG tttssl_P s5 Dreyer2026Proteus/P04|1 n=189 na acc 0.471 | mirror_acc 0.820 | sA10 acc 0.471 aux 0.461->0.137 | sA40 acc 0.471 aux 0.461->0.016 | sA100 acc 0.450 aux 0.461->0.004 | sB40 acc 0.466 aux 0.461->0.459 | pl40 acc 0.492 | spl40 acc 0.487 aux 0.461->0.028
+DIAG tttssl_P s5 Dreyer2026Proteus/P04|2 n=189 na acc 0.471 | mirror_acc 1.000 | sA10 acc 0.450 aux 0.099->0.013 | sA40 acc 0.429 aux 0.099->0.002 | sA100 acc 0.429 aux 0.099->0.000 | sB40 acc 0.471 aux 0.099->0.095 | pl40 acc 0.513 | spl40 acc 0.492 aux 0.099->0.009
+DIAG tttssl_P s5 Dreyer2026Proteus/P04|3 n=188 na acc 0.383 | mirror_acc 0.936 | sA10 acc 0.420 aux 0.193->0.033 | sA40 acc 0.394 aux 0.193->0.004 | sA100 acc 0.404 aux 0.193->0.001 | sB40 acc 0.372 aux 0.193->0.192 | pl40 acc 0.580 | spl40 acc 0.590 aux 0.193->0.011
+   joint P: aux loss 0.769 -> 0.031
+DIAG tttssl_P s5 Dreyer2026Proteus/P05|1 n=190 na acc 0.516 | mirror_acc 0.674 | sA10 acc 0.489 aux 0.656->0.071 | sA40 acc 0.484 aux 0.656->0.007 | sA100 acc 0.463 aux 0.656->0.002 | sB40 acc 0.505 aux 0.656->0.644 | pl40 acc 0.726 | spl40 acc 0.705 aux 0.656->0.014
+   joint P: aux loss 0.736 -> 0.051
+DIAG tttssl_P s5 Dreyer2026Proteus/P06|1 n=187 na acc 0.545 | mirror_acc 0.979 | sA10 acc 0.540 aux 0.092->0.014 | sA40 acc 0.503 aux 0.092->0.002 | sA100 acc 0.465 aux 0.092->0.000 | sB40 acc 0.535 aux 0.092->0.095 | pl40 acc 0.850 | spl40 acc 0.845 aux 0.092->0.010
+   joint P: aux loss 0.737 -> 0.048
+DIAG tttssl_P s5 Dreyer2026Proteus/P07|1 n=189 na acc 0.677 | mirror_acc 0.995 | sA10 acc 0.672 aux 0.165->0.023 | sA40 acc 0.614 aux 0.165->0.004 | sA100 acc 0.566 aux 0.165->0.001 | sB40 acc 0.683 aux 0.165->0.158 | pl40 acc 0.889 | spl40 acc 0.894 aux 0.165->0.013
+   joint P: aux loss 0.769 -> 0.052
+DIAG tttssl_P s5 Dreyer2026Proteus/P08|1 n=189 na acc 0.751 | mirror_acc 0.963 | sA10 acc 0.757 aux 0.183->0.021 | sA40 acc 0.751 aux 0.183->0.002 | sA100 acc 0.741 aux 0.183->0.000 | sB40 acc 0.751 aux 0.183->0.167 | pl40 acc 0.873 | spl40 acc 0.873 aux 0.183->0.006
+   joint P: aux loss 0.738 -> 0.039
+DIAG tttssl_P s5 Dreyer2026Proteus/P09|1 n=189 na acc 0.619 | mirror_acc 0.550 | sA10 acc 0.630 aux 0.731->0.118 | sA40 acc 0.577 aux 0.731->0.008 | sA100 acc 0.577 aux 0.731->0.002 | sB40 acc 0.640 aux 0.731->0.762 | pl40 acc 0.852 | spl40 acc 0.836 aux 0.731->0.016
+   joint P: aux loss 0.698 -> 0.148
+DIAG tttssl_P s5 Dreyer2026Proteus/P10|1 n=192 na acc 0.531 | mirror_acc 0.990 | sA10 acc 0.521 aux 0.237->0.021 | sA40 acc 0.458 aux 0.237->0.002 | sA100 acc 0.453 aux 0.237->0.000 | sB40 acc 0.531 aux 0.237->0.233 | pl40 acc 0.771 | spl40 acc 0.766 aux 0.237->0.008
+DIAG tttssl_P s5 Dreyer2026Proteus/P10|2 n=186 na acc 0.710 | mirror_acc 0.973 | sA10 acc 0.683 aux 0.219->0.016 | sA40 acc 0.591 aux 0.219->0.001 | sA100 acc 0.597 aux 0.219->0.000 | sB40 acc 0.720 aux 0.219->0.210 | pl40 acc 0.930 | spl40 acc 0.935 aux 0.219->0.007
+DIAG tttssl_P s5 Dreyer2026Proteus/P10|3 n=199 na acc 0.628 | mirror_acc 0.990 | sA10 acc 0.593 aux 0.157->0.016 | sA40 acc 0.553 aux 0.157->0.002 | sA100 acc 0.523 aux 0.157->0.000 | sB40 acc 0.628 aux 0.157->0.162 | pl40 acc 0.905 | spl40 acc 0.905 aux 0.157->0.011
+   joint C: aux loss 4.585 -> 0.218
+DIAG tttssl_C s0 Dreyer2026Proteus/P01|1 n=190 na acc 0.558 | sA10 acc 0.547 aux 1.356->0.745 | sA40 acc 0.500 aux 1.356->0.451 | sA100 acc 0.479 aux 1.356->0.352 | sB40 acc 0.537 aux 1.356->1.165 | pl40 acc 0.753 | spl40 acc 0.616 aux 1.356->0.440
+   joint C: aux loss 4.515 -> 0.179
+DIAG tttssl_C s0 Dreyer2026Proteus/P02|1 n=189 na acc 0.545 | sA10 acc 0.545 aux 1.207->0.733 | sA40 acc 0.540 aux 1.207->0.395 | sA100 acc 0.513 aux 1.207->0.316 | sB40 acc 0.534 aux 1.207->0.950 | pl40 acc 0.841 | spl40 acc 0.704 aux 1.207->0.382
+   joint C: aux loss 4.728 -> 0.174
+DIAG tttssl_C s0 Dreyer2026Proteus/P03|1 n=189 na acc 0.471 | sA10 acc 0.471 aux 1.408->0.757 | sA40 acc 0.481 aux 1.408->0.418 | sA100 acc 0.503 aux 1.408->0.306 | sB40 acc 0.497 aux 1.408->1.096 | pl40 acc 0.730 | spl40 acc 0.582 aux 1.408->0.379
+   joint C: aux loss 4.976 -> 0.191
+DIAG tttssl_C s0 Dreyer2026Proteus/P04|1 n=189 na acc 0.423 | sA10 acc 0.444 aux 1.617->0.943 | sA40 acc 0.434 aux 1.617->0.508 | sA100 acc 0.402 aux 1.617->0.412 | sB40 acc 0.439 aux 1.617->1.279 | pl40 acc 0.503 | spl40 acc 0.466 aux 1.617->0.447
+DIAG tttssl_C s0 Dreyer2026Proteus/P04|2 n=189 na acc 0.413 | sA10 acc 0.429 aux 1.657->0.900 | sA40 acc 0.429 aux 1.657->0.480 | sA100 acc 0.429 aux 1.657->0.388 | sB40 acc 0.413 aux 1.657->1.252 | pl40 acc 0.497 | spl40 acc 0.407 aux 1.657->0.460
+DIAG tttssl_C s0 Dreyer2026Proteus/P04|3 n=188 na acc 0.420 | sA10 acc 0.404 aux 1.660->0.853 | sA40 acc 0.388 aux 1.660->0.503 | sA100 acc 0.420 aux 1.660->0.352 | sB40 acc 0.426 aux 1.660->1.288 | pl40 acc 0.559 | spl40 acc 0.527 aux 1.660->0.439
+   joint C: aux loss 4.745 -> 0.283
+DIAG tttssl_C s0 Dreyer2026Proteus/P05|1 n=190 na acc 0.479 | sA10 acc 0.474 aux 2.520->1.472 | sA40 acc 0.479 aux 2.520->0.785 | sA100 acc 0.453 aux 2.520->0.628 | sB40 acc 0.474 aux 2.520->1.828 | pl40 acc 0.705 | spl40 acc 0.600 aux 2.520->0.758
+   joint C: aux loss 4.594 -> 0.171
+DIAG tttssl_C s0 Dreyer2026Proteus/P06|1 n=187 na acc 0.561 | sA10 acc 0.540 aux 1.462->0.739 | sA40 acc 0.535 aux 1.462->0.385 | sA100 acc 0.503 aux 1.462->0.279 | sB40 acc 0.551 aux 1.462->1.115 | pl40 acc 0.845 | spl40 acc 0.759 aux 1.462->0.379
+   joint C: aux loss 4.728 -> 0.191
+DIAG tttssl_C s0 Dreyer2026Proteus/P07|1 n=189 na acc 0.640 | sA10 acc 0.630 aux 1.448->0.760 | sA40 acc 0.603 aux 1.448->0.431 | sA100 acc 0.577 aux 1.448->0.391 | sB40 acc 0.635 aux 1.448->0.943 | pl40 acc 0.868 | spl40 acc 0.767 aux 1.448->0.449
+   joint C: aux loss 4.745 -> 0.188
+DIAG tttssl_C s0 Dreyer2026Proteus/P08|1 n=189 na acc 0.709 | sA10 acc 0.709 aux 1.427->0.837 | sA40 acc 0.672 aux 1.427->0.432 | sA100 acc 0.672 aux 1.427->0.309 | sB40 acc 0.714 aux 1.427->1.223 | pl40 acc 0.873 | spl40 acc 0.778 aux 1.427->0.407
+   joint C: aux loss 4.946 -> 0.391
+DIAG tttssl_C s0 Dreyer2026Proteus/P09|1 n=189 na acc 0.550 | sA10 acc 0.556 aux 1.512->0.848 | sA40 acc 0.545 aux 1.512->0.455 | sA100 acc 0.534 aux 1.512->0.349 | sB40 acc 0.561 aux 1.512->1.229 | pl40 acc 0.825 | spl40 acc 0.693 aux 1.512->0.455
+   joint C: aux loss 4.695 -> 0.577
+DIAG tttssl_C s0 Dreyer2026Proteus/P10|1 n=192 na acc 0.495 | sA10 acc 0.495 aux 1.622->0.845 | sA40 acc 0.500 aux 1.622->0.504 | sA100 acc 0.474 aux 1.622->0.339 | sB40 acc 0.531 aux 1.622->1.304 | pl40 acc 0.771 | spl40 acc 0.625 aux 1.622->0.438
+DIAG tttssl_C s0 Dreyer2026Proteus/P10|2 n=186 na acc 0.629 | sA10 acc 0.608 aux 1.679->0.917 | sA40 acc 0.608 aux 1.679->0.493 | sA100 acc 0.581 aux 1.679->0.333 | sB40 acc 0.624 aux 1.679->1.441 | pl40 acc 0.876 | spl40 acc 0.763 aux 1.679->0.439
+DIAG tttssl_C s0 Dreyer2026Proteus/P10|3 n=199 na acc 0.508 | sA10 acc 0.513 aux 0.981->1.008 | sA40 acc 0.492 aux 0.981->0.466 | sA100 acc 0.482 aux 0.981->0.362 | sB40 acc 0.508 aux 0.981->1.337 | pl40 acc 0.859 | spl40 acc 0.714 aux 0.981->0.440
+   joint P: aux loss 0.782 -> 0.121
+DIAG tttssl_P s0 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | mirror_acc 0.658 | sA10 acc 0.611 aux 0.616->0.156 | sA40 acc 0.584 aux 0.616->0.011 | sA100 acc 0.558 aux 0.616->0.003 | sB40 acc 0.637 aux 0.616->0.613 | pl40 acc 0.779 | spl40 acc 0.742 aux 0.616->0.026
+   joint P: aux loss 0.769 -> 0.125
+DIAG tttssl_P s0 Dreyer2026Proteus/P02|1 n=189 na acc 0.587 | mirror_acc 1.000 | sA10 acc 0.582 aux 0.072->0.008 | sA40 acc 0.561 aux 0.072->0.001 | sA100 acc 0.556 aux 0.072->0.000 | sB40 acc 0.582 aux 0.072->0.066 | pl40 acc 0.857 | spl40 acc 0.868 aux 0.072->0.007
+   joint P: aux loss 0.775 -> 0.108
+DIAG tttssl_P s0 Dreyer2026Proteus/P03|1 n=189 na acc 0.455 | mirror_acc 1.000 | sA10 acc 0.418 aux 0.119->0.011 | sA40 acc 0.439 aux 0.119->0.001 | sA100 acc 0.434 aux 0.119->0.001 | sB40 acc 0.455 aux 0.119->0.112 | pl40 acc 0.751 | spl40 acc 0.757 aux 0.119->0.010
+   joint P: aux loss 0.702 -> 0.145
+DIAG tttssl_P s0 Dreyer2026Proteus/P04|1 n=189 na acc 0.476 | mirror_acc 0.852 | sA10 acc 0.497 aux 0.449->0.140 | sA40 acc 0.497 aux 0.449->0.014 | sA100 acc 0.476 aux 0.449->0.005 | sB40 acc 0.481 aux 0.449->0.461 | pl40 acc 0.497 | spl40 acc 0.513 aux 0.449->0.032
+DIAG tttssl_P s0 Dreyer2026Proteus/P04|2 n=189 na acc 0.429 | mirror_acc 1.000 | sA10 acc 0.418 aux 0.064->0.009 | sA40 acc 0.413 aux 0.064->0.001 | sA100 acc 0.392 aux 0.064->0.001 | sB40 acc 0.423 aux 0.064->0.062 | pl40 acc 0.503 | spl40 acc 0.503 aux 0.064->0.009
+DIAG tttssl_P s0 Dreyer2026Proteus/P04|3 n=188 na acc 0.394 | mirror_acc 0.968 | sA10 acc 0.399 aux 0.155->0.026 | sA40 acc 0.399 aux 0.155->0.003 | sA100 acc 0.351 aux 0.155->0.003 | sB40 acc 0.388 aux 0.155->0.150 | pl40 acc 0.580 | spl40 acc 0.580 aux 0.155->0.012
+   joint P: aux loss 0.767 -> 0.098
+DIAG tttssl_P s0 Dreyer2026Proteus/P05|1 n=190 na acc 0.516 | mirror_acc 0.600 | sA10 acc 0.500 aux 0.665->0.081 | sA40 acc 0.458 aux 0.665->0.007 | sA100 acc 0.453 aux 0.665->0.005 | sB40 acc 0.516 aux 0.665->0.629 | pl40 acc 0.721 | spl40 acc 0.732 aux 0.665->0.019
+   joint P: aux loss 0.761 -> 0.120
+DIAG tttssl_P s0 Dreyer2026Proteus/P06|1 n=187 na acc 0.540 | mirror_acc 0.984 | sA10 acc 0.513 aux 0.099->0.013 | sA40 acc 0.503 aux 0.099->0.001 | sA100 acc 0.481 aux 0.099->0.001 | sB40 acc 0.524 aux 0.099->0.094 | pl40 acc 0.840 | spl40 acc 0.834 aux 0.099->0.012
+   joint P: aux loss 0.775 -> 0.135
+DIAG tttssl_P s0 Dreyer2026Proteus/P07|1 n=189 na acc 0.677 | mirror_acc 1.000 | sA10 acc 0.646 aux 0.139->0.022 | sA40 acc 0.640 aux 0.139->0.002 | sA100 acc 0.630 aux 0.139->0.001 | sB40 acc 0.672 aux 0.139->0.141 | pl40 acc 0.884 | spl40 acc 0.889 aux 0.139->0.015
+   joint P: aux loss 0.767 -> 0.105
+DIAG tttssl_P s0 Dreyer2026Proteus/P08|1 n=189 na acc 0.704 | mirror_acc 0.984 | sA10 acc 0.698 aux 0.159->0.020 | sA40 acc 0.714 aux 0.159->0.002 | sA100 acc 0.714 aux 0.159->0.001 | sB40 acc 0.704 aux 0.159->0.155 | pl40 acc 0.884 | spl40 acc 0.878 aux 0.159->0.007
+   joint P: aux loss 0.711 -> 0.256
+DIAG tttssl_P s0 Dreyer2026Proteus/P09|1 n=189 na acc 0.593 | mirror_acc 0.587 | sA10 acc 0.603 aux 0.674->0.113 | sA40 acc 0.556 aux 0.674->0.006 | sA100 acc 0.519 aux 0.674->0.003 | sB40 acc 0.598 aux 0.674->0.681 | pl40 acc 0.852 | spl40 acc 0.831 aux 0.674->0.017
+   joint P: aux loss 0.761 -> 0.281
+DIAG tttssl_P s0 Dreyer2026Proteus/P10|1 n=192 na acc 0.547 | mirror_acc 0.969 | sA10 acc 0.531 aux 0.250->0.022 | sA40 acc 0.484 aux 0.250->0.002 | sA100 acc 0.453 aux 0.250->0.001 | sB40 acc 0.536 aux 0.250->0.256 | pl40 acc 0.760 | spl40 acc 0.755 aux 0.250->0.008
+DIAG tttssl_P s0 Dreyer2026Proteus/P10|2 n=186 na acc 0.683 | mirror_acc 0.984 | sA10 acc 0.677 aux 0.222->0.017 | sA40 acc 0.651 aux 0.222->0.001 | sA100 acc 0.634 aux 0.222->0.001 | sB40 acc 0.683 aux 0.222->0.219 | pl40 acc 0.914 | spl40 acc 0.914 aux 0.222->0.009
+DIAG tttssl_P s0 Dreyer2026Proteus/P10|3 n=199 na acc 0.623 | mirror_acc 1.000 | sA10 acc 0.593 aux 0.157->0.016 | sA40 acc 0.568 aux 0.157->0.001 | sA100 acc 0.543 aux 0.157->0.001 | sB40 acc 0.608 aux 0.157->0.156 | pl40 acc 0.889 | spl40 acc 0.889 aux 0.157->0.011
+DIAG tttssl_twin s1 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | pl40 acc 0.774 | tent40 acc 0.368
+DIAG tttssl_twin s1 Dreyer2026Proteus/P02|1 n=189 na acc 0.630 | pl40 acc 0.862 | tent40 acc 0.354
+DIAG tttssl_twin s1 Dreyer2026Proteus/P03|1 n=189 na acc 0.423 | pl40 acc 0.757 | tent40 acc 0.333
+DIAG tttssl_twin s1 Dreyer2026Proteus/P04|1 n=189 na acc 0.487 | pl40 acc 0.513 | tent40 acc 0.328
+DIAG tttssl_twin s1 Dreyer2026Proteus/P04|2 n=189 na acc 0.434 | pl40 acc 0.513 | tent40 acc 0.333
+DIAG tttssl_twin s1 Dreyer2026Proteus/P04|3 n=188 na acc 0.420 | pl40 acc 0.585 | tent40 acc 0.335
+DIAG tttssl_twin s1 Dreyer2026Proteus/P05|1 n=190 na acc 0.495 | pl40 acc 0.742 | tent40 acc 0.332
+DIAG tttssl_twin s1 Dreyer2026Proteus/P06|1 n=187 na acc 0.524 | pl40 acc 0.866 | tent40 acc 0.332
+DIAG tttssl_twin s1 Dreyer2026Proteus/P07|1 n=189 na acc 0.672 | pl40 acc 0.899 | tent40 acc 0.333
+DIAG tttssl_twin s1 Dreyer2026Proteus/P08|1 n=189 na acc 0.677 | pl40 acc 0.873 | tent40 acc 0.608
+DIAG tttssl_twin s1 Dreyer2026Proteus/P09|1 n=189 na acc 0.624 | pl40 acc 0.857 | tent40 acc 0.323
+DIAG tttssl_twin s1 Dreyer2026Proteus/P10|1 n=192 na acc 0.594 | pl40 acc 0.776 | tent40 acc 0.333
+DIAG tttssl_twin s1 Dreyer2026Proteus/P10|2 n=186 na acc 0.699 | pl40 acc 0.914 | tent40 acc 0.344
+DIAG tttssl_twin s1 Dreyer2026Proteus/P10|3 n=199 na acc 0.588 | pl40 acc 0.905 | tent40 acc 0.337
+   joint C: aux loss 4.675 -> 0.299
+DIAG tttssl_C s1 Dreyer2026Proteus/P01|1 n=190 na acc 0.563 | sA10 acc 0.547 aux 0.949->0.594 | sA40 acc 0.558 aux 0.949->0.513 | sA100 acc 0.542 aux 0.949->0.290 | sB40 acc 0.553 aux 0.949->1.271 | pl40 acc 0.768 | spl40 acc 0.637 aux 0.949->0.431
+   joint C: aux loss 4.675 -> 0.436
+DIAG tttssl_C s1 Dreyer2026Proteus/P02|1 n=189 na acc 0.561 | sA10 acc 0.571 aux 0.880->0.524 | sA40 acc 0.587 aux 0.880->0.352 | sA100 acc 0.566 aux 0.880->0.261 | sB40 acc 0.608 aux 0.880->0.971 | pl40 acc 0.847 | spl40 acc 0.741 aux 0.880->0.348
+   joint C: aux loss 4.675 -> 0.392
+DIAG tttssl_C s1 Dreyer2026Proteus/P03|1 n=189 na acc 0.497 | sA10 acc 0.503 aux 1.104->0.642 | sA40 acc 0.481 aux 1.104->0.420 | sA100 acc 0.481 aux 1.104->0.282 | sB40 acc 0.497 aux 1.104->1.286 | pl40 acc 0.741 | spl40 acc 0.667 aux 1.104->0.431
+   joint C: aux loss 4.475 -> 0.324
+DIAG tttssl_C s1 Dreyer2026Proteus/P04|1 n=189 na acc 0.397 | sA10 acc 0.402 aux 1.128->0.643 | sA40 acc 0.381 aux 1.128->0.606 | sA100 acc 0.376 aux 1.128->0.325 | sB40 acc 0.397 aux 1.128->1.475 | pl40 acc 0.481 | spl40 acc 0.455 aux 1.128->0.517
+DIAG tttssl_C s1 Dreyer2026Proteus/P04|2 n=189 na acc 0.407 | sA10 acc 0.407 aux 1.038->0.647 | sA40 acc 0.434 aux 1.038->0.512 | sA100 acc 0.455 aux 1.038->0.309 | sB40 acc 0.434 aux 1.038->1.372 | pl40 acc 0.476 | spl40 acc 0.450 aux 1.038->0.509
+DIAG tttssl_C s1 Dreyer2026Proteus/P04|3 n=188 na acc 0.394 | sA10 acc 0.399 aux 1.343->0.639 | sA40 acc 0.410 aux 1.343->0.505 | sA100 acc 0.415 aux 1.343->0.324 | sB40 acc 0.399 aux 1.343->1.702 | pl40 acc 0.564 | spl40 acc 0.511 aux 1.343->0.468
+   joint C: aux loss 4.796 -> 0.473
+DIAG tttssl_C s1 Dreyer2026Proteus/P05|1 n=190 na acc 0.442 | sA10 acc 0.468 aux 1.685->1.011 | sA40 acc 0.516 aux 1.685->0.876 | sA100 acc 0.516 aux 1.685->0.464 | sB40 acc 0.458 aux 1.685->2.243 | pl40 acc 0.711 | spl40 acc 0.695 aux 1.685->0.793
+   joint C: aux loss 4.675 -> 0.391
+DIAG tttssl_C s1 Dreyer2026Proteus/P06|1 n=187 na acc 0.535 | sA10 acc 0.540 aux 1.048->0.560 | sA40 acc 0.545 aux 1.048->0.407 | sA100 acc 0.556 aux 1.048->0.261 | sB40 acc 0.545 aux 1.048->1.236 | pl40 acc 0.861 | spl40 acc 0.765 aux 1.048->0.432
+   joint C: aux loss 4.379 -> 0.469
+DIAG tttssl_C s1 Dreyer2026Proteus/P07|1 n=189 na acc 0.614 | sA10 acc 0.598 aux 1.006->0.595 | sA40 acc 0.624 aux 1.006->0.493 | sA100 acc 0.603 aux 1.006->0.289 | sB40 acc 0.656 aux 1.006->1.362 | pl40 acc 0.889 | spl40 acc 0.794 aux 1.006->0.449
+   joint C: aux loss 4.678 -> 0.510
+DIAG tttssl_C s1 Dreyer2026Proteus/P08|1 n=189 na acc 0.688 | sA10 acc 0.688 aux 1.203->0.612 | sA40 acc 0.693 aux 1.203->0.443 | sA100 acc 0.688 aux 1.203->0.267 | sB40 acc 0.683 aux 1.203->1.378 | pl40 acc 0.847 | spl40 acc 0.767 aux 1.203->0.423
+   joint C: aux loss 4.796 -> 0.393
+DIAG tttssl_C s1 Dreyer2026Proteus/P09|1 n=189 na acc 0.545 | sA10 acc 0.577 aux 1.165->0.640 | sA40 acc 0.561 aux 1.165->0.451 | sA100 acc 0.550 aux 1.165->0.281 | sB40 acc 0.556 aux 1.165->1.329 | pl40 acc 0.831 | spl40 acc 0.735 aux 1.165->0.460
+   joint C: aux loss 4.404 -> 0.632
+DIAG tttssl_C s1 Dreyer2026Proteus/P10|1 n=192 na acc 0.547 | sA10 acc 0.547 aux 1.190->0.650 | sA40 acc 0.542 aux 1.190->0.461 | sA100 acc 0.552 aux 1.190->0.278 | sB40 acc 0.552 aux 1.190->1.351 | pl40 acc 0.776 | spl40 acc 0.698 aux 1.190->0.444
+DIAG tttssl_C s1 Dreyer2026Proteus/P10|2 n=186 na acc 0.667 | sA10 acc 0.672 aux 1.278->0.646 | sA40 acc 0.640 aux 1.278->0.476 | sA100 acc 0.624 aux 1.278->0.269 | sB40 acc 0.667 aux 1.278->1.532 | pl40 acc 0.882 | spl40 acc 0.774 aux 1.278->0.468
+DIAG tttssl_C s1 Dreyer2026Proteus/P10|3 n=199 na acc 0.613 | sA10 acc 0.628 aux 1.400->1.120 | sA40 acc 0.613 aux 1.400->0.632 | sA100 acc 0.603 aux 1.400->0.282 | sB40 acc 0.648 aux 1.400->1.595 | pl40 acc 0.869 | spl40 acc 0.749 aux 1.400->0.480
+   joint P: aux loss 0.687 -> 0.071
+DIAG tttssl_P s1 Dreyer2026Proteus/P01|1 n=190 na acc 0.621 | mirror_acc 0.521 | sA10 acc 0.611 aux 0.795->0.160 | sA40 acc 0.626 aux 0.795->0.012 | sA100 acc 0.595 aux 0.795->0.003 | sB40 acc 0.621 aux 0.795->0.758 | pl40 acc 0.768 | spl40 acc 0.753 aux 0.795->0.023
+   joint P: aux loss 0.687 -> 0.118
+DIAG tttssl_P s1 Dreyer2026Proteus/P02|1 n=189 na acc 0.646 | mirror_acc 1.000 | sA10 acc 0.630 aux 0.052->0.006 | sA40 acc 0.587 aux 0.052->0.000 | sA100 acc 0.566 aux 0.052->0.000 | sB40 acc 0.635 aux 0.052->0.060 | pl40 acc 0.878 | spl40 acc 0.878 aux 0.052->0.006
+   joint P: aux loss 0.687 -> 0.119
+DIAG tttssl_P s1 Dreyer2026Proteus/P03|1 n=189 na acc 0.418 | mirror_acc 1.000 | sA10 acc 0.413 aux 0.089->0.009 | sA40 acc 0.418 aux 0.089->0.001 | sA100 acc 0.423 aux 0.089->0.000 | sB40 acc 0.418 aux 0.089->0.088 | pl40 acc 0.746 | spl40 acc 0.741 aux 0.089->0.006
+   joint P: aux loss 0.697 -> 0.091
+DIAG tttssl_P s1 Dreyer2026Proteus/P04|1 n=189 na acc 0.471 | mirror_acc 0.878 | sA10 acc 0.476 aux 0.393->0.126 | sA40 acc 0.508 aux 0.393->0.012 | sA100 acc 0.497 aux 0.393->0.003 | sB40 acc 0.492 aux 0.393->0.400 | pl40 acc 0.513 | spl40 acc 0.508 aux 0.393->0.024
+DIAG tttssl_P s1 Dreyer2026Proteus/P04|2 n=189 na acc 0.444 | mirror_acc 1.000 | sA10 acc 0.444 aux 0.055->0.010 | sA40 acc 0.439 aux 0.055->0.001 | sA100 acc 0.450 aux 0.055->0.000 | sB40 acc 0.444 aux 0.055->0.060 | pl40 acc 0.487 | spl40 acc 0.503 aux 0.055->0.007
+DIAG tttssl_P s1 Dreyer2026Proteus/P04|3 n=188 na acc 0.415 | mirror_acc 0.947 | sA10 acc 0.420 aux 0.167->0.029 | sA40 acc 0.415 aux 0.167->0.005 | sA100 acc 0.399 aux 0.167->0.001 | sB40 acc 0.415 aux 0.167->0.176 | pl40 acc 0.574 | spl40 acc 0.559 aux 0.167->0.011
+   joint P: aux loss 0.700 -> 0.210
+DIAG tttssl_P s1 Dreyer2026Proteus/P05|1 n=190 na acc 0.511 | mirror_acc 0.679 | sA10 acc 0.521 aux 0.626->0.073 | sA40 acc 0.468 aux 0.626->0.007 | sA100 acc 0.458 aux 0.626->0.002 | sB40 acc 0.516 aux 0.626->0.633 | pl40 acc 0.711 | spl40 acc 0.700 aux 0.626->0.013
+   joint P: aux loss 0.687 -> 0.110
+DIAG tttssl_P s1 Dreyer2026Proteus/P06|1 n=187 na acc 0.497 | mirror_acc 0.979 | sA10 acc 0.471 aux 0.086->0.012 | sA40 acc 0.471 aux 0.086->0.002 | sA100 acc 0.465 aux 0.086->0.000 | sB40 acc 0.492 aux 0.086->0.088 | pl40 acc 0.840 | spl40 acc 0.856 aux 0.086->0.008
+   joint P: aux loss 0.688 -> 0.090
+DIAG tttssl_P s1 Dreyer2026Proteus/P07|1 n=189 na acc 0.651 | mirror_acc 0.995 | sA10 acc 0.656 aux 0.123->0.019 | sA40 acc 0.640 aux 0.123->0.003 | sA100 acc 0.635 aux 0.123->0.001 | sB40 acc 0.661 aux 0.123->0.129 | pl40 acc 0.899 | spl40 acc 0.905 aux 0.123->0.011
+   joint P: aux loss 0.698 -> 0.301
+DIAG tttssl_P s1 Dreyer2026Proteus/P08|1 n=189 na acc 0.698 | mirror_acc 0.974 | sA10 acc 0.698 aux 0.167->0.018 | sA40 acc 0.698 aux 0.167->0.002 | sA100 acc 0.704 aux 0.167->0.000 | sB40 acc 0.698 aux 0.167->0.162 | pl40 acc 0.884 | spl40 acc 0.878 aux 0.167->0.005
+   joint P: aux loss 0.700 -> 0.060
+DIAG tttssl_P s1 Dreyer2026Proteus/P09|1 n=189 na acc 0.608 | mirror_acc 0.556 | sA10 acc 0.646 aux 0.745->0.114 | sA40 acc 0.646 aux 0.745->0.006 | sA100 acc 0.603 aux 0.745->0.002 | sB40 acc 0.614 aux 0.745->0.724 | pl40 acc 0.862 | spl40 acc 0.857 aux 0.745->0.014
+   joint P: aux loss 0.700 -> 0.139
+DIAG tttssl_P s1 Dreyer2026Proteus/P10|1 n=192 na acc 0.552 | mirror_acc 0.974 | sA10 acc 0.542 aux 0.257->0.023 | sA40 acc 0.536 aux 0.257->0.002 | sA100 acc 0.510 aux 0.257->0.001 | sB40 acc 0.552 aux 0.257->0.260 | pl40 acc 0.776 | spl40 acc 0.781 aux 0.257->0.008
+DIAG tttssl_P s1 Dreyer2026Proteus/P10|2 n=186 na acc 0.699 | mirror_acc 0.968 | sA10 acc 0.677 aux 0.233->0.017 | sA40 acc 0.629 aux 0.233->0.001 | sA100 acc 0.602 aux 0.233->0.000 | sB40 acc 0.694 aux 0.233->0.233 | pl40 acc 0.914 | spl40 acc 0.909 aux 0.233->0.006
+DIAG tttssl_P s1 Dreyer2026Proteus/P10|3 n=199 na acc 0.598 | mirror_acc 0.995 | sA10 acc 0.578 aux 0.150->0.016 | sA40 acc 0.568 aux 0.150->0.001 | sA100 acc 0.558 aux 0.150->0.000 | sB40 acc 0.593 aux 0.150->0.155 | pl40 acc 0.899 | spl40 acc 0.884 aux 0.150->0.008
+DIAG tttssl_twin s2 Dreyer2026Proteus/P01|1 n=190 na acc 0.647 | pl40 acc 0.774 | tent40 acc 0.332
+DIAG tttssl_twin s2 Dreyer2026Proteus/P02|1 n=189 na acc 0.619 | pl40 acc 0.868 | tent40 acc 0.365
+DIAG tttssl_twin s2 Dreyer2026Proteus/P03|1 n=189 na acc 0.418 | pl40 acc 0.735 | tent40 acc 0.333
+DIAG tttssl_twin s2 Dreyer2026Proteus/P04|1 n=189 na acc 0.497 | pl40 acc 0.503 | tent40 acc 0.339
+DIAG tttssl_twin s2 Dreyer2026Proteus/P04|2 n=189 na acc 0.460 | pl40 acc 0.508 | tent40 acc 0.333
+DIAG tttssl_twin s2 Dreyer2026Proteus/P04|3 n=188 na acc 0.378 | pl40 acc 0.596 | tent40 acc 0.335
+DIAG tttssl_twin s2 Dreyer2026Proteus/P05|1 n=190 na acc 0.500 | pl40 acc 0.747 | tent40 acc 0.332
+DIAG tttssl_twin s2 Dreyer2026Proteus/P06|1 n=187 na acc 0.508 | pl40 acc 0.845 | tent40 acc 0.332
+DIAG tttssl_twin s2 Dreyer2026Proteus/P07|1 n=189 na acc 0.683 | pl40 acc 0.894 | tent40 acc 0.333
+DIAG tttssl_twin s2 Dreyer2026Proteus/P08|1 n=189 na acc 0.704 | pl40 acc 0.889 | tent40 acc 0.635
+DIAG tttssl_twin s2 Dreyer2026Proteus/P09|1 n=189 na acc 0.635 | pl40 acc 0.852 | tent40 acc 0.339
+DIAG tttssl_twin s2 Dreyer2026Proteus/P10|1 n=192 na acc 0.573 | pl40 acc 0.786 | tent40 acc 0.333
+DIAG tttssl_twin s2 Dreyer2026Proteus/P10|2 n=186 na acc 0.699 | pl40 acc 0.909 | tent40 acc 0.344
+DIAG tttssl_twin s2 Dreyer2026Proteus/P10|3 n=199 na acc 0.583 | pl40 acc 0.884 | tent40 acc 0.337
+   joint C: aux loss 4.767 -> 0.253
+DIAG tttssl_C s2 Dreyer2026Proteus/P01|1 n=190 na acc 0.537 | sA10 acc 0.537 aux 1.295->0.739 | sA40 acc 0.516 aux 1.295->0.362 | sA100 acc 0.479 aux 1.295->0.306 | sB40 acc 0.532 aux 1.295->0.925 | pl40 acc 0.753 | spl40 acc 0.600 aux 1.295->0.494
+   joint C: aux loss 4.767 -> 0.273
+DIAG tttssl_C s2 Dreyer2026Proteus/P02|1 n=189 na acc 0.550 | sA10 acc 0.566 aux 1.220->0.691 | sA40 acc 0.561 aux 1.220->0.303 | sA100 acc 0.556 aux 1.220->0.250 | sB40 acc 0.598 aux 1.220->0.782 | pl40 acc 0.868 | spl40 acc 0.741 aux 1.220->0.381
+   joint C: aux loss 4.767 -> 0.255
+DIAG tttssl_C s2 Dreyer2026Proteus/P03|1 n=189 na acc 0.508 | sA10 acc 0.545 aux 1.442->0.722 | sA40 acc 0.534 aux 1.442->0.336 | sA100 acc 0.524 aux 1.442->0.278 | sB40 acc 0.508 aux 1.442->0.939 | pl40 acc 0.741 | spl40 acc 0.640 aux 1.442->0.398
+   joint C: aux loss 4.588 -> 0.324
+DIAG tttssl_C s2 Dreyer2026Proteus/P04|1 n=189 na acc 0.444 | sA10 acc 0.450 aux 1.628->0.946 | sA40 acc 0.460 aux 1.628->0.424 | sA100 acc 0.429 aux 1.628->0.345 | sB40 acc 0.460 aux 1.628->1.059 | pl40 acc 0.481 | spl40 acc 0.418 aux 1.628->0.524
+DIAG tttssl_C s2 Dreyer2026Proteus/P04|2 n=189 na acc 0.466 | sA10 acc 0.492 aux 1.486->0.868 | sA40 acc 0.481 aux 1.486->0.389 | sA100 acc 0.492 aux 1.486->0.296 | sB40 acc 0.471 aux 1.486->0.943 | pl40 acc 0.476 | spl40 acc 0.450 aux 1.486->0.511
+DIAG tttssl_C s2 Dreyer2026Proteus/P04|3 n=188 na acc 0.441 | sA10 acc 0.420 aux 1.650->0.804 | sA40 acc 0.404 aux 1.650->0.364 | sA100 acc 0.394 aux 1.650->0.301 | sB40 acc 0.404 aux 1.650->1.118 | pl40 acc 0.585 | spl40 acc 0.489 aux 1.650->0.504
+   joint C: aux loss 4.774 -> 0.375
+DIAG tttssl_C s2 Dreyer2026Proteus/P05|1 n=190 na acc 0.395 | sA10 acc 0.453 aux 2.234->1.087 | sA40 acc 0.489 aux 2.234->0.612 | sA100 acc 0.453 aux 2.234->0.463 | sB40 acc 0.453 aux 2.234->1.372 | pl40 acc 0.716 | spl40 acc 0.679 aux 2.234->0.764
+   joint C: aux loss 4.767 -> 0.295
+DIAG tttssl_C s2 Dreyer2026Proteus/P06|1 n=187 na acc 0.604 | sA10 acc 0.642 aux 1.459->0.706 | sA40 acc 0.631 aux 1.459->0.324 | sA100 acc 0.626 aux 1.459->0.238 | sB40 acc 0.626 aux 1.459->0.897 | pl40 acc 0.850 | spl40 acc 0.813 aux 1.459->0.425
+   joint C: aux loss 4.767 -> 0.307
+DIAG tttssl_C s2 Dreyer2026Proteus/P07|1 n=189 na acc 0.598 | sA10 acc 0.619 aux 1.486->0.780 | sA40 acc 0.598 aux 1.486->0.347 | sA100 acc 0.566 aux 1.486->0.291 | sB40 acc 0.635 aux 1.486->0.791 | pl40 acc 0.884 | spl40 acc 0.794 aux 1.486->0.497
+   joint C: aux loss 4.774 -> 0.214
+DIAG tttssl_C s2 Dreyer2026Proteus/P08|1 n=189 na acc 0.693 | sA10 acc 0.698 aux 1.326->0.786 | sA40 acc 0.667 aux 1.326->0.351 | sA100 acc 0.667 aux 1.326->0.285 | sB40 acc 0.693 aux 1.326->1.070 | pl40 acc 0.868 | spl40 acc 0.794 aux 1.326->0.478
+   joint C: aux loss 4.707 -> 0.453
+DIAG tttssl_C s2 Dreyer2026Proteus/P09|1 n=189 na acc 0.561 | sA10 acc 0.566 aux 1.469->0.749 | sA40 acc 0.561 aux 1.469->0.353 | sA100 acc 0.534 aux 1.469->0.300 | sB40 acc 0.582 aux 1.469->0.990 | pl40 acc 0.847 | spl40 acc 0.772 aux 1.469->0.454
+   joint C: aux loss 4.701 -> 0.243
+DIAG tttssl_C s2 Dreyer2026Proteus/P10|1 n=192 na acc 0.547 | sA10 acc 0.536 aux 1.467->0.780 | sA40 acc 0.521 aux 1.467->0.348 | sA100 acc 0.505 aux 1.467->0.284 | sB40 acc 0.536 aux 1.467->0.973 | pl40 acc 0.776 | spl40 acc 0.635 aux 1.467->0.448
+DIAG tttssl_C s2 Dreyer2026Proteus/P10|2 n=186 na acc 0.640 | sA10 acc 0.634 aux 1.619->0.781 | sA40 acc 0.586 aux 1.619->0.344 | sA100 acc 0.570 aux 1.619->0.298 | sB40 acc 0.645 aux 1.619->1.040 | pl40 acc 0.909 | spl40 acc 0.806 aux 1.619->0.470
+DIAG tttssl_C s2 Dreyer2026Proteus/P10|3 n=199 na acc 0.563 | sA10 acc 0.553 aux 1.430->0.712 | sA40 acc 0.508 aux 1.430->0.411 | sA100 acc 0.477 aux 1.430->0.330 | sB40 acc 0.568 aux 1.430->1.083 | pl40 acc 0.874 | spl40 acc 0.734 aux 1.430->0.433
+   joint P: aux loss 0.721 -> 0.062
+DIAG tttssl_P s2 Dreyer2026Proteus/P01|1 n=190 na acc 0.626 | mirror_acc 0.626 | sA10 acc 0.626 aux 0.664->0.137 | sA40 acc 0.616 aux 0.664->0.009 | sA100 acc 0.626 aux 0.664->0.003 | sB40 acc 0.616 aux 0.664->0.671 | pl40 acc 0.774 | spl40 acc 0.721 aux 0.664->0.021
+   joint P: aux loss 0.721 -> 0.063
+DIAG tttssl_P s2 Dreyer2026Proteus/P02|1 n=189 na acc 0.577 | mirror_acc 0.995 | sA10 acc 0.561 aux 0.063->0.008 | sA40 acc 0.566 aux 0.063->0.000 | sA100 acc 0.561 aux 0.063->0.000 | sB40 acc 0.593 aux 0.063->0.071 | pl40 acc 0.857 | spl40 acc 0.868 aux 0.063->0.008
+   joint P: aux loss 0.721 -> 0.069
+DIAG tttssl_P s2 Dreyer2026Proteus/P03|1 n=189 na acc 0.439 | mirror_acc 0.995 | sA10 acc 0.413 aux 0.106->0.008 | sA40 acc 0.418 aux 0.106->0.001 | sA100 acc 0.429 aux 0.106->0.001 | sB40 acc 0.444 aux 0.106->0.098 | pl40 acc 0.741 | spl40 acc 0.735 aux 0.106->0.010
+   joint P: aux loss 0.765 -> 0.083
+DIAG tttssl_P s2 Dreyer2026Proteus/P04|1 n=189 na acc 0.481 | mirror_acc 0.820 | sA10 acc 0.513 aux 0.425->0.125 | sA40 acc 0.487 aux 0.425->0.010 | sA100 acc 0.471 aux 0.425->0.003 | sB40 acc 0.481 aux 0.425->0.443 | pl40 acc 0.492 | spl40 acc 0.476 aux 0.425->0.028
+DIAG tttssl_P s2 Dreyer2026Proteus/P04|2 n=189 na acc 0.450 | mirror_acc 0.995 | sA10 acc 0.418 aux 0.064->0.008 | sA40 acc 0.381 aux 0.064->0.001 | sA100 acc 0.376 aux 0.064->0.000 | sB40 acc 0.450 aux 0.064->0.061 | pl40 acc 0.487 | spl40 acc 0.513 aux 0.064->0.009
+DIAG tttssl_P s2 Dreyer2026Proteus/P04|3 n=188 na acc 0.362 | mirror_acc 0.952 | sA10 acc 0.394 aux 0.176->0.030 | sA40 acc 0.404 aux 0.176->0.003 | sA100 acc 0.410 aux 0.176->0.001 | sB40 acc 0.372 aux 0.176->0.176 | pl40 acc 0.601 | spl40 acc 0.569 aux 0.176->0.013
+   joint P: aux loss 0.729 -> 0.258
+DIAG tttssl_P s2 Dreyer2026Proteus/P05|1 n=190 na acc 0.474 | mirror_acc 0.700 | sA10 acc 0.432 aux 0.576->0.064 | sA40 acc 0.479 aux 0.576->0.004 | sA100 acc 0.474 aux 0.576->0.002 | sB40 acc 0.474 aux 0.576->0.544 | pl40 acc 0.711 | spl40 acc 0.674 aux 0.576->0.014
+   joint P: aux loss 0.721 -> 0.057
+DIAG tttssl_P s2 Dreyer2026Proteus/P06|1 n=187 na acc 0.487 | mirror_acc 0.973 | sA10 acc 0.497 aux 0.115->0.015 | sA40 acc 0.460 aux 0.115->0.001 | sA100 acc 0.449 aux 0.115->0.001 | sB40 acc 0.508 aux 0.115->0.101 | pl40 acc 0.845 | spl40 acc 0.840 aux 0.115->0.012
+   joint P: aux loss 0.721 -> 0.062
+DIAG tttssl_P s2 Dreyer2026Proteus/P07|1 n=189 na acc 0.661 | mirror_acc 0.995 | sA10 acc 0.661 aux 0.135->0.021 | sA40 acc 0.661 aux 0.135->0.002 | sA100 acc 0.646 aux 0.135->0.001 | sB40 acc 0.651 aux 0.135->0.130 | pl40 acc 0.878 | spl40 acc 0.884 aux 0.135->0.014
+   joint P: aux loss 0.729 -> 0.169
+DIAG tttssl_P s2 Dreyer2026Proteus/P08|1 n=189 na acc 0.714 | mirror_acc 0.989 | sA10 acc 0.735 aux 0.163->0.020 | sA40 acc 0.741 aux 0.163->0.001 | sA100 acc 0.746 aux 0.163->0.000 | sB40 acc 0.714 aux 0.163->0.163 | pl40 acc 0.878 | spl40 acc 0.868 aux 0.163->0.006
+   joint P: aux loss 0.752 -> 0.085
+DIAG tttssl_P s2 Dreyer2026Proteus/P09|1 n=189 na acc 0.630 | mirror_acc 0.577 | sA10 acc 0.614 aux 0.715->0.109 | sA40 acc 0.582 aux 0.715->0.005 | sA100 acc 0.582 aux 0.715->0.002 | sB40 acc 0.608 aux 0.715->0.702 | pl40 acc 0.857 | spl40 acc 0.836 aux 0.715->0.016
+   joint P: aux loss 0.759 -> 0.062
+DIAG tttssl_P s2 Dreyer2026Proteus/P10|1 n=192 na acc 0.578 | mirror_acc 0.943 | sA10 acc 0.573 aux 0.271->0.021 | sA40 acc 0.536 aux 0.271->0.001 | sA100 acc 0.536 aux 0.271->0.001 | sB40 acc 0.594 aux 0.271->0.280 | pl40 acc 0.786 | spl40 acc 0.776 aux 0.271->0.007
+DIAG tttssl_P s2 Dreyer2026Proteus/P10|2 n=186 na acc 0.720 | mirror_acc 0.941 | sA10 acc 0.699 aux 0.272->0.019 | sA40 acc 0.672 aux 0.272->0.001 | sA100 acc 0.667 aux 0.272->0.001 | sB40 acc 0.726 aux 0.272->0.271 | pl40 acc 0.909 | spl40 acc 0.898 aux 0.272->0.008
+DIAG tttssl_P s2 Dreyer2026Proteus/P10|3 n=199 na acc 0.588 | mirror_acc 1.000 | sA10 acc 0.573 aux 0.179->0.016 | sA40 acc 0.563 aux 0.179->0.001 | sA100 acc 0.538 aux 0.179->0.001 | sB40 acc 0.588 aux 0.179->0.166 | pl40 acc 0.905 | spl40 acc 0.884 aux 0.179->0.008
+DIAG tttssl_twin s3 Dreyer2026Proteus/P01|1 n=190 na acc 0.642 | pl40 acc 0.753 | tent40 acc 0.332
+DIAG tttssl_twin s3 Dreyer2026Proteus/P02|1 n=189 na acc 0.630 | pl40 acc 0.857 | tent40 acc 0.360
+DIAG tttssl_twin s3 Dreyer2026Proteus/P03|1 n=189 na acc 0.423 | pl40 acc 0.751 | tent40 acc 0.333
+DIAG tttssl_twin s3 Dreyer2026Proteus/P04|1 n=189 na acc 0.503 | pl40 acc 0.524 | tent40 acc 0.328
+DIAG tttssl_twin s3 Dreyer2026Proteus/P04|2 n=189 na acc 0.471 | pl40 acc 0.508 | tent40 acc 0.333
+DIAG tttssl_twin s3 Dreyer2026Proteus/P04|3 n=188 na acc 0.426 | pl40 acc 0.580 | tent40 acc 0.335
+DIAG tttssl_twin s3 Dreyer2026Proteus/P05|1 n=190 na acc 0.463 | pl40 acc 0.726 | tent40 acc 0.332
+DIAG tttssl_twin s3 Dreyer2026Proteus/P06|1 n=187 na acc 0.545 | pl40 acc 0.845 | tent40 acc 0.332
+DIAG tttssl_twin s3 Dreyer2026Proteus/P07|1 n=189 na acc 0.693 | pl40 acc 0.910 | tent40 acc 0.333
+DIAG tttssl_twin s3 Dreyer2026Proteus/P08|1 n=189 na acc 0.730 | pl40 acc 0.878 | tent40 acc 0.614
+DIAG tttssl_twin s3 Dreyer2026Proteus/P09|1 n=189 na acc 0.635 | pl40 acc 0.873 | tent40 acc 0.323
+DIAG tttssl_twin s3 Dreyer2026Proteus/P10|1 n=192 na acc 0.599 | pl40 acc 0.786 | tent40 acc 0.333
+DIAG tttssl_twin s3 Dreyer2026Proteus/P10|2 n=186 na acc 0.672 | pl40 acc 0.909 | tent40 acc 0.344
+DIAG tttssl_twin s3 Dreyer2026Proteus/P10|3 n=199 na acc 0.633 | pl40 acc 0.905 | tent40 acc 0.337
