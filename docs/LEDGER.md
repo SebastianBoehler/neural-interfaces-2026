@@ -6497,3 +6497,14 @@ amendment it is reported, not chosen. Returning people: only the filter is measu
 +0.08, runs +0.28, full +0.06); r15 and the views have no returning-people runs (absent, assumed 0). Sealed-weighted
 J (0.566 new + 0.434 returning, scheme means): stk1 + filter about +0.22, stk2 + filter about +0.25. Single fine-tuning
 draw; §243 adds draws 1 and 2.
+
+### 244. DEPLOYABLE EYE-EMBEDDING VIEW (written 14 Nov 12:57 UTC, before any result; package question from v52-build)
+Finding (silent mismatch): s234's E view (and so §242's stk1/stk2) concatenates each fold net's HELD-OUT embeddings
+(ocunet.run keeps only te rows), so every person's rows come from a different net and the PCA on "the other nine people"
+mixes nine nets' coordinate systems. No package can compute that. Deployable analogue (studies/14nov/stack/ocufold.py):
+per held-out person, the fold net (as ocushuf trains it, 3 seeds = the package's eye_s0-2) embeds all rows; PCA 4 on the
+in-sample training rows (384 columns standardised there), applied to the held-out rows. GPU: 20 orders x 3 seeds, Leonardo.
+Then stk1dep = r15 + Edep view, and the deployable-only arms already submitted: r15 alone, r15 + eye x3 (no E).
+Prediction: Edep adds +0.00 to +0.10 over r15 alone (less than the dev E: in-sample embeddings are sharper than held-out).
+Refutation: Edep minus r15 alone <= 0 over 20 orders -> the view is not packaged; the upload stack is r15 (+ eye x3 if it
+holds) + filter.
