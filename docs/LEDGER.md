@@ -5308,3 +5308,33 @@ filter off).** τ 2 (τ 1 similar). Means over six orders:
     offsets −0.02.
 - **§214 corrected returning people, first orders:** within 0 ER +0.61 / ERF +0.84; within 1 +0.30 / +0.29; within 2 +0.47 / +0.78.
   Before the fixes: within 1 ERF +0.19, within 2 ERF +1.23.
+
+### 220. EPISODIC SESSIONBN FAMILY (written 14 Nov 07:31 UTC, before any result; ML panel 14 Nov §2.1)
+- **Mechanism:** the nets carry a per-session class bias that the chain's rebalancing removes anyway, so they spend
+  capacity on something free at test time. Train one SessionBN family inside the adaptation it is deployed with:
+  each batch is one episode of ONE training session (21 rows per class, 63 rows, about the stock 64; episodes of all
+  sessions in random order), SessionBN normalises with the episode's own statistics (chunk = episode), the logits get a
+  per-class bias b (sum 0, two free parameters) from 8 unrolled fixed-point steps b ← b − log mean softmax(z + b), so
+  the episode's mean prediction is uniform, then the recipe's cross-entropy on z + b. Epochs, lr, augmentation, k 20 and
+  the test-time forward are the stock ones: drop-in weights, no run-time cost. Class-stratified episodes make the uniform
+  target exact (the sessions are 10/10/10 and 32/32/32 by design); stock training is unstratified.
+- **Family:** fbraw (slot 5, fbcnet_raw_sbn), seeds 0–5, all LOSO folds and seen_session. Arm E (episodic) and arm E0
+  (the stock recipe through the same runner: paired retraining control and no-op check, its recording-order output
+  must equal ttt7_fbraw_base of the same seed up to GPU nondeterminism). Code `studies/14nov/episodic/`
+  (episodic.py trains and streams, wave.sh packs smoke + 12 tasks into one Galvani job, alone.py, chain.py).
+  Each fold's net is streamed frozen (causal SessionBN) in recording order and in within 0/1, full 0/1, runs 0/1;
+  files `ttt18<order>{E,E0}_fbraw_base-<proto>-s<seed>.npz`, scored by shufcombo with FT_V=base (fb, sinc, fbl
+  linked to the stock base of the same order), package gate, eye net re-streamed, against the stock tag ttt18<order>
+  (recording order: ttt7, the shipped slot).
+- **Readouts:** (1) family alone, seed-mean posteriors, person-equal cell BA after label-free whole-session balancing,
+  new people, recording order and the mean of the six delivery orders; (2) chain, new people, P0r (v5.1b with slot 5
+  replaced) minus stock P0r, mean over the six delivery orders, on seed sets B2_s012 and B2_s345, with and without P10;
+  V6r (eye view + rest, no FT) as a second column; E0 − stock as the retraining-noise reference.
+- **Prediction:** family alone after balancing E − stock +0.5 (−1 to +2) new; raw (unbalanced) E − stock lower than
+  that, possibly negative (the net no longer learns the population bias). Chain P0r E − stock +0.1 (−0.3 to +0.4) per
+  seed set; E0 − stock within ±0.2.
+- **Kill (panel's, adopted):** the family alone after balancing rises less than +1 point, or the chain gains less than
+  +0.3 on two seed sets without P10 → not adopted in this form. Per AGENTS a chain delta inside ±0.3 is recorded as
+  "undecided" for the direction (prototype step, other families, both stratified and unstratified episodes remain open);
+  it is closed for this form only if the chain is ≤ −0.3 or the balanced family-alone change is ≤ 0. If E0 − stock is
+  as large as E − stock, the difference is read as retraining noise, not as the mechanism.
