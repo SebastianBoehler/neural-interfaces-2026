@@ -1,0 +1,432 @@
+   joint R10 LAM 0.1: aux loss 1.037 -> 0.946
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P01|1 n=190 na acc 0.663 | sB40 acc 0.632 aux 0.909->0.915 | sA10 acc 0.658 aux 0.909->0.824
+   joint R10 LAM 0.1: aux loss 1.038 -> 0.951
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P02|1 n=189 na acc 0.635 | sB40 acc 0.651 aux 0.861->0.828 | sA10 acc 0.651 aux 0.861->0.724
+   joint R10 LAM 0.1: aux loss 1.035 -> 0.960
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P03|1 n=189 na acc 0.434 | sB40 acc 0.429 aux 0.860->0.820 | sA10 acc 0.439 aux 0.860->0.766
+   joint R10 LAM 0.1: aux loss 1.041 -> 0.975
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P04|1 n=189 na acc 0.497 | sB40 acc 0.529 aux 0.854->0.865 | sA10 acc 0.497 aux 0.854->0.786
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P04|2 n=189 na acc 0.423 | sB40 acc 0.418 aux 0.840->0.834 | sA10 acc 0.434 aux 0.840->0.723
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P04|3 n=188 na acc 0.404 | sB40 acc 0.441 aux 0.906->0.899 | sA10 acc 0.420 aux 0.906->0.822
+   joint R10 LAM 0.1: aux loss 1.042 -> 0.863
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P05|1 n=190 na acc 0.500 | sB40 acc 0.458 aux 0.930->0.896 | sA10 acc 0.542 aux 0.930->0.732
+   joint R10 LAM 0.1: aux loss 1.040 -> 0.943
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P06|1 n=187 na acc 0.567 | sB40 acc 0.540 aux 0.825->0.852 | sA10 acc 0.588 aux 0.825->0.758
+   joint R10 LAM 0.1: aux loss 1.035 -> 0.944
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P07|1 n=189 na acc 0.661 | sB40 acc 0.709 aux 0.840->0.828 | sA10 acc 0.661 aux 0.840->0.742
+   joint R10 LAM 0.1: aux loss 1.042 -> 0.878
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P08|1 n=189 na acc 0.693 | sB40 acc 0.677 aux 0.938->0.954 | sA10 acc 0.714 aux 0.938->0.878
+   joint R10 LAM 0.1: aux loss 1.041 -> 0.766
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P09|1 n=189 na acc 0.614 | sB40 acc 0.608 aux 0.869->0.892 | sA10 acc 0.624 aux 0.869->0.804
+   joint R10 LAM 0.1: aux loss 1.037 -> 0.830
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P10|1 n=192 na acc 0.552 | sB40 acc 0.542 aux 1.004->0.962 | sA10 acc 0.526 aux 1.004->0.898
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P10|2 n=186 na acc 0.672 | sB40 acc 0.704 aux 1.007->0.990 | sA10 acc 0.726 aux 1.007->0.822
+DIAG tttssl_R10 s0 Dreyer2026Proteus/P10|3 n=199 na acc 0.603 | sB40 acc 0.633 aux 1.026->1.012 | sA10 acc 0.603 aux 1.026->0.880
+   joint R25 LAM 0.25: aux loss 1.047 -> 0.841
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P01|1 n=190 na acc 0.653 | sB40 acc 0.642 aux 0.891->0.887 | sA10 acc 0.647 aux 0.891->0.800
+   joint R25 LAM 0.25: aux loss 1.040 -> 0.845
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P02|1 n=189 na acc 0.640 | sB40 acc 0.640 aux 0.787->0.788 | sA10 acc 0.646 aux 0.787->0.666
+   joint R25 LAM 0.25: aux loss 1.040 -> 0.842
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P03|1 n=189 na acc 0.439 | sB40 acc 0.434 aux 0.841->0.829 | sA10 acc 0.460 aux 0.841->0.775
+   joint R25 LAM 0.25: aux loss 1.039 -> 0.731
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P04|1 n=189 na acc 0.497 | sB40 acc 0.476 aux 0.846->0.839 | sA10 acc 0.476 aux 0.846->0.787
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P04|2 n=189 na acc 0.455 | sB40 acc 0.466 aux 0.808->0.807 | sA10 acc 0.450 aux 0.808->0.715
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P04|3 n=188 na acc 0.420 | sB40 acc 0.431 aux 0.894->0.893 | sA10 acc 0.410 aux 0.894->0.814
+   joint R25 LAM 0.25: aux loss 1.040 -> 0.855
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P05|1 n=190 na acc 0.489 | sB40 acc 0.442 aux 0.894->0.872 | sA10 acc 0.442 aux 0.894->0.748
+   joint R25 LAM 0.25: aux loss 1.040 -> 0.851
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P06|1 n=187 na acc 0.540 | sB40 acc 0.551 aux 0.798->0.848 | sA10 acc 0.540 aux 0.798->0.718
+   joint R25 LAM 0.25: aux loss 1.040 -> 0.855
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P07|1 n=189 na acc 0.688 | sB40 acc 0.714 aux 0.827->0.802 | sA10 acc 0.704 aux 0.827->0.732
+   joint R25 LAM 0.25: aux loss 1.040 -> 0.869
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P08|1 n=189 na acc 0.735 | sB40 acc 0.767 aux 0.939->0.932 | sA10 acc 0.767 aux 0.939->0.862
+   joint R25 LAM 0.25: aux loss 1.031 -> 0.993
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P09|1 n=189 na acc 0.640 | sB40 acc 0.635 aux 0.865->0.845 | sA10 acc 0.608 aux 0.865->0.784
+   joint R25 LAM 0.25: aux loss 1.033 -> 0.756
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P10|1 n=192 na acc 0.594 | sB40 acc 0.594 aux 0.981->0.977 | sA10 acc 0.573 aux 0.981->0.875
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P10|2 n=186 na acc 0.683 | sB40 acc 0.677 aux 0.986->0.965 | sA10 acc 0.710 aux 0.986->0.802
+DIAG tttssl_R25 s3 Dreyer2026Proteus/P10|3 n=199 na acc 0.593 | sB40 acc 0.618 aux 1.024->1.009 | sA10 acc 0.633 aux 1.024->0.866
+   joint C10 LAM 0.1: aux loss 3.960 -> 0.563
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P01|1 n=190 na acc 0.626 | sB40 acc 0.621 aux 1.917->1.139 | sA10 acc 0.611 aux 1.917->0.844
+   joint C10 LAM 0.1: aux loss 4.176 -> 0.592
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P02|1 n=189 na acc 0.608 | sB40 acc 0.624 aux 1.526->0.966 | sA10 acc 0.603 aux 1.526->0.708
+   joint C10 LAM 0.1: aux loss 4.176 -> 0.466
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P03|1 n=189 na acc 0.450 | sB40 acc 0.471 aux 2.251->1.242 | sA10 acc 0.471 aux 2.251->0.738
+   joint C10 LAM 0.1: aux loss 4.219 -> 1.418
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P04|1 n=189 na acc 0.471 | sB40 acc 0.497 aux 2.166->1.161 | sA10 acc 0.487 aux 2.166->0.963
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P04|2 n=189 na acc 0.466 | sB40 acc 0.450 aux 2.417->1.234 | sA10 acc 0.455 aux 2.417->0.995
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P04|3 n=188 na acc 0.436 | sB40 acc 0.468 aux 2.289->1.226 | sA10 acc 0.484 aux 2.289->0.914
+   joint C10 LAM 0.1: aux loss 4.372 -> 0.689
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P05|1 n=190 na acc 0.463 | sB40 acc 0.474 aux 3.291->1.429 | sA10 acc 0.468 aux 3.291->1.478
+   joint C10 LAM 0.1: aux loss 4.176 -> 0.575
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P06|1 n=187 na acc 0.556 | sB40 acc 0.567 aux 1.942->1.070 | sA10 acc 0.567 aux 1.942->0.736
+   joint C10 LAM 0.1: aux loss 4.372 -> 0.445
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P07|1 n=189 na acc 0.672 | sB40 acc 0.709 aux 2.078->0.987 | sA10 acc 0.672 aux 2.078->0.860
+   joint C10 LAM 0.1: aux loss 4.372 -> 0.408
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P08|1 n=189 na acc 0.709 | sB40 acc 0.714 aux 1.860->1.325 | sA10 acc 0.698 aux 1.860->0.760
+   joint C10 LAM 0.1: aux loss 4.250 -> 0.549
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P09|1 n=189 na acc 0.646 | sB40 acc 0.656 aux 1.911->1.126 | sA10 acc 0.635 aux 1.911->0.840
+   joint C10 LAM 0.1: aux loss 4.183 -> 0.551
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P10|1 n=192 na acc 0.604 | sB40 acc 0.599 aux 2.104->1.229 | sA10 acc 0.604 aux 2.104->0.908
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P10|2 n=186 na acc 0.688 | sB40 acc 0.704 aux 2.158->1.173 | sA10 acc 0.710 aux 2.158->0.916
+DIAG tttssl_C10 s3 Dreyer2026Proteus/P10|3 n=199 na acc 0.658 | sB40 acc 0.633 aux 1.444->1.475 | sA10 acc 0.663 aux 1.444->0.835
+   joint R10 LAM 0.1: aux loss 1.031 -> 0.782
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | sB40 acc 0.637 aux 0.941->0.915 | sA10 acc 0.637 aux 0.941->0.807
+   joint R10 LAM 0.1: aux loss 1.031 -> 0.816
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P02|1 n=189 na acc 0.608 | sB40 acc 0.608 aux 0.862->0.818 | sA10 acc 0.608 aux 0.862->0.690
+   joint R10 LAM 0.1: aux loss 1.031 -> 0.840
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P03|1 n=189 na acc 0.386 | sB40 acc 0.402 aux 0.835->0.830 | sA10 acc 0.402 aux 0.835->0.751
+   joint R10 LAM 0.1: aux loss 1.035 -> 0.892
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P04|1 n=189 na acc 0.450 | sB40 acc 0.450 aux 0.860->0.865 | sA10 acc 0.476 aux 0.860->0.790
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P04|2 n=189 na acc 0.407 | sB40 acc 0.413 aux 0.854->0.827 | sA10 acc 0.434 aux 0.854->0.751
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P04|3 n=188 na acc 0.383 | sB40 acc 0.388 aux 0.917->0.911 | sA10 acc 0.351 aux 0.917->0.831
+   joint R10 LAM 0.1: aux loss 1.032 -> 0.597
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P05|1 n=190 na acc 0.479 | sB40 acc 0.489 aux 0.884->0.878 | sA10 acc 0.489 aux 0.884->0.722
+   joint R10 LAM 0.1: aux loss 1.031 -> 0.797
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P06|1 n=187 na acc 0.508 | sB40 acc 0.519 aux 0.835->0.816 | sA10 acc 0.529 aux 0.835->0.742
+   joint R10 LAM 0.1: aux loss 1.031 -> 0.882
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P07|1 n=189 na acc 0.683 | sB40 acc 0.693 aux 0.842->0.840 | sA10 acc 0.672 aux 0.842->0.742
+   joint R10 LAM 0.1: aux loss 1.026 -> 0.581
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P08|1 n=189 na acc 0.683 | sB40 acc 0.677 aux 0.954->0.962 | sA10 acc 0.698 aux 0.954->0.887
+   joint R10 LAM 0.1: aux loss 1.025 -> 0.857
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P09|1 n=189 na acc 0.656 | sB40 acc 0.651 aux 0.873->0.878 | sA10 acc 0.640 aux 0.873->0.809
+   joint R10 LAM 0.1: aux loss 1.037 -> 0.840
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P10|1 n=192 na acc 0.536 | sB40 acc 0.552 aux 0.956->0.967 | sA10 acc 0.536 aux 0.956->0.845
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P10|2 n=186 na acc 0.683 | sB40 acc 0.651 aux 0.986->0.981 | sA10 acc 0.672 aux 0.986->0.818
+DIAG tttssl_R10 s4 Dreyer2026Proteus/P10|3 n=199 na acc 0.603 | sB40 acc 0.593 aux 1.031->1.017 | sA10 acc 0.608 aux 1.031->0.858
+   joint R25 LAM 0.25: aux loss 1.031 -> 0.767
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | sB40 acc 0.642 aux 0.914->0.894 | sA10 acc 0.642 aux 0.914->0.795
+   joint R25 LAM 0.25: aux loss 1.031 -> 0.813
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P02|1 n=189 na acc 0.624 | sB40 acc 0.608 aux 0.816->0.782 | sA10 acc 0.614 aux 0.816->0.667
+   joint R25 LAM 0.25: aux loss 1.031 -> 0.821
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P03|1 n=189 na acc 0.407 | sB40 acc 0.402 aux 0.828->0.814 | sA10 acc 0.381 aux 0.828->0.736
+   joint R25 LAM 0.25: aux loss 1.035 -> 0.884
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P04|1 n=189 na acc 0.460 | sB40 acc 0.460 aux 0.844->0.854 | sA10 acc 0.471 aux 0.844->0.777
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P04|2 n=189 na acc 0.413 | sB40 acc 0.407 aux 0.840->0.816 | sA10 acc 0.423 aux 0.840->0.737
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P04|3 n=188 na acc 0.367 | sB40 acc 0.394 aux 0.900->0.900 | sA10 acc 0.367 aux 0.900->0.820
+   joint R25 LAM 0.25: aux loss 1.032 -> 0.574
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P05|1 n=190 na acc 0.463 | sB40 acc 0.442 aux 0.874->0.876 | sA10 acc 0.463 aux 0.874->0.709
+   joint R25 LAM 0.25: aux loss 1.031 -> 0.787
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P06|1 n=187 na acc 0.503 | sB40 acc 0.535 aux 0.818->0.806 | sA10 acc 0.513 aux 0.818->0.724
+   joint R25 LAM 0.25: aux loss 1.031 -> 0.843
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P07|1 n=189 na acc 0.688 | sB40 acc 0.688 aux 0.809->0.802 | sA10 acc 0.672 aux 0.809->0.718
+   joint R25 LAM 0.25: aux loss 1.026 -> 0.564
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P08|1 n=189 na acc 0.693 | sB40 acc 0.698 aux 0.944->0.952 | sA10 acc 0.693 aux 0.944->0.874
+   joint R25 LAM 0.25: aux loss 1.025 -> 0.834
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P09|1 n=189 na acc 0.651 | sB40 acc 0.635 aux 0.851->0.845 | sA10 acc 0.651 aux 0.851->0.786
+   joint R25 LAM 0.25: aux loss 1.037 -> 0.797
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P10|1 n=192 na acc 0.526 | sB40 acc 0.531 aux 0.949->0.962 | sA10 acc 0.536 aux 0.949->0.840
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P10|2 n=186 na acc 0.672 | sB40 acc 0.694 aux 0.973->0.965 | sA10 acc 0.704 aux 0.973->0.794
+DIAG tttssl_R25 s4 Dreyer2026Proteus/P10|3 n=199 na acc 0.618 | sB40 acc 0.613 aux 1.015->0.999 | sA10 acc 0.573 aux 1.015->0.841
+   joint C10 LAM 0.1: aux loss 4.345 -> 0.370
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P01|1 n=190 na acc 0.647 | sB40 acc 0.642 aux 1.854->1.269 | sA10 acc 0.626 aux 1.854->0.829
+   joint C10 LAM 0.1: aux loss 4.345 -> 0.383
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P02|1 n=189 na acc 0.603 | sB40 acc 0.630 aux 1.319->0.837 | sA10 acc 0.598 aux 1.319->0.611
+   joint C10 LAM 0.1: aux loss 4.345 -> 0.459
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P03|1 n=189 na acc 0.392 | sB40 acc 0.418 aux 1.791->1.195 | sA10 acc 0.402 aux 1.791->0.850
+   joint C10 LAM 0.1: aux loss 4.679 -> 0.174
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P04|1 n=189 na acc 0.481 | sB40 acc 0.455 aux 2.036->1.124 | sA10 acc 0.471 aux 2.036->0.985
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P04|2 n=189 na acc 0.444 | sB40 acc 0.423 aux 2.103->1.190 | sA10 acc 0.450 aux 2.103->0.870
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P04|3 n=188 na acc 0.394 | sB40 acc 0.378 aux 2.003->1.070 | sA10 acc 0.420 aux 2.003->0.822
+   joint C10 LAM 0.1: aux loss 4.614 -> 0.303
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P05|1 n=190 na acc 0.495 | sB40 acc 0.500 aux 2.962->1.299 | sA10 acc 0.479 aux 2.962->1.525
+   joint C10 LAM 0.1: aux loss 4.345 -> 0.385
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P06|1 n=187 na acc 0.556 | sB40 acc 0.556 aux 1.766->1.021 | sA10 acc 0.567 aux 1.766->0.829
+   joint C10 LAM 0.1: aux loss 4.345 -> 0.425
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P07|1 n=189 na acc 0.683 | sB40 acc 0.704 aux 1.982->0.989 | sA10 acc 0.672 aux 1.982->0.796
+   joint C10 LAM 0.1: aux loss 4.644 -> 0.371
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P08|1 n=189 na acc 0.667 | sB40 acc 0.672 aux 1.759->1.377 | sA10 acc 0.683 aux 1.759->0.795
+   joint C10 LAM 0.1: aux loss 4.481 -> 0.333
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P09|1 n=189 na acc 0.619 | sB40 acc 0.614 aux 1.711->1.085 | sA10 acc 0.624 aux 1.711->0.746
+   joint C10 LAM 0.1: aux loss 4.397 -> 0.845
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P10|1 n=192 na acc 0.568 | sB40 acc 0.599 aux 2.002->1.084 | sA10 acc 0.542 aux 2.002->0.885
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P10|2 n=186 na acc 0.694 | sB40 acc 0.683 aux 1.977->1.140 | sA10 acc 0.683 aux 1.977->0.912
+DIAG tttssl_C10 s4 Dreyer2026Proteus/P10|3 n=199 na acc 0.593 | sB40 acc 0.608 aux 1.997->1.245 | sA10 acc 0.593 aux 1.997->0.814
+   joint R10 LAM 0.1: aux loss 1.036 -> 0.898
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | sB40 acc 0.637 aux 0.902->0.887 | sA10 acc 0.605 aux 0.902->0.805
+   joint R10 LAM 0.1: aux loss 1.036 -> 0.899
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P02|1 n=189 na acc 0.614 | sB40 acc 0.630 aux 0.812->0.781 | sA10 acc 0.603 aux 0.812->0.684
+   joint R10 LAM 0.1: aux loss 1.036 -> 0.895
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P03|1 n=189 na acc 0.423 | sB40 acc 0.402 aux 0.818->0.838 | sA10 acc 0.392 aux 0.818->0.762
+   joint R10 LAM 0.1: aux loss 1.057 -> 0.667
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P04|1 n=189 na acc 0.466 | sB40 acc 0.455 aux 0.877->0.869 | sA10 acc 0.439 aux 0.877->0.806
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P04|2 n=189 na acc 0.460 | sB40 acc 0.460 aux 0.855->0.830 | sA10 acc 0.466 aux 0.855->0.724
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P04|3 n=188 na acc 0.372 | sB40 acc 0.383 aux 0.904->0.914 | sA10 acc 0.383 aux 0.904->0.808
+   joint R10 LAM 0.1: aux loss 1.052 -> 0.672
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P05|1 n=190 na acc 0.489 | sB40 acc 0.489 aux 0.912->0.905 | sA10 acc 0.484 aux 0.912->0.762
+   joint R10 LAM 0.1: aux loss 1.044 -> 0.899
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P06|1 n=187 na acc 0.529 | sB40 acc 0.545 aux 0.836->0.804 | sA10 acc 0.556 aux 0.836->0.745
+   joint R10 LAM 0.1: aux loss 1.036 -> 0.869
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P07|1 n=189 na acc 0.704 | sB40 acc 0.709 aux 0.836->0.816 | sA10 acc 0.704 aux 0.836->0.755
+   joint R10 LAM 0.1: aux loss 1.052 -> 0.694
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P08|1 n=189 na acc 0.704 | sB40 acc 0.661 aux 0.943->0.944 | sA10 acc 0.709 aux 0.943->0.869
+   joint R10 LAM 0.1: aux loss 1.046 -> 0.767
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P09|1 n=189 na acc 0.603 | sB40 acc 0.608 aux 0.871->0.897 | sA10 acc 0.624 aux 0.871->0.790
+   joint R10 LAM 0.1: aux loss 1.045 -> 0.814
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P10|1 n=192 na acc 0.526 | sB40 acc 0.474 aux 0.999->0.985 | sA10 acc 0.505 aux 0.999->0.862
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P10|2 n=186 na acc 0.699 | sB40 acc 0.640 aux 1.011->0.976 | sA10 acc 0.726 aux 1.011->0.814
+DIAG tttssl_R10 s5 Dreyer2026Proteus/P10|3 n=199 na acc 0.593 | sB40 acc 0.573 aux 1.031->1.023 | sA10 acc 0.613 aux 1.031->0.853
+   joint R25 LAM 0.25: aux loss 1.036 -> 0.898
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | sB40 acc 0.647 aux 0.903->0.887 | sA10 acc 0.621 aux 0.903->0.802
+   joint R25 LAM 0.25: aux loss 1.036 -> 0.890
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P02|1 n=189 na acc 0.608 | sB40 acc 0.635 aux 0.788->0.753 | sA10 acc 0.619 aux 0.788->0.656
+   joint R25 LAM 0.25: aux loss 1.036 -> 0.890
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P03|1 n=189 na acc 0.402 | sB40 acc 0.397 aux 0.806->0.822 | sA10 acc 0.407 aux 0.806->0.747
+   joint R25 LAM 0.25: aux loss 1.057 -> 0.671
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P04|1 n=189 na acc 0.471 | sB40 acc 0.444 aux 0.859->0.856 | sA10 acc 0.466 aux 0.859->0.803
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P04|2 n=189 na acc 0.476 | sB40 acc 0.450 aux 0.820->0.798 | sA10 acc 0.460 aux 0.820->0.719
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P04|3 n=188 na acc 0.372 | sB40 acc 0.388 aux 0.894->0.910 | sA10 acc 0.367 aux 0.894->0.798
+   joint R25 LAM 0.25: aux loss 1.052 -> 0.666
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P05|1 n=190 na acc 0.468 | sB40 acc 0.484 aux 0.888->0.863 | sA10 acc 0.468 aux 0.888->0.737
+   joint R25 LAM 0.25: aux loss 1.044 -> 0.894
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P06|1 n=187 na acc 0.545 | sB40 acc 0.535 aux 0.827->0.797 | sA10 acc 0.535 aux 0.827->0.731
+   joint R25 LAM 0.25: aux loss 1.036 -> 0.880
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P07|1 n=189 na acc 0.698 | sB40 acc 0.704 aux 0.811->0.793 | sA10 acc 0.709 aux 0.811->0.739
+   joint R25 LAM 0.25: aux loss 1.052 -> 0.670
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P08|1 n=189 na acc 0.709 | sB40 acc 0.677 aux 0.946->0.945 | sA10 acc 0.714 aux 0.946->0.871
+   joint R25 LAM 0.25: aux loss 1.046 -> 0.755
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P09|1 n=189 na acc 0.587 | sB40 acc 0.582 aux 0.867->0.876 | sA10 acc 0.630 aux 0.867->0.777
+   joint R25 LAM 0.25: aux loss 1.045 -> 0.778
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P10|1 n=192 na acc 0.531 | sB40 acc 0.510 aux 0.990->0.974 | sA10 acc 0.516 aux 0.990->0.855
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P10|2 n=186 na acc 0.704 | sB40 acc 0.710 aux 0.987->0.953 | sA10 acc 0.710 aux 0.987->0.796
+DIAG tttssl_R25 s5 Dreyer2026Proteus/P10|3 n=199 na acc 0.573 | sB40 acc 0.593 aux 1.015->0.999 | sA10 acc 0.603 aux 1.015->0.848
+   joint C10 LAM 0.1: aux loss 4.234 -> 0.379
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P01|1 n=190 na acc 0.626 | sB40 acc 0.621 aux 1.527->1.499 | sA10 acc 0.611 aux 1.527->0.964
+   joint C10 LAM 0.1: aux loss 4.234 -> 0.444
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P02|1 n=189 na acc 0.624 | sB40 acc 0.646 aux 1.215->1.064 | sA10 acc 0.608 aux 1.215->0.733
+   joint C10 LAM 0.1: aux loss 4.234 -> 0.495
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P03|1 n=189 na acc 0.460 | sB40 acc 0.450 aux 1.430->1.427 | sA10 acc 0.481 aux 1.430->0.786
+   joint C10 LAM 0.1: aux loss 4.374 -> 1.011
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P04|1 n=189 na acc 0.471 | sB40 acc 0.444 aux 1.614->1.424 | sA10 acc 0.471 aux 1.614->1.083
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P04|2 n=189 na acc 0.460 | sB40 acc 0.413 aux 1.445->1.488 | sA10 acc 0.492 aux 1.445->0.967
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P04|3 n=188 na acc 0.404 | sB40 acc 0.420 aux 1.432->1.335 | sA10 acc 0.399 aux 1.432->0.918
+   joint C10 LAM 0.1: aux loss 4.390 -> 0.359
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P05|1 n=190 na acc 0.479 | sB40 acc 0.474 aux 2.135->2.045 | sA10 acc 0.489 aux 2.135->1.622
+   joint C10 LAM 0.1: aux loss 4.192 -> 0.480
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P06|1 n=187 na acc 0.588 | sB40 acc 0.594 aux 1.540->1.267 | sA10 acc 0.594 aux 1.540->0.894
+   joint C10 LAM 0.1: aux loss 4.234 -> 0.507
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P07|1 n=189 na acc 0.656 | sB40 acc 0.730 aux 1.611->1.244 | sA10 acc 0.667 aux 1.611->0.948
+   joint C10 LAM 0.1: aux loss 4.390 -> 0.442
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P08|1 n=189 na acc 0.704 | sB40 acc 0.704 aux 1.407->1.408 | sA10 acc 0.693 aux 1.407->0.830
+   joint C10 LAM 0.1: aux loss 4.452 -> 0.284
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P09|1 n=189 na acc 0.582 | sB40 acc 0.582 aux 1.413->1.348 | sA10 acc 0.598 aux 1.413->0.948
+   joint C10 LAM 0.1: aux loss 4.080 -> 0.716
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P10|1 n=192 na acc 0.568 | sB40 acc 0.583 aux 1.449->1.497 | sA10 acc 0.573 aux 1.449->0.958
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P10|2 n=186 na acc 0.699 | sB40 acc 0.699 aux 1.536->1.556 | sA10 acc 0.699 aux 1.536->1.023
+DIAG tttssl_C10 s5 Dreyer2026Proteus/P10|3 n=199 na acc 0.623 | sB40 acc 0.648 aux 1.204->1.891 | sA10 acc 0.608 aux 1.204->1.112
+   joint R25 LAM 0.25: aux loss 1.037 -> 0.955
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P01|1 n=190 na acc 0.663 | sB40 acc 0.626 aux 0.888->0.882 | sA10 acc 0.668 aux 0.888->0.811
+   joint R25 LAM 0.25: aux loss 1.038 -> 0.964
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P02|1 n=189 na acc 0.640 | sB40 acc 0.667 aux 0.809->0.781 | sA10 acc 0.651 aux 0.809->0.691
+   joint R25 LAM 0.25: aux loss 1.035 -> 0.970
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P03|1 n=189 na acc 0.429 | sB40 acc 0.450 aux 0.841->0.816 | sA10 acc 0.418 aux 0.841->0.750
+   joint R25 LAM 0.25: aux loss 1.041 -> 0.960
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P04|1 n=189 na acc 0.487 | sB40 acc 0.503 aux 0.852->0.853 | sA10 acc 0.476 aux 0.852->0.784
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P04|2 n=189 na acc 0.439 | sB40 acc 0.423 aux 0.814->0.797 | sA10 acc 0.429 aux 0.814->0.711
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P04|3 n=188 na acc 0.410 | sB40 acc 0.447 aux 0.896->0.896 | sA10 acc 0.410 aux 0.896->0.817
+   joint R25 LAM 0.25: aux loss 1.042 -> 0.888
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P05|1 n=190 na acc 0.500 | sB40 acc 0.474 aux 0.923->0.895 | sA10 acc 0.489 aux 0.923->0.735
+   joint R25 LAM 0.25: aux loss 1.040 -> 0.944
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P06|1 n=187 na acc 0.578 | sB40 acc 0.545 aux 0.831->0.839 | sA10 acc 0.588 aux 0.831->0.741
+   joint R25 LAM 0.25: aux loss 1.035 -> 0.982
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P07|1 n=189 na acc 0.661 | sB40 acc 0.693 aux 0.803->0.788 | sA10 acc 0.651 aux 0.803->0.719
+   joint R25 LAM 0.25: aux loss 1.042 -> 0.862
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P08|1 n=189 na acc 0.704 | sB40 acc 0.688 aux 0.932->0.941 | sA10 acc 0.714 aux 0.932->0.865
+   joint R25 LAM 0.25: aux loss 1.041 -> 0.755
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P09|1 n=189 na acc 0.608 | sB40 acc 0.614 aux 0.861->0.888 | sA10 acc 0.614 aux 0.861->0.797
+   joint R25 LAM 0.25: aux loss 1.037 -> 0.803
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P10|1 n=192 na acc 0.547 | sB40 acc 0.583 aux 1.014->0.976 | sA10 acc 0.542 aux 1.014->0.902
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P10|2 n=186 na acc 0.683 | sB40 acc 0.694 aux 0.998->0.963 | sA10 acc 0.710 aux 0.998->0.834
+DIAG tttssl_R25 s0 Dreyer2026Proteus/P10|3 n=199 na acc 0.593 | sB40 acc 0.603 aux 1.009->1.003 | sA10 acc 0.628 aux 1.009->0.900
+   joint C10 LAM 0.1: aux loss 4.585 -> 0.528
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P01|1 n=190 na acc 0.611 | sB40 acc 0.600 aux 1.846->1.382 | sA10 acc 0.605 aux 1.846->0.935
+   joint C10 LAM 0.1: aux loss 4.515 -> 0.550
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P02|1 n=189 na acc 0.614 | sB40 acc 0.603 aux 1.395->1.192 | sA10 acc 0.619 aux 1.395->0.845
+   joint C10 LAM 0.1: aux loss 4.728 -> 0.522
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P03|1 n=189 na acc 0.444 | sB40 acc 0.455 aux 1.665->1.347 | sA10 acc 0.460 aux 1.665->0.943
+   joint C10 LAM 0.1: aux loss 4.976 -> 0.345
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P04|1 n=189 na acc 0.481 | sB40 acc 0.497 aux 1.869->1.558 | sA10 acc 0.455 aux 1.869->1.057
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P04|2 n=189 na acc 0.423 | sB40 acc 0.418 aux 1.895->1.510 | sA10 acc 0.439 aux 1.895->1.098
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P04|3 n=188 na acc 0.394 | sB40 acc 0.410 aux 1.873->1.538 | sA10 acc 0.420 aux 1.873->0.973
+   joint C10 LAM 0.1: aux loss 4.745 -> 0.441
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P05|1 n=190 na acc 0.489 | sB40 acc 0.495 aux 2.961->2.038 | sA10 acc 0.495 aux 2.961->1.580
+   joint C10 LAM 0.1: aux loss 4.594 -> 0.491
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P06|1 n=187 na acc 0.556 | sB40 acc 0.524 aux 1.944->1.340 | sA10 acc 0.561 aux 1.944->0.842
+   joint C10 LAM 0.1: aux loss 4.728 -> 0.528
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P07|1 n=189 na acc 0.656 | sB40 acc 0.720 aux 1.909->1.235 | sA10 acc 0.656 aux 1.909->0.917
+   joint C10 LAM 0.1: aux loss 4.745 -> 0.548
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P08|1 n=189 na acc 0.709 | sB40 acc 0.746 aux 1.775->1.458 | sA10 acc 0.698 aux 1.775->0.955
+   joint C10 LAM 0.1: aux loss 4.946 -> 0.815
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P09|1 n=189 na acc 0.582 | sB40 acc 0.577 aux 1.678->1.349 | sA10 acc 0.598 aux 1.678->0.891
+   joint C10 LAM 0.1: aux loss 4.695 -> 1.099
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P10|1 n=192 na acc 0.536 | sB40 acc 0.547 aux 1.944->1.544 | sA10 acc 0.547 aux 1.944->1.104
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P10|2 n=186 na acc 0.661 | sB40 acc 0.624 aux 1.988->1.466 | sA10 acc 0.634 aux 1.988->1.074
+DIAG tttssl_C10 s0 Dreyer2026Proteus/P10|3 n=199 na acc 0.618 | sB40 acc 0.608 aux 1.160->1.644 | sA10 acc 0.623 aux 1.160->1.285
+   joint R10 LAM 0.1: aux loss 1.033 -> 0.621
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | sB40 acc 0.621 aux 0.903->0.904 | sA10 acc 0.637 aux 0.903->0.809
+   joint R10 LAM 0.1: aux loss 1.033 -> 0.677
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P02|1 n=189 na acc 0.619 | sB40 acc 0.630 aux 0.816->0.812 | sA10 acc 0.608 aux 0.816->0.711
+   joint R10 LAM 0.1: aux loss 1.033 -> 0.680
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P03|1 n=189 na acc 0.434 | sB40 acc 0.413 aux 0.826->0.801 | sA10 acc 0.413 aux 0.826->0.752
+   joint R10 LAM 0.1: aux loss 1.043 -> 0.636
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P04|1 n=189 na acc 0.492 | sB40 acc 0.471 aux 0.879->0.845 | sA10 acc 0.481 aux 0.879->0.777
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P04|2 n=189 na acc 0.450 | sB40 acc 0.418 aux 0.853->0.818 | sA10 acc 0.444 aux 0.853->0.730
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P04|3 n=188 na acc 0.399 | sB40 acc 0.410 aux 0.894->0.876 | sA10 acc 0.367 aux 0.894->0.801
+   joint R10 LAM 0.1: aux loss 1.050 -> 0.633
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P05|1 n=190 na acc 0.495 | sB40 acc 0.479 aux 0.928->0.908 | sA10 acc 0.484 aux 0.928->0.740
+   joint R10 LAM 0.1: aux loss 1.033 -> 0.679
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P06|1 n=187 na acc 0.535 | sB40 acc 0.529 aux 0.805->0.802 | sA10 acc 0.561 aux 0.805->0.756
+   joint R10 LAM 0.1: aux loss 1.045 -> 0.758
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P07|1 n=189 na acc 0.667 | sB40 acc 0.677 aux 0.825->0.823 | sA10 acc 0.672 aux 0.825->0.743
+   joint R10 LAM 0.1: aux loss 1.046 -> 0.746
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P08|1 n=189 na acc 0.667 | sB40 acc 0.661 aux 0.939->0.944 | sA10 acc 0.677 aux 0.939->0.883
+   joint R10 LAM 0.1: aux loss 1.050 -> 0.925
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P09|1 n=189 na acc 0.640 | sB40 acc 0.630 aux 0.859->0.855 | sA10 acc 0.608 aux 0.859->0.792
+   joint R10 LAM 0.1: aux loss 1.039 -> 0.957
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P10|1 n=192 na acc 0.578 | sB40 acc 0.562 aux 0.961->0.969 | sA10 acc 0.557 aux 0.961->0.880
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P10|2 n=186 na acc 0.704 | sB40 acc 0.726 aux 0.973->0.947 | sA10 acc 0.710 aux 0.973->0.830
+DIAG tttssl_R10 s1 Dreyer2026Proteus/P10|3 n=199 na acc 0.593 | sB40 acc 0.623 aux 1.029->1.008 | sA10 acc 0.583 aux 1.029->0.889
+   joint R25 LAM 0.25: aux loss 1.033 -> 0.599
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P01|1 n=190 na acc 0.647 | sB40 acc 0.632 aux 0.892->0.887 | sA10 acc 0.637 aux 0.892->0.793
+   joint R25 LAM 0.25: aux loss 1.033 -> 0.662
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P02|1 n=189 na acc 0.608 | sB40 acc 0.608 aux 0.778->0.773 | sA10 acc 0.608 aux 0.778->0.676
+   joint R25 LAM 0.25: aux loss 1.033 -> 0.660
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P03|1 n=189 na acc 0.429 | sB40 acc 0.423 aux 0.817->0.791 | sA10 acc 0.460 aux 0.817->0.743
+   joint R25 LAM 0.25: aux loss 1.043 -> 0.624
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P04|1 n=189 na acc 0.487 | sB40 acc 0.466 aux 0.867->0.830 | sA10 acc 0.481 aux 0.867->0.768
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P04|2 n=189 na acc 0.455 | sB40 acc 0.402 aux 0.824->0.792 | sA10 acc 0.434 aux 0.824->0.709
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P04|3 n=188 na acc 0.383 | sB40 acc 0.388 aux 0.886->0.869 | sA10 acc 0.356 aux 0.886->0.788
+   joint R25 LAM 0.25: aux loss 1.050 -> 0.639
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P05|1 n=190 na acc 0.479 | sB40 acc 0.495 aux 0.915->0.882 | sA10 acc 0.489 aux 0.915->0.730
+   joint R25 LAM 0.25: aux loss 1.033 -> 0.646
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P06|1 n=187 na acc 0.545 | sB40 acc 0.535 aux 0.807->0.791 | sA10 acc 0.556 aux 0.807->0.727
+   joint R25 LAM 0.25: aux loss 1.045 -> 0.756
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P07|1 n=189 na acc 0.667 | sB40 acc 0.693 aux 0.799->0.794 | sA10 acc 0.677 aux 0.799->0.721
+   joint R25 LAM 0.25: aux loss 1.046 -> 0.753
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P08|1 n=189 na acc 0.661 | sB40 acc 0.656 aux 0.932->0.933 | sA10 acc 0.672 aux 0.932->0.867
+   joint R25 LAM 0.25: aux loss 1.050 -> 0.919
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P09|1 n=189 na acc 0.608 | sB40 acc 0.608 aux 0.847->0.840 | sA10 acc 0.593 aux 0.847->0.778
+   joint R25 LAM 0.25: aux loss 1.039 -> 0.941
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P10|1 n=192 na acc 0.557 | sB40 acc 0.573 aux 0.958->0.960 | sA10 acc 0.573 aux 0.958->0.862
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P10|2 n=186 na acc 0.699 | sB40 acc 0.710 aux 0.974->0.945 | sA10 acc 0.720 aux 0.974->0.814
+DIAG tttssl_R25 s1 Dreyer2026Proteus/P10|3 n=199 na acc 0.593 | sB40 acc 0.628 aux 1.028->1.003 | sA10 acc 0.603 aux 1.028->0.878
+   joint C10 LAM 0.1: aux loss 4.675 -> 0.508
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | sB40 acc 0.637 aux 1.192->1.533 | sA10 acc 0.632 aux 1.192->0.700
+   joint C10 LAM 0.1: aux loss 4.675 -> 0.656
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P02|1 n=189 na acc 0.630 | sB40 acc 0.651 aux 0.998->1.202 | sA10 acc 0.656 aux 0.998->0.601
+   joint C10 LAM 0.1: aux loss 4.675 -> 0.612
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P03|1 n=189 na acc 0.434 | sB40 acc 0.429 aux 1.170->1.475 | sA10 acc 0.423 aux 1.170->0.689
+   joint C10 LAM 0.1: aux loss 4.475 -> 0.480
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P04|1 n=189 na acc 0.471 | sB40 acc 0.503 aux 1.278->1.793 | sA10 acc 0.487 aux 1.278->0.803
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P04|2 n=189 na acc 0.466 | sB40 acc 0.466 aux 1.242->1.706 | sA10 acc 0.460 aux 1.242->0.768
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P04|3 n=188 na acc 0.415 | sB40 acc 0.426 aux 1.313->1.792 | sA10 acc 0.399 aux 1.313->0.735
+   joint C10 LAM 0.1: aux loss 4.796 -> 0.935
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P05|1 n=190 na acc 0.516 | sB40 acc 0.526 aux 1.911->2.838 | sA10 acc 0.568 aux 1.911->1.270
+   joint C10 LAM 0.1: aux loss 4.675 -> 0.715
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P06|1 n=187 na acc 0.561 | sB40 acc 0.556 aux 1.112->1.572 | sA10 acc 0.561 aux 1.112->0.626
+   joint C10 LAM 0.1: aux loss 4.379 -> 0.635
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P07|1 n=189 na acc 0.656 | sB40 acc 0.693 aux 1.157->1.590 | sA10 acc 0.667 aux 1.157->0.662
+   joint C10 LAM 0.1: aux loss 4.678 -> 0.758
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P08|1 n=189 na acc 0.698 | sB40 acc 0.698 aux 1.299->1.516 | sA10 acc 0.714 aux 1.299->0.742
+   joint C10 LAM 0.1: aux loss 4.796 -> 0.576
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P09|1 n=189 na acc 0.619 | sB40 acc 0.608 aux 1.189->1.598 | sA10 acc 0.608 aux 1.189->0.721
+   joint C10 LAM 0.1: aux loss 4.404 -> 0.876
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P10|1 n=192 na acc 0.578 | sB40 acc 0.589 aux 1.358->1.632 | sA10 acc 0.573 aux 1.358->0.765
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P10|2 n=186 na acc 0.710 | sB40 acc 0.677 aux 1.445->1.691 | sA10 acc 0.683 aux 1.445->0.713
+DIAG tttssl_C10 s1 Dreyer2026Proteus/P10|3 n=199 na acc 0.643 | sB40 acc 0.638 aux 1.579->1.989 | sA10 acc 0.628 aux 1.579->1.187
+   joint R10 LAM 0.1: aux loss 1.045 -> 0.965
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P01|1 n=190 na acc 0.637 | sB40 acc 0.621 aux 0.911->0.915 | sA10 acc 0.653 aux 0.911->0.809
+   joint R10 LAM 0.1: aux loss 1.045 -> 0.953
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P02|1 n=189 na acc 0.624 | sB40 acc 0.661 aux 0.814->0.851 | sA10 acc 0.630 aux 0.814->0.701
+   joint R10 LAM 0.1: aux loss 1.045 -> 0.952
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P03|1 n=189 na acc 0.429 | sB40 acc 0.434 aux 0.839->0.834 | sA10 acc 0.429 aux 0.839->0.765
+   joint R10 LAM 0.1: aux loss 1.052 -> 0.850
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P04|1 n=189 na acc 0.487 | sB40 acc 0.487 aux 0.903->0.869 | sA10 acc 0.471 aux 0.903->0.792
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P04|2 n=189 na acc 0.450 | sB40 acc 0.423 aux 0.861->0.842 | sA10 acc 0.444 aux 0.861->0.746
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P04|3 n=188 na acc 0.367 | sB40 acc 0.394 aux 0.919->0.907 | sA10 acc 0.372 aux 0.919->0.830
+   joint R10 LAM 0.1: aux loss 1.039 -> 0.747
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P05|1 n=190 na acc 0.484 | sB40 acc 0.474 aux 0.892->0.883 | sA10 acc 0.495 aux 0.892->0.744
+   joint R10 LAM 0.1: aux loss 1.045 -> 0.953
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P06|1 n=187 na acc 0.529 | sB40 acc 0.540 aux 0.821->0.815 | sA10 acc 0.513 aux 0.821->0.739
+   joint R10 LAM 0.1: aux loss 1.045 -> 0.955
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P07|1 n=189 na acc 0.672 | sB40 acc 0.735 aux 0.835->0.829 | sA10 acc 0.672 aux 0.835->0.746
+   joint R10 LAM 0.1: aux loss 1.039 -> 0.960
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P08|1 n=189 na acc 0.698 | sB40 acc 0.677 aux 0.942->0.954 | sA10 acc 0.688 aux 0.942->0.882
+   joint R10 LAM 0.1: aux loss 1.043 -> 0.586
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P09|1 n=189 na acc 0.646 | sB40 acc 0.651 aux 0.877->0.861 | sA10 acc 0.667 aux 0.877->0.781
+   joint R10 LAM 0.1: aux loss 1.051 -> 0.911
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P10|1 n=192 na acc 0.589 | sB40 acc 0.573 aux 0.973->0.982 | sA10 acc 0.578 aux 0.973->0.878
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P10|2 n=186 na acc 0.720 | sB40 acc 0.677 aux 1.006->1.011 | sA10 acc 0.742 aux 1.006->0.815
+DIAG tttssl_R10 s2 Dreyer2026Proteus/P10|3 n=199 na acc 0.583 | sB40 acc 0.583 aux 1.009->1.014 | sA10 acc 0.613 aux 1.009->0.858
+   joint R25 LAM 0.25: aux loss 1.045 -> 0.953
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P01|1 n=190 na acc 0.647 | sB40 acc 0.600 aux 0.906->0.905 | sA10 acc 0.637 aux 0.906->0.806
+   joint R25 LAM 0.25: aux loss 1.045 -> 0.947
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P02|1 n=189 na acc 0.619 | sB40 acc 0.672 aux 0.766->0.791 | sA10 acc 0.614 aux 0.766->0.667
+   joint R25 LAM 0.25: aux loss 1.045 -> 0.946
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P03|1 n=189 na acc 0.418 | sB40 acc 0.423 aux 0.834->0.815 | sA10 acc 0.444 aux 0.834->0.757
+   joint R25 LAM 0.25: aux loss 1.052 -> 0.837
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P04|1 n=189 na acc 0.487 | sB40 acc 0.497 aux 0.879->0.854 | sA10 acc 0.497 aux 0.879->0.777
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P04|2 n=189 na acc 0.439 | sB40 acc 0.439 aux 0.811->0.798 | sA10 acc 0.466 aux 0.811->0.712
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P04|3 n=188 na acc 0.367 | sB40 acc 0.410 aux 0.907->0.887 | sA10 acc 0.378 aux 0.907->0.811
+   joint R25 LAM 0.25: aux loss 1.039 -> 0.704
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P05|1 n=190 na acc 0.484 | sB40 acc 0.458 aux 0.896->0.886 | sA10 acc 0.474 aux 0.896->0.731
+   joint R25 LAM 0.25: aux loss 1.045 -> 0.966
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P06|1 n=187 na acc 0.540 | sB40 acc 0.545 aux 0.816->0.808 | sA10 acc 0.513 aux 0.816->0.737
+   joint R25 LAM 0.25: aux loss 1.045 -> 0.948
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P07|1 n=189 na acc 0.677 | sB40 acc 0.741 aux 0.809->0.798 | sA10 acc 0.683 aux 0.809->0.725
+   joint R25 LAM 0.25: aux loss 1.039 -> 0.951
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P08|1 n=189 na acc 0.693 | sB40 acc 0.672 aux 0.940->0.943 | sA10 acc 0.677 aux 0.940->0.877
+   joint R25 LAM 0.25: aux loss 1.043 -> 0.586
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P09|1 n=189 na acc 0.635 | sB40 acc 0.646 aux 0.865->0.842 | sA10 acc 0.646 aux 0.865->0.767
+   joint R25 LAM 0.25: aux loss 1.051 -> 0.906
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P10|1 n=192 na acc 0.573 | sB40 acc 0.552 aux 0.967->0.984 | sA10 acc 0.547 aux 0.967->0.879
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P10|2 n=186 na acc 0.720 | sB40 acc 0.661 aux 0.996->0.992 | sA10 acc 0.710 aux 0.996->0.814
+DIAG tttssl_R25 s2 Dreyer2026Proteus/P10|3 n=199 na acc 0.578 | sB40 acc 0.568 aux 1.012->1.009 | sA10 acc 0.588 aux 1.012->0.860
+   joint C10 LAM 0.1: aux loss 4.767 -> 0.338
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P01|1 n=190 na acc 0.616 | sB40 acc 0.574 aux 1.801->1.163 | sA10 acc 0.605 aux 1.801->0.987
+   joint C10 LAM 0.1: aux loss 4.767 -> 0.412
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P02|1 n=189 na acc 0.603 | sB40 acc 0.651 aux 1.471->0.922 | sA10 acc 0.598 aux 1.471->0.782
+   joint C10 LAM 0.1: aux loss 4.767 -> 0.348
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P03|1 n=189 na acc 0.439 | sB40 acc 0.444 aux 1.849->1.212 | sA10 acc 0.460 aux 1.849->0.865
+   joint C10 LAM 0.1: aux loss 4.588 -> 0.356
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P04|1 n=189 na acc 0.497 | sB40 acc 0.513 aux 1.901->1.243 | sA10 acc 0.503 aux 1.901->1.123
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P04|2 n=189 na acc 0.471 | sB40 acc 0.455 aux 1.775->1.120 | sA10 acc 0.460 aux 1.775->1.028
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P04|3 n=188 na acc 0.399 | sB40 acc 0.415 aux 1.948->1.238 | sA10 acc 0.415 aux 1.948->0.970
+   joint C10 LAM 0.1: aux loss 4.774 -> 0.608
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P05|1 n=190 na acc 0.547 | sB40 acc 0.532 aux 2.946->1.779 | sA10 acc 0.526 aux 2.946->1.327
+   joint C10 LAM 0.1: aux loss 4.767 -> 0.297
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P06|1 n=187 na acc 0.535 | sB40 acc 0.529 aux 1.702->0.992 | sA10 acc 0.545 aux 1.702->0.823
+   joint C10 LAM 0.1: aux loss 4.767 -> 0.373
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P07|1 n=189 na acc 0.667 | sB40 acc 0.741 aux 2.003->1.100 | sA10 acc 0.656 aux 2.003->0.982
+   joint C10 LAM 0.1: aux loss 4.774 -> 0.280
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P08|1 n=189 na acc 0.735 | sB40 acc 0.746 aux 1.717->1.269 | sA10 acc 0.704 aux 1.717->0.963
+   joint C10 LAM 0.1: aux loss 4.707 -> 0.370
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P09|1 n=189 na acc 0.598 | sB40 acc 0.646 aux 1.843->1.121 | sA10 acc 0.582 aux 1.843->0.948
+   joint C10 LAM 0.1: aux loss 4.701 -> 0.397
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P10|1 n=192 na acc 0.578 | sB40 acc 0.578 aux 1.994->1.227 | sA10 acc 0.594 aux 1.994->1.023
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P10|2 n=186 na acc 0.699 | sB40 acc 0.677 aux 1.981->1.302 | sA10 acc 0.699 aux 1.981->0.984
+DIAG tttssl_C10 s2 Dreyer2026Proteus/P10|3 n=199 na acc 0.603 | sB40 acc 0.598 aux 1.670->1.317 | sA10 acc 0.588 aux 1.670->0.794
+   joint R10 LAM 0.1: aux loss 1.047 -> 0.861
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P01|1 n=190 na acc 0.642 | sB40 acc 0.637 aux 0.905->0.909 | sA10 acc 0.642 aux 0.905->0.817
+   joint R10 LAM 0.1: aux loss 1.040 -> 0.863
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P02|1 n=189 na acc 0.646 | sB40 acc 0.635 aux 0.813->0.817 | sA10 acc 0.640 aux 0.813->0.703
+   joint R10 LAM 0.1: aux loss 1.040 -> 0.880
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P03|1 n=189 na acc 0.423 | sB40 acc 0.439 aux 0.856->0.851 | sA10 acc 0.450 aux 0.856->0.791
+   joint R10 LAM 0.1: aux loss 1.039 -> 0.727
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P04|1 n=189 na acc 0.497 | sB40 acc 0.471 aux 0.861->0.851 | sA10 acc 0.487 aux 0.861->0.800
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P04|2 n=189 na acc 0.450 | sB40 acc 0.466 aux 0.819->0.821 | sA10 acc 0.434 aux 0.819->0.720
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P04|3 n=188 na acc 0.420 | sB40 acc 0.431 aux 0.902->0.910 | sA10 acc 0.415 aux 0.902->0.830
+   joint R10 LAM 0.1: aux loss 1.040 -> 0.865
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P05|1 n=190 na acc 0.474 | sB40 acc 0.495 aux 0.902->0.895 | sA10 acc 0.468 aux 0.902->0.779
+   joint R10 LAM 0.1: aux loss 1.040 -> 0.880
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P06|1 n=187 na acc 0.540 | sB40 acc 0.535 aux 0.809->0.859 | sA10 acc 0.556 aux 0.809->0.733
+   joint R10 LAM 0.1: aux loss 1.040 -> 0.888
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P07|1 n=189 na acc 0.672 | sB40 acc 0.735 aux 0.857->0.833 | sA10 acc 0.683 aux 0.857->0.753
+   joint R10 LAM 0.1: aux loss 1.040 -> 0.894
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P08|1 n=189 na acc 0.730 | sB40 acc 0.735 aux 0.948->0.936 | sA10 acc 0.751 aux 0.948->0.879
+   joint R10 LAM 0.1: aux loss 1.031 -> 1.010
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P09|1 n=189 na acc 0.614 | sB40 acc 0.630 aux 0.880->0.858 | sA10 acc 0.619 aux 0.880->0.803
+   joint R10 LAM 0.1: aux loss 1.033 -> 0.799
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P10|1 n=192 na acc 0.594 | sB40 acc 0.589 aux 0.989->0.979 | sA10 acc 0.583 aux 0.989->0.872
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P10|2 n=186 na acc 0.667 | sB40 acc 0.704 aux 0.984->0.966 | sA10 acc 0.688 aux 0.984->0.805
+DIAG tttssl_R10 s3 Dreyer2026Proteus/P10|3 n=199 na acc 0.618 | sB40 acc 0.618 aux 1.019->1.013 | sA10 acc 0.628 aux 1.019->0.862

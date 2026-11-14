@@ -7324,3 +7324,24 @@ Twin: pl40 +22.1, tent40 -21.1 (collapse to one class at 5e-3).
 - **Kill rule (unchanged in kind).** sB40 of any form net alone >= +2 over its na with the people x seeds interval above 0, or
   fusion >= +0.5 over c x na^0.5 with the people x orders interval above 0 -> causal form under shuffled orders. Otherwise
   record "label-free TTT not reached in two forms (contrastive / mirror, masked reconstruction)" and stop this line.
+**§255 amendment RESULT (14 Nov 17:46 UTC; evidence/tttssl_14nov/{score2.txt,diag2.log}; Galvani array 3102704, 18 tasks, all EXIT
+0, base-vs-harness <= 2.2e-16; LAM checked in the log, 0.1 / 0.25; replay/check.py OK).** New people, 6 seeds.
+- **Joint cost first (form na vs twin na 57.88, net alone):** R10 -0.24 [-0.57, +0.07], R25 -0.24 [-0.57, +0.12], C10 -0.03
+  [-0.80, +0.77]: all within the 0.5 budget (wave 1's C at 0.5 cost -3.07).
+- **Held-out reconstruction loss before adaptation** (1 - R2, session mean): R10 0.90, R25 0.89 (neither trivial nor
+  saturated, but weak: R2 about 0.1); sB40 moves it only to 0.89 / 0.88. C10 NT-Xent 1.77 -> 1.37 under sB40.
+- **Net alone, change vs na [80 % people x seeds] people up:** primary sB40: R10 +0.10 [-0.53, +0.75] 4/10, R25 +0.09 5/10,
+  C10 +0.80 [+0.11, +1.56] 7/10 (P10-type spread: one person +5.1); secondary sA10: R10 +0.33, R25 +0.10, C10 +0.12.
+- **Fusion with the r15 chain, w 0.5 (primary), sB40 vs na [people x orders]:** R10 -0.06, R25 +0.04, C10 +0.27 [+0.08, +0.47]
+  9/10; sA10 +0.11 / +0.04 / +0.19. w 0.25: C10 +0.09; w 1: C10 +0.63, but every net fused at w 1 sits 3+ below the chain.
+  All fused nets stay below the chain alone at w 0.5 (-0.7 to -1.4).
+- **Against the predictions:** joint cost R10 -0.3 hit (-0.24), R25 -0.6 hit (-0.24, within the range), C10 -0.8 hit (inside
+  the range, high). Held-out loss 0.4-0.8 missed (0.89-0.90: the reconstruction is weaker than expected). sB40 alone R10 +0.3 /
+  R25 +0.4 hit (inside the ranges, low), C10 +0.5 hit (+0.80). sA10 within ±0.7: hit. Fusion +0.05: R10 / R25 hit, C10 +0.27
+  hit (inside -0.2 to +0.3).
+- **Verdict by the kill rule:** no sB40 reaches +2 net alone (best C10 +0.80), and none reaches +0.5 in fusion (best C10
+  +0.27, interval above 0). **Label-free TTT not reached in two forms (contrastive / mirror; masked band-power
+  reconstruction; aux weights 0.1-0.5; SessionBN-affine and full-encoder adaptation), FBLight; this line stops here.** The
+  only consistent signal is contrastive SimCLR with SessionBN-affine adaptation (wave 1 C sB40 +1.19 alone / 0.00 fused;
+  wave 2 C10 +0.80 / +0.27 fused, 9/10), small and below the noise of a stacked member. Not tested: larger trunks (sinc,
+  fbraw), a causal form (not triggered).

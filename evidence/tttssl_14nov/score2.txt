@@ -1,0 +1,84 @@
+files: [(('C10', 'na'), 6), (('C10', 'sA10'), 6), (('C10', 'sB40'), 6), (('R10', 'na'), 6), (('R10', 'sA10'), 6), (('R10', 'sB40'), 6), (('R25', 'na'), 6), (('R25', 'sA10'), 6), (('R25', 'sB40'), 6), (('twin', 'na'), 6), (('twin', 'pl40'), 6), (('twin', 'tent40'), 6)]
+
+## Net alone (new people, mean over seeds; change vs the same form's na [80 % people x seeds] people up)
+C10   na 57.85 (6 seeds)  seed-mean probs 58.42
+R10   na 57.63 (6 seeds)  seed-mean probs 57.74
+R25   na 57.64 (6 seeds)  seed-mean probs 57.64
+twin  na 57.88 (6 seeds)  seed-mean probs 58.26
+C10 na - twin na: -0.03 [-0.80, +0.77] 4/10
+R10 na - twin na: -0.24 [-0.57, +0.07] 5/10
+R25 na - twin na: -0.24 [-0.57, +0.12] 4/10
+C10   sA10    +0.12 [-0.30, +0.50] 6/10  seeds 6  per person -1.2 +0.0 +1.3 +0.7 +0.6 +0.7 +0.0 -0.5 -0.0 -0.4
+C10   sB40    +0.80 [+0.11, +1.56] 7/10  seeds 6  per person -1.1 +2.1 +0.7 +0.0 +0.2 -0.5 +5.1 +1.0 +0.6 -0.2
+R10   sA10    +0.33 [-0.11, +0.76] 6/10  seeds 6  per person -0.4 -0.1 -0.1 -0.3 +0.7 +1.6 +0.1 +1.1 +0.2 +0.5
+R10   sB40    +0.10 [-0.53, +0.75] 4/10  seeds 6  per person -1.1 +1.2 -0.2 +0.1 -0.5 -0.0 +3.4 -1.4 +0.1 -0.5
+R25   sA10    +0.10 [-0.25, +0.46] 6/10  seeds 6  per person -0.5 +0.2 +0.8 -0.4 -1.0 -0.1 +0.3 +0.7 +0.2 +0.8
+R25   sB40    +0.09 [-0.45, +0.67] 5/10  seeds 6  per person -1.5 +1.5 +0.1 +0.0 -1.4 -0.1 +2.6 -0.6 -0.1 +0.4
+twin  pl40    +22.12 [+19.05, +25.05] 10/10  seeds 6  per person +12.4 +24.0 +32.8 +8.8 +25.4 +31.6 +21.1 +17.1 +23.4 +24.7
+twin  tent40  -21.14 [-24.76, -17.21] 0/10  seeds 6  per person -28.8 -26.1 -8.4 -11.4 -14.7 -20.0 -35.2 -9.1 -29.5 -28.3
+
+## Fusion with the r15 chain (c x net^w, net = seed mean; 12 orders x 6 bases; change [80 % people x orders] people up)
+chain alone 79.15
+-- w 0.25
+C10 na vs chain              -0.15 [-0.56, +0.25] 4/10  (within -0.34 full +0.23 runs -0.32)
+C10 sA10 vs chain            -0.05 [-0.43, +0.34] 7/10  (within -0.29 full +0.27 runs -0.15)
+C10 sA10 vs C10 na           +0.09 [+0.03, +0.15] 9/10  (within +0.06 full +0.04 runs +0.17)
+C10 sB40 vs chain            -0.06 [-0.48, +0.34] 6/10  (within -0.19 full +0.28 runs -0.26)
+C10 sB40 vs C10 na           +0.09 [-0.01, +0.19] 6/10  (within +0.15 full +0.05 runs +0.06)
+R10 na vs chain              -0.20 [-0.63, +0.21] 4/10  (within -0.41 full +0.21 runs -0.39)
+R10 sA10 vs chain            -0.16 [-0.58, +0.28] 4/10  (within -0.46 full +0.31 runs -0.31)
+R10 sA10 vs R10 na           +0.04 [-0.01, +0.10] 6/10  (within -0.05 full +0.09 runs +0.08)
+R10 sB40 vs chain            -0.26 [-0.74, +0.20] 4/10  (within -0.52 full +0.17 runs -0.42)
+R10 sB40 vs R10 na           -0.06 [-0.13, +0.01] 5/10  (within -0.10 full -0.04 runs -0.03)
+R25 na vs chain              -0.18 [-0.62, +0.25] 4/10  (within -0.41 full +0.22 runs -0.36)
+R25 sA10 vs chain            -0.18 [-0.58, +0.25] 4/10  (within -0.42 full +0.22 runs -0.33)
+R25 sA10 vs R25 na           +0.00 [-0.05, +0.05] 5/10  (within -0.02 full +0.00 runs +0.02)
+R25 sB40 vs chain            -0.22 [-0.64, +0.21] 4/10  (within -0.48 full +0.17 runs -0.35)
+R25 sB40 vs R25 na           -0.04 [-0.11, +0.03] 4/10  (within -0.08 full -0.05 runs +0.01)
+twin na vs chain             -0.22 [-0.66, +0.23] 4/10  (within -0.45 full +0.19 runs -0.39)
+twin pl40 vs chain           +2.32 [+1.84, +2.77] 10/10  (within +1.25 full +3.29 runs +2.41)
+twin pl40 vs twin na         +2.53 [+2.04, +3.04] 10/10  (within +1.70 full +3.10 runs +2.80)
+twin tent40 vs chain         -13.71 [-15.34, -12.18] 0/10  (within -14.72 full -12.08 runs -14.32)
+twin tent40 vs twin na       -13.49 [-15.10, -11.82] 0/10  (within -14.27 full -12.27 runs -13.93)
+-- w 0.5
+C10 na vs chain              -1.00 [-1.78, -0.27] 4/10  (within -1.12 full -0.37 runs -1.52)
+C10 sA10 vs chain            -0.81 [-1.53, -0.14] 3/10  (within -1.03 full -0.22 runs -1.19)
+C10 sA10 vs C10 na           +0.19 [+0.07, +0.30] 7/10  (within +0.08 full +0.15 runs +0.33)
+C10 sB40 vs chain            -0.73 [-1.41, -0.07] 4/10  (within -0.91 full -0.10 runs -1.17)
+C10 sB40 vs C10 na           +0.27 [+0.08, +0.47] 9/10  (within +0.20 full +0.27 runs +0.35)
+R10 na vs chain              -1.33 [-2.08, -0.54] 4/10  (within -1.64 full -0.62 runs -1.73)
+R10 sA10 vs chain            -1.22 [-1.96, -0.45] 3/10  (within -1.43 full -0.54 runs -1.70)
+R10 sA10 vs R10 na           +0.11 [+0.02, +0.19] 6/10  (within +0.21 full +0.08 runs +0.03)
+R10 sB40 vs chain            -1.38 [-2.16, -0.68] 3/10  (within -1.62 full -0.74 runs -1.79)
+R10 sB40 vs R10 na           -0.06 [-0.20, +0.09] 5/10  (within +0.01 full -0.13 runs -0.06)
+R25 na vs chain              -1.32 [-2.10, -0.53] 4/10  (within -1.56 full -0.62 runs -1.77)
+R25 sA10 vs chain            -1.28 [-2.00, -0.57] 3/10  (within -1.51 full -0.63 runs -1.70)
+R25 sA10 vs R25 na           +0.04 [-0.06, +0.12] 5/10  (within +0.05 full -0.01 runs +0.06)
+R25 sB40 vs chain            -1.27 [-1.97, -0.55] 2/10  (within -1.46 full -0.66 runs -1.71)
+R25 sB40 vs R25 na           +0.04 [-0.08, +0.18] 7/10  (within +0.10 full -0.04 runs +0.06)
+twin na vs chain             -1.36 [-2.10, -0.56] 3/10  (within -1.64 full -0.66 runs -1.78)
+twin pl40 vs chain           +2.72 [+2.22, +3.25] 10/10  (within +1.28 full +4.12 runs +2.77)
+twin pl40 vs twin na         +4.08 [+3.36, +4.82] 10/10  (within +2.92 full +4.78 runs +4.55)
+twin tent40 vs chain         -27.71 [-31.31, -24.20] 0/10  (within -29.01 full -26.15 runs -27.98)
+twin tent40 vs twin na       -26.35 [-29.95, -22.65] 0/10  (within -27.37 full -25.49 runs -26.20)
+-- w 1.0
+C10 na vs chain              -3.46 [-4.40, -2.56] 1/10  (within -3.75 full -2.49 runs -4.14)
+C10 sA10 vs chain            -3.08 [-3.97, -2.15] 1/10  (within -3.33 full -2.09 runs -3.81)
+C10 sA10 vs C10 na           +0.39 [+0.22, +0.57] 7/10  (within +0.42 full +0.41 runs +0.33)
+C10 sB40 vs chain            -2.83 [-3.75, -1.91] 1/10  (within -2.92 full -1.99 runs -3.58)
+C10 sB40 vs C10 na           +0.63 [+0.28, +0.98] 7/10  (within +0.82 full +0.50 runs +0.56)
+R10 na vs chain              -4.08 [-5.05, -3.06] 1/10  (within -4.84 full -2.90 runs -4.49)
+R10 sA10 vs chain            -3.85 [-4.85, -2.88] 1/10  (within -4.45 full -2.76 runs -4.34)
+R10 sA10 vs R10 na           +0.23 [+0.10, +0.35] 8/10  (within +0.39 full +0.14 runs +0.15)
+R10 sB40 vs chain            -4.29 [-5.25, -3.35] 0/10  (within -4.89 full -3.25 runs -4.74)
+R10 sB40 vs R10 na           -0.22 [-0.46, +0.02] 2/10  (within -0.04 full -0.35 runs -0.25)
+R25 na vs chain              -4.05 [-5.09, -3.03] 1/10  (within -4.75 full -2.88 runs -4.51)
+R25 sA10 vs chain            -3.93 [-4.97, -2.90] 1/10  (within -4.56 full -2.86 runs -4.38)
+R25 sA10 vs R25 na           +0.11 [-0.04, +0.26] 7/10  (within +0.19 full +0.02 runs +0.13)
+R25 sB40 vs chain            -4.12 [-5.12, -3.14] 1/10  (within -4.70 full -3.06 runs -4.59)
+R25 sB40 vs R25 na           -0.07 [-0.26, +0.13] 3/10  (within +0.06 full -0.18 runs -0.08)
+twin na vs chain             -4.12 [-5.14, -3.16] 1/10  (within -4.84 full -3.01 runs -4.51)
+twin pl40 vs chain           +2.66 [+2.05, +3.27] 10/10  (within +1.24 full +4.29 runs +2.45)
+twin pl40 vs twin na         +6.78 [+5.91, +7.66] 10/10  (within +6.08 full +7.30 runs +6.96)
+twin tent40 vs chain         -37.07 [-41.79, -32.03] 0/10  (within -38.57 full -35.34 runs -37.30)
+twin tent40 vs twin na       -32.95 [-37.55, -28.13] 0/10  (within -33.73 full -32.33 runs -32.79)
