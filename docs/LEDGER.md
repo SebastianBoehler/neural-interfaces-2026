@@ -5994,3 +5994,22 @@ are unchanged by construction (no new person is routed, s201). The routed person
 - **§228 member:** Schirrmeister 82.9 (v1 74.8), PhysionetMI 59.3 (v1 49.8) in rec: +8 to +9.5 (predicted +2 to +6). §216's
   verdicts hold with it (W 30 near optimal: Schirrmeister |W − W30| ≤ 0.12; PhysionetMI's W 60 gain only in rec/within);
   chain − member Schirrmeister +1.4 to +2.1.
+- **§228c RESULT (14 Nov 11:58 UTC; runs/rundetect/package_{within,runsfull}.txt; code 594de76).** v5.1b (P0r) / v6f (V6Fr),
+  new people, mean over orders [80 % person band]. Always-on true runs for scale.
+  - (a) Detector-gated J-wprior/urn: within (12 orders) +0.54 [+0.39, +0.68] / +0.35 [+0.22, +0.49] (true runs +0.53 /
+    +0.35; always-on J +0.51 / +0.31); runs (4) +0.27 [+0.11, +0.42] / +0.18 [+0.02, +0.34] (true +0.57 / +0.24); full (4)
+    +0.03 [−0.00, +0.07] / −0.02 [−0.05, +0.00] (always-on J −0.33 / −0.30). Latches: every within and runs session at
+    W 40; under full 7 of 56 sessions (12.5 %) latch falsely and cost ≈ 0 in sum. **Rule met: package candidate.**
+  - (b) Online-only urn (gated): within +0.42 / +0.27, runs +0.25 / +0.18, full +0.05 / −0.02. Lower on within by 0.12 /
+    0.08 and not higher on runs: does not replace (a). With true runs, online-only removes runs 0's V6Fr loss (−0.33 →
+    −0.00) but costs on within and full; the BrainHero acquisition urn is a runs-0 draw, not a systematic loss.
+  - (c) Gain by delivery position (true / J, within): windows 0–40 −0.05 / −0.04 (P0r) and −0.05 / −0.06 (V6Fr), i.e.
+    the filter costs inside the first run; 40–80 +0.13 / +0.13, 80–120 +0.16 / +0.14, 120–160 +0.11 / +0.11, 160+ +0.18 /
+    +0.17 (P0r). Starting at the W 40 latch loses nothing; it is why gated beats always-on.
+  - (d) Placement: the dev scorers filter shufcombo's SAVE_OUT outputs after the run, so no gate, shadow or fine-tuning
+    label can see them. In the package (lean_v62i) the gates, shadow and FT labels read out_v5 / tail6r / route state
+    inside step(); only predict() takes step()'s return value. The filter belongs in predict(): argmax of
+    filter.step(self.step(x)), with its own state (detector on the 6-direction band view, fitted on all ten public
+    people; J-wprior/urn needs no features). Not yet built into a package.
+  - Not done: v6.2hL's per-window outputs (SAVE_OUT with FT_TAG ttt18<order>LF, FT_V s15) do not exist; returning people
+    have no per-window outputs.
