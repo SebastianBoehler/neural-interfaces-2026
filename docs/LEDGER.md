@@ -6746,3 +6746,33 @@ reach inside one session, per person, and how far does the same system drop acro
   personal system loses >= 5 points from W to X. Its size = W personal (fused) minus ER. For the eight single-session people,
   W fused minus chain (c) is the room a session-internal personal system could at most claim; < +3 means the chain already
   sits near the personal ceiling. Bars are reading aids; within ±0.5 of a bar is "undecided".
+
+### 248. ELIMINATION OF +1.5-POINT LEVERS (written 14 Nov 15:10 UTC, before any measurement)
+- **Why:** on the live board two teams gained about +1.5 sealed in one upload and a new team entered at 0.851 (us 0.820).
+  Everything tested today is +0.1 to +0.3. Question: which lever of 1.5 to 3 points do the rules allow that we lack?
+  Method: elimination against the rules (FAQ and terms at the pinned rev and at upstream bddaff3, organisers' 13 Nov answer)
+  plus minute-scale measurements from data on disk. Code `studies/14nov/levers/`, outputs `evidence/levers_14nov/`. CPU only,
+  nothing trains, no download.
+- **M1 design ceiling (perfect design knowledge, not only boundaries).** On `runs/chainout/s215_<order>_off.npz` (V6Fr and
+  P0r, six bases, within/full/runs 0-1, new people), change against the raw output of: (b) the causal true-run count filter
+  (runcount.filt, reference); (e) the same filter with each run's TRUE class counts as capacities; (c) offline exact-count
+  assignment per run (Hungarian on log posteriors, true counts; non-causal, an upper bound); (d) offline exact counts per
+  cell; (f) offline per session. Prediction (V6Fr, mean over orders): (b) +0.5; (e) − (b) <= +0.15; (c) +1.3 (80 % +0.8 to
+  +2.2); (d) +0.8 (+0.3 to +1.4); (f) +0.6. Reading: if (c) < +1.5 the design lever cannot be the +1.5 even offline; the
+  causal share is what matters.
+- **M2 raw-data inventory.** From the BIDS events and EDF headers: seconds of eyes-open/closed rest per session and the
+  4-s windows they give; task duration per trial (cue to end_trial) and how many 4-s crops at 0.5 s steps fit; inter-trial
+  seconds. Prediction: rest about 1-3 min per run (20-90 windows per session); task 8 s (9 crops per trial at 0.5 s).
+  Reading: crops were tested five times (negative, REVIEW_5NOV, §100); rest runs give unlabelled rows only.
+- **M3 duplicates / overlap.** (i) Hash of the EDF signal payload of all 112 runs; (ii) max |correlation| of flattened
+  120 Hz windows across different runs in `data/proteus_windows.npz`. Prediction: 0 duplicate runs; 0 cross-run window pairs
+  above 0.9. A duplicate inside the public release would raise the prior that the sealed set copies public runs.
+- **M4 run fingerprint under full shuffle.** Leave-one-out 1-NN run identity within each session (the oracle separability of
+  runs, chance about 1/6) on (a) per-channel log-variance in 6 bands (§217's nuisance features, unprojected) and (b) a
+  hardware view (per-channel log power 45-58 Hz and at the 50 Hz notch residual, channel-pair correlation at 30-58 Hz).
+  Prediction: 0.45 (0.3-0.6) for both. Rule: >= 0.85 would reopen full-shuffle run recovery (§215 full arm +1.2 with true
+  runs); below 0.6 that route stays closed in these forms.
+- **M5 session dates.** EDF start dates per session (are sealed sessions same-day as any public one; gaps between
+  sessions). Prediction: one session per day, gaps of days to weeks, or dates anonymised; FAQ says sealed sessions are
+  "later sessions", so no same-day public twin exists.
+- **Everything else** (foundation model, more people, eye-view oracle, metric quirks) is assessed from the record, cited.
