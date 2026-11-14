@@ -127,7 +127,7 @@ def check_unrecognised(v6, pkg, d, sessions):
         V = [t["v6"] for t in tr]
         o5 = np.array([t["out_v5"] for t in tr]); logs[s.split("/")[-1]].update(
             differ_share=float(np.mean(np.abs(o6 - o5).max(1) > 1e-12)), max_diff=float(np.abs(o6 - o5).max()),
-            labels_changed=int((o6.argmax(1) != o5.argmax(1)).sum()), em_view_cols=int(c.tail6.em.A[0].shape[0]),
+            labels_changed=int((o6.argmax(1) != o5.argmax(1)).sum()), em_view_cols=int((c.routeB.tail if getattr(c, "routed", 0) else c.tail6).em.A[0].shape[0]),  # v6.2: RouteB's tail emits
             shadow_view_cols=int(c.shadow.em.A[0].shape[0]), rest_w=float(c.w_rest))
         assert logs[s.split("/")[-1]]["em_view_cols"] == logs[s.split("/")[-1]]["shadow_view_cols"] + 3 and abs(c.w_rest - 1 / 16) < 1e-15
         with torch.no_grad():  # eye

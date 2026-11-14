@@ -164,7 +164,7 @@ positive on all four orders; ERF loses only P04 on full 0 (−0.89). New people 
 | (a) Switch off = v6.1, gates forced off | Leonardo CPU 64428710 | pending |
 | (a) Routed set and first routed window = v5.1b | construction: recognition is v5.1b's own gate decision; every check session recognised at window 10 in both | by construction |
 | v6.2 / v6.2-safe = v6.1 before recognition | Mac CPU smoke | bitwise on windows 0–9 |
-| (b) Routed path against references | `scripts/check_v62.py` (v5 tree's Tail and Route with the eye columns, mix formula, eye, FT with the relabelled labels); CPU and A100 with package shapes, recording / within\|0 / full\|0 | v6.2-safe: Leonardo 64428710 (CPU), 64428711 (A100); v6.2: after its ZIP reaches Leonardo |
+| (b) Routed path against references | `scripts/check_v62.py` (v5.1b's own shadow, which its gates read; v5 tree's Route with the eye columns in its tail; mix formula, eye, FT with the relabelled labels); CPU and A100 with package shapes, recording / within\|0 / full\|0 | First A100 runs (64428711, 64428986) failed on the *shadow* reference only (0.34–0.41): it was built on mix_B with the eye columns, whereas the gate-unchanged v6.2 has no chain-B shadow. Routed outputs were exact (0.0), FT ≤ 8.1e-6. Reference fixed in 3f111dd; reruns on the unzipped ZIPs: CPU 64429469 (r1) / 64429473 (r2), A100 64429514 (r1) / 64429516 (r2) |
 | Worst-case run time | Leonardo 64424648, A100, on the package directories (ZIP rerun pending) | v6.2: gates off ×1.923 / ×2.233, as shipped ×1.918 / ×2.168 → **worst about 49.0 min** with warm-up, expected (43 % recognised) about 42 / 48 min. v6.2-safe: gates off ×1.894 / ×2.205, as shipped ×1.316 / ×1.261 → **worst about 48.4 min**, expected about 31 / 40 min |
 
 ## v6.2g: fine-tuning cost guards (14 Nov)
@@ -190,3 +190,27 @@ worst case.
 Smoke (Mac CPU, one session, 75 windows):
 - cap 50: bitwise equal to the unguarded run through window 59, then no refit (2 skipped), errors 0;
 - budget ≈ 0: bitwise equal to the fine-tuning-off package on all windows, stderr line printed once.
+
+v6.2g ZIPs (official local replay, Mac CPU; `files_unchanged` true, errors 0):
+
+| Package | ZIP SHA-256 | Replay |
+|---|---|---|
+| **v6.2g** (`cand_v62_r2g`, routed 2, cap 400, budget 2700) | `90a6247033c10036e16761b24058ca01e80d9925b9b632a322bc56434be21a35` | 0.9945788530, 892.6 s (the budget did not trip) |
+| **v6.2g-safe** (`cand_v62_r1g`) | `df5d4058c40b716cc675c230241dc229e3040e7052c46fbbba15786c7db4579e` | 0.9945788530 |
+
+| Check (v6.2g) | Where | Result |
+|---|---|---|
+| Identity to v6.2 / v6.2-safe with the guards inert | Leonardo CPU, `v6_compare.py --fresh-clock` (the clock restarts each session; one process over 14 sessions is longer than the budget on a CPU), all 14 sessions, gates as shipped / forced off, on the package directories (every file's SHA-256 matches the ZIP's build) | pending: 64429271 / 64429273 (r2g), 64429234 / 64429235 (r1g) |
+| Budget trigger at window 0 = FT off | `v6_compare.py cand_v62_r2g_noft cand_v62_r2g_b0`, both gate modes, bitwise | pending (gb0, gb0off) |
+| Cap trigger | `v6_compare.py cand_v62_r2 cand_v62_r2g_c50 --from 60` (equal before the first skipped refit) | pending (gc50, gc50off) |
+| Budget trigger mid-session | `v6_compare.py ... --budget 20 --sessions 3 --gates-off`: frozen windows > 0, errors 0 | pending (gbmid) |
+| 800-window session, cap against no cap | A100, `v6_time.py --long`, v5.1b vs v6.2 (64429573) and vs v6.2g (64429575) | pending |
+
+## v6.2gL: the L label switch on v6.2g (14 Nov, ledger §206 build)
+
+On unrecognised sessions v6.2gL fine-tunes on the inner v5.1b's output (L, v6f's label) instead of the v6 chain's (R,
+v6.1). This needs no new code: `v6_ft_labels` = 0 in v6.2g's bundle. `cand_v62_r2gL` (ERF) and `cand_v62_r1gL` (ER) were
+built with `build6.py --v62g --labels v51b --t0 20 --lr 1e-3 --budget 2700 --routed 2|1`. Every array but `v6_ft_labels` and
+every other file is byte-identical to `cand_v62_r2g` / `r1g`, so at R the package *is* v6.2g and the guard checks carry
+over. Checks: `check_v6.py --skip-recognised` (gates forced off; FT reference with the inner v5.1b's outputs as labels,
+the v6f path) on the CPU and on the A100 with package shapes; `check_v62.py`; official local replay; worker image.
