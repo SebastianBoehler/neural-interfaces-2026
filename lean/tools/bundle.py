@@ -46,6 +46,10 @@ if "--v64" in sys.argv:  # v6.4: v6.2c plus r15 and the stacked parts behind the
     SRC, OUT = ROOT / "lean/src64", ROOT / "submissions/lean_v64/submission.py"
     MODULES = MODULES[:-1] + ("extras", "finetune", "countfilter", "v6chain", "solver")
     sys.argv.remove("--v64")
+if "--v65" in sys.argv:  # v6.5: v6.4 plus T, the personal TSEM template prior (lean/src65); v6.4's bundle untouched
+    SRC, OUT = ROOT / "lean/src65", ROOT / "submissions/lean_v65/submission.py"
+    MODULES = MODULES[:-1] + ("extras", "finetune", "countfilter", "v6chain", "solver")
+    sys.argv.remove("--v65")
 if "--v63" in sys.argv:  # v6.3: v6.2i with bitwise savings (lean/src63); the other trees and bundles untouched
     SRC, OUT = ROOT / "lean/src63", ROOT / "submissions/lean_v63/submission.py"
     MODULES = MODULES[:-1] + ("extras", "finetune", "v6chain", "solver")

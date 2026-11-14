@@ -4,6 +4,7 @@ Usage: python lean/tools/build6.py V51B_DIR MEMBERS_DIR OUT_DIR [--steps 5 --eve
        [--v61 --labels v6r]   (v6.1: the lean/src61 bundle; fine-tuning labels from the v6 chain without fine-tuning)
        [--v62 --routed 0|1|2] (v6.2: the lean/src62 bundle; 0 = v6.1, 1 = v6.2-safe, 2 = v6.2)
        [--v62g --cap 400 --budget 2700] (v6.2g: lean/src62g, fine-tuning cost guards)
+       [--v65 --tpri-on 0|1 [--tpri F --tpri-kappa K] ...] (v6.5: lean/src65, T; v6.4's keys too)
        [--v64 --relabel 0|1 ...] (v6.4: lean/src64, r15 behind its key; v6.2c's keys too)
        [--v62c --cf-on 0|1 [--cf PARAMS.npz]] (v6.2c: lean/src62c, the count filter; v6.2i's keys too)
        [--v63 ...]            (v6.3: lean/src63, v6.2i with bitwise savings; v6.2i's keys)
@@ -21,7 +22,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-V64 = "--v64" in sys.argv  # v6.4: lean/src64, v6.2c's keys plus v6_ft_relabel (--relabel 0|1, required)
+V65 = "--v65" in sys.argv  # v6.5: lean/src65, v6.4's keys plus v6_tpri_on (--tpri-on 0|1, required)
+V64 = "--v64" in sys.argv or V65  # v6.4: lean/src64, v6.2c's keys plus v6_ft_relabel (--relabel 0|1, required)
 V62C = "--v62c" in sys.argv or V64  # v6.2c: lean/src62c, v6.2i's keys plus v6_cf_on and (on) the v6_cf_* parameters
 V63 = "--v63" in sys.argv  # v6.3: lean/src63, v6.2i's keys
 V62I = "--v62i" in sys.argv or V63 or V62C  # v6.2i: lean/src62i, v6_ft_session_s instead of v6_ft_budget_s
@@ -40,6 +42,15 @@ SLOTS = {"fbraw": r"sbn_fbcnet_raw_k20_s(\d)\.pt", "fb": r"sbn_k2_s(\d)\.pt", "s
 
 def arg(k, d):
     return type(d)(sys.argv[sys.argv.index(k) + 1]) if k in sys.argv else d
+
+
+def tpri_keys():
+    """v6.4 T: --tpri-on 0|1 (required); with 1, --tpri FILE (lean/tools/fit_tpri.py) and --tpri-kappa K (required)."""
+    on = int(need("--tpri-on")); assert on in (0, 1)
+    if not on:
+        return {"v6_tpri_on": np.int64(0)}
+    p = np.load(sys.argv[sys.argv.index("--tpri") + 1])
+    return {"v6_tpri_on": np.int64(1), "v6_tpri": p["tpri"].astype(np.float64), "v6_tpri_kappa": np.float64(need("--tpri-kappa"))}
 
 
 def cf_keys():
@@ -82,6 +93,7 @@ def main():
                **{f"v6_slot_{s}": np.array([i for _, i in v], np.int64) for s, v in slot.items()},
                **(cf_keys() if V62C else {}),
                **({"v6_ft_relabel": np.int64(need("--relabel"))} if V64 else {}),
+               **(tpri_keys() if V65 else {}),
                **{f"v6_rest_{k}": R[0][k] for k in ("align", "k", "G", "scale", "shrink")})
     out.mkdir(parents=True)
     shutil.copyfile(B.OUT, out / "submission.py")

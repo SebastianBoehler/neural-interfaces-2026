@@ -2,9 +2,9 @@
 Asserts per session: the stream completes; the [v6] error count is 1; windows before K equal the same package's run
 without the raise, bit for bit; windows from K on equal v5.1b's output, bit for bit (both the inner v5.1b of the run and
 the v5.1b package streamed on its own).
-Usage: python studies/14nov/v62h_raise.py PKG_H PKG_V51B [--site ft|eye] [--at 30] [--gates-off] [--only K | --sessions N]
+Usage: python studies/14nov/v62h_raise.py PKG_H PKG_V51B [--site ft|eye|tsem] [--at 30] [--gates-off] [--only K | --sessions N]
 --site ft raises in FineTune.step (the 14 Nov worker crash: Adam's CUDA check inside a refit); eye raises in EyeNet.step,
-which every live window calls."""
+which every live window calls; tsem raises in RouteB's routed-tail TSEM (v6.5 T's site)."""
 import copy, json, sys
 from pathlib import Path
 import numpy as np
@@ -25,7 +25,7 @@ def run(m, X, raise_at=None):
                 r.contrast.tau = r.identity.tau = np.inf
     c.reset_state(); ft_clock_restart(c); fired = []
     if raise_at is not None:
-        part = c.ft if SITE == "ft" else c.eye
+        part = {"ft": c.ft, "eye": c.eye, "tsem": getattr(getattr(c, "routeB", None), "tail", None) and c.routeB.tail.tsem}[SITE]
         orig = part.step
 
         def boom(*a, **k):
