@@ -6695,3 +6695,27 @@ T20 80.4 (P01 75.9, P02 91.2, P03 76.4, P04 49.9, P05 78.0, P06 84.7, P07 92.7, 
 the routed path (no personal members or own-space): P10 is 84.6 here against 90.3 routed across sessions, so routing adds
 about +6 for P10 beyond the prior. The single-session people sit from P01 76 to P07 93 on this proxy, spread like the new
 people, not like P10 at 90. The routed level per person inside a session is what §246 (b) measures.
+
+### 247. STRONG PERSONAL PATH FOR RETURNING PEOPLE (written 14 Nov 15:09 UTC, before any result)
+Code `studies/14nov/strongpersonal/`, outputs `runs/strongpersonal/`. A whole personal system for a recognised person,
+scored against the routed path (ER, and ER + T of §245) on the same test sessions of P04 and P10.
+- **System (ceiling form first):** for test session S of person q, personal members trained with true labels on q's
+  public sessions before S: (a) a tangent-space core (CAR, overlapping bands, full-window covariances, each session
+  recentred on its own whole-session mean = Riemannian EA; the test session too, non-causal), logistic regression, in
+  three training sets: q only; the nine others + q upweighted; q + the test session with ER's labels (whole session,
+  the non-causal bound of pseudo-label adaptation); (b) the stored PFT nets of §29 (5 families x 3 seeds, fine-tuned on
+  session 1; protocol B only); (c) their geometric mean. Fusion with the routed output: ER x personal^lambda, lambda
+  picked per person on the test session itself (oracle), next to fixed lambda 0.5 / 1.
+- **Protocols:** B = train session 1, test 2 and 3 (seen_session, compares with ER / T directly); A = train 1 + 2,
+  test 3 (the package's case). The routed chain exists only with session 1 public, so on A the reference is ER on
+  session 3 trained on session 1 (a lower bound of the routed path with two public sessions); the strong path is also
+  scored s1 -> s3 so that one comparison is like for like.
+- **Orders:** the 16 of §245 (within 0-7, full 0-3, runs 0-3) x 6 bases for anything fused with ER; the ceiling's personal
+  part is order-free (non-causal).
+- **Prediction:** personal alone below the routed path: B P04 64 (58-70), P10 86 (82-90) vs ER 70.6 / 90.2; A +2 to +4
+  over B for the personal part. Fused at the oracle lambda: B P04 +2 (0 to +4), P10 +0.3 (-0.5 to +1); A P04 +2.5,
+  P10 +0.5 over ER s1 -> s3.
+- **Kill rule (stated before the run):** if the best ceiling form (oracle lambda, non-causal EA, true training labels)
+  does not beat the routed path on the same sessions by >= +3 on P04 and >= +1 on P10 (mean over the protocol's test
+  sessions and the 16 orders), stop: record the ceiling, build no causal version. If it passes, build the causal
+  version (EA in delivery order, pseudo-label refits) and score it under within and full at least.
