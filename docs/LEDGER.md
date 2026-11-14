@@ -7165,3 +7165,27 @@ check job: true labels through the new weighted code reproduce classic.npz to < 
   the classic personal factor on self-labels is not a route in this form (not closed for denoised or confidence-selected labels).
 - Part (b) (nets on pseudo-labels, Leonardo 64475142, 16 tasks) ran, but every Leonardo login node times out since about
   16:20 UTC, so its outputs (runs/personal_ceiling/ftpl_*.npz there) are not fetched yet; score with score_pl.py once fetched.
+
+**§252 amendment 1 (written 14 Nov 17:00 UTC, before any part-(b) result is read).** Leonardo is down on CINECA's side; part (b)
+(ftnet_pl.py, 16 tasks) reruns unchanged on Galvani A100s (galv_array.sh, smoke first). The predictions and rule of §252
+stand; Leonardo outputs, if they arrive, are a duplicate and are not scored.
+
+**§252 amendment 2: SIZING THE LABEL-FREE PERSONALISATION CLASS (written 14 Nov 17:00 UTC, before any result).** One map, CPU.
+- **(a) Dose-response on TRUE labels:** c x aE gain over the r15 chain (same 84 splits, six orders x six bases for the fusion)
+  when the personal model sees n of the four training runs' windows (n = 20, 40, 70, 100, all ~136; random subset, each class
+  >= 2) at label purity p = 100, 95, 90, 85, 80, 75 %. Noise two ways: random (a wrong label drawn uniformly from the other
+  two classes) and chain-like (per person the chain's own confusion on its sessions: class-wise error rates scaled to 1 - p,
+  wrong label drawn from the chain's off-diagonal row). One draw per cell (seed fixed). aE x bE is not cheap (GPU per cell):
+  left out, stated. Prediction: +1 contour at about p >= 92 % for n = 136 and p >= 97 % for n = 40; at p 100 / n 136 +5.7
+  (the labelled ceiling); random-noise and chain-like within 1 point of each other (randnoise.txt: 63.6 vs 65.3 alone).
+- **(b) The chain's operating curve:** per order (20) and session, at delivery position t = 40, 80, 120 and end, the windows
+  delivered before t ranked three ways: max posterior of the r15 chain (base mean); agreement count of the chain's argmax with
+  the eye net (runs/ocushuf/<order>, mean of 9 seeds) and the member mix (A.mix B2_pool, shipped families), ties by max
+  posterior; the gated count filter's posterior (its own argmax and max). Purity = accuracy of the handed-over labels for the
+  top k (k = 10, 20, ...). Prediction: at the end of session the chain hands over about 60 windows at 95 % and about 100 at
+  90 %; agreement ranking about +2 points of purity at equal k; the filter about +0.5.
+- **Verdict rule:** a (b) point (k windows at purity q, scheme mean) "falls in" (a)'s region if (a)'s chain-like gain,
+  interpolated bilinearly at (n = k, p = q), is >= +1. If no point does, the label-free personalisation class (personal
+  model on the chain's own labels, fused late) is sized and closed for this feature set; if one does, that point (t, ranking,
+  k, q) names the form to build. Caveat stated now: (a)'s n windows are the four training runs, while (b)'s k come from the
+  delivered prefix; the map treats a window as a window.
