@@ -1,0 +1,62 @@
+s253 CAUSAL PERSONALISATION: 94 order x base files, 20 orders; zero-change check of the scorer on every one
+ZERO-CHANGE OK: scorer equals replay score.person on r15 raw and filt
+levels (scheme-equal): r15 raw 79.07, r15 + filter 79.21
+
+change: scheme-equal mean | per scheme (orders) | [80 % people x orders] | people up | per person P01..P10
+  r15 + filter vs r15 raw            +0.14 | within +0.29 (12) full -0.02 (4) runs +0.15 (4) | [+0.04, +0.24] | 8/10 | +0.5 +0.1 +0.2 -0.2 -0.0 +0.3 +0.1 +0.2 +0.0 +0.2
+  FIXED F vs r15+filter              -0.80 | within -0.62 (12) full -1.37 (4) runs -0.40 (4) | [-1.21, -0.40] | 2/10 | -1.8 +0.1 -0.6 -0.2 -2.2 -1.1 -1.9 -0.7 +0.8 -0.4
+  FIXED F vs r15 raw                 -0.66 | within -0.33 (12) full -1.39 (4) runs -0.25 (4) | [-1.07, -0.27] | 2/10 | -1.3 +0.2 -0.5 -0.4 -2.2 -0.9 -1.8 -0.5 +0.9 -0.2
+  FIXED R vs r15 raw                 -1.79 | within -2.05 (12) full -1.47 (4) runs -1.86 (4) | [-2.43, -1.20] | 1/10 | -2.9 -0.5 -1.0 -1.3 -4.8 -2.1 -3.1 -1.3 +0.5 -1.5
+  NESTED F vs r15+filter (primary)   +0.04 | within +0.15 (12) full -0.11 (4) runs +0.07 (4) | [-0.13, +0.20] | 7/10 | -0.2 +0.2 -0.7 +0.3 +0.0 +0.3 -0.4 +0.4 +0.2 +0.3
+  NESTED F vs r15 raw (same picks)   +0.18 | within +0.44 (12) full -0.13 (4) runs +0.22 (4) | [-0.01, +0.37] | 7/10 | +0.3 +0.4 -0.6 +0.1 -0.0 +0.6 -0.4 +0.6 +0.3 +0.5
+  NESTED R vs r15 raw                +0.12 | within +0.13 (12) full +0.07 (4) runs +0.17 (4) | [+0.00, +0.25] | 6/10 | -0.2 +0.3 -0.0 +0.2 -0.2 +0.4 -0.2 +0.2 +0.4 +0.4
+  nested F, pipeline l1 only         +0.11 | within +0.22 (12) full -0.06 (4) runs +0.17 (4) | [-0.04, +0.26] | 8/10 | +0.2 +0.2 -0.7 +0.2 +0.0 +0.4 -0.2 +0.5 +0.2 +0.5
+  nested F, pipeline a2 only         -0.17 | within -0.16 (12) full -0.48 (4) runs +0.12 (4) | [-0.43, +0.06] | 4/10 | -1.0 -0.2 -0.5 +0.3 -0.5 +0.1 -0.7 +0.2 +0.7 -0.2
+  nested F, pipeline lE only         +0.06 | within +0.12 (12) full -0.10 (4) runs +0.16 (4) | [-0.11, +0.21] | 6/10 | -0.2 +0.2 -0.3 +0.3 -0.2 +0.3 -0.4 +0.4 +0.2 +0.3
+  nested F, labels top only          -0.10 | within -0.04 (12) full -0.26 (4) runs +0.01 (4) | [-0.23, +0.03] | 5/10 | -0.5 +0.0 -0.3 -0.1 +0.0 +0.2 -0.4 -0.3 +0.2 +0.2
+  nested F, labels cq50 only         +0.11 | within +0.10 (12) full +0.01 (4) runs +0.21 (4) | [-0.02, +0.22] | 8/10 | -0.2 +0.2 +0.0 +0.1 +0.0 +0.1 -0.4 +0.4 +0.4 +0.3
+  nested F, labels cq25 only         -0.05 | within +0.07 (12) full -0.26 (4) runs +0.06 (4) | [-0.17, +0.07] | 5/10 | -0.2 +0.0 -0.3 -0.1 +0.1 -0.2 -0.5 +0.2 +0.3 +0.1
+  nested F, labels agree only        +0.04 | within +0.15 (12) full -0.11 (4) runs +0.07 (4) | [-0.14, +0.21] | 7/10 | -0.2 +0.2 -0.7 +0.3 +0.0 +0.3 -0.4 +0.4 +0.2 +0.3
+  nested F, labels agcq only         +0.07 | within +0.08 (12) full -0.04 (4) runs +0.19 (4) | [-0.04, +0.18] | 8/10 | -0.2 +0.2 +0.0 +0.1 +0.1 +0.1 -0.4 +0.3 +0.4 +0.3
+  nested F, l1 k 10 only             +0.15 | within +0.23 (12) full -0.01 (4) runs +0.22 (4) | [+0.01, +0.28] | 8/10 | +0.2 +0.2 -0.5 +0.2 +0.0 +0.4 -0.2 +0.6 +0.2 +0.5
+  nested F, l1 k 20 only             +0.09 | within +0.24 (12) full -0.12 (4) runs +0.15 (4) | [-0.07, +0.24] | 8/10 | +0.0 +0.2 -0.7 +0.2 +0.0 +0.4 -0.3 +0.5 +0.2 +0.4
+  HINDSIGHT F ('agree', 'lE', 10, 90, 80, 0.25) +0.16 | within +0.16 (12) full +0.12 (4) runs +0.19 (4) | [+0.05, +0.26] | 8/10 | +0.0 +0.2 -0.1 +0.3 +0.2 +0.3 -0.2 +0.4 +0.2 +0.3
+  HINDSIGHT R ('agree', 'lE', 10, 90, 80, 0.25) +0.15 | within +0.12 (12) full +0.12 (4) runs +0.20 (4) | [+0.02, +0.28] | 6/10 | -0.2 +0.3 -0.0 +0.2 -0.1 +0.5 -0.2 +0.2 +0.4 +0.4
+
+nested picks, track F (held-out person -> form, pipe, k, t0, R, cap):
+  P01 ('agree', 'lE', 10, 90, 40, 0.25)
+  P02 ('agree', 'lE', 10, 90, 80, 0.25)
+  P03 ('agree', 'l1', 20, 90, 40, 0.25)
+  P04 ('agree', 'lE', 10, 90, 80, 0.25)
+  P05 ('agree', 'l1', 10, 90, 80, 0.25)
+  P06 ('agree', 'lE', 10, 90, 80, 0.25)
+  P07 ('agree', 'lE', 10, 90, 40, 0.25)
+  P08 ('agree', 'lE', 10, 90, 80, 0.25)
+  P09 ('agree', 'lE', 10, 90, 80, 0.25)
+  P10 ('agree', 'lE', 10, 90, 80, 0.25)
+nested picks, track R: ["('agree', 'lE', 10, 90, 80, 0.25)", "('agree', 'lE', 20, 90, 80, 0.25)"]
+
+track F grid marginals (best scheme-equal mean over the rest of the grid, all ten people; hindsight):
+  form  top: -0.03 | cq50: +0.11 | cq25: +0.01 | agree: +0.16 | agcq: +0.10
+  pipe  l1: +0.15 | a2: -0.17 | lE: +0.16
+  k     10: +0.16 | 20: +0.14
+  t0    20: +0.00 | 40: +0.09 | 60: +0.13 | 90: +0.16
+  R     0: +0.09 | 40: +0.15 | 80: +0.16
+  cap   0.25: +0.16 | 0.5: +0.12 | 0.75: +0.05 | 1.0: +0.01
+
+redundancy (windows at position >= 40): personal alone acc | chain acc | agreement
+  top  l1  0.534 | 0.775 | 0.576
+  top  a2  0.541 | 0.775 | 0.565
+  top  lE  0.559 | 0.775 | 0.597
+  cq50 l1  0.577 | 0.775 | 0.616
+  cq50 a2  0.570 | 0.775 | 0.588
+  cq50 lE  0.605 | 0.775 | 0.639
+  cq25 l1  0.539 | 0.775 | 0.579
+  cq25 a2  0.540 | 0.775 | 0.555
+  cq25 lE  0.563 | 0.775 | 0.596
+  agree l1  0.604 | 0.775 | 0.640
+  agree a2  0.567 | 0.775 | 0.580
+  agree lE  0.623 | 0.775 | 0.650
+  agcq l1  0.578 | 0.775 | 0.617
+  agcq a2  0.571 | 0.775 | 0.589
+  agcq lE  0.606 | 0.775 | 0.640

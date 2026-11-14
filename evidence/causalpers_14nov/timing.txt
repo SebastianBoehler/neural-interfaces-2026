@@ -1,0 +1,7 @@
+per-window features (ms): l1 8.2 a2 9.5 a4 0.6 lE 16.1
+n 60: refit ms l1 26 a2 19 a4 13 lE 57 | l1 predict 0.16 ms (a2 / a4 predict inside the refit, < 1 ms)
+n 120: refit ms l1 41 a2 33 a4 14 lE 88 | l1 predict 0.15 ms (a2 / a4 predict inside the refit, < 1 ms)
+n 180: refit ms l1 44 a2 47 a4 15 lE 106 | l1 predict 0.18 ms (a2 / a4 predict inside the refit, < 1 ms)
+per window (ms) = features + predict + refit(n 120) / k:
+  k 10: l1 12.5 a2 12.9 a4 2.1 lE 25.0
+  k 20: l1 10.5 a2 11.3 a4 1.4 lE 20.6

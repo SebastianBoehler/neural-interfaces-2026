@@ -7456,3 +7456,19 @@ eye net and chain rarely agree on one class), that split falls back to the chain
 fallback share next to the gain. Arm A = top q % per eye-argmax class first, then kept only where eye argmax = chain argmax.
 Noted before the run: the eye net's argmax accuracy is 51 % on within 0 (chain 77.7 %), so the predicted 80 % purity at
 q 50 is likely high; the prediction is left as written.
+**§253 result (written 14 Nov 18:22 UTC). Verdict: not a route, sized by §252's map** (label-free classic personalisation on this
+feature set needs n >= 100 at ~88 % purity for +1; the causal prefix never gets there). Scorer equals replay score.person
+on every order x base (zero-change OK). r15 + filter vs raw +0.14. Evidence `evidence/causalpers_14nov/`.
+- **Plain forms** (hard / soft / filt; Mac, 82 order x base files, 14 orders: within 0-11, full 0 (4 bases) + 2, runs 2):
+  primary nested track F vs r15 + filter **-0.01** [-0.32, +0.26], 6/10 (within +0.05, full -0.19, runs +0.10); fixed line
+  -0.36; nested R vs raw +0.16; best in hindsight +0.23. EXT grid: nested F -0.13. Prediction (+0.4) missed.
+- **Selection forms** (amendment 3: top, cq50, cq25, agree, agcq; Galvani + Mac, 94 of 120 files, all 20 orders; jobs
+  cancelled at the coordinator's stop): nested F vs r15 + filter **+0.04** [-0.13, +0.20], 7/10 (within +0.15, full -0.11,
+  runs +0.07); EXT grid (caps 0.1 / 0.15) +0.15 [+0.03, +0.28], 7/10, every scheme >= 0; vs raw +0.29, 9/10. Best in
+  hindsight +0.16 / +0.22. No line reaches +0.5; pass (+1.0) far off.
+- Small caps help only by switching the personal model nearly off: cap 1.0 is the worst column of every grid.
+- **Why:** on windows >= 40 the personal model alone is 56-63 % against the chain's 77.5 %, argmax agreement 60-65 %:
+  it relearns the chain's label noise with fewer windows. TSEM (confidence-seeded label-free LDA on core1 PCs) and r15's own
+  prefix relabelling already sit in the chain; a before-TSEM fusion was not run (no form passed, as amendment 3 stated).
+- **Run time** (Mac CPU, one thread, `timing.txt`): refit l1 41 ms / lE 88 ms at 120 windows; per window lE 25 ms at k 10,
+  21 ms at k 20 (features 16 ms of it). Cheap enough; the gain is not there. Amendment-2 prefilt was stopped unscored.

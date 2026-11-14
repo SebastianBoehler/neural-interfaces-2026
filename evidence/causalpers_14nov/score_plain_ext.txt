@@ -1,0 +1,54 @@
+s253 CAUSAL PERSONALISATION: 82 order x base files, 14 orders; zero-change check of the scorer on every one
+ZERO-CHANGE OK: scorer equals replay score.person on r15 raw and filt
+levels (scheme-equal): r15 raw 79.22, r15 + filter 79.37
+
+change: scheme-equal mean | per scheme (orders) | [80 % people x orders] | people up | per person P01..P10
+  r15 + filter vs r15 raw            +0.15 | within +0.29 (11) full +0.01 (2) runs +0.15 (1) | [+0.06, +0.24] | 8/10 | +0.3 +0.2 +0.1 -0.2 +0.4 +0.4 +0.3 +0.2 -0.2 +0.0
+  FIXED F vs r15+filter              -0.36 | within -0.21 (11) full -0.96 (2) runs +0.10 (1) | [-0.90, +0.10] | 4/10 | -0.9 +0.8 +0.4 +0.7 -3.0 -0.2 -1.1 -0.6 +0.5 -0.1
+  FIXED F vs r15 raw                 -0.21 | within +0.08 (11) full -0.95 (2) runs +0.25 (1) | [-0.68, +0.21] | 5/10 | -0.6 +1.0 +0.5 +0.5 -2.6 +0.2 -0.8 -0.4 +0.2 -0.1
+  FIXED R vs r15 raw                 -1.01 | within -1.25 (11) full -1.00 (2) runs -0.77 (1) | [-1.84, -0.26] | 3/10 | -2.0 +0.7 +0.1 -0.1 -5.7 -0.0 -1.9 -1.3 +0.9 -0.7
+  NESTED F vs r15+filter (primary)   -0.13 | within -0.10 (11) full -0.44 (2) runs +0.17 (1) | [-0.39, +0.11] | 4/10 | -0.2 +0.3 -0.3 +0.3 -1.3 -0.1 -0.5 -0.2 +0.5 +0.4
+  NESTED F vs r15 raw (same picks)   +0.02 | within +0.19 (11) full -0.43 (2) runs +0.32 (1) | [-0.21, +0.23] | 6/10 | +0.1 +0.4 -0.2 +0.1 -0.9 +0.3 -0.2 -0.0 +0.2 +0.5
+  NESTED R vs r15 raw                +0.02 | within -0.07 (11) full -0.11 (2) runs +0.23 (1) | [-0.20, +0.22] | 6/10 | -0.1 +0.6 -0.3 +0.4 -0.9 +0.1 -0.5 +0.1 +0.5 +0.5
+  nested F, pipeline l1 only         +0.04 | within +0.17 (11) full -0.23 (2) runs +0.18 (1) | [-0.13, +0.21] | 7/10 | +0.1 +0.2 -0.5 +0.3 -0.5 +0.3 -0.6 +0.4 +0.3 +0.5
+  nested F, pipeline a2 only         +0.04 | within -0.03 (11) full -0.16 (2) runs +0.30 (1) | [-0.15, +0.22] | 5/10 | -0.1 +0.3 -0.3 +0.3 -0.5 -0.1 +0.1 -0.2 +0.6 +0.4
+  nested F, pipeline lE only         +0.01 | within -0.01 (11) full -0.11 (2) runs +0.16 (1) | [-0.29, +0.28] | 7/10 | -0.2 +0.4 +0.1 +0.3 -1.3 +0.1 -0.5 +0.2 +0.5 +0.6
+  nested F, labels hard only         -0.05 | within -0.01 (11) full -0.11 (2) runs -0.04 (1) | [-0.30, +0.17] | 6/10 | -0.1 +0.3 -0.3 +0.3 -1.2 +0.1 -0.6 +0.0 +0.6 +0.4
+  nested F, labels soft only         -0.06 | within -0.07 (11) full -0.36 (2) runs +0.24 (1) | [-0.33, +0.16] | 4/10 | -0.2 +0.4 -0.1 +0.3 -1.3 -0.1 -0.3 -0.2 +0.5 +0.5
+  nested F, labels filt only         -0.05 | within +0.04 (11) full -0.18 (2) runs -0.03 (1) | [-0.37, +0.23] | 6/10 | -0.4 +0.4 -0.2 +0.3 -1.3 +0.1 -0.5 +0.0 +0.5 +0.5
+  nested F, l1 k 10 only             +0.11 | within +0.14 (11) full -0.12 (2) runs +0.30 (1) | [-0.09, +0.30] | 7/10 | +0.3 +0.3 -0.5 +0.3 -0.5 +0.3 -0.6 +0.4 +0.3 +0.8
+  nested F, l1 k 20 only             +0.11 | within +0.22 (11) full -0.12 (2) runs +0.22 (1) | [-0.05, +0.25] | 7/10 | +0.1 +0.2 -0.5 +0.3 -0.1 +0.4 -0.5 +0.3 +0.3 +0.5
+  HINDSIGHT F ('soft', 'lE', 20, 20, 120, 0.15) +0.23 | within +0.15 (11) full +0.06 (2) runs +0.47 (1) | [+0.06, +0.40] | 8/10 | +0.2 +0.4 +0.1 +0.4 -0.0 +0.3 -0.3 +0.2 +0.5 +0.6
+  HINDSIGHT R ('soft', 'lE', 20, 90, 40, 0.15) +0.23 | within +0.15 (11) full +0.08 (2) runs +0.47 (1) | [+0.09, +0.37] | 7/10 | +0.2 +0.6 -0.3 +0.4 -0.3 +0.4 -0.0 +0.2 +0.5 +0.6
+
+nested picks, track F (held-out person -> form, pipe, k, t0, R, cap):
+  P01 ('soft', 'lE', 20, 60, 120, 0.25)
+  P02 ('hard', 'a2', 10, 90, 120, 0.1)
+  P03 ('hard', 'a2', 10, 60, 120, 0.1)
+  P04 ('soft', 'a2', 20, 90, 120, 0.1)
+  P05 ('filt', 'lE', 10, 60, 80, 0.5)
+  P06 ('soft', 'a2', 20, 40, 120, 0.1)
+  P07 ('filt', 'lE', 10, 60, 40, 0.25)
+  P08 ('soft', 'a2', 20, 40, 120, 0.1)
+  P09 ('soft', 'lE', 20, 20, 120, 0.15)
+  P10 ('hard', 'a2', 10, 90, 120, 0.1)
+nested picks, track R: ["('filt', 'lE', 20, 90, 120, 0.25)", "('filt', 'lE', 20, 90, 40, 0.25)", "('hard', 'a2', 20, 90, 120, 0.1)", "('soft', 'lE', 20, 20, 120, 0.15)", "('soft', 'lE', 20, 90, 120, 0.25)", "('soft', 'lE', 20, 90, 40, 0.15)"]
+
+track F grid marginals (best scheme-equal mean over the rest of the grid, all ten people; hindsight):
+  form  hard: +0.22 | soft: +0.23 | filt: +0.23
+  pipe  l1: +0.18 | a2: +0.22 | lE: +0.23
+  k     10: +0.23 | 20: +0.23
+  t0    20: +0.23 | 40: +0.21 | 60: +0.23 | 90: +0.22
+  R     0: +0.17 | 40: +0.23 | 80: +0.21 | 120: +0.23
+  cap   0.1: +0.22 | 0.15: +0.23 | 0.25: +0.23 | 0.5: +0.20 | 0.75: +0.17 | 1.0: +0.11
+
+redundancy (windows at position >= 40): personal alone acc | chain acc | agreement
+  hard l1  0.599 | 0.775 | 0.638
+  hard a2  0.563 | 0.775 | 0.577
+  hard lE  0.620 | 0.775 | 0.648
+  soft l1  0.598 | 0.775 | 0.637
+  soft a2  0.564 | 0.775 | 0.575
+  soft lE  0.619 | 0.775 | 0.645
+  filt l1  0.609 | 0.777 | 0.633
+  filt a2  0.566 | 0.777 | 0.572
+  filt lE  0.626 | 0.777 | 0.641
