@@ -7149,3 +7149,19 @@ prefix (median of the chain's max posterior over windows < t), unweighted - a pu
 nested over the grid with it); (c) fusion before the count filter: filter(raw x personal^w) with the urn on the fused
 posterior, small grid (hard, lE, k 10, R 80, t0 40 / 60, cap 0.15 / 0.25 / 0.5), nested, against r15 + filter
 (prefilt.py). Predictions: (a) +0.1 over the primary; (b) within ±0.2 of hard; (c) within ±0.2 of track F.
+
+**§252 RESULT, part (a) (14 Nov 16:43 UTC; evidence/personal_ceiling_14nov/score_pl_classic.txt, randnoise.txt; Galvani CPU 3102464-84,
+check job: true labels through the new weighted code reproduce classic.npz to < 1e-8).** Pseudo-label accuracy on all rows
+0.74-0.78 (filter +0.0 to +0.6). r15 chain on the test runs 79.7 (20 orders); labelled ceiling re-scored on r15: c x aE x bE
++7.40 [+5.67, +9.22], c x aE +5.67. Classic pipelines on the chain's labels of the four training runs, 20 orders:
+| form | aE alone | c x aE gain [80 % people x orders] | people up | share of labelled +7.4 |
+|---|---|---|---|---|
+| hard | 67.8 | -0.98 [-1.98, +0.07] | 3/10 | -13 % |
+| soft (wpl) | 67.3 | -1.04 [-2.14, -0.02] | 3/10 | -14 % |
+| filt (gated count filter) | 67.7 | -0.88 [-1.91, +0.13] | 4/10 | -12 % |
+- aE falls 12 points from true to chain labels (79.8 -> 67.8); the same error rate drawn at random gives 63.6 (within0), so it is
+  the label noise itself at about 136 training windows, not the chain's systematic errors, that sinks it. Fused, it costs
+  about 1 point; only P09 (+3.6) and P08 (+1.3) gain. Prediction (+1.0, -0.5 to +2.5) refuted; c x aE by the rule: < +0.5,
+  the classic personal factor on self-labels is not a route in this form (not closed for denoised or confidence-selected labels).
+- Part (b) (nets on pseudo-labels, Leonardo 64475142, 16 tasks) ran, but every Leonardo login node times out since about
+  16:20 UTC, so its outputs (runs/personal_ceiling/ftpl_*.npz there) are not fetched yet; score with score_pl.py once fetched.
