@@ -75,11 +75,12 @@ def member_deltas(order):
     """seen_session changes (delivery order - own recording-order rebuild) of every input shufcombo re-streams for new people."""
     sc, sd = order.rstrip("0123456789"), order[len(order.rstrip("0123456789")):]
     CM, HB, TS = holder("coremember*.npz", f"{order}|{p}", "core1"), holder("hilbertmember*.npz", f"{order}|{p}", "Hilbert"), holder("teachshuf*.npz", f"{order}|{p}", "teacher")
-    CS = holder(f"coreshuf_p{sd}_*.npz", f"{sc}|{p}", "pc128"); GS = np.load(f"{REPO}/runs/geshuf.npz"); ref = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]]
+    csf = [f for f in sorted(glob.glob(f"{REPO}/runs/coreshuf_p{sd}.npz") + glob.glob(f"{REPO}/runs/coreshuf_p{sd}_*.npz")) if f"{sc}|{p}" in np.load(f)]
+    assert len(csf) == 1, f"pc128: {len(csf)} files hold {sc}|{p} for seed {sd}"; CS = np.load(csf[0]); GS = np.load(f"{REPO}/runs/geshuf.npz"); ref = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]]
     sg = np.sign([np.corrcoef(ref[f"pc128|{p}"][:, j], CS[f"rec|{p}"][:, j])[0, 1] for j in range(ref[f"pc128|{p}"].shape[1])])
     assert np.allclose(ref[f"GE|{p}"][:, 32:], GS["rec"][IDX]), "GE columns 32: are not the event rates"
     d = f"{REPO}/runs/ttt/probs18/ttt18{order}{FT_SFX}"
-    fr = {(a, k): ld(f"{d}_{a}_base-{p}-s{k}") - ld(f"{REPO}/runs/ttt/probs7/ttt7_{a}_base-{p}-s{k}") for a in SLOT for k in range(6)}
+    fr = {(a, k): ld(f"{d}_{a}_base-{p}-s{k}.npz") - ld(f"{REPO}/runs/ttt/probs7/ttt7_{a}_base-{p}-s{k}.npz") for a in SLOT for k in range(6)}
     return dict(c1=CM[f"{order}|{p}"] - CM[f"rec|{p}"], hb=HB[f"{order}|{p}"] - HB[f"rec|{p}"], ts=TS[f"{order}|{p}"] - TS[f"rec|{p}"],
                 pc=sg * (CS[f"{sc}|{p}"] - CS[f"rec|{p}"]), ge=GS[f"{order}|{p}"][IDX] - GS["rec"][IDX], fr=fr)
 
