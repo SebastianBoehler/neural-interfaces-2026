@@ -4869,3 +4869,29 @@ hand edits, block gains, a 60-step Weco search. None passed. Old code is in 3006
     sessions on training people. It needs the eye net's weights and a CPU re-stream.
   - Families 2 and 3 run for the eye net and one SessionBN family.
   - If the best product is small, it is reported with its number; the user decides whether a search is worth its cost.
+
+**§207 STAGE 1 RESULT (14 Nov 00:41 UTC; runs/s207_leverage.txt; +5 points per component, within 0 / full 0 / runs 0, v6f).**
+Chain points per component point (V6Fr; v5.1b's chain P0r in brackets), mean of the three orders:
+
+| Component | Leverage, mean (within / full / runs) | v5.1b chain | Rule |
+|---|---|---|---|
+| s0, core1 + Hilbert pair | **0.181** (0.268 / 0.125 / 0.150) | 0.25 | stage 2 |
+| c1, core1 alone | **0.113** (0.125 / 0.112 / 0.101) | 0.20 | stage 2 |
+| s10, teacher | **0.078** (0.095 / 0.049 / 0.092) | 0.13 | stage 2 |
+| rest net | **0.062** (0.081 / 0.045 / 0.061) | – | stage 2 |
+| s3, s4, s9, s7 | 0.03–0.04 | 0.05–0.07 | undecided |
+| s1, s2, s5 (SessionBN fb raw) | 0.01–0.02 | 0.04–0.08 | undecided |
+| s6, s8 (fine-tuned SessionBN fb, fbl) | 0.017, 0.012 | 0.04 | no lever |
+| eye view | 0.006 | – | no lever |
+
+- s11–s15 failed loudly: the chain has 11 member slots (0–10), so there is nothing to measure there.
+- **Reading:**
+  - The prediction held for core1 (0.15 predicted, 0.11–0.18 measured) and for the eye (0.03 predicted, 0.006). It was
+    high for the fine-tuned SessionBN families (0.05 predicted, 0.01–0.03) and low for the teacher.
+  - The v6 additions dilute single-member levers: each member's leverage on the combination is about half its leverage on
+    v5.1b's chain.
+  - Core1 keeps its lever under all three schemes (0.10–0.13), and so does the teacher (0.05–0.09).
+  - The eye view's accuracy is no lever. Its limit is error correlation (§188), which family 2 targets.
+- **Stage 2 (started 00:45 UTC, runs/s207_stage2.txt, about 01:50 UTC):** families 1 and 2 on c1, s10, s0 and rest; family 2 on
+  the eye view and s5. Each is chain-scored on within 0, full 0 and runs 0, and reported as reachable points next to the
+  chain change.
