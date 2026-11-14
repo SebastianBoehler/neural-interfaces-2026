@@ -1,0 +1,82 @@
+submission.py sha256 5323fd8b2039845cb4c2844b0e9e2b50a9b3115425d8e72b28d4db6cc6a3397f runs/sealed/zt65b/cand/submission.py
+NVIDIA A100-PCIE-40GB
+== v51b vs v65b
+  return forward_call(*args, **kwargs)
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 189 v6 189 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 169 capped 0 over 0 ft_s 10 relabels 17 errors 0
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 170 capped 0 over 0 ft_s 8 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 170 capped 0 over 0 ft_s 7 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+{"session": "190", "windows": 190, "v51b": [16.2, 16.2], "v6": [32.4, 31.5], "ratio": 1.972, "added_s": 15.8, "log": {"refits": 17, "steps": 340, "v6": 190, "err": 0, "capped": 0, "frozen": null, "relabels": 17, "refit_s": 8.03, "refit_max_s": 0.71, "peak_alloc_gb": 3.26, "peak_reserved_gb": 4.33}, "log_v51b": {"peak_alloc_gb": 0.06, "peak_reserved_gb": 0.08}, "sealed_min_57": 33.3, "sealed_min_100": 42.3}
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.153 swapped 358 capped 0 over 0 ft_s 30 relabels 36 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.153 swapped 358 capped 0 over 0 ft_s 26 relabels 36 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+{"session": "378", "windows": 378, "v51b": [32.9, 33.3], "v6": [77.2, 74.0], "ratio": 2.284, "added_s": 42.5, "log": {"refits": 36, "steps": 720, "v6": 378, "err": 0, "capped": 0, "frozen": null, "relabels": 36, "refit_s": 29.81, "refit_max_s": 1.45, "peak_alloc_gb": 6.64, "peak_reserved_gb": 8.8}, "log_v51b": {"peak_alloc_gb": 0.07, "peak_reserved_gb": 0.09}, "sealed_min_57": 37.1, "sealed_min_100": 49.0}
+== long
+  return forward_call(*args, **kwargs)
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 189 v6 189 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 169 capped 0 over 0 ft_s 10 relabels 17 errors 0
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 800 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 800 v6 800 recognised_at -1 refits 39 steps 780 dtheta 0.168 swapped 780 capped 39 over 0 ft_s 34 relabels 39 errors 0
+[own-stage] windows 800 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 800 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 800 v6 800 recognised_at -1 refits 39 steps 780 dtheta 0.168 swapped 780 capped 39 over 0 ft_s 30 relabels 39 errors 0
+[own-stage] windows 800 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 800 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 800 routed 0 degenerate 0 staged 0 errors 0
+{"session": "800", "windows": 800, "v51b": [73.1, 73.3], "v6": [136.2, 132.8], "ratio": 1.837, "added_s": 61.3, "log": {"refits": 39, "steps": 780, "v6": 800, "err": 0, "capped": 39, "frozen": null, "relabels": 39, "refit_s": 33.9, "refit_max_s": 1.6, "peak_alloc_gb": 7.17, "peak_reserved_gb": 9.52}, "log_v51b": {"peak_alloc_gb": 0.06, "peak_reserved_gb": 0.08}, "sealed_min_57": 31.7, "sealed_min_100": 39.4}
+== v65 vs v65b
+  return forward_call(*args, **kwargs)
+[v6] windows 189 v6 189 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 169 capped 0 over 0 ft_s 9 relabels 17 errors 0
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 189 v6 189 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 169 capped 0 over 0 ft_s 7 relabels 17 errors 0
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 189 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 170 capped 0 over 0 ft_s 7 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 170 capped 0 over 0 ft_s 7 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 170 capped 0 over 0 ft_s 7 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 170 capped 0 over 0 ft_s 7 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+{"session": "190", "windows": 190, "v51b": [31.2, 31.2], "v6": [31.6, 32.0], "ratio": 1.019, "added_s": 0.6, "log": {"refits": 17, "steps": 340, "v6": 190, "err": 0, "capped": 0, "frozen": null, "relabels": 17, "refit_s": 7.24, "refit_max_s": 0.72, "peak_alloc_gb": 3.26, "peak_reserved_gb": 4.34}, "log_v51b": {"refits": 17, "steps": 340, "v6": 190, "err": 0, "capped": 0, "frozen": null, "relabels": 17, "refit_s": 6.99, "refit_max_s": 0.6, "peak_alloc_gb": 3.26, "peak_reserved_gb": 30.38}, "sealed_min_57": 21.7, "sealed_min_100": 21.9}
+[W1114 21:08:55.429310601 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 555745280 bytes (free: 265814016, total: 42404806656).
+[W1114 21:09:13.329764687 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 757071872 bytes (free: 561512448, total: 42404806656).
+[W1114 21:09:30.714689638 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 933232640 bytes (free: 376963072, total: 42404806656).
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.153 swapped 358 capped 0 over 0 ft_s 28 relabels 36 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.153 swapped 358 capped 0 over 0 ft_s 25 relabels 36 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.153 swapped 358 capped 0 over 0 ft_s 26 relabels 36 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[W1114 21:12:38.229540461 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 555745280 bytes (free: 253231104, total: 42404806656).
+[W1114 21:12:55.447136479 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 757071872 bytes (free: 557318144, total: 42404806656).
+[W1114 21:13:11.749655985 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 933232640 bytes (free: 379060224, total: 42404806656).
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.153 swapped 358 capped 0 over 0 ft_s 25 relabels 36 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+{"session": "378", "windows": 378, "v51b": [75.0, 72.7], "v6": [73.4, 74.3], "ratio": 1.0, "added_s": 0.0, "log": {"refits": 36, "steps": 720, "v6": 378, "err": 0, "capped": 0, "frozen": null, "relabels": 36, "refit_s": 25.29, "refit_max_s": 1.66, "peak_alloc_gb": 6.64, "peak_reserved_gb": 8.81}, "log_v51b": {"refits": 36, "steps": 720, "v6": 378, "err": 0, "capped": 0, "frozen": null, "relabels": 36, "refit_s": 28.01, "refit_max_s": 1.56, "peak_alloc_gb": 6.65, "peak_reserved_gb": 41.55}, "sealed_min_57": 21.4, "sealed_min_100": 21.4}
+EXIT

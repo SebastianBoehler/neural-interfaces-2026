@@ -1,0 +1,31 @@
+submission.py sha256 5323fd8b2039845cb4c2844b0e9e2b50a9b3115425d8e72b28d4db6cc6a3397f runs/sealed/zt65b/cand/submission.py
+NVIDIA GeForce RTX 2080 Ti, 580.173.02
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1794: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1104.)
+  return forward_call(*args, **kwargs)
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0789 swapped 170 capped 0 over 0 ft_s 13 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 595 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+{"session": "P01|1", "windows": 190, "refits": 17, "relabels": 17, "schedule": 17, "max_diff": 0.0, "min_label_agreement": 1.0, "labels_changed_vs_emitted": 16, "err": 0, "relabel_ms_per_refit": 0.34, "device": "cuda", "refits_pkg": 17, "cpu_max_diff": 0.03912775891968423, "cpu_label_agreement": 1.0, "cpu_err": 0, "cpu_refits": 17, "ok": true}
+RESULT {"package": "runs/sealed/zt65b/cand", "order": "recording", "raise_at": -1, "max_diff": 0.0, "ok": true}
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1794: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1104.)
+  return forward_call(*args, **kwargs)
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0826 swapped 172 capped 0 over 0 ft_s 15 relabels 18 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0831 swapped 172 capped 0 over 0 ft_s 653 relabels 18 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+{"session": "P10|1", "windows": 192, "refits": 18, "relabels": 18, "schedule": 18, "max_diff": 0.0, "min_label_agreement": 1.0, "labels_changed_vs_emitted": 17, "err": 0, "relabel_ms_per_refit": 0.36, "device": "cuda", "refits_pkg": 18, "cpu_max_diff": 0.043614428446450804, "cpu_label_agreement": 1.0, "cpu_err": 0, "cpu_refits": 18, "ok": true}
+RESULT {"package": "runs/sealed/zt65b/cand", "order": "recording", "raise_at": -1, "max_diff": 0.0, "ok": true}
+EXIT

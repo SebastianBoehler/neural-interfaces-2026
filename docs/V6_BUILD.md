@@ -480,3 +480,12 @@ directory `runs/sealed/cand_v65b_r1iLu_cand` differs from `cand_v65_r1iLu_cand` 
 | ZIP | SHA-256 | Local replay (Mac CPU) |
 |---|---|---|
 | `v65b_r1iLu_cand` | `a7b13e57f6163b4a26e2cc326c0fed3f14ceadfc23c02de3f9f5a24dbbe850d6` (66,786,277 B) | 0.9945788530 (= v6.5), files unchanged, 122.0 s (v6.5 104.8 s; machine load differs), 4 `[count-filter]` lines |
+
+| Check (v6.5b, bundle `5323fd8b…3397f2`, the sha printed inside each job's log) | Where | Result |
+|---|---|---|
+| GPU function check (`r15_reference.py --device cuda --compare-cpu`, P01 and P10\|1, gates off, native `.venv`) | Galvani 3103438 (RTX 2080 Ti, cn102; widened partitions) | **pass**: err 0 on GPU and CPU, refits = relabels = schedule (17 / 18), relabel reference diff 0.0, GPU-vs-CPU label agreement 100 %, output max diff 0.039 / 0.044 (same non-determinism band as v6.5: 0.033-0.044), 0 allocator warnings |
+| A100 timing, paired v6.5 vs v6.5b (190 and 378 windows) | Galvani 3103439 (A100-PCIE-40GB, cn221) | **pass**: peak_reserved **4.34 / 8.81 GB** (v6.5 in the same job: 30.38 / 41.55), peak_alloc unchanged (3.26 / 6.64); 6 allocator OOM-retry warnings, **all in the v6.5 arm**, none in v6.5b; run time v6.5b / v6.5 **1.019** (190) and **1.000** (378); err 0, refits and relabels equal |
+| A100 timing against v5.1b (190 / 378 / 800 windows) | same job | v6.5b ratio 1.972 / 2.284 / 1.837 (800: reserved 9.52 GB, err 0, capped 39); sealed estimate 33.3-37.1 min at 57 % unrecognised (31.7 on the 800 basis), 42.3-49.0 at 100 %. **Reading**: these ratios are higher than 3102619's (v6.5 x1.808 at 800) because this node's v5.1b baseline ran 2x faster (16.2 s against 31.2 s at 190 windows) while the v6 arm's times are unchanged (31.5-32 s); the paired v6.5-vs-v6.5b section is the comparison that matters and shows no change. The node-to-node spread is as large as the v5.1b/v6.5b difference, so the sealed minutes carry that spread |
+| CPU bitwise identity v6.5 vs v6.5b (`studies/14nov/cpu_identity.py`, P01 and P10\|1) | Galvani 3103433 (2080 partition CPU node) | **pending** (44 min running at 21:14 CET; the CPU path is ~10 min per session per package); partial log in `evidence/v65b_14nov/`. v6.5b replaces v6.5 as the upload candidate only when this passes |
+
+§261 prediction check: (2) holds, (3) holds (reserved <= 12 GB, no warning in the v6.5b arm, +1.9 % / 0.0 %); (1) open for the CPU identity (Mac replay equal: 0.9945788530).

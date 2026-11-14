@@ -1,0 +1,23 @@
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1794: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1104.)
+  return forward_call(*args, **kwargs)
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 598 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 597 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+{"session": "Dreyer2026Proteus/P01|1", "windows": 190, "max_diff": 0.0, "bitwise_equal": true, "A": {"refits": 17, "err": 0, "capped": 0}, "B": {"refits": 17, "err": 0, "capped": 0}}
+RESULT {"A": "runs/sealed/zt65/cand", "B": "runs/sealed/zt65b/cand", "max_diff": 0.0, "ok": true}
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1794: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1104.)
+  return forward_call(*args, **kwargs)
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0831 swapped 172 capped 0 over 0 ft_s 655 relabels 18 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(

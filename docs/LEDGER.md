@@ -7716,3 +7716,10 @@ Note (i) checked, 14 Nov 19:55 UTC (research thread): scripts/export_external.py
 {4 right-hand MI: 0, 2 mental subtraction: 1, 1 word association: 2} (navigation and feet dropped), which matches PROTEUS
 (0 motor imagery, 1 mental subtraction, 2 word generation). The cross-corpus 45.2 is not a label-permutation artefact.
 Context for both Scherer numbers: 22 of the 41 PROTEUS-montage channels in the export are spherical-spline interpolated.
+
+**§261 RESULT, partial (14 Nov 21:30 CET; evidence/v65b_14nov/, jobs 3103438, 3103439; bundle 5323fd8b…, sha printed in both logs).**
+Prediction (2) holds: 2080 Ti check err 0, relabel diff 0.0, label agreement 100 %, output diff 0.039 / 0.044. Prediction (3) holds:
+A100 peak_reserved 4.34 / 8.81 GB (v6.5 in the same job 30.38 / 41.55), no allocator warning in the v6.5b arm (6 in the v6.5 arm),
+run time v6.5b / v6.5 1.019 and 1.000. The unpaired ratios against v5.1b (1.97 / 2.28 / 1.84) come from a node whose v5.1b baseline
+was 2x faster; the v6 arm's times did not move. Prediction (1), CPU bitwise identity (3103433), is still running; v6.5b is not the
+candidate until it passes. Mac replay equal to v6.5 (0.9945788530).
