@@ -25,13 +25,17 @@ _spec = importlib.util.spec_from_file_location("ttt5", WS / "studies/12nov/ttt5.
 STEPS, LR = (60, 200, 400), 5e-4  # 400: secondary (added after the smoke, before any real result)
 
 
-def finetune(net, X, y, seed):
-    """-> {steps: fine-tuned copy}; X train inputs on the device, y true labels"""
+def finetune(net, X, y, seed, w=None, steps=STEPS):
+    """-> {steps: fine-tuned copy}; X train inputs on the device, y labels (true, or pseudo in s252), w optional sample
+    weights (s252 soft forms: weighted mean CE; None = plain CE as in s246)"""
     net2 = copy.deepcopy(net).eval(); opt = torch.optim.AdamW(net2.parameters(), lr=LR, weight_decay=0.0)
     torch.manual_seed(seed); gen = torch.Generator().manual_seed(seed); yt = torch.from_numpy(y).to(X.device); out = {}
-    for k in range(1, max(STEPS) + 1):
-        opt.zero_grad(); loss = F.cross_entropy(net2(T5.strong(X, gen))[:, :3], yt); loss.backward(); opt.step()
-        if k in STEPS:
+    wt = None if w is None else torch.from_numpy(w).float().to(X.device)
+    for k in range(1, max(steps) + 1):
+        opt.zero_grad(); z = net2(T5.strong(X, gen))[:, :3]
+        loss = F.cross_entropy(z, yt) if wt is None else (wt * F.cross_entropy(z, yt, reduction="none")).sum() / wt.sum()
+        loss.backward(); opt.step()
+        if k in steps:
             out[k] = copy.deepcopy(net2).eval()
     assert torch.isfinite(loss), "fine-tuning diverged"
     return out

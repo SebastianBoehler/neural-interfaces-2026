@@ -46,27 +46,46 @@ def features(m):
     np.savez(f, **out); return out
 
 
-def csp_feats(Ctr, ytr, Cte, nf=2):
-    """one-vs-rest CSP on band covariances -> log-variance features (train, test)"""
-    W = []
+def csp_feats(Ctr, ytr, Cte, nf=2, w=None):
+    """one-vs-rest CSP on band covariances (class means weighted by w) -> log-variance features (train, test)"""
+    w = np.ones(len(ytr)) if w is None else w; W = []
     for c in np.unique(ytr):
-        A, B = Ctr[ytr == c].mean(0), Ctr[ytr != c].mean(0); B = 0.9 * B + 0.1 * np.trace(B) / len(B) * np.eye(len(B))
+        a, b = ytr == c, ytr != c; A, B = np.average(Ctr[a], 0, w[a]), np.average(Ctr[b], 0, w[b]); B = 0.9 * B + 0.1 * np.trace(B) / len(B) * np.eye(len(B))
         _, V = eigh(A, A + B); W += [V[:, :nf], V[:, -nf:]]
     W = np.concatenate(W, 1); lv = lambda C: np.log(np.einsum("ck,ncd,dk->nk", W, C, W))  # noqa: E731
     return lv(Ctr), lv(Cte)
 
 
-def fit_predict(F, y, tr, te):
-    """-> {variant: (len(te), 3)}"""
-    out = {}
-    ts = [TangentSpace("riemann").fit(F[f"cov{lo}_{hi}"][tr]) for lo, hi in TSB]
+def wlda(Xtr, y, w, Xte):
+    """shrinkage LDA with sample weights (s252 soft forms): weighted class means and priors, Ledoit-Wolf on the weighted
+    within-class residuals"""
+    from sklearn.covariance import ledoit_wolf
+    cl = np.unique(y); mu = np.stack([np.average(Xtr[y == c], 0, w[y == c]) for c in cl]); R = (Xtr - mu[np.searchsorted(cl, y)]) * np.sqrt(w / w.mean())[:, None]
+    Sg = ledoit_wolf(R, assume_centered=True)[0]; B = np.linalg.solve(Sg, mu.T); pri = np.array([w[y == c].sum() for c in cl]) / w.sum()
+    L = Xte @ B - 0.5 * np.sum(mu.T * B, 0) + np.log(pri); L -= L.max(1, keepdims=True); E = np.exp(L); return cl, E / E.sum(1, keepdims=True)
+
+
+def pad(cl, P):
+    """-> (n, 3) with columns for classes absent from the training labels at 0"""
+    out = np.zeros((len(P), 3)); out[:, np.asarray(cl, int)] = P; return out
+
+
+def fit_predict(F, y, tr, te, w=None):
+    """-> {variant: (len(te), 3)}; y labels used on tr only (true or pseudo); w sample weights (None: unweighted, sklearn
+    LDA as in s246; else weighted LR / MDM / CSP means and wlda)"""
+    out = {}; yt = y[tr]; ts = [TangentSpace("riemann").fit(F[f"cov{lo}_{hi}"][tr]) for lo, hi in TSB]
     Ztr = np.concatenate([t.transform(F[f"cov{lo}_{hi}"][tr]) for t, (lo, hi) in zip(ts, TSB)], 1)
     Zte = np.concatenate([t.transform(F[f"cov{lo}_{hi}"][te]) for t, (lo, hi) in zip(ts, TSB)], 1)
-    out["a1"] = make_pipeline(StandardScaler(), LogisticRegression(C=0.1, max_iter=3000)).fit(Ztr, y[tr]).predict_proba(Zte)
-    pr = [csp_feats(F[f"cov{lo}_{hi}"][tr], y[tr], F[f"cov{lo}_{hi}"][te]) for lo, hi in CSPB]
-    out["a2"] = LDA(solver="lsqr", shrinkage="auto").fit(np.concatenate([a for a, _ in pr], 1), y[tr]).predict_proba(np.concatenate([b for _, b in pr], 1))
-    out["a3"] = MDM(metric="riemann").fit(F["cov8_30"][tr], y[tr]).predict_proba(F["cov8_30"][te])
-    out["a4"] = make_pipeline(StandardScaler(), LDA(solver="lsqr", shrinkage="auto")).fit(F["slow"][tr], y[tr]).predict_proba(F["slow"][te])
+    lr = make_pipeline(StandardScaler(), LogisticRegression(C=0.1, max_iter=3000)).fit(Ztr, yt, logisticregression__sample_weight=w)
+    out["a1"] = pad(lr.classes_, lr.predict_proba(Zte))
+    pr = [csp_feats(F[f"cov{lo}_{hi}"][tr], yt, F[f"cov{lo}_{hi}"][te], w=w) for lo, hi in CSPB]; A2, B2 = np.concatenate([a for a, _ in pr], 1), np.concatenate([b for _, b in pr], 1)
+    sc = StandardScaler().fit(F["slow"][tr]); A4, B4 = sc.transform(F["slow"][tr]), sc.transform(F["slow"][te])
+    if w is None:
+        l2 = LDA(solver="lsqr", shrinkage="auto").fit(A2, yt); l4 = LDA(solver="lsqr", shrinkage="auto").fit(A4, yt)
+        out["a2"], out["a4"] = pad(l2.classes_, l2.predict_proba(B2)), pad(l4.classes_, l4.predict_proba(B4))
+    else:
+        out["a2"], out["a4"] = pad(*wlda(A2, yt, w, B2)), pad(*wlda(A4, yt, w, B4))
+    md = MDM(metric="riemann").fit(F["cov8_30"][tr], yt, sample_weight=w); out["a3"] = pad(md.classes_, md.predict_proba(F["cov8_30"][te]))
     out["aE"] = np.mean([out[k] for k in ("a1", "a2", "a3", "a4")], 0)
     for k, v in out.items():
         assert v.shape == (len(te), 3) and np.isfinite(v).all(), k
