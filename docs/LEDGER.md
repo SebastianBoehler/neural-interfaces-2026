@@ -6173,3 +6173,12 @@ Mac CPU, 45 s per chain run; `replay/check.py` OK).**
 - **Kill rule:** kept for a package test only if mean over the six orders ≥ +0.3 **and** ≥ 7/10 people up (person means
   over orders). ≤ −0.3: closed for this form. In between: "undecided" (not closed, not kept). The panel's "with proposal 1"
   arm (eye regression out of the EEG) is not built and not part of this run.
+
+**§240 gate 1 RESULT (14 Nov 12:11 UTC; `studies/14nov/eyeevents/confusion.py`).** SUB ↔ WORD share of v6f's emitted errors,
+new people, six bases × six orders pooled: **39.9 %** (within 0/1 38.0 / 38.5, full 0/1 39.5 / 40.0, runs 0/1 41.8 / 41.8);
+MI ↔ WORD 34.6, MI ↔ SUB 25.4. 80 % person interval 37.2–44.4; person-mean share 45.8 (P07 71, P08 75; P03 29, P10 31). By
+cell: Graz acquisition 48.5, BrainHero online 41.9, BrainHero acquisition 39.3, Graz online 33.5. Prediction 50 (42–60):
+missed low. **The gate fails by 0.06 points as written.** Deviation, stated before steps 2–3 ran: the bar sits inside its
+own noise (interval 37–44) and SUB ↔ WORD is still the largest pair, so by AGENTS.md ("a bar inside the noise does not close a
+direction") this is not a stop on substance; steps 2–3 are cheap CPU runs and go ahead under the same gates and kill rule,
+flagged as past gate 1.
