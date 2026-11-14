@@ -5926,3 +5926,11 @@ delivery scheme hardly matters for a fixed classifier); eye = stored population 
   views) is closed for this form only if the mean is ≤ −0.3 or the expert alone is at chance (pair BA < 53 and AUC
   < 0.53 averaged over orders); a mean inside ±0.3 with an above-chance expert is "undecided" (better corpora, a WORD
   expert, net experts are the next forms).
+
+**§236 amendment (11:56 UTC, before any result was scored): EYEW is a silent no-op for every w > 0.** §231's files for within 0/1:
+w 0.5 and w 2 equal w 1 to 0.0 on every base and arm; only w 0 differs. Cause: SessionEM z-scores each view column by the
+session's own sd (replay/gm.py EMg._adapt), so scaling a column changes nothing; w 0 makes the columns constant, i.e.
+removes the eye view. §231's oracle over {0, 0.5, 1, 2} is an oracle over {off, on}. For §236 the eye-weight axis is:
+w 0 (§231 file), shipped, and weight 2 / 3 as one / two extra copies of the eye view appended through EXTRA_VIEW
+(studies/14nov/sesstype/eyecopy.py, files s236_<order>_eyex2 / eyex3). oracle.py fails on any setting file equal to the
+shipped one. Settings are now 9 (w0, eyex2, eyex3, six stage constants); the rest of §236 is unchanged.
