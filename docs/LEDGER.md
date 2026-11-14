@@ -6776,3 +6776,12 @@ reach inside one session, per person, and how far does the same system drop acro
   sessions). Prediction: one session per day, gaps of days to weeks, or dates anonymised; FAQ says sealed sessions are
   "later sessions", so no same-day public twin exists.
 - **Everything else** (foundation model, more people, eye-view oracle, metric quirks) is assessed from the record, cited.
+**§248 amendment (written 14 Nov 15:12 UTC, after M4's first line, before these runs).** M4's hardware view identifies runs at 1-NN
+0.79 (chance 0.19; the s217 log-variance view 0.49). M3 found 9 cross-run window pairs with |r| > 0.9 on flattened windows.
+Added before running: (M3b) the same with each channel demeaned per window, and where the high pairs sit (same session?
+same person?). (M4b) which block carries the fingerprint (high-band power, 50 Hz residual, 30-58 Hz channel correlations);
+unsupervised per-session clustering (PCA 20 of the hardware view, Ward and GMM, k = true run count) with purity / ARI;
+(M4c) those offline clusters as groups for runcount.filt on full 0/1 (V6Fr, six bases, new people) against true runs and
+none. Prediction: purity 0.6 (0.45-0.75); M4c keeps 40 % (20-60 %) of the true-run filter gain under full (+0.78/+0.92).
+Rule: >= 60 % of the true-run gain under full with a non-causal clustering makes a causal online form worth a day;
+below 30 % the hardware route is recorded undecided-weak. Offline clustering is non-causal: an upper bound of the route.
