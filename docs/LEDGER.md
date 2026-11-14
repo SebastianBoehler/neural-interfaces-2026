@@ -6785,3 +6785,11 @@ unsupervised per-session clustering (PCA 20 of the hardware view, Ward and GMM, 
 none. Prediction: purity 0.6 (0.45-0.75); M4c keeps 40 % (20-60 %) of the true-run filter gain under full (+0.78/+0.92).
 Rule: >= 60 % of the true-run gain under full with a non-causal clustering makes a causal online form worth a day;
 below 30 % the hardware route is recorded undecided-weak. Offline clustering is non-causal: an upper bound of the route.
+**§248 amendment 2 (written 14 Nov 15:16 UTC, before this run).** M4c result: offline Ward clusters keep 48 % / −7 % (V6Fr full 0 / 1)
+of the true-run filter gain: below the 60 % rule; route recorded undecided-weak in this form. 1-NN 0.79 against purity 0.50
+says the information is local (neighbours), not cluster-shaped. (M4d) Does the hardware view recover TEMPORAL neighbours
+(the s213 finding: about 80 % of the full-shuffle stage loss, −3.1 of −3.75, is non-stationarity)? Per window, the 1-NN
+in the hardware view within the session: share in the same run and within ±1 / ±3 trials in recording time; Spearman of
+view distance with time lag. Prediction: 1-NN within ±3 trials 0.45 (0.3-0.6) vs chance about 0.04. Rule: >= 0.5 makes a
+content-neighbourhood stage (stage statistics weighted by fingerprint similarity instead of delivery recency) the top
+one-day test for the full scheme.
