@@ -4992,3 +4992,28 @@ exception guard.**
      bitwise as the unforced run, and windows 30 on bitwise equal to the inner v5.1b and to the v5.1b package;
   3. official local replay at 0.99458 with files unchanged.
 - **Refutation rule:** any miss fails the h package; the g ZIPs stay unsafe either way (no guard).
+
+**§208 SILENT OVERWRITE FOUND AND CORRECTED (14 Nov 05:35 UTC).** shufcombo's output name did not carry OCU_DIR. Last night's
+form B runs (OCU_DIR=runs/ocuttt/<order>/{base,pl,true}, gC5, tag L) therefore wrote over the regular v6f files of within 1–3,
+full 0/1 and runs 0/1 on the Mac.
+- **Found by** §207's no-op control: core1 gains fixed at 1 changed V6Fr by up to 3 points per person, with P0r unchanged.
+- **Fix:** the name now carries any non-default OCU_DIR. The seven files are recomputed; they reproduce the original logs
+  exactly, and the gains-1 run now equals them (max diff 0.0). The overwritten copies are in runs/overwritten_formB/.
+- **Unaffected:** the morning table (it reads Leonardo's paired files for those orders; local files only for full 2/3 and runs
+  2/3); every label comparison (LF / RF / BF / KF files); v6.2gL vs v6.2g.
+- **Corrected** (runs/s208_recomputed.txt, s207_*_fixed.txt):
+  - **§206, s15 form alone (s15 with L labels − v6f):** within **+0.24** (+0.29, +0.27, +0.32, +0.08; was +0.01); full −0.01
+    (was −0.15); runs +0.05 (was −0.07). So the s15 form gains within and is neutral under full and runs. The label change
+    (R − L) is unchanged: within +0.10, full −0.21, runs +0.03.
+  - **v6.2gL's new-people path (s15 + L):** equal to v6f under full (+0.94 / +0.94), +0.24 under within; against v6.2g: within
+    −0.10, full +0.21, runs −0.03. J on the 8 orders is unchanged: v6.2gL +1.09, v6.2g +1.08 (v6f +0.52, was +0.60).
+  - **§200 blend − R:** unchanged (no v6f file used).
+  - **§207 stage 1 (leverage), full 0 / runs 0 corrected:** s0 0.193, c1 0.125, s10 0.090, rest 0.074, s5 0.035, s6 0.028,
+    eye 0.017. The rule verdicts are unchanged except s6 (now undecided).
+  - **§207 stage 2 (final-layer edits), corrected means:**
+    - c1 acc −0.17, c1 corr0.1 −0.20, s0 acc −0.35, rest acc −0.08;
+    - s10 acc −0.04, s10 corr0.1 −0.02, s5 corr0.1 −0.06, eye −0.01.
+    - The verdict holds: none positive.
+  - **§207 core1 block gains** (6 orders, against the clean files): REG 0.1 **+0.04** (4/6 up; within 1 +0.17, runs 0 +0.09);
+    REG 1 +0.00; corr λ 0.1 +0.03 (4/6). Held-out core1 accuracy −0.14 / +0.19 / −0.25 points. The pre-registered bar
+    (+0.1 with ≥ 4/6 up) is not met, so the reading is "undecided, small".
