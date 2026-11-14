@@ -7017,3 +7017,22 @@ added after the smoke, secondary); chain x aE 85.3 (+5.8, 9/10); chain x bE 85.2
   fused 67 (72) below; drops P04 aE -14 (-10) hit, P04 bE -0.7 (-10) miss, P10 bE -6.3 hit, P10 aE -19 (beyond -12).
 - **Limits:** EA and SessionBN statistics are non-causal / whole-session; the two test runs are adjacent to labelled runs of
   the same session; one fusion weight (equal); orders resampled only inside the chain average, intervals over people.
+
+### 252. LABEL-FREE PERSONAL CEILING (written 14 Nov 15:43 UTC, before any result)
+Follow-up of §246 (coordinator): how much of chain x aE x bE's +7.5 survives when the four training runs carry the chain's
+own outputs instead of true labels? Code `studies/14nov/personal_ceiling/` (same splits, scoring, pipelines, nets).
+- **Chain:** the candidate's r15 chain, runs/chainout/s242r15_<order>.npz V6Fr. Per order the pseudo-label source is the
+  mean over its six bases; fusion and the reference score use each base as in §246. The labelled ceiling is re-scored on
+  the r15 chain and on the same orders, so gains compare like with like.
+- **Label forms (training runs only; test runs never labelled):** (i) hard = argmax of V6Fr; (ii) soft = argmax weighted by
+  its max posterior (ttt's wpl; weighted LR / MDM, weighted shrinkage LDA); (iii) filt = (ii) on the detector-gated count
+  filter output (rundetect/package.py: latch + J-wprior urn, as stack/score.py builds it), deployable. No true-run filter.
+- **Systems:** aE (refit per order: all 20 orders, Galvani CPU); bE (4 families x 2 seeds, 200 steps, Leonardo; orders
+  within0, within1, full0, full1, runs0, runs1); fused c x aE, c x bE, c x aE x bE per order and base. Primary = c x aE x bE
+  with filt labels, on the six bE orders; per person, 80 % interval resampling people and orders.
+- **Predictions (gain over the r15 chain on the test runs, ten people):** pseudo-label accuracy on the training runs about
+  80 %; aE alone about 72, bE alone about 79 (below the chain); c x aE +1.0 (-0.5 to +2.5); c x bE +0.8 (-0.5 to +2); primary
+  c x aE x bE +1.5 (0 to +3), about 20 % of the labelled gain; filt about +0.3 over hard; P10 and P04 both small.
+- **Rule:** primary >= +2 with the people interval above 0 -> sketch the causal package form (refit on windows < t every k,
+  chain's emitted labels, run time against the worker budget). +0.5 to +2: undecided, a causal form only if cheap (aE).
+  < +0.5: the labelled ceiling is not reachable by self-training on the chain's labels in this form; recorded, not closed.
