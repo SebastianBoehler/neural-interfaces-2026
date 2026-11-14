@@ -6597,3 +6597,12 @@ to runs/chainout/ret_<order>.npz). Change against ER raw, P04 / P10 / sealed (0.
 Not refuted (T + filter above the filter alone; P10 never below -0.2 on a scheme mean, lowest -0.10). Matches the +0.25
 prediction. The filter adds little on top of T (+0.02 sealed; it helps P10 on runs without T, +0.40, and T takes that away).
 Per order the sealed value ranges -0.66 to +1.55 (two people): wide, report with that range.
+§242/§244 deployable arms (14 Nov 14:15 UTC; evidence/stack_14nov/s242_deployable.txt). New people, 20 orders, against ctl:
+  r15            +0.10 [+0.03, +0.18] 9/10   (within +0.06, full +0.17, runs +0.07)
+  r15 + filter   +0.25 [+0.13, +0.38] 9/10   (within +0.36, full +0.17, runs +0.22)   <- fallback stack, deployable as measured
+  r15e3          +0.19 [+0.08, +0.31] 9/10   (within -0.02, full +0.36, runs +0.24)
+  r15e3 + filter +0.30 [+0.17, +0.43] 9/10   (within +0.28, full +0.36, runs +0.25)
+The dev E view adds +0.03 over r15 (stk1 + filter +0.28 against r15 + filter +0.25): small, so the stack does not hinge on
+it. Eye x3 against r15 + filter: within -0.08, full +0.19, runs +0.03; not positive in every scheme, so by the §242
+amendment it is reported, not chosen. Sealed-weighted J with §245's returning arm (+0.27): r15 + filter about +0.26,
+r15e3 + filter about +0.29. Single fine-tuning draw.
