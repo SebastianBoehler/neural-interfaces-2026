@@ -397,11 +397,13 @@ Not validated:
 | Reference smoke: P01, recording, gates off, against the dev code pinned at 3a10ba8 (`studies/14nov/cf_ref`) with the same parameters | Mac CPU | latch 40 in both, outputs **bitwise** equal, 0 labels changed; **4.4 ms per window** for the filter |
 | Official local replay, filter on: `v62c_r1iLu_on.zip` `6ccc0e14de9e01a75f393435a4c33c953eee469d20232f62c6e21edf356fadb8` | Mac CPU | 0.9945788530, files unchanged, 125.2 s |
 | Official local replay, filter off: `v62c_r1iLu_off.zip` `0fc5e5cc9bb5cf4b2702d85ab6896b166de4a1c79c25124f17ca341427710c79` | Mac CPU | 0.9945788530, files unchanged, 111.1 s |
-| Worker image on a GPU (on, off) | Galvani 3101653 | pending |
-| Identity with the filter off (v6_compare 14 sessions × 2 gate modes; record.py per case against v6.2iLu's) | Galvani CPU `cfA*`, `cfRoff*` | pending |
-| Reference check, recording / within 0–2 / full 0–2 × 14 sessions | Galvani CPU `cfB*` | pending |
-| Forced exception in the filter at window 20 / 60 | Galvani CPU `cfC*` | pending |
-| record.py stress cases, filter on | Galvani CPU `cfRon*` | pending |
+| Worker image on a GPU (on, off) | Galvani 3101653 | pending (read with v6.4's) |
+| Identity with the filter off, `v6_compare` to v6.2iLu ER, 14 sessions, gates as shipped / off | Leonardo CPU `cfA*`, `cfAo*` | **28/28 bitwise** |
+| Identity with the filter off through `predict()`, `record.py` per case (14 public, 4 unknown, switch, lapse, long, stress, extreme, faults, perm, missing) | Leonardo `cfRoff*` against Galvani's v6.2iLu recordings | labels equal everywhere; posteriors differ by ≤ 6.9e-9 (3.2e-6 on unknown sessions, where fine-tuning amplifies) because the two machines' CPUs round differently. Same-machine run (`cfRref*` on Leonardo) pending |
+| Reference against the pinned dev code, gates off: recording, within 0 / 1, full 0 / 1 (14 sessions each) | Leonardo `cfB*` | **70/70: latch window equal and outputs bitwise equal in every session**; latched 48 / 70; 12 labels changed in all; filter cost 8.3 ms per window on average (max 13.4) on Leonardo's CPU, 4.4 on the Mac |
+| Same, within 2 / full 2 | Leonardo | **void**: `shuffle_perms_fixed.npz` holds seeds 0–1 per scheme only (KeyError, no run). Replaced by runs 0 / 1 (`cfBruns*`), pending |
+| Forced exception in the filter at window 20 (before the latch) and 60 (after it), P01–P03 | Leonardo `cfC*` | **6/6**: errors 1, unfiltered from the error on, the reference before it |
+| `record.py` with the filter on: unknown (4), switch, lapse, long (577), stress, extreme, faults, perm, missing | Leonardo `cfRon*` | **9/9 complete**, outputs finite, labels in {0, 1, 2}, no filter error |
 
 **Known gap, fixed in the next revision:** the per-session `[count-filter] … latched_at … errors` line never reaches
 the evaluation log. The evaluator drops each session's model copy without calling `reset_state`, and `CountFilter`
