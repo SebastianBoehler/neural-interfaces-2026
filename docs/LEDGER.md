@@ -6508,3 +6508,20 @@ Then stk1dep = r15 + Edep view, and the deployable-only arms already submitted: 
 Prediction: Edep adds +0.00 to +0.10 over r15 alone (less than the dev E: in-sample embeddings are sharper than held-out).
 Refutation: Edep minus r15 alone <= 0 over 20 orders -> the view is not packaged; the upload stack is r15 (+ eye x3 if it
 holds) + filter.
+
+**PV6 RESULT (14 Nov; runs/pview/tproxy.log, tproxy.npz; six bases; acquisition rows unchanged, asserted).** TSEM prior
+from the acquisition runs, applied on the online runs of the same session. Change on online runs against v5.1b's
+unprimed new-people tail (online base 77–81):
+- **T20:** mean +1.93, people > 0 9/10 (P01 +4.65, P02 −0.60, P03 +2.38, P04 +1.53, P05 +1.85, P06 +1.10, P07 +1.99,
+  P08 +0.32, P09 +3.38, P10 +2.67). Per scheme: rec +1.46, within +1.64 (4/4 orders > 0), full +2.46, runs +2.20.
+- **T40:** mean +2.44, 9/10 (P02 −0.93). Per scheme: rec +1.81, within +2.20, full +3.02, runs +2.67.
+- **Against the prediction:** T20 +0.8 → +1.93, T40 +1.0 → +2.44; people > 0 7/10 → 9/10. Higher than predicted.
+- **Reading, with two limits:**
+  1. Same-session templates, no between-session shift.
+  2. The proxy's baseline has no personal head and no own-space stage (new-people tail), so the prior is the only
+     personal information there. In the routed chain those two already carry much of it.
+  The gap between this proxy (P10 +2.67) and the real across-session case (PV2/PV4: P10 0.00 ± 0.1) is the size of
+  those two effects together, and the dev data cannot separate them. For the eight single-session sealed people
+  the real case is across sessions, like P04 and P10. So the proxy shows the mechanism works inside a session and
+  does not show it carries to a later one. P04, the one dev person where it does carry (+0.8), is also the weakest
+  person under the chain.
