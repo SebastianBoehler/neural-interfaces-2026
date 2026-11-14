@@ -996,9 +996,10 @@ class FineTune:
         self.t0, self.every, self.n_steps = int(z["v6_ft_t0"]), int(z["v6_ft_every"]), int(z["v6_ft_steps"])
         self.lr, self.lam, self.seed = float(z["v6_ft_lr"]), float(z["v6_ft_lam"]), int(z["v6_ft_seed"])
         self.on = bool(int(z["v6_ft_on"]))  # 0: no fine-tuning (the v6 chain keeps the eye-net view and the rest member)
-        # v6.2i guards, both per session (no state outside the session's model copy): no refit once the prefix exceeds
-        # v6_ft_cap windows, and no refit once this session's refits took v6_ft_session_s seconds in all (0: none of
-        # either). After either, the last fine-tuned nets keep predicting. Inert below both thresholds.
+        # v6.2i guards, both per session (no state outside the session's model copy; both > 0, check_package): no refit
+        # once the prefix exceeds v6_ft_cap windows, and no refit once this session's refits from its second refit on
+        # took v6_ft_session_s seconds in all (the first refit of a fresh process carries the one-off CUDA / kernel
+        # warm-up, so it is not counted). After either, the last fine-tuned nets keep predicting.
         self.cap, self.session_s = int(z["v6_ft_cap"]), float(z["v6_ft_session_s"])
         self.files = {s: str(z[f"net{self.member[s]}_sjit_file"]) for s in names}
         # session copies are loaded from the files' bytes: a deep-copied TorchScript module cannot be optimised
@@ -1089,19 +1090,20 @@ class FineTune:
         if not self.on:
             self.lab.append(int(np.argmax(out)))
             return res
-        if not self.cap or t < self.cap:  # refits read windows 0..t-1 with t <= cap; nothing past the cap is kept
+        if t < self.cap:  # refits read windows 0..t-1 with t <= cap; nothing past the cap is kept
             for s in self.member:
                 self.X[s].append(np.asarray(inputs[self.member[s]], dtype=np.float32))
         if t >= self.t0:
             if (t - self.t0) % self.every == 0:
-                if self.cap and t > self.cap:  # long session: no new refit; the last fine-tuned nets keep predicting
+                if t > self.cap:  # long session: no new refit; the last fine-tuned nets keep predicting
                     self.capped += 1
-                elif self.session_s and self.ft_sec > self.session_s:  # slow worker: this session's refits stop here
+                elif self.ft_sec > self.session_s:  # pathologically slow refits: this session's refits stop here
                     self.over += 1
                 else:
-                    t1 = time.monotonic()
+                    first, t1 = self.refits == 0, time.monotonic()
                     self.refit(t)
-                    self.ft_sec += time.monotonic() - t1
+                    if not first:
+                        self.ft_sec += time.monotonic() - t1
             self.load()
             with torch.no_grad():
                 for s, m in self.nets.items():
@@ -1267,12 +1269,14 @@ class Ensemble6(Ensemble):
             if not np.isfinite(out).all():
                 raise FloatingPointError("v6.2 output not finite")
         except Exception as e:  # counted (log err, first error in the [v6] line); the session stays on v5.1b from here
-            self.dead, log["err"] = True, log["err"] + 1
-            if torch.cuda.is_initialized():  # an out-of-memory error leaves the cache full
-                torch.cuda.empty_cache()
-            log["first"] = log["first"] or repr(e)[:200]
-            print(f"[v6] error at window {log['n'] - 1}: {repr(e)[:200]}; v5.1b's output for the rest of the session",
-                  file=sys.stderr, flush=True)
+            self.dead = True
+            try:  # nothing in the handler may raise (no CUDA call here: the caught error may be a CUDA runtime error)
+                log["err"] += 1
+                log["first"] = log["first"] or repr(e)[:200]
+                print(f"[v6] error at window {log['n'] - 1}: {repr(e)[:200]}; v5.1b's output for the rest of the "
+                      "session", file=sys.stderr, flush=True)
+            except Exception:
+                pass
             return self._fallback(core1, mix, u, shadow, out_v5, gc, gi)
         log["v6"] += 1
         log["ft"] += int(bool(p_ft))
@@ -1355,6 +1359,16 @@ def check_package(z):
             "v6_ft_steps", "v6_ft_lr", "v6_ft_lam", "v6_ft_seed", "v6_ft_on", "v6_ft_labels", "v6_routed", "v6_ft_cap", "v6_ft_session_s")),
         "v6: one tuned member per family slot": "v6_slots" in z and len(z["v6_slots"]) == len(z.get("v6_ft_member", ())),
     })
+    if all(k in z for k in ("v6_routed", "v6_ft_labels", "v6_ft_on", "v6_ft_cap", "v6_ft_session_s", "v6_ft_t0", "v6_ft_every",
+                            "v6_ft_steps", "v6_ft_lr", "v6_rest_w")):
+        checks.update({  # v6.2i: every switch and guard in its range (0 must not silently switch a guard off)
+            "v6: v6_routed in {0, 1, 2}": int(z["v6_routed"]) in (0, 1, 2),
+            "v6: v6_ft_labels and v6_ft_on in {0, 1}": int(z["v6_ft_labels"]) in (0, 1) and int(z["v6_ft_on"]) in (0, 1),
+            "v6: guards v6_ft_cap >= 1 and v6_ft_session_s > 0": int(z["v6_ft_cap"]) >= 1 and float(z["v6_ft_session_s"]) > 0,
+            "v6: schedule t0 >= 1, every >= 1, steps >= 1, 0 < lr < 1": int(z["v6_ft_t0"]) >= 1 and int(z["v6_ft_every"]) >= 1
+                and int(z["v6_ft_steps"]) >= 1 and 0 < float(z["v6_ft_lr"]) < 1,
+            "v6: 0 < v6_rest_w < 1": 0 < float(z["v6_rest_w"]) < 1,
+        })
     failed = [name for name, ok in checks.items() if not ok]
     if failed:
         raise ValueError(f"weights.npz does not match this code: {failed}")
@@ -1376,8 +1390,6 @@ class Solver(CompetSolver):
         # no TF32, so GPU and CPU agree to float32 precision
         torch.backends.cuda.matmul.allow_tf32 = False
         torch.backends.cudnn.allow_tf32 = False
-        # v6.2i: deterministic cuDNN algorithms, no autotuning (fine-tuning reruns reproduce on the same GPU)
-        torch.backends.cudnn.deterministic, torch.backends.cudnn.benchmark = True, False
         with np.load(meta["submission_dir"] / "weights.npz") as f:
             z = {k: f[k] for k in f.files}
         check_package(z)

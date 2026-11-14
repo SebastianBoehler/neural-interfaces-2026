@@ -30,6 +30,14 @@ sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "scripts"), str(ROOT / "le
 import protocol  # noqa: E402
 from record import ft_clock_restart, load_model  # noqa: E402
 arg = lambda k, d: type(d)(sys.argv[sys.argv.index(k) + 1]) if k in sys.argv else d  # noqa: E731
+INJECT_NAN = arg("--inject-nan", "")  # a compared quantity whose difference is replaced by NaN: the check must fail
+
+
+def upd(worst, key, x):
+    """worst[key] = max(worst[key], x), NaN-safe: a NaN or inf difference makes worst[key] inf (max() keeps the old value
+    when its second argument is NaN, so a NaN in a compared array read as no difference; 14 Nov review)."""
+    x = float("nan") if key == INJECT_NAN else float(x)
+    worst[key] = float("inf") if not np.isfinite(x) else max(worst.get(key, 0.0), x)
 DEV = arg("--device", "cpu")
 ORDER = {}
 PKG_SHAPES = arg("--ref-shapes", "dev") == "package"
@@ -136,7 +144,7 @@ def check_unrecognised(v6, pkg, d, sessions):
             Tt = torch.from_numpy(T).to(DEV)
             run_e = (lambda e: torch.cat([e(Tt[k:k + 1]) for k in range(len(Tt))])) if PKG_SHAPES else (lambda e: e(Tt))
             pe = torch.stack([torch.softmax(run_e(e).double(), 1) for e in eyes]).mean(0).cpu().numpy()
-        worst["eye"] = max(worst["eye"], float(np.abs(np.log(np.clip(pe, 1e-3, 1)) - np.array([v["extra"] for v in V])).max()))
+        upd(worst, "eye", float(np.abs(np.log(np.clip(pe, 1e-3, 1)) - np.array([v["extra"] for v in V])).max()))
         p = {k: z[f"v6_rest_{k}"] for k in ("k", "G", "shrink")}; cs, H = 0.0, []  # rest
         for n_, i in enumerate(rows, 1):
             x = np.nan_to_num(np.asarray(d["X"][i], np.float32)).astype(np.float64); xc = x - x.mean(-1, keepdims=True); C = xc @ xc.T / x.shape[-1]
@@ -150,7 +158,7 @@ def check_unrecognised(v6, pkg, d, sessions):
                         b.zero_()
                 pr.append(torch.softmax(r(Hx)[:, :3].double(), 1))
             pr = torch.stack(pr).mean(0).cpu().numpy()
-        worst["rest"] = max(worst["rest"], float(np.abs(pr - np.array([v["rest"] for v in V])).max()))
+        upd(worst, "rest", float(np.abs(pr - np.array([v["rest"] for v in V])).max()))
         mem = {sl: int(k) for sl, k in zip(z["v6_slots"], z["v6_ft_member"])}  # ft
         X = {sl: np.stack([v["ft_inputs"][k] for v in V]) for sl, k in mem.items()}
         v61 = bool(int(z["v6_ft_labels"])) if "v6_ft_labels" in z.files else False  # v6.1: labels from the v6 chain without FT
@@ -161,26 +169,26 @@ def check_unrecognised(v6, pkg, d, sessions):
         for sl in (mem if ft_on else ()):
             got = np.array([v["p_ft"].get(sl, [np.nan] * 3) for v in V]); m_ = ~np.isnan(ref[sl][:, 0])
             assert np.array_equal(m_, ~np.isnan(got[:, 0])), "fine-tuned windows differ from the schedule"
-            worst["ft"] = max(worst["ft"], float(np.abs(got[m_] - ref[sl][m_]).max()))
+            upd(worst, "ft", float(np.abs(got[m_] - ref[sl][m_]).max()))
         w = c.w; wr = float(z["v6_rest_w"])  # mix6 in pkg.py's form
         for t, v in zip(tr, V):
             mm = t["mix"].copy()
             for sl, pf in v["p_ft"].items():
                 ids = z[f"v6_slot_{sl}"].astype(int); fam = sum(w[1 + i] * v["members"][i] for i in ids) / w[1 + ids].sum()
                 xx = np.clip(fam + pf - v["members"][mem[sl]], 1e-6, None); mm = mm - w[1 + ids].sum() * fam + w[1 + ids].sum() * xx / xx.sum()
-            worst["mix6"] = max(worst["mix6"], float(np.abs(((1 - wr) * mm + wr * v["rest"]) - v["mix6"]).max()))
+            upd(worst, "mix6", float(np.abs(((1 - wr) * mm + wr * v["rest"]) - v["mix6"]).max()))
         full = {k: z[k] for k in z.files}
         if v61:  # the label chain: lean/src's tail on (1 - w_rest) mix + w_rest rest, with the eye columns
             lt = TailV5(full); lf0 = lt.em.features; worst.setdefault("label", 0.0)
             for t, v, i in zip(tr, V, rows):
                 lt.em.features = lambda x, f0=lf0, e=v["extra"]: np.concatenate([f0(x), e])
                 q = lt.step(np.nan_to_num(np.asarray(d["X"][i], np.float32)), t["u"][:z["tsem_V"].shape[1]], (1 - wr) * t["mix"] + wr * v["rest"])
-                worst["label"] = max(worst["label"], float(np.abs(q - v["label"]).max()))
+                upd(worst, "label", float(np.abs(q - v["label"]).max()))
         tail = TailV5(full); feat0 = tail.em.features  # tail
         for (t, v), i, o in zip(zip(tr, V), rows, o6):
             tail.em.features = lambda x, f0=feat0, e=v["extra"]: np.concatenate([f0(x), e])
             q = tail.step(np.nan_to_num(np.asarray(d["X"][i], np.float32)), t["u"][:z["tsem_V"].shape[1]], v["mix6"])
-            worst["tail"] = max(worst["tail"], float(np.abs(q - o).max()))
+            upd(worst, "tail", float(np.abs(q - o).max()))
     return worst, logs
 
 

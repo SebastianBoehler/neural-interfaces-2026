@@ -38,9 +38,10 @@ class FineTune:
         self.t0, self.every, self.n_steps = int(z["v6_ft_t0"]), int(z["v6_ft_every"]), int(z["v6_ft_steps"])
         self.lr, self.lam, self.seed = float(z["v6_ft_lr"]), float(z["v6_ft_lam"]), int(z["v6_ft_seed"])
         self.on = bool(int(z["v6_ft_on"]))  # 0: no fine-tuning (the v6 chain keeps the eye-net view and the rest member)
-        # v6.2i guards, both per session (no state outside the session's model copy): no refit once the prefix exceeds
-        # v6_ft_cap windows, and no refit once this session's refits took v6_ft_session_s seconds in all (0: none of
-        # either). After either, the last fine-tuned nets keep predicting. Inert below both thresholds.
+        # v6.2i guards, both per session (no state outside the session's model copy; both > 0, check_package): no refit
+        # once the prefix exceeds v6_ft_cap windows, and no refit once this session's refits from its second refit on
+        # took v6_ft_session_s seconds in all (the first refit of a fresh process carries the one-off CUDA / kernel
+        # warm-up, so it is not counted). After either, the last fine-tuned nets keep predicting.
         self.cap, self.session_s = int(z["v6_ft_cap"]), float(z["v6_ft_session_s"])
         self.files = {s: str(z[f"net{self.member[s]}_sjit_file"]) for s in names}
         # session copies are loaded from the files' bytes: a deep-copied TorchScript module cannot be optimised
@@ -131,19 +132,20 @@ class FineTune:
         if not self.on:
             self.lab.append(int(np.argmax(out)))
             return res
-        if not self.cap or t < self.cap:  # refits read windows 0..t-1 with t <= cap; nothing past the cap is kept
+        if t < self.cap:  # refits read windows 0..t-1 with t <= cap; nothing past the cap is kept
             for s in self.member:
                 self.X[s].append(np.asarray(inputs[self.member[s]], dtype=np.float32))
         if t >= self.t0:
             if (t - self.t0) % self.every == 0:
-                if self.cap and t > self.cap:  # long session: no new refit; the last fine-tuned nets keep predicting
+                if t > self.cap:  # long session: no new refit; the last fine-tuned nets keep predicting
                     self.capped += 1
-                elif self.session_s and self.ft_sec > self.session_s:  # slow worker: this session's refits stop here
+                elif self.ft_sec > self.session_s:  # pathologically slow refits: this session's refits stop here
                     self.over += 1
                 else:
-                    t1 = time.monotonic()
+                    first, t1 = self.refits == 0, time.monotonic()
                     self.refit(t)
-                    self.ft_sec += time.monotonic() - t1
+                    if not first:
+                        self.ft_sec += time.monotonic() - t1
             self.load()
             with torch.no_grad():
                 for s, m in self.nets.items():

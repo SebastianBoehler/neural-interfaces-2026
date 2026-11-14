@@ -3,7 +3,6 @@ window on (docs/V6_DESIGN.md, ledger §152, §120)."""
 import sys
 
 import numpy as np
-import torch
 
 from .ensemble import Ensemble, submit
 from .extras import EyeNet, RestMember
@@ -163,12 +162,14 @@ class Ensemble6(Ensemble):
             if not np.isfinite(out).all():
                 raise FloatingPointError("v6.2 output not finite")
         except Exception as e:  # counted (log err, first error in the [v6] line); the session stays on v5.1b from here
-            self.dead, log["err"] = True, log["err"] + 1
-            if torch.cuda.is_initialized():  # an out-of-memory error leaves the cache full
-                torch.cuda.empty_cache()
-            log["first"] = log["first"] or repr(e)[:200]
-            print(f"[v6] error at window {log['n'] - 1}: {repr(e)[:200]}; v5.1b's output for the rest of the session",
-                  file=sys.stderr, flush=True)
+            self.dead = True
+            try:  # nothing in the handler may raise (no CUDA call here: the caught error may be a CUDA runtime error)
+                log["err"] += 1
+                log["first"] = log["first"] or repr(e)[:200]
+                print(f"[v6] error at window {log['n'] - 1}: {repr(e)[:200]}; v5.1b's output for the rest of the "
+                      "session", file=sys.stderr, flush=True)
+            except Exception:
+                pass
             return self._fallback(core1, mix, u, shadow, out_v5, gc, gi)
         log["v6"] += 1
         log["ft"] += int(bool(p_ft))

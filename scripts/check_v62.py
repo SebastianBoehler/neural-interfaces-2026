@@ -42,19 +42,19 @@ def main():
         with torch.no_grad():  # eye, in delivery order, as the package (package shapes: batch 1)
             T = torch.from_numpy(O_.traces(dict(X=d["X"][rows], ch_names=d["ch_names"], stream=np.zeros(len(rows), int)))).to(C.DEV)
             pe = torch.stack([torch.softmax((torch.cat([e(T[k:k + 1]) for k in range(len(T))]) if C.PKG_SHAPES else e(T)).double(), 1) for e in eyes]).mean(0).cpu().numpy()
-        worst["eye"] = max(worst["eye"], float(np.abs(np.log(np.clip(pe, 1e-3, 1)) - np.array([v["extra"] for v in V])).max()))
+        C.upd(worst, "eye", float(np.abs(np.log(np.clip(pe, 1e-3, 1)) - np.array([v["extra"] for v in V])).max()))
         for t, v in zip(tr, V):  # mix_B
             mm = t["mix"].copy()
             for sl, pf in v["p_ft"].items():
                 ids = z[f"v6_slot_{sl}"].astype(int); W = w[1 + ids].sum(); fam = sum(w[1 + i] * v["members"][i] for i in ids) / W
                 xx = np.clip(fam + pf - v["members"][mem[sl]], 1e-6, None); mm = mm - W * fam + W * xx / xx.sum()
-            worst["mix"] = max(worst["mix"], float(np.abs((1 - wr) * mm + wr * v["rest"] - v["mix6"]).max()))
+            C.upd(worst, "mix", float(np.abs((1 - wr) * mm + wr * v["rest"] - v["mix6"]).max()))
         sh, rt = TailV5(full), RouteV5(full, w[0] * (1 - wr)); f_rt = rt.tail.em.features
         n_tsem = z["tsem_V"].shape[1]
         for t, v, x, oo in zip(tr, V, X, o):  # v5.1b's shadow, then the routed step (v5 tree, eye columns in its tail)
             rt.tail.em.features = lambda xx, f0=f_rt, e=v["extra"]: np.concatenate([f0(xx), e])
-            q = sh.step(x, t["u"][:n_tsem], t["mix"]); worst["shadow"] = max(worst["shadow"], float(np.abs(q - t["shadow"]).max()))
-            r = rt.step(x, t["u"], v["mix6"], t["core1"], q); worst["routed"] = max(worst["routed"], float(np.abs(r - oo).max()))
+            q = sh.step(x, t["u"][:n_tsem], t["mix"]); C.upd(worst, "shadow", float(np.abs(q - t["shadow"]).max()))
+            r = rt.step(x, t["u"], v["mix6"], t["core1"], q); C.upd(worst, "routed", float(np.abs(r - oo).max()))
         ftw = [k for k, v in enumerate(V) if v["p_ft"]]
         if routed == 2:  # FT on the whole session from t0, labels = the inner v5.1b's outputs (relabelled at recognition)
             assert 0 <= rec < t0, f"recognised at {rec}: refits before recognition used other labels; this reference does not cover it"
@@ -63,7 +63,7 @@ def main():
             ref = C.ft_reference({sl: pkg / str(z[f"net{k}_sjit_file"]) for sl, k in mem.items()}, Xf, outs.argmax(1), outs.max(1).astype(np.float32), **sched)
             for sl in mem:
                 got = np.array([v["p_ft"].get(sl, [np.nan] * 3) for v in V]); k_ = ~np.isnan(ref[sl][:, 0])
-                assert np.array_equal(k_, ~np.isnan(got[:, 0])); worst["ft"] = max(worst["ft"], float(np.abs(got[k_] - ref[sl][k_]).max()))
+                assert np.array_equal(k_, ~np.isnan(got[:, 0])); C.upd(worst, "ft", float(np.abs(got[k_] - ref[sl][k_]).max()))
         else:  # v6.2-safe: no FT after recognition
             assert all(k < rec for k in ftw), "v6.2-safe fine-tuned after recognition"
         o5 = np.array([t["out_v5"] for t in tr])

@@ -31,6 +31,16 @@ def check_package(z):
             "v6_ft_steps", "v6_ft_lr", "v6_ft_lam", "v6_ft_seed", "v6_ft_on", "v6_ft_labels", "v6_routed", "v6_ft_cap", "v6_ft_session_s")),
         "v6: one tuned member per family slot": "v6_slots" in z and len(z["v6_slots"]) == len(z.get("v6_ft_member", ())),
     })
+    if all(k in z for k in ("v6_routed", "v6_ft_labels", "v6_ft_on", "v6_ft_cap", "v6_ft_session_s", "v6_ft_t0", "v6_ft_every",
+                            "v6_ft_steps", "v6_ft_lr", "v6_rest_w")):
+        checks.update({  # v6.2i: every switch and guard in its range (0 must not silently switch a guard off)
+            "v6: v6_routed in {0, 1, 2}": int(z["v6_routed"]) in (0, 1, 2),
+            "v6: v6_ft_labels and v6_ft_on in {0, 1}": int(z["v6_ft_labels"]) in (0, 1) and int(z["v6_ft_on"]) in (0, 1),
+            "v6: guards v6_ft_cap >= 1 and v6_ft_session_s > 0": int(z["v6_ft_cap"]) >= 1 and float(z["v6_ft_session_s"]) > 0,
+            "v6: schedule t0 >= 1, every >= 1, steps >= 1, 0 < lr < 1": int(z["v6_ft_t0"]) >= 1 and int(z["v6_ft_every"]) >= 1
+                and int(z["v6_ft_steps"]) >= 1 and 0 < float(z["v6_ft_lr"]) < 1,
+            "v6: 0 < v6_rest_w < 1": 0 < float(z["v6_rest_w"]) < 1,
+        })
     failed = [name for name, ok in checks.items() if not ok]
     if failed:
         raise ValueError(f"weights.npz does not match this code: {failed}")
@@ -52,8 +62,6 @@ class Solver(CompetSolver):
         # no TF32, so GPU and CPU agree to float32 precision
         torch.backends.cuda.matmul.allow_tf32 = False
         torch.backends.cudnn.allow_tf32 = False
-        # v6.2i: deterministic cuDNN algorithms, no autotuning (fine-tuning reruns reproduce on the same GPU)
-        torch.backends.cudnn.deterministic, torch.backends.cudnn.benchmark = True, False
         with np.load(meta["submission_dir"] / "weights.npz") as f:
             z = {k: f[k] for k in f.files}
         check_package(z)
