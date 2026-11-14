@@ -17,6 +17,9 @@ GROUPS = (("within0", "within1", "full0"), ("full1", "runs0", "runs1"))
 
 
 def run(arch, seed, group, smoke=False):
+    out = S.OUT / ("smoke" if smoke else ""); f = out / f"ftpl_{arch}_s{seed}_g{group}.npz"
+    if f.exists():  # galv_array requeues preempted tasks: skip finished outputs
+        return print("exists", f, flush=True)
     d = FN.protocol.load(); m0 = S.meta(); PL = np.load(S.OUT / "plabels_r15.npz"); res = {}; t0 = time.time()
     for fold, tr, te in FN.protocol.folds(d, "all_loso"):
         if smoke and fold != "P04":
@@ -36,8 +39,7 @@ def run(arch, seed, group, smoke=False):
             print(f"{arch} s{seed} g{group} {fold} {s} {time.time() - t0:.0f}s", flush=True)
     for k, v in res.items():
         assert np.isfinite(v).all(), k
-    out = S.OUT / ("smoke" if smoke else ""); out.mkdir(parents=True, exist_ok=True); f = out / f"ftpl_{arch}_s{seed}_g{group}.npz"
-    np.savez(f, **res); print("saved", f, f"{time.time() - t0:.0f}s", flush=True)
+    out.mkdir(parents=True, exist_ok=True); np.savez(f, **res); print("saved", f, f"{time.time() - t0:.0f}s", flush=True)
 
 
 if __name__ == "__main__":
