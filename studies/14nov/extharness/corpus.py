@@ -25,6 +25,7 @@ CORPORA = {
     "lee2019_mi": ("data/lee2019_mi/windows_*.npz", None),
     "shin2017a": ("data/shin2017a/windows_*.npz", None),
     "shin2017b": ("data/shin2017b/windows_*.npz", None),
+    "stieger2021": ("data/stieger2021/windows_*.npz", None),
 }
 
 
@@ -77,14 +78,19 @@ def tangent(X, bands=BANDS):
     return np.concatenate(out, 1).astype(np.float32)
 
 
+def _files(pat):
+    """the input files (name, size): a cache built from another file set (e.g. a partial copy) must not be reused."""
+    return [(os.path.basename(f), os.path.getsize(f)) for f in sorted(glob.glob(REPO + "/" + pat))]
+
+
 def feats(name, fset=None):
     """fset: v1 | core (default: env MEMBER, else v1)."""
     fset = fset or os.environ.get("MEMBER", "v1"); bands, slow = FSETS[fset]; pat, keep = CORPORA[name]
     if fset == "v1":  # the s216 key, unchanged
         assert bands == BANDS
-        key = hashlib.sha256(json.dumps([name, pat, keep, BANDS, SHRINK, "car", "logeuclid", 1]).encode()).hexdigest()[:12]
+        key = hashlib.sha256(json.dumps([name, pat, keep, BANDS, SHRINK, "car", "logeuclid", 1, _files(pat)]).encode()).hexdigest()[:12]
     else:
-        key = hashlib.sha256(json.dumps([name, pat, keep, bands, slow, SHRINK, "car", "logeuclid", 2]).encode()).hexdigest()[:12]
+        key = hashlib.sha256(json.dumps([name, pat, keep, bands, slow, SHRINK, "car", "logeuclid", 2, _files(pat)]).encode()).hexdigest()[:12]
     path = f"{OUT}/feat_{name}{'' if fset == 'v1' else '_' + fset}.npz"
     if os.path.exists(path):
         with np.load(path, allow_pickle=True) as z:
@@ -105,8 +111,9 @@ def bio(name):
     key = feats(name, "v1")["key"]; path = f"{OUT}/bio_{name}.npz"
     if os.path.exists(path):
         with np.load(path) as z:
-            assert str(z["key"]) == str(key), f"{path}: stale identity features (key {z['key']} vs {key})"
-            return z["B"]
+            if str(z["key"]) == str(key):
+                return z["B"]
+        print(f"{path}: stale identity features, rebuilding", flush=True)
     sys.path.insert(0, REPO + "/experiments"); import bio_id  # noqa: E402
     X = load(name)["X"]; B = np.concatenate([bio_id.feats(X[a:a + 1000])[:, :1599] for a in range(0, len(X), 1000)])
     np.savez(path, B=B, key=key); return B

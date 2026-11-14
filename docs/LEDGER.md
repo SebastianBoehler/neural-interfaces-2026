@@ -5934,3 +5934,63 @@ removes the eye view. §231's oracle over {0, 0.5, 1, 2} is an oracle over {off,
 w 0 (§231 file), shipped, and weight 2 / 3 as one / two extra copies of the eye view appended through EXTRA_VIEW
 (studies/14nov/sesstype/eyecopy.py, files s236_<order>_eyex2 / eyex3). oracle.py fails on any setting file equal to the
 shipped one. Settings are now 9 (w0, eyex2, eyex3, six stage constants); the rest of §236 is unchanged.
+
+### PV2. PERSONAL VIEWS IN THE ROUTED TAIL, P04 AND P10 (pview track; written 14 Nov, before any chain result)
+PV1's rule was met (personal views +13 to +17 over population ones across sessions). Code
+`studies/14nov/pview/chain.py` (retv6 exec'd up to its main loop, not edited; s214 form: GATE_V51B=1, members
+re-streamed, FT_SFX=QF, FT_FORM s15) and `personal.py` (the offline personal models, fitted on the person's public
+session only). Every addition acts in the routed tail only; rows the gate has not routed yet emit ER's output (checked:
+the prior and member arms leave them bit-identical before the replacement). Gate and shadow are v5.1b's, so new people
+are unchanged by construction (no new person is routed, s201). The routed person must equal the session's person
+(asserted).
+- **Arms against ER** (eye view + rest member, the v6.2-safe returning rows of s214; ER is checked against
+  runs/retv6/p0_*):
+  - **O:** the personal ocular model (LR on GE48, causal standardisation in delivery order with the public session's
+    stats as 10 pseudo-windows) as 3 more SessionEM view columns.
+  - **M:** the same model as a member in the routed mix, weight 1 of 16, times the gate's ramp.
+  - **S:** SessionEM template prior: personal class means of the routed-tail view (cross-fitted on the public session),
+    κ 20 pseudo-windows in the class means, so it fades as the session's own windows arrive.
+  - **T:** TSEM template prior: route4's personal `pri`, κ 20, with κ also in the denominator (route4's KAPPA path
+    lacked it: the over-scaling noted for s19/s57b).
+  - **OST:** O + S + T.
+  - **W:** O + M (w = 2s) + S and T (κ 20s), with a per-person strength s = clip((BA personal − BA eye net) / 20, 0, 1),
+    from leave-one-run-out inside the public session.
+- **Orders:** within 0–7, full 0–3, runs 0–3 (s214's 16), six bases. Reported per person and scheme, with 80 % intervals
+  over orders (bootstrap) and the count of orders > 0.
+- **Prediction:** O +0.4 (P10 +0.6, P04 +0.1); M +0.2; S +0.2; T 0 (±0.3); OST +0.5 (P10 +0.7, P04 +0.3); W within 0.1 of
+  OST with P04 ≥ OST's P04.
+- **Rule:** an arm is a package candidate if its 16-order mean (P04 and P10 equal) is ≥ +0.3, P10 > 0 on ≥ 12/16 orders,
+  and no scheme mean is below −0.3 for either person. Between −0.3 and +0.3: "undecided". ≤ −0.3: this form closed. Not
+  closed on one person alone.
+
+### 227 / 228 result. RETURNING PATH ON EXTERNAL PEOPLE (14 Nov 12:20 UTC; `runs/extharness/ret_report{,_core}.md`, ret_<corpus>{,_core}.pkl)
+- **Ran:** Lee2019_MI (54 people, 2 sessions of 100 windows), Shin2017A (29, 3 sessions of 40, l/r MI), Shin2017B (29, 3 × 40,
+  arithmetic vs rest), each with the v1 member and the core-like member (§228); Scherer2015 v1 (9, not in the rules).
+  Stieger2021 could not be used: it is on Galvani only, Galvani wants 2FA, and the copy failed after the first file.
+  Copies from Leonardo; the feature cache key now holds the input file list (a 28-person partial Lee cache would otherwise
+  have been reused silently; a 28-person Lee run of 09:40 is discarded: with 54 people its sign flipped).
+  K-generic stages: PARITY OK against gm (§227). Identity: routed on 72–86 % of windows (from window 10), wrong ≤ 1 %.
+- **Use 1, gap 1 (chain BA; pp = per-person s from LORO on session 1, common = s chosen LOPO; 80 % person intervals):**
+
+  | corpus, member | s 0 | best common s | common | pp − common | oracle − common | Spearman(s_cv, best s) |
+  |---|---|---|---|---|---|---|
+  | Lee v1 | 72.4 | 0.40 | 74.0 | −1.76 [−2.40, −1.17] | +1.24 | −0.10 [−0.26, +0.06] |
+  | Lee core | 77.7 | 0.40 | 78.9 | −1.24 [−1.97, −0.51] | +1.07 | +0.08 [−0.09, +0.25] |
+  | Shin A v1 | 61.9 | 0.40 | 63.5 | −1.48 [−2.36, −0.64] | +2.14 | −0.11 [−0.34, +0.14] |
+  | Shin A core | 64.5 | 0.25 | 65.3 | −1.78 [−3.03, −0.60] | +2.07 | −0.07 [−0.31, +0.18] |
+  | Shin B v1 | 64.4 | 0.25 | 73.9 | −5.28 [−6.43, −4.07] | +1.12 | +0.14 [−0.07, +0.33] |
+  | Shin B core | 69.4 | 0.25 | 75.9 | −4.17 [−5.48, −2.84] | +1.64 | +0.13 [−0.14, +0.39] |
+
+  **Verdict: KILLED with both members** (pp − common ≤ +0.1 on all three; predicted 0 to +0.4). The headroom exists (oracle
+  +1.1 to +2.1) but LORO inside the training session does not find it: s_cv sits at 0.6–1.0 for most people (a head
+  tested on its own session looks better than on a later one), and it does not rank people (Spearman about 0). The best
+  common s is 0.25–0.40 everywhere (the package's head share is about 0.18); the gain at s 0.25 is smaller under full than
+  under rec (Shin B core +5.8 vs +8.2).
+- **Use 2, gain at the common s by gap (Shin, same-day sessions):** v1: A gap 1 +1.79, gap 2 +0.81, difference −0.98
+  [−2.03, −0.03]; B +9.48 / +7.95, −1.53 [−2.71, −0.41]. Core: A +0.81 / +0.79, −0.02 [−0.66, +0.60]; B +6.53 / +5.57,
+  −0.97 [−2.12, +0.10]. Rule: v1 neither confirms decay (B ratio 0.84) nor clears it (A interval below 0); core clears
+  it (ratios 0.98, 0.85, intervals contain 0). The members differ, so **undecided** (§228); core says: no decay within a
+  day. Decay across days (the sealed returning sessions) is not measured: no ≥ 3-session multi-day corpus is reachable.
+- **§228 member:** Schirrmeister 82.9 (v1 74.8), PhysionetMI 59.3 (v1 49.8) in rec: +8 to +9.5 (predicted +2 to +6). §216's
+  verdicts hold with it (W 30 near optimal: Schirrmeister |W − W30| ≤ 0.12; PhysionetMI's W 60 gain only in rec/within);
+  chain − member Schirrmeister +1.4 to +2.1.
