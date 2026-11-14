@@ -7,3 +7,7 @@ done
 # control: TRUE runs passed as RUN_IDS (true12.npz, written from common.RUNI), so the filter uses the 12/12/12 cap for every
 # run as it must with inferred groups; separates the cap's share of the gap from the boundaries'
 RUN_IDS=runs/runids/true12.npz TAU=2 .venv/bin/python studies/14nov/runcount.py within0 within1 runs0 runs1 full0 full1 > runs/rundetect/runcount_true12.txt 2>&1
+# s226 structured label forms (structured.py), contiguous orders
+for nm in s226_pos s226_wprior s226_wcp s226_rcp; do
+  RUN_IDS=runs/runids/$nm.npz TAU=2 .venv/bin/python studies/14nov/runcount.py within0 within1 runs0 runs1 > runs/rundetect/runcount_$nm.txt 2>&1
+done
