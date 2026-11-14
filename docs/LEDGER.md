@@ -7485,3 +7485,30 @@ refits only up to t = 150) is required before any package.
 | per-run, true run ids (oracle) | 50.7 % | 79.2 % | -23.74, 0/10 | -9.84, 0/10 (aE alone 51.5) |
 With the best cluster-to-class permutation chosen from the labels (diagnostic only) purity is 49.9 % (sess) / 52.5 % (run): the clusters do not follow the classes in this space, so the chain mapping is not the cause. Causal prefix (a), windows from t on, nearest centroid: t=80 purity 46.6 % vs chain 80.6 %, gain -29.6 [-33.8, -25.4] 0/10 (within -31.2, full -27.6, runs -30.2); t=120 purity 45.8 % vs 80.7 %, gain -30.4 [-35.2, -25.8] 0/10 (one empty person x order cell filled); end of session = the per-session arm. Prediction (purity 70-80 %, gain -0.5 to +1) refuted: purity far below.
 **Verdict by the gate (purity >= 85 % or gain >= +1.0 with >= 8/10 up): closed in this form, on the primary arm and the oracle.** Not a closure of clustering in other spaces: one fixed space (population LDA on FB tangent features, 2 directions). Limits: the soft posterior is sharp, so a confident wrong cluster multiplies the chain at weight 1 (a tempered form not run; the gate is the purity); (b) uses hard labels; no causal form of (b); 4-train / 2-test splits as §252.
+
+**§254 RESULT (14 Nov 19:09 UTC; evidence/anchored_14nov/{score,score_alpha}.txt; code studies/14nov/anchored/; Mac CPU; checks: pers LR =
+sklearn to 7e-7, LDA k 0 = classic.wlda to 3e-13, scorer chain alone 79.70 = score_pl, a 0 = L pers on every split).** Change
+of c x system over the r15 chain, 20 orders x 6 bases, nested pick [80 % people x orders] people up:
+| labels | E nested (primary family) | E pers end | L nested | La nested (amend.) | Ea nested (amend.) | best of 106 in hindsight |
+|---|---|---|---|---|---|---|
+| true | +3.55 [+1.39, +5.68] 8/10 | +2.89 | +3.63 (picks pers) | +3.51 | +3.48 | +3.63 (L pers) |
+| hard | −2.44 | −2.18 | −2.90 | −2.83 | −1.94 | −1.91 |
+| soft | −2.49 | −2.10 | −2.66 | −2.43 | −1.84 | −1.80 |
+| filt | **−2.25 [−3.84, −0.68] 2/10** | −1.92 | −2.44 | −2.25 | −1.77 [−3.39, −0.31] 2/10 | −1.66 |
+- **Primary fails the pass rule** (needs >= +1.0, >= 0 per scheme, 8/10): −2.25, every scheme < 0 (w −2.97 f −1.78 r −2.00), 2/10.
+- **Why:** the population classic solution carries almost nothing for a held-out person in this space: pop LR alone 44.6
+  (fused −25.1), pop LDA 8-30 Hz 39.0, slow 45.9 (E pop end −13.6 fused, smoke). Every step toward it costs: with true labels
+  the La curve falls monotonically from a 0 (+3.63) to a 0.3 (+1.56) and a 1 (−6.61); the nested picks are the personal end.
+  With chain labels anchoring buys at most +0.2 over the pers end (La a 0.1 −2.25 vs −2.44; Ea a 0.3 −1.77 vs E pers −1.92),
+  far inside noise and far below 0. D2 (slow) alone is best at k 100-300 (shrinkage helps it), but stays −8 to −11 fused.
+- **Caveat on the instrument:** this E (LR + two high-dim LDAs, product fusion) is weaker than s246's aE: labelled c x E pers
+  +2.9 vs aE +5.7, chain-label pers end −1.9 vs §252's −0.9; the LDA members are overconfident (fused alone −11 to −23). The
+  conclusion rests on L / La, whose pers end equals s246's a1 form (alone 76.0) and which shows the same picture.
+- **Predictions:** pop E 62 (missed: ~46); c x pop +0.3 (missed: strongly negative); true pers +5 (missed: +2.9), anchoring
+  costs < 0.5 at the nested pick (hit: −0.08 La, nested = pers end); chain-label nested +0.6 (refuted: −2.25); La flat to
+  falling, <= +0.2 over a 0 (hit).
+- **Verdict:** anchoring a personal classic model to a population classic solution does not rescue the self-labelled
+  classic factor; < +0.3, recorded. Not closed for anchors that transfer: the population nets (the chain's own members
+  reach ~80 on new people) are the anchor that carries information, which is what s15 / r15's warm start already uses. A
+  head anchored on the nets' embeddings (classic-cost refit of the last layer toward the population head) is the open form.
+  No causal form is sketched (rule not met).
