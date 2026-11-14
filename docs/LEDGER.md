@@ -5669,3 +5669,23 @@ GPU training is deterministic, so E0 gives no retraining-noise estimate: the see
 - **Reading:** removing the session bias from the training loss did not buy accuracy after the bias is removed at test
   time; it cost about 0.5–2 points of balanced accuracy, most in recording order, where the causal stream starts inside
   one run (a net that never learned a population prior is worse before balancing has data).
+- **§226 RESULT (14 Nov 08:47 UTC; runs/rundetect/{run_design,structured,jointcount_s226,summary_s226,diag_runs0}.txt,
+  runcount_s226_*.txt; code 0f7df43).** Filter change, offsets off, mean of P0r / V6Fr × orders 0/1 (person 80 % bands in
+  the files). Oracle (true runs): within +0.57, runs +0.25. jointcount.py reproduces runcount.py exactly (true runs and
+  every label file).
+  - Labels (purity / groups per session; filter within | runs): pos 0.92 / 6.1, +0.29 | +0.11; wprior 0.97 / 6.3, +0.43 |
+    +0.08; wcp 0.99 / 6.1, +0.43 | −0.07; rcp (runs purity 0.95 / 6.2) +0.41 | −0.01; §217 bocpd +0.33 | −0.04.
+  - Joint filter (hypotheses × urn, mixture output): J-wprior/urn +0.51 | +0.08 (89 % of the oracle on within; wcp/urn
+    is the same hypothesis set, identical); J-wcp/both +0.49 | −0.11; J-rcp/urn +0.38 | +0.15; J-rcp/both +0.48 | +0.06;
+    J-pos/urn +0.31 | +0.11. Type caps (10 for online) against 12 everywhere: +0.02 (J-pos vs pos labels), so the joint
+    gain over labels (+0.08) is the marginalisation, not the cap.
+  - Rule: within ≥ +0.3 and ≥ half the oracle: met by wprior, wcp, rcp, all J forms (pos at +0.29 just short). The runs
+    clause (no lower band below −0.2) fails for every form, the oracle included (V6Fr runs 0: true −0.33 [−0.72, +0.03]):
+    not kept for the package by the letter; the clause cannot be met by any run filter on this order. Features add
+    nothing on within beyond the design prior; on runs the change-point evidence lowers the filter (wcp/rcp/both < urn).
+  - Runs 0 diagnosis: no capacity mismatch (no true run exceeds its cap; four BH acquisition runs sit one below 12); not
+    τ (τ 1: −0.30); not order-specific calibration (V6Fr conf 0.63 / acc 0.77 / ECE 0.14 on runs 0, 1 and within 0
+    alike; the filter brings ECE to 0.02 everywhere). The loss is P01 −1.9, P05 −1.8, P06 −0.9, P07 −0.7 and falls on
+    acquisition runs (net corrected windows: BH acquisition −7.2, Graz acquisition −2.8, online +4.2); BH acquisition runs
+    lose on runs 1 too (−3.5). Reading: the 12/12/12 urn is loose for BH acquisition (9–12 per class) and those runs
+    carry the noise; an order-level draw, not a mechanism specific to runs.
