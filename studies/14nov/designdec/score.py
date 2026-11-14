@@ -27,7 +27,8 @@ def main():
                 outs = {"off": ref[f"{bn}|{arm}"]} | {v: z[f"{bn}|{arm}"] for v, z in have.items() if f"{bn}|{arm}" in z}
                 r = EX.person_scores(order, outs); EX.report(r, f"{order} {arm} {bn}")
                 for (v, f), s in r.items():
-                    res.setdefault((order, arm, v, f), []).append(s)
+                    if v != "off":  # paired per base: a variant's change only on the bases it was run on
+                        res.setdefault((order, arm, v, f), []).append(s - r["off", f])
     print("SUMMARY: mean over orders and bases; change against off with the same filter [80 % person bootstrap]; decision = gJ")
     for sc in ("within", "runs", "full"):
         os_ = [o for o in sys.argv[1:] if o.rstrip("0123456789") == sc]
@@ -37,10 +38,10 @@ def main():
                     continue
                 cells = []
                 for f in EX.FILTERS:
-                    d = np.mean([np.mean(res[o, arm, v, f], 0) - np.mean(res[o, arm, "off", f], 0) for o in os_], 0)
+                    d = np.mean([np.mean(res[o, arm, v, f], 0) for o in os_], 0); nb = [len(res[o, arm, v, f]) for o in os_]
                     bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
                     cells.append(f"{f} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] min {d.min():+.1f}")
-                print(f"  {sc:6s} {arm:4s} {v:8s} ({len(os_)} orders) " + " | ".join(cells), flush=True)
+                print(f"  {sc:6s} {arm:4s} {v:11s} ({len(os_)} orders, bases {nb}) " + " | ".join(cells), flush=True)
 
 
 if __name__ == "__main__":

@@ -6606,3 +6606,35 @@ The dev E view adds +0.03 over r15 (stk1 + filter +0.28 against r15 + filter +0.
 it. Eye x3 against r15 + filter: within -0.08, full +0.19, runs +0.03; not positive in every scheme, so by the §242
 amendment it is reported, not chosen. Sealed-weighted J with §245's returning arm (+0.27): r15 + filter about +0.26,
 r15e3 + filter about +0.29. Single fine-tuning draw.
+
+**§239 RESULT, PART (1) TEMPLATES (14 Nov 14:19 UTC; runs/designdec/score_final.txt, proxy.txt; code 0e8d214 + scorer fix).**
+Package form: shufcombo run unmodified through runpy with the stage installed (studies/14nov/designdec/wrap.py). No-op:
+feedback off reproduces runs/chainout/within0.npz exactly (max |diff| 0, Mac and Leonardo); Leonardo and Mac outputs agree
+to 0.0 on every shared key; replay/check.py OK. Change of variant + gated J filter against unmodified chain + the same filter
+(the s239 decision number), new people, mean of 2 orders [80 % person band]; 6 bases where marked, else B2_pool:
+
+| form (V6Fr) | within | runs | P0r within / runs |
+|---|---|---|---|
+| ext/J (6 bases) | +0.19 [−0.05, +0.42] | +0.10 [−0.09, +0.30] | +0.03 / +0.43 |
+| rep/J/ts, TSEM only (6 bases; form added after the first results) | +0.27 [+0.05, +0.48] | −0.20 [−0.33, −0.08] | +0.11 / +0.27 |
+| ext/J/ts (6 bases) | +0.16 | – (runs 0 only) | −0.09 / – |
+| ext/true, ceiling (6 bases) | +0.30 [+0.07, +0.54] | +0.20 [+0.04, +0.36] | +0.03 / +0.68 |
+| ext/true/ts (6 bases) | +0.20 | – | −0.02 / – |
+| rep/J (B2_pool) | −0.41 | −0.93 | −0.05 / −0.59 |
+| fwd/J (B2_pool) | −0.53 | −1.40 | −0.04 / −0.86 |
+| rep/true (B2_pool) | −0.63 | −0.93 | +0.37 / −0.40 |
+
+- **Kill met:** no J form reaches +0.3 over the gated filter on within (best registered form ext/J +0.19, best post-hoc
+  form rep/J/ts +0.27 but −0.20 on runs). Inside the noise: direction undecided, not a package change.
+- **Collapse (the panel's warning):** every form that replaces SessionEM's soft labels with the run posterior (rep, fwd,
+  also with true runs) collapses under runs: order means −0.86 to −1.62 on V6Fr, single people −5 to −6.4. It is not
+  boundary error (rep/true collapses too); SessionEM's EM seeds confirm the chain's own counts. Only the extrinsic
+  message (ext) or TSEM-only feedback stays safe (person minima ≥ −1.0).
+- **Ceiling:** with true runs, ext adds +0.30 / +0.20 over the true-run-gated filter, so the template channel holds about a
+  third of the gap between the causal filter (+0.5) and the offline bound (+1.1); J-wprior keeps about two thirds of it on
+  within, less on runs.
+- **Self-contained replay** (members as recorded, B2_pool, within 0): ext/J chain alone +0.61, with the filter −0.17:
+  the feedback and the output filter use the same information.
+- **(2) proxy** (runs/designdec/proxy.txt): prefix-smoothed labels at s15 refits, J: +1.05 BA over the emitted labels on
+  within (+1.00 runs), +0.30 over r15's relabels; true runs +1.57 / +0.82. Below the +2 rule. r15's +0.75 label gain gave
+  +0.12 in §221, so the smoothed labels predict about +0.05 over r15.
