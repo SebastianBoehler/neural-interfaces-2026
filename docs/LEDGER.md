@@ -6893,3 +6893,33 @@ Option, not a plan (14 Nov 15:22 UTC; from §247's side finding): averaging the 
 shipping one gives new people within +0.14, full +0.06, runs +0.25 (r15 raw, 20 orders), at six times the run time. §247's
 larger gain from averaging over orders and bases (P04 up to +4) is mostly the orders, which a package cannot average.
 - **Stamp correction (§250 amendment):** its heading says 15:31 UTC; `date -u` at writing was 15:21 UTC (the nested run started then).
+
+### 247a/b. AMENDMENTS: TWO-SESSION ROUTED REFERENCE AND PACKAGE-FORM LATE FUSION (written 14 Nov 15:42 UTC, before any result; coordinator after §247)
+**(a) The routed chain with sessions 1 + 2 public, tested on session 3** (`studies/14nov/strongpersonal/chain12.py`; pview
+chain.py's machinery imported, not edited). The replay cannot rebuild every member with session 2 in training without new
+Leonardo exports of all members (35 nets, 30 SessionBN nets, teacher, core1, Hilbert, eye and rest nets, their delivery-order
+re-streams). Closest honest version: the population members and core1's basis stay as in seen_session (session 1 in
+training); everything the routed path builds from a person's public data gets session 2 added: the v2 gate's gallery and
+basis (rlib3.gate_model's per-person sessions), the bio gate's enrolment rows, the personal head (ps1_heads), T's prior
+(pri), and the own-space stage's three models (ownspace.Personal on sessions 1 and 2). Session 2's core1 PCs are the
+fold's stored causal test features (training sessions use whole-session ones; per-session z-scoring in stdz / contrast
+removes most of the difference). Only session 3 is scored; session 2's outputs are leaky and dropped. Zero-change check
+first: with the additions off, ER and T on session 3 equal s245_ret exactly (every order and base).
+- **Prediction:** ER(1+2) − ER(1) on session 3: P04 +2.5 (0 to +5), P10 +0.5 (−0.5 to +1.5); the strong path's ceiling on
+  top of ER(1+2) (§247 grid, oracle) keeps about half of its A gain: P04 +4, P10 +1.
+- **Reading rule:** the strong path is worth a causal build only if, on top of ER(1+2) [and of ER(1+2) + T], its
+  one-setting-for-both form gives >= +3 P04 and >= +1 P10 on session 3 (mean of the 16 orders).
+**(b) Package-form late fusion** (`fusion.py`, nets `pftshuf.py`): output = ER x PFT^(w r) on routed rows, r the gate's ramp
+(0 before the first routed window, so those rows emit ER exactly), PFT = the geometric mean of the 15 PFT nets (5
+families x 3 seeds, s29's code) of the routed person, now re-streamed in each delivery order (causal SessionBN /
+alignment in delivery order; s29's stored outputs were recording order). Primary: pf200, w = 0.25, fixed for everybody.
+Honest cross-person setting: (variant, w) in {pf60, pf200} x {0.125, 0.25, 0.5, 1} chosen on P04 and scored on P10 and vice
+versa. Also on T, and with the count filter (score_ret.py on SAVE_OUT keys <order>|<base>|<arm>). 16 orders x 6 bases.
+- **What differs from v5.2's personal nets** (about 0 to −0.4 in package form): a geometric factor on the final emitted
+  output after all stages, at a small exponent, instead of nets swapped into the member mix (which also feeds SessionEM,
+  TSEM and the shadow); the §29 PFT nets (fine-tuned 200 steps on the person's public session, all five families) rather
+  than v5.2's pnets; on the routed tail only, behind the gate's ramp.
+- **Prediction:** F(pf200, 0.25) against ER: P04 +2.0 (+0.5 to +3), P10 +0.3 (−0.3 to +0.8), sealed-weighted +0.6; the
+  cross-person setting within 0.3 of it; on T about the same increments; the filter adds ≤ +0.1.
+- **Rule:** a package candidate if sealed-weighted ≥ +0.3 on the 16-order mean with no scheme below −0.3 for P10 and the
+  cross-person setting also ≥ +0.3; inside ±0.3 undecided; ≤ −0.3 closed for this form.
