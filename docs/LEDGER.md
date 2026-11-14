@@ -6793,3 +6793,30 @@ in the hardware view within the session: share in the same run and within ±1 / 
 view distance with time lag. Prediction: 1-NN within ±3 trials 0.45 (0.3-0.6) vs chance about 0.04. Rule: >= 0.5 makes a
 content-neighbourhood stage (stage statistics weighted by fingerprint similarity instead of delivery recency) the top
 one-day test for the full scheme.
+**§248 RESULT (14 Nov 15:17 UTC; evidence/levers_14nov/, code studies/14nov/levers/; CPU, nothing trained, nothing downloaded).**
+- **M1 design ceiling** (V6Fr, new, 6 orders x 6 bases, against raw): causal true-run filter +0.48; with true per-run class
+  counts +0.49 (design knowledge beyond boundaries adds +0.01); offline exact counts per run (non-causal, no revision allowed)
+  +1.16; per cell +0.15; per session +0.14. P0r: +0.64 / +0.66 / +1.29 / +0.42 / +0.42. Predictions: b hit, e hit, c hit
+  (+1.3, 0.8-2.2), d miss (predicted +0.8), f miss (+0.6). Reading: even perfect, non-causal design knowledge on our
+  posteriors is about +1.2; the causal part is about +0.5 and the deployable part +0.15 to +0.3. Not the +1.5 lever.
+- **M2 raw data** (local; no download needed): 28 rest runs x 187 s = 87 min, 1,288 non-overlapping 4-s windows (92 per
+  session); task period 8.0 s (cue to end_trial), 9 crops per trial at 0.5 s (23,895 rows) or 7 without the cue second;
+  4.1 s between end_trial and the next cue; official windows use 32 % of the cued recording. EDF resolution 0.40-1.27 uV/bit,
+  per file. Prediction hit. Crops: negative five times in the record; rest runs never used (unlabelled only).
+- **M3 duplicates**: 112 distinct signal payloads; max cross-run |r| 0.934 (0.945 channel-demeaned), all large pairs are
+  common-mode slow artifacts (per-channel r about 0.95 on every channel); the one cross-person pair (P08/P09 run 3) has
+  different onsets and labels. No overlap inside runs (cue gap 12.15 s). Prediction "0 pairs > 0.9" missed in letter
+  (9 / 22 pairs), not in substance: no duplicated trial.
+- **M4 run fingerprint**: 1-NN run identity within session, chance 0.19: s217 log-variance 0.49; hardware view 0.79 (30-58 Hz
+  channel correlations carry it: 0.79 alone; high band 0.62; line band 0.50). Prediction 0.45 missed high for the hardware
+  view. Unsupervised clusters: purity 0.50-0.55, ARI 0.23-0.30. M4c, offline Ward clusters as filter groups under full:
+  V6Fr +0.37 (48 % of true) / -0.06 (-7 %); P0r +0.46 / -0.36. Below the 60 % rule: undecided-weak in this form.
+- **M4d temporal neighbours**: hardware 1-NN within +-3 trials 0.385 (chance 0.033), +-1 0.18 (0.012), same run 0.79,
+  Spearman(distance, lag) +0.21; log-variance 0.16 / 0.07 / 0.49 / +0.14. Inside the predicted range, below the 0.5 rule.
+- **M5 dates**: every EDF start date is 01.01.85 00:00 (anonymised); sealed sessions are "later sessions" (FAQ), so no
+  same-day public twin exists; session-twin matching is closed by construction.
+- **Ranking (expected sealed gain x probability)**, for the coordinator: (1) personal path for the eight single-session
+  returning people (about 40 of 46 returning sessions; §246/§247/§249 running); (2) hardware-fingerprint run recovery /
+  content neighbourhoods, worth something only if the sealed scheme is full; (3) eye-type view (oracle +3.8, §155; real
+  views +0.1 to +0.3); (4) design filter beyond today's (<= +0.3); (5) rest runs / crops (<= +0.2); (6) foundation models (~0);
+  (7) evaluation-structure quirks (0).

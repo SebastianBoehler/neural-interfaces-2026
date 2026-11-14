@@ -1,0 +1,6 @@
+s248 run fingerprint: 2655 windows, 14 sessions, 84 runs
+M3 max |r| across different runs 0.934 (pairs > 0.9: 9, > 0.5: 41534); within a run 0.910; 99.9th pct across runs 0.675
+M4 a log-var 6 bands : 1-NN 0.494 (range 0.42-0.70) | 5-NN 0.526 | chance 0.190
+M4 b hardware        : 1-NN 0.794 (range 0.53-0.95) | 5-NN 0.758 | chance 0.190
+M4 c a+b             : 1-NN 0.755 (range 0.53-0.93) | 5-NN 0.742 | chance 0.190
+.venv/bin/python studies/14nov/levers/run_fingerprint.py  10.26s user 0.31s system 101% cpu 10.455 total

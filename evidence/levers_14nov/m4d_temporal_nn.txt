@@ -1,0 +1,2 @@
+hardware        : 1-NN same run 0.794 (chance 0.163) | within +-1 trial 0.182 (chance 0.012) | within +-3 0.385 (chance 0.033) | Spearman(distance, lag) +0.212
+log-var 6 bands : 1-NN same run 0.494 (chance 0.166) | within +-1 trial 0.070 (chance 0.013) | within +-3 0.161 (chance 0.036) | Spearman(distance, lag) +0.144
