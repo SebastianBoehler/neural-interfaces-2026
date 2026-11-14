@@ -7140,3 +7140,12 @@ lE = mean of l1, a2, a4 (MDM dropped). True-label s246 W splits, no EA: l1 76.0 
 (60.0), lE 77.3 (aE 78.2). Refit 44 / 65 / 101 ms at 40 / 100 / 180 windows. k 5 dropped (k in 10 / 20). Grid pipelines
 {l1, a2, lE}; the fixed line becomes filt, lE, k 10, t0 40, R 40, cap 0.5. Predictions and pass rule unchanged (read a1 as
 l1, aE as lE).
+**§253 amendment 2 (written 14 Nov 16:30 UTC).** Stated plainly: written after the scorer's smoke on the first 2-6 order x base files
+(within0, full2), which showed small changes (+0.2 to +0.5), picks at the grid edge (hard, lE, cap 0.25, R 80) and the
+personal model alone at 63 % against the chain's 77 % on windows >= 40 (argmax agreement 66 %). The primary (pre-registered
+grid, nested, track F) and the pass rule are unchanged. Secondary lines, added now: (a) EXT grid: caps 0.1 / 0.15 and R 120
+added (nested again; reported separately); (b) label form 'top': hard labels, refit only on the more confident half of the
+prefix (median of the chain's max posterior over windows < t), unweighted - a purity-for-quantity form (pp_*_top.npz, TOP=1;
+nested over the grid with it); (c) fusion before the count filter: filter(raw x personal^w) with the urn on the fused
+posterior, small grid (hard, lE, k 10, R 80, t0 40 / 60, cap 0.15 / 0.25 / 0.5), nested, against r15 + filter
+(prefilt.py). Predictions: (a) +0.1 over the primary; (b) within ±0.2 of hard; (c) within ±0.2 of track F.

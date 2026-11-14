@@ -3,9 +3,10 @@ window T0 every K0 windows, fast.fit_predict (log-Euclidean l1, FBCSP a2, slow a
 windows; forms hard / soft / filt) predicts windows t .. t+KMAX-1. For each k in KS (multiples of K0, so refit points nest)
 window i takes the prediction of refit point T0 + k * floor((i - T0) / k). Inputs runs/causalpers/chain.npz (chainf.py) and
 feat.npz (feats.py, per-window features). Output runs/causalpers/pp_<order>_b<base>.npz '<form>|<pipe>|k<k>' -> (N, 3),
-NaN before T0; 'nfail|<form>' counts refits with < 2 label classes (prediction uniform). Labels never see a window >= t.
+NaN before T0 (FORMS=top: pp_<order>_b<base>_top.npz, amendment 2: hard labels, refit on the more confident half of
+the prefix, unweighted); 'nfail|<form>' counts refits with < 2 label classes (prediction uniform). Labels never see a window >= t.
 Usage: python studies/14nov/causalpers/run.py ORDER BASE [BASE ...] | smoke"""
-import sys, time
+import os, sys, time
 from pathlib import Path
 HERE = Path(__file__).resolve().parent; REPO = HERE.parents[2]; sys.path[:0] = [str(HERE), str(REPO / "studies/14nov/personal_ceiling")]
 import numpy as np  # noqa: E402
@@ -13,11 +14,15 @@ import fast as FA  # noqa: E402
 import feats as FT  # noqa: E402
 import splits as S  # noqa: E402
 
-T0, K0, KS = 20, 10, (10, 20); KMAX = max(KS); FORMS = ("hard", "soft", "filt"); PIPES = FA.PIPES  # s253 amendment: fast pipelines, k 5 dropped
+T0, K0, KS = 20, 10, (10, 20); KMAX = max(KS); PIPES = FA.PIPES  # s253 amendment: fast pipelines, k 5 dropped
+FORMS = tuple(os.environ.get("FORMS", "hard,soft,filt").split(",")); SFX = "" if FORMS == ("hard", "soft", "filt") else "_" + "_".join(FORMS)
+assert set(FORMS) <= {"hard", "soft", "filt", "top"}, FORMS
 assert all(k % K0 == 0 for k in KS)
 
 
 def labels(Z, order, b, form):
+    if form == "top":  # amendment 2: hard labels, refit only on the more confident half of the prefix (selection in session_refits)
+        P = Z[f"{order}|{b}|raw"]; return P.argmax(1), P.max(1)
     P = Z[f"{order}|{b}|{'filt' if form == 'filt' else 'raw'}"]; return P.argmax(1), (None if form == "hard" else P.max(1))
 
 
@@ -26,10 +31,12 @@ def session_refits(F, T, y, w, rows, out, form, nfail, tmax=None):
     n = len(rows) if tmax is None else min(len(rows), tmax)
     for t in range(T0, n, K0):
         tr, te = rows[:t], rows[t:t + KMAX]
+        if form == "top":
+            tr = tr[w[tr] >= np.median(w[tr])]
         if len(np.unique(y[tr])) < 2:
             nfail[form] += 1; pr = {p: np.full((len(te), 3), 1 / 3) for p in PIPES}
         else:
-            pr = FA.fit_predict(F, T, y, tr, te, None if w is None else w[tr])
+            pr = FA.fit_predict(F, T, y, tr, te, None if w is None or form == "top" else w[tr])
         for k in KS:
             if (t - T0) % k == 0:
                 for p in PIPES:
@@ -62,7 +69,7 @@ def main():
         print("SMOKE OK"); return
     order = sys.argv[1]
     for b in map(int, sys.argv[2:]):
-        f = REPO / f"runs/causalpers/pp_{order}_b{b}.npz"
+        f = REPO / f"runs/causalpers/pp_{order}_b{b}{SFX}.npz"
         if f.exists():
             print("exists", f); continue
         t0 = time.time(); out, nf = run(order, b, Z, F, T)

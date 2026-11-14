@@ -4,15 +4,19 @@ in the session. Track R fuses into the raw r15 chain, track F into its count-fil
 cell-mean BA (checked equal to replay score.person on every order and base: zero-change). Changes are per person, mean
 over bases, against r15 raw ('raw') and r15 + count filter ('filt'). Nested: for each person the grid point with the best
 scheme-equal mean change on the other nine people. 80 % intervals resample people and orders (stack/score.py).
-Usage: python studies/14nov/causalpers/score.py > evidence/causalpers_14nov/score.txt"""
-import itertools, sys
+Usage: [EXT=1] python studies/14nov/causalpers/score.py > evidence/causalpers_14nov/score[_ext].txt
+TOP=1 adds the amendment-2 label form 'top' (pp_*_top.npz). EXT=1 adds caps 0.1 / 0.15 and R 120 to the grid (declared after the first files; secondary)."""
+import itertools, os, sys
 from pathlib import Path
 REPO = Path(__file__).resolve().parents[3]; sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np  # noqa: E402
-from run import FORMS, KS  # noqa: E402
+from run import KS  # noqa: E402
 
 ORD = [f"within{i}" for i in range(12)] + [f"full{i}" for i in range(4)] + [f"runs{i}" for i in range(4)]; SCHEMES = ("within", "full", "runs")
-PIPES = ("l1", "a2", "lE"); T0S = (20, 40, 60, 90); RS = (0, 40, 80); CAPS = (0.25, 0.5, 0.75, 1.0)
+PIPES = ("l1", "a2", "lE"); T0S = (20, 40, 60, 90); RS = (0, 40, 80); CAPS = (0.25, 0.5, 0.75, 1.0); EXT = os.environ.get("EXT") == "1"
+TOP = os.environ.get("TOP") == "1"; FORMS = ("hard", "soft", "filt") + (("top",) if TOP else ())  # TOP=1: amendment 2 form from pp_*_top.npz
+if EXT:  # declared extension after the first two files showed picks at the grid edge (cap 0.25, R 80); secondary only
+    RS, CAPS = RS + (120,), (0.1, 0.15) + CAPS
 GRID = list(itertools.product(FORMS, PIPES, KS, T0S, RS, CAPS)); FIXED = ("filt", "lE", 10, 40, 40, 0.5)
 Z = np.load(REPO / "runs/causalpers/chain.npz"); PEOPLE = [f"P{i:02d}" for i in range(1, 11)]
 Y = Z["y"].astype(int); CELL = np.unique(Z["cell"], return_inverse=True)[1]; NC = CELL.max() + 1
@@ -31,7 +35,7 @@ def weight(pos, t0, R, cap):
 
 
 def available():
-    return [(o, b) for o in ORD for b in range(6) if (REPO / f"runs/causalpers/pp_{o}_b{b}.npz").exists()]
+    return [(o, b) for o in ORD for b in range(6) if all((REPO / f"runs/causalpers/pp_{o}_b{b}{x}.npz").exists() for x in ("", "_top")[:1 + TOP])]
 
 
 def compute(av):
@@ -43,9 +47,10 @@ def compute(av):
             C = Z[f"{o}|{b}|{src}"]; ref[o, b, src] = s = pscore(C)
             assert np.allclose(s, Z[f"{o}|{b}|sc_{src}"], atol=1e-9), ("zero-change failed", o, b, src)
             LC = np.log(np.clip(C, 1e-6, 1))
+            pt = np.load(REPO / f"runs/causalpers/pp_{o}_b{b}_top.npz") if TOP else None
             for i, (fm, p, k, t0, R, cap) in enumerate(GRID):
                 if (fm, p, k) not in LP:
-                    v = pp[f"{fm}|{p}|k{k}"]; LP[fm, p, k] = (np.log(np.clip(np.nan_to_num(v, nan=1 / 3), 1e-6, 1)), np.isnan(v[:, 0]))
+                    v = (pt if fm == "top" else pp)[f"{fm}|{p}|k{k}"]; LP[fm, p, k] = (np.log(np.clip(np.nan_to_num(v, nan=1 / 3), 1e-6, 1)), np.isnan(v[:, 0]))
                 lp, nan = LP[fm, p, k]; w = weight(pos, t0, R, cap); assert not (w[nan] > 0).any(), "weight on a window without a prediction"
                 G[tr][i, j] = pscore(LC + w[:, None] * lp)
     return ref, G
@@ -80,6 +85,19 @@ def nested(Dc, orders, mask=None):
     return {o: out[i] for i, o in enumerate(orders)}, picks
 
 
+def diag(av):
+    """redundancy with the chain: on windows at delivery position >= 40, accuracy of the personal model alone and of the
+    chain (raw / filt) on the same windows, and their argmax agreement (mean over order x base)"""
+    print("\nredundancy (windows at position >= 40): personal alone acc | chain acc | agreement")
+    for fm, src in (("hard", "raw"), ("soft", "raw"), ("filt", "filt")) + ((("top", "raw"),) if TOP else ()):
+        for p in PIPES:
+            v = []
+            for o, b in av:
+                m = Z[f"{o}|pos"] >= 40; P = np.load(REPO / f"runs/causalpers/pp_{o}_b{b}{'_top' if fm == 'top' else ''}.npz")[f"{fm}|{p}|k10"][m].argmax(1); C = Z[f"{o}|{b}|{src}"][m].argmax(1)
+                v.append((np.mean(P == Y[m]), np.mean(C == Y[m]), np.mean(P == C)))
+            print(f"  {fm:4s} {p:3s} " + " | ".join(f"{x:.3f}" for x in np.mean(v, 0)))
+
+
 def main():
     av = available(); orders = list(dict.fromkeys(o for o, _ in av))
     print(f"s253 CAUSAL PERSONALISATION: {len(av)} order x base files, {len(orders)} orders; zero-change check of the scorer on every one")
@@ -109,7 +127,8 @@ def main():
     print("\ntrack F grid marginals (best scheme-equal mean over the rest of the grid, all ten people; hindsight):")
     for j, (nm, vals) in enumerate((("form", FORMS), ("pipe", PIPES), ("k", KS), ("t0", T0S), ("R", RS), ("cap", CAPS))):
         print(f"  {nm:5s} " + " | ".join(f"{v}: {MF[[i for i, g in enumerate(GRID) if g[j] == v]].max():+.2f}" for v in vals))
-    np.savez(REPO / "runs/causalpers/score.npz", DF=DF, DR=DR, DF0=DF0, orders=np.array(orders), grid=np.array([str(g) for g in GRID]))
+    diag(av)
+    np.savez(REPO / f"runs/causalpers/score{'_ext' if EXT else ''}{'_top' if TOP else ''}.npz", DF=DF, DR=DR, DF0=DF0, orders=np.array(orders), grid=np.array([str(g) for g in GRID]))
 
 
 if __name__ == "__main__":
