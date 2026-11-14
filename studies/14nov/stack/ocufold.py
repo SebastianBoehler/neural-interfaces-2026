@@ -6,7 +6,7 @@ the order's delivery standardisation, same seed, same epochs) embeds ALL rows; t
   GPU step  (TASK = seed): SCHEME, PSEED -> runs/diag/ocufold/<order>/fold_s<seed>.npz: emb (10, N, 128) float16 by fold,
             proba (N, 3) of the held-out rows (checked against runs/diag/ocushuf/<order>/oc_nomix-all_loso-s<seed>.npz).
   CPU step  (view ORDER [ORDER ...]): 3 seeds x 128 = 384 columns; per held-out person: standardise and PCA 4 on the training
-            rows of the fold net's embedding, project q's rows -> runs/views_emb/Edep_pca4_all.npz (key <order>, (N, 4)).
+            rows of the fold net's embedding, project q's rows -> runs/views_emb/Edep_pca4_<order>.npz (key <order>, (N, 4)).
 Usage: [SMOKE=1] SCHEME=within PSEED=0 python studies/14nov/stack/ocufold.py SEED | python studies/14nov/stack/ocufold.py view ORDER ..."""
 import importlib.util, os, sys
 from pathlib import Path
@@ -37,15 +37,14 @@ def gpu(seed):
 def view(orders):
     from sklearn.decomposition import PCA
     sys.path.insert(0, str(WS / "experiments")); import protocol  # noqa: E402
-    d = protocol.load(); N = len(d["y"]); V = {}
+    d = protocol.load(); N = len(d["y"])
     for o in orders:
         zs = [np.load(WS / f"runs/diag/ocufold/{o}/fold_s{s}.npz") for s in range(3)]; owner = zs[0]["owner"]; assert all((z["owner"] == owner).all() for z in zs)
         out = np.zeros((N, 4))
         for k in range(zs[0]["emb"].shape[0]):
             X = np.concatenate([z["emb"][k].astype(np.float64) for z in zs], 1); te = owner == k; tr = ~te
             mu, sd = X[tr].mean(0), np.maximum(X[tr].std(0), 1e-9); m = PCA(4, random_state=0).fit((X[tr] - mu) / sd); out[te] = m.transform((X[te] - mu) / sd)
-        V[o] = out; print(o, "view", out.shape, flush=True)
-    f = WS / "runs/views_emb/Edep_pca4_all.npz"; old = dict(np.load(f)) if f.exists() else {}; old.update(V); np.savez(f, **old); print("written", f, sorted(old))
+        np.savez(WS / f"runs/views_emb/Edep_pca4_{o}.npz", **{o: out}); print("written", f"runs/views_emb/Edep_pca4_{o}.npz", out.shape, flush=True)
 
 
 if __name__ == "__main__":
