@@ -7189,3 +7189,36 @@ stand; Leonardo outputs, if they arrive, are a duplicate and are not scored.
   model on the chain's own labels, fused late) is sized and closed for this feature set; if one does, that point (t, ranking,
   k, q) names the form to build. Caveat stated now: (a)'s n windows are the four training runs, while (b)'s k come from the
   delivered prefix; the map treats a window as a window.
+
+### 254. POPULATION-ANCHORED PERSONAL CLASSIC MODELS (written 14 Nov 17:01 UTC, before any result)
+Coordinator's form after §252 (refit from scratch on chain labels: c x aE −0.9; labelled +5.7): pull the personal classic
+model toward the population solution instead of refitting it. Code `studies/14nov/anchored/` (imports personal_ceiling
+classic.py / classic_pl.py / splits.py, edits nothing), outputs `runs/anchored/`, Mac CPU (≤ 2 processes).
+- **Space:** s246's recentred features (classic_feat.npz: every session EA-aligned on its whole-session mean covariance,
+  non-causal, unlabelled; the ceiling form; the causal form would recentre on the delivered prefix). Tangent space at the
+  identity (log-Euclidean, logm upper triangle x sqrt 2), which is a common space across people after EA. One scaler per
+  held-out person, fit on the population rows (other nine people, all their sessions, TRUE labels: public data).
+- **Members:** (L) multinomial LR on the six-band tangent features (5166 dims), loss weighted by the label weights, penalty
+  ||w − w_pop||² / 2C (intercept free); w_pop = the same LR (C 0.1) on the other nine people. Grid from population to
+  personal: pop (w_pop, b_pop) | C 1e-4, 3e-4, 1e-3, 3e-3, 0.01, 0.03, 0.1, 0.3 | pers (anchor 0, C 0.1 = s246's a1 form in
+  this space). (D1) LDA on the 8-30 Hz tangent features (861) and (D2) LDA on s246's slow waveform (1312): class means
+  (n_c mu_c + k mu_pop,c) / (n_c + k), covariance (N Sigma_LW + k Sigma_pop) / (N + k), priors likewise, pseudo-count k in
+  inf (pop) | 1000, 300, 100, 30, 10, 3 | 0 (pers, = weighted shrinkage LDA). E = mean of L, D1, D2 (one k for D1, D2).
+- **Labels (training runs only):** true; chain (classic_pl.labels on plabels_r15: hard, soft = wpl weights, filt = soft on
+  the gated count-filter posterior).
+- **Fusion and scoring:** as §252's scorer: c x personal (product, equal weight, fixed now), per r15 base, 20 orders, the 84
+  W splits; gain over the chain alone on the same order; 80 % intervals resample people and orders (schemes equal).
+  Strength chosen nested across people (for person p the grid point, jointly (C, k) for E, with the best scheme-equal mean
+  gain on the other nine); the whole curve is printed with the nested pick marked. Zero-change: the scorer's chain-alone
+  level must equal score_pl's (79.7) and its vectorised BA S.cell_score; the pers LR endpoint must equal sklearn's LR (same
+  scaler, C 0.1) to 1e-4.
+- **Primary:** c x E, filt labels, nested (C, k). Secondary: hard / soft, each member, the true-label curve.
+- **Predictions:** pop alone (E) about 62; c x pop E +0.3 (0 to +0.8). True labels: c x pers E +5 (s246 c x aE +5.7 with
+  FBCSP / MDM), best anchored point +5.5, so anchoring costs the labelled ceiling < 0.5 at the nested pick, and below 0.1 the
+  small-C end falls toward the pop line. Chain labels: pers end about −1 (as §252); nested c x E filt +0.6 (−0.2 to +1.4),
+  people up 6/10; the nested pick sits in the middle of the grid (C 1e-3 to 1e-2, k 30 to 300); filt >= hard by 0.1-0.3;
+  L carries most of it (D2 slow alone <= +0.2).
+- **Pass (coordinator):** with chain labels, c x anchored E (nested) >= +1.0 over the chain, >= 0 in every scheme, >= 8/10
+  people up. Then sketch the causal form (refit every k windows on the delivered prefix with the chain's labels, prefix EA)
+  for §253's helper. +0.3 to +1.0 or a scheme < 0: undecided (report which member and end to push). < +0.3: anchoring does
+  not rescue the self-labelled classic factor in this form; recorded, not closed.
