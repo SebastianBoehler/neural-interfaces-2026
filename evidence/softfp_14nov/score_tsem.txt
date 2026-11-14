@@ -1,0 +1,15 @@
+  full0    tzero form == s242r15 | tloc: raw -0.62 latchJ -0.61
+  full1    tzero form == s242r15 | tloc: raw -0.03 latchJ +0.03
+  full2    tzero form == s242r15 | tloc: raw -0.02 latchJ -0.02
+  full3    tzero form == s242r15 | tloc: raw +0.09 latchJ +0.10
+  within0  tzero form == s242r15 | tloc: raw -0.41 latchJ -0.22
+  within1  tzero form == s242r15 | tloc: raw -0.06 latchJ +0.15
+  within2  tzero form == s242r15 | tloc: raw -0.19 latchJ -0.34
+  within3  tzero form == s242r15 | tloc: raw +0.16 latchJ +0.19
+  runs0    tzero form == s242r15 | tloc: raw +0.11 latchJ +0.50
+  runs1    tzero form == s242r15 | tloc: raw -0.11 latchJ -0.32
+  runs2    tzero form == s242r15 | tloc: raw -0.56 latchJ -0.15
+  runs3    tzero form == s242r15 | tloc: raw -0.22 latchJ -0.00
+SUMMARY (change against s242r15, mean over orders [80 % interval, people and orders resampled] people up)
+  tloc   latchJ full -0.12 [-0.39, +0.13] 4/10 | within -0.06 [-0.29, +0.18] 4/10 | runs +0.01 [-0.24, +0.25] 5/10
+  tloc   raw    full -0.15 [-0.41, +0.10] 4/10 | within -0.13 [-0.38, +0.15] 2/10 | runs -0.20 [-0.44, +0.04] 3/10

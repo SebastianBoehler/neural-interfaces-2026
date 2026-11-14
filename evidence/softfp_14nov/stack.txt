@@ -1,0 +1,18 @@
+  full0    offsets +0.04 | count m15 +0.27 | stack m15 +0.25 | count m20 +0.25 | stack m20 +0.36
+  full1    offsets +0.21 | count m15 +0.17 | stack m15 +0.24 | count m20 +0.14 | stack m20 +0.25
+  full2    offsets -0.07 | count m15 +0.02 | stack m15 +0.12 | count m20 +0.19 | stack m20 +0.26
+  full3    offsets +0.33 | count m15 +0.16 | stack m15 +0.27 | count m20 +0.08 | stack m20 +0.12
+  within0  offsets -0.21 | count m15 -0.02 | stack m15 -0.26 | count m20 -0.02 | stack m20 -0.26
+  within1  offsets -0.17 | count m15 +0.05 | stack m15 -0.08 | count m20 +0.05 | stack m20 -0.08
+  within2  offsets -0.23 | count m15 +0.02 | stack m15 -0.23 | count m20 +0.02 | stack m20 -0.23
+  within3  offsets -0.07 | count m15 +0.05 | stack m15 -0.04 | count m20 +0.05 | stack m20 -0.04
+  runs0    offsets -0.08 | count m15 -0.02 | stack m15 -0.11 | count m20 -0.02 | stack m20 -0.11
+  runs1    offsets -0.07 | count m15 -0.02 | stack m15 -0.11 | count m20 -0.02 | stack m20 -0.11
+  runs2    offsets +0.18 | count m15 -0.00 | stack m15 +0.20 | count m20 -0.00 | stack m20 +0.20
+  runs3    offsets +0.03 | count m15 -0.03 | stack m15 +0.08 | count m20 -0.03 | stack m20 +0.08
+SUMMARY (against latchJ(s242r15); offsets form kern; mean over orders [80 % interval, people and orders resampled] people up)
+  offsets      full +0.13 [-0.02, +0.28] 6/10 | within -0.17 [-0.25, -0.08] 1/10 | runs +0.01 [-0.10, +0.12] 6/10
+  count m15    full +0.16 [+0.05, +0.27] 8/10 | within +0.03 [-0.00, +0.05] 7/10 | runs -0.02 [-0.04, +0.01] 4/10
+  stack m15    full +0.22 [+0.06, +0.39] 7/10 | within -0.15 [-0.25, -0.06] 1/10 | runs +0.01 [-0.11, +0.14] 5/10
+  count m20    full +0.16 [+0.04, +0.28] 8/10 | within +0.03 [-0.00, +0.05] 7/10 | runs -0.02 [-0.04, +0.01] 4/10
+  stack m20    full +0.25 [+0.08, +0.41] 8/10 | within -0.15 [-0.26, -0.06] 1/10 | runs +0.01 [-0.11, +0.14] 5/10

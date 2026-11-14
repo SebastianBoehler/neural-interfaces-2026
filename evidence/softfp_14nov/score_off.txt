@@ -1,0 +1,17 @@
+  full0    zero form == s242r15 | kern: raw +0.03 latchJ +0.04 | top10: raw +0.06 latchJ +0.16
+  full1    zero form == s242r15 | kern: raw +0.19 latchJ +0.21 | top10: raw +0.01 latchJ +0.02
+  full2    zero form == s242r15 | kern: raw -0.07 latchJ -0.07 | top10: raw +0.13 latchJ +0.13
+  full3    zero form == s242r15 | kern: raw +0.36 latchJ +0.33 | top10: raw +0.41 latchJ +0.37
+  within0  zero form == s242r15 | kern: raw -0.18 latchJ -0.21 | top10: raw -0.66 latchJ -0.42
+  within1  zero form == s242r15 | kern: raw -0.09 latchJ -0.17 | top10: raw -0.21 latchJ -0.29
+  within2  zero form == s242r15 | kern: raw +0.04 latchJ -0.23 | top10: raw +0.24 latchJ -0.21
+  within3  zero form == s242r15 | kern: raw -0.02 latchJ -0.07 | top10: raw -0.30 latchJ -0.38
+  runs0    zero form == s242r15 | kern: raw -0.07 latchJ -0.08 | top10: raw -0.48 latchJ -0.44
+  runs1    zero form == s242r15 | kern: raw -0.00 latchJ -0.07 | top10: raw -0.09 latchJ -0.10
+  runs2    zero form == s242r15 | kern: raw +0.14 latchJ +0.18 | top10: raw +0.19 latchJ +0.07
+  runs3    zero form == s242r15 | kern: raw -0.10 latchJ +0.03 | top10: raw -0.12 latchJ -0.17
+SUMMARY (change against s242r15, mean over orders [80 % interval, people and orders resampled] people up)
+  kern   latchJ full +0.13 [-0.02, +0.28] 6/10 | within -0.17 [-0.25, -0.08] 1/10 | runs +0.01 [-0.10, +0.12] 6/10
+  kern   raw    full +0.13 [-0.02, +0.29] 6/10 | within -0.06 [-0.19, +0.06] 4/10 | runs -0.01 [-0.10, +0.09] 5/10
+  top10  latchJ full +0.17 [+0.00, +0.35] 6/10 | within -0.32 [-0.49, -0.15] 1/10 | runs -0.16 [-0.41, +0.07] 4/10
+  top10  raw    full +0.16 [-0.03, +0.34] 6/10 | within -0.23 [-0.50, +0.02] 3/10 | runs -0.13 [-0.37, +0.14] 2/10

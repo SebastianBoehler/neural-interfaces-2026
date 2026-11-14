@@ -1,0 +1,420 @@
+=== SOFTOFF full0 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['full'] x 1 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO full 0: FT r15 re-streamed ttt18full0LP, recording-order ttt7; eye net re-streamed runs/ocushuf/full0; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -3.14 P0r -3.28 | V6Fr - P0r +1.42
+B2_s345: P0rec 80.10 | P0s -2.97 P0r -3.12 | V6Fr - P0r +1.07
+B2_s012: P0rec 80.31 | P0s -3.27 P0r -3.68 | V6Fr - P0r +1.88
+B2_s0: P0rec 79.57 | P0s -2.80 P0r -2.84 | V6Fr - P0r +1.78
+B2_s1: P0rec 80.52 | P0s -3.23 P0r -3.31 | V6Fr - P0r +0.68
+B2_s2: P0rec 80.55 | P0s -2.98 P0r -3.56 | V6Fr - P0r +1.20
+v5.1b, stages shuffled                           new -3.07 [-4.30, -1.91] without P10 -3.06
+v5.1b, stages + members re-streamed (as header)  new -3.30 [-4.51, -2.14] without P10 -3.30
+combination over v5.1b, both shuffled            new +1.34 [+0.67, +2.07] without P10 +1.41
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.46 [+0.13, +0.80] without P10 +0.49
+per-window outputs -> runs/softfp/so_full0_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF full0 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO full 0: FT r15 re-streamed ttt18full0LP, recording-order ttt7; eye net re-streamed runs/ocushuf/full0; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -2.84 P0r -2.92 | V6Fr - P0r +0.90
+B2_s345: P0rec 79.78 | P0s -2.71 P0r -3.27 | V6Fr - P0r +0.89
+B2_s012: P0rec 79.90 | P0s -3.00 P0r -3.18 | V6Fr - P0r +1.29
+B2_s0: P0rec 78.93 | P0s -2.01 P0r -2.71 | V6Fr - P0r +1.20
+B2_s1: P0rec 79.28 | P0s -2.60 P0r -2.67 | V6Fr - P0r +0.98
+B2_s2: P0rec 79.86 | P0s -2.42 P0r -3.04 | V6Fr - P0r +0.72
+v5.1b, stages shuffled                           new -2.60 [-4.06, -1.27] without P10 -2.60
+v5.1b, stages + members re-streamed (as header)  new -2.97 [-4.34, -1.65] without P10 -3.02
+combination over v5.1b, both shuffled            new +1.00 [+0.21, +1.82] without P10 +1.07
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.54 [+0.16, +0.95] without P10 +0.61
+per-window outputs -> runs/softfp/so_full0_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF full1 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['full'] x 2 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO full 1: FT r15 re-streamed ttt18full1LP, recording-order ttt7; eye net re-streamed runs/ocushuf/full1; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -3.35 P0r -2.89 | V6Fr - P0r +0.28
+B2_s345: P0rec 80.10 | P0s -3.51 P0r -3.00 | V6Fr - P0r +0.44
+B2_s012: P0rec 80.31 | P0s -3.07 P0r -3.06 | V6Fr - P0r +0.47
+B2_s0: P0rec 79.57 | P0s -2.55 P0r -2.44 | V6Fr - P0r +0.94
+B2_s1: P0rec 80.52 | P0s -3.36 P0r -3.32 | V6Fr - P0r +0.87
+B2_s2: P0rec 80.55 | P0s -3.00 P0r -3.43 | V6Fr - P0r +1.10
+v5.1b, stages shuffled                           new -3.14 [-4.19, -2.13] without P10 -3.10
+v5.1b, stages + members re-streamed (as header)  new -3.02 [-4.41, -1.68] without P10 -3.08
+combination over v5.1b, both shuffled            new +0.68 [+0.04, +1.30] without P10 +0.62
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.21 [-0.11, +0.51] without P10 +0.33
+per-window outputs -> runs/softfp/so_full1_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF full1 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO full 1: FT r15 re-streamed ttt18full1LP, recording-order ttt7; eye net re-streamed runs/ocushuf/full1; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -2.94 P0r -3.39 | V6Fr - P0r +1.48
+B2_s345: P0rec 79.78 | P0s -3.06 P0r -3.18 | V6Fr - P0r +1.29
+B2_s012: P0rec 79.90 | P0s -2.57 P0r -3.13 | V6Fr - P0r +1.06
+B2_s0: P0rec 78.93 | P0s -2.39 P0r -2.43 | V6Fr - P0r +1.01
+B2_s1: P0rec 79.28 | P0s -2.37 P0r -2.25 | V6Fr - P0r +0.99
+B2_s2: P0rec 79.86 | P0s -2.82 P0r -3.18 | V6Fr - P0r +1.20
+v5.1b, stages shuffled                           new -2.69 [-3.94, -1.52] without P10 -2.67
+v5.1b, stages + members re-streamed (as header)  new -2.93 [-4.49, -1.46] without P10 -3.06
+combination over v5.1b, both shuffled            new +1.17 [+0.28, +2.06] without P10 +1.20
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.67 [+0.27, +1.04] without P10 +0.82
+per-window outputs -> runs/softfp/so_full1_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF full2 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['full'] x 3 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO full 2: FT r15 re-streamed ttt18full2LP, recording-order ttt7; eye net re-streamed runs/ocushuf/full2; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -3.73 P0r -4.34 | V6Fr - P0r +1.20
+B2_s345: P0rec 80.10 | P0s -3.68 P0r -4.65 | V6Fr - P0r +1.64
+B2_s012: P0rec 80.31 | P0s -4.23 P0r -4.36 | V6Fr - P0r +1.24
+B2_s0: P0rec 79.57 | P0s -2.87 P0r -3.95 | V6Fr - P0r +1.48
+B2_s1: P0rec 80.52 | P0s -4.12 P0r -4.67 | V6Fr - P0r +1.04
+B2_s2: P0rec 80.55 | P0s -4.48 P0r -4.82 | V6Fr - P0r +1.17
+v5.1b, stages shuffled                           new -3.85 [-4.73, -3.03] without P10 -3.93
+v5.1b, stages + members re-streamed (as header)  new -4.46 [-5.34, -3.59] without P10 -4.51
+combination over v5.1b, both shuffled            new +1.29 [+0.66, +1.98] without P10 +1.20
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.30 [-0.01, +0.60] without P10 +0.43
+per-window outputs -> runs/softfp/so_full2_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF full2 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO full 2: FT r15 re-streamed ttt18full2LP, recording-order ttt7; eye net re-streamed runs/ocushuf/full2; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -3.41 P0r -4.49 | V6Fr - P0r +1.80
+B2_s345: P0rec 79.78 | P0s -3.53 P0r -4.81 | V6Fr - P0r +2.35
+B2_s012: P0rec 79.90 | P0s -3.92 P0r -4.21 | V6Fr - P0r +1.49
+B2_s0: P0rec 78.93 | P0s -2.83 P0r -3.99 | V6Fr - P0r +2.04
+B2_s1: P0rec 79.28 | P0s -3.10 P0r -3.73 | V6Fr - P0r +1.14
+B2_s2: P0rec 79.86 | P0s -3.92 P0r -4.13 | V6Fr - P0r +1.09
+v5.1b, stages shuffled                           new -3.45 [-4.47, -2.48] without P10 -3.56
+v5.1b, stages + members re-streamed (as header)  new -4.22 [-5.19, -3.27] without P10 -4.30
+combination over v5.1b, both shuffled            new +1.65 [+0.95, +2.42] without P10 +1.66
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.44 [+0.04, +0.84] without P10 +0.70
+per-window outputs -> runs/softfp/so_full2_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF full3 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['full'] x 4 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO full 3: FT r15 re-streamed ttt18full3LP, recording-order ttt7; eye net re-streamed runs/ocushuf/full3; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -4.44 P0r -4.68 | V6Fr - P0r +0.87
+B2_s345: P0rec 80.10 | P0s -4.48 P0r -4.70 | V6Fr - P0r +0.95
+B2_s012: P0rec 80.31 | P0s -4.50 P0r -4.49 | V6Fr - P0r +0.45
+B2_s0: P0rec 79.57 | P0s -3.89 P0r -4.14 | V6Fr - P0r +0.59
+B2_s1: P0rec 80.52 | P0s -4.74 P0r -4.38 | V6Fr - P0r +0.58
+B2_s2: P0rec 80.55 | P0s -4.29 P0r -4.54 | V6Fr - P0r +0.47
+v5.1b, stages shuffled                           new -4.39 [-5.45, -3.34] without P10 -4.70
+v5.1b, stages + members re-streamed (as header)  new -4.49 [-5.82, -3.21] without P10 -4.83
+combination over v5.1b, both shuffled            new +0.65 [-0.10, +1.36] without P10 +0.39
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.67 [+0.28, +1.09] without P10 +0.76
+per-window outputs -> runs/softfp/so_full3_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF full3 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO full 3: FT r15 re-streamed ttt18full3LP, recording-order ttt7; eye net re-streamed runs/ocushuf/full3; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -4.04 P0r -4.05 | V6Fr - P0r +0.95
+B2_s345: P0rec 79.78 | P0s -4.37 P0r -4.04 | V6Fr - P0r +0.58
+B2_s012: P0rec 79.90 | P0s -3.83 P0r -4.43 | V6Fr - P0r +0.92
+B2_s0: P0rec 78.93 | P0s -2.92 P0r -3.44 | V6Fr - P0r +0.71
+B2_s1: P0rec 79.28 | P0s -3.73 P0r -3.36 | V6Fr - P0r +0.53
+B2_s2: P0rec 79.86 | P0s -3.43 P0r -4.04 | V6Fr - P0r +0.90
+v5.1b, stages shuffled                           new -3.72 [-4.97, -2.49] without P10 -4.01
+v5.1b, stages + members re-streamed (as header)  new -3.89 [-5.25, -2.49] without P10 -4.22
+combination over v5.1b, both shuffled            new +0.77 [+0.14, +1.40] without P10 +0.55
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.93 [+0.61, +1.26] without P10 +0.99
+per-window outputs -> runs/softfp/so_full3_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF within0 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['within'] x 1 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO within 0: FT r15 re-streamed ttt18within0LP, recording-order ttt7; eye net re-streamed runs/ocushuf/within0; rest net re-streamed 9 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -0.71 P0r -1.07 | V6Fr - P0r +2.31
+B2_s345: P0rec 80.10 | P0s -0.69 P0r -0.98 | V6Fr - P0r +1.41
+B2_s012: P0rec 80.31 | P0s -0.67 P0r -0.94 | V6Fr - P0r +1.94
+B2_s0: P0rec 79.57 | P0s -0.33 P0r -0.74 | V6Fr - P0r +1.98
+B2_s1: P0rec 80.52 | P0s -1.26 P0r -1.08 | V6Fr - P0r +1.41
+B2_s2: P0rec 80.55 | P0s -0.80 P0r -1.69 | V6Fr - P0r +2.53
+v5.1b, stages shuffled                           new -0.74 [-1.35, -0.15] without P10 -0.78
+v5.1b, stages + members re-streamed (as header)  new -1.08 [-1.57, -0.55] without P10 -1.13
+combination over v5.1b, both shuffled            new +1.93 [+1.53, +2.33] without P10 +1.89
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.76 [+0.45, +1.06] without P10 +0.83
+per-window outputs -> runs/softfp/so_within0_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF within0 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO within 0: FT r15 re-streamed ttt18within0LP, recording-order ttt7; eye net re-streamed runs/ocushuf/within0; rest net re-streamed 9 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -0.54 P0r -0.68 | V6Fr - P0r +2.05
+B2_s345: P0rec 79.78 | P0s -0.67 P0r -1.23 | V6Fr - P0r +1.72
+B2_s012: P0rec 79.90 | P0s -0.20 P0r -0.70 | V6Fr - P0r +1.61
+B2_s0: P0rec 78.93 | P0s +0.06 P0r -0.06 | V6Fr - P0r +1.48
+B2_s1: P0rec 79.28 | P0s +0.05 P0r -0.29 | V6Fr - P0r +1.58
+B2_s2: P0rec 79.86 | P0s -0.52 P0r -0.56 | V6Fr - P0r +1.38
+v5.1b, stages shuffled                           new -0.30 [-1.15, +0.51] without P10 -0.18
+v5.1b, stages + members re-streamed (as header)  new -0.59 [-1.41, +0.30] without P10 -0.54
+combination over v5.1b, both shuffled            new +1.64 [+1.10, +2.19] without P10 +1.50
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.98 [+0.75, +1.22] without P10 +1.04
+per-window outputs -> runs/softfp/so_within0_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF within1 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['within'] x 2 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO within 1: FT r15 re-streamed ttt18within1LP, recording-order ttt7; eye net re-streamed runs/ocushuf/within1; rest net re-streamed 9 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -1.17 P0r -1.17 | V6Fr - P0r +1.98
+B2_s345: P0rec 80.10 | P0s -0.78 P0r -1.29 | V6Fr - P0r +1.50
+B2_s012: P0rec 80.31 | P0s -1.27 P0r -1.74 | V6Fr - P0r +2.31
+B2_s0: P0rec 79.57 | P0s -1.08 P0r -1.11 | V6Fr - P0r +2.14
+B2_s1: P0rec 80.52 | P0s -1.60 P0r -1.73 | V6Fr - P0r +1.47
+B2_s2: P0rec 80.55 | P0s -1.23 P0r -2.05 | V6Fr - P0r +2.15
+v5.1b, stages shuffled                           new -1.19 [-2.15, -0.31] without P10 -1.19
+v5.1b, stages + members re-streamed (as header)  new -1.51 [-2.82, -0.27] without P10 -1.65
+combination over v5.1b, both shuffled            new +1.92 [+1.19, +2.72] without P10 +1.88
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.86 [+0.45, +1.30] without P10 +0.97
+per-window outputs -> runs/softfp/so_within1_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF within1 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO within 1: FT r15 re-streamed ttt18within1LP, recording-order ttt7; eye net re-streamed runs/ocushuf/within1; rest net re-streamed 9 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -0.81 P0r -1.18 | V6Fr - P0r +2.34
+B2_s345: P0rec 79.78 | P0s -0.80 P0r -1.07 | V6Fr - P0r +1.79
+B2_s012: P0rec 79.90 | P0s -1.02 P0r -1.16 | V6Fr - P0r +1.81
+B2_s0: P0rec 78.93 | P0s -0.40 P0r -0.38 | V6Fr - P0r +1.85
+B2_s1: P0rec 79.28 | P0s -0.84 P0r -0.81 | V6Fr - P0r +1.81
+B2_s2: P0rec 79.86 | P0s -0.56 P0r -0.58 | V6Fr - P0r +1.39
+v5.1b, stages shuffled                           new -0.74 [-1.80, +0.22] without P10 -0.72
+v5.1b, stages + members re-streamed (as header)  new -0.86 [-2.23, +0.42] without P10 -0.88
+combination over v5.1b, both shuffled            new +1.83 [+1.04, +2.65] without P10 +1.76
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.92 [+0.51, +1.33] without P10 +1.01
+per-window outputs -> runs/softfp/so_within1_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF within2 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['within'] x 3 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO within 2: FT r15 re-streamed ttt18within2LP, recording-order ttt7; eye net re-streamed runs/ocushuf/within2; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -1.01 P0r -1.25 | V6Fr - P0r +0.87
+B2_s345: P0rec 80.10 | P0s -0.83 P0r -1.09 | V6Fr - P0r +0.78
+B2_s012: P0rec 80.31 | P0s -1.26 P0r -1.46 | V6Fr - P0r +1.23
+B2_s0: P0rec 79.57 | P0s -0.86 P0r -1.01 | V6Fr - P0r +1.50
+B2_s1: P0rec 80.52 | P0s -1.54 P0r -1.66 | V6Fr - P0r +0.99
+B2_s2: P0rec 80.55 | P0s -1.03 P0r -1.24 | V6Fr - P0r +0.38
+v5.1b, stages shuffled                           new -1.09 [-1.60, -0.61] without P10 -1.01
+v5.1b, stages + members re-streamed (as header)  new -1.29 [-1.89, -0.72] without P10 -1.14
+combination over v5.1b, both shuffled            new +0.96 [+0.56, +1.34] without P10 +0.92
+no-FT fallback (eye net + rest) over v5.1b, shuffled new -0.07 [-0.27, +0.13] without P10 -0.09
+per-window outputs -> runs/softfp/so_within2_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF within2 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO within 2: FT r15 re-streamed ttt18within2LP, recording-order ttt7; eye net re-streamed runs/ocushuf/within2; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -0.68 P0r -1.37 | V6Fr - P0r +1.43
+B2_s345: P0rec 79.78 | P0s -0.88 P0r -1.64 | V6Fr - P0r +1.06
+B2_s012: P0rec 79.90 | P0s -0.68 P0r -1.10 | V6Fr - P0r +1.15
+B2_s0: P0rec 78.93 | P0s -0.28 P0r -0.04 | V6Fr - P0r +0.86
+B2_s1: P0rec 79.28 | P0s -0.49 P0r -0.74 | V6Fr - P0r +1.28
+B2_s2: P0rec 79.86 | P0s -0.79 P0r -1.09 | V6Fr - P0r +0.78
+v5.1b, stages shuffled                           new -0.63 [-1.19, -0.13] without P10 -0.50
+v5.1b, stages + members re-streamed (as header)  new -1.00 [-1.74, -0.26] without P10 -0.81
+combination over v5.1b, both shuffled            new +1.09 [+0.65, +1.53] without P10 +1.12
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.27 [-0.05, +0.61] without P10 +0.26
+per-window outputs -> runs/softfp/so_within2_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF within3 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['within'] x 4 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO within 3: FT r15 re-streamed ttt18within3LP, recording-order ttt7; eye net re-streamed runs/ocushuf/within3; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -1.22 P0r -1.05 | V6Fr - P0r +1.22
+B2_s345: P0rec 80.10 | P0s -1.26 P0r -1.03 | V6Fr - P0r +1.00
+B2_s012: P0rec 80.31 | P0s -1.29 P0r -1.07 | V6Fr - P0r +1.28
+B2_s0: P0rec 79.57 | P0s -0.59 P0r -0.59 | V6Fr - P0r +1.53
+B2_s1: P0rec 80.52 | P0s -1.56 P0r -1.36 | V6Fr - P0r +1.32
+B2_s2: P0rec 80.55 | P0s -1.67 P0r -1.13 | V6Fr - P0r +1.04
+v5.1b, stages shuffled                           new -1.27 [-1.96, -0.62] without P10 -1.20
+v5.1b, stages + members re-streamed (as header)  new -1.04 [-1.76, -0.31] without P10 -1.00
+combination over v5.1b, both shuffled            new +1.23 [+0.63, +1.87] without P10 +1.27
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.69 [+0.37, +1.02] without P10 +0.81
+per-window outputs -> runs/softfp/so_within3_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF within3 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO within 3: FT r15 re-streamed ttt18within3LP, recording-order ttt7; eye net re-streamed runs/ocushuf/within3; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -1.00 P0r -0.78 | V6Fr - P0r +1.58
+B2_s345: P0rec 79.78 | P0s -1.31 P0r -0.65 | V6Fr - P0r +1.25
+B2_s012: P0rec 79.90 | P0s -1.34 P0r -0.77 | V6Fr - P0r +1.44
+B2_s0: P0rec 78.93 | P0s -0.43 P0r +0.05 | V6Fr - P0r +1.46
+B2_s1: P0rec 79.28 | P0s -0.54 P0r -0.58 | V6Fr - P0r +2.02
+B2_s2: P0rec 79.86 | P0s -0.87 P0r -0.80 | V6Fr - P0r +1.57
+v5.1b, stages shuffled                           new -0.91 [-1.75, -0.14] without P10 -0.78
+v5.1b, stages + members re-streamed (as header)  new -0.59 [-1.43, +0.23] without P10 -0.48
+combination over v5.1b, both shuffled            new +1.55 [+0.87, +2.27] without P10 +1.55
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.65 [+0.44, +0.87] without P10 +0.73
+per-window outputs -> runs/softfp/so_within3_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF runs0 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['runs'] x 1 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO runs 0: FT r15 re-streamed ttt18runs0LP, recording-order ttt7; eye net re-streamed runs/ocushuf/runs0; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -1.84 P0r -1.15 | V6Fr - P0r +1.35
+B2_s345: P0rec 80.10 | P0s -1.59 P0r -1.09 | V6Fr - P0r +1.33
+B2_s012: P0rec 80.31 | P0s -1.72 P0r -1.73 | V6Fr - P0r +1.52
+B2_s0: P0rec 79.57 | P0s -1.12 P0r -1.00 | V6Fr - P0r +1.51
+B2_s1: P0rec 80.52 | P0s -1.83 P0r -1.64 | V6Fr - P0r +1.42
+B2_s2: P0rec 80.55 | P0s -1.85 P0r -1.68 | V6Fr - P0r +0.94
+v5.1b, stages shuffled                           new -1.66 [-2.67, -0.76] without P10 -1.82
+v5.1b, stages + members re-streamed (as header)  new -1.38 [-2.59, -0.25] without P10 -1.66
+combination over v5.1b, both shuffled            new +1.35 [+0.97, +1.72] without P10 +1.27
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.70 [+0.41, +0.99] without P10 +0.83
+per-window outputs -> runs/softfp/so_runs0_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF runs0 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO runs 0: FT r15 re-streamed ttt18runs0LP, recording-order ttt7; eye net re-streamed runs/ocushuf/runs0; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -1.69 P0r -1.27 | V6Fr - P0r +1.72
+B2_s345: P0rec 79.78 | P0s -1.96 P0r -1.46 | V6Fr - P0r +1.89
+B2_s012: P0rec 79.90 | P0s -1.75 P0r -1.51 | V6Fr - P0r +1.91
+B2_s0: P0rec 78.93 | P0s -1.24 P0r -0.79 | V6Fr - P0r +2.03
+B2_s1: P0rec 79.28 | P0s -1.70 P0r -1.25 | V6Fr - P0r +2.55
+B2_s2: P0rec 79.86 | P0s -1.38 P0r -1.41 | V6Fr - P0r +1.75
+v5.1b, stages shuffled                           new -1.62 [-2.81, -0.55] without P10 -1.81
+v5.1b, stages + members re-streamed (as header)  new -1.28 [-2.48, -0.16] without P10 -1.61
+combination over v5.1b, both shuffled            new +1.97 [+1.34, +2.59] without P10 +2.07
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.98 [+0.49, +1.46] without P10 +1.19
+per-window outputs -> runs/softfp/so_runs0_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF runs1 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['runs'] x 2 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO runs 1: FT r15 re-streamed ttt18runs1LP, recording-order ttt7; eye net re-streamed runs/ocushuf/runs1; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -2.15 P0r -2.28 | V6Fr - P0r +0.99
+B2_s345: P0rec 80.10 | P0s -2.23 P0r -2.14 | V6Fr - P0r +1.40
+B2_s012: P0rec 80.31 | P0s -2.35 P0r -2.57 | V6Fr - P0r +1.29
+B2_s0: P0rec 79.57 | P0s -1.75 P0r -1.54 | V6Fr - P0r +0.47
+B2_s1: P0rec 80.52 | P0s -2.29 P0r -2.72 | V6Fr - P0r +1.26
+B2_s2: P0rec 80.55 | P0s -2.72 P0r -2.41 | V6Fr - P0r +1.65
+v5.1b, stages shuffled                           new -2.25 [-3.13, -1.35] without P10 -2.15
+v5.1b, stages + members re-streamed (as header)  new -2.28 [-3.31, -1.29] without P10 -2.31
+combination over v5.1b, both shuffled            new +1.18 [+0.52, +1.82] without P10 +0.87
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.43 [+0.01, +0.85] without P10 +0.55
+per-window outputs -> runs/softfp/so_runs1_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF runs1 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO runs 1: FT r15 re-streamed ttt18runs1LP, recording-order ttt7; eye net re-streamed runs/ocushuf/runs1; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -2.48 P0r -2.61 | V6Fr - P0r +1.82
+B2_s345: P0rec 79.78 | P0s -2.56 P0r -2.31 | V6Fr - P0r +1.68
+B2_s012: P0rec 79.90 | P0s -2.50 P0r -2.63 | V6Fr - P0r +1.70
+B2_s0: P0rec 78.93 | P0s -1.65 P0r -1.54 | V6Fr - P0r +1.30
+B2_s1: P0rec 79.28 | P0s -1.59 P0r -1.88 | V6Fr - P0r +1.46
+B2_s2: P0rec 79.86 | P0s -2.66 P0r -2.32 | V6Fr - P0r +1.76
+v5.1b, stages shuffled                           new -2.24 [-3.19, -1.30] without P10 -2.15
+v5.1b, stages + members re-streamed (as header)  new -2.22 [-3.19, -1.27] without P10 -2.22
+combination over v5.1b, both shuffled            new +1.62 [+0.74, +2.51] without P10 +1.27
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.69 [+0.19, +1.21] without P10 +0.83
+per-window outputs -> runs/softfp/so_runs1_tloc.npz
+=== tloc: 33s, hooked stage calls 30
+=== SOFTOFF runs2 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['runs'] x 3 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO runs 2: FT r15 re-streamed ttt18runs2LP, recording-order ttt7; eye net re-streamed runs/ocushuf/runs2; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -1.81 P0r -1.53 | V6Fr - P0r +1.16
+B2_s345: P0rec 80.10 | P0s -1.71 P0r -1.50 | V6Fr - P0r +0.84
+B2_s012: P0rec 80.31 | P0s -1.88 P0r -1.75 | V6Fr - P0r +1.10
+B2_s0: P0rec 79.57 | P0s -1.15 P0r -1.05 | V6Fr - P0r +1.24
+B2_s1: P0rec 80.52 | P0s -2.24 P0r -1.99 | V6Fr - P0r +1.25
+B2_s2: P0rec 80.55 | P0s -1.83 P0r -1.59 | V6Fr - P0r +0.88
+v5.1b, stages shuffled                           new -1.77 [-2.05, -1.49] without P10 -1.84
+v5.1b, stages + members re-streamed (as header)  new -1.57 [-2.15, -0.96] without P10 -1.50
+combination over v5.1b, both shuffled            new +1.08 [+0.81, +1.37] without P10 +0.97
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.37 [-0.07, +0.78] without P10 +0.50
+per-window outputs -> runs/softfp/so_runs2_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF runs2 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO runs 2: FT r15 re-streamed ttt18runs2LP, recording-order ttt7; eye net re-streamed runs/ocushuf/runs2; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -1.34 P0r -1.33 | V6Fr - P0r +0.65
+B2_s345: P0rec 79.78 | P0s -1.64 P0r -1.55 | V6Fr - P0r +0.67
+B2_s012: P0rec 79.90 | P0s -1.29 P0r -1.75 | V6Fr - P0r +1.19
+B2_s0: P0rec 78.93 | P0s -0.70 P0r -0.60 | V6Fr - P0r +0.91
+B2_s1: P0rec 79.28 | P0s -0.87 P0r -1.08 | V6Fr - P0r +0.86
+B2_s2: P0rec 79.86 | P0s -1.42 P0r -1.38 | V6Fr - P0r +0.81
+v5.1b, stages shuffled                           new -1.21 [-1.61, -0.80] without P10 -1.16
+v5.1b, stages + members re-streamed (as header)  new -1.28 [-1.60, -0.97] without P10 -1.18
+combination over v5.1b, both shuffled            new +0.85 [+0.41, +1.30] without P10 +0.77
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.45 [+0.10, +0.77] without P10 +0.60
+per-window outputs -> runs/softfp/so_runs2_tloc.npz
+=== tloc: 34s, hooked stage calls 30
+=== SOFTOFF runs3 tzero (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+SHUF: 3 stores permuted; schemes ['runs'] x 4 permutations; members fixed as computed in recording order
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO runs 3: FT r15 re-streamed ttt18runs3LP, recording-order ttt7; eye net re-streamed runs/ocushuf/runs3; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 80.18 | P0s -2.70 P0r -1.97 | V6Fr - P0r +1.22
+B2_s345: P0rec 80.10 | P0s -2.26 P0r -1.82 | V6Fr - P0r +0.88
+B2_s012: P0rec 80.31 | P0s -2.71 P0r -2.35 | V6Fr - P0r +1.39
+B2_s0: P0rec 79.57 | P0s -2.15 P0r -2.02 | V6Fr - P0r +1.42
+B2_s1: P0rec 80.52 | P0s -2.74 P0r -2.79 | V6Fr - P0r +1.73
+B2_s2: P0rec 80.55 | P0s -2.66 P0r -2.67 | V6Fr - P0r +1.55
+v5.1b, stages shuffled                           new -2.54 [-3.25, -1.83] without P10 -2.89
+v5.1b, stages + members re-streamed (as header)  new -2.27 [-3.20, -1.37] without P10 -2.66
+combination over v5.1b, both shuffled            new +1.36 [+0.84, +1.90] without P10 +1.13
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.21 [-0.03, +0.44] without P10 +0.27
+per-window outputs -> runs/softfp/so_runs3_tzero.npz
+=== tzero: 31s, hooked stage calls 30
+=== SOFTOFF runs3 tloc (BASES B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2)
+no recording-order ttt7 r15 files: arm V6Frec is skipped (its line is left out)
+SHUFCOMBO runs 3: FT r15 re-streamed ttt18runs3LP, recording-order ttt7; eye net re-streamed runs/ocushuf/runs3; rest net re-streamed 3 seeds; core1 member re-streamed; pc128 rebuilt in the order; new people
+STILL IN RECORDING ORDER: transformer and shallow ea members (causal EA)
+GATE_P0: the combination's gate is computed on v5.1b's chain under the same order (package form)
+B2_pool: P0rec 79.80 | P0s -1.97 P0r -2.15 | V6Fr - P0r +1.42
+B2_s345: P0rec 79.78 | P0s -1.62 P0r -1.94 | V6Fr - P0r +1.23
+B2_s012: P0rec 79.90 | P0s -2.30 P0r -2.29 | V6Fr - P0r +1.69
+B2_s0: P0rec 78.93 | P0s -2.02 P0r -1.58 | V6Fr - P0r +1.93
+B2_s1: P0rec 79.28 | P0s -1.60 P0r -1.93 | V6Fr - P0r +1.42
+B2_s2: P0rec 79.86 | P0s -1.75 P0r -2.25 | V6Fr - P0r +1.39
+v5.1b, stages shuffled                           new -1.88 [-2.52, -1.23] without P10 -2.20
+v5.1b, stages + members re-streamed (as header)  new -2.02 [-3.10, -1.02] without P10 -2.47
+combination over v5.1b, both shuffled            new +1.51 [+1.02, +2.02] without P10 +1.38
+no-FT fallback (eye net + rest) over v5.1b, shuffled new +0.60 [+0.18, +1.07] without P10 +0.79
+per-window outputs -> runs/softfp/so_runs3_tloc.npz
+=== tloc: 34s, hooked stage calls 30

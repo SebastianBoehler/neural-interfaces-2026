@@ -1,0 +1,5 @@
+RUNCOUNT (s215): TAU 2.0, FLOOR 0.5, inferred run labels groups_G1.npz for the filter (offsets as in the chainout files); change against offsets off / filter off, new people
+  full0    P0r  offsets off filter 0: +0.00 (clust 3.99) | offsets off filter 1: +0.38 (clust 4.02) | offsets on filter 0: +1.22 (clust 4.15) | offsets on filter 1: +1.38 (clust 4.30) | filter alone without P10 +0.33
+  full0    V6Fr offsets off filter 0: +0.00 (clust 4.12) | offsets off filter 1: +0.26 (clust 3.97) | offsets on filter 0: +0.87 (clust 4.22) | offsets on filter 1: +1.15 (clust 4.25) | filter alone without P10 +0.23
+  full1    P0r  offsets off filter 0: +0.00 (clust 3.82) | offsets off filter 1: +0.02 (clust 3.72) | offsets on filter 0: +1.02 (clust 4.04) | offsets on filter 1: +0.96 (clust 3.67) | filter alone without P10 +0.09
+  full1    V6Fr offsets off filter 0: +0.00 (clust 3.70) | offsets off filter 1: +0.34 (clust 3.90) | offsets on filter 0: +1.25 (clust 3.93) | offsets on filter 1: +1.28 (clust 3.91) | filter alone without P10 +0.30

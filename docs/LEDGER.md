@@ -7102,3 +7102,33 @@ splits.py; edits neither), outputs `runs/causalpers/`. §252 not read when this 
   -> ready as a package stage if §252 is positive. +0.3 to +1.0 or a scheme < 0: undecided (report form, cost, and which
   part to push). < +0.3: this causal form does not carry the in-session personal gain; recorded, not closed (other forms:
   nets, feedback labels, fusion before the filter).
+**§251 RESULT (14 Nov 16:07 UTC; evidence/softfp_14nov/{softcount,softcount_v2,runcount_G1,score_off,score_tsem,stack}.txt; code
+studies/14nov/softfp/; Mac CPU, shufcombo unedited via runpy; zero-form checks exact on all 12 orders (offsets and TSEM
+hooks); SCF γ 0 equals raw).** New people, V6Fr, six bases, change against the current emission latchJ(s242r15) unless
+noted, mean over orders [80 % interval, people and orders resampled] people up:
+
+| arm | full 0-3 | within 0-3 | runs 0-3 |
+|---|---|---|---|
+| (0) hard G1 groups, filter − raw | +0.22 [+0.04, +0.40] 7/10 | – | – |
+| (1) GSCF nested (γ / top-k) | +0.30 [+0.06, +0.53] 6/10 | +0.03 | −0.02 |
+| (1b) GSCF m15 / m20 (smooth form) | +0.16 / +0.16 [+0.04, +0.28] 8/10 | +0.03 | −0.02 |
+| (1b) GSCF nested over M | +0.02 [−0.18, +0.19] | +0.03 | −0.02 |
+| (2) soft offsets kern | +0.13 [−0.02, +0.28] 6/10 | **−0.17** [−0.25, −0.08] 1/10 | +0.01 |
+| (2) soft offsets top10 | +0.17 [+0.00, +0.35] 6/10 | **−0.32** 1/10 | −0.16 |
+| (3) TSEM local templates | −0.12 [−0.39, +0.13] 4/10 | −0.06 | +0.01 |
+| (4) stack kern + m15 / m20 | +0.22 / +0.25 [+0.08, +0.41] 8/10 | **−0.15** 1/10 | +0.01 |
+
+- runcount.py with G1 groups on s215 (V6Fr): full 0 +0.26, full 1 +0.34 (P0r +0.38 / +0.02).
+- **Against the pass rule (≥ +0.5 full, ≥ −0.1 within / runs): no arm passes.** The count-filter forms keep within / runs
+  (the latch hands over to J) and give +0.16 under full in the smooth form; nested (1)'s +0.30 is γ 1's spike (γ 0.75 /
+  1.25 / 1.5: +0.16 / +0.05 / +0.12). Offsets and the stack fail within (1/10 people up). TSEM local templates are ≤ 0.
+- **Predictions:** (0) +0.15 hit (+0.22); (1) SCF full +0.10 hit (+0.30 nested, smooth form +0.16), within / runs hit;
+  (1b) +0.25 missed low (nested +0.02, fixed m15 +0.16), the spike prediction hit; (2) full +0.15 hit, within 0.00 missed
+  (−0.17 / −0.32); (4) full +0.25 hit, within missed.
+- **Reading:** soft fingerprint neighbourhoods recover about 0.15-0.25 of the full-shuffle loss (true runs: filter about
+  +0.8, offsets about +1), consistent with the weights carrying only about a quarter of their mass in the true run (0.27
+  against a 0.16 base). Under within, the offsets remove real class structure (neighbours in recording time share task
+  blocks and slow drift that the stages already use). Status: **undecided-weak** for the count-filter form (m15 / m20 as
+  GSCF: +0.16 full, within / runs inside ±0.05, 8/10 people, deployable as an emission-only addition before the latch);
+  offsets and TSEM local templates in these forms fail the within bar. Larger gains would need a sharper same-run weight
+  than this fingerprint gives (top-weight neighbour same run 0.61).

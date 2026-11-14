@@ -1,0 +1,48 @@
+SOFTCOUNT (s251): src runs/chainout/s242r15_{order}.npz, TAU 2.0, FLOOR 0.5, CAP 11.0; V6Fr, new people, mean over bases
+  full0    latched 2/14 | latchJ-raw +0.02 | G1-raw +0.33 | g0.5: SCF +0.18 GSCF +0.15 g1: SCF +0.38 GSCF +0.38 g2: SCF -0.06 GSCF -0.02 k5: SCF +0.18 GSCF +0.15 k10: SCF +0.11 GSCF +0.09 k20: SCF +0.24 GSCF +0.23 m5: SCF +0.07 GSCF +0.04 m10: SCF +0.20 GSCF +0.18 m15: SCF +0.28 GSCF +0.27 m20: SCF +0.26 GSCF +0.25 m30: SCF +0.42 GSCF +0.43 g0.75: SCF +0.32 GSCF +0.28 g1.25: SCF +0.06 GSCF +0.20 g1.5: SCF +0.11 GSCF +0.20
+  full1    latched 2/14 | latchJ-raw -0.05 | G1-raw +0.30 | g0.5: SCF +0.10 GSCF +0.07 g1: SCF +0.34 GSCF +0.29 g2: SCF -0.34 GSCF -0.25 k5: SCF +0.07 GSCF +0.05 k10: SCF +0.14 GSCF +0.11 k20: SCF +0.24 GSCF +0.22 m5: SCF -0.01 GSCF -0.03 m10: SCF +0.11 GSCF +0.10 m15: SCF +0.22 GSCF +0.17 m20: SCF +0.21 GSCF +0.14 m30: SCF +0.18 GSCF +0.12 g0.75: SCF +0.18 GSCF +0.15 g1.25: SCF +0.21 GSCF -0.05 g1.5: SCF +0.21 GSCF +0.16
+  full2    latched 0/14 | latchJ-raw +0.00 | G1-raw +0.14 | g0.5: SCF +0.02 GSCF +0.02 g1: SCF +0.50 GSCF +0.50 g2: SCF -0.45 GSCF -0.45 k5: SCF -0.07 GSCF -0.07 k10: SCF -0.05 GSCF -0.05 k20: SCF +0.03 GSCF +0.03 m5: SCF -0.08 GSCF -0.08 m10: SCF -0.05 GSCF -0.05 m15: SCF +0.02 GSCF +0.02 m20: SCF +0.19 GSCF +0.19 m30: SCF +0.43 GSCF +0.43 g0.75: SCF +0.17 GSCF +0.17 g1.25: SCF +0.04 GSCF +0.04 g1.5: SCF +0.03 GSCF +0.03
+  full3    latched 3/14 | latchJ-raw +0.03 | G1-raw +0.12 | g0.5: SCF +0.18 GSCF +0.10 g1: SCF +0.31 GSCF +0.02 g2: SCF -0.02 GSCF -0.13 k5: SCF +0.07 GSCF +0.00 k10: SCF +0.13 GSCF +0.04 k20: SCF +0.19 GSCF +0.01 m5: SCF +0.10 GSCF +0.04 m10: SCF +0.16 GSCF +0.09 m15: SCF +0.28 GSCF +0.16 m20: SCF +0.25 GSCF +0.08 m30: SCF +0.13 GSCF -0.15 g0.75: SCF +0.21 GSCF +0.06 g1.25: SCF +0.25 GSCF +0.01 g1.5: SCF +0.38 GSCF +0.10
+  within0  latched 14/14 | latchJ-raw +0.45 | g0.5: SCF +0.06 GSCF -0.02 g1: SCF -0.22 GSCF -0.02 g2: SCF -0.34 GSCF -0.07 k5: SCF -0.01 GSCF -0.04 k10: SCF +0.00 GSCF -0.03 k20: SCF -0.09 GSCF -0.02 m5: SCF +0.07 GSCF -0.02 m10: SCF +0.07 GSCF -0.02 m15: SCF +0.03 GSCF -0.02 m20: SCF -0.00 GSCF -0.02 m30: SCF -0.23 GSCF -0.02 g0.75: SCF +0.14 GSCF -0.04 g1.25: SCF -0.32 GSCF -0.04 g1.5: SCF -0.52 GSCF -0.03
+  within1  latched 14/14 | latchJ-raw +0.44 | g0.5: SCF +0.20 GSCF +0.04 g1: SCF -0.14 GSCF +0.05 g2: SCF +0.22 GSCF +0.14 k5: SCF +0.06 GSCF +0.03 k10: SCF +0.19 GSCF +0.09 k20: SCF +0.10 GSCF +0.07 m5: SCF +0.15 GSCF +0.06 m10: SCF +0.18 GSCF +0.05 m15: SCF +0.13 GSCF +0.05 m20: SCF +0.09 GSCF +0.05 m30: SCF -0.14 GSCF +0.05 g0.75: SCF +0.04 GSCF +0.05 g1.25: SCF -0.45 GSCF +0.09 g1.5: SCF +0.04 GSCF +0.10
+  within2  latched 14/14 | latchJ-raw +0.56 | g0.5: SCF +0.13 GSCF +0.02 g1: SCF +0.12 GSCF +0.02 g2: SCF +0.28 GSCF +0.04 k5: SCF +0.17 GSCF +0.03 k10: SCF +0.17 GSCF +0.04 k20: SCF +0.25 GSCF +0.02 m5: SCF +0.14 GSCF +0.03 m10: SCF +0.28 GSCF +0.02 m15: SCF +0.41 GSCF +0.02 m20: SCF +0.36 GSCF +0.02 m30: SCF +0.08 GSCF +0.02 g0.75: SCF +0.17 GSCF +0.04 g1.25: SCF -0.01 GSCF +0.02 g1.5: SCF +0.12 GSCF +0.02
+  within3  latched 14/14 | latchJ-raw +0.12 | g0.5: SCF +0.07 GSCF +0.01 g1: SCF -0.04 GSCF +0.05 g2: SCF +0.05 GSCF +0.08 k5: SCF +0.10 GSCF +0.05 k10: SCF +0.12 GSCF +0.06 k20: SCF +0.10 GSCF +0.06 m5: SCF +0.08 GSCF +0.04 m10: SCF +0.17 GSCF +0.04 m15: SCF +0.17 GSCF +0.05 m20: SCF +0.07 GSCF +0.05 m30: SCF -0.09 GSCF +0.05 g0.75: SCF +0.09 GSCF +0.03 g1.25: SCF -0.49 GSCF +0.07 g1.5: SCF -0.12 GSCF +0.07
+  runs0    latched 14/14 | latchJ-raw -0.07 | g0.5: SCF -0.04 GSCF -0.01 g1: SCF -0.50 GSCF -0.02 g2: SCF -0.25 GSCF -0.04 k5: SCF -0.01 GSCF -0.00 k10: SCF -0.16 GSCF -0.02 k20: SCF -0.16 GSCF -0.03 m5: SCF -0.04 GSCF -0.03 m10: SCF -0.08 GSCF -0.02 m15: SCF -0.24 GSCF -0.02 m20: SCF -0.27 GSCF -0.02 m30: SCF -0.44 GSCF -0.02 g0.75: SCF -0.20 GSCF -0.03 g1.25: SCF -0.38 GSCF -0.02 g1.5: SCF -0.60 GSCF -0.03
+  runs1    latched 14/14 | latchJ-raw +0.38 | g0.5: SCF +0.01 GSCF -0.03 g1: SCF +0.25 GSCF -0.02 g2: SCF +0.07 GSCF -0.03 k5: SCF +0.06 GSCF -0.02 k10: SCF +0.12 GSCF -0.01 k20: SCF +0.12 GSCF -0.03 m5: SCF +0.03 GSCF -0.03 m10: SCF +0.18 GSCF -0.02 m15: SCF +0.18 GSCF -0.02 m20: SCF +0.23 GSCF -0.02 m30: SCF +0.18 GSCF -0.02 g0.75: SCF +0.10 GSCF -0.04 g1.25: SCF +0.23 GSCF -0.02 g1.5: SCF +0.39 GSCF -0.02
+  runs2    latched 14/14 | latchJ-raw +0.15 | g0.5: SCF +0.06 GSCF -0.01 g1: SCF +0.19 GSCF -0.00 g2: SCF +0.03 GSCF +0.14 k5: SCF +0.12 GSCF -0.02 k10: SCF +0.14 GSCF -0.02 k20: SCF +0.25 GSCF -0.01 m5: SCF +0.05 GSCF -0.01 m10: SCF +0.08 GSCF -0.00 m15: SCF +0.12 GSCF -0.00 m20: SCF +0.07 GSCF -0.00 m30: SCF +0.12 GSCF -0.00 g0.75: SCF +0.05 GSCF -0.01 g1.25: SCF -0.33 GSCF +0.02 g1.5: SCF +0.23 GSCF +0.02
+  runs3    latched 14/14 | latchJ-raw +0.13 | g0.5: SCF +0.10 GSCF -0.03 g1: SCF -0.01 GSCF -0.03 g2: SCF -0.12 GSCF -0.00 k5: SCF +0.00 GSCF -0.03 k10: SCF -0.02 GSCF -0.01 k20: SCF +0.08 GSCF -0.03 m5: SCF -0.03 GSCF -0.04 m10: SCF +0.16 GSCF -0.03 m15: SCF +0.11 GSCF -0.03 m20: SCF +0.10 GSCF -0.03 m30: SCF -0.04 GSCF -0.03 g0.75: SCF -0.09 GSCF -0.02 g1.25: SCF -0.26 GSCF -0.03 g1.5: SCF -0.10 GSCF -0.03
+nested (1b, M) choice: P01 m15 P02 m30 P03 m20 P06 m30 P07 m30 P10 m30 P05 m15 P08 m30 P04 m30 P09 m30
+nested (all 11) choice: P01 g1 P02 g1 P03 g1 P06 g1 P07 g1 P10 g1 P05 g1 P08 g1 P04 g1 P09 g1
+SUMMARY: mean over orders per scheme [80 % interval, people and orders resampled] | people up
+  GSCF nested (1b, M) - latchJ full +0.02 [-0.18, +0.19] 5/10 | within +0.03 [-0.00, +0.05] 7/10 | runs -0.02 [-0.04, +0.01] 4/10
+  GSCF nested (all 11) - latchJ full +0.30 [+0.06, +0.54] 6/10 | within +0.03 [-0.00, +0.05] 7/10 | runs -0.02 [-0.04, +0.01] 4/10
+  GSCF g0.5 - latchJ     full +0.09 [+0.02, +0.16] 8/10 | within +0.01 [-0.00, +0.03] 6/10 | runs -0.02 [-0.04, -0.00] 3/10
+  GSCF g1 - latchJ       full +0.30 [+0.06, +0.54] 6/10 | within +0.03 [-0.00, +0.05] 7/10 | runs -0.02 [-0.04, +0.01] 4/10
+  GSCF g2 - latchJ       full -0.21 [-0.43, -0.01] 3/10 | within +0.05 [-0.03, +0.11] 6/10 | runs +0.02 [-0.05, +0.09] 5/10
+  GSCF k5 - latchJ       full +0.03 [-0.03, +0.10] 7/10 | within +0.02 [-0.02, +0.05] 6/10 | runs -0.02 [-0.03, -0.00] 3/10
+  GSCF k10 - latchJ      full +0.05 [-0.04, +0.14] 6/10 | within +0.04 [+0.00, +0.07] 9/10 | runs -0.02 [-0.03, -0.00] 3/10
+  GSCF k20 - latchJ      full +0.12 [-0.01, +0.26] 8/10 | within +0.03 [+0.00, +0.06] 7/10 | runs -0.02 [-0.05, +0.00] 4/10
+  GSCF m5 - latchJ       full -0.01 [-0.06, +0.05] 4/10 | within +0.03 [+0.00, +0.05] 8/10 | runs -0.03 [-0.05, +0.00] 3/10
+  GSCF m10 - latchJ      full +0.08 [-0.01, +0.17] 8/10 | within +0.02 [-0.00, +0.05] 7/10 | runs -0.02 [-0.04, +0.01] 4/10
+  GSCF m15 - latchJ      full +0.16 [+0.04, +0.27] 8/10 | within +0.03 [-0.00, +0.05] 7/10 | runs -0.02 [-0.04, +0.01] 4/10
+  GSCF m20 - latchJ      full +0.16 [+0.04, +0.28] 8/10 | within +0.03 [-0.00, +0.05] 7/10 | runs -0.02 [-0.04, +0.01] 4/10
+  GSCF m30 - latchJ      full +0.21 [-0.07, +0.49] 5/10 | within +0.03 [-0.00, +0.05] 7/10 | runs -0.02 [-0.04, +0.01] 4/10
+  GSCF g0.75 - latchJ    full +0.16 [+0.04, +0.29] 8/10 | within +0.02 [-0.01, +0.05] 7/10 | runs -0.02 [-0.05, -0.00] 3/10
+  GSCF g1.25 - latchJ    full +0.05 [-0.16, +0.26] 5/10 | within +0.03 [-0.01, +0.07] 6/10 | runs -0.01 [-0.05, +0.02] 4/10
+  GSCF g1.5 - latchJ     full +0.12 [-0.10, +0.35] 6/10 | within +0.04 [-0.00, +0.08] 7/10 | runs -0.01 [-0.06, +0.03] 4/10
+  SCF g0.5 - raw         full +0.12 [+0.04, +0.20] 8/10 | within +0.11 [+0.05, +0.18] 9/10 | runs +0.03 [-0.04, +0.10] 5/10
+  SCF g1 - raw           full +0.38 [+0.15, +0.62] 7/10 | within -0.07 [-0.22, +0.07] 4/10 | runs -0.02 [-0.32, +0.24] 5/10
+  SCF g2 - raw           full -0.22 [-0.46, +0.02] 4/10 | within +0.05 [-0.28, +0.37] 5/10 | runs -0.07 [-0.35, +0.20] 5/10
+  SCF k5 - raw           full +0.06 [-0.01, +0.14] 7/10 | within +0.08 [+0.02, +0.15] 9/10 | runs +0.04 [-0.03, +0.12] 7/10
+  SCF k10 - raw          full +0.08 [-0.02, +0.19] 6/10 | within +0.12 [+0.03, +0.20] 8/10 | runs +0.02 [-0.09, +0.13] 5/10
+  SCF k20 - raw          full +0.18 [+0.03, +0.33] 8/10 | within +0.09 [-0.04, +0.22] 6/10 | runs +0.07 [-0.05, +0.20] 7/10
+  SCF m5 - raw           full +0.02 [-0.05, +0.09] 5/10 | within +0.11 [+0.07, +0.15] 10/10 | runs +0.00 [-0.05, +0.05] 7/10
+  SCF m10 - raw          full +0.11 [+0.01, +0.21] 8/10 | within +0.17 [+0.08, +0.27] 9/10 | runs +0.08 [-0.00, +0.17] 8/10
+  SCF m15 - raw          full +0.20 [+0.08, +0.32] 8/10 | within +0.18 [+0.03, +0.32] 8/10 | runs +0.04 [-0.10, +0.18] 5/10
+  SCF m20 - raw          full +0.23 [+0.09, +0.37] 8/10 | within +0.13 [-0.04, +0.28] 6/10 | runs +0.03 [-0.14, +0.19] 5/10
+  SCF m30 - raw          full +0.29 [+0.02, +0.55] 6/10 | within -0.10 [-0.26, +0.05] 3/10 | runs -0.04 [-0.31, +0.19] 5/10
+  SCF g0.75 - raw        full +0.22 [+0.09, +0.35] 8/10 | within +0.11 [-0.00, +0.22] 8/10 | runs -0.03 [-0.17, +0.09] 5/10
+  SCF g1.25 - raw        full +0.14 [-0.09, +0.37] 6/10 | within -0.32 [-0.58, -0.06] 3/10 | runs -0.18 [-0.51, +0.10] 4/10
+  SCF g1.5 - raw         full +0.18 [-0.06, +0.44] 6/10 | within -0.12 [-0.45, +0.21] 4/10 | runs -0.02 [-0.38, +0.33] 4/10
+  latchJ - raw           full -0.00 [-0.04, +0.03] 2/10 | within +0.39 [+0.16, +0.61] 9/10 | runs +0.15 [-0.08, +0.36] 8/10
+  G1 hard - raw          full +0.22 [+0.04, +0.41] 7/10
