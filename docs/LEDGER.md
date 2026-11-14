@@ -4895,3 +4895,31 @@ Chain points per component point (V6Fr; v5.1b's chain P0r in brackets), mean of 
 - **Stage 2 (started 00:45 UTC, runs/s207_stage2.txt, about 01:50 UTC):** families 1 and 2 on c1, s10, s0 and rest; family 2 on
   the eye view and s5. Each is chain-scored on within 0, full 0 and runs 0, and reported as reachable points next to the
   chain change.
+
+**§204 RESULT (14 Nov 00:55 UTC; Leonardo, all of full 4–7 in about 1 h: members 30–40 min, not the 2–5 h estimated).** New
+people over 8 full orders: v6f +0.94 [+0.76, +1.12], v6.1 +0.87 [+0.66, +1.07]. So v6.1 − v6f = −0.07; without P10 0.00 (v6f
++0.93, v6.1 +0.93). Per order (morning_table_0050.txt): see the line below. The rule (≥ 6/8 below zero and mean ≤ −0.2) is
+not met (per order 0..7: −0.07 −0.37 +0.16 −0.29 +0.16 −0.12 +0.02 −0.04; 5/8 below zero). **The full-scheme cost of v6.1's labels is P10's alone** (P10 +0.99 → +0.26, min −1.60). J scheme-averaged with equal
+weights: v6.2 +1.06, v6f + ERF +1.01, v6.2-safe +1.00; within only 1.17 / 1.07 / 1.05.
+- **§207 in-net edit 1, core1 block gains (written 14 Nov 00:51 UTC, before any result).**
+  - **Why core1:** its leverage is 0.11 per point, and 0.18 with the Hilbert member.
+  - **Mechanism:** core1's head is StandardScaler + logistic regression over 52 feature blocks (17 bands × 3 windows + the slow
+    block). A gain on a block's raw features would be undone by the scaler, so the edit is a gain on its head coefficients:
+    z = Σₖ gₖ zₖ + b. `studies/14nov/coreblocks.py` re-streams core1 and saves every block's logit contribution in recording
+    order and in delivery order (within 0/1, full 0/1, runs 0/1; Leonardo 64432182–87, about 40 min each). It asserts that
+    the blocks reproduce the head to 1e-6.
+  - **Fitting:** `coregain.py` fits 52 gains per held-out person on the other nine (ridge towards 1). Objective acc is the
+    log loss; corr adds the error correlation with the other members and the within-run autocorrelation. It writes the
+    edited member in delivery order for shufcombo (`CM_NPZ`).
+  - **Shipping:** a survivor ships as rescaled head coefficients in core1's weights file, with no new code path.
+  - **Scoring:** v6f's combination on the six orders, new people.
+  - **Prediction:** §13 found learned block gains neutral (and the slow block raised about 1.5×). Here: held-out core1 accuracy
+    +0.0 to +0.5 points, chain +0.0 to +0.1 (leverage 0.11 × reachable points).
+  - **Rule:** report the product. A chain gain ≥ +0.1 with ≥ 4 of 6 orders up is followed by nested selection of REG and the
+    objective over people.
+- **Follow-up behind it (penultimate-layer gains):** the rest net (leverage 0.06) and the teacher (0.08). A re-stream saves
+  each net's penultimate embedding, so per-unit gains (z = W·diag(g)·h + b) are exact on CPU. This needs restshuf.py and
+  teachshuf.py to save h: 3 + 24 GPU tasks per order.
+- **Eye-net drift edit (correlation-targeted, input layer):** the per-fold dev nets are not stored, so this needs LOSO refits
+  with down-weighted drifting input channels: 9 GPU tasks per order plus the ocushuf re-stream. It is queued after the
+  penultimate gains.
