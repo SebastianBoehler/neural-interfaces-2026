@@ -6307,3 +6307,26 @@ file equal to shipped to 0.0.
   peaks; others none), so the descriptor is right and the setting it selects is not.
 - **Side finding:** §231's EYEW 0.5 / 2 equal w 1 to 0.0 in all six orders (z-scored SessionEM columns); §231's oracle is an
   on/off oracle. A real eye weight (extra copies) gives +0.09 as a global change: undecided, small.
+
+**§235 RESULT (14 Nov 12:17 UTC; Leonardo CPU, shufcombo d80f97d unedited; evidence/sweeps_14nov/nested_s235.txt; code
+studies/14nov/sweeps/).** No-op check exact (EM_LAM 0.5 TS_LAM 0.15 BTS 4 = no-knob file, 0.0 on six orders). Nested
+held-out gain over 126 person splits, V6Fr minus shipped, mean [10 %, 90 % across splits], all | within | full | runs:
+- EYEW > 0: exact no-op (wave 2 note). EYEW 0 (eye view removed): full data −0.32 (within −0.12, full −0.33, runs −0.51);
+  never chosen, held-out 0. The eye view is worth keeping.
+- Eye copies (EYEC = extra copies; 1, 2, 3, 5): full data +0.10 / +0.11 / +0.12 / +0.06 (within −0.01 to −0.12, full
+  +0.12 to +0.22, runs +0.11 to +0.18; without P10 +0.09 to +0.15; 6–7 of 10 people up). Held-out over {1, 2}: **+0.09
+  [+0.07, +0.11]** | −0.02 | +0.16 | +0.12; over {1, 2, 3, 5}: **+0.07 [−0.00, +0.11]** | −0.04 | +0.15 | +0.10. With REST_W
+  {1, 2}: +0.05.
+- REST_W 0.5 / 2 / 3: full −0.08 / −0.07 / −0.42; held-out **−0.06 [−0.16, 0.00]** | −0.00 | −0.08 | −0.10.
+- EM_LAM 0.3 / 0.7 / 1.0: −0.30 / −0.36 / −1.52; held-out **−0.21 [−0.79, 0.00]** | −0.25 | −0.17 | −0.22.
+- TS_LAM 0.1 / 0.2 / 0.3: −0.14 / −0.03 / −0.31; held-out **−0.04 [−0.07, 0.00]** | +0.02 | −0.07 | −0.07.
+- BTS 2 / 8: −0.06 / −0.03; held-out **−0.03 [−0.05, 0.00]** | −0.04 | −0.02 | −0.02.
+- Joint TS_LAM {0.1, 0.15, 0.2} × BTS {2, 4, 8}: best non-shipped −0.02; held-out **−0.07 [−0.15, −0.03]**.
+- All 22 arms pooled: held-out −0.06 [−0.41, +0.09] (within −0.12, full +0.01, runs −0.06): selecting among many arms
+  costs more than the best arm gains.
+- **Against the rule:** no knob reaches +0.3 held-out, none is positive under every scheme (eye copies lose on within).
+  **Undecided, the shipped constants stay.** EM_LAM 0.5, TS_LAM 0.15, BTS 4 and REST_W 1 sit at the optimum of this grid
+  for v6.2hL-safe (every non-shipped value ≤ 0 on full data); EM_LAM's −0.3 neighbours are the only ones near the
+  confirmation threshold. Eye weight 3–4 (copies) is the one positive direction, +0.07 to +0.09 held-out, inside the noise.
+- Prediction: stage constants within ±0.15 (EM_LAM missed low at −0.21, the rest held); EYEW / REST_W 0 to +0.2 (REST_W
+  −0.06, below); joint 0 to +0.25 (−0.07, below); no knob ≥ +0.3 (held).

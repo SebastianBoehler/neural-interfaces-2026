@@ -1,0 +1,174 @@
+### EYEW=0
+groups EYEW=0; 2 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  EYEW=0                       -0.32 | -0.12 | -0.33 | -0.51 | -0.35
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      +0.000 [+0.00, +0.00]
+  within   +0.000 [+0.00, +0.00]
+  full     +0.000 [+0.00, +0.00]
+  runs     +0.000 [+0.00, +0.00]
+chosen: shipped 252
+
+### EYEC=1,2
+groups EYEC=1,2; 3 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  EYEC=1                       +0.10 | -0.01 | +0.12 | +0.18 | +0.12
+  EYEC=2                       +0.11 | -0.01 | +0.20 | +0.15 | +0.15
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      +0.088 [+0.07, +0.11]
+  within   -0.016 [-0.05, +0.01]
+  full     +0.158 [+0.10, +0.20]
+  runs     +0.121 [+0.06, +0.15]
+chosen: EYEC=2 176, EYEC=1 64, shipped 12
+
+### EYEW=0,1/REST_W=1,2
+groups EYEW=0,1/REST_W=1,2; 4 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  EYEW=0                       -0.32 | -0.12 | -0.33 | -0.51 | -0.35
+  EYEW=0,REST_W=2              -0.33 | -0.01 | -0.38 | -0.61 | -0.31
+  REST_W=2                     -0.07 | +0.04 | -0.10 | -0.16 | -0.03
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      -0.046 [-0.12, +0.00]
+  within   -0.003 [-0.06, +0.05]
+  full     -0.068 [-0.18, +0.00]
+  runs     -0.068 [-0.19, +0.00]
+chosen: shipped 193, REST_W=2 59
+
+### EYEC=0,1,2/REST_W=1,2
+groups EYEC=0,1,2/REST_W=1,2; 6 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  REST_W=2                     -0.07 | +0.04 | -0.10 | -0.16 | -0.03
+  EYEC=1                       +0.10 | -0.01 | +0.12 | +0.18 | +0.12
+  EYEC=1,REST_W=2              +0.01 | +0.01 | +0.12 | -0.09 | +0.08
+  EYEC=2                       +0.11 | -0.01 | +0.20 | +0.15 | +0.15
+  EYEC=2,REST_W=2              +0.09 | +0.08 | +0.15 | +0.03 | +0.17
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      +0.047 [-0.01, +0.09]
+  within   -0.008 [-0.09, +0.08]
+  full     +0.100 [-0.01, +0.19]
+  runs     +0.049 [-0.04, +0.14]
+chosen: EYEC=2 104, EYEC=2,REST_W=2 97, EYEC=1 39, shipped 12
+
+### TS_LAM=0.1,0.15,0.2/BTS=2,4,8
+groups TS_LAM=0.1,0.15,0.2/BTS=2,4,8; 9 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  TS_LAM=0.1,BTS=2             -0.15 | -0.22 | -0.12 | -0.11 | -0.13
+  TS_LAM=0.1                   -0.14 | -0.19 | -0.14 | -0.08 | -0.12
+  TS_LAM=0.1,BTS=8             -0.08 | -0.09 | -0.13 | -0.01 | -0.06
+  BTS=2                        -0.06 | -0.10 | -0.02 | -0.07 | -0.07
+  BTS=8                        -0.03 | -0.06 | -0.03 | +0.01 | -0.03
+  TS_LAM=0.2,BTS=2             -0.02 | +0.14 | -0.11 | -0.10 | -0.03
+  TS_LAM=0.2                   -0.03 | +0.13 | -0.14 | -0.08 | -0.04
+  TS_LAM=0.2,BTS=8             -0.13 | +0.03 | -0.27 | -0.16 | -0.14
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      -0.072 [-0.15, -0.03]
+  within   -0.010 [-0.09, +0.09]
+  full     -0.102 [-0.20, +0.00]
+  runs     -0.103 [-0.22, +0.00]
+chosen: shipped 89, BTS=8 49, TS_LAM=0.2,BTS=2 46, TS_LAM=0.1,BTS=8 34, TS_LAM=0.2 33, BTS=2 1
+
+### REST_W=0.5,2,3
+groups REST_W=0.5,2,3; 4 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  REST_W=0.5                   -0.08 | -0.01 | -0.03 | -0.19 | -0.10
+  REST_W=2                     -0.07 | +0.04 | -0.10 | -0.16 | -0.03
+  REST_W=3                     -0.42 | +0.08 | -0.69 | -0.64 | -0.30
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      -0.062 [-0.16, +0.00]
+  within   -0.004 [-0.07, +0.06]
+  full     -0.079 [-0.21, +0.00]
+  runs     -0.104 [-0.28, +0.00]
+chosen: shipped 170, REST_W=2 58, REST_W=0.5 24
+
+### EM_LAM=0.3,0.7,1.0
+groups EM_LAM=0.3,0.7,1.0; 4 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  EM_LAM=0.3                   -0.30 | -0.45 | -0.22 | -0.24 | -0.28
+  EM_LAM=0.7                   -0.36 | -0.08 | -0.46 | -0.53 | -0.40
+  EM_LAM=1.0                   -1.52 | -1.07 | -2.07 | -1.41 | -1.63
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      -0.212 [-0.79, +0.00]
+  within   -0.247 [-0.85, +0.00]
+  full     -0.171 [-0.72, +0.00]
+  runs     -0.218 [-0.82, +0.00]
+chosen: shipped 183, EM_LAM=0.3 45, EM_LAM=0.7 24
+
+### TS_LAM=0.1,0.2,0.3
+groups TS_LAM=0.1,0.2,0.3; 4 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  TS_LAM=0.1                   -0.14 | -0.19 | -0.14 | -0.08 | -0.12
+  TS_LAM=0.2                   -0.03 | +0.13 | -0.14 | -0.08 | -0.04
+  TS_LAM=0.3                   -0.31 | -0.05 | -0.49 | -0.39 | -0.34
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      -0.038 [-0.07, +0.00]
+  within   +0.022 [-0.01, +0.10]
+  full     -0.067 [-0.14, +0.00]
+  runs     -0.070 [-0.15, +0.00]
+chosen: shipped 169, TS_LAM=0.2 74, TS_LAM=0.1 9
+
+### BTS=2,8
+groups BTS=2,8; 3 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  BTS=2                        -0.06 | -0.10 | -0.02 | -0.07 | -0.07
+  BTS=8                        -0.03 | -0.06 | -0.03 | +0.01 | -0.03
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      -0.026 [-0.05, +0.00]
+  within   -0.036 [-0.08, +0.00]
+  full     -0.023 [-0.07, +0.00]
+  runs     -0.020 [-0.06, +0.00]
+chosen: shipped 172, BTS=8 78, BTS=2 2
+
+### all arms pooled
+groups EYEW=0,1/REST_W=1,2 | EYEC=0,1,2/REST_W=1,2 | TS_LAM=0.1,0.15,0.2/BTS=2,4,8 | REST_W=0.5,2,3 | EM_LAM=0.3,0.7,1.0 | TS_LAM=0.1,0.2,0.3; 22 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  EYEW=0                       -0.32 | -0.12 | -0.33 | -0.51 | -0.35
+  EYEW=0,REST_W=2              -0.33 | -0.01 | -0.38 | -0.61 | -0.31
+  REST_W=2                     -0.07 | +0.04 | -0.10 | -0.16 | -0.03
+  EYEC=1                       +0.10 | -0.01 | +0.12 | +0.18 | +0.12
+  EYEC=1,REST_W=2              +0.01 | +0.01 | +0.12 | -0.09 | +0.08
+  EYEC=2                       +0.11 | -0.01 | +0.20 | +0.15 | +0.15
+  EYEC=2,REST_W=2              +0.09 | +0.08 | +0.15 | +0.03 | +0.17
+  TS_LAM=0.1,BTS=2             -0.15 | -0.22 | -0.12 | -0.11 | -0.13
+  TS_LAM=0.1                   -0.14 | -0.19 | -0.14 | -0.08 | -0.12
+  TS_LAM=0.1,BTS=8             -0.08 | -0.09 | -0.13 | -0.01 | -0.06
+  BTS=2                        -0.06 | -0.10 | -0.02 | -0.07 | -0.07
+  BTS=8                        -0.03 | -0.06 | -0.03 | +0.01 | -0.03
+  TS_LAM=0.2,BTS=2             -0.02 | +0.14 | -0.11 | -0.10 | -0.03
+  TS_LAM=0.2                   -0.03 | +0.13 | -0.14 | -0.08 | -0.04
+  TS_LAM=0.2,BTS=8             -0.13 | +0.03 | -0.27 | -0.16 | -0.14
+  REST_W=0.5                   -0.08 | -0.01 | -0.03 | -0.19 | -0.10
+  REST_W=3                     -0.42 | +0.08 | -0.69 | -0.64 | -0.30
+  EM_LAM=0.3                   -0.30 | -0.45 | -0.22 | -0.24 | -0.28
+  EM_LAM=0.7                   -0.36 | -0.08 | -0.46 | -0.53 | -0.40
+  EM_LAM=1.0                   -1.52 | -1.07 | -2.07 | -1.41 | -1.63
+  TS_LAM=0.3                   -0.31 | -0.05 | -0.49 | -0.39 | -0.34
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      -0.056 [-0.41, +0.09]
+  within   -0.116 [-0.59, +0.08]
+  full     +0.008 [-0.17, +0.19]
+  runs     -0.060 [-0.43, +0.13]
+chosen: EYEC=2 95, EYEC=2,REST_W=2 86, EYEC=1 28, EM_LAM=0.3 15, EM_LAM=0.7 9, BTS=8 6, shipped 5, TS_LAM=0.2 4, TS_LAM=0.2,BTS=2 2, TS_LAM=0.1,BTS=8 2
+### EYEC=1,2,3,5 (wave 3)
+groups EYEC=1,2,3,5; 5 arms; orders within0,within1,full0,full1,runs0,runs1; gain = V6Fr(arm) - V6Fr(no knobs), new people
+full data (optimistic): arm | all | within | full | runs | without P10
+  shipped                      +0.00 | +0.00 | +0.00 | +0.00 | +0.00
+  EYEC=1                       +0.10 | -0.01 | +0.12 | +0.18 | +0.12
+  EYEC=2                       +0.11 | -0.01 | +0.20 | +0.15 | +0.15
+  EYEC=3                       +0.12 | -0.03 | +0.22 | +0.16 | +0.15
+  EYEC=5                       +0.06 | -0.12 | +0.19 | +0.11 | +0.09
+nested held-out over 126 splits (mean [10 %, 90 %] across splits):
+  all      +0.070 [-0.00, +0.11]
+  within   -0.039 [-0.08, -0.01]
+  full     +0.148 [+0.06, +0.22]
+  runs     +0.100 [+0.00, +0.16]
+chosen: EYEC=3 102, EYEC=2 63, EYEC=1 56, EYEC=5 20, shipped 11
