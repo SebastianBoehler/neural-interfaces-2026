@@ -5649,3 +5649,23 @@ check.py OK; recording order).** Refuted for core1: bagging over training people
 - **§221 scoring (08:35 UTC):** score.sh scored without STRICT (a missing input would have fallen back to recording order
   silently). Rescored with STRICT=1, two at a time, outside run_capped: this is scoring, not training. The lock was held by
   v52-build's replays until about 09:35. All 42 cells (6 orders × 7 arms) are scored the same way.
+
+**§220 RESULT (14 Nov 08:36 UTC; Galvani job 3100517, commit 06df3ab code; evidence/episodic_14nov/).** fbraw retrained episodically
+(arm E), seeds 0–5, all folds; E0 (stock recipe through the same runner) reproduces ttt7_fbraw_base to 2e-16 on every
+seed and protocol, and its chain delta is exactly 0 in every order (runner and chain path are no-ops when they should be;
+GPU training is deterministic, so E0 gives no retraining-noise estimate: the seed sets are the noise reference).
+- **Family alone, new people, seed mean (stock → E):** raw 63.8 → 56.4 rec (−7.4), −6.1 over the six delivery orders
+  (the bias the net no longer learns, as predicted). **After whole-session balancing: 64.9 → 63.0 rec (−1.9), 64.1 → 63.6
+  over six orders (−0.5, without P10 −0.2, 6/10 up).** Seed sets 0–2 / 3–5: −0.6 / −1.4 rec, −0.3 / −0.4 six orders.
+  Returning (seen_session) after balancing −3.3 to −4.1 (P04 loses; P10 about 0).
+- **Chain, new people, P0r (v5.1b, slot 5 = E) − stock, mean of six orders:** B2_s012 +0.16 (without P10 +0.11),
+  B2_s345 −0.02 (−0.03), B2_pool −0.10 (−0.13); orders range −0.30 to +0.42; recording order +0.03 / +0.18 / +0.15.
+  V6r (eye + rest, no FT): +0.08 / +0.09 / −0.03.
+- **Against the rule:** family alone after balancing rises less than +1 (it falls: −0.5 / −1.9) and the chain gains
+  less than +0.3 on both seed sets → **killed by the panel's rule; closed for this form** (stratified episodes, batch
+  marginal shift, fbraw), since the balanced family-alone change is ≤ 0. The chain itself is inside ±0.3 (−0.10 to
+  +0.16): the direction stays **undecided** for other forms (prototype refinement step, unstratified episodes, a mixed
+  loss keeping part of plain CE, other families). The prediction (alone +0.5, chain +0.1) missed on the alone part.
+- **Reading:** removing the session bias from the training loss did not buy accuracy after the bias is removed at test
+  time; it cost about 0.5–2 points of balanced accuracy, most in recording order, where the causal stream starts inside
+  one run (a net that never learned a population prior is worse before balancing has data).

@@ -36,6 +36,8 @@ def run(o, tag, t17):
     env.pop("OCU_DIR", None)
     if sch != "rec":
         env["OCU_DIR"] = f"runs/ocushuf/{o}"
+    else:  # two coreshuf files hold the rec key (shufcombo asserts on that); in recording order its pc128 change is nil
+        env["CS_NPZ"] = str(WS / "runs/coreshuf_p0.npz")
     pre = "" if PROTO == "all_loso" else PROTO + "_"; t0 = time.time() - 1
     with open(LOG / f"{pre}{o}_{tag}.log", "w") as fh:  # always rerun: an older file of the same tag may carry other options
         subprocess.run([sys.executable, "-I", str(WS / "studies/13nov/shufcombo.py")], env=env, cwd=WS, stdout=fh, stderr=subprocess.STDOUT, check=True)
