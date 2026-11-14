@@ -78,7 +78,7 @@ def main():
         nl = len(LG)
         for fam, ix in ((LN, range(nl)), ("D1", range(nl, nl + 8)), ("D2", range(nl + 8, nl + 16)), ("E" + LN[1:], range(nl + 16, len(NAMES)))):
             ix = list(ix); D, pick = nested(G[:, ix]); print(line(f"{fam} nested", D) + "  picks " + ",".join(NAMES[ix[p]].split(" ", 1)[1] for p in pick))
-        k = int(np.argmax(wmean(G, ALL).mean(1))); print(line("best hindsight", G[:, k]) + f"  ({NAMES[k]}; not a valid pick)")
+        k = int(np.argmax([wmean(G[:, j], ALL).mean() for j in range(G.shape[1])])); print(line("best hindsight", G[:, k]) + f"  ({NAMES[k]}; not a valid pick)")
 
 
 if __name__ == "__main__":
