@@ -174,6 +174,22 @@ def norm(x):
     x = np.clip(x, 1e-6, None); return x / x.sum(1, keepdims=True)
 
 
+RUNOFF, RUNOFF_V = float(os.environ.get("RUNOFF", 0)), os.environ.get("RUNOFF_V", "both")  # s210 (panel BCI 2.1)
+
+
+def runoff(V, ss, rr):
+    """rows in delivery order: v - j/(j+k) (mean of the run's j earlier rows - mean of the session's earlier rows)."""
+    out = V.copy()
+    for g in dict.fromkeys(ss):
+        rs = np.flatnonzero(ss == g); cs = np.vstack([np.zeros((1, V.shape[1])), np.cumsum(V[rs], 0)]); n = np.arange(len(rs))
+        ms = np.where(n[:, None] > 0, cs[n] / np.maximum(n, 1)[:, None], 0.0)  # session prefix mean, current row excluded
+        for u in dict.fromkeys(rr[rs]):
+            q = np.flatnonzero(rr[rs] == u); cq = np.vstack([np.zeros((1, V.shape[1])), np.cumsum(V[rs][q], 0)]); j = np.arange(len(q))
+            mr = np.where(j[:, None] > 0, cq[j] / np.maximum(j, 1)[:, None], 0.0)
+            out[rs[q]] -= (j / (j + RUNOFF))[:, None] * np.where(j[:, None] > 0, mr - ms[q], 0.0)
+    return out
+
+
 def chain(bn, arm, P):
     """members for the arm in recording index order, then everything permuted by P, stages run in that order."""
     S.apply({p: (P if p == p0 else np.arange(S.N[p])) for p in S.PR})
@@ -215,6 +231,10 @@ def chain(bn, arm, P):
         ov = ocu_view(P); A.L.Z[f"GE|{p0}"] = np.c_[ge0, ov]
         if OCU_TS:  # s188 form A: the eye view in TSEM too. TSEM standardises columns, so weight = k copies (scaling would be a no-op)
             A.L.Z[f"pc128|{p0}"] = np.c_[pc0, np.repeat(ov, OCU_TS, axis=1)].astype(pc0.dtype)
+    if RUNOFF:  # s210 oracle: true run ids; each view row minus its run's shrunk causal offset from the session (delivery order)
+        ss, rr = A.L.Z[f"sess|{p0}"], np.char.add(A.L.Z[f"sess|{p0}"].astype(str), np.char.add("|", S.RUN[IDX][P]))
+        for key in (["pc128"] if RUNOFF_V == "pc" else ["GE"] if RUNOFF_V == "ge" else ["pc128", "GE"]):
+            A.L.Z[f"{key}|{p0}"] = runoff(A.L.Z[f"{key}|{p0}"].astype(np.float64), ss, rr).astype(A.L.Z[f"{key}|{p0}"].dtype)
     try:
         b = gm.M.rebal(A.mix(bn, p0, fams, extra)[0], p0, None); rec = (P == np.arange(len(P))).all()
         if arm in ("P0", "P0r"):
@@ -267,6 +287,6 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other; s208: so is a non-default
 # OCU_DIR (form B runs had overwritten the regular files of within 1-3, full 0/1, runs 0/1)
-np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if not OCD or OCD.rstrip('/') == f'runs/ocushuf/{SCHEME}{PSEED}' else '_ocd' + OCD.rstrip('/').replace('runs/', '').replace('/', '-')}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}{f'_syn{SYN_T}{SYN_D:g}' if SYN_T else ''}{'_ox' + os.path.basename(OUTX)[6:-4] if OUTX else ''}{'_cm' + os.path.basename(CMP)[:-4] if 'CM_NPZ' in os.environ else ''}{'_rs' + os.path.basename(RSD.rstrip('/')) if 'RS_DIR' in os.environ and RSD.rstrip('/') not in (f'{REPO}/runs/restshuf', 'runs/restshuf', 'runs/diag/restshuf') else ''}{'_tf' + os.path.basename(os.environ['TS_FILE'])[:-4] if os.environ.get('TS_FILE') else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if not OCD or OCD.rstrip('/') == f'runs/ocushuf/{SCHEME}{PSEED}' else '_ocd' + OCD.rstrip('/').replace('runs/', '').replace('/', '-')}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}{f'_syn{SYN_T}{SYN_D:g}' if SYN_T else ''}{'_ox' + os.path.basename(OUTX)[6:-4] if OUTX else ''}{'_cm' + os.path.basename(CMP)[:-4] if 'CM_NPZ' in os.environ else ''}{'_rs' + os.path.basename(RSD.rstrip('/')) if 'RS_DIR' in os.environ and RSD.rstrip('/') not in (f'{REPO}/runs/restshuf', 'runs/restshuf', 'runs/diag/restshuf') else ''}{'_tf' + os.path.basename(os.environ['TS_FILE'])[:-4] if os.environ.get('TS_FILE') else ''}{f'_runoff{RUNOFF_V}{RUNOFF:g}' if RUNOFF else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
 if SAVE_OUT:
     np.savez_compressed(f"{REPO}/{SAVE_OUT}", **OUTS); print("per-window outputs ->", SAVE_OUT, flush=True)

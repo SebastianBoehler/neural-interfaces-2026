@@ -5061,3 +5061,15 @@ GPU runs of the image need Galvani (3100010 / 3100013).
     lag-1 autocorrelation of window means on the fold's training people. α 0 (paired baseline), 0.5 and 1; 3 seeds × 6
     orders. Smoke on Galvani 3100145. Prediction: about 0 (eye leverage 0.017 per point; §188 found the correlation lever
     in TSEM).
+
+### 210. RUN OFFSETS IN THE TEMPLATE VIEWS, ORACLE (written 14 Nov 06:55 UTC, before any result; panel BCI §2.1)
+- **Claim tested:** within a session the run explains 11–31 % of the log-covariance variance, and every public run is
+  class-balanced. So subtracting a shrunk run offset from each view before SessionEM and TSEM should sharpen the templates.
+  Panel: +3.0 with true run ids and true templates in a simplified setting.
+- **Test:** shufcombo `RUNOFF=κ RUNOFF_V=pc|both` with true run ids (session + task|run), causal in delivery order:
+  v − j/(j+κ)·(run prefix mean − session prefix mean). Templates and covariance stay pooled over the session. κ = 5;
+  views pc128 (TSEM) alone and pc128 + GE (SessionEM too); within 0/1, full 0/1, runs 0/1. Read v6f's combination (V6Fr)
+  and v5.1b's chain (P0r) against the regular files, new people.
+- **Prediction (panel):** +0.3 to +1.0 if runs are contiguous (within, runs), 0 to +0.4 under full.
+- **Kill (panel's rule, adopted):** below +0.4 with true run ids, on the mean over the six orders. Then a label-free run
+  recovery is not built.
