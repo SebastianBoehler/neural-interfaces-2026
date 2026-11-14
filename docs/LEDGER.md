@@ -6013,3 +6013,45 @@ are unchanged by construction (no new person is routed, s201). The routed person
     people; J-wprior/urn needs no features). Not yet built into a package.
   - Not done: v6.2hL's per-window outputs (SAVE_OUT with FT_TAG ttt18<order>LF, FT_V s15) do not exist; returning people
     have no per-window outputs.
+
+### 238. COUNT FILTER: RETURNING PEOPLE AND ROBUSTNESS (written 14 Nov 12:02 UTC, before any result; coordinator after §228c)
+- **Candidate:** §228c (a), the detector-gated J-wprior/urn filter, unchanged (τ 2, floor 0.5, checks W 40–150).
+- **1. Numbers.** New people on v6.2hL's per-window outputs (runs/chainout/v62hL_<order>.npz, 24 orders; the
+  coordinator's runs/s228c_v62hL.txt checked, rerun with bands if needed). Returning people: package.py generalised to
+  the seen_session protocol (its sessions and delivery orders; detector thresholds and design prior still leave the
+  person out), on retv6's per-window outputs (runs/chainout/ret_<order>.npz) for ER and ERF (base for reference), P04 and
+  P10 separately, within 0–7, full 0–3, runs 0–3 as they arrive.
+- **2. Robustness (studies/14nov/rundetect/robust.py).** Synthetic sessions from the 14 public sessions (new people),
+  runs contiguous and shuffled inside (within-like), 3 seeds; the chain's per-window outputs reused from the within 0
+  order (a simplification: the chain is not rerun in the new order, so this tests the filter's structure only). Violations:
+  one online run removed; one online run duplicated; online runs of 36 (each online run + 2 windows per class from the
+  next online run); acquisition runs absent; acquisition runs last; the session twice (second copy reshuffled); 10 % of
+  windows dropped at random. Plus the real deviation: P10's third session (two online runs of 36). Metric: balanced
+  accuracy per synthetic session, mean per person, gated filter − no filter, v6f and v6.2hL (v5.1b for reference).
+- **Prediction:** violations −0.2 to +0.3 (the urn evidence moves the boundary hypotheses; removed / dropped windows
+  shift every later boundary, the worst case); acquisition last and online 36 the worst (≈ −0.2).
+- **Rule:** any violation below −0.2 on v6f or v6.2hL → add a self-check (the urn's predictive evidence against a uniform
+  urn over the last windows; switch off for good when it falls below a threshold fixed on the normal public sessions'
+  distribution) and report it on every violation and on the normal sessions (its cost there).
+- **3.** A plain method statement, corrected against the code, in runs/rundetect/method_statement.md.
+
+**§234 RESULT (14 Nov 12:42 UTC; studies/14nov/embview/, runs/views_emb/, runs/s234_summary.txt; check.py OK; local CPU runs, the
+Galvani CPU queue had 168 jobs pending).**
+- **Ceiling (LOSO probe BA, new; error correlation with the mix inside class × run cells, log-p / 0-1):** member mix 70.8; eye
+  posterior 54.3, +0.17 / +0.12. T (teacher heads) PCA 46–48, PLS 48–50 (pls4 50.3, +0.40 / +0.20); the teacher member itself
+  is 50.6 on new people, +0.56 / +0.25. F (ST-EEGFormer) PCA 37–38, PLS 32–33 (pca8 38.0, +0.02 / 0.00): near chance. E (eye
+  emb) PCA 52–54 (pca4 53.8, +0.20 / +0.12), PLS 44–45 (PLS fails: each LOSO fold has its own eye net, the label directions do
+  not transfer between fold nets; PCA's leading variance does). Predictions: T miss (0.55–0.68 predicted), F miss below
+  (0.40–0.46), E hit; correlations T, F, E hits.
+- **Chain (V6Fr over the same chain without the view, new, six bases):**
+
+| View | within 0 | within 1 | full 0 | full 1 | runs 0 | runs 1 | mean [80 %] | people up |
+|---|---|---|---|---|---|---|---|---|
+| T_pls4 | −0.46 | −0.46 | −0.38 | −0.13 | −0.53 | −0.43 | **−0.40 [−0.61, −0.20]** | 3/10 |
+| F_pca8 | −0.12 | −0.27 | −0.29 | −0.27 | −0.43 | −0.41 | **−0.30 [−0.49, −0.11]** | 3/10 |
+| E_pca4 | +0.09 | −0.10 | +0.29 | +0.13 | +0.21 | +0.22 | **+0.14 [+0.07, +0.22]** | 8/10 |
+
+- **Verdict:** T closed (≤ −0.3; a view whose errors follow the members' only adds noise columns). F closed at the boundary
+  (−0.30, no class information, 0/6 orders up). E not kept (below +0.3) but consistent: 5/6 orders and 8/10 people up, interval
+  above 0. "Undecided", small: it is a richer copy of the eye view (same accuracy and error correlation as the eye posterior).
+  Predictions: T hit at the low edge of its range, F hit at its low edge, E hit (+0.1 predicted).
