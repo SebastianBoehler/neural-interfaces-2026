@@ -193,6 +193,34 @@ def runoff(V, ss, rr):
     return out
 
 
+NUIS, NUIS_V = int(os.environ.get("NUIS", 0)), os.environ.get("NUIS_V", "pc")  # s218: project out the between-run subspace
+
+
+def nuis_projectors(key):
+    """per held-out person: the top-NUIS directions of between-run offsets (run mean minus session mean, each class
+    centred within its session) of view `key`, estimated on the OTHER people's recording-order rows (labels used offline)."""
+    ZO = next(o for d, o in zip(S.DICTS, S.ORIG) if d is Z); V = ZO[f"{key}|{p0}"].astype(np.float64); yy = ZO[f"y|{p0}"].astype(int)
+    ss, pp = ZO[f"sess|{p0}"], ZO[f"person|{p0}"]; rr = np.char.add(ss.astype(str), np.char.add("|", S.RUN[IDX])); C = V.copy()
+    for g in np.unique(ss):
+        for c in range(3):
+            m = (ss == g) & (yy == c); C[m] -= C[m].mean(0)
+    off = {u: (pp[rr == u][0], C[rr == u].mean(0) - C[ss == ss[rr == u][0]].mean(0)) for u in np.unique(rr)}
+    U = {}
+    for q in np.unique(pp):
+        M = np.array([o for (pq, o) in off.values() if pq != q]); U[q] = np.linalg.svd(M - M.mean(0), full_matrices=False)[2][:NUIS].T
+    return U
+
+
+NUIS_U = {k: nuis_projectors(k) for k in (["pc128"] if NUIS_V == "pc" else ["pc128", "GE"])} if NUIS else {}
+
+
+def nuis_apply(V, pp):  # rows of any order: each row loses its person's projector's span
+    out = V.copy()
+    for q, U in NUIS_U_CUR.items():
+        m = pp == q; d = U.shape[0]; out[np.ix_(m, np.arange(d))] = V[m][:, :d] - (V[m][:, :d] @ U) @ U.T  # GE: its own columns only (eye view untouched)
+    return out
+
+
 def chain(bn, arm, P):
     """members for the arm in recording index order, then everything permuted by P, stages run in that order."""
     S.apply({p: (P if p == p0 else np.arange(S.N[p])) for p in S.PR})
@@ -234,6 +262,10 @@ def chain(bn, arm, P):
         ov = ocu_view(P); A.L.Z[f"GE|{p0}"] = np.c_[ge0, ov]
         if OCU_TS:  # s188 form A: the eye view in TSEM too. TSEM standardises columns, so weight = k copies (scaling would be a no-op)
             A.L.Z[f"pc128|{p0}"] = np.c_[pc0, np.repeat(ov, OCU_TS, axis=1)].astype(pc0.dtype)
+    if NUIS:  # s218: no run id, no order: a fixed projector per held-out person (in the package: one matrix from all ten)
+        global NUIS_U_CUR
+        for key, Uk in NUIS_U.items():
+            NUIS_U_CUR = Uk; A.L.Z[f"{key}|{p0}"] = nuis_apply(A.L.Z[f"{key}|{p0}"].astype(np.float64), A.L.Z[f"person|{p0}"]).astype(A.L.Z[f"{key}|{p0}"].dtype)
     if RUNOFF:  # s210 oracle: true run ids; each view row minus its run's shrunk causal offset from the session (delivery order)
         ss = A.L.Z[f"sess|{p0}"]  # RUN_IDS=<npz with key <scheme><seed>: run label per replay row> replaces the true run ids
         rr = np.char.add(ss.astype(str), np.char.add("|", (np.load(os.environ["RUN_IDS"])[f"{SCHEME}{PSEED}"].astype(str) if os.environ.get("RUN_IDS") else S.RUN[IDX])[P]))
@@ -291,6 +323,6 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other; s208: so is a non-default
 # OCU_DIR (form B runs had overwritten the regular files of within 1-3, full 0/1, runs 0/1)
-np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if not OCD or OCD.rstrip('/') == f'runs/ocushuf/{SCHEME}{PSEED}' else '_ocd' + OCD.rstrip('/').replace('runs/', '').replace('/', '-')}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}{f'_syn{SYN_T}{SYN_D:g}' if SYN_T else ''}{'_ox' + os.path.basename(OUTX)[6:-4] if OUTX else ''}{'_cm' + os.path.basename(CMP)[:-4] if 'CM_NPZ' in os.environ else ''}{'_rs' + os.path.basename(RSD.rstrip('/')) if 'RS_DIR' in os.environ and RSD.rstrip('/') not in (f'{REPO}/runs/restshuf', 'runs/restshuf', 'runs/diag/restshuf') else ''}{'_tf' + os.path.basename(os.environ['TS_FILE'])[:-4] if os.environ.get('TS_FILE') else ''}{f'_runoff{RUNOFF_V}{RUNOFF:g}' if RUNOFF else ''}{'_rid' + os.path.basename(os.environ['RUN_IDS'])[:-4] if os.environ.get('RUN_IDS') else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if not OCD or OCD.rstrip('/') == f'runs/ocushuf/{SCHEME}{PSEED}' else '_ocd' + OCD.rstrip('/').replace('runs/', '').replace('/', '-')}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}{f'_syn{SYN_T}{SYN_D:g}' if SYN_T else ''}{'_ox' + os.path.basename(OUTX)[6:-4] if OUTX else ''}{'_cm' + os.path.basename(CMP)[:-4] if 'CM_NPZ' in os.environ else ''}{'_rs' + os.path.basename(RSD.rstrip('/')) if 'RS_DIR' in os.environ and RSD.rstrip('/') not in (f'{REPO}/runs/restshuf', 'runs/restshuf', 'runs/diag/restshuf') else ''}{'_tf' + os.path.basename(os.environ['TS_FILE'])[:-4] if os.environ.get('TS_FILE') else ''}{f'_runoff{RUNOFF_V}{RUNOFF:g}' if RUNOFF else ''}{'_rid' + os.path.basename(os.environ['RUN_IDS'])[:-4] if os.environ.get('RUN_IDS') else ''}{f'_nuis{NUIS_V}{NUIS}' if NUIS else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
 if SAVE_OUT:
     np.savez_compressed(f"{REPO}/{SAVE_OUT}", **OUTS); print("per-window outputs ->", SAVE_OUT, flush=True)

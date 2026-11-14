@@ -5160,3 +5160,15 @@ morning table) is **"eye order mismatched, members as recorded"** until re-score
 - **§207 teacher input gains (07:11 UTC; runs/s207f_teachgain.txt).** 38 gains on the teacher's input columns, fitted
   leave-one-person-out, against the gains-1 refit on 6 orders: REG 0.1 −0.00 (3/6 up), REG 1 −0.00 (3/6). **Null.** The
   eye-net drift edit (Galvani) is the last open family.
+
+### 218. RUN-AWARE VIEW WITHOUT RUN IDS: THE BETWEEN-RUN SUBSPACE PROJECTED OUT (written 14 Nov 07:15 UTC, before any result; coordinator after §210)
+- **Why:** §210's oracle is largest under full (+0.87 / +1.25), where run ids cannot be recovered. A form needing no run id
+  and no order: estimate on the training people the subspace spanned by between-run offsets (run mean minus session mean,
+  classes centred within session) and project it out of the views the template stages get. It is a fixed matrix (in the
+  package, one from all ten people).
+- **Test:** shufcombo `NUIS=k NUIS_V=pc|both`, projector per held-out person fitted on the other nine. k 4, 8, 16; pc128
+  and pc128 + GE (GE's own columns). Within 0/1, full 0/1, runs 0/1, v6f. Read the share of §210's oracle it recovers
+  per scheme.
+- **Prediction:** k 8, both views: +0.2 to +0.4 under full (30–50 % of the oracle), +0.1 under within.
+- **Rule:** keep it for a package form if it reaches ≥ +0.3 mean over the six orders with people up ≥ 7/10 and is not
+  negative under any scheme mean. Undecided between +0.1 and +0.3.
