@@ -7682,3 +7682,12 @@ and tproxy.py (all_loso store, shuffled orders, six bases, online rows scored). 
 - **Arms:** tail0 (no ER, no personal; asserted equal to tproxy.npz base per order and base), ERoff (ER inputs, r = 0), ER, ERT (kappa 20).
   Orders: within0-3, full0-1, runs0-1 (the 8 shuffled orders of tproxy.npz). Reported: routed minus tail0, and routed minus ERoff (what the
   personal path alone adds). Rule and prediction as above, applied to routed minus tail0 (the pre-registered comparison).
+
+**§263 amendment 1 (14 Nov 19:47 UTC, before any §263 result; research thread).** Choices the pre-registration left open, fixed
+now (code studies/14nov/s263/, Galvani work dir ni26_s263, jobs C 3103503/04, A 3103505/06, B 3103507/08, D 3103509/10,
+Z prep 3103511; the Z fold array was refused by the per-user submit limit and is submitted when the queue drains):
+primary head lr10 for every variant (core1's reference 69.29; lr1 and lr3 reported, not used for the rule). A's 34 bands =
+the ov17 bands, the 16 geometric midpoints between consecutive bands, and (1, 2) Hz. B's segments = 0-2, 2-4, 0-4, 1-3,
+0.5-3.5 s. D's regions = frontal (16 ch, AF/F/FC), central (16, C/CP/TP), parieto-occipital (9, P/PO), each with its own CAR
+and 17 bands x 3 windows of extra blocks. Zero-change: Z (core1 settings through the new code) within 0.1 per person of
+runs/diag/ts_core/res/car_ov17_fs2_t0.1_le_k2.json; no variant is read before Z passes.
