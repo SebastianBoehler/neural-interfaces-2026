@@ -5131,3 +5131,17 @@ morning table) is **"eye order mismatched, members as recorded"** until re-score
   and personal-head inputs as recorded for returning people. Arm F also lacks the frozen-net re-stream change that
   shufcombo applies for new people.
 - New-people numbers are unaffected.
+
+### 214. RETURNING PEOPLE RE-SCORED WITH BOTH P0 FIXES (written 14 Nov 07:07 UTC, before any result)
+- **P0-a:** ocushuf.py uses each protocol's own delivery order. Windows outside it keep all_loso's, so the trained net is
+  unchanged. Every output stores `order_sha`; retv6 requires it to match seen_session's permutation, and shufcombo checks
+  it where present. Local smoke: hash matches.
+  - Re-stream: seen_session only, 9 seeds, OUT_SUB=ocushuf_ss. Galvani for full 0–3 and runs 0–3; Leonardo for within 0–7.
+- **P0-b:** retv6 `RT_MEMBERS=1` adds, after the permutation, the seen_session re-stream changes of core1 (as member and
+  behind the gate), Hilbert, teacher, pc128, GE event rates and the frozen SessionBN part (ttt18 base − ttt7 base, per
+  base's seeds), as shufcombo does for new people. Each file holding an order must exist (no silent recording order).
+- **Re-score:** retv6 GATE_V51B=1 FT_SFX=QF FT_FORM=s15 on within 0–7, full 0–3, runs 0–3, giving arms ER / ERF (v6.2-safe
+  / v6.2 / v6.2hL returning rows).
+- **Prediction:** the eye fix moves ER / ERF by up to ±0.3 under full and runs (the orders differed most there), little under
+  within (rank correlation +0.97). The members' re-stream costs routed v5.1b about 0.6 beyond the stages (as for new
+  people), but ER / ERF are differences against the same re-streamed base, so they move less.

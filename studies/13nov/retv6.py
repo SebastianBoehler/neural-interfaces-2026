@@ -62,6 +62,39 @@ def inputs(order):
     return ft, np.log(np.clip(oc, 1e-3, 1)), rs
 
 
+RT_MEMBERS = os.environ.get("RT_MEMBERS", "1") == "1"  # s214 (bugs_scoring P0-b): returning people's members re-streamed too
+BSD = {"B2_s0": [0], "B2_s1": [1], "B2_s2": [2], "B2_s012": [0, 1, 2], "B2_s345": [3, 4, 5], "B2_pool": [0, 1, 2, 3, 4, 5]}
+
+
+def holder(pat, key, what):  # the single file among pat's matches holding key; none -> loud failure (no silent recording order)
+    hit = [f for f in sorted(glob.glob(f"{REPO}/runs/{pat}")) if key in np.load(f)]; assert len(hit) == 1, f"{what}: {len(hit)} files hold {key}"
+    return np.load(hit[0])
+
+
+def member_deltas(order):
+    """seen_session changes (delivery order - own recording-order rebuild) of every input shufcombo re-streams for new people."""
+    sc, sd = order.rstrip("0123456789"), order[len(order.rstrip("0123456789")):]
+    CM, HB, TS = holder("coremember*.npz", f"{order}|{p}", "core1"), holder("hilbertmember*.npz", f"{order}|{p}", "Hilbert"), holder("teachshuf*.npz", f"{order}|{p}", "teacher")
+    CS = holder(f"coreshuf_p{sd}_*.npz", f"{sc}|{p}", "pc128"); GS = np.load(f"{REPO}/runs/geshuf.npz"); ref = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is Z][0]]
+    sg = np.sign([np.corrcoef(ref[f"pc128|{p}"][:, j], CS[f"rec|{p}"][:, j])[0, 1] for j in range(ref[f"pc128|{p}"].shape[1])])
+    assert np.allclose(ref[f"GE|{p}"][:, 32:], GS["rec"][IDX]), "GE columns 32: are not the event rates"
+    d = f"{REPO}/runs/ttt/probs18/ttt18{order}{FT_SFX}"
+    fr = {(a, k): ld(f"{d}_{a}_base-{p}-s{k}") - ld(f"{REPO}/runs/ttt/probs7/ttt7_{a}_base-{p}-s{k}") for a in SLOT for k in range(6)}
+    return dict(c1=CM[f"{order}|{p}"] - CM[f"rec|{p}"], hb=HB[f"{order}|{p}"] - HB[f"rec|{p}"], ts=TS[f"{order}|{p}"] - TS[f"rec|{p}"],
+                pc=sg * (CS[f"{sc}|{p}"] - CS[f"rec|{p}"]), ge=GS[f"{order}|{p}"][IDX] - GS["rec"][IDX], fr=fr)
+
+
+def apply_members(D, Pp):  # after S.apply(P): every array of protocol p is in delivery order, fresh copies of the stored ones
+    A.C1[p] = A.C1[p] + D["c1"][Pp]
+    Z[f"pc128|{p}"] = Z[f"pc128|{p}"] + D["pc"][Pp].astype(Z[f"pc128|{p}"].dtype)
+    Z[f"GE|{p}"] = Z[f"GE|{p}"].copy(); Z[f"GE|{p}"][:, 32:] = Z[f"GE|{p}"][:, 32:] + D["ge"][Pp]
+    for bn in BASES:
+        Ps = Z[f"{bn}|Ps|{p}"].copy(); Ps[0] = Ps[0] + (D["c1"][Pp] + D["hb"][Pp]) / 2; Ps[10] = Ps[10] + D["ts"][Pp]
+        for a, sl in SLOT.items():
+            x = np.clip(Ps[sl] + np.mean([D["fr"][a, k] for k in BSD[bn]], 0)[Pp], 1e-6, None); Ps[sl] = x / x.sum(1, keepdims=True)
+        Z[f"{bn}|Ps|{p}"] = Ps
+
+
 def perm(order):
     if order == "rec":
         return {q: np.arange(S.N[q]) for q in PR}
@@ -115,11 +148,13 @@ for order in ORDERS:
     for c in (ns["_BIO"], A._H, K.STREAMS, K.REC):  # session-keyed caches depend on the delivery order only
         c.clear()
     S.apply(P); K.RANK["cur"] = None if order == "rec" else {q: K._rank(K.IDX[q][P[q]]) for q in PR}
+    if RT_MEMBERS and order != "rec":
+        apply_members(member_deltas(order), Pp); print(f"  {order}: returning people's core1, Hilbert, teacher, pc128, GE and frozen SessionBN re-streamed (s214)", flush=True)
     for bn in BASES:
         for arm in ARMS:
             R[order, bn, arm], RT[order, bn, arm] = system(bn, arm, Pp, OOF[bn], inp)
         key = f"rec|0|{bn}|{p}" if order == "rec" else f"{order[:-1]}|{order[-1]}|{bn}|{p}"
-        if key in REF.files:  # shufpkg ran within 0/1 only; other orders cannot be checked against it (stated in the output)
+        if key in REF.files and not (RT_MEMBERS and order != "rec"):  # shufpkg keeps members as recorded: comparable only then
             assert np.allclose(R[order, bn, "base"], REF[key], atol=1e-9), f"{order} {bn}: base {R[order, bn, 'base']} != shufpkg {REF[key]}"
         elif bn == BASES[0]:
             print(f"  {order}: no shufpkg reference for this order; routed v5.1b is computed by the same code but not checked against one", flush=True)
