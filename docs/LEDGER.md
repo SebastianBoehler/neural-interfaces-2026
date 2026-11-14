@@ -6182,3 +6182,27 @@ missed low. **The gate fails by 0.06 points as written.** Deviation, stated befo
 own noise (interval 37–44) and SUB ↔ WORD is still the largest pair, so by AGENTS.md ("a bar inside the noise does not close a
 direction") this is not a stop on substance; steps 2–3 are cheap CPU runs and go ahead under the same gates and kill rule,
 flagged as past gate 1.
+
+### 241. OFF-TASK WEIGHTING FROM THE REST NET (written 14 Nov 12:10 UTC, before any result; panel neuroscience 14 Nov P3 ii)
+
+**Mechanism.** Lapsed or half-performed trials look like rest (no parietal alpha suppression). The rest member (shallow
+SessionBN net, rest4 sh r1) already has a 4th output for PROTEUS's pre-cue rest; its p_rest was never saved. If p_rest marks
+off-task windows, they should (i) be wrong more often in the chain's output and (ii) be bad teachers for the session's
+templates. Weight each window's contribution to the template estimates (SessionEM responsibilities and residual covariance,
+TSEM seed means and residual covariance) by w = 1 - p_rest; the window's own prediction is unchanged (learning only).
+**Data.**  re-streams the rest net (3 seeds, each fold trained once) in recording order and
+in within 0/1, full 0/1, runs 0/1 with a forward hook keeping all 4 logits; asserts the first three reproduce the member's
+posterior (1e-5). p_rest = seed mean of the 4-way softmax's 4th entry, from the order's own re-stream.
+**Step 1, tercile gate (CPU, existing v6f outputs).** Chain accuracy of v6f (runs/chainout/s215_<order>_off.npz,
+<base>|V6Fr, new people, mean over six bases) by tercile of p_rest within each session (session-equal mean), averaged over
+the six orders. Prediction: bottom-minus-top tercile gap +4 points (80 % range 0 to +9). **Gate: the top tercile at
+least 3.0 points worse than the bottom one, else stop** (and record whether recording order agrees).
+**Step 2a, template weighting (only if the gate passes).** Weighted SessionEM (gm.em_g) and TSEM (gm.L.G.tsem_lik)
+installed by monkeypatching from , scored in the v6f chain (env of runs/s215_<order>_off.log)
+against the same chain without the hook, paired, on within 0/1, full 0/1, runs 0/1, new people, 80 % person intervals.
+Arms: W1 w = 1 - p_rest (primary), W3 w = (1 - p_rest)^3 (secondary, reported). Prediction for W1: new +0.2
+(80 % range -0.1 to +0.5). **Kill rule:** mean over the six orders below +0.3, or fewer than 7/10 people up (mean over
+orders) -> not adopted; inside ±0.3 is recorded as "undecided", not closed. Not closed on P10 or P04 alone.
+**Step 2b, FT label weights:** sized only (GPU fine-tuning via ttt18 label weights); run only if 2a passes.
+(Correction, same minute: two paths above were lost to shell quoting. The re-stream script is `studies/14nov/offtask/prest.py`;
+the stage hooks are installed from `studies/14nov/offtask/`.)
