@@ -496,3 +496,9 @@ directory `runs/sealed/cand_v65b_r1iLu_cand` differs from `cand_v65_r1iLu_cand` 
 **Pre-registered target:** the refit path from 14-20 sealed minutes to 2-4, run time at 378 windows v6.6/v6.5b <= 0.6;
 identity against v6.5b bitwise on CPU for the arithmetic-neutral changes (GPU buffer, one-sync dtheta), CPU output tolerance
 1e-5 with 100 % labels for the cached-FIR / shared-batch forms, GPU <= 0.05 with labels 100 %. Forms and refutation rule in §262.
+
+**Stage-0 result and decision (14 Nov 22:55 CET; ledger §262; `evidence/v66_14nov/rprof-3103933.out`, 2080 Ti):** one refit 1285 ms at
+prefix 190, 2535 ms at 378; backward + Adam 40 %, augmented forward 25 %, clean forward 25 % (half of it the frozen FIR), final pass 5 %,
+staging 2 %. The pre-registered prediction (>= 50 % in the cacheable / staging parts, >= 1.8x for the stack) is **refuted**: the
+identity-preserving forms reach ~1.2x. **Track B stopped (coordinator, 14 Nov):** no `lean/src66` tree, no new bundle; v6.5b stays the candidate.
+Arithmetic-changing forms (TF32 on A100 within the <= 0.05 GPU band, subsampled-prefix refits via §257) are revisited when §265 or §257 reads out.
