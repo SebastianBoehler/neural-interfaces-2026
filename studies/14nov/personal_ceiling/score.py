@@ -99,7 +99,8 @@ def main():
         for v in xs:
             w = np.mean([S.cell_score(m, tst, P[f"W|{s}|{n}|{v}"]) for n, _, tst in S.pairs(m, s)])
             x = np.mean([S.cell_score(m, tst, P[f"X|{s}|{n}|{v}"]) for n, _, tst in S.pairs(m, s)])
-            line.append(f"{v} W {w:.1f} X {x:.1f} drop {x - w:+.1f}")
+            ex = np.mean([sc_many(RT, tst, P[f"X|{s}|{n}|{v}"]) for n, _, tst in S.pairs(m, s)]) if v != "b_base" else np.nan
+            line.append(f"{v} W {w:.1f} X {x:.1f} drop {x - w:+.1f} ER*X {ex:.1f}")
         a = P[f"X|{s}|all|idx"]; whole = " ".join(f"{v} {S.cell_score(m, a, P[f'X|{s}|all|{v}']):.1f}" for v in xs)
         er = np.mean([sc_many(RT, tst) for _, _, tst in S.pairs(m, s)])
         print(f"  {s1}->{s}: " + " | ".join(line) + f" | ER {er:.1f} | X whole session: {whole}, ER {sc_many(RT, a):.1f}")

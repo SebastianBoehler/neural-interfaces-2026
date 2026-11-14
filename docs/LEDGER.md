@@ -6993,3 +6993,27 @@ as M seen windows of the run; never saturates for M ≤ CAP · 3 / 2), kernel we
 γ ∈ {0.75, 1.25, 1.5} added to show the curve's shape (reported, not in the nested set). Nested choice over the five M
 values as before, and over all 11 settings (reported). Prediction: (1b) nested full +0.25 (0 to +0.5), within / runs
 −0.03; the γ curve between 0.75 and 1.5 is not smooth (a spike at 1). Same pass rule.
+
+**§246 RESULT (14 Nov 15:42 UTC; studies/14nov/personal_ceiling/, evidence/personal_ceiling_14nov/score.txt; nets: Leonardo array
+64473623, 4 families x 2 seeds; classic on the Mac via run_capped).** Within session (train 4 runs, test 2 online runs, six
+pairs), cell-mean BA, ten people: chain (s242ctl V6Fr, 20 orders, schemes equal; whole-session levels reproduce the dev
+table exactly, P01 76.6 ... P10 82.2) 79.6 on the test runs; classic aE 79.8 (a1 FB-TS-LR 76.9 best single); frozen
+population nets alone 65.9; nets fine-tuned on true labels bE (200 steps) 84.4 (+4.8 [+2.9, +6.8], 8/10; 400 steps 84.8,
+added after the smoke, secondary); chain x aE 85.3 (+5.8, 9/10); chain x bE 85.2 (+5.6, 10/10); chain x aE x bE 87.1
+(+7.5 [+5.7, +9.4], 10/10). Both primary pairs agree (last two online runs 87.3, online 1+2 87.3).
+- P04 (three sessions): chain 48.9, aE 65.0, bE 64.1, all fused 66.8. On P04 s2/s3 the routed path ER is 61.3 / 69.5 on the
+  same windows; personal alone 64-65 (no better than ER); ER x aE 69.9 / 74.5 (+6.8). P10 s2/s3: ER 92.6 / 91.0; bE 93.6 /
+  94.2; ER x bE 94.6 / 94.9 (+3.0).
+- Cross-session drop of the same personal system (s1 -> s2/s3, same windows): classic aE P04 -11.7 / -16.1, P10 -22.2 /
+  -16.7 (band-power features do not transfer, even with per-session EA); fine-tuned nets bE P04 0.0 / -1.4, P10 -6.4 / -6.2.
+  Cross-session personal fused with ER: P04 65.4 / 68.4 (bE), P10 93.6 / 92.8: about ER's level, no gain.
+- **Reading rule:** P04 meets the size bar only fused with ER (+6.8 >= 5) and the drop bar only for aE (bE does not drop);
+  P10 misses the size bar (+2.1 to +3.0). So the P04 / P10 shortfall is not mainly cross-session shift: P04 stays at 61-75
+  even with labels from her own session (a hard person, not a shifted one), and ER already sits within 2-3 points of P10's
+  within-session personal ceiling. The large room is for new people: the chain at 79.6 against 87.1 for chain x personal
+  with in-session labels (+7.5, every person up). Sealed-weighted labelled ceiling about +5.9 (0.566 x 7.5 + 0.434 x (0.2 x
+  6.8 + 0.8 x 3.0)). It needs labels; the question becomes how much of it label-free in-session adaptation can reach.
+- **Against the predictions:** chain 79.6 (78), bE 84.4 (83), fused +7.5 (+6): hits; aE 79.8 (72) above; P04 bE 64 (70) and
+  fused 67 (72) below; drops P04 aE -14 (-10) hit, P04 bE -0.7 (-10) miss, P10 bE -6.3 hit, P10 aE -19 (beyond -12).
+- **Limits:** EA and SessionBN statistics are non-causal / whole-session; the two test runs are adjacent to labelled runs of
+  the same session; one fusion weight (equal); orders resampled only inside the chain average, intervals over people.
