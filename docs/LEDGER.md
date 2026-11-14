@@ -7592,3 +7592,15 @@ The 16 Leonardo files are the primary part-(b) score (fetched to runs/personal_c
 score_pl.py takes the dir from env PL_FTPL_DIR and fails if it is missing or holds fewer than 16 files). The Galvani copy
 (3102582), once complete, is scored from runs/personal_ceiling/ as a reproducibility check, per-arm difference reported.
 Predictions and rule of §252 unchanged.
+
+**§252 part (b) RESULT (14 Nov 19:5x UTC; evidence/personal_ceiling_14nov/score_pl_b.txt; the 16 Leonardo files of job 64475142 as primary per amendment 4, scored with PL_FTPL_DIR=runs/personal_ceiling_leo; r15 chain 79.95 on the six bE orders).** Scorer fixes: GROUPS defined locally (the ftnet_pl import needs torch), bE only for hard / soft / filt (the loop over the top* forms would have raised KeyError); the primary reads the part-(b) files, no silent skip.
+| form (six orders, [80 % people x orders]) | bE alone | c x bE gain | people up | c x aE x bE gain (primary) | people up |
+|---|---|---|---|---|---|
+| hard | 77.1 (-2.8) | +0.83 [+0.00, +1.67] | 6/10 | +0.18 [-0.72, +1.10] | 5/10 |
+| soft | 77.2 (-2.7) | +0.86 [+0.01, +1.68] | 6/10 | +0.34 [-0.51, +1.25] | 5/10 |
+| filt | 77.3 (-2.6) | +0.83 [-0.01, +1.68] | 6/10 | +0.42 [-0.55, +1.38] | 5/10 |
+- Labelled ceiling on the same orders: c x aE x bE +7.18 [+5.40, +9.11]; so filt c x aE x bE is 6 % of it. Fine-tuned on the chain's labels the net alone falls 2.6 points below the chain-free level it is compared with (bE 77.3 vs chain 79.95).
+- Prediction: c x bE +0.8 holds (filt +0.83); primary c x aE x bE +1.5 refuted (filt +0.42, aE pulls it down by about 0.4: c x aE -0.91).
+- P04 (the 49-point person): c x bE -1.5, primary -2.8; P10: c x bE +3.9, primary +3.0. Both reported; neither decides. Gains concentrate in P09 (+5.1) and P10 (+3.0); P04, P06, P07 lose.
+- Rule (>= +2 with people interval > 0 -> causal sketch; +0.5 to +2 undecided; < +0.5 recorded, not closed): primary +0.42 [-0.55, +1.38] is below +0.5, and the interval spans zero: recorded, not closed and no causal sketch. c x bE alone (+0.83, lower edge 0.00) would be undecided, but it is not the pre-registered primary.
+- Reproducibility check (Galvani 3102582 copy, runs/personal_ceiling/) pending: scored when 16 files are there; per-arm difference to be appended.

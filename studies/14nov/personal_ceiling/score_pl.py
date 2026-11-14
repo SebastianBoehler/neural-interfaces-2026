@@ -9,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np  # noqa: E402
 import splits as S  # noqa: E402
-from ftnet_pl import GROUPS  # noqa: E402
+GROUPS = (("within0", "within1", "full0"), ("full1", "runs0", "runs1"))  # = ftnet_pl.GROUPS (that import needs torch)
 
 R = S.REPO; m = S.meta(); SCH = lambda o: o.rstrip("0123456789")  # noqa: E731
 ALL = [f"within{i}" for i in range(12)] + [f"full{i}" for i in range(4)] + [f"runs{i}" for i in range(4)]
@@ -32,13 +32,17 @@ def load():
                     for fm in FORMS:
                         if f"W|{s}|{n}|{fm}|aE" in z.files:
                             PA[o, s, n, fm, "aE"] = z[f"W|{s}|{n}|{fm}|aE"]
+    FD = Path(os.environ.get("PL_FTPL_DIR", S.OUT))  # amendment 4: primary = runs/personal_ceiling_leo
+    if len(glob.glob(str(FD / "ftpl_*_s*_g*.npz"))) < 16:
+        sys.exit(f"FATAL: {FD} missing or has fewer than 16 ftpl files")
+    print("ftpl dir:", FD)
     for g, os_ in enumerate(GROUPS):
-        fs = sorted(glob.glob(str(S.OUT / f"ftpl_*_s*_g{g}.npz")))
+        fs = sorted(glob.glob(str(FD / f"ftpl_*_s*_g{g}.npz")))
         if len(fs) == 8:
             Z = [np.load(f) for f in fs]
             for o in os_:
                 for s, n, t in PAIRS:
-                    for fm in FORMS:
+                    for fm in FORMS[:3]:  # the nets are trained on hard / soft / filt only (top* forms are aE only)
                         PA[o, s, n, fm, "bE"] = np.mean([z[f"W|{s}|{n}|{o}|{fm}"] for z in Z], 0)
         elif fs:
             print(f"group {g}: {len(fs)}/8 net files, skipped")
