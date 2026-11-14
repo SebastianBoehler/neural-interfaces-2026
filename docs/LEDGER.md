@@ -7581,7 +7581,7 @@ Per person A+f minus candidate: -3.0 -2.6 -2.2 -0.9 -0.2 -1.5 +1.3 -0.3 +0.2 +0.
 - **Closed in this form** (a weak TTT-SSL net fused as a product factor). Not covered: contrastive TTT applied inside the chain's
   own nets (r15's fine-tuning step) instead of as a separate member. §253's plan note's joint stack test reduces to §260.
 
-**§252 amendment 4 (written 14 Nov 19:5x UTC, before any part-(b) score is read; coordinator's decision).** Amendment 1 set the Leonardo
+**§252 amendment 4 (written 14 Nov 19:37 UTC, before any part-(b) score is read; coordinator's decision).** Amendment 1 set the Leonardo
 ftpl files aside only because Leonardo was down and a Galvani rerun was planned; Leonardo is reachable again and holds all 16
 (ftpl_{fb,fbl,fbraw,sinc}_s{0,1}_g{0,1}.npz, written from 17:32 UTC, job 64475142). Checked: Leonardo's ftnet_pl.py, classic_pl.py, ftnet.py,
 splits.py, classic.py match git e649e98 byte for byte (md5 of ftnet_pl 90e3bbec...); HEAD differs from that only by 9e47ed5's
@@ -7599,7 +7599,7 @@ Predictions and rule of §252 unchanged.
 | hard | 77.1 (-2.8) | +0.83 [+0.00, +1.67] | 6/10 | +0.18 [-0.72, +1.10] | 5/10 |
 | soft | 77.2 (-2.7) | +0.86 [+0.01, +1.68] | 6/10 | +0.34 [-0.51, +1.25] | 5/10 |
 | filt | 77.3 (-2.6) | +0.83 [-0.01, +1.68] | 6/10 | +0.42 [-0.55, +1.38] | 5/10 |
-- Labelled ceiling on the same orders: c x aE x bE +7.18 [+5.40, +9.11]; so filt c x aE x bE is 6 % of it. Fine-tuned on the chain's labels the net alone falls 2.6 points below the chain-free level it is compared with (bE 77.3 vs chain 79.95).
+- Labelled ceiling on the same orders: c x aE x bE +7.18 [+5.40, +9.11]; so filt c x aE x bE is 6 % of it. Fine-tuned on the chain's labels the net alone is 2.6 below the chain (bE 77.3 vs 79.95).
 - Prediction: c x bE +0.8 holds (filt +0.83); primary c x aE x bE +1.5 refuted (filt +0.42, aE pulls it down by about 0.4: c x aE -0.91).
 - P04 (the 49-point person): c x bE -1.5, primary -2.8; P10: c x bE +3.9, primary +3.0. Both reported; neither decides. Gains concentrate in P09 (+5.1) and P10 (+3.0); P04, P06, P07 lose.
 - Rule (>= +2 with people interval > 0 -> causal sketch; +0.5 to +2 undecided; < +0.5 recorded, not closed): primary +0.42 [-0.55, +1.38] is below +0.5, and the interval spans zero: recorded, not closed and no causal sketch. c x bE alone (+0.83, lower edge 0.00) would be undecided, but it is not the pre-registered primary.
