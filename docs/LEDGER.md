@@ -5898,3 +5898,31 @@ delivery scheme hardly matters for a fixed classifier); eye = stored population 
 - **What this does not say:** the chain already has a personal head on core1's PCs (the pc128 LR row is close to it) and
   the own-space stage; the new information for the chain is the personal ocular view (GE48: P10 73 against the eye
   net's 49) and template priors, whose worth is only measurable in the chain (PV2).
+
+### 233. EXTERNAL PAIRWISE EXPERTS AS VIEWS (written 14 Nov 11:55 UTC, before any result)
+- **Mechanism (§188):** the eye net failed as a member but works as a SessionEM view because its errors are independent
+  of the EEG members'; a perfect extra view is worth +6 (SessionEM only). Experts trained only on public people outside
+  PROTEUS cannot share the members' training-person errors either. Each expert is a two-class task classifier whose
+  log posteriors are appended to SessionEM's view (shufcombo `EXTRA_VIEW`, s232 hook; no shufcombo edit).
+- **Corpora on hand:** Shin2017A (29 people, MI left/right) and Shin2017B (the same 29, mental arithmetic vs rest; A and
+  B sessions alternate on one day). Shin2018 (word generation vs rest) and ds007554 are on neither the Mac nor Leonardo
+  `$WORK/ni26/data/` (NEMAR holds only Weibo, Liu, HGD, Zhou, Cho, Dreyer2023, Shin2017A/B, Lee2019); not downloaded
+  (needs the user's go-ahead), so no WORD expert in this row.
+- **Experts (`studies/14nov/extview/expert.py`):** `mivma` = Shin A MI (l + r) vs Shin B arithmetic → PROTEUS MI vs SUB;
+  `mavr` = Shin B arithmetic vs rest → PROTEUS SUB vs the rest; `shin2` = both (4 columns). Montage: 35 of the 41 exported
+  channels are interpolations (6 exact), so both corpora are CAR'd and projected on the top 20 eigenvectors of the pooled
+  Shin covariance; bands 1–4/4–8/8–13/13–20/20–30 Hz, shrunk covariance, log-Euclidean tangent; session mean removed
+  (Shin: pseudo-session A_k + B_k for mivma, B session for mavr; PROTEUS: causal running mean of the session's delivered
+  windows, so the view file has 'rec' plus within/full/runs 0/1 keys computed in each order); L2 logistic regression,
+  C by 5-fold person-grouped CV on Shin. No PROTEUS label is read.
+- **Step 1 (ceiling, `ceiling.py`), predictions:** mivma MI-vs-SUB balanced accuracy on PROTEUS new people 55 (50–62),
+  within-session AUC 0.53–0.62; mavr SUB-vs-MI and SUB-vs-WORD 52 (48–58). Error correlation with the member mix within
+  class × run (margins) +0.0 to +0.2, about the eye net's.
+- **Step 3 (chain):** V6Fr with `EXTRA_VIEW` against the regular `shufcombo_<o>_ocu_gC5_all_ge_hb_ts_gp0_ttt18<o>L.npz`,
+  within/full/runs 0/1, env of `runs/s215_within0_off.log`, new people, mean over the six bases as shufcombo prints.
+  Prediction: shin2 +0.1 (−0.2 to +0.4) mean over six orders; mivma and mavr alone 0 to +0.2 each.
+- **Kill rule:** a view file is kept for a package test only if its mean over the six orders is ≥ +0.3 **and** ≥ 7/10
+  people are up (person = mean over the six orders). Below that it is not kept. The direction (external task experts as
+  views) is closed for this form only if the mean is ≤ −0.3 or the expert alone is at chance (pair BA < 53 and AUC
+  < 0.53 averaged over orders); a mean inside ±0.3 with an above-chance expert is "undecided" (better corpora, a WORD
+  expert, net experts are the next forms).
