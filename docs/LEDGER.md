@@ -6219,3 +6219,17 @@ the stage hooks are installed from `studies/14nov/offtask/`.)
   +0.155 (+0.08); with the eye net +0.14. Prediction +0.00 to +0.15: **missed high**. The view is as accurate on the pair as
   the eye net but shares the members' margins about as much as §233's mivma (+0.23) or more, which §233 found costly in
   SessionEM. Chain prediction left unchanged as written (+0.1 [−0.2, +0.4]); on this correlation I expect its low end.
+
+### 242. STACKED ARM ON v6.2hL-SAFE (written 14 Nov 12:11 UTC, before any result; coordinator 12:15 item 3)
+Mechanism: the small parts that held their sign, together in one chain: fine-tuning labels refreshed at every refit (r15,
+§229, tag ttt18<order>LP), the eye-net embedding view E_pca4 as SessionEM columns (§234, +0.14; rebuilt for all 20 orders
+with eye nets by studies/14nov/stack/eview.py, checked identical on the six s234 keys), the detector-gated count filter
+(§228/§238, studies/14nov/rundetect/package.py, emitted output only), and §235's stage constants once that sweep lands
+(arm stk2; stk1 has the shipped constants). Control in the same run: s15 on the same LP labels, no view, no filter (ctl).
+Orders: within0-11, full0-3, runs0-3 (the 20 with eye nets and LP fine-tuning); scored on Leonardo CPU with SAVE_OUT.
+Prediction (new people, stk1 + filter against ctl, mean over orders, no scheme primary): +0.45 (within about +0.55,
+runs about +0.35, full about +0.10). Returning people: the count filter on ER per §238; r15 and the view enter only if
+seen-session fine-tuning / views exist, otherwise reported as absent, not as zero.
+Report: new and returning, sealed-weighted J = 0.566 new + 0.434 (0.2 P04 + 0.8 P10), intervals resampling people and
+orders. Refutation: stacked below the best single part on the same orders, or people up < 6/10 -> the parts do not stack;
+inside ±0.3 -> undecided, not closed.
