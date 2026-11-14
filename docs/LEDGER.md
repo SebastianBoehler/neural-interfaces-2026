@@ -7472,3 +7472,8 @@ on every order x base (zero-change OK). r15 + filter vs raw +0.14. Evidence `evi
   prefix relabelling already sit in the chain; a before-TSEM fusion was not run (no form passed, as amendment 3 stated).
 - **Run time** (Mac CPU, one thread, `timing.txt`): refit l1 41 ms / lE 88 ms at 120 windows; per window lE 25 ms at k 10,
   21 ms at k 20 (features 16 ms of it). Cheap enough; the gain is not there. Amendment-2 prefilt was stopped unscored.
+Plan note (14 Nov 18:22 UTC; coordinator): §253's capped form (selected labels, fusion cap 0.10 / 0.15: +0.15 [+0.03, +0.28],
+7/10) is kept as a stack candidate, recorded undecided. When §256 reads out, a joint stack test gets its own pre-registration:
+candidate + C10 (only if §256 passes) + capped cpers, all three schemes, nested choices. Time cost noted: cpers 25 ms per
+window x about 20k windows is about 8 min of worker CPU against a worst-case slack of 1.37x, so a cheaper form (k 20, or
+refits only up to t = 150) is required before any package.
