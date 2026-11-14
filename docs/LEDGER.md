@@ -4961,3 +4961,17 @@ image's torch is 2.14.1+cu130 ("NVIDIA driver too old", 64443706).
   component tried: the product of leverage and reachable points is negative.**
 - Rest-net filter gains: the smoke found the final convolution slides over time (26 steps, then reduced). restblocks.py
   now decomposes per filter and per time step and checks which linear reduction reproduces the net. Smoke 2: 64443913.
+
+**§202 FINDING (14 Nov 05:15 UTC): the v6.2 step has no exception guard, which blocks every current v6.2 ZIP.**
+- **How it showed:** worker image on CPU, Leonardo 64443845. The GPU was visible but its driver too old. v5.1b passed
+  (0.99328, files unchanged, 279 s). v6.2g crashed the official ingestion: torch 2.14's Adam health check
+  (`_accelerator_graph_capture_health_check`) initialised CUDA in the first refit, and the RuntimeError reached benchopt.
+- **The bug:** `step62` (submission.py line 1225 in v62_r2g.zip) runs eye, rest, tail6r, ft.step, mix6 and routeB after
+  v5.1b's output with no try/except. v6.1's step (1283–1298) wraps the same calls and keeps v5.1b's output for the session.
+  So on the worker, any rare error in FT or the routed tail fails the sealed run instead of degrading to v5.1b. The
+  "errors 0" counter covered only the v6.1 path, so this was a silent no-op guard for v6.2.
+- **Sent to v52-build:** guard step62 after out_v5 (count the error, return out_v5, stop v6.2 for the session, keep recognition
+  bookkeeping), rebuild, and add a forced-exception check.
+- The CPU rerun with the GPU hidden (no --nv, CUDA_VISIBLE_DEVICES="") is 64444264, then the FT path 64444265/66.
+- My Leonardo waiter had run its ssh string in zsh without word splitting, so it never saw the 01:51 failure. Waiters now run
+  under bash.

@@ -25,9 +25,12 @@ if [ ! -f "$SIF" ]; then  # uploaded in chunks (split -b, parallel streams); joi
 fi
 [ "$(md5sum "$SIF" | cut -d' ' -f1)" = "$(cat "$SIF.md5")" ] || { echo "IMAGE MD5 MISMATCH"; exit 2; }
 nvidia-smi --query-gpu=name,driver_version --format=csv; hostname; date -u
-RUN=(singularity exec --nv --bind "$PWD" --env "BENCHOPT_DATA_HOME=$PWD/data" "$SIF")
-"${RUN[@]}" cat /compet/pip_freeze.txt | grep -iE "^(torch|braindecode|numpy|scipy|benchopt|neural|exca|mne)"
 DEV=${DEVICE:-cuda}
+if [ "$DEV" = cuda ]; then RUN=(singularity exec --nv --bind "$PWD" --env "BENCHOPT_DATA_HOME=$PWD/data" "$SIF")
+else RUN=(singularity exec --bind "$PWD" --env "BENCHOPT_DATA_HOME=$PWD/data" --env "CUDA_VISIBLE_DEVICES=" "$SIF"); fi
+# CPU mode hides the GPU entirely (no --nv): with the GPU visible but its driver too old, torch 2.14's Adam health check
+# initialises CUDA and fails (64443845); a CPU-only worker would see no CUDA device at all.
+"${RUN[@]}" cat /compet/pip_freeze.txt | grep -iE "^(torch|braindecode|numpy|scipy|benchopt|neural|exca|mne)"
 if [ "$DEV" = cuda ]; then "${RUN[@]}" python -c 'import torch; assert torch.cuda.is_available(), "no CUDA in the image"; print("cuda", torch.__version__, torch.cuda.get_device_name(0))'
 else "${RUN[@]}" python -c 'import torch, braindecode; print("CPU only:", torch.__version__, "braindecode", braindecode.__version__)'; fi
 [ "${SMOKE:-0}" = 1 ] && { echo SMOKE_OK; exit 0; }
