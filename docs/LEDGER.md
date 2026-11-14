@@ -6078,3 +6078,31 @@ Galvani CPU queue had 168 jobs pending).**
 - Per-session oracle (labels, ceiling): within +0.22 [+0.17, +0.27], full +0.16, runs +0.12.
 - **Below the +0.3 rule even as a ceiling: closed.** A per-session eye on/off rule cannot be worth more than about +0.2. The eye
   view stays on in every session.
+
+**§233 RESULT (14 Nov 12:05 UTC; code f7131c7 + the person-id fix below; evidence/extview_14nov/{cv_report,ceiling,compare}.txt;
+Mac CPU, 45 s per chain run; `replay/check.py` OK).**
+- **Fix before any PROTEUS number:** the first mivma fit grouped Shin2017A/k and Shin2017B/k as different people (58
+  groups, CV NaN, person leakage across folds); ids now strip the corpus prefix. C grid extended to 1e-4 (the first
+  pick sat on the grid edge). Within Shin, person-grouped CV: mivma 77.9, mavr 78.0 (C 3e-4).
+- **Step 1, alone on PROTEUS (mean over rec + six orders):** mivma MI-vs-SUB BA **66.0** (people 53–87), within-session
+  AUC 0.73 (prediction 55 [50–62]: beaten); pairwise accuracy 65 against the mix's 78.5 and the eye net's 67.3. Its margin
+  correlation with the mix within class × run is **+0.23** (errors +0.12–0.14), higher than the eye net's +0.17 (+0.10);
+  with the eye net +0.14. mavr SUB-vs-MI 53.2 (AUC 0.58), SUB-vs-WORD 53.4 (AUC 0.56), correlation with the mix +0.05–0.10.
+- **Step 3, V6Fr with EXTRA_VIEW minus the regular file, new people, mean of six bases (80 % person intervals):**
+
+  | view | within 0 | within 1 | full 0 | full 1 | runs 0 | runs 1 | mean 6 | people up | V6r mean |
+  |---|---|---|---|---|---|---|---|---|---|
+  | mivma | +0.06 | +0.12 | −0.28 | −0.11 | −0.48 | −0.25 | **−0.16** [−0.34, +0.03] | 4/10 | −0.06 |
+  | mavr | −0.23 | −0.30 | +0.10 | −0.21 | −0.22 | −0.23 | **−0.18** [−0.34, −0.01] | 2/10 | −0.13 |
+  | shin2 | −0.14 | −0.01 | −0.21 | −0.29 | −0.81 | −0.51 | **−0.33** [−0.55, −0.09] | 3/10 | −0.22 |
+
+- **Against the rule:** none is kept (all below +0.3 and 7/10). shin2 ≤ −0.3: **closed for that form**. mivma and mavr are
+  above chance alone and inside ±0.3 in the chain: **"undecided"** by the letter, but every mean is negative and 0–2 of 6
+  orders are up. Chain prediction (+0.1 [−0.2, +0.4]) missed low.
+- **Reading:** an expert as accurate as the eye net on its pair (66 vs 67) still costs in SessionEM: its errors are more
+  correlated with the members' (+0.23 against +0.17) — a covariance-feature task classifier shares the members' failure
+  windows even when trained on other people — and it carries no WORD information, so its two columns add noise for a
+  third of the windows. External people alone do not buy independence; the eye view's independence comes from its
+  input (slow frontal potentials), not from its training people. Next forms, if any: a WORD expert (Shin2018 / ds007554,
+  not on hand; download needs the user's go-ahead), experts on non-covariance inputs, or residualising the expert on the
+  mix before it enters the view.

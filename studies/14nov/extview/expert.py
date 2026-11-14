@@ -24,7 +24,7 @@ REPO = os.path.abspath(__file__ + "/../../../..")
 OUT = REPO + "/runs/views_ext"
 R, SHRINK = 20, 0.05
 BANDS = ((1, 4), (4, 8), (8, 13), (13, 20), (20, 30))
-CS = (1e-3, 3e-3, 1e-2, 3e-2, 1e-1)
+CS = (1e-4, 3e-4, 1e-3, 3e-3, 1e-2, 3e-2, 1e-1)
 ORDERS = [f"{s}{k}" for s in ("within", "full", "runs") for k in range(2)]
 SET = dict(R=R, SHRINK=SHRINK, BANDS=BANDS, files=["data/shin2017a/windows_1-29.npz", "data/shin2017b/windows_1-29.npz",
                                                    "data/proteus_windows.npz"])
@@ -72,12 +72,13 @@ def centre(V, groups):
 
 def train_set(F, name):
     """-> (V recentred, y, person) for an expert."""
+    pid = lambda a: np.array([q.split("/")[1] for q in a])  # Shin2017A/7 and Shin2017B/7 are the same person
     if name == "mivma":
-        pa = np.char.add(F["persona"], np.char.add("|", np.array([str(int(s[0]) // 2) for s in F["sessiona"]])))
-        pb = np.char.add(F["personb"], np.char.add("|", np.array([str(int(s[0]) // 2) for s in F["sessionb"]])))
+        pa = np.char.add(pid(F["persona"]), np.char.add("|", np.array([str(int(s[0]) // 2) for s in F["sessiona"]])))
+        pb = np.char.add(pid(F["personb"]), np.char.add("|", np.array([str(int(s[0]) // 2) for s in F["sessionb"]])))
         V = centre(np.r_[F["Va"], F["Vb"]], np.r_[pa, pb])  # mean of the pseudo-session A_k + B_k (MI l/r, MA, rest)
         y = np.r_[np.zeros(len(F["ya"]), int), np.where(F["yb"] == 1, 1, -1)]  # B classes: 0 rest, 1 subtraction
-        keep = y >= 0; return V[keep], y[keep], np.r_[F["persona"], F["personb"]][keep]
+        keep = y >= 0; return V[keep], y[keep], np.r_[pid(F["persona"]), pid(F["personb"])][keep]
     if name == "mavr":
         V = centre(F["Vb"], np.char.add(F["personb"], F["sessionb"])); return V, F["yb"].astype(int), F["personb"]
     raise SystemExit(f"unknown expert {name}")
