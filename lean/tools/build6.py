@@ -22,7 +22,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-V65 = "--v65" in sys.argv  # v6.5: lean/src65, v6.4's keys plus v6_tpri_on (--tpri-on 0|1, required)
+V65 = "--v65" in sys.argv or "--v65b" in sys.argv  # v6.5 (--v65b: lean/src65b, empty_cache after each refit): lean/src65, v6.4's keys plus v6_tpri_on (--tpri-on 0|1, required)
 V64 = "--v64" in sys.argv or V65  # v6.4: lean/src64, v6.2c's keys plus v6_ft_relabel (--relabel 0|1, required)
 V62C = "--v62c" in sys.argv or V64  # v6.2c: lean/src62c, v6.2i's keys plus v6_cf_on and (on) the v6_cf_* parameters
 V63 = "--v63" in sys.argv  # v6.3: lean/src63, v6.2i's keys

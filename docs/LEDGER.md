@@ -7544,3 +7544,14 @@ Rule: both draws > 0 with the pooled people-and-order interval above 0 -> the fo
 time (it then needs a package-form check); one draw <= 0 or pooled interval across 0 -> "undecided", kept out of the
 package. The §253 plan note's joint stack test reduces to this: C10 drops out (§256), and the candidate's new-people half is
 the reference here.
+
+### 261. V6.5b: empty_cache AFTER EACH REFIT (written 14 Nov 19:30 UTC, build thread, before the GPU checks)
+Mechanism: A100 timing (3102619) showed the CUDA caching allocator reserving 41.5 of 42.4 GB (peak allocated 6.7-7.2 GB)
+with retry warnings on 378- and 800-window unrecognised sessions; each refit's batch grows with the prefix and
+empty_cache ran only in reset_state. Change: FineTune.refit calls torch.cuda.empty_cache() in a finally after the refit
+(guarded by torch.cuda.is_initialized(); code lean/src65b, bundle submissions/lean_v65b, keys as v6.5 cand). No other change.
+Predictions: (1) CPU: bitwise identical outputs to v6.5 cand (no CUDA); Mac replay 0.9945788530. (2) GPU: outputs vs v6.5
+GPU within non-determinism (<= 0.05), err 0, labels 100 % vs CPU. (3) A100 peak_reserved on the 378 / 800 sessions
+<= 12 GB, zero allocator retry warnings, ref wall time within +5 % of v6.5 (empty_cache cost small against 0.35 s refits).
+Refutation: any CPU output difference, any err, reserved > 20 GB or a retry warning, or run time > +10 % -> v6.5b is not
+the candidate; v6.5 stays.
