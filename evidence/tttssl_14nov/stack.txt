@@ -1,0 +1,29 @@
+  within0  cand 81.50 | A+f - cand+f -1.08 A raw - cand raw -1.05 B+f - cand+f -1.00 B raw - cand raw -1.30 A - B (filtered) -0.08 A - B (raw) +0.25 cand+f - cand raw +0.45
+  within1  cand 81.06 | A+f - cand+f -1.13 A raw - cand raw -1.08 B+f - cand+f -1.31 B raw - cand raw -1.11 A - B (filtered) +0.18 A - B (raw) +0.03 cand+f - cand raw +0.44
+  within2  cand 80.44 | A+f - cand+f -0.90 A raw - cand raw -0.89 B+f - cand+f -0.99 B raw - cand raw -1.09 A - B (filtered) +0.09 A - B (raw) +0.20 cand+f - cand raw +0.56
+  within3  cand 80.52 | A+f - cand+f -0.85 A raw - cand raw -0.78 B+f - cand+f -0.96 B raw - cand raw -0.71 A - B (filtered) +0.10 A - B (raw) -0.07 cand+f - cand raw +0.12
+  within4  cand 80.42 | A+f - cand+f -0.52 A raw - cand raw -0.67 B+f - cand+f -0.64 B raw - cand raw -0.67 A - B (filtered) +0.12 A - B (raw) +0.01 cand+f - cand raw +0.19
+  within5  cand 80.27 | A+f - cand+f -0.54 A raw - cand raw -0.50 B+f - cand+f -0.72 B raw - cand raw -0.76 A - B (filtered) +0.17 A - B (raw) +0.26 cand+f - cand raw +0.09
+  within6  cand 81.12 | A+f - cand+f -1.56 A raw - cand raw -1.11 B+f - cand+f -1.58 B raw - cand raw -1.41 A - B (filtered) +0.02 A - B (raw) +0.30 cand+f - cand raw +0.39
+  within7  cand 80.88 | A+f - cand+f -1.56 A raw - cand raw -1.56 B+f - cand+f -1.55 B raw - cand raw -1.49 A - B (filtered) -0.01 A - B (raw) -0.08 cand+f - cand raw +0.30
+  within8  cand 80.12 | A+f - cand+f -0.04 A raw - cand raw -0.46 B+f - cand+f -0.26 B raw - cand raw -0.49 A - B (filtered) +0.22 A - B (raw) +0.03 cand+f - cand raw +0.14
+  within9  cand 80.42 | A+f - cand+f -0.77 A raw - cand raw -0.39 B+f - cand+f -0.88 B raw - cand raw -0.67 A - B (filtered) +0.11 A - B (raw) +0.28 cand+f - cand raw +0.41
+  within10 cand 79.63 | A+f - cand+f -0.50 A raw - cand raw -0.56 B+f - cand+f -0.68 B raw - cand raw -0.95 A - B (filtered) +0.18 A - B (raw) +0.40 cand+f - cand raw +0.13
+  within11 cand 80.21 | A+f - cand+f -1.02 A raw - cand raw -0.64 B+f - cand+f -1.12 B raw - cand raw -0.82 A - B (filtered) +0.10 A - B (raw) +0.18 cand+f - cand raw +0.44
+  full0    cand 78.26 | A+f - cand+f -0.88 A raw - cand raw -0.92 B+f - cand+f -0.65 B raw - cand raw -0.66 A - B (filtered) -0.22 A - B (raw) -0.25 cand+f - cand raw +0.02
+  full1    cand 77.82 | A+f - cand+f -0.40 A raw - cand raw -0.49 B+f - cand+f -0.71 B raw - cand raw -0.79 A - B (filtered) +0.31 A - B (raw) +0.30 cand+f - cand raw -0.05
+  full2    cand 77.04 | A+f - cand+f -0.28 A raw - cand raw -0.28 B+f - cand+f -0.06 B raw - cand raw -0.06 A - B (filtered) -0.21 A - B (raw) -0.21 cand+f - cand raw +0.00
+  full3    cand 76.39 | A+f - cand+f -0.42 A raw - cand raw -0.40 B+f - cand+f -0.88 B raw - cand raw -0.91 A - B (filtered) +0.46 A - B (raw) +0.52 cand+f - cand raw +0.03
+  runs0    cand 80.11 | A+f - cand+f -1.18 A raw - cand raw -1.43 B+f - cand+f -1.28 B raw - cand raw -1.38 A - B (filtered) +0.10 A - B (raw) -0.04 cand+f - cand raw -0.07
+  runs1    cand 79.49 | A+f - cand+f -1.19 A raw - cand raw -1.54 B+f - cand+f -1.12 B raw - cand raw -1.27 A - B (filtered) -0.07 A - B (raw) -0.28 cand+f - cand raw +0.38
+  runs2    cand 79.87 | A+f - cand+f -1.29 A raw - cand raw -0.90 B+f - cand+f -1.37 B raw - cand raw -1.31 A - B (filtered) +0.07 A - B (raw) +0.41 cand+f - cand raw +0.15
+  runs3    cand 79.43 | A+f - cand+f -0.96 A raw - cand raw -1.03 B+f - cand+f -1.05 B raw - cand raw -1.20 A - B (filtered) +0.09 A - B (raw) +0.17 cand+f - cand raw +0.13
+
+W 0.5, ['w0 ok']; new people; change [80 % people x orders] | people up (scheme-equal mean over orders)
+  A+f - cand+f           -0.84 [-1.41, -0.27] 3/10 | within -0.87 full -0.49 runs -1.16 | per person -3.0 -2.6 -2.2 -0.9 -0.2 -1.5 +1.3 -0.3 +0.2 +0.8
+  A raw - cand raw       -0.85 [-1.45, -0.22] 3/10 | within -0.81 full -0.52 runs -1.23 | per person -3.0 -2.6 -2.7 -0.6 -0.5 -1.2 +1.5 -0.4 +0.2 +0.7
+  B+f - cand+f           -0.92 [-1.52, -0.33] 3/10 | within -0.97 full -0.58 runs -1.21 | per person -3.1 -2.7 -2.5 -0.9 -0.1 -1.8 +1.3 -0.4 +0.1 +0.8
+  B raw - cand raw       -0.95 [-1.57, -0.31] 3/10 | within -0.96 full -0.61 runs -1.29 | per person -3.0 -2.8 -3.0 -0.8 -0.3 -1.6 +1.6 -0.4 +0.1 +0.8
+  A - B (filtered)       +0.08 [-0.02, +0.18] 7/10 | within +0.10 full +0.08 runs +0.05 | per person +0.1 +0.1 +0.3 -0.0 -0.1 +0.4 +0.0 +0.0 +0.0 -0.1
+  A - B (raw)            +0.10 [-0.02, +0.22] 7/10 | within +0.15 full +0.09 runs +0.06 | per person +0.0 +0.2 +0.3 +0.2 -0.1 +0.4 -0.1 +0.1 +0.0 -0.0
+  cand+f - cand raw      +0.15 [+0.05, +0.25] 9/10 | within +0.31 full -0.00 runs +0.15 | per person +0.5 +0.1 +0.2 -0.2 +0.0 +0.3 +0.1 +0.2 +0.0 +0.2

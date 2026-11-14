@@ -7555,3 +7555,28 @@ GPU within non-determinism (<= 0.05), err 0, labels 100 % vs CPU. (3) A100 peak_
 <= 12 GB, zero allocator retry warnings, ref wall time within +5 % of v6.5 (empty_cache cost small against 0.35 s refits).
 Refutation: any CPU output difference, any err, reserved > 20 GB or a retry warning, or run time > +10 % -> v6.5b is not
 the candidate; v6.5 stays.
+
+**§256 RESULT (14 Nov 19:38 UTC; evidence/tttssl_14nov/stack.txt (primary), score3.txt (third form); stack.py W 0.5, 30 causal
+files = 6 seeds x 5 groups, Galvani GPU 3102959; checks: W 0 returns the chain raw and filtered ("w0 ok", tolerance 1e-6 for
+float32-derived rows), arm A = arm B before window 20).** New people, 20 orders x 6 bases, change [80 % people x orders], people up:
+| contrast | change | per scheme (within / full / runs) |
+|---|---|---|
+| A (C10 adapted causally) + filter minus candidate (r15 + filter), PRIMARY | **-0.84 [-1.41, -0.27] 3/10** | -0.87 / -0.49 / -1.16 |
+| B (same nets unadapted) + filter minus candidate | -0.92 [-1.52, -0.33] 3/10 | -0.97 / -0.58 / -1.21 |
+| A minus B (filtered) | +0.08 [-0.02, +0.18] 7/10 | +0.10 / +0.08 / +0.05 |
+| candidate minus r15 raw (filter) | +0.15 [+0.05, +0.25] 9/10 | +0.31 / -0.00 / +0.15 |
+Per person A+f minus candidate: -3.0 -2.6 -2.2 -0.9 -0.2 -1.5 +1.3 -0.3 +0.2 +0.8 (P01..P10).
+- **Verdict: fails the pass rule** (needs >= +0.2, interval above 0, >= 7/10). Predictions: A minus candidate +0.15 (refuted:
+  -0.84); A minus B +0.20 (missed: +0.08, inside noise).
+- **Why (a misreading in the pre-registration, recorded):** §255's "C10 fused +0.27" was C10 adapted minus C10 unadapted inside
+  the same fusion, never fused minus chain. The net alone is about 62.5 % on new people against the chain's 79 %, so any
+  product fusion at w 0.25-1.0 costs -1.2 to -6 (score3.txt shows the same for the fbraw trunk). The adaptation itself is a
+  small, consistent +0.08 to +0.10 on top of a fusion that loses about 0.9.
+- **Third form (fbraw trunk, non-causal, score3.txt):** net alone sB40 minus na +0.09 [-0.64, +0.95] 4/10 (rule >= +1.5: no);
+  fusion sB40 minus na +0.26 at w 0.25, +0.54 at w 0.5, +0.80 at w 1.0, but every fusion minus chain is -1.2 to -5.5. Read
+  literally the rule's "fusion >= +0.5" fires at w 0.5; it measures the same within-fusion contrast as above, which does not
+  reach the chain, so no causal form is run. Stated as going past the letter of the rule.
+- **Run time** (reported by the ni26-push collector from Galvani timeA100-3102961 / time2080-3102962 logs): causal C10
+  adaptation about 20 ms per window on an A100, 15 ms on a 2080. Not needed: no package.
+- **Closed in this form** (a weak TTT-SSL net fused as a product factor). Not covered: contrastive TTT applied inside the chain's
+  own nets (r15's fine-tuning step) instead of as a separate member. §253's plan note's joint stack test reduces to §260.
