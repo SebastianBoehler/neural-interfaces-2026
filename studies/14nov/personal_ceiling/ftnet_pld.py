@@ -19,8 +19,8 @@ SUF = os.environ.get("S265_SUF", "")  # "_leo": the Leonardo copies write to run
 D_ORDERS = ("within0", "within1", "full0", "full1", "runs0", "runs1"); TCUT = 120
 
 
-def run_v3(arch, seed, group, smoke=False):
-    out = S.REPO / f"runs/personal_ceiling_v3{SUF}" / ("smoke" if smoke else ""); f = out / f"ftpl_{arch}_s{seed}_g{group}.npz"
+def run_v3(arch, seed, group, smoke=False, outdir=None):
+    out = (S.REPO / (outdir or f"runs/personal_ceiling_v3{SUF}")) / ("smoke" if smoke else ""); f = out / f"ftpl_{arch}_s{seed}_g{group}.npz"
     if f.exists():
         return print("exists", f, flush=True)
     d = FN.protocol.load(); m0 = S.meta(); PL = np.load(S.OUT / "plabels_r15.npz"); res = {}; t0 = time.time()
@@ -72,9 +72,24 @@ def run_v2(arch, seed, smoke=False):
     out.mkdir(parents=True, exist_ok=True); np.savez(f, **res); print("saved", f, flush=True)
 
 
+S267_NETS = [(f, sd) for sd in (4, 5) for f in ("fb", "fbl", "fbraw", "sinc")] + [("sinc", 6), ("sinc", 7)]  # s267: S3 = seeds 4,5 x 4 families; S2 uses its fb/fbl/sinc part; S1 = sinc 4-7
+
+
+def run_s267(t, smoke=False):
+    """s267 task t (0-19): net S267_NETS[t // 2], §252 group t % 2; fresh seeds 4-7, output runs/personal_ceiling_s267/"""
+    arch, seed = S267_NETS[t // 2]; assert seed in (4, 5, 6, 7)
+    old = [f for dd in S.REPO.glob("runs/personal_ceiling*") if dd.name != "personal_ceiling_s267" for f in dd.rglob(f"ftpl_*_s{seed}_g*.npz")]
+    assert not old, ("seed collides with existing files", old)
+    run_v3(arch, seed, t % 2, smoke, "runs/personal_ceiling_s267")
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "smoke":
         run_v2("fbl", 0, smoke=True); run_v3("fbl", 2, 0, smoke=True); print("SMOKE OK", flush=True)
+    elif sys.argv[1] == "s267":
+        run_s267(int(sys.argv[2]))
+    elif sys.argv[1] == "smoke267":
+        run_s267(0, smoke=True); print("SMOKE OK", flush=True)
     else:
         v, t = sys.argv[1], int(sys.argv[2]); a = FN.T5.ORDER[t % 4]
         run_v3(a, 2 + (t // 4) % 2, t // 8) if v == "v3" else run_v2(a, t // 4)
