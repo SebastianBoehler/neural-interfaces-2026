@@ -198,7 +198,7 @@ def matched(order, Pp, POC):
     Fm = PS.matched_feats(order); gi = IDX[Pp]; GEt = Z[f"GE|{p}"]
     assert GEt.shape[1] == 48 and np.array_equal(GEt[:, :32], Fm[gi, :32]), "gaze columns differ between training and test"
     ts = np.load(D.REPO + "/runs/geshuf.npz")[f"{order}|seen_session"]
-    assert np.array_equal(GEt[:, 32:48], ts[gi]), "test event rates are not geshuf's delivery-order stream (same code path as training)"
+    assert np.allclose(GEt[:, 32:48], ts[gi], rtol=0, atol=1e-9), "test event rates are not geshuf's delivery-order stream (same code path as training)"
     for c, cols in PS.COLS.items():
         P_ = np.full((D.N, 3), np.nan); ss = Z[f"sess|{p}"]
         for q in SEEN:

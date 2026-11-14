@@ -6525,3 +6525,34 @@ unprimed new-people tail (online base 77–81):
   the real case is across sessions, like P04 and P10. So the proxy shows the mechanism works inside a session and
   does not show it carries to a later one. P04, the one dev person where it does carry (+0.8), is also the weakest
   person under the chain.
+
+**PV5 RESULT (14 Nov; runs/pview/chain_pv5.log, pv5_summary.txt; 16 orders × 6 bases; ER = s214 everywhere).**
+- **Matching asserted on every order:** gaze columns bit-equal; test event rates = geshuf "<order>|seen_session"
+  within 1e-9 (apply_members adds new − rec to the stored rec stream, so equality holds only to rounding; the
+  first launch's exact-equality assert failed on runs0 for that reason and was relaxed to 1e-9). Training columns
+  are geshuf "<order>|all_loso" for session 1.
+- **Standalone personal ocular (matched):** G48 P04 41–43, P10 72–74; G32 P04 41–42, P10 56–58.
+
+| arm | all 16 | P04 | P10 | P10 > 0 | within | full | runs |
+|---|---|---|---|---|---|---|---|
+| OG48 (matched O) | −0.17 [−0.22, −0.11] | −0.10 | −0.23 | 2/16 | −0.17 | −0.26 | −0.06 |
+| OG32 (gaze only) | +0.04 [−0.02, +0.10] | +0.10 | −0.03 | 6/16 | −0.07 | −0.01 | +0.30 |
+| SG48 (matched S, eye columns unpulled) | −1.65 [−1.91, −1.42] | −1.52 | −1.78 | 0/16 | −1.35 | −1.71 | −2.19 |
+| SG32 (gaze only) | −0.36 [−0.53, −0.19] | −0.09 | −0.64 | 3/16 | −0.14 | −0.58 | −0.58 |
+
+- **Against the predictions:** OG48 −0.15 → −0.17; OG32 −0.1 → +0.04; SG48 −1.0 → −1.65; SG32 −0.6 → −0.36.
+- **Is PV2's −1.92 an artefact?** Only in small part. The mismatched eye-net columns account for about 0.27
+  (S −1.92 → SG48 −1.65). The coordinates of O and M were already matched (same code path, only the training
+  session's stream order differed), and OG48 reproduces O (−0.17 vs −0.16).
+- **SessionEM personal prior: closed in this form (κ 20, unshrunk class means).** Most of the loss comes from the
+  event-rate columns (SG48 vs SG32: −1.3).
+  - **Likely mechanism (not isolated by a run):** SessionEM shrinks its own class means by m0 = 20, to
+    Σ / (n + 20), while the prior adds full-size session-1 means. At the stage's start (window 20, ≈ 7 windows per
+    class, early boost up to ×3), the templates are dominated by those means, so they are overconfident and placed
+    where session 1's classes sat.
+  - **Why that is the wrong place:** across sessions the person's GE templates are near chance for P04 (PV1 42–45)
+    and only 72 % for P10, against a chain at 90.5 %. The prior therefore pulls early SessionEM decisions toward a
+    weaker classifier.
+  - Untested variant: a prior shrunk to the stage's own scale, i.e. pm × n_pub / (n_pub + m0), or a small κ.
+- **Personal ocular as SessionEM columns (O / OG48 / OG32):** undecided-to-negative; inside ±0.3 for every form,
+  and P10 never gains.
