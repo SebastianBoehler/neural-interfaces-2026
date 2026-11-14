@@ -6882,3 +6882,10 @@ known from window 0 (no gate), change against ER:
 - **Side finding (not a lever as measured):** ceil.py's TSwpl member reproduced the argmax of the mean ER posterior over
   the 96 runs (16 orders x 6 bases), which beats a single run by +4.1 / +2.7 (P04 s2 / s3) and +1.0 / +0.9 (P10): the
   routed path's spread across delivery orders and bases is that large on returning people.
+**§250 amendment (written 14 Nov 15:31 UTC, before the nested run; after a smoke on three held-out people).** The smoke showed
+the held-out person's scale in the metric differs up to 30x (median within-run d^2/d 0.07 to 2.05), so absolute thresholds put
+every window in one group. Changed before the nested run: all three forms are scale-free in the session's own causal spread
+(windows <= t: per-direction variance v_t, mean m_t; G1 within-run variance f * v_t and run-mean prior (1 - f) * v_t, f in
+0.2 / 0.35 / 0.5, alpha 0.1 / 1 / 10; G2 / G3 thresholds on d^2 / (d x mean pairwise d^2 / d)); no new group before window 5;
+metric grid + PCA 200 / 64 dims (shrinkage 0.1 / 1); inner selection on full 0-1, outer scoring on full 0-3. The smoke's
+non-nested purities (P01-P03, full 0, one setting) were 0.22-0.53; the prediction and the 0.70 stop rule stay as written.
