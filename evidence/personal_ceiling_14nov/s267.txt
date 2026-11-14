@@ -1,0 +1,6 @@
+ftpl dir: runs/personal_ceiling_leo
+S267 dir runs/personal_ceiling_s267; chain 79.95; filt, w 0.5, six orders; level | gain [80 % people x orders] people up | P04 P10
+  S1 sinc x 4 seeds             79.82 | -0.13 [-0.95, +0.65]  5/10 | P04 -2.03 P10 +0.98
+  S2 sinc+fb+fbl x 2            81.48 | +1.53 [+0.88, +2.18]  8/10 | P04 -0.49 P10 +3.40
+  S3 4 families x 2             81.14 | +1.19 [+0.60, +1.81]  8/10 | P04 -0.32 P10 +3.16
+  S2 - S3 (vs S3 as base)       81.48 | +0.34 [+0.19, +0.50]  9/10 | P04 -0.17 P10 +0.24

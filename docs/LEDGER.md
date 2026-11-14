@@ -7839,3 +7839,20 @@ Zero-change: stub gate (correct person, r = 1 from window 0) through the new pat
 - **Rule:** (b) needs >= +0.3 with the people interval above 0, >= 6/10 up and the check passing: none holds -> **shipped weights stay**. (a) recognises 8/8 (>= 5 required), so the gate's recall does not become the lever.
 - **Transfer line** for the shipped routed path (not for tuning): +4.80 x 0.64 x recall 1.0 x 0.434 x 0.41-0.7 = +0.55 to +0.93 sealed J.
 - **Limits, plainly:** same-session gallery (recognition optimistic; cross-session only P04 / P10); v3 half of v4.1 not applied; wrong-person routes zeroed (none in own sessions); false-route harm unscored; the gate's t0 = 10 counts online windows only; proxy optimism (s262 limit 1) carries over; 0.64 transfer for the eight assumed.
+
+**§265 V3 RESULT (15 Nov 00:0x CET; score265.py v3, V3 dir runs/personal_ceiling_v3_leo = Leonardo jobs 64493421/22, seeds 2-3 with the 16 base files = 4 seeds per family; Galvani copies 3103487 / 3103514 not used, never mixed).** Evidence evidence/personal_ceiling_14nov/s265.txt. Six orders, chain 79.95, filt form:
+c x bE^1 +0.95 [+0.12, +1.82] 7/10 (P04 -1.58, P10 +4.09) against +0.83 with 2 seeds, i.e. +0.12; prediction +0.2 over the 2-seed form: hit within its noise (undecided, not a seed-count effect worth a rule). c x bE^0.5 +1.29 [+0.62, +1.98] 7/10 (P04 -0.26, P10 +3.54); w 1.5 +0.54. Leave one family out (w 1): without fbraw +1.44 8/10, without fb +1.16 8/10, without fbl +0.43, without sinc -0.28: same pattern as V1. Single families -1.0 to -2.8. Run-split ceiling only; V2 above is the deployable reading.
+
+**§267 RESULT (15 Nov 00:0x CET; fresh seeds 4-7, Leonardo 64493618/19, runs/personal_ceiling_s267, w fixed 0.5, six orders; evidence/personal_ceiling_14nov/s267.txt).** The smoke 64493611 was still pending when the arrays went out; the s267 path had no separate smoke, its first tasks ran without error and wrote all 20 files; seeds 4-7 were asserted not to collide.
+| set | gain over the chain [80 % people x orders] | people up | P04 | P10 |
+|---|---|---|---|---|
+| S1 sinc x 4 seeds | -0.13 [-0.95, +0.65] | 5/10 | -2.03 | +0.98 |
+| S2 sinc+fb+fbl x 2 | +1.53 [+0.88, +2.18] | 8/10 | -0.49 | +3.40 |
+| S3 four families x 2 | +1.19 [+0.60, +1.81] | 8/10 | -0.32 | +3.16 |
+| S2 - S3 | +0.34 [+0.19, +0.50] | 9/10 | -0.17 | +0.24 |
+Predictions: S3 +0.9 (+0.2 to +1.6): hit (+1.19, above the centre). S2 - S3 +0.2 (-0.3 to +0.6): hit (+0.34). S1 +0.3 (-0.6 to +1.0): hit (-0.13; sinc alone does not carry it, the family mix does).
+**Rule fires on both branches:** S2 >= +0.8, interval above 0, 8/10 -> the family set and w 0.5 are fixed for the V2 rerun; S2 - S3 >= +0.3 with the interval above 0 -> fbraw dropped. Run-split ceiling on fresh seeds: +1.2 to +1.5 at w 0.5, P04 negative in all sets (-0.3 to -2.0), P10 carries a large share (+3.2 to +3.4); neither decides.
+
+**§267 branch: V2 with the S2 set at w 0.5 (15 Nov; score265.py v2s2, the existing V2 Leonardo files seeds 0/1, no new training; evidence/personal_ceiling_14nov/s267_v2s2.txt).** Note: §265's V1+V2 RESULT called this branch void before §267 read out; §267's rule pre-registered it, so it runs. Same windows (position >= 120), same r15 chain (81.35), families sinc + fb + fbl x 2 seeds = 6 nets; the refactored v2 reproduces the 4-family c x bE -1.23 exactly.
+c x bE^0.5 **+0.03 [-0.65, +0.67] 7/10** (P04 -0.11, P10 +0.70); per scheme within -0.94, full -0.11, runs +1.14. c x bE^1 (reference) -0.67 [-1.60, +0.24] 5/10 (P04 -1.59, P10 +0.51). bE alone 76.87 (-4.49).
+**Verdict by §265's V2 rule (>= +0.5 with interval above 0 -> causal sketch; 0 to +0.5 undecided; < 0 recorded): +0.03 is in 0 to +0.5, undecided (interval spans 0, inside the dev noise).** The S2 set at w 0.5 removes about 1.3 of V2's loss (-1.23 -> +0.03) but does not give a gain; no causal sketch is triggered. Gain only under the runs scheme (+1.14), as before. Not run: t = 80 / t = end-40 forms (§265's one-more-form clause for the undecided band), which stay open.

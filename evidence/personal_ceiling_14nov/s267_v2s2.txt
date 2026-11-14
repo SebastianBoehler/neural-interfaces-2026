@@ -1,0 +1,12 @@
+ftpl dir: runs/personal_ceiling_leo
+V2 S2 set dir: runs/personal_ceiling_v2_leo; families ('sinc', 'fb', 'fbl')
+V2 S2 set delivery prefix t=120 (windows from position 120 on): chain 81.35; 6 orders x 6 nets
+  bE                            76.87 | -4.49 [-5.79, -3.11]  1/10 | P04 -5.11 P10 -3.67
+  c x bE^0.5                    81.38 | +0.03 [-0.65, +0.67]  7/10 | P04 -0.11 P10 +0.70
+  c x bE^1.0                    80.68 | -0.67 [-1.60, +0.24]  5/10 | P04 -1.59 P10 +0.51
+    scheme within: c x bE^0.5 -0.94
+    scheme full: c x bE^0.5 -0.11
+    scheme runs: c x bE^0.5 +1.14
+    scheme within: c x bE^1.0 -1.84
+    scheme full: c x bE^1.0 -0.74
+    scheme runs: c x bE^1.0 +0.57

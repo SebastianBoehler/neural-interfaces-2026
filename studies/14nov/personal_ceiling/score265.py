@@ -46,28 +46,31 @@ def v1(dirs=(LEO,), tag="V1"):
     print("  n files per cell:", fam_probs(dirs, form, FAM, orders[0], *[(s, n) for s, n, t in P.PAIRS][0])[1])
 
 
-def v2():
-    CH, LAB, PA = P.load(); d2 = need("S265_V2_DIR", 8, "ftd_*_s*.npz"); Z = [np.load(f) for f in sorted(glob.glob(str(d2 / "ftd_*_s*.npz")))]; assert len(Z) == 8, len(Z); print("V2 dir:", d2)
-    orders = P.SIX; ch = np.load(S.REPO / "runs/causalpers/chain.npz"); sess = S.sessions(P.m); res = {}
-    for k in ("chain", "bE", "c x bE"):
-        res[k] = np.zeros((len(orders), 10))
+def v2(fams=FAM, ws=(1.0,), tag="V2"):
+    """delivery-prefix nets of the families fams (files ftd_<fam>_s<seed>.npz); c x bE^w for each w; windows from position 120, same chain"""
+    CH, LAB, PA = P.load(); d2 = need("S265_V2_DIR", 8, "ftd_*_s*.npz"); fs = [f for fam in fams for f in sorted(glob.glob(str(d2 / f"ftd_{fam}_s*.npz")))]
+    Z = [np.load(f) for f in fs]; assert len(Z) == 2 * len(fams), len(Z); print(f"{tag} dir: {d2}; families {fams}")
+    orders = P.SIX; ch = np.load(S.REPO / "runs/causalpers/chain.npz"); sess = S.sessions(P.m); keys = ["chain", "bE"] + [f"c x bE^{w}" for w in ws]; res = {k: np.zeros((len(orders), 10)) for k in keys}
     for i, o in enumerate(orders):
         pos = ch[f"{o}|pos"]; per = {k: {} for k in res}
         for s in sess:
             idx = Z[0][f"D|{s}|{o}|idx"]; assert all((z[f"D|{s}|{o}|idx"] == idx).all() for z in Z) and (pos[idx] >= 120).all()
             pb = np.mean([z[f"D|{s}|{o}|p"] for z in Z], 0); sc = lambda Q: S.cell_score(P.m, idx, Q)  # noqa: E731
-            r = {"chain": [], "bE": [sc(pb)], "c x bE": []}
+            r = {"chain": [], "bE": [sc(pb)], **{f"c x bE^{w}": [] for w in ws}}
             for c in CH[o]:
-                r["chain"].append(sc(c[idx])); r["c x bE"].append(sc(S.fuse(c[idx], pb)))
+                r["chain"].append(sc(c[idx]))
+                for w in ws:
+                    r[f"c x bE^{w}"].append(sc(S.fuse(c[idx], pb ** w)))
             for k in res:
                 per[k].setdefault(s[:3], []).append(np.mean(r[k]))
         for k in res:
             res[k][i] = [np.mean(per[k][p]) for p in S.PEOPLE]
-    b = res["chain"]; print(f"V2 delivery prefix t=120 (windows from position 120 on): chain {P.wmean(b, orders).mean():.2f}; 6 orders x 8 nets")
-    for k in ("bE", "c x bE"):
+    b = res["chain"]; print(f"{tag} delivery prefix t=120 (windows from position 120 on): chain {P.wmean(b, orders).mean():.2f}; 6 orders x {len(Z)} nets")
+    for k in keys[1:]:
         report(k, res[k], b, orders)
-    for sc_ in ("within", "full", "runs"):
-        ix = [j for j, o in enumerate(orders) if o.startswith(sc_)]; g = (res["c x bE"][ix] - b[ix]).mean(); print(f"    scheme {sc_}: c x bE {g:+.2f}")
+    for k in keys[2:]:
+        for sc_ in ("within", "full", "runs"):
+            ix = [j for j, o in enumerate(orders) if o.startswith(sc_)]; g = (res[k][ix] - b[ix]).mean(); print(f"    scheme {sc_}: {k} {g:+.2f}")
 
 
 def s267():
@@ -82,4 +85,4 @@ def s267():
 
 
 if __name__ == "__main__":
-    {"v1": v1, "v2": v2, "v3": lambda: v1((LEO, need("S265_V3_DIR", 16, "ftpl_*_s[23]_g*.npz")), "V3 (4 seeds)"), "s267": s267}[sys.argv[1]]()
+    {"v1": v1, "v2": v2, "v3": lambda: v1((LEO, need("S265_V3_DIR", 16, "ftpl_*_s[23]_g*.npz")), "V3 (4 seeds)"), "s267": s267, "v2s2": lambda: v2(("sinc", "fb", "fbl"), (0.5, 1.0), "V2 S2 set")}[sys.argv[1]]()
