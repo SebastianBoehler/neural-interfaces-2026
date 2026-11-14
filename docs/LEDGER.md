@@ -4856,3 +4856,16 @@ hand edits, block gains, a 60-step Weco search. None passed. Old code is in 3006
   all 126 splits) whose evaluation is the shuffled chain over several orders. Weco may be the optimiser, with the cost
   per step stated. Any survivor must be expressible as changed weights only, riding on the checked package with a
   weights-file change and the identity checks.
+- **§207 amended (00:28 UTC, coordinator: the user asked for an actual attempt; bars are reading aids).** Stage 2
+  runs on the two components with the highest leverage whatever stage 1 shows, unless every component is at zero within
+  noise. Reachable points are reported next to leverage, so the product is visible.
+  - **Edit family 1 (exact, CPU):** final-layer edits. W' = A·W, b' = A·b + c with a 3×3 A whose rows sum equally, so the
+    edit acts on the output logits as z' = A·z + c. It is computable from the outputs already re-streamed in delivery
+    order: core1's head, a SessionBN family's classifier layer, the eye and rest nets' output layers. A and c are fitted
+    leave-one-person-out (the held-out person never enters its own edit), objective: the component's own accuracy.
+  - **Edit family 2 (what §188/§196 found to matter):** the same final-layer form with the objective changed to the
+    error correlation with the rest of the mix and the within-run error streaks.
+  - **Edit family 3, input-layer drift edit, eye net:** down-weight first-layer inputs whose features drift within
+    sessions on training people. It needs the eye net's weights and a CPU re-stream.
+  - Families 2 and 3 run for the eye net and one SessionBN family.
+  - If the best product is small, it is reported with its number; the user decides whether a search is worth its cost.
