@@ -7384,3 +7384,14 @@ Fusion w 0.5 on session delivery positions >= 20, gated filter via the stack/sco
 arms na and sB40, twin na for the joint cost; tttssl.run unchanged, scored by score.py FORMS=twin,C10. Run time: causal.py time on
 an A100 and on a 2080, first fold of P01, one-epoch nets (run time does not depend on training), per session. Smoke: both scripts ran on the Mac
 (one fold, one epoch).
+
+### 257. COST OF CAPPING FINE-TUNING REFITS (written 14 Nov 18:08 UTC, before any result; coordinator, insurance for A100 time slack)
+Mechanism: the package can stop fine-tuning refits after window N and keep the last net (build6 --cap N; A100 worst-case
+slack 1.37x now, about 1.50x at N 150, 1.74x at N 100). ftrel.py CAPS=100,150,250 derives r15c<N> from the SAME r15 run:
+identical to r15 before the first refit at or after N (asserted in the smoke), then the frozen net predicts block by block
+from the prefix (SessionBN causal, as r15). Tag ttt18<order>LPC (the candidate's LP files are not touched); the uncapped r15
+of the same run is the reference. Orders within0-3, full0-1, runs0-1 (8), new people, the full candidate system (shufcombo
+FT_V=r15c<N> and r15, SAVE_OUT, then the gated count filter), people-and-order intervals.
+Prediction: cost (capped + filter minus uncapped + filter) N 250 -0.02, N 150 -0.08, N 100 -0.15 (refits after window 100
+touch about a third of each session's windows; r15's whole gain is +0.10).
+Report: the cost per N; no pass rule (a reading for the time-slack decision).

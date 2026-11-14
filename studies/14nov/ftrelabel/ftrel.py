@@ -10,7 +10,7 @@
 All arms take the as-emitted labels from relab_v6r_<order>.npz (today's v6 chain, s214 fix in), not the 13 Nov chain_v6r.
 Weights instead of drawn batches: the same expected gradient, the prefix forward (SessionBN statistics, KL anchor) and the
 cost unchanged. New people only (all_loso); shufcombo scores only those. Tag ttt18<order>RP (probs18), same file format.
-Usage (Galvani): [KIND=v51b ARMS=s15,r15 DRAW=1] SCHEME=within PSEED=0 python studies/14nov/ftrelabel/ftrel.py TASK | smoke"""
+Usage (Galvani): [KIND=v51b ARMS=s15,r15 DRAW=1 CAPS=100,150,250] SCHEME=within PSEED=0 python studies/14nov/ftrelabel/ftrel.py TASK | smoke"""
 import copy, importlib.util, os
 from pathlib import Path
 import numpy as np
@@ -29,7 +29,9 @@ assert T7.TAG == f"ttt18{ORD}{f'd{DRAW}' if DRAW else ''}{SFX}" and T7.DRAW == D
 S15 = T18.SWEEP["s15"]; assert S15 == (5, 10, 1e-3, "all", 1.0, "hard", True, 1, True, 20)
 MODE = {"s15": (False, None), "r15": (True, None), "e15": (False, "t"), "b15": (True, "t"), "q15": (False, 20)}  # (relabel, budget)
 ARMS = os.environ.get("ARMS", ",".join(MODE)).split(","); assert "s15" in ARMS and set(ARMS) <= set(MODE), ARMS  # s229: ARMS=s15,r15
-T7.VARS = {v: S15 for v in ARMS}; T7.TAG += "P"; T7.SMOKE_OUT = f"smoke_ftrel{ORD}"
+CAPS = [int(c) for c in os.environ.get("CAPS", "").split(",") if c]  # s257: r15 with refits stopped at window N (last net kept), from snapshots of the same run
+assert not CAPS or "r15" in ARMS, "CAPS derive from the r15 arm"
+T7.VARS = {**{v: S15 for v in ARMS}, **{f"r15c{c}": S15 for c in CAPS}}; T7.TAG += "P" + ("C" if CAPS else ""); T7.SMOKE_OUT = f"smoke_ftrel{ORD}"
 RZ = np.load(RELAB); TG = RZ["tgrid"]; REL, POS = RZ["relab"], RZ["pos"]
 assert (TG[0], TG[1] - TG[0]) == (S15[9], S15[1]), f"label file grid {TG[:2]} is not s15's refit grid"
 EMIT = RZ["all_loso"]  # the label chain as emitted, from the same run as REL (all arms share one chain; see relabel.py)
@@ -62,9 +64,17 @@ def stream(m, X, Pc, seed):
         base = torch.softmax(net(X)[:, :3].double(), 1).cpu().numpy()
     out = {"base": base, **{v: base.copy() for v in T7.VARS}}
     for v, (steps, every, lr, scope, lam, form, warm, views, gpu, t0) in T7.VARS.items():
-        rel, budget = MODE[v]; ds = seed + 1000 * DRAW; torch.manual_seed(ds); net2 = None; vis = np.zeros(n)
+        if v not in MODE:  # s257: capped variants are filled inside the r15 loop
+            continue
+        rel, budget = MODE[v]; capd = {c: False for c in CAPS} if v == "r15" else {}; ds = seed + 1000 * DRAW; torch.manual_seed(ds); net2 = None; vis = np.zeros(n)
         gen = torch.Generator(device=dev).manual_seed(ds)
         for t in range(t0, n, every):
+            for c in [c for c, d in capd.items() if not d and t >= c]:  # first refit at or after N: keep the last net from here on
+                out[f"r15c{c}"][:t] = out[v][:t]; assert net2 is not None, "cap before the first refit"
+                with torch.no_grad():  # frozen net, predicted block by block from the prefix (SessionBN causal, as below)
+                    for tt in range(t, n, every):
+                        hh = min(n, tt + every); out[f"r15c{c}"][tt:hh] = torch.softmax(net2(X[:hh])[:, :3].double(), 1).cpu().numpy()[tt:hh]
+                capd[c] = True
             P = R[:t, (t - TG[0]) // (TG[1] - TG[0])] if rel else em[:t]; assert np.isfinite(P).all(), (v, t)
             lab = torch.from_numpy(P.argmax(1)).to(dev); wpl = torch.from_numpy(P.max(1)).float().to(dev)
             if budget is not None:
@@ -86,11 +96,16 @@ def stream(m, X, Pc, seed):
             hi = min(n, t + every)
             with torch.no_grad():
                 out[v][t:hi] = torch.softmax(net2(X[:hi])[:, :3].double(), 1).cpu().numpy()[t:hi]
+        for c in [c for c, d in capd.items() if not d]:  # s257: session ended before window N: the capped output is r15's
+            out[f"r15c{c}"] = out[v].copy()
     if CHECK:  # smoke: the control must equal ttt7.stream's s15 on the same session
         vv = T7.VARS; T7.VARS = {"s15": S15}; ref = STOCK(m, X, em, seed); T7.VARS = vv
         dd = np.abs(ref["s15"] - out["s15"]).max(); print(f"control s15 vs ttt7.stream: max diff {dd:.2e}", flush=True); assert dd < 1e-4, dd
         for v in [a for a in ARMS if a != "s15"]:
             print(f"{v}: max change vs control {np.abs(out[v] - out['s15']).max():.3f}", flush=True)
+        for c in CAPS:  # s257: identical to r15 before the cap, frozen after it
+            k = min(c + (-(c - 20)) % 10, len(X)); dd = np.abs(out[f"r15c{c}"][:k] - out["r15"][:k]).max()
+            print(f"r15c{c}: max diff to r15 before window {k} {dd:.1e}; after {np.abs(out[f'r15c{c}'][k:] - out['r15'][k:]).max() if k < len(X) else 0:.3f}", flush=True); assert dd < 1e-9, dd
     return out
 
 
