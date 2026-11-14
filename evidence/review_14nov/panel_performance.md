@@ -163,3 +163,65 @@ package should also calibrate itself: read `len(os.sched_getaffinity(0))` and ti
   only worker calibration available.
 - **Upload 2:** upload 1 plus whichever of P2 and P3 passed dev under all three shuffle schemes, at ≤ 40 minutes on the
   calibrated worker. If neither passes, do not spend it on speed alone.
+
+## Round 2
+
+Withdrawn: the process-level budget and my process-age clock (round 1, section 4). Both cross the session boundary.
+
+### (a) A run-time guard that lives inside one session
+
+- **Primary, deterministic:** bound the work, not the time. Each refit uses a fixed batch (at most 128 windows: the
+  newest plus an even sample of the prefix), every 10 windows. Cost per window is then constant, and the total depends
+  only on the window count, not on session lengths or order.
+- **Backstop, session-local clock** started in `reset_state`: additions run only while
+  `elapsed ≤ A × windows_so_far + one refit of credit`. Over it: lengthen `every` (10 → 20 → 40), then freeze for the
+  rest of that session. Nothing is kept afterwards.
+- **A = 149 ms**: (3,300 s target − 300 s allowed for setup) / 20,083 windows. v5.1b's sealed pace was 64 ms per
+  window; v6.2 today is about 123 (190 windows) to 141 (378).
+- **It bounds:** total predict time ≤ 149 ms × 20,083 ≈ 49.9 min, plus one refit of credit per session (106 × ≤ 0.8 s
+  ≈ 1.4 min), for any mix of session lengths and with the same treatment of every session.
+- **It cannot bound:** time outside `predict` (setup, loader, about 0.3 s of copy and load per session); a worker more
+  than about 1.8× slower than on 12 Nov, where the frozen path alone exceeds A; a single hung call; a sealed set that
+  is not 20,083 windows.
+- **Trap:** the first session's one-off 65 s warm-up would freeze that session. Run a synthetic refit in `load_model`.
+- **Check:** with the guard inert the package must equal the unguarded v6.2 bitwise on CPU.
+
+### (b) Cost and traps of the others' top proposals
+
+| Proposal | ms per window | Trap |
+|---|---|---|
+| Run-level count filter (1) | about 0.1 (169-state forward step, log space) | An exact urn zeroes a class after one wrong boundary or lost window: keep the soft floor. Gates and fine-tuning labels must keep reading the unfiltered posterior. Latch the detector; default off |
+| Run-offset removal (2) | 0.1–0.2 (recompute offsets over stored views; change-point from core1's band variances, already computed) | The gates and personal heads read the same 256-PC view: subtract only on the copy the template stages get, once, upstream of all four tails |
+| Eye regression out of members (4) | about 0.05 | Not a run-time problem. Every member, PC basis, gallery and personal head must be rebuilt, and two versions of the window are in flight (eye net and SessionEM need the raw one) |
+| Episodic retraining (7) | 0 | Exports must keep the fingerprinted FIR bank and the StreamBN prior; the family weights sit on a sharp optimum, so match the mix's sharpness or re-tune |
+| Transductive objective (8) | 1–2 at 16 dimensions, refit every window | Hard Sinkhorn balance on a short prefix forces errors: relax the marginal by about √t and work in the log domain. Gates must keep v5.1b's shadow |
+
+### (c) The freed 30 minutes
+
+None of these needs them: all cost under 2 ms per window (0.5 sealed minutes). Spend 3–6 minutes on all-seed
+fine-tuning if it passes; keep the rest as slack. With the process clock gone, slack is the only protection against
+a slower worker.
+
+### The six points
+
+1. **Attack: eye regression out of the members (4).** It fails on integration, not mechanism: no parity anchor
+   survives, and it cannot be replayed on the worker image by 20 Nov.
+2. **Support: the run-level count filter (1), above my own.** A last stage with a bitwise off-switch, +0.68 with true
+   run ids. It works if boundaries come from position plus change points and the items in the table hold.
+3. **Conflicts.**
+   - A: proposals 1 and 2 need the same run-boundary estimator; build it once. Settle with true run ids in the real
+     chain, each alone and together (CPU, 1–2 hours).
+   - C: statistics found one SessionBN seed set equals three in the chain. That is about 20 forwards to drop.
+   - D: not my field; ship it as a weights switch so it can be removed without a rebuild.
+   - E: upload now, after the clock is replaced. Its run time is the only calibration.
+4. **Merged ranking** (dev, new people unless stated; tests in this order):
+   1. Run-count filter with detector: +0.3 to +0.6 if runs are contiguous.
+   2. Run-offset removal: +0.2 to +0.6; same harness.
+   3. Person-specific route strength (10): returning +0.3 to +1.0; CPU.
+   4. Episodic retraining (7): +0.2 to +0.6; start training today, it is the long pole.
+   5. Cheap fine-tuning and all seeds (11): +0.2 to +0.35. I cut my relabelling to 0 to +0.2 after the ML expert's
+      reading of §142.
+5. **Combination.** 1 + 2 + the scheme detector share one estimator; expect about 1.3× the larger gain, not the sum.
+   Do not combine 4 with anything this week: it invalidates the stored outputs the other tests use.
+6. **Odds of 0.831:** next upload about 5 %; last upload about 15 % if the filter passes and runs are contiguous,
+   otherwise about 8 %.

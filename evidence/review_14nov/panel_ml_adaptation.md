@@ -145,3 +145,63 @@ equivalent data check is the cheap regression of section 3.
 **Validation rules I would hold to:** one primary endpoint (new people without P10, mean over the three shuffle
 schemes, person-paired interval); nested people halves for every chosen constant; replication on a second draw and
 on the harness; halve any gain that was the best of many arms.
+
+## Round 2
+
+**The run urn changes my view, at run level only.** My "at most +0.2" holds for the session and the cell (the
+statistician's own table: +0.06 to +0.29). For the run I was wrong: I compared a plug-in count estimate with the
+urn's signal, while an exact filter integrates over the counts and binds hard in the last windows of each run. I
+re-ran their filter with wrong run membership (final posteriors computed in recording order, three bases, three
+permutations, new people; script
+`/private/tmp/claude-501/-Users-sebastianboehler-Documents-GitHub-neural-interfaces-2026/ca8951cd-9c0d-4449-8fa2-f0de43144db9/scratchpad/mlr2/noisyrun.py`):
+
+| Full shuffle: share of windows in the wrong run | 0 % | 10 % | 25 % | 50 % | random groups |
+|---|---|---|---|---|---|
+| Gain | +0.78 | +0.57 | +0.32 | +0.01 | −0.22 |
+
+| Within-run shuffle: boundaries | true | off by ±2 | off by ±5 | 36/36/30×4 by position | six equal blocks |
+|---|---|---|---|---|---|
+| Gain | +0.85 | +0.65 | +0.42 | +0.41 | +0.53 |
+
+- Contiguous runs: position alone keeps about half, a change-point step most of it.
+- Full shuffle: the measured clustering purity (0.36 to 0.52) is worth nothing, and a wrong urn costs. It needs about
+  75 % purity for +0.3.
+- Relation to my proposal 8: the balanced E-step is the same constraint, relaxed and at session level; their offline
+  equal-count assignment per run is exactly balanced transport per run. Proposal 1 is the causal, exact, output-level
+  form and is the better one. Proposal 8 would add only the feedback into the templates, and the BCI check
+  (whole-session soft fitting collapses; the leak-free geometry ceiling is 76.4) cuts that to 0 to +0.3. I withdraw 8
+  from my top five.
+
+**1. Attack: proposal 2 (run offsets).** The +3.0 is with true class templates, where only noise is left to remove.
+With pseudo-labelled templates the binding error is template bias, which centring does not touch: the same step gives
++0.7 on the population LDA, and the neuroscientist's oracle per-run standardisation gives nothing. It also needs run
+membership per window from the start of each run, the regime my table shows is fragile.
+
+**2. Support: proposal 1 (run count filter)**, above both of mine. It works if delivery is block-contiguous,
+boundaries are inferred jointly with the counts to within about ±2, and it stays off under a full shuffle.
+
+**3. Conflicts.**
+- A: the run matters as label design (measured, robust to moderate membership error); as a feature offset it is
+  unproven in the chain. Settle with one CPU table: true run ids, filter and centring, 2 × 2, in the real stages.
+- B: I side with neuroscience. Shared signal between views is the conditional dependence that co-training theory says
+  kills the gain. Test: their shufrun arm under full shuffle.
+- C: my re-ranking stands (nets 72.0, tangent model 69.0 after balancing), but the statistician is right that no
+  variance is left; I cut proposal 7 to +0.2 to +0.6. Test: regress recorded chain deltas on post-balance accuracy.
+- D: the urn gives chance without EEG, unlike cue order, and the session balance already in use is the same kind of
+  knowledge. Declare it; asking the organisers costs nothing.
+- E: upload by 16 Nov. The board keeps the best score, and new-person transfer has never been measured.
+
+**4. Merged top five, in test order.**
+1. Proposal 1 with the scheme detector: +0.4 to +0.6 under blocks, 0 under full shuffle. CPU, today.
+2. Proposal 10, personal-route strength per person, checked on external multi-session corpora (12): returning +0.3
+   to +1.0.
+3. Proposal 7, launched in parallel on GPU: +0.2 to +0.6.
+4. Proposal 5, eye-view weight per session, oracle first: +0.3 to +0.8.
+5. Proposal 11, cheap fine-tuning on all seeds: +0.1 to +0.3, and it protects the run time.
+
+**5. Combination.** Proposals 4 and 5 are more than additive: a label-free weight from cross-view agreement is valid
+only if the views err independently, which 4 provides. Do not feed the run filter's output back into templates or
+fine-tuning labels while membership is inferred; a wrong urn then trains the session model.
+
+**6. Odds of 0.831.** Next upload (measured candidate, filter only if it passed): about 8 %, or 15 to 20 % if delivery
+is block-contiguous and the filter is in. Last upload: about 20 %.

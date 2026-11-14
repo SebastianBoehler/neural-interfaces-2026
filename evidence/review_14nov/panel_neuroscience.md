@@ -221,3 +221,59 @@ proposal 1 drops to last and proposal 2 leads.
   lines in the stages with no run-time cost. Proposal 1 only if the whole chain was rebuilt on the new features and
   scored with stages and routing, because it changes core1, the TSEM basis and the personal heads at once. If
   nothing passes, upload A's design with the best-measured fine-tuning form and keep the slot's risk low.
+
+## Round 2
+
+Read: the BCI, ML and statistics answers in full; the performance answer and the three reviews only through the
+digest. Nothing new was run.
+
+**1. Attack: proposal 3 (interface × run type as an additive latent).** The context effect is not additive: oracle
+standardisation per interface × run type moved my models by +1 at most, and a model from one interface still loses
+3 to 6 points on the other. The latent is also unreadable: 59 % across people, 58–60 % by clustering, and §103b's
+oracle lost 0.41. For the same reasons I withdraw my own round-1 proposal 5.
+
+**2. Support: proposal 1 (run-level count filter), above all of mine.** It is the only measured view whose errors
+are independent of the EEG by construction (+0.68, 9 of 10 people). What it needs is run membership. Under
+contiguous delivery the 20–58 Hz profile gives boundaries (run identity is 73–76 % readable with labels). Under a
+full shuffle my clustering reached ARI 0.1, so it must stay inert there.
+
+**3. Conflicts.**
+- **A. Both measurements are right; they test different classifiers.** Run offsets are real and live above 13 Hz,
+  where class information is absent. A discriminative model ignores those directions: my population models did not
+  move, the BCI expert's population LDA gained only +0.7, my own-label models +1. A Gaussian template with a
+  near-identity metric cannot ignore them, hence +3.0 on true templates. So proposal 2 is a template-stage lever,
+  and it overlaps with proposal 9 (a metric that knows run variance) more than with mine. My second claim is
+  separate and stands: per-run centring left the run clustering of errors unchanged (2.10 → 2.04), so that part is
+  behaviour. **Deciding check:** the BCI expert's own kill test (true run ids in the real stages, three schemes)
+  with one added column, the run-clustering ratio before and after. Gain ≥ +0.4 with the ratio unchanged means both
+  hold, and proposals 1, 2 and 6 add: 1 acts on label counts, 2 on the metric, 6 on which trials teach.
+- **B.** Unchanged. The ML expert's "cluster assumption fails" agrees with me in other words: the eye code exists
+  per person (0.66 with own labels) but not in the population (0.47). Check: shufrun under the full shuffle, and
+  the within class × run correlation of the eye net with the member mix.
+- **C.** I side with the ML expert. With half the people lacking a rhythm, nets on raw traces can use slow and
+  ocular waveforms that covariances discard. His regression on post-balance accuracy settles it in minutes.
+- **D.** Session balance is already used and is worth 6 points; the run urn differs in degree, and it scores chance
+  without EEG. It is still label design, the family the organisers acted against. Ask them in one sentence, and
+  declare it in the write-up either way.
+- **E.** Upload the measured candidate on 16 or 17 Nov, after the day-1 checks below. New-person transfer has never
+  been observed, and the board keeps the best score.
+
+**4. Merged ranking (gain for new people unless stated).**
+
+| Rank | Proposal | Gain I now believe | Test order |
+|---|---|---|---|
+| 1 | 1, count filter with scheme detector | +0.3 to +0.6 if runs are contiguous, 0 otherwise | Day 1, CPU |
+| 2 | 2, run offsets in the template views | +0.3 to +0.8 if contiguous | Day 1, same replay |
+| 3 | 10, person-specific strength of the personal route, with my eye-view weight stored per known person | returning +0.3 to +1.0 | Day 2, CPU |
+| 4 | 4, eye signal enters once | +0.2 to +0.6 | Day 1 correlation check, day 2 rebuild |
+| 5 | 7, nets trained inside the adaptation | +0.3 to +0.8 | GPU in parallel from day 1 |
+
+Proposal 6 costs minutes to kill (chain accuracy by tercile of p_rest); run it on day 1 beside the others.
+
+**5. Combination.** Proposals 4 and 5 are worth more together: weighting the eye view up to three times is safe
+only once core1 no longer carries the same eye signal, otherwise the weight multiplies the double counting. Do not
+combine 6 with 1 at the decision: a lapse trial still takes a ball from the urn, so compliance weights may touch
+learning only.
+
+**6. Odds of 0.831.** Next upload: about 10 % (the candidate sits near 0.826, third place is moving). Last upload:
+about 20 %, and only if the stream is block-contiguous or the returning route gains.

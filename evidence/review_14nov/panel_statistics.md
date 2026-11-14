@@ -235,3 +235,58 @@ as a spare.
 - **Honest odds:** third place (0.831 today, moving) needs about +1.2 sealed, which is +2.5 to +3 on dev at the
   transfer seen so far. The levers measured to date do not add up to that. Only the returning route or a run-level
   mechanism under a block scheme can close it.
+
+## Round 2
+
+**1. Attack: the domain-conditional session model (3).** The latent cannot be identified. A single window gives the
+interface at 59 % and the run type at 52 %; with the interface given, the cell urn adds +0.2 and the team's oracle
+interface arms gave −0.4 to 0. The run is the unit, and only where the stream shows it.
+
+**2. Support: the external-population harness (12).** I rank it above my filter. Ten people cannot rank a +0.5
+change, and the returning route (43 % of cells) is tuned on two. It must stay class-agnostic, copy the session shape
+(about 190 windows, balanced runs), serve first as a kill filter with rules written beforehand, and cost one day.
+
+**3. Conflicts.**
+- **A.** My filter does not depend on the answer: it uses label counts, not signal offsets. BCI's +3.0 needs true
+  templates (+0.7 on the population model), neuroscience's null used standardisation. Both can hold. Settle it with
+  true run ids in the real stages, a 2 x 2 of offsets and filter, three schemes, one CPU run.
+- **C.** Compatible. The division is a bias correction, so members should be ranked after it (ML); seed variance is
+  gone (mine). ML's regression of chain deltas on post-balance accuracy settles it in minutes.
+- **D.** The organisers objected to labels predicted without EEG. Test: feed the method uniform posteriors. Cue order
+  scores above chance; the count filter is at chance by symmetry (argued, not run). It is the prior the uploaded packages already use,
+  applied to a block the EEG itself identifies. It is still their call, and a disqualification costs more than
+  +0.3. **Ask first; ship without it if unanswered.** Question: "Our method uses a class-balance prior
+  on its own EEG predictions; with the EEG removed it is at chance and it uses no position. May the prior apply
+  within a recording block when the method recognises blocks from the signal?" Write-up: "transductive class-balance
+  prior over blocks of windows that the EEG groups into one run; uninformative without EEG evidence." BCI's offset
+  removal rests on the same fact, so one question covers both.
+- **E.** Upload the measurement. Holding both slots for a 0.831 forecast leaves the forecast uncalibrated until the
+  last day. Latest date for upload 1: 18 Nov.
+
+**(b) Bugs and delay.** My upload 1 left recognised sessions as v5.1b, so it does not need the +0.9. Make that
+strict: no returning-route change until it is re-scored in the protocol's own order with members re-streamed. Hours
+of delay cost nothing; an unguarded `step62` exception ends the whole evaluation. Forecast for new people only, with person intervals:
+0.57 x (+0.9 to +1.2) x 0.6 to 0.8, about +0.4 (+0.1 to +0.7), 0.824. Reading rule unchanged: above +0.4 the route
+transfers, below +0.1 it does not, between is undecided.
+
+**(c) Interactions.** Offsets and filter share one dependency (run ids from the detector) and act at opposite ends:
+offsets sharpen posteriors before the stages, the urn constrains decisions after. ML's objection (soft counts are
+too noisy) holds for 64 per class and matches my +0.06 to +0.29; at 10 per class the exact filter carries the count
+uncertainty. A prefix-level Sinkhorn step repeats what the division already achieves (74.1 against an offline
+74.25).
+
+**4. Merged ranking (new people unless stated), tests in this order.**
+1. Re-score the returning rows correctly (blocks 10).
+2. Cheap fine-tuning, guard rails, all seeds (11): +0.2 to +0.4.
+3. Detector, then run filter (1): +0.3 to +0.7 in blocks, 0 to +0.2 under a full shuffle. Detector accuracy at
+   windows 40 and 100 first (minutes).
+4. Run offsets (2), same harness: +0.2 to +0.6.
+5. Person-specific strength (10): returning +0.3 to +1.0.
+6. Harness (12), in parallel.
+
+**5. Combination.** Detector + offsets + run filter: more than additive, one shared failure mode (inert under a full
+shuffle). Do not stack prefix Sinkhorn, the division and the urn: one prior counted three times.
+
+**6. Odds of 0.831.** Next upload: under 10 % (the audit's 80 % interval ends at 0.830, and the board moves). Last
+upload: about 20 %, only if a block-scheme mechanism passes and the returning route re-scores positive; otherwise
+10 %. Ahead by a margin: under 10 %.
