@@ -5103,3 +5103,31 @@ GPU runs of the image need Galvani (3100010 / 3100013).
   so the class sequence stays and the temporal neighbourhood of the EEG is destroyed. 3 permutations, six bases, new people.
 - **Reading:** a loss near full's −3.75 means the loss is EEG non-stationarity, which a stage that tracks drift by content
   could recover. A loss near 0 means the stages lean on the class sequence, which a real shuffle removes for good.
+
+**§210 RESULT (14 Nov 07:10 UTC; runs/s210_runoff.txt; true run ids, κ 5, new people, change against the regular file).**
+
+| Views | within 0 / 1 | full 0 / 1 | runs 0 / 1 | mean v6f (v5.1b) | without P10 | people up |
+|---|---|---|---|---|---|---|
+| pc128 + GE | +0.27 / +0.22 | +0.87 / +1.25 | −0.02 / +0.58 | **+0.53** (+0.67) | +0.47 | 9/10 |
+| pc128 only | +0.20 / +0.10 | +0.69 / +0.80 | +0.00 / +0.33 | +0.35 (+0.45) | +0.31 | 8/10 |
+
+- **Passes the kill rule** (+0.4) for both views: the oracle lever is real in the real stages.
+- The gain is largest under full, where true run ids carry the most information the stages otherwise lack. But under full,
+  run membership is not recoverable without labels (panel: purity 0.36–0.52). The reachable part is within and runs,
+  +0.2 to +0.6.
+- Next: the 2 × 2 with the run-level count filter (panel round 2), then inferred boundaries.
+
+**§213 RESULT (07:10 UTC; runs/s213_classseq.log; stages only, members fixed, 3 permutations).** Under classseq, v5.1b's
+stages lose −3.08 (rebal −0.16, SessionEM −1.64, TSEM −3.08), against −3.75 under full. **About 80 % of the full-shuffle loss
+is EEG non-stationarity** (temporally adjacent windows resemble each other), which a content-based stage could in principle
+track. About 0.7 is the class sequence itself, gone for good under a real shuffle.
+
+**Returning-people rows marked (bugs_scoring.md P0-a / P0-b, 07:10 UTC).** Every returning-people number with the eye view
+under shuffle (retv6 arms E / ER / ERF; §183, §190, §198, §199, §201, §203, §206, the v6.2 / v6.2-safe / v6.2hL rows of the
+morning table) is **"eye order mismatched, members as recorded"** until re-scored:
+- (a) ocushuf.py standardised every session in the all_loso permutation and wrote those outputs for seen_session too,
+  while the stages used seen_session's own permutation.
+- (b) retv6 / shufpkg keep core1 as member, the frozen SessionBN part, Hilbert, teacher, GE event rates, pc128 and the gate
+  and personal-head inputs as recorded for returning people. Arm F also lacks the frozen-net re-stream change that
+  shufcombo applies for new people.
+- New-people numbers are unaffected.
