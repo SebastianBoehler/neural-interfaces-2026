@@ -165,3 +165,31 @@ The user asked questions 1, 2 and 4 of section 6. The reply, verbatim:
   delivered windows, without labels.
 - Identity inference and personal models trained offline on public data are allowed.
 
+
+## 8. Earlier answer from the organisers to another participant (Discord, #track-2-bci-decoding, 10 Nov 2026)
+
+Transcribed from the user's screenshots on 14 Nov. The organiser (Arnault H. Caillet) reformulated the participant's
+questions and answered:
+
+1. "Can you confirm that causal, label-free adaptation using the current and earlier windows of the current session is
+   still allowed? Our model recentres on running session statistics and refines itself inside predict, resetting at
+   every session." Answer: "Yes. Your described approach is allowed, provided it uses no future windows or labels, and
+   all session-specific statistics and parameter updates reset between sessions."
+2. "Is recognizing the identity of public participants from sealed EEG alone prohibited? Is this enforced, or does it
+   rely on participants' restraint?" Answer: "The published rules do not explicitly prohibit identity inference from
+   EEG alone, as the data has been anonymized in the first place. They require session-local, causal, label-free
+   processing, with no evaluation-derived state carried between sessions. Finalist implementations are checked during
+   the reproducibility audit though."
+3. "Do sealed participants overlap with public participants, and roughly what fraction of sealed sessions comes from
+   public participants?" Answer: "As stated in the public FAQ, evaluation includes later sessions from participants
+   represented in the public release and entirely new participants. The proportions and detailed allocation remain
+   undisclosed."
+
+What follows for us:
+- The test for any mechanism is: session-local, causal, label-free, no evaluation-derived state carried between
+  sessions. A run-wide clock fails it (removed in v6.2i). A class-balance prior applied within the session passes it
+  on these words; it is still design knowledge, so it is declared in the method write-up.
+- On window order the organisers answered "Without going into details" (section 7). The scope of the shuffle will not
+  be disclosed; the package has to read it from the stream.
+- Finalists are audited for reproducibility: fine-tuning on a GPU must be made repeatable or its spread documented.
+- The 57 % / 43 % split is our inference from an FAQ text that was later withdrawn; the allocation is undisclosed.
