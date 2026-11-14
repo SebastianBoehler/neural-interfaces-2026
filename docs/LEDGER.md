@@ -6820,3 +6820,32 @@ one-day test for the full scheme.
   content neighbourhoods, worth something only if the sealed scheme is full; (3) eye-type view (oracle +3.8, §155; real
   views +0.1 to +0.3); (4) design filter beyond today's (<= +0.3); (5) rest runs / crops (<= +0.2); (6) foundation models (~0);
   (7) evaluation-structure quirks (0).
+### 250. FINGERPRINT RUN RECOVERY UNDER FULL SHUFFLE (written 14 Nov 15:19 UTC, before any result)
+- **Why (§248):** the hardware view (channel correlations 30-58 Hz, log power 45-58 / 48-52 Hz) identifies a window's run at
+  1-NN 0.79 within a session, but unsupervised offline clusters reach purity 0.50-0.55 and keep 48 % / −7 % of the true-run
+  filter gain under full 0 / 1. True runs under full: filter about +1.1 (§238), non-stationarity −3.1 of −3.75 (§213). The
+  current chain's detector-gated filter (§228c) gives 0 under full. This is §248's one-day test.
+- **Metric (offline, public people only):** per held-out person, a run-discriminant projection fitted on the nine others'
+  TRUE runs: hardware features standardised on the nine, PCA, then LDA of between-run (run mean minus session mean) against
+  within-run scatter with shrinkage, scaled so the within-run SD is 1 per direction. Settings grid: PCA 60 / 120, LDA dims
+  8 / 16 / 32, shrinkage 0.1 / 1. The held-out person's runs are read only to score.
+- **Causal online grouping (per session, delivery order, windows <= t, label fixed at arrival, nothing across sessions, no
+  labels):** at most 6 groups per session (the public design: 2 acquisition + 4 online runs). Forms: (G1) sequential MAP in a
+  conjugate Gaussian mixture (within-run covariance I in metric units, run-mean prior around the session's running mean with
+  the training people's between-run variance, CRP weight alpha); (G2) online k-means with a new-group distance threshold
+  (DP-means); (G3) nearest-earlier-window propagation (join the group of the nearest earlier window if its distance is below
+  a threshold, else open a group; at 6 groups, nearest group). Hyperparameters (metric setting, alpha / thresholds) chosen
+  nested: by mean online purity on the nine training people, each scored with a metric fitted on the other eight.
+- **Measured first (full 0-3, new people, mean over sessions):** held-out 1-NN run identity in the metric; offline Ward
+  purity / ARI (k = true run count); online purity, ARI, groups per session and false-merge rate (share of same-group window
+  pairs from different runs), per form, nested choice reported.
+- **Prediction:** metric 1-NN 0.85 (0.75-0.92); offline Ward purity 0.70 (0.55-0.85); online purity of the nested choice 0.60
+  (0.45-0.75), false-merge rate 0.45 (0.3-0.6).
+- **Stop rule (coordinator):** if the nested online purity is below 0.70 on full 0-3, report and stop: no chain scoring.
+- **Chain scoring (only if purity >= 0.70):** groups into the count filter (jointcount.filt_groups, cap 12, τ 2, floor 0.5) on
+  runs/chainout/s242r15_<order>.npz, V6Fr (P0r for reference), six bases, new people, within / runs / full 0-3. Arms: FP
+  (fingerprint groups, always on) against raw; GFP (emit FP until the §228c detector latches, J-wprior/urn from the latch on)
+  against the current gated filter (latchJ). Run offsets with the groups (shufcombo RUNOFF + RUN_IDS) only if the filter passes.
+- **Prediction (if scored):** full FP − raw +0.25 (−0.1 to +0.6); within / runs GFP − latchJ −0.05 (−0.15 to +0.05).
+- **Pass rule (coordinator):** GFP − latchJ >= +0.5 under full 0-3 AND >= 0 under within 0-3 and runs 0-3 (V6Fr, means over
+  orders), with 80 % person intervals reported. Code studies/14nov/fingerprint/, outputs evidence/fingerprint_14nov/.
