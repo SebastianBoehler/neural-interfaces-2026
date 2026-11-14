@@ -4800,3 +4800,25 @@ labels against R: within −0.10, full +0.21, runs −0.03.
     labels): eye/rest/ft/mix6/tail within tolerance, on the CPU and on the A100 with package shapes;
   - `check_v62.py` (recognised sessions) passes as for v6.2g, because the labels are the same after recognition.
 - **Refutation rule:** any tolerance miss or error in the replay or the checks fails the package for the morning table.
+
+**§203 RESULT (14 Nov 00:10 UTC; runs/s203_*, morning_table.py → runs/morning_table_0007.txt).** Full and runs now have 4
+orders each, for new and returning people.
+- **New people, v6.1 − v6f:** full −0.14 (per order −0.07, −0.37, +0.16, −0.29; 3/4 below zero); runs +0.14; within +0.20
+  (12 orders, 10/12 up). The pre-registered flag (full mean ≤ −0.2 with ≥ 3/4 below zero) is not met, so the reading is
+  "undecided". The prediction (−0.2, runs +0.05) held for full and was low for runs.
+- **Returning people:** v6.2 (ERF) full +1.18 (3/4 orders up, P10 min +0.33), runs +0.82 (3/4 up, P10 min −0.08), within
+  +0.89 (8/8 up). v6.2-safe (ER): full +1.05, runs +0.86, within +0.65. Prediction (v6.2 +0.8, safe +0.9 on full 2/3): ERF
+  higher (+1.78 / +0.36 on full 2 / 3), ER as predicted.
+- **J (0.5 new + 0.5 returning), scheme-averaged:**
+
+| Candidate | Equal weights | Within only | Full only |
+|---|---|---|---|
+| v6.2 | +1.03 | +1.17 | +0.95 |
+| v6f + ERF (§206) | +1.00 | +1.07 | +1.03 |
+| v6.2-safe | +0.97 | +1.05 | +0.89 |
+| v6f + ER | +0.94 | +0.95 | +0.96 |
+| v6.1 | +0.55 | +0.72 | +0.37 |
+| v6f | +0.52 | +0.62 | +0.44 |
+
+- **Reading:** both routed forms carry most of the gain. v6.2 and v6f + ERF differ by +0.03 under equal weights, which is
+  inside noise. The choice between them is the bet on the scheme: v6.2 wins under within, v6f + ERF under full.
