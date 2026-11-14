@@ -5635,3 +5635,17 @@ check.py OK; recording order).** Refuted for core1: bagging over training people
   0 and the ratio ≥ 0.8 on both; otherwise undecided. Either way the package cannot see the gap (no metadata); a
   confirmed decay lowers the expected sealed gain of the returning path and argues for a label-free trust weight.
 - **Item 2 (core-like member)** follows as its own pre-registered row once these land.
+
+### 228. EXTERNAL HARNESS v2, ITEM 2: CORE-LIKE MEMBER (written 14 Nov 08:21 UTC, before any result)
+- **Member:** `MEMBER=core` (corpus.py FSETS): CAR, core1's 17 overlapping bands (ov17), full window, shrunk covariance,
+  log-Euclidean tangent, plus core1's slow block (1 Hz low-pass waveform, 8 samples per channel); 14,965 features;
+  causal recentring and logistic regression (C 0.05) as v1. Differences from core1, stated now: no affine whitening at the
+  session reference, no half windows, no per-session standardisation flag. Views (PCs 1–48 / 1–128) follow the member.
+- **Runs:** the §216 harness on Schirrmeister2017 and PhysionetMI; §227's returning path on every corpus it runs.
+- **Prediction:** member +2 to +6 over v1 on Schirrmeister and PhysionetMI (rec); the stage gains of §216 within ±0.5 of v1;
+  §227's verdicts unchanged.
+- **Rule:** a §216 / §227 verdict stands only if it is the same with both members; where they differ, it is "undecided"
+  and the core member's number is the one quoted.
+- **§221 scoring (08:35 UTC):** score.sh scored without STRICT (a missing input would have fallen back to recording order
+  silently). Rescored with STRICT=1, two at a time, outside run_capped: this is scoring, not training. The lock was held by
+  v52-build's replays until about 09:35. All 42 cells (6 orders × 7 arms) are scored the same way.
