@@ -7529,3 +7529,18 @@ Rule of the amendment applied: a split whose kept labels leave a class < 2 windo
 | A70 | 52 | 80.7 % | 6.6 % | -5.9 | -7.02 [-9.91, -4.29] | 1/10 |
 
 Schemes (within / full / runs) differ by < 1 point in every arm. **Prediction refuted:** purity of the eye-labelled windows is 54-60 %, not about 80 % (the eye net is 51 % accurate on within0 and its confidence barely selects: top 30 % is 60 %); the prediction was -1 to +0.5 and the arms are -7 to -13. **Verdict by the pass rule (c x aE >= +1.0, interval above 0, >= 8/10 people up): fails in all six arms; no causal form.** The agreement arms reach 81-83 % purity but at n 25-52 (and 7-21 % fallback), where the §252 map already gives -6 to -14; measured results are at or below the map (E arms 2-7 points below at purity < 75, where the map is an upper bound; A arms 0.5 to 3 above at n 25-52). No sign that the eye net's independence helps beyond the map; the A70 arm (about +1 over the map at equal n and purity) is the only one near it. Closed in this form (classic aE on eye-net co-training labels); not covered: the eye net with the member mix as second labeller, or labels from a much stronger independent source.
+
+### 260. CAPPED CAUSAL PERSONALISATION, FIXED FORM, ON FRESH DRAWS (written 14 Nov 19:24 UTC, before any result; research thread)
+Mechanism: §253's nested picks were nearly one form for all ten held-out people: labels cq50 (or agcq), FBCSP pipeline a2,
+refits every k 10 from t0 90, weight ramp R 120 to cap 0.10, fused into the count-filtered r15 output (track F); nested +0.15
+[+0.03, +0.28] 7/10, that form in hindsight +0.22. The form was chosen on draw 0 of the r15 chain, so its value is biased.
+Replication on chains it never saw: the same code (studies/14nov/causalpers, chainf / run / score) on the r15 draw-1 and
+draw-2 chains (runs/chainout/s242r15d1_*, s242r15d2_*; 20 orders x 6 bases each), ONE fixed form, no grid: cq50, a2,
+t0 90, R 120, cap 0.10, k 20 (primary: 11.3 ms per window against 12.9 at k 10, timing.txt) and k 10 (reported). Reference:
+r15 + filter of the same draw (the candidate's new-people half). New people only; returning people are absent (cpers was
+never built for ER; stated). Zero-change: cap 0 equals r15 + filter on every order x base (the scorer's existing check).
+Prediction: +0.12 per draw (80 % range -0.02 to +0.25), two draws within 0.1 of each other, >= 6/10 people up.
+Rule: both draws > 0 with the pooled people-and-order interval above 0 -> the form joins the candidate list with its run
+time (it then needs a package-form check); one draw <= 0 or pooled interval across 0 -> "undecided", kept out of the
+package. The §253 plan note's joint stack test reduces to this: C10 drops out (§256), and the candidate's new-people half is
+the reference here.
