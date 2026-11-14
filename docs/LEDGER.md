@@ -5145,3 +5145,15 @@ morning table) is **"eye order mismatched, members as recorded"** until re-score
 - **Prediction:** the eye fix moves ER / ERF by up to ±0.3 under full and runs (the orders differed most there), little under
   within (rank correlation +0.97). The members' re-stream costs routed v5.1b about 0.6 beyond the stages (as for new
   people), but ER / ERF are differences against the same re-streamed base, so they move less.
+
+### 215. THE 2 × 2: RUN OFFSETS × RUN-LEVEL COUNT FILTER, TRUE RUN IDS (written 14 Nov 07:09 UTC, before any result; panel round 2)
+- **Arms:** run-offset removal in the stage views (§210: κ 5, pc128 + GE; off / on) × a run-level count filter on the final
+  posteriors (off / on). The filter (`studies/14nov/runcount.py`) treats each run as an urn of 10/10/10 or ≤ 12 per class.
+  It runs an exact causal forward filter over the class counts in delivery order, with posterior^τ as the likelihood
+  (τ 2) and a soft floor of 0.5 per class. It acts on the emitted output only; gates and FT labels are untouched.
+- Within 0/1, runs 0/1, full 0/1; v5.1b (P0r) and v6f (V6Fr); new people first (returning after §214). The error
+  run-clustering ratio is reported for every cell.
+- **Panel prediction:** filter with true runs on v3's stored posteriors +0.30 (recording) to +0.68 (full, within).
+  Together, 0.7–1.3 × the larger gain, not the sum.
+- **Kill (panel):** below +0.3 on both contiguous schemes with inferred boundaries, or below −0.1 under full with the
+  detector in the loop. This oracle (true runs) sizes the ceiling; the inferred-boundary version decides.
