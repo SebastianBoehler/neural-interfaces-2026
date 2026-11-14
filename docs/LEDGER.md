@@ -7362,3 +7362,13 @@ the result, required before any package.
 Third form (pre-registered here, run in parallel): the same C10 joint training and SessionBN-affine adaptation on a larger
 trunk (fbraw or sinc, whichever ttt7 / ftrel already fine-tune), non-causal ceiling as in §255. Continue to the causal form
 only if the net alone gains >= +1.5 or the chain fusion >= +0.5 (wave 2's C10: +0.80 / +0.27).
+
+**§252 amendment 3 (written 14 Nov 17:48 UTC, after the amendment-2 map was read, before this test ran).** The map's rule fires,
+marginally: the scheme-mean operating point at the END of the session, max-posterior ranking, k = 130 of ~190 windows at
+83.4 % purity, interpolates to +1.2 in the chain-like grid (within +1.7, runs +1.25, full +0.6); no point at t <= 120 reaches
+0 (best -0.9). The map treats a selected window like a random one; confident windows are the easy ones, so it is optimistic.
+Direct test of the named form, before building anything: §252's splits, classic aE trained only on the top f of the four
+training runs' windows ranked by the r15 chain's max posterior, with the chain's argmax labels (f = 85, 70, 55 %), fused with
+the chain; six orders (within0/1, full0/1, runs0/1). Prediction: top 70 % gives -0.5 (-1.5 to +0.5), below the map's value
+(the selection bias). Rule: >= +1 with the people interval above 0 -> the form goes to §253 as the end-of-session refit;
+otherwise the class is closed for this feature set (the map's +1.2 does not survive selection).

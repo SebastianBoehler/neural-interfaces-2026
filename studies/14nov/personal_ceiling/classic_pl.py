@@ -2,7 +2,7 @@
 training runs (never the true labels). Forms per order (plabels_r15.npz): hard = argmax of the raw posterior, unweighted;
 soft = the same labels weighted by the max posterior (ttt's wpl); filt = soft on the gated count-filter posterior.
 Output runs/personal_ceiling/cpl_<order>.npz: 'W|<session>|<pair>|<form>|<variant>' -> (n, 3), 'W|<session>|<pair>|idx'.
-Usage: python studies/14nov/personal_ceiling/classic_pl.py ORDER [ORDER ...] | check | randnoise"""
+Usage: python studies/14nov/personal_ceiling/classic_pl.py ORDER [ORDER ...] | check | randnoise | sel ORDER [ORDER ...]"""
 import sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -41,8 +41,29 @@ def randnoise(m, F, order="within0", seed=0):
     print(f"label acc rand {np.mean(yr == y):.3f} chain {np.mean(yc == y):.3f} | aE mean over pairs: random noise {np.mean(sc['rand']):.1f}, chain labels {np.mean(sc['chain']):.1f}", flush=True)
 
 
+SEL = (85, 70, 55)
+
+
+def selected(m, F, order):
+    """s252 amendment 3: aE on the top f % of the training runs' windows by the chain's max posterior, chain argmax labels"""
+    f = S.OUT / f"cpls_{order}.npz"
+    if f.exists():
+        return print("exists", f)
+    P = np.load(S.OUT / "plabels_r15.npz")[f"{order}|raw"]; yp, conf = P.argmax(1), P.max(1); res = {}; t0 = time.time()
+    for s in S.sessions(m):
+        for name, trn, tst in S.pairs(m, s):
+            res[f"W|{s}|{name}|idx"] = tst; rk = trn[np.argsort(-conf[trn], kind="stable")]
+            for q in SEL:
+                sub = np.sort(rk[:int(round(q / 100 * len(trn)))])
+                res[f"W|{s}|{name}|top{q}|aE"] = CL.fit_predict(F, yp, sub, tst)["aE"]
+                res[f"W|{s}|{name}|top{q}|purity"] = np.array([np.mean(yp[sub] == m["y"][sub])])
+    np.savez(f, **res); print("saved", f, f"{time.time() - t0:.0f}s", flush=True)
+
+
 def main():
     m = S.meta(); F = CL.features(m)
+    if sys.argv[1] == "sel":
+        return [selected(m, F, o) for o in sys.argv[2:]]
     if sys.argv[1] == "check":
         return check(m, F)
     if sys.argv[1] == "randnoise":
