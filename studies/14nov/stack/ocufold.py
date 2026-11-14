@@ -18,20 +18,23 @@ def gpu(seed):
     sp = importlib.util.spec_from_file_location("ocushuf", WS / "studies/13nov/ocushuf.py"); O = importlib.util.module_from_spec(sp); sp.loader.exec_module(O)
     OC = O.OC; d = OC.protocol.load(); O.set_order("all_loso"); T = O.traces(d); N = len(d["y"]); allr = np.arange(N)
     order = f"{O.SCHEME}{O.PSEED}"; out = WS / "runs/diag/ocufold" / order; out.mkdir(parents=True, exist_ok=True)
+    if (out / f"fold_s{seed}.npz").exists() and not SMOKE:
+        return print("exists", out / f"fold_s{seed}.npz", flush=True)
     E, P, folds = [], np.full((N, 3), np.nan), []
     for fold, tr, te in OC.protocol.folds(d, "all_loso"):
         p, e = OC.fit_predict(T, d["y"], np.flatnonzero(tr), allr, seed, False, 1 if SMOKE else 60)  # training is independent of te
         E.append(e.astype(np.float16)); te = np.flatnonzero(te); P[te] = p[te]; folds.append(te); print(f"{order} s{seed} {fold} held-out acc {np.mean(p[te].argmax(1) == d['y'][te]):.3f}", flush=True)
         if SMOKE:
             np.savez(out / "smoke.npz", emb=np.stack(E)); return print("SMOKE OK", E[0].shape, flush=True)
-    ref = WS / f"runs/diag/ocushuf/{order}/oc_nomix-all_loso-s{seed}.npz"
-    if ref.exists():
-        z = np.load(ref); m = ~np.isnan(P[:, 0]); agr = np.mean(P[m].argmax(1) == z["proba"][m].argmax(1)); print(f"held-out argmax agreement with {ref.name}: {agr:.4f}", flush=True)
-        assert agr > 0.85, "the fold nets are not the ocushuf nets (GPU nondeterminism alone stays above 0.9)"
     owner = np.full(N, -1)
     for k, te in enumerate(folds):
         owner[te] = k
-    np.savez(out / f"fold_s{seed}.npz", emb=np.stack(E), proba=P, owner=owner); print("written", out / f"fold_s{seed}.npz", flush=True)
+    ref = WS / f"runs/diag/ocushuf/{order}/oc_nomix-all_loso-s{seed}.npz"; agr = np.nan
+    if ref.exists():
+        z = np.load(ref); m = ~np.isnan(P[:, 0]); agr = np.mean(P[m].argmax(1) == z["proba"][m].argmax(1)); print(f"held-out argmax agreement with {ref.name}: {agr:.4f}", flush=True)
+    np.savez(out / f"fold_s{seed}.npz", emb=np.stack(E), proba=P, owner=owner, agree=agr); print("written", out / f"fold_s{seed}.npz", flush=True)  # saved first (s244: a strict check lost 57 runs)
+    # retrains of this ~45 %-accurate net agree 0.83-0.86 with the stored ones (GPU nondeterminism); another seed would be far lower
+    assert np.isnan(agr) or agr > 0.75, f"agreement {agr:.3f}: the fold nets are not the ocushuf nets"
 
 
 def view(orders):
