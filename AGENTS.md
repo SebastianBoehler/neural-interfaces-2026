@@ -44,3 +44,20 @@ This project targets Track 2 BCI decoding in Neural Interfaces 2026.
   process-tree RSS cap, MPS high watermark); never several MPS jobs in
   parallel. The Mac shares RAM with the GPU: parallel jobs froze it (Oct 22).
   Prefer Galvani for anything heavy.
+
+## Threads, models and usage (user, 14 Nov; official Claude Code docs: sub-agents, advisor, costs, prompt-caching)
+
+- Usage is the scarce resource: the weekly all-models limit is shared by every thread and subagent. Pace it to the reset.
+- Models: execution threads and subagents on Sonnet (`.claude/settings.json` default; `executor` agent). Routine
+  queue/log reads on Haiku (`cluster-check`; `Explore` is overridden to Haiku). Opus only for the research and
+  coordinator threads, never for subagents. A Sonnet thread that needs hard calls gets `/advisor opus` in that thread
+  only, instead of running on Opus. Not project-wide: each advisor call resends the whole transcript uncached, and on an
+  Opus thread it duplicates the main model. Fable as advisor is not free; it counts against the plan limits (docs).
+- Effort `medium` by default; `low` for checks; set model and effort at the start of a thread (switching models drops
+  the prompt cache).
+- Every turn re-reads the whole context, so long threads are the main cost. Start a fresh thread from a handover note
+  once a thread passes about 250k tokens of context or its phase changes. The handover note has state, open jobs
+  with ids and due times, and open decisions, in at most 80 lines. Do not keep 500k+ threads alive.
+- Verbose work (log reading, sweeps, scoring runs) goes to a subagent so only its summary enters the thread.
+  Subagents report in at most 15 lines.
+- Idle waits: one background timer of about 50 min (inside the 1-hour cache TTL), never short polls.
