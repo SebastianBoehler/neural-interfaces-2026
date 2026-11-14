@@ -6556,3 +6556,26 @@ unprimed new-people tail (online base 77–81):
   - Untested variant: a prior shrunk to the stage's own scale, i.e. pm × n_pub / (n_pub + m0), or a small κ.
 - **Personal ocular as SessionEM columns (O / OG48 / OG32):** undecided-to-negative; inside ±0.3 for every form,
   and P10 never gains.
+
+**§242 package (14 Nov 13:15 UTC, v52-build; written before the full checks, after one-session smokes): v6.4, r15 and
+the count filter behind their own keys.**
+- **Form:** `lean/src64` → `submissions/lean_v64` (`submission.py` `6ab43e4b…`, 674e0d6).
+  - `v6_ft_relabel` (r15, ni26-push's R1/R2): at each refit at t, before recognition only, the label chain's SessionEM
+    and TSEM state for window t is re-applied to windows 0..t-1 (`Tail.reapply`). TSEM selects templates from its
+    as-emitted input; labels are argmax, weights max; the fine-tuning loss is unchanged. Constants checked equal to
+    relabel.py's (em_nmin 20, boosts 2.0 / 4.0, …).
+  - `v6_cf_on`: the count filter of v6.2c, now with its per-session log line from `__del__`.
+  - The builder requires both keys. E_pca4 is **not** packaged: dev's view comes from a different fold net per person, so
+    it has no package equivalent (ni26-push, 13:00 UTC).
+  - Packages `cand_v64_r1iLu_{off,cf,r15,all}` on v6.2iLu ER's keys.
+- **Smokes (P01, recording, Mac CPU):** r15 reference against relabel.py's formulas recomputed from the package's stored
+  stage inputs: 17/17 refits, max difference 0.0, 0.13 ms per relabelling. All-off package bitwise equal to v6.2iLu ER.
+- **Predictions:**
+  1. all-off bitwise equal to v6.2iLu ER (14 sessions, both gate modes);
+  2. r15 reference max difference ≤ 1e-10 in recording, within 0–2 and full 0–2 (14 sessions each);
+  3. the filter's reference holds with r15 on;
+  4. forced exception in the relabelling: errors 1, v5.1b from the refit on;
+  5. stress cases complete;
+  6. replays files unchanged; GPU worker image passes;
+  7. r15 adds under 1 % of a refit's time.
+- **Refutation rule:** any miss fails that key's package.
