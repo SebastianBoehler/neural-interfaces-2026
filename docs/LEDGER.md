@@ -7604,3 +7604,65 @@ Predictions and rule of §252 unchanged.
 - P04 (the 49-point person): c x bE -1.5, primary -2.8; P10: c x bE +3.9, primary +3.0. Both reported; neither decides. Gains concentrate in P09 (+5.1) and P10 (+3.0); P04, P06, P07 lose.
 - Rule (>= +2 with people interval > 0 -> causal sketch; +0.5 to +2 undecided; < +0.5 recorded, not closed): primary +0.42 [-0.55, +1.38] is below +0.5, and the interval spans zero: recorded, not closed and no causal sketch. c x bE alone (+0.83, lower edge 0.00) would be undecided, but it is not the pre-registered primary.
 - Reproducibility check (Galvani 3102582 copy, runs/personal_ceiling/) pending: scored when 16 files are there; per-arm difference to be appended.
+
+**Wave plan, 14 Nov 19:45 UTC (research thread, from the independent solution-space map of 14 Nov evening and the coordinator).**
+Pre-registered sealed estimate for v6.5 (if uploaded): 0.823-0.828. The record's dev-to-sealed transfer is 0.41-0.7x
+(STATE), and §249's +0.94 sealed-weighted dev gain over v5.1b at that transfer gives +0.4 to +0.65; 0.829-0.831 would need
+about 1.0x. Main front: base accuracy, because every label-based lever is gated by label purity (§252 dose map: purity
+75 / 80 / 85 / 90 % gives -1.1 / -0.1 / +1.8 / +2.9 at n 129). Then returning people on all ten (43 % weight, n = 2 on dev).
+Deferred to the next wave, with reasons: the pseudo-session selector (it needs stored chain outputs under several stage
+settings; feasibility is checked first) and in-domain SSL pretraining (2080 queue contested; after the core test reads out).
+
+### 262. RETURNING-PEOPLE PATH ON ALL TEN PEOPLE, WITHIN-SESSION PROXY (written 14 Nov 19:45 UTC, before any result; map lever 1)
+Mechanism: dev measures the routed path for returning people on P04 and P10 only; the eight single-session returning
+people (about 40 of 46 sealed returning sessions) are assumed P10-like. The within-session proxy (§249, PV6,
+runs/pview/tproxy.npz: each public session's acquisition runs, one Graz and one BrainHero, play the public session; the
+online runs are scored; 8 shuffled orders x 6 bases) exists for all ten people. Score the routed path with ORACLE
+recognition (person known; the gate's recall is a separate question) on it: personal heads and the own-space stage fitted on
+that person's acquisition runs exactly as the package fits them on a public session, ER and ER + T (§245), against the
+population new-people tail on the same windows (base 78.3, T20 80.4 on PV6). Reuse the package's personal-stage code path,
+not a re-implementation; zero-change: with the personal parts switched off the score equals the PV6 tail.
+Prediction: routed minus tail per person, median over the eight non-P04/P10 people +2.5 (80 % range +0.5 to +5); P10 about
++6 (§249), P04 large. Rule (map's kill line): routed gain < +2 for 6 of the 8 -> the 0.8-P10-like assumption is wrong and the
+returning weighting of every dev number is revised downward; >= +2 for 5 of 8 -> tune the returning path's weights on all ten
+people (nested by person), not on P04 / P10. Either way, report the sealed-weighted dev level under both assumptions.
+
+### 263. CORE FEATURE SCALING, CORE ALONE FIRST (written 14 Nov 19:45 UTC, before any result; map lever 2)
+Mechanism: core1 (CAR, 17 overlapping bands x full and two half windows, tangent space, 44k-dim LR) loses 4 points at 512
+PCs (§49), so the fine feature space carries signal, and the feature set was never scaled. Variants, core1's own LR recipe and
+regularisation search unchanged, LOSO over the ten people (new-people protocol, recording order is fine for a core-alone
+screen; it is a feature test): (A) 34 half-octave-spaced bands, same windows; (B) 17 bands x 5 overlapping time segments
+(0-2, 1-3, 2-4, 0-4 s, 0.5-3.5 s); (C) A + B; (D) core1 + regional CAR blocks (frontal, central, parietal-occipital
+re-referenced separately, extra covariance blocks). CPU, Galvani; feature caches keyed by every variant setting (fail loudly
+on a key without them). Reference: core1 alone, new people, about 69.3.
+Prediction: best variant 70.5 (80 % range 69.0 to 72.0); (C) best; (D) +0.3 at most. Rule (map): best >= 71.0 with >= 7/10
+people up -> rebuild TSEM's view and the routing features on it (coreshuf tooling, §175) and score the chain under 8
+shuffled orders as its own pre-registration; 70.0-71.0 -> undecided, one more form (more bands x segments) before setting
+aside; < 70.0 -> recorded, this scaling family set aside (not the core redesign).
+
+### 264. EXTERNAL PEOPLE: WITHIN-CORPUS VERSUS CROSS-CORPUS PROBE (written 14 Nov 19:45 UTC, before any result; map lever 3)
+Mechanism: every external-people form so far pooled raw rows or froze a teacher; cross-corpus transfer to PROTEUS is about
+45 % (§216ff). If external people decode well WITHIN their own corpus, the loss is a domain gap that a corpus-aware pool
+(per-corpus recentring, corpus intercept, shared slope) can bridge. Probe: a core1-like member (tangent space at each
+session's mean, LR), LOSO inside each corpus: Scherer2015 (9 people, the PROTEUS tasks, 3 classes), Shin2017B (29,
+mental arithmetic vs rest, 2 classes), Shin2017A (29, MI left/right, 2 classes); data/ on the Mac and Galvani. Report BA per
+person, mean, and the same member trained on all of PROTEUS tested on Scherer (cross-corpus, reference).
+Prediction: Scherer within-corpus 60 (80 % range 50 to 70); Shin2017B 70 (60-80); Shin2017A 62 (55-72).
+Rule: Scherer >= 60, or both Shin corpora >= 65 -> pre-register the hierarchical pool (core1 on k PROTEUS people plus the
+corpus, per-corpus recentring, corpus intercept; pass +1.5 core-level at k 5, >= 6/10 up); else the domain-gap hypothesis
+is not supported for these corpora (recorded).
+
+### 265. NETS FINE-TUNED ON CHAIN LABELS (c x bE), THREE VARIANTS (written 14 Nov 19:45 UTC, before any result; §252 part b open form)
+Mechanism: §252 part (b) c x bE (filt labels) +0.83 [-0.01, +1.68] 6/10 over the r15 chain: 4 families x 2 seeds fine-tuned
+200 steps on the four training runs' chain labels, tested on the two held-out runs. It rises with base purity (dose map),
+so it stays open. Variants (same splits, scorer score_pl.py, the 16 Leonardo files as the base):
+(V1, CPU, existing files) fusion weight c x bE^w, w 0.5 / 1 / 1.5, and each family alone and leave-one-family-out (which
+families carry it). (V2, GPU) delivery-prefix split, the deployable direction: per order, bE fine-tuned on the session's
+windows delivered before t = 120 (any run; chain filt labels of those windows), tested on windows from t on, against the
+r15 chain on the same windows; 6 orders (within0/1, full0/1, runs0/1), 4 families x 2 seeds. (V3, GPU) seeds 4 per family
+(ensemble size), split as §252.
+Predictions: V1 best w 0.5-1.0, within 0.2 of +0.83; no single family above +0.5 alone. V2 +0.4 (80 % range -0.3 to +1.0;
+fewer, earlier windows than the run split). V3 +0.2 over the 2-seed form.
+Rule: V2 >= +0.5 with the people interval above 0 -> sketch the causal package form (r15's refit extended to these families,
+run time per window on an A100 against the 1.37x slack) as its own pre-registration; V2 0 to +0.5 -> undecided, one more form
+(t = 80 and t = end-40); V2 < 0 -> the run-split gain does not carry to delivery order (recorded). P04 and P10 reported, neither decides.
