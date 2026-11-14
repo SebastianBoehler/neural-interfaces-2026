@@ -408,3 +408,27 @@ the evaluation log. The evaluator drops each session's model copy without callin
 has no `__del__` (`Route` and `Ensemble6` report from theirs). Only logging is affected. The fix (a `__del__` that
 reports) changes `submission.py`, so it waits for the revision that adds ni26-push's self-check, together with a rebuild
 and recheck.
+
+## v6.4: r15 and the count filter behind their keys (14 Nov, ledger §242 package)
+
+`lean/src64` → `submissions/lean_v64` (`submission.py` `6ab43e4b…`). On v6.2iLu ER's keys; `v6_ft_relabel` (r15,
+before recognition only, ni26-push's definition) and `v6_cf_on` (the count filter, now reporting from `__del__`). E_pca4
+is not packaged (no package equivalent of dev's per-fold-net view).
+
+| ZIP (v6.4, r1iLu keys) | SHA-256 | Local replay (Mac CPU) |
+|---|---|---|
+| `v64_r1iLu_all` (filter + r15) | `10b00efba4a8efd865d9bbeec0ebc300469c1e398b72dda3a5359803e2dc4fdc` | 0.9945788530, files unchanged, 106.2 s; one `[count-filter] … latched_at 40 errors 0` line per session in the evaluation log |
+| `v64_r1iLu_r15` | `f182c6e7b555cc0add8e119b94ceef690b05abf0bae0060135c06a6167f1b0ff` | 0.9945788530, 100.3 s |
+| `v64_r1iLu_cf` | `7c1eedcc8e6fde97f7804e5b4bdd0c796c4909f952c25007700a13f5c5f56a5d` | 0.9945788530, 102.2 s; filter log lines present |
+| `v64_r1iLu_off` | `656a5825b3338870dd964245ebfdc2bb96593d8d9087130f600e38390f4fccc7` | 0.9945788530, 99.2 s |
+
+The public replay sessions are recognised at window 10, before the first refit (window 20), so the replay never
+exercises r15; the reference checks run with recognition off.
+
+| Check (v6.4) | Where | Result |
+|---|---|---|
+| r15 reference smoke, P01 recording, gates off | Mac CPU | 17/17 refits relabelled; max difference 0.0 against relabel.py's formulas recomputed from the stored stage inputs; 0.13 ms per relabelling |
+| All-off identity smoke, P01, gates off | Mac CPU | bitwise equal to v6.2iLu ER |
+| Identity all-off (14 sessions, both gate modes); r15 reference (recording, within 0–2, full 0–2 × 14); filter reference with r15 on (recording, within 0 × 14); r15 with the filter (recording × 14); forced exception in the relabelling (window 30, P01–P03); record.py stress cases, all on | Leonardo CPU (180 jobs) | pending |
+| Paired A100 timing, all against off (gates off / as shipped), and against v5.1b | Galvani 3101756 | pending |
+| Worker image on a GPU (all, r15, cf, off) | Galvani 3101926 | pending |
