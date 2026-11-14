@@ -1,0 +1,3 @@
+[run_capped] Sat Nov 14 17:32:02 CET 2026 start: .venv/bin/python studies/14nov/personal_ceiling/classic_pl.py randnoise (max 8 GB)
+label acc rand 0.777 chain 0.777 | aE mean over pairs: random noise 63.6, chain labels 65.3
+[run_capped] Sat Nov 14 17:35:53 CET 2026 exit 0
