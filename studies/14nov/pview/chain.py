@@ -143,12 +143,12 @@ def set_em_prior(proto, with_o):
 def system(bn, arm, Pp, oof, inp, POC):
     ft, ocu, rest = inp; fams, ge0, folds0 = list(A.FAMS), Z[f"GE|{p}"], A.RR.FOLDS
     assert R3.G3 == 3.0 and K.BETA == 0.10, "the head gain or the own-space beta was left changed"
-    if arm in HSH:
-        R3.G3 = 15 * HSH[arm] / (1 - HSH[arm])
+    if arm in HSH or arm == "TH25":
+        R3.G3 = 15 * HSH[arm[-3:]] / (1 - HSH[arm[-3:]])
     K.BETA = BOWN.get(arm, 0.10)
     o, w = arm in ("O", "OST", "W"), arm == "W"
     HOOK.update(M={"M": WM, "W": 1.0}.get(arm, 0.0), S=KAP if arm in ("S", "OST", "W") else 0.0, scale=w, POC=POC)
-    ns["KAPPA"] = KAP if arm in ("T", "OST", "W") else 0.0
+    ns["KAPPA"] = KAP if arm in ("T", "OST", "W", "TH25") else float(arm[1:]) if arm in ("T10", "T40") else 0.0  # PV4: T10, T40, TH25
     extra = [] if arm == "base" else [("rt_rest", 1.0)]
     if arm != "base":
         A.EXTRA["rt_rest"] = {p: rest[Pp]}; Z[f"GE|{p}"] = np.c_[(ge0, ocu[Pp]) + ((np.log(np.clip(POC[IDX[Pp]], 1e-3, 1)),) if o else ())]
@@ -216,7 +216,7 @@ def main():
             print(f"  {order} {bn}: ER P04 {b[0]:.2f} P10 {b[1]:.2f}{' (= s214)' if REF is not None else ' (no s214 reference)'} | "
                   + " ".join(f"{k} {(RES[order, bn, k] - b).mean():+.2f} ({RES[order, bn, k][0] - b[0]:+.2f}, {RES[order, bn, k][1] - b[1]:+.2f})" for k in ARMS if k != "ER") + f" [{time.time() - t0:.0f}s]", flush=True)
     S.apply({q: np.arange(S.N[q]) for q in K.PR}); K.RANK["cur"] = None
-    os.makedirs(D.OUT, exist_ok=True); tag = "-".join(ORDERS) + ("" if len(BASES) == 6 else "_smoke")
+    os.makedirs(D.OUT, exist_ok=True); tag = os.environ.get("TAG", "") + "-".join(ORDERS) + ("" if len(BASES) == 6 else "_smoke")  # TAG: a run with other arms keeps its own file
     np.savez(f"{D.OUT}/chain_{tag}.npz", **{f"{o}|{bn}|{k}": v for (o, bn, k), v in RES.items()}); print(f"written runs/pview/chain_{tag}.npz", flush=True)
 
 

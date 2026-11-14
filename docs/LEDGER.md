@@ -6378,3 +6378,41 @@ harder windows, not wrong teachers. 2b (FT label weights) not run.
     mean is below −0.2 (all positive), so by the rule no self-check was added; single people lose up to 0.66 (v6f / v6.2hL).
   - Method statement: runs/rundetect/method_statement.md (corrected: the filter's blocks come from delivery position and
     the design sizes, weighted by the posteriors' fit to the urns, not from EEG grouping; the detector alone uses EEG).
+
+**PV2 / PV3 RESULT (14 Nov; runs/pview/chain_all.log, chain_summary.txt; 16 orders × 6 bases; ER reproduced s214 exactly on
+every order and base).** Change against ER (P04 71.05, P10 90.50 absolute), six-base mean, 80 % bootstrap over orders:
+
+| arm | all 16: mean [80 %] | P04 | P10 | P10 > 0 | within / full / runs (mean) | verdict by the rule |
+|---|---|---|---|---|---|---|
+| O personal ocular columns | −0.16 [−0.22, −0.10] | −0.08 | −0.24 | 2/16 | −0.19 / −0.24 / −0.03 | undecided (inside ±0.3), negative |
+| M personal ocular member | −0.44 [−0.52, −0.37] | −0.31 | −0.57 | 2/16 | −0.38 / −0.54 / −0.47 | this form closed |
+| S SessionEM prior κ 20 | −1.92 [−2.16, −1.67] | −1.76 | −2.08 | 0/16 | −1.70 / −1.89 / −2.39 | this form closed |
+| **T TSEM prior κ 20** | **+0.43 [+0.26, +0.60]** | **+0.81** | +0.04 | 9/16 | +0.21 / **+0.84** / +0.43 | misses P10 > 0 ≥ 12/16; undecided-positive |
+| OST | −2.07 | −1.95 | −2.18 | 0/16 | | closed (S carries it) |
+| W (LOO strength) | −2.01 | −0.53 | −3.49 | 0/16 | | closed (and §227) |
+| H25 head share 0.25 | +0.22 [+0.10, +0.36] | +0.43 | +0.02 | 8/16 | +0.41 / −0.05 / +0.13 | undecided |
+| H33 | −0.02 | +0.28 | −0.32 | 5/16 | +0.23 / −0.10 / −0.44 | undecided |
+| H40 | −0.62 | −0.47 | −0.77 | 1/16 | | closed |
+| B20 own beta 0.20 | +0.24 [+0.12, +0.36] | **+1.42** | **−0.94** | 0/16 | +0.31 / +0.03 / +0.32 | fails (P10 0/16) |
+| B30 | −0.29 | +1.28 | −1.87 | 0/16 | | fails |
+
+- **Against the predictions:** O +0.4 → −0.16; M +0.2 → −0.44; S +0.2 → −1.92; T 0 → +0.43; OST +0.5 → −2.07; H33 +0.3 → −0.02;
+  H25 +0.2 → +0.22; H40 +0.2 → −0.62; B20 +0.1 → +0.24; B30 0 → −0.29. The ocular predictions are refuted.
+- **Reading:** the personal ocular model alone is 73 % for P10 (41 % for P04) in every order, but P10's chain is already at
+  90.5 % and the 73 % view adds disagreement, not information; as SessionEM columns it costs −0.24 for P10. The
+  SessionEM prior at κ 20 is strongly harmful for both (possible cause, unverified: the prior's eye-net columns come
+  from the LOSO eye net in recording order while the session's come from the re-streamed nets, and GE's event rates
+  from recording order; a mismatch in coordinates would pull the templates the wrong way). The TSEM prior is the
+  one personal-template form with a positive sign (P04 +0.81, positive on all 4 full orders for both people), but
+  P10 is flat. Stronger strengths (§227) help P04 and hurt P10: own-space beta 0.20 is +1.42 / −0.94, the head share
+  shows the same pattern more weakly. With two dev people, "common strength" is a P04-vs-P10 trade, and the sealed
+  set weights P10-like people about 4:1 (STATE §4).
+- **(iii) per-person strength:** W is the worst arm for P10 (−3.49) because LOO gives P10 strength 1.0 and P04 0.26 —
+  the opposite of what the chain needs. Consistent with §227 (LOO ranks people wrongly).
+
+### PV4. TSEM PERSONAL PRIOR, MORE FORMS (pview track; written 14 Nov, before any result)
+T is the only personal-template arm with a positive mean, carried by P04; AGENTS asks for several forms of an idea with
+a measured ceiling before setting it aside. Arms in chain.py (`TAG=pv4_ ARMS=ER,T10,T40,TH25`), same 16 orders:
+T10 / T40 (κ 10 / 40), TH25 (T κ 20 + head share 0.25).
+- **Prediction:** T10 +0.3 (P10 +0.05), T40 +0.4 (P04 +1.0, P10 −0.1), TH25 +0.55 (P04 +1.1, P10 0).
+- **Rule:** as PV2. A form passes if mean ≥ +0.3, P10 > 0 on ≥ 12/16, no scheme mean below −0.3 for either person.
