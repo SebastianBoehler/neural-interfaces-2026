@@ -1,6 +1,6 @@
 """RUNCOUNT (ledger s215, panel round 2 / statistician): a run-level count filter on the chain's final posteriors, with
-TRUE run membership. Every public run is class-balanced (10/10/10 for 30-window runs, 12/12/12 otherwise; acquisition
-runs with missing trials hold at most 12 per class). Each run is an urn without replacement: an exact forward filter over
+TRUE run membership. Every public run is class-balanced (online runs 10/10/10; acquisition runs a 12/12/12 design, some
+with missing trials, so at most 12 per class). Each run is an urn without replacement: an exact forward filter over
 the class counts seen so far, in delivery order, with the chain's posterior^TAU as the likelihood and a soft floor (a class
 keeps FLOOR pseudo-items, so one wrong boundary cannot zero it). The output for a window uses only windows delivered up
 to it (causal). Gates and fine-tuning labels are untouched: this acts on the emitted output only.
@@ -18,7 +18,9 @@ TAU, FLOOR = float(os.environ.get("TAU", 2)), float(os.environ.get("FLOOR", 0.5)
 with np.load(REPO + "/data/proteus_windows.npz") as w:
     RUN = np.char.add(ses.astype(str), np.char.add("|", np.char.add(w["task"].astype(str), np.char.add("|", w["run"].astype(str)))[IDX]))
 RUNS = {u: np.flatnonzero(RUN == u) for u in dict.fromkeys(RUN)}
-CAP = {u: (10 if len(r) <= 30 else 12) for u, r in RUNS.items()}
+# by run type, from the public runs' counts: online runs are exactly n/3 per class (30 -> 10, two BrainHero 36-window runs -> 12);
+# acquisition runs are a 12/12/12 design (Graz exact; BrainHero 9-12 per class after missing trials)
+CAP = {u: (len(r) // 3 if "Online" in u.split("|")[1] else 12) for u, r in RUNS.items()}
 for u, r in RUNS.items():  # the urn assumption, checked on the labels once (the filter never sees them)
     assert np.bincount(y[r], minlength=3).max() <= CAP[u], f"run {u} holds more than {CAP[u]} windows of one class"
 
