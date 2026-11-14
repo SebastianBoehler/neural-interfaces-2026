@@ -5030,3 +5030,15 @@ braindecode 1.8.1).**
 | v6.2h ERF 3b13ff96… | 0.994579, files unchanged, 2,759 s; [v6] 17 refits / 340 steps, errors 0; one session frozen 38 by the CPU budget (guard) |
 
 GPU runs of the image need Galvani (3100010 / 3100013).
+- **§207 in-net edit 2, rest-net filter gains (06:46 UTC; runs/s207e_restgain.txt).** 40 per-filter gains on the final layer, per
+  seed, leave-one-person-out. Each edit is scored against the gains-1 member of the same re-stream.
+  - Chain, 6 orders: acc −0.05 (2/6 up), corr λ 0.1 −0.05 (2/6 up).
+  - Held-out rest-net accuracy: −0.3 to −1.1 points.
+  - Negative, like the final-layer edits.
+- **§207 summary so far (corrected per §208):**
+  - final-layer edits on every lever component: ≤ 0;
+  - core1 block gains: +0.04 (4/6; below the +0.1 bar, undecided);
+  - rest-net filter gains: −0.05.
+  - On the current chain, edits fitted on nine people do not transfer to the tenth. The fitted weights are at their transfer
+    optimum, and only core1's block gains come out slightly positive. Remaining untried: teacher per-unit gains and the
+    eye-net drift edit (GPU refits).
