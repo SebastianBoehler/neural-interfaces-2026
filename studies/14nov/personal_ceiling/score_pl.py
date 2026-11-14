@@ -13,7 +13,8 @@ from ftnet_pl import GROUPS  # noqa: E402
 
 R = S.REPO; m = S.meta(); SCH = lambda o: o.rstrip("0123456789")  # noqa: E731
 ALL = [f"within{i}" for i in range(12)] + [f"full{i}" for i in range(4)] + [f"runs{i}" for i in range(4)]
-SIX = [o for g in GROUPS for o in g]; FORMS = ("hard", "soft", "filt"); PAIRS = [(s, n, t) for s in S.sessions(m) for n, _, t in S.pairs(m, s)]
+# top* forms: amendment 3 (cpls_<order>.npz, aE only)
+SIX = [o for g in GROUPS for o in g]; FORMS = ("hard", "soft", "filt", "top85", "top70", "top55"); PAIRS = [(s, n, t) for s in S.sessions(m) for n, _, t in S.pairs(m, s)]
 
 
 def load():
@@ -24,12 +25,13 @@ def load():
         k = f"W|{s}|{n}"; assert (cl[k + "|idx"] == t).all(); LAB[s, n, "aE"] = cl[k + "|aE"]; LAB[s, n, "bE"] = np.mean([f[k + "|ft200"] for f in ft], 0)
     PA = {}
     for o in ALL:
-        f = S.OUT / f"cpl_{o}.npz"
-        if f.exists():
-            z = np.load(f)
-            for s, n, t in PAIRS:
-                for fm in FORMS:
-                    PA[o, s, n, fm, "aE"] = z[f"W|{s}|{n}|{fm}|aE"]
+        for f in (S.OUT / f"cpl_{o}.npz", S.OUT / f"cpls_{o}.npz"):
+            if f.exists():
+                z = np.load(f)
+                for s, n, t in PAIRS:
+                    for fm in FORMS:
+                        if f"W|{s}|{n}|{fm}|aE" in z.files:
+                            PA[o, s, n, fm, "aE"] = z[f"W|{s}|{n}|{fm}|aE"]
     for g, os_ in enumerate(GROUPS):
         fs = sorted(glob.glob(str(S.OUT / f"ftpl_*_s*_g{g}.npz")))
         if len(fs) == 8:

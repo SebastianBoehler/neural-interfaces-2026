@@ -7395,3 +7395,24 @@ FT_V=r15c<N> and r15, SAVE_OUT, then the gated count filter), people-and-order i
 Prediction: cost (capped + filter minus uncapped + filter) N 250 -0.02, N 150 -0.08, N 100 -0.15 (refits after window 100
 touch about a third of each session's windows; r15's whole gain is +0.10).
 Report: the cost per N; no pass rule (a reading for the time-slack decision).
+
+**§252 amendments 2-3 RESULT (14 Nov 18:16 UTC; evidence/personal_ceiling_14nov/dose_map.txt, opcurve.txt, score_pl_sel.txt; Galvani CPU).**
+- **(a) Dose-response, true labels, c x aE over the r15 chain (six orders, chain 79.95):** chain-like noise, purity 100 / 95 /
+  90 / 85 / 80 / 75 %: n 20 -13.0 ... -18.8; n 40 -2.8 ... -8.2; n 70 +2.4 / +0.7 / -1.1 / -2.3 / -3.7 / -5.3; n 100 +4.4 / +3.1
+  / +1.8 / +0.1 / -1.2 / -2.7; n all (129) +5.4 / +4.4 / +2.9 / +1.8 / -0.1 / -1.1. Random noise within about 1 point of it.
+  **+1 contour:** n 70 needs 100 %, n 100 needs about 88 %, n 129 needs about 82 %; at n <= 40 nothing reaches +1 even clean.
+  Predictions: contour at n 136 p >= 92 % (found ~82 %: noise hurts less than predicted, but small n hurts much more); n 40
+  p >= 97 % (found: never). Consistent with part (a): n 129 at about 77 % purity gives -0.6 on the grid, -0.9 measured.
+- **(b) Operating curve (20 orders, scheme mean, max-posterior ranking):** t 40: 10 at 89 %, 40 at 73 %; t 80: 40 at 86 %, 70
+  at 78 %; t 120: 40 at 89 %, 70 at 85 %, 100 at 80 %; end: 40 at 91 %, 100 at 86 %, 130 at 83 %. The chain's purity tops out at
+  about 93 % even for its 10 most confident windows. Agreement ranking (eye net + mix) is worse than max posterior (by 1 to 4
+  points at equal k); the count filter is within ±0.5. Predictions (end: 60 at 95 %, 100 at 90 %; agreement +2) refuted:
+  the chain does not hand over high-purity windows.
+- **Map verdict (rule of amendment 2):** one region fires: end of session, k 130 at 83.4 % -> +1.2 (within +1.7, runs +1.25,
+  full +0.6); nothing at t <= 120 reaches 0. **Direct test (amendment 3)** of the named form, top-f of the training runs by
+  max posterior with chain labels (purity of the kept windows 80 / 83 / 86 %): c x aE top85 -0.94 [-1.87, -0.02], top70 -1.59
+  [-2.59, -0.60], top55 -3.41 [-4.53, -2.14]; all below plain -0.96 except top85 (equal). The map's +1.2 does not survive
+  selection: confident windows are the easy ones and teach the personal model less than random windows at the same purity.
+  **By the stated rule the label-free personalisation class (classic personal model on the chain's own labels, fused late)
+  is sized and closed for this feature set.** Not covered: the fine-tuned nets on pseudo-labels (part b, Galvani array
+  3102582 queued behind smoke 3102581, A100 queue full) and label forms that are not the chain's own (e.g. a teacher).
