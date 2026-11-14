@@ -9,19 +9,21 @@ Usage: python studies/14nov/sweeps/nested.py DIR GROUP [GROUP ...]   (DIR holds 
 import glob, itertools, os, sys
 import numpy as np
 
-DEF = {"EYEW": 1.0, "REST_W": 1.0, "EM_LAM": 0.5, "TS_LAM": 0.15, "BTS": 4.0}
+DEF = {"EYEW": 1.0, "REST_W": 1.0, "EYEC": 0.0, "EM_LAM": 0.5, "TS_LAM": 0.15, "BTS": 4.0}
 ORDERS = os.environ.get("ORDERS", "within0,within1,full0,full1,runs0,runs1").split(",")
 TAG = os.environ.get("TAG", "LF")
 
 
-def suffix(arm):
-    """the knob part of shufcombo's output name; knobs at their shipped value are left unset (s235 check: same output)."""
+def suffix(arm, o):
+    """the knob part of shufcombo's output name; knobs at their shipped value are left unset (s235 check: same output).
+    EYEC=k: k extra copies of the eye view through EXTRA_VIEW=runs/diag/s235/eye<k>_<order>.npz (eyecopies.py)."""
     s = "".join(f"_{n}{float(arm[k]):g}" for k, n in (("EYEW", "eyew"), ("REST_W", "restw")) if k in arm and float(arm[k]) != DEF[k])
+    s += f"_xveye{int(arm['EYEC'])}_{o}" if float(arm.get("EYEC", 0)) else ""
     return s + "".join(f"_{k.lower()}{arm[k]}" for k in ("EM_LAM", "TS_LAM", "BTS") if k in arm and float(arm[k]) != DEF[k])
 
 
 def load(d, o, arm):
-    hit = [f for f in glob.glob(f"{d}/shufcombo_{o}_*ttt18{o}{TAG}{suffix(arm)}.npz") if f.endswith(f"ttt18{o}{TAG}{suffix(arm)}.npz")]
+    x = suffix(arm, o); hit = [f for f in glob.glob(f"{d}/shufcombo_{o}_*ttt18{o}{TAG}{x}.npz") if f.endswith(f"ttt18{o}{TAG}{x}.npz")]
     assert len(hit) == 1, (o, arm, hit)
     z = np.load(hit[0]); bases = sorted({k.split("|")[0] for k in z.files}); assert len(bases) == 6, (hit[0], bases)
     return np.mean([z[f"{b}|V6Fr"] for b in bases], 0)

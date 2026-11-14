@@ -6106,3 +6106,17 @@ Mac CPU, 45 s per chain run; `replay/check.py` OK).**
   input (slow frontal potentials), not from its training people. Next forms, if any: a WORD expert (Shin2018 / ds007554,
   not on hand; download needs the user's go-ahead), experts on non-covariance inputs, or residualising the expert on the
   mix before it enters the view.
+
+**§235 wave 2 (written 14 Nov 12:05 UTC, after wave 1 was read, before any wave-2 job ran).**
+- **Silent no-op found: EYEW > 0 does nothing.** EYEW 0.5 / 1.5 / 2 reproduce the no-knob file to 0.0 on all six orders
+  (all bases, all arms). SessionEM standardises every column of its view ((A − m) / sd), so scaling the eye columns cancels;
+  only EYEW 0 (constant columns) changes anything. §231's w 0.5 / 2 arms are no-ops for the same reason and cannot carry
+  an oracle; its only live arms are w 0 and w 1. (shufcombo is not edited here; OCU_TS already notes the same for TSEM.)
+- **Eye weight as copies instead:** EYEW 0 (eye view removed) and 1 or 2 extra copies through EXTRA_VIEW
+  (studies/14nov/sweeps/eyecopies.py: the eye view exactly as shufcombo builds it, tiled; weight 2 and 3 under the 0.7
+  shrinkage), each with REST_W 1 and 2.
+- **Joint grid** (pre-registered rule: the two knobs with the largest full-data best non-shipped arm; every best arm was the
+  shipped value; TS_LAM 0.2 −0.03 and BTS 8 −0.03 are the two least negative and act on the same exponent): TS_LAM {0.1,
+  0.15, 0.2} × BTS {2, 4, 8}. No grid edge extension (no knob's best arm sits on an edge).
+- **Prediction:** EYEW 0 −0.3 to −0.8 (the eye view carries part of v6's new-people gain); 1–2 extra copies −0.2 to +0.2;
+  TS_LAM × BTS held-out within ±0.1. Same nested rule and thresholds as wave 1.
