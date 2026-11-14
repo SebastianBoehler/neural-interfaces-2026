@@ -6483,3 +6483,17 @@ it runs against s214 and requires ER. Change against ER, 80 % over orders:
   largest under full) and leaves P10 at zero (its chain is at 90.5 %). The rule calls this "undecided". By the
   sealed weighting (about 0.2 P04 + 0.8 P10) it is worth about +0.15 on returning people. Not closed: it never hurts
   P10 on a scheme mean by more than 0.13.
+§242 result (14 Nov 12:52 UTC; evidence/stack_14nov/s242_score.txt; replay/check.py not affected, Leonardo shufcombo = local).
+New people, change against ctl (s15 on LP labels, no view, no filter; = v6.2hL-safe: LF s15 ref is +0.01 against it),
+mean of schemes (equal weight), [80 % interval over people and orders], people up:
+  filter alone   +0.15 [+0.05, +0.26] 7/10   (within +0.32, full -0.03, runs +0.18)
+  stk1           +0.15 [+0.07, +0.23] 9/10   (within +0.09, full +0.26, runs +0.10)
+  stk1 + filter  +0.28 [+0.16, +0.40] 10/10  (within +0.37, full +0.27, runs +0.21)
+  stk2           +0.22 [+0.09, +0.34] 9/10   (within -0.00, full +0.48, runs +0.17)
+  stk2 + filter  +0.34 [+0.19, +0.49] 9/10   (within +0.26, full +0.50, runs +0.27)
+Below the +0.45 prediction, above the best single part (filter +0.15): the parts stack, not refuted. stk2's extra eye
+weight moves gain from within (-0.11 against stk1 + filter) to full (+0.23); not positive in every scheme, so by the
+amendment it is reported, not chosen. Returning people: only the filter is measured (§238: ER sealed-weighted within
++0.08, runs +0.28, full +0.06); r15 and the views have no returning-people runs (absent, assumed 0). Sealed-weighted
+J (0.566 new + 0.434 returning, scheme means): stk1 + filter about +0.22, stk2 + filter about +0.25. Single fine-tuning
+draw; §243 adds draws 1 and 2.

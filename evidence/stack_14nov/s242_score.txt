@@ -1,0 +1,29 @@
+  within0  latched 14/14 | ctl+filter +0.36 stk1 +0.27 stk1+filter +0.48 stk2 +0.07 stk2+filter +0.52 ref(LF s15) -0.03 ref+filter +0.45
+  within1  latched 14/14 | ctl+filter +0.38 stk1 -0.09 stk1+filter +0.46 stk2 -0.14 stk2+filter +0.30 ref(LF s15) -0.09 ref+filter +0.41
+  within2  latched 14/14 | ctl+filter +0.64 stk1 +0.38 stk1+filter +0.77 stk2 +0.41 stk2+filter +0.75 ref(LF s15) -0.00 ref+filter +0.44
+  within3  latched 14/14 | ctl+filter -0.02 stk1 +0.02 stk1+filter -0.01 stk2 +0.03 stk2+filter -0.14 ref(LF s15) -0.13 ref+filter -0.09
+  within4  latched 14/14 | ctl+filter +0.23 stk1 +0.13 stk1+filter +0.24 stk2 +0.22 stk2+filter +0.22 ref(LF s15) -0.02 ref+filter +0.21
+  within5  latched 14/14 | ctl+filter +0.12 stk1 +0.03 stk1+filter +0.40 stk2 -0.09 stk2+filter +0.14 ref(LF s15) -0.04 ref+filter +0.12
+  within6  latched 14/14 | ctl+filter +0.44 stk1 +0.03 stk1+filter +0.27 stk2 -0.22 stk2+filter +0.14 ref(LF s15) +0.02 ref+filter +0.44
+  within7  latched 14/14 | ctl+filter +0.16 stk1 +0.02 stk1+filter +0.28 stk2 -0.19 stk2+filter +0.03 ref(LF s15) -0.04 ref+filter +0.08
+  within8  latched 14/14 | ctl+filter +0.32 stk1 +0.02 stk1+filter +0.18 stk2 -0.36 stk2+filter +0.01 ref(LF s15) -0.02 ref+filter +0.31
+  within9  latched 14/14 | ctl+filter +0.34 stk1 +0.16 stk1+filter +0.36 stk2 -0.03 stk2+filter +0.08 ref(LF s15) +0.01 ref+filter +0.26
+  within10 latched 14/14 | ctl+filter +0.22 stk1 +0.28 stk1+filter +0.72 stk2 +0.43 stk2+filter +0.78 ref(LF s15) +0.02 ref+filter +0.23
+  within11 latched 14/14 | ctl+filter +0.58 stk1 -0.15 stk1+filter +0.28 stk2 -0.17 stk2+filter +0.34 ref(LF s15) +0.01 ref+filter +0.59
+  full0    latched 2/14 | ctl+filter -0.08 stk1 +0.27 stk1+filter +0.29 stk2 +0.44 stk2+filter +0.46 ref(LF s15) +0.27 ref+filter +0.20
+  full1    latched 2/14 | ctl+filter -0.09 stk1 +0.35 stk1+filter +0.25 stk2 +0.55 stk2+filter +0.42 ref(LF s15) -0.02 ref+filter -0.08
+  full2    latched 0/14 | ctl+filter +0.00 stk1 +0.33 stk1+filter +0.33 stk2 +0.56 stk2+filter +0.56 ref(LF s15) -0.00 ref+filter -0.00
+  full3    latched 3/14 | ctl+filter +0.04 stk1 +0.10 stk1+filter +0.20 stk2 +0.38 stk2+filter +0.56 ref(LF s15) -0.00 ref+filter +0.04
+  runs0    latched 14/14 | ctl+filter -0.12 stk1 -0.12 stk1+filter -0.28 stk2 -0.13 stk2+filter -0.16 ref(LF s15) +0.04 ref+filter +0.03
+  runs1    latched 14/14 | ctl+filter +0.50 stk1 +0.47 stk1+filter +0.62 stk2 +0.61 stk2+filter +0.64 ref(LF s15) -0.04 ref+filter +0.51
+  runs2    latched 14/14 | ctl+filter +0.15 stk1 +0.11 stk1+filter +0.40 stk2 +0.28 stk2+filter +0.59 ref(LF s15) +0.01 ref+filter +0.19
+  runs3    latched 14/14 | ctl+filter +0.18 stk1 -0.05 stk1+filter +0.10 stk2 -0.08 stk2+filter +0.01 ref(LF s15) -0.03 ref+filter +0.14
+
+change against ctl raw, new people: mean | per scheme | [80 % interval over people and orders] | people up
+  ctl+filter     +0.15 | within +0.32 (12) full -0.03 (4) runs +0.18 (4) | [+0.05, +0.26] | 7/10
+  stk1           +0.15 | within +0.09 (12) full +0.26 (4) runs +0.10 (4) | [+0.07, +0.23] | 9/10
+  stk1+filter    +0.28 | within +0.37 (12) full +0.27 (4) runs +0.21 (4) | [+0.16, +0.40] | 10/10
+  stk2           +0.22 | within -0.00 (12) full +0.48 (4) runs +0.17 (4) | [+0.09, +0.34] | 9/10
+  stk2+filter    +0.34 | within +0.26 (12) full +0.50 (4) runs +0.27 (4) | [+0.19, +0.49] | 9/10
+  ref(LF s15)    +0.01 | within -0.03 (12) full +0.06 (4) runs -0.00 (4) | [-0.03, +0.06] | 6/10
+  ref+filter     +0.18 | within +0.29 (12) full +0.04 (4) runs +0.22 (4) | [+0.07, +0.29] | 8/10
