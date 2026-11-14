@@ -19,7 +19,9 @@ _F = M.features(); _CACHE = {}
 
 
 def zview(h):
-    m = C.PER != h; mu, sd = _F[m].mean(0), _F[m].std(0) + 1e-9; return (_F - mu) / sd
+    if ("z", h) not in _CACHE:
+        m = C.PER != h; mu, sd = _F[m].mean(0), _F[m].std(0) + 1e-9; _CACHE["z", h] = (_F - mu) / sd
+    return _CACHE["z", h]
 
 
 def reldist(Zs):
@@ -47,15 +49,18 @@ def calib(h):
     _CACHE["cal", h] = (edges, rate); return edges, rate
 
 
+def wmat(rows):
+    """rows: global rows of ONE session in delivery order -> W (T, T), w_tj for j < t (0 elsewhere)."""
+    h = C.PER[rows[0]]; assert (C.PER[rows] == h).all() and (C.SES[rows] == C.SES[rows[0]]).all(), "rows span sessions"
+    edges, rate = calib(h); R = reldist(zview(h)[rows]); W = np.zeros_like(R); m = ~np.isnan(R)
+    W[m] = rate[np.clip(np.searchsorted(edges, R[m], "right") - 1, 0, NB - 1)]; return W
+
+
 def weights(order, h):
     key = (order, h)
-    if key in _CACHE:
-        return _CACHE[key]
-    edges, rate = calib(h); Zv = zview(h); out = {}
-    for s in [s for s in C.SESSIONS if C.PER[np.flatnonzero(C.SES == s)[0]] == h]:
-        rows = C.order_rows(order, s); R = reldist(Zv[rows]); W = np.zeros_like(R); m = ~np.isnan(R)
-        W[m] = rate[np.clip(np.searchsorted(edges, R[m], "right") - 1, 0, NB - 1)]; out[s] = (rows, W)
-    _CACHE[key] = out; return out
+    if key not in _CACHE:
+        _CACHE[key] = {s: (C.order_rows(order, s), wmat(C.order_rows(order, s))) for s in C.SESSIONS if C.PER[np.flatnonzero(C.SES == s)[0]] == h}
+    return _CACHE[key]
 
 
 def all_weights(order):
