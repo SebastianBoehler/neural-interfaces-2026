@@ -6120,3 +6120,29 @@ Mac CPU, 45 s per chain run; `replay/check.py` OK).**
   0.15, 0.2} × BTS {2, 4, 8}. No grid edge extension (no knob's best arm sits on an edge).
 - **Prediction:** EYEW 0 −0.3 to −0.8 (the eye view carries part of v6's new-people gain); 1–2 extra copies −0.2 to +0.2;
   TS_LAM × BTS held-out within ±0.1. Same nested rule and thresholds as wave 1.
+
+### 239. DESIGN DECODER: RUN POSTERIOR INTO TEMPLATES AND LABELS (written 14 Nov 12:06 UTC, before any result)
+- **Why:** the offline equal-count assignment bound is about +1.1, the causal count filter (§228c) about +0.5. The filter
+  cannot change emitted labels, but its belief about earlier windows of the same run can feed the stages that come later.
+- **Mechanism (code studies/14nov/designdec/):** after each window the run urn (§215/§226: posterior^τ, τ 2, floor 0.5, cap
+  10 per 30-window online block, else 12) is smoothed over the delivered prefix (forward-backward inside the current block
+  of each boundary hypothesis; finished blocks stay as last smoothed), mixed over hypotheses with the weights of windows
+  < t. Those posteriors for windows < t replace the stages' soft labels at window t only (one-way; nothing is re-emitted):
+  SessionEM's past input posteriors B (its EM seeds) and TSEM's past seed labels and confidences. Forms:
+  rep (smoothed posterior replaces both), ext (only the urn's extrinsic message m_s = smoothed_s / own likelihood_s,
+  multiplied into B_s and into TSEM's input e_s), fwd control (the forward-filtered, i.e. emitted, filter posterior;
+  no smoothing). Boundaries J-wprior (urn weights, §226) and true runs (ceiling). Active from the detector latch (§228c,
+  W 40), as the gated filter. Emitted output: the gated J-wprior/urn filter (§228c a) on top of the changed chain.
+- **Tests:** (i) self-contained replay (members as recorded, stages in the delivery order, B2_pool); (ii) package form:
+  studies/13nov/shufcombo.py run unmodified through runpy with the stage installed (chainout env: GATE_P0, STRICT, gC5,
+  ttt18<order>L), arms P0r and V6Fr, B2_pool, within 0/1 and runs 0/1. No-op check first: feedback off must reproduce
+  runs/chainout/<order>.npz B2_pool exactly.
+- **Prediction:** J rep on V6Fr: chain alone +0.15 to +0.35 on within; over the gated filter alone +0.05 to +0.2 on within
+  (largely redundant with the output filter), runs 0 to +0.1. True runs 1.5–2 × J. ext ≥ rep by about 0.05; fwd about
+  half of rep.
+- **Kill:** J (best of rep / ext) below +0.3 over the gated filter alone on within (mean of within 0/1, V6Fr; P0r
+  reported), or any collapse (an order mean down ≥ 1 point against the unmodified chain + filter, or one person down ≥ 5
+  points on an order). A result inside ±0.3 is recorded as undecided as a direction, but not kept for the package.
+- **(2) fine-tuning labels:** run only if (1)'s best J form is ≥ +0.15 over the gated filter on within, or the cheap
+  proxy says so: balanced accuracy of the prefix-smoothed labels at s15's refit times ≥ the as-emitted labels + 2 points
+  (new people, within). Form: ftrel.py r15 with RELAB_NPZ holding the smoothed labels at each refit, against r15 / s15.
