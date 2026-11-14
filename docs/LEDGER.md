@@ -5073,3 +5073,16 @@ GPU runs of the image need Galvani (3100010 / 3100013).
 - **Prediction (panel):** +0.3 to +1.0 if runs are contiguous (within, runs), 0 to +0.4 under full.
 - **Kill (panel's rule, adopted):** below +0.4 with true run ids, on the mean over the six orders. Then a label-free run
   recovery is not built.
+
+### 211. MEMBER RANKING: POST-BALANCE vs RAW ACCURACY (written 14 Nov 06:57 UTC, script written, result not yet read; ML panel §3)
+- **Claim tested:** "member accuracy barely moves the chain" is an artefact of raw accuracy, which mixes session bias
+  (removed for free by rebalancing) with single-trial skill. The panel measures the nets' mix at 67.2 raw → 72.0
+  post-balance.
+- **Data:** the fine-tuning form sweeps (LS, LS3, LF, KF): each form changes the four fine-tuned SessionBN members, with a
+  chain delta against the in-run gC5 control already scored (V6Fr, new people). Per (order, form), the members'
+  raw and post-balance accuracy against gC5's (`studies/14nov/member_rank.py`).
+- **Rule:** if corr(Δchain, Δpost-balance) exceeds corr(Δchain, Δraw) by ≥ 0.2 with order means removed, member variants
+  are ranked on post-balance accuracy from here and the closed member variants are re-opened under it. Otherwise
+  "not supported on this data".
+- **Limit:** these variants differ in fine-tuning, not in member architecture or training; the claim about trained member
+  families is tested by the episodic-training experiment (GPU), not here.
