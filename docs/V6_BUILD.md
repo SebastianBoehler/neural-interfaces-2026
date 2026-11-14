@@ -436,8 +436,8 @@ exercises r15; the reference checks run with recognition off.
 | Filter reference with r15 on (recording, within 0 × 14); r15 reference with the filter on (recording × 14) | Leonardo `v4F*`, `v4Q*` | **42/42** |
 | Forced exception in the relabelling (refit at window 30, P01–P03) | Leonardo `v4X*` | **3/3**: errors 1, v5.1b from 30 on, the reference before it |
 | record.py stress / extreme / faults / long / switch / lapse / perm / missing / unknown, all on | Leonardo `v4S*` | **9/9 complete**, outputs finite, labels in {0, 1, 2}; extreme: one caught error (v6.2 mix not finite at window 60) |
-| Paired A100 timing, all against off (gates off / as shipped), and against v5.1b | Galvani 3101756 | queued (A100 partition full) |
-| Worker image on a GPU (all, r15, cf, off) | Galvani 3101926 | queued (A100 partition full) |
+| Paired A100 timing, all against off (gates off / as shipped), and against v5.1b | Galvani 3101756 | **void**: the timing tool's refit wrapper took one argument while v6.4 calls `refit(t, relab_fn)`. It raised at the first refit, the package's guard fell back to v5.1b (err 1, 0 refits), and the ratios (×1.0) measured v5.1b. Tool fixed (pass-through, and an assertion that no v6 error occurs in a timed run); rerun on the candidate ZIP: Galvani 3102619 |
+| Worker image on a GPU (all, r15, cf, off) | Galvani 3101926 (cn225) | **pass**: all 146.1 s, r15 138.9, cf 146.7, off 139.0, all 0.9945788530, files unchanged, no traceback (v5.1b 122.6 / 117.8 s) |
 
 ## v6.5: T, the personal TSEM template prior, and the upload candidate (14 Nov, ledger §245 package)
 
@@ -465,4 +465,5 @@ exercises r15; the reference checks run with recognition off.
 | On the candidate: T reference (against cfr15), r15 reference, filter reference (recording × 14 each) | Leonardo `v5Kt*`, `v5Kr*`, `v5Kf*` | **42/42** |
 | Forced exception on the candidate: TSEM site (window 30, as shipped), fine-tuning site (window 30, gates off), P01–P03 | Leonardo `v5Xt*`, `v5Xf*` | **6/6** |
 | record.py stress / extreme / faults / long / switch / lapse / perm / missing / unknown on the candidate | Leonardo `v5S*` | **9/9 complete**, outputs finite, labels valid; extreme: one caught error |
-| Worker image on a GPU (cand, T, off) | Galvani 3102382 | queued (A100 partition full) |
+| Worker image on a GPU (cand, T, off) | Galvani 3102382 (cn225) | **pass**: cand 0.9945788530 in 145.1 s, T 142.6, off 138.7, files unchanged, no traceback (v5.1b 121.6 / 118.8 s). The public replay sessions are recognised before the first refit, so the image never fine-tunes there; GPU fine-tuning of v6.4 / v6.5 code is timed in 3102619 |
+| A100 timing of the candidate ZIP (against v5.1b, gates off / as shipped; against its all-off ZIP; 800 windows) | Galvani 3102619 | pending |
