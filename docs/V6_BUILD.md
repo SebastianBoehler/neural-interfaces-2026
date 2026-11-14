@@ -397,11 +397,11 @@ Not validated:
 | Reference smoke: P01, recording, gates off, against the dev code pinned at 3a10ba8 (`studies/14nov/cf_ref`) with the same parameters | Mac CPU | latch 40 in both, outputs **bitwise** equal, 0 labels changed; **4.4 ms per window** for the filter |
 | Official local replay, filter on: `v62c_r1iLu_on.zip` `6ccc0e14de9e01a75f393435a4c33c953eee469d20232f62c6e21edf356fadb8` | Mac CPU | 0.9945788530, files unchanged, 125.2 s |
 | Official local replay, filter off: `v62c_r1iLu_off.zip` `0fc5e5cc9bb5cf4b2702d85ab6896b166de4a1c79c25124f17ca341427710c79` | Mac CPU | 0.9945788530, files unchanged, 111.1 s |
-| Worker image on a GPU (on, off) | Galvani 3101653 | pending (read with v6.4's) |
+| Worker image on a GPU (on, off) | Galvani 3101653 (cn241) | **pass**: on 0.9945788530 in 141.7 s, off 0.9945788530 in 135.7 s, files unchanged (v5.1b 120.0 / 115.7 s) |
 | Identity with the filter off, `v6_compare` to v6.2iLu ER, 14 sessions, gates as shipped / off | Leonardo CPU `cfA*`, `cfAo*` | **28/28 bitwise** |
-| Identity with the filter off through `predict()`, `record.py` per case (14 public, 4 unknown, switch, lapse, long, stress, extreme, faults, perm, missing) | Leonardo `cfRoff*` against Galvani's v6.2iLu recordings | labels equal everywhere; posteriors differ by ≤ 6.9e-9 (3.2e-6 on unknown sessions, where fine-tuning amplifies) because the two machines' CPUs round differently. Same-machine run (`cfRref*` on Leonardo) pending |
+| Identity with the filter off through `predict()`, `record.py` per case (14 public, 4 unknown, switch, lapse, long, stress, extreme, faults, perm, missing) | Leonardo `cfRoff*` against Galvani's v6.2iLu recordings | labels equal everywhere; posteriors differ by ≤ 6.9e-9 (3.2e-6 on unknown sessions, where fine-tuning amplifies) because the two machines' CPUs round differently. **Same machine (`cfRref*`, Leonardo): 23/23 cases bitwise** |
 | Reference against the pinned dev code, gates off: recording, within 0 / 1, full 0 / 1 (14 sessions each) | Leonardo `cfB*` | **70/70: latch window equal and outputs bitwise equal in every session**; latched 48 / 70; 12 labels changed in all; filter cost 8.3 ms per window on average (max 13.4) on Leonardo's CPU, 4.4 on the Mac |
-| Same, within 2 / full 2 | Leonardo | **void**: `shuffle_perms_fixed.npz` holds seeds 0–1 per scheme only (KeyError, no run). Replaced by runs 0 / 1 (`cfBruns*`), pending |
+| Same, within 2 / full 2 | Leonardo | **void**: `shuffle_perms_fixed.npz` holds seeds 0–1 per scheme only (KeyError, no run). Replaced by runs 0 / 1 (`cfBruns*`): **28/28 bitwise, latch equal** |
 | Forced exception in the filter at window 20 (before the latch) and 60 (after it), P01–P03 | Leonardo `cfC*` | **6/6**: errors 1, unfiltered from the error on, the reference before it |
 | `record.py` with the filter on: unknown (4), switch, lapse, long (577), stress, extreme, faults, perm, missing | Leonardo `cfRon*` | **9/9 complete**, outputs finite, labels in {0, 1, 2}, no filter error |
 
@@ -431,6 +431,38 @@ exercises r15; the reference checks run with recognition off.
 |---|---|---|
 | r15 reference smoke, P01 recording, gates off | Mac CPU | 17/17 refits relabelled; max difference 0.0 against relabel.py's formulas recomputed from the stored stage inputs; 0.13 ms per relabelling |
 | All-off identity smoke, P01, gates off | Mac CPU | bitwise equal to v6.2iLu ER |
-| Identity all-off (14 sessions, both gate modes); r15 reference (recording, within 0–2, full 0–2 × 14); filter reference with r15 on (recording, within 0 × 14); r15 with the filter (recording × 14); forced exception in the relabelling (window 30, P01–P03); record.py stress cases, all on | Leonardo CPU (180 jobs) | pending |
-| Paired A100 timing, all against off (gates off / as shipped), and against v5.1b | Galvani 3101756 | pending |
-| Worker image on a GPU (all, r15, cf, off) | Galvani 3101926 | pending |
+| Identity all-off to v6.2iLu ER, 14 sessions, gates as shipped / off | Leonardo `v4A*`, `v4Ao*` | **28/28 bitwise** |
+| r15 reference, recording, within 0 / 1, full 0 / 1, runs 0 / 1 × 14 sessions, gates off | Leonardo `v4R*` | **98/98**: max difference 0.0 in every session; 1,680 refits relabelled, 2,885 labels changed against the as-emitted ones (r15 acts); 0.29 ms per relabelling on average |
+| Filter reference with r15 on (recording, within 0 × 14); r15 reference with the filter on (recording × 14) | Leonardo `v4F*`, `v4Q*` | **42/42** |
+| Forced exception in the relabelling (refit at window 30, P01–P03) | Leonardo `v4X*` | **3/3**: errors 1, v5.1b from 30 on, the reference before it |
+| record.py stress / extreme / faults / long / switch / lapse / perm / missing / unknown, all on | Leonardo `v4S*` | **9/9 complete**, outputs finite, labels in {0, 1, 2}; extreme: one caught error (v6.2 mix not finite at window 60) |
+| Paired A100 timing, all against off (gates off / as shipped), and against v5.1b | Galvani 3101756 | queued (A100 partition full) |
+| Worker image on a GPU (all, r15, cf, off) | Galvani 3101926 | queued (A100 partition full) |
+
+## v6.5: T, the personal TSEM template prior, and the upload candidate (14 Nov, ledger §245 package)
+
+`lean/src65` → `submissions/lean_v65` (`submission.py` `dba089f1…`, 01e5288); v6.4's bundle and ZIPs untouched.
+- **T** (`v6_tpri_on`): route4's personal TSEM template prior, in RouteB's routed tail only. On a routed window with
+  ramp r and person j, TSEM's class means are (Σ + 20 r · pri[j]) / (n + m0 + 20 r), with pview's denominator fix. v5.1b's
+  Route, the gates and the shadow are unchanged; rows before the first routed window are unchanged.
+- **pri** (`lean/tools/fit_tpri.py`, `runs/tpri/tpri.npz`): for each of the ten people, the mean over **all** their public
+  sessions (P04 and P10 three each, the others one) of the class means of rlib3.stdz of the package's own core1 TSEM
+  coordinates. **Dev built pri from session 1 of P04 / P10 only (seen_session); dev cannot measure this difference.**
+- A window-exact comparison with pview's dev outputs is not possible: dev's chain uses seen_session members and core1
+  trained on session 1 of P04 / P10, while the package's are trained on all ten people. The reference therefore
+  recomputes dev's formulas from the package's own inputs.
+
+| ZIP (v6.5, r1iLu keys) | SHA-256 | Local replay (Mac CPU) |
+|---|---|---|
+| **`v65_r1iLu_cand`: filter + r15 + T, the upload candidate** | `b015bb272f5f8b054ed533649678c371930b133e39bc5324c3ae7ecf95d8190c` | 0.9945788530, files unchanged, 104.8 s; 4 `[count-filter]` lines |
+| `v65_r1iLu_T` (T only) | `1300079c3c8aa71002dea2dbd9c2c0638fd7521f4ef84fee530b76aa69025a5a` | 0.9945788530, 100.3 s |
+| `v65_r1iLu_off` | `44ddbd50dc7ee646d096ade689706202a5607e7e84c381488dd51f0171826345` | 0.9945788530, 100.2 s |
+
+| Check (v6.5) | Where | Result |
+|---|---|---|
+| T off: bitwise to v6.2iLu ER; cfr15 (T off): bitwise to v6.4 "all"; 14 sessions × gates as shipped / off | Leonardo `v5A*`, `v5Ao*`, `v5B*`, `v5Bo*` | **56/56 bitwise** |
+| T reference (gates as shipped): every routed-tail TSEM step against pview's formula, the stored prior against route4's expression recomputed, windows before routing against T off; recording, within 0 / 1, full 0 / 1, runs 0 / 1 × 14 | Leonardo `v5T*` | **98/98**: TSEM difference 0.0, prior ≤ 3.8e-12, before routing equal everywhere; prior applied on 17,605 windows from window 10; 8 labels changed against T off, posterior change ≤ 0.099 |
+| On the candidate: T reference (against cfr15), r15 reference, filter reference (recording × 14 each) | Leonardo `v5Kt*`, `v5Kr*`, `v5Kf*` | **42/42** |
+| Forced exception on the candidate: TSEM site (window 30, as shipped), fine-tuning site (window 30, gates off), P01–P03 | Leonardo `v5Xt*`, `v5Xf*` | **6/6** |
+| record.py stress / extreme / faults / long / switch / lapse / perm / missing / unknown on the candidate | Leonardo `v5S*` | **9/9 complete**, outputs finite, labels valid; extreme: one caught error |
+| Worker image on a GPU (cand, T, off) | Galvani 3102382 | queued (A100 partition full) |
