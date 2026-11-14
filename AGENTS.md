@@ -49,7 +49,7 @@ This project targets Track 2 BCI decoding in Neural Interfaces 2026.
 
 - Usage is the scarce resource: the weekly all-models limit is shared by every thread and subagent. Pace it to the reset.
 - Models: execution threads and subagents on Sonnet (`.claude/settings.json` default; `executor` agent). Routine
-  queue/log reads on Haiku (`cluster-check`; `Explore` is overridden to Haiku). Opus only for the research and
+  queue/log reads on Haiku (`cluster-check` only); `Explore` is overridden to Sonnet (built-in runs on Opus). Opus only for the research and
   coordinator threads, never for subagents. A Sonnet thread that needs hard calls gets `/advisor opus` in that thread
   only, instead of running on Opus. Not project-wide: each advisor call resends the whole transcript uncached, and on an
   Opus thread it duplicates the main model. Fable as advisor is not free; it counts against the plan limits (docs).

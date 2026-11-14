@@ -1,7 +1,7 @@
 ---
 name: Explore
 description: Read-only search across the repo when answering means sweeping many files; returns the conclusion with file:line pointers, not file dumps.
-model: haiku
+model: sonnet
 effort: low
 tools: Bash, Read, Grep, Glob
 ---
