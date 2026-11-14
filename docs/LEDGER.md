@@ -6638,3 +6638,27 @@ to 0.0 on every shared key; replay/check.py OK. Change of variant + gated J filt
 - **(2) proxy** (runs/designdec/proxy.txt): prefix-smoothed labels at s15 refits, J: +1.05 BA over the emitted labels on
   within (+1.00 runs), +0.30 over r15's relabels; true runs +1.57 / +0.82. Below the +2 rule. r15's +0.75 label gain gave
   +0.12 in §221, so the smoothed labels predict about +0.05 over r15.
+
+**§245 package (14 Nov 14:25 UTC, v52-build; written before the full checks, after a one-session smoke): v6.5, T behind
+its key, and the upload candidate.**
+- **Form:** `lean/src65` → `submissions/lean_v65` (`dba089f1…`, 01e5288); v6.4's bundle untouched.
+  - `v6_tpri_on`: route4's personal TSEM template prior, in RouteB's routed tail only. On a routed window with ramp r and
+    person j, TSEM's class means are (Σ + 20 r · pri[j]) / (n + m0 + 20 r), with pview's denominator fix. v5.1b's Route,
+    the gates and the shadow are unchanged.
+  - pri (`lean/tools/fit_tpri.py`, `runs/tpri/tpri.npz`): for each of the ten people, the mean over all their public
+    sessions of the class means of rlib3.stdz of the package's own core1 TSEM coordinates (128). Dev used session 1 of
+    P04 / P10 only; that difference cannot be measured on dev.
+  - Packages `cand_v65_r1iLu_{off, T, cfr15, cand}`. **cand** = filter + r15 + T on v6.2iLu ER's keys: the upload
+    candidate next to the checked fallback `cand_v62_r1iLu`.
+- **Smoke (P01, recording, gates as shipped):** the prior was applied on 180 windows from the first routed one (10); the
+  TSEM steps equal pview's formula (difference 0.0); the stored prior equals route4's expression recomputed (0.0);
+  windows before routing are unchanged against T off; T moves the posteriors by up to 0.09 and changes no label there.
+- **Predictions:**
+  1. T off is bitwise equal to v6.2iLu ER, and cfr15 to v6.4 "all" (14 sessions, both gate modes);
+  2. the T reference (TSEM ≤ 1e-10, prior ≤ 1e-10, equal before routing) holds in recording, within 0 / 1, full 0 / 1,
+     runs 0 / 1;
+  3. on cand, the filter, r15 and T references all hold;
+  4. forced exception at the TSEM and FT sites: errors 1, then v5.1b;
+  5. stress cases complete; replays files unchanged; GPU worker image passes.
+- **Not checkable here:** a window-exact comparison with pview's dev outputs. Dev's chain uses seen_session members and
+  core1 trained on session 1 of P04 / P10; the package's are trained on all ten people.
