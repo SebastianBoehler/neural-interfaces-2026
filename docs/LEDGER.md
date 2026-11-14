@@ -4975,3 +4975,20 @@ image's torch is 2.14.1+cu130 ("NVIDIA driver too old", 64443706).
 - The CPU rerun with the GPU hidden (no --nv, CUDA_VISIBLE_DEVICES="") is 64444264, then the FT path 64444265/66.
 - My Leonardo waiter had run its ssh string in zsh without word splitting, so it never saw the 01:51 failure. Waiters now run
   under bash.
+
+**§206 build addendum (14 Nov 05:08 UTC, v52-build; written before any check of these packages): v6.2h, the step62
+exception guard.**
+- **Finding** (ni26-push, Leonardo 64443845, worker image on the CPU with a GPU whose driver is too old): v6.2g crashed the
+  official ingestion inside a refit (Adam's CUDA graph-capture check). `step62` had no exception guard, while v6.1's
+  `step61` has one. This holds for every v6.2 / v6.2g / v6.2gL ZIP.
+- **Fix** (`lean/src62h` → `submissions/lean_v62h`, `ccf16a94…`): everything after v5.1b's output and the recognition
+  bookkeeping runs under try/except. An exception is counted in the [v6] line's errors and prints one stderr line, and
+  that window and the rest of the session emit v5.1b's output. A non-finite output now also counts as an error. With
+  no error, the code computes what v6.2g computes.
+- **Packages:** `cand_v62_r2hL`, `r2h`, `r1hL`, `r1h`; every data file is byte-identical to the g / gL counterpart.
+- **Predictions:**
+  1. bitwise equal to v6.2g / v6.2gL on all 14 sessions (gates as shipped and off for r2, off for r1);
+  2. forced exception at window 30 (ft.step or eye.step) on P01–P03: the run completes with errors 1, windows 0–29
+     bitwise as the unforced run, and windows 30 on bitwise equal to the inner v5.1b and to the v5.1b package;
+  3. official local replay at 0.99458 with files unchanged.
+- **Refutation rule:** any miss fails the h package; the g ZIPs stay unsafe either way (no guard).

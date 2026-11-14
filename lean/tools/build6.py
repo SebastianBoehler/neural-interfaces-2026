@@ -4,6 +4,7 @@ Usage: python lean/tools/build6.py V51B_DIR MEMBERS_DIR OUT_DIR [--steps 5 --eve
        [--v61 --labels v6r]   (v6.1: the lean/src61 bundle; fine-tuning labels from the v6 chain without fine-tuning)
        [--v62 --routed 0|1|2] (v6.2: the lean/src62 bundle; 0 = v6.1, 1 = v6.2-safe, 2 = v6.2)
        [--v62g --cap 400 --budget 3000] (v6.2g: lean/src62g, fine-tuning cost guards)
+       [--v62h ...]           (v6.2h: lean/src62h, v6.2g plus the step62 exception guard; v6.2g's keys)
 MEMBERS_DIR holds eye_s<k>.pt, rest_s<k>.pt and rest_s<k>.npz (scripts/train_v6_members.py). Keys added to weights.npz:
   v6_eye_files, v6_rest_files, v6_rest_{align,k,G,scale,shrink} (equal across rest seeds: asserted), v6_rest_w = 1/16
   (weight 1 against the replay's 15 units of the v5.1b mix), v6_slots (fbraw, fb, sinc, fbl = replay slots 5, 6, 7, 8;
@@ -16,7 +17,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-V62G = "--v62g" in sys.argv
+V62H = "--v62h" in sys.argv  # v6.2h: lean/src62h (v6.2g plus the step62 exception guard), same keys as v6.2g
+V62G = "--v62g" in sys.argv or V62H
 V62 = "--v62" in sys.argv or V62G
 V61 = "--v61" in sys.argv or V62
 if not V61:
