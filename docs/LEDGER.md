@@ -7222,3 +7222,37 @@ classic.py / classic_pl.py / splits.py, edits nothing), outputs `runs/anchored/`
   people up. Then sketch the causal form (refit every k windows on the delivered prefix with the chain's labels, prefix EA)
   for §253's helper. +0.3 to +1.0 or a scheme < 0: undecided (report which member and end to push). < +0.3: anchoring does
   not rescue the self-labelled classic factor in this form; recorded, not closed.
+
+### 255. TEST-TIME TRAINING WITH A SELF-SUPERVISED LOSS (written 14 Nov 17:04 UTC, before any result)
+Explore, ground-up form (coordinator). §246: +7.5 of in-session headroom with true labels; §252: the chain's labels at ~75 %
+destroy it (label noise). s15 / r15 fine-tuning on pseudo-labels gives about +0.1 to +1. Untried: TTT (Sun et al. 2020), an
+encoder adapted to the session by a label-free auxiliary loss, so label noise never enters. Code `studies/14nov/tttssl/`,
+outputs `runs/tttssl/` (Galvani A100, then scored on the Mac).
+- **Net.** The shipped FBLight SessionBN recipe (`fblight_ea_rot05_sbn`, ttt5 "fbl", 40 epochs, rot 0.05) with its output
+  layer widened: rows 0-2 classify, the rest is the auxiliary head (the encoder = filter bank, spatial conv + SessionBN,
+  attention; 32 features). Trained JOINTLY (CE + 0.5 x aux) on the nine other people, all_loso folds, seeds 0-5. Forms:
+  **C** SimCLR (NT-Xent, t 0.1, 64-d head; views: shift <= 15, noise 0.2 sd, 10 % channels dropped, amplitude
+  U(0.8, 1.25), as §147); **P** a spatial "rotation" pretext: left-right hemisphere mirror of the (EA-whitened) window,
+  2-way (mirroring the aligned input equals aligning the mirrored raw window), applied to a random half. Twin: the same
+  recipe, 3 outputs, same seed (= the shipped member).
+- **Ceiling arms (non-causal: the whole held-out session, recording order, eval-mode SessionBN, then classify the same
+  windows).** Joint nets: na (no adaptation); sA10 / sA40 / sA100 (aux loss, all trainable parameters, AdamW 1e-3, 10 / 40 /
+  100 full-batch steps); sB40 (aux loss, SessionBN affine only, 5e-3, 40); pl40 (s15's loss: confidence-weighted CE on an
+  augmented view + KL to the clean view, chain labels, all, 1e-3, 40); spl40 (pl40 + aux). Twin: na, pl40, tent40 (entropy
+  minimisation, SessionBN affine, 5e-3, 40). Pseudo-labels: r15 chain V6Fr, mean of six bases, order within0 (one order for
+  every ceiling arm; stated limitation). PL arms are in-sample distillation of the chain on the windows scored, so their
+  net-alone number is biased upward against the SSL arms; read them in fusion.
+- **Scoring.** New people (10), replay score.person on all_loso. Net alone: per seed, then mean over seeds; per-person change
+  vs the same net's na; 80 % intervals resampling people and seeds. Fusion: chain (s242r15 V6Fr, per base) x net^w, net =
+  6-seed mean, w 0.5 primary (0.25 / 1 reported), 12 orders (within0-3, full0-3, runs0-3) x 6 bases; change of c x arm^w
+  against c x na^w and against the chain alone. Diagnostics: aux loss before/after per session, mirror accuracy on the
+  held-out session before adaptation (P).
+- **Predictions.** Joint na vs twin na: C -0.3 (-1.5 to +1), P -0.3 (-1.5 to +1). Net alone, primary sA40 vs na: C +0.5
+  (-1 to +2), P +0.3 (-1 to +1.5); best SSL arm over forms below +2 (70 %). sB40 within 0.5 of sA40. Twin pl40 alone +4
+  (+1 to +8, distillation); twin tent40 +0.5 (-1 to +2). Fusion w 0.5: SSL primary vs na +0.1 (-0.3 to +0.5); pl40 +0.2.
+  Held-out mirror accuracy 60-75 % (above chance, so the pretext transfers).
+- **Kill rule (coordinator).** Primary sA40 (either form) net alone >= +2 over its na with the 80 % people interval above 0
+  -> causal form (update every k windows on windows < t, as s15) under shuffled orders, within / full / runs, people x order
+  intervals. Below +2: no causal form in this round; +1.5 to +2.5 is "undecided" (bars are reading aids); < +1: "label-free
+  TTT of this encoder does not reach the in-session headroom in this form", recorded, not closed (other encoders, aux tasks,
+  members). Best-in-hindsight arms are printed and labelled as such; they do not trigger the causal form alone.
