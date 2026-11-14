@@ -6206,3 +6206,16 @@ orders) -> not adopted; inside ±0.3 is recorded as "undecided", not closed. Not
 **Step 2b, FT label weights:** sized only (GPU fine-tuning via ttt18 label weights); run only if 2a passes.
 (Correction, same minute: two paths above were lost to shell quoting. The re-stream script is `studies/14nov/offtask/prest.py`;
 the stage hooks are installed from `studies/14nov/offtask/`.)
+
+**§240 gate 2 RESULT (14 Nov 12:11 UTC, before any chain result; `studies/14nov/eyeevents/{build,alone}.py`, `runs/views_eye/ev8.npz`).**
+(Stamp correction: the gate 1 heading says 12:11; `date -u` at writing was 12:08.)
+- **Alone, LOSO logistic regression, causal per-session z-scores (rec / within 0 / full 0 / runs 0):** 3-class cell BA 48.7–49.2
+  (prediction 42 [38–48]: above); **SUB-vs-WORD BA 63.9–65.0, within-session AUC 0.66** (prediction 57 [52–63], 0.55–0.62:
+  above); the eye net's SUB-vs-WORD BA is 65.7, the member mix's 79.2. Gate 2 passes.
+- **Sign consistency (SUB − WORD by interface × run type):** 7 of 8 columns keep one sign in ≥ 3 of 4 cells; early horizontal
+  balance (q 2) positive and late (q 2) negative in all four (the panel's flip), vertical late-minus-early level and event
+  share positive in all four.
+- **Error correlation with the mix within class × run (SUB/WORD margin):** **+0.35** (errors +0.14–0.15) against the eye net's
+  +0.155 (+0.08); with the eye net +0.14. Prediction +0.00 to +0.15: **missed high**. The view is as accurate on the pair as
+  the eye net but shares the members' margins about as much as §233's mivma (+0.23) or more, which §233 found costly in
+  SessionEM. Chain prediction left unchanged as written (+0.1 [−0.2, +0.4]); on this correlation I expect its low end.
