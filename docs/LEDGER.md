@@ -5703,3 +5703,10 @@ Closed: no gain, at about twice the run time.
   against the same files without ALLSEED.
 - **Prediction:** +0.1 to +0.3 (averaging seeds' FT changes cuts FT noise).
 - **Rule:** ≥ +0.3 mean with ≥ 4/6 up → size the run-time cost; between 0 and +0.3, undecided.
+
+### 231. PER-SESSION EYE-VIEW WEIGHT, ORACLE FIRST (written 14 Nov 11:45 UTC, before any result; panel neuroscience P3 iii)
+- The eye code is bimodal across people (own-label accuracy 0.38–0.50 or 0.76–0.84). Ceiling first: shufcombo EYEW=w scales the
+  eye-view columns. w ∈ {0, 0.5, 1, 2}, v6f, six orders, per-window outputs. The oracle picks per session the w with the best
+  session accuracy (labels: ceiling only).
+- **Rule:** oracle gain ≥ +0.5 over w = 1 → build a label-free per-session rule (e.g. agreement of the eye view with the member
+  mix over the first 40 windows), chosen on five people and scored on five. Below +0.3: closed. In between: undecided.
