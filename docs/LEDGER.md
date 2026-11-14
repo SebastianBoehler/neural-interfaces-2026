@@ -7345,3 +7345,20 @@ Twin: pl40 +22.1, tent40 -21.1 (collapse to one class at 5e-3).
   only consistent signal is contrastive SimCLR with SessionBN-affine adaptation (wave 1 C sB40 +1.19 alone / 0.00 fused;
   wave 2 C10 +0.80 / +0.27 fused, 9/10), small and below the noise of a stacked member. Not tested: larger trunks (sinc,
   fbraw), a causal form (not triggered).
+
+### 256. C10 CONTRASTIVE TTT AS A STACKED MEMBER (written 14 Nov 17:46 UTC, before any result; coordinator after §255 wave 2)
+Mechanism: §255's only consistent signal, the FBLight net trained jointly with a contrastive head at weight 0.1 (C10) and
+adapted with the contrastive loss on SessionBN affine parameters only (non-causal: fused +0.27 [+0.08, +0.47], 9/10;
+wave 1 at weight 0.5: 0.00), made causal and stacked. Per held-out person (nine-people nets, 6 seeds, studies/14nov/tttssl),
+per session in delivery order: from window 20, every 10 windows, 5 adaptation steps on the windows delivered so far
+(< t; the s15 schedule); window t is classified with the current parameters; seed-mean posterior. Fused with the
+candidate's output as chain x net^0.5 (w fixed in advance; rows before window 20 unchanged), then the gated count filter.
+Arms: (A) C10 adapted causally, (B) the same nets unadapted (control for the fusion itself). New people, the 20 orders,
+against the candidate (r15 + filter), scheme-equal mean, people-and-order intervals, sealed weighting with returning
+people at 0 (no returning-people form; reported as absent). Prediction: A minus candidate +0.15; A minus B +0.20.
+Pass: A minus candidate >= +0.2 with the interval above 0 and >= 7/10 people up; else small option, not packaged.
+Run time: time per window of the causal adaptation on an A100 and on a 2080, against the worker budget; reported with
+the result, required before any package.
+Third form (pre-registered here, run in parallel): the same C10 joint training and SessionBN-affine adaptation on a larger
+trunk (fbraw or sinc, whichever ttt7 / ftrel already fine-tune), non-causal ceiling as in §255. Continue to the causal form
+only if the net alone gains >= +1.5 or the chain fusion >= +0.5 (wave 2's C10: +0.80 / +0.27).
