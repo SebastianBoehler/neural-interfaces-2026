@@ -3,7 +3,7 @@ Ensemble6.relabel_prefix) against relabel.py's em_hook / ts_hook formulas (ledge
 stage inputs the package stored: the SessionEM state is refitted from windows 0..t-1 (not read from the package), with
 dev's experiments/session_em._softmax_lda and experiments/tsem._lda, the shipped constants relabel.py hard-codes
 (asserted equal to the package's), and the boost profile of replay/mech.h at SHIFT 0. Recognition off (gates forced off).
-Usage: python studies/14nov/r15_reference.py PKG [--order SCHEME:SEED:PERMS.npz] [--only K] [--raise-at N]
+Usage: python studies/14nov/r15_reference.py PKG [--order SCHEME:SEED:PERMS.npz] [--only K] [--raise-at N] [--device cuda [--compare-cpu]]
   --raise-at N: the relabelling raises at the refit at window N; asserts errors 1 and v5.1b's output from N on
 Prints one JSON line per session (max |package - reference| over every refit, label agreement, relabel ms per refit) and a
 RESULT line; exit 1 on a difference above 1e-10 or a refit count that differs from the schedule."""
@@ -63,7 +63,8 @@ def main():
     g_ = None
     if order != "recording":
         sc, sd, f = order.split(":"); g_ = np.load(f)[f"{sc}|{sd}|all_loso"]
-    m = load_model(pkg, None, "r15"); ok, worst = True, 0.0
+    dev = arg("--device", "cpu"); m = load_model(pkg, None, "r15", dev); ok, worst = True, 0.0
+    mc = load_model(pkg, None, "r15cpu") if "--compare-cpu" in sys.argv and dev != "cpu" else None
     for s in ss:
         rows = g_[d["stream"][g_] == s] if g_ is not None else np.flatnonzero(d["stream"] == s)
         X = np.nan_to_num(np.asarray(d["X"][rows], np.float32)); c = copy.deepcopy(m)
@@ -92,6 +93,15 @@ def main():
             changed += int((G.argmax(1) != emitted[:t]).sum())
             R = reference(F, b, np.asarray(gates), U, P, t, z); dd = float(np.abs(G - R).max()) if np.isfinite(G).all() else float("inf")
             diff = max(diff, dd); agree.append(float(np.mean(G.argmax(1) == R.argmax(1))))
+        cpu = {}
+        if mc is not None:  # the same session on the CPU: the GPU run's output against it (GPU fine-tuning is not bitwise)
+            cc = copy.deepcopy(mc)
+            for r in (cc.route, getattr(cc, "routeB", None)):
+                if r is not None:
+                    r.contrast.tau = r.identity.tau = np.inf
+            cc.reset_state(); oc = np.array([np.asarray(cc.step(x)) for x in X])
+            cpu = dict(cpu_max_diff=float(np.abs(out - oc).max()), cpu_label_agreement=float(np.mean(out.argmax(1) == oc.argmax(1))),
+                       cpu_err=cc.log6["err"], cpu_refits=cc.ft.refits)
         sched = len(range(int(z["v6_ft_t0"]), len(rows), int(z["v6_ft_every"])))
         if ra >= 0:
             good = log["err"] == 1 and np.array_equal(out[ra:], o5[ra:]) and diff <= 1e-10
@@ -100,7 +110,8 @@ def main():
         ok &= bool(good); worst = max(worst, diff)
         print(json.dumps(dict(session=s.split("/")[-1], windows=len(rows), refits=len(got), relabels=c.ft.relabels, schedule=sched,
                               max_diff=diff, min_label_agreement=min(agree) if agree else None, labels_changed_vs_emitted=changed, err=log["err"],
-                              relabel_ms_per_refit=round(float(np.mean(ms)), 2) if ms else None, ok=bool(good))), flush=True)
+                              relabel_ms_per_refit=round(float(np.mean(ms)), 2) if ms else None, device=dev, refits_pkg=c.ft.refits, **cpu,
+                              ok=bool(good))), flush=True)
     print("RESULT", json.dumps(dict(package=str(pkg), order=order, raise_at=ra, max_diff=worst, ok=bool(ok))), flush=True)
     assert ok, "r15 reference check failed"
 
