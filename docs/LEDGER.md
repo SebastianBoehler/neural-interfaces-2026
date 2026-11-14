@@ -5086,7 +5086,7 @@ GPU runs of the image need Galvani (3100010 / 3100013).
   "not supported on this data".
 - **Limit:** these variants differ in fine-tuning, not in member architecture or training; the claim about trained member
   families is tested by the episodic-training experiment (GPU), not here.
-- **§211 RESULT (07:15 UTC; runs/s211_member_rank.txt; 240 (order, form) pairs from the LS / LS3 / LF / KF sweeps).**
+- **§211 RESULT (06:58 UTC; runs/s211_member_rank.txt; 240 (order, form) pairs from the LS / LS3 / LF / KF sweeps).**
   - Order means removed: corr(Δchain, Δraw) **+0.52**, corr(Δchain, Δpost-balance) **+0.55**. Pooled: +0.37 / +0.47;
     Spearman +0.30 / +0.43.
   - The gap (0.03) is far below the pre-registered 0.2: **not supported on this data.** Post-balance accuracy predicts the
