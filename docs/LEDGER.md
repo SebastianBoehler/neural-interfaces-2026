@@ -6348,3 +6348,6 @@ changes them), `chain.py` (shufcombo via runpy, unedited; W0 within0 reproduces 
 order on the Mac), `compare.py` (kill rule of s241). Step 2a costs about 10 CPU minutes for W1 and W3 on six orders.
 The gap is concentrated in full orders (+5.4) and in three people (P01, P05, P07); 2b (FT label weights) not sized beyond
 "one ftrel-style wave per order" since 2a did not run.
+**241, exception (14 Nov 12:18 UTC, before any 2a result; coordinator):** the gate miss of 0.04 is inside its noise and 2a costs
+about 10 CPU minutes, so 2a runs anyway as a stated exception: W1 (w = 1 - p_rest, primary) and W3 on all six orders,
+judged by the pre-registered kill rule (mean below +0.3 or people up < 7/10 -> not adopted; inside ±0.3 undecided).
