@@ -227,3 +227,26 @@ the v6f path) on the CPU and on the A100 with package shapes; `check_v62.py`; of
 | `check_v6.py` CPU, on the unzipped ZIPs | first runs voided by the budget trip; rerun per session | r2gL and r1gL **pass** on P01, P02 and P03 (eye ≤ 6.4e-7, rest ≤ 3.6e-7, mix6 ≤ 1.4e-17, tail 0, FT ≤ 1.2e-5) |
 | Run time on the ZIP, A100 | 64430676 / 64430822 | r2gL gates off ×1.85 / ×2.13 (190 / 378 windows), as shipped ×1.85 / ×2.10; r1gL gates off ×1.85 / ×2.13, as shipped ×1.29 / ×1.30. Errors 0, capped 0, frozen 0 |
 | Worker image | Galvani 3100013 (v5.1b, v6.2gL, v6.2gL-safe, v5.1b) | pending |
+
+## v6.2h: the step62 exception guard (14 Nov, ledger §206 build addendum)
+
+**The v6.2, v6.2g and v6.2gL ZIPs are unsafe.** `step62` ran the v6 additions (eye, rest, label tail, fine-tuning,
+mix, RouteB) with no exception guard; v6.1's `step61` has one. In the worker image on Leonardo's CPU with an unusable GPU
+driver (ni26-push, 64443845), Adam's CUDA graph-capture check inside a refit raised, and the official ingestion
+failed.
+
+v6.2h (`lean/src62h` → `submissions/lean_v62h`, `submission.py` `ccf16a94…`; `build6.py --v62h`, v6.2g's keys) puts
+everything after v5.1b's output and the recognition bookkeeping under try/except:
+- an error is counted (errors in the [v6] line, the first error's text) and prints one stderr line;
+- that window and the rest of the session emit v5.1b's output; relabel is inside the guard, recognition outside it;
+- a non-finite output is also an error.
+With no error, the computation is v6.2g's. `cand_v62_r2hL`, `r2h`, `r1hL`, `r1h` have data files byte-identical to
+the g / gL counterparts.
+
+| Check (v6.2h) | Where | Result |
+|---|---|---|
+| Forced exception at window 30 (`studies/14nov/v62h_raise.py`; ft.step, the worker's crash site, and eye.step; gates as shipped and off; P01–P03; all four packages) | Leonardo CPU, 27 jobs | **27/27 pass**: the run completes; errors 1; windows 0–29 bitwise equal to the unforced run; windows ≥ 30 bitwise equal to the inner v5.1b and to the v5.1b package |
+| Identity to v6.2g / v6.2gL, 14 sessions (r2: gates as shipped and off; r1: off) | Leonardo CPU, 84 jobs `h*` | pending |
+| `v62_r2hL.zip` | `e22f67e71c297aef9fd98e4ae86c4ea934aacc0f03670d4900eef02874c28098` | local replay 0.9945788530, files unchanged, 882.5 s; worker image on CPU (ni26-push) running |
+| `v62_r2h.zip`, `v62_r1hL.zip`, `v62_r1h.zip` | local replays | pending |
+| CPU `check_v6` / `check_v62` on the unzipped h ZIPs (P01–P03) | Leonardo CPU, `v6r*h*`, `v62r*h*` | pending |
