@@ -52,6 +52,8 @@ class Solver(CompetSolver):
         # no TF32, so GPU and CPU agree to float32 precision
         torch.backends.cuda.matmul.allow_tf32 = False
         torch.backends.cudnn.allow_tf32 = False
+        # v6.2i: deterministic cuDNN algorithms, no autotuning (fine-tuning reruns reproduce on the same GPU)
+        torch.backends.cudnn.deterministic, torch.backends.cudnn.benchmark = True, False
         with np.load(meta["submission_dir"] / "weights.npz") as f:
             z = {k: f[k] for k in f.files}
         check_package(z)

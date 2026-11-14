@@ -253,7 +253,44 @@ the g / gL counterparts.
 | `v62_r1h.zip` | `9bf9f6e46f6191dcbd00c224fcaf00ea4c51d9de44d068d7ac25e000d422bce5` | 0.9945788530, files unchanged, 109.7 s |
 | CPU `check_v6` / `check_v62` on the unzipped h ZIPs (P01–P03) | Leonardo CPU, `v6r*h*`, `v62r*h*` | **24/24 pass**: eye ≤ 6.4e-7, rest ≤ 3.6e-7, mix ≤ 2.8e-17, shadow / routed / tail / label 0, FT ≤ 1.2e-5 |
 
-Worker image on a GPU for v6.2h: Galvani 3100144 (v5.1b, v6.2hL ERF, v6.2h ERF, v6.2hL ER, v6.2h ER, v5.1b; SHA-checked),
-pending. The g / gL ZIPs passed the same image on a GPU (3100010 / 3100013): its torch ran v6.2's routed path with
+Worker image on a GPU for v6.2h: Galvani 3100144 (galvani-cn208, torch 2.14.1+cu130, cuda True; SHA-checked) **passed**:
+v6.2hL ERF 0.9945788530 in 166.1 s, v6.2h ERF 166.6 s, v6.2hL ER 122.0 s, v6.2h ER 122.5 s, files unchanged, no errors
+(v5.1b 106.5 s / 100.4 s). The g / gL ZIPs passed the same image on a GPU (3100010 / 3100013): its torch ran v6.2's routed path with
 fine-tuning without error. The worker image on CPU is ni26-push's (Leonardo, image software only). A100 timing
 and memory carry over from v6.2g / v6.2gL (identical computation without errors).
+
+## v6.2i: no state across sessions (14 Nov)
+
+**v6.2g and v6.2h break the official rule** that "state, windows, statistics, and parameter updates must not cross the
+session boundary" (`scientific_faq_bci.md`). The module-level `FT_CLOCK` (v6.2g's process budget) switches fine-tuning
+off for every later session, and it makes outputs depend on worker speed. Neither is to be uploaded.
+
+v6.2i (`lean/src62i` → `submissions/lean_v62i`, `submission.py` `1caf6d11…`; `build6.py --v62i --session-s S`):
+- `FT_CLOCK` / `ft_clock_start` removed. A per-session limit lives on the model: `v6_ft_session_s` caps this session's
+  total refit seconds (`FineTune.ft_sec`, reset with the session). Past it, no new refit in the session, and the last
+  fine-tuned nets keep predicting. The cap of 400 windows stays.
+- **Sizing:** on the A100 (Leonardo 64448969, `v6_time.py` with synchronised refit timing), refits take 5.85 s in all
+  in a 190-window session (17 refits) and 23.6 s in a 378-window session (36 refits, longest 1.18 s). About 2.5 ×
+  23.6 s gives **60 s**. The cap keeps any longer session at refits up to window 400.
+- **What the limit implies:** it binds only if refits run more than 2.5× slower than on the A100 in a 378-window session,
+  or about 10× in a 190-window one. A per-session limit cannot bound the total: if it bound in every one of the
+  106 sealed sessions (20,083 windows, mean 189.5), refits alone would take up to 106 × (60 s + one refit) ≈ 108 min. On
+  top come v5.1b (21.45 min) times the non-refit additions (×1.38 at 378 windows) ≈ 30 min, so about 138 min. At A100
+  speed the expected total stays as measured: refits about 6 s × 106 ≈ 11 min, and about 40 min in all with every session
+  unrecognised.
+- Also in v6.2i, from the performance review (`evidence/review_14nov/panel_performance.md`), each small:
+  - fine-tuning copies load lazily at the first refit (no loads in `reset_state`, none kept by the template);
+  - `self.X` stops at the cap, and the per-window prediction reads the window's input directly (the same float32 array);
+  - `torch.cuda.empty_cache()` at session reset and in step62's exception handler, when CUDA is initialised;
+  - `cudnn.deterministic = True`, `benchmark = False`.
+- **Cross-session audit of the tree:** `FT_CLOCK` was the only module-level mutable state that can change predictions.
+  - Fine-tuning reloads its copies and reseeds its generators per session; eye, rest and net streams reset per session.
+  - Module level has only a thread pool and constants.
+  - Process-global but data-independent: TorchScript's profiling executor specialises / fuses after warm-up runs (on the
+    GPU, possibly float32 shifts at about 1e-7 between early and late windows), as in the uploaded v5.1b.
+- Checks submitted:
+  - Leonardo wave 5 (139 jobs), all four packages: forced exception at window 30 (P01–P03), forced per-session limit
+    (`cand_v62_r2iL_s0`, limit about 0: the refit at window 20 runs, the one at 30 does not; `--from 30` on 14
+    sessions), identity to v6.2h / v6.2hL on 14 sessions;
+  - Galvani `cpu-galvani` (51 jobs, v6.2iL ERF): the same three checks, readable without the Leonardo certificate.
+  - Local replays (r2iL, r2i, r1iL, r1i) follow the one-session smoke.

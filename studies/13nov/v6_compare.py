@@ -32,7 +32,7 @@ def run(m, X, budget=-1.0):
         assert hasattr(ft, "budget"), "--budget needs a v6.2g package as B"
         ft.budget = budget
     o = np.array([c.step(np.nan_to_num(np.asarray(x, np.float32))) for x in X])
-    log = getattr(c, "log6", {}); info = dict(err=log.get("err"), capped=getattr(ft, "capped", None), frozen=getattr(ft, "frozen", None),
+    log = getattr(c, "log6", {}); info = dict(err=log.get("err"), capped=getattr(ft, "capped", None), frozen=getattr(ft, "frozen", None), over=getattr(ft, "over", None),
                                               refits=getattr(ft, "refits", None), clock_stopped=None if clock is None else clock["stopped"])
     assert not log.get("err"), log
     return o, info

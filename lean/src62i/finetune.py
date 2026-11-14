@@ -56,12 +56,21 @@ class FineTune:
         return new
 
     def reset_state(self):
-        self.nets = {s: torch.jit.load(io.BytesIO(b), map_location=self.dev) for s, b in self.blobs.items()}
-        self.theta0 = {s: [p.detach().clone() for p in self.params(m)] for s, m in self.nets.items()}
-        self.gens = {s: torch.Generator(device=self.dev).manual_seed(self.seed) for s in self.nets}
-        self.X, self.lab, self.wt = {s: [] for s in self.nets}, [], []
+        # v6.2i: the session copies are loaded at their first use (load), not here: reset_state runs in __deepcopy__ and
+        # again from the evaluator, and the template never fine-tunes
+        self.nets = self.theta0 = self.gens = None
+        self.X, self.lab, self.wt = {s: [] for s in self.member}, [], []
         self.refits, self.steps, self.dtheta = 0, 0, 0.0
         self.capped, self.over, self.ft_sec = 0, 0, 0.0  # refits skipped by the cap / by the session limit; refit seconds
+        if torch.cuda.is_initialized():  # refit batches of 20-400 windows leave many cached block sizes behind
+            torch.cuda.empty_cache()
+
+    def load(self):
+        """The session's copies (from the files' bytes), their starting weights and generators, at the first use."""
+        if self.nets is None:
+            self.nets = {s: torch.jit.load(io.BytesIO(b), map_location=self.dev) for s, b in self.blobs.items()}
+            self.theta0 = {s: [p.detach().clone() for p in self.params(m)] for s, m in self.nets.items()}
+            self.gens = {s: torch.Generator(device=self.dev).manual_seed(self.seed) for s in self.nets}
 
     @staticmethod
     def params(m):
@@ -76,6 +85,7 @@ class FineTune:
                 b.zero_()
 
     def refit(self, t):
+        self.load()
         # the profiling executor would re-specialise the traces for every new prefix length t: run unoptimised here
         # (per window, at a fixed batch of 1, the traces keep the default executor)
         with torch.jit.optimized_execution(False):
@@ -121,8 +131,9 @@ class FineTune:
         if not self.on:
             self.lab.append(int(np.argmax(out)))
             return res
-        for s in self.nets:
-            self.X[s].append(np.asarray(inputs[self.member[s]], dtype=np.float32))
+        if not self.cap or t < self.cap:  # refits read windows 0..t-1 with t <= cap; nothing past the cap is kept
+            for s in self.member:
+                self.X[s].append(np.asarray(inputs[self.member[s]], dtype=np.float32))
         if t >= self.t0:
             if (t - self.t0) % self.every == 0:
                 if self.cap and t > self.cap:  # long session: no new refit; the last fine-tuned nets keep predicting
@@ -133,9 +144,10 @@ class FineTune:
                     t1 = time.monotonic()
                     self.refit(t)
                     self.ft_sec += time.monotonic() - t1
+            self.load()
             with torch.no_grad():
                 for s, m in self.nets.items():
-                    x = torch.from_numpy(self.X[s][t][None]).to(self.dev)
+                    x = torch.from_numpy(np.asarray(inputs[self.member[s]], dtype=np.float32)[None]).to(self.dev)
                     res[s] = torch.softmax(m(x)[:, :3].double(), 1)[0].cpu().numpy()
         self.lab.append(int(np.argmax(out)))
         self.wt.append(float(np.max(out)))
