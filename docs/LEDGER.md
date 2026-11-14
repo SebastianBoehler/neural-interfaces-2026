@@ -7306,3 +7306,21 @@ Twin: pl40 +22.1, tent40 -21.1 (collapse to one class at 5e-3).
   not closed. The only positive is C sB40 (+1.19 alone, 9/10, hindsight), which recovers a third of the joint head's -3.1 cost
   and is flat in the chain (0.00). Forms not run: a reconstruction aux task (masked channel / masked time) that cannot be
   solved trivially, larger trunks (sinc, fbraw), an aux weight below 0.5 so that joint training costs nothing.
+**§255 amendment (second wave, written 14 Nov 17:26 UTC, before any result of it; coordinator, several-forms rule).** Code
+`studies/14nov/tttssl/tttssl2.py` (imports tttssl.py; wave 1 unchanged), same folds, seeds 0-5, FBLight, Galvani.
+- **Forms.** **R10 / R25**: masked reconstruction at aux weight 0.1 / 0.25. Input masked per window: one contiguous time block
+  of U(25 %, 40 %) of the samples and a random U(25 %, 40 %) of the channels set to 0; the encoder's 32 features (input of the
+  output layer) go through a light decoder (32 -> 128 ELU -> 369) to the clean window's log band power in the net's own nine
+  filter-bank bands x 41 channels, z-scored per dimension over the batch (detached), MSE. The loss is therefore 1 - R2 of the
+  reconstruction: 1 = saturated, 0 = trivial. (Raw-sample reconstruction is impossible from FBLight's band-power features, so
+  the target is set at the level the encoder can represent.) **C10**: wave 1's SimCLR at aux weight 0.1. Twin: wave 1's twin
+  na files (same code path, unchanged).
+- **Arms, fixed now.** Primary **sB40** (aux loss, SessionBN affine only, AdamW 5e-3, 40 full-batch steps on the whole session);
+  secondary **sA10** (aux loss, all trainable parameters including the decoder, 1e-3, 10 steps); na. No pseudo-label arms.
+- **Report first:** joint cost (form na vs twin na, net alone); held-out reconstruction loss before adaptation (per session).
+- **Predictions.** Joint cost: R10 -0.3 (-1 to +0.5), R25 -0.6 (-1.5 to +0.3), C10 -0.8 (-2 to +0.3). Held-out reconstruction
+  loss before adaptation 0.4-0.8. Net alone sB40 vs na: R10 +0.3 (-0.5 to +1.2), R25 +0.4 (-0.5 to +1.5), C10 +0.5 (-0.3 to
+  +1.3); sA10 within ±0.7 of 0. Fusion (w 0.5, 12 orders x 6 bases) sB40 vs na +0.05 (-0.2 to +0.3).
+- **Kill rule (unchanged in kind).** sB40 of any form net alone >= +2 over its na with the people x seeds interval above 0, or
+  fusion >= +0.5 over c x na^0.5 with the people x orders interval above 0 -> causal form under shuffled orders. Otherwise
+  record "label-free TTT not reached in two forms (contrastive / mirror, masked reconstruction)" and stop this line.
