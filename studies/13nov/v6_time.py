@@ -26,10 +26,10 @@ def run(m, X, dev):
     if ft is not None and hasattr(ft, "refit"):
         orig = ft.refit
 
-        def timed(t):
+        def timed(t, *a, **k):  # v6.4 calls refit(t, relab_fn): pass every argument through (a one-argument wrapper raised there)
             if dev == "cuda":
                 torch.cuda.synchronize()
-            t1 = time.perf_counter(); orig(t)
+            t1 = time.perf_counter(); orig(t, *a, **k)
             if dev == "cuda":
                 torch.cuda.synchronize()
             d = time.perf_counter() - t1; acc[0] += d; acc[1] = max(acc[1], d)
@@ -44,7 +44,7 @@ def run(m, X, dev):
     sec = time.perf_counter() - t0
     gb = dict(peak_alloc_gb=round(torch.cuda.max_memory_allocated() / 1e9, 2), peak_reserved_gb=round(torch.cuda.max_memory_reserved() / 1e9, 2)) if dev == "cuda" else {}
     return round(sec, 1), (dict(refits=ft.refits, steps=ft.steps, v6=c.log6["v6"], err=c.log6["err"], capped=getattr(ft, "capped", None),
-                                frozen=getattr(ft, "frozen", None), refit_s=round(acc[0], 2), refit_max_s=round(acc[1], 2), **gb) if ft else gb)
+                                frozen=getattr(ft, "frozen", None), relabels=getattr(ft, "relabels", None), refit_s=round(acc[0], 2), refit_max_s=round(acc[1], 2), **gb) if ft else gb)
 
 
 def main():
@@ -60,6 +60,8 @@ def main():
     run(A, d["X"][f("P02|1")], dev); run(B, d["X"][f("P02|1")], dev)  # warm-up
     for tag, rows in S.items():
         X = d["X"][rows]; a1, la = run(A, X, dev); b1, l1 = run(B, X, dev); b2, l2 = run(B, X, dev); a2, _ = run(A, X, dev)
+        for lg in (l1, l2, la):  # 14 Nov: a TypeError in a wrapper made the v6 chain fall back silently; the timing then measured v5.1b
+            assert not (lg or {}).get("err"), f"the v6 chain raised during a timed run: {lg}"
         a, b = (a1 + a2) / 2, (b1 + b2) / 2
         print(json.dumps(dict(session=tag, windows=len(rows), v51b=[a1, a2], v6=[b1, b2], ratio=round(b / a, 3), added_s=round(b - a, 1),
                               log=l1, log_v51b=la, sealed_min_57=round(1287 * (1 + 0.57 * (b / a - 1)) / 60, 1), sealed_min_100=round(1287 * b / a / 60, 1))), flush=True)
