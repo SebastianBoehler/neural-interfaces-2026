@@ -5756,11 +5756,11 @@ Closed: no gain, at about twice the run time.
 - **Numbering note:** "228" was already taken (external harness v2, item 2, 08:21 UTC); this entry is cited as §228c
   (count filter) from here.
 
-**§230 RESULT (12:20 UTC; runs/s230_allseed.txt).** All-seed FT on v6.2hL's new-people form, against delta1: within 0 −0.03,
+**§230 RESULT (11:50 UTC; runs/s230_allseed.txt).** All-seed FT on v6.2hL's new-people form, against delta1: within 0 −0.03,
 within 1 +0.04, full 0 +0.12, full 1 +0.12, runs 0 −0.13, runs 1 +0.21. **Mean +0.05 [+0.01, +0.10]**, 4/6 orders up, 7/10 people
 up. Undecided and small: below the +0.3 rule. It costs × 6 FT run time, so it is not worth a package change.
 
-**§232 hooks (12:15 UTC):** `EXTRA_VIEW` (extra SessionEM view columns, recording or delivery-order rows), `REST_W`, and
+**§232 hooks (11:45 UTC):** `EXTRA_VIEW` (extra SessionEM view columns, recording or delivery-order rows), `REST_W`, and
 `EM_LAM` / `TS_LAM` / `BTS` (studies/14nov/stagehooks.py). No-op smoke: the stage constants at their shipped values reproduce
 the regular file exactly (max diff 0.0). Synced to Galvani and Leonardo. Helpers launched on them: §233 external pairwise
 experts as views, §234 embedding views, §235 upper-bound sweeps of the kept components, §236 session-type conditioning.
