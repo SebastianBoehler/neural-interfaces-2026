@@ -6923,3 +6923,18 @@ versa. Also on T, and with the count filter (score_ret.py on SAVE_OUT keys <orde
   cross-person setting within 0.3 of it; on T about the same increments; the filter adds ≤ +0.1.
 - **Rule:** a package candidate if sealed-weighted ≥ +0.3 on the 16-order mean with no scheme below −0.3 for P10 and the
   cross-person setting also ≥ +0.3; inside ±0.3 undecided; ≤ −0.3 closed for this form.
+**§250 RESULT (14 Nov 15:33 UTC; evidence/fingerprint_14nov/group.txt, code studies/14nov/fingerprint/{metric,group}.py; Mac CPU,
+5 min, nothing trained beyond LDA, no download; group labels runs/fingerprint/groups_G{1,2,3}.npz, not scored).**
+- **Metric (nested setting, held-out people, per session):** 1-NN run identity 0.803 (unsupervised z-scored view 0.794, §248);
+  offline Ward purity 0.564, ARI 0.33 (unsupervised 0.50 / 0.23). The supervised metric adds almost nothing: the nine people's
+  run directions do not transfer to the tenth beyond what the raw view already has.
+- **Online, causal, ≤ 6 groups, full 0-3, nested choice, mean over people [80 % person interval]:** G1 purity 0.527 [0.491,
+  0.564], ARI 0.28, false-merge 0.63; G2 0.484 [0.457, 0.511], 0.68; G3 0.489 [0.454, 0.525], 0.67. Best person P07 0.71 (G1),
+  worst P05 0.36. Inner (selection) purities 0.46-0.55, so the choice did not overfit.
+- **Predictions:** metric 1-NN 0.85 missed low (0.80); offline Ward 0.70 missed low (0.56, inside the 0.55-0.85 range at its
+  edge); online purity 0.60 missed low (0.53, inside 0.45-0.75); false-merge 0.45 missed high (0.63, outside 0.3-0.6).
+- **Stop rule met (purity < 0.70 on full 0-3, upper interval 0.56): no chain scoring, no run offsets.** With about two of three
+  same-group pairs from different runs, the groups are mostly mixtures; §248 M4c (offline Ward at 0.50 purity) already kept
+  48 % / −7 % of the true-run gain. Reading: the fingerprint is local (nearest neighbours lie in the same run 80 % of the time)
+  but runs do not form separable groups in it, supervised or not; route recorded closed in the grouping form. Not tested: soft
+  neighbourhood forms (stage statistics weighted by fingerprint similarity, §248 M4d), which need no groups.

@@ -1,0 +1,37 @@
+FINGERPRINT GROUPING (s250): orders ['full0', 'full1', 'full2', 'full3'], KMAX 6, 14 metric settings, nested choice
+  P01 G1 setting (120, 32, 0.1) par (0.1, 0.2) (inner purity 0.528) | held-out purity 0.530 ARI 0.276 groups 6.0 false-merge 0.640
+  P01 G2 setting (200, 64, 0.1) par (0.3,) (inner purity 0.488) | held-out purity 0.479 ARI 0.218 groups 6.0 false-merge 0.702
+  P01 G3 setting (200, 64, 1.0) par (0.1,) (inner purity 0.474) | held-out purity 0.484 ARI 0.217 groups 6.0 false-merge 0.695
+  P02 G1 setting (120, 32, 0.1) par (10.0, 0.2) (inner purity 0.539) | held-out purity 0.437 ARI 0.165 groups 6.0 false-merge 0.713
+  P02 G2 setting (60, 32, 0.1) par (0.3,) (inner purity 0.505) | held-out purity 0.402 ARI 0.140 groups 6.0 false-merge 0.740
+  P02 G3 setting (120, 32, 0.1) par (0.1,) (inner purity 0.485) | held-out purity 0.394 ARI 0.128 groups 6.0 false-merge 0.748
+  P03 G1 setting (120, 32, 0.1) par (10.0, 0.2) (inner purity 0.547) | held-out purity 0.496 ARI 0.218 groups 6.0 false-merge 0.670
+  P03 G2 setting (120, 32, 0.1) par (0.3,) (inner purity 0.499) | held-out purity 0.479 ARI 0.196 groups 6.0 false-merge 0.702
+  P03 G3 setting (200, 64, 0.1) par (0.1,) (inner purity 0.487) | held-out purity 0.454 ARI 0.157 groups 6.0 false-merge 0.739
+  P06 G1 setting (120, 32, 0.1) par (0.1, 0.2) (inner purity 0.525) | held-out purity 0.600 ARI 0.430 groups 6.0 false-merge 0.533
+  P06 G2 setting (200, 64, 0.1) par (0.3,) (inner purity 0.474) | held-out purity 0.549 ARI 0.412 groups 6.0 false-merge 0.549
+  P06 G3 setting (200, 64, 0.1) par (0.1,) (inner purity 0.464) | held-out purity 0.571 ARI 0.391 groups 6.0 false-merge 0.563
+  P07 G1 setting (120, 32, 0.1) par (10.0, 0.2) (inner purity 0.507) | held-out purity 0.714 ARI 0.526 groups 6.0 false-merge 0.454
+  P07 G2 setting (120, 32, 0.1) par (0.3,) (inner purity 0.474) | held-out purity 0.603 ARI 0.379 groups 6.0 false-merge 0.593
+  P07 G3 setting (120, 32, 0.1) par (0.1,) (inner purity 0.462) | held-out purity 0.644 ARI 0.484 groups 6.0 false-merge 0.486
+  P10 G1 setting (120, 16, 0.1) par (10.0, 0.2) (inner purity 0.526) | held-out purity 0.556 ARI 0.314 groups 6.0 false-merge 0.603
+  P10 G2 setting (60, 32, 0.1) par (0.3,) (inner purity 0.498) | held-out purity 0.528 ARI 0.287 groups 6.0 false-merge 0.628
+  P10 G3 setting (60, 32, 0.1) par (0.1,) (inner purity 0.466) | held-out purity 0.501 ARI 0.245 groups 6.0 false-merge 0.666
+  P05 G1 setting (200, 64, 0.1) par (1.0, 0.2) (inner purity 0.542) | held-out purity 0.363 ARI 0.092 groups 6.0 false-merge 0.768
+  P05 G2 setting (120, 32, 0.1) par (0.3,) (inner purity 0.506) | held-out purity 0.384 ARI 0.110 groups 6.0 false-merge 0.755
+  P05 G3 setting (120, 32, 0.1) par (0.1,) (inner purity 0.493) | held-out purity 0.374 ARI 0.104 groups 6.0 false-merge 0.760
+  P08 G1 setting (120, 32, 0.1) par (1.0, 0.35) (inner purity 0.522) | held-out purity 0.563 ARI 0.312 groups 6.0 false-merge 0.595
+  P08 G2 setting (60, 32, 0.1) par (0.3,) (inner purity 0.496) | held-out purity 0.525 ARI 0.246 groups 6.0 false-merge 0.658
+  P08 G3 setting (200, 64, 0.1) par (0.1,) (inner purity 0.470) | held-out purity 0.595 ARI 0.332 groups 6.0 false-merge 0.589
+  P04 G1 setting (200, 64, 0.1) par (1.0, 0.2) (inner purity 0.531) | held-out purity 0.537 ARI 0.256 groups 6.0 false-merge 0.647
+  P04 G2 setting (120, 32, 0.1) par (0.3,) (inner purity 0.487) | held-out purity 0.484 ARI 0.204 groups 6.0 false-merge 0.697
+  P04 G3 setting (120, 32, 0.1) par (0.1,) (inner purity 0.476) | held-out purity 0.478 ARI 0.189 groups 6.0 false-merge 0.712
+  P09 G1 setting (200, 64, 1.0) par (10.0, 0.35) (inner purity 0.537) | held-out purity 0.474 ARI 0.170 groups 6.0 false-merge 0.714
+  P09 G2 setting (60, 32, 0.1) par (0.3,) (inner purity 0.506) | held-out purity 0.405 ARI 0.130 groups 6.0 false-merge 0.745
+  P09 G3 setting (120, 32, 0.1) par (0.1,) (inner purity 0.488) | held-out purity 0.393 ARI 0.122 groups 6.0 false-merge 0.753
+OFFLINE (metric of the nested G1 setting, per session): 1-NN run identity 0.803 | Ward purity 0.564 ARI 0.327
+ONLINE (held-out people, mean over people; nested choice): purity [80 % person interval] | ARI | groups/session | false-merge
+  G1: purity 0.527 [0.491, 0.564] | ARI 0.276 | groups 6.00 | false-merge 0.634
+  G2: purity 0.484 [0.457, 0.511] | ARI 0.232 | groups 6.00 | false-merge 0.677
+  G3: purity 0.489 [0.454, 0.525] | ARI 0.237 | groups 6.00 | false-merge 0.671
+.venv/bin/python studies/14nov/fingerprint/group.py  320.18s user 5.14s system 109% cpu 4:56.67 total
