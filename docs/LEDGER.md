@@ -7069,3 +7069,36 @@ reproduced s245's ER and T on all 16 orders x 6 bases; pftshuf's recording-order
   with >= 2 public sessions, i.e. P04 and P10, with 3 public sessions in the package) is the only case with a measured gain:
   about +4 P04 / +0.3 P10 per session on ER, smaller on T. On the board that is about 6 of ~100 sessions (order +0.1 before
   transfer), and it rests on one dev protocol (P04 s3, P10 s3).
+
+### 253. CAUSAL IN-SESSION PERSONALISATION (written 14 Nov 16:00 UTC, before any result)
+The package form of §246 / §252 for new people. Code `studies/14nov/causalpers/` (imports personal_ceiling/classic.py,
+splits.py; edits neither), outputs `runs/causalpers/`. §252 not read when this was written.
+- **System.** Per session, in delivery order (`runs/shuffle_perms.npz` `<scheme>|<seed>|all_loso`), per base of the r15
+  chain (`runs/chainout/s242r15_<order>.npz` V6Fr; each base is its own chain, so labels, personal model and fusion are per
+  base, never the base mean). From window T0 = 20, every k windows (k in 5 / 10 / 20) the classic personal pipeline is refit
+  on the session's windows < t with the chain's emitted outputs as labels and predicts windows t .. t+k-1. Label forms:
+  hard = argmax of the raw chain; soft = the same weighted by its max posterior (s252's weighted LR / MDM / CSP / LDA);
+  filt = soft on the detector-gated count-filter output (rundetect/package.py gate + J.filt_joint 'urn'). Labels are the
+  chain's outputs before the fusion (no feedback of the personal model into its own labels). Features per window only
+  (zero-phase band filtering inside the 4 s window, OAS band covariances, < 4 Hz waveform), **no session alignment** (the
+  s246 EA used the whole-session mean; dropped, the TS reference and LDA are fit on windows < t). Pipelines: a1 FB tangent
+  space + LR, a2 FBCSP + LDA, aE mean of a1-a4 (classic.fit_predict).
+- **Fusion.** out = chain x personal^w(t), renormalised; w = 0 before t0, then cap x min(1, (t - t0 + 1) / R) (R = 0: step).
+  Two tracks: R (fused into the raw chain; reference r15 raw) and F (fused into the count-filtered chain; reference r15 +
+  count filter, and also reported against r15 raw).
+- **Design choice.** Grid: form x pipeline {a1, a2, aE} x k {5, 10, 20} x t0 {20, 40, 60, 90} x R {0, 40, 80} x cap
+  {0.25, 0.5, 0.75, 1}. **Primary = track F, chosen nested**: for each person, the configuration with the best
+  scheme-equal mean change on the other nine people (all 20 orders, mean over bases), scored on that person. Fixed in
+  advance as a second line: filt, aE, k 10, t0 40, R 40, cap 0.5. Best-in-hindsight is printed and labelled as such.
+- **Scoring.** New people, 20 orders (within0-11, full0-3, runs0-3); per-person change, mean over the six bases; means per
+  scheme and scheme-equal; 80 % intervals resampling people and orders (as stack/score.py); people up. My scorer must equal
+  replay score.person on r15 raw and filt for every order and base (zero-change check, fails loudly).
+- **Run time.** Mac CPU, one process: ms per refit and per window (features + predict + refit / k) per pipeline.
+- **Predictions.** Track F nested vs r15 + filter +0.4 (-0.3 to +1.2), people up 6/10, every scheme >= -0.2; track R nested
+  vs raw +0.5 (-0.2 to +1.3); filt and soft labels >= hard by about +0.2; a1 alone within 0.2 of aE; the nested cap 0.25-0.5
+  and t0 40-60; k makes < 0.1 difference between 5 and 20. a1 refit about 100 ms, aE about 300 ms; per window (k 10) a1
+  about 25 ms, aE about 60 ms. The gain is smaller than §252's batch number (half the training data on average, causal).
+- **Pass (stated by the coordinator):** track F nested >= +1.0 scheme-equal mean, >= 0 in every scheme, people up >= 8/10
+  -> ready as a package stage if §252 is positive. +0.3 to +1.0 or a scheme < 0: undecided (report form, cost, and which
+  part to push). < +0.3: this causal form does not carry the in-session personal gain; recorded, not closed (other forms:
+  nets, feedback labels, fusion before the filter).
