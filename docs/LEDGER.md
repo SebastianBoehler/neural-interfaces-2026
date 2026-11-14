@@ -7044,3 +7044,28 @@ read: kern +0.12, top10 +0.09) with the normalised soft count m15 on its output 
 against latchJ(r15). m15 is chosen after reading (1b) on all ten people (stated; nested M reported next to it). If (3)
 tloc is positive under full it is not added (separate chain variants; no third chain run in this entry). Prediction: full
 +0.25 (0 to +0.5), within / runs −0.05 to +0.05. Same pass rule.
+**§247a/b RESULT (14 Nov 16:00 UTC; runs/strongpersonal/{compare12,fusion_B,fusion_A}.txt, filter_{B,A}.log; chain12 S2=0
+reproduced s245's ER and T on all 16 orders x 6 bases; pftshuf's recording-order stream agrees with s29's stored nets on
+98-100 % of windows).**
+- **(a) Routed path with session 2 public, session 3 (scheme means):** ER 73.37 -> 72.84 (P04, −0.53), 90.93 -> 91.67 (P10,
+  +0.74); T 73.63 -> 73.14 (−0.49), 91.44 -> 92.50 (+1.06). The routed path draws almost nothing from a second session for P04
+  (predicted +2.5) and about +1 for P10. Strong path on top (§247 grid, members from window 0): on ER(1+2) oracle +7.61 / +2.09,
+  one setting for both (TSp10^0.25 x PFT200^0.5) +7.29 / +0.67 (sealed +1.99); on T(1+2) oracle +7.05 / +1.52, one setting
+  +6.86 / −0.10 (sealed +1.30). **Reading rule (>= +3 / >= +1 one-setting on T(1+2)): missed on P10.** The second session's
+  value sits in the personal members (and nets), not in the routed path's personal parts.
+- **(b) Package-form late fusion ER x PFT^(w r), nets in delivery order**, change against ER (P04 / P10 / sealed):
+  - B (one public session): primary pf200 w 0.25 **+1.05 / −0.11 / +0.12** (P10 > 0 on 7/16); cross-person −0.02 on ER,
+    +0.09 on T; on T: TF vs T +0.76 / −0.32 / −0.10; with the filter TF+filter +0.21 against T+filter +0.27. **Undecided
+    (inside ±0.3), not a candidate.** Best post-hoc (pf60 0.25) +0.37 / +0.28 / +0.30.
+  - A (two public sessions, against ER(1+2)): primary **+4.31 / +0.33 / +1.13** (P10 > 0 11/16, P10 scheme min −0.08);
+    cross-person +1.01. On T(1+2): +3.99 / −0.22 / +0.62, but P10 −0.90 under full (T's own full gain taken back);
+    cross-person on T +0.48. Filter (score_ret, session-2 rows held at s245 ER, numbers doubled): F+filter +1.34, TF+filter
+    +1.62 against T+filter +0.92. By the rule: passes on ER, fails on T (P10 full −0.90).
+- **Against the predictions:** B primary +2.0 / +0.3 / +0.6 predicted, +1.05 / −0.11 / +0.12 observed (miss, low); A not predicted.
+- **What differs from v5.2's nets, and what did not help:** late geometric factor behind the gate instead of members in the
+  mix; with one public session it still does not reach P10 (−0.11), as v5.2 did not. The positive case needs two public
+  sessions, and in the sealed set only P04 and P10 have more than one (8 of 10 returning people have one: the B case).
+- **Verdict:** not packaged as a general returning-person stage. A person-specific form (active only for a recognised person
+  with >= 2 public sessions, i.e. P04 and P10, with 3 public sessions in the package) is the only case with a measured gain:
+  about +4 P04 / +0.3 P10 per session on ER, smaller on T. On the board that is about 6 of ~100 sessions (order +0.1 before
+  transfer), and it rests on one dev protocol (P04 s3, P10 s3).

@@ -3,7 +3,7 @@
 (pftshuf.py) of the session's person in that delivery order. BASE = ER or T of chain12.py (S2=0: protocol B, sessions 2 + 3
 tested, = s245; S2=1: protocol A, session 3 only). Primary (pf200, w 0.25); cross-person: (variant, w) chosen on one
 person, scored on the other. SAVE: per-window arms for score_ret.py (<order>|<base>|<arm>, seen_session rows).
-Usage: PROT=B|A python studies/14nov/strongpersonal/fusion.py -> runs/strongpersonal/fusion_<PROT>.txt (+ fusion_B_out.npz)"""
+Usage: PROT=B|A python studies/14nov/strongpersonal/fusion.py -> runs/strongpersonal/fusion_<PROT>.txt (+ fusion_<PROT>_out.npz; A: session-2 rows = s245 ER)"""
 import glob, os
 import numpy as np
 import common as C
@@ -75,5 +75,8 @@ for arm in ("ER", "T"):
     d10, d04 = g[k4][1] - base[1], g[k10][0] - base[0]
     lines.append(f"  on {arm}: chosen on P04 {k4} -> P10 {d10:+.2f}; chosen on P10 {k10} -> P04 {d04:+.2f}; sealed {0.2 * d04 + 0.8 * d10:+.2f} (increments over {arm})")
 open(f"{C.OUT}/fusion_{PROT}.txt", "w").write("\n".join(lines) + "\n"); print("\n".join(lines))
-if PROT == "B":
-    np.savez_compressed(f"{C.OUT}/fusion_B_out.npz", **SAVE)
+if PROT == "A":  # score_ret.py scores sessions 2 + 3: session 2 (leaky here) gets s245's ER in every arm, so changes = s3 change / 2
+    ref = np.load(f"{C.REPO}/runs/chainout/s245_ret.npz"); s2 = C.SES[C.SS] == "2"
+    for k in SAVE:
+        o, bn, _ = k.split("|"); SAVE[k][s2] = ref[f"{o}|{bn}|ER"][s2]
+np.savez_compressed(f"{C.OUT}/fusion_{PROT}_out.npz", **SAVE)
