@@ -6938,3 +6938,4 @@ versa. Also on T, and with the count filter (score_ret.py on SAVE_OUT keys <orde
   48 % / −7 % of the true-run gain. Reading: the fingerprint is local (nearest neighbours lie in the same run 80 % of the time)
   but runs do not form separable groups in it, supervised or not; route recorded closed in the grouping form. Not tested: soft
   neighbourhood forms (stage statistics weighted by fingerprint similarity, §248 M4d), which need no groups.
+- **Stamp correction (§250 RESULT):** its heading says 15:33 UTC; `date -u` at writing was 15:27 UTC.
