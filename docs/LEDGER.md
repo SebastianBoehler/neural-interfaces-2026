@@ -5710,3 +5710,48 @@ Closed: no gain, at about twice the run time.
   session accuracy (labels: ceiling only).
 - **Rule:** oracle gain ≥ +0.5 over w = 1 → build a label-free per-session rule (e.g. agreement of the eye view with the member
   mix over the first 40 windows), chosen on five people and scored on five. Below +0.3: closed. In between: undecided.
+
+### 229. r15 ON v5.1b LABELS INSIDE v6.2hL (written 14 Nov 11:45 UTC, before any result)
+- **Why:** §221's r15 (labels refreshed at every refit) gave within +0.12, full +0.22, five of six orders ≥ 0 on v6.1's
+  labels. The upload candidate v6.2hL-safe fine-tunes new people on v5.1b's labels (tag LF, chain_v51b_<order>), so r15
+  is retested on those.
+- **Labels:** `relabel.py KIND=v51b` (LABEL_ARM=P0r): v5.1b's own SessionEM / TSEM state at each s15 refit time applied
+  to every earlier window, causal, the same hooks and checks as §221 (state at t reproduces the stock output for
+  window t to 1e-9; as-emitted labels against chain_v51b_<order>, argmax agreement > 0.98). Orders whose inputs are all
+  local: within 0–11, full 0–3, runs 0–3 (20); full 4–7 lack local eye/core re-streams. Orders without a local ttt17
+  base take the frozen-net base of tag ttt18<order> (FT_TAG/T17_DIR; the label arm reads only base outputs).
+  Files `runs/labels/relab_v51b_<order>.npz`.
+- **Arms:** `ftrel.py KIND=v51b ARMS=s15,r15`, tag `ttt18<order>LP`, s15 the in-run control on the same as-emitted
+  labels; 24 tasks per order; smoke first.
+- **Scoring:** `score229.sh`: shufcombo as score.sh plus STRICT=1 (OCU_DIR=runs/ocushuf/<order>, GATE_P0=1,
+  REC_PFX=ttt7, T6_DIR=runs/ttt/probs7, T17_DIR=runs/ttt/probs18, FT_TAG=ttt18<order>LP, FT_V=s15|r15), line
+  "combination over v5.1b, both shuffled", new people, r15 − s15 per order.
+- **Prediction:** r15 − s15 mean over the 20 orders +0.10 (−0.05 to +0.25), 60–75 % of orders ≥ 0, full mean +0.1.
+- **Rule (coordinator):** kept as a candidate addition to v6.2hL if r15 − s15 ≥ +0.1 on the mean over the orders, with
+  ≥ 60 % of orders ≥ 0 and the full-scheme mean ≥ 0. Otherwise "undecided" (mean inside ±0.3) or closed by the numbers
+  (mean ≤ −0.3). Not closed on P10 or P04 alone.
+
+### 228. COUNT FILTER, PACKAGE-TRUE (written 14 Nov 11:45 UTC, before any result; coordinator after §226)
+- **Chain:** the per-window outputs that exist: v5.1b (P0r) and v6f (V6Fr), runs/chainout/<order>.npz (identical to the
+  s215 *_off files where both exist), new people, within 0–11, runs 0–3, full 0–3. v6.2hL's new-people per-window
+  outputs (FT_TAG ttt18<order>LF, FT_V s15, SAVE_OUT) do not exist yet; the script takes any SAVE_OUT file and is rerun on
+  them when they are produced. Returning people: no per-window outputs exist; not scored.
+- **(a) End to end (studies/14nov/rundetect/package.py):** per session, the 'lag' detector (thresholds fitted on the other
+  people, runs/rundetect/decisions.npz) is checked at W 40, 50, 60, 80, 100, 150; it latches at the first pass and stays
+  latched. Emitted output = chain posterior before the latch window, J-wprior/urn (jointcount.py) from it on. The urn
+  and hypothesis state are built from every window ≤ t (causal); only the emission switches. Reported per scheme with
+  person-bootstrap 80 % bands; under full also the latched sessions and their cost.
+- **(b) Online-only urn:** the same with the urn on online blocks only (cap 10 per 30-window block; acquisition blocks and
+  windows past the six blocks get a uniform urn, i.e. unfiltered); with true runs also the true-run online-only filter
+  (true caps, so the two 12/12/12 BrainHero online runs included).
+- **(c) Gain by delivery position:** the always-on filter (true runs; J-wprior/urn) applied only to windows at session
+  positions 0–40, 40–80, 80–120, 120–160, 160+; per-bin change, within orders.
+- **(d)** Code audit of where the filter sits (dev scorers and the package path).
+- **Prediction:** (a) within +0.35 to +0.45 (most latches at W 40–50), runs −0.1 to +0.05 (the wprior hypotheses assume
+  acquisition first), full −0.05 to 0 (false-positive latches ≈ 15 % of sessions). (b) within ≈ +0.40, runs 0's V6Fr loss
+  ≥ −0.1. (c) windows 0–40 carry ≤ 25 % of the gain.
+- **Rule:** (a) goes to the user as a package candidate if within ≥ +0.3 on both arms (mean over within 0–11) with the
+  lower band ≥ 0, full ≥ −0.05 and runs ≥ −0.1 (means over orders and arms); (b) replaces (a) if it is not lower on within
+  by more than 0.05 and higher on runs.
+- **Numbering note:** "228" was already taken (external harness v2, item 2, 08:21 UTC); this entry is cited as §228c
+  (count filter) from here.

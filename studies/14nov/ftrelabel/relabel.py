@@ -9,14 +9,17 @@ the window at t (computed from windows < t). Causal: nothing at or after t enter
 window t reproduces the stock stage's output for window t; the file's as-emitted labels agree with chain_v6r_<order>.npz
 (argmax agreement > 0.98; today's chain carries the s214 fix).
 Output runs/labels/relab_v6r_<order>.npz: the keys of a label file plus relab (N, K, 3) (NaN where j >= t_k), tgrid (K,),
-pos (N,) delivery position within the session. Usage: SCHEME=within PSEED=0 OCU_DIR=runs/ocushuf/within0 python relabel.py"""
+pos (N,) delivery position within the session. Usage: [KIND=v51b] SCHEME=within PSEED=0 OCU_DIR=runs/ocushuf/within0 python relabel.py
+KIND=v51b (s229): LABEL_ARM=P0r, v5.1b's own stages -> relab_v51b_<order>.npz, checked against chain_v51b_<order>.npz."""
 import os, runpy, sys
 import numpy as np
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-ORD = f"{os.environ['SCHEME']}{os.environ['PSEED']}"; NAME = f"relab_v6r_{ORD}"; T0, EVERY = 20, 10  # s15's refit grid
-for k in ("TSEM_TGT", "NUIS", "RUNOFF", "LABEL_ARM", "LABEL_OUT", "FT_TAG", "FT_V"):
-    assert not os.environ.get(k), f"{k} would change the label chain (chain_v6r was written without it)"
-os.environ.update(LABEL_OUT=NAME, LABEL_ARM="V6r", GATE_P0="1")
+ORD = f"{os.environ['SCHEME']}{os.environ['PSEED']}"; T0, EVERY = 20, 10  # s15's refit grid
+KIND = os.environ.get("KIND", "v6r"); ARM = {"v6r": "V6r", "v51b": "P0r"}[KIND]; NAME = f"relab_{KIND}_{ORD}"  # s229: v51b = v5.1b's own chain
+# FT_TAG / T17_DIR may name another tag's files: the label arms read only their base (frozen, re-streamed) outputs
+for k in ("TSEM_TGT", "NUIS", "RUNOFF", "LABEL_ARM", "LABEL_OUT"):
+    assert not os.environ.get(k), f"{k} would change the label chain (the chain_* files were written without it)"
+os.environ.update(LABEL_OUT=NAME, LABEL_ARM=ARM, GATE_P0="1")  # GATE_P0 changes only the V6r arm's gate
 sys.path[:0] = [REPO + "/studies/13nov", REPO + "/replay"]
 import shuffle as S  # noqa: E402  (shufcombo imports the same module object)
 gm = S.gm; L, M, SE, G = gm.L, gm.M, gm.SE, gm.L.G
@@ -79,13 +82,13 @@ try:
     runpy.run_path(REPO + "/studies/13nov/shufcombo.py", run_name="shufcombo")
 except SystemExit:
     pass
-f = f"{REPO}/runs/labels/{NAME}.npz"; z = dict(np.load(f)); ref = np.load(f"{REPO}/runs/labels/chain_v6r_{ORD}.npz")
+f = f"{REPO}/runs/labels/{NAME}.npz"; z = dict(np.load(f)); ref = np.load(f"{REPO}/runs/labels/chain_{KIND}_{ORD}.npz")
 _, _, _, out, R, pos, y = CALLS[-1]; P = S.perm_for(os.environ["SCHEME"], int(os.environ["PSEED"]))["all_loso"]; o = np.argsort(P)
 assert np.array_equal(out[o], z["all_loso"]), "the last TSEM call is not the label arm"
 d = np.abs(z["all_loso"] - ref["all_loso"]).max(); agr = np.mean(z["all_loso"].argmax(1) == ref["all_loso"].argmax(1))
 # 14 Nov: today's chain differs from the 13 Nov files (s214 fixed the eye outputs' order per protocol): within 1 changes 42 of
 # 2655 argmax labels, the others 0-6. ftrel.py takes the as-emitted labels from this file, so all its arms share one chain.
-print(f"as-emitted labels against chain_v6r_{ORD}: max diff {d:.1e}, argmax agreement {agr:.4f}", flush=True); assert agr > 0.98, agr
+print(f"as-emitted labels against chain_{KIND}_{ORD}: max diff {d:.1e}, argmax agreement {agr:.4f}", flush=True); assert agr > 0.98, agr
 R, pos, y = R[o], pos[o], y[o]
 np.savez(f, **z, relab=R, tgrid=np.array(grid(10**6)[:R.shape[1]]), pos=pos)
 for k in range(0, R.shape[1], 4):

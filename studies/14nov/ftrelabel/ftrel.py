@@ -10,7 +10,7 @@
 All arms take the as-emitted labels from relab_v6r_<order>.npz (today's v6 chain, s214 fix in), not the 13 Nov chain_v6r.
 Weights instead of drawn batches: the same expected gradient, the prefix forward (SessionBN statistics, KL anchor) and the
 cost unchanged. New people only (all_loso); shufcombo scores only those. Tag ttt18<order>RP (probs18), same file format.
-Usage (Galvani): SCHEME=within PSEED=0 python studies/14nov/ftrelabel/ftrel.py TASK | smoke"""
+Usage (Galvani): [KIND=v51b ARMS=s15,r15] SCHEME=within PSEED=0 python studies/14nov/ftrelabel/ftrel.py TASK | smoke"""
 import copy, importlib.util, os
 from pathlib import Path
 import numpy as np
@@ -19,14 +19,16 @@ from torch.nn import functional as F
 WS = Path(os.environ.get("NI26_WS", Path(__file__).resolve().parents[3])); ORD = f"{os.environ['SCHEME']}{os.environ['PSEED']}"
 for k in ("FORMS", "SWEEP", "EXT", "CTRL", "DRAW"):
     assert not os.environ.get(k), f"{k} is not supported here"
-os.environ.setdefault("CHAIN_NPZ", str(WS / f"runs/labels/chain_v6r_{ORD}.npz"))
-RELAB = os.environ.get("RELAB_NPZ", str(WS / f"runs/labels/relab_v6r_{ORD}.npz"))
+KIND = os.environ.get("KIND", "v6r"); SFX = {"v6r": "R", "v51b": "L"}[KIND]  # s229: KIND=v51b, v5.1b's labels (tag ttt18<order>LP)
+os.environ.setdefault("CHAIN_NPZ", str(WS / f"runs/labels/chain_{KIND}_{ORD}.npz"))
+RELAB = os.environ.get("RELAB_NPZ", str(WS / f"runs/labels/relab_{KIND}_{ORD}.npz"))
 _s = importlib.util.spec_from_file_location("ttt18", WS / "studies/13nov/ttt18.py"); T18 = importlib.util.module_from_spec(_s); _s.loader.exec_module(T18)
 T7 = T18.T7; T5 = T7.T5; STOCK = T7.stream
-assert T7.TAG == f"ttt18{ORD}R" and not T7.EMA and not T7.CAP, (T7.TAG, T7.EMA, T7.CAP)
+assert T7.TAG == f"ttt18{ORD}{SFX}" and not T7.EMA and not T7.CAP, (T7.TAG, T7.EMA, T7.CAP)
 S15 = T18.SWEEP["s15"]; assert S15 == (5, 10, 1e-3, "all", 1.0, "hard", True, 1, True, 20)
 MODE = {"s15": (False, None), "r15": (True, None), "e15": (False, "t"), "b15": (True, "t"), "q15": (False, 20)}  # (relabel, budget)
-T7.VARS = {v: S15 for v in MODE}; T7.TAG += "P"; T7.SMOKE_OUT = f"smoke_ftrel{ORD}"
+ARMS = os.environ.get("ARMS", ",".join(MODE)).split(","); assert "s15" in ARMS and set(ARMS) <= set(MODE), ARMS  # s229: ARMS=s15,r15
+T7.VARS = {v: S15 for v in ARMS}; T7.TAG += "P"; T7.SMOKE_OUT = f"smoke_ftrel{ORD}"
 RZ = np.load(RELAB); TG = RZ["tgrid"]; REL, POS = RZ["relab"], RZ["pos"]
 assert (TG[0], TG[1] - TG[0]) == (S15[9], S15[1]), f"label file grid {TG[:2]} is not s15's refit grid"
 EMIT = RZ["all_loso"]  # the label chain as emitted, from the same run as REL (all arms share one chain; see relabel.py)
@@ -86,7 +88,7 @@ def stream(m, X, Pc, seed):
     if CHECK:  # smoke: the control must equal ttt7.stream's s15 on the same session
         vv = T7.VARS; T7.VARS = {"s15": S15}; ref = STOCK(m, X, em, seed); T7.VARS = vv
         dd = np.abs(ref["s15"] - out["s15"]).max(); print(f"control s15 vs ttt7.stream: max diff {dd:.2e}", flush=True); assert dd < 1e-4, dd
-        for v in ("r15", "e15", "b15", "q15"):
+        for v in [a for a in ARMS if a != "s15"]:
             print(f"{v}: max change vs control {np.abs(out[v] - out['s15']).max():.3f}", flush=True)
     return out
 
