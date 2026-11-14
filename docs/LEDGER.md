@@ -5368,3 +5368,21 @@ filter off).** τ 2 (τ 1 similar). Means over six orders:
 - **Kill (panel's, adopted) for b15:** under +0.15 over s15 within (mean of 0–3), or negative on full (mean of 0/1) → not
   adopted. Per AGENTS a delta inside ±0.3 is recorded "undecided" for the direction (other forms: soft relabelled
   labels, relabel with the FT chain itself, sampled batches), not closed; closed for these forms only if ≤ −0.3.
+- **§218 RESULT (07:40 UTC; runs/s218_nuis.txt).** Projecting the between-run subspace out of the template views loses
+  everywhere, and more with more directions. Both views: k 4 **−0.47**, k 8 −1.10, k 16 −1.65; pc128 only, k 8: −0.33. People up
+  1–3/10. The true-run oracle on the same orders: +0.53. **Refuted:** the between-run directions carry class signal for the
+  held-out person, so a fixed projection removes signal with the offsets. A form without run ids needs a softer mechanism
+  (§219's covariance target, running on Galvani; soft run assignment, §217).
+
+**§209 RESULT (14 Nov 07:42 UTC; runs/leo_npz_lf; morning_table.py row v6.2hL).** v6.2hL's new-people path (s15 on v5.1b
+labels) on every order, each file against its own v5.1b:
+
+| New people | within (12) | full (8) | runs (4) |
+|---|---|---|---|
+| v6f | +1.24 [+1.07, +1.41] | +0.94 | +1.00 |
+| v6.2 / v6.2g / v6.2h (s15, v6-chain labels) | +1.44 | +0.87 (P10 min −1.60) | +1.14 |
+| **v6.2hL** | **+1.41** [+1.25, +1.57] | **+0.93** (P10 min −0.82) | **+1.17** |
+
+- **Reading:** v6.2hL takes the best of both: v6.2's within gain (the s15 form) without its full-scheme P10 loss (the label
+  change). The prediction (within +0.15 over v6f, level under full) held: +0.17 and −0.01.
+- Returning rows are identical across the routed variants (ERF), still the uncorrected ones until §214 lands.
