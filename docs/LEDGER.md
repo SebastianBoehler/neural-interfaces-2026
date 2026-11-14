@@ -5821,3 +5821,80 @@ A separate session's track (sections named PV1, PV2, ... so they cannot collide 
 - **Rule:** kill below +0.3 nested held-out (primary, mean over the six orders); the ceiling is reported regardless. At
   ≥ +0.3 with the person band above 0 and no scheme below −0.1: candidate for a package-form test (not an adoption).
   Between 0 and +0.3: inside the dev noise, recorded as undecided for other descriptor forms. Not closed on P10 or P04 alone.
+
+### 235. UPPER-BOUND SWEEPS OF THE KEPT COMPONENTS (written 14 Nov 11:52 UTC, before any result)
+- **System:** v6.2hL-safe, new people: s15 fine-tuning on v5.1b labels (FT_TAG=ttt18<order>LF, FT_V=s15), eye-net view,
+  rest member; shufcombo STRICT=1 GATE_P0=1, members re-streamed (Leonardo inputs runs/diag/{ocushuf,restshuf,ttt}).
+  Orders within 0/1, full 0/1, runs 0/1. Read: V6Fr per person (mean over the scorer's bases) minus V6Fr of the same
+  order without knobs, both run on the same machine with the same code (shufcombo d80f97d, unedited).
+- **Knobs (one at a time, wave 1):** EYEW 0.5 / 1.5 / 2; REST_W 0.5 / 2 / 3; EM_LAM 0.3 / 0.7 / 1.0; TS_LAM 0.1 / 0.2 /
+  0.3; BTS 2 / 8 (shipped gm.BTS 4). No-op check first: EM_LAM 0.5 TS_LAM 0.15 BTS 4 must reproduce the no-knob file
+  exactly (else the hook is broken and nothing is read). If a knob's best arm sits on a grid edge, the grid is extended
+  one step past it in wave 2.
+- **Wave 2 (joint):** the two knobs with the largest full-data best-arm gains, 3 × 3 around their best values (the
+  shipped value kept as a corner where it is adjacent).
+- **Nested rule (primary):** for each of the 126 splits of the ten people into two halves of five, and both directions,
+  the arm (shipped value included, gain 0) with the best mean gain over the six orders on the selection half is chosen and
+  scored on the other half, per scheme and overall; a split's number is the mean of its two directions. Reported: mean
+  held-out gain over the 126 splits with the 10–90 % range across splits, per scheme, and how often each arm is chosen.
+  The best arm's full-data gain is shown only as the optimistic ceiling, never as the result.
+- **Prediction:** stage constants (EM_LAM, TS_LAM, BTS) held-out within ±0.15 (they sat at an in-chain optimum for v4.1,
+  §31, §66, §69); EYEW and REST_W 0 to +0.2 (never tuned under shuffled orders with FT); joint grid 0 to +0.25; no knob
+  reaches +0.3.
+- **Rule:** a knob (or the joint pair) with held-out gain ≥ +0.3 overall and > 0 under every scheme is a package constant
+  change candidate (stated plainly; a package-form check and the user's decision follow). Inside ±0.3: undecided, the
+  shipped constant stays. ≤ −0.3 for every non-shipped value: the shipped value is confirmed for this chain. Not closed on
+  P10 or P04 alone; P10's share is reported.
+
+### 234. EMBEDDING VIEWS (written 14 Nov 11:53 UTC, before any result)
+- **Why:** §188: a view whose errors are independent of the EEG members helps SessionEM (the eye net works that way). Test
+  low-dimensional embeddings of components we already have as extra SessionEM view columns (`EXTRA_VIEW`, §232 hook).
+- **Sources:** T, the teacher's head features (38 = eegnex_ea / ifnet_ea m7r × 19 head log-probs on causally EA-aligned
+  windows; `runs/teachfeat_within0_within1_full0_full1_runs0_runs1.npz`, delivery-order versions for the six orders).
+  F, ST-EEGFormer's middle-layer embedding of the per-window input (512, `runs/fmemb/steeg.npz` key `emb_mid_raw`, §71's
+  best arm; order-free). E, the eye net's penultimate embedding (128 × 9 seeds concatenated, `emb` of
+  `runs/ocushuf/<order>/oc_nomix-all_loso-s*.npz`, each order's own stream).
+- **Reduction:** per held-out person, columns standardised on the other nine people's rows, then PCA or PLS (on the nine's
+  one-hot labels), k ∈ {4, 8, 16}; the held-out person's rows (recording and each delivery order) go through that fold's map.
+  Code `studies/14nov/embview/`; views `runs/views_emb/<name>.npz` ('rec' and '<scheme><seed>' rows, replay row order).
+- **Ceiling (step 1):** LOSO logistic regression on the view (balanced accuracy, cell mean); error correlation with the
+  member mix (A.mix B2_pool, shipped families) within person × session × run × class cells: correlation of true-class
+  log-probabilities after removing cell means, and of the error indicators. Reference: the eye net's posteriors.
+- **Selection (fixed now):** per source the form with the best LOSO probe accuracy goes to the chain (ties: smaller k).
+- **Chain:** shufcombo with EXTRA_VIEW plus exactly `STRICT=1 GATE_P0=1 OCU_DIR=runs/ocushuf/<order> FT_V=gC5 REC_PFX=ttt7
+  T6_DIR=runs/ttt/probs7 T17_DIR=runs/ttt/probs18 FT_TAG=ttt18<order>L`; V6Fr against
+  `runs/shufcombo_<order>_ocu_gC5_all_ge_hb_ts_gp0_ttt18<order>L.npz`, new people, mean over the six bases; within 0/1,
+  full 0/1, runs 0/1; 80 % person intervals.
+- **Predictions:** probe accuracy T 0.55–0.68, F 0.40–0.46, E 0.48–0.55. Error correlation (log-prob) T 0.4–0.6 (already a
+  member, weight 5), F 0.05–0.2, E ≤ 0.15. Chain: T 0.0 (−0.3 to +0.2), F 0.0 (−0.3 to +0.3), E +0.1 (−0.2 to +0.3).
+- **Kill rule (coordinator):** a source is not kept if its gain is below +0.3 mean over the six orders or fewer than 7/10
+  people are up (person means over orders). Inside ±0.3 the direction is recorded "undecided", not closed; ≤ −0.3 closed.
+  Kept sources go to a package-form check (map fitted on all ten people, all 20 orders).
+
+**PV1 RESULT (14 Nov; `studies/14nov/pview/ceil.py` → runs/pview/ceil_all.txt).** Cell-mean BA (%), personal / population,
+causal standardisation, mean over the 8 shuffled orders (recording order and 'whole' within ±1 of it everywhere, so the
+delivery scheme hardly matters for a fixed classifier); eye = stored population eye net.
+
+| XS (real case) | gaze32 LR | GE48 LR | GE48 TPL | pc128 LR | pc128 TPL | eye net |
+|---|---|---|---|---|---|---|
+| P04 | 40.6 / 32.7 | 42.2 / 31.6 | 45.4 / 31.2 | 57.7 / 45.5 | 59.0 / 45.5 | 42.4 |
+| P10 | 58.2 / 45.8 | 73.5 / 39.5 | 71.7 / 38.1 | 76.1 / 56.0 | 75.2 / 59.3 | 49.2 |
+
+| proxy, ten-person mean | gaze32 LR | gaze32 TPL | GE48 LR | GE48 TPL | pc128 LR | pc128 TPL | eye net |
+|---|---|---|---|---|---|---|---|
+| R42 (train 4 runs, test 2) | 55.8 / 43.6 | 56.8 / 46.0 | 66.7 / 52.1 | 66.7 / 53.5 | 75.3 / 64.4 | 76.5 / 64.9 | 54.2 |
+| IF (train one interface) | 53.4 / 44.0 | 53.9 / 46.2 | 63.3 / 52.5 | 63.1 / 53.6 | 71.9 / 64.7 | 73.0 / 64.9 | 54.1 |
+
+- Per person (R42, GE48 LR personal / population): P01 55/53, P02 84/66, P03 77/60, P04 45/33, P05 62/45, P06 64/52,
+  P07 70/57, P08 61/55, P09 72/62, P10 78/40. Personal ≥ population for all ten in GE48; in gaze32 P01 and P05 are
+  lower personally (35–43, chance-like), and in pc128 P08 and P01 (IF) are better from the population.
+- **Against the prediction:** P10 gaze32 58 (predicted 75): the 0.81–0.84 within-session figure does not carry across
+  sessions in the 32 slow-potential columns alone; with the 16 event-rate columns (GE48) P10 is 72–74 across sessions.
+  P04 personal is weak everywhere except pc128 (58–59). R42 gaze32 personal 56 (predicted 60), population 44 (47).
+  pc128 personal XS 67 (predicted 60), R42 77 (65): higher than predicted. Population pc128 TPL 52 XS, 65 R42.
+- **Rule met → step 2:** under XS the best personal view beats the best population view by +16.8 on P10 (pc128 LR 76.1
+  vs pc128 TPL 59.3) and +13.5 on P04 (59.0 vs 45.5); R42 ocular personal − population +10.8 (gaze32 TPL) to +14.6
+  (GE48 LR).
+- **What this does not say:** the chain already has a personal head on core1's PCs (the pc128 LR row is close to it) and
+  the own-space stage; the new information for the chain is the personal ocular view (GE48: P10 73 against the eye
+  net's 49) and template priors, whose worth is only measurable in the chain (PV2).
