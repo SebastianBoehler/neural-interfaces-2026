@@ -75,13 +75,15 @@ def length_prior(held, lo=20, hi=44, floor=0.02):
     full = np.zeros(hi + 1); full[lo:] = p / p.sum(); return full  # p(L = l), l = 0..hi
 
 
-def order_rows(order, s):
-    """Rows (replay layout) of session s in delivery order for order 'recording' or '<scheme><seed>'."""
+def order_rows(order, s, proto=p0):
+    """Rows (replay layout = global index) of session s in delivery order for order 'recording' or '<scheme><seed>' of
+    protocol proto (seen_session sessions are whole all_loso sessions with their own permutations)."""
     rows = np.flatnonzero(SES == s)
     if order == "recording":
         return rows
     sc, sd = order.rstrip("0123456789"), int(order[len(order.rstrip("0123456789")):])
-    g = PERMS[f"{sc}|{sd}|{p0}"]; rk = np.empty(N, int); rk[g] = np.arange(N); return rows[np.argsort(rk[rows])]
+    g = PERMS[f"{sc}|{sd}|{proto}"]; rk = np.full(N, N + 1); rk[g] = np.arange(len(g)); assert (rk[rows] <= N).all(), f"session {s} not in {proto}"
+    return rows[np.argsort(rk[rows])]
 
 
 def purity_ari(lab, true):

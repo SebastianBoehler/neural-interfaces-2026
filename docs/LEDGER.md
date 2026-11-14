@@ -6363,3 +6363,18 @@ runs0 -0.40, runs1 -0.20; **mean -0.26 [80 % person -0.43, -0.09], 4/10 up**, wi
 form (kill rule fails; W1 negative on every order with the person interval below 0, and stronger weighting loses more).**
 Down-weighting rest-like windows in the template estimates removes useful template mass; the tercile gap reflects
 harder windows, not wrong teachers. 2b (FT label weights) not run.
+- **§238 RESULT (14 Nov 12:32 UTC; runs/s228c_v62hL.txt, runs/rundetect/{package_returning,robust_v6f,robust_v62hL}.txt).**
+  - New people, v6.2hL (V6Fr of v62hL_<order>.npz), gated filter: within (12) +0.31 [+0.18, +0.46], runs (4) +0.22
+    [+0.08, +0.36], full (8) +0.00 [−0.04, +0.04]; true runs +0.32 / +0.23 / +1.11. False latches under full 17 of 112
+    sessions (15 %), net cost 0. Windows 0–40 again cost (−0.05).
+  - Returning people (seen_session protocol, retv6 outputs; mean over orders, P04 / P10): ER within (8) +0.08 (+0.08 /
+    +0.08), runs (4) +0.11 (−0.19 / +0.40), full (4) −0.02 (−0.17 / +0.12); ERF +0.15 (+0.17 / +0.12), +0.11 (+0.09 / +0.14),
+    +0.01 (−0.09 / +0.11). True runs give only +0.03 / +0.08 on within here: little room on these outputs. Sealed weighting
+    (0.2 P04 + 0.8 P10) on ER: within +0.08, runs +0.28, full +0.06.
+  - Robustness (synthetic sessions, chain outputs reused from within 0, balanced accuracy per session; v6f / v6.2hL; mean
+    [80 % band], worst person): normal +0.58 / +0.75; drop_online +0.33 / +0.39 (−0.31); dup_online +0.47 / +0.54;
+    online36 +0.20 / +0.32 (−0.37); no_acq +0.33 / +0.41; acq_last +0.45 / +0.50 (−0.66 / −0.60); double +0.40 / +0.42;
+    drop10 +0.22 / +0.32 (−0.47). P10's third session (real online-36 deviation) +1.47 / +1.86 under normal. No violation
+    mean is below −0.2 (all positive), so by the rule no self-check was added; single people lose up to 0.66 (v6f / v6.2hL).
+  - Method statement: runs/rundetect/method_statement.md (corrected: the filter's blocks come from delivery position and
+    the design sizes, weighted by the posteriors' fit to the urns, not from EEG grouping; the detector alone uses EEG).

@@ -45,10 +45,10 @@ def filt_groups(P, rk, lab, capf):
     return out
 
 
-def hyp_cache(order, form, X, LAM, online_only=False):  # online_only (s228c b): cap 0 = uniform urn = unfiltered off the online blocks
+def hyp_cache(order, form, X, LAM, online_only=False, sessions=None, proto=C.p0):  # online_only (s228c b): cap 0 = uniform urn = unfiltered off the online blocks
     hc = {}
-    for s in C.SESSIONS:
-        rows = C.order_rows(order, s); p = C.PER[rows[0]]; Ls, lp, cap = S.hyps(form, p)
+    for s in (C.SESSIONS if sessions is None else sessions):
+        rows = C.order_rows(order, s, proto); p = C.PER[rows[0]]; Ls, lp, cap = S.hyps(form, p)
         post, bounds = S.posterior_path(X[rows], LAM[p], Ls, lp, use_x=True); T = len(rows)
         blk = np.stack([S.block_index(bounds, t) for t in range(T)]); reset = np.vstack([np.ones(len(Ls), bool), blk[1:] != blk[:-1]])
         capx = np.concatenate([cap, np.full((len(Ls), 2), 12)], 1); capx = np.where(capx == 10, 10, 0) if online_only else capx; hc[s] = (rows, lp, post, reset, capx[np.arange(len(Ls))[None], blk])
