@@ -7132,3 +7132,11 @@ noted, mean over orders [80 % interval, people and orders resampled] people up:
   GSCF: +0.16 full, within / runs inside ±0.05, 8/10 people, deployable as an emission-only addition before the latch);
   offsets and TSEM local templates in these forms fail the within bar. Larger gains would need a sharper same-run weight
   than this fingerprint gives (top-weight neighbour same run 0.61).
+**§253 amendment (written 14 Nov 16:24 UTC, before any result; no personal output scored yet).** Run time and access: Leonardo
+became unreachable (ssh time-outs on every login node) and a classic.fit_predict refit takes 0.4-1 s, ~90 % of it in the
+Riemannian means of TangentSpace / MDM. Pipelines replaced by `causalpers/fast.py`: l1 = log-Euclidean FB tangent space
+(per-window matrix log, the reference absorbed by the scaler) + LR; a2 / a4 as classic (FBCSP, slow waveform, weighted LDA);
+lE = mean of l1, a2, a4 (MDM dropped). True-label s246 W splits, no EA: l1 76.0 (s246 EA a1 75.1), a2 66.9 (71.8), a4 59.2
+(60.0), lE 77.3 (aE 78.2). Refit 44 / 65 / 101 ms at 40 / 100 / 180 windows. k 5 dropped (k in 10 / 20). Grid pipelines
+{l1, a2, lE}; the fixed line becomes filt, lE, k 10, t0 40, R 40, cap 0.5. Predictions and pass rule unchanged (read a1 as
+l1, aE as lE).
