@@ -44,6 +44,7 @@ SWEEP2 = {"gC5": SWEEP["gC5"], "s03": SWEEP["s03"],
           "t11": (5, 10, 3e-3, "all", 2.0, "hard", True, 1, True, 20), "t12": (5, 10, 2e-3, "all", 4.0, "hard", True, 1, True, 30)}
 # s198: the stack's combined form (the three axes that helped) and EMA forms; SWEEP=3 is a finer sweep around s03/s14/s15
 EXTRA = {"c01": (5, 10, 2e-3, "all", 2.0, "hard", True, 1, True, 20), "e01": SWEEP["s03"], "e02": SWEEP["s03"], "e03": (5, 10, 2e-3, "all", 2.0, "hard", True, 1, True, 20)}
+EXTRA["cum10"] = (10, 10, 5e-4, "all", 1.0, "hard", True, 1, True, 30)  # s224: ttt6's cum10 (warm start, 10 steps every 10), GPU-drawn augmentation
 EMA_OF = {"e01": 0.5, "e02": 0.8, "e03": 0.8, "u07": 0.8, "u08": 0.9}
 SWEEP3 = {"gC5": SWEEP["gC5"], "s03": SWEEP["s03"], "c01": EXTRA["c01"],
           "u01": (5, 10, 1.5e-3, "all", 1.0, "hard", True, 1, True, 30), "u02": (5, 10, 2.5e-3, "all", 1.0, "hard", True, 1, True, 30),
