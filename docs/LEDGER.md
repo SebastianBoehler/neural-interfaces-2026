@@ -6056,3 +6056,25 @@ Galvani CPU queue had 168 jobs pending).**
   above 0. "Undecided", small: it is a richer copy of the eye view (same accuracy and error correlation as the eye posterior).
   Predictions: T hit at the low edge of its range, F hit at its low edge, E hit (+0.1 predicted).
 - **Stamp correction:** the §234 RESULT heading above says 12:42 UTC; `date -u` at writing was 12:03 UTC.
+
+### PV3. COMMON, LARGER PERSONAL STRENGTHS ON THE RETURNING PATH (pview track; coordinator after §227; written 14 Nov, before any result)
+- **What the package does (checked in `runs/upload/sealed_cand_v51b_own.zip` weights.npz and
+  `submissions/ensemble_v5b/submission.py` l. 860):** routed mix = (mix − r a core1 + g r a h) / (1 − r a + g r a) with
+  route_slot_g g = 3 and a = member_weights[0] / sum = 1/15 (route_slot_a 0.0667). The personal head's share at r = 1 is
+  g a / (1 − a + g a) = 0.176 (v5.1b); with the rest member (a = 1/16, ER / v6.2-safe) 0.167. own_beta = 0.10.
+- **§227 (external harness):** the best common strength was 0.25–0.40 on every corpus; a per-person strength from
+  leave-one-run-out was killed (Spearman ≈ 0). PV2's arm W uses exactly that LOO strength; it is still run as
+  registered but is not a candidate form whatever it scores.
+- **Arms (in chain.py, same run as PV2, against ER):** H25 / H33 / H40 = the head share at r = 1 raised to 0.25 / 0.33 /
+  0.40 (g = 5 / 7.5 / 10 at a = 1/16); B20 / B30 = own-space beta 0.20 / 0.30. Each alone, routed tail only (gate unchanged).
+- **Prediction:** H33 +0.3 (P04 +0.5, P10 +0.1; the head is P04's main gain in the past); H25 +0.2; H40 +0.2 with P10
+  ≤ 0; B20 +0.1, B30 0 (±0.3).
+- **Rule:** as PV2 (16-order mean ≥ +0.3, P10 > 0 on ≥ 12/16, no scheme mean below −0.3 for either person → candidate;
+  ±0.3 undecided).
+
+**§231 RESULT (12:04 UTC; runs/s231_eyeoracle.txt; Galvani CPU; v6f, new people, against w = 1).**
+- w 0.5 and w 2 equal w 1 exactly: SessionEM z-scores its columns, so the oracle reduces to eye on vs off per session.
+- Eye off everywhere: within −0.22, full −0.42, runs −0.45.
+- Per-session oracle (labels, ceiling): within +0.22 [+0.17, +0.27], full +0.16, runs +0.12.
+- **Below the +0.3 rule even as a ceiling: closed.** A per-session eye on/off rule cannot be worth more than about +0.2. The eye
+  view stays on in every session.
