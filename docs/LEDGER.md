@@ -7044,7 +7044,7 @@ read: kern +0.12, top10 +0.09) with the normalised soft count m15 on its output 
 against latchJ(r15). m15 is chosen after reading (1b) on all ten people (stated; nested M reported next to it). If (3)
 tloc is positive under full it is not added (separate chain variants; no third chain run in this entry). Prediction: full
 +0.25 (0 to +0.5), within / runs −0.05 to +0.05. Same pass rule.
-**§247a/b RESULT (14 Nov 16:00 UTC; runs/strongpersonal/{compare12,fusion_B,fusion_A}.txt, filter_{B,A}.log; chain12 S2=0
+**§247a/b RESULT (14 Nov 15:58 UTC; runs/strongpersonal/{compare12,fusion_B,fusion_A}.txt, filter_{B,A}.log; chain12 S2=0
 reproduced s245's ER and T on all 16 orders x 6 bases; pftshuf's recording-order stream agrees with s29's stored nets on
 98-100 % of windows).**
 - **(a) Routed path with session 2 public, session 3 (scheme means):** ER 73.37 -> 72.84 (P04, −0.53), 90.93 -> 91.67 (P10,
