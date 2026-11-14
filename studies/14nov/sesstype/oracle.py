@@ -1,7 +1,8 @@
 """s236: per-session oracle ceiling and nested descriptor rules for v6f's eye-view weight and stage constants.
 Per-window outputs (recording layout, '<base>|V6Fr' -> (2655, 3)) per order and setting:
   shipped  runs/chainout/<order>.npz (equal to s231_<order>_w1.npz)
-  EYEW     runs/chainout/s231_<order>_w<w>.npz, w 0 / 0.5 / 2
+  eye      runs/chainout/s231_<order>_w0.npz (eye view off); s236_<order>_eyex2 / eyex3 (one / two extra copies; EYEW
+           scaling is a no-op for w > 0 because SessionEM z-scores its columns)
   stages   runs/chainout/s236_<order>_<knob><v>.npz (studies/14nov/sesstype/launch.sh)
 Scores: session BA = mean of its cells' BA (cell = session x interface); person score = mean of its cells; mean over the
 six bases. Causal emission for rules: windows at delivery positions < K keep the shipped output, from K on the chosen
@@ -17,7 +18,7 @@ B = np.load(paths.DATA + "/bases.npz", allow_pickle=True)
 ORDERS = os.environ.get("ORDERS", "within0,within1,full0,full1,runs0,runs1").split(",")
 SCHEMES = list(dict.fromkeys(o.rstrip("0123456789") for o in ORDERS))
 BASES = ["B2_pool", "B2_s345", "B2_s012", "B2_s0", "B2_s1", "B2_s2"]
-EYE = ["w0", "w0.5", "w2"]; STG = ["em_lam0.25", "em_lam1.0", "ts_lam0.075", "ts_lam0.3", "bts2", "bts8"]
+EYE = ["w0", "eyex2", "eyex3"]; STG = ["em_lam0.25", "em_lam1.0", "ts_lam0.075", "ts_lam0.3", "bts2", "bts8"]
 SETS = os.environ.get("SETS", ",".join(EYE + STG)).split(",")
 K = int(os.environ.get("K", 40)); ARM = os.environ.get("ARM", "V6Fr")
 y, sess, cell, person = (B[f"{k}|all_loso"] for k in ("y", "sess", "cell", "person")); y = y.astype(int)
@@ -26,7 +27,7 @@ NC = {s: len(np.unique(cell[sess == s])) for s in SESS}; assert len(set(NC.value
 
 
 def path(o, st):
-    return f"{REPO}/runs/chainout/{o}.npz" if st == "ship" else f"{REPO}/runs/chainout/s231_{o}_{st}.npz" if st in EYE else \
+    return f"{REPO}/runs/chainout/{o}.npz" if st == "ship" else f"{REPO}/runs/chainout/s231_{o}_{st}.npz" if st == "w0" else \
         f"{REPO}/runs/chainout/s236_{o}_{st}.npz"
 
 
@@ -128,6 +129,7 @@ def fit(cands, causal, desc, train):
         g = (fire * (dS * w)[None]).sum(2).mean(1); j = int(np.argmax(g))
         if g[j] > bg + 1e-12:
             best, bg = (d, si, sg, ths[j]), g[j]
+    assert best[1] == 0 or abs(gains_of(best, causal, None if best[0] is None else desc, ORDERS, train).mean() - bg) < 1e-9, "fit != gains_of"
     return best
 
 

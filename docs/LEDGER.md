@@ -6288,3 +6288,22 @@ regular file, new people, mean of six bases, 80 % person intervals:
 - **Forms not tried (if the direction is reopened):** residualise the event columns on the mix's SUB/WORD margin before
   they enter the view; fewer columns (the two q 2 balances and v_le only); the panel's proposal 1 (eye regression out of the
   EEG members) first, which is meant to lower exactly this correlation.
+
+**§236 RESULT (12:16 UTC; evidence/sesstype_14nov/, studies/14nov/sesstype/; replay/check.py OK).** v6f (V6Fr), new people, six
+orders, 9 settings (eye off, eye ×2 / ×3 as copies, EM_LAM 0.25 / 1.0, TS_LAM 0.075 / 0.3, BTS 2 / 8); shipped-value no-op
+file equal to shipped to 0.0.
+- **Every setting as a global change:** eye ×2 +0.09, ×3 +0.09 (inside noise), eye off −0.36, BTS 2 / 8 −0.05 / −0.03,
+  TS_LAM 0.075 / 0.3 −0.20 / −0.32, EM_LAM 0.25 / 1.0 −0.70 / −1.46. The shipped constants sit at the optimum of each axis.
+- **Oracle ceiling (per session, labels):** all settings within +1.07 [+0.68, +1.50], full +0.70 [+0.58, +0.82], runs +1.18
+  [+0.84, +1.55], mean +0.99; eye axis only +0.39 (§231's {off, on} alone: within +0.12 on two orders); stage constants
+  only +0.89. With the causal switch at K 40 the ceiling is +0.98. The oracle's pick for a session changes from order to
+  order (e.g. P01: bts8, eye×3, ts0.075, ts0.3, eye×3, em1.0), so most of the ceiling is per-order noise, not a session type.
+- **Nested held-out (252 splits, K 40, fully nested): −0.28** (within −0.30, full −0.25, runs −0.28; person band [−0.40,
+  −0.16]; 9 of 10 people ≤ 0). Global-setting control −0.01. Per descriptor (secondary): e1 −0.07, e2 −0.16, alpha −0.25,
+  slow −0.32. K 20: −0.40; K 80: −0.21 (best single descriptor e2 −0.04). The most chosen rule (alpha low → EM_LAM 1.0)
+  loses on held-out people.
+- **Against the rule: killed** (below +0.3 nested; every form ≤ 0, intervals below 0). Prediction: ceiling +1.5 to +3 (missed
+  low, +0.99), nested −0.2 to +0.4 (−0.28, at the low end). The alpha descriptor matches the panel (P01, P02, P08, P09
+  peaks; others none), so the descriptor is right and the setting it selects is not.
+- **Side finding:** §231's EYEW 0.5 / 2 equal w 1 to 0.0 in all six orders (z-scored SessionEM columns); §231's oracle is an
+  on/off oracle. A real eye weight (extra copies) gives +0.09 as a global change: undecided, small.

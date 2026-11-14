@@ -1,0 +1,1 @@
+s236 session-type conditioning. Source: commit ac056e3 + studies/14nov/sesstype (this commit); shufcombo per-window outputs (local Mac, same command as launch.sh; within0 no-op file equal to shipped to 0.0), s231 w0 files from Galvani. No random seeds beyond the pinned delivery orders; bootstrap rng 0, 4000 draws. replay/check.py OK.
