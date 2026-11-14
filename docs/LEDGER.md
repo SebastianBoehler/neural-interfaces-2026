@@ -6465,3 +6465,21 @@ session (class means of their core1 PCs, offline labels). The online runs get th
 - **Prediction:** T20 +0.8 mean over ten (people > 0: 7/10), T40 +1.0.
 - **Reading:** if the proxy is ≤ +0.3 even in this optimistic setting, T has no case for the eight single-session
   people.
+
+**PV4 RESULT (14 Nov; runs/pview/chain_pv4.log, pv4_summary.txt; 16 orders × 6 bases; ER = s214 on every order and base).**
+The first launch died before any result: a KeyError when the arm list lacked `base`. chain.py now checks only the arms
+it runs against s214 and requires ER. Change against ER, 80 % over orders:
+
+| arm | all 16 | P04 | P10 | P10 > 0 | within | full | runs |
+|---|---|---|---|---|---|---|---|
+| T10 (κ 10) | +0.36 [+0.22, +0.49] | +0.65 | +0.06 | 8/16 | +0.13 (P04 +0.33, P10 −0.07) | +0.61 (+0.90, +0.32) | +0.56 (+1.04, +0.08) |
+| T (κ 20, PV2) | +0.43 [+0.26, +0.60] | +0.81 | +0.04 | 9/16 | +0.21 (+0.54, −0.11) | +0.84 (+1.19, +0.50) | +0.43 (+0.98, −0.11) |
+| T40 (κ 40) | +0.44 [+0.24, +0.65] | +0.90 | −0.01 | 7/16 | +0.25 (+0.59, −0.09) | +0.76 (+1.39, +0.14) | +0.51 (+1.02, +0.01) |
+| TH25 (κ 20 + head 0.25) | +0.41 [+0.23, +0.59] | +0.87 | −0.05 | 6/16 | +0.31 (+0.67, −0.06) | +0.51 (+0.97, +0.05) | +0.52 (+1.17, −0.13) |
+
+- **Against the predictions:** T10 +0.3 → +0.36 (P10 +0.05 → +0.06); T40 +0.4 → +0.44 (P04 +1.0 → +0.90, P10 −0.1 → −0.01);
+  TH25 +0.55 → +0.41. T10 and T40 were close; TH25 does not stack.
+- **Verdict:** no form passes (P10 > 0 on 6–9 of 16 against the 12 needed). Every form helps P04 (+0.65 to +0.90,
+  largest under full) and leaves P10 at zero (its chain is at 90.5 %). The rule calls this "undecided". By the
+  sealed weighting (about 0.2 P04 + 0.8 P10) it is worth about +0.15 on returning people. Not closed: it never hurts
+  P10 on a scheme mean by more than 0.13.

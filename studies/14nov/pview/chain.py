@@ -136,7 +136,7 @@ def routed_rows(proto):
 def set_em_prior(proto, with_o):
     n = len(Z[f"sess|{proto}"]); d = Z[f"GE|{proto}"].shape[1]; kp, pm, mk = np.zeros(n), np.zeros((n, 3, d)), np.ones((n, d))
     for rows, r, q in routed_rows(proto).values():
-        if with_o in COLS:  # PV5: matched-coordinate prior on the gaze (+ event-rate) columns only
+        if with_o in PS.COLS:  # PV5: matched-coordinate prior on the gaze (+ event-rate) columns only
             pm_, mk_ = EMPM[q, with_o]; assert pm_.shape[1] == d, (pm_.shape, d); mk[rows] = mk_
         else:
             pm_ = EMP[q, with_o]; assert pm_.shape[1] == d, (pm_.shape, d)
