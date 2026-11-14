@@ -7450,3 +7450,9 @@ PER-SESSION balance (uniform class marginals over the session's windows); the pe
 labelled as using true run ids. (a) Next to the transductive ceiling, report the causal prefix form: cluster only the
 windows delivered before t (t = 80, 120, end of session) in the delivery orders, and score the windows from t on. The gate
 is read on the per-session-balance arm; the package could use only its causal form.
+§258 amendment (14 Nov 18:20 UTC, before any §258 result). Degenerate splits: when the kept eye-net labels give a class fewer
+than 2 training windows (E30 7, E50 1, E70 1 of 1680 splits; A30 357, A50 192, A70 111, concentrated in P01, P04, P10, where
+eye net and chain rarely agree on one class), that split falls back to the chain alone (gain 0); each arm reports its
+fallback share next to the gain. Arm A = top q % per eye-argmax class first, then kept only where eye argmax = chain argmax.
+Noted before the run: the eye net's argmax accuracy is 51 % on within 0 (chain 77.7 %), so the predicted 80 % purity at
+q 50 is likely high; the prediction is left as written.
