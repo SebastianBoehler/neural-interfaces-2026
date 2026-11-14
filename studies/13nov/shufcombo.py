@@ -134,6 +134,27 @@ if SYN_T:  # +SYN_D accuracy points on one component (s<k> member slot, c1 core1
     else:
         raise SystemExit(f"SYN_T {SYN_T}: unknown component")
     print(f"SYN {SYN_T} +{SYN_D:g}: component accuracy {a0:.4f} -> {a1:.4f} (last base for slots)", flush=True)
+OUTX = os.environ.get("OUTX")  # s207 stage 2: a final-layer edit (studies/14nov/wsp_final.py), per held-out person
+OX_T = os.path.basename(OUTX).split("_")[1] if OUTX else None
+if OUTX:
+    OXZ = np.load(OUTX); ZO = next(o for d, o in zip(S.DICTS, S.ORIG) if d is Z); OXP = ZO[f"person|{p0}"]
+    def oedit(pr):  # z' = t (I + B) log p + c, row by row with the row's person's edit; a person absent from the file fails
+        out = np.empty_like(pr); lz = np.log(np.clip(pr, 1e-6, 1))
+        for i, q in enumerate(OXZ["people"]):
+            r = OXP == q; o = OXZ["t"][i] * lz[r] @ (np.eye(3) + OXZ["B"][i]).T + OXZ["c"][i]; o = np.exp(o - o.max(1, keepdims=True)); out[r] = o / o.sum(1, keepdims=True)
+        assert np.isin(OXP, OXZ["people"]).all(), "OUTX: people without an edit"; return out
+    if OX_T[0] == "s" and int(OX_T[1:]) not in SLOT.values():
+        for key in [q for q in ZO if q.endswith(f"|Ps|{p0}")]:
+            ZO[key] = ZO[key].copy(); ZO[key][int(OX_T[1:])] = oedit(ZO[key][int(OX_T[1:])])
+    elif OX_T == "c1":
+        c1n = oedit(S.C1[p0]); dc = c1n - S.C1[p0]; S.C1[p0] = c1n
+        for key in [q for q in ZO if q.endswith(f"|Ps|{p0}")]:
+            ZO[key] = ZO[key].copy(); ZO[key][0] = ZO[key][0] + dc / 2
+    elif OX_T == "rest":
+        RESTR = oedit(RESTR)
+    elif OX_T == "eye":
+        OCU = np.log(np.clip(oedit(np.exp(OCU)), 1e-3, 1))
+    print(f"OUTX {OUTX}: final-layer edit of {OX_T}" + (" (fine-tuned slot: applied after the FT delta, in chain)" if OX_T[0] == "s" and int(OX_T[1:]) in SLOT.values() else ""), flush=True)
 print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {RPX}; eye net {'re-streamed ' + OCD if OCD else 'recording order (3 seeds)'}; "
       f"rest net {'re-streamed ' + str(len(RSS)) + ' seeds' if RSS else 'recording order'}; core1 member {'re-streamed' if DC1 is not None else 'recording order'}; "
       f"pc128 {'rebuilt in the order' if DPC is not None else 'recording order'}; new people\nSTILL IN RECORDING ORDER: {', '.join(REC_LEFT)}", flush=True)
@@ -177,6 +198,8 @@ def chain(bn, arm, P):
         if arm == "V6Frec":
             x = x + (CU6[a, ks[0]] - FR6[a, ks[0]])
         arrs[a] = norm(x)
+        if OUTX and OX_T == f"s{sl}":  # s207: the fine-tuned slot's final layer edited after its FT delta
+            arrs[a] = oedit(arrs[a])
     fams, extra = list(A.FAMS), []
     for a, sl in SLOT.items():
         A.EXTRA[f"sc_{a}"] = {p0: arrs[a][P], OTHER: A.L.Z[f"{bn}|Ps|{OTHER}"][sl]}
@@ -242,6 +265,6 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other
-np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}{f'_syn{SYN_T}{SYN_D:g}' if SYN_T else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}{f'_syn{SYN_T}{SYN_D:g}' if SYN_T else ''}{'_ox' + os.path.basename(OUTX)[6:-4] if OUTX else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
 if SAVE_OUT:
     np.savez_compressed(f"{REPO}/{SAVE_OUT}", **OUTS); print("per-window outputs ->", SAVE_OUT, flush=True)
