@@ -7799,3 +7799,16 @@ Members' X differ and strong() draws differ across members: form (d) dropped on 
 forms: caching the clean-path FIR saves ~half of (25 + 5) % = ~15 %, staging 2 %, dtheta 0.1 %: about 1.2x (below the 1.4x
 bar of the refutation rule) -> (a)+(b)+(c) alone cannot reach 2-4 sealed minutes. 65 % of the time is the augmented forward + backward
 (conv backward, depthwise conv, 1570 small elementwise calls: launch-heavy), which only arithmetic-changing forms touch.
+
+### 267. c x bE: SINC-WEIGHTED FAMILY SETS AT A FIXED WEIGHT (written 14 Nov 21:12 UTC, before any result; §265 V1 follow-up)
+Mechanism: §265 V1 (16 Leonardo files, §252 split, filt labels, six orders) found c x bE^0.5 +1.20 [+0.52, +1.90] 8/10, with
+leave-one-family-out: without sinc -0.37, without fbl +0.25, without fb +0.86, without fbraw +1.28. The weight 0.5 and the
+family pattern were read after the fact, so they need fresh nets. New nets, seeds 4-7 (never used), same recipe as ftnet_pl.py
+(200 steps, chain filt labels, §252 split), fusion weight FIXED at 0.5:
+(S1) sinc only, 4 seeds; (S2) sinc + fb + fbl (no fbraw), 2 seeds each; (S3) all four families, 2 seeds each (the §252
+set on fresh seeds: the control for seed luck). Score = c x bE^0.5 over the r15 chain, six orders, people-and-order intervals.
+Predictions: S3 +0.9 (80 % range +0.2 to +1.6; regression toward §252's w 1 value); S2 - S3 +0.2 (-0.3 to +0.6); S1 +0.3
+(-0.6 to +1.0; one family alone was negative at w 1 in V1).
+Rule: S2 or S3 >= +0.8 with the people interval above 0 and >= 7/10 up -> the family set and w 0.5 are fixed for the §265 V2
+causal form (delivery prefix), which is then rerun with that set; S2 - S3 >= +0.3 with interval above 0 -> drop fbraw from
+the set; else the four-family set stays. P04 and P10 reported, neither decides. GPU, Leonardo boost_usr_prod.
