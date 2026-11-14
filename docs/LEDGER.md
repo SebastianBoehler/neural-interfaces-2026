@@ -6849,3 +6849,36 @@ one-day test for the full scheme.
 - **Prediction (if scored):** full FP − raw +0.25 (−0.1 to +0.6); within / runs GFP − latchJ −0.05 (−0.15 to +0.05).
 - **Pass rule (coordinator):** GFP − latchJ >= +0.5 under full 0-3 AND >= 0 under within 0-3 and runs 0-3 (V6Fr, means over
   orders), with 80 % person intervals reported. Code studies/14nov/fingerprint/, outputs evidence/fingerprint_14nov/.
+**§247 RESULT (14 Nov 15:25 UTC; runs/strongpersonal/ceil.txt, ceil2.txt, scheme.txt; code studies/14nov/strongpersonal/).**
+Routed reference (ER of §245, 16 orders x 6 bases, scheme means): P04 s2 67.85 / s3 73.37, P10 s2 89.48 / s3 90.93
+(T: 69.40 / 73.63, 89.15 / 91.44). Protocol A nets: pft12.py (s29's PFT code imported, base nets trained on all public rows
+except q's session 3, fine-tuned on sessions 1 + 2; Leonardo 64473497, 15 tasks, smoke 64473434 first). Personal members alone
+on the test session (non-causal EA for TS; PFT nets causal SessionBN, recording order):
+
+| member alone | P04 s1>s2 | P04 s1>s3 | P04 s12>s3 | P10 s1>s2 | P10 s1>s3 | P10 s12>s3 |
+|---|---|---|---|---|---|---|
+| TSp (person only, best C) | 67.8 | 67.1 | 73.9 | 73.8 | 62.7 | 81.5 |
+| TSw5 (nine others + person x5) | 54.6 | 64.4 | 69.2 | 85.6 | 72.9 | 84.5 |
+| PFT nets, 15, pf60 / pf200 | 69.9 / 73.0 | 62.4 / 63.4 | 66.1 / 67.7 | 91.1 / 88.4 | 85.3 / 83.7 | 90.3 / 89.3 |
+
+Ceiling = ER x TSp^a x TSw5^b x PFT^c, one setting per person and protocol picked on the test sessions (oracle), identity
+known from window 0 (no gate), change against ER:
+- **B (s1 -> s2, s3; like for like): P04 +3.96, P10 +0.88.** One setting for both (PFT200^0.25): P04 +2.70 (16/16 orders > 0),
+  P10 +0.46 (11/16; within +0.16, full +0.72, runs +0.50).
+- **A (s1 + 2 -> s3) against ER trained on session 1 only: P04 +7.78, P10 +2.33**; one setting for both (TSp10^0.25 x
+  PFT12_200^0.5): P04 +7.78 (16/16), P10 +1.03 (9/16; within -0.24, full +2.42, runs +0.91).
+- A-like (s1 -> s3): P04 +3.12, P10 +0.58.
+- **Against the prediction:** personal alone below the routed path (hit: B P04 ~68-73 single members vs 70.6, P10 <= 91 vs
+  90.2); fused B P04 +2 predicted, +3.96 oracle / +2.70 shared (above); P10 +0.3 predicted, +0.88 / +0.46 (inside).
+- **Kill rule: met on the like-for-like protocol (B: P10 +0.88 < +1 even at the oracle).** A passes the bars, but only
+  against a reference that has one public session less; most of A's gain over A-like is the second session itself (TSp
+  alone gains +6.8 P04 / +18.8 P10 from it, the nets +4 / +5), which the routed path's personal head, own-space stage and
+  T would also receive, and A's P10 gain sits in full orders (where ER routes late or never; the ceiling has identity from
+  window 0) and is negative under within. Not packaged; no causal version built. Sealed-weighted (0.2 P04 + 0.8 P10) the
+  like-for-like oracle is +1.50 on returning sessions, the shared setting +0.91 (both upper bounds: oracle setting,
+  oracle identity, non-causal EA). What would reopen it: the routed chain rerun with sessions 1 + 2 public (core1, head,
+  own-space, T) so that A has a like-for-like reference; or late fusion of the PFT nets (ER x PFT200^0.25, the shared B
+  form, +2.70 / +0.46) scored behind the gate under shuffle.
+- **Side finding (not a lever as measured):** ceil.py's TSwpl member reproduced the argmax of the mean ER posterior over
+  the 96 runs (16 orders x 6 bases), which beats a single run by +4.1 / +2.7 (P04 s2 / s3) and +1.0 / +0.9 (P10): the
+  routed path's spread across delivery orders and bases is that large on returning people.
