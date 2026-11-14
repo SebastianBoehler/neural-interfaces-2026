@@ -44,3 +44,25 @@ def tsem_target(beta, G, T, Zstore, p0, SIG):
     if not hasattr(G, "_tsem_lik_stock"):
         G._tsem_lik_stock = G.tsem_lik
     G.tsem_lik = tsem_lik
+
+
+def stage_consts(gm, em_lam=None, ts_lam=None, bts=None):
+    """s232: the stage constants as knobs. SessionEM's lam (0.5), TSEM's base strength (0.15) and its gate boost bts (BTS)."""
+    if em_lam is not None:
+        def em_g(b, proto, g, bem=gm.BEM, nmin=gm.NMIN):
+            F, sess = gm.L.Z[f"GE|{proto}"], gm.L.Z[f"sess|{proto}"]; out = np.empty_like(b)
+            for s in dict.fromkeys(sess):
+                e = gm.EMg(bem, lam=em_lam, n0=60, m0=20, shrink=0.7, nmin=nmin)
+                for r in np.flatnonzero(sess == s):
+                    e.g = g[r]; out[r] = e.step(F[r], b[r])
+            return out
+        gm.em_g = em_g
+    if ts_lam is not None or bts is not None:
+        tl, bt = 0.15 if ts_lam is None else ts_lam, gm.BTS if bts is None else bts
+
+        def tsem_g(P, proto, g, bts=None):
+            Lk, tt = gm.L.G.tsem_lik(P, gm.L.Z[f"sess|{proto}"], gm.L.Z[f"pc128|{proto}"], rho=0.7)
+            out = P.copy(); m = ~np.isnan(Lk[:, 0])
+            e = tl * tt[m] / (tt[m] + 60) * (1 + bt * (gm.M.h(tt[m], 30) * g[m]))
+            q = P[m] * Lk[m] ** e[:, None]; out[m] = q / q.sum(1, keepdims=True); return out
+        gm.tsem_g = tsem_g

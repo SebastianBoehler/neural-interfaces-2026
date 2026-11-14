@@ -214,6 +214,16 @@ def nuis_projectors(key):
 NUIS_U = {k: nuis_projectors(k) for k in (["pc128"] if NUIS_V == "pc" else ["pc128", "GE"])} if NUIS else {}
 ALLSEED = bool(os.environ.get("ALLSEED"))  # s230
 EYEW = float(os.environ.get("EYEW", 1))  # s231: eye-view weight (1 = as shipped)
+REST_W = float(os.environ.get("REST_W", 1))  # s232: the rest member's weight in the mix (1 = as shipped)
+XVF = os.environ.get("EXTRA_VIEW")  # s232: npz, key 'rec' (N, k) recording layout, optional '<scheme><seed>' delivery-order rows
+XV = None
+if XVF:
+    _xz = np.load(XVF); XV = (_xz[ORD] if ORD in _xz.files else _xz["rec"]).astype(np.float64); assert len(XV) == N, (XVF, XV.shape, N)
+    print(f"EXTRA_VIEW {XVF}: {XV.shape[1]} columns appended to SessionEM's view ({'delivery-order' if ORD in _xz.files else 'recording-order'} rows)", flush=True)
+if any(os.environ.get(k) for k in ("EM_LAM", "TS_LAM", "BTS")):
+    sys.path.insert(0, REPO + "/studies/14nov"); import stagehooks as _SH  # noqa: E402
+    _SH.stage_consts(gm, *(float(os.environ[k]) if os.environ.get(k) else None for k in ("EM_LAM", "TS_LAM", "BTS")))
+    print("stage constants: " + " ".join(f"{k} {os.environ[k]}" for k in ("EM_LAM", "TS_LAM", "BTS") if os.environ.get(k)), flush=True)
 TSEM_TGT = float(os.environ.get("TSEM_TGT", 0))  # s219: TSEM's shrinkage target mixes identity and the population within-class cov
 if TSEM_TGT:
     sys.path.insert(0, REPO + "/studies/14nov"); import stagehooks as SH  # noqa: E402
@@ -264,10 +274,10 @@ def chain(bn, arm, P):
             fams.remove(fam); extra += list(A.FAM[fam])
         extra = [(k, w) for k, w in extra if k != sl] + [(f"sc_{a}", 1.0)]
     if arm in ("V6Fr", "V6Frec", "V6r"):
-        A.EXTRA["sc_rest"] = {p0: (RESTR if arm != "V6Frec" else REST)[P], OTHER: A.L.Z[f"{bn}|Ps|{OTHER}"][3]}; extra = extra + [("sc_rest", 1.0)]
+        A.EXTRA["sc_rest"] = {p0: (RESTR if arm != "V6Frec" else REST)[P], OTHER: A.L.Z[f"{bn}|Ps|{OTHER}"][3]}; extra = extra + [("sc_rest", REST_W)]
     ge0, pc0 = A.L.Z[f"GE|{p0}"].copy(), A.L.Z[f"pc128|{p0}"].copy()
     if arm in ("V6Fr", "V6Frec", "V6r"):
-        ov = ocu_view(P) * EYEW; A.L.Z[f"GE|{p0}"] = np.c_[ge0, ov]  # EYEW (s231): a weight on the eye view's columns
+        ov = ocu_view(P) * EYEW; A.L.Z[f"GE|{p0}"] = np.c_[ge0, ov] if XV is None else np.c_[ge0, ov, XV[P]]  # EYEW (s231), EXTRA_VIEW (s232)
         if OCU_TS:  # s188 form A: the eye view in TSEM too. TSEM standardises columns, so weight = k copies (scaling would be a no-op)
             A.L.Z[f"pc128|{p0}"] = np.c_[pc0, np.repeat(ov, OCU_TS, axis=1)].astype(pc0.dtype)
     if NUIS:  # s218: no run id, no order: a fixed projector per held-out person (in the package: one matrix from all ten)
@@ -331,6 +341,6 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other; s208: so is a non-default
 # OCU_DIR (form B runs had overwritten the regular files of within 1-3, full 0/1, runs 0/1)
-np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if not OCD or OCD.rstrip('/') == f'runs/ocushuf/{SCHEME}{PSEED}' else '_ocd' + OCD.rstrip('/').replace('runs/', '').replace('/', '-')}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}{f'_syn{SYN_T}{SYN_D:g}' if SYN_T else ''}{'_ox' + os.path.basename(OUTX)[6:-4] if OUTX else ''}{'_cm' + os.path.basename(CMP)[:-4] if 'CM_NPZ' in os.environ else ''}{'_rs' + os.path.basename(RSD.rstrip('/')) if 'RS_DIR' in os.environ and RSD.rstrip('/') not in (f'{REPO}/runs/restshuf', 'runs/restshuf', 'runs/diag/restshuf') else ''}{'_tf' + os.path.basename(os.environ['TS_FILE'])[:-4] if os.environ.get('TS_FILE') else ''}{f'_runoff{RUNOFF_V}{RUNOFF:g}' if RUNOFF else ''}{'_rid' + os.path.basename(os.environ['RUN_IDS'])[:-4] if os.environ.get('RUN_IDS') else ''}{f'_nuis{NUIS_V}{NUIS}' if NUIS else ''}{f'_tsemtgt{TSEM_TGT:g}' if TSEM_TGT else ''}{'_allseed' if ALLSEED else ''}{f'_eyew{EYEW:g}' if EYEW != 1 else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if not OCD or OCD.rstrip('/') == f'runs/ocushuf/{SCHEME}{PSEED}' else '_ocd' + OCD.rstrip('/').replace('runs/', '').replace('/', '-')}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}{f'_syn{SYN_T}{SYN_D:g}' if SYN_T else ''}{'_ox' + os.path.basename(OUTX)[6:-4] if OUTX else ''}{'_cm' + os.path.basename(CMP)[:-4] if 'CM_NPZ' in os.environ else ''}{'_rs' + os.path.basename(RSD.rstrip('/')) if 'RS_DIR' in os.environ and RSD.rstrip('/') not in (f'{REPO}/runs/restshuf', 'runs/restshuf', 'runs/diag/restshuf') else ''}{'_tf' + os.path.basename(os.environ['TS_FILE'])[:-4] if os.environ.get('TS_FILE') else ''}{f'_runoff{RUNOFF_V}{RUNOFF:g}' if RUNOFF else ''}{'_rid' + os.path.basename(os.environ['RUN_IDS'])[:-4] if os.environ.get('RUN_IDS') else ''}{f'_nuis{NUIS_V}{NUIS}' if NUIS else ''}{f'_tsemtgt{TSEM_TGT:g}' if TSEM_TGT else ''}{'_allseed' if ALLSEED else ''}{f'_eyew{EYEW:g}' if EYEW != 1 else ''}{f'_restw{REST_W:g}' if REST_W != 1 else ''}{'_xv' + os.path.basename(XVF)[:-4] if XVF else ''}{''.join(f'_{k.lower()}{os.environ[k]}' for k in ('EM_LAM', 'TS_LAM', 'BTS') if os.environ.get(k))}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
 if SAVE_OUT:
     np.savez_compressed(f"{REPO}/{SAVE_OUT}", **OUTS); print("per-window outputs ->", SAVE_OUT, flush=True)
