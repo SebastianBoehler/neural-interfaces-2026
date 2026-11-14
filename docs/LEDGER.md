@@ -5086,3 +5086,20 @@ GPU runs of the image need Galvani (3100010 / 3100013).
   "not supported on this data".
 - **Limit:** these variants differ in fine-tuning, not in member architecture or training; the claim about trained member
   families is tested by the episodic-training experiment (GPU), not here.
+- **§211 RESULT (07:15 UTC; runs/s211_member_rank.txt; 240 (order, form) pairs from the LS / LS3 / LF / KF sweeps).**
+  - Order means removed: corr(Δchain, Δraw) **+0.52**, corr(Δchain, Δpost-balance) **+0.55**. Pooled: +0.37 / +0.47;
+    Spearman +0.30 / +0.43.
+  - The gap (0.03) is far below the pre-registered 0.2: **not supported on this data.** Post-balance accuracy predicts the
+    chain marginally better, not decisively.
+  - Side finding: fine-tuning forms cost more raw accuracy (−0.80 points mean) than post-balance accuracy (−0.19). They
+    shift session biases, which the rebalancing removes.
+  - Chain per post-balance point: +0.11, consistent with §207's leverage of the fine-tuned slots.
+  - The claim about member families trained inside their adaptation stays open for the episodic-training test.
+
+### 213. CLASS-SEQUENCE-PRESERVING SHUFFLE, DIAGNOSTIC (written 14 Nov 06:58 UTC, before any result; solution-space review C1)
+- **Question:** is v5.1b's stage loss under full (−3.75, stages only, members fixed; runs/shuffle_13nov.log) lost sequence
+  structure (the class sequence) or EEG non-stationarity (temporally adjacent windows look alike)?
+- **Test:** shuffle.py scheme classseq. Within each session, windows of one class trade places among that class's positions,
+  so the class sequence stays and the temporal neighbourhood of the EEG is destroyed. 3 permutations, six bases, new people.
+- **Reading:** a loss near full's −3.75 means the loss is EEG non-stationarity, which a stage that tracks drift by content
+  could recover. A loss near 0 means the stages lean on the class sequence, which a real shuffle removes for good.

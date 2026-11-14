@@ -28,7 +28,7 @@ with np.load(REPO + "/data/proteus_windows.npz") as w:
 print(f"SHUF: {len(DICTS)} stores permuted; schemes {SCHEMES} x {PERMS} permutations; members fixed as computed in recording order", flush=True)
 
 
-SCHEME_ID = {"full": 0, "runs": 1, "within": 2}  # fixed (s180 bug): the seed used to be the scheme's position in the SCHEMES env, so
+SCHEME_ID = {"full": 0, "runs": 1, "within": 2, "classseq": 3}  # classseq (s213): windows shuffled, each position keeps its class  # fixed (s180 bug): the seed used to be the scheme's position in the SCHEMES env, so
 # shufcombo (SCHEMES=<one scheme>) ran the stages in another order than runs/shuffle_perms.npz (dumped with full,runs,within)
 # for within and runs, while every re-streamed member followed the dumped order.
 
@@ -42,6 +42,10 @@ def perm_for(scheme, seed):
             rows = np.flatnonzero(sess == s); assert (np.diff(rows) == 1).all(), "a session's rows are not contiguous"
             if scheme == "full":
                 P[rows] = rows[r.permutation(len(rows))]
+            elif scheme == "classseq":  # the class sequence is kept; windows of one class trade places within the session
+                yy = ORIG[0][f"y|{p}"] if f"y|{p}" in ORIG[0] else A.L.Z[f"y|{p}"]
+                for c in np.unique(yy[rows]):
+                    q = rows[yy[rows] == c]; P[q] = q[r.permutation(len(q))]
             elif scheme in ("runs", "within"):
                 blocks = [rows[run[rows] == u] for u in dict.fromkeys(run[rows])]
                 if scheme == "runs":
@@ -94,4 +98,5 @@ else:
         print(f"{sc:7s}: against recording order, new, mean over bases and permutations: " + " ".join(f"{k} {v:+.2f}" for k, v in d.items())
               + f" | chain per permutation {min(rng_):+.2f} to {max(rng_):+.2f}", flush=True)
     apply(ident)
-    np.savez(REPO + "/runs/shuffle_13nov.npz", **{f"{sc}|{s}|{bn}|{k}": v for (sc, s, bn), st in R.items() for k, v in st.items()}, **{f"rec|0|{bn}|{k}": v for bn, st in REF.items() for k, v in st.items()})
+    # s213: a run with other schemes writes its own file instead of overwriting the stored three-scheme one
+    np.savez(REPO + "/runs/shuffle_13nov" + ("" if SCHEMES == ["full", "runs", "within"] else "_" + "_".join(SCHEMES)) + ".npz", **{f"{sc}|{s}|{bn}|{k}": v for (sc, s, bn), st in R.items() for k, v in st.items()}, **{f"rec|0|{bn}|{k}": v for bn, st in REF.items() for k, v in st.items()})
