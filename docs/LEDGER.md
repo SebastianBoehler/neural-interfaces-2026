@@ -5042,3 +5042,12 @@ GPU runs of the image need Galvani (3100010 / 3100013).
   - On the current chain, edits fitted on nine people do not transfer to the tenth. The fitted weights are at their transfer
     optimum, and only core1's block gains come out slightly positive. Remaining untried: teacher per-unit gains and the
     eye-net drift edit (GPU refits).
+
+### 209. v6.2hL's dev row on every order (written 14 Nov 06:49 UTC, before any job ran)
+- **What:** new people under v6.2hL = s15 fine-tuned on v5.1b's labels (tag LF), paired against the in-run gC5 control on the
+  same labels (= v6f's path), on the same machine.
+  - within 4–11: these exist from the fresh-order sweep on Leonardo (sweepsel_fresh).
+  - full 2–7 and runs 2–3: ttt18 FORMS=gC5,s15 on chain_v51b (24 tasks per order), scoring chained on Leonardo.
+  - Returning people: as already scored (ERF).
+- **Prediction:** s15 − gC5 under L labels: within +0.15 (fresh sweep: +0.14), full 0.0, runs +0.05. So v6.2hL ≈ v6f + ERF
+  + 0.15 under within, and level under full.
