@@ -7755,3 +7755,26 @@ Zero-change asserted on every order and base: tail0 (no ER, no personal parts) e
 - **Against the prediction:** median +2.5 (80 % +0.5 to +5) -> +5.1, above the range; P10 about +6 -> +9.4; >= +2 for 5 of 8 required -> 7/8. Rule: >= +2 for 5/8, so the "0.8-P10-like" assumption is NOT refuted and the downward revision is not triggered; the second branch fires: tune the returning path's weights on all ten people (nested by person), not on P04/P10.
 - **Limits, stated plainly:** (1) the proxy is within-session: heads, own-space members and prior are fitted on the same session's acquisition runs (no between-session shift), so these are upper bounds for the sealed case; P10's own across-session routed gain over the tail is +6, the proxy gives +9.4 for P10, which calibrates the optimism at about 1.5x on P10. (2) The tail0 baseline has no personal parts, so the gain includes the whole personal path, not T alone. (3) Oracle recognition and r = 1 from the first online window; the gate's recall and ramp are a separate loss. (4) Members and PC256 as recorded (tproxy's limit). (5) Acquisition rows are about a third of a session, so the personal models see fewer rows than a full public session.
 - **Sealed-weighted dev level (§249 calibration J = 0.566 new 77.8 + 0.434 returning, returning = 0.2 P04 70.0 + 0.8 other):** (a) other returning P10-like 89.6: J 81.22. (b) measured ten-person spread (proxy absolute routed level of the eight: ER 87.5, ERT 87.8): J 80.48 / 80.58. (c) §249 new-people level of the eight 81.9 + proxy gain (+5.5 / +5.8): J 80.46 / 80.56. So the P10-like assumption overstates dev J by about 0.7 if the eight sit where the proxy puts them, and the proxy itself is optimistic, so (b)/(c) are an upper bound for that alternative.
+
+### 266. RETURNING PATH: RECOGNITION ON TEN PEOPLE AND NESTED TUNING OF THE SHIPPABLE WEIGHTS (written 14 Nov 20:32 UTC, before any result; §262's rule branch, coordinator)
+Mechanism: §262 shows the routed personal path is worth a median +5 on the within-session proxy for the eight people dev
+never measured, but with oracle routing and with weights chosen on P04 / P10. Two things decide what ships: whether the gate
+recognises those people causally and label-free, and whether the weights are right for ten people rather than two.
+Part (a), recognition (no tuning): run the package's label-free gate (routing v4.1 code path, the package's thresholds) on
+the PV6 proxy for all ten people, gallery = that person's acquisition runs plus every other person's public data as the
+package holds them, 8 orders. Report per person: recognised yes / no, time to recognition (delivery position of the first
+routed window), share of online windows routed, false routes of other people's sessions to that person (on the new-people
+LOSO sessions). Then the §262 path with the REAL gate (ramp as shipped) instead of the oracle: routed minus tail0.
+Part (b), tuning: only parameters that ship as constants: the own-space stage weight (0.10 now; grid 0.05-0.30), the
+personal-head slot weight (grid 2-6), the TSEM personal-prior kappa (10-40), the gate ramp speed and threshold (3 values each
+around the shipped ones). Nested by person: for each held-out person pick on the other nine, score on the held-out one,
+real gate. Primary: nested tuned minus shipped settings, ten people, 8 orders x 6 bases. Check on the real cross-session
+protocol: the nested picks applied to P04 / P10 seen_session (16 orders) must not lose more than 0.3 there.
+Transfer to the sealed estimate (stated before the result): sealed gain = proxy gain x 0.64 (P10: about +6 across sessions /
++9.4 on the proxy) x recall from part (a) x 0.434 (returning weight) x 0.41-0.7 (dev-to-sealed transfer).
+Run time: weights and thresholds only, so no new per-window cost (reported as measured, expected within noise of v6.5).
+Predictions: (a) recall for the eight >= 6 of 8 recognised, median time to recognition <= 40 windows; real-gate gain median
++3.5 (80 % range +1.5 to +5). (b) nested tuned minus shipped +0.4 on the ten (80 % range -0.2 to +1.0), P04 / P10 check
+within -0.3. Rule: (b) >= +0.3 with the people interval above 0, >= 6/10 up and the P04 / P10 check passing -> the tuned
+constants go to the build thread as a v6.5 variant, with the sealed estimate from the transfer line; else the shipped
+weights stay (recorded). If (a) recognises < 5 of 8, the gate's recall becomes the lever and gets its own pre-registration.
