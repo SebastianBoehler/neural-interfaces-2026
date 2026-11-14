@@ -332,3 +332,17 @@ window) belongs to track B. Packages `cand_v62_r1iLu` (**v6.2iLu ER, the upload 
   case** (no session recognised): **≈ 41 min** to **≈ 47 min**.
 - **Slowdown at which 60 min is exceeded** (uniform, against the A100 measurements): about **1.53–1.68×** expected,
   **1.28–1.46×** worst case.
+
+| Package (v6.2iu) | ZIP SHA-256 | Local replay (Mac CPU, full schedule) | Worker image, GPU (Galvani) |
+|---|---|---|---|
+| **v6.2iLu ER** `cand_v62_r1iLu` | `d0dd9934a77ceabb283b1c94e011c6d3b1c6ce4606480b0353408587a5df6fd3` | 0.9945788530, files unchanged, 109.5 s | 3100822 **pass**: 0.9945788530 in 136.3 s (v5.1b 100.5 / 116.2 s) |
+| v6.2iLu ERF `cand_v62_r2iLu` | `fbfe93102c54d03456ee340e9a35c118515b1f3a5bd6dcccd865cf37b56812a3` | 0.9945788530, 909.4 s | 3100857 pending |
+| v6.2iu ER `cand_v62_r1iu` | `5e023a34a2060563ddd08f61c0c4717bd132860ca73770367078c3fcd67395f3` | 0.9945788530, 102.3 s | 3100864 pending |
+| v6.2iu ERF `cand_v62_r2iu` | `e74aab581dc1663f9bcf74833da4eac60c4c5fc44c1ce7a3ebb40ab235c10053` | 0.9945788530, 977.3 s | 3100919 pending |
+
+The rev2 ZIPs passed the GPU worker image (Galvani 3100604): v6.2iL ERF 163.9 s, v6.2i ERF 164.8 s, v6.2iL ER 119.3 s, v6.2i
+ER 118.7 s, all 0.9945788530. Pending at 08:35 UTC on Galvani (141 jobs):
+- identity of v6.2iu to rev2 (`U*`) and of rev2 to v6.2h (`K*`, 14 of 21 read so far, all pass);
+- the stress cases on the r1iLu / r2iLu ZIPs (`W*`);
+- the ZIP reference checks (`Q*`);
+- the r1iLu 40 GB-share run (3100821).
