@@ -489,3 +489,10 @@ directory `runs/sealed/cand_v65b_r1iLu_cand` differs from `cand_v65_r1iLu_cand` 
 | CPU bitwise identity v6.5 vs v6.5b (`studies/14nov/cpu_identity.py`, P01 and P10\|1, unrecognised path, 17 / 18 refits, capped 0) | Galvani 3103433 (CPU node, 47.7 min) | **pass**: max_diff 0.0, bitwise_equal true on both sessions, err 0, refits equal; log `evidence/v65b_14nov/cid65b-3103433.out` |
 
 §261 prediction check: (2) holds, (3) holds (reserved <= 12 GB, no warning in the v6.5b arm, +1.9 % / 0.0 %); (1) holds (CPU bitwise identity on both sessions; Mac replay equal: 0.9945788530). All three predictions hold: v6.5b is the upload candidate in place of v6.5 (needs the user's go-ahead to upload).
+
+## v6.6 (development, 14 Nov, ledger §262): cheaper refits, separate tree
+
+`lean/src66` (copy of `lean/src65b`), bundle `submissions/lean_v66`; the v6.5b candidate ZIP and bundle stay untouched.
+**Pre-registered target:** the refit path from 14-20 sealed minutes to 2-4, run time at 378 windows v6.6/v6.5b <= 0.6;
+identity against v6.5b bitwise on CPU for the arithmetic-neutral changes (GPU buffer, one-sync dtheta), CPU output tolerance
+1e-5 with 100 % labels for the cached-FIR / shared-batch forms, GPU <= 0.05 with labels 100 %. Forms and refutation rule in §262.

@@ -7725,3 +7725,24 @@ was 2x faster; the v6 arm's times did not move. Prediction (1), CPU bitwise iden
 candidate until it passes. Mac replay equal to v6.5 (0.9945788530).
 
 **§261 RESULT, complete (14 Nov 22:05 CET).** Prediction (1) holds: CPU bitwise identity v6.5 vs v6.5b on P01 and P10|1, max_diff 0.0 (job 3103433, evidence/v65b_14nov/cid65b-3103433.out). No refutation clause fired: v6.5b replaces v6.5 as the candidate (ZIP v65b_r1iLu_cand a7b13e57…850d6, bundle 5323fd8b…).
+
+### 262. V6.6 TRACK B: CHEAPER REFITS (written 14 Nov 22:20 CET, before any speed number; build thread, coordinator's order)
+Motivation: the 60-min margin is node-sensitive (sealed 33-37 min at 57 % unrecognised, 42-49 at 100 % on the 3103439 node),
+the refit path costs 14-20 sealed minutes (0.35 s + 2.1 ms x prefix per refit, 17-39 refits per unrecognised session), and
+research's §265 (nets fine-tuned on chain labels) would add refits. New tree lean/src66 (copy of src65b; v6.5b's bundle and ZIP
+untouched). Stage 0 = profile of one refit (torch profiler, 2080 Ti, prefix 190 and 378, v6.5b code): where the 0.35 s fixed and
+2.1 ms/window variable parts go. Candidate forms, each scored whole in the session path: (a) per-session GPU buffer for the
+prefix X (no np.stack / H2D per refit); (b) dtheta from one on-device reduction, one sync (today a float() per parameter);
+(c) clean-path FIR cache: the FIR banks are frozen and per-window, so spectral_filtering(X_clean) for windows already seen is
+reused by the clean forwards (5 per refit) and the final state pass; the augmented path cannot be cached; (d) one shared
+augmented batch where members hold equal X (checked, else dropped); (e) fewer launches (no per-step zero(m) double calls
+that are no-ops, fused state reset) only if profiled hot.
+Target: refit path 14-20 -> 2-4 sealed minutes (estimated from 2080-measured per-refit time ratios applied to the A100 timing,
+then checked on A100 with v6_time.py), run time at 378 windows v6.6/v6.5b <= 0.6.
+Identity: rule stated before the run. (a), (b) change no arithmetic: CPU outputs bitwise equal to v6.5b (cpu_identity.py on
+P01, P10|1, 17/18 refits). (c), (d) may change float summation through different batch shapes: allowed tolerance max output
+difference <= 1e-5 on CPU with 100 % label agreement and equal refit/relabel counts, GPU <= 0.05 with labels 100 % (the
+non-determinism band of v6.5). Any label change or any err refutes that form.
+Prediction: profile shows the clean forwards + final pass + dtheta syncs + staging >= 50 % of refit time; (a)+(b)+(c) together
+give >= 1.8x on 2080 at prefix 190 (80 % range 1.4-2.6x). Refutation: < 1.4x for the stack -> the remaining cost is the
+augmented forward/backward (irreducible without changing arithmetic) and track B stops at the gain reached (reported, not hidden).
