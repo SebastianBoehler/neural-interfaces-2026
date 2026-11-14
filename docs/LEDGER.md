@@ -7515,3 +7515,17 @@ of c x system over the r15 chain, 20 orders x 6 bases, nested pick [80 % people 
 §243 draw 2 (14 Nov 19:17 UTC; evidence/stack_14nov/s243_d2.txt). r15 + filter +0.21 [+0.09, +0.34] 9/10 (within +0.37, full
 +0.14, runs +0.13); r15 +0.07. Over three draws the candidate's new-people half is +0.25 / +0.23 / +0.21 (spread 0.04,
 mean +0.23), every draw positive in every scheme. §243's prediction (spread < 0.15, positive in every draw) holds.
+
+**§258 RESULT (14 Nov 19:21 UTC; evidence/cotrain_14nov/score.txt; code studies/14nov/cotrain/{eyelab,score}.py; Mac CPU, 20 orders, r15 chain 79.70).**
+Rule of the amendment applied: a split whose kept labels leave a class < 2 windows falls back to the chain alone (gain 0). Arm A = top q % per eye-argmax class first, then agreement with the chain. c x aE gain over the chain, scheme-equal mean [80 % people x orders], people up; n and purity of the kept labels over non-fallback splits; dose-map = §252 chain-like grid at that (n, purity), purity clipped at 75 (an upper bound below it):
+
+| arm | n | purity | fallback | dose map | gain | people up |
+|---|---|---|---|---|---|---|
+| E30 | 39 | 60.3 % | 0.4 % | -8.9 | -12.63 [-15.64, -10.02] | 0/10 |
+| E50 | 65 | 57.0 % | 0.1 % | -5.8 | -11.22 [-14.14, -8.34] | 0/10 |
+| E70 | 90 | 54.4 % | 0.1 % | -3.5 | -10.25 [-13.34, -7.30] | 0/10 |
+| A30 | 25 | 83.0 % | 21.2 % | -14.0 | -10.71 [-13.69, -7.98] | 0/10 |
+| A50 | 39 | 81.7 % | 11.4 % | -7.5 | -8.64 [-11.35, -6.12] | 1/10 |
+| A70 | 52 | 80.7 % | 6.6 % | -5.9 | -7.02 [-9.91, -4.29] | 1/10 |
+
+Schemes (within / full / runs) differ by < 1 point in every arm. **Prediction refuted:** purity of the eye-labelled windows is 54-60 %, not about 80 % (the eye net is 51 % accurate on within0 and its confidence barely selects: top 30 % is 60 %); the prediction was -1 to +0.5 and the arms are -7 to -13. **Verdict by the pass rule (c x aE >= +1.0, interval above 0, >= 8/10 people up): fails in all six arms; no causal form.** The agreement arms reach 81-83 % purity but at n 25-52 (and 7-21 % fallback), where the §252 map already gives -6 to -14; measured results are at or below the map (E arms 2-7 points below at purity < 75, where the map is an upper bound; A arms 0.5 to 3 above at n 25-52). No sign that the eye net's independence helps beyond the map; the A70 arm (about +1 over the map at equal n and purity) is the only one near it. Closed in this form (classic aE on eye-net co-training labels); not covered: the eye net with the member mix as second labeller, or labels from a much stronger independent source.
