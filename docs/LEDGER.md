@@ -6972,3 +6972,10 @@ versa. Also on T, and with the count filter (score_ret.py on SAVE_OUT keys <orde
   primary arm), 80 % intervals resampling people and orders. Between 0 and +0.5 under full with within / runs ≥ −0.1:
   undecided (not closed). (3) Local templates in TSEM run only if (1) or (2) reaches ≥ +0.25 under full; otherwise
   recorded as not run.
+§239 part 2 result (14 Nov 15:34 UTC; scored by the parent session with studies/14nov/designdec/score2.py). Fine-tuning on r15's
+labels smoothed by the run urn (tag LPD) against r15 (LP), V6Fr, new people, 2 orders per scheme, [80 % person interval]:
+  within: no filter +0.07 [-0.03, +0.17] | gated J filter -0.10 [-0.18, -0.01] | gT -0.04
+  runs:   no filter +0.09 [-0.01, +0.21] | gated J filter +0.06 [-0.12, +0.25] | gT +0.14
+Killed (below +0.3; with the filter, which the candidate carries, it is about 0). Fix in score2.py: its exact-equality check on
+P0r failed because each fine-tuning run re-writes its base outputs (GPU float noise up to 0.05 on single-seed bases, <= 1
+argmax flip in 2655); the check is now argmax agreement > 0.998, still loud on a real difference.
