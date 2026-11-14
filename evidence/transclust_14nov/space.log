@@ -1,0 +1,32 @@
+[run_capped] Sat Nov 14 19:20:52 CET 2026 start: .venv/bin/python studies/14nov/transclust/space.py (max 16 GB)
+tangent (2655, 5166) 18s
+P01_1 sess n 190 loss 52.7 best-permutation purity (diagnostic only) 0.574 19s
+P01_1 run n 190 loss 66.6 best-permutation purity (diagnostic only) 0.600 19s
+P02_1 sess n 189 loss 81.5 best-permutation purity (diagnostic only) 0.497 19s
+P02_1 run n 189 loss 106.9 best-permutation purity (diagnostic only) 0.534 19s
+P03_1 sess n 189 loss 110.3 best-permutation purity (diagnostic only) 0.471 19s
+P03_1 run n 189 loss 131.7 best-permutation purity (diagnostic only) 0.471 20s
+P04_1 sess n 189 loss 49.7 best-permutation purity (diagnostic only) 0.508 20s
+P04_1 run n 189 loss 77.2 best-permutation purity (diagnostic only) 0.529 20s
+P04_2 sess n 189 loss 42.9 best-permutation purity (diagnostic only) 0.423 20s
+P04_2 run n 189 loss 49.8 best-permutation purity (diagnostic only) 0.450 20s
+P04_3 sess n 188 loss 93.2 best-permutation purity (diagnostic only) 0.404 20s
+P04_3 run n 188 loss 129.6 best-permutation purity (diagnostic only) 0.404 20s
+P05_1 sess n 190 loss 82.8 best-permutation purity (diagnostic only) 0.468 20s
+P05_1 run n 190 loss 97.7 best-permutation purity (diagnostic only) 0.489 20s
+P06_1 sess n 187 loss 70.4 best-permutation purity (diagnostic only) 0.487 21s
+P06_1 run n 187 loss 87.1 best-permutation purity (diagnostic only) 0.449 21s
+P07_1 sess n 189 loss 112.0 best-permutation purity (diagnostic only) 0.524 21s
+P07_1 run n 189 loss 174.5 best-permutation purity (diagnostic only) 0.624 21s
+P08_1 sess n 189 loss 89.0 best-permutation purity (diagnostic only) 0.619 21s
+P08_1 run n 189 loss 103.3 best-permutation purity (diagnostic only) 0.651 21s
+P09_1 sess n 189 loss 78.1 best-permutation purity (diagnostic only) 0.429 22s
+P09_1 run n 189 loss 96.1 best-permutation purity (diagnostic only) 0.476 22s
+P10_1 sess n 192 loss 43.4 best-permutation purity (diagnostic only) 0.505 22s
+P10_1 run n 192 loss 62.6 best-permutation purity (diagnostic only) 0.568 22s
+P10_2 sess n 186 loss 59.7 best-permutation purity (diagnostic only) 0.473 22s
+P10_2 run n 186 loss 82.7 best-permutation purity (diagnostic only) 0.511 22s
+P10_3 sess n 199 loss 37.9 best-permutation purity (diagnostic only) 0.452 22s
+P10_3 run n 199 loss 45.8 best-permutation purity (diagnostic only) 0.412 22s
+saved /Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/runs/transclust/clusters.npz
+[run_capped] Sat Nov 14 19:21:22 CET 2026 exit 0

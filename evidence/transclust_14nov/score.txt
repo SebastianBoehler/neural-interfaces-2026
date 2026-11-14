@@ -1,0 +1,103 @@
+[run_capped] Sat Nov 14 19:32:30 CET 2026 start: .venv/bin/python studies/14nov/transclust/score.py (max 16 GB)
+pseudo-labels from /Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/studies/12nov/chain_final.npz chain_final.npz:75101510ad18
+s259 transductive clustering; orders 20; chain posterior mapping; SMOKE=False
+diagnostic (labels, not used): best-permutation purity of the order-free clusters, per person:
+  sess: mean 0.499 | 0.57 0.50 0.47 0.45 0.47 0.49 0.52 0.62 0.43 0.48
+  run: mean 0.525 | 0.60 0.53 0.47 0.46 0.49 0.45 0.62 0.65 0.48 0.50
+  sess within0: purity 0.481 chain 0.813
+  sess within1: purity 0.480 chain 0.811
+  sess within2: purity 0.481 chain 0.800
+  sess within3: purity 0.481 chain 0.805
+  sess within4: purity 0.483 chain 0.802
+  sess within5: purity 0.483 chain 0.801
+  sess within6: purity 0.481 chain 0.810
+  sess within7: purity 0.480 chain 0.806
+  sess within8: purity 0.483 chain 0.798
+  sess within9: purity 0.483 chain 0.805
+  sess within10: purity 0.483 chain 0.796
+  sess within11: purity 0.480 chain 0.796
+  sess full0: purity 0.490 chain 0.784
+  sess full1: purity 0.481 chain 0.777
+  sess full2: purity 0.478 chain 0.771
+  sess full3: purity 0.483 chain 0.766
+  sess runs0: purity 0.481 chain 0.803
+  sess runs1: purity 0.481 chain 0.794
+  sess runs2: purity 0.476 chain 0.799
+  sess runs3: purity 0.490 chain 0.796
+
+=== non-causal, arm sess (PRIMARY, per-session balance)
+  mapped-cluster purity 0.482 (per person 0.57 0.50 0.47 0.30 0.47 0.49 0.52 0.62 0.43 0.45) vs chain 0.792 (0.77 0.89 0.73 0.53 0.76 0.84 0.89 0.86 0.82 0.83)
+  gain over chain [80 % people x orders] people up | per person
+  (a) chain x soft cluster           -26.97 [-30.01, -23.86]  0/10 | -14.9 -29.2 -23.5 -17.5 -28.6 -29.4 -31.4 -20.7 -40.6 -33.8
+  (b) chain x aE(cluster labels)     -12.71 [-15.20, -10.15]  0/10 | -5.1 -6.4 -5.7 -10.6 -21.1 -14.0 -17.7 -7.8 -21.3 -17.5
+  (b) aE alone cell-BA 46.20 (chain on the same pairs not shown; see gains)
+  run within0: purity 0.503 chain 0.813
+  run within1: purity 0.497 chain 0.811
+  run within2: purity 0.503 chain 0.800
+  run within3: purity 0.513 chain 0.805
+  run within4: purity 0.503 chain 0.802
+  run within5: purity 0.503 chain 0.801
+  run within6: purity 0.513 chain 0.810
+  run within7: purity 0.503 chain 0.806
+  run within8: purity 0.503 chain 0.798
+  run within9: purity 0.512 chain 0.805
+  run within10: purity 0.497 chain 0.796
+  run within11: purity 0.501 chain 0.796
+  run full0: purity 0.512 chain 0.784
+  run full1: purity 0.507 chain 0.777
+  run full2: purity 0.512 chain 0.771
+  run full3: purity 0.507 chain 0.766
+  run runs0: purity 0.513 chain 0.803
+  run runs1: purity 0.501 chain 0.794
+  run runs2: purity 0.503 chain 0.799
+  run runs3: purity 0.509 chain 0.796
+
+=== non-causal, arm run (ORACLE, true run ids)
+  mapped-cluster purity 0.507 (per person 0.60 0.53 0.47 0.36 0.49 0.39 0.62 0.65 0.46 0.48) vs chain 0.792 (0.77 0.89 0.73 0.53 0.76 0.84 0.89 0.86 0.82 0.83)
+  gain over chain [80 % people x orders] people up | per person
+  (a) chain x soft cluster           -23.74 [-27.79, -19.69]  0/10 | -11.1 -25.7 -22.3 -10.5 -25.3 -41.0 -18.8 -15.1 -39.4 -28.2
+  (b) chain x aE(cluster labels)      -9.84 [-11.87, -7.79]  0/10 | -1.3 -6.7 -9.4 -7.9 -16.4 -18.2 -8.9 -4.9 -14.6 -10.0
+  (b) aE alone cell-BA 51.54 (chain on the same pairs not shown; see gains)
+  causal within0: t80 purity 0.473 chain 0.824 gain -30.95 t120 purity 0.463 chain 0.826 gain -31.15
+  causal within1: t80 purity 0.435 chain 0.825 gain -34.22 t120 purity 0.451 chain 0.836 gain -35.15
+  causal within2: t80 purity 0.457 chain 0.815 gain -31.55 t120 purity 0.461 chain 0.823 gain -33.31
+  causal within3: t80 purity 0.489 chain 0.820 gain -29.00 t120 purity 0.478 chain 0.816 gain -32.15
+  causal within4: t80 purity 0.489 chain 0.820 gain -29.46 t120 purity 0.468 chain 0.821 gain -30.00
+  causal within5: t80 purity 0.486 chain 0.819 gain -29.48 t120 purity 0.468 chain 0.829 gain -29.85
+  causal within6: t80 purity 0.484 chain 0.823 gain -30.15 t120 purity 0.455 chain 0.839 gain -33.28
+  causal within7: t80 purity 0.458 chain 0.822 gain -31.84 t120 purity 0.460 chain 0.827 gain -33.36
+  causal within8: t80 purity 0.460 chain 0.813 gain -31.82 t120 purity 0.462 chain 0.827 gain -32.37
+  causal within9: t80 purity 0.458 chain 0.821 gain -31.34 t120 purity 0.474 chain 0.827 gain -32.59
+  causal within10: t80 purity 0.447 chain 0.809 gain -31.51 t120 purity 0.457 chain 0.813 gain -31.99
+  causal within11: t80 purity 0.461 chain 0.819 gain -32.42 t120 purity 0.463 chain 0.827 gain -33.30
+  causal full0: t80 purity 0.456 chain 0.797 gain -28.01 t120 purity 0.438 chain 0.799 gain -31.07
+  causal full1: t80 purity 0.477 chain 0.801 gain -29.14 t120 purity 0.456 chain 0.794 gain -29.48
+  causal full2: t80 purity 0.458 chain 0.782 gain -27.05 t120 purity 0.482 chain 0.792 gain -26.42
+  causal full3: t80 purity 0.472 chain 0.782 gain -26.15 t120 purity 0.434 chain 0.776 gain -26.29
+  causal runs0: t80 purity 0.465 chain 0.805 gain -31.03 t120 purity 0.443 chain 0.801 gain -26.75
+  causal runs1: t80 purity 0.460 chain 0.812 gain -31.38 t120 purity 0.493 chain 0.806 gain +nan
+  causal runs2: t80 purity 0.467 chain 0.815 gain -29.28 t120 purity 0.455 chain 0.817 gain -30.80
+  causal runs3: t80 purity 0.466 chain 0.806 gain -29.01 t120 purity 0.442 chain 0.794 gain -36.79
+  t=80: 0 empty person x order cells filled
+  t=80: 0 empty person x order cells filled
+  t=80: 0 empty person x order cells filled
+  t=120: 0 empty person x order cells filled
+  t=120: 0 empty person x order cells filled
+  t=120: 1 empty person x order cells filled
+
+=== causal prefix t=80 (windows from t on; mapped nearest centroid; chain x soft cluster)
+  purity 0.466 vs chain 0.806
+  (a) gain over chain                -29.64 [-33.80, -25.38]  0/10 | -17.3 -34.4 -27.7 -14.3 -34.6 -35.1 -34.9 -14.3 -41.5 -42.3
+    within  purity 0.466 chain 0.819 gain -31.15
+    full    purity 0.466 chain 0.791 gain -27.59
+    runs    purity 0.464 chain 0.809 gain -30.18
+
+=== causal prefix t=120 (windows from t on; mapped nearest centroid; chain x soft cluster)
+  purity 0.458 vs chain 0.807
+  (a) gain over chain                -30.36 [-35.17, -25.84]  0/10 | -17.9 -34.6 -28.5 -13.2 -34.6 -44.3 -30.7 -14.6 -43.7 -41.5
+    within  purity 0.463 chain 0.826 gain -32.37
+    full    purity 0.453 chain 0.790 gain -28.31
+    runs    purity 0.458 chain 0.804 gain -30.41
+
+(end-of-session t = the non-causal sess arm above)
+[run_capped] Sat Nov 14 19:38:12 CET 2026 exit 0

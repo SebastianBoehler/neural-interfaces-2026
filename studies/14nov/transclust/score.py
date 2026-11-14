@@ -36,7 +36,7 @@ def soft_classes(Q, mp):
 
 def by_person(vals):
     """vals: {session: x} -> (10,) person means over sessions"""
-    return np.array([np.mean([v for s, v in vals.items() if s.startswith(p)]) for p in S.PEOPLE])
+    return np.array([np.nanmean([v for s, v in vals.items() if s.startswith(p)]) for p in S.PEOPLE])
 
 
 def fused_gain(o, s, rows_of, Q, base_only=False):
@@ -46,7 +46,7 @@ def fused_gain(o, s, rows_of, Q, base_only=False):
         t = rows_of(TEST[s, n])
         if len(t):
             g.append(np.mean([S.cell_score(m, t, S.fuse(c[t], Q[t])) - S.cell_score(m, t, c[t]) for c in CH[o]]))
-    return np.mean(g)
+    return np.mean(g) if g else np.nan  # no test window delivered after t (causal arms)
 
 
 def noncausal(arm):
@@ -97,6 +97,9 @@ def causal(t0):
             for a, v in zip(out[t], (sp, cp, gg)):
                 a[i] = by_person(v)
         print(f"  causal {o}: " + " ".join(f"t{t} purity {out[t][0][i].mean():.3f} chain {out[t][1][i].mean():.3f} gain {out[t][2][i].mean():+.2f}" for t in t0), flush=True)
+    for t in t0:  # person x order cells with no scorable test window at all: filled with the person's mean over the other orders (counted)
+        for a in out[t]:
+            bad = np.isnan(a); print(f"  t={t}: {int(bad.sum())} empty person x order cells filled"); a[bad] = np.broadcast_to(np.nanmean(a, 0), a.shape)[bad]
     return out
 
 
