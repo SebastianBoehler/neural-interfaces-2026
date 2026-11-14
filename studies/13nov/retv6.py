@@ -62,6 +62,7 @@ def inputs(order):
     return ft, np.log(np.clip(oc, 1e-3, 1)), rs
 
 
+SAVE_OUT, OUTS, CUR_ORDER = os.environ.get("SAVE_OUT"), {}, [None]  # s237: npz path for per-window outputs of base / ER / ERF
 RT_MEMBERS = os.environ.get("RT_MEMBERS", "1") == "1"  # s214 (bugs_scoring P0-b): returning people's members re-streamed too
 BSD = {"B2_s0": [0], "B2_s1": [1], "B2_s2": [2], "B2_s012": [0, 1, 2], "B2_s345": [3, 4, 5], "B2_pool": [0, 1, 2, 3, 4, 5]}
 
@@ -134,6 +135,8 @@ def system(bn, arm, Pp, oof, inp):
         out0 = ns["route4"]({p: mix}, {p: sh}, a, oof, {p: A.members(bn, p)["c1"]}, "max", 10)[0]
         rt = {s.split("/")[-1]: (int(np.flatnonzero(r > 0)[0]), K.NM[(q, s)][0][int(j[np.flatnonzero(r > 0)[0]])][-3:], r.copy()) for (q, s), (r, j) in K.REC.items()}
         out = K.staged(out0)[0]
+        if SAVE_OUT and arm in ("base", "ER", "ERF"):  # s237: per-window outputs (recording layout) for the run-level count filter
+            OUTS[f"{CUR_ORDER[0]}|{bn}|{arm}"] = out[p][np.argsort(Pp)].astype(np.float32)
         if LABEL_RT and arm == "base" and bn == "B2_pool":  # s190: the routed v5.1b outputs as emitted, back in recording layout
             LABRT[0] = out[p][np.argsort(Pp)]
     finally:
@@ -145,7 +148,7 @@ def system(bn, arm, Pp, oof, inp):
 
 OOF = {bn: oof_rec(bn) for bn in BASES}; R, RT = {}, {}
 for order in ORDERS:
-    P = perm(order); Pp = P[p]; inp = inputs(order)
+    P = perm(order); Pp = P[p]; inp = inputs(order); CUR_ORDER[0] = order
     for c in (ns["_BIO"], A._H, K.STREAMS, K.REC):  # session-keyed caches depend on the delivery order only
         c.clear()
     S.apply(P); K.RANK["cur"] = None if order == "rec" else {q: K._rank(K.IDX[q][P[q]]) for q in PR}
@@ -189,4 +192,6 @@ for k in ARMS[1:] if sh_ else []:
     print(f"  shuffled mean ({','.join(sh_)}) {k:4s} {m.mean():+.2f} (P04 {m[0]:+.2f}, P10 {m[1]:+.2f})", flush=True)
 # one file per setting and order set (s202): runs with other settings no longer overwrite each other's results
 TAGS = "_".join(x for x in ("p0" if RT_MEMBERS else "", "" if len(BASES) == 6 else "smoke", f"g{int(GATE_V51B)}", FT_FORM, FT_SFX, p, "-".join(ORDERS)) if x)  # p0: s214 fixes
+if SAVE_OUT:
+    np.savez_compressed(f"{REPO}/{SAVE_OUT}", **OUTS); print("per-window outputs ->", SAVE_OUT, flush=True)
 os.makedirs(f"{REPO}/runs/retv6", exist_ok=True); np.savez(f"{REPO}/runs/retv6/{TAGS}.npz", **{f"{o}|{bn}|{k}": v for (o, bn, k), v in R.items()}); print(f"written runs/retv6/{TAGS}.npz", flush=True)
