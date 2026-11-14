@@ -27,6 +27,7 @@ ARMS = ["base", "E", "R", "ER", "F", "ERF"]; REF = np.load(REPO + "/runs/shufpkg
 # s190: LABEL_RT=1 writes runs/labels/chain_rt_<order>.npz (new people: chain_v51b_<order>; returning: routed v5.1b as emitted)
 # and exits; FT_SFX=T reads ttt18<order>T (gC5 fine-tuned on those labels) for arm F instead of ttt18<order>
 LABEL_RT, FT_SFX, LABRT = bool(os.environ.get("LABEL_RT")), os.environ.get("FT_SFX", ""), {}
+OCU_SS = os.environ.get("OCU_SS", "runs/ocushuf_ss")  # s214: eye outputs re-streamed in the protocol's own order (order_sha)
 FT_FORM = os.environ.get("FT_FORM", "gC5")  # s198: a form of the stack run (FT_SFX=KF), e.g. s03, c01, e02
 if LABEL_RT:
     BASES, ARMS = ["B2_pool"], ["base"]
@@ -52,7 +53,10 @@ def inputs(order):
     else:
         d = f"{REPO}/runs/ttt/probs18/ttt18{order}{FT_SFX}"
         ft = {(a, s): ld(f"{d}_{a}_{FT_FORM}-{p}-s{s}.npz") - ld(f"{d}_{a}_base-{p}-s{s}.npz") for a in SLOT for s in range(6)}
-        oc, no = mean_of(sorted(glob.glob(f"{REPO}/runs/ocushuf/{order}/oc_nomix-{p}-s*.npz")), "eye")
+        ofs = sorted(glob.glob(f"{REPO}/{OCU_SS}/{order}/oc_nomix-{p}-s*.npz")); want = hashlib.sha256(np.ascontiguousarray(PF[f"{order.rstrip('0123456789')}|{order[len(order.rstrip('0123456789')):]}|{p}"].astype(np.int64)).tobytes()).hexdigest()
+        for f_ in ofs:  # s214 (P0-a): the eye net must have been standardised in THIS protocol's delivery order
+            z_ = np.load(f_); assert "order_sha" in z_.files and str(z_["order_sha"]) == want, f"{f_}: eye net not in {p}'s delivery order of {order}"
+        oc, no = mean_of(ofs, "eye")
         rs, nr = mean_of(sorted(glob.glob(f"{REPO}/runs/restshuf/{order}/rest4_sh_r1-{p}-s*.npz")), "rest")
     print(f"{order}: FT gC5 delta1 ({'ttt7' if order == 'rec' else 'ttt18' + order}), eye net {no} seeds, rest net {nr} seeds", flush=True)
     return ft, np.log(np.clip(oc, 1e-3, 1)), rs

@@ -45,6 +45,9 @@ TG = os.environ.get("FT_TAG", f"ttt17{SCHEME}{PSEED}"); FR17 = {(a, s): ld(f"{T1
 CU17 = {(a, s): ld(f"{T17D}/{TG}_{a}_{FV}-{p0}-s{s}.npz") for a in SLOT for s in range(6)}
 OCD = os.environ.get("OCU_DIR"); OCS = sorted(glob.glob(f"{REPO}/{OCD}/oc_nomix-{p0}-s*.npz")) if OCD else [f"{REPO}/runs/ocunet/probs/oc_nomix-{p0}-s{s}.npz" for s in range(3)]
 assert OCS, OCD; OCU = np.log(np.clip(np.mean([ld(f) for f in OCS], 0), 1e-3, 1))
+_ow = hashlib.sha256(np.ascontiguousarray(np.load(f"{REPO}/runs/shuffle_perms.npz")[f"{SCHEME}|{PSEED}|{p0}"].astype(np.int64)).tobytes()).hexdigest() if SCHEME != "rec" else None
+for _f in (OCS if OCD and _ow else []):  # s214: where an eye output records its delivery order, it must be this protocol's
+    _z = np.load(_f); assert "order_sha" not in _z.files or str(_z["order_sha"]) == _ow, f"{_f}: eye net not in {p0}'s delivery order"
 if os.environ.get("OCU_SYN") is not None:  # s188 accuracy curve (ceiling test only): the eye net's posteriors shuffled within person x true class
     # (same accuracy and confusion, no correlation with the EEG members' errors), then +d points by swapping the top class with the true one
     pr, yy, pp = np.exp(OCU), Z[f"y|{p0}"].astype(int), Z[f"person|{p0}"]; rg = np.random.default_rng(0); a0 = np.mean(pr.argmax(1) == yy); sp = pr.copy()
