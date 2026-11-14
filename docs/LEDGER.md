@@ -7416,3 +7416,31 @@ Report: the cost per N; no pass rule (a reading for the time-slack decision).
   **By the stated rule the label-free personalisation class (classic personal model on the chain's own labels, fused late)
   is sized and closed for this feature set.** Not covered: the fine-tuned nets on pseudo-labels (part b, Galvani array
   3102582 queued behind smoke 3102581, A100 queue full) and label forms that are not the chain's own (e.g. a teacher).
+
+### 258. CO-TRAINING LABELS FROM THE EYE NET (written 14 Nov 18:18 UTC, before any result; coordinator 19:17 CET item 4)
+Mechanism: §252 showed that the chain's confident windows are the easy ones and teach a personal EEG model less than random
+windows at the same purity. Co-training needs a labeller whose errors are independent of the learner's features. The eye net
+reads slow frontal potentials, and its errors are nearly independent of the EEG members (§188, §234: error correlation about
++0.15). So: label the training runs by the eye net (9-seed mean posterior from runs/ocushuf/<order>), keep its most
+confident windows per class (top q, q in {30, 50, 70} %), optionally only where the eye net and chain agree (the A arm), and
+train the personal classic EEG pipelines (aE, studies/14nov/personal_ceiling/classic.py) on them; fuse chain x aE as §246.
+Same 4-train / 2-test splits and scoring as §246 / §252, the r15 chain, 20 orders, people-and-order intervals.
+Prediction: eye-labelled windows at q 50 are about 80 % pure (eye net alone about 65 % BA, top half more), and because their
+errors are independent of the EEG features they behave like random noise of that purity at n about 65: about -1 to +0.5
+(the §252 map's n 70 row at 80 % gives -3.7, so a positive result needs the independence to help beyond the map).
+Pass (non-causal ceiling): c x aE >= +1.0 over the chain with the interval above 0 and >= 8/10 people up; then a causal
+form. Else closed.
+
+### 259. BALANCED TRANSDUCTIVE CLUSTERING IN A PERSONAL FEATURE SPACE (written 14 Nov 18:18 UTC, before any result; ground-up)
+Mechanism: inside a session, personal models trained with true labels reach 80-90 % (§246), so the classes are separable
+in personal feature spaces (FB tangent space, FBCSP-like projections). Instead of labels from the chain (75 % pure), take
+labels from the session's own cluster structure: cluster the session's windows into 3 clusters with each run's class
+balance as a constraint (balanced k-means / constrained GMM, or optimal transport with uniform class marginals per run), in a
+space fitted label-free on that session (tangent space at the session mean, then a projection learned on the nine other
+people's labelled data, e.g. LDA directions from the population in the recentred space). Map clusters to classes by the
+chain's posterior (Hungarian assignment on summed posteriors). Use the cluster labels (a) directly as a third factor
+(chain x cluster posterior), (b) as training labels for aE.
+Ceiling first, non-causal (whole session): cluster-label purity per person against the chain's 75-78 %, then the fused
+gain. Prediction: purity 70-80 % (the population projection carries the between-person shift), fused gain -0.5 to +1.
+Gate: purity >= 85 % on average, or fused gain >= +1.0 with >= 8/10 people up, before any causal form. Else closed.
+Both CPU-only (Mac at most 2 processes; cpu-galvani).
