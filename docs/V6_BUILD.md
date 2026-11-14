@@ -386,3 +386,25 @@ Not validated:
 - A poisoned CUDA context (a sticky CUDA error) also hits v5.1b's nets; the exception guard does not cover it.
 - There is no timeout on the core threads.
 - The sealed data: session lengths, recognition share and delivery order are unknown.
+
+## v6.2c: the run-level count filter on v6.2iLu ER (14 Nov, ledger §228c package)
+
+`lean/src62c` → `submissions/lean_v62c` (`submission.py` `7a4ec021…`); `cand_v62c_r1iLu_off` / `_on`; parameters
+`runs/countfilter/cf_params.npz` (`lean/tools/fit_cf.py`, ten-person fit). Form and fit as in the ledger entry.
+
+| Check (v6.2c) | Where | Result |
+|---|---|---|
+| Reference smoke: P01, recording, gates off, against the dev code pinned at 3a10ba8 (`studies/14nov/cf_ref`) with the same parameters | Mac CPU | latch 40 in both, outputs **bitwise** equal, 0 labels changed; **4.4 ms per window** for the filter |
+| Official local replay, filter on: `v62c_r1iLu_on.zip` `6ccc0e14de9e01a75f393435a4c33c953eee469d20232f62c6e21edf356fadb8` | Mac CPU | 0.9945788530, files unchanged, 125.2 s |
+| Official local replay, filter off: `v62c_r1iLu_off.zip` `0fc5e5cc9bb5cf4b2702d85ab6896b166de4a1c79c25124f17ca341427710c79` | Mac CPU | 0.9945788530, files unchanged, 111.1 s |
+| Worker image on a GPU (on, off) | Galvani 3101653 | pending |
+| Identity with the filter off (v6_compare 14 sessions × 2 gate modes; record.py per case against v6.2iLu's) | Galvani CPU `cfA*`, `cfRoff*` | pending |
+| Reference check, recording / within 0–2 / full 0–2 × 14 sessions | Galvani CPU `cfB*` | pending |
+| Forced exception in the filter at window 20 / 60 | Galvani CPU `cfC*` | pending |
+| record.py stress cases, filter on | Galvani CPU `cfRon*` | pending |
+
+**Known gap, fixed in the next revision:** the per-session `[count-filter] … latched_at … errors` line never reaches
+the evaluation log. The evaluator drops each session's model copy without calling `reset_state`, and `CountFilter`
+has no `__del__` (`Route` and `Ensemble6` report from theirs). Only logging is affected. The fix (a `__del__` that
+reports) changes `submission.py`, so it waits for the revision that adds ni26-push's self-check, together with a rebuild
+and recheck.
