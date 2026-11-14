@@ -7444,3 +7444,9 @@ Ceiling first, non-causal (whole session): cluster-label purity per person again
 gain. Prediction: purity 70-80 % (the population projection carries the between-person shift), fused gain -0.5 to +1.
 Gate: purity >= 85 % on average, or fused gain >= +1.0 with >= 8/10 people up, before any causal form. Else closed.
 Both CPU-only (Mac at most 2 processes; cpu-galvani).
+§259 amendment (14 Nov 18:19 UTC, before any §259 result; coordinator's guards). (b) The balance constraint must be a design
+constant known in advance: per-run balance needs run ids, which sealed delivery does not have. The primary form uses
+PER-SESSION balance (uniform class marginals over the session's windows); the per-run form is reported only as an oracle arm,
+labelled as using true run ids. (a) Next to the transductive ceiling, report the causal prefix form: cluster only the
+windows delivered before t (t = 80, 120, end of session) in the delivery orders, and score the windows from t on. The gate
+is read on the per-session-balance arm; the package could use only its causal form.
