@@ -7256,3 +7256,13 @@ outputs `runs/tttssl/` (Galvani A100, then scored on the Mac).
   intervals. Below +2: no causal form in this round; +1.5 to +2.5 is "undecided" (bars are reading aids); < +1: "label-free
   TTT of this encoder does not reach the in-session headroom in this form", recorded, not closed (other encoders, aux tasks,
   members). Best-in-hindsight arms are printed and labelled as such; they do not trigger the causal form alone.
+**§253 amendment 3 (written 14 Nov 17:07 UTC; coordinator after §252's result: non-causal chain-label aE fused -0.9 to -1.0, label
+noise the cause).** The plain forms (hard / soft / filt) are scored as the confirmation on what the Mac finishes (no new
+compute for them). Compute goes to selection forms, all hard raw-chain labels, unweighted refit on a selected prefix:
+top (confidence >= prefix median), cq50 / cq25 (per chain class the top 50 / 25 % most confident, at least 3, as TSEM picks
+templates), agree (raw and count-filter argmax agree), agcq (cq50 inside agree); Galvani CPU, 20 orders x 6 bases
+(pp_*_b<b>_top_cq50_cq25_agree_agcq.npz). Small caps (0.1, 0.15) in the grid (EXT). Nested over the selection forms with the
+same rule. **Stop rule (coordinator):** if no nested line reaches +0.5 (track F vs r15 + filter, or R vs raw), the verdict
+is "not a route". TSEM overlap: reported from the redundancy diagnostic (personal-alone accuracy and agreement with the
+chain); a before-TSEM fusion needs a chain run with the personal posterior inside the stages and is only done if a form passes.
+Predictions: selection forms +0.2 to +0.5 over hard in the same nested design; the best nested line +0.4 (0 to +0.8).
