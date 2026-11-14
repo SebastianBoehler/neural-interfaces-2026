@@ -5395,3 +5395,23 @@ labels) on every order, each file against its own v5.1b:
 - **Rule:** ≥ +0.3 mean with ≥ 4/6 orders up goes to a run-time check (its cost was ×2.4 in the 13 Nov timing).
 - **Also queued on Leonardo (07:42 UTC):** copies of Galvani's pending §214 eye re-streams (full 1–3, runs 0–3: 64451330–345,
   first copy wins), and §221's six arrays (64451216–221). All become readable once the certificate is renewed.
+- **§217 RESULT (14 Nov 07:43 UTC; runs/rundetect/{detect,segment,summary}.txt, runcount_<labels>.txt; code 65ac552+).**
+  - Detector ('lag', thresholds from the other people), error at W 40 / 60 / 100 / 150: recording 7 / 0 / 0 / 0 %, runs
+    4 / 1 / 0 / 0 %, within 26 / 7 / 2 / 4 %, full 11 / 3 / 0 / 0 %. The pre-registered consecutive ratio: within 50 / 31 /
+    12 / 5 %, full 8 / 5 / 3 / 2 % (blind to 'within' until the first run ends). Prediction (≤ 5 % at W 40) missed.
+  - Boundaries, purity / ARI (labels per session, true 6): bocpd (causal) recording 0.92 / 0.68 (11.9), runs 0.94 / 0.73
+    (11.9), within 0.96 / 0.80 (10.3); length prior alone 0.95 / 0.69–0.71 (12.2); dpoff (non-causal) runs 0.93 / 0.86,
+    within 0.99 / 0.98. Over-segmented, pure. mix under full 0.45 / 0.19 (offline GMM 0.50 / 0.24, nearest TRUE run mean
+    0.56 / 0.28: the view is the limit).
+  - Count filter (τ 2, offsets off, mean over P0r / V6Fr × 2 orders; true runs §215: within +0.57, runs +0.25, full +0.87;
+    true runs with the 12 cap everywhere +0.51 / +0.23 / +0.78, so the cap costs ≤ 0.09):
+    loop40 (pre-registered) within +0.25, runs −0.04, full −0.12 | loop60 +0.33 / −0.04 / −0.08 | bocpd +0.33 / −0.04 /
+    −0.16 | loopM60 +0.34 / −0.04 / −0.10 [−0.40, +0.12] | mix full +0.07 [−0.34, +0.31] (−0.14 within, −0.21 runs) |
+    dpoff (non-causal) +0.48 / +0.14 / −0.24.
+  - **Verdict by the panel's rule: loop40 is killed** (both contiguous schemes below +0.3; full −0.12 < −0.1). Past the
+    rule, stated plainly: loop60 / bocpd reach +0.33 on within (≈ 60 % of the oracle) but ≈ 0 on runs, where even the
+    oracle is +0.25 with a range −0.33 to +0.74 and offline boundaries give +0.14; all within-scheme bars are inside the
+    ±0.3 noise. The "offsets on" cells in these files use TRUE-run offsets (s215_*_on chainouts) and are not a label-free
+    result. Under full, the oracle's +0.87 is unreachable with this 6-direction view (mix +0.07, wide). Open forms with a
+    measured ceiling: a better run view for full shuffle (the ceiling is the largest of the three); online runs' 10/10/10
+    cap from an inferred run type. runcount.py's header still says "true run ids" when RUN_IDS is set (cosmetic).
