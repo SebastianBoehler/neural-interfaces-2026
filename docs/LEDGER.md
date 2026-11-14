@@ -7266,3 +7266,12 @@ same rule. **Stop rule (coordinator):** if no nested line reaches +0.5 (track F 
 is "not a route". TSEM overlap: reported from the redundancy diagnostic (personal-alone accuracy and agreement with the
 chain); a before-TSEM fusion needs a chain run with the personal posterior inside the stages and is only done if a form passes.
 Predictions: selection forms +0.2 to +0.5 over hard in the same nested design; the best nested line +0.4 (0 to +0.8).
+**§254 amendment (written 14 Nov 17:07 UTC; stated plainly: after the scorer's smoke on the TRUE-label arm, three orders, no chain-label
+output read).** The smoke showed the population classic solution is near chance on held-out people in this space: pop LR
+alone 44.6 (sklearn LOSO check: C 1e-4 / 1e-3 / 0.01 / 0.1 give 48.5 / 47.2 / 44.9 / 44.8), pop LDA 8-30 Hz 39.0, slow 45.9;
+and that the pre-registered C grid does not interpolate to the personal end (large C = weakly penalised refit around a large
+w_pop, not the s246 C 0.1 fit): L pers 76.0 alone, L C 0.3 66.4. Primary, grid and pass rule unchanged. Added, secondary: (La)
+the anchor scaled at the personal strength, penalty ||w − a w_pop||² / 2(0.1), a in 0, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1
+(a 0 = pers), and Ea = mean(La, D1, D2) on the joint (a, k) grid, nested the same way, all four label forms. Prediction: the La
+curve is flat to falling from a 0 (the anchor carries little: <= +0.2 for the nested pick over a 0, true and chain labels),
+so anchoring to a classic population solution cannot rescue the self-labelled factor here; Ea nested within ±0.3 of E nested.
