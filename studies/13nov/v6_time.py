@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "lean/tools")]
 import protocol  # noqa: E402
 GATES_ON = "--gates-on" in sys.argv  # time the recognised path instead (gates as shipped)
-from record import load_model  # noqa: E402
+from record import ft_clock_restart, load_model  # noqa: E402
 
 
 def run(m, X, dev):
@@ -21,9 +21,7 @@ def run(m, X, dev):
             if r is not None:
                 r.contrast.tau = r.identity.tau = np.inf
     c.reset_state()
-    ft = getattr(c, "ft", None); mod = sys.modules.get(type(ft).__module__) if ft is not None else None
-    if hasattr(mod, "ft_clock_start"):  # v6.2g: each timed run gets the whole budget (the cap is what --long times)
-        mod.ft_clock_start()
+    ft = getattr(c, "ft", None); ft_clock_restart(c)  # v6.2g: each timed run gets the whole budget (the cap is what --long times)
     if dev == "cuda":
         torch.cuda.synchronize(); torch.cuda.empty_cache(); torch.cuda.reset_peak_memory_stats()
     t0 = time.perf_counter()

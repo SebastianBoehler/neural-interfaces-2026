@@ -28,7 +28,7 @@ from torch.nn import functional as F
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "scripts"), str(ROOT / "lean/tools"), str(ROOT)]
 import protocol  # noqa: E402
-from record import load_model  # noqa: E402
+from record import ft_clock_restart, load_model  # noqa: E402
 arg = lambda k, d: type(d)(sys.argv[sys.argv.index(k) + 1]) if k in sys.argv else d  # noqa: E731
 DEV = arg("--device", "cpu")
 ORDER = {}
@@ -45,6 +45,7 @@ def stream(m, d, rows, gates_off=False):
     if gates_off:
         c.route.contrast.tau = c.route.identity.tau = np.inf
     c.reset_state(); out, tr = [], []
+    ft_clock_restart(c)  # v6.2g: a check process runs longer than the budget; each session gets the whole of it
     for i in rows:
         out.append(np.asarray(c.step(np.nan_to_num(np.asarray(d["X"][i], np.float32)))))
         tr.append(getattr(c, "trace", {}))
@@ -192,6 +193,7 @@ def main():
     v6, v5 = load_model(pkg6, None, "v6", DEV), load_model(pkg5, None, "v51b", DEV)
     okA, resA = (True, "skipped") if "--skip-recognised" in sys.argv else check_recognised(v6, v5, d)
     ss = list(dict.fromkeys(d["stream"]))[:arg("--sessions", 3)]
+    ss = [list(dict.fromkeys(d["stream"]))[arg("--only", 0)]] if "--only" in sys.argv else ss  # one session per job (CPU)
     worst, logs = check_unrecognised(v6, pkg6, d, ss)
     tol = dict(eye=1e-5, rest=1e-4, ft=1e-4, mix6=1e-12, tail=1e-10, label=1e-10)
     okB = all(worst[k] < tol[k] for k in tol if k in worst)

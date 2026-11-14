@@ -1,7 +1,7 @@
 """v6.2 check (a): two packages streamed over every public session, gates as shipped (and optionally forced off), one
 window per step on a fresh copy; asserts the outputs equal bit for bit (e.g. v6.2 with v6_routed = 0 against v6.1).
 Usage: python studies/13nov/v6_compare.py PKG_A PKG_B [--gates-off] [--device cuda] [--fresh-clock]
-       [--from N] [--budget S] [--sessions K]
+       [--from N] [--budget S] [--sessions K | --only K]
 v6.2g (module-level fine-tuning clock): --fresh-clock restarts each package's clock before each session, so a
   process longer than the budget still tests the guards' inertness session by session (identity runs, CPU);
   --from N asserts equality only before window N of each session and reports where they first differ (cap trigger:
@@ -14,7 +14,7 @@ import torch
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "lean/tools")]
 import protocol  # noqa: E402
-from record import load_model  # noqa: E402
+from record import ft_clock_restart, load_model  # noqa: E402
 arg = lambda k, d: type(d)(sys.argv[sys.argv.index(k) + 1]) if k in sys.argv else d  # noqa: E731
 DEV, OFF, FRESH = arg("--device", "cpu"), "--gates-off" in sys.argv, "--fresh-clock" in sys.argv
 FROM, BUDGET = arg("--from", -1), arg("--budget", -1.0)
@@ -27,22 +27,21 @@ def run(m, X, budget=-1.0):
             if r is not None:
                 r.contrast.tau = r.identity.tau = np.inf
     c.reset_state()
-    ft = getattr(c, "ft", None); mod = sys.modules.get(type(ft).__module__) if ft is not None else None
+    ft = getattr(c, "ft", None); clock = ft_clock_restart(c) if FRESH else None
     if budget >= 0:
         assert hasattr(ft, "budget"), "--budget needs a v6.2g package as B"
         ft.budget = budget
-    if FRESH and hasattr(mod, "ft_clock_start"):
-        mod.ft_clock_start()
     o = np.array([c.step(np.nan_to_num(np.asarray(x, np.float32))) for x in X])
     log = getattr(c, "log6", {}); info = dict(err=log.get("err"), capped=getattr(ft, "capped", None), frozen=getattr(ft, "frozen", None),
-                                              refits=getattr(ft, "refits", None), clock_stopped=getattr(mod, "FT_CLOCK", {}).get("stopped"))
+                                              refits=getattr(ft, "refits", None), clock_stopped=None if clock is None else clock["stopped"])
     assert not log.get("err"), log
     return o, info
 
 
 a, b = Path(sys.argv[1]), Path(sys.argv[2]); d = protocol.load(); torch.set_num_threads(1)
 A, B = load_model(a, None, "a", DEV), load_model(b, None, "b", DEV); worst, n, ok = 0.0, 0, True
-for s in list(dict.fromkeys(d["stream"]))[:arg("--sessions", 99)]:
+SS = list(dict.fromkeys(d["stream"]))[:arg("--sessions", 99)]
+for s in ([SS[arg("--only", 0)]] if "--only" in sys.argv else SS):  # --only K: the K-th session alone (one job per session)
     X = d["X"][d["stream"] == s]; (oa, ia), (ob, ib) = run(A, X), run(B, X, BUDGET); n += len(X)
     neq = np.flatnonzero(np.any(oa != ob, axis=1)); first = int(neq[0]) if len(neq) else None
     if BUDGET >= 0:

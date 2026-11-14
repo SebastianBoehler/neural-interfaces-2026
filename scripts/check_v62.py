@@ -33,7 +33,8 @@ def main():
     eyes = [torch.jit.load(str(pkg / str(f)), map_location=C.DEV).eval() for f in z["v6_eye_files"]]
     mem = {sl: int(k) for sl, k in zip(z["v6_slots"], z["v6_ft_member"])}; worst = dict(eye=0.0, mix=0.0, shadow=0.0, routed=0.0, ft=0.0)
     res = {}
-    for s in list(dict.fromkeys(d["stream"]))[:C.arg("--sessions", 3)]:
+    SS = list(dict.fromkeys(d["stream"]))
+    for s in ([SS[C.arg("--only", 0)]] if "--only" in sys.argv else SS[:C.arg("--sessions", 3)]):  # --only K: one session per job
         rows = C.session_rows(d, s); o, tr, log, c = C.stream(m, d, rows); V = [t["v6"] for t in tr]
         rec = log["rec"]
         assert log["err"] == 0, log

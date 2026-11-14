@@ -56,6 +56,20 @@ def load_model(pkg, ch_names, tag="pkg", device="cpu"):
     return mod.Solver.__new__(mod.Solver).load_model(meta)
 
 
+def ft_clock_restart(c):
+    """v6.2g: restart the package's fine-tuning wall-clock budget (its module-level clock) on a session copy, so a long
+    check process does not trip it. -> the clock dict, or None for a package without a budget. The package module is not
+    in sys.modules (spec_from_file_location), so the clock is found through FineTune.step's globals; a package that has
+    a budget but no clock there raises (14 Nov: a sys.modules lookup silently restarted nothing)."""
+    ft = getattr(c, "ft", None)
+    if ft is None or not hasattr(ft, "budget"):
+        return None
+    g = type(ft).step.__globals__
+    g["ft_clock_start"]()
+    assert g["FT_CLOCK"]["t0"] is not None and not g["FT_CLOCK"]["stopped"], g["FT_CLOCK"]
+    return g["FT_CLOCK"]
+
+
 def tap(model):
     """Function returning the last window's internals: the lean model's ``trace``, or a tap on the original's
     routing step (submissions/ensemble_v5b)."""
