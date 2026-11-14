@@ -61,16 +61,17 @@ def lik_prior(PM, KP):  # chain.py's tsem_lik_prior (kp pseudo-windows of PM in 
     return f
 
 
-def routed(mix, a, c1, idx, personal, kappa=0.0):
-    """-> (n, 3) outputs in store layout. personal False: the plain tail on `mix`."""
+def routed(mix, a, c1, idx, personal, kappa=0.0, rsess=None, g3=G3, beta=BETA):
+    """-> (n, 3) outputs in store layout. personal False: the plain tail on `mix`. rsess: {session: r per row of the session
+    (store order)}, default the oracle (r = 1 on online rows, 0 on acquisition rows); g3 / beta: head gain / own-space weight (beta a tuple: a list of outputs)."""
     n = len(mix); mixr, PM, KP, plan = mix.copy(), np.zeros((n, 3, 128)), np.zeros(n), []
     if personal:
-        R3.A = a
+        R3.A = a; R3.G3 = g3
         sess = Z[f"sess|{p0}"]
         for s in dict.fromkeys(sess):
             rows = np.flatnonzero(sess == s); gi = idx[rows]; acq = gi[~ONL[gi]]
             head, pers, pm = fitted(s, acq)
-            r = ONL[gi].astype(float); j = np.zeros(len(rows), int)
+            r = ONL[gi].astype(float) if rsess is None else np.asarray(rsess[s], float); assert len(r) == len(rows) and not (r[~ONL[gi]] > 0).any(); j = np.zeros(len(rows), int)
             H = head.predict_proba(RR.causal_std(PC256[gi]))[None]
             mixr[rows] = R3.slot_mix(mix[rows], c1[rows], H, r, j); KP[rows] = kappa * r; PM[rows] = pm; plan.append((rows, gi, r, pers))
     lik0 = G.tsem_lik
@@ -79,13 +80,27 @@ def routed(mix, a, c1, idx, personal, kappa=0.0):
     try:
         out = gm.pipe_g(mixr, p0)
     finally:
-        G.tsem_lik = lik0
-    for rows, gi, r, pers in plan:  # own-space stage, routed rows only
-        m = pers.stream(gi)
-        for t in np.flatnonzero(r > 0):
-            L = np.log(np.clip(out[rows[t]], 1e-9, 1)) + BETA * r[t] * sum(np.log(np.clip(m[k][t], 1e-3, 1)) for k in "TCS") / 3
-            e = np.exp(L - L.max()); out[rows[t]] = e / e.sum()
-    return out
+        G.tsem_lik = lik0; R3.G3 = G3
+    ms = [_stream(pers, gi) for rows, gi, r, pers in plan]
+
+    def stage(beta_):  # own-space stage, routed rows only
+        o = out.copy()
+        for (rows, gi, r, pers), m in zip(plan, ms):
+            for t in np.flatnonzero(r > 0):
+                L = np.log(np.clip(o[rows[t]], 1e-9, 1)) + beta_ * r[t] * sum(np.log(np.clip(m[k][t], 1e-3, 1)) for k in "TCS") / 3
+                e = np.exp(L - L.max()); o[rows[t]] = e / e.sum()
+        return o
+    return stage(beta) if np.isscalar(beta) else [stage(b_) for b_ in beta]  # a tuple of betas: one output each (the stage is cheap)
+
+
+_SC = {}
+
+
+def _stream(pers, gi):  # the own-space members' causal streams depend on the delivery order only
+    k = (id(pers), hash(gi.tobytes()))
+    if k not in _SC:
+        _SC[k] = pers.stream(gi)
+    return _SC[k]
 
 
 def ba_online(P, idx):
@@ -97,34 +112,35 @@ def ld(path):
     z = np.load(path); assert (z["index"].astype(int) == np.arange(D.N)).all(), path; return z["proba"]
 
 
-R, t0 = {}, time.time()
-for order in ORDERS:
-    sc, sd = order.rstrip("0123456789"), order[len(order.rstrip("0123456789")):]
-    P = S.perm_for(sc, int(sd)); S.apply(P); idx = Z[f"idx|{p0}"].astype(int)
-    assert (idx == PF[f"{sc}|{sd}|{p0}"]).all() and (idx == np.arange(D.N)[P[p0]]).all(), "the order is not the pinned order file's"
-    eye = np.log(np.clip(np.mean([ld(f"{D.REPO}/runs/ocushuf/{order}/oc_nomix-{p0}-s{k}.npz") for k in range(3)], 0), 1e-3, 1))[P[p0]]
-    rest = np.mean([ld(f"{D.REPO}/runs/restshuf/{order}/rest4_sh_r1-{p0}-s{k}.npz") for k in range(3)], 0)[P[p0]]
-    ge0 = Z[f"GE|{p0}"]
-    for bn in BASES:
-        ref = TP[f"{order}|{bn}|base"]; mix0, a0 = A.mix(bn, p0, A.FAMS); assert abs(a0 - 1 / 15) < 1e-12; c1 = A.members(bn, p0)["c1"]
-        for arm in ARMS:
-            er = arm.startswith("ER"); pers = arm in ("P", "PT", "ER", "ERT"); kap = KAP if arm.endswith("T") and pers else 0.0
-            try:
-                if er:
-                    A.EXTRA["rt_rest"] = {p0: rest}; Z[f"GE|{p0}"] = np.c_[ge0, eye]; mix, a = A.mix(bn, p0, A.FAMS, [("rt_rest", 1.0)]); assert abs(a - 1 / 16) < 1e-12
-                    c1 = A.members(bn, p0)["c1"]
-                else:
-                    mix, a = mix0, a0
-                out = routed(mix, a, c1, idx, pers, kap)
-            finally:
-                Z[f"GE|{p0}"] = ge0; A.EXTRA.pop("rt_rest", None); R3.A = 1 / 15
-            R[order, bn, arm] = ba_online(out, idx)
-            if arm == "tail0":
-                assert np.allclose(R[order, bn, arm], ref, atol=1e-9), f"{order} {bn}: tail0 {R[order, bn, arm]} != tproxy base {ref} (zero-change failed)"
-        b = R[order, bn, "tail0"] if "tail0" in ARMS else ref
-        print(f"{order} {bn}: tail {b.mean():.2f} | " + " ".join(f"{k} {(R[order, bn, k] - b).mean():+.2f}" for k in ARMS if k != "tail0")
-              + f" | P01 " + " ".join(f"{k} {R[order, bn, k][0] - b[0]:+.2f}" for k in ARMS if k != "tail0") + f" [{time.time() - t0:.0f}s]", flush=True)
-S.apply({q: np.arange(S.N[q]) for q in S.PR})
-os.makedirs(D.OUT, exist_ok=True)
-np.savez(f"{D.OUT}/routed262_{os.environ.get('TAG', '')}{'-'.join(ORDERS)}{'' if len(BASES) == 6 else '_smoke'}.npz", **{f"{o}|{b}|{k}": v for (o, b, k), v in R.items()})
-print("written", flush=True)
+if __name__ == "__main__":
+    R, t0 = {}, time.time()
+    for order in ORDERS:
+        sc, sd = order.rstrip("0123456789"), order[len(order.rstrip("0123456789")):]
+        P = S.perm_for(sc, int(sd)); S.apply(P); idx = Z[f"idx|{p0}"].astype(int)
+        assert (idx == PF[f"{sc}|{sd}|{p0}"]).all() and (idx == np.arange(D.N)[P[p0]]).all(), "the order is not the pinned order file's"
+        eye = np.log(np.clip(np.mean([ld(f"{D.REPO}/runs/ocushuf/{order}/oc_nomix-{p0}-s{k}.npz") for k in range(3)], 0), 1e-3, 1))[P[p0]]
+        rest = np.mean([ld(f"{D.REPO}/runs/restshuf/{order}/rest4_sh_r1-{p0}-s{k}.npz") for k in range(3)], 0)[P[p0]]
+        ge0 = Z[f"GE|{p0}"]
+        for bn in BASES:
+            ref = TP[f"{order}|{bn}|base"]; mix0, a0 = A.mix(bn, p0, A.FAMS); assert abs(a0 - 1 / 15) < 1e-12; c1 = A.members(bn, p0)["c1"]
+            for arm in ARMS:
+                er = arm.startswith("ER"); pers = arm in ("P", "PT", "ER", "ERT"); kap = KAP if arm.endswith("T") and pers else 0.0
+                try:
+                    if er:
+                        A.EXTRA["rt_rest"] = {p0: rest}; Z[f"GE|{p0}"] = np.c_[ge0, eye]; mix, a = A.mix(bn, p0, A.FAMS, [("rt_rest", 1.0)]); assert abs(a - 1 / 16) < 1e-12
+                        c1 = A.members(bn, p0)["c1"]
+                    else:
+                        mix, a = mix0, a0
+                    out = routed(mix, a, c1, idx, pers, kap)
+                finally:
+                    Z[f"GE|{p0}"] = ge0; A.EXTRA.pop("rt_rest", None); R3.A = 1 / 15
+                R[order, bn, arm] = ba_online(out, idx)
+                if arm == "tail0":
+                    assert np.allclose(R[order, bn, arm], ref, atol=1e-9), f"{order} {bn}: tail0 {R[order, bn, arm]} != tproxy base {ref} (zero-change failed)"
+            b = R[order, bn, "tail0"] if "tail0" in ARMS else ref
+            print(f"{order} {bn}: tail {b.mean():.2f} | " + " ".join(f"{k} {(R[order, bn, k] - b).mean():+.2f}" for k in ARMS if k != "tail0")
+                  + f" | P01 " + " ".join(f"{k} {R[order, bn, k][0] - b[0]:+.2f}" for k in ARMS if k != "tail0") + f" [{time.time() - t0:.0f}s]", flush=True)
+    S.apply({q: np.arange(S.N[q]) for q in S.PR})
+    os.makedirs(D.OUT, exist_ok=True)
+    np.savez(f"{D.OUT}/routed262_{os.environ.get('TAG', '')}{'-'.join(ORDERS)}{'' if len(BASES) == 6 else '_smoke'}.npz", **{f"{o}|{b}|{k}": v for (o, b, k), v in R.items()})
+    print("written", flush=True)
