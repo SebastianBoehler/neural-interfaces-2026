@@ -5689,3 +5689,17 @@ GPU training is deterministic, so E0 gives no retraining-noise estimate: the see
     acquisition runs (net corrected windows: BH acquisition −7.2, Graz acquisition −2.8, online +4.2); BH acquisition runs
     lose on runs 1 too (−3.5). Reading: the 12/12/12 urn is loose for BH acquisition (9–12 per class) and those runs
     carry the noise; an order-level draw, not a mechanism specific to runs.
+
+**§224 RESULT (14 Nov 11:50 UTC; Leonardo; each variant against v6f on its own machine).** cum10 on v5.1b labels against s15 on
+the same labels: within 0 −0.21, within 1 −0.04, full 0 −0.05, full 1 −0.08, runs 0 −0.18, runs 1 +0.12. **Mean −0.07, 1/6 up.**
+Closed: no gain, at about twice the run time.
+- Note: Leonardo's older shufcombo omits the form from the output name when it is cum10 (files
+  shufcombo_<o>_ocu_all_..._ttt18<o>LF.npz). The current shufcombo names every form.
+
+### 230. ALL-SEED FINE-TUNING, CPU SCORING VARIANT (written 14 Nov 11:44 UTC, before any result)
+- The package fine-tunes one net per family (delta1: the first base seed's FT change applied to the seed-mean slot). All-seed
+  applies the mean of every base seed's FT change. Run time is × seeds; this is the content a run-time saving would buy.
+- **Test:** shufcombo ALLSEED=1 on v6.2hL's new-people form (FT_V=s15, FT_TAG=ttt18<order>LF). Within 0/1, full 0/1, runs 0/1
+  against the same files without ALLSEED.
+- **Prediction:** +0.1 to +0.3 (averaging seeds' FT changes cuts FT noise).
+- **Rule:** ≥ +0.3 mean with ≥ 4/6 up → size the run-time cost; between 0 and +0.3, undecided.
