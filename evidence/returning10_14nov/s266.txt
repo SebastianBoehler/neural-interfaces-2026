@@ -1,0 +1,72 @@
+s266 (a): the package's bio gate (tau 0.26, ramp 0.05, t0 10) on the within-session proxy; 8 orders x 6 bases (scores), 8 orders (gate)
+
+recognition, own sessions (gallery = nine others + the session's acquisition rows; online rows delivered in order):
+  P01 (1 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  P02 (1 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  P03 (1 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  P04 (3 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  P05 (1 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  P06 (1 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  P07 (1 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  P08 (1 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  P09 (1 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  P10 (3 session(s) x orders): recognised yes; first routed online window median 10 (max 10); routed share of online rows 0.92; mean ramp 0.92; windows routed to a wrong person 0
+  recognised in all streams: 10/10; among the eight (non-P04/P10) 8/8; median time over the eight 10 online windows
+  own-session top score after t0: min 0.31, median 0.57 (tau 0.26 + ramp 0.05 = 0.31 is r = 1)
+
+recognition, cross-session (P04, P10: gallery = the nine others + all rows of the person's other sessions, as the package holds them):
+  P04: first routed window median 10, never routed 0/24; share 0.91; mean ramp 0.90; wrong-person windows 0
+  P10: first routed window median 10, never routed 0/24; share 0.88; mean ramp 0.88; wrong-person windows 71
+
+false routes (every session of another person, all rows delivered, against a gallery holding q's acquisition rows of one session; shipped tau / ramp):
+  to P01: 0/104 streams routed at all, 0 windows of 19720 (0.00 %)
+  to P02: 0/104 streams routed at all, 0 windows of 19728 (0.00 %)
+  to P03: 8/104 streams routed at all, 723 windows of 19728 (3.66 %)
+  to P04: 0/264 streams routed at all, 0 windows of 50136 (0.00 %)
+  to P05: 0/104 streams routed at all, 0 windows of 19720 (0.00 %)
+  to P06: 0/104 streams routed at all, 0 windows of 19744 (0.00 %)
+  to P07: 0/104 streams routed at all, 0 windows of 19728 (0.00 %)
+  to P08: 0/104 streams routed at all, 0 windows of 19728 (0.00 %)
+  to P09: 0/104 streams routed at all, 0 windows of 19728 (0.00 %)
+  to P10: 2/264 streams routed at all, 14 windows of 49872 (0.03 %)
+  all: 10/1360 streams, 737 windows of 257832
+    P10-session routed to P03: 8 stream(s) (orders full0, full1, runs0, runs1, within0, within1, within2, within3), windows 723, mean ramp 0.27
+    P03-session routed to P10: 2 stream(s) (orders within0, within3), windows 14, mean ramp 0.03
+
+routed minus tail0, six-base mean, mean over orders [80 % over orders]; tail0 mean 78.62
+ERT_gate   mean ten +6.09; median of the eight +4.80 [+4.03, +5.65 orders; +2.76, +8.32 people]; >= +2: 6/8 | P01 +11.9 P02 +0.3 P03 +8.4 P04 +9.8 P05 +5.6 P06 +1.4 P07 +4.0 P08 +2.8 P09 +8.3 P10 +8.4
+ERT_ora0   mean ten +6.55; median of the eight +5.74 [+4.97, +6.48 orders; +2.93, +8.73 people]; >= +2: 6/8 | P01 +12.8 P02 +0.0 P03 +8.8 P04 +9.8 P05 +7.2 P06 +1.5 P07 +4.3 P08 +2.9 P09 +8.7 P10 +9.6
+ERT_ora10  mean ten +6.09; median of the eight +4.80 [+4.00, +5.64 orders; +2.76, +8.32 people]; >= +2: 6/8 | P01 +11.9 P02 +0.3 P03 +8.4 P04 +9.8 P05 +5.6 P06 +1.4 P07 +4.0 P08 +2.8 P09 +8.3 P10 +8.4
+ER_gate    mean ten +5.80; median of the eight +4.82 [+4.37, +5.21 orders; +3.32, +6.48 people]; >= +2: 7/8 | P01 +10.3 P02 +0.8 P03 +6.5 P04 +8.7 P05 +6.3 P06 +2.1 P07 +3.3 P08 +3.4 P09 +8.4 P10 +8.1
+ER_ora0    mean ten +6.26; median of the eight +5.08 [+4.64, +5.66 orders; +3.28, +7.69 people]; >= +2: 7/8 | P01 +11.2 P02 +0.5 P03 +6.6 P04 +9.3 P05 +7.7 P06 +2.2 P07 +3.5 P08 +3.3 P09 +8.8 P10 +9.4
+ER_ora10   mean ten +5.80; median of the eight +4.82 [+4.38, +5.20 orders; +3.32, +7.35 people]; >= +2: 7/8 | P01 +10.3 P02 +0.8 P03 +6.5 P04 +8.7 P05 +6.3 P06 +2.1 P07 +3.3 P08 +3.4 P09 +8.4 P10 +8.1
+gate minus oracle (r = 1 from window 0), ER: median of the eight -0.18; the t0 = 10 part -0.18, recognition/ramp part +0.00
+gate minus oracle (r = 1 from window 0), ERT: median of the eight -0.32; the t0 = 10 part -0.32, recognition/ramp part +0.00
+s266 (b): grid of 432 configs x 8 orders x 6 bases (real bio gate); shipped g3_k20_t0.26_r0.05_b0.1; shipped mean over ten 84.71
+
+one-at-a-time around shipped (mean over ten minus shipped; per person range):
+  own-space beta  0.05: -0.59 (eight median -0.50, min -2.07) | 0.1: +0.00 (eight median +0.00, min +0.00) | 0.2: +0.32 (eight median +0.25, min -1.63) | 0.3: -0.21 (eight median -0.58, min -3.54)
+  head gain G3    2: -0.31 (eight median -0.30, min -1.23) | 3: +0.00 (eight median +0.00, min +0.00) | 4: +0.13 (eight median +0.07, min -0.31) | 6: +0.11 (eight median -0.23, min -0.89)
+  TSEM kappa      10: -0.05 (eight median +0.04, min -0.45) | 20: +0.00 (eight median +0.00, min +0.00) | 40: +0.04 (eight median +0.04, min -0.24)
+  tau             0.22: +0.00 (eight median +0.00, min +0.00) | 0.26: +0.00 (eight median +0.00, min +0.00) | 0.3: +0.01 (eight median +0.00, min +0.00)
+  ramp            0.03: +0.00 (eight median +0.00, min +0.00) | 0.05: +0.00 (eight median +0.00, min +0.00) | 0.08: +0.00 (eight median +0.00, min +0.00)
+
+all constants: nested tuned minus shipped, mean over ten -0.173; 80 % over orders [-0.32, -0.03], 80 % resampling people [-0.61, +0.26]; people up 5/10 (down 5); median of the eight -0.12; P04 +1.06 P10 -0.52
+  per person (pick -> delta): P01 g3_k20_t0.3_r0.08_b0.2 +1.06; P02 g3_k40_t0.3_r0.08_b0.2 +0.76; P03 g6_k10_t0.3_r0.08_b0.2 +0.23; P04 g4_k10_t0.3_r0.08_b0.1 +0.47; P05 g3_k40_t0.3_r0.08_b0.2 -0.63; P06 g4_k20_t0.22_r0.03_b0.2 -2.27; P07 g3_k20_t0.3_r0.05_b0.2 -1.49; P08 g3_k40_t0.3_r0.08_b0.2 +1.13; P09 g3_k20_t0.3_r0.08_b0.2 -0.47; P10 g3_k20_t0.3_r0.08_b0.2 -0.52
+  picks differing from shipped: 10/10; distinct picks 6
+
+tau / ramp held at shipped: nested tuned minus shipped, mean over ten -0.066; 80 % over orders [-0.21, +0.07], 80 % resampling people [-0.53, +0.40]; people up 5/10 (down 5); median of the eight +0.15; P04 +1.06 P10 -0.52
+  per person (pick -> delta): P01 g3_k20_t0.26_r0.05_b0.2 +1.06; P02 g3_k40_t0.26_r0.05_b0.2 +0.76; P03 g3_k20_t0.26_r0.05_b0.2 +1.25; P04 g4_k10_t0.26_r0.05_b0.1 +0.54; P05 g3_k40_t0.26_r0.05_b0.2 -0.63; P06 g4_k20_t0.26_r0.05_b0.2 -2.27; P07 g3_k20_t0.26_r0.05_b0.2 -1.49; P08 g3_k40_t0.26_r0.05_b0.2 +1.11; P09 g3_k20_t0.26_r0.05_b0.2 -0.47; P10 g3_k20_t0.26_r0.05_b0.2 -0.52
+  picks differing from shipped: 10/10; distinct picks 4
+
+own-space beta and head gain only: nested tuned minus shipped, mean over ten -0.002; 80 % over orders [-0.15, +0.14], 80 % resampling people [-0.48, +0.48]; people up 5/10 (down 5); median of the eight +0.25; P04 +1.06 P10 -0.52
+  per person (pick -> delta): P01 g3_k20_t0.26_r0.05_b0.2 +1.06; P02 g3_k20_t0.26_r0.05_b0.2 +0.82; P03 g3_k20_t0.26_r0.05_b0.2 +1.25; P04 g4_k20_t0.26_r0.05_b0.1 +0.49; P05 g3_k20_t0.26_r0.05_b0.2 -0.31; P06 g4_k20_t0.26_r0.05_b0.2 -2.27; P07 g3_k20_t0.26_r0.05_b0.2 -1.49; P08 g3_k20_t0.26_r0.05_b0.2 +1.44; P09 g3_k20_t0.26_r0.05_b0.2 -0.47; P10 g3_k20_t0.26_r0.05_b0.2 -0.52
+  picks differing from shipped: 10/10; distinct picks 3
+
+in-sample (not nested, optimistic) best config on all ten: g3_k40_t0.3_r0.08_b0.2 +0.328 over shipped
+false-route windows (all session pairs, 8 orders) at tau 0.22: 2019
+false-route windows (all session pairs, 8 orders) at tau 0.26: 737
+false-route windows (all session pairs, 8 orders) at tau 0.3: 0
+
+seen_session check (chain.py, 16 orders x 6 bases, P04 / P10; X3_0.1_20 asserted == T): gate constants held at shipped for this check (see ledger).
+  P04 with its nested pick (G3 4, beta 0.10, kappa 10) minus T: +0.23; P10 with its pick (G3 3, beta 0.20, kappa 20) minus T: -1.04; mean -0.40 (80 % over orders [-0.97, +0.01]). T minus ER: P04 +0.81, P10 +0.04.

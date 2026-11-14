@@ -9,7 +9,7 @@ Arms, every addition acting in the routed tail only (rows the gate has not route
   T     ER + a TSEM template prior (route4's personal `pri`, kappa 20; route4's KAPPA path with the denominator fixed)
   OST   O + S + T;  W  O + M (w = 2 s) + S, T (kappa 20 s), s = the person's strength (personal.strength)
 Usage: [BASES=..] [ORDERS=within0,..] [ARMS=..] python studies/14nov/pview/chain.py -> runs/pview/chain_<orders>.npz"""
-import os, sys, time
+import os, re, sys, time
 import numpy as np
 for k, v in (("GATE_V51B", "1"), ("FT_SFX", "QF"), ("FT_FORM", "s15"), ("RT_MEMBERS", "1")):
     assert os.environ.setdefault(k, v) == v, f"{k} must be {v} here (s214 form)"
@@ -148,16 +148,19 @@ def set_em_prior(proto, with_o):
 def system(bn, arm, Pp, oof, inp, POC):
     ft, ocu, rest = inp; fams, ge0, folds0 = list(A.FAMS), Z[f"GE|{p}"], A.RR.FOLDS
     assert R3.G3 == 3.0 and K.BETA == 0.10, "the head gain or the own-space beta was left changed"
+    xa = re.fullmatch(r"X([\d.]+)_([\d.]+)_([\d.]+)", arm)  # s266: ER + T path with head gain G3, own-space beta, TSEM kappa (X3_0.1_20 = T)
     if arm in HSH or arm == "TH25":
         R3.G3 = 15 * HSH[arm[-3:]] / (1 - HSH[arm[-3:]])
-    K.BETA = BOWN.get(arm, 0.10)
+    if xa:
+        R3.G3 = float(xa.group(1))
+    K.BETA = float(xa.group(2)) if xa else BOWN.get(arm, 0.10)
     o, w = arm in ("O", "OST", "W") or arm.startswith("OG"), arm == "W"
     if arm.startswith(("OG", "SG")):  # PV5: matched coordinates; POC is the dict of matched personal streams then
         POC = POC[arm[1:]] if arm.startswith("OG") else None; o = arm[1:] if arm.startswith("SG") else True
     elif isinstance(POC, dict):
         POC = POC["orig"]
     HOOK.update(M={"M": WM, "W": 1.0}.get(arm, 0.0), S=KAP if arm in ("S", "OST", "W") or arm.startswith("SG") else 0.0, scale=w, POC=POC)
-    ns["KAPPA"] = KAP if arm in ("T", "OST", "W", "TH25") else float(arm[1:]) if arm in ("T10", "T40") else 0.0  # PV4: T10, T40, TH25
+    ns["KAPPA"] = float(xa.group(3)) if xa else KAP if arm in ("T", "OST", "W", "TH25") else float(arm[1:]) if arm in ("T10", "T40") else 0.0  # PV4: T10, T40, TH25
     extra = [] if arm == "base" else [("rt_rest", 1.0)]
     if arm != "base":
         A.EXTRA["rt_rest"] = {p: rest[Pp]}; Z[f"GE|{p}"] = np.c_[(ge0, ocu[Pp]) + ((np.log(np.clip(POC[IDX[Pp]], 1e-3, 1)),) if o is True else ())]
