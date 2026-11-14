@@ -33,10 +33,17 @@ This records the official implementation; it does not claim a completed run.
   No scaling or clamping is configured.
 - Evaluation tensor is float32 `(1, 41, 480)`. Output is one integer label
   `(1,)`: 0 motor imagery, 1 mental subtraction, 2 word generation.
-- One stream is one participant/session. Runs follow BIDS run number;
-  windows follow recording time. Graz and BrainHero can share session state.
+- One stream is one participant/session. The pinned public code delivers runs
+  by BIDS run number and windows in recording time, but the sealed backend does
+  NOT: since the rescoring of 10 Nov the delivery order is fixed and is not
+  recording order (organisers, 13 Nov; verbatim in docs/STATE.md section 2). The
+  scope of the shuffle (whole session, per interface, per run) is not stated.
+  Graz and BrainHero can share session state.
 - The evaluator deep-copies the loaded model at each session boundary and
   calls optional `reset_state()`. No model state crosses session boundaries.
+  FAQ: "State, windows, statistics, and parameter updates must not cross the
+  session boundary." That includes module-level variables (clocks, caches,
+  counters) that change later predictions.
 - `predict` receives only EEG, without labels or subject/interface metadata.
   Torch-Linear has no adaptation state.
 

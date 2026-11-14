@@ -5,17 +5,24 @@ This project targets Track 2 BCI decoding in Neural Interfaces 2026.
 - Read docs/STATE.md first (current state), then docs/LEDGER.md (what is closed) and OFFICIAL_CONTRACT.md.
 - docs/archive/ is history; where it contradicts docs/STATE.md, the state file wins.
 - Pre-register every run in docs/LEDGER.md (mechanism, numeric prediction, refutation rule) before scoring it.
-- Check ideas against the ledger index first; score members and stages in the chain (`replay/`), never alone.
+- Check ideas against the ledger index first. Score a part in the full current system under shuffled delivery, never
+  alone; score a whole alternative system whole. The chain is the current system, not a boundary of the search.
 - No gate or closure is final: before citing one, check what actually ran (code path, model class, alone or in the
   chain, which system version). State a rule before the run; say plainly when and why you go past it.
 - A cleanup or review must also hunt silent no-ops: options parsed but not applied, overrides that drop a parent's
   behaviour, cache keys that omit a setting, runs whose code path differs from their description. Make them fail
   loudly.
-- `python replay/check.py` must print OK before any chain result is trusted.
+- `python replay/check.py` must print OK before any chain result is trusted. It guards only the v3 chain in recording
+  order; shuffled-delivery scorers need their own zero-change and pinned-order checks.
+- Nothing may cross the session boundary in a package, module-level variables included (FAQ; review of 14 Nov).
 - Rank 1 is not an upper bound (user, 13 Nov). Size explore work by its measured ceiling; an idea with a large
   ceiling gets several forms before it is set aside. Keep reporting the measured stack as it is.
-- A bar inside the dev measure's noise (about ±0.3) does not close a direction: record "undecided". Do not close on
-  P10 or P04 alone. A new member or core is not closed until it was scored with the stages and routing using it.
+- A bar inside the dev measure's noise (about ±0.5 across people; ±0.3 holds only across orders) does not close a
+  direction: record "undecided". Bars are reading aids, not gates (user, 13 Nov): push and stack small consistent
+  positives. Do not close on P10 or P04 alone; report both, neither decides. A new member or core is not closed until
+  it was scored with the stages and routing using it.
+- Intervals resample people as well as orders. Weight dev like the sealed set (about 57 % new people; returning
+  people about 0.2 P04 + 0.8 P10) next to J, and prefer the people-nested number for anything that was chosen.
 - Keep compute busy (user, 12 Nov): submit questions as parallel waves, queue the next wave before the current one
   ends, and smoke-test every new script first. Compare run times warm and paired.
 - Remove dead code, stale statements and narrowing assumptions as you go; git history is the archive. Before
@@ -24,7 +31,8 @@ This project targets Track 2 BCI decoding in Neural Interfaces 2026.
 - Never edit submissions/*/submission.py in place: their SHA-256 values are pinned to uploaded or staged packages.
 - Keep the official 2026-competition submodule pinned and unchanged.
 - Keep our implementations and scripts outside the official submodule.
-- Preserve the official participant split, preprocessing and metric for comparisons.
+- Preserve the official metric and the model-facing tensor. Splits and training-side preprocessing are free (FAQ), and
+  external people may serve as a second validation instrument, not only as training rows.
 - Never commit datasets, environments, credentials or generated checkpoints.
 - Track compact evidence with source revision, seed, metrics and validation limits.
 - Validate locally before proposing a Codabench submission.
