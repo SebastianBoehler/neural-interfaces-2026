@@ -50,7 +50,7 @@ def clustering(P):
     return np.var(rates) / (p * (1 - p) / n)
 
 
-print(f"RUNCOUNT (s215): TAU {TAU}, FLOOR {FLOOR}, true run ids; change against offsets off / filter off, new people")
+print(f"RUNCOUNT (s215): TAU {TAU}, FLOOR {FLOOR}, true run ids; change against offsets off / filter off, new people"); SAVE = {}
 for order in sys.argv[1:]:
     rk = rank(order); res = {}
     G = None
@@ -62,7 +62,23 @@ for order in sys.argv[1:]:
             for fl in (0, 1):
                 outs = [z[f"{bn}|{arm}"].astype(np.float64) for bn in bases]; outs = [filt(o, rk, G) if fl else o for o in outs]
                 res[v, arm, fl] = (np.mean([SC.person(o, p0) for o in outs], 0), np.mean([clustering(o) for o in outs]))
+    SAVE[order] = {f"{v}|{arm}|{fl}": res[v, arm, fl][0] for (v, arm, fl) in res}
+    for v in ("off", "on"):  # sharpness of the unfiltered output the filter's temperature acts on (s215 detail)
+        z = np.load(f"{REPO}/runs/chainout/s215_{order}_{v}.npz"); bases = sorted({k.split("|")[0] for k in z.files})
+        SAVE[order][f"sharp|{v}"] = np.array([np.mean([z[f"{bn}|{arm}"].max(1).mean() for bn in bases]) for arm in ("P0r", "V6Fr")])
     for arm in ("P0r", "V6Fr"):
         b = res["off", arm, 0][0]
         cells = " | ".join(f"offsets {v} filter {fl}: {(res[v, arm, fl][0] - b).mean():+.2f} (clust {res[v, arm, fl][1]:.2f})" for v in ("off", "on") for fl in (0, 1))
         print(f"  {order:8s} {arm:4s} {cells} | filter alone without P10 {np.delete(res['off', arm, 1][0] - b, 9).mean():+.2f}", flush=True)
+
+if os.environ.get("DETAIL"):  # per-person cells, 80 % person intervals, sharpness; saved for later reading
+    rng = np.random.default_rng(0); tag = os.path.basename(RUN_IDS)[:-4] if RUN_IDS else "true"
+    np.savez(f"{REPO}/runs/s215_detail_{tag}_tau{TAU:g}.npz", **{f"{o}|{k}": v for o, d in SAVE.items() for k, v in d.items()})
+    print("\nPer order, v6f / v5.1b: cell - (offsets off, filter off), mean [80 % person interval]; sharpness = mean top posterior off -> on")
+    for o, d in SAVE.items():
+        for j, arm in enumerate(("P0r", "V6Fr")):
+            b = d[f"off|{arm}|0"]; cells = []
+            for v, fl in (("off", 1), ("on", 0), ("on", 1)):
+                x = d[f"{v}|{arm}|{fl}"] - b; bs = [x[rng.integers(0, 10, 10)].mean() for _ in range(2000)]
+                cells.append(f"{'filter' if (v, fl) == ('off', 1) else 'offsets' if fl == 0 else 'both'} {x.mean():+.2f} [{np.percentile(bs, 10):+.2f}, {np.percentile(bs, 90):+.2f}]")
+            print(f"  {o:8s} {arm:4s} " + " | ".join(cells) + f" | sharpness {d['sharp|off'][j]:.3f} -> {d['sharp|on'][j]:.3f}")
