@@ -12,5 +12,5 @@ ev.ORDERS = orders; X, on_rec = ev.load("E"); assert not on_rec
 V = {k: ev.apply(ev.fold_maps(Xk, "pca", 4), Xk) for k, Xk in X.items()}
 old = np.load(f"{REPO}/runs/views_emb/E_pca4.npz")
 for k in old.files:
-    err = np.abs(V[k] - old[k]).max(); print(f"{k}: max |diff| against E_pca4.npz {err:.2e}"); assert err < 1e-6, k
+    err = np.abs(V[k] - old[k]).max(); print(f"{k}: max |diff| against E_pca4.npz {err:.2e}"); assert err < 1e-4 * np.abs(old[k]).max(), k  # stored as float32
 np.savez(f"{REPO}/runs/views_emb/E_pca4_all.npz", **V); print(f"written runs/views_emb/E_pca4_all.npz: {sorted(V)}")
