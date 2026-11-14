@@ -30,4 +30,4 @@ for o in ORDERS:
 d = np.mean(D, 0); b = ci(d)
 print(f"MEAN over {len(ORDERS)} orders {ARM} - v6f: {d.mean():+.2f} [80 % person {b[0]:+.2f}, {b[1]:+.2f}] people up {int((d > 0).sum())}/10 "
       f"without P10 {np.delete(d, 9).mean():+.2f} | per person " + " ".join(f"{v:+.2f}" for v in d))
-print("KILL RULE (mean < +0.3 or people up < 7):", "PASS" if d.mean() >= 0.3 and (d > 0).sum() >= 7 else "FAIL" + (" (inside noise: undecided)" if abs(d.mean()) < 0.3 else ""))
+print("KILL RULE (mean < +0.3 or people up < 7):", "PASS" if d.mean() >= 0.3 and (d > 0).sum() >= 7 else "FAIL" + (" (inside noise, interval spans 0: undecided)" if abs(d.mean()) < 0.3 and b[0] < 0 < b[1] else ""))

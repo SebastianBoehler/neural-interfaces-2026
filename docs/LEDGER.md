@@ -6356,3 +6356,10 @@ non-shipped EM_LAM / TS_LAM / BTS / REST_W value at or below zero), so stk2 chan
 extra copies of the eye view (eye weight 3, §235's only positive, +0.09: full +0.16, runs +0.12, within -0.02), via one
 EXTRA_VIEW per order built inside the job (studies/14nov/stack/stk2view.py). Prediction: stk2 - stk1 +0.05 (inside noise;
 reported, not used to choose unless positive in every scheme). Also: EYEW other than 0/1 now fails loudly (671465b).
+**241 step 2a result (14 Nov 12:23 UTC; `chain.py` + `compare.py`, v6f chain under the s215 env, paired against s215_<order>_off,
+W0 bit-identical on within0).** W1 (w = 1 - p_rest, mean w 0.75): within0 -0.29, within1 -0.23, full0 -0.18, full1 -0.26,
+runs0 -0.40, runs1 -0.20; **mean -0.26 [80 % person -0.43, -0.09], 4/10 up**, without P10 -0.22; the same hook on v5.1b
+(P0r) -0.24 to -0.70. W3: **mean -0.59 [-0.83, -0.35], 2/10 up**, negative on all six orders. **Verdict: refuted for this
+form (kill rule fails; W1 negative on every order with the person interval below 0, and stronger weighting loses more).**
+Down-weighting rest-like windows in the template estimates removes useful template mass; the tercile gap reflects
+harder windows, not wrong teachers. 2b (FT label weights) not run.
