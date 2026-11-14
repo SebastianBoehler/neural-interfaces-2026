@@ -6055,3 +6055,4 @@ Galvani CPU queue had 168 jobs pending).**
   (−0.30, no class information, 0/6 orders up). E not kept (below +0.3) but consistent: 5/6 orders and 8/10 people up, interval
   above 0. "Undecided", small: it is a richer copy of the eye view (same accuracy and error correlation as the eye posterior).
   Predictions: T hit at the low edge of its range, F hit at its low edge, E hit (+0.1 predicted).
+- **Stamp correction:** the §234 RESULT heading above says 12:42 UTC; `date -u` at writing was 12:03 UTC.
