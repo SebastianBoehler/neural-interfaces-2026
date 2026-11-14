@@ -5206,3 +5206,23 @@ morning table) is **"eye order mismatched, members as recorded"** until re-score
   session-standardised pc128 of the other nine people, class-centred per session, scaled to the identity's trace. β 0.5
   and 1. Six orders, v6f, new people. 256 components are not tested here: they would need a re-streamed pc256 view.
 - **Kill (panel):** below +0.3 with the person interval above 0; between 0 and +0.3, undecided.
+
+**§215 RESULT (14 Nov 07:20 UTC; runs/s215_runcount_tau{2,1}.txt; true run ids, new people, change against offsets off /
+filter off).** τ 2 (τ 1 similar). Means over six orders:
+
+| | filter only | offsets only | both |
+|---|---|---|---|
+| v6f (V6Fr) | +0.49 | +0.53 | **+0.70** |
+| v5.1b (P0r) | +0.64 | +0.67 | +0.79 |
+
+- **Per order, v6f filter / offsets / both:** within 0 +0.43 / +0.27 / +0.68; within 1 +0.59 / +0.22 / +0.37; runs 0 −0.33 / −0.02 /
+  −0.03; runs 1 +0.52 / +0.58 / +0.67; full 0 +0.78 / +0.87 / +1.21; full 1 +0.92 / +1.25 / +1.30.
+- **Reading:**
+  - Both levers are real with true run ids, and they overlap: together about 1.3 × the larger alone (the panel expected
+    0.7–1.3 ×).
+  - Under within the filter carries more; under full the offsets do.
+  - runs 0 is the exception: the filter costs v6f −0.33, also without P10. It needs a look before any package form.
+  - The error run-clustering ratio stays about 4 in every cell.
+- **What decides:** the same with inferred boundaries (§217, running) under the contiguous schemes, and under full with the
+  detector in the loop (the filter and hard offsets must then be inert).
+- Corrected returning people (§214): within 0 ER +0.61, ERF +0.84 (both people up); the other 15 orders are running.
