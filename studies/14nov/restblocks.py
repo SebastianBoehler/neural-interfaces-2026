@@ -20,7 +20,9 @@ _orig = R4.Rest4.predict_proba_stream
 def _stream(self, idx):  # one forward per stream: the hook sees the stream's windows in the order of idx
     conv = [m for m in self.net.modules() if isinstance(m, torch.nn.Conv2d)][-1]; assert conv.out_channels == self.nout, conv
     box = {}
-    h = conv.register_forward_hook(lambda mod, inp, out: box.setdefault("x", inp[0].detach()))
+    def grab(mod, inp, out):  # must return None: a forward hook that returns a value replaces the module's output
+        box["x"] = inp[0].detach()
+    h = conv.register_forward_hook(grab)
     try:
         assert not getattr(self, "tta", ()), "TTA would mix shifted forwards"
         P = _orig(self, idx)
