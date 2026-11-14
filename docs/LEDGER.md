@@ -6983,3 +6983,13 @@ argmax flip in 2655); the check is now argmax agreement > 0.998, still loud on a
 people, 20 orders: r15 +0.08 [-0.02, +0.20] 6/10; r15 + filter +0.23 [+0.09, +0.37] 7/10 (within +0.41, full +0.05, runs
 +0.22); stk1 + filter +0.34; stk2 + filter +0.38. Draw 0 had r15 + filter +0.25, stk1 + filter +0.28, stk2 + filter +0.34.
 Spread of the candidate's new-people half over two draws: 0.02. Draw 2: 13 of 20 orders in.
+**§251 amendment (written 14 Nov 15:37 UTC, after (0) and (1) were read, before (1b) ran; (2) running, not read).** (1) nested
+GSCF − latchJ: full +0.30 [+0.06, +0.53], within +0.03, runs −0.02 (undecided by the rule); the kernel strength curve is
+sharp (γ 0.5 / 1 / 2: full +0.09 / +0.30 / −0.21). Mechanism read: with k_c = γ Σ w q, the soft counts grow with t
+(Σ_j w_tj ≈ 0.17 t under full) and reach CAP near the session's end at γ 1 and halfway at γ 2, where every class sits on the
+floor and the prior turns flat; the form is badly scaled, so γ 1 may be a lucky spike. **(1b) normalised soft count:** the
+same filter with k̃_c = k_c · min(1, M / n_t), n_t = Σ_j w'_tj (the local class share among similar earlier windows, applied
+as M seen windows of the run; never saturates for M ≤ CAP · 3 / 2), kernel weights, M ∈ {5, 10, 15, 20, 30}; the old form's
+γ ∈ {0.75, 1.25, 1.5} added to show the curve's shape (reported, not in the nested set). Nested choice over the five M
+values as before, and over all 11 settings (reported). Prediction: (1b) nested full +0.25 (0 to +0.5), within / runs
+−0.03; the γ curve between 0.75 and 1.5 is not smooth (a spike at 1). Same pass rule.
