@@ -7723,3 +7723,5 @@ A100 peak_reserved 4.34 / 8.81 GB (v6.5 in the same job 30.38 / 41.55), no alloc
 run time v6.5b / v6.5 1.019 and 1.000. The unpaired ratios against v5.1b (1.97 / 2.28 / 1.84) come from a node whose v5.1b baseline
 was 2x faster; the v6 arm's times did not move. Prediction (1), CPU bitwise identity (3103433), is still running; v6.5b is not the
 candidate until it passes. Mac replay equal to v6.5 (0.9945788530).
+
+**§261 RESULT, complete (14 Nov 22:05 CET).** Prediction (1) holds: CPU bitwise identity v6.5 vs v6.5b on P01 and P10|1, max_diff 0.0 (job 3103433, evidence/v65b_14nov/cid65b-3103433.out). No refutation clause fired: v6.5b replaces v6.5 as the candidate (ZIP v65b_r1iLu_cand a7b13e57…850d6, bundle 5323fd8b…).

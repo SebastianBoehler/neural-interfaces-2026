@@ -21,3 +21,9 @@ RESULT {"A": "runs/sealed/zt65/cand", "B": "runs/sealed/zt65b/cand", "max_diff":
 [own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
 /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
   warnings.warn(
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0831 swapped 172 capped 0 over 0 ft_s 661 relabels 18 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+{"session": "Dreyer2026Proteus/P10|1", "windows": 192, "max_diff": 0.0, "bitwise_equal": true, "A": {"refits": 18, "err": 0, "capped": 0}, "B": {"refits": 18, "err": 0, "capped": 0}}
+RESULT {"A": "runs/sealed/zt65/cand", "B": "runs/sealed/zt65b/cand", "max_diff": 0.0, "ok": true}
+EXIT
