@@ -1,13 +1,14 @@
-"""Isolated checks of lean/src62g helpers (no weights, no nets, no data). Run: .venv/bin/python evidence/review_14nov/checks/check_guards.py"""
+"""Isolated checks of lean/src62g or src62h helpers (no weights, no nets, no data). Run: .venv/bin/python evidence/review_14nov/checks/check_guards.py [src62g|src62h]"""
 import ast, sys, time, types
 from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[3]
-SRC = ROOT / "lean/src62g"
+TREE = sys.argv[1] if len(sys.argv) > 1 else "src62h"
+SRC = ROOT / "lean" / TREE
 
 # --- 1. which statements of step62 / step61 sit inside a try block (AST, modular source and bundle) ---
-for path in (SRC / "v6chain.py", ROOT / "submissions/lean_v62g/submission.py"):
+for path in (SRC / "v6chain.py", ROOT / f"submissions/lean_v{TREE[3:]}/submission.py"):
     tree = ast.parse(path.read_text())
     for cls in (n for n in ast.walk(tree) if isinstance(n, ast.ClassDef) and n.name == "Ensemble6"):
         for fn in (n for n in cls.body if isinstance(n, ast.FunctionDef) and n.name in ("step61", "step62")):
@@ -18,9 +19,9 @@ for path in (SRC / "v6chain.py", ROOT / "submissions/lean_v62g/submission.py"):
 
 # --- 2. FineTune.step schedule, cap and budget, with the nets stubbed out ---
 sys.path.insert(0, str(ROOT / "lean"))
-pkg = types.ModuleType("src62g"); pkg.__path__ = [str(SRC)]; sys.modules["src62g"] = pkg
+pkg = types.ModuleType("tree"); pkg.__path__ = [str(SRC)]; sys.modules["tree"] = pkg
 import importlib
-ft_mod = importlib.import_module("src62g.finetune")
+ft_mod = importlib.import_module("tree.finetune")
 
 
 def make(cap=400, budget=2700.0, t0=20, every=10, on=True):
@@ -63,6 +64,7 @@ f.relabel([out] * 15); print("relabel with v6_ft_on = 0: ok; wt length", len(f.w
 
 # schedule key values that check_package does not validate
 for bad in (dict(every=0),):
+    ft_mod.ft_clock_start()
     f = make(**bad)
     try:
         for _ in range(25):
@@ -80,7 +82,7 @@ A = np.random.default_rng(0).normal(size=(30, 5)); A[7, 2] = np.nan
 print("a single NaN row in SessionEM's history: column mean finite?", bool(np.isfinite(A.mean(0)).all()), "(NaN stays for every later window)")
 
 # --- 4. eye traces on degenerate windows (extras.EyeNet.traces without the nets) ---
-ex = importlib.import_module("src62g.extras")
+ex = importlib.import_module("tree.extras")
 e = ex.EyeNet.__new__(ex.EyeNet)
 ix = {c: i for i, c in enumerate(ex.CH_NAMES)}
 e.idx = {k: [ix[c] for c in cs] for k, cs in ex.EYE_SETS.items()}

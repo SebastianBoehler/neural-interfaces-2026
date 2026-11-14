@@ -1,0 +1,9 @@
+OwnStage.observe              4.29 ms  (bands 9)
+OwnStage.log_members          2.52 ms
+Tail (48 columns)             0.72 ms  at t = 100
+Tail (48 columns)             0.98 ms  at t = 300
+Tail + 3 eye columns          0.84 ms  at t = 100
+Tail + 3 eye columns          1.05 ms  at t = 300
+EyeNet.traces                 0.58 ms
+InputStream (aligned)         0.53 ms  (einsum covariance + one eigh)
+  of which einsum covariance   0.29 ms

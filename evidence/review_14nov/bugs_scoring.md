@@ -2,9 +2,10 @@
 
 Scope: `studies/13nov/`, `studies/14nov/`, `replay/`, `scripts/cloud/leo_collect.sh`, `scripts/cloud/galv_*.sh`,
 `scripts/check_v6.py`, `scripts/check_v62.py`. Read-only on tracked code. Check scripts: `evidence/review_14nov/checks/`.
-Status: IN PROGRESS (confirmed findings first; this file is rewritten as the review goes on).
+Status: final for this pass (14 Nov 07:00 UTC). §208 (OCU_DIR missing from shufcombo's output name) was found and fixed by another
+session while this review ran; I had reached the same files independently (`checks/c06`, `c07`) and list only what is still open.
 
-## Confirmed
+## Confirmed (ranked, most damaging first)
 
 ### 1. The eye net for returning people is standardised in another delivery order than the stages use
 - **Where:** `studies/13nov/ocushuf.py:10` (`ORDER = ...[f"{SCHEME}|{PSEED}|all_loso"]`), used for both protocols in `main()`
@@ -24,20 +25,48 @@ Status: IN PROGRESS (confirmed findings first; this file is rewritten as the rev
   been delivered (the same kind of mismatch as §180). Direction not measured; under runs it is likely optimistic early in
   a session (statistics from several runs where the stream has seen one).
 
-### 2. `leo_collect.sh` treats a failed squeue as "all jobs finished", and swallows rsync and scorer failures
-- **Where:** `scripts/cloud/leo_collect.sh:10–11, 16–17`.
-- **Does:** (a) for job ids the query is `squeue ... | grep ... ; true`, followed by `&& echo __OK`. The `; true` hides
-  squeue's own exit code, so a Slurm error on the cluster (controller timeout) gives an empty answer plus `__OK`: the
-  loop ends as if the jobs had left the queue. Only an ssh failure is handled. The `name:` form is correct.
-  (b) rsync's exit code is lost in `| grep -v`; a broken copy goes on to scoring. There is no `--delete`, so stale files
-  stay. (c) the scorer's exit code is ignored (`> /dev/null 2>&1; echo "scored -> $LOG"`), and the script exits 0 unless
-  sacct showed a failed job. A scorer that died on an assert looks like a scored run.
-- **Should:** keep squeue's status (`set -o pipefail` or test it separately), fail on rsync errors, propagate the scorer's
-  exit code.
-- **Affects:** any wave collected through it. Together with finding 4 (seed files found by glob), a partial copy is scored
-  with fewer seeds and no error. **Read only**; I did not find a concrete past run where it happened.
+### 2. Returning-people rows are not "everything in delivery order", and the table does not say so
+- **Where:** `retv6.py` (docstring line 4: "members as recorded"), `shufpkg.py:5`; read by `morning_table.py:46–50`.
+- **Does:** for P04/P10 only the stages, both gates, the own-space stage, the FT change, the rest net and the eye net
+  (in the wrong order, finding 1) follow the delivery order. core1 as member, the SessionBN slots' frozen part, Hilbert,
+  teacher, GE event rates, pc128 and the core1 components behind the v3 gate and the personal heads stay as recorded.
+  Arm F adds (FT − frozen) from the delivery-order stream to the recorded slot, without the frozen net's own re-stream
+  change that `shufcombo` adds for new people (`FR17 − FR6`).
+- **Should:** either apply the same re-streamed inputs (the `seen_session` keys exist in coremember, coreshuf, teachshuf,
+  geshuf and the Hilbert files) or print the limit next to the returning rows.
+- **Affects:** the "returning" half of every J in the morning table (v6.2, v6.2-safe, v6f + ER/ERF). For new people the
+  same re-streams moved v5.1b by about −0.6 beyond the stage loss (e.g. full 2: P0s −3.85, P0r −4.46); for returning
+  people it was not measured. Arms and base share the limit, so the differences are paired; their size under a fully
+  re-streamed chain is unknown. **Read only.**
 
-### 3. Output names still omit settings that change the result (beyond §208's OCU_DIR)
+### 3. morning_table.py: intervals over orders only, a glob that can pick a draw file, mixed order sets
+- **Where:** `studies/13nov/morning_table.py:35–38, 28–29, 66, 71–78`.
+- (a) The v6f glob `...gp0_ttt18*L.npz` also matches the draw files `ttt18<o>d1L`, `d2L` (they exist locally for within
+  0–7), and the last match wins. **Latent today** (`checks/c01_morning_pairs.py`): no local QF file exists for a within
+  order, so the pair is never formed; the day one exists, v6f for that order silently becomes draw 2.
+- (b) The "v6.1" column mixes three label forms and two machines: KF (within, full 0/1, runs 0/1), RF (full 4–7), QF
+  (full 2/3, runs 2/3, local). Stated in the docstring, not in the printed table.
+- (c) The interval is a bootstrap over orders of the ten-person mean. The orders share the same ten people and the same
+  nets, so it measures order spread only. The person interval that docs/STATE.md §4 asks for is about twice as wide
+  (`checks/c10_morning_intervals.py`, same files):
+
+  | New people | mean | over orders (printed) | over people | over both |
+  |---|---|---|---|---|
+  | within, v6f (12 orders) | +1.24 | +1.08 to +1.40 | +0.92 to +1.57 | +0.87 to +1.63 |
+  | within, v6.1 | +1.44 | +1.28 to +1.60 | +1.09 to +1.80 | +1.05 to +1.86 |
+  | full, v6f (8 orders) | +0.94 | +0.76 to +1.13 | +0.63 to +1.26 | +0.56 to +1.34 |
+  | full, v6.1 | +0.87 | +0.65 to +1.08 | +0.38 to +1.41 | +0.32 to +1.47 |
+  | within, v6.1 − v6f | +0.20 | +0.08 to +0.32 | +0.06 to +0.34 | |
+  | full, v6.1 − v6f | −0.07 | −0.15 to +0.02 | −0.31 to +0.20 | |
+  | runs, v6.1 − v6f (4 orders) | +0.14 | +0.06 to +0.21 | −0.01 to +0.27 | |
+
+  The gains over v5.1b stay clear of zero either way. The v6.1 − v6f differences under full and runs are inside the
+  person interval.
+- (d) Scheme-averaged J combines new people over 12 / 8 / 4 orders with returning people over 8 / 4 / 4 orders. On the
+  returning rows' own orders the new-people means move by up to 0.14 (full v6.1 +0.73 against +0.87; within +1.49
+  against +1.44).
+
+### 4. Output names still omit settings that change the result (beyond §208's OCU_DIR)
 - **Where:** `studies/13nov/shufcombo.py:269`.
 - **Still missing after the §208 fix:** `OCU_ORACLE`, `OCU_SYN` (both change every V6 arm), `BASES` (a one-base smoke
   overwrites the six-base file; morning_table and wsp_leverage assert six bases, stackcmp, sweepsel and wsp_stage2 do not),
@@ -61,7 +90,7 @@ Status: IN PROGRESS (confirmed findings first; this file is rewritten as the rev
     part of the key (ttt6 stores `labels=LABEL_TAG` in the file, ttt7/ttt18 do not). Rebuilt labels under the same file
     name are silently not used unless the old outputs are deleted (as §180 did by hand).
 
-### 4. Seed sets found by glob differ between orders and arms; STRICT does not check them
+### 5. Seed sets found by glob differ between orders and arms; STRICT does not check them
 - **Where:** `shufcombo.py:46, 89` (eye and rest seeds by glob), `retv6.py:55–56`.
 - **Does:** takes the mean over whatever seed files exist. Confirmed from `runs/retv6*.log`, `runs/s199_*.log` and the
   folders: rest net 9 seeds for within 0/1, 3 seeds for every other order; eye net 9 seeds for shuffled orders, 3 seeds
@@ -71,7 +100,22 @@ Status: IN PROGRESS (confirmed findings first; this file is rewritten as the rev
   9-seed rest member is a stronger member than the 3-seed one. "rec against shuffled" comparisons of any eye arm mix
   3 and 9 eye seeds. Direction: favours within 0/1 and the shuffled eye arms; size not measured.
 
-### 5. The "recording order" combination line is not in recording order
+### 6. `leo_collect.sh` treats a failed squeue as "all jobs finished", and swallows rsync and scorer failures
+- **Where:** `scripts/cloud/leo_collect.sh:10–11, 16–17`.
+- **Does:** (a) for job ids the query is `squeue ... | grep ... ; true`, followed by `&& echo __OK`. The `; true` hides
+  squeue's own exit code, so a Slurm error on the cluster (controller timeout) gives an empty answer plus `__OK`: the
+  loop ends as if the jobs had left the queue. Only an ssh failure is handled. The `name:` form is correct.
+  (b) rsync's exit code is lost in `| grep -v`; a broken copy goes on to scoring. There is no `--delete`, so stale files
+  stay. (c) the scorer's exit code is ignored (`> /dev/null 2>&1; echo "scored -> $LOG"`), and the script exits 0 unless
+  sacct showed a failed job. A scorer that died on an assert looks like a scored run.
+- **Should:** keep squeue's status (`set -o pipefail` or test it separately), fail on rsync errors, propagate the scorer's
+  exit code.
+- **Affects:** any wave collected through it. Together with finding 5 (seed files found by glob), a partial copy is scored
+  with fewer seeds and no error. (a) is **reproduced** with a failing stand-in for squeue (`checks/c11_collect_wait.sh`:
+  the job-id form ends the wait, the `name:` form keeps waiting); (b) and (c) are read only. I did not find a concrete
+  past run where it happened.
+
+### 7. The "recording order" combination line is not in recording order
 - **Where:** `shufcombo.py:211–214` with `OCU_DIR` set: arm `V6Frec` takes `REST` (recording) but the eye view from
   `OCU`, which is the delivery-order re-stream.
 - **Reproduced:** "combination over v5.1b, recording order" in `runs/allorder_*_gp0_L_ge_ts_hb.log` runs from +0.66 to
@@ -79,22 +123,11 @@ Status: IN PROGRESS (confirmed findings first; this file is rewritten as the rev
 - **Affects:** wherever that line was quoted as the recording-order gain of the combination next to the shuffled one
   (secondary column since §164); ±0.15.
 
-### 6. §207 leverage verdicts after §208: two more components meet the stage-2 rule
+### 8. §207 leverage verdicts after §208: two more components meet the stage-2 rule
 - **Where:** ledger §208 says "the rule verdicts are unchanged except s6 (now undecided)".
 - **Reproduced** (`checks/c08_s207_rebase.py`, clean files, rule as pre-registered: ≥ 0.05 on at least two of the three
   orders → stage 2; below 0.03 everywhere → no lever): s3 (0.057 / 0.036 / 0.065) and s4 (0.064 / 0.061 / 0.028) are
   now "stage 2"; s6 and s8 (0.034 on full 0) are "undecided". The other corrected values equal §208's.
-
-### 7. morning_table.py: three weaknesses in how files and intervals are chosen
-- **Where:** `studies/13nov/morning_table.py:35–38, 28–29, 66, 71–78`.
-- (a) The v6f glob `...gp0_ttt18*L.npz` also matches the draw files `ttt18<o>d1L`, `d2L` (they exist locally for within
-  0–7), and the last match wins. **Latent today** (`checks/c01_morning_pairs.py`): no local QF file exists for a within
-  order, so the pair is never formed; the day one exists, v6f for that order silently becomes draw 2.
-- (b) The "v6.1" column mixes three label forms and two machines: KF (within, full 0/1, runs 0/1), RF (full 4–7), QF
-  (full 2/3, runs 2/3, local). Stated in the docstring, not in the printed table.
-- (c) The interval is a bootstrap over orders of the ten-person mean. The orders share the same ten people and the same
-  nets, so it measures order spread only; the person interval that docs/STATE.md §4 asks for is wider (numbers to follow).
-  Scheme-averaged J combines new people over 12 / 8 / 4 orders with returning people over 8 / 4 / 4 orders.
 
 ## Suspected, not confirmed
 
@@ -137,5 +170,18 @@ Status: IN PROGRESS (confirmed findings first; this file is rewritten as the rev
   confidence interval; selector's threshold grid uses all people's label-free criterion values.
 - **Per-held-out-person edits** (`wsp_final.py`, `coregain.py`): fitted on the other nine people's rows only.
 - **Oracle hooks** (`OCU_ORACLE`, `OCU_SYN`, `SYN_T`, `ocuorc`, `chain_true`): off unless the env var or arm is set;
-  each prints a line. (Their output names are finding 3.)
+  each prints a line. (Their output names are finding 4.)
 - **Local result files today:** every local v6f / v6.1 file that has a Leonardo copy equals it (`checks/c07`).
+- **§208's corrected §207 numbers:** reproduced from the files (s0 0.193, c1 0.125, s10 0.090, rest 0.074, eye 0.017;
+  stage 2 means c1 −0.17, s0 −0.35, rest −0.08, s10 −0.04, eye −0.01), apart from the verdicts in finding 8.
+- **retv6 order parsing** takes one digit (`order[-1]`); a two-digit order fails loudly in `perm_for`, it does not read
+  another order's files.
+- **galv_array.sh / galv_cpu.sh:** exit codes are passed on; nothing found.
+
+## Smaller notes
+- `stackcmp.py` subtracts V6Fr of one FT run from V6Fr of another without each file's own P0r (up to 0.1 per person of
+  GPU re-stream noise, as §202 found for morning_table), and does not assert six bases.
+- `retv6.py:57` prints "FT gC5 delta1 (ttt18<order>)" whatever `FT_FORM` and `FT_SFX` are: the s15 / QF logs describe
+  another run than the one that ran.
+- `wsp_leverage.py` counts orders, not schemes, for "under at least two schemes" (the same when one order per scheme is
+  passed, as in §207).

@@ -1,0 +1,19 @@
+[v6-ft] wall-clock budget of 0 s reached: no further fine-tuning in this process (frozen nets from here on)
+v6chain.py:step62: try blocks 0, raise at lines [155], raises inside a try: []
+v6chain.py:step61: try blocks 1, raise at lines [192], raises inside a try: [192]
+submission.py:step62: try blocks 0, raise at lines [1254], raises inside a try: []
+submission.py:step61: try blocks 1, raise at lines [1291], raises inside a try: [1291]
+refits at [20, 30, 40] ... [380, 390, 400] count 39 capped 59 largest prefix 400
+clock never started, budget 1e-9 s: refits 4 frozen 0 -> guard silently inert
+clock started, budget 1 ms: refits 0 frozen 60 lab 60 wt 60
+relabel after frozen windows: ok
+relabel with v6_ft_on = 0: ok; wt length 15
+{'every': 0} -> ZeroDivisionError('integer modulo by zero')
+inv(NaN matrix): no exception, finite: False
+a single NaN row in SessionEM's history: column mean finite? False (NaN stays for every later window)
+eye traces, first window zeros: finite True, max |T| 0
+eye traces, first window constant: finite True, max |T| 0
+eye traces, first window 3e38: finite True, max |T| 5.98
+eye traces, first window 1e-30: finite True, max |T| 1.08e-24
+eye traces after one 3e38 window: this window finite True ; next normal window finite True max |T| of the next normal window 0.5882482528686523
+eye traces on a 20-sample window -> ValueError("If mode is 'interp', window_length must be less than or equal to the size of x.")

@@ -3,8 +3,8 @@
 Read-only checks behind the numbers below ran on the public windows (`data/proteus_windows.npz`) and the stored dev
 posteriors (`runs/replay_data/inputs.npz`, the v3 chain, new people, six bases). Limits of those checks: the chain's
 posteriors were computed in recording order and permuted afterwards; run membership was given (oracle) where marked
-with *; the six bases share the same ten people. Scripts are in the session scratchpad (`stat/quota.py`, `quota2.py`,
-`runid.py`, `runid2.py`), nothing in the repository was changed.
+with *; the six bases share the same ten people. The scripts (`quota.py`, `quota2.py`, `runid.py`, `runid2.py`,
+`bagchain.py`, `bagchain2.py`) are in the session scratchpad under `stat/`; no tracked file was changed.
 
 ## 0. Facts I checked that the brief does not state
 
@@ -17,6 +17,11 @@ with *; the six bases share the same ten people. Scripts are in the session scra
   over sessions of plain accuracy. It rewards nothing that accuracy does not. The optimal decision is the maximum of
   the true posterior, where "true" includes the design: labels are drawn without replacement from a known urn per run.
 - Self-transitions in the cue sequence are 0.27 to 0.29 against 0.33: that is the urn, not a cue-order trick.
+- **Small cells and the mean.** A cell of 96 windows at 80 % has a sampling standard error of 4 points; 200 cells
+  bring that to 0.3 on the mean if they were independent. They are not: cells cluster in about 20 people with a
+  person standard deviation near 10 points, so the sealed level has an error of about 2 points as an estimate of
+  "the method", while differences between two systems on the same sealed set are much tighter (section 3). Cells
+  count equally, so a window in a 380-window session counts half as much as one in a 190-window session.
 
 ## 1. Diagnosis
 
@@ -24,16 +29,19 @@ with *; the six bases share the same ten people. Scripts are in the session scra
    standard deviation of about 10 points. The sealed set has about ten new people; one or two of them will be like
    P04 and will carry a third of the new-person error. Nothing in the chain is built for such a person: the stages
    sharpen whatever the population model believes, they cannot replace a wrong class geometry.
-2. **Decisions cannot be revised.** The offline equal-count assignment per run scores +1.1 over the causal chain on
-   the same posteriors. The first 30 to 60 windows are decided before the session's templates exist. Under a full
-   shuffle that share of weak decisions is the same but no longer confined to the first run.
+2. **Decisions cannot be revised.** The offline equal-count assignment per run (run membership given) scores +1.1
+   over the causal chain on the same posteriors. The first 30 to 60 windows are decided before the session's
+   templates exist. Under a full shuffle that share of weak decisions is the same but no longer confined to the
+   first run.
 3. **The system does not use the experimental design.** It uses "classes are about balanced in a session" through a
    30-window share. It does not use "exactly 10 or 12 per class per run", the block structure of the stream, or the
    fact that the delivery scheme can be read from the stream itself (section 2, proposal 1).
 4. **The ensemble has no variance left to remove.** About 70 members trained on the same nine or ten people share
    their person-level bias. Averaging removed seed and architecture noise long ago; what is left is common to all
    members, and the stages then correct part of it per session. That is why a better member moves the end by its
-   weight share and no more. Headroom is in what happens after the mix and in whole-system diversity, not in members.
+   weight share and no more. I also checked the obvious next step, averaging whole chains instead of members, and it
+   gives nothing (end of section 2). Headroom is in information the chain does not have yet (the design, the
+   delivery scheme, other training people), not in more or better copies of what it has.
 
 ## 2. Five proposals, ranked
 
@@ -63,7 +71,9 @@ division alone (10 of 10 people up under the full shuffle).
 **Detector (measured).** Ratio of the mean feature distance between consecutive delivered windows to that between
 random pairs, in a 12-dimensional projection learned on other people's runs: full shuffle 1.000 (sd 0.016, range
 0.962 to 1.038); within-run shuffle 0.869 (sd 0.051, range 0.764 to 0.971); recording order and shuffled runs 0.773
-(sd 0.054). "Full or not" separates almost perfectly on a whole session; a threshold near 0.95 from window 100 on.
+(sd 0.054). "Full or not" separates almost perfectly on a whole session (threshold near 0.95); "shuffled inside the
+run or in order" is only two standard deviations apart. Measured on whole sessions with crude band-power features;
+how early in a session it is reliable is not measured.
 
 **Expected gain.** New people +0.3 to +0.7 if the stream is block-contiguous, 0 to +0.3 if it is fully shuffled;
 returning people the same (it acts on labels, not on the person). Confidence: medium for the contiguous case (the
@@ -82,20 +92,29 @@ readable with labels (70 % six-way within a session, chance 17 %) but unsupervis
 only 0.36 with raw band powers and 0.52 with the learned projection. That is not enough yet; a better learned
 same-run metric is the explore version of this proposal.
 
-### 2. Bag the pipeline, not the members
+**The cell itself is not worth inferring.** The interface of a single window is read at 59 % across people (chance
+50 %; online against acquisition runs 52 %), and even with the interface given the cell urn adds only +0.2 to +0.3.
+The cell matters for the metric only through the run: three runs make a cell, and the run is where the design binds.
 
-**Mechanism.** The stages are nonlinear and self-reinforcing: a session's templates lock onto whatever the first
-confident windows say. Run K copies of the stage chain, each on a different random subset or re-weighting of the
-members (later: on members trained on different subsets of people), and average the K final posteriors.
+### 2. One set of stage constants per delivery scheme, chosen in the session by the same detector
 
-**Why.** Averaging before a nonlinear, high-variance post-processor removes variance the post-processor never sees;
-averaging after it removes the variance it creates. The brief's own pattern (members saturate, stages carry the
-score, per-session choice between systems has an oracle of +1 to +2) says the variance sits after the mix.
+**Mechanism.** The stages lose 1 to 4 points under shuffled delivery, and the loss differs by scheme (the ledger has
+−3.8 full, −2.1 runs, −1.1 within for the shipped stages). A single re-tuned set is a compromise between schemes
+that want opposite things: a full shuffle wants long memory and strong whole-session templates, block schemes want
+templates that follow the run. The detector of proposal 1 separates a full shuffle from the block schemes cleanly
+(and the two block kinds less sharply), so the package can carry one constant set for "full" and one for "blocks"
+(each tuned under that scheme, nested over people) and switch. Until the detector is sure it runs the set with the
+best worst case.
 
-**Expected gain.** New +0.2 to +0.6, returning 0 to +0.3; confidence low to medium. **Experiment:** CPU, under an
-hour with the replay: K = 8 chains with log-normal family weights, final posteriors averaged, all three schemes,
-person intervals. **Kill:** below +0.2 for new people under the shuffled schemes, or carried by one person.
-**Notes.** Stages cost little next to the members, so K = 4 to 8 fits the time limit; order-free.
+**Why.** It turns the unknown scheme from a risk to be averaged over into something observed. It is also the hedge
+the brief asks for: no bet on a hypothesis, and no loss in recording order if the organisers' scheme is mild.
+
+**Expected gain.** The regret of the compromise set against the scheme's own set: new +0.2 to +0.8, returning
+similar; confidence medium that it is positive, low on the size. **Experiment (CPU, the existing re-tune grid):**
+best set per scheme against the best single set, nested over the two people halves, with the detector's actual
+decisions and its early-session errors in the loop. **Kill:** regret of the single set below 0.3 under every scheme.
+**Notes.** Causal; the detector costs one projection and one distance per window; fix the threshold on public
+sessions under simulated schemes and report its error rate at windows 60, 100 and 150.
 
 ### 3. A person-specific trust weight for the personal route, fitted before the session
 
@@ -135,6 +154,21 @@ the current mix before the stages (the earlier fitted pool lost in the chain for
 ensemble has to win that back through diversity. Confidence low. **Experiment:** leave-two-people-out folds for two
 net families, about 4 GPU hours, scored in the chain. **Kill:** the bagged mix is not above the seed mix at equal
 member count before the stages.
+
+### Checked here and dead: averaging whole chains ("bag the pipeline")
+
+My first instinct for a system whose stages carry the score was to average after the stages instead of before. On
+the replay (v3 chain, new people, recording order) it does nothing:
+
+- Three single-seed chains averaged after the stages against one chain on the pooled seeds: −0.10 (person SE 0.11);
+  two half-pools against the pool: −0.14 (SE 0.07). Single-seed chains score 80.21, the pooled chain 80.31.
+- Six chains with jittered family weights, averaged: −0.04 (jitter sd 0.15), −0.31 (sd 0.3), −0.58 (sd 0.7, eight
+  chains).
+
+Two side findings. (1) A single seed set of the SessionBN slots is as good as three in the chain, so there is run
+time to take back. (2) The family weights sit on a sharp optimum: a single chain loses 0.16, 0.55 and 2.2 points at
+jitter sd 0.15, 0.3 and 0.7. Weights that sharp, tuned on the ten people they are scored on, make the absolute dev
+level optimistic; it is one more reason not to read dev levels as sealed levels.
 
 ## 3. One contrarian claim
 
@@ -177,21 +211,27 @@ within two to three standard errors of a paired sealed difference. The leaders' 
 size of one extra mechanism, not of a different regime. Candidates, in my order of likelihood: (1) a much stronger
 use of the 43 % returning sessions (within-person, cross-session accuracy is usually well above cross-person; +4 on
 those sessions is +1.7 on the board); (2) exact use of the label design at run level; (3) more target-task training
-people from a source the pack has not found. Their lead survived the removal of chronology, so it is not cue order.
+people from a source the pack has not found. They lead on the board scored without chronology, so the lead does not
+rest on cue order. I could not check any of the three; they are guesses from the rules and the shape of the board.
 
-**Decision frame.** The team keeps its best score, so each upload is an option with a floor of 0.8198. That favours
-variance: do not spend an upload on a +0.2 candidate. One failed run costs no quota, so keep the last day as a spare.
+**Decision frame.** The repository notes say a team keeps its best score (`docs/REVIEW_5NOV.md`); confirm on the
+live board that it shows the best and not the latest upload. If so, each upload is an option with a floor of 0.8198.
+That favours variance: do not spend an upload on a +0.2 candidate. A failed run costs no quota, so keep the last day
+as a spare.
 
 - **Upload 1 (16 or 17 Nov): measurement and option in one.** v5.1b untouched on recognised sessions; on
   unrecognised sessions the new-person stack (fine-tuning + eye view + rest member) with stage constants chosen by
-  the worst case over the three schemes, not their mean; plus the detector-gated run filter if it passes its
-  experiment. Under a full shuffle the filter is inert, so the sealed delta then measures the new-person stack alone;
-  under a block scheme it measures both, and both would be kept. Written forecast before upload: 0.57 x (shuffled
-  new-person gain) x 0.65, about +0.3 to +0.5, so 0.823 to 0.825. Reading rule: above +0.4 the new route transfers;
-  within ±0.2 it does not; below −0.3 something in the package path is broken.
+  the worst case over the three schemes, not their mean (or per scheme by the detector, if proposal 2 passes); plus
+  the detector-gated run filter if it passes its experiment. Under a full shuffle the filter is inert, so the sealed
+  delta then measures the new-person stack alone; under a block scheme it measures both, and both would be kept.
+  Written forecast before upload: 0.57 x (shuffled new-person gain) x 0.65, about +0.3 to +0.5, so 0.823 to 0.825.
+  Reading rule (a paired sealed difference carries about ±0.2 to ±0.3): above +0.4 the new route transfers; below
+  +0.1 it does not; between the two it is undecided and upload 2 keeps the route only if dev under shuffle still
+  supports it; below −0.3 something in the package path is broken.
 - **Upload 2 (20 Nov, with 21 Nov as the spare day):** if upload 1 confirmed the new route, everything that passed
-  since, including the returning-route additions and the bagged pipeline. If it did not, v5.1b plus returning-route
-  work only. In both cases the highest-ceiling build that has a worker-image replay, not the safest one.
+  since, including the returning-route additions and the person-specific trust weight. If it did not, v5.1b plus
+  returning-route work only. In both cases the highest-ceiling build that has a worker-image replay, not the safest
+  one.
 - **Honest odds:** third place (0.831 today, moving) needs about +1.2 sealed, which is +2.5 to +3 on dev at the
   transfer seen so far. The levers measured to date do not add up to that. Only the returning route or a run-level
   mechanism under a block scheme can close it.
