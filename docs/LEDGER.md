@@ -5585,3 +5585,21 @@ these edit families.
   its stage numbers are weak evidence; the gate thresholds (0.20/0.35 margin) were tuned on PROTEUS posteriors; the
   SessionEM view is not separate from the classifier (PCs 1–48 of the same tangent features), unlike GE; PhysionetMI's
   "rec" is MOABB run order, not chronology; one session per person, so the returning path is not covered.
+
+**§223 RESULT (14 Nov 08:16 UTC; runs/bagging/bagscore.log; Galvani CPU job 3100585, 218 LR fits at 11.5 s each, 25 min on 8 cores;
+check.py OK; recording order).** Refuted for core1: bagging over training people loses alone and in the chain.
+- The full refit reproduces the stored member (correlation 0.998 / 0.999; 68.8 new against the stored 69.3), so every
+  arm is compared with the refit, not the stored member.
+- **Member alone (new / seen):** full 68.77 / 66.47; leave-one-person-out bags averaged 68.30 / 66.60 (−0.47); leave-two-out
+  (8 bags) 67.33 / 65.69 (−1.44); both 68.04 / 66.35 (−0.73); geometric means the same within 0.1. A single bag 66.1 new on
+  average (range 64.4–67.7): one or two people fewer cost about 2.7 points, and averaging wins back only 0.5–2.
+- **Chain (B2_pool, core1 replaced, Hilbert slot as stored), dJ against the refit:** l1 −0.21, l2 −0.21, l1+l2 −0.37,
+  l1 geometric −0.18 (new −0.1 to −0.4).
+- **Kill met** (bagged member not above the full fit): closed for core1 on CPU. As stated beforehand, this does not close
+  the net version, but it removes its main support: the person-subset diversity did not repay the lost people for a
+  member whose error is mostly between people.
+- **GPU version, sized, not submitted:** leave-two-out bags (8 per fold) for sbnfb (3 nets) and sbnsinc (1 net) = 8 member
+  tasks per net at 2.5–6.5 GPU min each (STATE §7) → 1.3–3.5 GPU h, plus an equal-count seed-mix control of the same
+  size (2.7–7 GPU h in all), plus delivery-order re-streams of the bagged nets for the shuffled chain (inference only if
+  checkpoints are kept, else ×6 orders). The Galvani GPU queue is at its per-user job limit now. Expected value from
+  this CPU result: below the statistician's −0.3 to +0.8; I would run it only on otherwise idle GPUs.
