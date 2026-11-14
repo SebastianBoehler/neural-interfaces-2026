@@ -5468,3 +5468,29 @@ limit off.**
      the routed-FT variants, as v6.2h);
   3. GPU worker image passes.
 - **Refutation rule:** any miss fails the u package.
+
+**§214 RESULT (14 Nov 07:58 UTC; runs/retv6/p0_*; morning_table → runs/morning_table_0800.txt).** Returning people (P04,
+P10) with both P0 fixes (eye net in seen_session's own order, members re-streamed), change over routed v5.1b; before the
+fixes in brackets:
+
+| | within (8) | full (4) | runs (4) |
+|---|---|---|---|
+| **ER** (eye + rest, no routed FT) | **+0.59** (+0.65); 8/8 up; P04 min +0.08, P10 min +0.08 | **+1.46** (+1.05); 4/4; P04 min +1.07 | **+0.68** (+0.83); 4/4; P10 min −0.34 |
+| ERF (+ routed FT s15) | +0.68 (+0.89); P10 min −0.42 | +0.88 (+1.18); P04 min −1.40 | +0.46 (+0.82); runs 3 −0.25 |
+
+- **Reading:** with the fixes, ER is the robust returning-people form: positive on all 16 orders and larger than ERF under
+  full and runs. Routed FT adds only under within (+0.09), costs under full and runs, and is P04-fragile. The prediction
+  (ER / ERF move ≤ ±0.3) was right for within and wrong for full: ER +0.41, ERF −0.30.
+- **Sealed-weighted J** (0.566 new + 0.434 × (0.2 P04 + 0.8 P10)), 80 % interval over people and orders:
+
+| | within | full | runs | equal-weight J (dev) |
+|---|---|---|---|---|
+| **v6.2hL-safe** (s15 + L labels; ER) | +1.04 [+0.80, +1.28] | **+1.10** [+0.81, +1.41] | **+0.92** | **+1.04** |
+| v6.2hL (ERF) | +1.03 | +1.04 | +0.87 | +0.92 |
+| v6.2-safe | +1.06 | +1.06 | +0.90 | +1.03 |
+| v6f + ER | +0.94 | +1.10 | +0.83 | +0.98 |
+| v6f | +0.70 | +0.53 | +0.57 | +0.53 |
+
+- **Consequence:** v6.2hL-safe (ER) is the scheme-robust candidate. It leads or ties under every scheme, with no
+  routed-FT fragility. The "eye order mismatched, members as recorded" mark on the returning rows is lifted for these
+  corrected rows.

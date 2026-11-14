@@ -43,7 +43,7 @@ for o, (f, g) in sorted(PAIRS.items()):
     if gap > 1e-9:
         print(f"note {o}: v5.1b differs between the v6f and v6.1 files by up to {gap:.2f} (GPU re-stream of the base)")
     new[o] = {"v6f": mean_bases(f, "V6Fr") - p0, "v6.1": mean_bases(g, "V6Fr") - p0k}
-for f in sorted(glob.glob(f"{RET}/g1_s15_QF_seen_session_*.npz")):
+for f in sorted(glob.glob(f"{RET}/p0_g1_s15_QF_seen_session_*.npz")):  # s214: corrected (eye order, members re-streamed)
     o = os.path.basename(f)[:-4].split("_")[-1]; z = np.load(f); b = sorted({k.split("|")[1] for k in z.files})
     assert len(b) == 6, (f, b)
     d = {k: np.mean([z[f"{o}|{bn}|{k}"] - z[f"{o}|{bn}|base"] for bn in b], 0) for k in ("ER", "ERF")}
@@ -55,12 +55,12 @@ for o in list(new):
         LF[o] = mean_bases(f, "V6Fr") - mean_bases(f, "P0r")
 for o in new:
     new[o]["v6.2-safe"] = new[o]["v6.2"] = new[o]["v6.1"]
-    new[o]["v6.2hL"] = LF.get(o, np.full(10, np.nan))
+    new[o]["v6.2hL"] = new[o]["v6.2hL-safe"] = LF.get(o, np.full(10, np.nan))
     new[o]["v6f+ER"] = new[o]["v6f+ERF"] = new[o]["v6f"]  # s206: v6f's new-people path (L labels, gC5) + the routed additions
 for o in ret:  # returning people: the routed additions do not depend on the new people's label source (FT on routed v5.1b)
-    ret[o]["v6f+ER"], ret[o]["v6f+ERF"] = ret[o]["v6.2-safe"], ret[o]["v6.2"]; ret[o]["v6.2hL"] = ret[o]["v6.2"]
+    ret[o]["v6f+ER"], ret[o]["v6f+ERF"] = ret[o]["v6.2-safe"], ret[o]["v6.2"]; ret[o]["v6.2hL"] = ret[o]["v6.2"]; ret[o]["v6.2hL-safe"] = ret[o]["v6.2-safe"]
 
-VARS = ("v6f", "v6.1", "v6.2-safe", "v6.2", "v6f+ER", "v6f+ERF", "v6.2hL")
+VARS = ("v6f", "v6.1", "v6.2-safe", "v6.2", "v6f+ER", "v6f+ERF", "v6.2hL", "v6.2hL-safe")
 print("MORNING TABLE: change over v5.1b in balanced-accuracy points, same orders per row")
 for grp, D, np_ in (("new people (10)", new, 10), ("returning (P04, P10)", ret, 2)):
     for sch in ("within", "full", "runs"):
