@@ -5522,3 +5522,33 @@ fails the panel's kill in every form and loses in the chain.
   in-session recentring is the best form and still below 55 % alone and 9 points below pc128 as a template view. The ERP
   augmentation adds nothing (−0.5 to −1). Every append loses (−0.8 to −2.0), far outside ±0.3. **Closed as a view**
   (kill met: best member 51.0 < 55; no form reaches pc128's ceiling). No shuffled chain test is warranted.
+
+**§225 RESULT (08:07 UTC; runs/s225_runoff_inferred.txt).** Run offsets with inferred labels, v6f (v5.1b), against the regular
+files:
+- true runs (§210): +0.26 (+0.44);
+- loop60: −0.02 (+0.15);
+- bocpd: −0.00 (+0.17).
+Per order, bocpd: within 0 +0.24, within 1 −0.11, runs 0 −0.24, runs 1 +0.10. **Below the +0.3 rule; closed for the package.**
+Over-segmented labels lose most of what true runs give. v5.1b keeps about +0.16, but v6f's eye view and rest member appear to
+absorb what is left.
+
+**§219 RESULT (08:07 UTC; Galvani CPU, same-machine baseline).** TSEM's shrinkage target from the population within-class
+covariance:
+- β 0.5: −0.10 [−0.14, −0.06], 1/10 people up;
+- β 1: −0.23 [−0.33, −0.13], 2/10.
+**Refuted** by the panel's own kill rule. The identity target is not what limits TSEM at 128 components.
+
+**§207 eye-net drift edit (Galvani, 54 tasks):** α 0.5 +0.05 (3/6 up), α 1 +0.04 (3/6). **Null.**
+
+**§207 CLOSED: weight-space edits on the current chain, every family tried to a number:**
+
+| Family | Result |
+|---|---|
+| final-layer edits (accuracy and correlation forms) | ≤ 0 on every lever component |
+| core1 block gains | +0.04 |
+| rest-net filter gains | −0.05 |
+| teacher input gains | 0.00 |
+| eye-net input drift edit | +0.05 |
+
+Fitted on nine people, no edit transfers to the tenth beyond noise. The trained weights are at their transfer optimum for
+these edit families.
