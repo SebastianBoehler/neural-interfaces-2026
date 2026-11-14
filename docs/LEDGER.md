@@ -5172,3 +5172,37 @@ morning table) is **"eye order mismatched, members as recorded"** until re-score
 - **Prediction:** k 8, both views: +0.2 to +0.4 under full (30–50 % of the oracle), +0.1 under within.
 - **Rule:** keep it for a package form if it reaches ≥ +0.3 mean over the six orders with people up ≥ 7/10 and is not
   negative under any scheme mean. Undecided between +0.1 and +0.3.
+
+### 217. RUN DETECTOR AND INFERRED BOUNDARIES (written 14 Nov 07:17 UTC, before any result)
+- **Question:** how much of §215's true-run gain (count filter +0.43 to +0.74 within; offsets +0.2 to +0.3) survives
+  with run labels inferred label-free in delivery order. Code `studies/14nov/rundetect/`, labels `runs/runids/`,
+  diagnostics `runs/rundetect/`. CPU only.
+- **Nuisance view:** per window, log-variance per channel in 6 bands (4–8, 8–13, 13–20, 20–30, 30–45, 45–58 Hz; 41 ch).
+  Projection learned leave-one-person-out on the other people's TRUE runs: session-centred features, 12 generalized
+  eigenvectors of between-run vs within-run scatter (within-run whitened). Run lengths prior from the other people.
+- **Detector:** per session, at window W of the delivery, ratio = mean distance of consecutive windows / mean distance of
+  all pairs among the first W (projected). Threshold chosen on the other people (balanced error, full vs contiguous).
+  Reported per scheme (recording, runs, within, full; seeds 0–11) at W 40/60/100/150, latched decision at W 40.
+- **Boundaries (contiguous):** online Bayesian change point (run-length posterior, hazard from the length prior,
+  conjugate Gaussian run means around the causal session mean); a window's label is fixed when it arrives (causal file
+  `bocpd`). Offline length-constrained DP segmentation as a non-causal reference only (`dpoff`, never a gate).
+- **Full shuffle:** online sequential mixture, at most 6 blocks, capacity-weighted, conjugate means (`mix`).
+- **Detector in the loop (`loop`):** before W 40 the BOCPD labels (fixed default); from W 40 BOCPD if the latched
+  detector says contiguous, else singletons (filter inert). Every order uses this one file.
+- **Prediction:** detector error ≤ 5 % at W 40 on every scheme; online purity ≥ 0.85 (ARI ≥ 0.75) within and runs;
+  mixture purity under full ≈ 0.5 (ARI ≈ 0.2). Count filter (runcount.py, τ 2) with `bocpd`/`loop` labels: +0.25 to
+  +0.5 on within and runs (half to two thirds of the true-run gain); `loop` under full −0.05 to +0.05; `mix` under full
+  −0.2 to +0.1.
+- **Kill (panel's rule, adopted):** below +0.3 on both contiguous schemes with inferred boundaries, or below −0.1 under
+  full with the detector in the loop. Between +0.0 and +0.3 on one contiguous scheme: undecided (noise ±0.3).
+- **Known limit, stated now:** with inferred groups runcount.py uses the 12/12/12 cap for every group (it cannot know
+  the 10/10/10 online design), so part of a gap to §215 is the cap, not the boundaries.
+
+### 219. TSEM'S SHRINKAGE TARGET = POPULATION WITHIN-CLASS COVARIANCE (written 14 Nov 07:16 UTC, before any result; panel BCI §2.2)
+- **Claim:** TSEM shrinks its seed covariance 0.7 towards scaled identity, so run offsets enter as isotropic noise. A target
+  that contains the population's within-class, within-session covariance (with the between-run offsets inside it) should
+  sharpen the templates under any order.
+- **Test:** `TSEM_TGT=β` (studies/14nov/stagehooks.py). Target = (1−β)·identity + β·Σ_pop, where Σ_pop comes from the
+  session-standardised pc128 of the other nine people, class-centred per session, scaled to the identity's trace. β 0.5
+  and 1. Six orders, v6f, new people. 256 components are not tested here: they would need a re-streamed pc256 view.
+- **Kill (panel):** below +0.3 with the person interval above 0; between 0 and +0.3, undecided.
