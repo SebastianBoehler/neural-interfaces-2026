@@ -5415,3 +5415,14 @@ labels) on every order, each file against its own v5.1b:
     result. Under full, the oracle's +0.87 is unreachable with this 6-direction view (mix +0.07, wide). Open forms with a
     measured ceiling: a better run view for full shuffle (the ceiling is the largest of the three); online runs' 10/10/10
     cap from an inferred run type. runcount.py's header still says "true run ids" when RUN_IDS is set (cosmetic).
+
+### 225. RUN OFFSETS WITH INFERRED LABELS (written 14 Nov 07:45 UTC, jobs started 2 min earlier, no result read)
+- §217 killed the count filter with inferred boundaries. Offsets may tolerate over-segmented but pure labels better than an
+  urn: a split run only shrinks each offset's estimate.
+- **Test:** shufcombo RUNOFF 5, both views, RUN_IDS = runs/runids/{loop60, bocpd}.npz (§217, causal; purity 0.92–0.96, 10–12
+  groups per session). Within 0/1, runs 0/1, against the regular files and the true-run oracle (§210: within +0.27 / +0.22,
+  runs −0.02 / +0.58).
+- **Prediction:** 50–80 % of the oracle on within (+0.12 to +0.20), about 0 on runs 0, +0.2 to +0.4 on runs 1.
+- **Rule:** a package form needs ≥ +0.3 mean over the four orders with inferred labels, with the detector routing it off
+  under full. Otherwise undecided or closed by the numbers.
+- runcount.py's header now says which labels the filter used (subagent caveat).

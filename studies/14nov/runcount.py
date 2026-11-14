@@ -50,7 +50,7 @@ def clustering(P):
     return np.var(rates) / (p * (1 - p) / n)
 
 
-print(f"RUNCOUNT (s215): TAU {TAU}, FLOOR {FLOOR}, true run ids; change against offsets off / filter off, new people"); SAVE = {}
+print(f"RUNCOUNT (s215): TAU {TAU}, FLOOR {FLOOR}, {'inferred run labels ' + os.path.basename(RUN_IDS) if RUN_IDS else 'true run ids'} for the filter (offsets as in the chainout files); change against offsets off / filter off, new people"); SAVE = {}
 for order in sys.argv[1:]:
     rk = rank(order); res = {}
     G = None
