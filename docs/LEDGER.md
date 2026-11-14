@@ -6894,7 +6894,7 @@ shipping one gives new people within +0.14, full +0.06, runs +0.25 (r15 raw, 20 
 larger gain from averaging over orders and bases (P04 up to +4) is mostly the orders, which a package cannot average.
 - **Stamp correction (§250 amendment):** its heading says 15:31 UTC; `date -u` at writing was 15:21 UTC (the nested run started then).
 
-### 247a/b. AMENDMENTS: TWO-SESSION ROUTED REFERENCE AND PACKAGE-FORM LATE FUSION (written 14 Nov 15:42 UTC, before any result; coordinator after §247)
+### 247a/b. AMENDMENTS: TWO-SESSION ROUTED REFERENCE AND PACKAGE-FORM LATE FUSION (written 14 Nov 15:24 UTC, before any result; coordinator after §247)
 **(a) The routed chain with sessions 1 + 2 public, tested on session 3** (`studies/14nov/strongpersonal/chain12.py`; pview
 chain.py's machinery imported, not edited). The replay cannot rebuild every member with session 2 in training without new
 Leonardo exports of all members (35 nets, 30 SessionBN nets, teacher, core1, Hilbert, eye and rest nets, their delivery-order
