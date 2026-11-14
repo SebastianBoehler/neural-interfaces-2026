@@ -15,9 +15,11 @@ C_LR, KZ = 0.05, 10
 
 
 class Ocular:
-    def __init__(self, rows):
+    def __init__(self, rows, F=None):
+        """F: (N, d) training features by global index (default GE48 as stored, recording-order event rates)."""
+        F = D.GE if F is None else F
         self.rows = np.asarray(rows); g = [self.rows[D.SESS[self.rows] == s] for s in dict.fromkeys(D.SESS[self.rows])]
-        self.prior = D.sess_stats(D.GE, g); X = D.ztrain(D.GE, g)[self.rows]
+        self.prior = D.sess_stats(F, g); X = D.ztrain(F, g)[self.rows]
         self.lr = LogisticRegression(C=C_LR, max_iter=3000).fit(X, D.Y[self.rows])
 
     def stream(self, F):
@@ -50,3 +52,23 @@ def em_prior(q, with_ocular):
         V.append(np.log(np.clip(P, 1e-3, 1)))
     V = np.concatenate(V, 1); V = (V - V.mean(0)) / np.maximum(V.std(0), 1e-3)
     return np.stack([V[D.Y[rows] == k].mean(0) for k in range(3)])
+
+
+# PV5 (coordinator): matched coordinates. Training and test columns come from one code path: the gaze columns
+# (session_em.gaze_features, stateless) and the event rates of runs/geshuf.npz (session_em.EventRates), the public
+# session streamed in the SAME delivery scheme and seed as the test session (key "<order>|all_loso").
+COLS = {"G48": np.arange(48), "G32": np.arange(32)}
+
+
+def matched_feats(order):
+    """-> (N, 48) gaze + event rates by global index, every session streamed in `order` (rec: recording order)."""
+    G = np.load(D.REPO + "/runs/geshuf.npz"); ev = G["rec"] if order == "rec" else G[f"{order}|all_loso"]
+    assert ev.shape == (D.N, 16) and np.isfinite(ev).all(); return np.c_[D.GE[:, :32], ev]
+
+
+def em_prior_masked(q, F, cols, d):
+    """class means (3, d) of F[:, cols] on the public rows (z-scored per session) and the mask (d,) of pulled columns;
+    columns outside `cols` (eye net, ...) get no prior."""
+    rows = public_rows(q); V = F[rows][:, cols]; V = (V - V.mean(0)) / np.maximum(V.std(0), 1e-3)
+    pm, mk = np.zeros((3, d)), np.zeros(d); pm[:, cols] = np.stack([V[D.Y[rows] == k].mean(0) for k in range(3)]); mk[cols] = 1
+    return pm, mk

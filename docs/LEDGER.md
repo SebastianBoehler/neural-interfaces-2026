@@ -6426,3 +6426,42 @@ s242 arms (ctl, stk1, stk2) on each draw, Leonardo CPU, SAVE_OUT s242<arm>d<DRAW
 Prediction: across the three draws, the spread (max - min) of the mean stk1 + filter - ctl over 20 orders is below 0.15,
 and stk1 + filter > ctl in every draw. Refutation: spread above 0.3 or a draw with stk1 + filter <= ctl -> the stack's
 number is draw-dependent and is reported with that range, not as a point.
+
+### PV5. OCULAR VIEWS AND THE SESSIONEM PRIOR WITH MATCHED COORDINATES (pview track; coordinator; written 14 Nov, before any result)
+**What actually ran in PV2 (checked in code and stores):**
+- **Test side** (seen_session, sessions 2/3): GE48 = gaze columns (stateless, `session_em.gaze_features`) + event rates
+  re-streamed in the delivery order (`runs/geshuf.npz` "<order>|seen_session", `session_em.EventRates`, global MAD
+  prior), put in by retv6's apply_members. Eye columns = `runs/ocushuf_ss/<order>/oc_nomix-seen_session-s*.npz`
+  (9 seeds; nets of the seen_session protocol, which trained on P04/P10 session 1; standardised in delivery order).
+- **Personal ocular model (O, M):** trained on session-1 GE48 from `inputs.npz` all_loso. Checked: identical to the
+  seen_session store on shared windows, and its event rates equal geshuf "rec" exactly. So the column definitions
+  matched (same code path) and only the stream order of the training session differed (recording vs shuffled).
+  Standardisation: training whole-session z; test causal prefix plus the training stats as 10 pseudo-windows.
+  **O and M were not scored with mismatched coordinates.**
+- **SessionEM prior (S, OST, W): mismatched.** Its eye columns came from `runs/ocunet/probs/oc_nomix-all_loso-s0..3`
+  (LOSO nets that never saw P04 or P10, 4 seeds, recording order). The session's eye columns come from the
+  seen_session nets above (which saw session 1). So two different nets fed the prior's means and the session's
+  features. GE48 columns matched as for O; the O columns of OST/W were cross-fitted LORO outputs (matched model,
+  different fit).
+**Re-run** (chain.py, same 16 orders, against ER):
+- **Columns, one code path:** gaze + event rates (geshuf) for training and test. The public session is streamed in
+  the same scheme and seed as the test (geshuf "<order>|all_loso"); the test's are asserted to be geshuf
+  "<order>|seen_session" and the gaze columns bit-equal.
+- **OG48 / OG32:** personal ocular LR on gaze + event rates, or on gaze only, as 3 SessionEM columns.
+- **SG48 / SG32:** SessionEM prior κ 20 on those columns only. The eye-net columns get no pull (per-column mask);
+  that is the mismatched part removed.
+- **Prediction:** OG48 ≈ O (−0.15 ± 0.15); OG32 −0.1. SG48 −1.0 (−1.8 to −0.3); SG32 −0.6. The mechanism I expect:
+  cross-session personal GE templates are near chance for P04 (PV1 42–45) and at κ 20 against SessionEM's
+  ≈ 7 windows per class at its start (window 20, early boost ×3) the prior sets the early templates.
+- **Rule:** as PV2. If SG is still ≤ −0.3, close the SessionEM prior with that mechanism. If it is positive, report it
+  per scheme with intervals.
+
+### PV6. THE TSEM PRIOR ON A WITHIN-SESSION PROXY FOR ALL TEN (pview track; written 14 Nov, before any result)
+`studies/14nov/pview/tproxy.py`. Each public session: the acquisition runs (one Graz, one BrainHero) play the public
+session (class means of their core1 PCs, offline labels). The online runs get the prior (κ 20, 40) in TSEM.
+- **Chain and scoring:** v5.1b's new-people tail (gm.pipe_g, members as recorded), orders rec, within 0–3, full 0/1,
+  runs 0/1, six bases. Scored on online runs only; acquisition rows asserted unchanged.
+- **Optimism:** the proxy has no between-session shift, so it is an upper bound for the real case.
+- **Prediction:** T20 +0.8 mean over ten (people > 0: 7/10), T40 +1.0.
+- **Reading:** if the proxy is ≤ +0.3 even in this optimistic setting, T has no case for the eight single-session
+  people.

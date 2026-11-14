@@ -20,7 +20,7 @@ R6 = {"__file__": F6, "__name__": "retv6_lib"}; exec(compile(HEAD, F6, "exec"), 
 K, S, A, SC, ns, Z, p, IDX = (R6[k] for k in ("K", "S", "A", "SC", "ns", "Z", "p", "IDX")); gm, R3 = A.gm, A.R3
 assert p == "seen_session" and R6["GATE_V51B"] and R6["RT_MEMBERS"]
 BASES = os.environ.get("BASES", "B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2").split(",")
-ORDERS = os.environ.get("ORDERS", "within0").split(","); ARMS = os.environ.get("ARMS", "base,ER,O,M,S,T,OST,W,H25,H33,H40,B20,B30").split(",")
+ORDERS = os.environ.get("ORDERS", "within0").split(","); ARMS = os.environ.get("ARMS", "base,ER,O,M,S,T,OST,W,H25,H33,H40,B20,B30").split(","); assert "ER" in ARMS, "ER is the reference arm"
 # PV3 (coordinator, s227): common, larger personal strengths. The package's routed head share at r = 1 is
 # g a / (1 - a + g a) with g = route_slot_g 3, a = w[0]: 1/15 in v5.1b (0.176), 1/16 with the rest member (0.167).
 # Hxx sets g so that the share is xx % at a = 1/16 (g = 15 s / (1 - s)); Bxx sets the own-space stage's beta (0.10 today).
@@ -36,7 +36,7 @@ HOOK = dict(M=0.0, S=0.0, T=0.0, scale=False, rowsP=None, POC=None)  # set per a
 
 
 class EMp(gm.EMg):  # gm.EMg with personal class means as kp pseudo-windows in mu (kp = 0: identical to EMg)
-    kp, pm = 0.0, None
+    kp, pm, mk = 0.0, None, None  # mk (d,): columns the prior pulls (None: all)
 
     def _adapt(self, A_, B, f, p_, t):
         if self.kp <= 0:
@@ -44,7 +44,8 @@ class EMp(gm.EMg):  # gm.EMg with personal class means as kp pseudo-windows in m
         m, sd = A_.mean(0), np.maximum(A_.std(0), D_SD)
         Zs, z = (A_ - m) / sd, (f - m) / sd; Q = B
         for _ in range(self.iters):
-            den = Q.sum(0) + self.m0 + self.kp; mu = (Q / den).T @ Zs + self.kp * self.pm / den[:, None]
+            mk = np.ones(Zs.shape[1]) if self.mk is None else self.mk
+            mu = (Q.T @ Zs + self.kp * mk * self.pm) / (Q.sum(0)[:, None] + self.m0 + self.kp * mk)  # = (Q/den).T @ Zs + kp pm / den when mk = 1
             C = np.cov((Zs - Q @ mu).T); C = (1 - self.shrink) * C + self.shrink * np.eye(len(C)) * np.trace(C) / len(C)
             Ci = np.linalg.inv(C); Q = B * gm.SE._softmax_lda(Zs, mu, Ci) ** self.lam; Q = Q / Q.sum(1, keepdims=True)
         e = self.lam * t / (t + self.n0) * (1 + self.bem * (gm.M.h(t, 30) * self.g))
@@ -55,11 +56,11 @@ D_SD = gm.SE.SD_FLOOR; _em0, _pipe0, _slot0 = gm.em_g, gm.pipe_g, R3.slot_mix
 
 
 def em_hook(b, proto, g, bem=gm.BEM, nmin=gm.NMIN):  # = gm.em_g with per-row prior (routed rows only)
-    F, sess = Z[f"GE|{proto}"], Z[f"sess|{proto}"]; out = np.empty_like(b); kp, pm = HOOK["emkp"], HOOK["empm"]
+    F, sess = Z[f"GE|{proto}"], Z[f"sess|{proto}"]; out = np.empty_like(b); kp, pm, mk = HOOK["emkp"], HOOK["empm"], HOOK.get("emmk")
     for s in dict.fromkeys(sess):
         e = EMp(bem, lam=0.5, n0=60, m0=20, shrink=0.7, nmin=nmin)
         for r in np.flatnonzero(sess == s):
-            e.g, e.kp, e.pm = g[r], kp[r], pm[r]; out[r] = e.step(F[r], b[r])
+            e.g, e.kp, e.pm, e.mk = g[r], kp[r], pm[r], None if mk is None else mk[r]; out[r] = e.step(F[r], b[r])
     return out
 
 
@@ -133,11 +134,14 @@ def routed_rows(proto):
 
 
 def set_em_prior(proto, with_o):
-    n = len(Z[f"sess|{proto}"]); d = Z[f"GE|{proto}"].shape[1]; kp, pm = np.zeros(n), np.zeros((n, 3, d))
+    n = len(Z[f"sess|{proto}"]); d = Z[f"GE|{proto}"].shape[1]; kp, pm, mk = np.zeros(n), np.zeros((n, 3, d)), np.ones((n, d))
     for rows, r, q in routed_rows(proto).values():
-        assert EMP[q, with_o].shape[1] == d, (EMP[q, with_o].shape, d)
-        kp[rows] = HOOK["S"] * r * (STR[q][0] if HOOK["scale"] else 1.0); pm[rows] = EMP[q, with_o]
-    HOOK["emkp"], HOOK["empm"] = kp, pm
+        if with_o in COLS:  # PV5: matched-coordinate prior on the gaze (+ event-rate) columns only
+            pm_, mk_ = EMPM[q, with_o]; assert pm_.shape[1] == d, (pm_.shape, d); mk[rows] = mk_
+        else:
+            pm_ = EMP[q, with_o]; assert pm_.shape[1] == d, (pm_.shape, d)
+        kp[rows] = HOOK["S"] * r * (STR[q][0] if HOOK["scale"] else 1.0); pm[rows] = pm_
+    HOOK["emkp"], HOOK["empm"], HOOK["emmk"] = kp, pm, mk
 
 
 def system(bn, arm, Pp, oof, inp, POC):
@@ -146,12 +150,16 @@ def system(bn, arm, Pp, oof, inp, POC):
     if arm in HSH or arm == "TH25":
         R3.G3 = 15 * HSH[arm[-3:]] / (1 - HSH[arm[-3:]])
     K.BETA = BOWN.get(arm, 0.10)
-    o, w = arm in ("O", "OST", "W"), arm == "W"
-    HOOK.update(M={"M": WM, "W": 1.0}.get(arm, 0.0), S=KAP if arm in ("S", "OST", "W") else 0.0, scale=w, POC=POC)
+    o, w = arm in ("O", "OST", "W") or arm.startswith("OG"), arm == "W"
+    if arm.startswith(("OG", "SG")):  # PV5: matched coordinates; POC is the dict of matched personal streams then
+        POC = POC[arm[1:]] if arm.startswith("OG") else None; o = arm[1:] if arm.startswith("SG") else True
+    elif isinstance(POC, dict):
+        POC = POC["orig"]
+    HOOK.update(M={"M": WM, "W": 1.0}.get(arm, 0.0), S=KAP if arm in ("S", "OST", "W") or arm.startswith("SG") else 0.0, scale=w, POC=POC)
     ns["KAPPA"] = KAP if arm in ("T", "OST", "W", "TH25") else float(arm[1:]) if arm in ("T10", "T40") else 0.0  # PV4: T10, T40, TH25
     extra = [] if arm == "base" else [("rt_rest", 1.0)]
     if arm != "base":
-        A.EXTRA["rt_rest"] = {p: rest[Pp]}; Z[f"GE|{p}"] = np.c_[(ge0, ocu[Pp]) + ((np.log(np.clip(POC[IDX[Pp]], 1e-3, 1)),) if o else ())]
+        A.EXTRA["rt_rest"] = {p: rest[Pp]}; Z[f"GE|{p}"] = np.c_[(ge0, ocu[Pp]) + ((np.log(np.clip(POC[IDX[Pp]], 1e-3, 1)),) if o is True else ())]
     try:
         A.RR.FOLDS = {p: folds0[p]}; K.REC.clear()
         mix, a = A.mix(bn, p, fams, extra)
@@ -182,6 +190,25 @@ def system(bn, arm, Pp, oof, inp, POC):
     return out, rr
 
 
+EMPM = {}
+
+
+def matched(order, Pp, POC):
+    """PV5: personal ocular models and SessionEM priors on columns computed by one code path for both sides."""
+    Fm = PS.matched_feats(order); gi = IDX[Pp]; GEt = Z[f"GE|{p}"]
+    assert GEt.shape[1] == 48 and np.array_equal(GEt[:, :32], Fm[gi, :32]), "gaze columns differ between training and test"
+    ts = np.load(D.REPO + "/runs/geshuf.npz")[f"{order}|seen_session"]
+    assert np.array_equal(GEt[:, 32:48], ts[gi]), "test event rates are not geshuf's delivery-order stream (same code path as training)"
+    for c, cols in PS.COLS.items():
+        P_ = np.full((D.N, 3), np.nan); ss = Z[f"sess|{p}"]
+        for q in SEEN:
+            m = PS.Ocular(PS.public_rows(q), Fm[:, cols]); EMPM[q, c] = PS.em_prior_masked(q, Fm, cols, 51)
+            for s_ in dict.fromkeys(ss[D.PER[gi] == q]):
+                r = np.flatnonzero(ss == s_); P_[gi[r]] = m.stream(GEt[r][:, cols])
+        POC["G" + c[1:]] = P_
+        print(f"  {order} matched {c}: personal ocular alone P04 {D.ba(gi[D.PER[gi] == 'P04'], P_[gi[D.PER[gi] == 'P04']].argmax(1)):.1f} P10 {D.ba(gi[D.PER[gi] == 'P10'], P_[gi[D.PER[gi] == 'P10']].argmax(1)):.1f}", flush=True)
+
+
 def main():
     t0 = time.time(); OOF = {bn: R6["oof_rec"](bn) for bn in BASES}; RES = {}
     for order in ORDERS:
@@ -189,10 +216,12 @@ def main():
         for c in (ns["_BIO"], A._H, K.STREAMS, K.REC):
             c.clear()
         S.apply(P); K.RANK["cur"] = {q: K._rank(K.IDX[q][P[q]]) for q in K.PR}
-        R6["apply_members"](R6["member_deltas"](order), Pp); POC = personal_streams(Pp)
+        R6["apply_members"](R6["member_deltas"](order), Pp); POC = {"orig": personal_streams(Pp)}
+        if any(a.startswith(("OG", "SG")) for a in ARMS):
+            matched(order, Pp, POC)
         y = Z[f"y|{p}"].astype(int); gi = IDX[Pp]
-        print(f"{order}: personal ocular alone (delivery order, causal) P04 {D.ba(gi[D.PER[gi] == 'P04'], POC[gi[D.PER[gi] == 'P04']].argmax(1)):.1f} "
-              f"P10 {D.ba(gi[D.PER[gi] == 'P10'], POC[gi[D.PER[gi] == 'P10']].argmax(1)):.1f}; acc {np.mean(POC[gi].argmax(1) == y):.3f}", flush=True)
+        print(f"{order}: personal ocular alone (delivery order, causal) P04 {D.ba(gi[D.PER[gi] == 'P04'], POC['orig'][gi[D.PER[gi] == 'P04']].argmax(1)):.1f} "
+              f"P10 {D.ba(gi[D.PER[gi] == 'P10'], POC['orig'][gi[D.PER[gi] == 'P10']].argmax(1)):.1f}; acc {np.mean(POC['orig'][gi].argmax(1) == y):.3f}", flush=True)
         REF = np.load(f"{D.REPO}/runs/retv6/p0_g1_s15_QF_seen_session_{order}.npz") if os.path.exists(f"{D.REPO}/runs/retv6/p0_g1_s15_QF_seen_session_{order}.npz") else None
         for bn in BASES:
             outs, rrs = {}, {}
@@ -204,13 +233,13 @@ def main():
                 for (rows, r, q), (rows_e, r_e, _) in zip(rrs[arm].values(), rrs["ER"].values()):
                     assert np.array_equal(rows, rows_e) and np.array_equal(r, r_e), f"{arm}: routing differs from ER's"
                     pre = rows[:int(np.flatnonzero(r > 0)[0])]  # before the first routed window (gi is in delivery order)
-                    if arm not in ("O", "OST", "W"):
+                    if arm not in ("O", "OST", "W") and not arm.startswith("OG"):
                         assert np.allclose(outs[arm][pre], outs["ER"][pre], atol=1e-12), f"{arm} leaks into rows the gate has not routed"
                     outs[arm][pre] = outs["ER"][pre]
             for arm in ARMS:
                 RES[order, bn, arm] = SC.person(outs[arm], p)
             if REF is not None:
-                for arm in ("base", "ER"):
+                for arm in [a for a in ("base", "ER") if a in ARMS]:  # both checked against s214 when run
                     ref = REF[f"{order}|{bn}|{arm}"]; assert np.allclose(RES[order, bn, arm], ref, atol=1e-6), f"{order} {bn} {arm}: {RES[order, bn, arm]} != s214 {ref}"
             b = RES[order, bn, "ER"]
             print(f"  {order} {bn}: ER P04 {b[0]:.2f} P10 {b[1]:.2f}{' (= s214)' if REF is not None else ' (no s214 reference)'} | "
