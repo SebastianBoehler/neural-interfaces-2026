@@ -47,7 +47,7 @@ def main():
             filt = lambda Q: K.gate(Q, K.J.filt_joint(Q, hc, "urn"), order, lat)  # noqa: E731
             S["cand_raw"].append(sc(P)); S["cand"].append(sc(filt(P)))
             if order == "within0" and bn == bases[0]:  # W = 0 is the chain
-                P0 = fuse(P, net["A|within0"], late, 0.0); assert np.abs(P0 - P).max() < 1e-12 and np.abs(sc(filt(P0)) - sc(filt(P))).max() < 1e-12; chk.append("w0 ok")
+                P0 = fuse(P, net["A|within0"], late, 0.0); assert np.abs(P0 - P).max() < 1e-6 and np.abs(sc(filt(P0)) - sc(filt(P))).max() < 1e-6, (np.abs(P0 - P).max(), np.abs(sc(filt(P0)) - sc(filt(P))).max()); chk.append("w0 ok")  # float32-derived rows renormalise to ~1e-7
             for a in "AB":
                 Q = np.full((K.C.N, 3), 1 / 3); Q[K.ROWS] = net[f"{a}|{order}"]; Fq = fuse(P, Q, late, W)
                 S[a + "_raw"].append(sc(Fq)); S[a].append(sc(filt(Fq)))
