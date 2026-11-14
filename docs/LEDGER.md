@@ -4956,3 +4956,8 @@ image's torch is 2.14.1+cu130 ("NVIDIA driver too old", 64443706).
   64443846/47).
 - GPU runs of the image need Galvani (v52-build's 3100010 / 3100013, readable after the user's 2FA).
 - Morning table: side-session notes `morning_table_14nov.md`.
+- **§207 stage 2b (05:05 UTC):** the correlation form at λ = 0.1. Held-out component accuracy: c1 −0.77, eye −1.18, s10 −1.30,
+  s5 −0.62 points. Chain: c1 −0.25, eye −0.07, s10 −0.08, s5 −0.12. **Final-layer edits lose in both objectives on every
+  component tried: the product of leverage and reachable points is negative.**
+- Rest-net filter gains: the smoke found the final convolution slides over time (26 steps, then reduced). restblocks.py
+  now decomposes per filter and per time step and checks which linear reduction reproduces the net. Smoke 2: 64443913.
