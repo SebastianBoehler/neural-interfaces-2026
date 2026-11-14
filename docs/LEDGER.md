@@ -6351,3 +6351,8 @@ The gap is concentrated in full orders (+5.4) and in three people (P01, P05, P07
 **241, exception (14 Nov 12:18 UTC, before any 2a result; coordinator):** the gate miss of 0.04 is inside its noise and 2a costs
 about 10 CPU minutes, so 2a runs anyway as a stated exception: W1 (w = 1 - p_rest, primary) and W3 on all six orders,
 judged by the pre-registered kill rule (mean below +0.3 or people up < 7/10 -> not adopted; inside ±0.3 undecided).
+§242 amendment (14 Nov 12:18 UTC, before any s242 result): §235 kept the shipped stage constants (no knob reached +0.3; every
+non-shipped EM_LAM / TS_LAM / BTS / REST_W value at or below zero), so stk2 changes no constant. Instead stk2 = stk1 plus two
+extra copies of the eye view (eye weight 3, §235's only positive, +0.09: full +0.16, runs +0.12, within -0.02), via one
+EXTRA_VIEW per order built inside the job (studies/14nov/stack/stk2view.py). Prediction: stk2 - stk1 +0.05 (inside noise;
+reported, not used to choose unless positive in every scheme). Also: EYEW other than 0/1 now fails loudly (671465b).
