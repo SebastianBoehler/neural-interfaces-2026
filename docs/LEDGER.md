@@ -5386,3 +5386,12 @@ labels) on every order, each file against its own v5.1b:
 - **Reading:** v6.2hL takes the best of both: v6.2's within gain (the s15 form) without its full-scheme P10 loss (the label
   change). The prediction (within +0.15 over v6f, level under full) held: +0.17 and −0.01.
 - Returning rows are identical across the routed variants (ERF), still the uncorrected ones until §214 lands.
+
+### 224. cum10 ON PACKAGE LABELS (written 14 Nov 07:40 UTC, before any result; coordinator: content the run-time work would unlock)
+- **What:** ttt18 FORMS=cum10 (warm start: each refit continues from the last, 10 steps) on chain_v51b labels, tag LF.
+  Within 0/1, full 0/1, runs 0/1; Leonardo 64451354–365, scoring chained (shufcombo FT_V=cum10, FT_TAG=ttt18<order>LF).
+- **Read:** cum10 against s15 on the same labels (both tag LF, same machine), new people, per scheme.
+- **Prediction:** cum10 − s15 between −0.2 and +0.3 (no earlier package-form measurement).
+- **Rule:** ≥ +0.3 mean with ≥ 4/6 orders up goes to a run-time check (its cost was ×2.4 in the 13 Nov timing).
+- **Also queued on Leonardo (07:42 UTC):** copies of Galvani's pending §214 eye re-streams (full 1–3, runs 0–3: 64451330–345,
+  first copy wins), and §221's six arrays (64451216–221). All become readable once the certificate is renewed.
