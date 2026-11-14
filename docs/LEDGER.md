@@ -6849,7 +6849,7 @@ one-day test for the full scheme.
 - **Prediction (if scored):** full FP − raw +0.25 (−0.1 to +0.6); within / runs GFP − latchJ −0.05 (−0.15 to +0.05).
 - **Pass rule (coordinator):** GFP − latchJ >= +0.5 under full 0-3 AND >= 0 under within 0-3 and runs 0-3 (V6Fr, means over
   orders), with 80 % person intervals reported. Code studies/14nov/fingerprint/, outputs evidence/fingerprint_14nov/.
-**§247 RESULT (14 Nov 15:25 UTC; runs/strongpersonal/ceil.txt, ceil2.txt, scheme.txt; code studies/14nov/strongpersonal/).**
+**§247 RESULT (14 Nov 15:21 UTC; runs/strongpersonal/ceil.txt, ceil2.txt, scheme.txt; code studies/14nov/strongpersonal/).**
 Routed reference (ER of §245, 16 orders x 6 bases, scheme means): P04 s2 67.85 / s3 73.37, P10 s2 89.48 / s3 90.93
 (T: 69.40 / 73.63, 89.15 / 91.44). Protocol A nets: pft12.py (s29's PFT code imported, base nets trained on all public rows
 except q's session 3, fine-tuned on sessions 1 + 2; Leonardo 64473497, 15 tasks, smoke 64473434 first). Personal members alone
