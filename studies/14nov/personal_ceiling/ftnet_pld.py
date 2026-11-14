@@ -5,7 +5,7 @@ the session's windows in delivery order (chain.npz pos), EA-aligned CAUSALLY (wi
 fine-tuned 200 steps on the first TCUT windows with the r15 filt pseudo-labels (soft weight = max posterior), predictions for the
 windows from TCUT on. Output runs/personal_ceiling_v2/ftd_<family>_s<seed>.npz: 'D|<session>|<order>|idx' (recording rows), '|p'.
 Usage: python ftnet_pld.py v3|v2 TASK | smoke"""
-import sys, time
+import os, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np  # noqa: E402
@@ -15,11 +15,12 @@ import splits as S  # noqa: E402
 from classic_pl import FORMS, labels  # noqa: E402
 from ftnet_pl import GROUPS  # noqa: E402
 
+SUF = os.environ.get("S265_SUF", "")  # "_leo": the Leonardo copies write to runs/personal_ceiling_v{2,3}_leo
 D_ORDERS = ("within0", "within1", "full0", "full1", "runs0", "runs1"); TCUT = 120
 
 
 def run_v3(arch, seed, group, smoke=False):
-    out = S.REPO / "runs/personal_ceiling_v3" / ("smoke" if smoke else ""); f = out / f"ftpl_{arch}_s{seed}_g{group}.npz"
+    out = S.REPO / f"runs/personal_ceiling_v3{SUF}" / ("smoke" if smoke else ""); f = out / f"ftpl_{arch}_s{seed}_g{group}.npz"
     if f.exists():
         return print("exists", f, flush=True)
     d = FN.protocol.load(); m0 = S.meta(); PL = np.load(S.OUT / "plabels_r15.npz"); res = {}; t0 = time.time()
@@ -45,7 +46,7 @@ def run_v3(arch, seed, group, smoke=False):
 
 
 def run_v2(arch, seed, smoke=False):
-    out = S.REPO / "runs/personal_ceiling_v2" / ("smoke" if smoke else ""); f = out / f"ftd_{arch}_s{seed}.npz"
+    out = S.REPO / f"runs/personal_ceiling_v2{SUF}" / ("smoke" if smoke else ""); f = out / f"ftd_{arch}_s{seed}.npz"
     if f.exists():
         return print("exists", f, flush=True)
     d = FN.protocol.load(); m0 = S.meta(); PL = np.load(S.OUT / "plabels_r15.npz"); CH = np.load(S.REPO / "runs/causalpers/chain.npz"); res = {}; t0 = time.time()
