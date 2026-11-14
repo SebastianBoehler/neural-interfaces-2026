@@ -1,0 +1,20 @@
+GPU 0: NVIDIA GeForce RTX 2080 Ti (UUID: GPU-0e1ec805-760b-744b-d94f-cb48c98b4a84)
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+{"device": "cuda", "gpu": "NVIDIA GeForce RTX 2080 Ti", "session": "concat:Dreyer2026Proteus/P01|1,Dreyer2026Proteus/P02|1,Dreyer2026Proteus/P03|1,Dreyer2026Proteus/P06|1,Dreyer2026Proteus/P07|1,Dreyer2026Proteus/P10|1", "n_steps": 5, "members": 4, "t0": 20, "every": 10}
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1794: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1104.)
+  return forward_call(*args, **kwargs)
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+USDT:2026-11-14 21:54:25 2815290:2815290 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-14 21:54:26 2815290:2815290 SyncActivityProfilerHandler.cpp:46] profiler_stop
+{"prefix": 190, "wall_ms_median": 1284.85999815166, "wall_ms_all": [1283.555286936462, 1284.85999815166, 1284.8619488067925], "stages_ms": {"staging": 29.4, "clean_fwd": 325.6, "strong_aug": 9.9, "aug_fwd": 321.7, "bwd_adam": 518.6, "final_streambn": 64.2, "dtheta": 1.8}, "fir_ms_vs_full_fwd_ms": [9.179499931633472, 17.709705978631973], "X_equal_across_members": false, "strong_equal_across_members_same_seed": false, "top12": [["forward", 517, 1631.2], ["aten::convolution_backward", 30, 215.8], ["aten::mul", 1570, 201.5], ["autograd::engine::evaluate_function: ConvolutionBackward1", 25, 193.3], ["ConvolutionBackward1", 25, 193.3], ["aten::_convolution", 66, 172.7], ["aten::_conv_depthwise2d", 44, 146.4], ["void at::native::(anonymous namespace)::conv_depthwise2d_for", 33, 146.4], ["void at::native::(anonymous namespace)::conv_depthwise2d_bac", 5, 129.9], ["autograd::engine::evaluate_function: MulBackward0", 130, 119.9], ["void at::native::vectorized_elementwise_kernel<4, at::native", 275, 109.7], ["aten::fft_irfft", 297, 107.1]]}
+[v6] windows 190 v6 190 recognised_at -1 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+USDT:2026-11-14 21:55:28 2815290:2815290 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-14 21:55:30 2815290:2815290 SyncActivityProfilerHandler.cpp:46] profiler_stop
+{"prefix": 378, "wall_ms_median": 2535.4416579939425, "wall_ms_all": [2533.4027078934014, 2535.4416579939425, 2543.582623358816], "stages_ms": {"staging": 60.0, "clean_fwd": 625.4, "strong_aug": 16.8, "aug_fwd": 620.8, "bwd_adam": 1072.8, "final_streambn": 124.5, "dtheta": 2.3}, "fir_ms_vs_full_fwd_ms": [17.157761845737696, 34.245952032506466], "X_equal_across_members": false, "strong_equal_across_members_same_seed": false, "top12": [["forward", 517, 3242.4], ["aten::convolution_backward", 30, 486.9], ["autograd::engine::evaluate_function: ConvolutionBackward1", 25, 442.3], ["ConvolutionBackward1", 25, 442.3], ["aten::mul", 1570, 398.4], ["aten::_convolution", 66, 352.9], ["aten::_conv_depthwise2d", 44, 300.0], ["void at::native::(anonymous namespace)::conv_depthwise2d_for", 33, 300.0], ["void at::native::(anonymous namespace)::conv_depthwise2d_bac", 5, 268.7], ["autograd::engine::evaluate_function: MulBackward0", 130, 237.8], ["void at::native::vectorized_elementwise_kernel<4, at::native", 275, 218.1], ["aten::fft_irfft", 297, 212.1]]}
+[v6] windows 378 v6 378 recognised_at -1 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 378 routed 0 degenerate 0 staged 0 errors 0

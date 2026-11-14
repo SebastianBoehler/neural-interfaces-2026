@@ -7789,3 +7789,13 @@ weights stay (recorded). If (a) recognises < 5 of 8, the gate's recall becomes t
 - *Identifiability, stated before the result.* Own-session top scores sit far above tau + ramp = 0.31 (smoke: min 0.31, median 0.57), so on this proxy tau and ramp move r only at the corners of the grid, and the proxy contains no false-route cost. A non-shipped tau / ramp pick is therefore not evidence for the gate constants; if the nested picks move them, I additionally report the primary with tau / ramp held at shipped, and the false-route windows of gate266 at the picked tau / ramp against the shipped ones.
 - *P04 / P10 check.* seen_session, 16 orders x 6 bases, `chain.py`'s machinery (new generic arm X<G3>_<beta>_<kappa> next to the T arm, which is shipped v6.5); P04 and P10 each get their own nested pick (made on the other nine of the ten proxy people); pass = mean of (pick minus T) over P04 and P10 >= -0.3, each person also reported. If a pick moves tau / ramp, the gate is run with that tau / ramp (env hook in route4, default unchanged).
 - *Transfer line (unchanged):* sealed gain = proxy gain x 0.64 x recall (a) x 0.434 x 0.41-0.7; recall (a) = the share of the eight recognised in all streams.
+
+**§262 STAGE-0 RESULT (14 Nov 22:50 CET; evidence/v66_14nov/rprof-3103933.out; studies/14nov/refit_profile.py, scripts/cloud/rprof.sbatch; RTX 2080 Ti, v6.5b code, prefix = dev stream order concatenated, labels/weights are model outputs on it).**
+One refit (4 members x 5 steps): t=190 1285 ms, t=378 2535 ms (spread < 0.2 %); per window 6.6 ms, fixed part ~0 here (the ledger's 0.35 s
+did not show up; it is a first-refit/process warm-up). Shares at t=190: clean forward 25 %, augmented forward 25 %, backward + Adam 40 %,
+final state pass 5 %, staging 2 %, dtheta 0.1 %. FIR (spectral_filtering) is ~50 % of a forward (9.2 of 17.7 ms per member at 190).
+Members' X differ and strong() draws differ across members: form (d) dropped on its stated condition.
+**Prediction refuted:** clean forwards + final pass + staging + dtheta are 32 % of refit time, not >= 50 %. Ceiling of the identity-preserving
+forms: caching the clean-path FIR saves ~half of (25 + 5) % = ~15 %, staging 2 %, dtheta 0.1 %: about 1.2x (below the 1.4x
+bar of the refutation rule) -> (a)+(b)+(c) alone cannot reach 2-4 sealed minutes. 65 % of the time is the augmented forward + backward
+(conv backward, depthwise conv, 1570 small elementwise calls: launch-heavy), which only arithmetic-changing forms touch.
