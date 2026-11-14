@@ -7275,3 +7275,34 @@ the anchor scaled at the personal strength, penalty ||w − a w_pop||² / 2(0.1)
 (a 0 = pers), and Ea = mean(La, D1, D2) on the joint (a, k) grid, nested the same way, all four label forms. Prediction: the La
 curve is flat to falling from a 0 (the anchor carries little: <= +0.2 for the nested pick over a 0, true and chain labels),
 so anchoring to a classic population solution cannot rescue the self-labelled factor here; Ea nested within ±0.3 of E nested.
+**§255 RESULT (14 Nov 17:24 UTC; evidence/tttssl_14nov/{score.txt,diag.log}; Galvani array 3102597, 18 tasks, all EXIT 0;
+base-vs-harness max diff <= 2.2e-16 on every fold; replay/check.py OK).** New people, FBLight, 6 seeds. Net alone, change vs
+the same net's na [80 % people x seeds] people up:
+
+| arm | C (SimCLR) | P (mirror) |
+|---|---|---|
+| na vs twin na (57.88) | **-3.07** [-5.18, -0.90] 2/10 | -0.54 [-1.10, +0.03] 4/10 |
+| sA10 | +0.55 [+0.09, +1.05] 8/10 | -0.79 2/10 |
+| **sA40 (primary)** | **-0.18** [-1.05, +0.62] 3/10 | **-2.17** [-3.08, -1.28] 2/10 |
+| sA100 | -1.39 3/10 | -3.17 2/10 |
+| sB40 (SessionBN affine only) | +1.19 [+0.66, +1.77] 9/10 (hindsight best; still 1.9 below twin na) | -0.12 2/10 |
+| pl40 / spl40 (in-sample distillation) | +23.8 / +14.4 | +22.2 / +21.4 |
+
+Twin: pl40 +22.1, tent40 -21.1 (collapse to one class at 5e-3).
+- **Fusion with the r15 chain, w 0.5 (12 orders x 6 bases), SSL arm vs its na:** C sA40 +0.16 [+0.03, +0.28], sA10 +0.09,
+  sB40 0.00; P sA40 +0.25 [+0.01, +0.51], sB40 0.00. Every un-adapted net fused is below the chain alone (C na -0.56, P na
+  -1.00, twin na -1.36 at w 0.5; -0.10 to -0.22 at w 0.25). The pl arms fuse to +2.3 to +2.7 over the chain, but that is not a
+  pseudo-label TTT ceiling: the labels are the six-base mean of the chain in order within0 over the whole session, so fusing
+  them adds a base and order ensemble of the chain itself (smallest on within, +1.1 to +1.3, the order the labels came from).
+- **Diagnostics.** Held-out mirror accuracy before adaptation 0.90 (55 of 84 sessions > 0.95): the pretext is trivially solved
+  on new people (left-right montage asymmetry, not task structure), so it carries no session signal. The contrastive loss
+  falls 1.47 -> 0.44 in 40 steps on one session: the encoder fits the views and the fixed classifier drifts.
+- **Against the predictions:** joint na vs twin: C -3.1 missed low (-0.3 predicted), P -0.5 hit. Primary sA40: C -0.18 inside
+  the range (-1 to +2), P -2.17 missed low. Best SSL arm below +2: hit. sB40 within 0.5 of sA40: missed (C +1.19 vs -0.18).
+  Twin pl40 alone +4 missed high (+22, in-sample distillation of a 78 % chain); tent40 +0.5 missed (collapse). Fusion SSL
+  +0.1: hit (+0.16 / +0.25). Mirror accuracy 60-75 %: missed high (0.90).
+- **Verdict by the kill rule:** primary sA40 net alone -0.18 (C) / -2.17 (P), < +1 for both -> **no causal form.** Label-free
+  TTT of this encoder (joint SimCLR or mirror pretext, FBLight) does not reach the in-session headroom in this form; recorded,
+  not closed. The only positive is C sB40 (+1.19 alone, 9/10, hindsight), which recovers a third of the joint head's -3.1 cost
+  and is flat in the chain (0.00). Forms not run: a reconstruction aux task (masked channel / masked time) that cannot be
+  solved trivially, larger trunks (sinc, fbraw), an aux weight below 0.5 so that joint training costs nothing.
