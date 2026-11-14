@@ -4947,3 +4947,12 @@ Edit z' = t(I+B)z + c on a component's logits, fitted per held-out person on the
     every lever component and on the shuffled chain.
 - In-net edits (core1 block gains, rest-net filter gains) are running; they are a different family (per-block and
   per-filter directions, not one 3×3 map).
+
+**§202 outcome (14 Nov 04:55 UTC).** The worker image cannot use Leonardo's GPUs. Leonardo's driver is CUDA 12.2 and the
+image's torch is 2.14.1+cu130 ("NVIDIA driver too old", 64443706).
+- The first attempt (64432181, 01:50) failed on a missing .md5 file (the chunk upload did not include it), and the Leonardo
+  waiter did not report it. Three hours were lost.
+- The job script now has DEVICE=cpu. The image's software is checked on CPU on the exact ZIPs (64443845, then the FT path
+  64443846/47).
+- GPU runs of the image need Galvani (v52-build's 3100010 / 3100013, readable after the user's 2FA).
+- Morning table: side-session notes `morning_table_14nov.md`.

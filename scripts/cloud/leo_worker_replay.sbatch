@@ -14,6 +14,8 @@
 # V6TIME="P5 P6 [--gates-on];...": afterwards, studies/13nov/v6_time.py inside the image for each spec (the FT path, which
 # replays never reach because their sessions are recognised at window 10).
 # A CUDA error fails the job and names the node; resubmit with sbatch --exclude=NODE. SMOKE=1: image check only.
+# DEVICE=cpu: the image's software on CPU only. Leonardo's driver (CUDA 12.2) is too old for the image's torch (cu130), so
+# there the image cannot use the GPU (14 Nov 04:53); GPU runs of the image need Galvani.
 # Usage: [V6TIME=...] sbatch [--exclude=NODE] scripts/cloud/leo_worker_replay.sbatch v51b_uploaded.zip ZIP ... v51b_uploaded.zip
 set -euo pipefail
 cd "$SLURM_SUBMIT_DIR"; unset PYTHONPATH
@@ -25,7 +27,9 @@ fi
 nvidia-smi --query-gpu=name,driver_version --format=csv; hostname; date -u
 RUN=(singularity exec --nv --bind "$PWD" --env "BENCHOPT_DATA_HOME=$PWD/data" "$SIF")
 "${RUN[@]}" cat /compet/pip_freeze.txt | grep -iE "^(torch|braindecode|numpy|scipy|benchopt|neural|exca|mne)"
-"${RUN[@]}" python -c 'import torch; assert torch.cuda.is_available(), "no CUDA in the image"; print("cuda", torch.__version__, torch.cuda.get_device_name(0))'
+DEV=${DEVICE:-cuda}
+if [ "$DEV" = cuda ]; then "${RUN[@]}" python -c 'import torch; assert torch.cuda.is_available(), "no CUDA in the image"; print("cuda", torch.__version__, torch.cuda.get_device_name(0))'
+else "${RUN[@]}" python -c 'import torch, braindecode; print("CPU only:", torch.__version__, "braindecode", braindecode.__version__)'; fi
 [ "${SMOKE:-0}" = 1 ] && { echo SMOKE_OK; exit 0; }
 [ $# -ge 1 ] || [ -n "${V6TIME:-}" ] || { echo "nothing to run"; exit 2; }
 for Z in "$@"; do  # all hashes first, so a stale or truncated ZIP fails before any GPU time is spent
@@ -38,12 +42,12 @@ i=0
 for Z in "$@"; do
   i=$((i + 1)); OUT="${Z%.zip}_wrkleo_${SLURM_JOB_ID}_$i"
   echo "== $Z sha256 $(sha256sum "$Z" | cut -c1-12)"
-  "${RUN[@]}" bash -c "cd '$PWD' && python scripts/replay_package.py '$Z' '$OUT' cuda" 2>&1 | tee "runs/diag/wrkleo_$SLURM_JOB_ID.log" || { cuda_fail "runs/diag/wrkleo_$SLURM_JOB_ID.log"; exit 1; }
+  "${RUN[@]}" bash -c "cd '$PWD' && python scripts/replay_package.py '$Z' '$OUT' $DEV" 2>&1 | tee "runs/diag/wrkleo_$SLURM_JOB_ID.log" || { cuda_fail "runs/diag/wrkleo_$SLURM_JOB_ID.log"; exit 1; }
   python3 -c "import json; r=json.load(open('$OUT/replay.json')); print('$Z', r['files_unchanged'], r['scores']['balanced_accuracy_cell_mean'], r['zip_sha256'][:12], r['ingestion_wall_seconds'], 's')"
 done
 IFS=';' read -ra SPECS <<< "${V6TIME:-}"
 for spec in "${SPECS[@]}"; do
   echo "== v6_time $spec"
-  "${RUN[@]}" bash -c "cd '$PWD' && python -I studies/13nov/v6_time.py cuda $spec" 2>&1 | tee "runs/diag/wrkleo_$SLURM_JOB_ID.log" || { cuda_fail "runs/diag/wrkleo_$SLURM_JOB_ID.log"; exit 1; }
+  "${RUN[@]}" bash -c "cd '$PWD' && python -I studies/13nov/v6_time.py $DEV $spec" 2>&1 | tee "runs/diag/wrkleo_$SLURM_JOB_ID.log" || { cuda_fail "runs/diag/wrkleo_$SLURM_JOB_ID.log"; exit 1; }
 done
 date -u; echo WORKER_LEO_DONE
