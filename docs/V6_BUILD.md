@@ -246,7 +246,13 @@ the g / gL counterparts.
 | Check (v6.2h) | Where | Result |
 |---|---|---|
 | Forced exception at window 30 (`studies/14nov/v62h_raise.py`; ft.step, the worker's crash site, and eye.step; gates as shipped and off; P01–P03; all four packages) | Leonardo CPU, 27 jobs | **27/27 pass**: the run completes; errors 1; windows 0–29 bitwise equal to the unforced run; windows ≥ 30 bitwise equal to the inner v5.1b and to the v5.1b package |
-| Identity to v6.2g / v6.2gL, 14 sessions (r2: gates as shipped and off; r1: off) | Leonardo CPU, 84 jobs `h*` | pending |
+| Identity to v6.2g / v6.2gL, 14 sessions (r2: gates as shipped and off; r1: off) | Leonardo CPU, 84 jobs `h*` | **84/84 bitwise equal** (2,655 windows per mode and package) |
 | `v62_r2hL.zip` | `e22f67e71c297aef9fd98e4ae86c4ea934aacc0f03670d4900eef02874c28098` | local replay 0.9945788530, files unchanged, 882.5 s; worker image on CPU (ni26-push) running |
-| `v62_r2h.zip`, `v62_r1hL.zip`, `v62_r1h.zip` | local replays | pending |
-| CPU `check_v6` / `check_v62` on the unzipped h ZIPs (P01–P03) | Leonardo CPU, `v6r*h*`, `v62r*h*` | pending |
+| `v62_r2h.zip` | `3b13ff96ecd4020d0522e1facb06e3f05a7d1b672a9058e991e02e6b12a142c4` | 0.9945788530, files unchanged, 854.4 s |
+| `v62_r1hL.zip` | `2f53c3f950b32dd4f67f2dfe40de47289444a46ed2f0235de7aab69f7b5c3b8b` | 0.9945788530, files unchanged, 110.6 s |
+| `v62_r1h.zip` | `9bf9f6e46f6191dcbd00c224fcaf00ea4c51d9de44d068d7ac25e000d422bce5` | 0.9945788530, files unchanged, 109.7 s |
+| CPU `check_v6` / `check_v62` on the unzipped h ZIPs (P01–P03) | Leonardo CPU, `v6r*h*`, `v62r*h*` | **24/24 pass**: eye ≤ 6.4e-7, rest ≤ 3.6e-7, mix ≤ 2.8e-17, shadow / routed / tail / label 0, FT ≤ 1.2e-5 |
+
+Not validated for v6.2h: GPU worker-image replays (Galvani 3100010 / 3100013 ran the g ZIPs; Galvani needs the user's
+2FA); the worker image on CPU is ni26-push's (Leonardo, image software only; FT on CPU trips the budget). A100 timing
+and memory carry over from v6.2g / v6.2gL (identical computation without errors).
