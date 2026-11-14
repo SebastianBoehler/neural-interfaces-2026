@@ -5051,3 +5051,13 @@ GPU runs of the image need Galvani (3100010 / 3100013).
   - Returning people: as already scored (ERF).
 - **Prediction:** s15 − gC5 under L labels: within +0.15 (fresh sweep: +0.14), full 0.0, runs +0.05. So v6.2hL ≈ v6f + ERF
   + 0.15 under within, and level under full.
+- **§207 last two edits (written 06:53 UTC, before any result; coordinator: run them to a number):**
+  - **Teacher input gains (Leonardo features 64448904, then local).** The teacher is a logistic regression on 6 features
+    (seed-mean head log-probs of two families × 3 classes), refitted exactly per held-out person. Six gains on its input
+    columns are fitted leave-one-person-out (REG 0.1 and 1) and scored against the gains-1 refit on 6 orders.
+    Prediction: −0.05 to +0.05.
+  - **Eye-net drift edit (Galvani, input layer, correlation-targeted).** After each fold's training, the first-layer kernels
+    of every trace channel are scaled by g_c = clip(1 − α · drift_c / max drift, 0.3, 1); drift_c is the within-session
+    lag-1 autocorrelation of window means on the fold's training people. α 0 (paired baseline), 0.5 and 1; 3 seeds × 6
+    orders. Smoke on Galvani 3100145. Prediction: about 0 (eye leverage 0.017 per point; §188 found the correlation lever
+    in TSEM).
