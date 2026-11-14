@@ -15,8 +15,13 @@ import fast as FA  # noqa: E402
 import feats as FT  # noqa: E402
 import splits as S  # noqa: E402
 
-T0, K0, KS = 20, 10, (10, 20); KMAX = max(KS); PIPES = FA.PIPES  # s253 amendment: fast pipelines, k 5 dropped
+T0, K0, KS = 20, 10, (10, 20); KMAX = max(KS)  # s253 amendment: fast pipelines, k 5 dropped
+PIPES = tuple(os.environ.get("PIPES", ",".join(FA.PIPES)).split(",")); assert set(PIPES) <= set(FA.PIPES), PIPES  # s260: PIPES=a2 computes only a2
+DRAW = os.environ.get("DRAW", ""); assert DRAW in ("", "d1", "d2"), DRAW  # s260: fresh r15 draws; own chain file, own pp files
 FORMS = tuple(os.environ.get("FORMS", "hard,soft,filt").split(",")); SFX = "" if FORMS == ("hard", "soft", "filt") else "_" + "_".join(FORMS)
+if PIPES != FA.PIPES:
+    SFX += "_p" + "".join(PIPES)  # pipelines subset: file name says so, never read as a full file
+SFX += "_" + DRAW if DRAW else ""
 SEL = ("top", "cq50", "cq25", "agree", "agcq")  # selection forms: hard raw labels, unweighted refit on a selected prefix
 assert set(FORMS) <= {"hard", "soft", "filt", *SEL}, FORMS
 assert all(k % K0 == 0 for k in KS)
@@ -49,7 +54,7 @@ def session_refits(F, T, y, w, sel, rows, out, form, nfail, tmax=None):
         if len(np.unique(y[tr])) < 2:
             nfail[form] += 1; pr = {p: np.full((len(te), 3), 1 / 3) for p in PIPES}
         else:
-            pr = FA.fit_predict(F, T, y, tr, te, None if w is None else w[tr])
+            pr = FA.fit_predict(F, T, y, tr, te, None if w is None else w[tr], PIPES)
         for k in KS:
             if (t - T0) % k == 0:
                 for p in PIPES:
@@ -67,7 +72,7 @@ def run(order, b, Z, F, T, tmax=None, sessions=None):
 
 
 def main():
-    Z = dict(np.load(REPO / "runs/causalpers/chain.npz")); F = FT.load(); T = FA.tsle(F); Z["sname"] = S.meta()["sess"]
+    Z = dict(np.load(REPO / f"runs/causalpers/chain{DRAW}.npz")); assert str(Z["draw"]) == DRAW, ("chain file draw", str(Z["draw"]), DRAW); F = FT.load(); T = FA.tsle(F); Z["sname"] = S.meta()["sess"]
     assert all(len(set(Z["sess"][Z["sname"] == s])) == 1 for s in set(Z["sname"])) and len(set(Z["sname"])) == len(set(Z["sess"])) == 14
     if sys.argv[1] == "smoke":  # two sessions, first 60 windows: timing, layout and causality check
         ss = ["P01_1", "P04_2"]; t0 = time.time(); out, nf = run("full0", 0, Z, F, T, tmax=60, sessions=ss); dt = time.time() - t0

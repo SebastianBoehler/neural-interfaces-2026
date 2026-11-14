@@ -36,15 +36,20 @@ def lda(A, y, w, B):
     return CL.pad(*CL.wlda(A, y, w, B))
 
 
-def fit_predict(F, T, y, tr, te, w=None):
+def fit_predict(F, T, y, tr, te, w=None, pipes=PIPES):
     """F classic-keyed per-window features, T = tsle(F); y labels used on tr only -> {pipe: (len(te), 3)}"""
-    yt = y[tr]; out = {}
-    lr = make_pipeline(StandardScaler(), LogisticRegression(C=0.1, max_iter=3000)).fit(T[tr], yt, logisticregression__sample_weight=w)
-    out["l1"] = CL.pad(lr.classes_, lr.predict_proba(T[te]))
-    pr = [CL.csp_feats(F[f"cov{lo}_{hi}"][tr], yt, F[f"cov{lo}_{hi}"][te], w=w) for lo, hi in CL.CSPB]
-    out["a2"] = lda(np.concatenate([a for a, _ in pr], 1), yt, w, np.concatenate([b for _, b in pr], 1))
-    sc = StandardScaler().fit(F["slow"][tr]); out["a4"] = lda(sc.transform(F["slow"][tr]), yt, w, sc.transform(F["slow"][te]))
-    out["lE"] = np.mean([out[k] for k in ("l1", "a2", "a4")], 0)
+    yt = y[tr]; out = {}; need = set(pipes) | ({"l1", "a2", "a4"} if "lE" in pipes else set())  # s260: compute only the requested pipelines
+    if "l1" in need:
+        lr = make_pipeline(StandardScaler(), LogisticRegression(C=0.1, max_iter=3000)).fit(T[tr], yt, logisticregression__sample_weight=w)
+        out["l1"] = CL.pad(lr.classes_, lr.predict_proba(T[te]))
+    if "a2" in need:
+        pr = [CL.csp_feats(F[f"cov{lo}_{hi}"][tr], yt, F[f"cov{lo}_{hi}"][te], w=w) for lo, hi in CL.CSPB]
+        out["a2"] = lda(np.concatenate([a for a, _ in pr], 1), yt, w, np.concatenate([b for _, b in pr], 1))
+    if "a4" in need:
+        sc = StandardScaler().fit(F["slow"][tr]); out["a4"] = lda(sc.transform(F["slow"][tr]), yt, w, sc.transform(F["slow"][te]))
+    if "lE" in pipes:
+        out["lE"] = np.mean([out[k] for k in ("l1", "a2", "a4")], 0)
+    out = {k: out[k] for k in pipes}
     for k, v in out.items():
         assert v.shape == (len(te), 3) and np.isfinite(v).all(), k
     return out
