@@ -5017,3 +5017,16 @@ full 0/1 and runs 0/1 on the Mac.
   - **§207 core1 block gains** (6 orders, against the clean files): REG 0.1 **+0.04** (4/6 up; within 1 +0.17, runs 0 +0.09);
     REG 1 +0.00; corr λ 0.1 +0.03 (4/6). Held-out core1 accuracy −0.14 / +0.19 / −0.25 points. The pre-registered bar
     (+0.1 with ≥ 4/6 up) is not met, so the reading is "undecided, small".
+
+**§202 worker image on CPU (14 Nov 06:07 UTC; Leonardo, GPU hidden; official ingestion and scoring; torch 2.14.1+cu130,
+braindecode 1.8.1).**
+
+| ZIP | Result |
+|---|---|
+| v6.2g ERF 90a62470… (pre-guard) | 0.994579, files unchanged, 2,786 s (FT on CPU) |
+| v6.2hL ER 2f53c3f9… | 0.994579, files unchanged, [v6] errors 0, 288 s |
+| v6.2h ER 9bf9f6e4… | 0.994579, files unchanged, [v6] errors 0, 268 s |
+| v6.2hL ERF e22f67e7… | running (64445340), then the FT path in the image (64445345) |
+| v6.2h ERF 3b13ff96… | running (64445997), then the FT path (64445998) |
+
+GPU runs of the image need Galvani (3100010 / 3100013).
