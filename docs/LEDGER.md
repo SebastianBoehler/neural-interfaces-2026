@@ -6669,3 +6669,14 @@ its key, and the upload candidate.**
 Against r15 + filter (+0.25): +0.02 (within +0.04, full +0.02, runs 0.00). Inside the prediction (+0.00 to +0.10), not
 refuted, but inside the noise: undecided. Not worth a package key (PCA weights + an embedding pass for +0.02); the dev
 construction's +0.03 is the same size, so the mixed-net defect did not inflate it.
+
+**§239 PART (2) LAUNCHED (14 Nov 14:50 UTC; no result read).** Gate: the best registered J form (ext/J) is +0.19 ≥ +0.15 on within,
+so (2) runs (the proxy alone would not have opened it). Labels (studies/14nov/designdec/labels.py): r15's per-refit labels
+smoothed by the J-wprior urn over each refit's prefix, from the latch on -> runs/labels/relab_dd239_<order>.npz. Label BA
+over r15: within 0 +0.60, within 1 +0.54, runs 0 +0.81, runs 1 +1.05 (r15 over emitted about +1.2). FT: ftrel_dd.py =
+ftrel.py unchanged with those labels and tag ttt18<order>LPD (s229's LP files untouched); smoke on Leonardo: control s15 vs
+ttt7.stream 5e-7, SMOKE OK. Leonardo arrays 64471408–11 (within 0/1, runs 0/1, 24 tasks each); scoring jobs 64471438–41
+(afterok): shufcombo through wrap.py (off/J = stock stages), FT_V r15 with FT_TAG LP and LPD, 6 bases ->
+runs/designdec/sc_<order>_off_J_LP{,D}r15.npz on Leonardo; then score2.py. **Prediction:** smoothed-label r15 − r15 on V6Fr
++0.05 (−0.15 to +0.25) within, with the gated filter on top about the same. **Rule:** kept only if ≥ +0.3 over r15 + gated
+filter on within with runs ≥ −0.1; inside ±0.3 undecided.
