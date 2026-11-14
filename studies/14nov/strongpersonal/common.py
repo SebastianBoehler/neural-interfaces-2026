@@ -44,9 +44,9 @@ def ts_whole():
     z = np.load(f); return z["F"], int(z["slow0"])
 
 
-def routed(arm="ER"):
-    """-> {order: [P (N, 3) per base]} with ER / T outputs on the seen_session rows (1/3 elsewhere)."""
-    z = np.load(REPO + "/runs/chainout/s245_ret.npz"); out = {}
+def routed(arm="ER", src="runs/chainout/s245_ret.npz"):
+    """-> {order: [P (N, 3) per base]} with ER / T outputs on the seen_session rows (1/3 elsewhere); src: a SAVE_OUT file."""
+    z = np.load(REPO + "/" + src); out = {}
     for k in z.files:
         o, bn, a = k.split("|")
         if a == arm:
