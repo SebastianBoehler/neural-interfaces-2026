@@ -88,7 +88,7 @@ class JointNet(SB.SessionNet):
                 opt.zero_grad(); a = aux_loss(self.net, xb, self.form, gd, mir)
                 loss = loss_fn(self.net(xb)[:, :3], yb) + LAM * a; loss.backward(); opt.step(); sched.step()
                 first = float(a) if first is None else first; last = float(a)
-        print(f"   joint {self.form}: aux loss {first:.3f} -> {last:.3f}", flush=True)
+        print(f"   joint {self.form} LAM {LAM}: aux loss {first:.3f} -> {last:.3f}", flush=True)
 
 
 def make(form, d, seed, mir):

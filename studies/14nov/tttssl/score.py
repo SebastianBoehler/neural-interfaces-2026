@@ -3,7 +3,8 @@ Net alone: per seed, mean over seeds; change vs the same form's na (and joint na
 people and seeds. Fusion: chain (runs/chainout/s242r15_<order>.npz V6Fr, per base) x net^w (net = mean over seeds),
 12 orders x 6 bases; change vs c x na^w (same form) and vs the chain alone; 80 % intervals resample people and orders
 (within each scheme; schemes weighted equally). Zero-change check: c x na^w against itself and w = 0 equal to the chain.
-Usage: python studies/14nov/tttssl/score.py [PROBS_DIR] > evidence/tttssl_14nov/score.txt"""
+FORMS=twin,R10,... restricts the forms read (wave 2: FORMS=twin,R10,R25,C10).
+Usage: [FORMS=..] python studies/14nov/tttssl/score.py [PROBS_DIR] > evidence/tttssl_14nov/score.txt"""
 import glob, os, re, sys
 from pathlib import Path
 R = Path(__file__).resolve().parents[3]; sys.path.insert(0, str(R / "replay"))
@@ -12,7 +13,7 @@ import score as SC  # noqa: E402
 
 D = Path(sys.argv[1]) if len(sys.argv) > 1 else R / "runs/tttssl/probs"
 ORDERS = [f"{s}{i}" for s in ("within", "full", "runs") for i in range(4)]; WS_ = (0.25, 0.5, 1.0); NB = 2000
-rng = np.random.default_rng(0)
+rng = np.random.default_rng(0); KEEP = set(os.environ.get("FORMS", "").split(",")) - {""}
 
 
 def person(P):
@@ -23,6 +24,8 @@ def load():
     out = {}
     for f in glob.glob(str(D / "tttssl_*-s*.npz")):
         form, arm, seed = re.match(r"tttssl_(\w+?)_(\w+)-s(\d+)\.npz", os.path.basename(f)).groups()
+        if KEEP and form not in KEEP:
+            continue
         z = np.load(f); assert (z["index"] == np.arange(2655)).all(); out.setdefault((form, arm), {})[int(seed)] = z["proba"]
     return out
 
@@ -35,11 +38,11 @@ def boot2(M, nb=NB):
 
 def alone(P):
     print("## Net alone (new people, mean over seeds; change vs the same form's na [80 % people x seeds] people up)")
-    na = {f: {s: person(p) for s, p in P[(f, "na")].items()} for f in ("twin", "C", "P") if (f, "na") in P}
+    na = {f: {s: person(p) for s, p in P[(f, "na")].items()} for f in sorted({f for f, _ in P}) if (f, "na") in P}
     for f in na:
         print(f"{f:5s} na {np.mean(list(na[f].values())):.2f} ({len(na[f])} seeds)  seed-mean probs {person(np.mean(list(P[(f, 'na')].values()), 0)).mean():.2f}")
-    for f in ("C", "P"):
-        if f in na and "twin" in na:
+    for f in na:
+        if f != "twin" and "twin" in na:
             S = sorted(set(na[f]) & set(na["twin"])); M = np.array([na[f][s] - na["twin"][s] for s in S])
             lo, hi = boot2(M); print(f"{f} na - twin na: {M.mean():+.2f} [{lo:+.2f}, {hi:+.2f}] {int((M.mean(0) > 0).sum())}/10")
     for (f, a), ps in sorted(P.items()):
