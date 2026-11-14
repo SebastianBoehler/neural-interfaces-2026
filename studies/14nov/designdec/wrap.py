@@ -26,7 +26,7 @@ def savez(path, *a, **k):
 np.savez = savez; ST.install()
 for v in variants:
     fb, bnd, *stg = v.split("/"); ST.CFG.update(fb=fb, bnd=bnd, stg=stg[0] if stg else "both"); ST.check()
-    TAG = f"sc_{order}_{fb}_{bnd}" + (f"_{stg[0]}" if stg else "")
+    TAG = f"sc_{order}_{fb}_{bnd}" + (f"_{stg[0]}" if stg else "") + os.environ.get("DD_SFX", "")  # DD_SFX: e.g. the FT tag scored (s239 part 2)
     os.environ["SAVE_OUT"] = f"runs/designdec/{TAG}.npz"; ST.STATE.update(latch=[], calls=0); t0 = time.time()
     print(f"=== DESIGNDEC wrap {order} {v} (BASES {os.environ['BASES']})", flush=True)
     runpy.run_path(f"{REPO}/studies/13nov/shufcombo.py", run_name="__main__")
