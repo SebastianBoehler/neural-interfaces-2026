@@ -6939,3 +6939,36 @@ versa. Also on T, and with the count filter (score_ret.py on SAVE_OUT keys <orde
   but runs do not form separable groups in it, supervised or not; route recorded closed in the grouping form. Not tested: soft
   neighbourhood forms (stage statistics weighted by fingerprint similarity, §248 M4d), which need no groups.
 - **Stamp correction (§250 RESULT):** its heading says 15:33 UTC; `date -u` at writing was 15:27 UTC.
+
+### 251. SOFT FINGERPRINT NEIGHBOURHOODS (written 14 Nov 15:32 UTC, before any result)
+- **Why (§248 M4d, §250):** the hardware fingerprint is local (1-NN same run 0.80, within ±3 trials 0.39) but hard online
+  groups reach purity 0.53, so grouping forms are closed. Remaining form: nothing grouped; each window's stage statistics
+  are weighted by fingerprint similarity to the session's earlier windows (delivery order, windows ≤ t, nothing across
+  sessions, no labels at use). Code `studies/14nov/softfp/`, outputs `runs/softfp/`, evidence `evidence/softfp_14nov/`.
+- **Weights (fpw.py, fixed before any score):** s248 hardware view (runs/fingerprint/hw.npz) z-scored with the other nine
+  people's mean / SD; r_tj = log(d²_tj / median_{j<t} d²_tj); w_tj = P(same run | r_tj), 40 quantile bins, isotonic,
+  calibrated per held-out person on the nine others' TRUE runs under full 4-7 (disjoint from the scored orders). Checked
+  before writing this (weights only, no chain or score): under full 0 the weight-averaged same-run share is 0.27 (base
+  0.16); the top-weight earlier window is in the same run 0.61 (1-NN among earlier windows 0.67).
+- **(0) Hard diagnostic:** §250's G1 groups (runs/fingerprint/groups_G1.npz) through runcount.py (RUN_IDS, s215 full 0/1
+  files) and through jointcount.filt_groups (cap 12, τ 2, floor 0.5) on runs/chainout/s242r15_full{0-3}.npz V6Fr, against
+  raw. Prediction: full +0.15 (−0.2 to +0.4) (M4c offline Ward +0.37 / −0.06; G1 purity is lower).
+- **(1) Soft count filter (softcount.py):** prior_c ∝ max(CAP − k_c, 0) + FLOOR with k_c = Σ_{j<t} w'_tj q_j(c), q_j the
+  filter's own emitted output, likelihood P_t^τ (τ 2, FLOOR 0.5, CAP 11, fixed); output ∝ prior × likelihood. Six
+  settings: kernel w' = γ w, γ ∈ {0.5, 1, 2}; top-k w' = w on the k smallest r_tj, k ∈ {5, 10, 20}. Arms on s242r15 V6Fr
+  (six bases, new people): SCF (always on) − raw; **GSCF** (SCF before the §228c latch, latchJ from the latch on) −
+  latchJ (the current system's emission). Setting chosen nested: per held-out person by the nine others' mean GSCF −
+  latchJ over the 12 orders (schemes equal). Orders full 0-3 (primary), within 0-3, runs 0-3.
+- **(2) Soft offsets (softoff.py hook + wrap, shufcombo via runpy unedited):** each pc128 and GE row (delivery order) minus
+  n/(n + κ) (m_w − m_s), m_w = Σ_j w'_tj v_j / n, n = Σ_j w'_tj, m_s the session prefix mean (current row excluded), κ 5
+  (as §210's true-run offsets). Two forms fixed in advance: kernel (w' = w) and top-10 (w' = w on the 10 smallest r).
+  Installed by wrapping gm.em_g / gm.tsem_g for all_loso; env as the s242 r15 arm (STRICT, GATE_P0, ttt18<order>LP,
+  FT_V r15). Zero-change check first: hook with n ≡ 0 reproduces s242r15_<order>.npz V6Fr exactly. Scored V6Fr against
+  s242r15, raw and both through latchJ (primary: latchJ(SOFF) − latchJ(r15)).
+- **Predictions:** (1) SCF full +0.10 (−0.15 to +0.35); GSCF − latchJ within / runs −0.05 (−0.2 to +0.05). (2) full +0.15
+  (−0.1 to +0.4), within / runs 0.00 (−0.15 to +0.10). The weights carry about a quarter of their mass in the true run,
+  so I expect a fraction of the true-run gains (§215 filter full about +0.8, §210 offsets full +0.9 to +1.25).
+- **Pass rule (coordinator):** ≥ +0.5 mean over full 0-3 and ≥ −0.1 over within 0-3 and over runs 0-3 (V6Fr, new people,
+  primary arm), 80 % intervals resampling people and orders. Between 0 and +0.5 under full with within / runs ≥ −0.1:
+  undecided (not closed). (3) Local templates in TSEM run only if (1) or (2) reaches ≥ +0.25 under full; otherwise
+  recorded as not run.
