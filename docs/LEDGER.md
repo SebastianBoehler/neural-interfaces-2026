@@ -6662,3 +6662,10 @@ its key, and the upload candidate.**
   5. stress cases complete; replays files unchanged; GPU worker image passes.
 - **Not checkable here:** a window-exact comparison with pview's dev outputs. Dev's chain uses seen_session members and
   core1 trained on session 1 of P04 / P10; the package's are trained on all ten people.
+§244 result (14 Nov 14:37 UTC; evidence/stack_14nov/s244_score.txt). Deployable eye-embedding view (fold net embeds all rows,
+3 seeds, PCA 4 on the in-sample training rows), new people, 20 orders, against ctl:
+  stk1dep          +0.14 [+0.04, +0.25] 10/10  (within +0.12, full +0.20, runs +0.10)
+  stk1dep + filter +0.27 [+0.14, +0.40] 10/10  (within +0.40, full +0.19, runs +0.22)
+Against r15 + filter (+0.25): +0.02 (within +0.04, full +0.02, runs 0.00). Inside the prediction (+0.00 to +0.10), not
+refuted, but inside the noise: undecided. Not worth a package key (PCA weights + an embedding pass for +0.02); the dev
+construction's +0.03 is the same size, so the mixed-net defect did not inflate it.

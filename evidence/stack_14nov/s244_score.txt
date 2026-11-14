@@ -1,0 +1,31 @@
+  within0  latched 14/14 | ctl+filter +0.36 stk1 +0.27 stk1+filter +0.48 stk1dep +0.24 stk1dep+filter +0.46 r15 +0.20 r15+filter +0.65 r15e3 +0.03 r15e3+filter +0.55
+  within1  latched 14/14 | ctl+filter +0.38 stk1 -0.09 stk1+filter +0.46 stk1dep +0.01 stk1dep+filter +0.48 r15 +0.06 r15+filter +0.50 r15e3 -0.08 r15e3+filter +0.41
+  within2  latched 14/14 | ctl+filter +0.64 stk1 +0.38 stk1+filter +0.77 stk1dep +0.65 stk1dep+filter +0.95 r15 +0.32 r15+filter +0.89 r15e3 +0.40 r15e3+filter +0.85
+  within3  latched 14/14 | ctl+filter -0.02 stk1 +0.02 stk1+filter -0.01 stk1dep +0.11 stk1dep+filter +0.01 r15 +0.01 r15+filter +0.13 r15e3 +0.01 r15e3+filter -0.06
+  within4  latched 14/14 | ctl+filter +0.23 stk1 +0.13 stk1+filter +0.24 stk1dep +0.04 stk1dep+filter +0.17 r15 +0.04 r15+filter +0.23 r15e3 +0.18 r15e3+filter +0.17
+  within5  latched 14/14 | ctl+filter +0.12 stk1 +0.03 stk1+filter +0.40 stk1dep +0.04 stk1dep+filter +0.46 r15 +0.09 r15+filter +0.18 r15e3 -0.20 r15e3+filter +0.12
+  within6  latched 14/14 | ctl+filter +0.44 stk1 +0.03 stk1+filter +0.27 stk1dep -0.02 stk1dep+filter +0.33 r15 +0.02 r15+filter +0.41 r15e3 -0.11 r15e3+filter +0.13
+  within7  latched 14/14 | ctl+filter +0.16 stk1 +0.02 stk1+filter +0.28 stk1dep +0.04 stk1dep+filter +0.27 r15 -0.03 r15+filter +0.27 r15e3 -0.19 r15e3+filter +0.07
+  within8  latched 14/14 | ctl+filter +0.32 stk1 +0.02 stk1+filter +0.18 stk1dep -0.18 stk1dep+filter +0.08 r15 -0.17 r15+filter -0.03 r15e3 -0.36 r15e3+filter -0.02
+  within9  latched 14/14 | ctl+filter +0.34 stk1 +0.16 stk1+filter +0.36 stk1dep +0.32 stk1dep+filter +0.60 r15 +0.04 r15+filter +0.45 r15e3 -0.13 r15e3+filter +0.17
+  within10 latched 14/14 | ctl+filter +0.22 stk1 +0.28 stk1+filter +0.72 stk1dep +0.43 stk1dep+filter +0.71 r15 +0.21 r15+filter +0.34 r15e3 +0.22 r15e3+filter +0.75
+  within11 latched 14/14 | ctl+filter +0.58 stk1 -0.15 stk1+filter +0.28 stk1dep -0.17 stk1dep+filter +0.31 r15 -0.11 r15+filter +0.33 r15e3 -0.05 r15e3+filter +0.29
+  full0    latched 2/14 | ctl+filter -0.08 stk1 +0.27 stk1+filter +0.29 stk1dep +0.22 stk1dep+filter +0.25 r15 +0.20 r15+filter +0.22 r15e3 +0.35 r15e3+filter +0.37
+  full1    latched 2/14 | ctl+filter -0.09 stk1 +0.35 stk1+filter +0.25 stk1dep +0.32 stk1dep+filter +0.18 r15 +0.18 r15+filter +0.13 r15e3 +0.43 r15e3+filter +0.36
+  full2    latched 0/14 | ctl+filter +0.00 stk1 +0.33 stk1+filter +0.33 stk1dep +0.21 stk1dep+filter +0.21 r15 +0.31 r15+filter +0.31 r15e3 +0.45 r15e3+filter +0.45
+  full3    latched 3/14 | ctl+filter +0.04 stk1 +0.10 stk1+filter +0.20 stk1dep +0.04 stk1dep+filter +0.13 r15 +0.00 r15+filter +0.03 r15e3 +0.22 r15e3+filter +0.26
+  runs0    latched 14/14 | ctl+filter -0.12 stk1 -0.12 stk1+filter -0.28 stk1dep -0.23 stk1dep+filter -0.30 r15 -0.22 r15+filter -0.28 r15e3 -0.08 r15e3+filter -0.13
+  runs1    latched 14/14 | ctl+filter +0.50 stk1 +0.47 stk1+filter +0.62 stk1dep +0.60 stk1dep+filter +0.74 r15 +0.38 r15+filter +0.76 r15e3 +0.61 r15e3+filter +0.58
+  runs2    latched 14/14 | ctl+filter +0.15 stk1 +0.11 stk1+filter +0.40 stk1dep +0.17 stk1dep+filter +0.33 r15 +0.04 r15+filter +0.20 r15e3 +0.26 r15e3+filter +0.41
+  runs3    latched 14/14 | ctl+filter +0.18 stk1 -0.05 stk1+filter +0.10 stk1dep -0.12 stk1dep+filter +0.10 r15 +0.09 r15+filter +0.22 r15e3 +0.16 r15e3+filter +0.14
+
+change against ctl raw, new people: mean | per scheme | [80 % interval over people and orders] | people up
+  ctl+filter     +0.15 | within +0.32 (12) full -0.03 (4) runs +0.18 (4) | [+0.05, +0.26] | 7/10
+  stk1           +0.15 | within +0.09 (12) full +0.26 (4) runs +0.10 (4) | [+0.07, +0.23] | 9/10
+  stk1+filter    +0.28 | within +0.37 (12) full +0.27 (4) runs +0.21 (4) | [+0.16, +0.40] | 10/10
+  stk1dep        +0.14 | within +0.12 (12) full +0.20 (4) runs +0.10 (4) | [+0.04, +0.25] | 10/10
+  stk1dep+filter +0.27 | within +0.40 (12) full +0.19 (4) runs +0.22 (4) | [+0.14, +0.40] | 10/10
+  r15            +0.10 | within +0.06 (12) full +0.17 (4) runs +0.07 (4) | [+0.03, +0.18] | 9/10
+  r15+filter     +0.25 | within +0.36 (12) full +0.17 (4) runs +0.22 (4) | [+0.13, +0.38] | 9/10
+  r15e3          +0.19 | within -0.02 (12) full +0.36 (4) runs +0.24 (4) | [+0.08, +0.30] | 9/10
+  r15e3+filter   +0.30 | within +0.28 (12) full +0.36 (4) runs +0.25 (4) | [+0.17, +0.43] | 9/10
