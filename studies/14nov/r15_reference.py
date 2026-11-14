@@ -86,8 +86,10 @@ def main():
         out, o5 = np.array(out), np.array(o5); log = dict(c.log6)
         F, b = np.asarray(chain.em.A), np.asarray(chain.em.B); U = np.asarray(chain.tsem.U)
         P = np.zeros((len(chain.tsem.lab), 3)); P[np.arange(len(P)), chain.tsem.lab] = chain.tsem.conf  # argmax / max as stored
-        diff, agree = 0.0, []
+        diff, agree, changed = 0.0, [], 0
+        emitted = np.asarray(c.ft.lab)  # the labels as emitted (what s15 would train on)
         for t, G in got.items():
+            changed += int((G.argmax(1) != emitted[:t]).sum())
             R = reference(F, b, np.asarray(gates), U, P, t, z); dd = float(np.abs(G - R).max()) if np.isfinite(G).all() else float("inf")
             diff = max(diff, dd); agree.append(float(np.mean(G.argmax(1) == R.argmax(1))))
         sched = len(range(int(z["v6_ft_t0"]), len(rows), int(z["v6_ft_every"])))
@@ -97,7 +99,7 @@ def main():
             good = diff <= 1e-10 and len(got) == sched == c.ft.relabels and log["err"] == 0
         ok &= bool(good); worst = max(worst, diff)
         print(json.dumps(dict(session=s.split("/")[-1], windows=len(rows), refits=len(got), relabels=c.ft.relabels, schedule=sched,
-                              max_diff=diff, min_label_agreement=min(agree) if agree else None, err=log["err"],
+                              max_diff=diff, min_label_agreement=min(agree) if agree else None, labels_changed_vs_emitted=changed, err=log["err"],
                               relabel_ms_per_refit=round(float(np.mean(ms)), 2) if ms else None, ok=bool(good))), flush=True)
     print("RESULT", json.dumps(dict(package=str(pkg), order=order, raise_at=ra, max_diff=worst, ok=bool(ok))), flush=True)
     assert ok, "r15 reference check failed"
