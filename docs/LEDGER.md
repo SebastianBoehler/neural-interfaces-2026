@@ -4923,3 +4923,27 @@ weights: v6.2 +1.06, v6f + ERF +1.01, v6.2-safe +1.00; within only 1.17 / 1.07 /
 - **Eye-net drift edit (correlation-targeted, input layer):** the per-fold dev nets are not stored, so this needs LOSO refits
   with down-weighted drifting input channels: 9 GPU tasks per order plus the ocushuf re-stream. It is queued after the
   penultimate gains.
+
+**§207 STAGE 2 RESULT, final-layer edits (14 Nov 01:00 UTC; runs/s207_stage2.txt; within 0 / full 0 / runs 0, v6f, new).**
+Edit z' = t(I+B)z + c on a component's logits, fitted per held-out person on the other nine.
+
+| Edit | Reachable (held-out accuracy, points) | Chain change (mean of 3 orders) |
+|---|---|---|
+| core1, accuracy form | −0.50 | −0.22 (+0.13 / −0.29 / −0.51) |
+| teacher (s10), accuracy | −0.58 | −0.10 |
+| rest net, accuracy | −0.37 | −0.14 |
+| core1+Hilbert pair (s0), accuracy | −0.40 | −0.40 |
+| eye view, accuracy | −0.76 | −0.07 |
+| correlation forms, λ = 1 (c1, s10, s0, rest, eye) | −25 to −60 | −0.27 to −1.33 |
+| SessionBN fb raw (s5), correlation, λ = 1 | −51 | +0.02 |
+
+- **Reading:**
+  - Fitted on nine people, an output-layer edit lowers the held-out person's accuracy for every component. The fitted heads
+    are already at their best, and the fitted temperatures (0.25–0.4, overconfident nets) lower the chain when applied: the
+    stages use the members' scale.
+  - λ = 1 bought decorrelation by destroying the component, which is no test of the idea. It is rerun at λ = 0.1 (stage 2b,
+    c1 / s10 / eye / s5).
+  - **Product of leverage and reachable points for this family: negative.** Same verdict as §13 for core1's head, now on
+    every lever component and on the shuffled chain.
+- In-net edits (core1 block gains, rest-net filter gains) are running; they are a different family (per-block and
+  per-filter directions, not one 3×3 map).
