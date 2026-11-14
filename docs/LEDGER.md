@@ -7712,3 +7712,7 @@ not re-verified here); (ii) Shin2017B's 77.5 depends on offline full-session cen
 (iii) the 1.7-point margin of Shin2017A under 65 is inside the dev noise, so "both Shin >= 65" is undecided rather than clearly
 failed; no pre-registration written, no run of the hierarchical pool. Suggestion only if the coordinator reads A as >= 65: the pool
 would pass on the Shin corpora alone, which are not the PROTEUS tasks, so it should still be scored on Scherer or PROTEUS people.
+Note (i) checked, 14 Nov 19:55 UTC (research thread): scripts/export_external.py maps Scherer's description.pdf codes
+{4 right-hand MI: 0, 2 mental subtraction: 1, 1 word association: 2} (navigation and feet dropped), which matches PROTEUS
+(0 motor imagery, 1 mental subtraction, 2 word generation). The cross-corpus 45.2 is not a label-permutation artefact.
+Context for both Scherer numbers: 22 of the 41 PROTEUS-montage channels in the export are spherical-spline interpolated.
