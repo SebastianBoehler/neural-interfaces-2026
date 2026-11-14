@@ -5552,3 +5552,36 @@ covariance:
 
 Fitted on nine people, no edit transfers to the tenth beyond noise. The trained weights are at their transfer optimum for
 these edit families.
+
+### 216 result. EXTERNAL HARNESS v1 (14 Nov 08:15 UTC; `runs/extharness/report.md`, res_<corpus>.npz; Mac CPU, ~1 min per corpus)
+- **Ran:** PhysionetMI (109 people, l/r/feet, ~67 windows per session), Schirrmeister2017 (14, l/r/feet, 360–790
+  windows), Scherer2015 (9, the PROTEUS tasks). rec + full / runs / within × 3 seeds. The parity asserts held (stages =
+  gm.pipe_g at W 30; W 15/60 change the rebalancing). Chain stages at W 30, person-equal BA (80 % person intervals):
+
+  | corpus, scheme | member | rebal | SessionEM | TSEM | chain − member |
+  |---|---|---|---|---|---|
+  | Schirrmeister rec | 74.8 | 75.5 | 76.8 | 77.3 | +2.56 [+2.12, +3.00] |
+  | Schirrmeister full | 74.6 | 74.9 | 76.1 | 76.7 | +2.10 [+1.67, +2.50] |
+  | Schirrmeister runs | 74.7 | 75.5 | 76.8 | 77.3 | +2.55 [+2.14, +2.96] |
+  | Schirrmeister within | 74.8 | 75.1 | 76.3 | 76.8 | +1.98 [+1.60, +2.34] |
+  | PhysionetMI rec | 49.8 | 49.2 | 49.5 | 49.5 | −0.25 [−0.59, +0.06] |
+  | PhysionetMI full | 45.8 | 46.4 | 46.5 | 46.5 | +0.70 [+0.48, +0.91] |
+  | PhysionetMI runs | 46.0 | 46.1 | 46.2 | 46.2 | +0.20 [−0.02, +0.42] |
+  | PhysionetMI within | 49.4 | 48.9 | 49.3 | 49.4 | −0.09 [−0.38, +0.18] |
+  | Scherer rec / full / within | 45.0 / 45.7 / 45.2 | | | 45.8 / 45.8 / 45.8 | +0.87 / +0.08 / +0.53 |
+
+- **Predictions:** member Schirrmeister 74.8 (in 60–75); PhysionetMI 49.8 rec, 45.8 full (miss, below 50–60); Scherer 45.0
+  (miss). Rebalancing − member +1 to +4: **missed everywhere** (Schirrmeister +0.23 to +0.76, PhysionetMI −0.62 to
+  +0.56, Scherer −0.12 to +0.39). SessionEM − rebalancing (Schirrmeister +1.14 to +1.36) and TSEM − SessionEM (+0.50 to
+  +0.63) inside their ranges; on PhysionetMI both are about 0 (sessions of 67 windows: SessionEM starts at 20, TSEM 15).
+- **Order:** on Schirrmeister the shuffles inside runs (full, within) cost the chain 0.5 against rec / runs, nearly all in
+  rebalancing (+0.7 → +0.2/+0.3); the template stages hold. Same direction as on PROTEUS.
+- **W check (final output, W − W 30):** Schirrmeister W 15 −0.09 to −0.16, W 60 −0.00 to +0.13 (all inside ±0.3).
+  PhysionetMI W 15 −0.13 to 0.00; W 60 +0.98 rec and +0.83 within [+0.68, +0.99], +0.03 full, +0.04 runs. **Rule: W 30
+  is near optimal** (the only > 0.3 gains are on one corpus, one shuffle scheme plus rec). The PhysionetMI W 60 gain is
+  its class-pure runs (MOABB order: three l/r runs, then three feet runs): a 30-window balance target is wrong inside
+  such blocks; PROTEUS runs are 10/10/10, so it does not transfer. My mechanism prediction (W 15 ahead there) was wrong.
+- **Limits:** the member is a cheap stand-in (core1 is far stronger on PROTEUS); PhysionetMI's member is near 46–50, so
+  its stage numbers are weak evidence; the gate thresholds (0.20/0.35 margin) were tuned on PROTEUS posteriors; the
+  SessionEM view is not separate from the classifier (PCs 1–48 of the same tangent features), unlike GE; PhysionetMI's
+  "rec" is MOABB run order, not chronology; one session per person, so the returning path is not covered.
