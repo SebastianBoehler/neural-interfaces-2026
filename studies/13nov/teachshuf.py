@@ -18,6 +18,7 @@ import eval_external_teacher as E  # noqa: E402
 _s = importlib.util.spec_from_file_location("seh", REPO + "/scripts/diag/screen_external_heads.py"); SEH = importlib.util.module_from_spec(_s); _s.loader.exec_module(SEH)
 A = env.A; d = SEH.d; st, subj = d["stream"], d["subject"]; DEV = "cuda" if torch.cuda.is_available() else "cpu"
 ORDERS = os.environ.get("ORDERS", "within:0,within:1,full:0,runs:0").split(",")
+SAVE_F = bool(os.environ.get("SAVE_F"))  # s207: also save the input features (to runs/teachfeat*.npz, see the end)
 PERMS = np.load(REPO + "/runs/shuffle_perms.npz"); FAMS = ("eegnex_ea-m7r", "ifnet_ea-m7r"); SEEDS = range(12)
 PT_DIR = os.environ.get("PT_DIR", REPO + "/runs/pretrain_m7r")  # the original m7r nets (1 Nov) that runs/diag/screenW5.npz was made with,
 # not runs/pretrain_a100all, whose eegnex names link to the later m7ra100 retrain (s184: that mismatch failed the harness, 0.09)
@@ -81,8 +82,13 @@ for proto in A.PROTOS:
     print(f"harness {proto}: rebuilt recording-order teacher against the stored slot 10, max |diff| {np.abs(T - ref).max():.2e}", flush=True)
     assert np.abs(T - ref).max() < 1e-2, "the rebuilt teacher is not the stored slot 10"  # GPU float32 heads: features 4e-4, teacher 4.7e-3 (s184); only the change enters
     OUT[f"rec|{proto}"] = T
+    if SAVE_F:  # s207: the teacher's input features (all windows), for exact per-feature edits of its map on CPU
+        OUT[f"rec|{proto}|F"] = Frec.astype(np.float32)
     for o in ORDERS:
         sc, sd = o.split(":"); Fo = feats(ea(PERMS[f"{sc}|{sd}|{proto}"])); To = teacher(Frec, Fo, proto)[idx]; OUT[f"{sc}{sd}|{proto}"] = To
+        if SAVE_F:
+            OUT[f"{sc}{sd}|{proto}|F"] = Fo.astype(np.float32)
         print(f"  {proto} {sc}{sd}: mean |change| against recording order {np.abs(To - T).mean():.4f}, labels changed {np.mean(To.argmax(1) != T.argmax(1)):.3f} ({time.time() - T0:.0f}s)", flush=True)
 SFX = "" if "ORDERS" not in os.environ else "_" + "_".join(o.replace(":", "") for o in ORDERS)
-np.savez_compressed(f"{REPO}/runs/teachshuf{SFX}.npz", **OUT); print("saved", f"{time.time() - T0:.0f}s")
+# with SAVE_F the file is runs/teachfeat<SFX>.npz, outside shufcombo's runs/teachshuf*.npz glob (one_with refuses two holders)
+np.savez_compressed(f"{REPO}/runs/{'teachfeat' if SAVE_F else 'teachshuf'}{SFX}.npz", **OUT); print("saved", f"{time.time() - T0:.0f}s")
