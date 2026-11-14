@@ -6889,3 +6889,6 @@ every window in one group. Changed before the nested run: all three forms are sc
 0.2 / 0.35 / 0.5, alpha 0.1 / 1 / 10; G2 / G3 thresholds on d^2 / (d x mean pairwise d^2 / d)); no new group before window 5;
 metric grid + PCA 200 / 64 dims (shrinkage 0.1 / 1); inner selection on full 0-1, outer scoring on full 0-3. The smoke's
 non-nested purities (P01-P03, full 0, one setting) were 0.22-0.53; the prediction and the 0.70 stop rule stay as written.
+Option, not a plan (14 Nov 15:22 UTC; from §247's side finding): averaging the candidate's posterior over the six bases instead of
+shipping one gives new people within +0.14, full +0.06, runs +0.25 (r15 raw, 20 orders), at six times the run time. §247's
+larger gain from averaging over orders and bases (P04 up to +4) is mostly the orders, which a package cannot average.
