@@ -4,6 +4,7 @@ Usage: python lean/tools/build6.py V51B_DIR MEMBERS_DIR OUT_DIR [--steps 5 --eve
        [--v61 --labels v6r]   (v6.1: the lean/src61 bundle; fine-tuning labels from the v6 chain without fine-tuning)
        [--v62 --routed 0|1|2] (v6.2: the lean/src62 bundle; 0 = v6.1, 1 = v6.2-safe, 2 = v6.2)
        [--v62g --cap 400 --budget 2700] (v6.2g: lean/src62g, fine-tuning cost guards)
+       [--v63 ...]            (v6.3: lean/src63, v6.2i with bitwise savings; v6.2i's keys)
        [--v62i --cap 400 --session-s S] (v6.2i: lean/src62i, per-session limit instead of the process budget)
        [--v62h ...]           (v6.2h: lean/src62h, v6.2g plus the step62 exception guard; v6.2g's keys)
 MEMBERS_DIR holds eye_s<k>.pt, rest_s<k>.pt and rest_s<k>.npz (scripts/train_v6_members.py). Keys added to weights.npz:
@@ -18,7 +19,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-V62I = "--v62i" in sys.argv  # v6.2i: lean/src62i, v6_ft_session_s instead of v6_ft_budget_s
+V63 = "--v63" in sys.argv  # v6.3: lean/src63, v6.2i's keys
+V62I = "--v62i" in sys.argv or V63  # v6.2i: lean/src62i, v6_ft_session_s instead of v6_ft_budget_s
 V62H = "--v62h" in sys.argv or V62I  # v6.2h: lean/src62h (v6.2g plus the step62 exception guard), same keys as v6.2g
 V62G = "--v62g" in sys.argv or V62H
 V62 = "--v62" in sys.argv or V62G
