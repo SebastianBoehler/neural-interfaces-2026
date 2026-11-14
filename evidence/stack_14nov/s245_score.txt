@@ -1,0 +1,21 @@
+  within0  latched 4/4 | ER+filter +0.32/+0.06 T +1.63/+0.21 T+filter +1.68/+0.23
+  within1  latched 4/4 | ER+filter +0.07/-0.59 T -0.11/-0.44 T+filter +0.63/-0.98
+  within2  latched 4/4 | ER+filter -0.45/+0.43 T -0.40/-0.60 T+filter -0.50/+0.00
+  within3  latched 4/4 | ER+filter +0.36/-0.26 T +1.29/-0.24 T+filter +1.56/-0.20
+  within4  latched 4/4 | ER+filter -0.44/+0.37 T +0.49/+0.07 T+filter -0.03/+0.05
+  within5  latched 4/4 | ER+filter +0.68/+0.22 T +0.86/+0.80 T+filter +1.18/+1.03
+  within6  latched 4/4 | ER+filter +0.14/+0.39 T +0.79/-0.09 T+filter +0.49/+0.29
+  within7  latched 4/4 | ER+filter -0.00/+0.04 T -0.23/-0.61 T+filter -0.20/-0.50
+  full0    latched 0/4 | ER+filter +0.00/+0.00 T +1.53/+0.05 T+filter +1.53/+0.05
+  full1    latched 1/4 | ER+filter -0.93/+0.00 T +0.62/+0.41 T+filter -0.09/+0.41
+  full2    latched 1/4 | ER+filter +0.26/+0.00 T +1.36/+1.49 T+filter +1.80/+1.49
+  full3    latched 1/4 | ER+filter +0.00/+0.48 T +1.25/+0.05 T+filter +1.25/+0.10
+  runs0    latched 4/4 | ER+filter -0.02/+0.00 T +0.25/-0.65 T+filter +0.35/-0.71
+  runs1    latched 4/4 | ER+filter -0.07/+0.22 T +1.34/+0.25 T+filter +2.01/+0.01
+  runs2    latched 4/4 | ER+filter -0.46/+0.09 T +0.72/-0.39 T+filter +0.38/-0.69
+  runs3    latched 4/4 | ER+filter -0.19/+1.30 T +1.61/+0.33 T+filter +0.15/+0.97
+
+change against ER raw, returning people: per scheme P04 / P10 / sealed (0.2 P04 + 0.8 P10); mean of schemes; sealed range over orders
+  ER+filter  within +0.08/+0.08/+0.08 | full -0.17/+0.12/+0.06 | runs -0.19/+0.40/+0.28 | mean sealed +0.14 | range [-0.46, +1.00]
+  T          within +0.54/-0.11/+0.02 | full +1.19/+0.50/+0.64 | runs +0.98/-0.11/+0.10 | mean sealed +0.25 | range [-0.56, +1.47]
+  T+filter   within +0.60/-0.01/+0.11 | full +1.12/+0.51/+0.63 | runs +0.72/-0.10/+0.06 | mean sealed +0.27 | range [-0.66, +1.55]

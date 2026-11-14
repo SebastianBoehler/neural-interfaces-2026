@@ -6589,3 +6589,11 @@ Orders: within0-7, full0-3, runs0-3 (16). Report P04 and P10 separately and seal
 Prediction: ER + T + filter against ER raw, sealed-weighted: +0.25 (T's +0.43 is mostly P04 at weight 0.2; the filter adds
 about +0.14 sealed-weighted). Refutation: T + filter below the filter alone, or P10 below -0.2 on a scheme mean -> T is not
 carried (the sealed set weights P10 at 0.8).
+§245 result (14 Nov 13:27 UTC; evidence/stack_14nov/s245_score.txt; ER per order and base equal to s214, asserted; saved ER equal
+to runs/chainout/ret_<order>.npz). Change against ER raw, P04 / P10 / sealed (0.2 P04 + 0.8 P10), mean over orders per scheme:
+  filter alone  within +0.08/+0.08/+0.08 | full -0.17/+0.12/+0.06 | runs -0.19/+0.40/+0.28 | mean sealed +0.14
+  T             within +0.54/-0.11/+0.02 | full +1.19/+0.50/+0.64 | runs +0.98/-0.11/+0.10 | mean sealed +0.25
+  T + filter    within +0.60/-0.01/+0.11 | full +1.12/+0.51/+0.63 | runs +0.72/-0.10/+0.06 | mean sealed +0.27
+Not refuted (T + filter above the filter alone; P10 never below -0.2 on a scheme mean, lowest -0.10). Matches the +0.25
+prediction. The filter adds little on top of T (+0.02 sealed; it helps P10 on runs without T, +0.40, and T takes that away).
+Per order the sealed value ranges -0.66 to +1.55 (two people): wide, report with that range.
