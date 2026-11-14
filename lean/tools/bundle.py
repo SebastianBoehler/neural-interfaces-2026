@@ -34,6 +34,10 @@ if "--v62h" in sys.argv:  # v6.2g with the exception guard in step62 (lean/src62
     SRC, OUT = ROOT / "lean/src62h", ROOT / "submissions/lean_v62h/submission.py"
     MODULES = MODULES[:-1] + ("extras", "finetune", "v6chain", "solver")
     sys.argv.remove("--v62h")
+if "--v62i" in sys.argv:  # v6.2h with a per-session fine-tuning limit instead of the process clock (lean/src62i)
+    SRC, OUT = ROOT / "lean/src62i", ROOT / "submissions/lean_v62i/submission.py"
+    MODULES = MODULES[:-1] + ("extras", "finetune", "v6chain", "solver")
+    sys.argv.remove("--v62i")
 
 
 def top_names(tree):

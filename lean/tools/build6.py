@@ -4,6 +4,7 @@ Usage: python lean/tools/build6.py V51B_DIR MEMBERS_DIR OUT_DIR [--steps 5 --eve
        [--v61 --labels v6r]   (v6.1: the lean/src61 bundle; fine-tuning labels from the v6 chain without fine-tuning)
        [--v62 --routed 0|1|2] (v6.2: the lean/src62 bundle; 0 = v6.1, 1 = v6.2-safe, 2 = v6.2)
        [--v62g --cap 400 --budget 3000] (v6.2g: lean/src62g, fine-tuning cost guards)
+       [--v62i --cap 400 --session-s S] (v6.2i: lean/src62i, per-session limit instead of the process budget)
        [--v62h ...]           (v6.2h: lean/src62h, v6.2g plus the step62 exception guard; v6.2g's keys)
 MEMBERS_DIR holds eye_s<k>.pt, rest_s<k>.pt and rest_s<k>.npz (scripts/train_v6_members.py). Keys added to weights.npz:
   v6_eye_files, v6_rest_files, v6_rest_{align,k,G,scale,shrink} (equal across rest seeds: asserted), v6_rest_w = 1/16
@@ -17,7 +18,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-V62H = "--v62h" in sys.argv  # v6.2h: lean/src62h (v6.2g plus the step62 exception guard), same keys as v6.2g
+V62I = "--v62i" in sys.argv  # v6.2i: lean/src62i, v6_ft_session_s instead of v6_ft_budget_s
+V62H = "--v62h" in sys.argv or V62I  # v6.2h: lean/src62h (v6.2g plus the step62 exception guard), same keys as v6.2g
 V62G = "--v62g" in sys.argv or V62H
 V62 = "--v62" in sys.argv or V62G
 V61 = "--v61" in sys.argv or V62
@@ -41,6 +43,7 @@ def main():
     assert labels == 0 or V61, "--labels v6r needs the v6.1 bundle (--v61)"
     routed = int(arg("--routed", "0")); assert routed == 0 or V62, "--routed needs the v6.2 bundle (--v62)"
     assert not out.exists(), f"{out} exists"
+    assert not V62I or "--session-s" in sys.argv, "--v62i needs --session-s (the per-session fine-tuning limit)"
     z = dict(np.load(src / "weights.npz", allow_pickle=False))
     eye, rest = sorted(p.name for p in mem.glob("eye_s*.pt")), sorted(p.name for p in mem.glob("rest_s*.pt"))
     assert eye and rest, f"no eye or rest traces in {mem}"
@@ -54,7 +57,8 @@ def main():
                v6_ft_member=np.array([slot[s][0][1] for s in SLOTS], np.int64), v6_ft_t0=np.int64(arg("--t0", 30)),
                v6_ft_every=np.int64(arg("--every", 10)), v6_ft_steps=np.int64(arg("--steps", 5)), v6_ft_lr=np.float64(arg("--lr", 5e-4)),
                v6_ft_lam=np.float64(1.0), v6_ft_seed=np.int64(0), **({"v6_ft_labels": np.int64(labels)} if V61 else {}), **({"v6_routed": np.int64(routed)} if V62 else {}),
-               **({"v6_ft_cap": np.int64(arg("--cap", 400)), "v6_ft_budget_s": np.float64(arg("--budget", 3000.0))} if V62G else {}), v6_ft_on=np.int64(0 if "--ft-off" in sys.argv else 1),
+               **({"v6_ft_cap": np.int64(arg("--cap", 400)), "v6_ft_session_s": np.float64(arg("--session-s", 0.0))} if V62I else
+                 {"v6_ft_cap": np.int64(arg("--cap", 400)), "v6_ft_budget_s": np.float64(arg("--budget", 3000.0))} if V62G else {}), v6_ft_on=np.int64(0 if "--ft-off" in sys.argv else 1),
                **{f"v6_slot_{s}": np.array([i for _, i in v], np.int64) for s, v in slot.items()},
                **{f"v6_rest_{k}": R[0][k] for k in ("align", "k", "G", "scale", "shrink")})
     out.mkdir(parents=True)
