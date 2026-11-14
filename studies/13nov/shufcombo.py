@@ -111,6 +111,29 @@ REC_LEFT = CORE + [n for n, ok in (("GE event rates", DGE is not None), ("Hilber
     "transformer and shallow ea members (causal EA)"]
 # s203: STRICT also requires GE, Hilbert and teacher; it used to check only CORE, so a missing one dropped out silently
 assert not (os.environ.get("STRICT") and REC_LEFT[:-1]), f"STRICT: still in recording order: {REC_LEFT[:-1]}"
+SYN_T, SYN_D = os.environ.get("SYN_T"), float(os.environ.get("SYN_D", 0))  # s207 leverage (oracle diagnostic, never shippable)
+if SYN_T:  # +SYN_D accuracy points on one component (s<k> member slot, c1 core1, rest, eye), in recording layout before any
+    ZO = next(o for d, o in zip(S.DICTS, S.ORIG) if d is Z); yy = ZO[f"y|{p0}"].astype(int)  # permutation: top and true swapped
+    def syn(pr):  # on randomly chosen wrong windows (the swap set is the same for every base and arm, seed 0)
+        pr = pr.copy(); w = np.flatnonzero(pr.argmax(1) != yy); a0 = np.mean(pr.argmax(1) == yy)
+        for r in np.random.default_rng(0).permutation(w)[:int(round(SYN_D / 100 * len(yy)))]:
+            t, m = yy[r], pr[r].argmax(); pr[r, [t, m]] = pr[r, [m, t]]
+        return pr, a0, np.mean(pr.argmax(1) == yy)
+    if SYN_T[0] == "s":
+        k = int(SYN_T[1:])
+        for key in [q for q in ZO if q.endswith(f"|Ps|{p0}")]:
+            ZO[key] = ZO[key].copy(); ZO[key][k], a0, a1 = syn(ZO[key][k])
+    elif SYN_T == "c1":  # core1 also sits in slot 0 as hb = 2 Ps[0] - c1, so Ps[0] moves by half its change
+        c1n, a0, a1 = syn(S.C1[p0]); dc = c1n - S.C1[p0]; S.C1[p0] = c1n
+        for key in [q for q in ZO if q.endswith(f"|Ps|{p0}")]:
+            ZO[key] = ZO[key].copy(); ZO[key][0] = ZO[key][0] + dc / 2
+    elif SYN_T == "rest":
+        RESTR, a0, a1 = syn(RESTR)
+    elif SYN_T == "eye":
+        e, a0, a1 = syn(np.exp(OCU)); OCU = np.log(np.clip(e, 1e-3, 1))
+    else:
+        raise SystemExit(f"SYN_T {SYN_T}: unknown component")
+    print(f"SYN {SYN_T} +{SYN_D:g}: component accuracy {a0:.4f} -> {a1:.4f} (last base for slots)", flush=True)
 print(f"SHUFCOMBO {SCHEME} {PSEED}: FT {FV} re-streamed {TG}, recording-order {RPX}; eye net {'re-streamed ' + OCD if OCD else 'recording order (3 seeds)'}; "
       f"rest net {'re-streamed ' + str(len(RSS)) + ' seeds' if RSS else 'recording order'}; core1 member {'re-streamed' if DC1 is not None else 'recording order'}; "
       f"pc128 {'rebuilt in the order' if DPC is not None else 'recording order'}; new people\nSTILL IN RECORDING ORDER: {', '.join(REC_LEFT)}", flush=True)
@@ -219,6 +242,6 @@ for lab, a, b in (("v5.1b, stages shuffled", "P0s", "P0rec"), ("v5.1b, stages + 
     bt = np.percentile([d[rng.integers(0, 10, 10)].mean() for _ in range(4000)], [10, 90])
     print(f"{lab:48s} {'new' if p0 == 'all_loso' else p0} {d.mean():+.2f} [{bt[0]:+.2f}, {bt[1]:+.2f}] without P10 {np.delete(d, 9).mean():+.2f}", flush=True)
 # the FT tag is in the name, so draws and label forms do not overwrite each other
-np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
+np.savez(f"{REPO}/runs/shufcombo_{'' if p0 == 'all_loso' else p0 + '_'}{SCHEME}{PSEED}{'_ocu' if OCD else ''}{'' if FV == 'cum10' else '_' + FV}{'_all' if not CORE else ''}{'_ge' if DGE is not None else ''}{'_hb' if DHB is not None else ''}{'_ts' if DTS is not None else ''}{f'_ocuts{OCU_TS}' if OCU_TS else ''}{'_' + OCU_TX if OCU_TX else ''}{'_gp0' if GATE_P0 else ''}{'_' + TG if TG != f'ttt17{SCHEME}{PSEED}' else ''}{f'_syn{SYN_T}{SYN_D:g}' if SYN_T else ''}.npz", **{f"{bn}|{k}": v for bn, r in R.items() for k, v in r.items()})
 if SAVE_OUT:
     np.savez_compressed(f"{REPO}/{SAVE_OUT}", **OUTS); print("per-window outputs ->", SAVE_OUT, flush=True)

@@ -4822,3 +4822,37 @@ orders each, for new and returning people.
 
 - **Reading:** both routed forms carry most of the gain. v6.2 and v6f + ERF differ by +0.03 under equal weights, which is
   inside noise. The choice between them is the bet on the scheme: v6.2 wins under within, v6f + ERF under full.
+
+### 207. WEIGHT-SPACE EDITS RETESTED ON THE CURRENT CHAIN (written 14 Nov 00:25 UTC, before any result)
+**The user (via the coordinator, about 00:15 UTC):** "now on the recent baseline, best performe I would like to give weight
+space programmin another shot on top of that". §13 tested this on 11 Nov's chain in recording order, on core1 only: ten
+hand edits, block gains, a 60-step Weco search. None passed. Old code is in 30060d5^ (experiments/wsp_*.py,
+.weco/wsp-core1/); the old run's step history was deleted, and §13 plus evidence/wsp_bio1_11nov keep what it found.
+- **Baseline:** v6f + routed additions (§206) and v6.2. Scored package-style under shuffled delivery (within, full, runs),
+  new and returning people, P10 separately.
+- **Stage 1, leverage (tonight, CPU, Mac):** where can a weight edit move the chain at all? shufcombo `SYN_T/SYN_D`
+  (oracle diagnostic, never shippable) adds +5 accuracy points to one component, in recording layout before any
+  permutation: top and true classes swapped on random wrong windows, the same windows for every base and arm.
+  - Components: member slots s0–s15 (s0 = core1 + Hilbert pair; s5–s8 the fine-tuned SessionBN families; s10 teacher),
+    core1 alone (c1), the rest net, the eye view.
+  - Read: the combination V6Fr minus the unedited file, per person, on within 0, full 0 and runs 0, for v6f (gC5, L).
+    Leverage = chain points per component point.
+  - Cost: one run is about 2.5 min (6 bases × 3 arms). 19 components × 3 orders, two at a time: about 1.2 h, landing
+    about 02:00 UTC. A SYN_D=0 smoke must reproduce the regular file exactly.
+- **Prediction:** leverage per point: core1 (c1 / s0) about 0.15; the four fine-tuned SessionBN slots about 0.05 each; eye
+  and rest about 0.03 (§188: eye +0.6 for 20 points); other slots ≤ 0.03.
+- **Rule:**
+  - Components with leverage ≥ 0.05 per point under at least two schemes go to stage 2.
+  - Below 0.03 everywhere: "no lever on this baseline" for that component (output-level accuracy only; this does not
+    close edits that change error correlation).
+  - In between: undecided.
+- **Stage 2 (after stage 1):** for the lever components, the gain weight edits can reach on the component alone.
+  - core1: head edits from 30060d5^, restored to studies/14nov.
+  - SessionBN nets: final-layer and per-block gains, GPU inference.
+  - Measured in recording order on the component (member accuracy is nearly order-free), with edits fitted on inner
+    people only.
+  - Expected chain gain = leverage × reachable points.
+- **Stage 3 (only if stage 2 shows ≥ +0.3 expected):** a nested search (selection on five people, scored on the other five,
+  all 126 splits) whose evaluation is the shuffled chain over several orders. Weco may be the optimiser, with the cost
+  per step stated. Any survivor must be expressible as changed weights only, riding on the checked package with a
+  weights-file change and the identity checks.
