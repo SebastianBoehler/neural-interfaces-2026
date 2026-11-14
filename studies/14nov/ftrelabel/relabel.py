@@ -88,7 +88,9 @@ assert np.array_equal(out[o], z["all_loso"]), "the last TSEM call is not the lab
 d = np.abs(z["all_loso"] - ref["all_loso"]).max(); agr = np.mean(z["all_loso"].argmax(1) == ref["all_loso"].argmax(1))
 # 14 Nov: today's chain differs from the 13 Nov files (s214 fixed the eye outputs' order per protocol): within 1 changes 42 of
 # 2655 argmax labels, the others 0-6. ftrel.py takes the as-emitted labels from this file, so all its arms share one chain.
-print(f"as-emitted labels against chain_{KIND}_{ORD}: max diff {d:.1e}, argmax agreement {agr:.4f}", flush=True); assert agr > 0.98, agr
+print(f"as-emitted labels against chain_{KIND}_{ORD}: max diff {d:.1e}, argmax agreement {agr:.4f}", flush=True); assert agr > float(os.environ.get("MIN_AGREE", 0.98)), agr
+# MIN_AGREE (s229): chain_v51b of within 0-3, full 0/1, runs 0/1 were written 13 Nov 13:16-14:49, before the s184 GE, Hilbert
+# and teacher re-streams (15:21-15:43) that shufcombo now adds: today's chain agrees 0.948-0.976 there, 1.0000 on the later files
 R, pos, y = R[o], pos[o], y[o]
 np.savez(f, **z, relab=R, tgrid=np.array(grid(10**6)[:R.shape[1]]), pos=pos)
 for k in range(0, R.shape[1], 4):
