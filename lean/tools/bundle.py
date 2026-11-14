@@ -38,6 +38,10 @@ if "--v62i" in sys.argv:  # v6.2h with a per-session fine-tuning limit instead o
     SRC, OUT = ROOT / "lean/src62i", ROOT / "submissions/lean_v62i/submission.py"
     MODULES = MODULES[:-1] + ("extras", "finetune", "v6chain", "solver")
     sys.argv.remove("--v62i")
+if "--v62c" in sys.argv:  # v6.2iu plus the run-level count filter (lean/src62c); the other trees and bundles untouched
+    SRC, OUT = ROOT / "lean/src62c", ROOT / "submissions/lean_v62c/submission.py"
+    MODULES = MODULES[:-1] + ("extras", "finetune", "countfilter", "v6chain", "solver")
+    sys.argv.remove("--v62c")
 if "--v63" in sys.argv:  # v6.3: v6.2i with bitwise savings (lean/src63); the other trees and bundles untouched
     SRC, OUT = ROOT / "lean/src63", ROOT / "submissions/lean_v63/submission.py"
     MODULES = MODULES[:-1] + ("extras", "finetune", "v6chain", "solver")

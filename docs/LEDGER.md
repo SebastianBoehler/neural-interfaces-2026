@@ -6233,3 +6233,33 @@ seen-session fine-tuning / views exist, otherwise reported as absent, not as zer
 Report: new and returning, sealed-weighted J = 0.566 new + 0.434 (0.2 P04 + 0.8 P10), intervals resampling people and
 orders. Refutation: stacked below the best single part on the same orders, or people up < 6/10 -> the parts do not stack;
 inside ±0.3 -> undecided, not closed.
+
+**§228c package (14 Nov 12:15 UTC, v52-build; written before any check beyond a one-session smoke): v6.2c, the
+run-level count filter on v6.2iLu ER.**
+- **Form:** `lean/src62c` → `submissions/lean_v62c` (`countfilter.py`). It is ni26-push's dev form at 3a10ba8: the
+  'lag' detector checked at windows 40 / 50 / 60 / 80 / 100 / 150 that latches for good, then J-wprior/urn (14 design
+  hypotheses, tau 2, floor 0.5) emitted from the latch window.
+  - It sits in `predict()` only: label = argmax of `cf.step(x, step(x))`. Gates, shadow, routing and fine-tuning labels
+    read the unfiltered output.
+  - State on the model, reset per session; numpy on the CPU, no clock. Any error gives the unfiltered posterior for the
+    rest of the session.
+  - Key `v6_cf_on` (builder: required, no default). Packages `cand_v62c_r1iLu_off` / `_on`.
+- **Ten-person fit** (`lean/tools/fit_cf.py`, `runs/countfilter/cf_params.npz` 33b29e20…), against dev's
+  leave-one-person-out fit:
+  - projection on 10 people, not 9, with its scales cross-fitted the same way;
+  - thresholds as the balanced-error midpoint over every person's out-of-sample statistics. They equal the leave-one-out
+    medians at 40 / 60 / 80 / 100 / 150; at 50, 0.9447 against 0.9433;
+  - design prior over all 14 sessions: P(L = 30..36) = .086 .143 .086 .429 .143 .029 .086, P(BrainHero first) = 0.75.
+  - On public sessions the projection has seen the person's runs, so latching there is in-sample. Dev's figures stay the
+    estimate for new people.
+- **Predictions:**
+  1. with the switch off, bitwise equal to v6.2iLu ER (v6_compare, 14 sessions, both gate modes; record.py per case
+     against v6.2iLu's recordings);
+  2. the reference check against the pinned dev code with the same parameters, bitwise in recording, within 0–2 and
+     full 0–2 (14 sessions each, gates off);
+  3. forced exception at window 20 / 60: errors 1, the unfiltered output from there on;
+  4. record.py stress cases complete with finite outputs;
+  5. official local replay files unchanged; GPU worker image passes;
+  6. filter cost: 4.4 ms per window on the Mac CPU (one-session smoke, P01: latched at 40 in both, bitwise, no label
+     changed).
+- **Refutation rule:** any miss fails the package.

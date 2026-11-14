@@ -4,6 +4,7 @@ Usage: python lean/tools/build6.py V51B_DIR MEMBERS_DIR OUT_DIR [--steps 5 --eve
        [--v61 --labels v6r]   (v6.1: the lean/src61 bundle; fine-tuning labels from the v6 chain without fine-tuning)
        [--v62 --routed 0|1|2] (v6.2: the lean/src62 bundle; 0 = v6.1, 1 = v6.2-safe, 2 = v6.2)
        [--v62g --cap 400 --budget 2700] (v6.2g: lean/src62g, fine-tuning cost guards)
+       [--v62c --cf-on 0|1 [--cf PARAMS.npz]] (v6.2c: lean/src62c, the count filter; v6.2i's keys too)
        [--v63 ...]            (v6.3: lean/src63, v6.2i with bitwise savings; v6.2i's keys)
        [--v62i --cap 400 --session-s S] (v6.2i: lean/src62i, per-session limit instead of the process budget)
        [--v62h ...]           (v6.2h: lean/src62h, v6.2g plus the step62 exception guard; v6.2g's keys)
@@ -19,8 +20,9 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+V62C = "--v62c" in sys.argv  # v6.2c: lean/src62c, v6.2i's keys plus v6_cf_on and (on) the v6_cf_* parameters
 V63 = "--v63" in sys.argv  # v6.3: lean/src63, v6.2i's keys
-V62I = "--v62i" in sys.argv or V63  # v6.2i: lean/src62i, v6_ft_session_s instead of v6_ft_budget_s
+V62I = "--v62i" in sys.argv or V63 or V62C  # v6.2i: lean/src62i, v6_ft_session_s instead of v6_ft_budget_s
 V62H = "--v62h" in sys.argv or V62I  # v6.2h: lean/src62h (v6.2g plus the step62 exception guard), same keys as v6.2g
 V62G = "--v62g" in sys.argv or V62H
 V62 = "--v62" in sys.argv or V62G
@@ -36,6 +38,15 @@ SLOTS = {"fbraw": r"sbn_fbcnet_raw_k20_s(\d)\.pt", "fb": r"sbn_k2_s(\d)\.pt", "s
 
 def arg(k, d):
     return type(d)(sys.argv[sys.argv.index(k) + 1]) if k in sys.argv else d
+
+
+def cf_keys():
+    """v6.2c: --cf-on 0|1 (required, no default); with 1, --cf PARAMS.npz (lean/tools/fit_cf.py) gives the v6_cf_* arrays."""
+    on = int(need("--cf-on")); assert on in (0, 1)
+    if not on:
+        return {"v6_cf_on": np.int64(0)}
+    p = np.load(sys.argv[sys.argv.index("--cf") + 1])
+    return {"v6_cf_on": np.int64(1), **{"v6_" + k: p[k] for k in p.files}}
 
 
 def need(k):
@@ -67,6 +78,7 @@ def main():
                **({"v6_ft_cap": np.int64(need("--cap")), "v6_ft_session_s": np.float64(need("--session-s"))} if V62I else
                  {"v6_ft_cap": np.int64(need("--cap")), "v6_ft_budget_s": np.float64(need("--budget"))} if V62G else {}), v6_ft_on=np.int64(0 if "--ft-off" in sys.argv else 1),
                **{f"v6_slot_{s}": np.array([i for _, i in v], np.int64) for s, v in slot.items()},
+               **(cf_keys() if V62C else {}),
                **{f"v6_rest_{k}": R[0][k] for k in ("align", "k", "G", "scale", "shrink")})
     out.mkdir(parents=True)
     shutil.copyfile(B.OUT, out / "submission.py")
