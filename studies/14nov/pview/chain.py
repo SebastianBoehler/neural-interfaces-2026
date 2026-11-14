@@ -20,6 +20,7 @@ R6 = {"__file__": F6, "__name__": "retv6_lib"}; exec(compile(HEAD, F6, "exec"), 
 K, S, A, SC, ns, Z, p, IDX = (R6[k] for k in ("K", "S", "A", "SC", "ns", "Z", "p", "IDX")); gm, R3 = A.gm, A.R3
 assert p == "seen_session" and R6["GATE_V51B"] and R6["RT_MEMBERS"]
 BASES = os.environ.get("BASES", "B2_pool,B2_s345,B2_s012,B2_s0,B2_s1,B2_s2").split(",")
+SAVE_OUT, OUTW = os.environ.get("SAVE_OUT"), {}  # s245: npz path for per-window outputs of every arm
 ORDERS = os.environ.get("ORDERS", "within0").split(","); ARMS = os.environ.get("ARMS", "base,ER,O,M,S,T,OST,W,H25,H33,H40,B20,B30").split(","); assert "ER" in ARMS, "ER is the reference arm"
 # PV3 (coordinator, s227): common, larger personal strengths. The package's routed head share at r = 1 is
 # g a / (1 - a + g a) with g = route_slot_g 3, a = w[0]: 1/15 in v5.1b (0.176), 1/16 with the rest member (0.167).
@@ -238,6 +239,11 @@ def main():
                     outs[arm][pre] = outs["ER"][pre]
             for arm in ARMS:
                 RES[order, bn, arm] = SC.person(outs[arm], p)
+                if SAVE_OUT:  # s245: per-window outputs in retv6's SAVE_OUT layout (recording order), ER checked against it
+                    OUTW[f"{order}|{bn}|{arm}"] = np.asarray(outs[arm])[np.argsort(Pp)].astype(np.float32)
+            if SAVE_OUT and os.path.exists(f"{D.REPO}/runs/chainout/ret_{order}.npz"):
+                d_ = np.abs(OUTW[f"{order}|{bn}|ER"] - np.load(f"{D.REPO}/runs/chainout/ret_{order}.npz")[f"{order}|{bn}|ER"]).max()
+                assert d_ < 1e-5, f"{order} {bn}: saved ER differs from runs/chainout/ret_{order}.npz by {d_}"
             if REF is not None:
                 for arm in [a for a in ("base", "ER") if a in ARMS]:  # both checked against s214 when run
                     ref = REF[f"{order}|{bn}|{arm}"]; assert np.allclose(RES[order, bn, arm], ref, atol=1e-6), f"{order} {bn} {arm}: {RES[order, bn, arm]} != s214 {ref}"
@@ -247,6 +253,8 @@ def main():
     S.apply({q: np.arange(S.N[q]) for q in K.PR}); K.RANK["cur"] = None
     os.makedirs(D.OUT, exist_ok=True); tag = os.environ.get("TAG", "") + "-".join(ORDERS) + ("" if len(BASES) == 6 else "_smoke")  # TAG: a run with other arms keeps its own file
     np.savez(f"{D.OUT}/chain_{tag}.npz", **{f"{o}|{bn}|{k}": v for (o, bn, k), v in RES.items()}); print(f"written runs/pview/chain_{tag}.npz", flush=True)
+    if SAVE_OUT:
+        np.savez_compressed(f"{D.REPO}/{SAVE_OUT}", **OUTW); print("per-window outputs ->", SAVE_OUT, flush=True)
 
 
 if __name__ == "__main__":

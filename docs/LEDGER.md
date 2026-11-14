@@ -6579,3 +6579,13 @@ the count filter behind their own keys.**
   6. replays files unchanged; GPU worker image passes;
   7. r15 adds under 1 % of a refit's time.
 - **Refutation rule:** any miss fails that key's package.
+
+### 245. RETURNING-PEOPLE STACKED ARM: ER + TSEM PERSONAL PRIOR + COUNT FILTER (written 14 Nov 13:19 UTC, before any result; coordinator 13:20)
+Mechanism: the returning half of the upload candidate as one arm. ER (v6.2hL-safe returning rows), plus the pview helper's
+arm T (personal class means of the session-standardised core1 PCs from the person's public session as a TSEM template prior,
+kappa 20, routed tail only; PV2), plus the detector-gated count filter (§238, package.py PROTO=seen_session). The pview chain
+gets SAVE_OUT (per-window outputs, recording layout; ER asserted equal to runs/chainout/ret_<order>.npz).
+Orders: within0-7, full0-3, runs0-3 (16). Report P04 and P10 separately and sealed-weighted (0.2 P04 + 0.8 P10), per scheme.
+Prediction: ER + T + filter against ER raw, sealed-weighted: +0.25 (T's +0.43 is mostly P04 at weight 0.2; the filter adds
+about +0.14 sealed-weighted). Refutation: T + filter below the filter alone, or P10 below -0.2 on a scheme mean -> T is not
+carried (the sealed set weights P10 at 0.8).
