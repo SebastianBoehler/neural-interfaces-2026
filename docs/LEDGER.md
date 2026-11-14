@@ -5226,3 +5226,85 @@ filter off).** τ 2 (τ 1 similar). Means over six orders:
 - **What decides:** the same with inferred boundaries (§217, running) under the contiguous schemes, and under full with the
   detector in the loop (the filter and hard offsets must then be inert).
 - Corrected returning people (§214): within 0 ER +0.61, ERF +0.84 (both people up); the other 15 orders are running.
+
+### 216. EXTERNAL HARNESS v1 (written 14 Nov 07:22 UTC, before any result; ML panel §2.2)
+- **Question:** a second instrument for ranking stage changes the ten dev people cannot rank: the chain's adaptation
+  stages on public corpora with many people. Code `studies/14nov/extharness/` (corpus.py, harness.py), results
+  `runs/extharness/`. CPU, Mac.
+- **Corpora (3 balanced classes; the exports of `scripts/export_moabb.py`, copied from Leonardo `$WORK/ni26/data/` into
+  gitignored `data/`):** PhysionetMI, left hand / right hand / feet (109 people, one session, about 22 per class; its
+  runs are class-pure: l/r runs and feet runs, unlike PROTEUS' 10/10/10 runs). Schirrmeister2017 (HGD), left / right /
+  feet (14 people, one session of two runs, classes mixed inside runs, about 700 windows per person). Scherer2015 (the
+  PROTEUS tasks, 9 people, two sessions, no run ids: within = full and runs = rec there) as a small third column.
+- **Member (stand-in for core1):** CAR, bands 4–8/8–13/13–20/20–30 Hz, covariance shrunk 0.05, log-Euclidean tangent
+  vectors; training sessions centred by their own mean, test sessions by a causal running mean in delivery order (prior
+  5 windows at 0); standardised; multinomial logistic regression, C 0.05 fixed a priori. Leave-one-person-out.
+- **Stages:** `gm.M.rebal` → `gm.gate` → `gm.em_g` → `gm.tsem_g` from replay/gm.py, called unchanged through a new store
+  key `ext`. Substitutes: TSEM view (pc128) = 128 PCs of the member's standardised tangent features (PCA on the fold's
+  training people); SessionEM view (GE: gaze + ocular events) = the first 48 of those PCs (no gaze part). Asserts: stages
+  equal `gm.pipe_g` at W 30; W 15/60 change the rebalanced output; orders are permutations.
+- **Orders:** rec, and full / runs / within (shuffle.py's definitions) × 3 seeds per test session. Person-equal balanced
+  accuracy (per person × session cell, then the mean); 80 % intervals from 2000 person resamples.
+- **Predictions:** member alone (rec) PhysionetMI 50–60, Schirrmeister 60–75, Scherer 50–65. Rebalancing − member
+  +1 to +4 on every corpus and scheme. SessionEM − rebalancing −0.5 to +1.5; TSEM − SessionEM 0 to +2 (generic views
+  are weaker than GE / pc128). Rebalancing window: W 30 within 0.3 of the best of {15, 30, 60} on Schirrmeister in
+  every scheme; on PhysionetMI W 15 ahead under rec / runs / within (class-pure runs) and W 30–60 under full.
+- **Rule (W check):** "W 30 not near optimal there" only if W 15 or W 60 beats W 30 on the final output by more than
+  0.3 with the 80 % person interval above 0, on both large corpora (PhysionetMI, Schirrmeister), under at least 2 of
+  the 3 shuffle schemes. One corpus only, or inside ±0.3: undecided / near optimal. Either way it is a pointer for a dev
+  check in the chain, not an adoption. A corpus where the member is below 45 is reported but not used for the rule.
+
+### 222. SUB-8 HZ VIEW (written 14 Nov 07:23 UTC, before any result; panel BCI §2.3)
+- **Claim:** class variance sits mostly below 8 Hz, but a 41 × 41 covariance of a 3–4 Hz wide band over 4 s has only about
+  25–30 degrees of freedom, so its log map mostly sees the shrinkage floor. Reducing each sub-8 band to 12–16 spatial
+  components (fit on the training people) before the log, optionally with an ERP-prototype augmented covariance
+  (population class-average slow waveforms stacked on the window), gives a well-conditioned slow view for TSEM.
+- **Test (CPU, studies/14nov/views/, runs/views/):**
+  1. Per band (1–4, 4–8, 8–13, 13–20, 20–30, 30–45 Hz): CAR, band-pass, 41 × 41 trace-shrunk covariance (0.1), log-Euclidean
+     tangent at the session reference (training sessions whole-session, test causal with the fold prior at k 2, as core1;
+     recording order), scaler + LR C 0.3; all_loso (10 people) and seen_session; cell-mean BA per person.
+  2. The view: bands 1–4 and 4–8, m ∈ {12, 16} components per band (multiclass CSP in the session-whitened space, PCA as the
+     alternative), m × m covariance, tangent; with and without the ERP-prototype augmentation. Two reference modes: causal
+     session recentring (order-dependent, needs delivery-order re-streams) and none (order-free).
+  3. As a template view: the replay's tsem_lik on the view with (a) one-hot true labels (template separability ceiling) and
+     (b) the chain's TSEM input; and the recording-order chain (A.system, check.py OK) with pc128 replaced and with the
+     view appended to pc128. Reference: pc128 under the same measures; core1 member alone 69.3 new.
+- **Prediction:** 1–4 and 4–8 Hz are the two best of the six bands, each 50–62 %; the bands above 8 Hz 42–55 %. The reduced
+  sub-8 view alone 55–63 % new (below core1); reduced ≥ full-41 sub-8 by 0 to +3; ERP augmentation 0 to +2. Recording-order
+  chain: replacing pc128 −1.0 to 0; appended to pc128 −0.2 to +0.3.
+- **Kill (panel):** view alone below 55 % new → closed as a view. Streak correlation with the eye net: the phi of the two
+  correctness vectors above 0.5 is flagged as the panel's risk. **Chain-test rule:** the view goes to the parent's shuffled
+  chain (shufcombo hook) only if it is at least 55 % alone and either its template ceiling (3a) beats pc128's or the
+  appended recording-order chain gains ≥ +0.3 J; 0 to +0.3: undecided (noise ±0.3), stated as such.
+
+### 223. BAGGED MEMBERS (written 14 Nov 07:23 UTC, before any result; statistics panel proposal 5)
+- **Claim:** training a member on random subsets of the training people and averaging puts the members' diversity where
+  the error is (people). For core1 (convex LR on fixed features) the only diversity is the person subset.
+- **Test (CPU, studies/14nov/bagging/, runs/bagging/):** core1 features (car_ov17_fs2_t0.1_le_k2, causal test references with
+  the full fold's priors), head lr0.3, all_loso and seen_session. Per fold: the full fit (must reproduce the stored member,
+  correlation ≥ 0.99), 8–9 leave-one-person-out bags and 8 random leave-two-out bags, averaged (arithmetic). Member alone,
+  then the recording-order chain with core1 replaced (Hilbert slot hb kept as stored).
+- **Prediction:** member alone bagged − full −0.5 to +0.5 new (each bag loses about 0.5–1 point from one person fewer;
+  averaging wins it back, not more); chain J −0.2 to +0.2.
+- **Kill (statistician's):** the bagged member not above the full fit at equal member count → closed for core1 on CPU.
+  Within ±0.3: undecided. This does not close the net version (different model class, seed variance is the
+  baseline there); the GPU version is proposed with its cost either way.
+- **§217 addendum (14 Nov 07:24 UTC, labels frozen, no chain score read yet).** Changes against the entry, all decided on
+  label-side numbers only (runs/rundetect/detect.txt, segment.txt): projection 6 directions, ridge 1.0 (best held-out
+  same/different-run distance ratio, 0.73, of 8 settings); the plain consecutive ratio cannot see 'within' before the
+  first run ends (50 % error at W 40), so the loop uses a second statistic, 'lag' (pairs ≤ 3 apart / pairs ≥ 15 apart):
+  error at W 40 recording 7 %, runs 4 %, within 26 %, full 11 %; at W 60 0 / 1 / 7 / 3 %. BOCPD labels: a new label when
+  the posterior mass on a later run start exceeds 0.5. Added arms: loop60 (latch at W 60) and loopM40/loopM60 (mix labels
+  instead of singletons when the detector says full). Pre-registered loop = loop40; the others are reported as extra
+  forms, not swapped in. dpoff stays a non-causal reference. Note §215's true-run filter gains +0.6 to +1.2 under full,
+  so the full-scheme ceiling is large; the 6-direction view separates runs poorly when shuffled (nearest TRUE run mean
+  purity 0.56), so mix is expected near zero.
+- **§215 detail (07:24 UTC; runs/s215_detail_tau2.txt / .npz; 80 % person intervals).**
+  - The offsets do not change the posteriors' sharpness: mean top posterior 0.608 → 0.610 (v5.1b), 0.626 → 0.628 (v6f) on every
+    order. The filter's temperature stays valid with offsets on.
+  - The apparent negative interaction for v5.1b under within (filter +0.74 [+0.44, +1.04], both +0.38 [−0.21, +0.96]) lies inside
+    the person interval: noise, not an interaction.
+  - Single-tool cells exclude 0 on most orders. Exception: runs 0, where for v6f the filter is −0.33 [−0.73, +0.05] and
+    offsets −0.02.
+- **§214 corrected returning people, first orders:** within 0 ER +0.61 / ERF +0.84; within 1 +0.30 / +0.29; within 2 +0.47 / +0.78.
+  Before the fixes: within 1 ERF +0.19, within 2 ERF +1.23.
