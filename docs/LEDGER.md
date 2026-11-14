@@ -6330,3 +6330,21 @@ held-out gain over 126 person splits, V6Fr minus shipped, mean [10 %, 90 % acros
   confirmation threshold. Eye weight 3–4 (copies) is the one positive direction, +0.07 to +0.09 held-out, inside the noise.
 - Prediction: stage constants within ±0.15 (EM_LAM missed low at −0.21, the rest held); EYEW / REST_W 0 to +0.2 (REST_W
   −0.06, below); joint 0 to +0.25 (−0.07, below); no knob ≥ +0.3 (held).
+
+### 241 result. OFF-TASK WEIGHTING, TERCILE GATE (14 Nov 12:17 UTC)
+
+**Data.** `studies/14nov/offtask/prest.py` on Leonardo (job 64463250, 3 seeds, smoke 64463136 first): the 4 logits
+reproduce the member's 3-way posterior to 1e-5 in every fold. The retrained twins are not bitwise the chain's rest files
+(GPU training noise): argmax agreement 0.96 with runs/restshuf/within0 and runs/rest4/probs. p_rest (seed mean) is broad:
+mean 0.25, q10/50/90 0.003 / 0.12 / 0.74. Files: runs/diag/restprest/<order>/ (local and Leonardo, gitignored).
+**Tercile gate** (`tercile.py`, v6f V6Fr from s215_<order>_off, six bases, new people), accuracy by tercile low -> high
+p_rest, bottom - top: within0 +1.62, within1 +1.77, full0 +6.13, full1 +4.76, runs0 +1.09, runs1 +2.37; **mean +2.96
+[80 % person +1.49, +6.12]**, per person P01..P10 +9.6 +4.1 +3.0 -1.2 +11.2 -3.0 +14.2 -1.9 -1.7 +3.2 (6/10 > 0).
+The rest net's own accuracy falls 67 -> 60 -> 58 over the terciles. With recording-order p_rest (not deployable in a
+shuffled stream; correlation 0.90-0.97 with the order's own) the mean gap is +4.01.
+**Verdict: gate missed by 0.04 points (below the 3.0 bar, inside its noise): undecided, not closed.** Per the brief, step 2
+was not scored. Ready to run: `hooks.py` (weighted SessionEM / TSEM; w = 1 reproduces the stock stages exactly, random w
+changes them), `chain.py` (shufcombo via runpy, unedited; W0 within0 reproduces s215_within0_off bit for bit, 46 s per
+order on the Mac), `compare.py` (kill rule of s241). Step 2a costs about 10 CPU minutes for W1 and W3 on six orders.
+The gap is concentrated in full orders (+5.4) and in three people (P01, P05, P07); 2b (FT label weights) not sized beyond
+"one ftrel-style wave per order" since 2a did not run.
