@@ -5603,3 +5603,35 @@ check.py OK; recording order).** Refuted for core1: bagging over training people
   size (2.7–7 GPU h in all), plus delivery-order re-streams of the bagged nets for the shuffled chain (inference only if
   checkpoints are kept, else ×6 orders). The Galvani GPU queue is at its per-user job limit now. Expected value from
   this CPU result: below the statistician's −0.3 to +0.8; I would run it only on otherwise idle GPUs.
+
+### 227. EXTERNAL HARNESS v2: RETURNING PATH (written 14 Nov 08:19 UTC, before any result; coordinator)
+- **Code:** `studies/14nov/extharness/ret.py` (returning path), `kstages.py` (K-generic stages), `ret_report.py`; results
+  `runs/extharness/ret_<corpus>.pkl`. Item 3 (K-generic stages) is done first because the multi-session corpora on hand
+  are two-class. `python kstages.py` prints PARITY OK: equal to gm to 1e-10 on B2_pool and B2_s0, both protocols,
+  recording order and a full shuffle (rebal, gate, SessionEM, TSEM). `replay/check.py` OK.
+- **Corpora:** Lee2019_MI (54 people, 2 sessions on different days, l/r, 2 runs each); Shin2017A (29, 3 sessions, l/r MI);
+  Shin2017B (29, 3 sessions, mental arithmetic vs rest); Scherer2015 (9, 2 sessions, 3 classes; reported, not used for
+  the rules). Stieger2021 is not exported anywhere reachable (not on the Mac or Leonardo). Shin's sessions were recorded
+  on one day, so its "gap 2" is within-day: a weak test of decay over days.
+- **Stand-in for the routed path:** v1 member (LOPO population, causal recentring) and views (PCs 1–48 / 1–128); personal
+  heads = logistic regression (C 0.1) on session-1 PCs of the person and 9 gallery people; identity gate = bio_id.TwoCov
+  (psd view) fitted on the other people, 10-person galleries of session-1 signatures, routed from window 10 when the top
+  score ≥ τ (99th percentile of impostor maxima at n 20 among the other people), wrong top person = wrong head;
+  blend = (1 − s r)·member + s r·head, then the chain. s ∈ {0, .05, .10, .15, .25, .40, .60, .80, 1}. (The package's head
+  share at full ramp is G3·a / (1 − a + G3·a) ≈ 0.18.) Test sessions in orders rec, full × 2, within × 2; per-person
+  numbers are means over orders. LORO: on session 1, head trained on the other runs (no run ids: 4 blocks), blended with
+  the population member on the held-out run (member level), BA per s; s_cv = argmax; advantage = head alone − member.
+- **Use 1 (person-specific strength, panel proposal 10, §79).** Policies at gap 1: common s chosen leave-one-person-out
+  on the other people's test curves (`common`), per-person s_cv (`pp`), per-person oracle (`oracle`).
+  - Predictions: member Lee2019 60–70, Shin2017A 55–65, Shin2017B 65–75. Best common s 0.25–0.60. pp − common 0.0 to
+    +0.4; oracle − common +1 to +3; Spearman(s_cv, best s) +0.2 to +0.5. Identity right on ≥ 90 % of windows after 10.
+  - **CONFIRMS the per-person strength** if on ≥ 2 of the 3 large corpora pp − common ≥ +0.3 with the 80 % person
+    interval above 0 and Spearman(s_cv, best s) ≥ +0.3 with its interval above 0. **KILLS it** if pp − common ≤ +0.1 on
+    all three, or oracle − common < 0.5 on all three (nothing on the table). Otherwise undecided. A confirmation makes it
+    a candidate for a PROTEUS dev test (P04/P10 LORO on their training sessions), not an adoption.
+- **Use 2 (decay with sessions between training and test).** Gain(g) = chain BA at s − at s 0, for g = 1, 2 on Shin2017A/B,
+  at the common s and at s 0.25. Prediction: gain(2) / gain(1) 0.7–1.0 (same day). **Decay confirmed** if gain(2) <
+  0.5·gain(1) with the interval of gain(2) − gain(1) below 0 on both Shin corpora; **no decay** if that interval contains
+  0 and the ratio ≥ 0.8 on both; otherwise undecided. Either way the package cannot see the gap (no metadata); a
+  confirmed decay lowers the expected sealed gain of the returning path and argues for a label-free trust weight.
+- **Item 2 (core-like member)** follows as its own pre-registered row once these land.

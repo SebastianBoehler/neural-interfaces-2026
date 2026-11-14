@@ -108,7 +108,7 @@ def main(name):
         out = pool.map(fold, range(n), chunksize=1)
     keys = sorted(out[0], key=str)
     tag = os.environ.get("TAG", "")
-    path = f"{CO.OUT}/res_{name}{tag}.npz"
+    mem = os.environ.get("MEMBER", "v1"); path = f"{CO.OUT}/res_{name}{'' if mem == 'v1' else '_' + mem}{tag}.npz"
     np.savez(path, people=np.array(D["people"][:n]), **{"|".join(map(str, k)): np.array([o[k] for o in out]) for k in keys})
     print("saved", path, flush=True)
 
