@@ -7666,3 +7666,19 @@ fewer, earlier windows than the run split). V3 +0.2 over the 2-seed form.
 Rule: V2 >= +0.5 with the people interval above 0 -> sketch the causal package form (r15's refit extended to these families,
 run time per window on an A100 against the 1.37x slack) as its own pre-registration; V2 0 to +0.5 -> undecided, one more form
 (t = 80 and t = end-40); V2 < 0 -> the run-split gain does not carry to delivery order (recorded). P04 and P10 reported, neither decides.
+
+**§262 AMENDMENT (14 Nov, before any result; implementation choices the design left open).** Code `studies/14nov/pview/proxy_routed.py`,
+derived from chain.py's `system()` (ER inputs, rest member at weight 1, eye log columns on SessionEM's GE view, a = 1/16, own-space beta 0.10)
+and tproxy.py (all_loso store, shuffled orders, six bases, online rows scored). Package functions reused, not re-implemented: `R3.ps1_heads`
+(C 0.1), `R3.slot_mix` (g 3, a 1/16), `RR.causal_std`, `ownspace.Personal` (T, C, S members), `gm.pipe_g`, route4's PM/KP prior path (kappa 20).
+- **Oracle recognition:** the routed person is the session's own person, ramp r = 1 on every online row (from the first routable window of the
+  delivery order). Acquisition rows play the public session and are never routed (r = 0, they emit the tail's output); their labels reach only the
+  personal heads, the prior and the own-space members, so no label reaches a scored row's pseudo-labels through unrouted rows.
+- **Personal parts fitted on a session's acquisition rows** (one Graz + one BrainHero run), per person x session: head on the fold's core1 PC256
+  (feats_exact/all_loso-<P>), prior = class means of PC128 standardised on those rows, own-space members on those rows.
+- **ER inputs as found for all_loso:** eye net runs/ocushuf/<order>/oc_nomix-all_loso-s0..2.npz (log of the 3-seed mean, clip 1e-3), rest member
+  runs/restshuf/<order>/rest4_sh_r1-all_loso-s0..2.npz; both in recording layout, permuted with the order. Members otherwise as recorded
+  (tproxy's limit); the heads' PC256 are the recorded running-recentred ones.
+- **Arms:** tail0 (no ER, no personal; asserted equal to tproxy.npz base per order and base), ERoff (ER inputs, r = 0), ER, ERT (kappa 20).
+  Orders: within0-3, full0-1, runs0-1 (the 8 shuffled orders of tproxy.npz). Reported: routed minus tail0, and routed minus ERoff (what the
+  personal path alone adds). Rule and prediction as above, applied to routed minus tail0 (the pre-registered comparison).
