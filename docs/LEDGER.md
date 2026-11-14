@@ -7036,3 +7036,11 @@ own outputs instead of true labels? Code `studies/14nov/personal_ceiling/` (same
 - **Rule:** primary >= +2 with the people interval above 0 -> sketch the causal package form (refit on windows < t every k,
   chain's emitted labels, run time against the worker budget). +0.5 to +2: undecided, a causal form only if cheap (aE).
   < +0.5: the labelled ceiling is not reachable by self-training on the chain's labels in this form; recorded, not closed.
+**§251 amendment 2 (written 14 Nov 15:46 UTC; (1b) read, (2) read on full 0/1 only, (3) running, not read).** (1b): normalised soft
+count m15 / m20 GSCF − latchJ full +0.16 / +0.16 [+0.04, +0.28] 8/10, within +0.03, runs −0.02; nested over M +0.02 (the
+choice flips between m15 and m30); the γ curve 0.75 / 1 / 1.25 / 1.5: +0.16 / +0.30 / +0.05 / +0.12, so γ 1's +0.30 is a
+spike (prediction hit). **(4) Stack of the soft parts in one chain:** the soft-offset chain (form kern, fixed now; full 0/1
+read: kern +0.12, top10 +0.09) with the normalised soft count m15 on its output (GSCF: before the latch; latchJ after),
+against latchJ(r15). m15 is chosen after reading (1b) on all ten people (stated; nested M reported next to it). If (3)
+tloc is positive under full it is not added (separate chain variants; no third chain run in this entry). Prediction: full
++0.25 (0 to +0.5), within / runs −0.05 to +0.05. Same pass rule.
