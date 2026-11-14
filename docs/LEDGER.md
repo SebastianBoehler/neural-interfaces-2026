@@ -6719,3 +6719,30 @@ scored against the routed path (ER, and ER + T of §245) on the same test sessio
   does not beat the routed path on the same sessions by >= +3 on P04 and >= +1 on P10 (mean over the protocol's test
   sessions and the 16 orders), stop: record the ceiling, build no causal version. If it passes, build the causal
   version (EA in delivery order, pseudo-label refits) and score it under within and full at least.
+
+### 246. PERSONAL WITHIN-SESSION CEILING (written 14 Nov 15:09 UTC, before any result)
+Code `studies/14nov/personal_ceiling/`, outputs `runs/personal_ceiling/`. Question: what does a fully personal system
+reach inside one session, per person, and how far does the same system drop across sessions (P04, P10)?
+- **Splits (within, W):** every session (14); train = the two acquisition runs + two online runs with true labels, test =
+  the other two online runs; all six pairs of online runs (named primary pairs: last two online runs; online runs 1+2).
+  Score = balanced accuracy per interface cell on the test windows, mean over the cells present, then over splits and the
+  person's sessions. Cross-session (X): P04 / P10, train on all six runs of session 1, test sessions 2 and 3 on the same
+  test-pair windows as W (and whole session).
+- **Systems:** (a) classic personal pipelines on the 41-ch windows, each session recentred on its own whole-session mean
+  covariance (non-causal, unlabelled; same rule in W and X): a1 filter-bank tangent space + LR; a2 FBCSP (OvR) + shrinkage
+  LDA; a3 MDM 8-30 Hz; a4 slow waveform (< 4 Hz, decimated) + shrinkage LDA; aE = mean of the four probabilities (primary
+  for a). (b) the four population member families (ttt5.ORDER: fbraw, fbl, sinc, fb), each trained on the fold's other
+  nine people as ttt7 does, then fully fine-tuned (all parameters, eval-mode SessionBN, AdamW 5e-4, ttt5 augmentation)
+  on the person's four training runs with TRUE labels, 60 and 200 steps; bE = mean of the four families (primary for b,
+  200 steps if it is not below 60). (c) the population chain on the same test windows: s242ctl V6Fr (new-person path,
+  all_loso), 20 orders x 6 bases, mean of the scores; for P04 / P10 sessions 2-3 also ret ER (routed returning path,
+  16 orders). Fusion: product of experts, P_chain x P_personal (equal weight, renormalised), per order and base.
+- **Predictions (W, ten-person mean):** chain (c) 78 (74-82) on the test runs; aE 72 (65-80); bE 83 (77-88); best of
+  a/b fused with the chain 85 (80-90), i.e. +6 over the chain. P04: chain 52, aE 62, bE 70, fused 72. P10 (all three
+  sessions): chain 82, bE 92. Cross-session drop of the same personal system (bE and aE, W minus X on the same windows):
+  P04 -10 (-4 to -18), P10 -6 (-2 to -12).
+- **Reading rule (stated now):** "the P04 / P10 gap is cross-session shift for known people" if the within-session personal
+  ceiling (best of aE, bE, fused) on their sessions 2-3 is >= returning-chain ER + 5 on the same windows AND the same
+  personal system loses >= 5 points from W to X. Its size = W personal (fused) minus ER. For the eight single-session people,
+  W fused minus chain (c) is the room a session-internal personal system could at most claim; < +3 means the chain already
+  sits near the personal ceiling. Bars are reading aids; within ±0.5 of a bar is "undecided".
