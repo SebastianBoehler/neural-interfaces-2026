@@ -7812,3 +7812,21 @@ Predictions: S3 +0.9 (80 % range +0.2 to +1.6; regression toward §252's w 1 val
 Rule: S2 or S3 >= +0.8 with the people interval above 0 and >= 7/10 up -> the family set and w 0.5 are fixed for the §265 V2
 causal form (delivery prefix), which is then rerun with that set; S2 - S3 >= +0.3 with interval above 0 -> drop fbraw from
 the set; else the four-family set stays. P04 and P10 reported, neither decides. GPU, Leonardo boost_usr_prod.
+
+**§265 V1 + V2 RESULT (14 Nov 21:48 UTC; research thread; score265.py v1 / v2, PL_FTPL_DIR=runs/personal_ceiling_leo,
+S265_V2_DIR=runs/personal_ceiling_v2_leo, Leonardo jobs 64493438/39, smoke 64493417 passed the t < 120 assert; V3 pending).**
+- **V1** (existing 16 files, §252 split, six orders, chain 79.95): c x bE^0.5 +1.20 [+0.52, +1.90] 8/10 (P04 -0.40, P10 +3.57);
+  w 1 +0.83 [0.00, +1.67] 6/10; w 1.5 +0.42. Single family alone -1.1 to -2.9 at w 1; leave one out: without sinc -0.37, fbl
+  +0.25, fb +0.86, fbraw +1.28. Predictions: best w 0.5-1.0 within 0.2 of +0.83 (missed: +1.20 at 0.5, read after the fact,
+  hence §267); no single family > +0.5 (hit).
+- **V2, delivery-prefix split (the deployable direction):** nets fine-tuned on the session's windows delivered before t 120
+  with the chain's filt labels, tested on windows from 120 on (chain 81.35 there), 6 orders x 8 nets: bE alone 76.03 (-5.33);
+  **c x bE -1.23 [-2.41, -0.14] 4/10** (P04 -0.77, P10 +0.42); per scheme within -2.65, full -1.30, runs +0.27.
+  Prediction +0.4 (80 % range -0.3 to +1.0): refuted, below the range.
+- **Verdict by the rule (V2 < 0): the run-split gain does not carry to delivery order** (recorded). The scheme pattern says
+  why: only under the runs scheme, where the prefix holds whole runs as in §252's split, is it near 0; under within (all
+  runs interleaved) it costs 2.65. The §252 split's +0.83 / +1.20 lean on training on whole other runs of the session, which
+  sealed delivery does not hand over in that form. r15 (the chain's own in-session fine-tuning) already takes the
+  deployable share. §267 (fresh seeds, fixed w) still reads the run-split ceiling; its rule's "feed the V2 rerun" branch is
+  void unless a V2 form at w 0.5 or with a later t is positive (not pre-registered here; scored only as a labelled
+  exploratory column if run).
