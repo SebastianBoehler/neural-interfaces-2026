@@ -214,6 +214,7 @@ def nuis_projectors(key):
 NUIS_U = {k: nuis_projectors(k) for k in (["pc128"] if NUIS_V == "pc" else ["pc128", "GE"])} if NUIS else {}
 ALLSEED = bool(os.environ.get("ALLSEED"))  # s230
 EYEW = float(os.environ.get("EYEW", 1))  # s231: eye-view weight (1 = as shipped)
+assert EYEW in (0, 1), "EYEW other than 0/1 is a silent no-op: SessionEM z-scores each view column (s236); use copies via EXTRA_VIEW"
 REST_W = float(os.environ.get("REST_W", 1))  # s232: the rest member's weight in the mix (1 = as shipped)
 XVF = os.environ.get("EXTRA_VIEW")  # s232: npz, key 'rec' (N, k) recording layout, optional '<scheme><seed>' delivery-order rows
 XV = None
