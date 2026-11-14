@@ -262,35 +262,54 @@ and memory carry over from v6.2g / v6.2gL (identical computation without errors)
 ## v6.2i: no state across sessions (14 Nov)
 
 **v6.2g and v6.2h break the official rule** that "state, windows, statistics, and parameter updates must not cross the
-session boundary" (`scientific_faq_bci.md`). The module-level `FT_CLOCK` (v6.2g's process budget) switches fine-tuning
-off for every later session, and it makes outputs depend on worker speed. Neither is to be uploaded.
+session boundary" (`scientific_faq_bci.md`). Their module-level `FT_CLOCK` (v6.2g's process budget) switches
+fine-tuning off for every later session and makes outputs depend on worker speed. Neither is to be uploaded.
 
-v6.2i (`lean/src62i` → `submissions/lean_v62i`, `submission.py` `1caf6d11…`; `build6.py --v62i --session-s S`):
-- `FT_CLOCK` / `ft_clock_start` removed. A per-session limit lives on the model: `v6_ft_session_s` caps this session's
-  total refit seconds (`FineTune.ft_sec`, reset with the session). Past it, no new refit in the session, and the last
-  fine-tuned nets keep predicting. The cap of 400 windows stays.
-- **Sizing:** on the A100 (Leonardo 64448969, `v6_time.py` with synchronised refit timing), refits take 5.85 s in all
-  in a 190-window session (17 refits) and 23.6 s in a 378-window session (36 refits, longest 1.18 s). About 2.5 ×
-  23.6 s gives **60 s**. The cap keeps any longer session at refits up to window 400.
-- **What the limit implies:** it binds only if refits run more than 2.5× slower than on the A100 in a 378-window session,
-  or about 10× in a 190-window one. A per-session limit cannot bound the total: if it bound in every one of the
-  106 sealed sessions (20,083 windows, mean 189.5), refits alone would take up to 106 × (60 s + one refit) ≈ 108 min. On
-  top come v5.1b (21.45 min) times the non-refit additions (×1.38 at 378 windows) ≈ 30 min, so about 138 min. At A100
-  speed the expected total stays as measured: refits about 6 s × 106 ≈ 11 min, and about 40 min in all with every session
-  unrecognised.
-- Also in v6.2i, from the performance review (`evidence/review_14nov/panel_performance.md`), each small:
-  - fine-tuning copies load lazily at the first refit (no loads in `reset_state`, none kept by the template);
-  - `self.X` stops at the cap, and the per-window prediction reads the window's input directly (the same float32 array);
-  - `torch.cuda.empty_cache()` at session reset and in step62's exception handler, when CUDA is initialised;
-  - `cudnn.deterministic = True`, `benchmark = False`.
-- **Cross-session audit of the tree:** `FT_CLOCK` was the only module-level mutable state that can change predictions.
-  - Fine-tuning reloads its copies and reseeds its generators per session; eye, rest and net streams reset per session.
+v6.2i rev2 (`lean/src62i` → `submissions/lean_v62i`, `submission.py` `ba2cf3a7…`, 7043cec; `build6.py --v62i --cap 400
+--session-s 120`), after the performance review and the package review (`evidence/review_14nov/`):
+- **Per-session limit instead of the clock.** `v6_ft_session_s` = 120 s caps this session's refit seconds
+  (`FineTune.ft_sec`, on the model, reset with the session), counted from the session's second refit. A fresh
+  process's first refit carries a one-off CUDA / kernel warm-up of about 65 s. Past the limit, no new refit in the
+  session; the last fine-tuned nets keep predicting. The 400-window cap stays.
+  - A100 refit seconds per session (Leonardo 64448969, synchronised): 5.85 (190 windows, 17 refits), 23.6 (378, 36;
+    longest 1.18), 27.5 (800 capped at 400, 39). So 120 s binds only at ≥ 4.4× slower refits for the longest sessions
+    and about 20× at 190 windows: it guards against pathological sessions, not a slow worker.
+  - **Protection against a slow worker now comes from slack alone.** All-unrecognised ratios, from the 1287 s × ratio +
+    1.1 min record: ×1.86 at 190 windows (sealed mean 189.5) ≈ 41 min, ×2.13 at 378 ≈ 47 min. A uniform worker slowdown of
+    about **1.46×** (190-window ratio) to **1.28×** (378-window ratio) against the A100 measurements exceeds 60 minutes.
+    The real protection is a cheaper refit path (track B).
+  - No per-session limit can bound the run without cutting normal sessions: binding in all 106 sessions, refits alone
+    could take 106 × 120 s ≈ 3.5 h.
+  - **CPU note:** a CPU refit is about 10× slower than an A100's, so the limit binds on CPUs. On the Mac CPU the last
+    4 refits of P01 are skipped (window 150 on). The CPU replays (647 s against 882 s for v6.2hL) therefore run a
+    shorter schedule than the GPU. CPU identity and reference checks lift it explicitly (`--session-s-override 1e9`);
+    the trigger package tests the limit itself.
+- **Exception handler**: no CUDA call; its counting and stderr print sit in their own try/except.
+- **Keys**: `check_package` refuses out-of-range switches and guards (tested: cap 0, session_s 0, routed 3, every 0).
+  `build6.py` has no guard defaults.
+- From the performance review: fine-tuning copies load lazily; `self.X` stops at the cap; `empty_cache` at
+  `FineTune.reset_state`. **Not** in v6.2i: `cudnn.deterministic` (process-wide, changes v5.1b's convolutions; track B).
+- **Cross-session audit:** `FT_CLOCK` was the only module-level mutable state that can change predictions.
+  - Fine-tuning reloads its copies and reseeds its generators per session; eye, rest and net streams reset.
   - Module level has only a thread pool and constants.
-  - Process-global but data-independent: TorchScript's profiling executor specialises / fuses after warm-up runs (on the
-    GPU, possibly float32 shifts at about 1e-7 between early and late windows), as in the uploaded v5.1b.
-- Checks submitted:
-  - Leonardo wave 5 (139 jobs), all four packages: forced exception at window 30 (P01–P03), forced per-session limit
-    (`cand_v62_r2iL_s0`, limit about 0: the refit at window 20 runs, the one at 30 does not; `--from 30` on 14
-    sessions), identity to v6.2h / v6.2hL on 14 sessions;
-  - Galvani `cpu-galvani` (51 jobs, v6.2iL ERF): the same three checks, readable without the Leonardo certificate.
-  - Local replays (r2iL, r2i, r1iL, r1i) follow the one-session smoke.
+  - TorchScript's profiling executor specialises / fuses after warm-up runs: process-global but data-independent (as in
+    the uploaded v5.1b).
+- Check scripts: `check_v6` / `check_v62` compare through a NaN-safe `upd()`, and a NaN or inf difference fails. Forced:
+  `--inject-nan ft` on v6.2iL gives ft = inf and the check exits 1.
+
+| Package (v6.2i rev2) | ZIP SHA-256 | Local replay (Mac CPU; the limit binds on CPU) |
+|---|---|---|
+| v6.2iL ERF `cand_v62_r2iL` | `023d29c8dab3f64f824398d0e392f8abe1c62a63f0f7a2e77f09e2e5883ef0d6` | 0.9945788530, files unchanged, 647.1 s |
+| v6.2i ERF `cand_v62_r2i` | `b7d9878b10c8414be4dd09b9c9f7e3dcefd4ac425c1f217302ccbcd23f6ec8a4` | 0.9945788530, 641.7 s |
+| v6.2iL ER `cand_v62_r1iL` | `0131fc8c844cc6275462e373d06dfb3bc6d30114186b0fa6e073c548ee3a21c3` | 0.9945788530, 108.2 s |
+| v6.2i ER `cand_v62_r1i` | `23884186ec75e88cbf47685aff1272ad3b1de2c9674c0604949086ef3e2b01b9` | 0.9945788530, 103.3 s |
+
+| Check (v6.2i rev2) | Where | Result |
+|---|---|---|
+| Per-session limit trigger (`cand_v62_r2iL_s0`, limit ≈ 0: refits at 20 and 30, the next skipped) | Galvani CPU, `v6_compare --from 40`, 14 sessions, gates as shipped and off | **all 14 first differ at window 40**, both modes; 15–16 refits skipped; errors 0 |
+| Forced exception at window 30 (ft / eye, both gate modes, P01–P03, all four packages) | Galvani CPU, 27 jobs | **27/27 pass** |
+| `record.py` stress, extreme, faults, long (577), switch, lapse; v6.2iL ERF and ER | Galvani CPU, 12 jobs | **all complete**, outputs finite, labels in {0, 1, 2}. The extreme case (float32-edge windows) raises once per run: v6.2's mix is not finite; the guard counts it, and the session continues on v5.1b |
+| Identity to v6.2h / v6.2hL, limit lifted, 14 sessions (r2 both gate modes, r1 off) | Galvani CPU `K*` (84) | pending |
+| `check_v6` / `check_v62` on the unzipped ZIPs, limit lifted (P01–P03) | Galvani CPU `Q*` (24) | pending |
+| A100 with 40 of 68 GB (`set_per_process_memory_fraction`), 190 / 378 / 800 windows | Galvani 3100458 | pending |
+| Worker image on a GPU (v5.1b, the four, v5.1b; SHA-checked) | Galvani 3100604 | pending |

@@ -72,7 +72,7 @@ def main():
         print(s, json.dumps(res[s.split("/")[-1]]), flush=True)
     tol = dict(eye=1e-5, mix=1e-12, shadow=1e-10, routed=1e-10, ft=1e-4)
     ok = all(worst[k] < tol[k] for k in tol)
-    out = dict(package=str(pkg), routed=routed, order=C.arg("--order", "recording"), ref_shapes="package" if C.PKG_SHAPES else "dev", max_diff=worst, tolerances=tol, sessions=res, ok=ok)
+    out = dict(package=str(pkg), routed=routed, session_s_override=C.SOVR, order=C.arg("--order", "recording"), ref_shapes="package" if C.PKG_SHAPES else "dev", max_diff=worst, tolerances=tol, sessions=res, ok=ok)
     print(json.dumps(out, indent=1))
     if "--out" in sys.argv:
         Path(C.arg("--out", "")).write_text(json.dumps(out, indent=1))

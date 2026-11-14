@@ -30,6 +30,7 @@ sys.path[:0] = [str(ROOT / "experiments"), str(ROOT / "scripts"), str(ROOT / "le
 import protocol  # noqa: E402
 from record import ft_clock_restart, load_model  # noqa: E402
 arg = lambda k, d: type(d)(sys.argv[sys.argv.index(k) + 1]) if k in sys.argv else d  # noqa: E731
+SOVR = arg("--session-s-override", -1.0)  # v6.2i: CPU refits are about 10x slower than the A100 the limit is sized for
 INJECT_NAN = arg("--inject-nan", "")  # a compared quantity whose difference is replaced by NaN: the check must fail
 
 
@@ -54,6 +55,8 @@ def stream(m, d, rows, gates_off=False):
         c.route.contrast.tau = c.route.identity.tau = np.inf
     c.reset_state(); out, tr = [], []
     ft_clock_restart(c)  # v6.2g: a check process runs longer than the budget; each session gets the whole of it
+    if SOVR > 0 and hasattr(getattr(c, "ft", None), "session_s"):  # v6.2i on a CPU: the per-session limit lifted, explicitly
+        c.ft.session_s = SOVR
     for i in rows:
         out.append(np.asarray(c.step(np.nan_to_num(np.asarray(d["X"][i], np.float32)))))
         tr.append(getattr(c, "trace", {}))
@@ -205,7 +208,7 @@ def main():
     worst, logs = check_unrecognised(v6, pkg6, d, ss)
     tol = dict(eye=1e-5, rest=1e-4, ft=1e-4, mix6=1e-12, tail=1e-10, label=1e-10)
     okB = all(worst[k] < tol[k] for k in tol if k in worst)
-    res = dict(order=arg("--order", "recording"), recognised_ok=okA, recognised=resA, unrecognised_max_diff=worst, tolerances=tol, unrecognised_logs=logs, ok=okA and okB)
+    res = dict(order=arg("--order", "recording"), session_s_override=SOVR, recognised_ok=okA, recognised=resA, unrecognised_max_diff=worst, tolerances=tol, unrecognised_logs=logs, ok=okA and okB)
     print(json.dumps(res, indent=1, default=str))
     if "--out" in sys.argv:
         Path(arg("--out", "")).write_text(json.dumps(res, indent=1, default=str))
