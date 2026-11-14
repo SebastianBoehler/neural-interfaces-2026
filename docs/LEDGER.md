@@ -6979,3 +6979,7 @@ labels smoothed by the run urn (tag LPD) against r15 (LP), V6Fr, new people, 2 o
 Killed (below +0.3; with the filter, which the candidate carries, it is about 0). Fix in score2.py: its exact-equality check on
 P0r failed because each fine-tuning run re-writes its base outputs (GPU float noise up to 0.05 on single-seed bases, <= 1
 argmax flip in 2655); the check is now argmax agreement > 0.998, still loud on a real difference.
+§243 draw 1 (14 Nov 15:34 UTC; evidence/stack_14nov/s243_d1.txt). Same arms on fine-tuning draw 1 (its own s15 control), new
+people, 20 orders: r15 +0.08 [-0.02, +0.20] 6/10; r15 + filter +0.23 [+0.09, +0.37] 7/10 (within +0.41, full +0.05, runs
++0.22); stk1 + filter +0.34; stk2 + filter +0.38. Draw 0 had r15 + filter +0.25, stk1 + filter +0.28, stk2 + filter +0.34.
+Spread of the candidate's new-people half over two draws: 0.02. Draw 2: 13 of 20 orders in.
