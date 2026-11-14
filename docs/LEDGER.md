@@ -6146,3 +6146,30 @@ Mac CPU, 45 s per chain run; `replay/check.py` OK).**
 - **(2) fine-tuning labels:** run only if (1)'s best J form is ≥ +0.15 over the gated filter on within, or the cheap
   proxy says so: balanced accuracy of the prefix-smoothed labels at s15's refit times ≥ the as-emitted labels + 2 points
   (new people, within). Form: ftrel.py r15 with RELAB_NPZ holding the smoothed labels at each refit, against r15 / s15.
+
+### 240. EYE-EVENT VIEW (written 14 Nov 12:08 UTC, before any result; panel neuroscience proposal 4)
+- **Mechanism:** a view helps SessionEM when it reads a different kind of signal (§188, §233, §234). Panel measurement: SUB
+  and WORD differ in gaze direction with the same sign in all four interface × run-type cells, and the vertical difference
+  flips sign about 2.0 s into the window, so window averages cancel. Signed, half-window and latency-coded eye events keep
+  what averaging loses. Code `studies/14nov/eyeevents/`; views `runs/views_eye/<name>.npz` ('rec' + six '<scheme><seed>'
+  keys, replay row order), appended through shufcombo's `EXTRA_VIEW` (no shufcombo edit).
+- **Features (fixed now, 8 columns per window):** traces as `ocushuf.traces()` before standardisation: h = SG(F5/AF3/F3 −
+  F6/AF4/F4), v = SG(AF3/AF4 − P1/P2/Pz) (Savitzky-Golay 25, 3); velocities dh, dv = gradient. Scale m = running session
+  median of the per-window median |velocity| over the windows delivered so far (current included), blended with the
+  all-window prior as 5 windows (as `EventRates`); hence order-dependent, one key per delivery order. Columns:
+  (1, 2) signed horizontal event balance per half (0–2 s, 2–4 s): share of samples with dh > 4m minus share with dh < −4m;
+  (3, 4) the same at 2m; (5) latency of the first blink, first sample with dv > 8m_v, in s, censored at 4.0;
+  (6) vertical level late minus early (mean v over 2–4 s minus 0–2 s); (7) vertical event share (|dv| > 4m_v) late minus
+  early; (8) horizontal level late minus early. Name `ev8`. No PROTEUS label is used to build the view.
+- **Gate 1 (confusion):** share of v6f's emitted errors (`runs/chainout/s215_<order>_off.npz` `<base>|V6Fr`, new people,
+  six bases, six orders) that are SUB ↔ WORD. Under 40 % → stop. Prediction 50 % (42–60 %).
+- **Gate 2 (alone, LOSO logistic regression on the 8 columns causally z-scored per session, recording order and within 0):**
+  SUB-vs-WORD balanced accuracy (person mean) 57 (52–63), within-session AUC 0.55–0.62; 3-class cell BA 42 (38–48). Error
+  correlation with the member mix within class × run (margin, as `extview/ceiling.py`) +0.00 to +0.15 (eye net about +0.17).
+  If SUB-vs-WORD BA < 53 and AUC < 0.53 (chance) → stop.
+- **Chain:** V6Fr with `EXTRA_VIEW=runs/views_eye/ev8.npz` minus `runs/shufcombo_<order>_ocu_gC5_all_ge_hb_ts_gp0_ttt18<order>L.npz`,
+  env exactly as §233/§234, new people, mean of six bases, within/full/runs 0/1, 80 % person intervals. Prediction +0.1
+  (−0.2 to +0.4).
+- **Kill rule:** kept for a package test only if mean over the six orders ≥ +0.3 **and** ≥ 7/10 people up (person means
+  over orders). ≤ −0.3: closed for this form. In between: "undecided" (not closed, not kept). The panel's "with proposal 1"
+  arm (eye regression out of the EEG) is not built and not part of this run.
