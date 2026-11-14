@@ -1,0 +1,95 @@
+# s264 external within-corpus vs cross-corpus probe; member: core features (17 bands + slow block), per-session centring, LR C 0.05
+## scherer2015: 9 people, classes balanced; BA = mean over the person's sessions of per-session balanced accuracy
+person  windows  BA_pooled  BA_session_mean  BA_causal_centring
+Scherer2015/A  240  47.9  47.9  47.1
+Scherer2015/C  240  35.4  35.4  36.7
+Scherer2015/D  240  58.3  58.3  60.0
+Scherer2015/E  225  46.7  46.5  44.9
+Scherer2015/F  240  44.6  44.6  41.7
+Scherer2015/G  240  49.2  49.2  49.6
+Scherer2015/H  225  40.4  40.4  38.5
+Scherer2015/J  240  38.3  38.3  43.3
+Scherer2015/L  240  58.8  58.8  53.8
+MEAN BA 46.6  80% interval of the mean over people (bootstrap 10-90%) [43.3, 49.9]  people spread 10-90% [37.8, 58.4]  min 35.4 max 58.8  causal-centring mean 46.2  mean windows/person 237
+
+## shin2017b: 29 people, classes balanced; BA = mean over the person's sessions of per-session balanced accuracy
+person  windows  BA_pooled  BA_session_mean  BA_causal_centring
+Shin2017B/1  120  75.8  75.8  73.3
+Shin2017B/2  120  80.8  80.8  67.5
+Shin2017B/3  120  76.7  76.7  64.2
+Shin2017B/4  120  81.7  81.7  63.3
+Shin2017B/5  120  68.3  68.3  55.8
+Shin2017B/6  120  84.2  84.2  68.3
+Shin2017B/7  120  72.5  72.5  54.2
+Shin2017B/8  120  75.8  75.8  70.8
+Shin2017B/9  120  82.5  82.5  65.8
+Shin2017B/10  120  76.7  76.7  60.0
+Shin2017B/11  120  83.3  83.3  60.8
+Shin2017B/12  120  71.7  71.7  65.0
+Shin2017B/13  120  82.5  82.5  69.2
+Shin2017B/14  120  85.0  85.0  65.8
+Shin2017B/15  120  75.8  75.8  57.5
+Shin2017B/16  120  62.5  62.5  52.5
+Shin2017B/17  120  78.3  78.3  59.2
+Shin2017B/18  120  70.0  70.0  55.0
+Shin2017B/19  120  71.7  71.7  63.3
+Shin2017B/20  120  55.0  55.0  53.3
+Shin2017B/21  120  72.5  72.5  67.5
+Shin2017B/22  120  69.2  69.2  56.7
+Shin2017B/23  120  82.5  82.5  73.3
+Shin2017B/24  120  89.2  89.2  69.2
+Shin2017B/25  120  85.8  85.8  75.8
+Shin2017B/26  120  84.2  84.2  81.7
+Shin2017B/27  120  77.5  77.5  63.3
+Shin2017B/28  120  80.0  80.0  74.2
+Shin2017B/29  120  95.8  95.8  82.5
+MEAN BA 77.5  80% interval of the mean over people (bootstrap 10-90%) [75.6, 79.4]  people spread 10-90% [69.0, 85.2]  min 55.0 max 95.8  causal-centring mean 65.1  mean windows/person 120
+
+## shin2017a: 29 people, classes balanced; BA = mean over the person's sessions of per-session balanced accuracy
+person  windows  BA_pooled  BA_session_mean  BA_causal_centring
+Shin2017A/1  120  70.8  70.8  66.7
+Shin2017A/2  120  74.2  74.2  68.3
+Shin2017A/3  120  71.7  71.7  70.8
+Shin2017A/4  120  49.2  49.2  50.8
+Shin2017A/5  120  55.0  55.0  53.3
+Shin2017A/6  120  56.7  56.7  54.2
+Shin2017A/7  120  52.5  52.5  55.0
+Shin2017A/8  120  56.7  56.7  57.5
+Shin2017A/9  120  82.5  82.5  74.2
+Shin2017A/10  120  53.3  53.3  55.0
+Shin2017A/11  120  67.5  67.5  61.7
+Shin2017A/12  120  52.5  52.5  48.3
+Shin2017A/13  120  55.8  55.8  59.2
+Shin2017A/14  120  60.0  60.0  53.3
+Shin2017A/15  120  58.3  58.3  57.5
+Shin2017A/16  120  73.3  73.3  65.8
+Shin2017A/17  120  81.7  81.7  79.2
+Shin2017A/18  120  52.5  52.5  52.5
+Shin2017A/19  120  78.3  78.3  80.0
+Shin2017A/20  120  45.0  45.0  46.7
+Shin2017A/21  120  60.8  60.8  57.5
+Shin2017A/22  120  55.8  55.8  55.8
+Shin2017A/23  120  77.5  77.5  75.0
+Shin2017A/24  120  59.2  59.2  55.0
+Shin2017A/25  120  80.0  80.0  78.3
+Shin2017A/26  120  87.5  87.5  76.7
+Shin2017A/27  120  70.8  70.8  68.3
+Shin2017A/28  120  55.8  55.8  55.8
+Shin2017A/29  120  54.2  54.2  56.7
+MEAN BA 63.8  80% interval of the mean over people (bootstrap 10-90%) [61.0, 66.6]  people spread 10-90% [52.5, 80.3]  min 45.0 max 87.5  causal-centring mean 61.7  mean windows/person 120
+
+(reference: trained on all 2655 PROTEUS windows / 10 people, class ids 0-2 as exported)
+## CROSS-CORPUS PROTEUS -> Scherer2015: 9 people, classes balanced; BA = mean over the person's sessions of per-session balanced accuracy
+person  windows  BA_pooled  BA_session_mean  BA_causal_centring
+Scherer2015/A  240  46.2  46.2  40.8
+Scherer2015/C  240  33.3  33.3  35.4
+Scherer2015/D  240  50.8  50.8  48.8
+Scherer2015/E  225  57.8  58.1  52.8
+Scherer2015/F  240  33.8  33.8  33.3
+Scherer2015/G  240  50.8  50.8  49.6
+Scherer2015/H  225  47.6  47.3  46.9
+Scherer2015/J  240  35.8  35.8  34.6
+Scherer2015/L  240  50.8  50.8  50.8
+MEAN BA 45.2  80% interval of the mean over people (bootstrap 10-90%) [41.6, 48.8]  people spread 10-90% [33.7, 52.3]  min 33.3 max 58.1  causal-centring mean 43.7  mean windows/person 237
+
+SUMMARY scherer2015 46.6 shin2017b 77.5 shin2017a 63.8 cross 45.2

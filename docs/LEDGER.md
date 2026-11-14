@@ -7691,3 +7691,24 @@ the ov17 bands, the 16 geometric midpoints between consecutive bands, and (1, 2)
 0.5-3.5 s. D's regions = frontal (16 ch, AF/F/FC), central (16, C/CP/TP), parieto-occipital (9, P/PO), each with its own CAR
 and 17 bands x 3 windows of extra blocks. Zero-change: Z (core1 settings through the new code) within 0.1 per person of
 runs/diag/ts_core/res/car_ov17_fs2_t0.1_le_k2.json; no variant is read before Z passes.
+
+**§264 RESULT (14 Nov 20:50 CET; code studies/14nov/extharness/probe264.py, cached core features of runs/extharness, Mac via run_capped,
+no Galvani; evidence/extprobe_14nov/s264.txt, per person BA and windows).** Member: core feature set (17 bands + slow block),
+every session centred at its own full mean, standardised, LR C 0.05, LOSO inside the corpus; BA = mean of per-session BA. 80 %
+intervals are bootstrap over people (10-90 % of the mean). Chance: Scherer 33.3, Shin 50.
+| corpus | predicted | measured | 80 % interval of mean | causal-centring variant |
+| Scherer2015 (9 people, 3 classes) | 60 (50-70) | 46.6 | [43.3, 49.9]; people 35.4-58.8 | 46.2 |
+| Shin2017B (29, arithmetic vs rest) | 70 (60-80) | 77.5 | [75.6, 79.4]; people 55.0-95.8 | 65.1 |
+| Shin2017A (29, MI L/R) | 62 (55-72) | 63.8 | [61.0, 66.6]; people 45.0-87.5 | 61.7 |
+| PROTEUS (10 people, all windows) -> Scherer | reference | 45.2 | [41.6, 48.8] | 43.7 |
+Rule: Scherer >= 60 no (46.6); both Shin >= 65 no (B 77.5 yes, A 63.8 just below, interval [61.0, 66.6] includes 65). The rule does
+not fire: the domain-gap hypothesis is not supported for these corpora (recorded). Scherer within-corpus (46.6) equals the
+cross-corpus reference (45.2, difference inside both intervals), so on Scherer there is no gap for a corpus-aware pool to bridge:
+the tasks are hard for this member whichever way it is trained (8 training people per fold). Shin2017B is far above chance
+within its corpus, and Shin2017A is at the prediction; neither is the PROTEUS task set, so they do not speak to the PROTEUS gap.
+Silent notes: (i) PROTEUS class ids 0-2 are assumed to match the Scherer export's c0-c2 (the export is documented as the PROTEUS tasks;
+not re-verified here); (ii) Shin2017B's 77.5 depends on offline full-session centring, with the causal running mean it is 65.1
+(a deployable-centring cost of 12 points there, 0.4 to 2 on the other corpora), so the primary number is the optimistic one;
+(iii) the 1.7-point margin of Shin2017A under 65 is inside the dev noise, so "both Shin >= 65" is undecided rather than clearly
+failed; no pre-registration written, no run of the hierarchical pool. Suggestion only if the coordinator reads A as >= 65: the pool
+would pass on the Shin corpora alone, which are not the PROTEUS tasks, so it should still be scored on Scherer or PROTEUS people.
