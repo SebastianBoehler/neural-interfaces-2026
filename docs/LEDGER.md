@@ -5764,3 +5764,60 @@ up. Undecided and small: below the +0.3 rule. It costs × 6 FT run time, so it i
 `EM_LAM` / `TS_LAM` / `BTS` (studies/14nov/stagehooks.py). No-op smoke: the stage constants at their shipped values reproduce
 the regular file exactly (max diff 0.0). Synced to Galvani and Leonardo. Helpers launched on them: §233 external pairwise
 experts as views, §234 embedding views, §235 upper-bound sweeps of the kept components, §236 session-type conditioning.
+
+### PV1. PERSONAL VIEWS FOR RECOGNISED RETURNING PEOPLE: CEILINGS (pview track; written 14 Nov, before any result)
+A separate session's track (sections named PV1, PV2, ... so they cannot collide with the main numbering). Code
+`studies/14nov/pview/` (data.py, ceil.py), outputs `runs/pview/`.
+- **Question:** for a recognised returning person, is a view trained with labels on that person's public data a better
+  classifier of their later data than the population versions the chain uses? An independent review found 32 ocular
+  features at 0.66 with a session's own labels against 0.47 across people (P10 0.81–0.84 vs 0.35).
+- **Arms (standalone, CPU, public data):** views gaze32 (SessionEM's 32 slow-potential columns), GE48 (SessionEM's full
+  view), pc128 (TSEM's view, core1 PCs in the person's LOSO basis); methods LR (logistic regression, C 0.05) and TPL
+  (SessionEM-style Gaussian class templates: class means, shared covariance shrunk 0.7); source personal (the person's
+  train rows) or population (the other nine people). Plus the stored population eye net.
+- **Protocols:** XS across sessions for P04 and P10 (s1→s2, s1→s3, s1+s2→s3; the real case); R42 inside each session
+  (train four runs, test one Graz + one BrainHero run, 3 folds); IF inside each session (train one interface, test the
+  other). R42 and IF are the proxy for the eight single-session people.
+- **Standardisation of the test part:** causal (windows < t plus the train prior as 10 pseudo-windows), in recording
+  order and under shuffled delivery (within 0–3, full 0/1, runs 0/1 from runs/shuffle_perms.npz); a non-causal
+  'whole' column for reference. Headline = mean over the shuffled orders. GE48's event rates and pc128's recentring are
+  as stored (causal in recording order); the eye net is as stored.
+- **Prediction:** XS gaze32-LR personal P10 ≈ 75 (65–85) vs population ≈ 40 and eye net ≈ 45; P04 personal ≈ 50
+  (40–60). R42 personal gaze32-LR mean over ten ≈ 60 (55–66), population ≈ 47. pc128-TPL personal XS ≈ 60, R42 ≈ 65,
+  population pc128-TPL ≈ 55. GE48 between gaze32 and pc128.
+- **Rule for step 2 (chain):** go on if, under XS, the best personal view beats the best population view (including the
+  eye net) by ≥ +5 points on P10 and is not below it on P04 by more than 5, and under R42 the personal ocular view beats
+  the population ocular view by ≥ +5 on the ten-person mean. Otherwise stop after step 1 and record the ceilings.
+
+### 236. SESSION-TYPE CONDITIONING (written 14 Nov 11:52 UTC, before any result)
+- **Idea (panel neuroscience, P3 ii/iii):** the class code is a personal strategy (strong eye code in four people, none in
+  two; half without an alpha/mu peak). Choose the eye-view weight and the stage constants per session from a label-free
+  session descriptor. Code `studies/14nov/sesstype/`; no edits to studies/13nov, replay, submissions.
+- **Settings (10, one knob moved at a time from v6f as shipped):** shipped (EYEW 1, EM_LAM 0.5, TS_LAM 0.15, BTS 4);
+  EYEW 0 / 0.5 / 2 (§231 files `runs/chainout/s231_<order>_w<w>.npz`); EM_LAM 0.25 / 1.0; TS_LAM 0.075 / 0.3; BTS 2 / 8
+  (new files `runs/chainout/s236_<order>_<knob><v>.npz`, shufcombo SAVE_OUT, STRICT=1, GATE_P0=1, FT_V=gC5, REC_PFX=ttt7,
+  FT_TAG=ttt18<order>L, OCU_DIR=runs/ocushuf/<order>). Arm V6Fr, new people, orders within 0/1, full 0/1, runs 0/1.
+  Reference = §231's w1 file (the in-run control); a stage-constant file at shipped values must equal it (no-op check).
+- **Oracle ceiling (labels; ceiling only):** per order and session, the setting with the best session BA (mean over the six
+  bases) is taken for that session; gain = person score (cell-mean BA, mean over bases) − shipped, new people, per scheme
+  (mean of its two orders), person-bootstrap 80 % band. Reported for all 10, for EYEW only, for stage constants only.
+- **Descriptors (label-free, from the first K = 40 windows delivered in that order):** (e1) agreement of the eye view's
+  argmax (ocushuf posterior) with v5.1b's chain (P0r, no eye view) argmax; (e2) mean max posterior of the eye view;
+  (a) alpha/mu peak: 8–13 Hz log power minus the mean of 4–7 and 14–20 Hz, median over channels, from
+  data/proteus_windows.npz X; (s) slow band: 1–4 Hz power as a share of 1–40 Hz, median over channels.
+- **Rule family:** for descriptor d, setting s ≠ shipped, direction ±, threshold θ (midpoints of the training sessions'
+  values): use s on a session when d is beyond θ, else shipped. Causal emission: windows at delivery positions < K emit the
+  shipped output; from K on, the chosen setting's own output (each setting's state is built from every window ≤ t, as a
+  package running the cheap stages side by side would; only the emission switches).
+  The rule (d, s, ±, θ) is chosen on five people's sessions pooled over the six orders and scored on the other five;
+  all 126 partitions, both directions (252 ordered splits). Controls in the same family: "always s" (a global setting
+  change, no descriptor). Reported: held-out gain per scheme, mean over splits, 10–90 % range over splits, and the
+  per-person held-out mean (over the splits holding that person out) with a person-bootstrap 80 % band.
+  Primary = descriptor chosen inside the fold (fully nested). Per-descriptor nested numbers are secondary (picking
+  the best of them afterwards is optimistic). K = 20 and 80 secondary.
+- **Prediction:** ceiling, all 10 settings: +1.5 to +3 (EYEW alone +1 to +2, as the earlier per-session oracle); the
+  oracle on 14 sessions also fits noise. Nested held-out gain of the best rule: −0.2 to +0.4, most likely about +0.1;
+  e1 is the most likely descriptor to carry anything.
+- **Rule:** kill below +0.3 nested held-out (primary, mean over the six orders); the ceiling is reported regardless. At
+  ≥ +0.3 with the person band above 0 and no scheme below −0.1: candidate for a package-form test (not an adoption).
+  Between 0 and +0.3: inside the dev noise, recorded as undecided for other descriptor forms. Not closed on P10 or P04 alone.
