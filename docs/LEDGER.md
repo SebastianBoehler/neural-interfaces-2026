@@ -6416,3 +6416,13 @@ a measured ceiling before setting it aside. Arms in chain.py (`TAG=pv4_ ARMS=ER,
 T10 / T40 (κ 10 / 40), TH25 (T κ 20 + head share 0.25).
 - **Prediction:** T10 +0.3 (P10 +0.05), T40 +0.4 (P04 +1.0, P10 −0.1), TH25 +0.55 (P04 +1.1, P10 0).
 - **Rule:** as PV2. A form passes if mean ≥ +0.3, P10 > 0 on ≥ 12/16, no scheme mean below −0.3 for either person.
+
+### 243. FINE-TUNING DRAWS FOR THE STACKED ARM (written 14 Nov 12:35 UTC, before any result; coordinator 12:32 item 2)
+Mechanism: the stacked arm's fine-tuning (r15, and its control s15, on LP labels) re-run with fresh fine-tuning randomness:
+ftrel.py DRAW=1,2 seeds torch and the augmentation generator with seed + 1000 DRAW exactly as ttt7 does (DRAW 0 unchanged,
+bit-identical path; tag ttt18<order>d<DRAW>LP). Base nets are the same, so this measures fine-tuning noise only. Then the
+s242 arms (ctl, stk1, stk2) on each draw, Leonardo CPU, SAVE_OUT s242<arm>d<DRAW>_<order>. Orders: the 20 with LP labels
+(full4-7 have none; returning people have no r15 path, so their spread is not measured here).
+Prediction: across the three draws, the spread (max - min) of the mean stk1 + filter - ctl over 20 orders is below 0.15,
+and stk1 + filter > ctl in every draw. Refutation: spread above 0.3 or a draw with stk1 + filter <= ctl -> the stack's
+number is draw-dependent and is reported with that range, not as a point.

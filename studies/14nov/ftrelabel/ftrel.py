@@ -10,21 +10,22 @@
 All arms take the as-emitted labels from relab_v6r_<order>.npz (today's v6 chain, s214 fix in), not the 13 Nov chain_v6r.
 Weights instead of drawn batches: the same expected gradient, the prefix forward (SessionBN statistics, KL anchor) and the
 cost unchanged. New people only (all_loso); shufcombo scores only those. Tag ttt18<order>RP (probs18), same file format.
-Usage (Galvani): [KIND=v51b ARMS=s15,r15] SCHEME=within PSEED=0 python studies/14nov/ftrelabel/ftrel.py TASK | smoke"""
+Usage (Galvani): [KIND=v51b ARMS=s15,r15 DRAW=1] SCHEME=within PSEED=0 python studies/14nov/ftrelabel/ftrel.py TASK | smoke"""
 import copy, importlib.util, os
 from pathlib import Path
 import numpy as np
 import torch
 from torch.nn import functional as F
 WS = Path(os.environ.get("NI26_WS", Path(__file__).resolve().parents[3])); ORD = f"{os.environ['SCHEME']}{os.environ['PSEED']}"
-for k in ("FORMS", "SWEEP", "EXT", "CTRL", "DRAW"):
+for k in ("FORMS", "SWEEP", "EXT", "CTRL"):
     assert not os.environ.get(k), f"{k} is not supported here"
 KIND = os.environ.get("KIND", "v6r"); SFX = {"v6r": "R", "v51b": "L"}[KIND]  # s229: KIND=v51b, v5.1b's labels (tag ttt18<order>LP)
 os.environ.setdefault("CHAIN_NPZ", str(WS / f"runs/labels/chain_{KIND}_{ORD}.npz"))
 RELAB = os.environ.get("RELAB_NPZ", str(WS / f"runs/labels/relab_{KIND}_{ORD}.npz"))
 _s = importlib.util.spec_from_file_location("ttt18", WS / "studies/13nov/ttt18.py"); T18 = importlib.util.module_from_spec(_s); _s.loader.exec_module(T18)
 T7 = T18.T7; T5 = T7.T5; STOCK = T7.stream
-assert T7.TAG == f"ttt18{ORD}{SFX}" and not T7.EMA and not T7.CAP, (T7.TAG, T7.EMA, T7.CAP)
+DRAW = int(os.environ.get("DRAW", 0))  # s243: fresh fine-tuning draws (seed + 1000 DRAW, as ttt7), tag ttt18<order>d<DRAW><SFX>P
+assert T7.TAG == f"ttt18{ORD}{f'd{DRAW}' if DRAW else ''}{SFX}" and T7.DRAW == DRAW and not T7.EMA and not T7.CAP, (T7.TAG, T7.EMA, T7.CAP)
 S15 = T18.SWEEP["s15"]; assert S15 == (5, 10, 1e-3, "all", 1.0, "hard", True, 1, True, 20)
 MODE = {"s15": (False, None), "r15": (True, None), "e15": (False, "t"), "b15": (True, "t"), "q15": (False, 20)}  # (relabel, budget)
 ARMS = os.environ.get("ARMS", ",".join(MODE)).split(","); assert "s15" in ARMS and set(ARMS) <= set(MODE), ARMS  # s229: ARMS=s15,r15
@@ -61,7 +62,7 @@ def stream(m, X, Pc, seed):
         base = torch.softmax(net(X)[:, :3].double(), 1).cpu().numpy()
     out = {"base": base, **{v: base.copy() for v in T7.VARS}}
     for v, (steps, every, lr, scope, lam, form, warm, views, gpu, t0) in T7.VARS.items():
-        rel, budget = MODE[v]; ds = seed; torch.manual_seed(ds); net2 = None; vis = np.zeros(n)
+        rel, budget = MODE[v]; ds = seed + 1000 * DRAW; torch.manual_seed(ds); net2 = None; vis = np.zeros(n)
         gen = torch.Generator(device=dev).manual_seed(ds)
         for t in range(t0, n, every):
             P = R[:t, (t - TG[0]) // (TG[1] - TG[0])] if rel else em[:t]; assert np.isfinite(P).all(), (v, t)
