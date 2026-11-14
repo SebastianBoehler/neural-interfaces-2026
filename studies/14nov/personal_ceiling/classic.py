@@ -30,8 +30,18 @@ def isqrt(C):
     w, V = np.linalg.eigh(C); return (V / np.sqrt(w)) @ V.T
 
 
+def window_feats(X):
+    """per-window features of already-aligned windows X (n, 41, 480): every band covariance (OAS) and the slow waveform;
+    no session statistics, so a causal package can call it window by window (s253 shares it)"""
+    out = {}
+    for lo, hi in sorted(set(TSB + CSPB + [(8, 30)])):
+        Xb = sosfiltfilt(butter(4, (lo, hi), "bandpass", fs=FS, output="sos"), X, axis=-1); out[f"cov{lo}_{hi}"] = Covariances("oas").fit_transform(Xb)
+    out["slow"] = sosfiltfilt(butter(4, 4.0, "lowpass", fs=FS, output="sos"), X, axis=-1)[:, :, ::15].reshape(len(X), -1)
+    return out
+
+
 def features(m):
-    """EA per session, band covariances for every band used, slow waveform."""
+    """EA per session on its whole-session mean covariance (non-causal), then window_feats; cached."""
     f = S.OUT / "classic_feat.npz"
     if f.exists():
         z = np.load(f); return {k: z[k] for k in z.files}
@@ -39,11 +49,7 @@ def features(m):
         X = w["X"].astype(np.float64)
     for s in S.sessions(m):
         r = m["sess"] == s; C = np.einsum("nct,ndt->cd", X[r], X[r]) / (r.sum() * X.shape[-1]); X[r] = np.einsum("ij,njt->nit", isqrt(C), X[r])
-    out = {}
-    for lo, hi in sorted(set(TSB + CSPB + [(8, 30)])):
-        Xb = sosfiltfilt(butter(4, (lo, hi), "bandpass", fs=FS, output="sos"), X, axis=-1); out[f"cov{lo}_{hi}"] = Covariances("oas").fit_transform(Xb)
-    out["slow"] = sosfiltfilt(butter(4, 4.0, "lowpass", fs=FS, output="sos"), X, axis=-1)[:, :, ::15].reshape(len(X), -1)
-    np.savez(f, **out); return out
+    out = window_feats(X); np.savez(f, **out); return out
 
 
 def csp_feats(Ctr, ytr, Cte, nf=2, w=None):
