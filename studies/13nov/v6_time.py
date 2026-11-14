@@ -25,15 +25,16 @@ def run(m, X, dev):
     if hasattr(mod, "ft_clock_start"):  # v6.2g: each timed run gets the whole budget (the cap is what --long times)
         mod.ft_clock_start()
     if dev == "cuda":
-        torch.cuda.synchronize()
+        torch.cuda.synchronize(); torch.cuda.empty_cache(); torch.cuda.reset_peak_memory_stats()
     t0 = time.perf_counter()
     for x in X:
         c.step(np.nan_to_num(np.asarray(x, np.float32)))
     if dev == "cuda":
         torch.cuda.synchronize()
     sec = time.perf_counter() - t0
+    gb = dict(peak_alloc_gb=round(torch.cuda.max_memory_allocated() / 1e9, 2), peak_reserved_gb=round(torch.cuda.max_memory_reserved() / 1e9, 2)) if dev == "cuda" else {}
     return round(sec, 1), (dict(refits=ft.refits, steps=ft.steps, v6=c.log6["v6"], err=c.log6["err"], capped=getattr(ft, "capped", None),
-                                frozen=getattr(ft, "frozen", None)) if ft else None)
+                                frozen=getattr(ft, "frozen", None), **gb) if ft else gb)
 
 
 def main():
@@ -45,10 +46,10 @@ def main():
     A, B = load_model(p5, None, "v51b", dev), load_model(p6, None, "v6", dev)
     run(A, d["X"][f("P02|1")], dev); run(B, d["X"][f("P02|1")], dev)  # warm-up
     for tag, rows in S.items():
-        X = d["X"][rows]; a1, _ = run(A, X, dev); b1, l1 = run(B, X, dev); b2, l2 = run(B, X, dev); a2, _ = run(A, X, dev)
+        X = d["X"][rows]; a1, la = run(A, X, dev); b1, l1 = run(B, X, dev); b2, l2 = run(B, X, dev); a2, _ = run(A, X, dev)
         a, b = (a1 + a2) / 2, (b1 + b2) / 2
         print(json.dumps(dict(session=tag, windows=len(rows), v51b=[a1, a2], v6=[b1, b2], ratio=round(b / a, 3), added_s=round(b - a, 1),
-                              log=l1, sealed_min_57=round(1287 * (1 + 0.57 * (b / a - 1)) / 60, 1), sealed_min_100=round(1287 * b / a / 60, 1))), flush=True)
+                              log=l1, log_v51b=la, sealed_min_57=round(1287 * (1 + 0.57 * (b / a - 1)) / 60, 1), sealed_min_100=round(1287 * b / a / 60, 1))), flush=True)
 
 
 if __name__ == "__main__":
