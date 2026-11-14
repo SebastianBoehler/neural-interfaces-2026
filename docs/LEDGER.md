@@ -4785,3 +4785,18 @@ labels against R: within −0.10, full +0.21, runs −0.03.
   - So the bet on the scheme is the label source, not the form.
 - **Package question (coordinator → v52-build):** can v6.2g emit this by a switch (label source L instead of the v6 chain
   on unrecognised sessions) without a new code path?
+
+**§206 build (14 Nov 00:06 UTC, v52-build; written before any check of these packages): v6.2gL, the L switch on v6.2g.**
+- **No new code path:** v6.2g's bundle already takes the label source as a key (`v6_ft_labels`: 1 = R, the v6 chain
+  without FT as in v6.1; 0 = L, the inner v5.1b's output, which is v6f's label). Built `cand_v62_r2gL` (v6.2 routed FT) and
+  `cand_v62_r1gL` (v6.2-safe) with `build6.py --v62g --labels v51b --t0 20 --lr 1e-3 --budget 2700 --routed 2|1`.
+  The schedule is s15 on both paths, the guards are unchanged (cap 400, budget 2700 s) and the routed tail is unchanged.
+- **Identity with v6.2g at R (shown at build time):** every weights.npz array except `v6_ft_labels` (1 → 0) and every
+  other file (`submission.py` 37da0689…) are byte-identical to `cand_v62_r2g` / `r1g`. So the guard checks carry over,
+  and v6.2gL at R *is* v6.2g.
+- **Predictions:**
+  - official local replay: files unchanged, errors 0, score within ±0.002 of v6.2g's 0.99458;
+  - `check_v6.py --skip-recognised` (gates forced off; the v6f label path, FT reference with the inner v5.1b's outputs as
+    labels): eye/rest/ft/mix6/tail within tolerance, on the CPU and on the A100 with package shapes;
+  - `check_v62.py` (recognised sessions) passes as for v6.2g, because the labels are the same after recognition.
+- **Refutation rule:** any tolerance miss or error in the replay or the checks fails the package for the morning table.
