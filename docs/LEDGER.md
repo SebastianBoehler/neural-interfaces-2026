@@ -5157,3 +5157,6 @@ morning table) is **"eye order mismatched, members as recorded"** until re-score
   Together, 0.7–1.3 × the larger gain, not the sum.
 - **Kill (panel):** below +0.3 on both contiguous schemes with inferred boundaries, or below −0.1 under full with the
   detector in the loop. This oracle (true runs) sizes the ceiling; the inferred-boundary version decides.
+- **§207 teacher input gains (07:11 UTC; runs/s207f_teachgain.txt).** 38 gains on the teacher's input columns, fitted
+  leave-one-person-out, against the gains-1 refit on 6 orders: REG 0.1 −0.00 (3/6 up), REG 1 −0.00 (3/6). **Null.** The
+  eye-net drift edit (Galvani) is the last open family.

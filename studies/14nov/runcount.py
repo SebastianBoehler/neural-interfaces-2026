@@ -17,7 +17,8 @@ y, ses = Z[f"y|{p0}"].astype(int), Z[f"sess|{p0}"]; PERMS = np.load(REPO + "/run
 TAU, FLOOR = float(os.environ.get("TAU", 2)), float(os.environ.get("FLOOR", 0.5))
 with np.load(REPO + "/data/proteus_windows.npz") as w:
     RUN = np.char.add(ses.astype(str), np.char.add("|", np.char.add(w["task"].astype(str), np.char.add("|", w["run"].astype(str)))[IDX]))
-RUNS = {u: np.flatnonzero(RUN == u) for u in dict.fromkeys(RUN)}
+RUNS = {u: np.flatnonzero(RUN == u) for u in dict.fromkeys(RUN)}  # true runs: capacities and the urn check
+RUN_IDS = os.environ.get("RUN_IDS")  # npz, key <scheme><seed>: inferred run label per replay row (the filter then uses those groups)
 # by run type, from the public runs' counts: online runs are exactly n/3 per class (30 -> 10, two BrainHero 36-window runs -> 12);
 # acquisition runs are a 12/12/12 design (Graz exact; BrainHero 9-12 per class after missing trials)
 CAP = {u: (len(r) // 3 if "Online" in u.split("|")[1] else 12) for u, r in RUNS.items()}
@@ -30,10 +31,10 @@ def rank(order):
     rk = np.empty(len(y), int); rk[g] = np.arange(len(g)); return rk
 
 
-def filt(P, rk):
+def filt(P, rk, groups=None):
     out = P.copy()
-    for u, r in RUNS.items():
-        r = r[np.argsort(rk[r])]; cap = CAP[u]; alpha = {(0, 0, 0): 1.0}
+    for u, r in (groups or RUNS).items():
+        r = r[np.argsort(rk[r])]; cap = CAP.get(u, 12); alpha = {(0, 0, 0): 1.0}  # inferred groups: the 12/12/12 bound
         for t, i in enumerate(r):
             L = np.clip(P[i], 1e-9, 1) ** TAU; L /= L.sum(); new, pred = {}, np.zeros(3)
             for k, a in alpha.items():
@@ -52,11 +53,14 @@ def clustering(P):
 print(f"RUNCOUNT (s215): TAU {TAU}, FLOOR {FLOOR}, true run ids; change against offsets off / filter off, new people")
 for order in sys.argv[1:]:
     rk = rank(order); res = {}
+    G = None
+    if RUN_IDS:  # inferred runs (per session): groups of replay rows sharing a session and an inferred label
+        lab = np.char.add(ses.astype(str), np.char.add("|", np.load(RUN_IDS)[order].astype(str))); G = {u: np.flatnonzero(lab == u) for u in dict.fromkeys(lab)}
     for v in ("off", "on"):
         z = np.load(f"{REPO}/runs/chainout/s215_{order}_{v}.npz"); bases = sorted({k.split("|")[0] for k in z.files})
         for arm in ("P0r", "V6Fr"):
             for fl in (0, 1):
-                outs = [z[f"{bn}|{arm}"].astype(np.float64) for bn in bases]; outs = [filt(o, rk) if fl else o for o in outs]
+                outs = [z[f"{bn}|{arm}"].astype(np.float64) for bn in bases]; outs = [filt(o, rk, G) if fl else o for o in outs]
                 res[v, arm, fl] = (np.mean([SC.person(o, p0) for o in outs], 0), np.mean([clustering(o) for o in outs]))
     for arm in ("P0r", "V6Fr"):
         b = res["off", arm, 0][0]
