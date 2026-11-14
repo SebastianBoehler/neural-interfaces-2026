@@ -7580,3 +7580,15 @@ Per person A+f minus candidate: -3.0 -2.6 -2.2 -0.9 -0.2 -1.5 +1.3 -0.3 +0.2 +0.
   adaptation about 20 ms per window on an A100, 15 ms on a 2080. Not needed: no package.
 - **Closed in this form** (a weak TTT-SSL net fused as a product factor). Not covered: contrastive TTT applied inside the chain's
   own nets (r15's fine-tuning step) instead of as a separate member. §253's plan note's joint stack test reduces to §260.
+
+**§252 amendment 4 (written 14 Nov 19:5x UTC, before any part-(b) score is read; coordinator's decision).** Amendment 1 set the Leonardo
+ftpl files aside only because Leonardo was down and a Galvani rerun was planned; Leonardo is reachable again and holds all 16
+(ftpl_{fb,fbl,fbraw,sinc}_s{0,1}_g{0,1}.npz, written from 17:32 UTC, job 64475142). Checked: Leonardo's ftnet_pl.py, classic_pl.py, ftnet.py,
+splits.py, classic.py match git e649e98 byte for byte (md5 of ftnet_pl 90e3bbec...); HEAD differs from that only by 9e47ed5's
+skip-if-output-exists line (no training change), which the Galvani run uses. plabels_r15.npz md5 1c009212... is identical on
+Leonardo and local (Galvani's copy not re-hashed: unreachable at writing; to be checked). Seeds and tasks are fixed in code (task t:
+family ORDER[t % 4], seed (t // 4) % 2, group t // 8). Not available: the Leonardo job log (not looked for beyond file names).
+The 16 Leonardo files are the primary part-(b) score (fetched to runs/personal_ceiling_leo/, never mixed with Galvani files;
+score_pl.py takes the dir from env PL_FTPL_DIR and fails if it is missing or holds fewer than 16 files). The Galvani copy
+(3102582), once complete, is scored from runs/personal_ceiling/ as a reproducibility check, per-arm difference reported.
+Predictions and rule of §252 unchanged.
