@@ -1,0 +1,25 @@
+  within0  latched 14/14 | ctl+filter +0.50 r15 +0.25 r15+filter +0.56
+  within1  latched 14/14 | ctl+filter +0.65 r15 +0.19 r15+filter +0.51
+  within2  latched 14/14 | ctl+filter +0.31 r15 +0.28 r15+filter +0.92
+  within3  latched 14/14 | ctl+filter -0.10 r15 -0.15 r15+filter -0.05
+  within4  latched 14/14 | ctl+filter +0.35 r15 +0.02 r15+filter +0.40
+  within5  latched 14/14 | ctl+filter +0.18 r15 +0.09 r15+filter +0.28
+  within6  latched 14/14 | ctl+filter +0.38 r15 +0.23 r15+filter +0.64
+  within7  latched 14/14 | ctl+filter +0.16 r15 -0.16 r15+filter +0.22
+  within8  latched 14/14 | ctl+filter +0.34 r15 -0.39 r15+filter -0.09
+  within9  latched 14/14 | ctl+filter +0.25 r15 +0.10 r15+filter +0.30
+  within10 latched 14/14 | ctl+filter +0.32 r15 -0.10 r15+filter +0.18
+  within11 latched 14/14 | ctl+filter +0.68 r15 -0.01 r15+filter +0.62
+  full0    latched 2/14 | ctl+filter -0.06 r15 +0.45 r15+filter +0.43
+  full1    latched 2/14 | ctl+filter -0.09 r15 +0.04 r15+filter +0.06
+  full2    latched 0/14 | ctl+filter +0.00 r15 -0.13 r15+filter -0.13
+  full3    latched 3/14 | ctl+filter -0.02 r15 +0.14 r15+filter +0.19
+  runs0    latched 14/14 | ctl+filter +0.16 r15 +0.07 r15+filter +0.04
+  runs1    latched 14/14 | ctl+filter +0.41 r15 +0.24 r15+filter +0.55
+  runs2    latched 14/14 | ctl+filter -0.20 r15 -0.16 r15+filter -0.07
+  runs3    latched 14/14 | ctl+filter -0.01 r15 +0.05 r15+filter +0.00
+
+change against ctl raw, new people: mean | per scheme | [80 % interval over people and orders] | people up
+  ctl+filter     +0.13 | within +0.33 (12) full -0.04 (4) runs +0.09 (4) | [+0.02, +0.24] | 7/10
+  r15            +0.07 | within +0.03 (12) full +0.13 (4) runs +0.05 (4) | [-0.02, +0.15] | 7/10
+  r15+filter     +0.21 | within +0.37 (12) full +0.14 (4) runs +0.13 (4) | [+0.09, +0.34] | 9/10

@@ -7512,3 +7512,6 @@ of c x system over the r15 chain, 20 orders x 6 bases, nested pick [80 % people 
   reach ~80 on new people) are the anchor that carries information, which is what s15 / r15's warm start already uses. A
   head anchored on the nets' embeddings (classic-cost refit of the last layer toward the population head) is the open form.
   No causal form is sketched (rule not met).
+§243 draw 2 (14 Nov 19:17 UTC; evidence/stack_14nov/s243_d2.txt). r15 + filter +0.21 [+0.09, +0.34] 9/10 (within +0.37, full
++0.14, runs +0.13); r15 +0.07. Over three draws the candidate's new-people half is +0.25 / +0.23 / +0.21 (spread 0.04,
+mean +0.23), every draw positive in every scheme. §243's prediction (spread < 0.15, positive in every draw) holds.
