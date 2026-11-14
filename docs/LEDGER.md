@@ -6680,3 +6680,18 @@ ttt7.stream 5e-7, SMOKE OK. Leonardo arrays 64471408–11 (within 0/1, runs 0/1,
 runs/designdec/sc_<order>_off_J_LP{,D}r15.npz on Leonardo; then score2.py. **Prediction:** smoothed-label r15 − r15 on V6Fr
 +0.05 (−0.15 to +0.25) within, with the gated filter on top about the same. **Rule:** kept only if ≥ +0.3 over r15 + gated
 filter on within with runs ≥ −0.1; inside ±0.3 undecided.
+
+### 249. WHERE THE SEALED POINTS ARE: DEV LEVELS (14 Nov 15:08 UTC; coordinator 15:10 and its correction)
+Candidate's dev levels, per-person BA, schemes weighted equally. New people (20 orders, r15 raw): 79.07, of which P01 76.7,
+P02 89.1, P03 73.1, P04 52.6, P05 75.6, P06 83.4, P07 88.8, P08 86.2, P09 82.6, P10 82.5. Returning (16 orders, seen_session):
+ER P04 70.6 / P10 90.2; T P04 71.5 / P10 90.3. Calibration, stated correctly: 0.820 is v5.1b's sealed score; v5.1b's own
+dev levels are lower by the candidate's gains (about 1.2 new, 0.6 returning), giving about 0.566 x 77.8 + 0.434 x
+(0.2 x 70.0 + 0.8 x 89.6) = 81.2 against sealed 82.0: the sealed set runs about +0.8 above dev for v5.1b. The
+"0.8 P10-like" weighting of the eight single-session returning people is an assumption inside that sum.
+Test of the assumption, closest number on disk: the within-session proxy (runs/pview/tproxy.npz, PV6: acquisition runs as
+the public session, online runs scored, 8 shuffled orders), population new-people tail without / with the personal TSEM
+prior: base mean 78.3 (P01 70.9, P02 91.8, P03 74.0, P04 48.0, P05 76.1, P06 83.7, P07 90.2, P08 86.2, P09 80.4, P10 81.7);
+T20 80.4 (P01 75.9, P02 91.2, P03 76.4, P04 49.9, P05 78.0, P06 84.7, P07 92.7, P08 86.4, P09 84.1, P10 84.6). This is not
+the routed path (no personal members or own-space): P10 is 84.6 here against 90.3 routed across sessions, so routing adds
+about +6 for P10 beyond the prior. The single-session people sit from P01 76 to P07 93 on this proxy, spread like the new
+people, not like P10 at 90. The routed level per person inside a session is what §246 (b) measures.
