@@ -200,11 +200,13 @@ v6.2g ZIPs (official local replay, Mac CPU; `files_unchanged` true, errors 0):
 
 | Check (v6.2g) | Where | Result |
 |---|---|---|
-| Identity to v6.2 / v6.2-safe with the guards inert | Leonardo CPU, `v6_compare.py --fresh-clock` (the clock restarts each session; one process over 14 sessions is longer than the budget on a CPU), all 14 sessions, gates as shipped / forced off, on the package directories (every file's SHA-256 matches the ZIP's build) | pending: 64429271 / 64429273 (r2g), 64429234 / 64429235 (r1g) |
-| Budget trigger at window 0 = FT off | `v6_compare.py cand_v62_r2g_noft cand_v62_r2g_b0`, both gate modes, bitwise | pending (gb0, gb0off) |
-| Cap trigger | `v6_compare.py cand_v62_r2 cand_v62_r2g_c50 --from 60` (equal before the first skipped refit) | pending (gc50, gc50off) |
-| Budget trigger mid-session | `v6_compare.py ... --budget 20 --sessions 3 --gates-off`: frozen windows > 0, errors 0 | pending (gbmid) |
-| 800-window session, cap against no cap | A100, `v6_time.py --long`, v5.1b vs v6.2 (64429573) and vs v6.2g (64429575) | pending |
+| Identity to v6.2-safe, gates as shipped | Leonardo CPU 64429234, `v6_compare.py`, 14 sessions | **bitwise equal**, 2,655 windows (no FT after recognition at window 10, so no clock involved) |
+| Identity to v6.2 / v6.2-safe, other modes | first wave (64429271/73, 64429235) | **void as identity runs**: `--fresh-clock` looked the module up in `sys.modules`, where `record.load_model` never puts it, so nothing restarted (a silent no-op, fixed in ac66fd3 with `record.ft_clock_restart`, which fails loudly). Each process then tripped the real 2700 s budget in session 2 (P02, window 131 / 141). Before the trip, bitwise equal (P01 whole, P02 to the trip window), and errors 0 after it. Rerun, one job per session: `id2s*`, `id2o*`, `id1o*` (wave 3) |
+| Budget trigger at window 0 = FT off | 64430193 / 64430195, `cand_v62_r2g_noft` vs `cand_v62_r2g_b0`, 14 sessions | **bitwise equal**, 2,655 windows, gates as shipped and forced off |
+| Budget trigger mid-session | the natural trips above (window 131 / 141, errors 0); `--budget 20` rerun with the fixed restart: `bmid` | trip path errors 0; rerun pending |
+| Cap trigger (cap 50) | 64430196 (gates off), `--from 60` | P01, P02, P03 first differ **exactly at window 60** (the first skipped refit), 13 refits skipped, errors 0; later sessions confounded by the budget trip. Rerun per session: `c50o*` |
+| 800-window session, cap against no cap | A100, `v6_time.py --long` (64429573/75, 64430106/07) | v6.2 **×2.84–2.87** (78 refits), v6.2g **×1.77–1.78** (39 refits, 39 capped), errors 0. Peak live CUDA memory 14.1 GB without the cap, 7.2 GB with it (6.6 GB at 378 windows, v5.1b 0.06 GB). The allocator reserves about 67 GB of the 68 GB device and logs OOM-and-retry warnings (cache flushes, not failures). A worker GPU with 40 GB holds the live peak |
+| Worker image | Galvani 3100010 (v5.1b, v6.2g, v6.2g-safe, v6.2, v6.2-safe, v5.1b) | pending |
 
 ## v6.2gL: the L label switch on v6.2g (14 Nov, ledger §206 build)
 
@@ -214,3 +216,14 @@ built with `build6.py --v62g --labels v51b --t0 20 --lr 1e-3 --budget 2700 --rou
 every other file is byte-identical to `cand_v62_r2g` / `r1g`, so at R the package *is* v6.2g and the guard checks carry
 over. Checks: `check_v6.py --skip-recognised` (gates forced off; FT reference with the inner v5.1b's outputs as labels,
 the v6f path) on the CPU and on the A100 with package shapes; `check_v62.py`; official local replay; worker image.
+
+| Check (v6.2gL) | Where | Result |
+|---|---|---|
+| ZIPs, official local replay (Mac CPU) | `v62_r2gL.zip` `76441ee29602a5084379cfb00a36cf0533a8410cb1f6a35f96f27227d5772c1a`; `v62_r1gL.zip` `bb40a2fb4d773cbc46b43867081f17c4ace7915573494534962e79f2c7a1990f` | both 0.9945788530, files unchanged, 860.9 s / 100.7 s |
+| Same as v6.2g but the key | `build6.py` output against `cand_v62_r2g` / `r1g` | every other array and file byte-identical |
+| `check_v6.py` (L label path = v6f's, gates off), A100, package shapes, 3 orders, on the unzipped ZIPs | 64430676 (r2gL), 64430822 (r1gL) | eye 0, rest ≤ 1.7e-5, mix6 ≤ 6e-17, tail 0 everywhere. FT: r2gL 8e-6 to 1.3e-5 (pass). r1gL full 7.9e-6 (pass), recording 2.3e-4 and within 2.6e-4 (miss at 1e-4). r1gL's FT on this path is the same computation as r2gL's, so the spread is A100 run-to-run non-determinism; the CPU check is the deterministic one |
+| `check_v62.py`, A100, 3 orders | same jobs | r1gL pass in all 3. r2gL recording pass (FT 1.2e-5); within 3.6e-4, full 2.9e-4 on FT only (eye, mix, shadow, routed exact) |
+| `check_v62.py` CPU | 64430821 (r1gL) | **pass**; r2gL CPU (64430675) voided by the budget trip (clock bug above), rerun per session `v62r2gL*` |
+| `check_v6.py` CPU | first runs voided by the budget trip; rerun per session `v6r2gL*`, `v6r1gL*` | pending |
+| Run time on the ZIP, A100 | 64430676 / 64430822 | r2gL gates off ×1.85 / ×2.13 (190 / 378 windows), as shipped ×1.85 / ×2.10; r1gL gates off ×1.85 / ×2.13, as shipped ×1.29 / ×1.30. Errors 0, capped 0, frozen 0 |
+| Worker image | Galvani 3100013 (v5.1b, v6.2gL, v6.2gL-safe, v5.1b) | pending |
