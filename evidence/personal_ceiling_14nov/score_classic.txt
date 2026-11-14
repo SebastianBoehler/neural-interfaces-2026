@@ -1,0 +1,48 @@
+nets: none yet
+
+WITHIN SESSION (train 4 runs, test 2 online runs; mean over 6 pairs, then sessions), cell-mean BA %, chain = s242ctl V6Fr
+person    chain       a1       a2       a3       a4       aE     c*aE
+P01        73.8     79.4     71.4     73.3     51.9     80.8     82.1
+P02        90.7     82.8     71.9     70.3     75.6     87.5     93.8
+P03        74.9     67.2     67.2     49.2     75.0     76.9     82.7
+P04        48.9     60.6     62.5     42.4     50.7     65.0     65.0
+P05        79.1     70.3     71.9     41.1     45.6     72.2     81.0
+P06        83.5     81.1     73.9     45.8     55.8     78.3     84.7
+P07        91.6     82.8     76.4     58.6     59.4     78.9     91.2
+P08        85.4     82.5     76.9     82.2     61.7     86.4     88.8
+P09        83.1     81.4     91.9     48.3     57.2     89.2     92.6
+P10        84.8     80.8     72.0     61.6     68.5     83.0     91.6
+mean       79.6     76.9     73.6     57.3     60.1     79.8     85.3
+test = last two online runs    chain 80.2 a1 77.0 a2 71.8 a3 54.8 a4 59.3 aE 78.3 c*aE 85.2
+test = online runs 1+2         chain 78.9 a1 77.2 a2 77.1 a3 58.4 a4 59.5 aE 81.7 c*aE 85.9
+
+changes against the chain (ten people, 80 % people bootstrap) | people up
+  a1         -2.68 [-5.22, +0.02] 2/10
+  a2         -5.96 [-9.74, -1.97] 2/10
+  a3        -22.29 [-27.88, -16.57] 0/10
+  a4        -19.43 [-24.24, -14.58] 2/10
+  aE         +0.25 [-2.90, +3.37] 5/10
+  c*aE       +5.77 [+3.97, +7.78] 9/10
+
+PER SESSION (mean over the six pairs)
+session   chain      ER      aE    c*aE   ER*aE
+P01_1      73.8       -    80.8    82.1       -
+P02_1      90.7       -    87.5    93.8       -
+P03_1      74.9       -    76.9    82.7       -
+P06_1      83.5       -    78.3    84.7       -
+P07_1      91.6       -    78.9    91.2       -
+P10_1      83.1       -    85.0    92.0       -
+P10_2      87.3    92.6    83.1    92.1    93.9
+P10_3      84.0    91.0    81.0    90.5    91.9
+P05_1      79.1       -    72.2    81.0       -
+P08_1      85.4       -    86.4    88.8       -
+P04_1      55.5       -    65.6    67.9       -
+P04_2      43.4    61.3    64.2    62.2    69.9
+P04_3      47.8    69.5    65.3    65.0    74.5
+P09_1      83.1       -    89.2    92.6       -
+
+CROSS SESSION (P04 / P10: same personal system trained on all of session 1) vs WITHIN, same test windows
+  P04_1->P04_2: aE W 64.2 X 52.5 drop -11.7 | ER 61.3 | X whole session: aE 53.3, ER 67.9
+  P04_1->P04_3: aE W 65.3 X 49.2 drop -16.1 | ER 69.5 | X whole session: aE 53.2, ER 73.4
+  P10_1->P10_2: aE W 83.1 X 60.8 drop -22.2 | ER 92.6 | X whole session: aE 55.9, ER 89.5
+  P10_1->P10_3: aE W 81.0 X 64.3 drop -16.7 | ER 91.0 | X whole session: aE 58.0, ER 90.9
