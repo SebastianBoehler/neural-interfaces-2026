@@ -5426,3 +5426,45 @@ labels) on every order, each file against its own v5.1b:
 - **Rule:** a package form needs ≥ +0.3 mean over the four orders with inferred labels, with the detector routing it off
   under full. Otherwise undecided or closed by the numbers.
 - runcount.py's header now says which labels the filter used (subagent caveat).
+
+### 226. STRUCTURED RUN BOUNDARIES (written 14 Nov 07:47 UTC, before any result; coordinator after §217)
+- **Design (description, runs/rundetect/run_design.txt):** every public session has its two acquisition runs first
+  (Graz or BrainHero first, 10 of 14 BH first), then four online runs. Graz acquisition always 36 (12/12/12); BH
+  acquisition 30–36 (33 in 7 of 14; 9–12 per class); online runs 30 (10/10/10) except two BH online runs of 36
+  (12/12/12, P10's third session). So the only uncertainty is the acquisition order and the BH acquisition length.
+- **Forms (studies/14nov/rundetect/structured.py, labels runs/runids/s226_*.npz; causal: window t's label is fixed at t
+  from windows ≤ t):** a hypothesis is a sequence of block lengths; its prior comes from the other people's design
+  (LOPO: BH acquisition length 30–36, smoothed; acquisition order). Evidence = the conjugate segment marginal (§217's
+  6-direction view) of the windows so far under the hypothesis' boundaries. Label of t = the block index with the largest
+  posterior mass at t.
+  pos   within: fixed 36 / 36 / 30 × 4 (the ML expert's position-only form, no evidence).
+  wprior within: acquisition-first hypotheses (2 orders × L 30–36), prior only.
+  wcp   within: the same with change-point evidence.
+  rcp   runs: all distinct orders of {36, L, 30, 30, 30, 30}, L 30–36, uniform order prior, change-point evidence.
+- **Joint filter (jointcount.py, step 3):** the same hypotheses, each with its own urn filter (cap from the block type:
+  30-window block 10, else 12); hypothesis weights updated by the urn's predictive evidence for the chain posterior
+  (J-urn) or by urn × feature evidence (J-both); output = mixture over hypotheses. Validated first: one hypothesis =
+  true runs must reproduce runcount.py's true-run numbers exactly.
+- **Scored:** within 0/1, runs 0/1, offsets off, P0r and V6Fr, new people, against true runs (§215: within +0.57, runs
+  +0.25), with person-bootstrap 80 % intervals. runcount.py with RUN_IDS for the label forms.
+- **Prediction:** wcp purity ≥ 0.97 with ≤ 7 groups per session, filter within +0.40 to +0.55 (70–95 % of the oracle);
+  pos +0.35 to +0.45; rcp purity ≥ 0.9, filter runs +0.1 to +0.25; J-both ≥ wcp by +0.05 on within.
+- **Rule:** a structured form is kept for the package if within (mean of P0r and V6Fr, two orders) ≥ +0.3 and ≥ half the
+  oracle, with no person-bootstrap lower bound below −0.2 on runs. Below half the oracle on within: said plainly.
+- **Runs 0 diagnosis (step 5):** per person and per run, filter Δ with true runs for V6Fr vs P0r; capacity check (true
+  counts vs cap); τ 1 vs 2 (s215 τ 1 file: V6Fr −0.30, so not τ); calibration of V6Fr on runs 0 vs other orders.
+
+**§206 build addendum 2 (14 Nov 07:55 UTC, v52-build; written before any check of these packages): v6.2iu, the time
+limit off.**
+- **Why:** finalists are audited for reproducibility, and an audit rerun on other hardware must give the same labels.
+  v6.2i rev2's per-session time limit (120 s) makes outputs depend on machine speed: it binds on CPUs, about 10× slower
+  refits. It also protects nothing the 400-window cap does not already bound (capped refits total 27.5 s at A100
+  speed).
+- **Change:** key only. `v6_ft_session_s` = 1e9 s (range check: > 0), same code path and cap. `cand_v62_r2iLu`, `r2iu`,
+  `r1iLu`, `r1iu`; every other file and array is identical to rev2.
+- **Predictions:**
+  1. bitwise equal to rev2 with rev2's limit lifted on all 14 sessions (r2 both gate modes, r1 off);
+  2. official local replay at 0.99458 with files unchanged and the full schedule on CPU (ingestion about 860–890 s for
+     the routed-FT variants, as v6.2h);
+  3. GPU worker image passes.
+- **Refutation rule:** any miss fails the u package.
