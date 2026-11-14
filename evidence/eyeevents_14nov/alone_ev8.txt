@@ -1,0 +1,14 @@
+ev8: SUB-minus-WORD mean per column (raw, recording order) by interface x run type, sign consistency:
+  hbal4_e    BrainHero|acq:+0.000535 BrainHero|online:+0.00125 Graz|acq:+0.00362 Graz|online:+0.00408  same sign 4/4
+  hbal4_l    BrainHero|acq:-0.00277 BrainHero|online:+0.00163 Graz|acq:-0.00104 Graz|online:+0.00064  same sign 2/4
+  hbal2_e    BrainHero|acq:+0.00547 BrainHero|online:+0.00654 Graz|acq:+0.00407 Graz|online:+0.00137  same sign 4/4
+  hbal2_l    BrainHero|acq:-0.00606 BrainHero|online:-0.0104 Graz|acq:-0.0156 Graz|online:-0.0131  same sign 4/4
+  blink_lat  BrainHero|acq:-0.0592 BrainHero|online:+0.213 Graz|acq:+0.134 Graz|online:+0.0601  same sign 3/4
+  v_le       BrainHero|acq:+19.6 BrainHero|online:+17 Graz|acq:+16.6 Graz|online:+15.5  same sign 4/4
+  vev_le     BrainHero|acq:+0.0925 BrainHero|online:+0.115 Graz|acq:+0.099 Graz|online:+0.113  same sign 4/4
+  h_le       BrainHero|acq:-0.0284 BrainHero|online:-1.76 Graz|acq:-3.23 Graz|online:-2.26  same sign 4/4
+ rec      3-class cell BA 48.7 | SUB-vs-WORD BA 63.9 (eye net 65.7, mix 79.2), within-session AUC 0.659 | SW margin corr with mix +0.356, errors +0.138; eye net with mix +0.155 (+0.079); view with eye +0.143 | 3-class true-logp corr with mix +0.251
+ within0  3-class cell BA 48.8 | SUB-vs-WORD BA 64.9 (eye net 65.7, mix 79.2), within-session AUC 0.660 | SW margin corr with mix +0.350, errors +0.150; eye net with mix +0.155 (+0.079); view with eye +0.138 | 3-class true-logp corr with mix +0.250
+ full0    3-class cell BA 48.7 | SUB-vs-WORD BA 64.9 (eye net 65.7, mix 79.2), within-session AUC 0.661 | SW margin corr with mix +0.353, errors +0.141; eye net with mix +0.155 (+0.079); view with eye +0.144 | 3-class true-logp corr with mix +0.256
+ runs0    3-class cell BA 49.2 | SUB-vs-WORD BA 65.0 (eye net 65.7, mix 79.2), within-session AUC 0.659 | SW margin corr with mix +0.356, errors +0.148; eye net with mix +0.155 (+0.079); view with eye +0.143 | 3-class true-logp corr with mix +0.255
+ev8: mean SUB-vs-WORD BA 64.7, AUC 0.660 -> gate 2 PASS

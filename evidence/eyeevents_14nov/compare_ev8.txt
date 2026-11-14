@@ -1,0 +1,7 @@
+ev8    within0  V6Fr +0.17 [-0.06, +0.39] up 6/10 | without P10 +0.15 | fallback V6r -0.27 | people -0.3 +0.3 +1.2 -0.1 +0.1 +0.9 +0.1 -0.9 -0.1 +0.4
+ev8    within1  V6Fr +0.08 [-0.13, +0.29] up 7/10 | without P10 +0.07 | fallback V6r +0.11 | people +0.4 +1.0 +0.3 +0.2 +0.1 -1.0 +0.3 -0.5 -0.3 +0.2
+ev8    full0    V6Fr -0.29 [-0.53, -0.05] up 2/10 | without P10 -0.30 | fallback V6r -0.33 | people -0.2 -0.2 -1.2 -1.1 -0.2 +0.4 -0.5 -0.5 +0.8 -0.2
+ev8    full1    V6Fr +0.00 [-0.27, +0.29] up 5/10 | without P10 +0.01 | fallback V6r -0.14 | people +0.1 +0.5 -0.4 +0.1 -0.6 +0.5 -1.1 -0.5 +1.6 -0.1
+ev8    runs0    V6Fr -0.24 [-0.36, -0.12] up 3/10 | without P10 -0.23 | fallback V6r -0.47 | people -0.4 -0.3 +0.1 -0.5 +0.0 +0.4 -0.3 -0.7 -0.3 -0.4
+ev8    runs1    V6Fr -0.01 [-0.20, +0.17] up 6/10 | without P10 +0.01 | fallback V6r -0.03 | people +0.3 +0.3 +0.2 -0.8 +0.5 +0.1 +0.6 -0.5 -0.5 -0.2
+ev8    MEAN6    V6Fr -0.05 [-0.16, +0.06] people up 4/10, orders up 3/6 | V6r -0.19 | kill rule (>= +0.3 and >= 7/10): not kept

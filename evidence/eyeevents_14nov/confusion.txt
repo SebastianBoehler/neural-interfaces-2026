@@ -1,0 +1,15 @@
+within0  acc 77.1  SUB<->WORD 38.0 % of errors  (MI<->SUB 26.5, MI<->WORD 35.5)
+within1  acc 77.3  SUB<->WORD 38.5 % of errors  (MI<->SUB 26.4, MI<->WORD 35.2)
+full0    acc 74.8  SUB<->WORD 39.5 % of errors  (MI<->SUB 25.4, MI<->WORD 35.1)
+full1    acc 74.6  SUB<->WORD 40.0 % of errors  (MI<->SUB 25.3, MI<->WORD 34.7)
+runs0    acc 76.8  SUB<->WORD 41.8 % of errors  (MI<->SUB 25.8, MI<->WORD 32.5)
+runs1    acc 75.2  SUB<->WORD 41.8 % of errors  (MI<->SUB 24.1, MI<->WORD 34.1)
+pooled confusion (rows true, cols predicted; 6 orders x 6 bases):
+  MI    [25915  2738  3207]
+  SUB   [ 3134 23894  4868]
+  WORD  [ 4725  4310 22789]
+POOLED SUB<->WORD share of errors 39.9 % (gate 40 %): STOP
+  BrainHero|acq  acc 75.5  SUB<->WORD 39.3 %  MI<->SUB 24.1  MI<->WORD 36.6
+  BrainHero|online acc 77.2  SUB<->WORD 41.9 %  MI<->SUB 21.8  MI<->WORD 36.3
+  Graz|acq       acc 75.8  SUB<->WORD 48.5 %  MI<->SUB 23.6  MI<->WORD 27.9
+  Graz|online    acc 75.0  SUB<->WORD 33.5 %  MI<->SUB 30.9  MI<->WORD 35.6

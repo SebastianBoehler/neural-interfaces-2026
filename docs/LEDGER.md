@@ -6263,3 +6263,28 @@ run-level count filter on v6.2iLu ER.**
   6. filter cost: 4.4 ms per window on the Mac CPU (one-session smoke, P01: latched at 40 in both, bitwise, no label
      changed).
 - **Refutation rule:** any miss fails the package.
+
+**§235 wave 3 (written 14 Nov 12:12 UTC, after wave 2 was read, before any wave-3 job ran).** Extra eye copies' best arm (EYEC 2,
+weight 3) sits on the grid edge, so by the edge rule EYEC 3 (weight 4) runs; EYEC 5 (weight 6) also runs to see the shape
+(past the rule, stated now). Nested selection then over EYEC {0, 1, 2, 3, 5}. Prediction: EYEC 3 within ±0.05 of EYEC 2;
+EYEC 5 lower; held-out over the set +0.05 to +0.12, below +0.3.
+
+**§240 RESULT (14 Nov 12:14 UTC; code 6ff0a8e; `studies/14nov/eyeevents/score.sh`, `extview/compare.py ev8`; evidence
+`evidence/eyeevents_14nov/{confusion,alone_ev8,compare_ev8}.txt`; `replay/check.py` OK; Mac CPU, ~1 min per order).**
+V6Fr with `EXTRA_VIEW=runs/views_eye/ev8.npz` (8 columns, delivery-order rows; every log confirms the hook loaded) minus the
+regular file, new people, mean of six bases, 80 % person intervals:
+
+| within 0 | within 1 | full 0 | full 1 | runs 0 | runs 1 | mean 6 [80 %] | people up | orders up | V6r (fallback) |
+|---|---|---|---|---|---|---|---|---|---|
+| +0.17 | +0.08 | −0.29 | +0.00 | −0.24 | −0.01 | **−0.05 [−0.16, +0.06]** | 4/10 | 3/6 | −0.19 |
+
+- **Against the rule:** not kept (below +0.3 and 7/10). Inside ±0.3: **"undecided"** as a direction, this form not kept.
+  Prediction +0.1 (−0.2 to +0.4): inside the range, below the point. Gate 1 was passed over by 0.06 points (stated above);
+  the outcome would not change any decision either way.
+- **Reading:** the events carry real SUB/WORD information alone (64.7 BA, consistent signs incl. the 2 s flip) but their
+  margins follow the members' (+0.35 within class × run, twice the eye net's), and SessionEM gains from a view only through
+  independence (§188, §233, §234). Same lesson as §233: an accurate pair-specific view that shares the members' failure
+  windows adds columns, not information. Small plus under within delivery, minus under full and runs.
+- **Forms not tried (if the direction is reopened):** residualise the event columns on the mix's SUB/WORD margin before
+  they enter the view; fewer columns (the two q 2 balances and v_le only); the panel's proposal 1 (eye regression out of the
+  EEG members) first, which is meant to lower exactly this correlation.
