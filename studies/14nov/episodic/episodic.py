@@ -6,7 +6,8 @@ in random order. SessionBN normalises the episode with its own statistics (chunk
 per-class bias b (sum 0, two free parameters) solved by ITERS unrolled fixed-point steps b <- b - log mean softmax(z + b)
 so that the episode's mean prediction is uniform (the chain's rebalancing does the same at test time), then
 cross-entropy on z + b (the recipe's own loss, label smoothing included). Same epochs, learning rate, augmentation and
-about the same steps per epoch as the stock recipe. Drop-in weights: test-time forward is the stock one.
+ceil(largest class count / Q) episodes per session and epoch: 49 steps per epoch on a LOSO fold against the stock 36
+(1.35x; the version that ran on Galvani, job 3100517). Drop-in weights: test-time forward is the stock one.
 Arm E0: the stock recipe (SessionNet, 2 chunks of 32) through this same runner: a paired control and a no-op check
 (its recording-order output must match ttt7_fbraw_base of the same seed up to GPU nondeterminism).
 
@@ -49,7 +50,7 @@ class EpisodicNet(SB.SessionNet):
         for s in np.unique(sess):
             rs = rows[sess == s]; byc = [rng.permutation(rs[y[rs] == c]) for c in range(3)]
             assert all(len(r) >= Q for r in byc), [len(r) for r in byc]
-            n = int(np.ceil(max(len(r) for r in byc) / Q))
+            n = int(np.ceil(max(len(r) for r in byc) / Q))  # every row once per epoch, short classes padded by resampling
             byc = [np.concatenate([r, rng.choice(r, n * Q - len(r), replace=n * Q - len(r) > len(r))]) for r in byc]
             eps += [np.concatenate([r[j * Q:(j + 1) * Q] for r in byc]) for j in range(n)]
         return [eps[i] for i in rng.permutation(len(eps))]
@@ -77,7 +78,7 @@ class EpisodicNet(SB.SessionNet):
                 loss.backward(); opt.step(); sched.step()
         with torch.no_grad():
             EpisodicNet.resid.append(float((torch.softmax(zb, 1).mean(0) - 1 / 3).abs().max()))
-        print(f"episodic: {nb} episodes/epoch of {3 * Q} rows, last loss {float(loss):.3f}, marginal residual {EpisodicNet.resid[-1]:.1e}", flush=True)
+        print(f"episodic: {nb} episodes/epoch of {3 * Q} rows, last loss {float(loss.detach()):.3f}, marginal residual {EpisodicNet.resid[-1]:.1e}", flush=True)
 
 
 def make(d, seed, arm):
@@ -115,7 +116,7 @@ def run(d, proto, seed, arm, out, epochs=0):
                 r = r0 if o[0] == "rec" else r0[np.argsort(rk[o][r0], kind="stable")]
                 assert o[0] == "rec" or (len(set(rk[o][r])) == len(r) and (np.diff(rk[o][r]) > 0).all())
                 with torch.no_grad():
-                    p = torch.softmax(net(torch.from_numpy(m._aligned(r, causal=True)).to(m.dev))[:, :3].double(), 1).cpu().numpy()
+                    p = torch.softmax(net(torch.from_numpy(m._aligned(r, causal=True)).to(m.dev))[:, :3].cpu().double(), 1).numpy()  # as predict_proba_stream
                 got[o][0].append(p); got[o][1].append(r)
                 if o[0] == "rec":
                     rec.append(p)
