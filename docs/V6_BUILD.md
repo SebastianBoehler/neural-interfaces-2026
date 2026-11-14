@@ -206,7 +206,7 @@ v6.2g ZIPs (official local replay, Mac CPU; `files_unchanged` true, errors 0):
 | Budget trigger mid-session | the natural trips above (window 131 / 141, errors 0); `--budget 20` rerun with the fixed restart: `bmid` | `bmid` (fixed restart, P01 and P02): trips after 1 and 2 refits, the remaining 169 / 158 windows run on frozen nets, errors 0. The natural trips above: bitwise equal to v6.2 before the trip window |
 | Cap trigger (cap 50) | 64430196 (gates off), `--from 60` | P01, P02, P03 first differ **exactly at window 60** (the first skipped refit), 13 refits skipped, errors 0. Rerun per session with the fixed restart (`c50o*`): **all 14 sessions first differ at window 60**, 13–14 refits skipped, errors 0 |
 | 800-window session, cap against no cap | A100, `v6_time.py --long` (64429573/75, 64430106/07) | v6.2 **×2.84–2.87** (78 refits), v6.2g **×1.77–1.78** (39 refits, 39 capped), errors 0. Peak live CUDA memory 14.1 GB without the cap, 7.2 GB with it (6.6 GB at 378 windows, v5.1b 0.06 GB). The allocator reserves about 67 GB of the 68 GB device and logs OOM-and-retry warnings (cache flushes, not failures). A worker GPU with 40 GB holds the live peak |
-| Worker image | Galvani 3100010 (v5.1b, v6.2g, v6.2g-safe, v6.2, v6.2-safe, v5.1b) | pending |
+| Worker image, GPU | Galvani 3100010 (galvani-cn209), image torch 2.14.1+cu130, cuda True | every candidate replay passed inside the image: v6.2g 0.9945788530 in 185.9 s, v6.2g-safe 140.4 s, v6.2 187.9 s, v6.2-safe 139.4 s (files unchanged; v5.1b 0.9932767697 in 122.7 s). The job shows FAILED only because the closing v5.1b replay reused the first one's output folder (`FileExistsError`, replay_package.py line 42, `exist_ok=False`); worker_replay.sbatch now names folders by position and SHA-checks ZIPs |
 
 ## v6.2gL: the L label switch on v6.2g (14 Nov, ledger §206 build)
 
@@ -226,7 +226,7 @@ the v6f path) on the CPU and on the A100 with package shapes; `check_v62.py`; of
 | `check_v62.py` CPU | 64430821 (r1gL) | **pass**. r2gL: the first run (64430675) was voided by the budget trip (the clock bug above); the per-session rerun **passes** on P01, P02 and P03 (eye ≤ 6.4e-7, mix ≤ 7e-18, shadow 0, routed 0, FT ≤ 1.1e-5) |
 | `check_v6.py` CPU, on the unzipped ZIPs | first runs voided by the budget trip; rerun per session | r2gL and r1gL **pass** on P01, P02 and P03 (eye ≤ 6.4e-7, rest ≤ 3.6e-7, mix6 ≤ 1.4e-17, tail 0, FT ≤ 1.2e-5) |
 | Run time on the ZIP, A100 | 64430676 / 64430822 | r2gL gates off ×1.85 / ×2.13 (190 / 378 windows), as shipped ×1.85 / ×2.10; r1gL gates off ×1.85 / ×2.13, as shipped ×1.29 / ×1.30. Errors 0, capped 0, frozen 0 |
-| Worker image | Galvani 3100013 (v5.1b, v6.2gL, v6.2gL-safe, v5.1b) | pending |
+| Worker image, GPU | Galvani 3100013 (galvani-cn203) | v6.2gL 0.9945788530 in 180.4 s, v6.2gL-safe 136.6 s, files unchanged (v5.1b 119.8 s); FAILED only by the same closing-folder collision |
 
 ## v6.2h: the step62 exception guard (14 Nov, ledger §206 build addendum)
 
@@ -253,6 +253,7 @@ the g / gL counterparts.
 | `v62_r1h.zip` | `9bf9f6e46f6191dcbd00c224fcaf00ea4c51d9de44d068d7ac25e000d422bce5` | 0.9945788530, files unchanged, 109.7 s |
 | CPU `check_v6` / `check_v62` on the unzipped h ZIPs (P01–P03) | Leonardo CPU, `v6r*h*`, `v62r*h*` | **24/24 pass**: eye ≤ 6.4e-7, rest ≤ 3.6e-7, mix ≤ 2.8e-17, shadow / routed / tail / label 0, FT ≤ 1.2e-5 |
 
-Not validated for v6.2h: GPU worker-image replays (Galvani 3100010 / 3100013 ran the g ZIPs; Galvani needs the user's
-2FA); the worker image on CPU is ni26-push's (Leonardo, image software only; FT on CPU trips the budget). A100 timing
+Worker image on a GPU for v6.2h: Galvani 3100144 (v5.1b, v6.2hL ERF, v6.2h ERF, v6.2hL ER, v6.2h ER, v5.1b; SHA-checked),
+pending. The g / gL ZIPs passed the same image on a GPU (3100010 / 3100013): its torch ran v6.2's routed path with
+fine-tuning without error. The worker image on CPU is ni26-push's (Leonardo, image software only). A100 timing
 and memory carry over from v6.2g / v6.2gL (identical computation without errors).
