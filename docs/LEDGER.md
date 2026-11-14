@@ -7372,3 +7372,15 @@ training runs' windows ranked by the r15 chain's max posterior, with the chain's
 the chain; six orders (within0/1, full0/1, runs0/1). Prediction: top 70 % gives -0.5 (-1.5 to +0.5), below the map's value
 (the selection bias). Rule: >= +1 with the people interval above 0 -> the form goes to §253 as the end-of-session refit;
 otherwise the class is closed for this feature set (the map's +1.2 does not survive selection).
+
+**§256 implementation record (14 Nov 18:03 UTC, before any result; design unchanged).** Code `studies/14nov/tttssl/{causal,stack,third}.py`.
+Choices the pre-registration left open, fixed now: refits warm-start the SessionBN affine weights and use a fresh AdamW (5e-3, wd 0,
+5 steps, as ttt7's gC5), contrastive views as §255 (`view`), loss on the eval-mode forward of windows < t; windows are classified
+with SB.to_stream's StreamBN (state carried over the session, affine copied in at each refit; zero-change: refits off equals
+the eval forward, max diff 6e-8 on a smoke net). Windows 0-19 of each session position unadapted (A = B there, asserted). Nets are
+retrained per task (same recipe and seeds as §255 wave 2; not saved), 30 tasks = 6 seeds x 5 groups of 4 orders; A and B share the net.
+Fusion w 0.5 on session delivery positions >= 20, gated filter via the stack/score.py call, 6 bases, 20 orders; scorer `stack.py`
+(W = 0 returns the chain, asserted). Third form: FBCNet raw (ttt5 "fbraw": fbcnet_raw_sbn, k 20, no pretrained trunk), C10 weight 0.1,
+arms na and sB40, twin na for the joint cost; tttssl.run unchanged, scored by score.py FORMS=twin,C10. Run time: causal.py time on
+an A100 and on a 2080, first fold of P01, one-epoch nets (run time does not depend on training), per session. Smoke: both scripts ran on the Mac
+(one fold, one epoch).
