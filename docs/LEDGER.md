@@ -8079,3 +8079,5 @@ Prediction: EEGInceptionMI alone 52, IFNet 55, EEG-TCNet 48, TSception 50; margi
 correlation with fb 0.3-0.5 (IFNet highest); EEGNet sweep: best config +0.5 over the default's marginal (range -0.2 to +1.2), kernel length the sensitive factor.
 Rule: marginal >= +0.5 over the shipped set with the people interval above 0 -> joins the next chain check, the swap form preferred (equal net count); 0.2-0.5 undecided; < 0.2 recorded for this recipe.
 Guards: SessionBN active (ttt7 assert) per family; tag does not collide with existing files; 1-net subsets equal their own files' BA.
+
+**§272 AMENDMENT 2 (15 Nov 09:20 CET by date -u+1h, before any §272 chain result; coordinator's point).** The rule's "in at least 3 of the 4 scheme groups" is replaced: pass = the pooled people-nested 80 % interval above 0 AND the gain above 0 in at least 2 of the 3 schemes (within, full, runs) AND the people count already in the rule (>= 6/10 up, A >= +0.5). Pooled is not an independent group, so it is no longer counted as one of the schemes.
