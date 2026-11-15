@@ -45,7 +45,23 @@ ARCHS = {"fb": ("fb_sbn_rot05", 2.0), "sh": (None, 2.0), "fbraw": ("fbcnet_raw_s
          # s271 (15 Nov): structurally different families, NO pretrained trunk (none exists for these archs; fblight is the same), rot05 + SessionBN (k 20 as sinc/fbraw)
          "conf": ("conformer_ea_rot05_sbn", 20.0), "eegn": ("eegnet_ea_rot05_sbn", 20.0),
          "atc": ("atcnet_ea_rot05_sbn", 20.0), "deep4": ("deep4_ea_rot05_sbn", 20.0),
-         "sincs": ("sincshallow_ea_rot05_sbn", 20.0)}  # sincs: from-scratch control of sinc (s271 amendment)
+         "sincs": ("sincshallow_ea_rot05_sbn", 20.0),
+         # s274 (15 Nov): four more braindecode families (all BatchNorm only -> fully SessionBN) and the EEGNet one-factor sweep (default = eegn)
+         "incep": ("inceptionmi_ea_rot05_sbn", 20.0), "tcnet": ("eegtcnet_ea_rot05_sbn", 20.0),
+         "ifnet": ("ifnet_ea_rot05_sbn", 20.0), "tsc": ("tsception_ea_rot05_sbn", 20.0),
+         **{f"eegn_{t}": (f"eegnet{t}_ea_rot05_sbn", 20.0) for t in ("k30", "k60", "k90", "f16", "d4", "p25", "p50")}}
+for _f in ARCHS:  # a typo in a family key must fail at import, not after an hour on a GPU
+    assert ARCHS[_f][0] is None or "_sbn" in ARCHS[_f][0], _f
+
+
+def check_cfg(arch, net):
+    """s274 guard: an EEGNet sweep family's kwargs are really in the trained net (kernel, F1, D, dropout), not silently the default."""
+    if not arch.startswith("eegn_"):
+        return
+    import run_cv
+    kw = run_cv.EEGN_SWEEP[arch[5:]]; ct = net.conv_temporal; f1 = ct.out_channels; d = net.conv_spatial.weight.shape[0] // f1
+    got = dict(kernel_length=ct.kernel_size[-1], F1=f1, D=d, drop_prob=net.drop_1.p); want = {**dict(kernel_length=64, F1=8, D=2, drop_prob=0.25), **kw}
+    assert got == want, (arch, got, want); print("cfg ok", arch, got, flush=True)  # sincs: from-scratch control of sinc (s271 amendment)
 ORDER = os.environ["FAMS"].split(",") if os.environ.get("FAMS") else ["fbraw", "fbl", "sinc", "fb"]  # FAMS (s271): a family list, task = family + len * seed
 
 

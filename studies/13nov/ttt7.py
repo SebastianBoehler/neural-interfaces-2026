@@ -96,7 +96,7 @@ def run(arch, d, proto, seed, out, epochs=0):
         m = T5.make(arch, d, seed)
         if epochs:
             m.epochs = epochs
-        m.fit(np.flatnonzero(tr)); assert arch == "sh" or getattr(m, "n_sbn", 0) > 0, f"{arch}: no SessionBN layer active"; m.set_k(T5.ARCHS[arch][1]); rows = np.flatnonzero(te); st = d["stream"][rows]
+        m.fit(np.flatnonzero(tr)); assert arch == "sh" or getattr(m, "n_sbn", 0) > 0, f"{arch}: no SessionBN layer active"; T5.check_cfg(arch, m.net); m.set_k(T5.ARCHS[arch][1]); rows = np.flatnonzero(te); st = d["stream"][rows]
         ref = protocol.predict_streams(m, d, te, proba=True)
         for s in dict.fromkeys(st):
             r = rows[st == s]

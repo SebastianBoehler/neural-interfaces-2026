@@ -54,6 +54,11 @@ for _a in ("eegnet", "shallow", "deep4", "conformer", "atcnet", "eegnex",
            "ctnet", "fbcnet", "ifnet", "tidnet", "rocket", *R9_ARCHS):
     CONFIGS[f"{_a}_raw"] = lambda d, a=_a: AlignedNet(d, arch=a, align=False, seed=SEED[0])
     CONFIGS[f"{_a}_ea"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0])
+# s274: EEGNet one-factor sweep around braindecode 1.8.1 defaults (kernel_length 64, F1 8, D 2, drop_prob 0.25); family key -> net kwargs
+EEGN_SWEEP = {"k30": dict(kernel_length=30), "k60": dict(kernel_length=60), "k90": dict(kernel_length=90), "f16": dict(F1=16),
+              "d4": dict(D=4), "p25": dict(drop_prob=0.25), "p50": dict(drop_prob=0.5)}  # p25 equals the default (replicate)
+for _t, _kw in EEGN_SWEEP.items():
+    CONFIGS[f"eegnet{_t}_ea"] = lambda d, kw=_kw: AlignedNet(d, arch="eegnet", seed=SEED[0], net_kw=dict(kw))
 for _a in ("shallow", "fbcnet"):
     CONFIGS[f"{_a}_ea_aug"] = lambda d, a=_a: AlignedNet(d, arch=a, seed=SEED[0], aug=True)
 for _a in ("shallow", "fbcnet"):  # fine-tune 10 epochs on PROTEUS after external
