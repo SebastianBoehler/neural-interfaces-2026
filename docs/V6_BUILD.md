@@ -502,3 +502,8 @@ prefix 190, 2535 ms at 378; backward + Adam 40 %, augmented forward 25 %, clean 
 staging 2 %. The pre-registered prediction (>= 50 % in the cacheable / staging parts, >= 1.8x for the stack) is **refuted**: the
 identity-preserving forms reach ~1.2x. **Track B stopped (coordinator, 14 Nov):** no `lean/src66` tree, no new bundle; v6.5b stays the candidate.
 Arithmetic-changing forms (TF32 on A100 within the <= 0.05 GPU band, subsampled-prefix refits via §257) are revisited when §265 or §257 reads out.
+
+## v6.6: v6.5b plus capped causal personalisation (15 Nov, ledger §268)
+
+`lean/src66` (copy of `lean/src65b`, plus `cpers.py`), bundle `submissions/lean_v66`, key `v6_cp_on` (0 = v6.5b path). Form, predictions
+and refutation rule are in §268 (pre-registered before any check). v6.5b stays the candidate until every check below passes.

@@ -7875,3 +7875,24 @@ Per person (pooled k 20): -0.2 +0.2 +0.0 +0.3 +0.3 +0.1 -0.1 +0.4 +1.1 +0.2 (P01
   so the §260 waiter never scored); pp files carry no "draw" key despite db13394's description; run.py names them by the
   draw suffix and reads chain<draw> under an assert (code and chain md5 identical on Galvani and the Mac), so score260.py
   now checks the name and asserts the key only where present.
+
+### 268. V6.6 = V6.5b + CAPPED CAUSAL PERSONALISATION (§260 form) (written 15 Nov 08:20 CET, before any build check; build thread, coordinator's order)
+Form (study studies/14nov/causalpers, fixed in §260): chain labels = argmax of the package's own emitted posterior p of windows < t
+(before the count filter); refit points t = 20, 40, ... (k 20); training set = per chain class the top 50 % most confident of
+windows 0..t-1 (at least 3); 8-band FBCSP (4-8 ... 32-40 Hz, nf 2, one-vs-rest, classic.csp_feats) on per-window zero-phase band
+covariances (OAS), sklearn LDA (lsqr, auto shrinkage), unweighted; window i >= 20 takes the latest refit's posterior q; output =
+argmax[log clip(o, 1e-6) + w(i) log clip(q, 1e-6)] with o the count-filter output (p before the latch), w(i) = 0.10 clip((i - 89)/120, 0, 1)
+(t0 90, R 120, cap 0.10). A refit with < 2 chain classes gives q = uniform. New people only: the stage stops for the rest of the
+session at the first routed (recognised) window and is never applied after it. Package form: module cpers.py in lean/src66,
+key v6_cp_on (0: v6.5b byte-for-byte path, no CausalPers object); all state per session, reset_state; any exception: counted,
+one stderr line, count-filter output for the rest of the session (as the count filter).
+Predictions: (1) cp_on 0: v6.6 bundle outputs bitwise equal to v6.5b on CPU (record/cpu_identity, P01, P10|1, plus a
+recognised session); recognised sessions (stage stops at recognition before window 90) equal to v6.5b with cp_on 1 too. (2) Package
+form against the study form: on a few cells (order x base x person, unrecognised) the package's q (hard q per window) equals the
+study's pp file within 1e-6 and the fused labels agree on 100 % of windows; the person score of the package form equals the
+study's within 0.05. (3) Cost on the worker CPU (Galvani CPU / Leonardo): <= 25 ms per window of an unrecognised session
+(Mac 11.3 ms x the 1.9 worker/Mac ratio of the count filter = 21), so <= 4.5 sealed min expected (57 % unrecognised), <= 8 worst.
+(4) A100 timing: sealed worst case 42-49 min (slow node) + cost; the stage needs total <= 50 min (>= 1.2x slack) in the worst case,
+else it is reported as not fitting and a cheaper form (k 40, fewer bands) is pre-registered separately.
+Refutation: any bitwise difference with cp_on 0, any err on the unforced run, package-vs-study label disagreement > 0.5 % of windows
+(a porting bug until explained), or the timing rule failing. v6.5b stays the upload candidate until v6.6 passes all.
