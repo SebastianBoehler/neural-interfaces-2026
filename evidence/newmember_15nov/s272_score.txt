@@ -1,0 +1,27 @@
+[run_capped] Sun Nov 15 10:38:17 CET 2026 start: .venv/bin/python -I studies/14nov/newmember/score.py within0 within1 within2 within3 full0 full1 runs0 runs1 (max 8 GB)
+  within0  latched 14/14 ctl raw 80.52 | ctl+filter +0.32 nmAeegn +0.20 nmAeegn+filter +0.48 nmBeegnconf -0.39 nmBeegnconf+filter +0.03 nmZeegn +0.00 nmZeegn+filter +0.32
+  within1  latched 14/14 ctl raw 80.19 | ctl+filter +0.56 nmAeegn -0.06 nmAeegn+filter +0.45 nmBeegnconf -0.59 nmBeegnconf+filter -0.14 nmZeegn +0.00 nmZeegn+filter +0.56
+  within2  latched 14/14 ctl raw 79.24 | ctl+filter +0.57 nmAeegn +0.33 nmAeegn+filter +0.27 nmBeegnconf -0.23 nmBeegnconf+filter -0.36 nmZeegn +0.00 nmZeegn+filter +0.57
+  within3  latched 14/14 ctl raw 80.18 | ctl+filter +0.01 nmAeegn +0.13 nmAeegn+filter +0.26 nmBeegnconf -0.00 nmBeegnconf+filter -0.12 nmZeegn +0.00 nmZeegn+filter +0.01
+  full0    latched 2/14 ctl raw 78.17 | ctl+filter -0.01 nmAeegn -0.22 nmAeegn+filter -0.14 nmBeegnconf -0.62 nmBeegnconf+filter -0.49 nmZeegn +0.00 nmZeegn+filter -0.01
+  full1    latched 2/14 ctl raw 77.80 | ctl+filter -0.07 nmAeegn -0.30 nmAeegn+filter -0.40 nmBeegnconf -1.03 nmBeegnconf+filter -1.16 nmZeegn +0.00 nmZeegn+filter -0.07
+  runs0    latched 14/14 ctl raw 80.18 | ctl+filter -0.02 nmAeegn -0.38 nmAeegn+filter -0.55 nmBeegnconf -1.17 nmBeegnconf+filter -0.95 nmZeegn +0.00 nmZeegn+filter -0.02
+  runs1    latched 14/14 ctl raw 78.84 | ctl+filter +0.32 nmAeegn -0.16 nmAeegn+filter +0.01 nmBeegnconf -0.70 nmBeegnconf+filter -0.22 nmZeegn +0.00 nmZeegn+filter +0.32
+
+change against ctl raw (arm+filter rows: arm filtered - ctl raw; compare with ctl+filter), new people: mean | per scheme | [80 % interval] | people up
+  ctl+filter             +0.16 | within +0.37 (4) full -0.04 (2) runs +0.15 (2) | [-0.01, +0.33] | 5/10 | people up per scheme: within 6/10 full 1/10 runs 6/10
+  nmAeegn                -0.13 | within +0.15 (4) full -0.26 (2) runs -0.27 (2) | [-0.42, +0.17] | 5/10 | people up per scheme: within 5/10 full 5/10 runs 4/10
+  nmAeegn+filter         -0.06 | within +0.36 (4) full -0.27 (2) runs -0.27 (2) | [-0.39, +0.28] | 5/10 | people up per scheme: within 6/10 full 5/10 runs 5/10
+  nmBeegnconf            -0.69 | within -0.30 (4) full -0.83 (2) runs -0.93 (2) | [-1.15, -0.26] | 4/10 | people up per scheme: within 4/10 full 3/10 runs 1/10
+  nmBeegnconf+filter     -0.52 | within -0.15 (4) full -0.83 (2) runs -0.58 (2) | [-1.00, -0.06] | 5/10 | people up per scheme: within 5/10 full 3/10 runs 3/10
+  nmZeegn                +0.00 | within +0.00 (4) full +0.00 (2) runs +0.00 (2) | [+0.00, +0.00] | 0/10 | people up per scheme: within 0/10 full 0/10 runs 0/10
+  nmZeegn+filter         +0.16 | within +0.37 (4) full -0.04 (2) runs +0.15 (2) | [-0.02, +0.32] | 5/10 | people up per scheme: within 6/10 full 1/10 runs 6/10
+
+arm minus ctl (the s272 reading): raw and with the count filter, both against ctl's own raw/filtered output
+  nmAeegn raw       -0.13 [-0.42, +0.18] people up 5/10 | within +0.15 up 5/10 full -0.26 up 5/10 runs -0.27 up 4/10
+  nmAeegn+filter    -0.21 [-0.49, +0.08] people up 3/10 | within -0.00 up 5/10 full -0.22 up 5/10 runs -0.42 up 3/10
+  nmBeegnconf raw       -0.69 [-1.14, -0.24] people up 4/10 | within -0.30 up 4/10 full -0.83 up 3/10 runs -0.93 up 1/10
+  nmBeegnconf+filter    -0.68 [-1.14, -0.24] people up 4/10 | within -0.51 up 4/10 full -0.78 up 3/10 runs -0.73 up 2/10
+  nmZeegn raw       +0.00 [+0.00, +0.00] people up 0/10 | within +0.00 up 0/10 full +0.00 up 0/10 runs +0.00 up 0/10
+  nmZeegn+filter    +0.00 [+0.00, +0.00] people up 0/10 | within +0.00 up 0/10 full +0.00 up 0/10 runs +0.00 up 0/10
+[run_capped] Sun Nov 15 10:44:38 CET 2026 exit 0
