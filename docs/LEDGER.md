@@ -7923,7 +7923,7 @@ family set aside. Caveat on reach: core1's LR recipe and regularisation search w
 (A 2x, B 1.7x, C 3.3x of 44k), so this reads as "more blocks under core1's fixed C and scaler hurt", not as "the fine feature space
 is exhausted"; a form that rescales the regulariser per block (or block-wise shrinkage) is the one unrun variant. No rebuild of TSEM/routing (the pre-registered consequence).
 
-### 269. BASE ENSEMBLE SIZE x DIVERSITY CURVE FROM STORED OUTPUTS (written 15 Nov 10:00 CET, before any result; research thread; coordinator's probe 3 on the data-scale front)
+### 269. BASE ENSEMBLE SIZE x DIVERSITY CURVE FROM STORED OUTPUTS (written 15 Nov 08:29 CET, before any result; research thread; coordinator's probe 3 on the data-scale front)
 Mechanism: the shipped base is 4 net families (fb, fbl, fbraw, sinc) x several seeds. If new-people accuracy still rises with the number
 of nets, a larger base (cheaper nets, distillation) is a lever; if it is flat, the base is net-saturated and the gap is data. Stored
 material: runs/diag/ttt/probs18/ttt18<order>d<draw>_<family>_base-all_loso-s<seed>.npz (proba, index; LOSO over ten people), 4 families x
@@ -7938,7 +7938,7 @@ shuffled orders) and a cheaper-net/distillation pre-registration; < +0.5 -> reco
 Silent no-op guards: assert every (family, seed, order, draw) file exists and that index arrays agree across nets; assert that a
 1-net subset equals that net's own BA from its file.
 
-### 270. DREYER 2023 AS EXTRA MI PEOPLE: WHY IT COLLAPSED, AND A FORM THAT REMOVES THE CAUSE (written 15 Nov 10:30 CET, before any result; research thread, coordinator's request)
+### 270. DREYER 2023 AS EXTRA MI PEOPLE: WHY IT COLLAPSED, AND A FORM THAT REMOVES THE CAUSE (written 15 Nov 08:30 CET, before any result; research thread, coordinator's request)
 Why it collapsed (archive/OPTIMIZATION_R5.md:80-104, 19 Oct; one seed, four members, PROTEUS-only 56.2/53.5/52.6/59.2 -> +Dreyer 44.9/50.6/48.2/52.8): not a bug
 or label mapping but a structural confound the note diagnoses. Every Dreyer session is MI only (left/right hand); session alignment recentres
 each session on its own mean, so an aligned MI window sits at the identity, where PROTEUS puts the three-class session average. The model
@@ -7974,7 +7974,7 @@ Rule branch: gain 24 -> 96 < +0.5 -> recorded, the base is net-saturated in size
 only two orders x two draws, within scheme only; the seed axis here reads the mean posterior, not the chain; family diversity (f 3 -> 4
 +0.4 to +0.8 at equal s) is the one axis still rising and is not extrapolated (only four families exist).
 
-### 271. NEW STRUCTURALLY DIFFERENT NET FAMILIES AS BASE MEMBERS (written 15 Nov 11:00 CET, before any result; research thread; coordinator's request after §269)
+### 271. NEW STRUCTURALLY DIFFERENT NET FAMILIES AS BASE MEMBERS (written 15 Nov 08:32 CET, before any result; research thread; coordinator's request after §269)
 Mechanism: §269 alone-reading, family axis (6 seeds, mean over 4 within cells): 1 family 63.00, 2 families 65.65, 3 families 67.13, 4 families
 67.54: marginals +2.65, +1.48, +0.41, with fbraw adding -0.04 to {fb, fbl, sinc}. Seeds are flat (4 -> 6: -0.06), so ensemble gain is
 diversity, with a clearly diminishing curve between the SAME recipe family (all four are SessionBN, EA-aligned, rot05 braindecode-style
@@ -8002,11 +8002,11 @@ equals the s269 drop of +0.04 with sign flipped). Mean of four +0.41. Against th
 (+0.42, undecided inside noise), fbraw about 0 holds, fbl in between does not (about 0, lowest with fbraw). All intervals include 0 (people
 nested); only the cell direction of sinc and fb is consistent. Reading: sinc carries the most unique signal; fbl and fbraw are near-redundant.
 
-**§271 DEVIATION (15 Nov 11:40 CET, coordinator's note).** The four step-1 arrays (Leonardo 64519463, 64519490, 64519492, 64519493) were submitted before any smoke: the Mac smoke
+**§271 DEVIATION (15 Nov 08:40 CET, coordinator's note; times of this thread's entries taken from the commit clock, earlier drafts carried wrong stamps).** The four step-1 arrays (Leonardo 64519463, 64519490, 64519492, 64519493) were submitted before any smoke: the Mac smoke
 was queued behind another capped job and the executor's ssh to Leonardo was refused, so the code (81749a5) was rsynced and submitted
 unsmoked. This goes past the smoke rule in AGENTS.md. Safeguard: a watcher reads the first running task of each family and cancels all four arrays on the first traceback or non-zero EXIT.
 
-**§271 AMENDMENT (15 Nov 12:00 CET, before any §271 result; coordinator's design point).** The first submission failed at once because the new
+**§271 AMENDMENT (15 Nov 08:43 CET, before any §271 result; coordinator's design point).** The first submission failed at once because the new
 families were registered with pretrained trunks that do not exist (`runs/pretrain/<arch>_ea-m7r-s0.pt` exists only for the older families; fb and
 fbl are already trained from scratch, only sinc and fbraw-style entries carry ptm7r). Choice: no new pretraining; the new families run from scratch
 (`<arch>_ea_rot05_sbn`, k 20) and a from-scratch control of sinc (`sincs` = sincshallow_ea_rot05_sbn, same seeds, orders and streaming) is added, so
@@ -8014,7 +8014,7 @@ the marginal is read like-for-like: a new family's marginal is reported over the
 shipped set, and sincs minus sinc (the value of the m7r trunk) is itself reported. Prediction for the control: sincs alone 1.5 below sinc
 (range 0 to 3), so a "< +0.5" for a new family is not attributed to architecture unless it is also below the sincs-based marginal.
 
-**§270 AMENDMENT (15 Nov 12:05 CET, before any full result; code studies/14nov/dreyer/, commit e984ccd; Leonardo prep 64519639, folds 64519640 (tasks 0-4, 1636) and 64519641 (5-9, 1675), afterok).**
+**§270 AMENDMENT (15 Nov 08:45 CET, before any full result; code studies/14nov/dreyer/, commit e984ccd; Leonardo prep 64519639, folds 64519640 (tasks 0-4, 1636) and 64519641 (5-9, 1675), afterok).**
 Data: the existing export data/dreyer2023/windows_1-44.npz and _45-87.npz (87 people, ~21k windows, 41-ch layout, 14 channels interpolated, so the
 intersect is the 27 recorded channels). Choices the pre-registration left open: test-time class priors come from the PROTEUS training rows in
 every arm (Dreyer enters only as training rows); the StandardScaler is weighted by w; the rule is applied to a2w1 (arm 2 at weight 1),
