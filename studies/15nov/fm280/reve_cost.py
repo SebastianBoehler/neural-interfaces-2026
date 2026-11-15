@@ -10,6 +10,7 @@ import torch  # noqa: E402
 import protocol  # noqa: E402
 import session_bn as SB  # noqa: E402
 from deep import build  # noqa: E402
+import reve_fm  # noqa: E402  (REVE build without huggingface_hub)
 
 CFG = {"fb": ("fb_sbn_rot05", 2.0), "fbraw": ("fbcnet_raw_sbn", 20.0), "fbl": ("fblight_ea_rot05_sbn", 5.0), "sinc": ("sincshallow_ea_ptm7r_rot05_sbn", 20.0)}
 
@@ -37,7 +38,7 @@ def main():
         for fam, (cfg, k) in CFG.items():
             m = SB.make(cfg, d, 0); m.net = build(m.arch, C, T, m.pretrained, **m.net_kw); m._prepare(); m.set_k(k); n = m.net.to(dev).eval()
             ms.setdefault(fam, []).append(1000 * bench(n, X, dev, 5 if dev == "cpu" else 20) / t)
-        cb = build("reve", C, T, True).to(dev).eval(); npar = sum(p.numel() for p in cb.parameters())
+        cb = reve_fm.build("reve", C, T, True).to(dev).eval(); npar = sum(p.numel() for p in cb.parameters())
         ms.setdefault("reve", []).append(1000 * bench(cb, X, dev, 3 if dev == "cpu" else 20) / t)
         print(json.dumps(dict(t=t, **{f: round(v[-1], 3) for f, v in ms.items()}, reve_params=npar)), flush=True)
     mm = {f: float(np.mean(v)) for f, v in ms.items()}; ship = sum(mm[f] for f in CFG)

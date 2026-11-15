@@ -15,6 +15,38 @@ import protocol  # noqa: E402
 import session_bn as SB  # noqa: E402
 import deep  # noqa: E402
 
+WFILE = WS / f"hf/hub/models--brain-bzh--reve-base/snapshots/{deep.REVE_REV}/model.safetensors"  # the s71 copy; huggingface_hub/safetensors are not in the Leonardo venv, so the file is read directly
+
+
+def read_safetensors(path):
+    import json, struct
+    b = open(path, "rb").read(); n = struct.unpack("<Q", b[:8])[0]; h = json.loads(b[8:8 + n]); out = {}
+    for k, v in h.items():
+        if k != "__metadata__":
+            a, e = v["data_offsets"]; assert v["dtype"] == "F32"
+            out[k] = torch.frombuffer(bytearray(b[8 + n + a:8 + n + e]), dtype=torch.float32).reshape(v["shape"])
+    return out
+
+
+_build = deep.build
+
+
+def build(arch, n_chans, n_times, pretrained=True, **net_kw):
+    """deep.build for REVE without huggingface_hub: braindecode REVE at the §71 shape, pretrained keys loaded strictly (head excluded) from WFILE."""
+    if arch != "reve":
+        return _build(arch, n_chans, n_times, pretrained, **net_kw)
+    import braindecode.models as bd
+    names = [str(c) for c in np.load(protocol.DATA)["ch_names"]]; n = int(round(n_times * 200 / deep.SFREQ))
+    net = bd.REVE(n_outputs=3, n_chans=n_chans, n_times=n, sfreq=200, chs_info=[{"ch_name": c} for c in names]); assert net.default_pos is not None
+    if pretrained:
+        assert sha(WFILE) == BLOB, "pretrained file is not the s71 blob"
+        sd = {k: v for k, v in read_safetensors(WFILE).items() if not k.startswith("final_layer.")}
+        res = net.load_state_dict(sd, strict=False); assert set(res.unexpected_keys) <= {"cls_query_token"}, res.unexpected_keys  # attention-pooling query of the checkpoint; the default (flatten) head does not use it
+        assert all(k.startswith("final_layer.") for k in res.missing_keys), res.missing_keys
+    return deep.Resampled(net, n, 1.0, clamp=15.0)
+
+
+deep.build = build
 BLOB = "8ecc650619598748286c2457f81f5c6bd12e8bb59db44f7b02af1955c44de8fe"  # sha256 of brain-bzh/reve-base model.safetensors (the s71 file, md5 d2e8b1f0...)
 OUT = WS / "runs/diag/reve280"; ORD = ("within0", "within1")
 # form: (pretrained, lr body, lr head, layer decay, epochs, freeze all but last 2 blocks + head, per-window z-score)
@@ -104,11 +136,8 @@ def sha(path):
 def check_weights(m, form, d):
     pre = FORMS[form][0]
     if pre:  # pretrained: must differ from the pinned weights after fine-tuning, and the pinned file must be the s71 blob
-        from huggingface_hub import hf_hub_download
-        f = hf_hub_download("brain-bzh/reve-base", "model.safetensors", revision=deep.REVE_REV)
-        assert sha(f) == BLOB, "pretrained file is not the s71 blob"
-        from safetensors.torch import load_file
-        sd = load_file(f); own = {k[len("net.net."):]: v.cpu() for k, v in m.net.state_dict().items() if k.startswith("net.net.")}
+        f = WFILE; assert sha(f) == BLOB, "pretrained file is not the s71 blob"
+        sd = read_safetensors(f); own = {k[len("net."):]: v.cpu() for k, v in m.net.state_dict().items() if k.startswith("net.")}
         ks = [k for k in sd if k in own and not k.startswith("final_layer.")]; assert len(ks) > 50, f"only {len(ks)} pretrained keys matched"
         diff = max(float((own[k] - sd[k]).abs().max()) for k in ks)
         assert diff > 0, "fine-tuned checkpoint equals the pretrained one"
