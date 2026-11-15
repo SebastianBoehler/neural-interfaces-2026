@@ -7937,3 +7937,26 @@ extrapolated >= +1.0 with the 6-seed point inside the fit's interval -> a chain 
 shuffled orders) and a cheaper-net/distillation pre-registration; < +0.5 -> recorded, base is net-saturated; between -> undecided.
 Silent no-op guards: assert every (family, seed, order, draw) file exists and that index arrays agree across nets; assert that a
 1-net subset equals that net's own BA from its file.
+
+### 270. DREYER 2023 AS EXTRA MI PEOPLE: WHY IT COLLAPSED, AND A FORM THAT REMOVES THE CAUSE (written 15 Nov 10:30 CET, before any result; research thread, coordinator's request)
+Why it collapsed (archive/OPTIMIZATION_R5.md:80-104, 19 Oct; one seed, four members, PROTEUS-only 56.2/53.5/52.6/59.2 -> +Dreyer 44.9/50.6/48.2/52.8): not a bug
+or label mapping but a structural confound the note diagnoses. Every Dreyer session is MI only (left/right hand); session alignment recentres
+each session on its own mean, so an aligned MI window sits at the identity, where PROTEUS puts the three-class session average. The model
+learns "centred = MI". Also 27 of 41 channels (interpolation null space, same note). Since then the corpus entered only as pretraining
+for the external teacher (the part of the teacher's +1.4 J that is Dreyer's is unmeasured). The raw files are NOT local (data/dreyer2023/
+holds the OSF manifest only; scripts/export_moabb.py skips unreadable Dreyer recordings); the windows export must be found on a cluster
+(runs/extharness-style export, `$WORK/ni26/data`) or rebuilt there; no download is started from the Mac.
+Form (core level first, CPU, one cluster; both sides on the 27-channel intersect, core1's recipe unchanged, lr10, LOSO over the ten people,
+new-people protocol of §263): arms (0) PROTEUS 27-ch only (the reference); (1) + Dreyer, per-session centred, as MI (replicates the
+collapse; mechanism check); (2) + Dreyer, per-session centred, then shifted by the PROTEUS MI-class offset: m_MI = mean over the
+training people's MI windows of (centred tangent vector) minus nothing, i.e. the average position of the MI class in centred space, added
+to every Dreyer window (fit on the training people of the fold only); (3) arm 2 with Dreyer rows at weight w in {0.1, 0.3, 1}
+(mixing q: 87 people at q<1). Left/right is mapped to one class (MI); a second form, only if (2) is positive: Dreyer's L/R as an
+auxiliary two-class head on the shared trunk of the nets (centring then stays valid, two classes per session).
+Prediction: (1) -3 or worse vs (0), people up <= 2/10 (the mechanism); (2) removes at least 60 % of that loss but is not above
+(0) at w 1: 0.0 (80 % range -1.5 to +1.0); best w 0.3: +0.3. Rule: (2) >= +1.0 with >= 7/10 people up over (0) -> pre-register the net
+form and the chain check; between -0.5 and +1.0 -> undecided, one more form (the auxiliary L/R head, mixing); < -0.5 -> Dreyer closed in
+the MI-label form, the L/R auxiliary form left as the one open form. Guards: assert the channel intersect is identical in both corpora,
+the offset is fit on the fold's training people only, every arm's cache key carries the arm, 0 Dreyer rows in arm (0).
+Needs: the Dreyer windows file (cluster search first, rebuild job on Leonardo otherwise); Shin 2018 WG (26 people, word vs rest) needs the
+user's Galvani 2FA copy and is a separate pre-registration once its raw zips are local.
