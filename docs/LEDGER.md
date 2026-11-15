@@ -8013,3 +8013,10 @@ fbl are already trained from scratch, only sinc and fbraw-style entries carry pt
 the marginal is read like-for-like: a new family's marginal is reported over the current set with sinc replaced by sincs as well as over the
 shipped set, and sincs minus sinc (the value of the m7r trunk) is itself reported. Prediction for the control: sincs alone 1.5 below sinc
 (range 0 to 3), so a "< +0.5" for a new family is not attributed to architecture unless it is also below the sincs-based marginal.
+
+**§270 AMENDMENT (15 Nov 12:05 CET, before any full result; code studies/14nov/dreyer/, commit e984ccd; Leonardo prep 64519639, folds 64519640 (tasks 0-4, 1636) and 64519641 (5-9, 1675), afterok).**
+Data: the existing export data/dreyer2023/windows_1-44.npz and _45-87.npz (87 people, ~21k windows, 41-ch layout, 14 channels interpolated, so the
+intersect is the 27 recorded channels). Choices the pre-registration left open: test-time class priors come from the PROTEUS training rows in
+every arm (Dreyer enters only as training rows); the StandardScaler is weighted by w; the rule is applied to a2w1 (arm 2 at weight 1),
+arm 3 (w 0.3, 0.1) is reported. Zero-change: Z41 (41 channels, no Dreyer) must reproduce core1 within 1e-5 (smoke fold P01: 0.7103494623655914, exact).
+Smoke only (job 64519412, 3 Dreyer people, fold P01, not a result): D27 a0 67.44, a1 56.97 (all predictions to MI: the collapse mechanism reproduced), a2w1 63.69, a2w0.3 69.49, a2w0.1 67.42.
