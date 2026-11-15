@@ -13,11 +13,15 @@ import os, runpy, sys
 import numpy as np
 REPO = os.path.abspath(__file__ + "/../../../.."); O = sys.argv[1]; SC_ = O.rstrip("0123456789"); PS = O[len(SC_):]
 ARM = os.environ.get("ARM", "ctl"); FAMS_ = [f for f in os.environ.get("NEWSLOT", "").split(",") if f]
-assert ARM in ("ctl", "A", "B", "Z"), ARM
-assert (ARM == "ctl") == (not FAMS_), f"ARM={ARM} NEWSLOT={FAMS_}: ctl takes no NEWSLOT, every other arm needs one"
+SLOTS_ = ("fb", "fbl", "sinc", "fbraw"); DROP = os.environ.get("DROP"); HALF = os.environ.get("HALF")
+assert ARM in ("ctl", "A", "B", "Z", "D", "H"), ARM
+assert (ARM in ("ctl", "D", "H")) == (not FAMS_), f"ARM={ARM} NEWSLOT={FAMS_}: ctl, D and H take no NEWSLOT, every other arm needs one"
+assert (ARM == "D") == (DROP is not None) and (DROP is None or DROP in SLOTS_ + ("none",)), f"ARM={ARM} DROP={DROP}: D needs DROP in {SLOTS_ + ('none',)}, no other arm takes it"
+assert (ARM == "H") == (HALF is not None) and (HALF is None or HALF in SLOTS_), f"ARM={ARM} HALF={HALF}: H needs HALF in {SLOTS_}, no other arm takes it"
+assert ARM == "H" or "HALF" not in os.environ, "HALF is set outside ARM=H (shufcombo would apply it)"
 assert ARM != "A" or len(FAMS_) == 1, "arm A swaps one family for fbraw"
 assert ARM != "B" or len(FAMS_) >= 2, "arm B adds two or more families"
-NAME = os.environ.get("NM_NAME") or ("ctl" if ARM == "ctl" else "nm" + ARM + "".join(FAMS_)); NM_SEEDS = [int(s) for s in os.environ.get("NM_SEEDS", "0,1,2,3,4,5").split(",")]
+NAME = os.environ.get("NM_NAME") or ("ctl" if ARM == "ctl" else "nm" + ARM + (DROP or HALF or "".join(FAMS_))); NM_SEEDS = [int(s) for s in os.environ.get("NM_SEEDS", "0,1,2,3,4,5").split(",")]
 
 
 def pick(rel):  # the order's directory on this machine (Mac keeps part under runs/diag)
@@ -67,7 +71,7 @@ def apply(P):  # shufcombo's chain() starts every call with S.apply({p: P}): rem
 
 
 S.apply = apply
-if ARM != "ctl":
+if ARM in ("A", "B", "Z", "D"):
     _mix = A.mix
 
     def mix(bn, p, fams, extra=(), *a, **k):
@@ -75,6 +79,16 @@ if ARM != "ctl":
         P = CUR["P"]
         if p != p0 or (P == np.arange(N)).all():  # recording-order calls and other protocols: the shipped system
             return m0
+        if ARM == "D":  # s273: the dropped slot's weight is 0 in every re-streamed call, the others unchanged
+            ex = [(n, 0.0 if n == f"sc_{DROP}" else w) for n, w in extra]; names = [n for n, _ in extra]
+            assert names.count("sc_fbraw") == 1 and all(f"sc_{x}" in names for x in SLOTS_), names
+            m = _mix(bn, p, fams, ex, *a, **k); d = float(np.abs(m[0] - m0[0]).max()); LOG.append((bn, ARM, 0.0 if DROP != "none" else 1.0, d))
+            if DROP == "none":
+                assert ex == extra and np.array_equal(m[0], m0[0]) and m[1] == m0[1], "DROP=none changed the mix"
+            else:
+                assert dict(ex)[f"sc_{DROP}"] == 0.0 and sum(w == 0.0 for _, w in ex) == 1 and dict(extra)[f"sc_{DROP}"] != 0.0, "dropped weight is not the only zero"
+                assert d > 0, f"dropping {DROP} does not change the mix"
+            return m
         extra = list(extra); sw = {n: w for n, w in extra if n in ("sc_fbraw", "sc_fb", "sc_sinc", "sc_fbl")}
         assert set(sw) == {"sc_fbraw", "sc_fb", "sc_sinc", "sc_fbl"} and sum(n == "sc_fbraw" for n, _ in extra) == 1, [n for n, _ in extra]
         if ARM == "A":
@@ -103,8 +117,8 @@ def savez(path, *a, **k):  # shufcombo's summary file goes to runs/newmember so 
 
 
 np.savez = savez
-print(f"NEWMEMBER {O} ARM {ARM} NEWSLOT {FAMS_} seeds {NM_SEEDS} tag {TAG} name {NAME}", flush=True)
+print(f"NEWMEMBER {O} ARM {ARM} DROP {DROP} HALF {HALF} NEWSLOT {FAMS_} seeds {NM_SEEDS} tag {TAG} name {NAME}", flush=True)
 runpy.run_path(f"{REPO}/studies/13nov/shufcombo.py", run_name="__main__")
-if ARM != "ctl":
+if ARM in ("A", "B", "Z", "D"):
     assert LOG, "the new slot was never mixed in (no delivery-order chain call)"
     print(f"NEWMEMBER mix calls {len(LOG)} slot weight {sorted({round(x[2], 4) for x in LOG})} max |mix - shipped mix| {max(x[3] for x in LOG):.4f} (zero for ARM=Z: asserted)", flush=True)

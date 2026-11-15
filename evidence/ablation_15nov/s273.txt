@@ -1,0 +1,20 @@
+s273 family ablation in the chain (arm minus ctl, new people, people x orders 80% intervals, 8 orders; D=slot weight 0 in re-streamed calls, H=slot seeds 0-2 only in re-streamed calls for bases pool and s345)
+arm minus ctl (the s272 reading): raw and with the count filter, both against ctl's own raw/filtered output
+  nmDnone raw       +0.00 [+0.00, +0.00] people up 0/10 | within +0.00 up 0/10 full +0.00 up 0/10 runs +0.00 up 0/10
+  nmDnone+filter    +0.00 [+0.00, +0.00] people up 0/10 | within +0.00 up 0/10 full +0.00 up 0/10 runs +0.00 up 0/10
+  nmDfb raw       +0.09 [-0.15, +0.30] people up 7/10 | within +0.12 up 7/10 full +0.06 up 6/10 runs +0.08 up 7/10
+  nmDfb+filter    +0.02 [-0.16, +0.20] people up 6/10 | within +0.09 up 7/10 full +0.07 up 6/10 runs -0.09 up 4/10
+  nmDfbl raw       -0.32 [-0.51, -0.13] people up 3/10 | within -0.26 up 4/10 full -0.42 up 1/10 runs -0.27 up 3/10
+  nmDfbl+filter    -0.33 [-0.50, -0.16] people up 3/10 | within -0.22 up 5/10 full -0.39 up 1/10 runs -0.38 up 2/10
+  nmDsinc raw       -0.45 [-0.68, -0.23] people up 2/10 | within -0.43 up 2/10 full -0.37 up 2/10 runs -0.56 up 4/10
+  nmDsinc+filter    -0.34 [-0.55, -0.14] people up 3/10 | within -0.34 up 4/10 full -0.31 up 3/10 runs -0.37 up 3/10
+  nmDfbraw raw       +0.09 [-0.14, +0.33] people up 6/10 | within +0.25 up 8/10 full +0.06 up 6/10 runs -0.03 up 5/10
+  nmDfbraw+filter    +0.01 [-0.19, +0.20] people up 6/10 | within +0.09 up 6/10 full +0.07 up 6/10 runs -0.15 up 3/10
+  nmHfb raw       -0.00 [-0.02, +0.02] people up 5/10 | within +0.02 up 6/10 full +0.01 up 6/10 runs -0.03 up 2/10
+  nmHfb+filter    +0.00 [-0.02, +0.03] people up 4/10 | within +0.00 up 5/10 full +0.01 up 6/10 runs +0.00 up 5/10
+  nmHfbl raw       -0.02 [-0.04, +0.01] people up 5/10 | within +0.02 up 6/10 full -0.03 up 3/10 runs -0.04 up 2/10
+  nmHfbl+filter    -0.00 [-0.02, +0.02] people up 4/10 | within +0.02 up 6/10 full -0.02 up 4/10 runs -0.00 up 5/10
+  nmHsinc raw       +0.02 [-0.01, +0.05] people up 7/10 | within +0.02 up 5/10 full +0.02 up 6/10 runs +0.02 up 5/10
+  nmHsinc+filter    +0.04 [+0.01, +0.07] people up 9/10 | within +0.03 up 6/10 full +0.04 up 6/10 runs +0.05 up 8/10
+  nmHfbraw raw       +0.02 [-0.00, +0.05] people up 8/10 | within -0.00 up 5/10 full +0.05 up 7/10 runs +0.02 up 5/10
+  nmHfbraw+filter    +0.03 [+0.00, +0.06] people up 8/10 | within -0.01 up 4/10 full +0.05 up 8/10 runs +0.05 up 7/10

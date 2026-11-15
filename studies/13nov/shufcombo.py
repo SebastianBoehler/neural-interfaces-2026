@@ -27,6 +27,7 @@ import shuffle as S  # noqa: E402
 A, SC, gm = S.A, S.SC, S.gm; p0 = os.environ.get("PROTO", S.p0); OTHER = next(p for p in S.PR if p != p0); REPO = S.REPO; Z = A.L.Z; N = S.N[p0]
 # PROTO=seen_session (s183): returning people with recognition forced off, i.e. through the new-person path (gm.pipe_g)
 SLOT = {"fbraw": 5, "fb": 6, "sinc": 7, "fbl": 8}; BS = {"B2_s0": [0], "B2_s1": [1], "B2_s2": [2], "B2_s012": [0, 1, 2], "B2_s345": [3, 4, 5], "B2_pool": [0, 1, 2, 3, 4, 5]}
+HALF = os.environ.get("HALF") or None; assert HALF is None or HALF in SLOT, HALF  # s273: default unset = unchanged
 T6D, T17D = os.environ.get("T6_DIR", REPO + "/runs/ttt/probs6"), os.environ.get("T17_DIR", REPO + "/runs/ttt/probs17")
 IDX = S.ORIG[[i for i, d in enumerate(S.DICTS) if d is A.pl.B][0]][f"idx|{p0}"].astype(int); assert p0 != "all_loso" or (IDX == np.arange(N)).all()
 
@@ -254,10 +255,11 @@ def chain(bn, arm, P):
             Z[f"{bn}|Ps|{p0}"][10] = Z[f"{bn}|Ps|{p0}"][10] + DTS[P]
         if DGE is not None:
             Z[f"GE|{p0}"] = Z[f"GE|{p0}"].copy(); Z[f"GE|{p0}"][:, 32:] = Z[f"GE|{p0}"][:, 32:] + DGE[P]
-    base = {s_: A.L.Z[f"{bn}|Ps|{p0}"][s_][np.argsort(P)] for s_ in SLOT.values()}  # undo P: recording order
-    ks = BS[bn]; arrs = {}
+    HB = {"B2_pool": "B2_s012", "B2_s345": "B2_s012"} if (HALF and (P != np.arange(len(P))).any()) else {}  # s273: HALF=<slot> halves that slot's seed pool in re-streamed calls only
+    base = {s_: A.L.Z[f"{HB.get(bn, bn) if s_ == SLOT.get(HALF) else bn}|Ps|{p0}"][s_][np.argsort(P)] for s_ in SLOT.values()}  # undo P: recording order
+    arrs = {}
     for a, sl in SLOT.items():
-        x = base[sl].copy()
+        ks = BS[HB.get(bn, bn) if a == HALF else bn]; x = base[sl].copy()
         if arm in ("P0r", "V6Fr", "V6r"):
             x = x + np.mean([FR17[a, k] - FR6[a, k] for k in ks], 0)
         if arm == "V6Fr":  # delta1: the first seed's FT change; ALLSEED (s230): the mean over this base's seeds (the cost x seeds)

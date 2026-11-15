@@ -32,7 +32,12 @@ for order in ORD:
     for arm in ARMS:
         ba, a0, a1 = outs(path(arm, order), order, hc, lat); assert ba == bc, (arm, order, ba, bc)
         za = np.load(path(arm, order)); bits = [np.array_equal(za[k], zc[k]) for k in za.files if k.endswith("|V6Fr")]
-        if arm.startswith("nmZ"):
+        if arm.startswith("nmH"):  # s273 seeds halved: only the bases whose pool is not inside seeds 0-2 (pool, s345) may change; the others must be bit-equal
+            ch = {k.split("|")[0]: not np.array_equal(za[k], zc[k]) for k in za.files if k.endswith("|V6Fr")}
+            assert all(ch[b] == (b in ("B2_pool", "B2_s345")) for b in ch), f"{arm} {order}: changed bases {ch}"
+        elif arm.startswith("nmDnone"):
+            assert all(bits), f"{arm} {order}: DROP=none is not bit-identical to the control"
+        elif arm.startswith("nmZ"):
             assert all(bits), f"{arm} {order}: zero-weight slot is not bit-identical to the control"
         else:
             assert not any(bits), f"{arm} {order}: arm output equals the control for some base (the new slot has no effect)"
