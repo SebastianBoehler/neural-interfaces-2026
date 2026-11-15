@@ -507,3 +507,12 @@ Arithmetic-changing forms (TF32 on A100 within the <= 0.05 GPU band, subsampled-
 
 `lean/src66` (copy of `lean/src65b`, plus `cpers.py`), bundle `submissions/lean_v66`, key `v6_cp_on` (0 = v6.5b path). Form, predictions
 and refutation rule are in §268 (pre-registered before any check). v6.5b stays the candidate until every check below passes.
+
+| Check (v6.6, bundle `37c666a8…fb69f`, key v6_cp_on 1; dirs `cand_v66_cp0` / `cand_v66_cp1`) | Where | Result |
+|---|---|---|
+| Package form against the study form: `lean/src66/cpers.py` on the study's inputs (`studies/14nov/cp_replay.py`), draw d1 full0 base 0; d2 within3 base 2; d2 runs1 base 4; 14 sessions x 2655 windows each, 1395 fused | Mac CPU | **pass**: max difference of the personal posterior 2.1e-11 / 9.6e-12 / 8.1e-12, **0 label differences** |
+| Predict-level identity (`cp_identity.py`) v6.5b vs v6.6 cp off, P01 and P10\\|1 unrecognised | Mac CPU | **pass**: 0 labels differ (err 0) |
+| Same, cp on, recognised sessions (P01, P10\\|1, P04\\|2) | Mac CPU | **pass**: 0 differ; stage stopped at window 10 (first routed), 0 refits, 0 fused |
+| Same, cp on, unrecognised P01 and P10\\|1 | Mac CPU | pass: 9 refits each, 100 / 102 windows fused, cp err 0, 0 labels differ (cap 0.10 on the log weight moves few labels; dev +0.22) |
+| Official local replay of `v66_cp1.zip` (66,788,283 B, `056fe4a1279b2152573f693ca1ab74d18bd3ab8cf9132edc8d6618687fd78877`) | Mac CPU | **pass**: 0.9945788530 (= v6.5b), files unchanged, 117.8 s, 4 `[cpers]` lines (stopped at 10) |
+| CPU identity / GPU function / A100 and worker-CPU timing | Galvani 3105109-3105112 | **pending** (queued; Galvani unreachable from the Mac at 09:10 CET, eduVPN off). The §268 cap rule is applied when the timing is read |
