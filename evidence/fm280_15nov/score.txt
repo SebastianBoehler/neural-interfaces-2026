@@ -1,0 +1,48 @@
+s280 CBraMod forms; cells [('within0', 'd1'), ('within0', 'd2'), ('within1', 'd1'), ('within1', 'd2')]; BA % person-equal, mean posterior, 3 seeds per form; marginal = BA(shipped three + form) - BA(shipped three)
+
+shipped three (fb,fbl,sinc, 3 seeds each) BA 67.47; singles (3 nets): fb 66.36, fbl 58.38, sinc 62.29
+form alone (3 nets) BA, and per-person range: 
+  fm1   49.86  (people 36.1-65.7)
+  fm2   52.27  (people 39.6-64.1)
+  fm3   49.10  (people 38.5-59.3)
+  fm4   50.06  (people 40.4-57.6)
+  fm5   42.75  (people 33.1-51.2)
+  fm0a  47.34  (people 37.2-57.6)
+  fm0b  46.71  (people 36.7-54.7)
+
+marginal over the shipped three:
+  +fm1                                                -1.30  [-2.75, +0.27]  people up 4/10  cells up 0/4
+  +fm2                                                -0.88  [-2.54, +0.80]  people up 3/10  cells up 0/4
+  +fm3                                                -0.04  [-1.43, +1.24]  people up 6/10  cells up 2/4
+  +fm4                                                -0.89  [-2.08, +0.30]  people up 3/10  cells up 0/4
+  +fm5                                                -0.58  [-1.51, +0.34]  people up 4/10  cells up 0/4
+  +fm0a                                               -0.62  [-2.04, +0.65]  people up 4/10  cells up 0/4
+  +fm0b                                               +0.14  [-1.37, +1.46]  people up 5/10  cells up 4/4
+
+pretraining value like-for-like (pretrained form - random-init arm 0): fm1 - fm0a, fm2 - fm0b (alone, and marginal)
+  fm1-fm0a alone                                      +2.52  [+0.09, +4.83]  people up 6/10  cells up 4/4
+  fm1-fm0a marginal                                   -0.68  [-1.78, +0.48]  people up 5/10  cells up 0/4
+  fm2-fm0b alone                                      +5.55  [+3.39, +7.61]  people up 9/10  cells up 4/4
+  fm2-fm0b marginal                                   -1.03  [-2.01, +0.03]  people up 3/10  cells up 0/4
+
+equal-n swap: base at 4 seeds each is not available (3 stored seeds + s3 may be partial); use the stored 6-seed old families: base4 = fb,fbl,sinc at seeds 0-3
+  base 12 nets (4 seeds each) BA 67.31
+  fm1: (base3 + fm1) - base4                          -1.15  [-2.66, +0.43]  people up 5/10  cells up 0/4
+  fm2: (base3 + fm2) - base4                          -0.73  [-2.35, +0.94]  people up 4/10  cells up 0/4
+  fm3: (base3 + fm3) - base4                          +0.11  [-1.33, +1.43]  people up 5/10  cells up 2/4
+  fm4: (base3 + fm4) - base4                          -0.73  [-1.96, +0.43]  people up 3/10  cells up 0/4
+  fm5: (base3 + fm5) - base4                          -0.42  [-1.60, +0.67]  people up 4/10  cells up 0/4
+  fm0a: (base3 + fm0a) - base4                        -0.47  [-2.05, +1.00]  people up 4/10  cells up 0/4
+  fm0b: (base3 + fm0b) - base4                        +0.30  [-1.21, +1.68]  people up 6/10  cells up 4/4
+
+mean Pearson correlation of posteriors with fb (seed matched, mean over cells); fb-fb other seed as reference:
+  fb with fb 0.963
+  fbl   with fb 0.696
+  sinc  with fb 0.638
+  fm1   with fb 0.242
+  fm2   with fb 0.299
+  fm3   with fb 0.232
+  fm4   with fb 0.230
+  fm5   with fb 0.183
+  fm0a  with fb 0.151
+  fm0b  with fb 0.143

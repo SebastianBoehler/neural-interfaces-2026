@@ -8191,3 +8191,20 @@ a function check; the cost estimate is the A100 one.) Worst case = v6.5b's slow-
 **build the same bundle with key-only --cap 250 (cp1_cap250) and re-estimate.** Pre-registered for that run: (1) cap250 cp off vs v6.5b
 with --cap 250 (same sessions, 378 windows): 0 labels differ; (2) A100 time of cp1_cap250 vs v6.5b (cap 400) at 378 / 800 windows: ratio <= 1.0
 (FT refits after window 250 are skipped, which more than pays the personalisation), slack >= 1.3 on all bases, else cap 150 per the rule.
+
+#### §280 RESULT: CBraMod forms F1-F5 + arm 0 (15 Nov; Galvani smoke 3105521, array 3105522 (42 tasks, 210 folds, all COMPLETED); code studies/15nov/fm280/ (fm280.py, collect.py, score.py, cost.py); evidence/fm280_15nov/score.txt)
+Run as pre-registered: LOSO over ten people, 3 seeds, within0/1 orders (d1/d2 identical for base posteriors), causal EA k 5 of the input; AdamW wd 5e-2, no aug/rot; inner validation person = one of the nine training people (seed % 9), best epoch kept (so nets train on 8 people). Pinned weights = sha256 a939ace9... (the s71 blob; runs/submissions/warmup8_cbramod/weights.npz is a fine-tuned package, not the pretrained copy). Guards passed on every fold: fine-tuned differs from pretrained, held-out person not in fit, causal-prefix input check, stream vs protocol.predict_streams max diff < 2e-3 (smoke 1e-6).
+Silent differences: CBraMod has no BatchNorm, so SessionBN is not inserted (n_sbn 0; the per-session normalisation is the causal input EA only, 'partial'); F5 uses a per-window per-channel z-score (no session state); F3 trains the last 2 blocks + proj_out + final layer. Shipped-three baseline here 67.47 (3 seeds each).
+
+| form | predicted alone / marginal | alone | marginal over shipped three [80 % people+cells] | equal-n swap | corr fb |
+|---|---|---|---|---|---|
+| F1 | 50-56 / +0.3 | 49.86 | -1.30 [-2.75, +0.27], people 4/10, cells 0/4 | -1.15 | 0.24 |
+| F2 | 50-56 / +0.4 | 52.27 | -0.88 [-2.54, +0.80], 3/10, 0/4 | -0.73 | 0.30 |
+| F3 | 50-56 / +0.2 | 49.10 | -0.04 [-1.43, +1.24], 6/10, 2/4 | +0.11 | 0.23 |
+| F4 | 50-56 / +0.2 | 50.06 | -0.89 [-2.08, +0.30], 3/10, 0/4 | -0.73 | 0.23 |
+| F5 | 50-56 / -0.3 | 42.75 | -0.58 [-1.51, +0.34], 4/10, 0/4 | -0.42 | 0.18 |
+| arm 0a (F1 scratch) | - | 47.34 | -0.62 [-2.04, +0.65] | -0.47 | 0.15 |
+| arm 0b (F2 scratch) | - | 46.71 | +0.14 [-1.37, +1.46], 5/10, 4/4 | +0.30 | 0.14 |
+
+Pretraining value like-for-like: alone F1-0a +2.52 [+0.09, +4.83], F2-0b +5.55 [+3.39, +7.61] (real); marginal F1-0a -0.68, F2-0b -1.03 (none). Reading: alone hit the prediction only at F2 (52.3), F1/F3/F4 just below the 50-56 range, F5 well below (the causal-EA norm form matters, -7.1 vs F1). Marginals: all five < +0.2 (best F3 -0.04), so by the pre-registered rule the direction is recorded 'no gain in any of F1-F5' for CBraMod at these recipes; REVE forms are not triggered. Against over-reading: all intervals include 0; random-init arm 0b is +0.14 with 4/4 cells, as good as any pretrained form in the ensemble; CBraMod is the least correlated member (0.15-0.30 with fb vs 0.64-0.70 for fbl/sinc) yet adds nothing because it is weak alone (about 50 vs 58-66).
+Deployability (reported, no form qualifies): (1) ZIP limit: not stated in OFFICIAL_CONTRACT.md (only that the ZIP holds submission.py and weights.pt at its root); ours 66,786,277 B; CBraMod 5,022,403 parameters = about 20.1 MB fp32 (10.0 MB fp16), REVE 276.8 MB. (2) A100-PCIE-40GB (Galvani, eager fp32, forward only, cost.py pattern): CBraMod 0.296 ms/window (t 30/110/190: 0.388/0.253/0.247) vs fb 0.068, fbraw 0.067, fbl 0.045, sinc 0.057; one CBraMod net = 1.25 x the summed per-family forward of the shipped four (4.4 x fbraw), 3 seeds about 3.8 x; fine-tuning refits of the shipped slots are not in this ratio, so it cannot be mapped exactly onto the 1.37x slack (60 / worst-case 42-49 min); one 190-window session adds about 0.06 s per net.
