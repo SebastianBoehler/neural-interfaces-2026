@@ -8005,3 +8005,11 @@ nested); only the cell direction of sinc and fb is consistent. Reading: sinc car
 **§271 DEVIATION (15 Nov 11:40 CET, coordinator's note).** The four step-1 arrays (Leonardo 64519463, 64519490, 64519492, 64519493) were submitted before any smoke: the Mac smoke
 was queued behind another capped job and the executor's ssh to Leonardo was refused, so the code (81749a5) was rsynced and submitted
 unsmoked. This goes past the smoke rule in AGENTS.md. Safeguard: a watcher reads the first running task of each family and cancels all four arrays on the first traceback or non-zero EXIT.
+
+**§271 AMENDMENT (15 Nov 12:00 CET, before any §271 result; coordinator's design point).** The first submission failed at once because the new
+families were registered with pretrained trunks that do not exist (`runs/pretrain/<arch>_ea-m7r-s0.pt` exists only for the older families; fb and
+fbl are already trained from scratch, only sinc and fbraw-style entries carry ptm7r). Choice: no new pretraining; the new families run from scratch
+(`<arch>_ea_rot05_sbn`, k 20) and a from-scratch control of sinc (`sincs` = sincshallow_ea_rot05_sbn, same seeds, orders and streaming) is added, so
+the marginal is read like-for-like: a new family's marginal is reported over the current set with sinc replaced by sincs as well as over the
+shipped set, and sincs minus sinc (the value of the m7r trunk) is itself reported. Prediction for the control: sincs alone 1.5 below sinc
+(range 0 to 3), so a "< +0.5" for a new family is not attributed to architecture unless it is also below the sincs-based marginal.
