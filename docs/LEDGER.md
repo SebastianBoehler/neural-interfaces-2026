@@ -7914,3 +7914,11 @@ sessions unrecognised) at the CPU-timing ratio. If slack >= 1.3 -> v6.6 as built
 key-only `--cap 250` (free on dev) and re-estimate; if still < 1.3 -> `--cap 150` (-0.07 on dev, reported) and re-estimate; if
 still < 1.2 -> cp is reported as not fitting (the cheaper cp forms k 40 / fewer bands are pre-registered separately). Any capped
 variant re-runs identity (v6.5b with the same cap on the same sessions), trigger and replay; a cap changes refits only after window N.
+
+**§263 RESULT (15 Nov; Galvani folds in runs/s263_galvani, one cluster for all variants; studies/14nov/s263/collect.py; core alone, new people, lr10).**
+Zero-change Z (core1 settings through the new code) = core1 on all ten people (max |diff| 0.000), so the variants are read. Core1 69.29.
+**A (34 bands) 67.44 (-1.85, 2/10 up); B (5 segments) 66.39 (-2.90, 1/10); C (A+B) 65.42 (-3.87, 1/10); D (regional CAR blocks) 67.94 (-1.36, 3/10).**
+Prediction (best 70.5, range 69.0-72.0) refuted: best variant 67.9, below the range; the rule's branch (< 70.0): recorded, this scaling
+family set aside. Caveat on reach: core1's LR recipe and regularisation search were left unchanged while the feature dimension grew
+(A 2x, B 1.7x, C 3.3x of 44k), so this reads as "more blocks under core1's fixed C and scaler hurt", not as "the fine feature space
+is exhausted"; a form that rescales the regulariser per block (or block-wise shrinkage) is the one unrun variant. No rebuild of TSEM/routing (the pre-registered consequence).
