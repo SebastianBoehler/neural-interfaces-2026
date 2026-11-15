@@ -7973,3 +7973,24 @@ interval at n=24 is wide (+63.5 to +71.4, level uncertainty), observed 6-seed po
 Rule branch: gain 24 -> 96 < +0.5 -> recorded, the base is net-saturated in size; the gap is data or diversity of family. Caveats:
 only two orders x two draws, within scheme only; the seed axis here reads the mean posterior, not the chain; family diversity (f 3 -> 4
 +0.4 to +0.8 at equal s) is the one axis still rising and is not extrapolated (only four families exist).
+
+### 271. NEW STRUCTURALLY DIFFERENT NET FAMILIES AS BASE MEMBERS (written 15 Nov 11:00 CET, before any result; research thread; coordinator's request after §269)
+Mechanism: §269 alone-reading, family axis (6 seeds, mean over 4 within cells): 1 family 63.00, 2 families 65.65, 3 families 67.13, 4 families
+67.54: marginals +2.65, +1.48, +0.41, with fbraw adding -0.04 to {fb, fbl, sinc}. Seeds are flat (4 -> 6: -0.06), so ensemble gain is
+diversity, with a clearly diminishing curve between the SAME recipe family (all four are SessionBN, EA-aligned, rot05 braindecode-style
+nets: FBCNet x2, FBLight, SincShallow). A 5th family only helps if it is structurally different. Candidates: (A) EEG-Conformer (conv patch
+embed + transformer encoder), (B) EEGNet-8,2 / ATCNet (temporal conv + attention TCN), (C) Deep4 (deep conv stack), (D) tangent-space / SPDNet
+member (Riemannian layers on per-window covariance; a net, distinct from core1's LR). Step 0 (CPU now, §269 files): leave-one-family-out
+marginals of fb, fbl, fbraw, sinc at 6 seeds, so the 3rd -> 4th marginal is measured per family, not as one average.
+Step 1 (Leonardo GPU, when reachable; smoke on the Mac via run_capped first): each candidate trained the same way as the current families
+(LOSO over the ten people, SessionBN/causal EA, rot05 augmentation, the m7r recipe where the family allows it, otherwise no
+pretrained trunk and said so; 3 seeds), streamed under the within0/1 draw-1/2 orders and stored in the probs18 layout (tag ttt18<order>d<draw>
+<fam>_base-all_loso-s<seed>); anything that cannot take SessionBN is reported as such, not silently run without it. Scored like §269
+(person-equal BA, mean posterior): marginal over {fb, fbl, sinc} and over all four, at equal total n (swap, not add) and by adding.
+Prediction: LOFO marginals: sinc and fb largest (> +0.5), fbraw about 0 (its leave-out +0.04), fbl in between; best new family adds +0.3 over the
+current four (80 % range -0.2 to +0.9), Conformer and EEGNet each alone 60-65 (below FBCNet's ~61-63 per net? they are about at the
+single-family level 61-63); SPDNet the most diverse (correlation with fb posteriors lowest) but weakest alone (~58).
+Rule: a family with a marginal >= +0.5 over the current four (people interval above 0) -> chain check (shufcombo with the family as a member
+under 4 shuffled orders, with the stages and routing using it) as its own pre-registration; 0.2 to 0.5 -> undecided, one more recipe
+for that family; < 0.2 for every candidate -> recorded, diversity is spent at this recipe. Guards: assert tag/orders match the existing
+files' index arrays; assert each new family's SessionBN is active (a no-SBN run fails); 1-net subsets equal their own file's BA.
