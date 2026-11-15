@@ -7856,3 +7856,22 @@ Predictions: S3 +0.9 (+0.2 to +1.6): hit (+1.19, above the centre). S2 - S3 +0.2
 **§267 branch: V2 with the S2 set at w 0.5 (15 Nov; score265.py v2s2, the existing V2 Leonardo files seeds 0/1, no new training; evidence/personal_ceiling_14nov/s267_v2s2.txt).** Note: §265's V1+V2 RESULT called this branch void before §267 read out; §267's rule pre-registered it, so it runs. Same windows (position >= 120), same r15 chain (81.35), families sinc + fb + fbl x 2 seeds = 6 nets; the refactored v2 reproduces the 4-family c x bE -1.23 exactly.
 c x bE^0.5 **+0.03 [-0.65, +0.67] 7/10** (P04 -0.11, P10 +0.70); per scheme within -0.94, full -0.11, runs +1.14. c x bE^1 (reference) -0.67 [-1.60, +0.24] 5/10 (P04 -1.59, P10 +0.51). bE alone 76.87 (-4.49).
 **Verdict by §265's V2 rule (>= +0.5 with interval above 0 -> causal sketch; 0 to +0.5 undecided; < 0 recorded): +0.03 is in 0 to +0.5, undecided (interval spans 0, inside the dev noise).** The S2 set at w 0.5 removes about 1.3 of V2's loss (-1.23 -> +0.03) but does not give a gain; no causal sketch is triggered. Gain only under the runs scheme (+1.14), as before. Not run: t = 80 / t = end-40 forms (§265's one-more-form clause for the undecided band), which stay open.
+
+**§260 RESULT (15 Nov 07:14 UTC; research thread; evidence/causalpers_14nov/s260.txt; Galvani cpu 3103445 / 3103446, 240 pp files;
+scorer zero-change OK on 120 order x base per draw: cap 0 equals replay r15 + filter).** Fixed form cq50 / a2 / t0 90 / R 120 /
+cap 0.10, track F, change vs r15 + filter of the same draw, new people:
+| draw | k 20 (primary) | k 10 |
+|---|---|---|
+| d1 | +0.26 [+0.11, +0.41] 7/10 (w +0.20 f +0.26 r +0.31) | +0.29 [+0.14, +0.44] 8/10 |
+| d2 | +0.19 [+0.03, +0.36] 8/10 (w +0.18 f +0.08 r +0.32) | +0.23 [+0.07, +0.38] 8/10 |
+| pooled | **+0.22 [+0.07, +0.38] 8/10** (w +0.19 f +0.17 r +0.31) | +0.26 [+0.11, +0.41] 8/10 |
+Per person (pooled k 20): -0.2 +0.2 +0.0 +0.3 +0.3 +0.1 -0.1 +0.4 +1.1 +0.2 (P01..P10); draw difference +0.06.
+- Predictions: +0.12 per draw, range -0.02 to +0.25 (d1 +0.26 just above, d2 inside); draws within 0.1 (hit, 0.06); >= 6/10 (hit).
+- **Verdict by the rule (both draws > 0, pooled interval above 0): the form joins the candidate list** with its run time (a2
+  at k 20: 11.3 ms per window on the Mac CPU, timing.txt), and needs a package-form check (build thread). New people only;
+  returning people absent. It replicates §253's draw-0 nested +0.15 on chains it was not chosen on, and sits on top of the
+  candidate's new-people half (+0.23 over three draws), so the stack is about +0.45 for new people on dev.
+- Fixes found while scoring (silent-no-op hunt): score.py had a stray leading space at line 26 since db13394 (import error,
+  so the §260 waiter never scored); pp files carry no "draw" key despite db13394's description; run.py names them by the
+  draw suffix and reads chain<draw> under an assert (code and chain md5 identical on Galvani and the Mac), so score260.py
+  now checks the name and asserts the key only where present.

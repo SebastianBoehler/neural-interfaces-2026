@@ -1,0 +1,32 @@
+== d1
+s260 draw d1: zero-change OK on 120 order x base (scorer equals replay r15 + filter; cap 0 identical)
+
+draw d1
+  change vs r15 + filter: scheme-equal | per scheme (orders) | [80 % people x orders] | people up | P01..P10
+  k 20 (primary)                     +0.26 | within +0.20 (12) full +0.26 (4) runs +0.31 (4) | [+0.11, +0.41] | 7/10 | -0.1 +0.1 -0.0 +0.4 +0.4 +0.2 -0.1 +0.4 +1.1 +0.2
+  k 10 (reported)                    +0.29 | within +0.24 (12) full +0.27 (4) runs +0.36 (4) | [+0.14, +0.44] | 8/10 | -0.1 +0.2 +0.0 +0.4 +0.5 +0.3 -0.1 +0.5 +1.1 +0.2
+== d2
+s260 draw d2: zero-change OK on 120 order x base (scorer equals replay r15 + filter; cap 0 identical)
+
+draw d2
+  change vs r15 + filter: scheme-equal | per scheme (orders) | [80 % people x orders] | people up | P01..P10
+  k 20 (primary)                     +0.19 | within +0.18 (12) full +0.08 (4) runs +0.32 (4) | [+0.03, +0.36] | 8/10 | -0.4 +0.2 +0.1 +0.3 +0.3 +0.1 -0.1 +0.3 +1.0 +0.1
+  k 10 (reported)                    +0.23 | within +0.19 (12) full +0.09 (4) runs +0.41 (4) | [+0.07, +0.38] | 8/10 | -0.2 +0.2 +0.1 +0.3 +0.4 +0.1 -0.1 +0.3 +1.0 +0.1
+== pool
+
+draw d1
+  change vs r15 + filter: scheme-equal | per scheme (orders) | [80 % people x orders] | people up | P01..P10
+  k 20 (primary)                     +0.26 | within +0.20 (12) full +0.26 (4) runs +0.31 (4) | [+0.11, +0.41] | 7/10 | -0.1 +0.1 -0.0 +0.4 +0.4 +0.2 -0.1 +0.4 +1.1 +0.2
+  k 10 (reported)                    +0.29 | within +0.24 (12) full +0.27 (4) runs +0.36 (4) | [+0.14, +0.44] | 8/10 | -0.1 +0.2 +0.0 +0.4 +0.5 +0.3 -0.1 +0.5 +1.1 +0.2
+
+draw d2
+  change vs r15 + filter: scheme-equal | per scheme (orders) | [80 % people x orders] | people up | P01..P10
+  k 20 (primary)                     +0.19 | within +0.18 (12) full +0.08 (4) runs +0.32 (4) | [+0.03, +0.36] | 8/10 | -0.4 +0.2 +0.1 +0.3 +0.3 +0.1 -0.1 +0.3 +1.0 +0.1
+  k 10 (reported)                    +0.23 | within +0.19 (12) full +0.09 (4) runs +0.41 (4) | [+0.08, +0.39] | 8/10 | -0.2 +0.2 +0.1 +0.3 +0.4 +0.1 -0.1 +0.3 +1.0 +0.1
+
+pooled (draws averaged per order x person; interval resamples people and orders)
+  change vs r15 + filter: scheme-equal | per scheme (orders) | [80 % people x orders] | people up | P01..P10
+  k 20 (primary)                     +0.22 | within +0.19 (12) full +0.17 (4) runs +0.31 (4) | [+0.07, +0.38] | 8/10 | -0.2 +0.2 +0.0 +0.3 +0.3 +0.1 -0.1 +0.4 +1.1 +0.2
+  k 10 (reported)                    +0.26 | within +0.21 (12) full +0.18 (4) runs +0.39 (4) | [+0.11, +0.41] | 8/10 | -0.2 +0.2 +0.0 +0.4 +0.5 +0.2 -0.1 +0.4 +1.0 +0.2
+
+draw difference (d1 - d2), scheme-equal: k10 +0.06 k20 +0.06

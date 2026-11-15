@@ -23,7 +23,7 @@ if EXT:  # declared extension after the first two files showed picks at the grid
 GRID = list(itertools.product(FORMS, PIPES, KS, T0S, RS, CAPS)); FIXED = ("filt", "lE", 10, 40, 40, 0.5) if "filt" in FORMS else ("cq50", "lE", 10, 40, 40, 0.5 if not EXT else 0.15)
 DRAW = os.environ.get("DRAW", ""); assert DRAW in ("", "d1", "d2"), DRAW  # s260: fresh draws read only their own chain and pp files
 Z = np.load(REPO / f"runs/causalpers/chain{DRAW}.npz"); assert str(Z["draw"]) == DRAW, ("chain file draw", str(Z["draw"]), DRAW)
- PEOPLE = [f"P{i:02d}" for i in range(1, 11)]
+PEOPLE = [f"P{i:02d}" for i in range(1, 11)]
 Y = Z["y"].astype(int); CELL = np.unique(Z["cell"], return_inverse=True)[1]; NC = CELL.max() + 1
 CP = np.array([PEOPLE.index(Z["person"][CELL == c][0]) for c in range(NC)]); PW = np.stack([(CP == p) / (CP == p).sum() for p in range(10)])  # (10, NC)
 TOT = np.bincount(CELL * 3 + Y, minlength=3 * NC).reshape(NC, 3); PRES = TOT > 0

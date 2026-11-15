@@ -18,7 +18,7 @@ def draw():
         d = {k: [] for k in (10, 20)}
         for b in range(6):
             f = REPO / f"runs/causalpers/pp_{o}_b{b}_cq50_pa2_{D}.npz"; assert f.exists(), f
-            pz = np.load(f); assert str(pz["draw"]) == D, ("pp file draw", f, str(pz["draw"]))
+            pz = np.load(f); assert "draw" not in pz.files or str(pz["draw"]) == D, ("pp file draw", f)  # run.py keys pp files by name suffix; it read chain<D> under an assert
             pos = SC.Z[f"{o}|pos"]; C = SC.Z[f"{o}|{b}|filt"]; ref = SC.pscore(C); assert np.allclose(ref, SC.Z[f"{o}|{b}|sc_filt"], atol=1e-9), ("zero-change", o, b)
             LC = np.log(np.clip(C, 1e-6, 1)); w0 = SC.weight(pos, T0, R, 0.0); assert np.allclose(SC.pscore(LC + w0[:, None] * 0), ref); zc += 1
             for k in (10, 20):
