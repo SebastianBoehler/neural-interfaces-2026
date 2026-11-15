@@ -177,7 +177,7 @@ CONFIGS["v2_dc"] = lambda d: TangentSpace(d, **{**V2, "slow": "wave1d"})
 for _k in (1.0, 20.0):
     CONFIGS[f"ts_sess_fb_k{_k:g}"] = lambda d, k=_k: TangentSpace(d, bands=FB, k=k)
 
-PT = re.compile(r"(shallow|fbcnet|sincshallow|fblight|eegnex|ifnet)_(ea|raw)(_tf)?_pt([a-z0-9]+)(_lo|_lp)?")
+PT = re.compile(r"(shallow|fbcnet|sincshallow|fblight|eegnex|ifnet|eegnet|deep4|conformer|atcnet)_(ea|raw)(_tf)?_pt([a-z0-9]+)(_lo|_lp)?")
 
 
 def pt_config(base):

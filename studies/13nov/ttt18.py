@@ -22,7 +22,7 @@ PERM = PERM or None
 EXT, CTRL = tuple(t for t in os.environ.get("EXT", "").split(",") if t), bool(os.environ.get("CTRL"))
 assert not (EXT and CTRL), "EXT and CTRL are the two arms of one comparison"
 T7.TAG, T7.OUT, T7.SMOKE_OUT, T7.PERM, T7.DRAW = f"ttt18{SCHEME}{PSEED}" + (f"d{DRAW}" if DRAW else "") + (LSFX[os.path.basename(LB)] if LB else ""), WS / "runs/diag/ttt/probs18", f"smoke18{SCHEME}", PERM, DRAW  # DRAW > 0: fresh augmentation draws
-T7.VARS = {"gC5": T7.VARS["gC5"]}
+T7.VARS = {} if os.environ.get("BASE_ONLY") else {"gC5": T7.VARS["gC5"]}  # BASE_ONLY (s271): the base posteriors only, no fine-tuning arm; tag unchanged
 # s194: SWEEP=1 runs run-time-neutral forms of gC5 side by side (5 steps per refit, every 10 windows, warm, 1 view, GPU draw);
 # fields (steps, every, lr, scope, lam, form, warm, views, gpu, t0); gC5 itself is the in-run control. Tag suffix S.
 SWEEP = {"gC5": (5, 10, 5e-4, "all", 1.0, "hard", True, 1, True, 30),

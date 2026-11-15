@@ -7994,3 +7994,10 @@ Rule: a family with a marginal >= +0.5 over the current four (people interval ab
 under 4 shuffled orders, with the stages and routing using it) as its own pre-registration; 0.2 to 0.5 -> undecided, one more recipe
 for that family; < 0.2 for every candidate -> recorded, diversity is spent at this recipe. Guards: assert tag/orders match the existing
 files' index arrays; assert each new family's SessionBN is active (a no-SBN run fails); 1-net subsets equal their own file's BA.
+
+#### §271 step 0 RESULT (15 Nov; studies/14nov/ensemble_curve/lofo.py, evidence/ensemble_curve_15nov/lofo.txt)
+Leave-one-family-out, 6 seeds, 4 cells, ten people, alone: all four 67.54. Marginal (all four minus the three left): sinc +1.18 [-0.41, +2.84]
+(6/10 people, 4/4 cells), fb +0.42 [-0.30, +1.14] (5/10, 4/4), fbl +0.06 [-0.88, +1.09] (4/10, 2/4), fbraw -0.04 [-1.20, +1.09] (4/10, 1/4;
+equals the s269 drop of +0.04 with sign flipped). Mean of four +0.41. Against the prediction: sinc largest (> +0.5) holds, fb > +0.5 does not
+(+0.42, undecided inside noise), fbraw about 0 holds, fbl in between does not (about 0, lowest with fbraw). All intervals include 0 (people
+nested); only the cell direction of sinc and fb is consistent. Reading: sinc carries the most unique signal; fbl and fbraw are near-redundant.

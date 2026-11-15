@@ -1,0 +1,9 @@
+s271 step 0: leave-one-family-out marginals (all four, 24 nets, minus the three left, 18 nets); cells [('within0', 'd1'), ('within0', 'd2'), ('within1', 'd1'), ('within1', 'd2')]; 10 people
+all four 67.54 BA
+
+  marginal of fb            +0.42  [-0.30, +1.14]  people up 5/10  cells up 4/4
+  marginal of fbl           +0.06  [-0.88, +1.09]  people up 4/10  cells up 2/4
+  marginal of fbraw         -0.04  [-1.20, +1.09]  people up 4/10  cells up 1/4
+  marginal of sinc          +1.18  [-0.41, +2.84]  people up 6/10  cells up 4/4
+  marginal of mean of four  +0.41  [-0.36, +1.19]  people up 5/10  cells up 4/4
+check: fbraw row equals s269 'drop fbraw' (+0.04 sign flipped: drop = left - all)

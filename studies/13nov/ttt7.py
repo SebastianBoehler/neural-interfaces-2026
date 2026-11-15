@@ -96,7 +96,7 @@ def run(arch, d, proto, seed, out, epochs=0):
         m = T5.make(arch, d, seed)
         if epochs:
             m.epochs = epochs
-        m.fit(np.flatnonzero(tr)); m.set_k(T5.ARCHS[arch][1]); rows = np.flatnonzero(te); st = d["stream"][rows]
+        m.fit(np.flatnonzero(tr)); assert arch == "sh" or getattr(m, "n_sbn", 0) > 0, f"{arch}: no SessionBN layer active"; m.set_k(T5.ARCHS[arch][1]); rows = np.flatnonzero(te); st = d["stream"][rows]
         ref = protocol.predict_streams(m, d, te, proba=True)
         for s in dict.fromkeys(st):
             r = rows[st == s]
@@ -122,9 +122,9 @@ def main():
     d = protocol.load()
     if sys.argv[1] == "smoke":
         out = WS / "runs/diag/ttt" / SMOKE_OUT; out.mkdir(parents=True, exist_ok=True)
-        run("fbl", d, "seen_session", 0, out, epochs=1); return print("SMOKE OK", flush=True)
+        run(os.environ.get("SMOKE_ARCH", "fbl"), d, "seen_session", 0, out, epochs=1); return print("SMOKE OK", flush=True)
     task = int(sys.argv[1]); OUT.mkdir(parents=True, exist_ok=True)
-    for proto in ("all_loso", "seen_session"):
+    for proto in os.environ.get("PROTOS", "all_loso,seen_session").split(","):  # PROTOS (s271): all_loso only for the base-only runs
         run(T5.ORDER[task % len(T5.ORDER)], d, proto, task // len(T5.ORDER), OUT)
 
 
