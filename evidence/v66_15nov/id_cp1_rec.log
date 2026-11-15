@@ -1,0 +1,67 @@
+[run_capped] Sun Nov 15 09:01:35 CET 2026 start: .venv/bin/python -I studies/14nov/cp_identity.py runs/sealed/cand_v65b_r1iLu_cand runs/sealed/cand_v66_cp1 --expect equal --only 0 5 11 (max 14 GB)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: divide by zero encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: overflow encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: invalid value encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1794: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /Users/runner/work/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1105.)
+  return forward_call(*args, **kwargs)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: divide by zero encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: overflow encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: invalid value encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+[v6] windows 190 v6 190 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[own-stage] windows 190 routed 180 degenerate 0 staged 180 errors 0
+[own-stage] windows 190 routed 180 degenerate 0 staged 180 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: divide by zero encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: overflow encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: invalid value encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+[v6] windows 190 v6 190 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[own-stage] windows 190 routed 180 degenerate 0 staged 180 errors 0
+[own-stage] windows 190 routed 180 degenerate 0 staged 180 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[cpers] windows 190 stopped_at 10 refits 0 fused 0 single_class 0 errors 0
+{"session": "Dreyer2026Proteus/P01|1", "windows": 190, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": 0, "cp_fused": 0, "cp_err": 0, "cp_stopped": 10}, "ok": true}
+[v6] windows 192 v6 192 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[own-stage] windows 192 routed 182 degenerate 0 staged 182 errors 0
+[own-stage] windows 192 routed 182 degenerate 0 staged 182 errors 0
+[count-filter] windows 192 latched_at 40 errors 0
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: divide by zero encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: overflow encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: invalid value encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+[v6] windows 192 v6 192 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[own-stage] windows 192 routed 182 degenerate 0 staged 182 errors 0
+[own-stage] windows 192 routed 182 degenerate 0 staged 182 errors 0
+[count-filter] windows 192 latched_at 40 errors 0
+[cpers] windows 192 stopped_at 10 refits 0 fused 0 single_class 0 errors 0
+{"session": "Dreyer2026Proteus/P10|1", "windows": 192, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": 0, "cp_fused": 0, "cp_err": 0, "cp_stopped": 10}, "ok": true}
+[v6] windows 189 v6 189 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[own-stage] windows 189 routed 179 degenerate 0 staged 179 errors 0
+[own-stage] windows 189 routed 179 degenerate 0 staged 179 errors 0
+[count-filter] windows 189 latched_at 40 errors 0
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: divide by zero encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: overflow encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2366: RuntimeWarning: invalid value encountered in slogdet
+  sign, logdet = _umath_linalg.slogdet(a, signature=signature)
+[v6] windows 189 v6 189 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[own-stage] windows 189 routed 179 degenerate 0 staged 179 errors 0
+[own-stage] windows 189 routed 179 degenerate 0 staged 179 errors 0
+[count-filter] windows 189 latched_at 40 errors 0
+[cpers] windows 189 stopped_at 10 refits 0 fused 0 single_class 0 errors 0
+{"session": "Dreyer2026Proteus/P04|2", "windows": 189, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": 0, "cp_fused": 0, "cp_err": 0, "cp_stopped": 10}, "ok": true}
+RESULT {"A": "runs/sealed/cand_v65b_r1iLu_cand", "B": "runs/sealed/cand_v66_cp1", "expect": "equal", "unrec": false, "ok": true}
+[run_capped] Sun Nov 15 09:04:36 CET 2026 exit 0
