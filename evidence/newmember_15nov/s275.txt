@@ -1,0 +1,34 @@
+=== raw: arm minus control (new people; schemes equal weight; people-resampled 80 % interval; chain at weight w x base) ===
+-- A: w curve (mean over people, [80 %], people up)
+   w=0.1  +0.07 [-0.15, +0.29] up 6/10 | within +0.26 full +0.03 runs -0.07
+   w=0.2  +0.08 [-0.14, +0.29] up 5/10 | within +0.25 full +0.01 runs -0.02
+   w=0.3  +0.07 [-0.15, +0.28] up 5/10 | within +0.26 full -0.06 runs +0.00
+   w=0.5  +0.02 [-0.20, +0.24] up 5/10 | within +0.25 full -0.08 runs -0.11
+   NESTED +0.05 [-0.15, +0.30] people up 5/10 | selected w per held-out person: ['0.2', '0.2', '0.2', '0.2', '0.1', '0.2', '0.2', '0.2', '0.1', '0.2'] | modal 0.2
+   nested per scheme: within +0.23 full -0.01 runs -0.07 | best fixed w=0.2 +0.08 (optimistic)
+   nested people: +0.63 +0.44 +0.74 +0.28 -0.94 -0.63 -0.38 +0.72 -0.21 -0.15
+-- B: w curve (mean over people, [80 %], people up)
+   w=0.1  +0.00 [-0.06, +0.06] up 6/10 | within +0.00 full +0.01 runs -0.01
+   w=0.2  -0.07 [-0.16, +0.03] up 3/10 | within -0.02 full -0.08 runs -0.10
+   w=0.3  -0.11 [-0.24, +0.03] up 4/10 | within -0.00 full -0.13 runs -0.18
+   w=0.5  -0.23 [-0.46, -0.02] up 4/10 | within -0.02 full -0.24 runs -0.44
+   NESTED +0.00 [-0.07, +0.04] people up 6/10 | selected w per held-out person: ['0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1'] | modal 0
+   nested per scheme: within +0.00 full +0.01 runs -0.01 | best fixed w=0.1 +0.00 (optimistic)
+   nested people: +0.02 +0.06 +0.03 -0.13 +0.13 -0.10 -0.10 +0.06 +0.29 -0.26
+=== count-filtered: arm minus control (new people; schemes equal weight; people-resampled 80 % interval; chain at weight w x base) ===
+-- A: w curve (mean over people, [80 %], people up)
+   w=0.1  -0.01 [-0.20, +0.18] up 6/10 | within +0.09 full +0.04 runs -0.16
+   w=0.2  -0.02 [-0.20, +0.17] up 5/10 | within +0.08 full +0.03 runs -0.17
+   w=0.3  -0.04 [-0.22, +0.14] up 4/10 | within +0.06 full -0.02 runs -0.17
+   w=0.5  -0.07 [-0.26, +0.12] up 4/10 | within +0.08 full -0.03 runs -0.25
+   NESTED -0.05 [-0.22, +0.18] people up 5/10 | selected w per held-out person: ['0.1', '0.1', '0.1', '0.2', '0.1', '0.1', '0.1', '0.1', '0.1', '0.2'] | modal 0
+   nested per scheme: within +0.06 full +0.02 runs -0.21 | best fixed w=0.1 -0.01 (optimistic)
+   nested people: +0.71 +0.27 +0.26 +0.02 -0.70 -0.50 -0.49 +0.51 -0.38 -0.16
+-- B: w curve (mean over people, [80 %], people up)
+   w=0.1  -0.01 [-0.05, +0.04] up 6/10 | within -0.01 full -0.01 runs -0.00
+   w=0.2  -0.07 [-0.16, +0.03] up 4/10 | within +0.02 full -0.09 runs -0.13
+   w=0.3  -0.13 [-0.28, +0.02] up 4/10 | within -0.02 full -0.13 runs -0.23
+   w=0.5  -0.23 [-0.48, +0.01] up 4/10 | within -0.16 full -0.21 runs -0.31
+   NESTED -0.01 [-0.09, +0.02] people up 6/10 | selected w per held-out person: ['0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1'] | modal 0
+   nested per scheme: within -0.01 full -0.01 runs -0.00 | best fixed w=0.1 -0.01 (optimistic)
+   nested people: +0.05 +0.13 -0.02 -0.18 +0.05 +0.00 -0.05 +0.00 +0.19 -0.22

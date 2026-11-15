@@ -1,0 +1,30 @@
+  within0  ctl raw 80.52 | C1@six +0.06 C1+filter@six +0.24 C2@six +0.40 C2+filter@six +0.47 C3@six +0.01 C3+filter@six +0.16 C4@six +0.09 C4+filter@six +0.40
+  within1  ctl raw 80.19 | C1@six -0.14 C1+filter@six +0.21 C2@six +0.21 C2+filter@six +0.66 C3@six -0.17 C3+filter@six +0.17 C4@six +0.07 C4+filter@six +0.64
+  within2  ctl raw 79.24 | C1@six +0.35 C1+filter@six +0.58 C2@six +0.55 C2+filter@six +0.79 C3@six +0.34 C3+filter@six +0.48 C4@six +0.04 C4+filter@six +0.56
+  within3  ctl raw 80.18 | C1@six -0.15 C1+filter@six -0.00 C2@six +0.03 C2+filter@six -0.08 C3@six -0.19 C3+filter@six +0.03 C4@six -0.02 C4+filter@six -0.01
+  full0    ctl raw 78.17 | C1@six -0.08 C1+filter@six -0.08 C2@six +0.21 C2+filter@six +0.16 C3@six -0.08 C3+filter@six -0.04 C4@six +0.13 C4+filter@six +0.13
+  full1    ctl raw 77.80 | C1@six -0.19 C1+filter@six -0.21 C2@six +0.06 C2+filter@six +0.05 C3@six -0.26 C3+filter@six -0.29 C4@six +0.01 C4+filter@six -0.03
+  runs0    ctl raw 80.18 | C1@six -0.36 C1+filter@six -0.52 C2@six +0.03 C2+filter@six -0.04 C3@six -0.45 C3+filter@six -0.63 C4@six -0.09 C4+filter@six -0.05
+  runs1    ctl raw 78.84 | C1@six +0.08 C1+filter@six +0.00 C2@six -0.04 C2+filter@six +0.16 C3@six +0.08 C3+filter@six +0.15 C4@six +0.12 C4+filter@six +0.46
+
+arm minus ctl, new people (raw: arm raw - ctl raw; filtered: arm filtered - ctl filtered), base set after @
+  C1  raw      @six   -0.08 [-0.55, +0.35] people up 6/10 | within +0.03 up 7/10 full -0.13 up 4/10 runs -0.14 up 5/10
+  C1  filtered @six   -0.21 [-0.60, +0.15] people up 6/10 | within -0.11 up 6/10 full -0.10 up 4/10 runs -0.41 up 2/10
+  C2  raw      @six   +0.14 [-0.09, +0.37] people up 6/10 | within +0.30 up 8/10 full +0.14 up 6/10 runs -0.00 up 5/10
+  C2  filtered @six   +0.05 [-0.14, +0.26] people up 6/10 | within +0.09 up 6/10 full +0.15 up 6/10 runs -0.09 up 4/10
+  C2  raw      @pool  +0.01 [-0.26, +0.27] people up 6/10 | within +0.30 up 8/10 full -0.03 up 5/10 runs -0.24 up 5/10
+  C2  filtered @pool  -0.14 [-0.43, +0.15] people up 5/10 | within -0.08 up 4/10 full +0.01 up 5/10 runs -0.36 up 4/10
+  C2  raw      @s345  +0.35 [-0.01, +0.69] people up 6/10 | within +0.50 up 8/10 full +0.40 up 7/10 runs +0.15 up 5/10
+  C2  filtered @s345  +0.32 [+0.00, +0.65] people up 6/10 | within +0.15 up 7/10 full +0.45 up 7/10 runs +0.38 up 7/10
+  C3  raw      @six   -0.12 [-0.58, +0.32] people up 6/10 | within -0.00 up 6/10 full -0.17 up 4/10 runs -0.19 up 5/10
+  C3  filtered @six   -0.22 [-0.60, +0.14] people up 6/10 | within -0.15 up 5/10 full -0.12 up 4/10 runs -0.39 up 3/10
+  C3  raw      @pool  -0.37 [-0.90, +0.15] people up 6/10 | within -0.04 up 7/10 full -0.48 up 3/10 runs -0.58 up 4/10
+  C3  filtered @pool  -0.42 [-0.88, +0.04] people up 5/10 | within -0.18 up 5/10 full -0.39 up 3/10 runs -0.68 up 2/10
+  C3  raw      @s345  -0.02 [-0.57, +0.51] people up 6/10 | within +0.20 up 8/10 full -0.05 up 5/10 runs -0.21 up 4/10
+  C3  filtered @s345  +0.01 [-0.43, +0.45] people up 5/10 | within -0.04 up 6/10 full +0.10 up 5/10 runs -0.04 up 5/10
+  C4  raw      @six   +0.04 [-0.01, +0.09] people up 8/10 | within +0.04 up 7/10 full +0.07 up 9/10 runs +0.01 up 6/10
+  C4  filtered @six   +0.06 [+0.01, +0.11] people up 9/10 | within +0.03 up 6/10 full +0.09 up 8/10 runs +0.06 up 6/10
+  C4  raw      @pool  +0.01 [-0.10, +0.11] people up 5/10 | within +0.03 up 4/10 full +0.10 up 4/10 runs -0.11 up 3/10
+  C4  filtered @pool  -0.02 [-0.14, +0.11] people up 5/10 | within -0.00 up 5/10 full +0.13 up 5/10 runs -0.17 up 3/10
+  C4  raw      @s345  +0.25 [+0.04, +0.48] people up 8/10 | within +0.23 up 6/10 full +0.32 up 8/10 runs +0.19 up 7/10
+  C4  filtered @s345  +0.37 [+0.15, +0.60] people up 9/10 | within +0.20 up 7/10 full +0.41 up 9/10 runs +0.51 up 7/10
