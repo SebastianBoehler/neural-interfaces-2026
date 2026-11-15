@@ -8223,3 +8223,15 @@ Mechanism: our frozen REVE (§71) 44.2 vs random-init 42.8, i.e. pretraining add
 Step 1: run the start-kit REVE probe exactly as shipped (copy from the submodule 2026-competition outside it; submodule unchanged) on our dev split, same people and scoring (person-equal BA, LOSO), and our §71 probe on the same people; report both side by side. Also the start-kit's other baselines on the same split.
 Step 2 (only if the start-kit probe is clearly higher, >= +3): diff the two input paths line by line (positions, rate, scaling, window, normalisation, layer/pooling), fix ours, rerun §71 for REVE and the same check for CBraMod/LaBraM, mark §280 as void for the affected model and rerun it.
 Prediction: start-kit REVE probe 44 (+-4), i.e. same as ours (no bug); 25 % chance ours is >= 3 below. Rule: gap >= +3 -> step 2; < +3 -> §71 integration confirmed, FM probes stand.
+
+**§282 RESULT (15 Nov, 12:56 CET; `studies/15nov/kit282/kit282.py`, kit encoder copied verbatim to `kit_reve.py`; log `runs/kit282.log`, `runs/kit282/result.json`; local CPU, 40 s extraction; 2,655 dev windows = 10 PROTEUS people, LOSO, person-equal BA, same people for every row).** Kit encoder/head run exactly as shipped (positions from channel names, 480 -> 800 samples at 200 Hz, per-window z-score, clamp 15, last-layer features, channel mean, time mean, StandardScaler + RidgeClassifier); our embeddings are `runs/fmemb/reve.npz`.
+
+| Probe | BA |
+|---|---|
+| **Start-kit REVE probe as shipped** | **44.17** |
+| Kit features through our §71 head (session z-score + LogReg C 0.1) | 44.33 |
+| Our §71 per-window input (`emb_raw`, last layer), our head / kit head | 44.29 / 44.19 |
+| Our §71 headline view (`emb_mid`, causal EA, our head) / `emb` last layer / random init | 52.65 / 48.48 / 43.37 |
+| Kit MeanLogReg (mean over time, 41 channels) | 46.06 |
+
+Gap kit minus ours: -0.1 against the like-for-like `emb_raw` (kit-vs-ours features correlate 0.998 per dimension), -8.5 against our best view. Rule: < +3 -> **no step 2; §71 integration confirmed, FM probes stand** (prediction 44 ± 4 hit). Silent items: (1) the dev windows are our exported, spline-interpolated 41-channel set at 120 Hz, not the raw organiser files, so "as shipped" is the shipped encoder and head on our windows; (2) the §71 table in this file quotes REVE 44.2 / 39.9 and rand 42.8, while the saved `reve.npz` meta gives `emb_mid` 52.65, `emb_mid_raw` 46.13, `emb_rand` 43.39 (the 44.2 matches `emb_raw` last layer): the table's layer/view labels and the stored numbers disagree and should be reconciled; pretrained minus random on the stored numbers is +9 (mid, EA) not +1.4. (3) The kit's mean-over-time baseline (46.1) beats every raw-input REVE probe; mean over time of our windows is not a zero-information feature on this data.
