@@ -1,0 +1,25 @@
+s285 strengths (fb_coral, fb_dann, fb_swad; 3 seeds); BA % person-equal; 80 % interval over people and cells
+
+fb_coral: alone 66.71 vs fb 66.36
+  fb_coral - fb alone                                             +0.35  [+0.01, +0.69]  people up 6/10  cells up 4/4
+  swap {fb_coral,fbl,sinc} - {fb,fbl,sinc}                        -0.03  [-0.14, +0.09]  people up 3/10  cells up 2/4
+  add {fb,fb_coral,fbl,sinc} - {fb,fbl,sinc}                      +0.79  [-0.03, +1.55]  people up 8/10  cells up 4/4
+  per-net alone BA: s0 66.44 s1 65.73 s2 66.05
+  corr with fb 1.000
+fb_dann: alone 63.35 vs fb 66.36
+  fb_dann - fb alone                                              -3.01  [-4.14, -1.91]  people up 2/10  cells up 0/4
+  swap {fb_dann,fbl,sinc} - {fb,fbl,sinc}                         -0.77  [-1.19, -0.34]  people up 2/10  cells up 0/4
+  add {fb,fb_dann,fbl,sinc} - {fb,fbl,sinc}                       -0.31  [-0.96, +0.32]  people up 5/10  cells up 2/4
+  per-net alone BA: s0 63.03 s1 63.36 s2 62.99
+  corr with fb 0.952
+fb_swad: alone 66.30 vs fb 66.36
+  fb_swad - fb alone                                              -0.06  [-0.35, +0.19]  people up 5/10  cells up 2/4
+  swap {fb_swad,fbl,sinc} - {fb,fbl,sinc}                         -0.00  [-0.15, +0.15]  people up 3/10  cells up 2/4
+  add {fb,fb_swad,fbl,sinc} - {fb,fbl,sinc}                       +0.62  [-0.14, +1.36]  people up 8/10  cells up 4/4
+  per-net alone BA: s0 65.97 s1 65.91 s2 65.50
+  corr with fb 0.999
+
+RULE s285 (alone >= +0.5, people interval low > 0, >= 6/10 up -> MARGINAL; -0.5..+0.5 UNDECIDED; < -0.5 CLOSED in this form):
+  fb_coral: alone +0.35, interval low +0.01, people up 6/10 -> UNDECIDED
+  fb_dann: alone -3.01, interval low -4.14, people up 2/10 -> CLOSED
+  fb_swad: alone -0.06, interval low -0.35, people up 5/10 -> UNDECIDED
