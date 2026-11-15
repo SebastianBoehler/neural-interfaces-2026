@@ -14,7 +14,6 @@ from sklearn.metrics import balanced_accuracy_score  # noqa: E402
 z = np.load(REPO + "/data/shin2018/windows.npz", allow_pickle=True); names = [str(c) for c in z["ch_names"]]; rec = [str(c) for c in z["recorded"]]
 idx = [names.index(c) for c in rec]; X = z["X"][:, idx].astype(np.float32); y = z["y"].astype(int); p = z["subject"].astype(str); onset = z["onset"]
 assert X.shape[1] == 16 and len(set(p)) == 26 and set(np.unique(y)) == {0, 1} and (np.bincount(y) == len(y) // 2).all() and len(set(z["session"])) == 1
-assert all(np.all(np.diff(onset[p == q]) >= 0) for q in set(p)), "windows not in time order within person (causal centring needs it)"
 V = CO.tangent(X, CO.OV17); Xc = X - X.mean(1, keepdims=True); V = np.concatenate([V, slow_waveform(Xc, cutoff=1.0)], 1).astype(np.float64)
 print("features", V.shape, flush=True)
 
@@ -22,7 +21,7 @@ print("features", V.shape, flush=True)
 def center(causal):
     out = V.copy()
     for q in dict.fromkeys(p):
-        r = np.flatnonzero(p == q); out[r] -= (np.cumsum(out[r], 0) / (K0 + 1 + np.arange(len(r)))[:, None]) if causal else out[r].mean(0)
+        r = np.flatnonzero(p == q); r = r[np.argsort(onset[r], kind="stable")]; out[r] -= (np.cumsum(out[r], 0) / (K0 + 1 + np.arange(len(r)))[:, None]) if causal else out[r].mean(0)
     return out
 
 
