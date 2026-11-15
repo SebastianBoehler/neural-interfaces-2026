@@ -7396,6 +7396,13 @@ Prediction: cost (capped + filter minus uncapped + filter) N 250 -0.02, N 150 -0
 touch about a third of each session's windows; r15's whole gain is +0.10).
 Report: the cost per N; no pass rule (a reading for the time-slack decision).
 
+**§257 RESULT (15 Nov; runs/s257_score.txt, s257_cost.txt; Galvani chains, scored locally with studies/14nov/stack/score.py + capcost.py; replay/check.py OK).**
+Cost of the cap (capped + filter minus uncapped + filter, new people, 8 orders, 80 % interval over people and orders): **N 250 +0.00
+[+0.00, +0.00]** (no refit after 250 changes anything); **N 150 -0.07 [-0.10, -0.03]**, people up 2/10 (within -0.06, full -0.08,
+runs -0.06); **N 100 -0.18 [-0.27, -0.09]**, 0/10 (within -0.16, full -0.09, runs -0.30). Predictions -0.02 / -0.08 / -0.15: N 150
+and N 100 hold within 0.03, N 250 was 0.02 too pessimistic. Reading: N 150 buys slack 1.37x -> about 1.50x for 0.07 points, N 100
+(1.74x) for 0.18; the chain gain of r15 (+0.10) is not the whole cost at N 100. Decision rests with the build thread.
+
 **§252 amendments 2-3 RESULT (14 Nov 18:16 UTC; evidence/personal_ceiling_14nov/dose_map.txt, opcurve.txt, score_pl_sel.txt; Galvani CPU).**
 - **(a) Dose-response, true labels, c x aE over the r15 chain (six orders, chain 79.95):** chain-like noise, purity 100 / 95 /
   90 / 85 / 80 / 75 %: n 20 -13.0 ... -18.8; n 40 -2.8 ... -8.2; n 70 +2.4 / +0.7 / -1.1 / -2.3 / -3.7 / -5.3; n 100 +4.4 / +3.1
