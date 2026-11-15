@@ -27,7 +27,7 @@ def main():
                 L = cp.step(X[r].astype(np.float64), raw[r], filt[r], False)
                 w = CAP * np.clip((i - T0 + 1) / R, 0, 1)
                 if i >= 20:
-                    dq = max(dq, float(np.abs(cp.last_q - np.nan_to_num(pz[r], nan=1 / 3)).max())) if w > 0 else dq
+                    dq = max(dq, float(np.abs(cp.predict(cp.C[i]) - np.nan_to_num(pz[r], nan=1 / 3)).max())) if w > 0 else dq
                 ref = np.log(np.clip(filt[r], 1e-6, 1)) + (w * np.log(np.clip(np.nan_to_num(pz[r], nan=1 / 3), 1e-6, 1)) if w > 0 else 0)
                 nwin += 1; nlab += int(np.argmax(L) != np.argmax(ref)); nfus += int(w > 0)
             assert cp.log["err"] == 0, cp.log

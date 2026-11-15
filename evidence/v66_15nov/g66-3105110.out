@@ -1,0 +1,56 @@
+submission.py sha256 37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f runs/sealed/zt66/cp1/submission.py 37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f runs/sealed/zt66/cp0/submission.py
+NVIDIA GeForce RTX 2080 Ti
+== r15_reference cp1
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1794: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1104.)
+  return forward_call(*args, **kwargs)
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0789 swapped 170 capped 0 over 0 ft_s 14 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 610 relabels 17 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 190 routed 0 degenerate 0 staged 0 errors 0
+{"session": "P01|1", "windows": 190, "refits": 17, "relabels": 17, "schedule": 17, "max_diff": 0.0, "min_label_agreement": 1.0, "labels_changed_vs_emitted": 16, "err": 0, "relabel_ms_per_refit": 0.28, "device": "cuda", "refits_pkg": 17, "cpu_max_diff": 0.03912775368713628, "cpu_label_agreement": 1.0, "cpu_err": 0, "cpu_refits": 17, "ok": true}
+RESULT {"package": "runs/sealed/zt66/cp1", "order": "recording", "raise_at": -1, "max_diff": 0.0, "ok": true}
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:1794: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/Convolution.cpp:1104.)
+  return forward_call(*args, **kwargs)
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0826 swapped 172 capped 0 over 0 ft_s 15 relabels 18 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0831 swapped 172 capped 0 over 0 ft_s 699 relabels 18 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+[own-stage] windows 192 routed 0 degenerate 0 staged 0 errors 0
+{"session": "P10|1", "windows": 192, "refits": 18, "relabels": 18, "schedule": 18, "max_diff": 0.0, "min_label_agreement": 1.0, "labels_changed_vs_emitted": 17, "err": 0, "relabel_ms_per_refit": 0.42, "device": "cuda", "refits_pkg": 18, "cpu_max_diff": 0.043614429675958355, "cpu_label_agreement": 1.0, "cpu_err": 0, "cpu_refits": 18, "ok": true}
+RESULT {"package": "runs/sealed/zt66/cp1", "order": "recording", "raise_at": -1, "max_diff": 0.0, "ok": true}
+== predict path cuda
+  return forward_call(*args, **kwargs)
+[v6] windows 25 v6 25 recognised_at -1 refits 1 steps 20 dtheta 0.00501 swapped 5 capped 0 over 0 ft_s 0 relabels 1 errors 0
+[count-filter] windows 25 latched_at None errors 0
+[v6] windows 25 v6 25 recognised_at -1 refits 1 steps 20 dtheta 0.00501 swapped 5 capped 0 over 0 ft_s 0 relabels 1 errors 0
+[count-filter] windows 25 latched_at None errors 0
+[cpers] windows 25 stopped_at None refits 1 fused 0 single_class 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0789 swapped 170 capped 0 over 0 ft_s 14 relabels 17 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0789 swapped 170 capped 0 over 0 ft_s 12 relabels 17 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[cpers] windows 190 stopped_at None refits 9 fused 100 single_class 0 errors 0
+{"n": 190, "device": "cuda", "sec_A": 46.81, "sec_B": 47.14, "ms_A": 246.37, "ms_B": 248.11, "ratio": 1.007, "cp_ms_per_window": 1.74, "cp": {"refits": 9, "fused": 100, "err": 0}, "err": [0, 0], "first_label_diff": null, "n_diff": 0}
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.159 swapped 358 capped 0 over 0 ft_s 49 relabels 36 errors 0
+[count-filter] windows 378 latched_at 40 errors 0
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.159 swapped 358 capped 0 over 0 ft_s 49 relabels 36 errors 0
+[count-filter] windows 378 latched_at 40 errors 0
+[cpers] windows 378 stopped_at None refits 18 fused 288 single_class 0 errors 0
+{"n": 378, "device": "cuda", "sec_A": 109.76, "sec_B": 117.72, "ms_A": 290.37, "ms_B": 311.44, "ratio": 1.073, "cp_ms_per_window": 21.07, "cp": {"refits": 18, "fused": 288, "err": 0}, "err": [0, 0], "first_label_diff": 219, "n_diff": 1}
+EXIT
+EXIT

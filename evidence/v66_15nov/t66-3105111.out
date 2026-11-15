@@ -1,0 +1,29 @@
+submission.py sha256 37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f runs/sealed/zt66/cp1/submission.py 37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f runs/sealed/zt66/cp0/submission.py
+NVIDIA A100-PCIE-40GB
+== A100 predict timing v6.5b vs v6.6
+  return forward_call(*args, **kwargs)
+[v6] windows 25 v6 25 recognised_at -1 refits 1 steps 20 dtheta 0.00501 swapped 5 capped 0 over 0 ft_s 0 relabels 1 errors 0
+[count-filter] windows 25 latched_at None errors 0
+[v6] windows 25 v6 25 recognised_at -1 refits 1 steps 20 dtheta 0.00501 swapped 5 capped 0 over 0 ft_s 0 relabels 1 errors 0
+[count-filter] windows 25 latched_at None errors 0
+[cpers] windows 25 stopped_at None refits 1 fused 0 single_class 0 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 170 capped 0 over 0 ft_s 10 relabels 17 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.0811 swapped 170 capped 0 over 0 ft_s 8 relabels 17 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[cpers] windows 190 stopped_at None refits 9 fused 100 single_class 0 errors 0
+{"n": 190, "device": "cuda", "sec_A": 36.09, "sec_B": 37.38, "ms_A": 189.96, "ms_B": 196.75, "ratio": 1.036, "cp_ms_per_window": 6.8, "cp": {"refits": 9, "fused": 100, "err": 0}, "err": [0, 0], "first_label_diff": null, "n_diff": 0}
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.161 swapped 358 capped 0 over 0 ft_s 29 relabels 36 errors 0
+[count-filter] windows 378 latched_at 40 errors 0
+[v6] windows 378 v6 378 recognised_at -1 refits 36 steps 720 dtheta 0.161 swapped 358 capped 0 over 0 ft_s 27 relabels 36 errors 0
+[count-filter] windows 378 latched_at 40 errors 0
+[cpers] windows 378 stopped_at None refits 18 fused 288 single_class 0 errors 0
+{"n": 378, "device": "cuda", "sec_A": 80.01, "sec_B": 83.36, "ms_A": 211.68, "ms_B": 220.52, "ratio": 1.042, "cp_ms_per_window": 8.84, "cp": {"refits": 18, "fused": 288, "err": 0}, "err": [0, 0], "first_label_diff": 203, "n_diff": 2}
+[v6] windows 800 v6 800 recognised_at -1 refits 39 steps 780 dtheta 0.175 swapped 780 capped 39 over 0 ft_s 32 relabels 39 errors 0
+[count-filter] windows 800 latched_at 40 errors 0
+[v6] windows 800 v6 800 recognised_at -1 refits 39 steps 780 dtheta 0.175 swapped 780 capped 39 over 0 ft_s 30 relabels 39 errors 0
+[count-filter] windows 800 latched_at 40 errors 0
+[cpers] windows 800 stopped_at None refits 39 fused 710 single_class 0 errors 0
+{"n": 800, "device": "cuda", "sec_A": 140.89, "sec_B": 152.39, "ms_A": 176.12, "ms_B": 190.49, "ratio": 1.082, "cp_ms_per_window": 14.38, "cp": {"refits": 39, "fused": 710, "err": 0}, "err": [0, 0], "first_label_diff": 203, "n_diff": 6}
+EXIT
+EXIT

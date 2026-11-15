@@ -31,7 +31,7 @@ class CausalPers:
 
     def reset_state(self):
         self.report()
-        self.t, self.C, self.P, self.model, self.last_q = 0, [], [], None, None
+        self.t, self.C, self.P, self.model = 0, [], [], None
         self.stopped, self.dead, self.refits, self.fused, self.nfail = None, False, 0, 0, 0
         self.log = dict(err=0, first="")
 
@@ -110,7 +110,7 @@ class CausalPers:
             w = self.cap * min(max((i - self.w0 + 1) / self.R, 0.0), 1.0)
             if i < self.t0 or w <= 0:
                 return o
-            q = self.last_q = self.predict(self.C[i])
+            q = self.predict(self.C[i])
             L = np.log(np.clip(np.asarray(o, np.float64), 1e-6, 1)) + w * np.log(np.clip(q, 1e-6, 1))
             if not np.isfinite(L).all():
                 raise FloatingPointError("personalised scores not finite")

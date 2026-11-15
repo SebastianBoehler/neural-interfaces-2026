@@ -8181,3 +8181,13 @@ Verdict rule: no form closes the direction alone; the direction is recorded 'no 
 **§270 RESULT (15 Nov 12:0x CET by date -u+1h; research thread; Leonardo folds 64519640/41, runs/dreyer270/D27, 10/10 folds; collect.py run without its Z41 check because runs/dreyer270/Z41 is empty, so the 41-ch bit-equality guard against core1 was NOT verified; a0 here is the 27-ch PROTEUS-only reference 63.14).**
 Arm minus a0 (people up, P04 / P10): a1 (+Dreyer as MI, centred) -21.89 (0/10; -9.5 / -14.7), MI share of predictions 0.83; a2w1 (+ MI-class offset) -15.96 (0/10; -3.3 / -5.2), MI share 0.20; a2w0.3 -16.15 (0/10); a2w0.1 -11.23 (0/10; -1.2 / -4.0).
 Predicted: a1 <= -3 (observed far worse, -21.9), a2w1 removes >= 60 % of the loss (observed 27 %), a2w1 0.0 (observed -16). Rule: closed in the MI-label form (a2w1 < -0.5, 0/10 up). The offset removes the 'centred = MI' collapse of the predictions (share 0.83 -> 0.20 -> 0.05, now over-correcting) but accuracy still falls in every person, even at w 0.1; the L/R auxiliary-head form (centring stays valid) is the one unrun form and stays open; the offset is a crude single-vector fix, and the loss at w 0.1 (87 people at 10 % weight) says the corpus shifts the class geometry beyond a mean offset. Caveat: Z41 guard unverified.
+
+**§268 TIMING READ (15 Nov, jobs 3105109-12, evidence/v66_15nov/) and the cap rule applied.**
+A100 (3105111) predict timing v6.6 / v6.5b: 1.036 (190 windows), 1.042 (378), 1.082 (800); 2080 Ti: 1.007 / 1.073. The per-window
+difference grows with the prefix (6.8 / 8.8 / 14.4 ms on the A100): the personalisation refit is uncapped. (The worker-like CPU job
+3105112 ran at 3.7-7.7 s per window of predict on a loaded cpu-galvani node, ratio 1.002 / 1.012: not usable as a worker-CPU cost, kept as
+a function check; the cost estimate is the A100 one.) Worst case = v6.5b's slow-node sealed minutes (3103439: 42.3 / 49.0 / 39.4 on the
+190 / 378 / 800 basis) x the ratio: 43.8 / 51.1 / 42.6 min -> slack 1.37 / **1.18** / 1.41. The 378 basis is below 1.3, so the rule fires:
+**build the same bundle with key-only --cap 250 (cp1_cap250) and re-estimate.** Pre-registered for that run: (1) cap250 cp off vs v6.5b
+with --cap 250 (same sessions, 378 windows): 0 labels differ; (2) A100 time of cp1_cap250 vs v6.5b (cap 400) at 378 / 800 windows: ratio <= 1.0
+(FT refits after window 250 are skipped, which more than pays the personalisation), slack >= 1.3 on all bases, else cap 150 per the rule.

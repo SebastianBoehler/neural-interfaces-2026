@@ -1,0 +1,57 @@
+submission.py sha256 37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f runs/sealed/zt66/cp1/submission.py 37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f runs/sealed/zt66/cp0/submission.py
+== cpu_identity cp0 step-level
+  return forward_call(*args, **kwargs)
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 694 relabels 17 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 675 relabels 17 errors 0
+{"session": "Dreyer2026Proteus/P01|1", "windows": 190, "max_diff": 0.0, "bitwise_equal": true, "A": {"refits": 17, "err": 0, "capped": 0}, "B": {"refits": 17, "err": 0, "capped": 0}}
+RESULT {"A": "runs/sealed/zt65b/cand", "B": "runs/sealed/zt66/cp0", "max_diff": 0.0, "ok": true}
+== predict cp0 unrec equal
+  return forward_call(*args, **kwargs)
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 702 relabels 17 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 666 relabels 17 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+{"session": "Dreyer2026Proteus/P01|1", "windows": 190, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "ok": true}
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0831 swapped 172 capped 0 over 0 ft_s 740 relabels 18 errors 0
+[count-filter] windows 192 latched_at 40 errors 0
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0831 swapped 172 capped 0 over 0 ft_s 740 relabels 18 errors 0
+[count-filter] windows 192 latched_at 40 errors 0
+{"session": "Dreyer2026Proteus/P10|1", "windows": 192, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "ok": true}
+RESULT {"A": "runs/sealed/zt65b/cand", "B": "runs/sealed/zt66/cp0", "expect": "equal", "unrec": true, "ok": true}
+== predict cp1 recognised equal
+  return forward_call(*args, **kwargs)
+[v6] windows 190 v6 190 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[v6] windows 190 v6 190 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[cpers] windows 190 stopped_at 10 refits 0 fused 0 single_class 0 errors 0
+{"session": "Dreyer2026Proteus/P01|1", "windows": 190, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": 0, "cp_fused": 0, "cp_err": 0, "cp_stopped": 10}, "ok": true}
+[v6] windows 192 v6 192 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[count-filter] windows 192 latched_at 40 errors 0
+[v6] windows 192 v6 192 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[count-filter] windows 192 latched_at 40 errors 0
+[cpers] windows 192 stopped_at 10 refits 0 fused 0 single_class 0 errors 0
+{"session": "Dreyer2026Proteus/P10|1", "windows": 192, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": 0, "cp_fused": 0, "cp_err": 0, "cp_stopped": 10}, "ok": true}
+[v6] windows 189 v6 189 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[count-filter] windows 189 latched_at 40 errors 0
+[v6] windows 189 v6 189 recognised_at 10 refits 0 steps 0 dtheta 0 swapped 0 capped 0 over 0 ft_s 0 relabels 0 errors 0
+[count-filter] windows 189 latched_at 40 errors 0
+[cpers] windows 189 stopped_at 10 refits 0 fused 0 single_class 0 errors 0
+{"session": "Dreyer2026Proteus/P04|2", "windows": 189, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": 0, "cp_fused": 0, "cp_err": 0, "cp_stopped": 10}, "ok": true}
+RESULT {"A": "runs/sealed/zt65b/cand", "B": "runs/sealed/zt66/cp1", "expect": "equal", "unrec": false, "ok": true}
+== predict cp1 unrec late
+  return forward_call(*args, **kwargs)
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 663 relabels 17 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[v6] windows 190 v6 190 recognised_at -1 refits 17 steps 340 dtheta 0.081 swapped 170 capped 0 over 0 ft_s 669 relabels 17 errors 0
+[count-filter] windows 190 latched_at 40 errors 0
+[cpers] windows 190 stopped_at None refits 9 fused 100 single_class 0 errors 0
+{"session": "Dreyer2026Proteus/P01|1", "windows": 190, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": 9, "cp_fused": 100, "cp_err": 0, "cp_stopped": null}, "ok": true}
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0831 swapped 172 capped 0 over 0 ft_s 749 relabels 18 errors 0
+[count-filter] windows 192 latched_at 40 errors 0
+[v6] windows 192 v6 192 recognised_at -1 refits 18 steps 360 dtheta 0.0831 swapped 172 capped 0 over 0 ft_s 740 relabels 18 errors 0
+[count-filter] windows 192 latched_at 40 errors 0
+[cpers] windows 192 stopped_at None refits 9 fused 102 single_class 0 errors 0
+{"session": "Dreyer2026Proteus/P10|1", "windows": 192, "differ": 0, "first_diff": null, "A": {"err": 0, "cp_refits": null, "cp_fused": null, "cp_err": null, "cp_stopped": null}, "B": {"err": 0, "cp_refits": 9, "cp_fused": 102, "cp_err": 0, "cp_stopped": null}, "ok": true}
+RESULT {"A": "runs/sealed/zt65b/cand", "B": "runs/sealed/zt66/cp1", "expect": "late", "unrec": true, "ok": true}
+EXIT

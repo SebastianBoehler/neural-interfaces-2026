@@ -516,3 +516,11 @@ and refutation rule are in §268 (pre-registered before any check). v6.5b stays 
 | Same, cp on, unrecognised P01 and P10\\|1 | Mac CPU | pass: 9 refits each, 100 / 102 windows fused, cp err 0, 0 labels differ (cap 0.10 on the log weight moves few labels; dev +0.22) |
 | Official local replay of `v66_cp1.zip` (66,788,283 B, `056fe4a1279b2152573f693ca1ab74d18bd3ab8cf9132edc8d6618687fd78877`) | Mac CPU | **pass**: 0.9945788530 (= v6.5b), files unchanged, 117.8 s, 4 `[cpers]` lines (stopped at 10) |
 | CPU identity / GPU function / A100 and worker-CPU timing | Galvani 3105109-3105112 | **pending** (queued; Galvani unreachable from the Mac at 09:10 CET, eduVPN off). The §268 cap rule is applied when the timing is read |
+
+| Galvani results of v6.6 cap 400 (3105109-12; logs `evidence/v66_15nov/`; every job printed the bundle sha `37c666a8…fb69f`) | Where | Result |
+|---|---|---|
+| Step-level bitwise identity cp0 vs v6.5b (P01); predict-level cp0 unrecognised equal; cp1 recognised equal (P01, P10\\|1, P04\\|2; stage stopped at window 10); cp1 unrecognised late-only | Galvani CPU 3105109 | **pass** (0 labels differ everywhere; cp1 unrecognised: 9 refits, 100 / 102 fused, cp err 0) |
+| GPU function check: r15_reference cp1 (P01, P10\\|1) and the predict path on cuda | Galvani 3105110 (2080 Ti) | **pass**: err 0, relabel diff 0.0, labels 100 %, output diff 0.039 / 0.044; predict path err 0, cp err 0; 378 windows: 1 late label differs (window 219 >= 89) |
+| A100 predict timing v6.6 / v6.5b (190 / 378 / 800 windows) | Galvani 3105111 (A100-PCIE-40GB) | ratio **1.036 / 1.042 / 1.082** (+6.8 / 8.8 / 14.4 ms per window, growing with the prefix: the personalisation refit is uncapped); err 0; labels differ only from window 203 (2 / 6 windows) |
+| Worker-like CPU timing | Galvani 3105112 (loaded cpu node, 3.7-7.7 s per window) | function pass (err 0); not a usable cost estimate |
+| §268 cap rule | | worst case 43.8 / **51.1** / 42.6 min (v6.5b's 42.3 / 49.0 / 39.4 x ratio) = slack 1.37 / **1.18** / 1.41: below 1.3 on the 378 basis -> key-only `--cap 250` build (`cand_v66_cp1_cap250`, same bundle `37c666a8…`; identity pairing `cand_v66_cp0_cap250` against `cand_v65b_cap250`) queued as Galvani 3105586 and a Mac replay; verdict after that |
