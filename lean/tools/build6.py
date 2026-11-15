@@ -22,7 +22,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-V65 = "--v65" in sys.argv or "--v65b" in sys.argv  # v6.5 (--v65b: lean/src65b, empty_cache after each refit): lean/src65, v6.4's keys plus v6_tpri_on (--tpri-on 0|1, required)
+V66 = "--v66" in sys.argv  # v6.6: lean/src66, v6.5's keys plus v6_cp_on (--cp-on 0|1, required) and the v6_cp_* parameters
+V65 = "--v65" in sys.argv or "--v65b" in sys.argv or V66  # v6.5 (--v65b: lean/src65b, empty_cache after each refit): lean/src65, v6.4's keys plus v6_tpri_on (--tpri-on 0|1, required)
 V64 = "--v64" in sys.argv or V65  # v6.4: lean/src64, v6.2c's keys plus v6_ft_relabel (--relabel 0|1, required)
 V62C = "--v62c" in sys.argv or V64  # v6.2c: lean/src62c, v6.2i's keys plus v6_cf_on and (on) the v6_cf_* parameters
 V63 = "--v63" in sys.argv  # v6.3: lean/src63, v6.2i's keys
@@ -62,6 +63,14 @@ def cf_keys():
     return {"v6_cf_on": np.int64(1), **{"v6_" + k: p[k] for k in p.files}}
 
 
+def cp_keys():
+    """v6.6: the s260 form (ledger s268): refit from window 20 every 20, weight 0 until window 89, ramp 120, cap 0.10, top 50 % per class"""
+    on = int(need("--cp-on")); assert on in (0, 1)
+    return {"v6_cp_on": np.int64(on), "v6_cp_fs": np.float64(120.0), "v6_cp_t0": np.int64(20), "v6_cp_k": np.int64(20), "v6_cp_w0": np.int64(90),
+            "v6_cp_R": np.int64(120), "v6_cp_cap": np.float64(0.10), "v6_cp_q": np.float64(0.5),
+            "v6_cp_bands": np.array([(4, 8), (8, 12), (12, 16), (16, 20), (20, 24), (24, 28), (28, 32), (32, 40)], np.float64)}
+
+
 def need(k):
     """A guard has no default: its value is given on the command line (14 Nov: --budget defaulted to 3000 against 2700)."""
     assert k in sys.argv, f"{k} is required"
@@ -94,6 +103,7 @@ def main():
                **(cf_keys() if V62C else {}),
                **({"v6_ft_relabel": np.int64(need("--relabel"))} if V64 else {}),
                **(tpri_keys() if V65 else {}),
+               **(cp_keys() if V66 else {}),
                **{f"v6_rest_{k}": R[0][k] for k in ("align", "k", "G", "scale", "shrink")})
     out.mkdir(parents=True)
     shutil.copyfile(B.OUT, out / "submission.py")

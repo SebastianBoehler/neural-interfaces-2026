@@ -54,6 +54,10 @@ if "--v65b" in sys.argv:  # v6.5b: v6.5 plus empty_cache after each refit (lean/
     SRC, OUT = ROOT / "lean/src65b", ROOT / "submissions/lean_v65b/submission.py"
     MODULES = MODULES[:-1] + ("extras", "finetune", "countfilter", "v6chain", "solver")
     sys.argv.remove("--v65b")
+if "--v66" in sys.argv:  # v6.6: v6.5b plus capped causal personalisation (lean/src66); the other trees and bundles untouched
+    SRC, OUT = ROOT / "lean/src66", ROOT / "submissions/lean_v66/submission.py"
+    MODULES = MODULES[:-1] + ("extras", "finetune", "countfilter", "cpers", "v6chain", "solver")
+    sys.argv.remove("--v66")
 if "--v63" in sys.argv:  # v6.3: v6.2i with bitwise savings (lean/src63); the other trees and bundles untouched
     SRC, OUT = ROOT / "lean/src63", ROOT / "submissions/lean_v63/submission.py"
     MODULES = MODULES[:-1] + ("extras", "finetune", "v6chain", "solver")
