@@ -9,5 +9,6 @@ export OMP_NUM_THREADS=8 PYTHONWARNINGS=ignore SSL_WS=$PWD
 date -u; md5sum studies/14nov/ssl/*.py experiments/protocol.py
 case $1 in
   prep) python -I studies/14nov/ssl/prep_ext.py ;;
+  fold2) python -I studies/14nov/ssl/ssl_form2.py ${SLURM_ARRAY_TASK_ID:-0} ${SMOKE:-} ;;
   fold) python -I studies/14nov/ssl/ssl_fold.py ${SLURM_ARRAY_TASK_ID:-0} ${SMOKE:-} ;;
 esac; rc=$?; echo EXIT $rc; date -u; exit $rc
