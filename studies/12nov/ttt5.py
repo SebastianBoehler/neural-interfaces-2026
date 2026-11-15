@@ -59,8 +59,46 @@ for _f in ARCHS:  # a typo in a family key must fail at import, not after an hou
     assert ARCHS[_f][0] is None or "_sbn" in ARCHS[_f][0], _f
 
 
+# s283/s286/s287 grids (15 Nov): the arm is in the family name, ARM[name] = base family + settings applied to the built net (SessionNet reads them); names never collide with a stored baseline.
+# <base>_coral<W> (CORAL weight W), <base>_am<P> (Fourier amplitude mixing p = P/100), <base>_coral<W>_am<P> (both), <base>_dist<T> (KL to the REVE rv2 teacher, temperature T, weight 0.5)
+ARM = {}
+for _b in ("fb", "fbl", "sinc", "eegn"):
+    for _w in (1, 3, 10, 30, 100):
+        if (_b, _w) != ("fb", 1):  # fb_coral (w 1) exists from s285
+            ARM[f"{_b}_coral{_w}"] = dict(base=_b, coral=float(_w))
+        for _p in (50,):
+            ARM[f"{_b}_coral{_w}_am{_p}"] = dict(base=_b, coral=float(_w), am=_p / 100)
+for _b in ("fbl", "sinc"):
+    for _p in (25, 50, 100):
+        ARM[f"{_b}_am{_p}"] = dict(base=_b, am=_p / 100)
+for _b in ("fb", "eegn"):
+    for _t in (1, 2, 4):
+        ARM[f"{_b}_dist{_t}"] = dict(base=_b, dist=0.5, dist_T=float(_t))
+for _a, _v in ARM.items():
+    assert _a not in ARCHS, _a; ARCHS[_a] = ARCHS[_v["base"]]
+ARMKEYS = dict(coral=0.0, am=0.0, dist=0.0, dist_T=2.0)
+
+
+def attach_teacher(arch, m, d, fold, tr, te, seed):
+    """s283: load this fold's teacher posteriors (runs/diag/reve283/teacher_s<seed>_<held>.npz) onto a _dist student."""
+    if not ARM.get(arch, {}).get("dist"):
+        return
+    f = np.load(WS / "runs/diag/reve283" / f"teacher_s{seed}_{fold}.npz"); idx = f["index"]
+    assert str(f["held"]) == str(fold) and set(idx.tolist()) == set(np.flatnonzero(tr).tolist()) and not (set(idx.tolist()) & set(np.flatnonzero(te).tolist())), "teacher rows are not exactly this fold's training rows"
+    m.teacher = (idx, f["proba"])
+
+
+def check_dist(arch, m, d, te):
+    """s283 guard: a _dist student really distilled (KL active every step, teacher used) and others have dist 0."""
+    want = ARM.get(arch, {}).get("dist", 0.0); assert m.dist == want and (not want or m.dist_T == ARM[arch]["dist_T"]), (arch, m.dist, m.dist_T)
+    if want:
+        st = m.dg_stats; assert st["dist_steps"] == st["steps"] > 0 and st["dist_kl"] > 0, (arch, st); assert not (set(np.unique(d["subject"][te]).tolist()) & m.fit_subjects)
+        print(f"dist ok {arch}: T {m.dist_T} mean T^2 KL {st['dist_kl'] / st['dist_steps']:.4f} over {st['steps']} steps", flush=True)
+
+
 def check_cfg(arch, net):
     """s274 guard: an EEGNet sweep family's kwargs are really in the trained net (kernel, F1, D, dropout), not silently the default."""
+    arch = ARM[arch]["base"] if arch in ARM else arch
     if not arch.startswith("eegn_"):
         return
     import run_cv
@@ -70,9 +108,10 @@ def check_cfg(arch, net):
     assert got == want, (arch, got, want); print("cfg ok", arch, got, flush=True)  # sincs: from-scratch control of sinc (s271 amendment)
 def check_am(arch, m, d, te, proto="all_loso"):
     """s279 guard: an *_am family really mixed (am set, windows mixed, batch changed) and no held-out person was a donor; others must have am 0."""
-    if "_am" not in arch:
+    want = ARM[arch].get("am", 0.0) if arch in ARM else (0.0 if "_am" not in arch else {"fb_am25": 0.25, "fb_am100": 1.0}.get(arch, 0.5))
+    if not want:
         assert not getattr(m, "am", 0), arch; return
-    st = m.am_stats; held = set(np.unique(d["subject"][te]).tolist()); assert m.am == {"fb_am25": 0.25, "fb_am100": 1.0}.get(arch, 0.5) and st["mixed"] > 0 and st["absdiff"] > 0, (arch, st)
+    st = m.am_stats; held = set(np.unique(d["subject"][te]).tolist()); assert m.am == want and st["mixed"] > 0 and st["absdiff"] > 0, (arch, st)
     if proto == "all_loso":  # seen_session trains on the held-out person's earlier sessions by design
         assert not (held & m.fit_subjects), f"held-out person(s) {held & m.fit_subjects} among the training people"
     print(f"am ok {arch}: mixed {st['mixed']} windows in {st['batches']} batches, mean |dx| per batch {st['absdiff'] / st['batches']:.1f}, "
@@ -85,15 +124,21 @@ DGARM = {"fb_coral": ("coral", 1.0), "fb_dann": ("dann", 0.3), "fb_swad": ("swad
 def check_dg(arch, m, d, te, proto="all_loso"):
     """s285 guard: a DG arm applied exactly its own loss (setting equals the arm's, the loss was active and changed the batch's loss,
     person labels = the training people only, SWAD snapshots differ); every other family has all three at 0."""
+    exp = dict(coral=0.0, dann=0.0, swad=0.0)
+    if arch in DGARM:
+        exp[DGARM[arch][0]] = DGARM[arch][1]
+    if arch in ARM:
+        exp["coral"] = ARM[arch].get("coral", 0.0)
     for k in ("coral", "dann", "swad"):
-        assert getattr(m, k) == (DGARM[arch][1] if arch in DGARM and DGARM[arch][0] == k else 0.0), (arch, k, getattr(m, k))
-    if arch not in DGARM:
+        assert getattr(m, k) == exp[k], (arch, k, getattr(m, k))
+    check_dist(arch, m, d, te)
+    if not any(exp.values()):
         return
-    st, k = m.dg_stats, DGARM[arch][0]; held = set(np.unique(d["subject"][te]).tolist()); assert st["steps"] > 0, (arch, st)
+    k = next(k for k, v in exp.items() if v); st = m.dg_stats; held = set(np.unique(d["subject"][te]).tolist()); assert st["steps"] > 0, (arch, st)
     if proto == "all_loso":
         assert not (held & m.fit_subjects), f"held-out person(s) {held & m.fit_subjects} among the training people"
     if k == "coral":
-        assert st["coral_pairs"] > 0 and st["coral_pen"] > 0, (arch, st)
+        assert st["coral_pairs"] > 0 and st["coral_pen"] > 0, (arch, st); print(f"coral weighted mean penalty per step {exp['coral'] * st['coral_pen'] / st['steps']:.4f} (weight {exp['coral']})", flush=True)
     if k == "dann":
         assert st["adv_on"] > 0 and st["adv_loss"] > 0, (arch, st)
     if k == "swad":
@@ -115,6 +160,9 @@ def make(arch, d, seed):
     cfg = ARCHS[arch][0]
     if cfg is not None:
         m = SB.make(cfg, d, seed)
+        for k, v in ARM.get(arch, {}).items():  # s283/s286/s287: the arm's settings on the built net (read by SessionNet._train; AlignedNet._train asserts they are 0)
+            if k != "base":
+                assert k in ARMKEYS and getattr(m, k) == ARMKEYS[k], (arch, k, getattr(m, k)); setattr(m, k, v)
         if seed >= 6 and "{seed}" in (getattr(m, "init", None) or ""):  # pretrained trunks exist for seeds 0-5 only (13 Nov: fresh sinc tasks died on a missing file)
             m.init = m.init.replace("{seed}", str(seed % 6)); print(f"{arch} seed {seed}: pretrained trunk of seed {seed % 6}, training seed {seed}", flush=True)
         return m

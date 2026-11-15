@@ -154,9 +154,13 @@ class SessionNet(AlignedNet):
         if self.am:  # s279: donors are rows of other people among the TRAINING rows of this fit (X is the fold's training set only)
             amg = torch.Generator().manual_seed(self.seed + 7919); sub = self._grp.cpu()
             self.am_stats = dict(mixed=0, batches=0, absdiff=0.0, bad_donor=0)
-        dgs = self.dg_stats = dict(steps=0, coral_pairs=0, coral_pen=0.0, adv_loss=0.0, adv_on=0, snaps=0, snap_diff=0.0, avg_diff=0.0)
+        dgs = self.dg_stats = dict(steps=0, coral_pairs=0, coral_pen=0.0, adv_loss=0.0, adv_on=0, dist_steps=0, dist_kl=0.0, snaps=0, snap_diff=0.0, avg_diff=0.0)
         if self.dann or self.coral:  # s285: person labels = self._grp, built from the fit's training rows only
             assert int(self._grp.max()) + 1 == len(self.fit_subjects), "person labels are not exactly the training people"
+        if self.dist:  # s283: teacher posteriors of the training windows (global index -> row), tempered p^(1/T) renormalised; every training row must be covered
+            assert self.teacher is not None, "dist without a teacher"
+            tix, tpr = self.teacher; o = np.argsort(tix); pos = np.searchsorted(tix[o], self._order); assert (pos < len(tix)).all() and (tix[o][np.minimum(pos, len(tix) - 1)] == self._order).all(), "teacher misses training rows"
+            tp = torch.from_numpy(np.clip(tpr[o][pos], 1e-8, 1.0) ** (1.0 / self.dist_T)).float(); self._tp = (tp / tp.sum(1, keepdim=True)).to(self.dev)
         tap = dg.Tap(self.net) if self.coral else None
         adv = dg.Adversary(self.net, len(self.fit_subjects), 0.0, lr, self.dev) if self.dann else None; snaps = []
         from deep import param_groups
@@ -183,7 +187,10 @@ class SessionNet(AlignedNet):
                 if self.rot:
                     xb = dg.rotate(xb, gen, self.rot)
                 opt.zero_grad()
-                loss = loss_fn(self.net(xb)[:, :3], yb); dgs["steps"] += 1; jd = torch.from_numpy(j).to(self.dev)
+                zb = self.net(xb)[:, :3]; loss = loss_fn(zb, yb); dgs["steps"] += 1; jd = torch.from_numpy(j).to(self.dev)
+                if self.dist:  # s283: CE + weight * T^2 * KL(teacher_T || student_T)
+                    kl = torch.nn.functional.kl_div(torch.log_softmax(zb / self.dist_T, 1), self._tp[jd], reduction="batchmean") * self.dist_T ** 2
+                    loss = loss + self.dist * kl; dgs["dist_steps"] += 1; dgs["dist_kl"] += float(kl)
                 if tap:  # s285 CORAL: weight * penalty between per-person feature covariances in this batch
                     pen, npairs = dg.coral(tap.feat, self._grp[jd]); loss = loss + self.coral * pen; dgs["coral_pairs"] += npairs; dgs["coral_pen"] += float(pen)
                 if adv:  # s285 DANN: person head behind gradient reversal, lambda ramp 0 -> dann (DANN schedule over training progress)
