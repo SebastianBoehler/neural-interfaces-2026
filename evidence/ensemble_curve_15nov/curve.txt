@@ -1,0 +1,24 @@
+s269 ensemble curve; orders ['within0', 'within1'] x draws ('d1', 'd2'); 20 subsets per cell; 10 people; BA in %, person-equal, mean over cells
+
+table: mean BA by f families (rows) x s seeds per family (cols 1..6)
+  f=1   61.42  62.33  62.49  62.29  63.24  63.00
+  f=2   64.95  65.43  65.49  65.68  65.58  65.65
+  f=3   66.34  66.74  66.99  66.88  67.10  67.13
+  f=4   67.17  67.67  67.69  67.60  67.60  67.54
+  (n=f*s nets; distinct subsets per cell: (1, 1):12 ...)
+
+seed axis (f=4), n = 4..24: 67.17 67.67 67.69 67.60 67.60 67.54
+family axis at equal n: n=4 f=1 s=4 62.29 | n=4 f=2 s=2 65.43 | n=4 f=4 s=1 67.17 | n=6 f=1 s=6 63.00 | n=6 f=2 s=3 65.49 | n=6 f=3 s=2 66.74 | n=12 f=2 s=6 65.65 | n=12 f=3 s=4 66.88 | n=12 f=4 s=3 67.69
+fit BA = a - b/n^c on the seed axis (n=4..24), 80 % interval over people and orders (refit per resample):
+  seed 1->6                    +0.37  [-0.16, +0.88]
+  seed 4->6                    -0.06  [-0.33, +0.18]
+  fam 1->4 (s=6)               +4.55  [+3.24, +5.99]
+  drop fbraw (3 fam, s=6)      +0.04  [-1.09, +1.20]
+  fit n=24                    +67.63  [+63.51, +71.35]
+  fit 48                      +67.63  [+63.53, +71.36]
+  fit 96                      +67.63  [+63.55, +71.37]
+  gain 24->48                  +0.00  [+0.00, +0.03]
+  gain 24->96                  +0.00  [+0.00, +0.04]
+  c                            +4.00  [+1.58, +4.00]
+observed 6-seed (n=24) point 67.54; inside fit interval at n=24: True
+rule: gain 24->96 +0.00 -> recorded, net-saturated

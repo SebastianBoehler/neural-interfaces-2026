@@ -7960,3 +7960,16 @@ the MI-label form, the L/R auxiliary form left as the one open form. Guards: ass
 the offset is fit on the fold's training people only, every arm's cache key carries the arm, 0 Dreyer rows in arm (0).
 Needs: the Dreyer windows file (cluster search first, rebuild job on Leonardo otherwise); Shin 2018 WG (26 people, word vs rest) needs the
 user's Galvani 2FA copy and is a separate pre-registration once its raw zips are local.
+
+#### §269 RESULT (15 Nov; studies/14nov/ensemble_curve/curve.py, evidence/ensemble_curve_15nov/curve.txt)
+Data: within0, within1 x draws d1, d2 (4 cells), 24 nets each, 20 subsets per grid point, ten people, alone (not a chain score). Guards
+passed: all 96 files present with equal index arrays; every 1-net subset equals its own file BA; subset sizes and distinct draws asserted.
+Seed axis (f=4, 4 -> 24 nets): 67.17, 67.67, 67.69, 67.60, 67.60, 67.54; 1 -> 6 seeds +0.37 [-0.16, +0.88] (predicted +1.2, range
++0.5 to +2.0: below the range); 4 -> 6 seeds -0.06 [-0.33, +0.18] (predicted +0.2). Family axis: 1 -> 4 families at 6 seeds +4.55
+[+3.24, +5.99]; at equal n=12: f=2 65.65, f=3 66.88, f=4 67.69, so families beat seeds (as predicted); dropping fbraw (3 families, 6
+seeds) +0.04 [-1.09, +1.20] against all four (predicted cost < 0.3: holds, but the interval is wide). Fit a - b/n^c on the seed axis hits the
+c=4 bound (flat after ~8 nets): extrapolated gain 24 -> 96 +0.00 [+0.00, +0.04]; 24 -> 48 +0.00; fitted BA 67.63 at 48 and 96. Fit
+interval at n=24 is wide (+63.5 to +71.4, level uncertainty), observed 6-seed point inside it.
+Rule branch: gain 24 -> 96 < +0.5 -> recorded, the base is net-saturated in size; the gap is data or diversity of family. Caveats:
+only two orders x two draws, within scheme only; the seed axis here reads the mean posterior, not the chain; family diversity (f 3 -> 4
++0.4 to +0.8 at equal s) is the one axis still rising and is not extrapolated (only four families exist).
