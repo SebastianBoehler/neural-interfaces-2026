@@ -51,6 +51,7 @@ ARCHS = {"fb": ("fb_sbn_rot05", 2.0), "sh": (None, 2.0), "fbraw": ("fbcnet_raw_s
          "ifnet": ("ifnet_ea_rot05_sbn", 20.0), "tsc": ("tsception_ea_rot05_sbn", 20.0),
          # s279 (B1): Fourier amplitude mixing across training people (p 0.5), otherwise the fb / eegn recipe
          "fb_am": ("fb_sbn_rot05_am", 2.0), "eegn_am": ("eegnet_ea_rot05_am_sbn", 20.0),
+         "fb_am25": ("fb_sbn_rot05_am25", 2.0), "fb_am100": ("fb_sbn_rot05_am100", 2.0),  # s279 B1 undecided branch: p 0.25 / 1.0
          **{f"eegn_{t}": (f"eegnet{t}_ea_rot05_sbn", 20.0) for t in ("k30", "k60", "k90", "f16", "d4", "p25", "p50")}}
 for _f in ARCHS:  # a typo in a family key must fail at import, not after an hour on a GPU
     assert ARCHS[_f][0] is None or "_sbn" in ARCHS[_f][0], _f
@@ -67,9 +68,9 @@ def check_cfg(arch, net):
     assert got == want, (arch, got, want); print("cfg ok", arch, got, flush=True)  # sincs: from-scratch control of sinc (s271 amendment)
 def check_am(arch, m, d, te, proto="all_loso"):
     """s279 guard: an *_am family really mixed (am set, windows mixed, batch changed) and no held-out person was a donor; others must have am 0."""
-    if not arch.endswith("_am"):
+    if "_am" not in arch:
         assert not getattr(m, "am", 0), arch; return
-    st = m.am_stats; held = set(np.unique(d["subject"][te]).tolist()); assert m.am == 0.5 and st["mixed"] > 0 and st["absdiff"] > 0, (arch, st)
+    st = m.am_stats; held = set(np.unique(d["subject"][te]).tolist()); assert m.am == {"fb_am25": 0.25, "fb_am100": 1.0}.get(arch, 0.5) and st["mixed"] > 0 and st["absdiff"] > 0, (arch, st)
     if proto == "all_loso":  # seen_session trains on the held-out person's earlier sessions by design
         assert not (held & m.fit_subjects), f"held-out person(s) {held & m.fit_subjects} among the training people"
     print(f"am ok {arch}: mixed {st['mixed']} windows in {st['batches']} batches, mean |dx| per batch {st['absdiff'] / st['batches']:.1f}, "

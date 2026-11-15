@@ -19,6 +19,7 @@ carry the session's statistics across calls (submission.py SJit zeroes them per 
 converts a trained net for tracing.
 """
 import copy
+import re
 
 import numpy as np
 import torch
@@ -199,8 +200,9 @@ def make(cfg, d, seed):
         net.__class__ = SessionNet
         net.group, net.causal, net.k_train = 32, False, 20.0
         return net
-    am = 0.5 if cfg.endswith("_am") else 0.0  # s279: fb_sbn_rot05_am
-    cfg = cfg[:-3] if am else cfg
+    mam = re.search(r"_am(\d*)$", cfg)  # s279: fb_sbn_rot05_am = p 0.5; _am25 / _am100 = p 0.25 / 1.0 (the p is in the family name, hence in the output file name)
+    am = (int(mam.group(1)) / 100 if mam.group(1) else 0.5) if mam else 0.0
+    cfg = cfg[:mam.start()] if mam else cfg
     arch, _, var = cfg.partition("_")
     var, rot = (var[:-6], 0.05) if var.endswith("_rot05") else (var, 0.0)
     kw = CFGS[var]
