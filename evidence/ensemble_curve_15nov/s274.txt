@@ -1,0 +1,107 @@
+s274 scoring; cells [('within0', 'd1'), ('within0', 'd2'), ('within1', 'd1'), ('within1', 'd2')]; 10 people; BA %, person-equal, mean posterior; marginal = BA(base + family 3 seeds) - BA(base); intervals 80 % people x cells
+old families 6 seeds (s0-5) unless stated; new families 3 seeds (s0-2). Default EEGNet = eegn (s271 files); p25 = the default again (replicate of identical config)
+
+alone (3 nets, s0-2):
+  incep     47.68
+  tcnet     45.14
+  ifnet     62.06
+  tsc       52.05
+  eegn      50.86
+  eegn_k30  50.54
+  eegn_k60  52.18
+  eegn_k90  50.15
+  eegn_f16  51.80
+  eegn_d4   51.37
+  eegn_p25  50.86
+  eegn_p50  51.29
+  fb        66.36
+  fbl       58.38
+  fbraw     63.34
+  sinc      62.29
+
+marginal over base {fb,fbl,sinc} at old seeds=6: BA 67.59
+  +incep                                              -0.08  [-1.02, +0.89]  people up 4/10  cells up 0/4
+  +tcnet                                              +0.51  [+0.31, +0.71]  people up 10/10  cells up 4/4
+  +ifnet                                              +0.00  [-0.52, +0.56]  people up 4/10  cells up 2/4
+  +tsc                                                -0.03  [-0.71, +0.60]  people up 5/10  cells up 2/4
+  +eegn                                               +1.10  [+0.39, +1.75]  people up 8/10  cells up 4/4
+  +eegn_k30                                           +0.75  [+0.16, +1.31]  people up 7/10  cells up 4/4
+  +eegn_k60                                           +1.20  [+0.36, +1.92]  people up 8/10  cells up 4/4
+  +eegn_k90                                           +0.92  [+0.30, +1.49]  people up 9/10  cells up 4/4
+  +eegn_f16                                           +1.19  [+0.33, +2.06]  people up 7/10  cells up 4/4
+  +eegn_d4                                            +1.03  [+0.29, +1.71]  people up 8/10  cells up 4/4
+  +eegn_p25                                           +1.10  [+0.39, +1.75]  people up 8/10  cells up 4/4
+  +eegn_p50                                           +0.99  [+0.24, +1.68]  people up 8/10  cells up 4/4
+
+marginal over base {fb,fbl,sinc,fbraw} at old seeds=6: BA 67.54
+  +incep                                              +0.68  [-0.11, +1.39]  people up 7/10  cells up 4/4
+  +tcnet                                              +0.22  [-0.11, +0.56]  people up 5/10  cells up 4/4
+  +ifnet                                              -0.14  [-0.62, +0.28]  people up 5/10  cells up 2/4
+  +tsc                                                +0.39  [-0.46, +1.36]  people up 4/10  cells up 4/4
+  +eegn                                               +0.87  [+0.14, +1.63]  people up 6/10  cells up 4/4
+  +eegn_k30                                           +0.52  [-0.10, +1.16]  people up 4/10  cells up 4/4
+  +eegn_k60                                           +0.93  [+0.20, +1.67]  people up 5/10  cells up 4/4
+  +eegn_k90                                           +0.80  [+0.12, +1.49]  people up 6/10  cells up 4/4
+  +eegn_f16                                           +1.02  [+0.17, +1.91]  people up 5/10  cells up 4/4
+  +eegn_d4                                            +1.24  [+0.47, +1.94]  people up 8/10  cells up 4/4
+  +eegn_p25                                           +0.87  [+0.14, +1.63]  people up 6/10  cells up 4/4
+  +eegn_p50                                           +0.67  [-0.03, +1.32]  people up 6/10  cells up 4/4
+
+equal-n swap: (base {fb,fbl,sinc} 3 seeds + family 3 seeds) - (base 4 seeds each, 12 nets):
+  base 12 nets BA 67.31
+  incep                                               -1.17  [-2.90, +0.49]  people up 4/10  cells up 0/4
+  tcnet                                               +0.63  [-0.12, +1.37]  people up 6/10  cells up 4/4
+  ifnet                                               -0.30  [-1.12, +0.44]  people up 4/10  cells up 0/4
+  tsc                                                 -1.72  [-3.26, -0.18]  people up 4/10  cells up 0/4
+  eegn                                                +2.09  [+0.67, +3.33]  people up 8/10  cells up 4/4
+  eegn_k30                                            +1.22  [+0.13, +2.24]  people up 6/10  cells up 4/4
+  eegn_k60                                            +1.73  [+0.44, +2.86]  people up 9/10  cells up 4/4
+  eegn_k90                                            +1.05  [-0.20, +2.10]  people up 8/10  cells up 4/4
+  eegn_f16                                            +1.55  [+0.05, +2.86]  people up 7/10  cells up 4/4
+  eegn_d4                                             +1.26  [-0.06, +2.41]  people up 9/10  cells up 4/4
+  eegn_p25                                            +2.09  [+0.67, +3.33]  people up 8/10  cells up 4/4
+  eegn_p50                                            +1.57  [-0.03, +2.93]  people up 8/10  cells up 4/4
+
+mean Pearson correlation of posteriors with fb (flattened, mean over cells, seed-matched s0-2):
+  fb with fb (other seed, reference) 0.963
+  incep     with fb 0.256
+  tcnet     with fb 0.148
+  ifnet     with fb 0.812
+  tsc       with fb 0.313
+  eegn      with fb 0.281
+  eegn_k30  with fb 0.294
+  eegn_k60  with fb 0.296
+  eegn_k90  with fb 0.267
+  eegn_f16  with fb 0.290
+  eegn_d4   with fb 0.280
+  eegn_p25  with fb 0.281
+  eegn_p50  with fb 0.276
+  fbl       with fb 0.696
+  fbraw     with fb 0.809
+  sinc      with fb 0.638
+
+EEGNet sweep: marginal of each config minus marginal of the default eegn (same base, 6 old seeds):
+ base {fb,fbl,sinc}
+  eegn_k30 - eegn                                     -0.34  [-0.65, -0.02]  people up 5/10  cells up 0/4
+  eegn_k60 - eegn                                     +0.11  [-0.25, +0.46]  people up 4/10  cells up 2/4
+  eegn_k90 - eegn                                     -0.18  [-0.44, +0.07]  people up 5/10  cells up 0/4
+  eegn_f16 - eegn                                     +0.09  [-0.35, +0.56]  people up 4/10  cells up 2/4
+  eegn_d4 - eegn                                      -0.06  [-0.42, +0.32]  people up 4/10  cells up 2/4
+  eegn_p25 - eegn                                     +0.00  [+0.00, +0.00]  people up 0/10  cells up 0/4
+  eegn_p50 - eegn                                     -0.11  [-0.33, +0.11]  people up 4/10  cells up 0/4
+  best of 7 distinct configs by marginal (selected on these cells and people): eegn_k60
+  best (eegn_k60) marginal, selected                  +1.20  [+0.36, +1.92]  people up 8/10  cells up 4/4
+  best (eegn_k60) - default eegn, selected            +0.11  [-0.25, +0.46]  people up 4/10  cells up 2/4
+  p25 - eegn (replicate; the noise floor of one config)  +0.00  [+0.00, +0.00]  people up 0/10  cells up 0/4
+ base {fb,fbl,sinc,fbraw}
+  eegn_k30 - eegn                                     -0.35  [-0.66, -0.02]  people up 2/10  cells up 0/4
+  eegn_k60 - eegn                                     +0.06  [-0.25, +0.39]  people up 5/10  cells up 4/4
+  eegn_k90 - eegn                                     -0.07  [-0.32, +0.17]  people up 4/10  cells up 2/4
+  eegn_f16 - eegn                                     +0.14  [-0.24, +0.55]  people up 7/10  cells up 2/4
+  eegn_d4 - eegn                                      +0.36  [+0.06, +0.66]  people up 5/10  cells up 4/4
+  eegn_p25 - eegn                                     +0.00  [+0.00, +0.00]  people up 0/10  cells up 0/4
+  eegn_p50 - eegn                                     -0.20  [-0.45, +0.07]  people up 3/10  cells up 2/4
+  best of 7 distinct configs by marginal (selected on these cells and people): eegn_d4
+  best (eegn_d4) marginal, selected                   +1.24  [+0.47, +1.94]  people up 8/10  cells up 4/4
+  best (eegn_d4) - default eegn, selected             +0.36  [+0.06, +0.66]  people up 5/10  cells up 4/4
+  p25 - eegn (replicate; the noise floor of one config)  +0.00  [+0.00, +0.00]  people up 0/10  cells up 0/4
