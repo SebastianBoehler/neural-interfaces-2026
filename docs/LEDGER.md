@@ -7922,3 +7922,18 @@ Prediction (best 70.5, range 69.0-72.0) refuted: best variant 67.9, below the ra
 family set aside. Caveat on reach: core1's LR recipe and regularisation search were left unchanged while the feature dimension grew
 (A 2x, B 1.7x, C 3.3x of 44k), so this reads as "more blocks under core1's fixed C and scaler hurt", not as "the fine feature space
 is exhausted"; a form that rescales the regulariser per block (or block-wise shrinkage) is the one unrun variant. No rebuild of TSEM/routing (the pre-registered consequence).
+
+### 269. BASE ENSEMBLE SIZE x DIVERSITY CURVE FROM STORED OUTPUTS (written 15 Nov 10:00 CET, before any result; research thread; coordinator's probe 3 on the data-scale front)
+Mechanism: the shipped base is 4 net families (fb, fbl, fbraw, sinc) x several seeds. If new-people accuracy still rises with the number
+of nets, a larger base (cheaper nets, distillation) is a lever; if it is flat, the base is net-saturated and the gap is data. Stored
+material: runs/diag/ttt/probs18/ttt18<order>d<draw>_<family>_base-all_loso-s<seed>.npz (proba, index; LOSO over ten people), 4 families x
+6 seeds (24 nets) for the within orders present. Form (alone, a reading of the base, not a chain score): per person, mean posterior of a
+subset of k nets, balanced accuracy per cell, person-equal mean over ten people and over the available orders; subsets: all
+(f families x s seeds) with f in {1,2,3,4}, s in {1,2,3,4,5,6}, 20 random draws per cell of the grid (a fixed rng), curve BA(n_nets)
+split into seed-axis (same families) and family-axis (same total n); fit BA = a - b / n^c on n; report the extrapolated BA at n = 48, 96.
+Prediction: seed axis 1 -> 6 seeds per family +1.2 (80 % range +0.5 to +2.0), flattening: 4 -> 6 seeds +0.2; family axis worth more
+than the seed axis at equal n (fbraw dropped costs < 0.3); the extrapolated gain 24 -> 96 nets <= +0.5. Rule: gain 24 -> 96
+extrapolated >= +1.0 with the 6-seed point inside the fit's interval -> a chain check (shufcombo with the 1-seed vs 6-seed base on 4
+shuffled orders) and a cheaper-net/distillation pre-registration; < +0.5 -> recorded, base is net-saturated; between -> undecided.
+Silent no-op guards: assert every (family, seed, order, draw) file exists and that index arrays agree across nets; assert that a
+1-net subset equals that net's own BA from its file.
