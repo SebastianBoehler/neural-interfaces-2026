@@ -1,0 +1,38 @@
+s280 REVE forms; cells [('within0', 'd1'), ('within0', 'd2'), ('within1', 'd1'), ('within1', 'd2')]; BA % person-equal, mean posterior, 3 seeds per form; marginal = BA(shipped three + form) - BA(shipped three)
+
+shipped three (fb,fbl,sinc, 3 seeds each) BA 67.47; singles (3 nets): fb 66.36, fbl 58.38, sinc 62.29
+form alone (3 nets) BA, and per-person range: 
+  rv1   55.79  (people 40.1-73.4)
+  rv2   55.26  (people 39.7-72.4)
+  rv3   53.47  (people 39.3-71.6)
+  rv0   47.91  (people 35.4-57.7)
+  rv4   52.46  (people 39.1-73.0)
+
+marginal over the shipped three:
+  +rv1                                                +0.42  [-1.12, +1.72]  people up 5/10  cells up 4/4
+  +rv2                                                +0.48  [-0.94, +1.80]  people up 6/10  cells up 4/4
+  +rv3                                                -0.50  [-1.66, +0.60]  people up 6/10  cells up 0/4
+  +rv0                                                -0.59  [-2.13, +0.87]  people up 6/10  cells up 0/4
+  +rv4                                                +0.08  [-1.16, +1.27]  people up 6/10  cells up 2/4
+
+pretraining value like-for-like (pretrained R2 - random-init R0, same recipe): alone and marginal
+  rv2-rv0 alone                                       +7.34  [+5.16, +9.45]  people up 9/10  cells up 4/4
+  rv2-rv0 marginal                                    +1.07  [+0.26, +1.85]  people up 7/10  cells up 4/4
+
+equal-n swap: base at 4 seeds each is not available (3 stored seeds + s3 may be partial); use the stored 6-seed old families: base4 = fb,fbl,sinc at seeds 0-3
+  base 12 nets (4 seeds each) BA 67.31
+  rv1: (base3 + rv1) - base4                          +0.58  [-1.06, +2.03]  people up 6/10  cells up 4/4
+  rv2: (base3 + rv2) - base4                          +0.63  [-0.82, +1.99]  people up 6/10  cells up 4/4
+  rv3: (base3 + rv3) - base4                          -0.35  [-1.58, +0.79]  people up 6/10  cells up 0/4
+  rv0: (base3 + rv0) - base4                          -0.44  [-2.07, +1.03]  people up 5/10  cells up 0/4
+  rv4: (base3 + rv4) - base4                          +0.24  [-1.01, +1.42]  people up 6/10  cells up 2/4
+
+mean Pearson correlation of posteriors with fb (seed matched, mean over cells); fb-fb other seed as reference:
+  fb with fb 0.963
+  fbl   with fb 0.696
+  sinc  with fb 0.638
+  rv1   with fb 0.376
+  rv2   with fb 0.358
+  rv3   with fb 0.360
+  rv0   with fb 0.161
+  rv4   with fb 0.375
