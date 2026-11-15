@@ -42,9 +42,9 @@ VARS = {"fixA": ("fix", 20, 5e-4, "all", "eval"), "fixW": ("fix", 20, 5e-4, "all
         "fixLR": ("fix", 20, 2.5e-4, "all", "eval")}
 AUG = {"fixW": (5, 0.1, 0.05), "fixS": (30, 0.3, 0.2)}  # (max shift in samples, noise in channel sd, channel dropout); default (15, 0.2, 0.1)
 ARCHS = {"fb": ("fb_sbn_rot05", 2.0), "sh": (None, 2.0), "fbraw": ("fbcnet_raw_sbn", 20.0), "fbl": ("fblight_ea_rot05_sbn", 5.0), "sinc": ("sincshallow_ea_ptm7r_rot05_sbn", 20.0),
-         # s271 (15 Nov): structurally different families, same m7r pretrained trunks + rot05 + SessionBN (k 20 as sinc/fbraw)
-         "conf": ("conformer_ea_ptm7r_rot05_sbn", 20.0), "eegn": ("eegnet_ea_ptm7r_rot05_sbn", 20.0),
-         "atc": ("atcnet_ea_ptm7r_rot05_sbn", 20.0), "deep4": ("deep4_ea_ptm7r_rot05_sbn", 20.0)}
+         # s271 (15 Nov): structurally different families, NO pretrained trunk (none exists for these archs; fblight is the same), rot05 + SessionBN (k 20 as sinc/fbraw)
+         "conf": ("conformer_ea_rot05_sbn", 20.0), "eegn": ("eegnet_ea_rot05_sbn", 20.0),
+         "atc": ("atcnet_ea_rot05_sbn", 20.0), "deep4": ("deep4_ea_rot05_sbn", 20.0)}
 ORDER = os.environ["FAMS"].split(",") if os.environ.get("FAMS") else ["fbraw", "fbl", "sinc", "fb"]  # FAMS (s271): a family list, task = family + len * seed
 
 
