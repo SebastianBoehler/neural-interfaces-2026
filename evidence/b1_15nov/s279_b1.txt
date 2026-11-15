@@ -1,0 +1,39 @@
+s279 B1 scoring; cells [('within0', 'd1'), ('within0', 'd2'), ('within1', 'd1'), ('within1', 'd2')]; 10 people; BA % person-equal, mean posterior; 80 % interval over people and cells
+arms: fb_am, eegn_am (3 seeds s0-2); baselines: the stored fb, eegn files (s0-2); old families 3 seeds = s0-5 subsets
+
+ALONE (3 nets each):
+  fb 66.36   fb_am 66.93
+  fb_am - fb (alone)                                              +0.57  [+0.06, +1.12]  people up 7/10  cells up 4/4
+  eegn 50.86   eegn_am 50.43
+  eegn_am - eegn (alone)                                          -0.43  [-1.07, +0.18]  people up 5/10  cells up 0/4
+
+per-net mean (seed-wise) alone BA: fb s0 66.40  fb s1 65.69  fb s2 65.69  eegn s0 50.24  eegn s1 49.23  eegn s2 51.51  fb_am s0 66.78  fb_am s1 66.66  fb_am s2 66.27  eegn_am s0 50.14  eegn_am s1 48.25  eegn_am s2 50.94
+
+MARGINAL over the shipped base (new family 3 seeds ADDED; am arm and plain arm each against the same base):
+base {fb,fbl,sinc} old seeds=3: BA 67.47
+  +eegn                                                           +1.94  [+0.60, +3.08]  people up 9/10  cells up 4/4
+  +eegn_am                                                        +1.44  [+0.25, +2.45]  people up 9/10  cells up 4/4
+  +eegn_am minus +eegn                                            -0.50  [-0.82, -0.17]  people up 2/10  cells up 0/4
+base {fb,fbl,sinc} old seeds=6: BA 67.59
+  +eegn                                                           +1.10  [+0.39, +1.75]  people up 8/10  cells up 4/4
+  +eegn_am                                                        +1.07  [+0.38, +1.74]  people up 8/10  cells up 4/4
+  +eegn_am minus +eegn                                            -0.03  [-0.24, +0.19]  people up 4/10  cells up 2/4
+base {fb,fbl,sinc,fbraw} old seeds=3: BA 68.71
+  +eegn                                                           +0.39  [-0.89, +1.55]  people up 5/10  cells up 4/4
+  +eegn_am                                                        +0.23  [-0.96, +1.25]  people up 5/10  cells up 2/4
+  +eegn_am minus +eegn                                            -0.16  [-0.43, +0.11]  people up 3/10  cells up 2/4
+base {fb,fbl,sinc,fbraw} old seeds=6: BA 67.54
+  +eegn                                                           +0.87  [+0.14, +1.63]  people up 6/10  cells up 4/4
+  +eegn_am                                                        +0.58  [-0.08, +1.22]  people up 6/10  cells up 4/4
+  +eegn_am minus +eegn                                            -0.30  [-0.53, -0.05]  people up 3/10  cells up 0/4
+
+SWAP form over {fb,fbl,sinc} at 3 seeds each (9 nets): plain family replaced by its am twin; and eegn_am vs eegn as a 10th..12th family:
+  {fb_am,fbl,sinc} - {fb,fbl,sinc}                                +0.26  [-0.15, +0.70]  people up 7/10  cells up 4/4
+  {fb,fb_am,fbl,sinc} (am added to fb) - {fb,fbl,sinc}            +0.69  [-0.08, +1.43]  people up 8/10  cells up 4/4
+
+mean Pearson correlation of posteriors with the plain twin (seed-matched, mean over cells) and with fb:
+  fb_am with fb 0.971   eegn_am with eegn 0.975   eegn_am with fb 0.277   eegn with fb 0.281
+
+RULE reading (alone >= +1.0, people interval above 0, >= 6/10 up -> marginal + chain screen; -0.5..+1.0 undecided; < -0.5 closed):
+  fb_am: alone +0.57, interval low +0.06, people up 7/10 -> UNDECIDED
+  eegn_am: alone -0.43, interval low -1.07, people up 5/10 -> UNDECIDED

@@ -213,6 +213,7 @@ class AlignedNet:
         self.mstyle, self.adv = mstyle, adv  # MixStyle / participant-adversarial (dg.py, R18)
         self.ref_band = ref_band  # (lo, hi) Hz: EA reference from band-passed windows (R19)
         self.ref_clip = ref_clip  # cap each window's trace at c x the (running) median in the reference (R20)
+        self.am = 0.0  # s279: Fourier amplitude mixing across people, probability p (SessionNet only; AlignedNet._train asserts it is 0)
         self.cotrain = 0.0  # lam: multi-task steps on the external corpora (cotrain.py; set by run_cv MODS)
         self.epochs, self.lr, self.wd, self.batch = epochs, lr, wd, batch
         self.seed, self.dev, self.aug = seed, device(), aug
@@ -264,7 +265,7 @@ class AlignedNet:
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
                tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal, self.tcrop, self.init,
-               self.swa, self.cmix, self.rot, self.fsc, self.mstyle, self.adv, self.ref_band, self.ref_clip, hash(np.asarray(idx).tobytes()))
+               self.swa, self.cmix, self.rot, self.fsc, self.mstyle, self.adv, self.ref_band, self.ref_clip, self.am, hash(np.asarray(idx).tobytes()))
         if self.adabn is None:  # only the *_bn* configs reuse trained nets
             return self._fit(idx)
         if key not in self._fitted:  # kept on CPU to bound device memory
@@ -341,6 +342,7 @@ class AlignedNet:
 
     def _train(self, X, y, sw, rows, epochs, lr, rng, gen, loss_fn, weighted,
                head_only=False, avg=None):
+        assert not self.am, "AlignedNet does not apply am (s279); only SessionNet does"
         groups = param_groups(self.net, lr, self.lld, head_only)
         opt = torch.optim.AdamW(groups, lr=lr, weight_decay=self.wd)
         steps = epochs * int(np.ceil(len(rows) / self.batch))

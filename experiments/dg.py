@@ -145,3 +145,14 @@ class Adversary:
 
     def remove(self):
         self.hook.remove()
+
+
+def amp_mix(xb, donor, gen, p=0.5):
+    """s279 (B1): Fourier amplitude mixing across people. xb and donor are aligned windows (B, C, T) of different people.
+    For a share p of the windows the amplitude spectrum (per channel) becomes lam * own + (1 - lam) * donor's, lam ~ U(0, 1),
+    own phase kept. Returns (mixed batch, boolean mask of windows that were mixed)."""
+    T = xb.shape[-1]; B = len(xb)
+    sel = (torch.rand(B, generator=gen) < p).to(xb.device); lam = torch.rand(B, 1, 1, generator=gen).to(xb.device)
+    Fx, Fd = torch.fft.rfft(xb, dim=-1), torch.fft.rfft(donor, dim=-1)
+    amp = lam * Fx.abs() + (1 - lam) * Fd.abs(); y = torch.fft.irfft(amp * torch.exp(1j * Fx.angle()), n=T, dim=-1)
+    return torch.where(sel[:, None, None], y.to(xb.dtype), xb), sel

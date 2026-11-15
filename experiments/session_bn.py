@@ -108,6 +108,7 @@ class SessionNet(AlignedNet):
 
     def _fit(self, idx):
         st = self.d["stream"][idx]
+        self.fit_subjects = set(np.unique(self.d["subject"][idx]).tolist())  # s279 guard: the people the net (and any donor) comes from
         self._row_sess = np.concatenate([np.full(int((st == s).sum()), j) for j, s in enumerate(dict.fromkeys(st))])
         super()._fit(idx)
 
@@ -149,6 +150,9 @@ class SessionNet(AlignedNet):
         assert not (self.cmix or self.fsc), "SessionNet does not apply cmix / fsc; use studies/12nov/netaug.VNet"
         assert not (self.cotrain or self.adabn), "SessionNet applies neither the co-training loss nor AdaBN (audit, ledger s52)"
         self._prepare()
+        if self.am:  # s279: donors are rows of other people among the TRAINING rows of this fit (X is the fold's training set only)
+            amg = torch.Generator().manual_seed(self.seed + 7919); sub = self._grp.cpu()
+            self.am_stats = dict(mixed=0, batches=0, absdiff=0.0, bad_donor=0)
         from deep import param_groups
         groups = param_groups(self.net, lr, self.lld, head_only)
         opt = torch.optim.AdamW(groups, lr=lr, weight_decay=self.wd)
@@ -159,6 +163,17 @@ class SessionNet(AlignedNet):
                 xb, yb = X[j].to(self.dev), y[j].to(self.dev)
                 if self.aug:
                     xb = augment(xb, gen)
+                if self.am:
+                    jt = torch.from_numpy(j); r = torch.randint(0, len(X), (len(j),), generator=amg)
+                    for _ in range(50):  # redraw donors that belong to the same person
+                        same = sub[r] == sub[jt]
+                        if not same.any():
+                            break
+                        r[same] = torch.randint(0, len(X), (int(same.sum()),), generator=amg)
+                    assert not (sub[r] == sub[jt]).any(), "am donor from the same person"  # r indexes X = the training rows only
+                    xm, sel = dg.amp_mix(xb, X[r].to(self.dev), amg, self.am); dd = float((xm - xb).abs().sum())
+                    assert dd > 0 or not sel.any(), "am changed nothing in a batch with selected windows"
+                    self.am_stats["mixed"] += int(sel.sum()); self.am_stats["batches"] += 1; self.am_stats["absdiff"] += dd; xb = xm
                 if self.rot:
                     xb = dg.rotate(xb, gen, self.rot)
                 opt.zero_grad()
@@ -184,11 +199,13 @@ def make(cfg, d, seed):
         net.__class__ = SessionNet
         net.group, net.causal, net.k_train = 32, False, 20.0
         return net
+    am = 0.5 if cfg.endswith("_am") else 0.0  # s279: fb_sbn_rot05_am
+    cfg = cfg[:-3] if am else cfg
     arch, _, var = cfg.partition("_")
     var, rot = (var[:-6], 0.05) if var.endswith("_rot05") else (var, 0.0)
     kw = CFGS[var]
     net = AlignedNet(d, arch=ARCH[arch], seed=seed) if kw is None else SessionNet(d, arch=ARCH[arch], seed=seed, **kw)
-    net.rot = rot
+    net.rot, net.am = rot, am
     return net
 
 
