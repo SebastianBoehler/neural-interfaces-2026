@@ -52,6 +52,8 @@ ARCHS = {"fb": ("fb_sbn_rot05", 2.0), "sh": (None, 2.0), "fbraw": ("fbcnet_raw_s
          # s279 (B1): Fourier amplitude mixing across training people (p 0.5), otherwise the fb / eegn recipe
          "fb_am": ("fb_sbn_rot05_am", 2.0), "eegn_am": ("eegnet_ea_rot05_am_sbn", 20.0),
          "fb_am25": ("fb_sbn_rot05_am25", 2.0), "fb_am100": ("fb_sbn_rot05_am100", 2.0),  # s279 B1 undecided branch: p 0.25 / 1.0
+         # s285: domain-generalisation losses on fb (CORAL weight 1, DANN lambda 0 -> 0.3, SWAD last 50 % of epochs; session_bn.make parses the suffix)
+         "fb_coral": ("fb_sbn_rot05_coral", 2.0), "fb_dann": ("fb_sbn_rot05_dann", 2.0), "fb_swad": ("fb_sbn_rot05_swad", 2.0),
          **{f"eegn_{t}": (f"eegnet{t}_ea_rot05_sbn", 20.0) for t in ("k30", "k60", "k90", "f16", "d4", "p25", "p50")}}
 for _f in ARCHS:  # a typo in a family key must fail at import, not after an hour on a GPU
     assert ARCHS[_f][0] is None or "_sbn" in ARCHS[_f][0], _f
@@ -75,6 +77,28 @@ def check_am(arch, m, d, te, proto="all_loso"):
         assert not (held & m.fit_subjects), f"held-out person(s) {held & m.fit_subjects} among the training people"
     print(f"am ok {arch}: mixed {st['mixed']} windows in {st['batches']} batches, mean |dx| per batch {st['absdiff'] / st['batches']:.1f}, "
           f"{len(m.fit_subjects)} training people, held-out {sorted(held)}", flush=True)
+
+
+DGARM = {"fb_coral": ("coral", 1.0), "fb_dann": ("dann", 0.3), "fb_swad": ("swad", 1.0)}
+
+
+def check_dg(arch, m, d, te, proto="all_loso"):
+    """s285 guard: a DG arm applied exactly its own loss (setting equals the arm's, the loss was active and changed the batch's loss,
+    person labels = the training people only, SWAD snapshots differ); every other family has all three at 0."""
+    for k in ("coral", "dann", "swad"):
+        assert getattr(m, k) == (DGARM[arch][1] if arch in DGARM and DGARM[arch][0] == k else 0.0), (arch, k, getattr(m, k))
+    if arch not in DGARM:
+        return
+    st, k = m.dg_stats, DGARM[arch][0]; held = set(np.unique(d["subject"][te]).tolist()); assert st["steps"] > 0, (arch, st)
+    if proto == "all_loso":
+        assert not (held & m.fit_subjects), f"held-out person(s) {held & m.fit_subjects} among the training people"
+    if k == "coral":
+        assert st["coral_pairs"] > 0 and st["coral_pen"] > 0, (arch, st)
+    if k == "dann":
+        assert st["adv_on"] > 0 and st["adv_loss"] > 0, (arch, st)
+    if k == "swad":
+        assert st["snaps"] >= 2 and st["snap_diff"] > 0 and st["avg_diff"] > 0, (arch, st)
+    print(f"dg ok {arch}: {st}, {len(m.fit_subjects)} training people, held-out {sorted(held)}", flush=True)
 
 
 ORDER = os.environ["FAMS"].split(",") if os.environ.get("FAMS") else ["fbraw", "fbl", "sinc", "fb"]  # FAMS (s271): a family list, task = family + len * seed

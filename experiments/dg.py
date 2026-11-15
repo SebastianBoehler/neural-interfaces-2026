@@ -156,3 +156,31 @@ def amp_mix(xb, donor, gen, p=0.5):
     Fx, Fd = torch.fft.rfft(xb, dim=-1), torch.fft.rfft(donor, dim=-1)
     amp = lam * Fx.abs() + (1 - lam) * Fd.abs(); y = torch.fft.irfft(amp * torch.exp(1j * Fx.angle()), n=T, dim=-1)
     return torch.where(sel[:, None, None], y.to(xb.dtype), xb), sel
+
+
+class Tap:
+    """s285: grabs the input of net.final_layer (the penultimate features) on every forward pass."""
+    def __init__(self, net):
+        self.feat = None; self.hook = net.final_layer.register_forward_pre_hook(lambda m, a: setattr(self, "feat", a[0]))
+
+    def remove(self):
+        self.hook.remove()
+
+
+def coral(feat, g):
+    """s285: Deep CORAL between people inside a batch: mean over pairs of people (>= 2 rows each) of the squared Frobenius
+    distance of their feature covariances / (4 d^2). Returns (penalty, number of pairs); (0, 0) when fewer than 2 people."""
+    f = feat.flatten(1); d = f.shape[1]; covs = []
+    for p in torch.unique(g):
+        r = f[g == p]
+        if len(r) >= 2:
+            r = r - r.mean(0); covs.append(r.T @ r / (len(r) - 1))
+    pairs = [(a, b) for i, a in enumerate(covs) for b in covs[i + 1:]]
+    if not pairs:
+        return f.sum() * 0, 0
+    return sum(((a - b) ** 2).sum() for a, b in pairs) / (4 * d * d * len(pairs)), len(pairs)
+
+
+def swad_average(snaps):
+    """s285: mean of state-dict snapshots (floating tensors; integer buffers take the last snapshot)."""
+    return {k: (torch.stack([s[k] for s in snaps]).mean(0) if snaps[0][k].is_floating_point() else snaps[-1][k]) for k in snaps[0]}

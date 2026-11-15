@@ -154,12 +154,17 @@ class SessionNet(AlignedNet):
         if self.am:  # s279: donors are rows of other people among the TRAINING rows of this fit (X is the fold's training set only)
             amg = torch.Generator().manual_seed(self.seed + 7919); sub = self._grp.cpu()
             self.am_stats = dict(mixed=0, batches=0, absdiff=0.0, bad_donor=0)
+        dgs = self.dg_stats = dict(steps=0, coral_pairs=0, coral_pen=0.0, adv_loss=0.0, adv_on=0, snaps=0, snap_diff=0.0, avg_diff=0.0)
+        if self.dann or self.coral:  # s285: person labels = self._grp, built from the fit's training rows only
+            assert int(self._grp.max()) + 1 == len(self.fit_subjects), "person labels are not exactly the training people"
+        tap = dg.Tap(self.net) if self.coral else None
+        adv = dg.Adversary(self.net, len(self.fit_subjects), 0.0, lr, self.dev) if self.dann else None; snaps = []
         from deep import param_groups
         groups = param_groups(self.net, lr, self.lld, head_only)
         opt = torch.optim.AdamW(groups, lr=lr, weight_decay=self.wd)
         nb = len(self._batches(rows, np.random.default_rng(0)))
         sched = torch.optim.lr_scheduler.OneCycleLR(opt, [g["lr"] for g in groups], total_steps=epochs * nb)
-        for _ in range(epochs):
+        for ep in range(epochs):
             for j in self._batches(rows, rng):
                 xb, yb = X[j].to(self.dev), y[j].to(self.dev)
                 if self.aug:
@@ -178,10 +183,27 @@ class SessionNet(AlignedNet):
                 if self.rot:
                     xb = dg.rotate(xb, gen, self.rot)
                 opt.zero_grad()
-                loss = loss_fn(self.net(xb)[:, :3], yb)
+                loss = loss_fn(self.net(xb)[:, :3], yb); dgs["steps"] += 1; jd = torch.from_numpy(j).to(self.dev)
+                if tap:  # s285 CORAL: weight * penalty between per-person feature covariances in this batch
+                    pen, npairs = dg.coral(tap.feat, self._grp[jd]); loss = loss + self.coral * pen; dgs["coral_pairs"] += npairs; dgs["coral_pen"] += float(pen)
+                if adv:  # s285 DANN: person head behind gradient reversal, lambda ramp 0 -> dann (DANN schedule over training progress)
+                    adv.lam = self.dann * (2 / (1 + np.exp(-10 * dgs["steps"] / (epochs * nb))) - 1); al = adv.loss(self._grp[jd]); loss = loss + al
+                    dgs["adv_loss"] += float(al); dgs["adv_on"] += adv.lam > 0
                 loss.backward()
                 opt.step()
+                if adv:
+                    adv.step()
                 sched.step()
+            if self.swad and ep >= epochs // 2:  # s285 SWAD: snapshots of the last half of the epochs
+                snaps.append({k: v.detach().clone() for k, v in self.net.state_dict().items()})
+        for h in (tap, adv):
+            if h:
+                h.remove()
+        if self.swad:
+            assert len(snaps) >= 2, "SWAD needs at least two snapshots"; dgs["snaps"] = len(snaps)
+            dgs["snap_diff"] = max(float((snaps[0][k] - snaps[-1][k]).abs().max()) for k in snaps[0] if snaps[0][k].is_floating_point())
+            avg = dg.swad_average(snaps); dgs["avg_diff"] = max(float((avg[k] - snaps[-1][k]).abs().max()) for k in avg if avg[k].is_floating_point())
+            self.net.load_state_dict(avg)
 
 
 ARCH = {"sh": "shallow", "nx": "eegnex", "fb": "fbcnet"}
@@ -200,6 +222,8 @@ def make(cfg, d, seed):
         net.__class__ = SessionNet
         net.group, net.causal, net.k_train = 32, False, 20.0
         return net
+    mdg = re.search(r"_(coral|dann|swad)$", cfg)  # s285: fb_sbn_rot05_coral / _dann / _swad (CORAL weight 1, DANN lambda 0.3, SWAD last 50 % of epochs; the arm is in the family name)
+    dgk = mdg.group(1) if mdg else None; cfg = cfg[:mdg.start()] if mdg else cfg
     mam = re.search(r"_am(\d*)$", cfg)  # s279: fb_sbn_rot05_am = p 0.5; _am25 / _am100 = p 0.25 / 1.0 (the p is in the family name, hence in the output file name)
     am = (int(mam.group(1)) / 100 if mam.group(1) else 0.5) if mam else 0.0
     cfg = cfg[:mam.start()] if mam else cfg
@@ -208,6 +232,8 @@ def make(cfg, d, seed):
     kw = CFGS[var]
     net = AlignedNet(d, arch=ARCH[arch], seed=seed) if kw is None else SessionNet(d, arch=ARCH[arch], seed=seed, **kw)
     net.rot, net.am = rot, am
+    if dgk:
+        setattr(net, dgk, {"coral": 1.0, "dann": 0.3, "swad": 1.0}[dgk])
     return net
 
 
