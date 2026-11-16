@@ -8,15 +8,15 @@ matrices, complex connectivity or pretrained FBCNet/Shallow weights. It is
 ROCKET-inspired, not a reproduction. Both models are stateless.
 
 The deterministic-feature and time-reversal unit test passed locally and on
-Galvani; isolated-mode imports passed. Real-source pilot 3115983 is queued in
+Galvani; isolated-mode imports passed. Real-source pilot 3115983 passed 0:0 in
 `/mnt/lustre/work/gehler/gfh527/ni26_s314_time_patterns_20261117/smoke`; it
-reads no held accuracy. Its source manifest SHA-256 is
+read no held accuracy. Its source-only fit and all eight stateless streams took
+155.9 seconds after setup. Its source manifest SHA-256 is
 `baa34aa59fc34c0722dcf0c65a02b6d1fc1b70e93e32190b5ac7712dde49af0a`.
 
-Production callback 3115987 depends on a passing pilot and independently checks
-fold/source/order proofs and current queue capacity. It submits 20 bundled
-fold/seed jobs at %2, then a complete-matrix assembler and whole-decoder scorer.
-The resulting actual job IDs will appear in `production/release.intent`. The
+Production callback 3115987 passed its independent fold/source/order proofs and
+queue-capacity check. It submitted 20 bundled fold/seed jobs as array 3116021
+at %2, followed by complete-matrix assembler and scorer 3116022. The
 assembler writes 32 canonical 2,655-row files named
 `ttt18<order>_tf314_base-all_loso-s<seed>.npz` and the analogous `tfd314`
 files, with seeds 0/1 and eight orders. These are not six-seed streams.
