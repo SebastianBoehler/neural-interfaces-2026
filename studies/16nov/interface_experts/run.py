@@ -50,7 +50,10 @@ def main(index, mode):
     root = Path(os.environ['EXPERT_ROOT']).resolve(strict=True)
     if not 0 <= index < 10 or mode not in ('smoke', 'full'): raise ValueError('invalid fold or mode')
     affinity = sorted(os.sched_getaffinity(0))
-    if os.environ.get('CUDA_VISIBLE_DEVICES') != '' or os.environ.get('SLURM_CPUS_PER_TASK') != '6' or len(affinity) != 6:
+    assigned = json.loads(os.environ['EXPERT_ASSIGNED_CPUS'])
+    selected = json.loads(os.environ['EXPERT_SELECTED_CPUS'])
+    if (os.environ.get('CUDA_VISIBLE_DEVICES') != '' or os.environ.get('SLURM_CPUS_PER_TASK') != '6' or
+            affinity != selected or len(affinity) != 6 or not set(affinity) <= set(assigned)):
         raise ValueError(f'CPU-only six-logical-CPU binding required, got {affinity}')
     torch.set_num_threads(6)
     held = f'P{index + 1:02d}'
@@ -160,7 +163,8 @@ def main(index, mode):
                     test_gate_min=float(test_gate.min()), test_gate_max=float(test_gate.max()),
                     prior_gate=prior_gate, shared=shared_stats, joint1=stats1, joint10=stats10,
                     original_max_error=maxerr, gate_changed_rows=active,
-                    execution_device='cpu', cpu_affinity=affinity, cpu_threads=torch.get_num_threads(),
+                    execution_device='cpu', cpu_affinity=affinity, assigned_affinity=assigned,
+                    cpu_threads=torch.get_num_threads(),
                     orders=list(ORDERS[:1] if mode == 'smoke' else ORDERS),
                     held_labels_opened=False, held_interface_opened=False, mode=mode,
                     seconds=time.monotonic()-started)

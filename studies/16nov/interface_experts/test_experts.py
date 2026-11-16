@@ -6,10 +6,15 @@ import numpy as np
 import torch
 import gate
 import head
+import cpu_bind
 from source_labels import read_selected, read_training_labels
 
 
 class ExpertTest(unittest.TestCase):
+    def test_cpu_binding_selects_six_assigned_logical_ids(self):
+        self.assertEqual(cpu_bind.select([11, 8, 9, 10, 13, 12, 14]), [8, 9, 10, 11, 12, 13])
+        with self.assertRaises(ValueError): cpu_bind.select([0, 1, 2, 3, 4])
+
     def test_nested_gate_excludes_each_held_person(self):
         rng = np.random.default_rng(3)
         people = np.repeat(np.arange(9), 12)

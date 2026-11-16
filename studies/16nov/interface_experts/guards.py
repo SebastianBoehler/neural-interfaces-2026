@@ -21,6 +21,7 @@ def trace_check(meta, source_people, held):
             if set(fit) != rest - {other}: raise ValueError('inner calibration fold leaked')
     if (meta['held_labels_opened'] is not False or meta['held_interface_opened'] is not False or
             meta['execution_device'] != 'cpu' or meta['cpu_threads'] != 6 or len(set(meta['cpu_affinity'])) != 6 or
+            not set(meta['cpu_affinity']) <= set(meta['assigned_affinity']) or
             meta['original_max_error'] > 1e-5 or meta['gate_changed_rows'] <= 0 or
             meta['test_gate_max'] - meta['test_gate_min'] <= 1e-8 or
             meta['oof_max'] - meta['oof_min'] <= 1e-8):

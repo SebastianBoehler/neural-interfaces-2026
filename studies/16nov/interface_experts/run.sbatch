@@ -19,9 +19,9 @@ export NATIVE_TRAIN_LIB=/mnt/lustre/work/gehler/gfh527/ni26_s301_native_trainref
 test "$(sha256sum expert.sha256 | cut -d' ' -f1)" = "$EXPERT_MANIFEST_SHA"
 sha256sum -c expert.sha256 >/dev/null
 if [[ ${1:-} == smoke ]]; then
-  srun --exclusive --ntasks=1 --cpus-per-task=6 --cpu-bind=verbose,cores /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B -I run.py 0 smoke
+  srun --exclusive --ntasks=1 --cpus-per-task=6 --cpu-bind=verbose,cores /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B -I cpu_bind.py 0 smoke
 else
   /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B -I ready.py
-  srun --exclusive --ntasks=1 --cpus-per-task=6 --cpu-bind=verbose,cores /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B -I run.py "${SLURM_ARRAY_TASK_ID:?}" full
+  srun --exclusive --ntasks=1 --cpus-per-task=6 --cpu-bind=verbose,cores /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B -I cpu_bind.py "${SLURM_ARRAY_TASK_ID:?}" full
 fi
 sha256sum -c expert.sha256 >/dev/null
