@@ -1,0 +1,9 @@
+runs/shuffle_perms.npz: OK
+B2_pool  J 80.0131 (reference 80.0131) new 80.18 seen 79.85
+B2_s345  J 79.8474 (reference 79.8474) new 80.10 seen 79.59
+B2_s012  J 80.1446 (reference 80.1446) new 80.31 seen 79.98
+B2_s0    J 79.1770 (reference 79.1770) new 79.57 seen 78.78
+B2_s1    J 79.7214 (reference 79.7214) new 80.52 seen 78.93
+B2_s2    J 80.2093 (reference 80.2093) new 80.55 seen 79.87
+OK
+EXIT 0
