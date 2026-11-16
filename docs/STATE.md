@@ -50,7 +50,10 @@ deadline and upload counts are historical snapshots; check the live competition 
   1.48 points against its static head (80% people/order interval −2.07 to −0.88); its static decoder was also weak.
   SPD correction also completed: official cell BA42.14→43.13%, full-bias versus frozen person/order effect+1.25
   points [.41,2.10]. Its whole decoder remains below the validated new-person incumbent76.22%. Neither result
-  establishes a package gain or closes the wider family. Factorization and full-system comparisons remain pending.
+  establishes a package gain or closes the wider family. Factorization completed: official off46.96%, matched47.48%,
+  split47.52%; split−matched person/order−.40 points [−1.08,+.27], no demonstrated factorization gain in this form.
+  Full-system comparisons remain pending. The user also authorized a fifth native training/inference lane, §293,
+  with reference validation before new architecture/learning-rule experiments; see the current-jobs link above.
 
 - **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage),
   12 Nov, 1,287.0 s (21.5 of 60 min). Previous best 0.8161546323 (1048575, `cand_v41_bio`).

@@ -12,7 +12,7 @@ bridge. Native code owns preprocessing, normalization, models, training,
 adaptation and session state. Python selects disjoint folds and pinned delivery
 orders, validates artifacts, and calls existing scoring functions.
 
-**Tech Stack:** C++17, installed LibTorch CPU/CUDA libraries, ctypes, existing
+**Tech Stack:** C++20 (required by installed Torch headers), installed LibTorch CPU/CUDA libraries, ctypes, existing
 NumPy experiment I/O and official-metric helpers.
 
 **Spec:** `evidence/next_wave_16nov/native_stack.md`, authorized by the user;
