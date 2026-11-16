@@ -1,7 +1,7 @@
 # Research block: 16 November, late evening
 
 Actual start: 21:51:07 UTC / 22:51:07 CET, 16 November.
-Actual end: 2026-11-16 22:06:18 UTC (UTC); elapsed at least 15 minutes.
+Actual end: 22:06:18 UTC / 23:06:18 CET; elapsed 15 minutes 11 seconds.
 Scope: reinterpret today's completed experiments, check recent primary publications,
 and choose distinct mechanisms rather than repeating one incumbent's weight sweep.
 This supplements the earlier 30-minute review; it does not replace its data audit.
@@ -20,8 +20,8 @@ This supplements the earlier 30-minute review; it does not replace its data audi
   221-feature alternatives did not isolate language, architecture or adaptation.
   Their negative results cannot close stronger forms of those families.
 
-Evidence: `neutral_302.md`, `repair_302_complete_results.txt`, `attribution_300.md`
-when present, and `native_core_s301.md`; read their exact guards and limits.
+Evidence: `neutral_302.md`, `repair_302_complete_results.txt`, `attribution_300.md`,
+and `native_core_s301.md`; read their exact guards and limits.
 
 ## Primary-source review and transfer limits
 

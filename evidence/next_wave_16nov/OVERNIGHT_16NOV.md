@@ -5,7 +5,7 @@ Target decision: 17 November evening, provisionally 18:00 CET. Top five is the o
 New compute is Galvani-only. Keep all user jobs within 32 running / 272 submitted, preserving 28 slots.
 Use `mlcloud-galvani`; access requires eduVPN/SSH authentication. Never touch unrelated `d11-*` jobs.
 
-## Evidence at 16 November, about 23:15 CET
+## Evidence at 16 November, about 23:25 CET
 
 - Latest official published board, updated 15:19 UTC: fifth displayed entry .839; fifth distinct team .837.
   Source: https://neural-interfaces26.github.io/leaderboard.html . No live full-board rank is verified tonight.
@@ -32,7 +32,7 @@ Use `mlcloud-galvani`; access requires eduVPN/SSH authentication. Never touch un
 - §302 repairs: evidence `repair_302_complete_results.txt`; neutral ENU control `neutral_302.md`.
   ENU/scorer3115011–12 complete: ENU−control+.0047pp; ET2−ENU−.0684[−.1815,+.0731].
   Recovery from negative E05 does not establish useful EEG information above this neutral control.
-- §303 compact-native adaptation repair: `lane5_repair_s303.md`; 80tasks3114754%2 →3114755.
+- §303 compact-native adaptation repair: `lane5_repair_s303.md`; 80tasks3114754 complete; scorer3114755 pending at23:25CET.
   Original2080 checkpoints on A100 require TF32off; originalA100 retains its recorded-route defaults.
   Every fold still needs legacy probability≤2e−5 and no non-tied label changes before publication.
 - §304 conditional CORAL: `coral304_assembly.md`; first80fits3114483%6; continuation3114855.
@@ -56,14 +56,14 @@ Use `mlcloud-galvani`; access requires eduVPN/SSH authentication. Never touch un
 2. Combine FBL2 with repairs/new members only through registered matched full-system tests,
    with singles and interaction controls. ENU separates useful EEG information from generic softening.
 3. §308 strong structured tanh/linear and random/kernel heads are registered; native bridge gate
-   3115167 queued, real-data pilot/production still being built. Group≤2; posterior-only integration
+   3115167 passed; CPUrealdata3115211/12 running/queued, production still being built. Group≤2; posterior-only integration
    has an explicit old-stage limitation. Keep full strong linear controls and source-only selection.
-4. §306 interface experts registered/building,≤2allocations. Rank audit3115158 and style
+4. §306 GPUv3DAG3115203–07 pending, CPUroute being built;≤2allocations. Rank audit3115158 and style
    3115162–63 passed: all14sessions have exactly one CAR null, no extra null at1e−4trace/41.
    This is descriptive only. Preserve trace power in future CAR40 controls; no target interpolation shown.
-5. §307 source-query meta-training registered, pilot3115164→guarded release3115173. Release
-   submits90double-held cross-fits%2, then10meta-fits%2 after guards/capacity. Full-chain scorer
-   is not yet implemented/queued. See meta_adaptation_design.md and source evidence.
+5. §307 real-dataCPUcrossfit/meta pilots3115208/3115210 passed. Array3115215 runs90crossfits%4
+   →verifier3115216→10CPUmeta-fits3115217%2. GPUcheck is independent. Target/full-chain DAG
+   is being completed, not yet queued. See meta_adaptation_design.md and source evidence.
 6. User grants codebase ownership: revise architectures, decisions, splits and stages as useful.
    Whole alternatives whole; chain is a comparator, not a search boundary. Research block
    22:51:07–23:06:18CET completed; research_4h_16nov.md records new9–13Nov papers and next
