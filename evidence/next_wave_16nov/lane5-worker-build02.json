@@ -1,0 +1,125 @@
+{
+  "cpu": [
+    {
+      "arm": 0,
+      "seconds": 0.3657867950387299,
+      "status": {
+        "delta": 0.000653004739433527,
+        "max_grad": 0.11603091657161713,
+        "prefix_count": 60,
+        "updates": 2,
+        "windows": 61
+      }
+    },
+    {
+      "arm": 1,
+      "seconds": 0.2678449978120625,
+      "status": {
+        "delta": 0.011015407741069794,
+        "max_grad": 1.997979760169983,
+        "prefix_count": 60,
+        "updates": 2,
+        "windows": 61
+      }
+    },
+    {
+      "arm": 2,
+      "seconds": 0.1412612497806549,
+      "status": {
+        "delta": 0.011600062251091003,
+        "max_grad": 2.2142155170440674,
+        "prefix_count": 60,
+        "updates": 2,
+        "windows": 61
+      }
+    },
+    {
+      "arm": 3,
+      "seconds": 0.3427838021889329,
+      "status": {
+        "delta": 0.012855417095124722,
+        "max_grad": 2.554647922515869,
+        "prefix_count": 60,
+        "updates": 2,
+        "windows": 61
+      }
+    }
+  ],
+  "cuda": [
+    {
+      "arm": 0,
+      "seconds": 1.6756632742471993,
+      "status": {
+        "delta": 0.000653004739433527,
+        "max_grad": 0.11603092402219772,
+        "prefix_count": 60,
+        "updates": 2,
+        "windows": 61
+      }
+    },
+    {
+      "arm": 1,
+      "seconds": 1.1990522127598524,
+      "status": {
+        "delta": 0.011015409603714943,
+        "max_grad": 1.997979760169983,
+        "prefix_count": 60,
+        "updates": 2,
+        "windows": 61
+      }
+    },
+    {
+      "arm": 2,
+      "seconds": 0.7700593047775328,
+      "status": {
+        "delta": 0.01160005759447813,
+        "max_grad": 2.21421480178833,
+        "prefix_count": 60,
+        "updates": 2,
+        "windows": 61
+      }
+    },
+    {
+      "arm": 3,
+      "seconds": 0.3476707502268255,
+      "status": {
+        "delta": 0.01285541895776987,
+        "max_grad": 2.554647445678711,
+        "prefix_count": 60,
+        "updates": 2,
+        "windows": 61
+      }
+    }
+  ],
+  "data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+  "fit_people": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "gpu": "NVIDIA A100-PCIE-40GB",
+  "held_accuracy_computed": false,
+  "held_labels_used": false,
+  "held_person": 1,
+  "library_sha256": "d0b64f698babf64f6bfd3d1789c862d66da30adbe6916f32b7d3579d15479e4e",
+  "loaded_numerical_libraries": [
+    "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33",
+    "/usr/local/lib/python3.12/site-packages/torch/lib/libc10.so",
+    "/usr/local/lib/python3.12/site-packages/torch/lib/libc10_cuda.so",
+    "/usr/local/lib/python3.12/site-packages/torch/lib/libtorch.so",
+    "/usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so",
+    "/usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so",
+    "/usr/local/lib/python3.12/site-packages/torch/lib/libtorch_global_deps.so",
+    "/usr/local/lib/python3.12/site-packages/torch/lib/libtorch_nvshmem.so",
+    "/usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so"
+  ],
+  "python": "3.12.15 (main, Oct 21 2026, 01:08:20) [GCC 14.2.0]",
+  "torch": "2.14.1+cu130",
+  "torch_file": "/usr/local/lib/python3.12/site-packages/torch/__init__.py"
+}

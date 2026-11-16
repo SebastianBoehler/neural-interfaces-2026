@@ -53,7 +53,9 @@ deadline and upload counts are historical snapshots; check the live competition 
   establishes a package gain or closes the wider family. Factorization completed: official off46.96%, matched47.48%,
   split47.52%; split−matched person/order−.40 points [−1.08,+.27], no demonstrated factorization gain in this form.
   Full-system comparisons remain pending. The user also authorized a fifth native training/inference lane, §293,
-  with reference validation before new architecture/learning-rule experiments; see the current-jobs link above.
+  with native training/inference, CPU/GPU reference and state checks, and worker-replica CPU/A100 checks now passed.
+  Its80-fit architecture/learning-rule array3113277 is running; complete-matrix collector3113278 is queued.
+  These implementation checks establish no new accuracy gain; see the current-jobs link above.
 
 - **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage),
   12 Nov, 1,287.0 s (21.5 of 60 min). Previous best 0.8161546323 (1048575, `cand_v41_bio`).
