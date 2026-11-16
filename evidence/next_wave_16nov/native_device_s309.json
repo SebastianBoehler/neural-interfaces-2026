@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "input_sha256": {
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/producer.sha256": "21c1af2e0784329da2f662319ecdac3f6757715cbcece604fa1db46d21b659bf",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/experiments/protocol.py": "390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/data/proteus_windows.npz": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/runs/s301_native_inputs/P02.npz": "596957e6e8b2ff9a0e3ee8a320561d2023e5ef9c71579ea9298f05ebe7d93ef6",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/runs/s301_native_inputs/P03.npz": "2bd6cd458454de9bb12ca9d56fbe7364885e7496129b581e4ac036959b0d5bef",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/runs/s301_native_inputs/P04.npz": "ffa8a3328f229c66953a7618bb97ca4d426346cdb96716d4b6ea279a63ae4d9a",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/runs/s301_native_inputs/P05.npz": "c4c29902950f1d5ed57f8d3aefd32f4e9a2bc49fa58fa15ce7d259ff8ddca338",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/runs/s301_native_inputs/P06.npz": "447f5d5ecc578a27a64960e131f1d7cb78c87371af38fa99e9adc70981e1f7f2",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/runs/s301_native_inputs/P07.npz": "695ffede8496694925776c5f386824eadd8e18a5956569759503e6e102e42e26",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/runs/s301_native_inputs/P08.npz": "d462a8d20633fd011e63314c22b449875c3ea3fce03db4c670c910447365d24f",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/runs/s301_native_inputs/P09.npz": "b61dfd537616dbc206a176b29237cc3af9ad7cf9d80139206d2af12f68d95eda",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/runs/s301_native_inputs/P10.npz": "d4195cfc92c0032ed6e023f170aad6bb459bb565cbba11f3484ffd106836014a",
+    "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_reference_all_20261116/runs/s301_reference_all/P01.npz": "dfc499f87b706f13094d0245e93dc03effc695dd8dfa3c259d669989e2dad983"
+  },
+  "library_sha256": "027df0434ed7096b6110d0c500bbd83c796a473d21426f3953dbc245b11b394e",
+  "source_shape": [
+    2465,
+    44239
+  ],
+  "records": [
+    {
+      "device": 0,
+      "wall_s": 238.39098142506555,
+      "loss": 0.0015985030536499318,
+      "max_gradient": 3.3828762218673487e-07,
+      "objective_evaluations": 384,
+      "cuda_peak_allocated_bytes": 0
+    },
+    {
+      "device": 1,
+      "wall_s": 1.2876592497341335,
+      "loss": 0.0015985031578579488,
+      "max_gradient": 3.535390275921014e-07,
+      "objective_evaluations": 182,
+      "cuda_peak_allocated_bytes": 924008448
+    },
+    {
+      "device": 1,
+      "wall_s": 1.018971429206431,
+      "loss": 0.0015985031578579488,
+      "max_gradient": 3.535390275921014e-07,
+      "objective_evaluations": 182,
+      "cuda_peak_allocated_bytes": 924008448
+    },
+    {
+      "device": 0,
+      "wall_s": 238.4826743057929,
+      "loss": 0.0015985030536499318,
+      "max_gradient": 3.3828762218673487e-07,
+      "objective_evaluations": 384,
+      "cuda_peak_allocated_bytes": 17039360
+    },
+    {
+      "device": 0,
+      "wall_s": 238.59176038578153,
+      "loss": 0.0015985030536499318,
+      "max_gradient": 3.3828762218673487e-07,
+      "objective_evaluations": 384,
+      "cuda_peak_allocated_bytes": 17039360
+    },
+    {
+      "device": 1,
+      "wall_s": 1.0622086306102574,
+      "loss": 0.0015985031578579488,
+      "max_gradient": 3.535390275921014e-07,
+      "objective_evaluations": 182,
+      "cuda_peak_allocated_bytes": 924008448
+    }
+  ],
+  "cuda_device": "NVIDIA A100-PCIE-40GB",
+  "torch": "2.14.1+cu126",
+  "cpu_affinity": [
+    19,
+    23,
+    51,
+    55
+  ],
+  "process_peak_rss_kib": 4081392,
+  "held_accuracy_computed": false,
+  "scope": "source-only full solve, includes copies, not first target iterate"
+}
