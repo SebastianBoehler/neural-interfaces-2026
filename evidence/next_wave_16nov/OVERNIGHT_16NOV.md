@@ -6,7 +6,7 @@ New heavy compute: Galvani only; SSH mlcloud-galvani requires eduVPN and authent
 Keep all user jobs within 32 running / 272 submitted, preserving 28 slots. Do not touch unrelated jobs.
 Read STATE → LEDGER → OFFICIAL_CONTRACT. Preserve source snapshots. No upload is authorized.
 
-## Evidence at 17 November, about 00:12 CET
+## Evidence at 17 November, about 00:22 CET
 
 - Recorded uploaded v5.1b: .8197668759; prepared v6.6 cap250 unchanged. Refresh the board before citing rank.
   Earlier .824–.829 is an unvalidated scenario. No new package or top-five result is established.
@@ -48,12 +48,12 @@ Read STATE → LEDGER → OFFICIAL_CONTRACT. Preserve source snapshots. No uploa
 - User prioritizes genuine breadth. representation_portfolio_17nov.md records allocation and status;
   fresh_search_coverage_16nov.md records the bounded audit. Shared geometry is a gap, not a proven cause.
 - §312 uses raw public rest/non-command intervals to pretrain existing FBCNet/Shallow encoders, preserving
-  mean/power. CPU3115785 passed source gradient checks; CUDA3115787 queued. Full-record export parity,
-  strong supervised reproduction and production dispatch are being implemented. No task score yet.
-- §313 full-channel spectral/phase-lag controls are being implemented after registration. Compare strong
-  geometry hybrids and a spectral-only whole decoder. The existing Hilbert member already retains phase.
-- §314 independent local temporal-pattern decoder is registered. Matched time-local mean/power baseline,
-  active temporal features, source-only controls and dispatch are being implemented. No task score yet.
+  mean/power. CPU3115785 and full-record official-window parity3115791 passed; raw-export3115801 active.
+  Strong supervised guard and production dispatch are being prepared. Read raw312.md for current IDs.
+- §313 smoke3115857 and label-free preparation3115858 passed on all2655 windows. Compare strong geometry
+  hybrids and a spectral-only decoder; full producer DAG in preparation. Existing Hilbert retains phase.
+- §314 source-only pilot3115983 running →callback3115987 →20 bundled baseline/temporal fits at%2,
+  then complete assembly/scoring. TF314 and TFD314 have two seeds, not six. No task score yet.
 - Owners: fresh_solution_audit312; routing_audit313; thread_context314. Root owns portfolio/STATE and
   existing full-chain integration for312/314. Preserve their source ownership and queued snapshots.
 - Prioritize312–314 before another incumbent dose grid. Existing304–310 supplies refinement work.

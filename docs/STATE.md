@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Overnight update: 17 Nov 2026, about 00:12 CET
+### Overnight update: 17 Nov 2026, about 00:22 CET
 
 The user authorizes changes throughout this codebase, including earlier architectures, split choices,
 and stage boundaries. The official contract and honest source/test separation remain fixed. Search whole
@@ -33,8 +33,10 @@ alternative systems as well as incumbent improvements; see [overnight handoff](.
   and four-hour,≥15-minute research heartbeats are active through the17November evening checkpoint.
 - User prioritizes materially different representations in the next wave. [Representation portfolio](../evidence/next_wave_16nov/representation_portfolio_17nov.md)
   separates existing strong-core refinements from §312 raw-recording pretraining, §313 full-channel
-  spectral structure and §314 temporal dynamics. §312 CPU source-learning pilot3115785 passed;
-  CUDA3115787 is queued. §313/314 are being audited, not complete experiments or measured gains.
+  spectral structure and §314 temporal dynamics. §312 source-learning pilot3115785 and official-window
+  preprocessing parity3115791 passed; its full training DAG is being prepared. §313 real-window
+  smoke3115857 and label-free feature preparation3115858 passed. §314 source-only pilot3115983
+  is running, with callback3115987 to release20 bundled fits after guards. No new accuracy is established.
   The system already has a complex-Hilbert member; phase is not wholly absent. Raw-pretraining
   backbones are existing models with changed supervision, not new architectures. Global scientific-discovery
   skill is installed and applied; personal master commit dbaab0e contains its public source.

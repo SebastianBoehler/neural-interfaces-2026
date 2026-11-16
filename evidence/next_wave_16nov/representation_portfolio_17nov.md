@@ -17,12 +17,12 @@ posterior-only integration has narrower meaning. No top-five or sealed-transfer 
 
 ## Actual coverage and next work
 
-| Track | Assumption challenged | Concrete difference and control | Status at 00:16 CET |
+| Track | Assumption challenged | Concrete difference and control | Status on 17 November, shortly after midnight CET |
 |---|---|---|---|
 | Existing §305/307/308/310 | Readout, convergence or causal update on strong geometry | Most reuse the 44,239-feature covariance/tangent vector; valuable refinements, not independent representations | Guarded matrices in flight; no new complete score read here |
 | §312: raw-recording supervision | Command windows and labels provide all useful training information | Existing FBCNet/Shallow encoders learn from source-only rest/non-command crops; matched scratch, extra supervised compute, frozen and fine-tuned controls retain mean/power | Source-learning pilot3115785 and full-record official-window parity3115791 passed; raw-export array3115801 active, CUDA3115787 queued; training DAG being prepared |
-| §313: full-channel spectral structure | Current covariance summaries retain the useful connectivity structure | Independent spectral-only decoder and strong-core augmentation; matched power/real/imaginary controls and the actual existing complex-Hilbert core | Registered; extractor passes three mechanism tests; real-source pilot being prepared |
-| §314: local temporal dynamics | Time-averaged second-order structure captures relevant within-window dynamics | Independent time-order-sensitive decoder; matched temporal-order and power controls, compared with prior raw and compact temporal recipes | Registered; temporal feature bank and real-source pilot being implemented |
+| §313: full-channel spectral structure | Current covariance summaries retain the useful connectivity structure | Independent spectral-only decoder and strong-core augmentation; matched power/real/imaginary controls and the actual existing complex-Hilbert core | Real-window smoke3115857 and feature preparation3115858 passed; all2,655 windows cached without accuracy reads; producer DAG in preparation |
+| §314: local temporal dynamics | Time-averaged second-order structure captures relevant within-window dynamics | Independent time-order-sensitive decoder; matched temporal-order and power controls, compared with prior raw and compact temporal recipes | Source-only pilot3115983 running; callback3115987 queues20 bundled fits and complete scoring after guard/capacity checks |
 
 §312 changes supervision and training data; its existing backbones are not newly invented architectures.
 §313 must not claim that phase was previously absent: the system already includes a seven-band complex
