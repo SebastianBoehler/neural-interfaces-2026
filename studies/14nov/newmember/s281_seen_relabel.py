@@ -83,9 +83,11 @@ def package_stages():
 
 
 def compare_package_stages(b, features, pc, em_out, out, prefix, pos, sessions, recognised, grid):
-    stages, config = package_stages(); count = 0; max_out = max_prefix = 0.0
+    stages, config = package_stages(); count = expected = 0; max_out = max_prefix = 0.0
     for session in np.unique(sessions):
         rows = np.flatnonzero(sessions == session); rows = rows[np.argsort(pos[rows])]
+        assert np.array_equal(pos[rows], np.arange(len(rows))) and np.all(recognised[rows][1:] >= recognised[rows][:-1])
+        expected += sum(not recognised[rows[t]] for t in range(20, min(len(rows), CAP + 1), 10))
         em, ts = stages.SessionEM(config), stages.TSEM(config)
         for t, row in enumerate(rows):
             if recognised[row]:
@@ -96,9 +98,10 @@ def compare_package_stages(b, features, pc, em_out, out, prefix, pos, sessions, 
             if t in grid and t <= CAP:
                 k = int((t - 20) // 10); replay = ts.reapply(t, em.reapply(t))
                 max_prefix = max(max_prefix, float(np.max(np.abs(replay - prefix[rows[:t], k])))); count += 1
-    assert count > 0, "no pre-recognition refit points were checked"
+    assert count == expected, f"pre-recognition refit count {count} != expected {expected}"
     assert max_out < 1e-8 and max_prefix < 1e-8, f"package/study reapply mismatch: {max_out}, {max_prefix}"
-    return dict(refits=count, max_output_difference=max_out, max_prefix_difference=max_prefix)
+    return dict(refits=count, prefix_check="checked" if count else "not_applicable_no_refits",
+                max_output_difference=max_out, max_prefix_difference=max_prefix if count else None)
 
 
 def check_causality(S, chain, scope, p, base, sessions, pos, original_out, original_prefix):

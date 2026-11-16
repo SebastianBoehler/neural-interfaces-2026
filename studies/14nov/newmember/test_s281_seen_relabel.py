@@ -41,6 +41,23 @@ class SeenRelabelTest(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, "unlatched"):
             self.mod.validate_prefix(self.prefix, self.positions, self.sessions, self.grid, self.recognised)
 
+    def test_zero_refit_session_reports_not_applicable(self):
+        n = 30; p = np.tile([.2, .3, .5], (n, 1)); pos = np.arange(n); sessions = np.zeros(n, int)
+        rec = pos >= 20; grid = np.array([20]); prefix = np.full((n, 1, 3), np.nan)
+        self.mod.validate_prefix(prefix, pos, sessions, grid, rec)
+        report = self.mod.compare_package_stages(p, np.zeros((n, 48)), np.zeros((n, 128)), p, p,
+                                                  prefix, pos, sessions, rec, grid)
+        self.assertEqual(report['refits'], 0)
+        self.assertEqual(report['prefix_check'], 'not_applicable_no_refits')
+        self.assertIsNone(report['max_prefix_difference'])
+
+    def test_missing_scheduled_refit_grid_is_rejected(self):
+        n = 30; p = np.tile([.2, .3, .5], (n, 1)); pos = np.arange(n); sessions = np.zeros(n, int)
+        rec = np.zeros(n, bool); grid = np.array([], int); prefix = np.full((n, 0, 3), np.nan)
+        with self.assertRaisesRegex(AssertionError, 'refit count'):
+            self.mod.compare_package_stages(p, np.zeros((n, 48)), np.zeros((n, 128)), p, p,
+                                            prefix, pos, sessions, rec, grid)
+
     def test_cap_250_includes_refit_at_250_but_not_260(self):
         n = 261; pos = np.arange(n); sessions = np.zeros(n, int); grid = np.arange(20, 261, 10)
         prefix = np.full((n, len(grid), 3), np.nan); recognised = np.zeros(n, bool)
