@@ -1,0 +1,9 @@
+folds per arm {'P1a': 10, 'P1b': 10, 'P1c': 10, 'P2a': 10, 'P2b': 10, 'P2c': 10, 'P3a': 10, 'P3b': 10}
+flat P1c mean 69.29 (reference 69.29 when n=10)
+P1a n=10 mean 52.46 delta -16.83 up 0/10  P04 -12.60 P10 -9.03
+P1b n=10 mean 59.76 delta -9.53 up 0/10  P04 -9.39 P10 -10.32
+P2a n=10 mean 64.06 delta -5.23 up 0/10  P04 -10.31 P10 -4.38
+P2b n=10 mean 63.88 delta -5.41 up 1/10  P04 -4.48 P10 -1.33
+P2c n=10 mean 59.29 delta -10.00 up 0/10  P04 -7.51 P10 -1.14
+P3a n=10 mean 67.17 delta -2.12 up 1/10  P04 -1.79 P10 -3.60
+P3b n=10 mean 62.17 delta -7.12 up 0/10  P04 -6.64 P10 -0.25

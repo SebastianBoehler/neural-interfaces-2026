@@ -1,0 +1,7 @@
+P1a: -16.83 [-20.56, -13.35] people bootstrap 80%, seed 0, 10000 resamples; P04 -12.60, P10 -9.03
+P1b: -9.53 [-10.93, -8.11] people bootstrap 80%, seed 0, 10000 resamples; P04 -9.39, P10 -10.32
+P2a: -5.23 [-6.44, -4.08] people bootstrap 80%, seed 0, 10000 resamples; P04 -10.31, P10 -4.38
+P2b: -5.41 [-6.84, -4.01] people bootstrap 80%, seed 0, 10000 resamples; P04 -4.48, P10 -1.33
+P2c: -10.00 [-12.29, -7.75] people bootstrap 80%, seed 0, 10000 resamples; P04 -7.51, P10 -1.14
+P3a: -2.12 [-2.99, -1.25] people bootstrap 80%, seed 0, 10000 resamples; P04 -1.79, P10 -3.60
+P3b: -7.12 [-8.97, -5.34] people bootstrap 80%, seed 0, 10000 resamples; P04 -6.64, P10 -0.25
