@@ -11,7 +11,7 @@ mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
 
 class DevAdapterTest(unittest.TestCase):
     def test_unverified_order_base_and_session_fail_before_data_access(self):
-        for order, base, session in [('full0', 'B2_s0', 'x'), ('within0', 'B2_s1', 'x'), ('within0', 'B2_s0', 'x')]:
+        for order, base, session in [('full0', 'B2_s0', 'x'), ('within0', 'B2_s2', 'x'), ('within0', 'B2_s0', 'x')]:
             with self.assertRaises(AssertionError): mod.prepare(order, base, session, {})
 
     def test_verified_session_cannot_be_created_directly(self):
