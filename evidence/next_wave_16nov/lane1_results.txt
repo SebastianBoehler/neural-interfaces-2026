@@ -1,0 +1,40 @@
+studies/14nov/newmember/run_s_v66.py: OK
+studies/14nov/newmember/run_s.py: OK
+studies/14nov/newmember/s281_cp.py: OK
+studies/14nov/newmember/s281_guard.py: OK
+studies/14nov/newmember/s281_provenance.py: OK
+studies/14nov/newmember/score_s_v66p.py: OK
+studies/13nov/shufcombo.py: OK
+studies/16nov/lane1/chain_control.sbatch: OK
+studies/16nov/lane1/replay.sbatch: OK
+runs/shuffle_perms.npz: OK
+runs/sealed/final_zips/v66_cp1_cap250.zip: OK
+studies/16nov/lane1/stage_candidates.py: OK
+studies/16nov/lane1/chain_stage.sbatch: OK
+studies/16nov/lane1/chain_treatment.sbatch: OK
+studies/16nov/lane1/control_cp.sbatch: OK
+studies/16nov/lane1/stage_partial.py: OK
+studies/16nov/lane1/chain_partial.sbatch: OK
+studies/16nov/lane1/post_smoke.py: OK
+studies/16nov/lane1/lock_streams.py: OK
+studies/16nov/lane1/post_smoke.sbatch: OK
+studies/16nov/lane1/chain_score.sbatch: OK
+§281 new-person cell-balanced accuracy; six bases, scheme-equal, 80% people/order bootstrap
+Routing uses §201 fold-specific emulation; packaged gate and routed returning-person tail are not validated.
+P04/P10 are held-out new people, not returning-session scores.
+control cell-equal: {'mean': 76.21767294925993, 'interval': [69.59571807614846, 83.5901502764241]}
+control: 79.635 [75.29892119978706, 83.76666914557221] P04 52.472 P10 82.878
+E - control cell-equal: {'mean': -0.40494356473483656, 'interval': [-0.7046698305572316, 0.05168200649899223]}
+E - control: -0.097 [-0.34877510305051257, 0.147948039044872] up 4/10 P04 -0.991 P10 -1.357 schemes {'within': -0.251135857233969, 'full': -0.2706293707642839, 'runs': 0.22941328871597372}
+D - control cell-equal: {'mean': -0.5453704006630463, 'interval': [-0.8778715699084892, -0.05059084317794493]}
+D - control: -0.208 [-0.48481587754378735, 0.059211867690401945] up 4/10 P04 -1.123 P10 -1.655 schemes {'within': -0.3787089116998537, 'full': -0.31972060095100013, 'runs': 0.07460695740105336}
+C3A - control cell-equal: {'mean': -0.14592796490892748, 'interval': [-0.3794414341986663, 0.11234677869958443]}
+C3A - control: -0.043 [-0.20440944504724182, 0.11638336041246139] up 4/10 P04 +0.129 P10 -0.936 schemes {'within': -0.06723879911366097, 'full': -0.040460850481580476, 'runs': -0.02076292359835428}
+C3S - control cell-equal: {'mean': -0.15472955657616388, 'interval': [-0.33590775897104164, 0.04250936210807848]}
+C3S - control: -0.106 [-0.27747459243597355, 0.06317717130831456] up 6/10 P04 +0.089 P10 -0.643 schemes {'within': -0.20950399063088093, 'full': 0.1053330681137485, 'runs': -0.21350956815078917}
+C10A - control cell-equal: {'mean': -0.10153421801351463, 'interval': [-0.33499460917107166, 0.1628197928805379]}
+C10A - control: -0.002 [-0.17443262395387923, 0.17340856307178054] up 4/10 P04 +0.177 P10 -0.875 schemes {'within': -0.0212317500873608, 'full': 0.0015693950096860477, 'runs': 0.01240058448708119}
+C10S - control cell-equal: {'mean': -0.0978147945491171, 'interval': [-0.2978441261314527, 0.11206841267590903]}
+C10S - control: -0.060 [-0.2305738668319004, 0.10676328301914804] up 6/10 P04 +0.249 P10 -0.633 schemes {'within': -0.17956862694249692, 'full': 0.1032121192109745, 'runs': -0.10457169416607037}
+D - E cell-equal: {'mean': -0.14042683592820987, 'interval': [-0.2020305747618342, -0.0748948879313776]}
+D - E: -0.110 [-0.16848904605907153, -0.056915482317408776] up 1/10 P04 -0.132 P10 -0.298 schemes {'within': -0.1275730544658847, 'full': -0.04909123018671622, 'runs': -0.15480633131492033}

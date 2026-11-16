@@ -52,10 +52,15 @@ deadline and upload counts are historical snapshots; check the live competition 
   points [.41,2.10]. Its whole decoder remains below the validated new-person incumbent76.22%. Neither result
   establishes a package gain or closes the wider family. Factorization completed: official off46.96%, matched47.48%,
   split47.52%; split−matched person/order−.40 points [−1.08,+.27], no demonstrated factorization gain in this form.
-  Full-system comparisons remain pending. The user also authorized a fifth native training/inference lane, §293,
-  with native training/inference, CPU/GPU reference and state checks, and worker-replica CPU/A100 checks now passed.
-  Its80-fit architecture/learning-rule array3113277 is running; complete-matrix collector3113278 is queued.
-  These implementation checks establish no new accuracy gain; see the current-jobs link above.
+  Full-system§292A also completed: E−control−.405 and D−control−.545 official equal-cell points;
+  D−E−.140[−.202,−.075]. CORAL add/swap effects are−.098 to−.155 with intervals crossing zero.
+  The native§293 stack passed CPU/GPU and worker-replica checks and all80fits; its best complete model,
+  connectivity-static48.90%, remains below the incumbent76.22%. Entropy adaptation and gain consistency
+  hurt in these compact forms. Native feature dimensions/session preprocessing differ substantially from
+  the strong core; this whole-model comparison does not isolate the cause. New parallel follow-ups are
+  registered§294(joint mix/weights),§295(strong-system geometric posterior correction), and§296(confidence
+  gates); their smoke/producer/treatment workflows are recorded in the current-jobs evidence. No new
+  current-system accuracy gain or package candidate is established by these results.
 
 - **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage),
   12 Nov, 1,287.0 s (21.5 of 60 min). Previous best 0.8161546323 (1048575, `cand_v41_bio`).
