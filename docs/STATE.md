@@ -44,6 +44,13 @@ deadline and upload counts are historical snapshots; check the live competition 
   and training through causal adaptation; none has a measured new full-system gain. The review records a §98
   transform confound without claiming it caused the original result. These are proposals for user review; no new
   implementation or experiment was started during the block. New compute remains Galvani-only.
+- **Parallel wave §292, 16 Nov:** The user subsequently authorized four wider lanes. [Current jobs and evidence](../evidence/next_wave_16nov/README.md)
+  cover full-system EEGNet/distillation/CORAL comparisons, a population-anchored adaptive MLP, CBraMod task/person
+  factorization, and learned SPD correction. New production jobs are on Galvani. The MLP form completed and lost
+  1.48 points against its static head (80% people/order interval −2.07 to −0.88); its static decoder was also weak.
+  SPD correction also completed: official cell BA42.14→43.13%, full-bias versus frozen person/order effect+1.25
+  points [.41,2.10]. Its whole decoder remains below the validated new-person incumbent76.22%. Neither result
+  establishes a package gain or closes the wider family. Factorization and full-system comparisons remain pending.
 
 - **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage),
   12 Nov, 1,287.0 s (21.5 of 60 min). Previous best 0.8161546323 (1048575, `cand_v41_bio`).
