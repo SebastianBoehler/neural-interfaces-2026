@@ -1,0 +1,44 @@
+studies/14nov/newmember/run_s_v66.py: OK
+studies/14nov/newmember/run_s.py: OK
+studies/14nov/newmember/s281_cp.py: OK
+studies/14nov/newmember/s281_guard.py: OK
+studies/14nov/newmember/s281_provenance.py: OK
+studies/14nov/newmember/score_s_v66p.py: OK
+studies/13nov/shufcombo.py: OK
+studies/16nov/lane1/chain_control.sbatch: OK
+studies/16nov/lane1/replay.sbatch: OK
+runs/shuffle_perms.npz: OK
+runs/sealed/final_zips/v66_cp1_cap250.zip: OK
+studies/16nov/lane1/stage_candidates.py: OK
+studies/16nov/lane1/chain_stage.sbatch: OK
+studies/16nov/lane1/chain_treatment.sbatch: OK
+studies/16nov/lane1/control_cp.sbatch: OK
+studies/16nov/followups/system/recipes.py: OK
+studies/16nov/followups/system/run.py: OK
+studies/16nov/followups/system/cp.py: OK
+studies/16nov/followups/system/task.py: OK
+studies/16nov/followups/system/job.sbatch: OK
+studies/16nov/followups/system/scheduler.py: OK
+studies/16nov/followups/repair/run.py: OK
+studies/16nov/followups/repair/transform.py: OK
+studies/16nov/followups/repair/task.py: OK
+studies/16nov/followups/repair/cp.py: OK
+studies/16nov/followups/repair/job.sbatch: OK
+studies/16nov/followups/repair/cp_v3.py: OK
+studies/16nov/followups/repair/task_v3.py: OK
+studies/16nov/followups/repair/job_v3.sbatch: OK
+studies/16nov/followups/repair/score.py: OK
+studies/16nov/followups/repair/score.sbatch: OK
+studies/16nov/followups/repair/smoke_check.py: OK
+studies/16nov/followups/system/rolling_audit.py: OK
+runs/lane1_inputs/repair-registration.md: OK
+§302 exploratory full-system repair; repeated dev selection; no package claim.
+audit /mnt/lustre/work/gehler/gfh527/ni26_rolling_20261116/reads.jsonl entry_sha256 7b31c4d3b3724d7abb2eb18fb47481b99b6368387cb618ae1ba04fb62df103ba already_read_blocks ['294:E05CS', '294:E1CS', '294:E2CS', '294:FBL15', '294:EFBL', '294:E05', '294:D05CS', '294:D05', '294:interaction:E05CS', '294:interaction:EFBL', '296:EG06', '296:EG08', '296:DG06', '296:DG08', '299:FBL05', '299:FBL2', '299:FBL3', '299:paired_doses', '300:saved_stage_attribution', '302:ET05', '302:ET2']
+ET05 - control {'mean': -0.07560868028977238, 'interval': [-0.25502334672144383, 0.10375561328389668], 'people': {'P01': 0.32995445041816157, 'P02': 0.5175042313819181, 'P03': 0.010656237554761342, 'P04': -0.7611820489844655, 'P05': 0.3231873506571006, 'P06': -0.16248817702109855, 'P07': -0.02221475507765902, 'P08': -0.1388577757865311, 'P09': -0.007233796296295243, 'P10': -0.8454125197436161}, 'people_up': 4, 'schemes': {'within': -0.13553915275684983, 'full': -0.20541352870608343, 'runs': 0.1141266405936161}} official_equal_cell {'mean': -0.28351971002527765, 'interval': [-0.4863321505844347, 0.020004979169244052]}
+ET05 - E05 {'mean': -0.03511123622587135, 'interval': [-0.120970587283236, 0.06116303685942224], 'people': {'P01': 0.26928390083632553, 'P02': 0.22533664376741194, 'P03': 0.016381048387094903, 'P04': -0.3010451928182641, 'P05': -0.02986857825567905, 'P06': -0.018807870370365503, 'P07': -0.011822978892872982, 'P08': -0.14514262246116041, 'P09': -0.06435584291187386, 'P10': -0.2910708695393301}, 'people_up': 3, 'schemes': {'within': -0.09682599267151186, 'full': -0.044651203856895805, 'runs': 0.036143487850793576}} official_equal_cell {'mean': -0.10966746335527873, 'interval': [-0.189910422090617, 0.008463312063129183]}
+ET2 - control {'mean': 0.020688638925269547, 'interval': [-0.06634067429087138, 0.1095392594495754], 'people': {'P01': 0.05250336021505101, 'P02': 0.3064018319394795, 'P03': -0.01227411887693819, 'P04': -0.24124062458515697, 'P05': 0.16707735961767747, 'P06': -0.08209192054957863, 'P07': 0.17888478195937907, 'P08': -0.03565561529271122, 'P09': 0.1815932311621952, 'P10': -0.3083118963367018}, 'people_up': 5, 'schemes': {'within': -0.01659500303128727, 'full': -0.03902708281330547, 'runs': 0.11768800262040138}} official_equal_cell {'mean': -0.06372990375650159, 'interval': [-0.16868422956592719, 0.07565835324571968]}
+ET2 - E05 {'mean': 0.06118608298917057, 'interval': [-0.011790465700917435, 0.13103888687190354], 'people': {'P01': -0.00816718936678503, 'P02': 0.01423424432497337, 'P03': -0.006549308044604629, 'P04': 0.2188962315810444, 'P05': -0.18597856929510215, 'P06': 0.061588386101154434, 'P07': 0.1892765581441651, 'P08': -0.041940461967340546, 'P09': 0.12447118454661658, 'P10': 0.2460297538675841}, 'people_up': 6, 'schemes': {'within': 0.02211815705405069, 'full': 0.12173524203588215, 'runs': 0.03970484987757885}} official_equal_cell {'mean': 0.11012234291349733, 'interval': [0.021501129434162887, 0.17998348735814448]}
+EPR25 - control {'mean': -0.03243977804647767, 'interval': [-0.1618732207230249, 0.10048019854880275], 'people': {'P01': 0.06790434587813128, 'P02': 0.28493379131820856, 'P03': -0.02019240342492405, 'P04': -0.5360009707287888, 'P05': 0.4911981033452773, 'P06': -0.12197891776184615, 'P07': -0.010391776184786039, 'P08': 0.013036389884509466, 'P09': 0.07158963920817148, 'P10': -0.5644959819987297}, 'people_up': 5, 'schemes': {'within': -0.038892387242150585, 'full': -0.13787819359811843, 'runs': 0.079451246700836}} official_equal_cell {'mean': -0.18038512042284385, 'interval': [-0.3295444089343477, 0.038972009151115275]}
+EPR25 - E05 {'mean': 0.008057666017423356, 'interval': [-0.015046762992830729, 0.032971658770039214], 'people': {'P01': 0.007233796296295243, 'P02': -0.007233796296297612, 'P03': -0.014467592592590487, 'P04': -0.07586411456258742, 'P05': 0.13814217443249768, 'P06': 0.021701388888886914, 'P07': 0.0, 'P08': 0.00675154320988014, 'P09': 0.014467592592592856, 'P10': -0.010154331794443769}, 'people_up': 5, 'schemes': {'within': -0.00017922715681262247, 'full': 0.022884131251069206, 'runs': 0.0014680939580134834}} official_equal_cell {'mean': -0.006532873752844914, 'interval': [-0.0325495790880926, 0.022040477257211095]}
+EPR50 - control {'mean': -0.033322526751845896, 'interval': [-0.17281167748172838, 0.10803190196149492], 'people': {'P01': 0.11877426821983288, 'P02': 0.2921675876145062, 'P03': 0.009209478295503004, 'P04': -0.5415028043276221, 'P05': 0.5128994922341642, 'P06': -0.1289793657905219, 'P07': -0.017158875945837575, 'P08': -0.0019134557945020465, 'P09': 0.04115780651340728, 'P10': -0.6178793985373888}, 'people_up': 5, 'schemes': {'within': -0.031082998552386342, 'full': -0.14757732234325935, 'runs': 0.07869274064010803}} official_equal_cell {'mean': -0.1894278338034629, 'interval': [-0.3479053146498517, 0.04441975423081267]}
+EPR50 - E05 {'mean': 0.007174917312055128, 'interval': [-0.02054248917652283, 0.036553411313750846], 'people': {'P01': 0.05810371863799683, 'P02': 0.0, 'P03': 0.014934289127836564, 'P04': -0.08136594816142069, 'P05': 0.1598435633213846, 'P06': 0.014700940860211157, 'P07': -0.0067670997610515355, 'P08': -0.008198302469131372, 'P09': -0.015964240102171345, 'P10': -0.06353774833310293}, 'people_up': 4, 'schemes': {'within': 0.0076301615329516185, 'full': 0.013185002505928268, 'runs': 0.0007095878972855019}} official_equal_cell {'mean': -0.015575587133463997, 'interval': [-0.05087654842624624, 0.022763456861240434]}
