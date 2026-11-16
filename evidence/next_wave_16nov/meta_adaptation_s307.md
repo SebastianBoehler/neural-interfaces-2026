@@ -54,3 +54,17 @@ follows it; CPU meta array 3115217 runs %2 after verification and CPU meta
 gate 3115213. All execute source-only work; no target result has been scored.
 The separately queued GPU v2 pilot 3115209 is an independent check, not a gate
 or automatic fallback. Target-stream and full-chain integration are still open.
+
+The corrected §305 assembler 3115452 passed 0:0 in the independent
+`ni26_s305_assembler_recover_v1_20261116` workspace. The obsolete §307 callback
+3115428 was canceled while still pending after its old 3114946 dependency failed.
+Replacement target-stage callback 3115483 depends on the complete CPU meta array
+3115217. It pins all 40 source-trained models, checks a real P01 CPU target
+against the recovered §305 anchor, then releases the other nine target folds.
+After all targets pass, it assembles seed-specific and seed-mean streams and
+dispatches eight exact-zero orders, a full-chain Anchor smoke, remaining active
+cells and the guarded six-CP scorer. Job IDs are written in the relevant stage,
+release and chain intent journals; these dynamically submitted jobs are not yet
+observed as complete. Target and chain source manifest SHAs are
+`949658daa2a0493ea4f27a58b1965543eb5315cd2a13f4afcb855aeeb63b0669` and
+`2bef3a0f1bc3ed6004662d4cda02bcc7027a0c756760bf7d3c1541e60ffdeb93`.
