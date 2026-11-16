@@ -22,16 +22,22 @@ deadline and upload counts are historical snapshots; check the live competition 
   passed; the real Codabench worker and sealed session lengths remain unverified. The user uploads it; do not upload
   without explicit authorization and a live phase/quota check.
 - **§281 stack:** Galvani smoke 3110322 and replay guard 3110386 passed. Control array 3110398, treatment array
-  3110399 and personalisation array 3110400 are queued with whole-array success dependencies. Inspect failures and
-  verify all zero, order, provenance and routing checks before scoring. The registered returning-person test is not
+  3110399 and personalisation array 3110400 completed. Scorer 3110971 passed its zero, order and provenance guards:
+  new-person changes were coral -0.069, B1 -0.095 and both -0.220 points; all 80% intervals cross zero. No measured
+  improvement; undecided within the noise. The registered returning-person test is not
   yet a complete v6.6 routed-tail evaluation; see `evidence/s281_16nov/returning_gate_trace_handoff.md`.
 - **Other runs:** Repaired CORAL, B1 and combined arrays are 3109744–3109746. The 96 returning-base tasks are
   submitted in 3110234, 3110275, 3110358 and 3110408. Check Slurm and the ledger for current state before acting;
   queued work is not a result. §290 core-only screens and completed base-only model screens are in §290 and the
   16 Nov evidence directory; they are not full-chain closures.
 - **Returning preparation:** Trace and prefix array 3110497 and SincShallow checkpoint parity diagnostic 3110506
-  are queued. The latter uses a candidate historical source, not a proven original revision, and permits a
-  checkpoint only after frozen-output parity. Their workspaces, guards and collection limits are in the ledger.
+  have finished: seven trace tasks passed; runs0 needs a zero-refit smoke/retry. Both Sinc reconstruction folds
+  failed frozen-output parity, so no substitute checkpoints are usable. Fold-stage diagnostic 3110614 passed for
+  its narrow P04/within0 cell. Their workspaces, guards and validation limits are in the ledger.
+- **Live board, 16 Nov about 15:12 CET:** uploaded v5.1b is 15th displayed entry (14th after merging ETRI's two
+  entries). Fifth displayed entry is 0.839; fifth distinct team is 0.837. Source: live Codabench Results, sealed
+  phase. A rough v6.6 projection of 0.824–0.829 is an unvalidated sealed-transfer estimate, approximately 10th–13th
+  on that board, not top five. New-person §281 results do not improve this projection.
 
 - **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage),
   12 Nov, 1,287.0 s (21.5 of 60 min). Previous best 0.8161546323 (1048575, `cand_v41_bio`).
