@@ -1,0 +1,18 @@
+3114230_6|RUNNING|cpu-galvani|6|galvani-cn001
+3114230_7|RUNNING|cpu-galvani|6|galvani-cn001
+3114230_9|RUNNING|cpu-galvani|6|galvani-cn002
+3114230_10|RUNNING|cpu-galvani|6|galvani-cn002
+3114230_11|RUNNING|cpu-galvani|6|galvani-cn001
+3114230_12|RUNNING|cpu-galvani|6|galvani-cn001
+3114230_13|RUNNING|cpu-galvani|6|galvani-cn002
+3114230_14|RUNNING|2080-preemptable-galvani|6|galvani-cn122
+3114230_15|PENDING|cpu-galvani,2080-preemptable-galvani|6|(JobArrayTaskLimit)
+3114230_16|PENDING|cpu-galvani,2080-preemptable-galvani|6|(JobArrayTaskLimit)
+3114230_17|PENDING|cpu-galvani,2080-preemptable-galvani|6|(JobArrayTaskLimit)
+3114230_18|PENDING|cpu-galvani,2080-preemptable-galvani|6|(JobArrayTaskLimit)
+3114230_19|PENDING|cpu-galvani,2080-preemptable-galvani|6|(JobArrayTaskLimit)
+3114230_20|PENDING|cpu-galvani,2080-preemptable-galvani|6|(JobArrayTaskLimit)
+3114230_21|PENDING|cpu-galvani,2080-preemptable-galvani|6|(JobArrayTaskLimit)
+3114230_22|PENDING|cpu-galvani,2080-preemptable-galvani|6|(JobArrayTaskLimit)
+3114230_23|PENDING|cpu-galvani,2080-preemptable-galvani|6|(JobArrayTaskLimit)
+route-log=602d308ddc328add356e67372c4d1674a6771d210a97e334402613a3e7790db7  /mnt/lustre/work/gehler/gfh527/ni26_s297_p2b_cpu6_v2_20261116/logs/pending-route-299.log
