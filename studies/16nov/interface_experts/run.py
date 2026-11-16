@@ -19,7 +19,7 @@ from style import sha
 
 SRC = inputs.PROD
 sys.path.insert(0, str(SRC / 'studies/16nov/followups/native_core'))
-from bridge import Native
+from cpu_bridge import CpuNative
 
 ORDERS = ('within0', 'within1', 'within2', 'within3', 'full0', 'full1', 'runs0', 'runs1')
 ARCHIVES = {o: ('coremember.npz' if o in ('within0', 'within1', 'full0', 'runs0') else
@@ -49,6 +49,10 @@ def gate_state(model):
 def main(index, mode):
     root = Path(os.environ['EXPERT_ROOT']).resolve(strict=True)
     if not 0 <= index < 10 or mode not in ('smoke', 'full'): raise ValueError('invalid fold or mode')
+    affinity = sorted(os.sched_getaffinity(0))
+    if os.environ.get('CUDA_VISIBLE_DEVICES') != '' or os.environ.get('SLURM_CPUS_PER_TASK') != '6' or len(affinity) != 6:
+        raise ValueError(f'CPU-only six-logical-CPU binding required, got {affinity}')
+    torch.set_num_threads(6)
     held = f'P{index + 1:02d}'
     output = root / f'runs/expert306_{mode}/{held}.npz'
     if output.exists(): raise FileExistsError(output)
@@ -82,7 +86,7 @@ def main(index, mode):
     with np.load(refpath, allow_pickle=False) as z:
         fixed = {k: np.ascontiguousarray(z[k]) for k in z.files}
     if not np.array_equal(fixed['fit_rows'], fit_rows): raise ValueError('reference rows differ')
-    native = Native(); prior_parts, counts, features, indexes, saved = [], [], [], [], None
+    native = CpuNative(); prior_parts, counts, features, indexes, saved = [], [], [], [], None
     for i in range(10):
         person = f'P{i + 1:02d}'; p = SRC / f'runs/s301_native_inputs/{person}.npz'
         with np.load(p, allow_pickle=False) as z:
@@ -104,7 +108,6 @@ def main(index, mode):
     x = native.standardize(x, fixed['mean'], fixed['scale'])
     weights = gate.strata_weights(subject[fit_rows], y, domains)
     signed = 2 * oof - 1
-    torch.set_num_threads(1)
     shared, shared_stats = head.fit(x, y, signed, weights, 1., shared=True)
     joint1, stats1 = head.fit(x, y, signed, weights, 1.)
     joint10, stats10 = head.fit(x, y, signed, weights, 10.)
@@ -157,6 +160,7 @@ def main(index, mode):
                     test_gate_min=float(test_gate.min()), test_gate_max=float(test_gate.max()),
                     prior_gate=prior_gate, shared=shared_stats, joint1=stats1, joint10=stats10,
                     original_max_error=maxerr, gate_changed_rows=active,
+                    execution_device='cpu', cpu_affinity=affinity, cpu_threads=torch.get_num_threads(),
                     orders=list(ORDERS[:1] if mode == 'smoke' else ORDERS),
                     held_labels_opened=False, held_interface_opened=False, mode=mode,
                     seconds=time.monotonic()-started)

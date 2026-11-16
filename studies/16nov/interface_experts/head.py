@@ -16,7 +16,7 @@ def objective(theta, x, y, gate, weights, lam, c=.3):
 
 
 def fit(x, labels, signed_gate, weights, lam, *, shared=False, max_iter=600):
-    device = torch.device('cuda')
+    device = torch.device('cpu')
     X = torch.as_tensor(x, dtype=torch.float64, device=device)
     y = torch.as_tensor(labels, dtype=torch.long, device=device)
     gate = torch.as_tensor(signed_gate, dtype=torch.float64, device=device)

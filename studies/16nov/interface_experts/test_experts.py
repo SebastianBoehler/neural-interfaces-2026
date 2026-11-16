@@ -37,6 +37,17 @@ class ExpertTest(unittest.TestCase):
         loss.backward(); self.assertTrue(torch.isfinite(t.grad).all())
         self.assertGreater(float(t.grad[1].abs().max()), 0.)
 
+    def test_cpu_joint_and_shared_fits_converge(self):
+        torch.set_num_threads(1)
+        rng = np.random.default_rng(13); x = rng.normal(size=(60, 4))
+        y = np.arange(60) % 3; s = rng.uniform(-1, 1, 60); weights = np.ones(60)
+        shared, sm = head.fit(x, y, s, weights, 1., shared=True)
+        joint, jm = head.fit(x, y, s, weights, 10.)
+        self.assertLessEqual(sm['max_gradient'], 1e-5)
+        self.assertLessEqual(jm['max_gradient'], 1e-5)
+        self.assertFalse(np.any(shared[1]))
+        self.assertGreater(np.linalg.norm(joint[1]), 1e-10)
+
     def test_source_label_reader(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'data.npz'; y = np.arange(20) % 3
