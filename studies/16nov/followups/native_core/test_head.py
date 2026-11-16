@@ -104,3 +104,20 @@ def test_native_fit_reaches_the_same_regularized_logistic_objective(head):
     assert gradmax[0] <= 1e-6 and 0 < iterations[0] <= 2500
     np.testing.assert_allclose(softmax(x @ theta[:, :-1].T + theta[:, -1], axis=1),
                                reference.predict_proba(x), atol=1e-5)
+
+
+def test_device_selected_fit_preserves_cpu_solver_and_rejects_unknown_device(head):
+    assert hasattr(head, 'nc_head_fit_device'), 'device-resident native fit is missing'
+    head.nc_head_fit_device.argtypes = [PD, PI, ctypes.c_int64, ctypes.c_int64,
+                                        ctypes.c_double, ctypes.c_int, PD, PD, PD, PI]
+    head.nc_head_fit_device.restype = ctypes.c_int
+    x, y = fixture(); x = np.ascontiguousarray(StandardScaler().fit_transform(x))
+    expected = np.empty((3, x.shape[1] + 1)); actual = np.empty_like(expected)
+    loss = np.empty(1); gradient = np.empty(1); evaluations = np.empty(1, dtype=np.int64)
+    assert head.nc_head_fit(ptr(x), ptr(y), len(x), x.shape[1], .3, ptr(expected),
+                            ptr(loss), ptr(gradient), ptr(evaluations)) == 0
+    assert head.nc_head_fit_device(ptr(x), ptr(y), len(x), x.shape[1], .3, 0, ptr(actual),
+                                   ptr(loss), ptr(gradient), ptr(evaluations)) == 0
+    np.testing.assert_array_equal(actual, expected)
+    assert head.nc_head_fit_device(ptr(x), ptr(y), len(x), x.shape[1], .3, 2, ptr(actual),
+                                   ptr(loss), ptr(gradient), ptr(evaluations)) != 0

@@ -100,15 +100,15 @@ extern "C" int nc_head_objective(const double* x, const std::int64_t* y,
     });
 }
 
-extern "C" int nc_head_fit(const double* x, const std::int64_t* y,
+namespace {
+void fit_impl(const double* x, const std::int64_t* y,
     std::int64_t n, std::int64_t d, double c, double* theta,
-    double* loss, double* max_gradient, std::int64_t* evaluations) {
-    return checked([&] {
+    double* loss, double* max_gradient, std::int64_t* evaluations, torch::Device device) {
         require(theta && loss && max_gradient && evaluations, "missing fit outputs");
-        auto features = matrix(x, n, d), target = labels(y, n);
+        auto features = matrix(x, n, d).to(device), target = labels(y, n).to(device);
         for (std::int64_t k = 0; k < 3; ++k)
             require((target == k).any().item<bool>(), "training requires all three classes");
-        auto parameters = torch::zeros({3, d + 1}, options.requires_grad(true));
+        auto parameters = torch::zeros({3, d + 1}, options.device(device).requires_grad(true));
         torch::optim::LBFGS optimizer({parameters}, torch::optim::LBFGSOptions(1.0)
             .max_iter(2000).max_eval(2500).history_size(10)
             .tolerance_grad(1e-8).tolerance_change(1e-12).line_search_fn("strong_wolfe"));
@@ -126,7 +126,23 @@ extern "C" int nc_head_fit(const double* x, const std::int64_t* y,
         *max_gradient = parameters.grad().abs().max().item<double>();
         require(std::isfinite(*loss) && std::isfinite(*max_gradient), "nonfinite fitted head");
         require(*max_gradient <= 1e-5, "native logistic solver did not converge");
-        auto result = parameters.detach().contiguous();
+        auto result = parameters.detach().to(torch::kCPU).contiguous();
         std::memcpy(theta, result.data_ptr<double>(), 3 * (d + 1) * sizeof(double));
+}
+}
+
+extern "C" int nc_head_fit(const double* x, const std::int64_t* y,
+    std::int64_t n, std::int64_t d, double c, double* theta,
+    double* loss, double* max_gradient, std::int64_t* evaluations) {
+    return checked([&] { fit_impl(x, y, n, d, c, theta, loss, max_gradient, evaluations, torch::kCPU); });
+}
+
+extern "C" int nc_head_fit_device(const double* x, const std::int64_t* y,
+    std::int64_t n, std::int64_t d, double c, int device, double* theta,
+    double* loss, double* max_gradient, std::int64_t* evaluations) {
+    return checked([&] {
+        require(device == 0 || device == 1, "device must be 0=CPU or 1=CUDA");
+        const auto selected = device == 1 ? torch::Device(torch::kCUDA, 0) : torch::Device(torch::kCPU);
+        fit_impl(x, y, n, d, c, theta, loss, max_gradient, evaluations, selected);
     });
 }

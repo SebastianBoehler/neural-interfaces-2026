@@ -17,4 +17,9 @@ extern "C" int nc_head_objective(const double* x, const std::int64_t* y,
 extern "C" int nc_head_fit(const double* x, const std::int64_t* y,
     std::int64_t n, std::int64_t d, double c, double* theta,
     double* loss, double* max_gradient, std::int64_t* evaluations);
+// Same objective/solver; device0=CPU, device1=allocated CUDA device0. Inputs and
+// final parameters remain host arrays; feature/optimizer tensors stay resident.
+extern "C" int nc_head_fit_device(const double* x, const std::int64_t* y,
+    std::int64_t n, std::int64_t d, double c, int device, double* theta,
+    double* loss, double* max_gradient, std::int64_t* evaluations);
 extern "C" const char* nc_head_error();
