@@ -50,6 +50,20 @@ template<class Function> int checked(Function operation) {
 
 extern "C" const char* nc_head_error() { return error.c_str(); }
 
+extern "C" int nc_head_standardize(const double* x, std::int64_t n, std::int64_t d,
+    const double* mean, const double* scale, double* output) {
+    return checked([&] {
+        require(output != nullptr, "missing standardized output");
+        torch::NoGradGuard guard;
+        auto features = matrix(x, n, d);
+        auto means = matrix(mean, 1, d), scales = matrix(scale, 1, d);
+        require((scales > 0).all().item<bool>(), "scaler scale must be positive");
+        auto result = ((features - means) / scales).contiguous();
+        require(torch::isfinite(result).all().item<bool>(), "nonfinite standardized features");
+        std::memcpy(output, result.data_ptr<double>(), n * d * sizeof(double));
+    });
+}
+
 extern "C" int nc_head_predict(const double* x, std::int64_t n, std::int64_t d,
     const double* mean, const double* scale, const double* coefficients,
     const double* intercepts, double* logits, double* probabilities) {

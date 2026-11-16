@@ -3,6 +3,8 @@
 
 // CPU float64, row-major arrays; classes are exactly 0,1,2. No state retained.
 // Predictor consumes raw features and the nine-person reference scaler/head.
+extern "C" int nc_head_standardize(const double* x, std::int64_t n, std::int64_t d,
+    const double* mean, const double* scale, double* output);
 extern "C" int nc_head_predict(const double* x, std::int64_t n, std::int64_t d,
     const double* mean, const double* scale, const double* coefficients,
     const double* intercepts, double* logits, double* probabilities);

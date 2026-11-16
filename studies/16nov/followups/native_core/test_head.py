@@ -62,6 +62,17 @@ def test_fixed_head_matches_exported_scaler_logits_and_class_probabilities(head)
     np.testing.assert_allclose(probabilities, model.predict_proba(scaler.transform(x)), atol=1e-12)
 
 
+def test_native_training_scaler_matches_the_reference_training_rows(head):
+    assert hasattr(head, 'nc_head_standardize'), 'native training scaler is missing'
+    head.nc_head_standardize.argtypes = [PD, ctypes.c_int64, ctypes.c_int64, PD, PD, PD]
+    head.nc_head_standardize.restype = ctypes.c_int
+    x, _ = fixture(); scaler = StandardScaler().fit(x)
+    mean, scale = np.ascontiguousarray(scaler.mean_), np.ascontiguousarray(scaler.scale_)
+    output = np.empty_like(x)
+    assert head.nc_head_standardize(ptr(x), len(x), x.shape[1], ptr(mean), ptr(scale), ptr(output)) == 0
+    np.testing.assert_allclose(output, scaler.transform(x), atol=1e-13, rtol=1e-13)
+
+
 def test_objective_has_mean_cross_entropy_and_unpenalized_intercept(head):
     x, y = fixture(); x = np.ascontiguousarray(StandardScaler().fit_transform(x))
     theta = np.linspace(-.2, .3, 3 * (x.shape[1] + 1)).reshape(3, -1)
