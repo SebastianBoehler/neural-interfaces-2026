@@ -1,0 +1,61 @@
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/models/eegpt.py:497: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = mne.channels.make_standard_montage("standard_1020")
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/models/eegpt.py:1452: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = make_standard_montage("standard_1020")
+{"torch": "2.14.1+cu126", "device": "cuda", "gpu": "NVIDIA A100-SXM-64GB"}
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/leonardo_work/AIFAC_P02_1636/ni26/.venv/lib/python3.11/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+{"ms_per_window": {"fb": 0.05447335290221982, "fb_coral": 0.054559864030516186, "fb_am": 0.05455363154656897}, "params": {"fb": 17993, "fb_coral": 17993, "fb_am": 17993}, "extra_net_ms": 0.054559864030516186, "extra_both_ms": 0.10911349557708516}
+EXIT 0

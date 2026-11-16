@@ -1,0 +1,8 @@
+within0: six bases, 14 sessions per base, zero contrast/bio routing windows; archive SHA-256 1783b05b9d7d3c0c23f31936ba8657f3d858a97d94661adce59a65c280ec7d48
+within1: six bases, 14 sessions per base, zero contrast/bio routing windows; archive SHA-256 8efc74e4bbc5548aa530322e89ac474eafeab619530adad912c32d5672a06ba8
+within2: six bases, 14 sessions per base, zero contrast/bio routing windows; archive SHA-256 419403df749d1d4e99ec9e7ba50b9d07d8a5b1f3183edc8209b6037679ae50c8
+within3: six bases, 14 sessions per base, zero contrast/bio routing windows; archive SHA-256 b2b9780071b3c9287c57577d7ec11c1bd23e305993577c0994781f73a60cb720
+full0: six bases, 14 sessions per base, zero contrast/bio routing windows; archive SHA-256 4ae2d0d2654c99497f5ae303e23654361efa1cf09c19fafc6e53605573957250
+full1: six bases, 14 sessions per base, zero contrast/bio routing windows; archive SHA-256 e86f807988468b866ee5eb7fbf12f841dce989c301c99e6af6126424f1f62310
+runs0: six bases, 14 sessions per base, zero contrast/bio routing windows; archive SHA-256 b21e89fcfd364ce7f49fb4b4bd50f7faa7b037674092c5a0d741097798e8672e
+runs1: six bases, 14 sessions per base, zero contrast/bio routing windows; archive SHA-256 4a4b23e0cb4e509292cf7dde98112d353557ebe618d6adc3c45f5ecffc6732e8

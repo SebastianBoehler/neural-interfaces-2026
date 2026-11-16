@@ -72,8 +72,24 @@ def main():
     arm, order, base = sys.argv[1], sys.argv[2], sys.argv[3]
     assert arm in {"control", "zero_coral", "S1", "S2", "S3", "S4", "S5"}
     verify_package_config()
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from s281_provenance import InputTracker, write_manifest
+
+    tracker = InputTracker()
+    for path in (Path(__file__), Path(__file__).with_name("s281_provenance.py"), ROOT / "lean/src66/cpers.py",
+                 ROOT / "runs/sealed/final_zips/v66_cp1_cap250.zip"):
+        tracker.track(path)
+    original_load = np.load
+
+    def tracked_load(file, *args, **kwargs):
+        tracker.track(file)
+        return original_load(file, *args, **kwargs)
+
+    np.load = tracked_load
     sys.path.insert(0, str(ROOT / "studies/14nov/rundetect"))
     import package as K
+    for module in (K, K.J, K.C, K.D):
+        tracker.track(module.__file__)
 
     assert np.array_equal(K.ROWS, np.arange(K.C.N)), "unexpected replay row layout"
     src = ROOT / f"runs/chainout/s281_v66p_{arm}_{order}.npz"
@@ -85,7 +101,8 @@ def main():
     assert manifest["order"] == order and manifest["recipe"]["name"] == arm
     assert manifest["ft_variant"] == "r15c250" and manifest["ft_tag"] == f"ttt18{order}LPC"
     dst = ROOT / f"runs/s281_v66_cp/{arm}_{order}_{base}.npz"
-    assert not dst.exists(), f"refusing to overwrite {dst}"
+    inputs = dst.with_suffix(".json")
+    assert not dst.exists() and not inputs.exists(), f"refusing to overwrite {dst} or {inputs}"
     with np.load(src) as z:
         raw = z[f"{base}|V6Fr"].astype(np.float64)
     with np.load(audit) as z:
@@ -100,9 +117,11 @@ def main():
     result = apply_sessions(windows, raw, filtered, sessions)
     dst.parent.mkdir(parents=True, exist_ok=True)
     stage = ROOT / "lean/src66/cpers.py"
+    write_manifest(inputs, {"arm": arm, "order": order, "base": base, "inputs_sha256": tracker.manifest()})
     np.savez_compressed(dst, scores=result, source_sha256=hashlib.sha256(src.read_bytes()).hexdigest(),
                         stage_sha256=hashlib.sha256(stage.read_bytes()).hexdigest(), arm=arm, order=order, base=base,
                         provenance_sha256=hashlib.sha256(provenance.read_bytes()).hexdigest(),
+                        input_manifest_sha256=hashlib.sha256(inputs.read_bytes()).hexdigest(),
                         routing_checked=False, scores_are_probabilities=False)
     print(f"{dst}: {len(result)} windows, {len(sessions)} independent sessions; package stage errors 0")
 
