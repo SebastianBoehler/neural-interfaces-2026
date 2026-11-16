@@ -11,9 +11,10 @@ from sklearn.preprocessing import StandardScaler
 ROOT = Path(os.environ['NI26_WS']).resolve(strict=True)
 CACHE = Path(os.environ['S307_CACHE']).resolve(strict=True)
 os.environ['NI26_ROOT'] = str(ROOT)
-sys.path[:0] = [str(ROOT / 'experiments'), str(ROOT / 'studies/16nov/followups/native_core')]
+sys.path[:0] = [str(Path(__file__).resolve().parent), str(ROOT / 'experiments'), str(ROOT / 'studies/16nov/followups/native_core')]
 import protocol
 from bridge import Native
+from ids import person_ids
 
 ORDERS = ('within0', 'full0', 'runs0')
 
@@ -37,7 +38,7 @@ def main(outer, source, smoke=False):
     if outer not in people or source not in people or outer == source: raise ValueError('invalid outer/source people')
     target = ROOT / f'runs/s307/crossfit/{outer}_{source}.npz'
     if target.exists(): raise FileExistsError(target)
-    d = protocol.load(); subject = d['subject']; y = d['y']; sessions = d['stream']
+    d = protocol.load(); subject = person_ids(d['subject']); y = d['y']; sessions = d['stream']
     fitting = [p for p in people if p not in (outer, source)]
     if len(fitting) != 8: raise ValueError('exactly eight fit people required')
     prior_parts, counts, train_rows, feature_parts, hashes = [], [], [], [], {}

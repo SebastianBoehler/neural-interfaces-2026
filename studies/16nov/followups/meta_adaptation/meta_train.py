@@ -12,6 +12,7 @@ os.environ['NI26_ROOT'] = str(ROOT)
 sys.path[:0] = [str(Path(__file__).resolve().parent), str(ROOT / 'experiments')]
 import protocol
 from adapt import FEATURES, BLOCKS, update
+from ids import person_ids
 
 ORDERS = ('within0','full0','runs0')
 
@@ -23,7 +24,7 @@ def load(path, d, outer, source, smoke):
         if meta['outer'] != outer or meta['source'] != source or meta['fit_people'] != expected or meta['smoke'] != smoke:
             raise ValueError('crossfit provenance or smoke mismatch')
         fit_rows, source_rows = z['fit_rows'].copy(), z['source_rows'].copy()
-        if set(d['subject'][fit_rows]) != set(expected) or set(d['subject'][source_rows]) != {source}:
+        if set(person_ids(d['subject'])[fit_rows]) != set(expected) or set(person_ids(d['subject'])[source_rows]) != {source}:
             raise ValueError('outer/source exclusion failed')
         values = {k: z[k].copy() for k in ('theta','mean','scale')}
         if values['theta'].shape != (3, FEATURES + 1) or np.any(values['scale'] <= 0):

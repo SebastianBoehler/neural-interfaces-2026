@@ -1,7 +1,7 @@
 """Exercise exact gradient, bounded updates, zero identity and session isolation."""
 import unittest
 import torch
-from adapt import FEATURES, MUTABLE, update, Session
+from adapt import FEATURES, MUTABLE, loss, update, Session
 
 
 class AdaptationTest(unittest.TestCase):
@@ -22,6 +22,19 @@ class AdaptationTest(unittest.TestCase):
         gradient = torch.autograd.grad(outer, parameter)[0]
         self.assertTrue(torch.isfinite(gradient).item())
         self.assertGreater(abs(float(gradient)), 1e-12)
+
+    def test_extreme_logits_have_finite_higher_derivatives(self):
+        anchor = torch.zeros(3, FEATURES, dtype=torch.float64)
+        anchor[0, 0] = 1.
+        theta = anchor.clone().requires_grad_(True)
+        x = torch.zeros(3, FEATURES, dtype=torch.float64)
+        x[:, 0] = 1000.
+        objective = loss(theta, anchor, torch.zeros(3, dtype=torch.float64), x)
+        first = torch.autograd.grad(objective, theta, create_graph=True)[0]
+        second = torch.autograd.grad(first.square().sum(), theta)[0]
+        self.assertTrue(torch.isfinite(objective).item())
+        self.assertTrue(torch.isfinite(first).all().item())
+        self.assertTrue(torch.isfinite(second).all().item())
 
     def test_zero_no_future_and_reset(self):
         zero = Session(self.anchor, self.bias, torch.tensor(0., dtype=torch.float64))

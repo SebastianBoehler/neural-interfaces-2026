@@ -1,5 +1,6 @@
 """§307 bounded, differentiable previous-prefix head adaptation."""
 from collections import deque
+import math
 import torch
 
 BLOCKS, WIDTH, SLOW = 51, 861, 328
@@ -7,11 +8,12 @@ MUTABLE, FEATURES = BLOCKS * WIDTH, BLOCKS * WIDTH + SLOW
 
 
 def loss(head, anchor, bias, x):
-    p = torch.softmax(x @ head.T + bias, dim=1)
     logp = torch.log_softmax(x @ head.T + bias, dim=1)
-    mean = p.mean(dim=0)
+    p = logp.exp()
+    logmean = torch.logsumexp(logp, dim=0) - math.log(len(x))
+    mean = logmean.exp()
     entropy = -(p * logp).sum(dim=1).mean()
-    diversity = -(mean * mean.log()).sum()
+    diversity = -(mean * logmean).sum()
     return entropy - .1 * diversity + .1 * ((head[:, :MUTABLE] - anchor[:, :MUTABLE]) ** 2).sum() / (anchor[:, :MUTABLE] ** 2).sum()
 
 
