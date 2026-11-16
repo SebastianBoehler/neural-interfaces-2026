@@ -36,3 +36,16 @@ Score-only retry 3116208 does not reassemble or overwrite those streams. Its
 separate immutable collector manifest SHA-256 is
 `417016a104124c7159eb4d44449c2a4720fe15bb225398c3e1905ee40090c26a`; the
 producer manifest remains unchanged.
+
+Score-only retry 3116208 completed 0:0 after independently verifying all 20
+folds and 32 streams. Official equal-cell scores: TF **46.975%**, TFD
+**49.158%**, and the external current-system reference **76.218%**. The
+paired TFD−TF difference is **+2.182 official percentage points**; its
+person/order mean is **+3.061 points [0.350, 5.962]** at the 80% interval,
+with 7/10 people up. P04 and P10 effects are +0.751 and −0.778 respectively,
+as held-out new-person folds. This is evidence that the temporal bank improves
+this particular weak whole decoder, not that it improves the current chain.
+A separately registered §315 integration tests the latter.
+
+The complete result is [s314_results.json](s314_results.json), SHA-256
+`5c447868965770a7bd4d2978917d3f8edbb96c0f3d2ae2b45cb3abb2f3cab505`.
