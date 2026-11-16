@@ -1,0 +1,79 @@
+{
+  "status": "source_only_pilot_passed",
+  "source_people": [
+    "P02"
+  ],
+  "excluded": [
+    "P01"
+  ],
+  "raw_file": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/data/neural_compet/Dreyer2026Proteus/download/nm000290/sub-P02/ses-1/eeg/sub-P02_ses-1_task-BaselineCE_run-0_eeg.edf",
+  "raw_sha256": "7a15af8e775cefeafa1abafa8dac0a21da1e5ed5f070495dcfc69c0376acdf2e",
+  "native_rate": 500.0,
+  "channels": [
+    "C2",
+    "CP2",
+    "P2",
+    "Pz",
+    "CPz",
+    "Cz",
+    "C1",
+    "CP1",
+    "P1",
+    "P3",
+    "PO7",
+    "P5",
+    "TP7",
+    "CP5",
+    "CP3",
+    "C3",
+    "PO8",
+    "P6",
+    "P4",
+    "TP8",
+    "CP6",
+    "CP4",
+    "C6",
+    "C4",
+    "FC6",
+    "FC4",
+    "FC2",
+    "F6",
+    "F4",
+    "F2",
+    "AF4",
+    "AF3",
+    "F5",
+    "F3",
+    "F1",
+    "Fz",
+    "FC5",
+    "FC3",
+    "FC1",
+    "FCz",
+    "C5"
+  ],
+  "crops": 16,
+  "crop_sha256": "e4f101ce6bced7bd53e3018c36135ca13cc274cbb17f4223bb8a5ad2e29c36ab",
+  "official_window_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+  "filtering": "50/60 notch;0.1-75Hz;resample120Hz;first68s",
+  "scale": "fixed100uV;no centering/RMS/clipping",
+  "models": [
+    {
+      "architecture": "FBCNet",
+      "feature_dim": 1152,
+      "initial_loss": 60.16972351074219,
+      "final_loss": 5.422770023345947,
+      "encoder_gradient_max": 5.727784633636475,
+      "steps": 10
+    },
+    {
+      "architecture": "ShallowFBCSPNet",
+      "feature_dim": 1040,
+      "initial_loss": 23.411102294921875,
+      "final_loss": 2.332268476486206,
+      "encoder_gradient_max": 27.84889793395996,
+      "steps": 10
+    }
+  ],
+  "limitation": "source optimization only; no held labels, task score or official-window parity"
+}

@@ -1,0 +1,15 @@
+{
+  "source": "P02",
+  "official_row": 190,
+  "onset": 7.272,
+  "raw_file": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/data/neural_compet/Dreyer2026Proteus/download/nm000290/sub-P02/ses-1/eeg/sub-P02_ses-1_task-AcquisitionBH_run-1_eeg.edf",
+  "raw_sha256": "1868e3cbcd91f65a129620a4662818d2948b26755feefc4138c9bf944660ea0c",
+  "max_abs_error_by_sample_offset": {
+    "-120": 77.59822082519531,
+    "-1": 43.84855651855469,
+    "0": 3.814697265625e-06,
+    "1": 43.84855651855469,
+    "120": 58.84325408935547
+  },
+  "status": "passed"
+}
