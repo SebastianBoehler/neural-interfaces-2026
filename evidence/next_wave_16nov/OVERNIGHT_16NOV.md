@@ -5,7 +5,7 @@ Target decision: 17 November evening, provisionally 18:00 CET. Top five is the o
 New compute is Galvani-only. Keep all user jobs within 32 running / 272 submitted, preserving 28 slots.
 Use `mlcloud-galvani`; access requires eduVPN/SSH authentication. Never touch unrelated `d11-*` jobs.
 
-## Evidence at 16 November, about 23:30 CET
+## Evidence at 16 November, about 23:35 CET
 
 - Latest official published board, updated 15:19 UTC: fifth displayed entry .839; fifth distinct team .837.
   Source: https://neural-interfaces26.github.io/leaderboard.html . No live full-board rank is verified tonight.
@@ -34,7 +34,7 @@ Use `mlcloud-galvani`; access requires eduVPN/SSH authentication. Never touch un
   Recovery from negative E05 does not establish useful EEG information above this neutral control.
 - §303 compact-native adaptation repair: `lane5_repair_s303.md`; 80tasks3114754/scorer3114755 complete: connectivity flatten49.78% vsstatic48.90%.
   Original2080 checkpoints on A100 require TF32off; originalA100 retains its recorded-route defaults.
-  Allguards passed. Reverse−repairperson+1.363[.842,1.905],10/10up; whole49.78%stillbelow76.22%.
+  Allguards passed. Post-hocreverse−staticperson+.858[.601,1.111],9/10up; whole49.78%stillbelow76.22%.
 - §304 conditional CORAL: `coral304_assembly.md`; first80fits3114483%6; continuation3114855.
   First80fits complete; seeds2–3 array3115042 and callback3115043 queued. Source-locked
   callbacks then queue seeds4–5 and complete240fold assembly→192streams→guarded chain.
@@ -44,7 +44,8 @@ Use `mlcloud-galvani`; access requires eduVPN/SSH authentication. Never touch un
   zero3114948→24treatmentcells3114949→scorer3114950. Arrays sequential, group at most2.
 - Paired native benchmarks:3114673; cached-coefficient Python smoke3114848→3114849.
   Both benchmarks complete; evidence in native_core_s301.md. §309 GPU-resident head: smoke
-  3115174→paired benchmark3115175, private ni26_s309_device_20261116; original§305 untouched.
+  3115174→benchmark3115175 pending;§311CPUanalytical-gradient/BLAS cost audit registeredff9dc21
+  and assignedrouting_audit. Preserve existing§305/309sources; no assumed language-only speedup.
 - Agents: routing_audit owns native/convergence/benchmark; galvani_failures owns resource/CORAL
   assembler/controllers; thread_context owns repair/neutral and CORAL full-chain integration.
   Inspect their latest state before duplicating work or changing their files.
@@ -56,14 +57,14 @@ Use `mlcloud-galvani`; access requires eduVPN/SSH authentication. Never touch un
 2. Combine FBL2 with repairs/new members only through registered matched full-system tests,
    with singles and interaction controls. ENU separates useful EEG information from generic softening.
 3. §308 strong structured tanh/linear and random/kernel heads registered; native bridge and
-   realCPUgate3115212 passed. Full producer/scorer being completed; reserve-aware staged dispatch. Group≤2; posterior-only integration
+   realCPUgate3115212 passed. Fits3115390%2→assemble91→stage92→capacitychainlauncher93. Group≤2; posterior-only integration
    has an explicit old-stage limitation. Keep full strong linear controls and source-only selection.
 4. §306 GPUv3DAG3115203–07 pending, CPUfixgate3115383→84→controller85 queued;≤2allocations. Rank audit3115158 and style
    3115162–63 passed: all14sessions have exactly one CAR null, no extra null at1e−4trace/41.
    This is descriptive only. Preserve trace power in future CAR40 controls; no target interpolation shown.
 5. §307 real-dataCPUcrossfit/meta pilots3115208/3115210 passed. Array3115215 runs90crossfits%4
-   →verifier3115216→10CPUmeta-fits3115217%2. §310strong-coreentropySIGNtransferregistered7f4992b; DAG
-   is being completed, not yet queued. See meta_adaptation_design.md and source evidence.
+   →verifier3115216→10CPUmeta-fits3115217%2. §310strong-coreentropySIGNtransferpilot3115413queued; full
+   target/chainDAGsfor307/310 being completed, not yet fully queued. See meta_adaptation_design.md and source evidence.
 6. User grants codebase ownership: revise architectures, decisions, splits and stages as useful.
    Whole alternatives whole; chain is a comparator, not a search boundary. Research block
    22:51:07–23:06:18CET completed; research_4h_16nov.md records new9–13Nov papers and next

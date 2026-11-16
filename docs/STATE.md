@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Overnight update: 16 Nov 2026, about 23:15 CET
+### Overnight update: 16 Nov 2026, about 23:35 CET
 
 The user authorizes changes throughout this codebase, including earlier architectures, split choices,
 and stage boundaries. The official contract and honest source/test separation remain fixed. Search whole
@@ -23,9 +23,11 @@ alternative systems as well as incumbent improvements; see [overnight handoff](.
 - Paired P01 inference is113–117ms for cached-coefficient Python versus63–64ms nativeCPU,
   probability error≤2.20e−8. NativeCPU full-solve training is243–244s versus Python19–20s,
   with different stopping tightness below one objective target. §309 tests resident A100 training.
-- §303 adaptation repairs and §304 conditional CORAL are still in flight. Broader new studies are
-  §306 inferred-interface experts, §307 training through actual unlabelled head updates, and
-  §308 structured nonlinear/kernel heads. Registered/building/queued is not a result.
+- §303 complete: compact native connectivity confidence flattening49.78% vsstatic48.90%;
+  exploratory person/order effect+.858[+.601,+1.111],9/10up. The weak whole decoder remains
+  below76.22%. §310 transfers the entropy-term sign to the strong native core. §304conditional
+  CORAL, §306interface experts, §307source-trained adaptation and §308nonlinear/kernel heads
+  are in flight. CPUroutes now release work independently of delayed GPUcompatibility checks.
 - Research block22:51:07–23:06:18CET completed. [Primary-source synthesis](../evidence/next_wave_16nov/research_4h_16nov.md)
   includes9–13November publications and explicit transfer limits. Recurring50-minute campaign
   and four-hour,≥15-minute research heartbeats are active through the17November evening checkpoint.
