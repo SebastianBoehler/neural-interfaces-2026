@@ -49,13 +49,17 @@ Read STATE → LEDGER → OFFICIAL_CONTRACT. Preserve source snapshots. No uploa
   fresh_search_coverage_16nov.md records the bounded audit. Shared geometry is a gap, not a proven cause.
 - §312 uses raw public rest/non-command intervals to pretrain existing FBCNet/Shallow encoders, preserving
   mean/power. CPU3115785 and full-record official-window parity3115791 passed; raw-export3115801 active.
-  Strong supervised guard and production dispatch are being prepared. Read raw312.md for current IDs.
+  Immutable matrix2: CPU guard3115988 →CUDA guard3115989 →80-fold wave3115990%2 →callback3115991;
+  callback queues remaining80 and collector after capacity checks. CUDA pilot3115787 also gates wave1.
 - §313 smoke3115857 and label-free preparation3115858 passed on all2655 windows. Compare strong geometry
-  hybrids and a spectral-only decoder; full producer DAG in preparation. Existing Hilbert retains phase.
-- §314 source-only pilot3115983 running →callback3115987 →20 bundled baseline/temporal fits at%2,
-  then complete assembly/scoring. TF314 and TFD314 have two seeds, not six. No task score yet.
+  hybrids and a spectral-only decoder. P01 source smoke3116017 →independent guard3116018 →9 folds3116046%2.
+  Full collector/scorer is being implemented. Existing Hilbert already retains phase.
+- §314 source-only pilot3115983 and release3115987 passed →20 bundled fits3116021%2 →collector3116022.
+  First fold completed. TF314 and TFD314 have two seeds, not six. No task score yet.
 - Owners: fresh_solution_audit312; routing_audit313; thread_context314. Root owns portfolio/STATE and
   existing full-chain integration for312/314. Preserve their source ownership and queued snapshots.
+- Root delegated common312/314 integration to fresh_solution_audit in representation_chain (§315).
+  Register explicit two-seed member ensembles; preserve separate per-seed whole-decoder metrics.
 - Prioritize312–314 before another incumbent dose grid. Existing304–310 supplies refinement work.
   Complete10 people ×8 orders with matched controls; evaluated information changes matter, not lane names.
 - Standard posteriors use canonical2655 rows, index/proba,8 orders and fit/source/model hashes.
