@@ -9,7 +9,7 @@
 #SBATCH --output=logs/s308-stage-%j.out
 #SBATCH --error=logs/s308-stage-%j.err
 set -euo pipefail
-cd "${SLURM_SUBMIT_DIR:?}"
+cd "${S308_CHAIN:?}"
 export LANE5_MANIFEST_SHA="$(sha256sum chain.sha256 | cut -d' ' -f1)"
 source studies/16nov/lane5/cluster_env.sh
 export CUDA_VISIBLE_DEVICES='' S308_OUT="$S308_WORKSPACE/runs/s308" S308_MANIFEST="$S308_WORKSPACE/source.sha256"

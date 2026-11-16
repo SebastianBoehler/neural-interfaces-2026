@@ -9,7 +9,7 @@
 #SBATCH --output=logs/s308-chain-dispatch-%j.out
 #SBATCH --error=logs/s308-chain-dispatch-%j.err
 set -euo pipefail
-cd "${SLURM_SUBMIT_DIR:?}"
+cd "${S308_CHAIN:?}"
 test "$(sha256sum chain.sha256 | cut -d' ' -f1)" = "$S308_CHAIN_SHA"
 sha256sum -c chain.sha256 >/dev/null
 test -f runs/s301_native/manifest.json
