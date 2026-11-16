@@ -9,6 +9,28 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
+### Overnight update: 16 Nov 2026, about 23:15 CET
+
+The user authorizes changes throughout this codebase, including earlier architectures, split choices,
+and stage boundaries. The official contract and honest source/test separation remain fixed. Search whole
+alternative systems as well as incumbent improvements; see [overnight handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md).
+
+- §294–296 complete without an established new current-system gain. §299 FBL2 is +.096pp
+  [−.072,+.262] versus control; uncertain. §302 temperature2 repairs part of EEGNet harm but
+  does not beat its neutral ENU control. §300 locates much of that harm before count/CP.
+- §301 strong native feature parity passed, original training-head parity failed. §305 separately
+  tests converged heads; its full guarded matrix remains in progress. Do not turn training loss into dev gain.
+- Paired P01 inference is113–117ms for cached-coefficient Python versus63–64ms nativeCPU,
+  probability error≤2.20e−8. NativeCPU full-solve training is243–244s versus Python19–20s,
+  with different stopping tightness below one objective target. §309 tests resident A100 training.
+- §303 adaptation repairs and §304 conditional CORAL are still in flight. Broader new studies are
+  §306 inferred-interface experts, §307 training through actual unlabelled head updates, and
+  §308 structured nonlinear/kernel heads. Registered/building/queued is not a result.
+- Research block22:51:07–23:06:18CET completed. [Primary-source synthesis](../evidence/next_wave_16nov/research_4h_16nov.md)
+  includes9–13November publications and explicit transfer limits. Recurring50-minute campaign
+  and four-hour,≥15-minute research heartbeats are active through the17November evening checkpoint.
+- Submission/candidate status is unchanged. Top five is the objective, not an official result or promise.
+
 ### Update: 16 Nov 2026
 
 This update supersedes conflicting compute, candidate and research-window statements below. Older scores, rank,
