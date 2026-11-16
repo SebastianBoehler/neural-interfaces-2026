@@ -24,6 +24,10 @@ assert "NEWW" in os.environ or ARM == "ctl", "set NEWW explicitly (s275)"
 assert ARM != "A" or len(FAMS_) == 1, "arm A swaps one family for fbraw"
 assert ARM != "B" or len(FAMS_) >= 2, "arm B adds two or more families"
 assert ARM == "ctl" or f"_w{os.environ['NEWW']}" in (os.environ.get("NM_NAME") or ""), "NM_NAME must end in _w<NEWW> so outputs never collide"
+REFIT = {k: float(v) for k, v in (kv.split("=") for kv in os.environ.get("REFIT", "").split(",") if kv)}  # s289: stage weights refit: <family|sc_slot>=<factor>
+assert not REFIT or ARM in ("A", "B"), "REFIT needs ARM A or B (s289)"
+assert all(k in ("core1", "hilb", "tf", "shallow", "teacher", "sc_fb", "sc_fbl", "sc_sinc") and v > 0 for k, v in REFIT.items()), f"unknown REFIT key in {REFIT}"
+assert not REFIT or all(k in (os.environ.get("NM_NAME") or "") for k in REFIT), "NM_NAME must name every REFIT key so outputs never collide"
 NAME = os.environ.get("NM_NAME") or ("ctl" if ARM == "ctl" else "nm" + ARM + (DROP or HALF or "".join(FAMS_))); NM_SEEDS = [int(s) for s in os.environ.get("NM_SEEDS", "0,1,2,3,4,5").split(",")]
 
 
@@ -102,7 +106,14 @@ if ARM in ("A", "B"):
         w = NEWW * base_w
         for fam in FAMS_:
             A.EXTRA[f"nm_{fam}"] = {p0: stream(fam, bn)[P], OTHER: np.full((S.N[OTHER], 3), np.nan)}; extra.append((f"nm_{fam}", w))
+        m_nr = _mix(bn, p, fams, extra, *a, **k)  # arm without the s289 refit
+        if REFIT:
+            extra = [(n, x * REFIT.get(n, 1.0)) for n, x in extra]; assert "wscale" not in k, "wscale already set"
+            k = dict(k, wscale={f: REFIT[f] for f in REFIT if f in A.FAM})
         m = _mix(bn, p, fams, extra, *a, **k); d = float(np.abs(m[0] - m0[0]).max()); LOG.append((bn, ARM, w, d))
+        if REFIT:  # silent no-op guard: a non-unit factor must move the mix, all-unit must not; the new slot is not rescaled
+            nu = any(v != 1.0 for v in REFIT.values()); assert (not np.array_equal(m[0], m_nr[0])) == nu, f"REFIT {REFIT} {'did not move' if nu else 'moved'} the mix"
+            assert all(f in fams or f.startswith("sc_") for f in REFIT), f"REFIT family not in the chain: {REFIT} vs {fams}"
         assert abs(dict(extra)[f"nm_{FAMS_[0]}"] - NEWW * base_w) < 1e-12 and all(abs(x - NEWW * base_w) < 1e-12 for n, x in extra if isinstance(n, str) and n.startswith("nm_")), "new slot weight is not NEWW x base"
         if NEWW == 0:
             assert np.array_equal(m[0], m0[0]) and m[1] == m0[1], "zero-weight new slot changed the mix"

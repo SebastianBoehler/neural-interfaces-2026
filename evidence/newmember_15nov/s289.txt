@@ -1,0 +1,52 @@
+=== raw: arm A minus control (new people; schemes equal weight; people-resampled 80 % interval) ===
+   nmA_w0.1                     +0.07 [-0.15, +0.29] up 6/10 | within +0.26 full +0.03 runs -0.07
+   nmA_w0.2                     +0.08 [-0.14, +0.29] up 5/10 | within +0.25 full +0.01 runs -0.02
+   nmA_w0.3                     +0.07 [-0.15, +0.28] up 5/10 | within +0.26 full -0.06 runs +0.00
+   nmA_w0.5                     +0.02 [-0.20, +0.24] up 5/10 | within +0.25 full -0.08 runs -0.11
+   nmA_w1.0                     -0.13 [-0.41, +0.17] up 5/10 | within +0.15 full -0.26 runs -0.27
+   nmA_w0.5_rcore1x0.5          +0.02 [-0.22, +0.25] up 5/10 | within +0.27 full -0.00 runs -0.21
+   nmA_w0.5_rcore1x1.5          -0.15 [-0.53, +0.20] up 5/10 | within +0.00 full -0.21 runs -0.23
+   nmA_w0.5_rhilbx0.5           +0.02 [-0.20, +0.23] up 5/10 | within +0.27 full +0.01 runs -0.22
+   nmA_w0.5_rhilbx1.5           -0.07 [-0.40, +0.25] up 6/10 | within +0.03 full -0.07 runs -0.16
+   nmA_w0.5_rshallowx0.5        -0.10 [-0.44, +0.22] up 4/10 | within +0.21 full -0.09 runs -0.44
+   nmA_w0.5_rshallowx1.5        -0.14 [-0.34, +0.06] up 5/10 | within +0.13 full -0.34 runs -0.21
+   nmA_w0.5_rteacherx0.5        -0.16 [-0.48, +0.15] up 4/10 | within -0.00 full -0.22 runs -0.25
+   nmA_w0.5_rteacherx1.5        -0.15 [-0.43, +0.15] up 4/10 | within +0.03 full -0.03 runs -0.44
+   nmA_w0.5_rsc_fbx0.5          -0.02 [-0.37, +0.32] up 6/10 | within +0.21 full -0.04 runs -0.21
+   nmA_w0.5_rsc_fbx1.5          +0.02 [-0.13, +0.17] up 5/10 | within +0.25 full -0.06 runs -0.14
+   nmA_w0.5_rsc_fblx0.5         -0.15 [-0.40, +0.12] up 4/10 | within +0.10 full -0.31 runs -0.24
+   nmA_w0.5_rsc_fblx1.5         +0.14 [-0.05, +0.33] up 5/10 | within +0.35 full +0.06 runs -0.01
+   nmA_w0.5_rsc_sincx0.5        -0.18 [-0.50, +0.14] up 5/10 | within +0.08 full -0.21 runs -0.40
+   nmA_w0.5_rsc_sincx1.5        +0.05 [-0.12, +0.23] up 5/10 | within +0.27 full -0.06 runs -0.06
+   NESTED [all 19 arms] +0.14 [-0.29, +0.32] people up 5/10 | per scheme within +0.35 full +0.06 runs -0.01 | best fixed nmA_w0.5_rsc_fblx1.5 +0.14 (optimistic)
+   selected per held-out person: nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5
+   nested people: +0.74 +0.32 +0.65 -0.27 -0.39 -0.40 -0.20 +0.87 +0.22 -0.17
+   NESTED [refit pool only (w=1.0 and the 14 perturbations)] +0.14 [-0.28, +0.32] people up 5/10 | per scheme within +0.35 full +0.06 runs -0.01 | best fixed nmA_w0.5_rsc_fblx1.5 +0.14 (optimistic)
+   selected per held-out person: nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5
+   nested people: +0.74 +0.32 +0.65 -0.27 -0.39 -0.40 -0.20 +0.87 +0.22 -0.17
+=== count-filtered: arm A minus control (new people; schemes equal weight; people-resampled 80 % interval) ===
+   nmA_w0.1                     -0.01 [-0.20, +0.18] up 6/10 | within +0.09 full +0.04 runs -0.16
+   nmA_w0.2                     -0.02 [-0.20, +0.17] up 5/10 | within +0.08 full +0.03 runs -0.17
+   nmA_w0.3                     -0.04 [-0.22, +0.14] up 4/10 | within +0.06 full -0.02 runs -0.17
+   nmA_w0.5                     -0.07 [-0.25, +0.13] up 4/10 | within +0.08 full -0.03 runs -0.25
+   nmA_w1.0                     -0.21 [-0.47, +0.05] up 3/10 | within -0.00 full -0.22 runs -0.42
+   nmA_w0.5_rcore1x0.5          -0.05 [-0.32, +0.21] up 5/10 | within +0.14 full -0.01 runs -0.29
+   nmA_w0.5_rcore1x1.5          -0.22 [-0.51, +0.07] up 4/10 | within -0.07 full -0.20 runs -0.39
+   nmA_w0.5_rhilbx0.5           -0.03 [-0.26, +0.19] up 5/10 | within +0.11 full +0.05 runs -0.25
+   nmA_w0.5_rhilbx1.5           -0.16 [-0.42, +0.07] up 5/10 | within -0.08 full -0.05 runs -0.37
+   nmA_w0.5_rshallowx0.5        -0.12 [-0.38, +0.15] up 4/10 | within +0.09 full -0.04 runs -0.40
+   nmA_w0.5_rshallowx1.5        -0.20 [-0.37, -0.04] up 5/10 | within -0.09 full -0.29 runs -0.22
+   nmA_w0.5_rteacherx0.5        -0.23 [-0.56, +0.07] up 4/10 | within -0.20 full -0.17 runs -0.34
+   nmA_w0.5_rteacherx1.5        -0.26 [-0.51, -0.01] up 4/10 | within -0.17 full -0.03 runs -0.58
+   nmA_w0.5_rsc_fbx0.5          -0.13 [-0.40, +0.13] up 4/10 | within -0.00 full +0.01 runs -0.39
+   nmA_w0.5_rsc_fbx1.5          -0.02 [-0.17, +0.13] up 5/10 | within +0.13 full -0.04 runs -0.15
+   nmA_w0.5_rsc_fblx0.5         -0.25 [-0.45, -0.03] up 4/10 | within -0.10 full -0.26 runs -0.38
+   nmA_w0.5_rsc_fblx1.5         +0.08 [-0.09, +0.25] up 5/10 | within +0.23 full +0.09 runs -0.10
+   nmA_w0.5_rsc_sincx0.5        -0.24 [-0.54, +0.04] up 4/10 | within -0.15 full -0.18 runs -0.40
+   nmA_w0.5_rsc_sincx1.5        +0.00 [-0.14, +0.16] up 4/10 | within +0.14 full -0.02 runs -0.11
+   NESTED [all 19 arms] -0.00 [-0.30, +0.26] people up 5/10 | per scheme within +0.15 full -0.02 runs -0.13 | best fixed nmA_w0.5_rsc_fblx1.5 +0.08 (optimistic)
+   selected per held-out person: nmA_w0.5_rsc_sincx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5
+   nested people: +0.20 +0.31 +0.11 -0.29 -0.12 -0.28 -0.35 +0.66 +0.01 -0.25
+   NESTED [refit pool only (w=1.0 and the 14 perturbations)] -0.00 [-0.29, +0.27] people up 5/10 | per scheme within +0.15 full -0.02 runs -0.13 | best fixed nmA_w0.5_rsc_fblx1.5 +0.08 (optimistic)
+   selected per held-out person: nmA_w0.5_rsc_sincx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5 nmA_w0.5_rsc_fblx1.5
+   nested people: +0.20 +0.31 +0.11 -0.29 -0.12 -0.28 -0.35 +0.66 +0.01 -0.25
