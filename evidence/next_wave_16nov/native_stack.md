@@ -1,8 +1,10 @@
 # Native-stack assessment and proposal, 16 November 2026
 
-Status: technical assessment and scope for review. No native implementation,
-native experiment or competition upload has started. The four authorized
-Galvani lanes remain separate.
+Status: the user authorized implementation as a fifth Galvani lane on16Nov,
+including training and inference, reference validation, then new architectures
+and learning mechanisms. The four earlier lanes remain separate. No competition
+upload is authorized. Execution is registered in `docs/LEDGER.md` §293 and
+tracked in `track5.md`.
 
 ## User objective
 
@@ -50,7 +52,7 @@ sessions. The model-facing input and official metric remain fixed.
   measurements justify investigating neural/refit execution as well as CPU
   features. They establish no end-to-end native speedup.
 
-## Proposed scope for review
+## Authorized scope
 
 Prefer C++/CUDA for direct integration with the current GPU stack. Rust is also
 credible for CPU signal-processing kernels; choosing it would require a clear
@@ -81,5 +83,5 @@ language restriction imposed by the challenge.
 
 Success check: a worker-loadable, session-isolated end-to-end native reference
 with inspectable data semantics and verified numerical behavior, followed by
-independently measured method variants. This proposal does not pre-register
-or authorize a particular new scoring run.
+independently measured method variants. Galvani build and numerical validation
+do not alone establish exact competition-worker compatibility.
