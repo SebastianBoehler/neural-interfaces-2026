@@ -1,0 +1,24 @@
+# §314 time-local waveform representation
+
+The registered whole-decoder study compares a 2,952-feature supervised time-local
+power/mean baseline with the same baseline plus 6,144 fixed multiscale asymmetric
+waveform-response features. It retains all 41 input channels in the matched
+baseline. The new bank uses 16 bipolar channel pairs and does not use tangent
+matrices, complex connectivity or pretrained FBCNet/Shallow weights. It is
+ROCKET-inspired, not a reproduction. Both models are stateless.
+
+The deterministic-feature and time-reversal unit test passed locally and on
+Galvani; isolated-mode imports passed. Real-source pilot 3115983 is queued in
+`/mnt/lustre/work/gehler/gfh527/ni26_s314_time_patterns_20261117/smoke`; it
+reads no held accuracy. Its source manifest SHA-256 is
+`baa34aa59fc34c0722dcf0c65a02b6d1fc1b70e93e32190b5ac7712dde49af0a`.
+
+Production callback 3115987 depends on a passing pilot and independently checks
+fold/source/order proofs and current queue capacity. It submits 20 bundled
+fold/seed jobs at %2, then a complete-matrix assembler and whole-decoder scorer.
+The resulting actual job IDs will appear in `production/release.intent`. The
+assembler writes 32 canonical 2,655-row files named
+`ttt18<order>_tf314_base-all_loso-s<seed>.npz` and the analogous `tfd314`
+files, with seeds 0/1 and eight orders. These are not six-seed streams.
+No score, returning-person result, worker compatibility or package gain is
+claimed before the relevant complete checks finish.
