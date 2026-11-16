@@ -19,7 +19,7 @@ def main():
         raise RuntimeError(f'need82available submitted slots; currently{len(lines)}; no production queued')
     if not (ROOT / 'guard_cuda.json').is_file() or not (ROOT / 'guard_cpu.json').is_file():
         raise ValueError('passed explicit CPU and GPU guards required')
-    array = submit('--array=80-159%1', 'work.sbatch', 'production')
+    array = submit('--array=80-159%2', 'work.sbatch', 'production')
     collector = submit(f'--dependency=afterok:{array}', 'collect.sbatch')
     with (ROOT / 'wave2_jobs.json').open('x') as f:
         json.dump(dict(producer=array, collector=collector), f)

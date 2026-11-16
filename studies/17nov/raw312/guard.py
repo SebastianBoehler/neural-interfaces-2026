@@ -2,6 +2,7 @@
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -25,6 +26,7 @@ def main():
     rows = np.flatnonzero(np.isin(d['subject'], people))
     test = d['subject'] == val
     # Existing strong raw SessionBN recipe, unchanged builder and training loop.
+    started = time.monotonic()
     exact = session_bn.make('fbcnet_raw_sbn', d, 0)
     exact.fit(rows); exact.set_k(20.)
     if exact.fit_subjects != set(people) or target in exact.fit_subjects:
@@ -42,23 +44,25 @@ def main():
         return float(np.mean([(p.argmax(1)[labels == c] == c).mean() for c in (0, 1, 2)]))
     report = dict(device=device, held_excluded=target, validation_person=val, fit_people=people,
                   exact_recipe='fbcnet_raw_sbn;k20;epochs40;unchanged SessionNet',
-                  exact_source_validation_ba=ba(reference), models={}, checks=[])
+                  exact_source_validation_ba=ba(reference), exact_seconds=time.monotonic()-started, models={}, checks=[])
     del exact
     cache = Path(os.environ['NI26_CACHE'])
     for arch in ('fb', 'sh'):
+        started = time.monotonic()
         net, scale, meta = fit(d, cache, people, arch, 'S', 0, device, val_people=[val])
         pred = probabilities(net, d['X'][test], scale, device)
-        report['models'][arch] = dict(source_validation_ba=ba(pred), metadata=meta)
+        report['models'][arch] = dict(source_validation_ba=ba(pred), seconds=time.monotonic()-started, metadata=meta)
         if arch == 'fb' and ba(pred) < report['exact_source_validation_ba'] - .05:
             raise ValueError(f'matched strong control loses >5pp on source validation: {report}')
         del net
         for arm in ('F', 'T', 'C'):
+            started = time.monotonic()
             net, scale, meta = fit(d, cache, people, arch, arm, 0, device,
                                   epochs=1, val_people=[val], pilot=True)
             p = probabilities(net, d['X'][test][:17], scale, device)
             if p.shape != (17, 3):
                 raise ValueError('source prediction smoke failed')
-            report['checks'].append(dict(architecture=arch, arm=arm, metadata=meta))
+            report['checks'].append(dict(architecture=arch, arm=arm, seconds=time.monotonic()-started, metadata=meta))
             del net
     report['source_manifest'] = sha(ROOT / 'source.sha256')
     report['passed'] = True

@@ -31,6 +31,7 @@ class Encoder(nn.Module):
         cls = {'fb': bd.FBCNet, 'sh': bd.ShallowFBCSPNet}[arch]
         self.body = cls(n_chans=41, n_outputs=3, n_times=480, sfreq=120)
         self.body.final_layer = nn.Identity()
+        self.frozen = False
         self.to(device).eval()
         with torch.no_grad():
             self.dim = self.body(torch.ones(2, 41, 480, device=device)).flatten(1).shape[1]
