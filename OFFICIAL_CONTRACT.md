@@ -60,6 +60,11 @@ This records the official implementation; it does not claim a completed run.
 - `submission.py` contains `class Solver(CompetSolver)` and the inference
   model. Additional Python files are unsupported. Read artifacts via
   `meta["submission_dir"]`; the submitted directory is read-only.
+- Later organizer clarification, 20 Oct, supplied by the user on 16 Nov:
+  a C++ pipeline imported through Python, including bundled wheels, is allowed.
+  This permits native implementation behind the Python entry point; it does
+  not validate our binary against the worker. The message and reply are
+  [in the Track 2 Discord channel](https://discord.com/channels/1405198616934481961/1547897829253451877/1562024877135896619).
 - Evaluation is inference-only. No training or dataset download occurs there.
   The competition YAML sets a 3,600-second evaluation limit.
 

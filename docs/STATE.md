@@ -91,8 +91,12 @@ deadline and upload counts are historical snapshots; check the live competition 
 - **Metric:** balanced accuracy per participant × session × interface cell, then the plain mean over cells.
 - **Runtime:** 60 min by rule (the worker's real timeout is 80 min; plan for 60). The package is a ZIP with
   `submission.py` plus data files; no extra Python files.
-- **Worker image:** Python 3.12, torch 2.14 + CUDA, no compilers, numba or cupy. Only pure-torch speed-ups are safe.
-  A native CPU replay does not prove the Linux/A100 worker runs.
+- **Worker image:** Python 3.12, torch 2.14 + CUDA; the inspected image does not install compilers, numba or cupy.
+  Bundled native code is permitted: Bruno Aristimunha confirmed a Python-imported C++ pipeline and wheels on
+  Discord, 20 Oct (screenshot supplied by the user, 16 Nov). A compiler absent from the worker does not prohibit
+  prebuilt binaries. Native extensions still need exact worker compatibility and session-reset validation; neither
+  a native prototype nor a CPU replay proves Linux/A100 compatibility. See the
+  [clarification and proposed native-stack scope](../evidence/next_wave_16nov/native_stack.md).
 - **Uploads:** each needs the user's explicit go-ahead and a live check of phase and quota. Never cancel a running
   sealed submission: it costs a slot. Codabench has a bot check; the user opens the page in Chrome.
 - **Data:** public datasets are allowed if their terms permit. Scherer 2015 (CC BY-NC-ND) was cleared by the
