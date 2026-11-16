@@ -10,7 +10,7 @@
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:?}"
 export NI26_WS="$PWD" CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
-control=/mnt/lustre/work/gehler/gfh527/ni26_s304_coral_control_20261116
+control=/mnt/lustre/work/gehler/gfh527/ni26_s304_coral_control_v2_20261116
 : "${CONTROL_SHA:?}"
 test "$(sha256sum "$control/control.sha256" | cut -d' ' -f1)" = "$CONTROL_SHA"
 (cd "$control" && sha256sum -c control.sha256 >/dev/null)

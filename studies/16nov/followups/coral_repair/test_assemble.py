@@ -1,15 +1,31 @@
 """Fail-closed fold provenance, routing and probability checks."""
 import hashlib
+import importlib.util
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import numpy as np
 import validate as V
 
 
 class FoldValidation(unittest.TestCase):
+    def test_continuation_requires_exact_completed_array(self):
+        os.environ['NI26_WS'] = str(Path.cwd())
+        spec = importlib.util.spec_from_file_location('coral_continue', Path(__file__).with_name('continue.py'))
+        module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+        ids = [i for i in range(240) if (i % 60) // 10 in range(2)]
+        rows = '\n'.join(f'42_{i}|COMPLETED|0:0' for i in ids)
+        with patch.object(module, 'command', return_value=rows):
+            module.completed_wave(1, '42')
+        with patch.object(module, 'command', return_value=rows.replace('42_0|COMPLETED', '42_0|FAILED')):
+            with self.assertRaises(ValueError): module.completed_wave(1, '42')
+        with patch.object(module, 'command', return_value='\n'.join(rows.splitlines()[:-1])):
+            with self.assertRaises(ValueError): module.completed_wave(1, '42')
+
     def test_fold_rejects_wrong_order_and_bad_normalization(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp); folder = root / 'runs/coral304'; folder.mkdir(parents=True)

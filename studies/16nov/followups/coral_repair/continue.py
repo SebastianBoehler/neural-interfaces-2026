@@ -33,9 +33,19 @@ def exclusive(path, value):
         json.dump(value, f, sort_keys=True); f.write('\n'); f.flush(); os.fsync(f.fileno())
 
 
+def completed_wave(stage, previous):
+    expected = {f'{previous}_{i}' for i in range(240) if (i % 60) // 10 in range(2 * (stage - 1), 2 * stage)}
+    rows = command('sacct', '-n', '-X', '-P', '-j', previous, '-o', 'JobID,State,ExitCode').splitlines()
+    records = [row.split('|') for row in rows]
+    if ({r[0] for r in records} != expected or
+            any(len(r) != 3 or r[1:] != ['COMPLETED', '0:0'] for r in records)):
+        raise ValueError(f'prior wave {previous} is not the complete successful 80-task array')
+
+
 def main(stage, previous):
     if stage not in (1, 2) or not previous.isdigit():
         raise ValueError('invalid continuation stage')
+    completed_wave(stage, previous)
     subprocess.run(['sha256sum', '-c', str(ROOT / 'coral304.sha256')], cwd=ROOT,
                    check=True, stdout=subprocess.DEVNULL)
     d, folds, perms = V.inputs(ROOT, protocol)
@@ -69,8 +79,7 @@ def main(stage, previous):
     exclusive(journal / f'wave{stage + 1}.intent.json', dict(previous=previous, active=active,
               source_manifest=V.MANIFEST, prior_hashes=hashes, array=WAVES[stage]))
     producer = ROOT / 'studies/16nov/followups/coral_repair/job.sbatch'
-    job = submit(f'--chdir={ROOT}', f'--dependency=afterok:{previous}',
-                 f'--array={WAVES[stage]}%6', producer)
+    job = submit(f'--chdir={ROOT}', f'--array={WAVES[stage]}%6', producer)
     exclusive(journal / f'wave{stage + 1}.job.json', dict(job=job, previous=previous))
     if stage == 1:
         follow = submit(f'--chdir={ROOT}', f'--dependency=afterok:{job}', CONTROL / 'continue.sbatch', '2', job)
