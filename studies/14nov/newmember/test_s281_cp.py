@@ -1,6 +1,7 @@
 """Real-window checks of the §281 package-stage adapter."""
 import importlib.util
 import unittest
+import zipfile
 from pathlib import Path
 
 import numpy as np
@@ -50,6 +51,16 @@ class PersonalisationTest(unittest.TestCase):
         raw[9:12] = raw[9:12, ::-1]
         altered = self.mod.apply_sessions(self.windows, raw, self.filtered, rows, self.config)
         np.testing.assert_allclose(original[:9], altered[:9], atol=1e-12)
+
+    def test_stage_source_rejects_a_different_class(self):
+        self.assertTrue(hasattr(self.mod, "verify_stage_source"), "package class identity check must exist")
+        with zipfile.ZipFile(ROOT / "runs/sealed/final_zips/v66_cp1_cap250.zip") as package:
+            bundle = package.read("submission.py").decode()
+        stage = (ROOT / "lean/src66/cpers.py").read_text()
+        self.mod.verify_stage_source(bundle, stage)
+        self.assertIn("self.fused += 1", stage)
+        with self.assertRaisesRegex(AssertionError, "class differs"):
+            self.mod.verify_stage_source(bundle, stage.replace("self.fused += 1", "self.fused += 2"))
 
 
 if __name__ == "__main__":
