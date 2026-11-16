@@ -1,0 +1,78 @@
+data/proteus_windows.npz: OK
+experiments/bio_gate.py: OK
+experiments/bio_id.py: OK
+experiments/cotrain.py: OK
+experiments/deep.py: OK
+experiments/dg.py: OK
+experiments/ensemble.py: OK
+experiments/erp.py: OK
+experiments/features.py: OK
+experiments/models.py: OK
+experiments/pretrain.py: OK
+experiments/protocol.py: OK
+experiments/rocket.py: OK
+experiments/route_stream3geb.py: OK
+experiments/run_cv.py: OK
+experiments/session_bn.py: OK
+experiments/session_em.py: OK
+experiments/ts_core.py: OK
+experiments/ts_core2.py: OK
+experiments/tsem.py: OK
+runs/shuffle_perms.npz: OK
+scripts/add_bio_gate.py: OK
+scripts/add_fbcnet.py: OK
+scripts/add_own_stage.py: OK
+scripts/add_rebalance.py: OK
+scripts/audit_proteus.py: OK
+scripts/build_pnets.py: OK
+scripts/build_sealed.py: OK
+scripts/build_v52.py: OK
+scripts/check_bio_gate.py: OK
+scripts/check_compat.py: OK
+scripts/check_own_stage.py: OK
+scripts/check_perm_stage.py: OK
+scripts/check_sjit.py: OK
+scripts/check_v52.py: OK
+scripts/check_v52b.py: OK
+scripts/check_v6.py: OK
+scripts/check_v62.py: OK
+scripts/cloud/validate_gpu.py: OK
+scripts/compare_packages.py: OK
+scripts/device_agreement.py: OK
+scripts/diag/agent_opt.py: OK
+scripts/diag/diag_common.py: OK
+scripts/diag/eval_external_teacher.py: OK
+scripts/diag/screen_external_heads.py: OK
+scripts/export_external.py: OK
+scripts/export_external_teacher.py: OK
+scripts/export_heads.py: OK
+scripts/export_moabb.py: OK
+scripts/export_pnets.py: OK
+scripts/export_route.py: OK
+scripts/export_sbn.py: OK
+scripts/export_ts.py: OK
+scripts/export_ts2.py: OK
+scripts/export_tsem.py: OK
+scripts/export_windows.py: OK
+scripts/extract_reve.py: OK
+scripts/mix_probs.py: OK
+scripts/profile_v52.py: OK
+scripts/replay_package.py: OK
+scripts/sbn_trace_base.py: OK
+scripts/set_params.py: OK
+scripts/train_ensemble.py: OK
+scripts/train_v6_members.py: OK
+studies/15nov/tsm288/spd.py: OK
+studies/16nov/lane4/adapt.py: OK
+studies/16nov/lane4/gpu.sbatch: OK
+studies/16nov/lane4/run.py: OK
+studies/16nov/lane4/task.sh: OK
+/mnt/lustre/work/gehler/gfh527/ni26_lanes292_20261116/lane4/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:497: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = mne.channels.make_standard_montage("standard_1020")
+/mnt/lustre/work/gehler/gfh527/ni26_lanes292_20261116/lane4/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:1452: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = make_standard_montage("standard_1020")
+tsm ok: SPD-BN steps 1600, |run_log|max 3.620, k 20.0, 9 training people, held-out ['Dreyer2026Proteus/P01']
+GUARD diag {'updates': 15, 'grad_max': 0.012595474733800655, 'bias_norm': 0.28643484481153675, 'seconds': 0.24617546517401934}
+GUARD full {'updates': 15, 'grad_max': 0.009526418227545793, 'bias_norm': 0.5, 'seconds': 0.2475864365696907}
+GUARDS OK: extraction, prefix, zero, active, reset
+SMOKE OK {'held': 'P01', 'seed': 0, 'seconds': 47.32044107187539}
