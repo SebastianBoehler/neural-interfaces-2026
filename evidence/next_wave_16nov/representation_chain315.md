@@ -1,0 +1,19 @@
+# §315 representation members in the complete current system
+
+Registration: docs/LEDGER.md §315, before implementation/integration accuracy. Root requested current-system integration for independently trained §312 and §314 matrices. Whole-decoder producer results remain separate; these integrations retain original C1 PC128/template/shadow/gate features and are posterior-only, while arm-own downstream stages/count/CP recompute their states.
+
+Two fixed source-trained seed posteriors are arithmetically averaged into ONE member, identical in all six dependent incumbent net/CP bases. The adapter rejects six synthetic candidate seeds. Groups are independent:312 adds FBCNet T/C/S and Shallow T/C/S;314 adds TF/TFD. All use the existing mean net-slot weight. No outer-result selection. Primary contrasts are T−C per312encoder and314TFD−TF, with unchanged and same-path zero controls.
+
+Existing owning §292 patcher, chain, routing/zero/provenance guards and scorer are reused. The only runner changes replace candidate member loading with explicit ensemble2files and adapt fixed recipes/manifests. Existing CP launcher runs six one-thread processes per six-CPU/48GB chain/order allocation. Source files are individually below300lines. Narrow local adapter tests passed for both groups: original source anchors, exact recipe/seed identity and identical member reuse in all six bases; Python compile passed. These fixture tests are not real-chain accuracy validation.
+
+Immutable private workspaces and DAG:
+-312: `/mnt/lustre/work/gehler/gfh527/ni26_s315_312_20261117`; source manifest SHA256`8b7af002cb2da86d65de2d6c4912e958fda2c7f66f18df65523d203a90d7b86b`. Prepare3116067→replay3116071→8control-order cells3116073%4.
+-314: `/mnt/lustre/work/gehler/gfh527/ni26_s315_314_20261117`; source manifest SHA256`f4fcd7dee3f113502332681c3a1f891c3ccfa168b7d93dee5d6bdff74fbcfeaa`. Prepare3116068→replay3116072→8control-order cells3116074%4.
+-312 bridge3116075 waits for producer wave2callback3115991, reads its actual complete whole-collector ID, then queues staging after that collector and zero/one-treatment full-chain smoke after staging/all controls. The producer snapshot remains unchanged. Bridge source is separately immutable at`ni26_s315_link312_20261117`.
+-314 staging waits for the corrected owning whole-collector ID. A tuple-key/JSON bug was found in §314 score.py and sent to its owner before any consumer relied on its output. The existing20fold producer and32stream schema are unchanged.
+
+Stagers require successful owning whole collectors, all producer fold/stream hashes, canonical recording rows, source exclusion and pinned producer manifests. §312 pins8275d60d…6559;§314 pinsbaa34aa5…af0a. There is no alternate source if an input fails. Their new ensemble manifests and locks retain producer-input hashes for the existing chain scorer to recheck.
+
+After replayOK, all8unchanged controls must match pinned §257 archives and routing traces. The within0 same-path zero member and first fixed treatment run through original chain+6CP; existing guards verify zero/control CP identity, gate inputs/decisions, member use and provenance. Only that passed smoke can release remaining zero/treatment cells (up to4allocations/group, user-wide32running/272submitted capacity checked), followed by the complete guarded scorer. No partial integration score is read, no package/submodule is changed, and no submission follows.
+
+Replay3116071 and3116072 both completed0:0 in90s and printed all six pinned values plusOK. The two independent all-order control arrays are released; no treatment or integration score is available yet.
