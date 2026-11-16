@@ -38,6 +38,12 @@ deadline and upload counts are historical snapshots; check the live competition 
   entries). Fifth displayed entry is 0.839; fifth distinct team is 0.837. Source: live Codabench Results, sealed
   phase. A rough v6.6 projection of 0.824–0.829 is an unvalidated sealed-transfer estimate, approximately 10th–13th
   on that board, not top five. New-person §281 results do not improve this projection.
+- **Research review, 16 Nov:** [solution-space and recent-method review](../evidence/research_block_16nov/REPORT.md)
+  maps actual rules to executed experiments and current primary research. Whole alternative systems need not keep
+  the incumbent features, stages or routing. Proposed directions include task/style factorization, learned geometry
+  and training through causal adaptation; none has a measured new full-system gain. The review records a §98
+  transform confound without claiming it caused the original result. These are proposals for user review; no new
+  implementation or experiment was started during the block. New compute remains Galvani-only.
 
 - **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage),
   12 Nov, 1,287.0 s (21.5 of 60 min). Previous best 0.8161546323 (1048575, `cand_v41_bio`).
