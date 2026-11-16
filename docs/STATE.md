@@ -29,6 +29,9 @@ deadline and upload counts are historical snapshots; check the live competition 
   submitted in 3110234, 3110275, 3110358 and 3110408. Check Slurm and the ledger for current state before acting;
   queued work is not a result. §290 core-only screens and completed base-only model screens are in §290 and the
   16 Nov evidence directory; they are not full-chain closures.
+- **Returning preparation:** Trace and prefix array 3110497 and SincShallow checkpoint parity diagnostic 3110506
+  are queued. The latter uses a candidate historical source, not a proven original revision, and permits a
+  checkpoint only after frozen-output parity. Their workspaces, guards and collection limits are in the ledger.
 
 - **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage),
   12 Nov, 1,287.0 s (21.5 of 60 min). Previous best 0.8161546323 (1048575, `cand_v41_bio`).
