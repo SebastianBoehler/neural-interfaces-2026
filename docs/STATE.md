@@ -1,4 +1,4 @@
-# State: the starting point (as of 13 Nov 2026, 00:20 UTC)
+# State: the starting point
 
 This is the entry point. It is written so that a new session needs nothing from any chat history. Where an older
 document contradicts it, this file wins.
@@ -8,6 +8,27 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 [SEALED_UPLOADS.md](SEALED_UPLOADS.md) (upload log and procedure); [../OFFICIAL_CONTRACT.md](../OFFICIAL_CONTRACT.md).
 
 ## 1. Where we stand
+
+### Update: 16 Nov 2026
+
+This update supersedes conflicting compute, candidate and research-window statements below. Older scores, rank,
+deadline and upload counts are historical snapshots; check the live competition before relying on them.
+
+- **Compute:** The user directs new project work to Galvani. Leonardo was temporary. Galvani access currently uses
+  eduVPN and authenticated SSH; access can expire. Keep heavy training on Galvani and respect its user limits.
+- **Submission:** v5.1b remains the last recorded uploaded package. The prepared next candidate is v6.6 cap 250,
+  `runs/sealed/final_zips/v66_cp1_cap250.zip`, SHA-256
+  `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`. Its Mac replay and recorded A100 checks
+  passed; the real Codabench worker and sealed session lengths remain unverified. The user uploads it; do not upload
+  without explicit authorization and a live phase/quota check.
+- **§281 stack:** Galvani smoke 3110322 and replay guard 3110386 passed. Control array 3110398, treatment array
+  3110399 and personalisation array 3110400 are queued with whole-array success dependencies. Inspect failures and
+  verify all zero, order, provenance and routing checks before scoring. The registered returning-person test is not
+  yet a complete v6.6 routed-tail evaluation; see `evidence/s281_16nov/returning_gate_trace_handoff.md`.
+- **Other runs:** Repaired CORAL, B1 and combined arrays are 3109744–3109746. The 96 returning-base tasks are
+  submitted in 3110234, 3110275, 3110358 and 3110408. Check Slurm and the ledger for current state before acting;
+  queued work is not a result. §290 core-only screens and completed base-only model screens are in §290 and the
+  16 Nov evidence directory; they are not full-chain closures.
 
 - **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage),
   12 Nov, 1,287.0 s (21.5 of 60 min). Previous best 0.8161546323 (1048575, `cand_v41_bio`).
