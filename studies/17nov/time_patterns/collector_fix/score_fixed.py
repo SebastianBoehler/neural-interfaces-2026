@@ -11,7 +11,8 @@ def patch(source):
  tail=" target=ROOT/'evidence/next_wave_16nov/s314_results.json'"
  if source.count(anchor)!=1 or source.count(tail)!=1:raise ValueError('unexpected original scoring report source')
  start=source.index(anchor);end=source.index(tail,start)
- replacement=''' from report import build_report
+ replacement=''' import os
+ from report import build_report
  report=build_report(official,pp,ORDERS,PEOPLE,folds,sha(ROOT/'s314-source.sha256'),summarize)
  report['collector_source_sha256']=sha(Path(os.environ['S314_COLLECTOR_MANIFEST']))
 '''

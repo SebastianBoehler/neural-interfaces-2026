@@ -30,3 +30,27 @@ class ActualSourceTest(unittest.TestCase):
   fixed=patch(path.read_text())
   compile(fixed,str(path),'exec')
   self.assertIn('report=build_report(official,pp,ORDERS,PEOPLE,folds,',fixed)
+
+class ExecutionTest(unittest.TestCase):
+ def test_patched_scorer_executes_without_implicit_os_global(self):
+  import os
+  from pathlib import Path
+  from unittest.mock import patch as envpatch
+  from score_fixed import patch
+  orders=('within0','within1','within2','within3','full0','full1','runs0','runs1')
+  arms=('TF','TFD','reference');people=tuple(f'P{i:02d}' for i in range(1,11))
+  official={(a,o):float(i) for i,a in enumerate(arms) for o in orders}
+  pp={(a,o):np.full(10,float(i)) for i,a in enumerate(arms) for o in orders}
+  original='''def main():
+ def contrast(a,b): pass
+ report={}
+ target=ROOT/'evidence/next_wave_16nov/s314_results.json'
+ captured.append(report)
+main()
+'''
+  context={'Path':Path,'ROOT':Path('/tmp'),'ORDERS':orders,'PEOPLE':people,'official':official,'pp':pp,
+           'folds':{},'sha':lambda path:'hash','summarize':lambda d,o,p:{'mean':float(np.mean(d))},'captured':[]}
+  with envpatch.dict(os.environ,{'S314_COLLECTOR_MANIFEST':'/tmp/test-manifest'}):
+   exec(compile(patch(original),'synthetic_scorer','exec'),context)
+  self.assertEqual(context['captured'][0]['collector_source_sha256'],'hash')
+  json.dumps(context['captured'][0],allow_nan=False)

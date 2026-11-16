@@ -27,3 +27,12 @@ assembler writes 32 canonical 2,655-row files named
 files, with seeds 0/1 and eight orders. These are not six-seed streams.
 No score, returning-person result, worker compatibility or package gain is
 claimed before the relevant complete checks finish.
+
+Collector 3116190 assembled the complete streams, then failed before producing
+a score: its patched report omitted an `os` import. A failing-first execution
+regression now covers that exact path. Independent no-score preflight verified
+all 32 existing stream hashes, metadata and all 20 source-fold hashes.
+Score-only retry 3116208 does not reassemble or overwrite those streams. Its
+separate immutable collector manifest SHA-256 is
+`417016a104124c7159eb4d44449c2a4720fe15bb225398c3e1905ee40090c26a`; the
+producer manifest remains unchanged.
