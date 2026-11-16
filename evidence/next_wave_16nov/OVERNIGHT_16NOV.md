@@ -1,79 +1,74 @@
 # Overnight campaign: 16–17 November
 
-User objective: combine findings, push promising directions and test new methods from first principles.
-Target decision: 17 November evening, provisionally 18:00 CET. Top five is the objective, not a measured claim.
-New compute is Galvani-only. Keep all user jobs within 32 running / 272 submitted, preserving 28 slots.
-Use `mlcloud-galvani`; access requires eduVPN/SSH authentication. Never touch unrelated `d11-*` jobs.
+Objective: broad scientific exploration and a stronger submission by 17 November evening.
+Checkpoint: provisionally 18:00 CET. Top five is the objective, not a measured result.
+New heavy compute: Galvani only; SSH mlcloud-galvani requires eduVPN and authentication.
+Keep all user jobs within 32 running / 272 submitted, preserving 28 slots. Do not touch unrelated jobs.
+Read STATE → LEDGER → OFFICIAL_CONTRACT. Preserve source snapshots. No upload is authorized.
 
-## Evidence at 16 November, about 23:35 CET
+## Evidence at 17 November, about 00:12 CET
 
-- Latest official published board, updated 15:19 UTC: fifth displayed entry .839; fifth distinct team .837.
-  Source: https://neural-interfaces26.github.io/leaderboard.html . No live full-board rank is verified tonight.
-- Recorded uploaded v5.1b remains .8197668759. Prepared v6.6 cap250 is unchanged; no upload authorized.
-  Earlier .824–.829 projection is an unvalidated scenario, not an official score or current top-five result.
-- §294 all 15 arms completed. Stronger EEGNet/distillation doses worsened; no established new gain.
-- §295 geometric posterior deltas were near neutral; none established a gain in this strong-system form.
-- §299 FBL2 versus control +.096 pp [−.072,+.262]; versus FBL15 +.052 [−.050,+.157]. Exploratory.
-- §300 locates EEG loss before count/CP: E05 −.248 pp at V6Fr, then −.174 after CP.
-  Brier +.0028 and true-class margin −.0043 at V6Fr. It cannot separate mix/rebalancing/EM/TSEM.
-- §302 temperature2 improves E05 by +.110 [.022,.180], but is −.064 [−.169,+.076] versus control.
-  Temperature.5 worsens it; causal centering .25/.5 does not demonstrate a repair.
-- §301 strong native fixed-head port passed CPU/A100, P01/P10 × within0/full0 ×62windows:
-  relative feature error5.59e−9, probability error3.75e−8, no non-tied label changes, prefix/reset pass.
-- Original §301 Ntrain failed objective parity. Training-only P01 audit shows identical features/scalers
-  and different stopping: sklearn16iterations versus tight237; native/tight loss differ9.6e−10.
-  §305 is a new registered converged-head test; never relabel the failed original parity as passing.
-- Native paired P01 inference: cached-coefficient Python113.1–117.0ms, nativeCPU62.9–64.0ms;
-  probability difference≤2.20e−8. Training full solve: Python19.2–19.6s, nativeCPU243.4–244.1s.
-  Same objective target, different stopping tightness; no intrinsic-language or worker claim.
+- Recorded uploaded v5.1b: .8197668759; prepared v6.6 cap250 unchanged. Refresh the board before citing rank.
+  Earlier .824–.829 is an unvalidated scenario. No new package or top-five result is established.
+- §294–296: no established new full-system gain. §299 FBL2: +.096pp [−.072,+.262], uncertain.
+- §302 temperature2 partly repairs EEG harm. Against neutral ENU: −.0684 [−.1815,+.0731].
+  Much EEG harm occurs before count/CP (§300); neutral ENU separates generic probability softening.
+- §303 complete compact native decoder: connectivity flatten49.78% versus static48.90%; post-hoc
+  people/order effect +.858 [.601,1.111],9/10 up. Still below strong new-person76.22%, not a package gain.
+- §301 native fixed-head CPU/A100 feature, probability, prefix and reset checks passed. Original training
+  parity failed. §305 separately tests converged heads; it does not relabel that failure as passing.
+- Paired inference: native CPU63–64ms/window versus cached Python113–117ms; max probability error2.20e−8.
+- §309 resident A100 full solve: median1.062s versus CPU238.483s, one P01 source2465×44239 matrix;
+  objective gap1.04e−10. Copies included; device and optimizer trajectory differ. No held-prediction,
+  energy, end-to-end or worker claim. See native_device_s309.md and its raw report.
+- §311 analytical/BLAS objective-gradient checks passed; one full solve44.36s versus57.09s with different
+  evaluation counts. Existing scientific anchors were not replaced. Ledger and native evidence own details.
 
-## Live owning documents and jobs
+## Jobs and ownership
 
-- §302 repairs: evidence `repair_302_complete_results.txt`; neutral ENU control `neutral_302.md`.
-  ENU/scorer3115011–12 complete: ENU−control+.0047pp; ET2−ENU−.0684[−.1815,+.0731].
-  Recovery from negative E05 does not establish useful EEG information above this neutral control.
-- §303 compact-native adaptation repair: `lane5_repair_s303.md`; 80tasks3114754/scorer3114755 complete: connectivity flatten49.78% vsstatic48.90%.
-  Original2080 checkpoints on A100 require TF32off; originalA100 retains its recorded-route defaults.
-  Allguards passed. Post-hocreverse−staticperson+.858[.601,1.111],9/10up; whole49.78%stillbelow76.22%.
-- §304 conditional CORAL: `coral304_assembly.md`; first80fits3114483%6; continuation3114855.
-  First80fits complete; seeds2–3 array3115042 and callback3115043 queued. Source-locked
-  callbacks then queue seeds4–5 and complete240fold assembly→192streams→guarded chain.
-  Source `coral_repair/`, chain subdirectory owned separately; all source/evidence committed.
-- §305 native convergence: `native_core_s301.md`; corrected P01 smoke3114867, guard3114944
-  also requires all-person feature/scaler audit3115026. Then3114945→3114946→3114947→
-  zero3114948→24treatmentcells3114949→scorer3114950. Arrays sequential, group at most2.
-- Paired native benchmarks:3114673; cached-coefficient Python smoke3114848→3114849.
-  Both benchmarks complete; evidence in native_core_s301.md. §309 GPU-resident head: smoke
-  3115174→benchmark3115175 pending;§311CPUanalytical-gradient/BLAS cost audit registeredff9dc21
-  and assignedrouting_audit. Preserve existing§305/309sources; no assumed language-only speedup.
-- Agents: routing_audit owns native/convergence/benchmark; galvani_failures owns resource/CORAL
-  assembler/controllers; thread_context owns repair/neutral and CORAL full-chain integration.
-  Inspect their latest state before duplicating work or changing their files.
+- §304 conditional CORAL: first80 fits complete; second80 array3115042 finished. Controller queued
+  seeds4–5; inspect its outputs for actual new IDs. Then240-fold assembly →192 streams → guarded chain.
+  Sources: coral_repair; evidence: coral304_assembly.md. At most6 fit and2 chain allocations.
+- §305: all10 native fits complete. Old assembler3114946 failed a sibling import; corrected3115452 passed.
+  Recovered replay/stage3115536 passed OK →zero3115537 →treatment3115538 →scorer3115539; arrays%2.
+- §306: all10 CPU folds3115525%2 running →scorer3115526. Five GPU folds remain unscored; no mixed-device
+  fold matrix. CPU/GPU training posterior identity is not established. Read the interface-expert evidence.
+- §307: 90 crossfits3115215 complete →verifier3115216 →10 CPU meta fits3115217%2.
+  Target callback3115483 follows recovered305 anchor;40 artifacts →target guard →targets →chain.
+  GPU compatibility3115209 is independent. meta_adaptation_design.md owns the scientific design.
+- §308: 20 person/seed fits and88 deltas complete. Recovery3115771 passed replay OK; launcher3115772
+  queued8 zeros3115773 →80 treatment cells3115774 →scorer3115775, arrays%2.
+- §310: strong-core entropy-sign pilot3115415 passed;9 targets3115485 and assembler3115486 complete.
+  Full-chain DAG dispatched; entropy_sign_s310.md/private job manifest has generated IDs. Group%2.
+- Read only complete guarded treatment matrices. Recover verified script/dependency failures without
+  changing original scientific snapshots or silently substituting numerical implementations.
 
-## Overnight portfolio and decisions
+## Priority: broaden representations
 
-1. Read complete guarded arms as they land; queue next tests without waiting for unrelated waves.
-   Push small consistent positives, but report their uncertainty and repeated-selection bias.
-2. Combine FBL2 with repairs/new members only through registered matched full-system tests,
-   with singles and interaction controls. ENU separates useful EEG information from generic softening.
-3. §308 strong structured tanh/linear and random/kernel heads registered; native bridge and
-   realCPUgate3115212 passed. Fits3115390%2→assemble91→stage92→capacitychainlauncher93. Group≤2; posterior-only integration
-   has an explicit old-stage limitation. Keep full strong linear controls and source-only selection.
-4. §306 GPUv3DAG3115203–07 pending, CPUfixgate3115383→84→controller85 queued;≤2allocations. Rank audit3115158 and style
-   3115162–63 passed: all14sessions have exactly one CAR null, no extra null at1e−4trace/41.
-   This is descriptive only. Preserve trace power in future CAR40 controls; no target interpolation shown.
-5. §307 real-dataCPUcrossfit/meta pilots3115208/3115210 passed. Array3115215 runs90crossfits%4
-   →verifier3115216→10CPUmeta-fits3115217%2. §310strong-coreentropySIGNtransferpilot3115413queued; full
-   target/chainDAGsfor307/310 being completed, not yet fully queued. See meta_adaptation_design.md and source evidence.
-6. User grants codebase ownership: revise architectures, decisions, splits and stages as useful.
-   Whole alternatives whole; chain is a comparator, not a search boundary. Research block
-   22:51:07–23:06:18CET completed; research_4h_16nov.md records new9–13Nov papers and next
-   representation/soft-target learning tests. Both50min and4h heartbeats active through17Nov evening.
+- User prioritizes genuine breadth. representation_portfolio_17nov.md records allocation and status;
+  fresh_search_coverage_16nov.md records the bounded audit. Shared geometry is a gap, not a proven cause.
+- §312 uses raw public rest/non-command intervals to pretrain existing FBCNet/Shallow encoders, preserving
+  mean/power. CPU3115785 passed source gradient checks; CUDA3115787 queued. Full-record export parity,
+  strong supervised reproduction and production dispatch are being implemented. No task score yet.
+- §313 full-channel spectral/phase-lag controls are being implemented after registration. Compare strong
+  geometry hybrids and a spectral-only whole decoder. The existing Hilbert member already retains phase.
+- §314 independent local temporal-pattern decoder is registered. Matched time-local mean/power baseline,
+  active temporal features, source-only controls and dispatch are being implemented. No task score yet.
+- Owners: fresh_solution_audit312; routing_audit313; thread_context314. Root owns portfolio/STATE and
+  existing full-chain integration for312/314. Preserve their source ownership and queued snapshots.
+- Prioritize312–314 before another incumbent dose grid. Existing304–310 supplies refinement work.
+  Complete10 people ×8 orders with matched controls; evaluated information changes matter, not lane names.
+- Standard posteriors use canonical2655 rows, index/proba,8 orders and fit/source/model hashes.
+  Reuse292/305 evaluators. Keep posterior-only limitations explicit when old stage features remain.
+- Test promising components in the full system, with singles and interaction controls. A coherent new
+  representation/session learner remains open; failure under old stages does not close that design.
 
-Read docs/STATE.md, docs/LEDGER.md and OFFICIAL_CONTRACT.md before new work. Register every run
-before scoring. Preserve original evaluator/metric/tensor, immutable snapshots, package/submodule hashes,
-all-session reset and no-future guards. Smoke every new script; use narrow real-data checks.
-New representations need their own downstream stages or an explicit posterior-only limitation.
-Benchmark paired warm runs, CPU binding, memory, transfers, training quality and end-to-end scope.
-Before proposing an upload, build and locally validate the concrete best package, including actual
-worker-image CPU/A100 compatibility for any new binary. The user uploads; no external messages.
+## Continuity
+
+- Public scientific-discovery skill: personal master dbaab0e, installed globally for Codex/Claude.
+  Apply coverage checks, candidate lineage and honest context disclosures. No paid provider was used.
+- Research block22:51:07–23:06:18 CET completed; research_4h_16nov.md owns sources and transfer limits.
+  The50-minute campaign and4-hour research heartbeats are active through the17November evening checkpoint.
+- Preregister every score. Require replay/check.py OK plus zero/order/provenance guards before results.
+  Preserve official tensor/metric, causal session-only state, official submodule and frozen packages.
+  Native replay/objective parity is not worker compatibility. Build and validate before an upload proposal.

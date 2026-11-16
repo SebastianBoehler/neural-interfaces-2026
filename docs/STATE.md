@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Overnight update: 16 Nov 2026, about 23:35 CET
+### Overnight update: 17 Nov 2026, about 00:12 CET
 
 The user authorizes changes throughout this codebase, including earlier architectures, split choices,
 and stage boundaries. The official contract and honest source/test separation remain fixed. Search whole
@@ -31,6 +31,16 @@ alternative systems as well as incumbent improvements; see [overnight handoff](.
 - Research block22:51:07–23:06:18CET completed. [Primary-source synthesis](../evidence/next_wave_16nov/research_4h_16nov.md)
   includes9–13November publications and explicit transfer limits. Recurring50-minute campaign
   and four-hour,≥15-minute research heartbeats are active through the17November evening checkpoint.
+- User prioritizes materially different representations in the next wave. [Representation portfolio](../evidence/next_wave_16nov/representation_portfolio_17nov.md)
+  separates existing strong-core refinements from §312 raw-recording pretraining, §313 full-channel
+  spectral structure and §314 temporal dynamics. §312 CPU source-learning pilot3115785 passed;
+  CUDA3115787 is queued. §313/314 are being audited, not complete experiments or measured gains.
+  The system already has a complex-Hilbert member; phase is not wholly absent. Raw-pretraining
+  backbones are existing models with changed supervision, not new architectures. Global scientific-discovery
+  skill is installed and applied; personal master commit dbaab0e contains its public source.
+- §309 A100 resident fitting completed: median1.062s versus CPU238.483s for the same P01 source
+  matrix/objective/options; objective gap1.04e−10. Different device and optimizer trajectories contribute;
+  no held-prediction, end-to-end, energy or worker claim. [Measured scope](../evidence/next_wave_16nov/native_device_s309.md).
 - Submission/candidate status is unchanged. Top five is the objective, not an official result or promise.
 
 ### Update: 16 Nov 2026
