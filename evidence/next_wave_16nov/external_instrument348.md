@@ -1,7 +1,8 @@
 # §348 CMx7-MM independent instrument qualification
 
 Status: **metadata audit complete; no EEG accuracy, training or full-system result**.
-17 November 2026: started 12:22 UTC; initial decision sent 12:29 UTC; completed 12:42 UTC.
+17 November 2026: actual start 12:22:48 UTC; clock verified completion at 12:30:23 UTC.
+Initial decision was sent within the first 10 minutes; its exact timestamp was not separately recorded.
 Fresh worker retained history; not blind. Applied scientific-discovery, coverage-audit and engineering-workflow.
 Canonical STATE/STATUS untouched. No new dataset/weights downloaded. No GPU or Slurm allocation.
 
