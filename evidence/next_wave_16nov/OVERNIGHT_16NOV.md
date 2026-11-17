@@ -1,6 +1,6 @@
 # Overnight campaign: 16–17 November
 
-Updated:17Nov2026 05:55CET. User asleep; ongoing implementation, experiments and justified follow-ups authorized.
+Updated:17Nov2026 06:20CET. User asleep; ongoing implementation, experiments and justified follow-ups authorized.
 Goal: stronger validated candidate by17Nov evening, provisional18:00CET checkpoint; top five is not established.
 Galvani only:≤32account jobs running/≤272submitted with28reserve. Preserve unrelated jobs.
 Read STATE→LEDGER→OFFICIAL_CONTRACT; STATUS_17NOV.md owns detailed results/report hashes.
@@ -26,7 +26,7 @@ No automatic upload. Preserve tensor/metric/session boundaries, frozen packages 
   Selecteddiagnostic3117400PASS:ensemblepreserveswholegain; gainabsentalreadyV6Fr, CPnotprimarylocation.
   ~84–85%membercorrectionsalreadycontrolcorrect, NLL/Brier/ECEimprove; descriptiveoverlap, notcausalproof.
 - §317whole60fold A/B/C52.836/53.695/53.735%;C−B+.039official,people+.551[−.763,1.953].
-  Weakdecoder,large seedvariation; noisolatedaux/currentgain. Privatechain continues below.
+  Completeprivatechain3117358:C−B+.0023official[−.0499,.0563]/people+.012[−.0467,.0710],noestablishedgain.
 - §325learnedvisualdisplay42.462→49.639%source,almostallP02;direct55.142/rawSBN62.299 stronger.
   Crossfitteacherconvergenceunverified; noouterexpansion/familyclosure. §326/327no consistentobjectivegain;
   3271%fit solver-limited at2500evaluationcap despite smallgradient. Noouterwave.
@@ -45,15 +45,13 @@ No automatic upload. Preserve tensor/metric/session boundaries, frozen packages 
   CPUoverhead doesnotproveA100timeout. IndependentA1003117247 FAILED05:52:32CET:
   known190ratio1.03104passed;known37849.409→61.152s,ratio1.23766failedbar1.061008.800/unknown/lateCPuntested.
   Relativebar≠actualtimeout. Profile3117399PASS:oneFIR+6tailsexact0error/~69%lessauxnetworktime,
-  notwholeworkerspeedup; separatelypinnedsameweightoptimizationpreparing, freshfullparity/workerchecksremain.
+  notwholeworkerspeedup; FIR-onlyandreadonlyinputreusevariantsregistered. Initialguardsfailedpre-inference
+  NPZstream-column assumption; derivefromsubject/session perowningprotocol, CPUmetadata smokebeforenewGPUguards.
   Missing/invalidgenuineoriginalSincfolds blockfullreturningvalidation. No candidatequalified.
   owned321_320_317_handoff_17nov.md owns dynamicIDs/source/scopes.
-- §317replay3117276/8controls3117277/zero+active smoke3117278 passed→30cells3117357%4
-  →completeowningscorer3117358. Nopartialtreatmentsread. Controls~4min;conditionalfinish~06:10–06:30CET.
-  Pendingcells15minCPUbackfill, first4runningunchanged; preserve6CPU/48GiB/source/guards.
-- §312ALL-CPUroute source528284dc…5ef4 staysseparate;at05:47wave17array3117345tasks134–136finishing
-  →callback3117346;160foldcollectoronlyafterlastwave. Estimated06:15–07:00conditional. NoCPUconsumer
-  withoutnewpin/registration. raw312_schedule_handoff.md owns dynamichistory; nevermixCPU/GPUfolds.
+- §317ALLCOMPLETE: originalreplay/8controls/zero/activity/30cells/scorer3117358PASS19s; no furtherownedjobs.
+- §312ALL-CPU160/160+collector3117428PASS06:12CET/1min. FBCS52.249/T54.816/C55.421/F47.604;
+  T−Cuncertain. T−S+2.140peoplepp, C−S+4.477; noisolatedpretraininggain/mixedGPUfolds/duplicateCPUchain.
 - §329newMITLaBraM-at-ScaleAtom-Ldefaultprior,notbenchmarkselectedepoch;pretrainingoverlapunknown.
   IndependentA100preflight3117332forecast06:58;explicit2080compatibility→9frozenheads3117344forecast06:23:56.
   Sameweights/source7/splits/CPUfittedreadoutguard beforequerylabels;one20minallocation, no329resultyet.
@@ -61,10 +59,14 @@ No automatic upload. Preserve tensor/metric/session boundaries, frozen packages 
   conditionallyreleasesone≤30min2080allocation. Matchedpretrain/random fullFT/frozencontrols,12fixedepochs;
   actualencodergradients/updates/budget/paritybeforequerylabels. Noaccuracy-basedrelease/automaticouterwave.
 
+- §331independentrawoscillatoryselective-statearchitectureprepared: matchedstatic/localcontrols,source7only,
+ 40fixedepochs; actualcomplexrecurrence+gradient/numerical/activity/costguardbeforeoneboundedCPUpilot.
+ No331result/reproductionclaim/automaticouterwave. oscillatory331.md/LEDGERownfixedscope.
+
 ## Coordination and continuation
 
 - Root owns canonicalstate/portfolio; external_supervision owns321/317; fresh_architecture owns328/329/330;
-  fresh_solution_audit owns323saved-stageattribution. Usefollowup_task toreactivateidleworkers.
+  fresh_solution_audit completed323/CPU312,nowowns331guard/pilot. Usefollowup_task toreactivateidleworkers.
 - Queue justifiedfollow-ups aftercompleteblocks withoutwaitingalllanes; uncertainpositive≠closure.
 - Verify livecapacity beforedispatch; recent05:47snapshot37active/7running,no deaddependenciesobserved.
 - Global scientific-discovery skill applied; personalmasterdbaab0e. No cross-provider execution claimed.

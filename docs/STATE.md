@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 Nov 2026, about 05:55 CET
+### Current campaign: 17 Nov 2026, about 06:20 CET
 
 The user authorizes ongoing overnight implementation, broader whole alternatives and justified follow-ups.
 The provisional decision checkpoint is 17 November 18:00 CET. Top five is an objective, not a verified result.
@@ -34,7 +34,9 @@ Neither contrast is a sealed or returning-person result; no synergy is establish
 establish no control gain. Original §301 training-head and §307 independent-refit parity failures remain failures.
 Separate §316 common-anchor learned scalar beats its fixed-update comparator slightly, but not the current system.
 Complete §312GPU raw-pretraining integrations also establish no control gain: FT−FS +.0007 official points,
-ST−SS +.0409, both intervals span zero. Independent all-CPU producers continue without mixing device routes.
+ST−SS +.0409, both intervals span zero. Independent all-CPU160folds/collector3117428 also complete;
+T−C remains uncertain. FBC T−S gains2.140people/order points, but matched extra-compute C−S gains4.477.
+This does not isolate pretraining. CPU/GPU routes remain separate; no duplicate CPU chain was released.
 
 **Normalization result and transfer limit.** §323's complete 80-fit whole study separates training and inference.
 Causal versus fixed inference on identical no-skip weights gains 3.898/4.588 official points for population/
@@ -46,7 +48,8 @@ Thus a whole-model accuracy improvement did not establish a useful ensemble addi
 Two-seed ensembling preserves the whole gain. About83.7–85.2% of member corrections are already correct
 in the control; member NLL/Brier/ECE improve. These associations do not prove a sufficient cause.
 §317's complete continued-external-supervision whole matrix gives A/B/C 52.836/53.695/53.735%;
-C−B +.039 official, people/order +.551 [−.763,+1.953], undecided. Its guarded chain is running separately.
+C−B +.039 official, people/order +.551 [−.763,+1.953], undecided. Its complete guarded chain now also
+passes: C−B+.0023official[−.0499,+.0563], people/order+.012[−.0467,+.0710]; no established system gain.
 
 **New representations and learning forms.** §319/324/325 visual-prior forms now include a source-learned
 41-channel display. Learned versus fixed pretrained improves 42.462→49.639% across exposed P02/P03,
@@ -60,7 +63,10 @@ covariance do not establish useful extra information in this form; the wider fam
 §329 stages the newly released MIT LaBraM-at-Scale Atom-L weights as a genuinely different prior.
 Independent A100 compatibility and an explicit 2080Ti compatibility→nine frozen source-head route are queued;
 no §329 numerical or accuracy result yet. Separate full-finetuning preparation must retain its own registration.
-§320 reliability's unchanged source control failed its registered quality premise; no outer expansion.
+§331 prepares an independently implemented raw oscillatory selective-state decoder, with matched static/local
+controls and source-only40epoch training. Numerical/direct-recurrence guards precede any source score.
+It is not a paper reproduction, foundation model or measured gain. §320 reliability's unchanged source
+control failed its registered quality premise; no outer expansion.
 
 **JS candidate validation.** §321's corrected raw InputStream prior5 and latent SessionBN prior2 now pass
 all six historical held-weight/eight-order proofs. The earlier raw-bank equivalence claim was invalid;
@@ -75,7 +81,10 @@ then failed the same runtime bar at known378:49.409→61.152s, ratio1.23766>1.06
 The failure is a relative engineering bar, not an observed timeout. Length800/unrecognized/late-CP remain
 untested there. Conditional profile3117399 passed: fingerprinted one-FIR/six-tail execution gives exact0.0 probability error
 and about69% less auxiliary-network time on17realwindows. This is component timing, not whole-worker speed.
-A separate same-weight optimized artifact is being prepared, with fresh raw/active/reset/worker guards.
+Separate same-weight SharedFIR-only and readonly-current-input variants are being prepared.
+Both initial source guards failed on a new adapter's missing persisted stream column before inference;
+source subject/session columns must generate it as the owning protocol does. Failures remain recorded;
+CPU schema smoke precedes replacement GPU guards. No parity/timing result from either optimized variant yet.
 Returning heldfold
 validation remains blocked by missing/invalid genuine original Sinc checkpoints. No candidate is qualified.
 
@@ -90,88 +99,6 @@ It retains canonical history and is not blind; it does not replace the next sche
 Both50-minute campaign and4-hour≥15-minute research heartbeats remain active through17November evening.
 SSH renewed01:02 CET still works; local12-hour idle retention is not a verified server/VPN expiry.
 Submitted jobs continue without a client. Ask for renewal only when access actually fails.
-
-### Update: 16 Nov 2026
-
-This update supersedes conflicting compute, candidate and research-window statements below. Older scores, rank,
-deadline and upload counts are historical snapshots; check the live competition before relying on them.
-
-- **Compute:** The user directs new project work to Galvani. Leonardo was temporary. Galvani access currently uses
-  eduVPN and authenticated SSH; access can expire. Keep heavy training on Galvani and respect its user limits.
-- **Submission:** v5.1b remains the last recorded uploaded package. The prepared next candidate is v6.6 cap 250,
-  `runs/sealed/final_zips/v66_cp1_cap250.zip`, SHA-256
-  `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`. Its Mac replay and recorded A100 checks
-  passed; the real Codabench worker and sealed session lengths remain unverified. The user uploads it; do not upload
-  without explicit authorization and a live phase/quota check.
-- **§281 stack:** Galvani smoke 3110322 and replay guard 3110386 passed. Control array 3110398, treatment array
-  3110399 and personalisation array 3110400 completed. Scorer 3110971 passed its zero, order and provenance guards:
-  new-person changes were coral -0.069, B1 -0.095 and both -0.220 points; all 80% intervals cross zero. No measured
-  improvement; undecided within the noise. The registered returning-person test is not
-  yet a complete v6.6 routed-tail evaluation; see `evidence/s281_16nov/returning_gate_trace_handoff.md`.
-- **Other runs:** Repaired CORAL, B1 and combined arrays are 3109744–3109746. The 96 returning-base tasks are
-  submitted in 3110234, 3110275, 3110358 and 3110408. Check Slurm and the ledger for current state before acting;
-  queued work is not a result. §290 core-only screens and completed base-only model screens are in §290 and the
-  16 Nov evidence directory; they are not full-chain closures.
-- **Returning preparation:** Trace and prefix array 3110497 and SincShallow checkpoint parity diagnostic 3110506
-  have finished: seven trace tasks passed; runs0 needs a zero-refit smoke/retry. Both Sinc reconstruction folds
-  failed frozen-output parity, so no substitute checkpoints are usable. Fold-stage diagnostic 3110614 passed for
-  its narrow P04/within0 cell. Their workspaces, guards and validation limits are in the ledger.
-- **Live board, 16 Nov about 15:12 CET:** uploaded v5.1b is 15th displayed entry (14th after merging ETRI's two
-  entries). Fifth displayed entry is 0.839; fifth distinct team is 0.837. Source: live Codabench Results, sealed
-  phase. A rough v6.6 projection of 0.824–0.829 is an unvalidated sealed-transfer estimate, approximately 10th–13th
-  on that board, not top five. New-person §281 results do not improve this projection.
-- **Research review, 16 Nov:** [solution-space and recent-method review](../evidence/research_block_16nov/REPORT.md)
-  maps actual rules to executed experiments and current primary research. Whole alternative systems need not keep
-  the incumbent features, stages or routing. Proposed directions include task/style factorization, learned geometry
-  and training through causal adaptation; none has a measured new full-system gain. The review records a §98
-  transform confound without claiming it caused the original result. These are proposals for user review; no new
-  implementation or experiment was started during the block. New compute remains Galvani-only.
-- **Parallel wave §292, 16 Nov:** The user subsequently authorized four wider lanes. [Current jobs and evidence](../evidence/next_wave_16nov/README.md)
-  cover full-system EEGNet/distillation/CORAL comparisons, a population-anchored adaptive MLP, CBraMod task/person
-  factorization, and learned SPD correction. New production jobs are on Galvani. The MLP form completed and lost
-  1.48 points against its static head (80% people/order interval −2.07 to −0.88); its static decoder was also weak.
-  SPD correction also completed: official cell BA42.14→43.13%, full-bias versus frozen person/order effect+1.25
-  points [.41,2.10]. Its whole decoder remains below the validated new-person incumbent76.22%. Neither result
-  establishes a package gain or closes the wider family. Factorization completed: official off46.96%, matched47.48%,
-  split47.52%; split−matched person/order−.40 points [−1.08,+.27], no demonstrated factorization gain in this form.
-  Full-system§292A also completed: E−control−.405 and D−control−.545 official equal-cell points;
-  D−E−.140[−.202,−.075]. CORAL add/swap effects are−.098 to−.155 with intervals crossing zero.
-  The native§293 stack passed CPU/GPU and worker-replica checks and all80fits; its best complete model,
-  connectivity-static48.90%, remains below the incumbent76.22%. Entropy adaptation and gain consistency
-  hurt in these compact forms. Native feature dimensions/session preprocessing differ substantially from
-  the strong core; this whole-model comparison does not isolate the cause. New parallel follow-ups are
-  registered§294(joint mix/weights),§295(strong-system geometric posterior correction), and§296(confidence
-  gates); their smoke/producer/treatment workflows are recorded in the current-jobs evidence. No new
-  current-system accuracy gain or package candidate is established by these results.
-
-- **Best sealed score:** 0.8197668759, submission 1050185, package `cand_v51b_own` (v4.1 + own-space personal stage),
-  12 Nov, 1,287.0 s (21.5 of 60 min). Previous best 0.8161546323 (1048575, `cand_v41_bio`).
-- **Rank:** 8th by account, 7th by team, on the board of 12 Nov 21:35 UTC: 0.847, 0.846 (one team, ETRI, two
-  accounts), 0.830, 0.826, 0.825, 0.825, 0.821, **0.820 (us)**, 0.819, 0.819. Third by account needs +1.0; third by
-  team needs about +0.6. The field moves daily.
-- **Target (user, 13 Nov):** rank 1 is proof that such scores are reachable, not an upper bound; the user would aim
-  for 0.9. Size explore studies by their ceiling (§5), and keep reporting the measured stack honestly.
-- **Deadline:** 21 Nov 2026, 22:59 UTC. **Uploads:** 7 per team, 1 per day; 5 used, **2 left**. Codabench storage on
-  the account is tight: only 1048575 and 1050185 remain there; check free space before any upload.
-- **Research window (user): until about 14 Nov 02:00 UTC** no new package candidate is built and no upload decision
-  is taken; research, iteration, profiling. Two tracks, two thirds exploit and one third explore (§9).
-- **Compute:** Leonardo (`cineca-leonardo`); the user lifted any cap ("use as much compute as needed"); keep GPUs busy
-  with parallel waves, also overnight. Galvani is unreachable until the user logs in with 2FA; the worker image lives
-  there, so worker-image replays are missing for everything built since 12 Nov.
-- **What is measured against v5.1b as uploaded (13 Nov, the only reference from now on):**
-  - The eye-net view and the rest member on v5.1b's own members: J +0.05 (new +0.34, seen −0.24, P04 −1.4) [§151].
-  - v5.2's personal nets in package form: about 0 to −0.4 seen, and P04 loses every time [§105b, §140].
-  - **Fine-tuning (cum10) + eye-net view + rest member, on sessions the gate does not recognise: meets its bar on all
-    four augmentation draws** [§152]. New people +0.84 to +0.95 (without P10 +0.58 to +0.70, 80 % person intervals
-    above 0); with recognised sessions left exactly as v5.1b, dev J +0.42 to +0.48. Fine-tuning alone is about 0 beyond
-    P10, and the three parts are strongly super-additive. The cheap gC5 schedule keeps about two thirds of the gain
-    (J +0.28 to +0.36, recognised sessions as v5.1b).
-  - The ceiling of the eye-net kind of view is about +3.7 more (oracle, two draws) [§155]; better views are the
-    explore lever [§158, §159].
-  - The larger stack numbers of 12–13 Nov (J +0.5 to +0.95) were against study bases about 0.7 below v5.1b on
-    returning people [§151]; the line above replaces them.
-- **Map of tested against allowed space:** [SOLUTION_SPACE_MAP.md](SOLUTION_SPACE_MAP.md) (13 Nov) lists the gaps, the
-  closures that rest on weak tests, and the backlog of ideas never run.
 
 ## 2. Hard bounds (from the official code and rules)
 
@@ -203,8 +130,8 @@ deadline and upload counts are historical snapshots; check the live competition 
   strategy on those public data. So Yes."
   **Consequences:** the sealed stream has not been in recording order since the rescoring of 10 Nov. §62's conclusion
   ("the sealed order is still close to acquisition order") is withdrawn: the fingerprint failing to match meant we did
-  not find the order, not that there is none. Every dev number so far was measured in recording order. The primary dev
-  protocol is now non-chronological within a session, scored under several schemes with fixed permutations
+  not find the order, not that there is none. Before13Nov the development protocol used recording order. The current primary dev
+  protocol is non-chronological within a session, scored under several schemes with fixed permutations
   (ledger §164); recording order is a secondary column. No scheme is primary: the 10 Nov rescoring does not identify one,
   and its per-package drops fit full better than within unless half a point was a uniform backend effect (correction
   under §169). Evaluation-time adaptation may use only the session's delivered
@@ -238,12 +165,12 @@ deadline and upload counts are historical snapshots; check the live competition 
 
 | Package | Where | Status |
 |---|---|---|
-| `cand_v51b_own` (v4.1 + own-space personal stage) | `runs/upload/sealed_cand_v51b_own.zip` (`4a0bc427…`); code `submissions/ensemble_v5b/submission.py` (`0259d1ea…`) | **Uploaded 12 Nov, best: 0.8198** |
-| `cand_v52_pnets` / v5.2b (v5.1b + personal nets on recognised sessions) | `runs/sealed/cand_v52_pnets`; code `submissions/ensemble_v52/`; notes `V52_BUILD.md` | Built; GPU replay equals the Mac replay; warm paired runtime 1.40× of v5.1b (v5.2b 1.27×); GPU check passes against a reference with the package's own batching; **worker-image replay missing**; not uploaded |
-| `cand_v41_bio` (routing v4.1) | `runs/upload/sealed_cand_v41_bio.zip` (`53fc1679…`); code `submissions/ensemble_v4/submission.py` (`45f9f2fd…`) | Uploaded 11 Nov, 0.8162 |
-| `cand_v51_own` (the first build of v5.1) | Galvani `runs/sealed/cand_v51_own/`; code `submissions/ensemble_v5/submission.py` (`34eba3b0…`) | Superseded by `cand_v51b_own` (same outputs) |
-| Fast package (v3 outputs, half the runtime) | `submissions/ensemble_fast/submission.py` (`ccbce506…`) | Base of v4.1; not uploaded by itself |
-| route3geb (v3) | code `submissions/ensemble/submission.py` (`dacee85a…`) | Uploaded 7 Nov, 0.8135 after rescoring |
+| `cand_v51b_own` | `runs/upload/sealed_cand_v51b_own.zip`; `submissions/ensemble_v5b/submission.py` | Uploaded12Nov,.8197668759; frozen |
+| v6.6cap250 | `runs/sealed/final_zips/v66_cp1_cap250.zip`; exactSHA above | Prepared; recordedMac/A100 checks; real sealed-worker transfer unknown |
+| §321JS-all | Private Galvani prepared artifact and separate optimization snapshots; owned handoff above | Experimental; returning validation/runtime qualification incomplete; no frozen ZIP/version promotion |
+
+Earlier builds and timing tables are in [V6_BUILD.md](V6_BUILD.md), [V52_BUILD.md](V52_BUILD.md)
+and [SEALED_UPLOADS.md](SEALED_UPLOADS.md). Their dated checks are historical, not current job status.
 
 Never edit `submissions/*/submission.py` in place: their SHA-256 values are pinned to uploaded or staged packages.
 Package builders: `scripts/add_bio_gate.py`, `scripts/check_bio_gate.py`, `scripts/build_sealed.py`; audit recipes in
@@ -279,13 +206,13 @@ robust to the net seeds, nothing more. The uncertainty that matters is across pe
 bootstrap interval (standard error 0.5–1.1 for a typical change) and P04 and P10 separately.
 
 **What dev numbers are worth on the sealed set:**
-- Noise: 8 permuted-view null arms gave −0.22 to +0.18 J. Treat anything below +0.3 as noise.
+- Noise: historical8permuted-view nulls gave−.22 to+.18J. Small effects remain uncertain, not closed;
+  use people/order intervals and approximately±.5person noise rather than a hard+.3gate.
 - Small stacked gains transferred at 0.6–0.7×; v4.1 at 0.46× (+0.58 dev, +0.267 sealed).
-- **Dev "seen" weights P04 and P10 equally. On the sealed set P04 probably has 3 of about 46 returning sessions**
-  (if the organisers' withdrawn cohort text holds: 20 people × 6 sessions, 10 of them new). Every returning-person
-  gain so far is P04's. Read returning-person levers by P10's response.
-- New people are person-equal in both, so "new" transfers more directly. P04 as a new person is 54 %; everyone else
-  75–90 %.
+- Dev "seen" historically weightsP04/P10 equally. The current reporting proxy is57%new people,
+  with returning people approximately.2P04+.8P10, perAGENTS. This cohort proxy is not a verified sealed census.
+- Report P04/P10 separately; neither person alone closes a direction. Eight pinned delivery orders and all
+  original controls are required for current shuffled-delivery comparisons.
 
 ## 5. What the measurements say, and how firmly (revised 13 Nov; ledger sections in brackets)
 
@@ -317,50 +244,20 @@ outputs were added while the session stages and the routing kept using the old c
 - Dev "seen" is two people. Upload 5 suggests the other returning people gain about +0.6 per session from the
   own-space stage, so they are not like P10.
 
-**Not established, although earlier versions of this file said so:**
-- "Small levers do not stack": tested once, on two returning-person levers [§57b]. The stacking test of all
-  replicated small gains is §130.
-- "In-session learning on the chain's own labels is closed": the augmented-input form gains for new people on every
-  base [§101, §106, §108].
-- "The chain gains only from a person's own labels": true of the forms tried; the teacher is a counter-example.
-- "The leaders' margin is unexplained" is a statement about us, not a bound.
+Historical closure audits and counterexamples are in [SOLUTION_SPACE_MAP.md](SOLUTION_SPACE_MAP.md).
+They constrain claims about tested forms, not the scope of new whole alternatives.
 
 **Where the error is:** P04 as a new person 54 %, the other nine 75–90 %; the first fifth of a session 73 % against
 77–80 % later; word generation is the weakest class; returning people lose 8 points in Graz feedback runs against
 calibration runs [§67, §105].
 
-## 6. Levers (state on 13 Nov)
+## 6. Current candidate lineage
 
-**Uploaded: the own-space personal stage (`cand_v51b_own`, sealed +0.361 over v4.1).** For windows the gate routes to
-public person j with ramp r, the routed output is multiplied by exp(0.10 · r · mean clipped log posterior of three
-models fitted on j's public sessions in j's own space: FBCSP + LDA, own tangent space + logistic regression, slow
-time courses + LDA). Dev seen +1.79 (P04 +3.5, P10 +0.1) [§45]; dev-to-sealed transfer 0.41×.
-Code: `submissions/ensemble_v5b/submission.py`, `scripts/add_own_stage.py`, `scripts/check_own_stage.py`,
-`scripts/check_perm_stage.py`; study code `studies/12nov/ownspace.py`, `v5_replay.py`.
-
-**Measured, not uploaded:**
-- **Personal nets for returning people (v5.2 / v5.2b):** the dev numbers (+0.17 [§78], +0.55 with stage 0.15 [§119])
-  gave the nets to whole sessions from window 0 in both tails. In package form (only after the gate routes, routed
-  tail only) the reviewer measures −0.05 (P04 −0.10, P10 0.00) [§140]; PKG2 re-scores it on six bases [§140]. The
-  §105 expectation (+0.20) therefore has no dev evidence behind it. Built and checked on GPU; no worker-image replay.
-- **In-session fine-tuning for new people** (augmented inputs, consistency term, the chain's labels): +0.37 dev;
-  warm-start form (each refit continues the previous one, 10 steps) +0.46 at half the cost; one or two fine-tuned
-  nets per family keep +0.26 / +0.34 [§101, §106, §108]. "Six bases" adds nothing here (the scorers swap the slots
-  that differ between bases; deltas correlate 0.83–0.99): the person interval for cum10 is −0.56 to +1.52 (95 %) and
-  P10 as a new person carries it (+3.5; the other nine +0.12) [§139]. The cheapest form so far, gC5 (warm start,
-  5 steps every 10 windows, GPU-drawn augmentation), is +0.59 with an 80 % person interval of +0.04 to +1.14 and
-  +0.34 without P10 [§113]. Fresh-seed replications run on 13 Nov [§113, §135]. A package runs it only on sessions
-  the gate never routes (the gate routes no new-person window in the dev replay) [§138]. Cost on an A100: about 142 s per session for all 30 nets, 20 to
-  39 s for the reduced forms [§107].
-- **Small positives, combined (13 Nov):** in package form against a study base, FT + eye-net view + rest member gave
-  J +0.51 to +0.95 on three seed sets [§140, §145]. That base (study twins, personal nets, stage 0.15) sits about 0.7
-  below v5.1b on returning people. **On v5.1b's own members the eye-net view and the rest member give J +0.05**
-  (new +0.34, seen −0.24, P04 −1.4) [§151]. Fine-tuning on the shipped members is not measured yet. The design notes
-  are in [V6_DESIGN.md](V6_DESIGN.md).
-
-**The next candidate** is decided after the research window, and only from arms scored against v5.1b as uploaded
-(shipped members, shipped gate, stage 0.10; `studies/13nov/pkg.py` reports every arm against it first). v5.2 / v5.2b
-are not candidates as built (§105b). The open question is fine-tuning on the shipped members (§152).
+v5.1b's own-space stage on recognized sessions is frozen in the uploaded package. v6.6cap250 adds the
+validated local development combination documented inV6_BUILD; its sealed transfer is unmeasured.
+§321JS adds only the selected outerCC30/FBL recipe and still needs qualification. Older v5.2 variants,
+research-window restrictions and unqueued experiments from13Nov are historical, not present decisions.
+Use current source paths and explicit guards; do not transplant old favorable numbers across package versions.
 
 ## 7. Working rules and infrastructure
 
@@ -369,17 +266,15 @@ are not candidates as built (§105b). The open question is fine-tuning on the sh
 - **Local runs:** only through `scripts/run_capped.sh LOG CMD…`, one job at a time (the Mac froze on 22 Oct). CPU
   analyses and chain replays are fine locally; net training on MPS is about 6× slower than a 2080 Ti.
 - **Galvani** (`ssh mlcloud-galvani`, work dir `/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026`):
-  - The user types the 2FA code; agents never re-authenticate. Check with `ssh -O check mlcloud-galvani`. The master
-    connection drops after about 12 h or on network changes.
-  - Submit pattern: `sbatch --account=gehler -p 2080-galvani,2080-preemptable-galvani,a100-preemptable-galvani,v100-galvani
-    --exclude=galvani-cn109,galvani-cn111,galvani-cn121,galvani-cn122 --gres=gpu:1 --cpus-per-task=3 --mem=32G`,
-    time limits ≤ 1 h backfill best. `scripts/cloud/pack.sh` packs tasks into one job.
-  - One member task (12 folds of a small net) takes 2.5–6.5 min; the queue, not training, is the bottleneck.
+  - The user types the 2FA code; agents never re-authenticate. Check with `ssh -O check mlcloud-galvani`. ControlPersist43200 is12-hour local idle retention, not
+    verified VPN/server expiry; network changes can close access. Ask renewal only on an actual failure.
+  - Submit the current owned source-locked batch script with its declared device/resources; do not substitute
+    a generic GPU partition list for a device-specific registration. Measure costs for the actual full task.
   - Downloads from Galvani run at about 0.2 MB/s: fetch small result files only.
 - **Commits:** commit and push freely; no AI author line. Never commit datasets, environments, credentials or
   checkpoints. Keep the `2026-competition` submodule pinned.
-- **Weco** (CLI 0.3.27) is set up in `.weco/`; both searches of 11 Nov overfitted their visible half. The one-file
-  session stage in `.weco/session-stage/optimize.py` matches the chain replay to 1e-15 and is reusable.
+- **Historical Weco:** both11Nov searches overfit their visible half. No Weco provider/service is authorized or
+  running in the current campaign. Existing local study artifacts are historical evidence, not provider use.
 
 ## 8. Where everything is
 
@@ -400,15 +295,15 @@ are not candidates as built (§105b). The open question is fine-tuning on the sh
 | Local only (gitignored) | `data/`, `runs/` (`runs/upload/` ZIPs, `runs/replay_data/`, `runs/ttt/` outputs, `runs/archive_scratch_11nov/` full scratch mirror, 3.5 GB) |
 | Galvani outputs | `runs/diag/{ttt,rest4,aec,sbnx,w12,schr,steeg}` under the work dir |
 
-## 9. Decisions waiting for the user, and rules they set
+## 9. Current user decisions and autonomy
 
-1. **Next upload (v5.2 or a later candidate).** Not before about 14 Nov 02:00 UTC (research window, below). v5.2 is built and being validated; its sealed expectation is pre-registered in ledger §105. Every upload needs the user's explicit go-ahead and a live phase, quota and Codabench-storage check (v5.2 needs about 85 MB free).
-2. ~~Two leading accounts~~: ranks 1 and 2 are one team (ETRI_EnSeption, two models; REVIEW_12NOV §7).
+The user authorizes continued code changes, broader whole architectures/objectives, parallel Galvani experiments,
+and justified follow-ups overnight. The incumbent is not a search boundary. Preserve and report the best measured
+artifact while exploring different mechanisms. Use the global scientific-discovery skill and actual coverage evidence.
+Every4hours perform at least15actual minutes of substantive primary-source research; extra reviews do not erase
+scheduled cadence. Record actual time and distinguish retained history from independent or blind context.
 
-**Two tracks inside the window (user, 12 Nov night):** "nice! exactly these findings we want so keep pushing now on that path but also always with some ratio keep exploring completely new properly reasoned from the ground up fitted solution to our problem understanding". **Ratio chosen: two thirds exploit, one third explore**, in compute and in attention. Exploit = the cheap in-session fine-tuning for new people (v52-build session: reduced forms, A100 batching, then raising the gain with the free runtime). Explore = designs new in kind, reasoned from the measurements, scored as whole systems or as oracles that bound them (this session). Every status report says what ran on each track.
-
-**Research window (user, 12 Nov about 22:00 UTC, until about 14 Nov 02:00 UTC):** no new package candidate is built and no upload decision is taken before then; research, iteration, profiling and pushing performance only.
-
-**Rules set by the user on 12 Nov** (also in `AGENTS.md`): no gate or closure is final (check what actually ran before
-citing one); cleanups and reviews must hunt silent no-ops (options parsed but not applied); the codebase exists to
-optimise the final submission. Time stamps in the ledger come from `date -u`.
+The provisional decision checkpoint is17Nov18:00CET, with no top-five guarantee. No upload is authorized by the
+research campaign. Obtain explicit upload authorization and check live phase/quota/storage before submission.
+Earlier upload counts/deadlines/board estimates require live verification; do not infer available quota anonymously.
+Do not ask optional implementation questions while the user sleeps. Use existing50mincampaign/4hresearch automations.

@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 05:55 CET
+# Campaign status: 17 November 2026, 06:20 CET
 
 Submission unchanged: uploaded v5.1b **.8197668759**. Prepared v6.6 cap250 remains unchanged;
 ZIP SHA `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
@@ -158,17 +158,22 @@ Profile3117399 passed: all6FIRfingerprints match; oneFIR+sixindependenttails ver
 EXACT0.0 probabilityerror across two alternated-reset17window runs. Auxiliary-networktime.2509/.2441s→
 .07674/.07639s(68.7–69.4%less). This is component timing, not whole-worker or sealed speedup.
 Separate immutable same-weight optimization is being prepared; fresh raw/active/reset/paired-worker guards
-remain necessary. No tolerance relaxation, candidate promotion or new accuracy score; failed source remains intact.
+remain necessary. Separate readonly-current-input variant also registered. Initial guards3117415/3117429
+failed before inference on a newly assumed persisted stream column; owning protocol derives stream fromsubject/session.
+Failures preserved/deadcontrollers canceled; realNPZ/loginCPU schema smoke precedes replacementGPUguards.
+No tolerance relaxation, candidate promotion or new accuracy score; failed source remains intact.
 
-**§317 private chain:** replay3117276/all8controls3117277/zero+active smoke3117278 passed.
-Remaining30cells3117357%4→completeowningscorer3117358, no partial treatments read.
-Pending-only15min CPU/backfill requests preserve6CPU/48GiB/source; first4running requests unchanged.
-Measured controls≈4min each; completion around06:10–06:30 CET is conditional on slots and no failures.
+**§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.
+C−control+.048820official[−.114472,+.218121], people/order+.036[−.150914,+.231166],5/10up.
+Actual auxiliary contrast C−B+.002274official[−.049902,+.056308], people/order+.012[−.046749,+.070972],7/10up.
+No established useful system gain; weak-backbone/external-family limits remain. [Complete report](aux317_chain_results.txt).
 
-**§312 independent all-CPU route:** source528284dc…5ef4, never mix GPU folds. At05:47CET wave17array3117345
-was finishing tasks134–136→callback3117346; complete160foldcollector follows finalwave only.
-Recent cells≈4–7min; provisional complete06:15–07:00 CET depends on queue/guards.
-No CPU-chain release without separately pinned registration. [Dynamic history](raw312_schedule_handoff.md).
+**§312 independent all-CPU COMPLETE:** all160folds/source/splits/checkpoints/raw/8order guards pass;
+collector3117428completed06:11:07–06:12:07CET/1min. FBC S52.249/F47.604/T54.816/C55.421%;
+Shallow S50.407/F44.913/T49.812/C50.830%. T−C people/order FBC−2.338[−4.775,+.125],Shallow−.973[−2.418,+.529].
+FBC T−S+2.140[+.740,+3.561], but compute-matched C−S+4.477[+2.376,+6.660]; no isolated pretraining gain.
+[Independent CPU report](raw312_cpu_whole_results.json), SHA`bfb6abdf0c489032a77f97d7800b2151ef3ac7f9f5e94e03e417f71a0f259f70`.
+No device-fold mixing/CPUchain/automatic outer wave. [Scheduling/source record](raw312_schedule_handoff.md).
 
 **§329 new released EEG prior:** MIT LaBraM-at-Scale Atom-Ldefault pretraining encoder46.3M, release2Nov2026.
 Defaultpretrain weights are not the benchmark-selected best-full-ft epoch. Training overlap unknown.
@@ -179,13 +184,20 @@ P04–P10fit/P02P03exposedqueries/P01excluded. No329numerical/accuracy result ye
 Separate full-finetuning form§330 is being prepared prospectively, before329scores; release requires actual guards,
 not favorable accuracy. [Fresh architecture review](fresh_architecture_17nov.md). No new outer matrix automatically.
 
+**§331 independent raw state-space decoder PREPARED:** two32-wide oscillatory blocks over all480samples,
+input-selective versus matched static and local controls, identical source-fitted287branch. No pretrained/code assets;
+not Mamba/S5/S7 reproduction. Source-only40epochs/P04–P10fit/P02P03exposedqueries/P01excluded.
+Independent complex direct-recurrence output/gradient, active/inactive-path and actual-cost guards precede a bounded
+CPU pilot; no numerical/source score yet. [Prospective scope](oscillatory331.md). This is a different architecture,
+not another incumbent head. The user authorizes preparation/execution; no automatic outer/chain expansion.
+
 ## Coordination and cadence
 
 Galvani only,32running/272submitted with28reserve. Latest05:47CET account snapshot:37active/7running,
 no dead dependency observed; verify capacity before each dispatch. SSH renewed01:02CET still works.
 ControlPersist43200 means12-hour local idle retention, not VPN/server expiry. Submitted jobs survive client loss.
 Root owns canonical STATE/STATUS/handoff; external_supervision owns321/317; fresh_architecture owns328/329/330;
-fresh_solution_audit owns selected323saved-stage diagnosis. Use followup_task to wake completed owners.
+fresh_solution_audit completed323diagnosis/CPU312 and now owns331numericguard/sourcepilot. Use followup_task to wake completed owners.
 Do not overwrite others' ledger blocks or immutable snapshots; reconcile shared files before commit.
 
 Global scientific-discovery skill applied; personal masterdbaab0e. No cross-provider execution.
