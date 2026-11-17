@@ -1,29 +1,31 @@
-# Owned317/320/321 handoff — 17 November
+# Owned317/320/321 handoff — 17 November, current after3118591
 
-- §317 complete60fold3117176→3117177: whole A52.8361/B53.6952/C53.7346%, globally weak. Completecurrent chain3117358 C−B official+.002274pp[−.049902,.056308], people+.012[−.046749,.070972],7/10up: undecided/no gain claim.
-- §320 sourcepilot3116903 H60.115 below68.60quality stop; no expansion.
-- §321 all10sixseed corrected collector3117241 complete; original private artifact `ni26_js321_20261117_orchestration4/prepared_jsall`, manifestc7d77d4d0ffbc338c0f9e0b0f0bd2b5dd2221fdde5fcb5436eaf63262d82e2c4.
-- Actual raw input prior5 differs from latent BN2. Repair3117225/active5 guard3117230 passed. Initial3117189k2 failures and dead dependencies preserved.
-- JS-all continues outerJS after recognition, matching318; originalinner/gates/FTlabels stay intact but final recognizedposteriors change. OuterFB35–40 removed, FB41–46 retained, FBL59–64 doubled; outer17/rest1/17 vs originalinner15.
-- Complete selected318B2_pool posthoc +.272396officialpp[.004869,.527102], people+.277955[−.006993,.545638],6/10up; P04−.048350/P10+.565349 newperson emulation, not confirmation/package/returning/sealed.
-- GenuineoriginalSinc returning P04/P10 checkpoints missing/invalid: still blocks returning validation. No substitute or in-sample gain claim. FrozenZIP9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed unchanged.
-- Same-weight optimized snapshots `ni26_js321_20261117_shared2` and `ni26_js321_20261117_inputreuse2`; original bank untouched. Reuse reads current originallast_inputs35 afteroriginalbank/FT, exact fingerprint/callback/reset checks.
-- Earlier bitwise reset and standardFT selfrepeat failures preserved. CPUreset exact; GPUoldcold→reset drift6.25236e−8, standardFT215 selfrepeat final.000302381/0labels; no causal attribution.
-- Deterministic validation-only CUDAoldself3117572 exact. Phase-matched old→FIR/reuse3117581/3117582 PASS exactthroughknown45/unknown215, originalinner/gates/FTlabels/inputs/generators/45active+20inactiveoriginalweights/buffers protected.
-- Independent deterministicCPU215semantic3117573 PASS81m17 exactold→bothvariants, reset/deepcopy bitwise,20FT/10CP/125fusions. Not worker timing evidence.
-- Standardunoptimized CPU3117246/A1003117247 overhead stops preserved. Optimized A1003117588FIR/3117586reuse passedknownalllengths then failedunknown378bar1.311509/1.247656. No reinterpretation.
-- Complete standard FUNCTIONAL-only A1003117602FIR/3117601reuse PASSED all190/378/800 known/unknown. Unknown800 both24FT/480steps/noover,39CP/710fusions. Timing descriptive only.
-- Standard CPU3117585reuse/3117587FIR TIMEOUT45min, incomplete/notbarfailure. TIMEOUT-only3117679/3117680 released fullFUNCTIONAL-only CPU3117756reuse/3117757FIR, RUNNING180min4CPU24GiB. Workspace `ni26_js321_20261117_functional1`; no further automatic retries.
-- Warm1 job3117647 failed beforeinference missingowningrecord.py. Separatewarm2 exactdependency +actualSIFimportpreflight passed; warm3117650 COMPLETE43m59 within ORIGINAL45min.
-- NEW warm study all12AB/BApairs pass1.061008 engineeringbar: median1901.02427/3781.01188/8001.02616, max1.04908. Real800warm base156.69–158.72/JS161.47–164.38s. Coldsetup225.835/169.144 separately/orderconfounded, not speedup.
-- Prospective TimeLimitextension denied; no change to45min. TIMEOUT-only3117850 correctly NO_RELEASE onCOMPLETED. Preparedwarm3/65min unused. All olderfailed protocols preserved; historical43.5min extrapolation conditional, notsealed proof.
-- Next owning checks: follow CPU3117756/3117757 complete/noerrors/actualFTCP. Fullreturning validation remains blocked; no upload/promotion/version designation. Root owns canonical docs.
-- OwningCPUstatuscollector3117884 afteranyBOTH3117756/7, immutable `ni26_js321_20261117_cpu_complete2`: verifies source/hash/device/variant/all6rows/knownrec/unknownnegative/FTCP/auxcalls, writescompleteorfailedstatus withoutretry. Pendingv1/3117881cancelled beforeexecution forsource-guard hardening. Read `cpu_complete.json` atnextheartbeat.
-
-- RETURNING update: all60NEWgenuinefoldneuralweights/72traces COMPLETE3118074; Sinc/CC30canonicalpilots3117928/3117941, remaining3117930/3117998, otherpilots3118030/rest3118036. Source-excludedtrainingobserved/heldlabelpoison/proofhashes pass; no historicalidentity/accuracy. See js321_returning.md.
-- ExistingFBhistoricalQFguards CPU3118014/GPU3118024 failed~1.16/1.26e−5 at1e−5/0labels, no tolerancefit. Newbotharmweightsavoid claimingoldidentity. Classic/gateidx_tr exactbothfolds.
-- Bank3118079 failedGPUbatch/B1>1e−4; diagnostic3118188 allB1selfrepeat0/immutable/resetpass. TF32FalseSinc3.10e−7 vsTrue.002923; FBL1.122e−4both/0labels. No bankexpansion/accuracy. PreparingONEactualSIFTF32FalseB1-only strictsamepath/reset/prefix/deepcopyguard.
-- Wholeconsumer blocks: run_s/CP hardcodeunrecognized/all_loso; retv6pre-recoutputusesinnershadow, actualRouteBoutertail differs; retv6kappa0/helperdenominatormismatch vsactualouterTpri20. UseactualRouteB/TSEM/OwnStage, preserveinnerkappa0; fixedglobalMAD/calibrationvsall-components-excluded scope must be explicit. No returning score yet.
-
-- NativeB1SIFpilot3118281 PASS2m53/RSS2.405GiB, all6×8×2 fullrepeat/reset/interleaved≤1e−8/immutable/count/zero/sourceguards. Existingpendingrightsize checkfoundalreadycompleted: noresourcechange. Remaining11nativebanks3118358%2complete; owning576filecollector3118402PASS12s. NOaccuracy.
-- SourcepersonalcontextsP04/3118388PASS68s andP10/3118405PASS57s, all10galleryheads/Tpri/OwnTCS sourcefit/heldpoison. ActualfrozenRouteB/TSEM/OwnStage+CFCPENGINEERINGcompositionguard3118487 RUNNING, realP04recording80/sourcecachedmatchingPCbasis+originalall10inner; explicitNOTwholeheld/raw256proof.
+- §317 complete60fold3117176→3117177: A52.8361/B53.6952/C53.7346%, globally weak. Complete currentchain3117358 C−B official+.002274pp[−.049902,.056308], people+.012[−.046749,.070972],7/10up; undecided/no gain claim.
+- §320 sourcepilot3116903 H60.115<68.60 quality stop; no expansion.
+- §321 no upload/promotion/version designation. FrozenZIP9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed unchanged. Root owns canonical docs.
+- All10sixseed deployment collector3117241 complete; private `ni26_js321_20261117_orchestration4/prepared_jsall`, manifestc7d77d4d0ffbc338c0f9e0b0f0bd2b5dd2221fdde5fcb5436eaf63262d82e2c4.
+- InputEA prior5 ≠ latentBN2. Correct repair3117225/active53117230 passed; initial3117189k2 failures/deaddeps preserved.
+- JS-all continues outerJS after recognition as318. Originalinner15/gates/FTlabels preserved; final recognizedposteriors change. OuterFB35–40 removed/FB41–46 kept/FBL59–64 doubled, total17/rest1/17.
+- Selected318B2_pool posthoc +.272396officialpp[.004869,.527102], people+.277955[−.006993,.545638],6/10up; P04−.048350/P10+.565349 NEWPERSON emulation, not returning/sealed/independent confirmation.
+- Sameweights optimized snapshots `ni26_js321_20261117_shared2` (FIR) / `ni26_js321_20261117_inputreuse2` (reusecurrentoriginal last_inputs35 afterbank/FT). Originalbank unchanged.
+- Earlier strictGPUreset and standardFT selfrepeat failures preserved. No inferred cause. Validation-only deterministicCUDAoldself3117572 exact; phase-matched3117581/2 PASS, originalinner/gates/FTlabels/inputs/weights/buffers protected.
+- Independent deterministicCPU2153117573 PASS81m17 exactold→both,20FT/10CP/125fusions/reset/deepcopy. No timing claim.
+- Unoptimized CPU/A100 first-stop failures and optimizedA1003117588/6 unknown378bar1.311509/1.247656 failures preserved.
+- Fullstandard FUNCTIONAL-only A1003117602FIR/3117601reuse PASS all190/378/800known/unknown; unknown80024FT/480steps/noover,39CP/710fusions. Timing descriptive.
+- Warmreuse3117650 COMPLETE43m59 within original45min. All12AB/BApairs pass1.061008 engineeringbar; medians1901.02427/3781.01188/8001.02616,max1.04908. Warm800base156.69–158.72/JS161.47–164.38s.
+- Coldsetup225.835/169.144 separately/orderconfounded, notspeedup. TimeLimitextension denied/noactualchange;3117850 NO_RELEASE correctly onCOMPLETED. Historical43.5min extrapolation conditional, notsealed proof.
+- CPU3117585/7 original45minTIMEOUT preserved. FullFUNCTIONAL3117756reuse COMPLETE2h27m06 /3117757FIR COMPLETE2h32m09. Owning3117884 PASS: both complete_functionality_passed_NOT_timing_qualified, oldfailurespreserved,accuracyfalse. Compact js321_cpu_complete.json.
+- Returning oldSinc historicalidentity failed/missing; no reconstruction claim. NEW genuine sourceweights in BOTHarms: all60 sourcefits/72traces owning3118074 PASS. Sinc3117928/3117930,CC303117941/3117998,other3118030/3118036. Exactobservedtrainrows/heldlabelpoison/sourceG/ownexport guards pass.
+- HistoricalFB QF CPU3118014/GPU3118024 failures~1.16/1.26e−5 at1e−5/0labels preserved. Own-export1e−4 distinct, notrelaxed historicalidentity.
+- Rawbank3118079 batch/B1 failure preserved. Diagnostic3118188 allB1repeat0; TF32FalseSinc3.10e−7 vsTrue.002923,FBL1.122e−4both/0labels. No causal inference/tolerancefit.
+- NEWnativeSIFB1-only3118281 PASS2m53/RSS2.405GiB; fullsamepath/reset/repeat/interleaveddeepcopy≤1e−8/immutable/counts/source guards. Remaining11banks3118358 complete; owning3118402 PASS all576files/12cells/72assets. Noaccuracy.
+- Sourcepersonalcontexts3118388P04/3118405P10 PASS all10head/Tpri/OwnTCS sourcefit/poison. CachedmatchingPC256 basis only, notraw causal proof.
+- Actual frozen RouteB/TSEM/OwnStage+CFCP ENGINEERING3118487 PASS5m59: realP04recording80, raw/final EXACТ0 vsindependentcomposition, originalinner/gates/FTlabels/offbasebitwise,rec10/FT0/CPstop10,70personalwindows/65Tprichecks. JSactivity pre/post .01388/.05440, notaccuracy.
+- Whole blockers: run_s/CP fix unrecognized/all_loso; retv6 pre-recinneroutput differsfromactualouterRouteB, oldkappa0/denominator differsfromactualouterTpri20. Do not reuse aswholeconsumer withoutactualpathguards.
+- Parent prospectively chooses FIXED-PRODUCTION-PRIOR paired ENGINEERING/CONDITIONAL SENSITIVITY ONLY: retain globalMAD/teacherEA-G/oldOOFcontrast calibration explicitly. Positive cannot establish genuinelyheldFULL-SYSTEMDEV/ranking/promotion; negative may expose risk. Full8orders pair must be registered before querylabels.
+- Raw causalFULL256/newsourceinnerFT/actualrecognition stillrequired. MissingphysicalShallow0–9/learnedFBC20–23 can be28newsourcefits; boundedpilots/max2GPU authorized, notyetlaunched. Externalteachertrunks validexternal; sourceC.01balancedmap can berefit, notpdeep3class substitutes.
+- SOURCE-EXCLUDED calibration options/cost must be audited fromoriginalfitfunctions/availableOOF, notunboundednewnested evaluator. SharedoldOOF calibration hasouterexposure; bio metric isexternalonly224people/673sessions, gallery mustsourcefit.
+- Original31sourceTS cost3118561 PASS15s: feature1.8601/1.8252s,44239dim/51blocks,RSS807332KiB;159.31s full2655FEATURE-only extrapolation, PCAunmeasured.3118551 officialimportfailure preserved.
+- NEWsource-only originalCore/PCA256 job3118591 QUEUED in `ni26_js321_20261117_returning_view_fit1`: P04train2278/held377absent, originalts_core/Corelr10+originalexport_tsem.pc_basis256, low/highfloat32,pc_trfloat32.6CPU24GiB15min,featurethreads1/LR-SVD6. Actualuserqueue empty beforeadmission. Noaccuracy.
+- Next: collect3118591; realraw31canary againstoriginalcausalreference prob/view≤1e−4, native samepath/reset/prefix/deepcopy≤1e−8 beforeuse; thenfullrawviewcost/coverage. No automaticaccuracy/newmodelwave yet.
+- Source/evidence paths `studies/17nov/js_readiness321/`, `evidence/next_wave_16nov/js321_returning.md`; alloldfailures preserved. SharedLEDGER additiveonly; no frozenfiles modified.
