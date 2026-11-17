@@ -30,6 +30,9 @@ def main(order):
     generated=importlib.util.module_from_spec(spec);spec.loader.exec_module(generated)
     os.environ.update(NM_NAME='JS',ADD='none',SWAP='fb_cc30',ZERO='0',NM_SEEDS='0,1,2,3,4,5')
     runner=STUDY/'studies/14nov/newmember/run_s.py';source=wrapper.patch_runner(runner.read_text())
+    diagnostic='\nif FAMS_ or FACTOR != 1.:'
+    if source.count(diagnostic)!=2:raise ValueError('owning runner diagnostic boundary changed')
+    source=source[:source.rfind(diagnostic)]  # Omit only post-run diagnostic; capture occurs afterward.
     context={'__name__':'no_score321_runner','__file__':str(runner),'CURRENT':{'arm':None}}
     chain_context={}
 

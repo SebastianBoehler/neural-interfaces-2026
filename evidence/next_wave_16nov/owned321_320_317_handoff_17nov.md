@@ -33,3 +33,4 @@
 - Continuation:3117049 six real P01 seeds recovered exact historical weights/probabilities; exports/stateguards pass191.17s. Proof js321_six_seed_recovery.json. All6deployment mapsB2_pool.
 - Posthoc complete guarded318read3117050: B2pool76.279335→76.551732%,+.272396pp[.004869,.527102]; people/order+.277955[−.006993,.545638],6/10up; P04−.048350/P10+.565349newperson emulation only.
 - Active copiedbundle3117079 queued CPU4/16GB20min in ni26_js321_20261117_active1. Explicit JS-all continues outer intervention after recognition; originalinnergate exact≠final recognizedoutput identity. Off mustbitwiseidentity. Noall10 untilrealactive/sixdraw8order guards pass.
+- Prelaunch diagnostic-order fix: cancelledpending3117079; active2/3117082 replacesit, removesonlyowningrunnerfinalLOGdiagnostic beforedeferredcapture. Source preserved. All10entrynowrequires8×6recipeproofs+sixedrecovery; d1d88f1.
