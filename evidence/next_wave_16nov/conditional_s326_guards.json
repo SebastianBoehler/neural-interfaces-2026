@@ -1,0 +1,50 @@
+{
+  "changed_labels": {
+    "moderate": 110,
+    "strong": 109
+  },
+  "device": "NVIDIA A100-PCIE-40GB",
+  "diagnostics": {
+    "moderate": {
+      "calls": 1598,
+      "gradmax": 9.451644467445689e-07,
+      "loss": 0.0016254111584919145,
+      "penalty": 2.1732474705473458e-05,
+      "weight_delta": 0.14882681778461296
+    },
+    "strong": {
+      "calls": 2311,
+      "gradmax": 4.744216408649064e-07,
+      "loss": 0.0016256069434113167,
+      "penalty": 2.215002161899092e-07,
+      "weight_delta": 0.15048803945483516
+    },
+    "zero": {
+      "calls": 574,
+      "gradmax": 3.19902307850439e-07,
+      "loss": 0.0015915977668186706
+    }
+  },
+  "elapsed_s": 23.47485144296661,
+  "finite_difference": 5.756286814229127,
+  "fit_people": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P09",
+    "P10"
+  ],
+  "max_rss_kib": 2789932,
+  "peak_gpu_bytes": 813929984,
+  "penalty_gradient_norm": 5.756286814235701,
+  "predictions_sha256": "ecc4a2f9ae5e83dbbe48756649c0cfc3542f2aa26b1f200f8f9430860f465bc9",
+  "prepare_sha256": "3be78106fcddb987d91eac6523ef0836703089bdef20b331766e7f46614741d3",
+  "q": 0.21908693826826728,
+  "queries": [
+    "P02",
+    "P03"
+  ],
+  "query_labels_read_for_accuracy": false
+}
