@@ -1,0 +1,77 @@
+{
+  "traces": {
+    "P01": {
+      "fit_rows": "927152adccc9d919666be700e4cf73b5f010f52c058bd849166a63d2a3841cb4",
+      "query_rows": "2512c1b6480ee9ce05b7a4b1110bfdf2a6d37a735083c0ec51602d6c3fd47b19",
+      "proof_sha": "e362ea28a5a0f1c5b7d7856dacafaeeef5e69ed0b4e4fc8d2bbe79c0d6031715",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    },
+    "P02": {
+      "fit_rows": "21235dfef0162a2ad2f0b07f899cfef95fa807ad7bada358f78d1380586a95a8",
+      "query_rows": "668e756312945d20561dd9219983d309304b0c337dac22b55b52472d0ced11a3",
+      "proof_sha": "bffe33234cd23fe5a47ef8eb54f87caf1d11337f7b3601e14c0f5666d9cfbeea",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    },
+    "P03": {
+      "fit_rows": "ffd992b757b746721dc8bb16814a67e8e1288cf0b5d8d6906fcc9ca44503c625",
+      "query_rows": "96fcf70f3f89e4d5db1883134557d04defc5d9dec3eb9fb1d5d33f84bf7e1898",
+      "proof_sha": "5d08e7b5e61110367bdf9194994915be114f5e746bfdb8137c27527d9145472e",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    },
+    "P04": {
+      "fit_rows": "0127c742ec762e5a48884794b534b56217edc647b17a25c2ef517e68b8eb20ac",
+      "query_rows": "5573faf028014f0e4f1f824365ba317c0392785c8796ff9672331e57927a7917",
+      "proof_sha": "1da2e1d0f339c27decf276701ec892e93d710cb51cc0c1bb12826cca8221b11b",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    },
+    "P05": {
+      "fit_rows": "90785d6e7d3735d8d19182687bc36011616fb73d9253ca57682855d85adada23",
+      "query_rows": "ceb53d500b9a99a07de21f1625eab3d2a6c0d74ca4bdae3034fbf3ded2731eed",
+      "proof_sha": "7adecb23ac30824ef3ad9bce0e6a3a597380cc95bba327d7e175ac3139b4e365",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    },
+    "P06": {
+      "fit_rows": "282274213166874c5cf2f6edeb260ff4c001565496c46d36508c9cd33dfaafa6",
+      "query_rows": "00ce607111e4bed38b2af61123059c9089d930163f6cfe1f6eacd869b9bad36a",
+      "proof_sha": "fc6b6c4e1b3522e3f51221a4fda3d429c1cf9b7751ec39639c3ed19ae835ca2b",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    },
+    "P07": {
+      "fit_rows": "ea5515ff7634a1d5351bd6b3777d35276d0a1caa762a9fb9363bec03201b35bd",
+      "query_rows": "068cfcf816fb46e157bd20f1f80fce95a494495bc230107a3ded9ae9cbc78dc9",
+      "proof_sha": "7b74f9a1acbf40345f0816877943f83e4ef46df344aafb95766d309085304450",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    },
+    "P08": {
+      "fit_rows": "93cc38d0f2adf4daefcfbe7ad655840e186aaf6794befcfa2e96effe228ba6b3",
+      "query_rows": "791a5d1789135be4e7e70794f0b4131c8dbb0f7361cff40745b4e642af42b5dd",
+      "proof_sha": "fc3eb60c5aba77bddde47ccf478baa4d2030288c9852c48934c48e892c0c5b6d",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    },
+    "P09": {
+      "fit_rows": "278a6dcd77eb45073b975f8aa792006b14217ec8ca2788b34e9131715021b2b2",
+      "query_rows": "3404d36b360fbf18d99370c6d94b603e9bea42022addcb516dd05cbea2d77a5c",
+      "proof_sha": "7cee0dbabd8700e57eb732a71d2921f4dbeff45a02ee29d5fd3c4da556f9d670",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    },
+    "P10": {
+      "fit_rows": "7f415bb83961bcb5f14d26e1f059ce76c64184955d0f5b8054d6622691d18473",
+      "query_rows": "e81bcb0d3731e3e67e4e0df34d5c5cf1169ae2e6133fe6a7813f7230e9b5a360",
+      "proof_sha": "ff08058d3e53360a0b71206f8d8919685354928b51393cdd6752ee5e6dad0f4b",
+      "exact_inner_weight_shas": true,
+      "probability_bytes_exact": true
+    }
+  },
+  "bank_sha": "d110fc231ca91b84e90cdaa680e3710cece7e7439f47e1d517f1fd8dcd978ba8",
+  "source_sha": "62a58e927b900120296cab98e106bfabfabb71809759b80f64f14152c3db4bee",
+  "outer_scoring_labels_opened": false
+}

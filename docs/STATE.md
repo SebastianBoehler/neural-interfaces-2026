@@ -9,6 +9,10 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
+### Wednesday 18 November lunch decision
+
+[Overnight checkpoint, live jobs and noon candidate decision](../evidence/next_wave_16nov/OVERNIGHT_18NOV.md). The current plan calls for a penultimate candidate by Wednesday noon and reserves Friday evening for the final decision. The sealed best remains v5.1b.
+
 ### Current campaign: 17 November 2026, late CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
