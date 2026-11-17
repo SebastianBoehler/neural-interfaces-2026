@@ -1,0 +1,308 @@
+{
+  "scope": "metadata/export-log only; no EEG accuracy or EEG samples",
+  "audit_script_sha256": "1dfc686f12b0958aaadb1fbd981cb407bf3762951489ddbbbdb7f7d2d6e36ab5",
+  "rows": 8308,
+  "people": [
+    "CMx7MM/1",
+    "CMx7MM/15",
+    "CMx7MM/16",
+    "CMx7MM/17",
+    "CMx7MM/18",
+    "CMx7MM/19",
+    "CMx7MM/2",
+    "CMx7MM/20",
+    "CMx7MM/21",
+    "CMx7MM/22",
+    "CMx7MM/23",
+    "CMx7MM/24",
+    "CMx7MM/25",
+    "CMx7MM/26",
+    "CMx7MM/27",
+    "CMx7MM/28",
+    "CMx7MM/29",
+    "CMx7MM/3",
+    "CMx7MM/30",
+    "CMx7MM/4",
+    "CMx7MM/5",
+    "CMx7MM/6",
+    "CMx7MM/7",
+    "CMx7MM/8"
+  ],
+  "all_row_keys_unique": true,
+  "source_sha256": "f01e9cba08e2cafb1682d7e35185c9018a522a5bd5bf77694fb88b6d933ebe7d",
+  "export_log_sha256": "b0ba69d82f3538df8b06b6b1feddbac60b72badfae1d00daed02b011936bdafb",
+  "rows_manifest_sha256": "3146984808698094f583ff37d2245f3c61aa350c6e8f333bc5e3e4c4d2b6a6c1",
+  "source_code_sha256": {
+    "scripts/export_mental.py": "d1dc977a2b961d5fc9c8b1bc0448167dbf720ee8a33ba5be7dbad6063a86fe61",
+    "scripts/export_external.py": "bf0495c89e0ce80c911d26a511762ebb6125f25fbd93c3438352e459d58d9ad7",
+    "experiments/pretrain.py": "e5fc2887775c97b9429e3a09f262a79071dd11bfe3e3ba685ac4e8d72dfd9053"
+  },
+  "guaranteed_native_target_channels": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "CP2",
+    "Cz",
+    "F4",
+    "FC3",
+    "FC4",
+    "Fz",
+    "P3",
+    "PO7",
+    "PO8",
+    "Pz",
+    "TP7",
+    "TP8"
+  ],
+  "global_interpolation_union": [
+    "AF3",
+    "AF4",
+    "C5",
+    "C6",
+    "CP1",
+    "CP3",
+    "CP4",
+    "CP5",
+    "CP6",
+    "CPz",
+    "F1",
+    "F2",
+    "F3",
+    "F5",
+    "F6",
+    "FC1",
+    "FC2",
+    "FC5",
+    "FC6",
+    "FCz",
+    "P1",
+    "P2",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "event_count_distribution": {
+    "mentalarithmetic": {
+      "73": 65
+    },
+    "motorimagery": {
+      "19": 67
+    },
+    "nback": {
+      "121": 69
+    }
+  },
+  "prompt_overlap_counts": [
+    {
+      "task": "mentalarithmetic",
+      "class": 0,
+      "event_starts": 1,
+      "auditory_overlap_s": 2.0,
+      "rows": 520
+    },
+    {
+      "task": "mentalarithmetic",
+      "class": 0,
+      "event_starts": 1,
+      "auditory_overlap_s": 2.5,
+      "rows": 585
+    },
+    {
+      "task": "mentalarithmetic",
+      "class": 0,
+      "event_starts": 2,
+      "auditory_overlap_s": 2.0,
+      "rows": 585
+    },
+    {
+      "task": "mentalarithmetic",
+      "class": 0,
+      "event_starts": 2,
+      "auditory_overlap_s": 2.5,
+      "rows": 585
+    },
+    {
+      "task": "mentalarithmetic",
+      "class": 0,
+      "event_starts": 2,
+      "auditory_overlap_s": 3.0,
+      "rows": 585
+    },
+    {
+      "task": "mentalarithmetic",
+      "class": 3,
+      "event_starts": 0,
+      "auditory_overlap_s": 0.0,
+      "rows": 390
+    },
+    {
+      "task": "motorimagery",
+      "class": 1,
+      "event_starts": 1,
+      "auditory_overlap_s": 0.5,
+      "rows": 1206
+    },
+    {
+      "task": "motorimagery",
+      "class": 3,
+      "event_starts": 0,
+      "auditory_overlap_s": 0.0,
+      "rows": 402
+    },
+    {
+      "task": "nback",
+      "class": 2,
+      "event_starts": 2,
+      "auditory_overlap_s": 1.0,
+      "rows": 966
+    },
+    {
+      "task": "nback",
+      "class": 2,
+      "event_starts": 3,
+      "auditory_overlap_s": 1.5,
+      "rows": 2070
+    },
+    {
+      "task": "nback",
+      "class": 3,
+      "event_starts": 0,
+      "auditory_overlap_s": 0.0,
+      "rows": 414
+    }
+  ],
+  "wall_s": 2.1378816050710157,
+  "cpu_s": 2.125679002,
+  "recordings_count": 201,
+  "recording_missingness_by_person": {
+    "CMx7MM/1": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/15": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/16": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/17": {
+      "mentalarithmetic": 3,
+      "motorimagery": 2,
+      "nback": 3
+    },
+    "CMx7MM/18": {
+      "mentalarithmetic": 2,
+      "motorimagery": 2,
+      "nback": 3
+    },
+    "CMx7MM/19": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/2": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/20": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 2
+    },
+    "CMx7MM/21": {
+      "mentalarithmetic": 2,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/22": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/23": {
+      "mentalarithmetic": 1,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/24": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/25": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/26": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/27": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/28": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/29": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/3": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/30": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/4": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/5": {
+      "mentalarithmetic": 2,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/6": {
+      "mentalarithmetic": 3,
+      "motorimagery": 2,
+      "nback": 3
+    },
+    "CMx7MM/7": {
+      "mentalarithmetic": 3,
+      "motorimagery": 3,
+      "nback": 3
+    },
+    "CMx7MM/8": {
+      "mentalarithmetic": 1,
+      "motorimagery": 1,
+      "nback": 1
+    }
+  },
+  "dropped_target_channel_recordings": {
+    "CP1": 5,
+    "F3": 1,
+    "P4": 1
+  },
+  "paired_mi_ma_sessions": 63,
+  "paired_mi_ma_sessions_excluding_published_qc_008_017_019": 57,
+  "full_metadata_report_galvani": "runs/diag/external_instrument348_v2/audit.json"
+}
