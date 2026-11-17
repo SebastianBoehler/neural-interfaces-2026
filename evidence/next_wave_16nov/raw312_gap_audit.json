@@ -1,0 +1,906 @@
+{
+  "scope": "post-hoc whole-decoder per-seed/person; unlabeled source-only checkpoint contributions; no target ablation",
+  "source_report_sha256": "1030e86966f7b7a1d9cade0fb60dafd2c00e29d159430b774c504878cec8db5b",
+  "per_seed_people": {
+    "fb_S_s0": {
+      "P01": 55.997983870967744,
+      "P02": 77.60640681003584,
+      "P03": 57.84274193548387,
+      "P04": 42.57653823178017,
+      "P05": 51.42809139784945,
+      "P06": 61.187275985663085,
+      "P07": 68.91241039426524,
+      "P08": 68.40277777777777,
+      "P09": 57.758620689655174,
+      "P10": 56.1308551198257
+    },
+    "fb_S_s1": {
+      "P01": 47.24462365591398,
+      "P02": 62.74641577060931,
+      "P03": 50.31137992831541,
+      "P04": 41.932123655913976,
+      "P05": 54.23387096774193,
+      "P06": 61.98140681003584,
+      "P07": 62.69489247311828,
+      "P08": 65.76388888888889,
+      "P09": 53.071120689655174,
+      "P10": 50.77410130718954
+    },
+    "fb_F_s0": {
+      "P01": 41.91868279569893,
+      "P02": 53.16084229390682,
+      "P03": 48.27956989247312,
+      "P04": 37.704973118279575,
+      "P05": 44.22043010752689,
+      "P06": 53.58870967741936,
+      "P07": 50.2665770609319,
+      "P08": 54.236111111111114,
+      "P09": 53.8433908045977,
+      "P10": 43.231772594095105
+    },
+    "fb_F_s1": {
+      "P01": 33.33333333333333,
+      "P02": 45.729166666666664,
+      "P03": 41.076388888888886,
+      "P04": 39.290247909199515,
+      "P05": 40.02016129032258,
+      "P06": 52.09565412186381,
+      "P07": 51.48185483870967,
+      "P08": 68.78584229390681,
+      "P09": 53.268678160919535,
+      "P10": 46.722658891142665
+    },
+    "fb_T_s0": {
+      "P01": 55.9475806451613,
+      "P02": 72.43167562724014,
+      "P03": 55.11984767025089,
+      "P04": 42.19944743130227,
+      "P05": 59.509408602150536,
+      "P06": 64.97087813620071,
+      "P07": 69.97087813620071,
+      "P08": 69.09722222222223,
+      "P09": 42.708333333333336,
+      "P10": 55.77724720156262
+    },
+    "fb_T_s1": {
+      "P01": 44.64045698924732,
+      "P02": 63.68391577060931,
+      "P03": 48.680555555555564,
+      "P04": 40.20795997610514,
+      "P05": 57.8125,
+      "P06": 63.6671146953405,
+      "P07": 68.5674283154122,
+      "P08": 60.763888888888886,
+      "P09": 60.775862068965516,
+      "P10": 45.42364599096343
+    },
+    "fb_C_s0": {
+      "P01": 41.2130376344086,
+      "P02": 54.96527777777778,
+      "P03": 55.1366487455197,
+      "P04": 36.51732377538829,
+      "P05": 51.42809139784945,
+      "P06": 53.76008064516129,
+      "P07": 71.47849462365592,
+      "P08": 70.10416666666666,
+      "P09": 57.90229885057471,
+      "P10": 50.46977124183007
+    },
+    "fb_C_s1": {
+      "P01": 52.18413978494623,
+      "P02": 58.43862007168459,
+      "P03": 58.39605734767025,
+      "P04": 41.354166666666664,
+      "P05": 52.520161290322584,
+      "P06": 59.41532258064516,
+      "P07": 69.57101254480287,
+      "P08": 68.66375448028674,
+      "P09": 54.6875,
+      "P10": 50.618520396664415
+    },
+    "sh_S_s0": {
+      "P01": 42.170698924731184,
+      "P02": 58.47334229390682,
+      "P03": 59.441084229390675,
+      "P04": 40.71311230585423,
+      "P05": 46.30376344086022,
+      "P06": 52.023969534050174,
+      "P07": 48.0320340501792,
+      "P08": 63.19444444444445,
+      "P09": 52.85560344827585,
+      "P10": 52.09147979115017
+    },
+    "sh_S_s1": {
+      "P01": 44.892473118279575,
+      "P02": 69.41308243727597,
+      "P03": 53.64359318996416,
+      "P04": 39.39777479091996,
+      "P05": 43.195564516129046,
+      "P06": 54.121863799283155,
+      "P07": 52.020609318996414,
+      "P08": 65.24529569892474,
+      "P09": 48.74281609195403,
+      "P10": 50.451459319359934
+    },
+    "sh_F_s0": {
+      "P01": 45.866935483870975,
+      "P02": 59.795026881720425,
+      "P03": 54.61581541218638,
+      "P04": 33.099611708482676,
+      "P05": 42.08669354838709,
+      "P06": 48.95273297491039,
+      "P07": 49.13866487455197,
+      "P08": 57.76545698924732,
+      "P09": 51.041666666666664,
+      "P10": 44.71921718879122
+    },
+    "sh_F_s1": {
+      "P01": 41.53225806451613,
+      "P02": 58.3546146953405,
+      "P03": 53.055555555555564,
+      "P04": 33.46774193548387,
+      "P05": 34.072580645161295,
+      "P06": 47.964829749103934,
+      "P07": 52.97715053763441,
+      "P08": 55.76612903225807,
+      "P09": 54.11278735632184,
+      "P10": 45.33860622793179
+    },
+    "sh_T_s0": {
+      "P01": 43.649193548387096,
+      "P02": 60.57571684587814,
+      "P03": 57.334229390681,
+      "P04": 39.33729091995221,
+      "P05": 50.47043010752688,
+      "P06": 58.34117383512544,
+      "P07": 60.85797491039426,
+      "P08": 65.90277777777777,
+      "P09": 48.383620689655174,
+      "P10": 52.18510536398468
+    },
+    "sh_T_s1": {
+      "P01": 53.343413978494624,
+      "P02": 55.48723118279569,
+      "P03": 53.62567204301075,
+      "P04": 38.43227299880525,
+      "P05": 52.083333333333336,
+      "P06": 48.291890681003586,
+      "P07": 54.48812724014337,
+      "P08": 61.59722222222221,
+      "P09": 50.46695402298851,
+      "P10": 48.07443092179401
+    },
+    "sh_C_s0": {
+      "P01": 44.28763440860215,
+      "P02": 62.72849462365591,
+      "P03": 54.616935483870954,
+      "P04": 40.23148148148148,
+      "P05": 47.17741935483871,
+      "P06": 60.44242831541218,
+      "P07": 46.03606630824373,
+      "P08": 58.9437724014337,
+      "P09": 51.45474137931034,
+      "P10": 54.04733397190294
+    },
+    "sh_C_s1": {
+      "P01": 51.226478494623656,
+      "P02": 57.33086917562724,
+      "P03": 58.45094086021506,
+      "P04": 39.889486260454,
+      "P05": 47.278225806451616,
+      "P06": 64.24283154121864,
+      "P07": 66.13463261648747,
+      "P08": 61.98140681003585,
+      "P09": 43.64224137931035,
+      "P10": 54.608265720081135
+    }
+  },
+  "epochs": {
+    "fb_S_s0_P01.npz": {
+      "selected": 18,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_S_s0_P02.npz": {
+      "selected": 16,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_S_s0_P03.npz": {
+      "selected": 21,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_S_s0_P04.npz": {
+      "selected": 23,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_S_s0_P05.npz": {
+      "selected": 35,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_S_s0_P06.npz": {
+      "selected": 19,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_S_s0_P07.npz": {
+      "selected": 16,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_S_s0_P08.npz": {
+      "selected": 16,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_S_s0_P09.npz": {
+      "selected": 26,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_S_s0_P10.npz": {
+      "selected": 13,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_S_s1_P01.npz": {
+      "selected": 24,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "fb_S_s1_P02.npz": {
+      "selected": 11,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "fb_S_s1_P03.npz": {
+      "selected": 11,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_S_s1_P04.npz": {
+      "selected": 33,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_S_s1_P05.npz": {
+      "selected": 6,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_S_s1_P06.npz": {
+      "selected": 36,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_S_s1_P07.npz": {
+      "selected": 20,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_S_s1_P08.npz": {
+      "selected": 12,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_S_s1_P09.npz": {
+      "selected": 12,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_S_s1_P10.npz": {
+      "selected": 18,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_F_s0_P01.npz": {
+      "selected": 29,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_F_s0_P02.npz": {
+      "selected": 27,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_F_s0_P03.npz": {
+      "selected": 23,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_F_s0_P04.npz": {
+      "selected": 22,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_F_s0_P05.npz": {
+      "selected": 36,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_F_s0_P06.npz": {
+      "selected": 29,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_F_s0_P07.npz": {
+      "selected": 22,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_F_s0_P08.npz": {
+      "selected": 36,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_F_s0_P09.npz": {
+      "selected": 26,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_F_s0_P10.npz": {
+      "selected": 25,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_F_s1_P01.npz": {
+      "selected": 2,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "fb_F_s1_P02.npz": {
+      "selected": 4,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "fb_F_s1_P03.npz": {
+      "selected": 4,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_F_s1_P04.npz": {
+      "selected": 28,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_F_s1_P05.npz": {
+      "selected": 6,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_F_s1_P06.npz": {
+      "selected": 31,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_F_s1_P07.npz": {
+      "selected": 35,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_F_s1_P08.npz": {
+      "selected": 38,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_F_s1_P09.npz": {
+      "selected": 32,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_F_s1_P10.npz": {
+      "selected": 32,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_T_s0_P01.npz": {
+      "selected": 18,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_T_s0_P02.npz": {
+      "selected": 17,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_T_s0_P03.npz": {
+      "selected": 29,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_T_s0_P04.npz": {
+      "selected": 22,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_T_s0_P05.npz": {
+      "selected": 23,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_T_s0_P06.npz": {
+      "selected": 28,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_T_s0_P07.npz": {
+      "selected": 16,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_T_s0_P08.npz": {
+      "selected": 13,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_T_s0_P09.npz": {
+      "selected": 28,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_T_s0_P10.npz": {
+      "selected": 13,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_T_s1_P01.npz": {
+      "selected": 24,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "fb_T_s1_P02.npz": {
+      "selected": 3,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "fb_T_s1_P03.npz": {
+      "selected": 10,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_T_s1_P04.npz": {
+      "selected": 12,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_T_s1_P05.npz": {
+      "selected": 11,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_T_s1_P06.npz": {
+      "selected": 36,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_T_s1_P07.npz": {
+      "selected": 9,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_T_s1_P08.npz": {
+      "selected": 14,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_T_s1_P09.npz": {
+      "selected": 12,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_T_s1_P10.npz": {
+      "selected": 15,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_C_s0_P01.npz": {
+      "selected": 4,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_C_s0_P02.npz": {
+      "selected": 17,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_C_s0_P03.npz": {
+      "selected": 27,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_C_s0_P04.npz": {
+      "selected": 4,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_C_s0_P05.npz": {
+      "selected": 5,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_C_s0_P06.npz": {
+      "selected": 7,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_C_s0_P07.npz": {
+      "selected": 27,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_C_s0_P08.npz": {
+      "selected": 22,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_C_s0_P09.npz": {
+      "selected": 17,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_C_s0_P10.npz": {
+      "selected": 5,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "fb_C_s1_P01.npz": {
+      "selected": 12,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "fb_C_s1_P02.npz": {
+      "selected": 8,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "fb_C_s1_P03.npz": {
+      "selected": 14,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_C_s1_P04.npz": {
+      "selected": 8,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_C_s1_P05.npz": {
+      "selected": 8,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_C_s1_P06.npz": {
+      "selected": 39,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_C_s1_P07.npz": {
+      "selected": 23,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_C_s1_P08.npz": {
+      "selected": 21,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_C_s1_P09.npz": {
+      "selected": 8,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "fb_C_s1_P10.npz": {
+      "selected": 25,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_S_s0_P01.npz": {
+      "selected": 7,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_S_s0_P02.npz": {
+      "selected": 10,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_S_s0_P03.npz": {
+      "selected": 20,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_S_s0_P04.npz": {
+      "selected": 24,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_S_s0_P05.npz": {
+      "selected": 9,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_S_s0_P06.npz": {
+      "selected": 19,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_S_s0_P07.npz": {
+      "selected": 10,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_S_s0_P08.npz": {
+      "selected": 17,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_S_s0_P09.npz": {
+      "selected": 25,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_S_s0_P10.npz": {
+      "selected": 27,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_S_s1_P01.npz": {
+      "selected": 10,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "sh_S_s1_P02.npz": {
+      "selected": 14,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "sh_S_s1_P03.npz": {
+      "selected": 14,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_S_s1_P04.npz": {
+      "selected": 25,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_S_s1_P05.npz": {
+      "selected": 9,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_S_s1_P06.npz": {
+      "selected": 22,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_S_s1_P07.npz": {
+      "selected": 27,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_S_s1_P08.npz": {
+      "selected": 11,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_S_s1_P09.npz": {
+      "selected": 24,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_S_s1_P10.npz": {
+      "selected": 23,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_F_s0_P01.npz": {
+      "selected": 9,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_F_s0_P02.npz": {
+      "selected": 10,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_F_s0_P03.npz": {
+      "selected": 22,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_F_s0_P04.npz": {
+      "selected": 5,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_F_s0_P05.npz": {
+      "selected": 7,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_F_s0_P06.npz": {
+      "selected": 8,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_F_s0_P07.npz": {
+      "selected": 22,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_F_s0_P08.npz": {
+      "selected": 15,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_F_s0_P09.npz": {
+      "selected": 18,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_F_s0_P10.npz": {
+      "selected": 3,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_F_s1_P01.npz": {
+      "selected": 3,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "sh_F_s1_P02.npz": {
+      "selected": 6,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "sh_F_s1_P03.npz": {
+      "selected": 15,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_F_s1_P04.npz": {
+      "selected": 4,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_F_s1_P05.npz": {
+      "selected": 4,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_F_s1_P06.npz": {
+      "selected": 9,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_F_s1_P07.npz": {
+      "selected": 27,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_F_s1_P08.npz": {
+      "selected": 10,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_F_s1_P09.npz": {
+      "selected": 20,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_F_s1_P10.npz": {
+      "selected": 25,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_T_s0_P01.npz": {
+      "selected": 5,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_T_s0_P02.npz": {
+      "selected": 10,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_T_s0_P03.npz": {
+      "selected": 17,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_T_s0_P04.npz": {
+      "selected": 21,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_T_s0_P05.npz": {
+      "selected": 13,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_T_s0_P06.npz": {
+      "selected": 12,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_T_s0_P07.npz": {
+      "selected": 31,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_T_s0_P08.npz": {
+      "selected": 20,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_T_s0_P09.npz": {
+      "selected": 25,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_T_s0_P10.npz": {
+      "selected": 16,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_T_s1_P01.npz": {
+      "selected": 16,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "sh_T_s1_P02.npz": {
+      "selected": 18,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "sh_T_s1_P03.npz": {
+      "selected": 14,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_T_s1_P04.npz": {
+      "selected": 40,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_T_s1_P05.npz": {
+      "selected": 29,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_T_s1_P06.npz": {
+      "selected": 22,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_T_s1_P07.npz": {
+      "selected": 14,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_T_s1_P08.npz": {
+      "selected": 11,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_T_s1_P09.npz": {
+      "selected": 32,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_T_s1_P10.npz": {
+      "selected": 14,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_C_s0_P01.npz": {
+      "selected": 7,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_C_s0_P02.npz": {
+      "selected": 8,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_C_s0_P03.npz": {
+      "selected": 16,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_C_s0_P04.npz": {
+      "selected": 29,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_C_s0_P05.npz": {
+      "selected": 5,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_C_s0_P06.npz": {
+      "selected": 11,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_C_s0_P07.npz": {
+      "selected": 8,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_C_s0_P08.npz": {
+      "selected": 5,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_C_s0_P09.npz": {
+      "selected": 27,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_C_s0_P10.npz": {
+      "selected": 9,
+      "validation": "Dreyer2026Proteus/P01"
+    },
+    "sh_C_s1_P01.npz": {
+      "selected": 2,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "sh_C_s1_P02.npz": {
+      "selected": 1,
+      "validation": "Dreyer2026Proteus/P03"
+    },
+    "sh_C_s1_P03.npz": {
+      "selected": 39,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_C_s1_P04.npz": {
+      "selected": 18,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_C_s1_P05.npz": {
+      "selected": 6,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_C_s1_P06.npz": {
+      "selected": 15,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_C_s1_P07.npz": {
+      "selected": 34,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_C_s1_P08.npz": {
+      "selected": 5,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_C_s1_P09.npz": {
+      "selected": 9,
+      "validation": "Dreyer2026Proteus/P02"
+    },
+    "sh_C_s1_P10.npz": {
+      "selected": 17,
+      "validation": "Dreyer2026Proteus/P02"
+    }
+  },
+  "source_contributions": {
+    "fb_S_s0_P01.npz": {
+      "body_logit_rms": 1.298341989517212,
+      "skip_logit_rms": 0.7418889999389648,
+      "body_to_skip_rms": 1.7500488477710634,
+      "mean_abs_prob_change_without_body": 0.23225249350070953,
+      "mean_abs_prob_change_without_skip": 0.10433445870876312,
+      "source_rows": 72
+    },
+    "fb_S_s1_P01.npz": {
+      "body_logit_rms": 1.7121752500534058,
+      "skip_logit_rms": 0.8384476900100708,
+      "body_to_skip_rms": 2.0420776041888082,
+      "mean_abs_prob_change_without_body": 0.22525741159915924,
+      "mean_abs_prob_change_without_skip": 0.1101871207356453,
+      "source_rows": 72
+    },
+    "fb_T_s0_P01.npz": {
+      "body_logit_rms": 1.3819644451141357,
+      "skip_logit_rms": 0.7715598344802856,
+      "body_to_skip_rms": 1.7911306205370476,
+      "mean_abs_prob_change_without_body": 0.23533879220485687,
+      "mean_abs_prob_change_without_skip": 0.10556116700172424,
+      "source_rows": 72
+    },
+    "fb_T_s1_P01.npz": {
+      "body_logit_rms": 1.8854767084121704,
+      "skip_logit_rms": 0.8064272999763489,
+      "body_to_skip_rms": 2.3380616063809696,
+      "mean_abs_prob_change_without_body": 0.2287246584892273,
+      "mean_abs_prob_change_without_skip": 0.09790028631687164,
+      "source_rows": 72
+    },
+    "sh_S_s0_P01.npz": {
+      "body_logit_rms": 0.48458927869796753,
+      "skip_logit_rms": 0.5378134846687317,
+      "body_to_skip_rms": 0.9010359399903336,
+      "mean_abs_prob_change_without_body": 0.10412048548460007,
+      "mean_abs_prob_change_without_skip": 0.12117479741573334,
+      "source_rows": 72
+    },
+    "sh_S_s1_P01.npz": {
+      "body_logit_rms": 0.7113116383552551,
+      "skip_logit_rms": 0.6158283948898315,
+      "body_to_skip_rms": 1.1550484587228314,
+      "mean_abs_prob_change_without_body": 0.14009059965610504,
+      "mean_abs_prob_change_without_skip": 0.125151127576828,
+      "source_rows": 72
+    },
+    "sh_T_s0_P01.npz": {
+      "body_logit_rms": 0.6058142781257629,
+      "skip_logit_rms": 0.504334032535553,
+      "body_to_skip_rms": 1.2012163348961704,
+      "mean_abs_prob_change_without_body": 0.12992088496685028,
+      "mean_abs_prob_change_without_skip": 0.11692040413618088,
+      "source_rows": 72
+    },
+    "sh_T_s1_P01.npz": {
+      "body_logit_rms": 0.8863097429275513,
+      "skip_logit_rms": 0.8477594256401062,
+      "body_to_skip_rms": 1.0454731803876287,
+      "mean_abs_prob_change_without_body": 0.15242117643356323,
+      "mean_abs_prob_change_without_skip": 0.14560428261756897,
+      "source_rows": 72
+    }
+  }
+}
