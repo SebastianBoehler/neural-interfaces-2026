@@ -1,191 +1,89 @@
-# Campaign status: 17 Nov 2026 01:12 CET
+# Campaign status: 17 November 2026, 05:55 CET
 
-Live Codabench API: current uploaded v5.1b ranks16th by entry,15th after merging team entries.
-Recorded exact score .8197668759, displayed .820. Leader .859; fifth entry .839, fifth team .837.
-Prepared v6.6 cap250 remains unchanged. Its .824–.829 scenario maps to roughly10th–14th by entry;
-this is unvalidated sealed transfer, not a measured new score. No upload was made.
-Source and compact observed values: [live_board_17nov.json](live_board_17nov.json).
+Submission unchanged: uploaded v5.1b **.8197668759**. Prepared v6.6 cap250 remains unchanged;
+ZIP SHA `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
+Last verified board01:12 CET:16th entry/15th distinct team; leader.859, fifth entry.839/team.837.
+A later public refresh returned a bot challenge, so no newer verified rank is available.
+[Observed board](live_board_17nov.json). The v6.6 .824–.829 scenario is unvalidated sealed transfer,
+not a measured score. No upload or candidate promotion; top five remains an objective.
 
-## Completed scientific blocks
+## Current-system evidence
 
-- §314 temporal bank:49.158% versus matched46.975%; +2.182 official points. People/order
-  +3.061 [.350,5.962],7/10 up. Whole decoder remains below76.218%; §315 integration is separate.
-- §310 complete full system: flatten76.013% versus control76.218%. Flatten−sharpen people/order
-  +.1018 [.0095,.1921], but flatten−control−.0718 [−.2236,.0805]. No established current-system gain.
-  Report SHA c8708f3f94aeca38ca66a31ed19747f38682034aeb9022abb291fdd5991b6652.
-- §306 complete CPU whole-decoder test: joint1−balanced shared−.0808 official points,
-  joint10−shared+.0756; people/order intervals cross zero. No established package/full-system gain.
-  Report SHA ee76d947174e1b0d1e61b24b8b33a02a8fd49e3c3678c5676ad2c06c3e623969.
+All differences below are percentage points on repeatedly used new-person development people.
+Intervals are80% and resample people and delivery orders. These are not independent confirmations.
+Original PC128/shadow/FT/routing remain fixed in posterior-only interventions; returning tails are separate.
 
-## Running or queued; estimated times on17November in CET
+- **§318 selected joint JS:** conditional-CORAL30 FB-slot swap plus FBL factor2 gives76.217673→76.441042%.
+  Official+.2234[+.0738,+.3512]; people/order+.184[+.0323,+.3327],7/10up.
+  Selected after earlier studies, small relative to person variation; interaction spanszero, no synergy claim.
+  [Report](coral_fbl_s318_results.txt), SHA `9abebd5069186fc659730f2f48d92c7036db49ac17265e5574d508435b130874`.
+  Actual six-seed deployment is B2_pool:76.279335→76.551732%,+.2724official[+.0049,+.5271];
+  people/order+.2780[−.0070,+.5456],6/10up. Within/full/runs effects+.0203/+.6640/+.1496;
+  sealed delivery-scope transfer remains uncertain. [Deployment extraction](js321_pool_contrast.json).
+  P04/P10 are new-person folds, not returning-session results.
+- **§318 attribution:** V6Fr+.2264 versus finalCP+.2234; effect change−.0030[−.0923,+.0871].
+  Most net corrections are subtraction/word generation. True-class probability margins fall despite more
+  correct argmax labels; Brier change uncertain. This does not identify an earlier causal mechanism.
+  [Selected diagnostic](coral_fbl_s318_diagnostic.txt).
+- **§305 native head:** fixed port preserves76.218%; converged head75.966%, people/order−.113[−.259,+.028].
+  No gain; original failed training-head parity remains failed. [Report](native_core_s305_results.json).
+- **§308 nonlinear heads:** best tanh76.1048 versus control76.2177%; all arm−control intervals spanzero.
+  Quadratic versus projected linear also changes width/ridge geometry, so does not isolate nonlinearity.
+  [Report](strong_heads_s308_results.json).
+- **§310 entropy:** flatten76.013 versus76.218%; flatten−control people/order−.0718[−.2236,+.0805].
+  Flatten beats sharpen slightly, not the current system. No gain established.
+- **§314/315 temporal:** whole temporal bank49.158 versus matched46.975%,+2.182official points;
+  chain TFD−control−.110official, people/order+.008[−.158,+.182]. No established system gain.
+  [Temporal chain report](s315_314_results.txt).
+- **§313 spectral:** whole IMAG62.956/REAL60.983/BASE62.716%; IMAG−REAL+1.974official,
+  people/order+1.992[+.450,+3.527],8/10up. VersusBASE uncertain. BASEmatches305converged,
+  not306historical; the gap does not support a feature/cache bug. Complete chain IMAG76.1050/BOTH76.1210%
+  versus76.2177%; no established control gain. [Chain report](spectral_s313_chain_results.json),
+  SHA `7c1c7eb509d42b6219a9a0f64bd7ad50f09be6b7d574cb772ade3f9fff636266`.
+- **§316 common-anchor adaptation:** scalar−fixed people/order+.0806[+.0134,+.1479], but
+  scalar−current−.0929[−.2416,+.0512]. No established control gain. Original307parity remains failed.
+- **§312GPU raw-pretraining integration:** complete54cells/scorer3116969 passed all guards.
+  FBC pretrained-finetuned versus supervised FT−FS+.0007official[−.0639,+.0676],
+  people/order+.004[−.061,+.073]; Shallow ST−SS+.0409[−.0350,+.1076],+.014[−.066,+.092].
+  Every arm−control interval spanszero. [Chain report](raw312_chain_results.txt), SHA `8628c4ff8ab0256975f7e1a5d45d85b405115097029094ee46991a78fba547e6`.
+- **§323 normalization integration COMPLETE:** scorer3117171 passed05:30:42 CET/30s;
+  registered interaction reporter3117174 passed05:31:26/24s. All complete source/archive/zero/order/
+  routing/six-CP guards passed before metrics. Owning scorer loads labels before collect; interactions collect first.
+  No score-selection leakage or numerical miswire is established by this ordering. Control76.217673%; all eight arm−control intervals spanzero.
+  Official differences P0F+.0385/P0C−.0329/P1F+.0793/P1C−.0032/S0F+.0899/S0C+.0345/
+  S1F+.1089/S1C+.0602. Causal−fixed P0C−P0F−.0714[−.1344,−.0056] official, but people/order
+  −.053[−.119,+.013],2/10up. S0C−S0F−.0555[−.1608,+.0473], people/order−.036[−.135,+.062].
+  All chain factorial-interaction intervals spanzero. Whole-model causal gains did not transfer into useful
+  additions in this form. Saved-stage error/confidence/filter attribution is being prepared; no cause proved.
+  [Report](norm323_chain_results.txt), SHA `9e82b8082948702b600687b455e9efcd027b1698ae21955deb9e5faa0196ae34`;
+  [interactions](norm323_chain_interactions.json), SHA `9104644305c5b1a3f2ffa6a39d382e2e096dea5ae0fb4207b88996617be388d0`.
 
-- §305 converged heads: treatment3115538 now%4, scorer3115539; approximately01:40–02:10.
-- §308 nonlinear/kernel heads: treatment3115774 now%4, scorer3115775; approximately03:45–04:30.
-  Scheduling amendment is in LEDGER. Both zero matrices passed; no treatment accuracy read.
-- §313 spectral representations: full P01 pilot passed; remaining fits3116046%2, whole scorer3116064,
-  chain stage3116065/release3116066. Whole result approximately01:35–02:15, integration02:30–04:00.
-- §315 temporal-member integration: smoke3116192 passed,22cells3116290%4→scorer3116291;
-  approximately01:30–02:00 if measured4–5min/cell persists.
-- §304 conditional CORAL: provenance recovery3116320 passed;69cells3116327%4→scorer3116328;
-  approximately02:30–03:30, with node contention/queue uncertainty. Historical controls remain locked.
-- §307 learned adaptation: exact-scaler plus single-thread pilot3116329 passed every unchanged
-  eight-order anchor/prefix/reset/zero check, max probability error2.60e−14. Production3116401%2
-  now runs P02–P10 →assembly3116402; the obsolete failed-dependency release3116016 was cancelled.
-  Both earlier failed pilots remain recorded. Full-chain release retains its own capacity/source guards.
-- §312 raw pretraining: CPU guard699s; CUDA guards3115787/3115989 passed33s/56s. GPU supervised
-  FBCNet source fit12.79s and Shallow5.63s are not full producer timings. First80fitwave3115990
-  awaits allocation; scheduler currently predicts first06:40, with a long reservation-based tail.
-  All pending wave1 tasks now request10minutes instead of45, preserving computation/source. Owner
-  is preparing a complete producer-cost probe and separately registered CPU route; no mixed-device matrix.
-  Callback3115991 queues remaining80 and collector;315bridge3116075 follows. Full ETA unconfirmed.
+## Whole alternatives and source mechanisms
 
-Times are estimates from measured work, not guarantees. Read complete guarded blocks independently.
-Retain representation breadth, source-only selection and package/worker checks before candidate changes.
-SSH master was recreated01:01:58CET and access works. Local ControlPersist43200 is12hours of idle
-retention, not a verified VPN/server authentication expiry. Submitted jobs survive loss of access.
+A weak individual decoder versus the stronger ensemble does not alone close its architecture family.
+Matched causal contrasts, source quality, whole systems and full-system integrations are distinct instruments.
 
-
-## Update:17November,02:20CET
-
-- §305 fixed native head preserved76.218% current-system score; newly converged heads gave75.966%.
-  People/order−.113[−.259,+.028], undecided. No gain; original failedNtrain is not relabeled.
-- §313 complete whole result: IMAG62.956%, REAL60.983%, BASE62.716%, independentSPECTRAL49.871%.
-  IMAG−REAL+1.974official points (people/order+1.992[.450,3.527]); versusBASE remains uncertain.
-  Comparability audit shows BASE closely matches305Nconverged (4/21240label disagreements),
-  rather than306historical original. No feature/cache bug is supported by that baseline gap.
-- §315 temporal members: TFD−control−.110official points, people/order+.008[−.158,+.182].
-  All zero/order/source/CP guards passed; no full-system gain despite standalone+2.182points.
-- §304 conditional30 swap−current+.0545official[−.1085,+.2273], people/order+.073[−.096,+.244].
-  Conditional30 beats matched plain/unconditional members, but its current-system gain is uncertain.
-  Strength30versus10 is a confound; the matched10versus10 effect is smaller and uncertain.
-- §318 registers exact conditional30add/swap plus FBL2 with singles/interaction/zero controls;
-  implementation and smoke being prepared. It is selected follow-up, not independent confirmation.
-- §307 independent-refit route failed P09strictparity despite matched scaler/threads; no score read.
-  Separate316uses common pinned305anchors for ALL10freshly streamed targets. P09pilot3116532
-  passed;10folds3116543%2→assembly3116544→guarded chain. No old307target output is mixed.
-- §317 research identifies continued task-private Shin2018WG/baseline supervision as an unrun
-  distinction from earlier pooling/private-head pretraining. Full26people/3120windows exist;
-  official source terms now verified. A bounded source-only gradient/BN transfer pilot is being prepared.
-- §312 GPU and independent CPU matrices continue separately; CPU complete cells are~3–5min.
-  No partial outer scores. §308 and313full-chain evaluations remain in progress.
-
-Prepared v6.6 and official score/rank are unchanged by these studies. No upload authorized or made.
-
-## Research and dispatch update:17November,03:10CET
-
-- The21m17s primary-source/coverage review is [recorded here](research_4h_17nov_0250.md).
-  SeeEEG was already reviewed; public Apache2 DINOv2 provides a concrete alternate backbone for a new pilot.
-- §319 visual-prior feasibility and §320 source-crossfitted forward-only reliability are assigned.
-  These are preparation states, not queued production matrices or measured gains.
-- §317 source pilot passed its guards; first24of60nested CPU producers are3116807%4,
-  with capacity-checked24/24/12continuation and a complete whole/chain consumer.
-- Other active workflows continue; no partial outer accuracy is read to select follow-ups.
-- Fresh Galvani check03:12CET:125active jobs,16running/109pending; zero dead dependencies observed.
-  §308scorer3115775 and §313chain scorer3116439 await their running treatments.
-  §318second-wave cells3116841 are running; complete scorer3116842 is dependency-pending.
-
-## Producer and dependency update:17November,03:22CET
-
-- All160§312GPU producers completed0:0. The complete guarded collector3116577 waits for CPUpriority;
-  Slurm forecast03:46CET is conditional. No outer result has been read.
-- The old315bridge failed on a purged completed-control jobID. Direct source/archive/route/48CP
-  verification passed. Recovered DAG3116577→stage3116657→smoke3116902 preserves scientific source.
-  [Failure and recovery evidence](raw312_schedule_handoff.md) distinguishes this repair from an evaluator change.
-- IndependentCPUroute had84guardedoutputs at03:16CET; recentcells took5:00–6:49. Do not mix routes.
-- §316fresh10targetfolds/assembler, all8zeros and smoke passed. Its complete chain scorer remains pending.
-  §308/313/318 also await complete treatment matrices; none supplies a new score yet.
-
-## Completed blocks and follow-ups:17November,03:40CET
-
-§318 conditional-CORAL30 FB-slot swap plus FBL factor2 (JS) passed the complete eight-order,
-six-base current-system guards. Local new-person official equal-cell score76.217673→76.441042%:
-**+.2234points [80% +.0738,+.3512]**. People/order effect+.184[+.0323,+.3327],7/10up;
-P04+.161/P10+.484 are held-out new-person effects, not returning-session scores.
-The combination was selected after earlier results and remains small relative to person variation.
-Its interaction interval crosses zero: no synergy is established. [Complete report](coral_fbl_s318_results.txt).
-
-The [selected post-hoc diagnostic](coral_fbl_s318_diagnostic.txt) locates the gain before finalCP:
-V6Fr+.2264 versus final+.2234points; the difference interval crosses zero. Most final corrections
-come from subtraction/word generation. More correct argmax labels coexist with lower true-class
-probability margins; Brier change remains uncertain. This does not identify an earlier-stage cause.
-§321 audits exact package mapping and a same-fold checkpoint/export reference before all-person training.
-Inner gate/label/FT computations must stay separate from the changed outer mix. No new package is ready.
-
-§308's complete nonlinear/kernel head integrations do not establish a control gain; best tanh76.1048%
-versus76.2177% control. The quadratic-versus-projected-linear contrast changes width/ridge geometry
-and does not isolate nonlinearity. [Guarded report](strong_heads_s308_results.json).
-
-§312 GPU whole-decoder means after all160fold/source/checkpoint/row guards:
+**§312 GPU whole:** correctedcollector3116911 passed all160fold/source/checkpoint/row guards before labels.
 
 | Encoder | Supervised S | Frozen pretrained F | Pretrained/fine-tuned T | Extra-supervised C |
 | --- | ---: | ---: | ---: | ---: |
 | FBCNet |54.694%|45.934%|53.899%|52.384%|
 | Shallow |50.062%|45.606%|50.321%|51.511%|
 
-T−C people/order FBCNet+1.657[−.459,+4.001], Shallow−.591[−2.126,+.851]; both undecided.
-T−S is also uncertain. Frozen pretraining is a weak comparator; these results do not establish a
-pretraining gain over S/C or close the family. [Whole report](raw312_gpu_whole_results.json),
-SHA1030e86966f7b7a1d9cade0fb60dafd2c00e29d159430b774c504878cec8db5b.
-Independent-seed metrics are averaged; §315's fixed two-seed member integration remains a separate test.
+T−C people/order FBC+1.657[−.459,+4.001], Shallow−.591[−2.126,+.851]; T−S also uncertain.
+[Whole report](raw312_gpu_whole_results.json). One strong source P02 result did not establish whole quality.
+Seed changes both initialization and source-validation person/epochs. Source-only body/skip probes do not
+support skip dominance. Failed importcollector3116577/purged-IDbridge3116075 remain recorded; their
+module-path/orchestration repairs preserved original producer source and metric.
 
-Corrected collector3116911 passed after a guarded import-path-only recovery; failed3116577 remains
-recorded. Existing stage3116657→smoke3116902 follows it. No producer or official metric changed.
-Gap audit3116925 confirms complete provenance and large seed/inner-validation-path variation;
-source-only body/skip probes do not support skip dominance. SessionBN/sampling/schedule/epoch/skip
-differences are competing explanations. §322 prepares matched source-only attribution controls.
+**§317 external cognitive supervision:** complete60foldcollector3117176 passed6s, privateconsumer3117177 passed8s.
+Whole per-seed averaged official A(extraPROTEUS)52.8361/B(external stop-gradient)53.6952/
+C(continued external gradient)53.7346%. C−B+.03943official, people/order+.5513[−.7633,+1.9531],6/10up.
+Large seed differences; not two-seed ensemble accuracy or isolated auxiliary gain. C−A+.89846official.
+[Owned evidence](aux317_handoff_17nov.md). The guarded full-current-system consumer is running independently.
 
-§319 no-score visual preflight3116906 and §320 source-crossfitted reliabilitypilot3116903 are queued
-with guarded continuations and no automatic outer matrix. Preparedv6.6 and uploaded score remain unchanged.
-
-At03:40CET Galvani had69active jobs:11running/58pending and no dead dependencies observed.
-Raw315stage3116657 passed; smoke3116902 awaited priority. §317wave1 had22/24complete,2running,
-with its capacity-checked continuation intact. SSH access worked; no renewal was required.
-
-## Source mechanisms and releases:17November,04:20CET
-
-§322's matched SessionBN versus populationBN source pilot improved P02/P03 by7.19/8.34points
-without skip, and7.57/5.44 with skip. All four arms shared initialization, head width, session-chunk
-batches,40epochs and1360updates. Skip effects were smaller/mixed. Both validation people were previously
-exposed; the normalization factor changes training and causal inference together. This is evidence
-for the next question, not an outer/chain/returning/sealed gain. [Source report](normskip322_pilot.json).
-
-§323 now separates those phases prospectively:80fits in20person/seed cells, eight fixed arms
-from trainingBN × fixed/causal inference × skip; identical fitted weights within each inference pair.
-All10heldpeople,2seeds,8orders precede the complete official-metric whole and fixed-member chain tests.
-CPUguard3117038 and canonical P10 A100smoke3117039 passed. Smoke took1m23s, with60.52s measured
-work and784MB peak allocated GPU memory. Remaining19cells3117052%4→collector3117053→stage3117054
-→inputidentityguard3117074→chainsmoke3117055. Replay3117040 passed; controls3117041 are running.
-Separate guarded interaction reports complete the factorial analysis; no §323accuracy has been read.
-
-§319 passed strict/offline/shape/amplitude/padding/gradient/reset checks. Warm A100B1 full41rows12.96ms,
-bounded16rows4.69ms; CPU394/134ms. These are encoder timings, not full package measurements.
-Its selected source P02 pretrained51.39% lost to random57.68/direct62.88%; no outer matrix follows.
-§324 prepares full-channel/frequency-time controls because projection was not required by measured latency.
-[Visual scope](visual_s319.md) distinguishes this fixed display from the paper's learned renderer.
-
-§320 source pilot completed: H60.115/U61.156/static61.669/learned62.173% on repeatedly used P02.
-The +1.017point learned-versus-uniform effect is on a weak control: H failed its preregistered68.60%
-quality bound. No outer expansion. [Report](reliability320_source_result.json).
-
-§321 exactly recovered one heldfold CC30model and all8historical probability streams; CPU/CUDA exports
-were within8e−6, with reset/deepcopy guards passed. Six-seed active adapter and whole package validation
-continue. Its first policy is study-matched JS-all; preserving inner gates/labels is not final-output
-identity after recognition. Actual all6seed deployment correspondsB2_pool, whose separate contrast
-must be reported rather than inheriting the six-base-average+.2234point result.
-[Package readiness](owned321_320_317_handoff_17nov.md) records the remaining gates and blocked returning reference.
-
-The original raw §315consumer smoke passed and released3116968→3116969. At04:20CET, §313 had34/40,
-§31647/64 and raw §31512/54 treatment cells complete. Account115active/14running, no dead dependencies.
-All further scores await complete guarded matrices. Both automation prompts now refer to these current
-priorities and owning evidence, replacing obsolete pending-job instructions. No new package or upload.
-
-## Complete normalization and component results:17November,04:50CET
-
-§323's complete guarded80fits/20folds/128streams distinguish training from inference normalization.
-Without skip, causal versus fixed inference on identical fitted weights gains3.898 official points
-[80%2.216,5.875] for population-trained models and4.588[2.692,7.092] for SessionBN-trained models.
-People/order effects are4.437[2.093,6.814] and5.654[3.081,8.247],8/10 and9/10people up.
-Training-type contrasts alone cross zero. All eight whole-decoder official means:
+**§322/323 normalization:** selected322source pilot found matched SessionBN gains5.4–8.3points on exposedP02/P03,
+but training and inference changed together. Complete32380fits/20folds/128per-seed streams separate those phases:
 
 | Training | Skip | Fixed inference | Causal inference |
 | --- | --- | ---: | ---: |
@@ -194,49 +92,99 @@ Training-type contrasts alone cross zero. All eight whole-decoder official means
 | SessionBN | off |53.820%|58.408%|
 | SessionBN | on |55.450%|59.045%|
 
-The skip attenuates the causal-minus-fixed contrast by about1point; its causal-arm effect is not
-established as harmful. This selected whole study explains part of the normalization question,
-not the entire earlier gap or a current-system gain. [Whole report](norm323_whole_results.json),
-[interactions](norm323_interactions.json). The [post-hoc prefix diagnostic](norm323_prefix_results.json)
-uses fixed full-cell/class weights and bins that sum exactly; most total contribution occurs after40windows,
-where most windows occur. It does not establish an age threshold or intrinsically easier late windows.
+Same-weight causal−fixed no-skip official+3.898[+2.216,+5.875]/+4.588[+2.692,+7.092];
+people/order+4.437[+2.093,+6.814]/+5.654[+3.081,+8.247],8/10and9/10up.
+Training-mode contrasts alone uncertain. Skip attenuates causal-minus-fixed contrast, but causal skip effects
+spanzero; this does not prove skip harm. [Whole](norm323_whole_results.json), [interactions](norm323_interactions.json).
+The selected[prefix diagnostic](norm323_prefix_results.json) uses fixed full-cell/class weights; bins sumexactly.
+Most score contribution occurs after40windows, where most windows occur. No age threshold/easier-late-window claim.
+Whole scores average independent seed metrics; chain members average seed probabilities before prediction.
 
-All §323controls/replay/stage/input/zero/six-CP smoke passed.70remaining full-system cells3117101
-with concurrency4→scorer3117171→interaction report3117174; no partial chain score.
-§313's complete spectral core interventions establish no control gain: IMAG76.1050/BOTH76.1210%
-versus76.2177% control. [Chain report](spectral_s313_chain_results.json).
-§316's complete scalar adaptation beats fixed-update control by+.0806people/order[.0134,.1479],
-but scalar−current is−.0929[−.2416,+.0512]. Separate original307parity remains failed.
+**§319/324/325 visual prior:** CPU/A100 strict-load/offline/input/amplitude/padding/gradient/reset guards passed.
+Full41/16row warmB1 encoder394/134msCPU and12.96/4.69msA100; not whole-package timings.
+Fixed324full-intensity pretrained42.462% versus random36.452/direct53.936/rawSessionBN62.299% across exposedP02/P03.
+Full channels/frequency views did not consistently restore quality. [Factorial](visual_s324.md).
+Learned325295parameter display passedCPU3117222/38s, A1003117226/8m39s:
+pretrained42.462→49.639% (+7.177), almostallP02(+14.336/P03+.017); learnedrandom41.320,
+learneddirect54.890/fixeddirect55.142%, rawreference62.299%. Identical raw sidechannel does not rescue it.
+Learning is active; robust both-person prior gain is not established. Three epochs/unverified crossfitteacher
+convergence limit conclusions. Minibatch-loss changes alone do not prove optimizer failure. No outer expansion.
+[Learned-display evidence](visual_s325.md); source queries were reused and initializer previously selected.
 
-Actual all6seed deployment's post-hoc §321B2_pool contrast is76.279335→76.551732%,+.2724official
-[.0049,.5271]; people/order+.2780[−.0070,+.5456],6/10up. Within/full/runs people effects
-are+.0203/+.6640/+.1496; delivery-scope transfer is uncertain. P04/P10 are new-person folds here.
-[Complete extraction](js321_pool_contrast.json). All six heldfold checkpoints and active adapter passed.
-The copied package preserves all1,047original arrays' bytes/dtypes/shapes/strides; a private copy's
-array-order change explained2e−16inner differences and was corrected without relaxing exact guards.
-The study-matched JS-all policy can change final recognized outputs despite exact inner-gate/FT-label parity.
-Six all10models3117189→collector3117190 gate isolated worker CPU3117196/A1003117197 checks.
-No package promotion; returning and runtime qualification remain open.
+**§326/327 native source-logit invariance:** seven source peopleP04–P10, P02/P03query-only/P01excluded.
+CPUprep3117223 passed3m07, A1003263117224 passed37s; full44,239features/sourceobjective/analytic-autograd/
+finite-difference/gauge/zero/prefix guards. Absolute strengths nearly suppressed the offset penalty.
+Separately registered loss-relative3273117238 passed25s. P02zero/1%/10%:78.913/78.229/77.609%;
+P03:59.042/58.921/59.577%. No consistent gain. The1%fit reached2500evaluation cap despite small finalgradient;
+retain solver-limited scope. No outer wave. [326](conditional_s326.md), [327](conditional_s327.md).
 
-§324's complete21bank source factorial passed all guards,8m51onA100. Full-intensity pretrained
-42.462% beat random by6.010points but lost to direct53.936/rawSessionBN62.299% across P02/P03.
-Full channels and frequency views did not consistently recover the deficit. [Scope/results](visual_s324.md).
-No outer expansion. §325 source-learned rendering and §326 conditional source-logit invariance are
-assigned next learning questions with controls, not measured gains or new independent representation families.
+**§328 new spatial-state representation:**16source-learned polarity-invariant directions; whole-window occupancy,
+dwell/transitions, no assumed delivery chronology. CPU3117280 passed36s, staticcontrol3117354 passed12s.
+Raw28744.497%; raw+learnedoccupancy48.585, ordered46.770/shuffled45.939. Static gain+4.089pp is real in this
+weak source form, but raw+randomoccupancy48.317 and raw+angularcov48.714 recover it. Cov+learned47.925,
+cov+random47.950; no learned conditional-covariance gain. No higher-order/dynamic mechanism established,
+no outer expansion or universal family closure. [Static controls](microstate328_static_results.json).
 
-### Package-guard correction,17November,about05:00CET
+**§320 reliability:** H60.115/U61.156/static61.669/learned62.173% on repeatedly usedP02.
+Learned beats uniform, but H failed registered68.60quality premise; no outer expansion. [Report](reliability320.md).
 
-All six initial §321all10tasks3117189 failed a normalization assertion before checkpoints/export;
-dead collector3117190 and worker jobs3117196/3117197 were cancelled. Source G/scale match the original
-package exactly. The error conflated causal inputEAprior5 with latentSessionBNprior2: `set_k(2)` changes
-the latter only. The old held-bank input metadata was wrong. Recovered weights, prealigned exports,
-disabled/inner identity and outer-mix algebra retain their measured scope; old raw-bank equivalence does not.
-The owner is preparing a separate corrected input-prior snapshot and end-to-end raw-window proof against
-all eight historical held streams, then one all10seed smoke before releasing the other five. No tolerance
-was relaxed and no failed run was relabeled. Corrected raw-input repair3117225 is now queued;
-active5 and a one-seed all10smoke precede any remaining-seed release. No ready package is claimed.
+## Candidate engineering and active jobs
 
-§325source-learned rendering CPUguard3117222 is queued with conditional single-A100 continuation;
-§326source-class/person logit penalty prep3117223→A100pilot3117224 is queued. Both need real source,
-gradient/objective/reset guards before query accuracy; neither has an outer result. At05:00CET the
-account had82active/10running. Existing full-system evaluations continue independently.
+**§321 corrected JS-all artifact:** [Owned handoff](owned321_320_317_handoff_17nov.md) owns exact source hashes/IDs.
+Original inputEA prior5 is distinct from latent SessionBN prior2. Initial all10array3117189 failed before export;
+old raw-bank equivalence invalid, recovered weights/prealigned export and dev scores retain their scope.
+Corrected raw repair3117225 passed59s; all6historical heldweights/all8rawstreams, max8.607e−7/zero nontied changes.
+Active5/3117230 passed7m56: exactoff/inner/FTlabels/gates/reset/deepcopy, activeFTdeltas, all8orders×6recipes.
+One all10seed3117236_0 passed58s, remaining5array3117240 and owningcollector3117241 passed; privateartifactcomplete.
+Original1047arrays preserved byte/dtype/shape/stride; prior private C-order copy explained tinyinner differences.
+Outer-only adaptedFBk2swap/FBLdouble/17unit normalization preserves original inner65nets/weights/FT/gates.
+JS-all continues after recognition; exact inner identity is not final recognized-output identity.
+Missing/invalid genuine original Sinc heldfold checkpoints block full returningP04/P10 validation.
+
+CPUworker3117246 **failed first runtime bar**: known190base82.330→JS90.303s, ratio1.09684>1.061008.
+Off17/reset/knownrec10/FT0/CPstop10/190CCcalls passed; STOP means378/800/forcedunknown/lateCP untested.
+CPUratio×historicalA10043.5min is not CPU sealedtime or A100timeout evidence.
+Independent A100worker3117247 completedFAILED1:0,05:48:20–05:52:32 CET/4m12.
+Known190ratio1.03104 passed; known378base49.409→JS61.152s,ratio1.237657>1.061008 failed.
+WarmB1median131.41→164.12ms at378; knownrec10/FT0/CPstop10/378CCcalls passed.
+STOP means800/forcedunknown/lateCP untested. This relativebar failure is not an actual timeout/whole-limit proof.
+Controller3117342 verified actualGPUbar failure/source/image and released one6minA100componentprofile3117399.
+It measures generic six-FIR calls versus fingerprinted shared-FIR helper at≤1e−8parity; no import/OOM/pass trigger,
+tolerance relaxation, optimized artifact, candidate promotion or new score. Optimization follows measuredcomponents
+in a new immutable variant, then fresh raw/active/reset/paired-worker guards; failed source remains intact.
+
+**§317 private chain:** replay3117276/all8controls3117277/zero+active smoke3117278 passed.
+Remaining30cells3117357%4→completeowningscorer3117358, no partial treatments read.
+Pending-only15min CPU/backfill requests preserve6CPU/48GiB/source; first4running requests unchanged.
+Measured controls≈4min each; completion around06:10–06:30 CET is conditional on slots and no failures.
+
+**§312 independent all-CPU route:** source528284dc…5ef4, never mix GPU folds. At05:47CET wave17array3117345
+was finishing tasks134–136→callback3117346; complete160foldcollector follows finalwave only.
+Recent cells≈4–7min; provisional complete06:15–07:00 CET depends on queue/guards.
+No CPU-chain release without separately pinned registration. [Dynamic history](raw312_schedule_handoff.md).
+
+**§329 new released EEG prior:** MIT LaBraM-at-Scale Atom-Ldefault pretraining encoder46.3M, release2Nov2026.
+Defaultpretrain weights are not the benchmark-selected best-full-ft epoch. Training overlap unknown.
+A100preflight3117332 pending, forecast06:58 CET. Independent explicit2080Ti compatibility→ninefrozenhead
+sourcepilot3117344 pending, forecast06:23:56 CET; one20minallocation, CPU-fitted-readout guard beforequerylabels.
+Identical pretrained/random×two pooling×raw factor, rawonly plus unchanged rawSessionBNreference;
+P04–P10fit/P02P03exposedqueries/P01excluded. No329numerical/accuracy result yet, no mixed-device bank.
+Separate full-finetuning form§330 is being prepared prospectively, before329scores; release requires actual guards,
+not favorable accuracy. [Fresh architecture review](fresh_architecture_17nov.md). No new outer matrix automatically.
+
+## Coordination and cadence
+
+Galvani only,32running/272submitted with28reserve. Latest05:47CET account snapshot:37active/7running,
+no dead dependency observed; verify capacity before each dispatch. SSH renewed01:02CET still works.
+ControlPersist43200 means12-hour local idle retention, not VPN/server expiry. Submitted jobs survive client loss.
+Root owns canonical STATE/STATUS/handoff; external_supervision owns321/317; fresh_architecture owns328/329/330;
+fresh_solution_audit owns selected323saved-stage diagnosis. Use followup_task to wake completed owners.
+Do not overwrite others' ledger blocks or immutable snapshots; reconcile shared files before commit.
+
+Global scientific-discovery skill applied; personal masterdbaab0e. No cross-provider execution.
+Native pairedCPU inference63–64ms versus cachedPython113–117ms is narrow; A100solve1.062s versus CPU238.483s
+also changes device/trajectory. No energy/end-to-end efficiency claim. No Weco service/provider was run.
+Last scheduled research02:48:22–03:09:39 CET lasted21m17s; [report](research_4h_17nov_0250.md).
+Extra artifact-informed fresh-chat review05:13:54–05:30:14 CET lasted16m20; canonical history retained, not blind.
+It does not replace next scheduled≥15min block around06:51 CET. Both50mincampaign/4hresearch automations active.
+Next17Nov18:00CET decision checkpoint remains provisional; local selected gains do not establish topfive readiness.

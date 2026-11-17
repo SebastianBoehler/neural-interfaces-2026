@@ -1,76 +1,72 @@
 # Overnight campaign: 16–17 November
 
-Updated:17Nov2026 05:00CET. User asleep; continued implementation, experiments and follow-ups authorized.
+Updated:17Nov2026 05:55CET. User asleep; ongoing implementation, experiments and justified follow-ups authorized.
 Goal: stronger validated candidate by17Nov evening, provisional18:00CET checkpoint; top five is not established.
-Galvani only: ≤32account jobs running/≤272submitted with28reserve. Preserve unrelated jobs.
-Read STATE→LEDGER→OFFICIAL_CONTRACT; STATUS_17NOV.md owns detailed results and report hashes.
+Galvani only:≤32account jobs running/≤272submitted with28reserve. Preserve unrelated jobs.
+Read STATE→LEDGER→OFFICIAL_CONTRACT; STATUS_17NOV.md owns detailed results/report hashes.
 No automatic upload. Preserve tensor/metric/session boundaries, frozen packages and official submodule.
 
-## Measured candidate and completed results
+## Candidate and completed scientific evidence
 
 - Uploaded v5.1b:.8197668759; preparedv6.6cap250 unchanged, ZIP SHA9c4d5538…117ed.
-- Last board01:12CET:16th entry/15th team, fifthteam.837/leader.859; refresh before current-rank claims.
-  v6.6scenario.824–.829 is unvalidated. No new sealed score, candidate promotion or upload.
-- §318JS CC30FBswap+FBL2:76.218→76.441% localnewperson,+.2234official[.0738,.3512];
-  people/order+.184[.0323,.3327],7/10up. Selected/small; interaction spanszero, not confirmed synergy.
-- §318diagnostic:gain already beforefinalCP; moreargmaxcorrections coexist with lowertrueclassmargin.
-- §305fixednative preserves76.218%; convergence,308heads,310entropy and315temporal do not establishgain.
-- §313whole IMAG62.956/REAL60.983/BASE62.716%; imaginary beats real, notBASE reliably.
-  BASEmatches305converged, not306historical. Spectral-only49.871%; completechain establishesnocontrolgain.
-- §312GPUwhole FBCS54.694/T53.899/C52.384/F45.934%; Shallow50.062/50.321/51.511/45.606%.
-  SourceP02quality was notwholequality; seed changes both initialization and inner-validation path.
-- NativeCPUinference63–64ms versus cachedPython113–117ms, narrowpairedscope.
-  ResidentA100solve1.062s versusCPU238.483s also changesdevice/trajectory; noenergy/end-to-end claim.
+- Last board01:12CET:16th entry/15th team, fifthteam.837/leader.859. Laterrefreshbotchallenge, no newer rank.
+  v6.6scenario.824–.829 is unvalidated. No new sealed score, promotion or upload.
+- §318JS CC30FBswap+FBL2:76.218→76.441% newperson,+.2234official[.0738,.3512];
+  people/order+.184[.0323,.3327],7/10up. Small selected result; interaction spanszero, not synergy.
+  ActualsixseedB2_pool:+.2724official;people/order+.278[−.007,.546],6/10up,notindependentconfirmation.
+- §305fixednative preserves76.218%; convergence,308heads,310entropy/315temporal establish no control gain.
+- §313whole imaginary>matchedreal, notBASE reliably; completechain establishesnocontrolgain.
+  BASEmatches305converged, not306historical. Original301/307parityfailures remainfailed.
+- §312GPUwholeFBCS54.694/T53.899/C52.384/F45.934%;Shallow50.062/50.321/51.511/45.606%.
+  CompleteGPUchain3116969:FT−FS+.0007/ST−SS+.0409officialpp,intervalsspan0; no controlgain.
+- §316commonanchorscalar beatsfixedupdate slightly, notcurrentcontrol; source/common-anchor scope distinct307.
+- §323whole80fits/20folds:causal−fixedsameweights+3.898/+4.588officialpp;train-typecontrastsuncertain.
+  Completechain3117171/interaction3117174 PASSED05:31CET. All8arm−controlintervalsspan0.
+  P0C−P0F−.0714official[−.1344,−.0056],people−.053[−.119,.013];S0C−S0F−.0555official.
+  Wholeperseedmetrics≠2seedmembermetrics. Selectedsaved-stage attribution preparing; no proven cause/bug.
+- §317whole60fold A/B/C52.836/53.695/53.735%;C−B+.039official,people+.551[−.763,1.953].
+  Weakdecoder,large seedvariation; noisolatedaux/currentgain. Privatechain continues below.
+- §325learnedvisualdisplay42.462→49.639%source,almostallP02;direct55.142/rawSBN62.299 stronger.
+  Crossfitteacherconvergenceunverified; noouterexpansion/familyclosure. §326/327no consistentobjectivegain;
+  3271%fit solver-limited at2500evaluationcap despite smallgradient. Noouterwave.
+- §328staticlearnedoccupancy+raw+4.089pp, but randomoccupancy/angularcovrecoverit;no conditionalcovgain.
+  New16directionrepresentation tested, ordered dynamics weak; notuniversalclosure.
+- NativeCPUinference63–64ms vs cachedPython113–117ms,narrowpairedscope. A100solve1.062s vs CPU238.483s
+  also changesdevice/trajectory; noenergy/end-to-endclaim. NoWecoprovider/service executed.
 
-## Active original studies
+## Active jobs and conditional follow-ups
 
-- §312GPUcomplete160fold/source/checkpoint guards passed correctedcollector3116911; source unchanged.
-  Import-path recovery preserved failed3116577 and purged-IDbridge3116075; neither relabeledpassing.
-- §315GPUrawconsumer smoke3116902 passed allcontrol/zero/route/6CPguards in7m01, released54cells
-  3116968%4→scorer3116969. At04:07CET2complete/3running; no complete chain score.
-- §312ALL-CPUroute source528284dc…5ef4 staysseparate. At04:07wave13array3117029(105–112)
-  →callback3117030. Recentcells5–7min; provisionalcomplete05:00–08:00CET remains conditional.
-  raw312_schedule_handoff.md owns dynamicIDs; no CPUconsumer withoutseparatepin/registration.
-- §313chain3116439 complete0:0: IMAG76.105/BOTH76.121<control76.218%; contrastsundecided.
-- §316complete:Scalar−Fixed+.0806people/order[.0134,.1479],notcurrentcontrolgain. Original307FAILED.
-  Workspaces ni26_s316_common_20261117; legacySlurmnames may says307, identifybysource.
-- §317externaljointShinWG:sourcepilotpassed; full60fold CPU24/24/12waves continue.
-  First24done; wave1array3116927→3116928 thenlast12/wholecollector/private315consumer.
-  Source1bc0d892…5636; aux317_handoff_17nov.md andowned321_320_317_handoff_17nov.md own guards/IDs.
-
-## New results and next independent questions
-
-- §322sourcepilot:matchedSessionBN advantage5.4–8.3pp onP02/P03, mixedsmallskip effects.
-  Twoexposedsourcepeople; normalization changes bothtraining andcausalinference, nooutergain.
-  Pilot3116953 passed; source94308385…63297f2, normskip322.md owns details.
-- §323whole80fits/20folds complete:causal−fixed+3.898/+4.588officialpp onidenticalP/Sweights;
-  train-typecontrastsuncertain,bestS1C59.045%<fullsystem76.218%; notnewchain/sealedgain.
-  Whole/source/replay/8controls/stage/input/smoke passed.70cells3117101%4→scorer3117171
-  →interaction3117174. Source88437e69…24eb6d5/consumerbaf212bd…dafbd55c. Nochainaccuracyyet.
-- §319visualengineering passed CPU/A100:full41/16rows~394/134msCPU,12.96/4.69msA100.
-  Pretrained51.39% <random57.68/direct62.88 onselectedP02; nofullmatrixfromthisform.
-  Publicassetshashed, fullsourceguards passed; visual_s319.md owns exactterms/checkpoint hashes.
-- §324complete21sourcebanks:fullpretrained42.46%<direct53.94/rawSBN62.30; noouterexpansion.
-  Source84c7004a…5a281e; visual_s324.md ownscontrols. §325learned-rendererCPUguard3117222 queued.
-- §326conditional-logitnativeobjective:CPU7sourceprep3117223→A100pilot3117224, sourcef35b4110…811d.
-  Notnewrepresentation/automaticouterwave. Bothsourcepilots preregistered; allguardsbeforequerylabels.
-- §320reliabilitysourcepilotcomplete:H60.115/U61.156/S61.669/R62.173;H<68.60qualitystopFIRED.
-  Noouterexpansion; futurestronger-normalization application needsnewregistration/wholecontrol.
-- §321:6heldweights/prealignedexports+inner/off/mixguards passed; B2_poolselected+.2724officialpp,
-  people/order+.278[-.007,.546],6/10up. JS-allrecognizedfinaloutputs canchange; no readyartifact.
-  Initialall10array3117189FAILED normalizationguard:inputEAk5≠latentSBNk2;oldheldinputmetadatawrong.
-  Oldrawbankequivalenceinvalid; devreports/weightsvalid. Deadcollector/workerscancelled.
-  Correctedraw8orderproof3117225queued→active5→oneall10smoke→new6seedrelease. No tolerancechange/promotion.
+- §321correctedinputEA5/latentSBN2rawproof3117225PASS59s;active5/3117230PASS7m56all8orders×6recipes.
+  All6all10models/collector3117241passed, privateJSallartifactcomplete; original1047arraybytes/stridespreserved.
+  Initial3117189normalizationguardFAIL andoldrawequivalenceINVALID remainrecorded, deaddepscancelled.
+  Inneroff/gate/FTlabels exact; JS-allouter continuesafterrecognition, notfinalrecognizedoutputidentity.
+  CPUworker3117246STOPfirstknown190ratio1.09684>1.061008; laterlengths/unknown/lateCPuntestedthere.
+  CPUoverhead doesnotproveA100timeout. IndependentA1003117247 FAILED05:52:32CET:
+  known190ratio1.03104passed;known37849.409→61.152s,ratio1.23766failedbar1.061008.800/unknown/lateCPuntested.
+  Relativebar≠actualtimeout. Controller3117342verifiedfailure→6mincomponentprofile3117399;nooptimizedartifactyet.
+  Missing/invalidgenuineoriginalSincfolds blockfullreturningvalidation. No candidatequalified.
+  owned321_320_317_handoff_17nov.md owns dynamicIDs/source/scopes.
+- §317replay3117276/8controls3117277/zero+active smoke3117278 passed→30cells3117357%4
+  →completeowningscorer3117358. Nopartialtreatmentsread. Controls~4min;conditionalfinish~06:10–06:30CET.
+  Pendingcells15minCPUbackfill, first4runningunchanged; preserve6CPU/48GiB/source/guards.
+- §312ALL-CPUroute source528284dc…5ef4 staysseparate;at05:47wave17array3117345tasks134–136finishing
+  →callback3117346;160foldcollectoronlyafterlastwave. Estimated06:15–07:00conditional. NoCPUconsumer
+  withoutnewpin/registration. raw312_schedule_handoff.md owns dynamichistory; nevermixCPU/GPUfolds.
+- §329newMITLaBraM-at-ScaleAtom-Ldefaultprior,notbenchmarkselectedepoch;pretrainingoverlapunknown.
+  IndependentA100preflight3117332forecast06:58;explicit2080compatibility→9frozenheads3117344forecast06:23:56.
+  Sameweights/source7/splits/CPUfittedreadoutguard beforequerylabels;one20minallocation, no329resultyet.
+- Separate§330fullFTpreparedBEFORE329scores:3117398 afterany329 readsONLYguards/cost/hashes,
+  conditionallyreleasesone≤30min2080allocation. Matchedpretrain/random fullFT/frozencontrols,12fixedepochs;
+  actualencodergradients/updates/budget/paritybeforequerylabels. Noaccuracy-basedrelease/automaticouterwave.
 
 ## Coordination and continuation
 
-- Root owns canonicalstatus/candidates; thread_context owns323 andoriginalchainchecks.
-- external_supervision_17nov owns321 andqueued317/320; fresh_solution_audit owns324/319.
-- Use followup_task toreactivate idleworkers; preserve immutablejobs, existing ownership and failed evidence.
-- Queue justified follow-ups fromcompleteblocks withoutwaiting all lanes; uncertainpositive≠closure.
-- At05:00queue82active/10running;321deaddepscancelled, guardedrepairqueued. Verifybeforedispatch.
+- Root owns canonicalstate/portfolio; external_supervision owns321/317; fresh_architecture owns328/329/330;
+  fresh_solution_audit owns323saved-stageattribution. Usefollowup_task toreactivateidleworkers.
+- Queue justifiedfollow-ups aftercompleteblocks withoutwaitingalllanes; uncertainpositive≠closure.
+- Verify livecapacity beforedispatch; recent05:47snapshot37active/7running,no deaddependenciesobserved.
 - Global scientific-discovery skill applied; personalmasterdbaab0e. No cross-provider execution claimed.
-- Both50minute and4hour≥15minute research automations ACTIVE; prompts refreshed thiscycle.
-  Last substantiveblock02:48:22–03:09:39CET,21m17s; next~06:51CET. Recordactualtime andprimarysources.
-- SSHrenewed01:02CET andworked04:56CET;12hourlocalidleretention isnotserver/VPNexpiry.
-  Submittedjobs survive accessloss. Ask renewalonlyonactualfailure. Neveruploadautomatically.
+- Both50mincampaign/4hour≥15minresearch automationsACTIVE. Lastscheduled02:48:22–03:09:39CET21m17.
+  Extrafresh-chat05:13:54–05:30:14CET16m20retainscanonicalhistory,notblind; nextscheduled~06:51unchanged.
+- SSHrenewed01:02CET andstillworks;12hourlocalidleretention isnotserver/VPNexpiry.
+  Submittedjobs surviveaccessloss. Ask renewalonlyonactualfailure. Neveruploadautomatically.

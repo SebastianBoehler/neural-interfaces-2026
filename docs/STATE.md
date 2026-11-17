@@ -9,75 +9,85 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 Nov 2026, about 04:50 CET
+### Current campaign: 17 Nov 2026, about 05:55 CET
 
 The user authorizes ongoing overnight implementation, broader whole alternatives and justified follow-ups.
-The provisional decision checkpoint is17November18:00CET. Top five is an objective, not a verified result.
-Use Galvani only. Respect32running/272submitted account jobs and28reserved slots; preserve unrelated jobs.
+The provisional decision checkpoint is 17 November 18:00 CET. Top five is an objective, not a verified result.
+Use Galvani only. Respect 32 running/272 submitted account jobs and 28 reserved slots; preserve unrelated jobs.
 [Current results](../evidence/next_wave_16nov/STATUS_17NOV.md) and the
 [overnight handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md) own detailed evidence/jobs.
 
-**Submission remains unchanged.** Uploaded v5.1b scored .8197668759. Prepared v6.6cap250 ZIP is
+**Submission remains unchanged.** Uploaded v5.1b scored .8197668759. Prepared v6.6 cap250 ZIP is
 `runs/sealed/final_zips/v66_cp1_cap250.zip`, SHA256
 `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
-No upload or new candidate promotion. Last board snapshot01:12CET was16th entry/15th team; refresh before citing current rank.
-The .824–.829 v6.6scenario is unvalidated sealed transfer, not a measured score.
+No upload or new candidate promotion. Last board snapshot 01:12 CET was 16th entry/15th team.
+A later public refresh returned a bot challenge; there is no newer verified rank.
+The .824–.829 v6.6 scenario is unvalidated sealed transfer, not a measured score.
 
-**Completed current-system comparisons.** §318 CC30 FB-slot swap plus FBL factor2 gives
+**Completed current-system comparisons.** Selected §318 CC30 FB-slot swap plus FBL factor2 gives
 76.2177→76.4410% local new-person dev, +.2234 official points [80% +.0738,+.3512];
-people/order +.184[+.0323,+.3327],7/10up. Selected and small; no independent confirmation or proven synergy.
-§305 fixed-head native port preserves76.218%; converged fitting does not improve it.
-§308 nonlinear/kernel heads, §310 entropy transfer and §315 temporal additions establish no control gain.
-§313 imaginary spectral features beat matched real features in the whole decoder, but not BASE reliably;
-its complete full-system integration establishes no control gain. BASE matches §305converged, not §306historical.
-Original §301training-head and §307independent-refit parity failures remain failures. §316 is a separately
-registered common-anchor study: learned scalar beats its fixed-update control slightly, but not the current system.
+people/order +.184 [+.0323,+.3327], 7/10 up. Small, repeatedly selected and not independently confirmed.
+Actual six-seed deployment corresponds B2_pool: selected +.2724 official, people/order +.278 [−.007,+.546].
+Neither contrast is a sealed or returning-person result; no synergy is established.
+§305 fixed-head native port preserves 76.218%; converged fitting does not improve it.
+§308 nonlinear/kernel heads, §310 entropy transfer, §315 temporal additions and §313 spectral-core changes
+establish no control gain. Original §301 training-head and §307 independent-refit parity failures remain failures.
+Separate §316 common-anchor learned scalar beats its fixed-update comparator slightly, but not the current system.
+Complete §312GPU raw-pretraining integrations also establish no control gain: FT−FS +.0007 official points,
+ST−SS +.0409, both intervals span zero. Independent all-CPU producers continue without mixing device routes.
 
-**Representation and supervision results.** Complete §312GPU raw-pretraining whole models are weak:
-FBCNet S54.694/T53.899/C52.384/F45.934%; Shallow S50.062/T50.321/C51.511/F45.606%.
-Paired pretraining effects remain uncertain; the guarded fixed two-seed full-system consumer continues.
-The all-CPU route stays separate; never mix folds. A report-only import-path failure was repaired with
-module-path and full160fold/source/checkpoint guards; producer source and official metric were unchanged.
-One strong P02 source check did not establish a strong whole decoder. Seed also selects validation people/epochs.
-Source-only body/skip probes do not support skip dominance. §317's continued external cognitive-supervision
-60fold study continues with its private whole/chain consumer; its source pilot is not an outer gain.
+**Normalization result and transfer limit.** §323's complete 80-fit whole study separates training and inference.
+Causal versus fixed inference on identical no-skip weights gains 3.898/4.588 official points for population/
+SessionBN training. Training-normalization contrasts alone are uncertain; best whole arm is 59.045%.
+Its full-current-system comparison is now complete: all eight arm−control intervals span zero.
+Causal−fixed in the chain is −.0714 official points for population/no-skip [−.1344,−.0056], but the
+people/order interval crosses zero; SessionBN/no-skip is −.0555 [−.1608,+.0473].
+Thus a whole-model accuracy improvement did not establish a useful ensemble addition. Saved-stage attribution
+is being prepared; correlation, confidence and downstream filtering are hypotheses, not proven causes.
+§317's complete continued-external-supervision whole matrix gives A/B/C 52.836/53.695/53.735%;
+C−B +.039 official, people/order +.551 [−.763,+1.953], undecided. Its guarded chain is running separately.
 
-**New source evidence and follow-ups.** §322's matched normalization × skip pilot found
-SessionBN ahead by5.4–8.3points on P02/P03, with mixed smaller skip effects.
-These two source people were previously exposed; training and inference normalization changed together.
-§323's complete80fit whole study separates those phases: same-weight causal inference gains3.898/4.588
-official points over fixed inference without skip, for population/SessionBN training respectively.
-Training-normalization contrasts alone are uncertain. Best whole arm59.045% remains below the current system;
-this quantifies a mechanism, not a chain or sealed gain. Replay, all controls, stage/input and chain smoke passed;
-70full-system cells3117101→scorer3117171→interaction report3117174 are queued, with no partial score read.
-§319 public DINOv2 engineering passed: full41/16row A100B1 about13/4.7ms. Fixed-PCA pretrained51.39%
-lost to random57.68/direct62.88% on one selected source person. §324 prepares distinct full-channel/frequency-time
-source controls also completed: pretrained full-intensity42.46% versus direct53.94/rawSessionBN62.30%
-across two exposed source people; no outer expansion. §325 prepares a source-learned display comparison,
-and §326 audits source-class/person logit invariance on the strong native features. These are assigned learning forms,
-not additional completed representations. §320 learned reliability was positive against its uniform
-source comparator, but unchanged H60.115% failed68.60%quality; no outer expansion.
+**New representations and learning forms.** §319/324/325 visual-prior forms now include a source-learned
+41-channel display. Learned versus fixed pretrained improves 42.462→49.639% across exposed P02/P03,
+almost entirely P02; direct 55.142% and raw SessionBN 62.299% remain stronger. No outer expansion.
+The crossfit-head convergence ceiling remains unverified; falling/increasing minibatch losses alone do not
+prove optimizer quality or failure. §326/327 source-logit invariance has no consistent source-person gain;
+§327's 1%-loss fit hit its evaluation cap despite passing a small-gradient guard. No outer expansion.
+§328 learned spatial-state occupancy adds 4.089 points to a weak 44.497% raw source control, but random
+occupancy and angular covariance recover the same gain. Ordered dynamics and occupancy conditional on
+covariance do not establish useful extra information in this form; the wider family is not closed.
+§329 stages the newly released MIT LaBraM-at-Scale Atom-L weights as a genuinely different prior.
+Independent A100 compatibility and an explicit 2080Ti compatibility→nine frozen source-head route are queued;
+no §329 numerical or accuracy result yet. Separate full-finetuning preparation must retain its own registration.
+§320 reliability's unchanged source control failed its registered quality premise; no outer expansion.
 
-**Candidate validation.** §321 recovered one CC30heldfold checkpoint exactly and passed CPU/CUDA export/reset checks.
-The study changes the OUTER mix after FT deltas, normalizes17units, and preserves original inner gates/labels/FT.
-A global checkpoint/weight swap is wrong. All6seed deployment correspondsB2_pool: selected+.2724official
-points, people/order+.2780[−.0070,+.5456], not the six-base average or independent confirmation.
-Six heldfold weights/prealigned exports, inner/off identity and mix algebra passed. All10array3117189 failed
-a normalization guard: inputEAprior is5, while latentSessionBNprior is2; old held-bank metadata conflated them.
-This invalidates the old raw-bank/study-equivalence claim, not the completed dev reports or recovered weights.
-Dead collector/worker dependencies were cancelled. Corrected raw-window→historical-stream proof and a one-seed
-all10smoke must precede another full release. JS-all continues after recognition; inner-gate identity is not
-final recognized identity. Returning and worker/timing checks remain unvalidated. No new package is ready.
+**JS candidate validation.** §321's corrected raw InputStream prior5 and latent SessionBN prior2 now pass
+all six historical held-weight/eight-order proofs. The earlier raw-bank equivalence claim was invalid;
+its failure and the corrected evidence remain separate. Exact inner/off/FT-label/reset/deepcopy and active
+six-base mix checks pass. All six all10 models and a private JS-all artifact are complete; no frozen ZIP changed.
+JS-all changes the outer mix after FT deltas while preserving original inner gates/labels/computations.
+It continues after recognition, so inner identity does not imply final recognized-output identity.
+The independent CPU worker stopped at its first timing bar: 82.330→90.303s on known190, ratio1.09684,
+above1.061008. Functional checks passed; later lengths/unrecognized/late-CP paths were not tested there.
+This CPU overhead did not predict the GPU result. A100 worker3117247 passed known190ratio1.03104,
+then failed the same runtime bar at known378:49.409→61.152s, ratio1.23766>1.061008.
+The failure is a relative engineering bar, not an observed timeout. Length800/unrecognized/late-CP remain
+untested there. Conditional component profile3117399 was released after verifying that actual failure.
+No optimized artifact exists yet; source-pinned optimization needs measured components and full parity guards.
+Returning heldfold
+validation remains blocked by missing/invalid genuine original Sinc checkpoints. No candidate is qualified.
 
-**Native stack and research cadence.** Paired CPU inference63–64ms versus cachedPython113–117ms has a narrow scope.
-ResidentA100 full source solve1.062s versus CPU238.483s also changes device/optimizer trajectory;
-neither result establishes energy, end-to-end or worker speed. See the owned evidence before broader claims.
-The global scientific-discovery skill is installed and applied; no cross-provider execution is claimed.
-Latest timed primary-source review02:48:22–03:09:39CET lasted21m17s:
-[research report](../evidence/next_wave_16nov/research_4h_17nov_0250.md).
-Both50minute campaign and4hour≥15minute research heartbeats remain active through17November evening.
-SSH was renewed01:02CET; local12hour idle retention is not a verified server/VPNexpiry.
-Submitted jobs continue without an active client. Ask for renewal only when access actually fails.
+**Native stack and research cadence.** Paired CPU inference63–64ms versus cached Python113–117ms has a narrow scope.
+Resident A100 solve1.062s versus CPU238.483s changes device/trajectory; neither establishes energy or full-worker speed.
+The global scientific-discovery skill is applied; no cross-provider execution is claimed.
+Last scheduled primary-source block 02:48:22–03:09:39 CET lasted21m17s:
+[scheduled report](../evidence/next_wave_16nov/research_4h_17nov_0250.md).
+An additional fresh-chat artifact-informed review 05:13:54–05:30:14 CET lasted16m20s:
+[fresh review](../evidence/next_wave_16nov/fresh_architecture_17nov.md).
+It retains canonical history and is not blind; it does not replace the next scheduled block around06:51 CET.
+Both50-minute campaign and4-hour≥15-minute research heartbeats remain active through17November evening.
+SSH renewed01:02 CET still works; local12-hour idle retention is not a verified server/VPN expiry.
+Submitted jobs continue without a client. Ask for renewal only when access actually fails.
 
 ### Update: 16 Nov 2026
 
