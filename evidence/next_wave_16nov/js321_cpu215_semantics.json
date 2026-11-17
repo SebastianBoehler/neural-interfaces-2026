@@ -1,0 +1,182 @@
+{
+  "status": "deterministic_CPU215_semantics_passed",
+  "variants": {
+    "fir": {
+      "max_output_error": 0.0,
+      "initial": [
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "declared": 65,
+          "active": 45,
+          "stream_buffer_count": 135,
+          "all_stream_buffers_zero": true
+        },
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "declared": 65,
+          "active": 45,
+          "stream_buffer_count": 135,
+          "all_stream_buffers_zero": true
+        }
+      ],
+      "final": [
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "declared": 65,
+          "active": 45,
+          "stream_buffer_count": 135,
+          "all_stream_buffers_zero": false
+        },
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "declared": 65,
+          "active": 45,
+          "stream_buffer_count": 135,
+          "all_stream_buffers_zero": false
+        }
+      ],
+      "reset": {
+        "max_paired_reset_error": 0.0,
+        "cold_to_reset_drift": [
+          0.0,
+          0.0
+        ],
+        "reset_states": [
+          {
+            "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+            "all_stream_buffers_zero": true,
+            "stream_buffer_count": 135
+          },
+          {
+            "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+            "all_stream_buffers_zero": true,
+            "stream_buffer_count": 135
+          }
+        ],
+        "deepcopy_interleaved": true,
+        "cpu_self_bitwise": true,
+        "gpu_self_bitwise_not_required_old_failure_preserved": false
+      },
+      "generators": [
+        {
+          "fbraw": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "fb": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "sinc": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "fbl": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378"
+        },
+        {
+          "fbraw": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "fb": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "sinc": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "fbl": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378"
+        }
+      ],
+      "ft_refits": [
+        0,
+        0
+      ],
+      "cp_refits": [
+        0,
+        0
+      ],
+      "cp_fused": [
+        0,
+        0
+      ],
+      "complete_sha256": "d46fd28ce740e7c1897c8e792712e6ce57445eb4afd4c502bbcaa0a420a44ea7"
+    },
+    "reuse": {
+      "max_output_error": 0.0,
+      "initial": [
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "declared": 65,
+          "active": 45,
+          "stream_buffer_count": 135,
+          "all_stream_buffers_zero": true
+        },
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "declared": 65,
+          "active": 45,
+          "stream_buffer_count": 135,
+          "all_stream_buffers_zero": true
+        }
+      ],
+      "final": [
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "declared": 65,
+          "active": 45,
+          "stream_buffer_count": 135,
+          "all_stream_buffers_zero": false
+        },
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "declared": 65,
+          "active": 45,
+          "stream_buffer_count": 135,
+          "all_stream_buffers_zero": false
+        }
+      ],
+      "reset": {
+        "max_paired_reset_error": 0.0,
+        "cold_to_reset_drift": [
+          0.0,
+          0.0
+        ],
+        "reset_states": [
+          {
+            "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+            "all_stream_buffers_zero": true,
+            "stream_buffer_count": 135
+          },
+          {
+            "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+            "all_stream_buffers_zero": true,
+            "stream_buffer_count": 135
+          }
+        ],
+        "deepcopy_interleaved": true,
+        "cpu_self_bitwise": true,
+        "gpu_self_bitwise_not_required_old_failure_preserved": false
+      },
+      "generators": [
+        {
+          "fbraw": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "fb": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "sinc": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "fbl": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378"
+        },
+        {
+          "fbraw": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "fb": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "sinc": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378",
+          "fbl": "f63b842a64ddec93b971dd7f26c66e5bb9cab4cb4751a02fa39f872793193378"
+        }
+      ],
+      "ft_refits": [
+        0,
+        0
+      ],
+      "cp_refits": [
+        0,
+        0
+      ],
+      "cp_fused": [
+        0,
+        0
+      ],
+      "complete_sha256": "e5366e73708b0a6e275c0006077df9bcea5376e845fae75e96e2deee84fd75b0"
+    }
+  },
+  "source_sha256": "dce9268eea13dfdc713fccfa068ebdb738e4afbf52e82a8886cf16706efc67ff",
+  "deterministic_algorithms": true,
+  "threads": 1,
+  "seconds": 4872.221270873211,
+  "accuracy_computed": false,
+  "scope": "CPU same-weight semantics;not GPU production/timing qualification",
+  "job": 3117573,
+  "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_deterministic1/cpu_semantic.json",
+  "full_sha256": "2b7291b44308e1d3f6c60a47ce830eb9993bfcd75698bf1a93dcf9c2623a81bd"
+}

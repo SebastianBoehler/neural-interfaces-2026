@@ -19,4 +19,4 @@
 
 - Warm1 job3117647 failed11s beforeinference missingowningrecord.py; frozenfailurepreserved. Warm2 copiesexactowningdependency, actualSIFloginCPUimportpreflightPASS, retry3117650RUNNING. No timing rows yet.
 - CPUstandard45min parents remainunchanged; TIMEOUT-only controllers3117679reuse/3117680FIR prospectivelyrelease alreadyregistered functionalCPU180min onlyon actualTIMEOUT. Otherstates no release, barcontrollers remainexclusiveactualbartrigger; source/capacityguarded.
-- CPUtimeout controllers3117679/3117680 completed→fullFUNCTIONAL-only CPU3117756reuse/3117757FIR actuallyRUNNING180min each; no oldbarrescue. Warm3117650 running378repeats; CPU215semantic3117573 remainsrunning.
+- CPUtimeout controllers3117679/3117680 completed→fullFUNCTIONAL-only CPU3117756reuse/3117757FIR actuallyRUNNING180min each; no oldbarrescue. Warm3117650 running378repeats; CPU215semantic3117573 PASSED81m17 exactold→FIR/reuse through215 with20FT/10CP/125fusions,reset/deepcopy/generators/immutableweights guarded.
