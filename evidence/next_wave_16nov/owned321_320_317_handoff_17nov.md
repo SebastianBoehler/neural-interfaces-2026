@@ -1,7 +1,7 @@
 # Owned continuation: §321, §320, §317 (17 Nov)
 
 Current §321 preparation is experimental. No frozen submission/ZIP changed; no upload, promotion or new version.
-Source/evidence recovery pushed through1593def; complete-artifact/worker outcome evidence follows. Root owns canonical STATE/STATUS/handoff/research docs.
+Source/evidence pushed throughabc0d59; complete-artifact/CPUstop and conditionalprofile recorded. Root owns canonical STATE/STATUS/handoff/research docs.
 
 - CURRENT: raw-input repair3117225 passed0:0 actual05:00:08–05:01:07CET(59s). Snapshot `ni26_js321_20261117_inputrepair1`.
 - All6historical P01 heldweights/traces reused by hashes; actual rawInputStream input_prior_k5→export latent_bn_k2 matches all8historical orders, max8.607e−7/0non-tiedchanges. `js321_raw_input_repair.json`.
@@ -28,7 +28,7 @@ Source/evidence recovery pushed through1593def; complete-artifact/worker outcome
 
 Other owned lanes:
 - §317 complete60foldcollector3117176PASS0:0(6s)→privateconsumer3117177PASS(8s). WholeofficialA52.8361/B53.6952/C53.7346%; C−B+.03943pp,people/order+.5513[−.7633,1.9531],6/10up; weakdecoder,notstrongtransfer/currentgain/familyclosure.
-- Private317chain1:24two-seedstreams→replay3117276→8controls3117277→zero/onesmoke3117278→guardedfullrelease. No partialchainread. Pending-onlyauditedCPUbackfill/replay5min/control+smoke15min keepssource/guards/resources.
+- Private317chain1: replay3117276/8controls3117277/zero+active smoke3117278 PASSED→remaining30cells3117357(%4)→completeowningscorer3117358. No partialtreatmentread. Pending-only15min/auditedCPUbackfill keeps6CPU/48GiB/source/guards; firstrunning4unchanged. aux317_chain_release.json.
 - §320 sourcepilot3116903 completed0:0; H60.115/U61.156/S61.669/R62.173% P02, R−U+1.017pp but H<68.60quality stop FIRED. No fullmatrix.
 - Ranker/mask/BN/zero/source/prefix guards passed; sourceweightSD.0975. Prototype not established strongwhole decoder (312S54.694%); no automatic expansion/reliability transfer claim.
 - Details: `js321_readiness.md`, `aux317_handoff_17nov.md`, `reliability320.md`.
