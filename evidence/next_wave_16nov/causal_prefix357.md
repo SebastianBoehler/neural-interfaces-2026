@@ -57,3 +57,50 @@ This qualifies the support representation and causal readout. It used one
 readout-training person and read no P03 or P09 labels. There is no held-person
 accuracy or system benefit estimate. No query run was released.
 [Run proof](causal_prefix357_proof.json)
+
+## §358 Four-person input qualification
+
+The same A6 body excludes P01, P02, P03 and P09. Archived A6 current probabilities
+cover eight orders each on P02/P03 (§346 extension) and P09 (§338). P01 has no
+matching archived current bank. §357 checked the population-normalized B1
+embedding path on P02/P03 and kept hashes only.
+
+One label-free CPU2/8GiB/8min allocation builds all four people afresh on the
+same route. Restore the checkpoint with the owning FBCNet builder, independently
+recompute source-only G/scale, and never call the training preparation path or
+load any labels. Each person needs one current-window support feature per row
+and fresh complete causal current probabilities for all eight orders. Strictly
+check support order independence, prefix and repeated-session isolation, original
+row identities, and all archived current banks to `1e-6` with zero changed labels.
+Predict worst archive error below `1e-6` based on §357's `5.61e-7` single-order
+measurement. Any failed guard blocks the instrument for scoring. This releases
+only the bank build.
+
+The smallest subsequent accuracy test is four leave-one-person-out folds with A6
+fixed. Fit the same 18,819-parameter current-only and prefix readouts with the
+same seed, dose, 16 optimizer steps, and eight training orders on the other
+three A6-excluded people. Compare both complete decoders to untouched A6 on every
+pinned order. Require exact disabled identity and prefix/reset checks, active
+gradients and actual support sensitivity, complete folds before held scoring, and
+no use of held labels by that fold's fit. Use the official cell-averaged metric
+and people/order intervals. Four exposed people can size effects for a later
+experiment, with limited independent evidence.
+
+A proposed follow-up budget is one CPU2/6min fit allocation and one CPU1/3min
+collector after measuring the bank. This would be a separate registration.
+The input build itself has zero optimizer steps and opens no labels.
+
+Job 3122038 completed in 2m01s on two CPUs. It built all 757 support items and
+32 causal current banks. The 24 archived checks retained every predicted label
+and reached at most `6.10e-7` in probability error. P01's eight new banks passed
+the same prefix, repeated-session and order checks. Across all four people the
+largest early-prefix error was `5.44e-7`. The independent source G/scale and frozen
+model guards passed. The Python process took 96.84 seconds and reported 2,019,816
+KiB peak RSS. [Bank proof](causal_prefix358_proof.json)
+
+The earlier job 3122033 stopped at a malformed archive context after the label-free
+restore and before any cohort forward. The repaired allocation used the same model,
+thresholds, cohort and bounds. Total §357–358 allocated compute was 402 CPU core-seconds.
+The verified 3.2 MiB bank stays in Galvani at
+`ni26_prefix358_v2_20261117/banks.npz` with SHA-256 `92770628…db5a`.
+Neither bank allocation read labels, updated parameters or computed accuracy.
