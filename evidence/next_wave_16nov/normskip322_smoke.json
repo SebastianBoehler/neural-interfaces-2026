@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "fit_people": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P09",
+    "P10"
+  ],
+  "validation_labels_opened": false,
+  "outer_P01_labels_opened": false,
+  "data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+  "source_manifest_sha256": "943083855d63aecca3c6228df97b3e9b029c265e5d6cd23fbb79db0bd63297f2",
+  "initial_sha256": {
+    "population_0": "def692406d5b1405fec6c5eb8aca8054faceb82ceffa2ad41ae04fd79978a7a7",
+    "population_1": "def692406d5b1405fec6c5eb8aca8054faceb82ceffa2ad41ae04fd79978a7a7",
+    "session_0": "def692406d5b1405fec6c5eb8aca8054faceb82ceffa2ad41ae04fd79978a7a7",
+    "session_1": "def692406d5b1405fec6c5eb8aca8054faceb82ceffa2ad41ae04fd79978a7a7"
+  },
+  "skip_gradient_max": {
+    "population_0": 0.0,
+    "population_1": 0.4501265585422516,
+    "session_0": 0.0,
+    "session_1": 0.4498501718044281
+  },
+  "fit_rows_sha256": "393a55907c2473964e5cf0bfceddac770ee3e9b4e7c0d06670c57b0f1ff70b24",
+  "validation_rows_sha256": "c81881681ebb5e19b41eb574436584c2cc14f52fd18854215cc03b8fade4aaed",
+  "scale": 31.47148323059082,
+  "cpu_only": true,
+  "reference_align": false,
+  "reference_epochs": 40
+}
