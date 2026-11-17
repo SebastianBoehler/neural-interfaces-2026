@@ -13,7 +13,8 @@ The documented recipe and required inputs exist. `experiments/session_bn.py:make
 |Remaining11 Sinc fits|3117930, concurrency1; canonical P04seed0 reused by proof/hash|`ni26_js321_20261117_returning_sinc_full1`|
 |CC30 pilot|3117941 PASS66s, fit33.929s; CPU/CUDA export2.10e−6/4.05e−6, reset/deepcopy pass|`ni26_js321_20261117_returning_cc30_pilot1`|
 |Remaining11 CC30 fits|3117998, concurrency1|`ni26_js321_20261117_returning_cc30_full1`|
-|Existing source bridge|3118014 CPU no-label guard, seed0 FB/FBL/raw × both folds|`ni26_js321_20261117_returning_existing1`|
+|Existing source bridge|3118014 CPU strict failure: FB P04 max1.15808e−5/0labels; train-onlyG/classic rows pass|`ni26_js321_20261117_returning_existing1`|
+|Device-discriminating source guard|3118024 A100 same-checkpoint/QF ≤1e−5 and self-repeat ≤1e−8; 3118016 cancelled pending to add absolute input locks|`ni26_js321_20261117_returning_existing_gpu2`|
 
 Every new Sinc weight must be used identically in the paired control and JS arms. JS also needs genuine held-session CC30 weights; neither all10 deployment weights nor leave-entire-person-out weights match these returning folds. Existing FB/FBL/raw checkpoints cover both folds and all six seeds. Their three-field schema lacks explicit training metadata, so the source bridge independently checks training-only G/scale, strict class/state load and full frozen probabilities against archived QF outputs. Classic/gate feature `idx_tr` must exactly equal the declared source mask. No label accuracy is read by these checks.
 
