@@ -9,6 +9,17 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
+### Research update: 17 Nov 2026, about 02:20 CET
+
+Completed §305/§313-whole/§315-temporal/§304 reports are in [current status](../evidence/next_wave_16nov/STATUS_17NOV.md).
+No new submission gain is established. Fixed-head native port preserves the current score; tighter fitting does not improve it.
+Temporal standalone gain does not establish a full-system member gain. Imaginary spectral features beat matched real features,
+but not the converged BASE with confidence. Conditional CORAL30 swap is +.0545 official points versus current control,
+with an interval crossing zero; §318 tests combinations with FBL2 while broader lanes continue.
+§307 independent refit failed P09parity. Separate preregistered §316 uses common verified §305anchors for ALL10fresh targets;
+pilot passed and production is running. §317 prepares source-private continued external supervision after checking actual
+prior coverage and primary source terms. The raw §312 CPU/GPU matrices stay separate. No upload or package change.
+
 ### Live check: 17 Nov 2026, about 01:15 CET
 
 [Current results, jobs and estimated times](../evidence/next_wave_16nov/STATUS_17NOV.md) supersedes older queue snapshots.

@@ -43,3 +43,30 @@ Times are estimates from measured work, not guarantees. Read complete guarded bl
 Retain representation breadth, source-only selection and package/worker checks before candidate changes.
 SSH master was recreated01:01:58CET and access works. Local ControlPersist43200 is12hours of idle
 retention, not a verified VPN/server authentication expiry. Submitted jobs survive loss of access.
+
+
+## Update:17November,02:20CET
+
+- §305 fixed native head preserved76.218% current-system score; newly converged heads gave75.966%.
+  People/order−.113[−.259,+.028], undecided. No gain; original failedNtrain is not relabeled.
+- §313 complete whole result: IMAG62.956%, REAL60.983%, BASE62.716%, independentSPECTRAL49.871%.
+  IMAG−REAL+1.974official points (people/order+1.992[.450,3.527]); versusBASE remains uncertain.
+  Comparability audit shows BASE closely matches305Nconverged (4/21240label disagreements),
+  rather than306historical original. No feature/cache bug is supported by that baseline gap.
+- §315 temporal members: TFD−control−.110official points, people/order+.008[−.158,+.182].
+  All zero/order/source/CP guards passed; no full-system gain despite standalone+2.182points.
+- §304 conditional30 swap−current+.0545official[−.1085,+.2273], people/order+.073[−.096,+.244].
+  Conditional30 beats matched plain/unconditional members, but its current-system gain is uncertain.
+  Strength30versus10 is a confound; the matched10versus10 effect is smaller and uncertain.
+- §318 registers exact conditional30add/swap plus FBL2 with singles/interaction/zero controls;
+  implementation and smoke being prepared. It is selected follow-up, not independent confirmation.
+- §307 independent-refit route failed P09strictparity despite matched scaler/threads; no score read.
+  Separate316uses common pinned305anchors for ALL10freshly streamed targets. P09pilot3116532
+  passed;10folds3116543%2→assembly3116544→guarded chain. No old307target output is mixed.
+- §317 research identifies continued task-private Shin2018WG/baseline supervision as an unrun
+  distinction from earlier pooling/private-head pretraining. Full26people/3120windows exist;
+  official source terms now verified. A bounded source-only gradient/BN transfer pilot is being prepared.
+- §312 GPU and independent CPU matrices continue separately; CPU complete cells are~3–5min.
+  No partial outer scores. §308 and313full-chain evaluations remain in progress.
+
+Prepared v6.6 and official score/rank are unchanged by these studies. No upload authorized or made.
