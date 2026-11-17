@@ -1,6 +1,6 @@
 # Overnight campaign: 16–17 November
 
-Updated: 17 Nov 2026 03:10 CET. User is asleep and explicitly authorizes continued experiments and follow-ups.
+Updated: 17 Nov 2026 03:12 CET. User is asleep and explicitly authorizes continued experiments and follow-ups.
 Goal: stronger validated candidate by17November evening, provisional18:00CET checkpoint.
 Top five remains an objective. No new package gain or sealed score is established.
 Use Galvani only; keep all user jobs within32running/272submitted and preserve unrelated jobs.
@@ -28,8 +28,8 @@ Never upload automatically. Preserve official tensor/metric, frozen packages and
 
 - §308 nonlinear/kernel heads:20fits/88deltas complete; zero3115773passed.
   Full treatment3115774%4 →scorer3115775. Preserve its immutable recovery snapshot.
-- §313 full-chain spectral comparisons: launcher3116066released component cells after complete
-  source matrix/replay. Read its job manifest for current treatment/scorerIDs; jobname s313-member.
+- §313 full-chain spectral comparisons: source matrix/replay passed; component cells are running,
+  with complete scorer3116439 dependency-pending at03:12CET; jobname s313-member.
 - §312 original GPU matrix: both guards passed; first80array3115990completed and callback3116412
   releases second80 with10minute requests. Complete GPUcollector →315stage/consumer3116075.
   First complete cells took31–39s, but GPU availability is intermittent; no partial outer score.
@@ -49,8 +49,8 @@ Never upload automatically. Preserve official tensor/metric, frozen packages and
   continuation3116808→complete whole collector→private guarded315consumer. No outer score read.
   Handoff aux317_handoff_17nov.md owns sources/guards; source1bc0d892…5636.
 - §318 conditional30add/swap plus FBL2: four real smoke cells passed, replay/guard3116565passed;
-  FBL2matches299bitwise. Capacity-safe two-wave dispatcher3116687waits to submit21cells%4,
-  then remaining23and complete scorer. Preserve scheduler lock1a6d79d3…144f and scientific lock.
+  FBL2matches299bitwise. Wave2array3116841 is running; complete scorer3116842 dependency-pending.
+  Preserve scheduler lock1a6d79d3…144f and scientific lock. No complete318result yet.
 - §319 visual prior: fresh_solution_audit owns source-only DINOv2 no-score feasibility/pilot preparation.
   §320 forward-only reliability: external_supervision_17nov owns source-crossfitted mechanism pilot preparation.
   Neither is a scored result; each initially≤1new allocation and must preregister controls before scoring.
@@ -63,6 +63,7 @@ Never upload automatically. Preserve official tensor/metric, frozen packages and
 - Existing workers may be idle; use followup_task to reactivate them, not send_message alone.
 - Read complete guarded blocks as they land; queue justified next questions without waiting for other lanes.
   Small positives remain uncertain, not closed. Preserve matched controls and selection disclosure.
+- At03:12CET worker observed125active:16running/109pending, zero DependencyNeverSatisfied.
 - Keep representation/data/supervision breadth alongside combinations. A native port or new head is not
   an independent representation. Fresh workers disclose shared history; no cross-provider run occurred.
 - Globalscientific-discovery skill is installed for Codex/Claude; personal masterdbaab0e contains source.

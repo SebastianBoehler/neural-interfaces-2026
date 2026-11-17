@@ -80,3 +80,6 @@ Prepared v6.6 and official score/rank are unchanged by these studies. No upload 
 - §317 source pilot passed its guards; first24of60nested CPU producers are3116807%4,
   with capacity-checked24/24/12continuation and a complete whole/chain consumer.
 - Other active workflows continue; no partial outer accuracy is read to select follow-ups.
+- Fresh Galvani check03:12CET:125active jobs,16running/109pending; zero dead dependencies observed.
+  §308scorer3115775 and §313chain scorer3116439 await their running treatments.
+  §318second-wave cells3116841 are running; complete scorer3116842 is dependency-pending.
