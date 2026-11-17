@@ -14,6 +14,7 @@ Check all files with `sha256sum -c package.sha256` from that directory. The mani
 is `d33cfb35de9944bcb3d3b703091a12c6fe2a6b4eb6f900a6396d1d28079fe925`.
 The release files match the measured package byte for byte. It also includes the DUCC license.
 Use the same `runs/cloud/ni26_worker.sif` image as jobs 3122783 and 3122794.
+Its SHA-256 is `7fc0389c46ac6bec7c4395a9815e9ffee04d207a2a3700aeb3aef318bf79e2d0`.
 
 ## Rebuild the worker overlay
 

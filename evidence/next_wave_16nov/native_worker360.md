@@ -255,3 +255,29 @@ Replacing the Hilbert core contribution alone reproduces eight of the
 ten observed early FP32 confidence changes. In a later CPU probe,
 the band-filtered arrays already differ before the Hilbert transform.
 The worker uses SciPy DUCC FFT and LibTorch MKL FFT.
+
+### Native arithmetic follow-up
+
+Float32 odd padding (commit `d0acaa8`) reproduces the frozen filtered
+bank and slow samples on three real windows. A standalone C++ build of
+the SciPy worker's exact DUCC source matches all 8,265,600 complex64
+values on shared filtered inputs (3122763). An exact C++ NumPy-style
+complex mean matches all captured means and centered values on those
+three windows (3122770). The corresponding real reduction is exact on
+125,460 actual Core1 means and all centered samples (3122786).
+
+The combined padding and DUCC package matches all 2,655 ordinary
+labels and work counters in 3122768. Frozen takes 406.072 seconds and
+C++ 409.241 seconds of solver replay. This version takes 0.78% longer.
+Its active-adaptation pair still differs on two labels at 378 windows
+and two at 800 (3122766). Adding the exact complex reduction gives
+378/378 and leaves two differences at 800, with work counts exact
+(3122777 against the pinned frozen reference).
+
+The native personalization stage matched all 1,178 labels with the
+same frozen outer and count-filter inputs in 3122782. Its maximum
+score error was below `1e-12`. A pure C++ alignment witness matched the
+worker's covariance, eigensolve and FP32 output on 60 real windows
+using the exact accumulation order and worker OpenBLAS exports.
+Jobs 3122783 and 3122787 passed long-stream parity with and without
+the separately proven real centering. [Exact worker results](native366_worker.md)

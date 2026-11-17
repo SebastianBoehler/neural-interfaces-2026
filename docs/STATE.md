@@ -151,11 +151,10 @@ EXTERNALWORD/SUB+5.770pp[80%people/day/order+3.958,+7.541],8/9peopleup. SourceLO
 Clinical/language/acquisition/QC/campaignselection/19-channelcapacitylimits remain; noFULL-SYSTEM/rankgain.
 
 
-**Current work: lean native baseline plus independent accuracy waves.** Preserve the current reference behavior
-and small explicit interfaces; complete parity before using the native stack as the experimental baseline.
-Implementation target is today, with worker/function/timing qualification deciding readiness. No whole-stack
-speedup, memory win or top-five result is established. The18:00CET provisional checkpoint passed without
-new candidate promotion. Frozenv6.6 remains unchanged; scientific experiments continue independently.
+**Current work: lean native baseline plus independent accuracy waves.** The image-specific C++
+worker matches the frozen inference and adaptation replays in §366. Its public A100 speedup depends
+on the workload. Complete CUDA training parity and sealed worker timing remain open. Scientific
+experiments continue on frozen public DEV.
 
 **Full C++ port — §353.** Native artifact/DSP/cores/tails/routing/Own/CF/CP/neuralbank/FT/masterruntime exist.
 All earlier failed builds/proofs remain preserved. CPU neural known8/unknown31 now PASS all originalbounds:
@@ -218,6 +217,17 @@ optimizer test matches frozen outer scores to 2.17e-8. Ordinary pair 3122643 mat
 work counters and saves 2.85% replay time (427.32→415.14 s). This is about 103 seconds per ordinary
 solver hour at the measured mix. The active long workload is still unqualified. The largest source of
 observed confidence drift is the Hilbert core, with band-filtered input differences preceding FFT.
+Float32 reflection is corrected in d0acaa8. The private pad+DUCC pair 3122768 matches all 2,655 ordinary
+labels and counters but takes 0.78% longer (406.07→409.24 s). The exact complex reduction brings the
+long replay to 378/378 and two disagreements at 800. C++ CP on identical inputs matches all 1,178 labels
+below 1e-12. The worker overlay with corrected Euclidean alignment restores all 1,178 labels and every
+work counter against a fresh frozen arm in 3122783. Same-A100 solver replay takes 314.67→304.52 s
+(3.23% saved, 116 s per matched solver hour); wall from public data load takes 319.64→309.61 s.
+Same-build ordinary pair 3122794 matches all 2,655 labels and counters on 14 sessions.
+Replay takes 402.22→397.99 s (1.05% saved, 38 s per matched solver hour); wall takes
+407.58→402.35 s (1.28%, 46 s per matched wall hour). The additional real-centering control
+3122787 also matches every long-stream label and counter, with no ordinary timing.
+[Exact worker evidence](../evidence/next_wave_16nov/native366_worker.md)
 
 **Parallel accuracy — §354–356.** §354 complete after two fixed-route recoveries. Gaussian factorization lost to
 the strong raw decoder by 7.44 pp [80% −10.28, −4.62] across three exposed new-person folds. Gaussian versus
@@ -262,6 +272,10 @@ across eight orders and saved 18.44% of cached personalization wall. A later ref
 prefix budget gained +0.0201 pp [80% −0.0173, +0.0579]; equal-call recycling +0.0102
 [−0.0447, +0.0734]. Both gains are undecided; cached stage savings do not measure worker wall.
 [§365 evidence](../evidence/next_wave_16nov/cp_schedule365.md)
+§367 fixed arithmetic and geometric pooling of the two complete branches yielded
+76.3733% and 76.3765% on six-base DEV. The existing JS branch scored 76.4410%. The
+geometric-minus-JS delta was −0.0645 pp [80% −0.1243,+0.0107]. Both pools leave
+the comparison undecided, with no demonstrated gain over JS. [§367 evidence](../evidence/next_wave_16nov/pooling367.md)
 The user moved ownership to the active Codex chat and archived the previous chat's automation.
 
 ## 2. Hard bounds (from the official code and rules)
