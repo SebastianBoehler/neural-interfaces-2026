@@ -1,4 +1,5 @@
 #include "ni26/core_training.h"
+#include "ni26/source.h"
 #include <torch/torch.h>
 #include <map>
 #include <set>
@@ -13,7 +14,7 @@ void vector_field(const Tensor& value,int64_t n,torch::ScalarType type,const std
   require(value.device().is_cpu() && value.is_contiguous() && value.scalar_type()==type &&
           value.dim()==1 && value.size(0)==n,"invalid source vector: "+name);
 }
-struct Session {int64_t person=-1,total=0,selected=0;Tensor log,slow;std::vector<int64_t> rows;};
+struct Session {int64_t selected=0;Tensor log,slow;std::vector<int64_t> rows;};
 }
 CoreTrainingResult train_classical_core(const Params& source,const Params& recipe) {
   torch::NoGradGuard guard;
@@ -27,33 +28,12 @@ CoreTrainingResult train_classical_core(const Params& source,const Params& recip
   ClassicalPreprocessor preprocess(recipe);
   auto raw=source.get("x"),y=source.get("y"),stream=source.get("stream"),person=source.get("person");
   auto mask=source.get("fit_mask"),held=source.get("held_person");
-  require(raw.device().is_cpu() && raw.scalar_type()==torch::kFloat32 && raw.dim()==3 &&
-          raw.size(1)==41 && raw.size(2)==480 && raw.size(0)>0 && raw.is_contiguous() && !raw.requires_grad(),"raw source must be CPU float32[N,41,480]");
+  auto selection=select_source_rows({raw,stream,person,mask,held});
   auto n=raw.size(0);
-  vector_field(y,n,torch::kInt64,"y");vector_field(stream,n,torch::kInt64,"stream");
-  vector_field(person,n,torch::kInt64,"person");vector_field(mask,n,torch::kBool,"fit_mask");
-  require(held.dim()==1,"held_person must be a vector");
-  vector_field(held,held.numel(),torch::kInt64,"held_person");
-  std::set<int64_t> excluded;
-  for (int64_t i=0;i<held.numel();++i)
-    require(held[i].item<int64_t>()>=0 && excluded.insert(held[i].item<int64_t>()).second,
-            "held_person IDs must be nonnegative and unique");
+  vector_field(y,n,torch::kInt64,"y");
   std::map<int64_t,Session> sessions;
-  auto rows=torch::nonzero(mask).flatten().contiguous();
-  require(rows.numel()>=3,"insufficient selected source rows");
-  for (int64_t i=0;i<n;++i) {
-    auto id=stream[i].item<int64_t>(),who=person[i].item<int64_t>();
-    require(id>=0 && who>=0,"source stream/person IDs must be nonnegative");
-    auto& session=sessions[id];
-    require(session.person<0 || session.person==who,"stream ID crosses people");session.person=who;
-    ++session.total;
-    if (mask[i].item<bool>()) {
-      require(!excluded.count(who),"selected source row belongs to an explicitly held person");
-      ++session.selected;
-    }
-  }
-  for (const auto& [id,session]:sessions)
-    require(session.selected==0 || session.selected==session.total,"partial-session source fit mask is unsupported");
+  auto rows=selection.rows;
+  for (const auto& [id,count]:selection.selected_per_stream) sessions[id].selected=count;
   std::vector<ClassicalWindow> windows;
   windows.reserve(rows.numel());
   Tensor global_log;

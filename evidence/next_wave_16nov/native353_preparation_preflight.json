@@ -1,0 +1,13 @@
+{
+  "status": "COMPLETE_METADATA_IMPORT_LIBRARY_PREFLIGHT_PASS",
+  "source_rows": 1898,
+  "dataset_X_header_only": true,
+  "source_X_values_read": false,
+  "labels_loaded": false,
+  "forward_calls": 0,
+  "optimizer_steps": 0,
+  "source_manifest_sha256": "b2ab9f62ae318d29fa15b91eb1c01f77554b5b5d5256b76ec4623a79854714b7",
+  "input_manifest_sha256": "f7ac083945c7e1d59b9a20a0441df062546e97770b7156ae3ea1ba878c7d7407",
+  "feature_source_sha256": "360f335d5a9224aad67af9725907cda07ce799fb574a62ae44bb7eb6cbe3dabd",
+  "runtime_sha256": "93f4716777d1977bca673a4bf8b6565b9b18cc1b98656f0a9ad39f2b1498eba7"
+}

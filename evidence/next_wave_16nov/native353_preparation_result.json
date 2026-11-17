@@ -1,0 +1,20 @@
+{
+  "job": 3121547,
+  "status": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed_seconds": 134,
+  "allocated_cpus": 2,
+  "allocated_core_seconds": 268,
+  "source_rows": 1898,
+  "source_X_max_abs": 0,
+  "source_X_relative_L2": 0,
+  "source_G_max_abs": 2.9558577807620168e-12,
+  "source_order_and_sessions_exact": true,
+  "partial_session_and_held_person_rejected": true,
+  "labels_loaded": false,
+  "forward_calls": 0,
+  "optimizer_steps": 0,
+  "accuracy_computed": false,
+  "snapshot": "/mnt/lustre/work/gehler/gfh527/ni26_native353_preparation_v1_20261117",
+  "scope": "raw neural source G/scale/order and input-tensor preparation; classical boundary integration syntax only"
+}

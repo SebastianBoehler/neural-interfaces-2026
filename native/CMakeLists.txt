@@ -9,8 +9,9 @@ endif()
 if(NOT DEFINED TORCH_CXX11_ABI)
   message(FATAL_ERROR "Set TORCH_CXX11_ABI from the target worker build; never guess its ABI")
 endif()
-add_library(ni26_base SHARED src/artifact.cpp src/math.cpp src/filter.cpp src/core.cpp
-  src/tail.cpp src/tail_em.cpp src/tail_tsem.cpp)
+add_library(ni26_base SHARED src/artifact.cpp src/math.cpp src/filter.cpp src/core.cpp src/source.cpp
+  src/tail.cpp src/tail_em.cpp src/tail_tsem.cpp
+  src/sampling.cpp src/sampling_rng.cpp src/sampling_choice.cpp)
 target_include_directories(ni26_base PUBLIC include)
 target_include_directories(ni26_base SYSTEM PUBLIC "${TORCH_ROOT}/include"
   "${TORCH_ROOT}/include/torch/csrc/api/include")
@@ -29,11 +30,12 @@ target_sources(ni26_base PRIVATE src/gates.cpp src/personal.cpp src/routing.cpp
 add_executable(ni26_routing_source tests/routing_source.cpp)
 target_link_libraries(ni26_routing_source PRIVATE ni26_base)
 include(cmake/linear.cmake)
+include(cmake/pca.cmake)
 include(cmake/core_training.cmake)
 add_library(ni26_runtime SHARED src/runtime.cpp src/api.cpp src/networks.cpp
   src/networks_input.cpp src/networks_models.cpp src/networks_extras.cpp
   src/finetune.cpp src/finetune_random.cpp src/session_bn.cpp
-  src/training_fbc.cpp src/training.cpp src/hash.cpp)
+  src/training_fbc.cpp src/training.cpp src/training_source.cpp src/hash.cpp src/preparation.cpp)
 target_link_libraries(ni26_runtime PUBLIC ni26_base ni26_initialization)
 target_compile_options(ni26_runtime PRIVATE -O2 -Wall -Wextra)
 set_target_properties(ni26_runtime PROPERTIES BUILD_RPATH "${TORCH_ROOT}/lib" INSTALL_RPATH "$ORIGIN")
@@ -61,3 +63,5 @@ add_executable(ni26_init_raw tools/init_raw.cpp)
 target_link_libraries(ni26_init_raw PRIVATE ni26_initialization)
 add_executable(ni26_initialization_source tests/initialization_source.cpp)
 target_link_libraries(ni26_initialization_source PRIVATE ni26_initialization)
+add_executable(ni26_preparation_source tests/preparation_source.cpp)
+target_link_libraries(ni26_preparation_source PRIVATE ni26_runtime)

@@ -1,0 +1,20 @@
+{
+  "source_rows": 1898,
+  "inputs": {
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_sampling_metadata1/oracle/metadata.npz": "3301efb6b2928e663a242b91a4c68f7614e52d5f0028c3a2d3d9cbffc4fbfdb6",
+    "/mnt/lustre/work/gehler/gfh527/ni26_raw312_cpu_20261117_v2/data/proteus_windows.npz": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+    "/mnt/lustre/work/gehler/gfh527/ni26_raw312_cpu_20261117_v2/experiments/features.py": "360f335d5a9224aad67af9725907cda07ce799fb574a62ae44bb7eb6cbe3dabd",
+    "/mnt/lustre/work/gehler/gfh527/ni26_combinations338_v2_20261117/output/source6/A/record.json": "701ee6dbba3fb0310beebf9b2f38d9bb6bf5f07e5794b061358108cfd518ee2e"
+  },
+  "decoded_dataset_keys": [
+    "X",
+    "subject",
+    "session"
+  ],
+  "labels_loaded": false,
+  "forward_calls": 0,
+  "optimizer_steps": 0,
+  "excluded_EEG_poisoned": true,
+  "scale": 25.817935280729536,
+  "fixture_sha256": "5accd269bb1a267c47ce4a43aeb59da9b40d2895fb259013d2f5db47a5b76b58"
+}
