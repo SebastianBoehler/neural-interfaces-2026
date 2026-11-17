@@ -110,3 +110,18 @@ failures remain immutable;240coresec=.066667CPUh total. No further allocation.
 Root requested the complete read-only dependency/schema/owner/thread/output audit
 before reviewing any release: see native353_training_preflight.md and its JSON.
 Native source fitting remains unqualified; numerical tests/bounds are unchanged.
+
+### Explicit final source-test re-release after full dependency review
+
+Root reviewed the83-line complete checklist plus ACTUAL fixture/C++ source and
+explicitly authorizes ONE fresh CPU2/16GiB10min execution AFTER the SAME complete
+read-only preflight on its final immutable snapshot. This goes past the earlier
+no-more-retries rule because BOTH failures were preparation/dependency errors
+before any features or fit; DT_RPATH and original official import path now have
+individual demonstrated fixes. No numerical result/math/test/threshold changed.
+Current actual8,371coresec includes7993+NN198+root-initializer180 (actual SlurmCPU2,
+not requestedCPU1); this1,200 maximum leaves4,829 of14,400coresec. Exact corrected
+prebuilt executable cbee44d0…9c5a5 reused, same C10/gtol1e−4/source/PC/scaler/
+objective/exclusion guards. Snapshot ni26_core_training_source_v3_20261117.
+No automatic retry or extension. NN strict FT failure remains separate;
+this release is REAL classical source fit ONLY, never NN source updates.
