@@ -1,0 +1,140 @@
+{
+  "status": "source_only_pilot_complete",
+  "fit_people": [
+    "Dreyer2026Proteus/P03",
+    "Dreyer2026Proteus/P04",
+    "Dreyer2026Proteus/P05",
+    "Dreyer2026Proteus/P06",
+    "Dreyer2026Proteus/P07",
+    "Dreyer2026Proteus/P08",
+    "Dreyer2026Proteus/P09",
+    "Dreyer2026Proteus/P10"
+  ],
+  "inner_validation": "Dreyer2026Proteus/P02",
+  "outer_excluded": "Dreyer2026Proteus/P01",
+  "epochs": 1,
+  "source_sha256": "c88a162ff158ecfbf1dc25653fe2700b84ae501b2fb3155efa8184953e738fa9",
+  "proteus_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+  "shin_sha256": "47ba7da2ea3ab5d70f3f9cd00de3998d7e27d1066dfb03711215ee48ba48c6ea",
+  "source_rows_sha256": "5375f62ed7d0bf0ea80d584fd0a57b10bc29778e6e4c6d9783e70e04befb5416",
+  "auxiliary_rows_sha256": "118202992e5699c65ab2bdfa7b00337391161cee46b593a43730705c072b7310",
+  "channels": {
+    "recorded": [
+      "CP2",
+      "Pz",
+      "Cz",
+      "CP1",
+      "P3",
+      "CP5",
+      "C3",
+      "P4",
+      "CP6",
+      "C4",
+      "FC6",
+      "FC2",
+      "F2",
+      "F1",
+      "FC5",
+      "FC1"
+    ],
+    "interpolated": [
+      "AF3",
+      "AF4",
+      "C1",
+      "C2",
+      "C5",
+      "C6",
+      "CP3",
+      "CP4",
+      "CPz",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "FC3",
+      "FC4",
+      "FCz",
+      "Fz",
+      "P1",
+      "P2",
+      "P5",
+      "P6",
+      "PO7",
+      "PO8",
+      "TP7",
+      "TP8"
+    ]
+  },
+  "scales": {
+    "proteus": 31.081571578979492,
+    "shin": 29.697341918945312
+  },
+  "guard": {
+    "main_only_total_update_bitwise": true,
+    "aux_bn_buffers_bitwise": true,
+    "auxiliary_mode_restored": true,
+    "auxiliary_head_gradient_nonzero": true
+  },
+  "arms": [
+    {
+      "arm": "A",
+      "seconds": 8.887875145766884,
+      "initial": "72752080095ed67fec662458fe65148e425d24611de0405127a6ad035a5aa967",
+      "initial_aux": "c07bb1f062e6fdeeea5f0542f5191ab3933edf050f74afb0f47582abc6d5749c",
+      "final": "df1942591cfc2dd43d7b9e1d97fe5cdc008f7ea9b68edc5d4e41b09333f67a98",
+      "source_plan": "23df5b22ab15b252cd1c596c38b157a95dd799578f6230113ab7d9e8f08b816c",
+      "selected_source_loss": 1.0157697200775146,
+      "selected_source_ba": 0.5158889889717102,
+      "auxiliary_max_effective_gradient": 0.0,
+      "stopped_steps": 0,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.0157697200775146,
+          "ba": 0.5158889889717102,
+          "auxiliary_ba": 0.5
+        }
+      ]
+    },
+    {
+      "arm": "B",
+      "seconds": 8.607485389336944,
+      "initial": "72752080095ed67fec662458fe65148e425d24611de0405127a6ad035a5aa967",
+      "initial_aux": "c07bb1f062e6fdeeea5f0542f5191ab3933edf050f74afb0f47582abc6d5749c",
+      "final": "8cf114b2145f1416a47f5ca908ea5b36810b227b28b7f5ea8e07e3bd4a3ecc25",
+      "source_plan": "23df5b22ab15b252cd1c596c38b157a95dd799578f6230113ab7d9e8f08b816c",
+      "selected_source_loss": 1.0297632217407227,
+      "selected_source_ba": 0.4407801926136017,
+      "auxiliary_max_effective_gradient": 0.0,
+      "stopped_steps": 36,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.0297632217407227,
+          "ba": 0.4407801926136017,
+          "auxiliary_ba": 0.4766666889190674
+        }
+      ]
+    },
+    {
+      "arm": "C",
+      "seconds": 8.31678108824417,
+      "initial": "72752080095ed67fec662458fe65148e425d24611de0405127a6ad035a5aa967",
+      "initial_aux": "c07bb1f062e6fdeeea5f0542f5191ab3933edf050f74afb0f47582abc6d5749c",
+      "final": "cbfa31ef54475d72c00e771aeef89175b84b3342108932ddf8abee43007d5040",
+      "source_plan": "23df5b22ab15b252cd1c596c38b157a95dd799578f6230113ab7d9e8f08b816c",
+      "selected_source_loss": 1.1061583757400513,
+      "selected_source_ba": 0.3812164068222046,
+      "auxiliary_max_effective_gradient": 3127.261200129986,
+      "stopped_steps": 0,
+      "epochs": [
+        {
+          "epoch": 1,
+          "loss": 1.1061583757400513,
+          "ba": 0.3812164068222046,
+          "auxiliary_ba": 0.4866666793823242
+        }
+      ]
+    }
+  ]
+}

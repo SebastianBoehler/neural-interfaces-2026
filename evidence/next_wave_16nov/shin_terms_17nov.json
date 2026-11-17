@@ -1,0 +1,19 @@
+{
+  "item": {
+    "sha256": "604277f4e81a43ef16c23404f6b0a447175efa7771e0452041527318ff85473d",
+    "license": [
+      "title=\"Creative Commons Zero (CC0)\" href=\"https://creativecommons.org/publicdomain/zero/1.0/\""
+    ],
+    "dataset_doi_present": true,
+    "url": "https://depositonce.tu-berlin.de/items/version/24"
+  },
+  "current": {
+    "sha256": "9ae17ca9cda0f671583d8265032963c19f45159ad6a7da118d2c769ad19602f4",
+    "license": [
+      "title=\"Creative Commons Attribution (CC BY)\" href=\"https://creativecommons.org/licenses/by/4.0/\""
+    ],
+    "dataset_doi_present": true,
+    "url": "https://depositonce.tu-berlin.de/items/eb49d988-33d4-4eac-9ed3-36dcd711f9d2"
+  },
+  "attribution": "Shin et al. (2018), Simultaneous acquisition of EEG and NIRS during cognitive tasks for an open access dataset, Scientific Data 5:180003, doi:10.1038/sdata.2018.3; data doi:10.14279/depositonce-5830"
+}
