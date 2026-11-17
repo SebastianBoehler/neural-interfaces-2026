@@ -1,0 +1,34 @@
+{
+  "source_sha": "1bc5cd9fdd56454075c4a9a76b2b2845f083b414b82508a0bebc181c53d7e807",
+  "held_labels_opened": false,
+  "output_sha": "3081d5b62b3b3c5df876ee0e201b9e1c1b4931d123864ad37fb4aeac029b8f56",
+  "training_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+  "traces": {
+    "prefix": {
+      "initial_body": "b28d152175f2004b672fcee3d940be6b3a95a52c6ca6853102daeb4de4173262",
+      "final_body": "6d741be105f1f14aca3519477d0ec6c50f0e0bbcc5081bf0ab4e08be604fb224",
+      "gradients": [
+        0.41030606627464294,
+        0.049486882984638214,
+        0.031088046729564667,
+        0.0025344802998006344
+      ],
+      "batches": "7c9a6b8f743b64d77b655f3d995a3003261bc72181f7dd960b5bc4b7f24140cf",
+      "steps": 64
+    },
+    "current": {
+      "initial_body": "b28d152175f2004b672fcee3d940be6b3a95a52c6ca6853102daeb4de4173262",
+      "final_body": "515620a24af44d32436c759abe1c4b41cf26197ba5f96b27c48d7178a4338473",
+      "gradients": [
+        0.3576696217060089,
+        0.0558260902762413,
+        0.027394974604249,
+        0.004207124933600426
+      ],
+      "batches": "7c9a6b8f743b64d77b655f3d995a3003261bc72181f7dd960b5bc4b7f24140cf",
+      "steps": 64
+    }
+  },
+  "frozen_causal_anchor_max_error": 0.0,
+  "snapshot": "b28d152175f2004b672fcee3d940be6b3a95a52c6ca6853102daeb4de4173262"
+}

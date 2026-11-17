@@ -1,0 +1,35 @@
+{
+  "source_sha": "c8d7076c04875efd1f9932a946c92bcfca66423339547442a2cdc461038d6d7d",
+  "held_labels_opened": false,
+  "traces": {
+    "current": {
+      "initial_body": "b28d152175f2004b672fcee3d940be6b3a95a52c6ca6853102daeb4de4173262",
+      "final_body": "d2c11a13768a71ba3e9be21ec177d5581aee87bd400e1bf8e0134450e452c256",
+      "gradients": [
+        3.9243321418762207,
+        0.047669485211372375,
+        0.1076345443725586,
+        0.008407339453697205
+      ],
+      "batches": "625a75fb39f2489c6f66fa2bcf10639d4a4c2aedcd54cb1368d1092ca41b4ac8",
+      "steps": 64
+    },
+    "prefix": {
+      "initial_body": "b28d152175f2004b672fcee3d940be6b3a95a52c6ca6853102daeb4de4173262",
+      "final_body": "ddcbbc2bd4077257be3b7568df2d6241526aa77964471408d58b289067519a2a",
+      "gradients": [
+        3.967937469482422,
+        0.04481440410017967,
+        0.10987021028995514,
+        0.009612074121832848
+      ],
+      "batches": "625a75fb39f2489c6f66fa2bcf10639d4a4c2aedcd54cb1368d1092ca41b4ac8",
+      "steps": 64
+    }
+  },
+  "output_sha": "326e05518576177a06fc88f6860ff8cb4eef463e0b7f58138a2a95916bdb626e",
+  "training_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+  "donor_rows": "ceb53d500b9a99a07de21f1625eab3d2a6c0d74ca4bdae3034fbf3ded2731eed",
+  "source_sessions": 10,
+  "seed": 374
+}
