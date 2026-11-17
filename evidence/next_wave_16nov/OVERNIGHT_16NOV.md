@@ -23,7 +23,8 @@ No automatic upload. Preserve tensor/metric/session boundaries, frozen packages 
 - §323whole80fits/20folds:causal−fixedsameweights+3.898/+4.588officialpp;train-typecontrastsuncertain.
   Completechain3117171/interaction3117174 PASSED05:31CET. All8arm−controlintervalsspan0.
   P0C−P0F−.0714official[−.1344,−.0056],people−.053[−.119,.013];S0C−S0F−.0555official.
-  Wholeperseedmetrics≠2seedmembermetrics. Selectedsaved-stage attribution preparing; no proven cause/bug.
+  Selecteddiagnostic3117400PASS:ensemblepreserveswholegain; gainabsentalreadyV6Fr, CPnotprimarylocation.
+  ~84–85%membercorrectionsalreadycontrolcorrect, NLL/Brier/ECEimprove; descriptiveoverlap, notcausalproof.
 - §317whole60fold A/B/C52.836/53.695/53.735%;C−B+.039official,people+.551[−.763,1.953].
   Weakdecoder,large seedvariation; noisolatedaux/currentgain. Privatechain continues below.
 - §325learnedvisualdisplay42.462→49.639%source,almostallP02;direct55.142/rawSBN62.299 stronger.
@@ -43,7 +44,8 @@ No automatic upload. Preserve tensor/metric/session boundaries, frozen packages 
   CPUworker3117246STOPfirstknown190ratio1.09684>1.061008; laterlengths/unknown/lateCPuntestedthere.
   CPUoverhead doesnotproveA100timeout. IndependentA1003117247 FAILED05:52:32CET:
   known190ratio1.03104passed;known37849.409→61.152s,ratio1.23766failedbar1.061008.800/unknown/lateCPuntested.
-  Relativebar≠actualtimeout. Controller3117342verifiedfailure→6mincomponentprofile3117399;nooptimizedartifactyet.
+  Relativebar≠actualtimeout. Profile3117399PASS:oneFIR+6tailsexact0error/~69%lessauxnetworktime,
+  notwholeworkerspeedup; separatelypinnedsameweightoptimizationpreparing, freshfullparity/workerchecksremain.
   Missing/invalidgenuineoriginalSincfolds blockfullreturningvalidation. No candidatequalified.
   owned321_320_317_handoff_17nov.md owns dynamicIDs/source/scopes.
 - §317replay3117276/8controls3117277/zero+active smoke3117278 passed→30cells3117357%4

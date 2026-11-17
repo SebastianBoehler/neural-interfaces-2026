@@ -54,7 +54,12 @@ Original PC128/shadow/FT/routing remain fixed in posterior-only interventions; r
   S1F+.1089/S1C+.0602. Causal−fixed P0C−P0F−.0714[−.1344,−.0056] official, but people/order
   −.053[−.119,+.013],2/10up. S0C−S0F−.0555[−.1608,+.0473], people/order−.036[−.135,+.062].
   All chain factorial-interaction intervals spanzero. Whole-model causal gains did not transfer into useful
-  additions in this form. Saved-stage error/confidence/filter attribution is being prepared; no cause proved.
+  additions in this form. Selected diagnostic3117400passed1m24: two-seed ensembling preserves+4.055/+4.742pp
+  causal gains; effect is already absent atV6Fr(P−.0787/S−.0651pp), finalCP effectchange+.0073/+.0096,
+  both intervals span0. Thus CP is not the primary attenuation location. About85.16%/83.67% of member
+  corrections are already control-correct. Member NLL/Brier/ECE improve, so worsening calibration is not
+  observed. Error overlap is descriptive, not a sufficient causal explanation or family closure.
+  [Selected diagnostic](norm323_attenuation_results.json); no new policy was fit.
   [Report](norm323_chain_results.txt), SHA `9e82b8082948702b600687b455e9efcd027b1698ae21955deb9e5faa0196ae34`;
   [interactions](norm323_chain_interactions.json), SHA `9104644305c5b1a3f2ffa6a39d382e2e096dea5ae0fb4207b88996617be388d0`.
 
@@ -149,9 +154,11 @@ Known190ratio1.03104 passed; known378base49.409→JS61.152s,ratio1.237657>1.0610
 WarmB1median131.41→164.12ms at378; knownrec10/FT0/CPstop10/378CCcalls passed.
 STOP means800/forcedunknown/lateCP untested. This relativebar failure is not an actual timeout/whole-limit proof.
 Controller3117342 verified actualGPUbar failure/source/image and released one6minA100componentprofile3117399.
-It measures generic six-FIR calls versus fingerprinted shared-FIR helper at≤1e−8parity; no import/OOM/pass trigger,
-tolerance relaxation, optimized artifact, candidate promotion or new score. Optimization follows measuredcomponents
-in a new immutable variant, then fresh raw/active/reset/paired-worker guards; failed source remains intact.
+Profile3117399 passed: all6FIRfingerprints match; oneFIR+sixindependenttails versus sixfullSJit calls has
+EXACT0.0 probabilityerror across two alternated-reset17window runs. Auxiliary-networktime.2509/.2441s→
+.07674/.07639s(68.7–69.4%less). This is component timing, not whole-worker or sealed speedup.
+Separate immutable same-weight optimization is being prepared; fresh raw/active/reset/paired-worker guards
+remain necessary. No tolerance relaxation, candidate promotion or new accuracy score; failed source remains intact.
 
 **§317 private chain:** replay3117276/all8controls3117277/zero+active smoke3117278 passed.
 Remaining30cells3117357%4→completeowningscorer3117358, no partial treatments read.

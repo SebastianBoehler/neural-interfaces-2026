@@ -42,8 +42,9 @@ SessionBN training. Training-normalization contrasts alone are uncertain; best w
 Its full-current-system comparison is now complete: all eight arm−control intervals span zero.
 Causal−fixed in the chain is −.0714 official points for population/no-skip [−.1344,−.0056], but the
 people/order interval crosses zero; SessionBN/no-skip is −.0555 [−.1608,+.0473].
-Thus a whole-model accuracy improvement did not establish a useful ensemble addition. Saved-stage attribution
-is being prepared; correlation, confidence and downstream filtering are hypotheses, not proven causes.
+Thus a whole-model accuracy improvement did not establish a useful ensemble addition. Selected saved-stage attribution now finds the gain already absent at V6Fr; CP is not its primary location.
+Two-seed ensembling preserves the whole gain. About83.7–85.2% of member corrections are already correct
+in the control; member NLL/Brier/ECE improve. These associations do not prove a sufficient cause.
 §317's complete continued-external-supervision whole matrix gives A/B/C 52.836/53.695/53.735%;
 C−B +.039 official, people/order +.551 [−.763,+1.953], undecided. Its guarded chain is running separately.
 
@@ -72,8 +73,9 @@ above1.061008. Functional checks passed; later lengths/unrecognized/late-CP path
 This CPU overhead did not predict the GPU result. A100 worker3117247 passed known190ratio1.03104,
 then failed the same runtime bar at known378:49.409→61.152s, ratio1.23766>1.061008.
 The failure is a relative engineering bar, not an observed timeout. Length800/unrecognized/late-CP remain
-untested there. Conditional component profile3117399 was released after verifying that actual failure.
-No optimized artifact exists yet; source-pinned optimization needs measured components and full parity guards.
+untested there. Conditional profile3117399 passed: fingerprinted one-FIR/six-tail execution gives exact0.0 probability error
+and about69% less auxiliary-network time on17realwindows. This is component timing, not whole-worker speed.
+A separate same-weight optimized artifact is being prepared, with fresh raw/active/reset/worker guards.
 Returning heldfold
 validation remains blocked by missing/invalid genuine original Sinc checkpoints. No candidate is qualified.
 
