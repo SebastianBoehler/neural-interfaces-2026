@@ -1,0 +1,341 @@
+{
+  "status": "COMPLETE_READ_ONLY_PREFLIGHT_PASS",
+  "fixture_sha256": "712eee42ed3d7321abf5b5a0dac9f7688a7e142e1de5d609a4f1c082285b93f7",
+  "preflight_script_sha256": "4d7d39466720a2a1b212d098e3cab49e16ab1e309a1377205841981df331b3ac",
+  "python_executable": "/mnt/lustre/home/gehler/gfh527/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/bin/python3.12",
+  "python_executable_sha256": "eaaa308032c4aa063df5880c4c293cd458b4629d503fbc2c03ec163d71f7f790",
+  "python_version": "3.12.15 (main, Oct 14 2026, 01:05:27) [Clang 23.1.3 ]",
+  "package_versions": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "torch": "2.14.1+cu126",
+    "pyriemann": "0.12",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0"
+  },
+  "direct_fixture_imports": [
+    "import argparse",
+    "import hashlib",
+    "import json",
+    "from pathlib import Path",
+    "import sys",
+    "import time",
+    "import numpy as np",
+    "import torch",
+    "from threadpoolctl import threadpool_limits",
+    "from convert_package import save_tensors",
+    "import ts_core as T"
+  ],
+  "reference_import_initialization": [
+    "sys.path[:0] = [str(SOURCE / 'experiments'), str(ROOT / 'neural-interfaces-2026/2026-competition/tracks/bci_decoding')]",
+    "import ts_core as T"
+  ],
+  "owners": {
+    "ts_core": {
+      "path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/ts_core.py",
+      "sha256": "0dd250ac222c7a1678c43a46e31ad7219e6d36369bd2b914293f8c31202d6e1c"
+    },
+    "features": {
+      "path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/features.py",
+      "sha256": "360f335d5a9224aad67af9725907cda07ce799fb574a62ae44bb7eb6cbe3dabd"
+    },
+    "protocol": {
+      "path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/protocol.py",
+      "sha256": "390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c"
+    },
+    "convert_package": {
+      "path": "/mnt/lustre/work/gehler/gfh527/ni26_core_training_preflight_v3_20261117/native/tools/convert_package.py",
+      "sha256": "3659569ab0b274ebe81c4292214c800ef23b79d380f382e410cbcb8de56301a5"
+    },
+    "benchmark_utils.metrics": {
+      "path": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/2026-competition/benchmark_utils/metrics.py",
+      "sha256": "fcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d"
+    }
+  },
+  "imported_module_count": 2836,
+  "imported_modules_sha256": "d2dfd4660befcdef5da5b573a10ad150ade5df3284b594ed7bad2f7b19d3e6b9",
+  "pinned_inputs": {
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/fit.json": "eb3bcd5582a09ca1d621e44f154817e942bd13082cf953a481fed837d536635e",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/returning_view_fit.py": "c18340502a988284e12a4f272156ed11063855a4824a5d0ba64d1b06f1fe0566",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/returning_view_fit.sbatch": "bd7a23125624f1574e11cdaa9ee2789901fdd3783d38ec71f870fb60b74f02da",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/returning_assets.py": "8e7066951f3ef2a1b750e511b831aabf4c3202c4b64753cdeb00ba8e5c52b292",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/protocol.py": "390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c",
+    "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/2026-competition/tracks/bci_decoding/benchmark_utils/metrics.py": "fcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d",
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_qualify_v1_20261117/package/native.pt": "4bf45aee1fa6457e75e504d5acf747a6c6a4e21c99a3266c0c5a514c6b5ab31c",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/features.py": "360f335d5a9224aad67af9725907cda07ce799fb574a62ae44bb7eb6cbe3dabd",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/source.sha256": "1196bab53ccb843123e34e411c9b9e0e682161d3448ba5ff73acb06880100297",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/data/proteus_windows.npz": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/source_view_P04_s23.npz": "8f52ab55d4dea7eca9b43b610fad2c645c1f3029372570d05ab71b2187123675",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/ts_core.py": "0dd250ac222c7a1678c43a46e31ad7219e6d36369bd2b914293f8c31202d6e1c"
+  },
+  "fit_proof_sha256": "eb3bcd5582a09ca1d621e44f154817e942bd13082cf953a481fed837d536635e",
+  "reference_headers": {
+    "ts_bands": {
+      "shape": [
+        17,
+        2
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "ts_log_glob": {
+      "shape": [
+        51,
+        41,
+        41
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "ts_mu": {
+      "shape": [
+        44239
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "ts_sd": {
+      "shape": [
+        44239
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "ts_W": {
+      "shape": [
+        3,
+        44239
+      ],
+      "dtype": "float64",
+      "fortran": true
+    },
+    "ts_b": {
+      "shape": [
+        3
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "tsem_m": {
+      "shape": [
+        44239
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "tsem_V": {
+      "shape": [
+        44239,
+        128
+      ],
+      "dtype": "float32",
+      "fortran": true
+    },
+    "route_V_hi": {
+      "shape": [
+        44239,
+        128
+      ],
+      "dtype": "float32",
+      "fortran": true
+    },
+    "idx_tr": {
+      "shape": [
+        2278
+      ],
+      "dtype": "int64",
+      "fortran": false
+    },
+    "pc_tr": {
+      "shape": [
+        2278,
+        256
+      ],
+      "dtype": "float32",
+      "fortran": false
+    },
+    "y_tr": {
+      "shape": [
+        2278
+      ],
+      "dtype": "int64",
+      "fortran": false
+    },
+    "singular_values": {
+      "shape": [
+        2278
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "ts_k": {
+      "shape": [],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "ts_shrink": {
+      "shape": [],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "ts_slow_cutoff": {
+      "shape": [],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "ts_slow_step": {
+      "shape": [],
+      "dtype": "int64",
+      "fortran": false
+    },
+    "ts_car": {
+      "shape": [],
+      "dtype": "int64",
+      "fortran": false
+    },
+    "ts_nsub": {
+      "shape": [],
+      "dtype": "int64",
+      "fortran": false
+    }
+  },
+  "data_headers": {
+    "X": {
+      "shape": [
+        2655,
+        41,
+        480
+      ],
+      "dtype": "float32",
+      "fortran": false
+    },
+    "subject": {
+      "shape": [
+        2655
+      ],
+      "dtype": "<U21",
+      "fortran": false
+    },
+    "session": {
+      "shape": [
+        2655
+      ],
+      "dtype": "<U1",
+      "fortran": false
+    },
+    "ch_names": {
+      "shape": [
+        41
+      ],
+      "dtype": "<U3",
+      "fortran": false
+    }
+  },
+  "recipe_headers": {
+    "sos": {
+      "shape": [
+        17,
+        4,
+        6
+      ],
+      "dtype": "torch.float64"
+    },
+    "slow_sos": {
+      "shape": [
+        2,
+        6
+      ],
+      "dtype": "torch.float64"
+    },
+    "bands": {
+      "shape": [
+        17,
+        2
+      ],
+      "dtype": "torch.float64"
+    },
+    "car": {
+      "shape": [],
+      "dtype": "torch.int64"
+    },
+    "nsub": {
+      "shape": [],
+      "dtype": "torch.int64"
+    },
+    "shrink": {
+      "shape": [],
+      "dtype": "torch.float64"
+    },
+    "k": {
+      "shape": [],
+      "dtype": "torch.float64"
+    },
+    "slow_cutoff": {
+      "shape": [],
+      "dtype": "torch.float64"
+    },
+    "slow_step": {
+      "shape": [],
+      "dtype": "torch.int64"
+    }
+  },
+  "fit_rows_sha256": "ca4a869ff981142b692b2a4e2ecb44f075ea2494e398280f103c9a9a36bcea2b",
+  "source_rows": 2278,
+  "excluded_complete_session_rows": 377,
+  "reference_source_labels_from": "y_tr only",
+  "held_person_empty_reason": "P04/session1 is source",
+  "feature_projection_thread_contexts": [
+    "with threadpool_limits(limits=1):\n    features = T.Feats(dict(X=raw, y=ref['y_tr'], stream=streams[rows], ch_names=channels), T.parse('car_ov17_fs2_t0.1_le_k2'))",
+    "with threadpool_limits(limits=1):\n    pc = ((standardized - ref['tsem_m']) @ basis).astype(np.float32)"
+  ],
+  "threadpools": [
+    {
+      "user_api": "blas",
+      "internal_api": "openblas",
+      "num_threads": 1,
+      "prefix": "libscipy_openblas",
+      "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+      "version": "0.3.34.106.0",
+      "threading_layer": "pthreads",
+      "architecture": "SkylakeX"
+    },
+    {
+      "user_api": "openmp",
+      "internal_api": "openmp",
+      "num_threads": 1,
+      "prefix": "libgomp",
+      "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+      "version": null
+    },
+    {
+      "user_api": "openmp",
+      "internal_api": "openmp",
+      "num_threads": 1,
+      "prefix": "libgomp",
+      "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+      "version": null
+    },
+    {
+      "user_api": "blas",
+      "internal_api": "openblas",
+      "num_threads": 1,
+      "prefix": "libscipy_openblas",
+      "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+      "version": "0.3.31.dev",
+      "threading_layer": "pthreads",
+      "architecture": "SkylakeX"
+    }
+  ],
+  "torch_threads": 1,
+  "next_fixture_output": "fixture",
+  "next_native_output": "native_core.pt",
+  "output_absent": true,
+  "disk_free_bytes": 691982899982336,
+  "EEG_read": false,
+  "query_labels_opened": false,
+  "source_features_computed": false,
+  "Python_fit_run": false,
+  "native_fit_run": false,
+  "accuracy_computed": false
+}

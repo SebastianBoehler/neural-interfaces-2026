@@ -1,0 +1,64 @@
+{
+  "status": "PRESERVED_PRE_NUMERICAL_PLUMBING_FAILURES",
+  "allocated_coresec": 240,
+  "CPUh": 0.06666666666666667,
+  "records": [
+    {
+      "job_id": 3120845,
+      "artifact": "/mnt/lustre/work/gehler/gfh527/ni26_core_training_source_v1_20261117",
+      "sacct": "3120845|FAILED|71|2|1:0|\n3120845.batch|FAILED|71|2|1:0|4206504K\n3120845.extern|COMPLETED|71|2|0:0|\n",
+      "source_manifest_sha256": "696a87d0e15c295ae4f0032bad428ee91a85c1ee523329023780e442474f4b3e",
+      "assets_manifest_sha256": "78f85648bfbdaa3a36803c72be761faf235be4f17c42733c3d55de60817d9462",
+      "phase": "build",
+      "phase_time": "Traceback (most recent call last):\n  File \"/mnt/lustre/work/gehler/gfh527/ni26_core_training_source_v1_20261117/native/tests/core_training_build.py\", line 46, in <module>\n    main()\n  File \"/mnt/lustre/work/gehler/gfh527/ni26_core_training_source_v1_20261117/native/tests/core_training_build.py\", line 38, in main\n    raise ValueError('test does not resolve the exact qualified CAR base')\nValueError: test does not resolve the exact qualified CAR base\nCommand exited with non-zero status 1\n\tCommand being timed: \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B native/tests/core_training_build.py\"\n\tUser time (seconds): 18.49\n\tSystem time (seconds): 3.81\n\tPercent of CPU this job got: 84%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:26.52\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 1451064\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 5987\n\tMinor (reclaiming a frame) page faults: 376248\n\tVoluntary context switches: 39130\n\tInvoluntary context switches: 26\n\tSwaps: 0\n\tFile system inputs: 238632\n\tFile system outputs: 888\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 1\n",
+      "slurm_output": "FINAL_EXIT=1\n",
+      "source_features_computed": false,
+      "native_fit_run": false,
+      "query_labels_opened": false,
+      "accuracy_computed": false
+    },
+    {
+      "job_id": 3120955,
+      "artifact": "/mnt/lustre/work/gehler/gfh527/ni26_core_training_source_v2_20261117",
+      "sacct": "3120955|FAILED|49|2|1:0|\n3120955.batch|FAILED|49|2|1:0|571164K\n3120955.extern|COMPLETED|49|2|0:0|\n",
+      "source_manifest_sha256": "9c12843776454755a94b706d9c34984f0b2b6bc11edd3110030e2a0f3739557b",
+      "assets_manifest_sha256": "6d5455ec8252b3b187c9fe7022a9cdb7a96d1860363a0ecd4877e88f361df7ad",
+      "phase": "oracle",
+      "phase_time": "Traceback (most recent call last):\n  File \"/mnt/lustre/work/gehler/gfh527/ni26_core_training_source_v2_20261117/native/tests/core_training_fixture.py\", line 113, in <module>\n    main()\n  File \"/mnt/lustre/work/gehler/gfh527/ni26_core_training_source_v2_20261117/native/tests/core_training_fixture.py\", line 53, in main\n    import ts_core as T\n  File \"/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/ts_core.py\", line 29, in <module>\n    import protocol\n  File \"/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/protocol.py\", line 41, in <module>\n    from benchmark_utils.metrics import balanced_accuracy, group_scores  # noqa: E402\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nModuleNotFoundError: No module named 'benchmark_utils'\nCommand exited with non-zero status 1\n\tCommand being timed: \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B native/tests/core_training_fixture.py fixture\"\n\tUser time (seconds): 4.20\n\tSystem time (seconds): 2.00\n\tPercent of CPU this job got: 59%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:10.45\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 609420\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 7198\n\tMinor (reclaiming a frame) page faults: 121623\n\tVoluntary context switches: 31770\n\tInvoluntary context switches: 6\n\tSwaps: 0\n\tFile system inputs: 318104\n\tFile system outputs: 8\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 1\n",
+      "slurm_output": "FINAL_EXIT=1\n",
+      "source_features_computed": false,
+      "native_fit_run": false,
+      "query_labels_opened": false,
+      "accuracy_computed": false
+    }
+  ],
+  "link_preflight": {
+    "status": "LINK_LDD_PASS_NO_MODEL_EXECUTION",
+    "old_failure_job": 3120845,
+    "old_object_sha256": "9300162e1558365876008d484ed4d4df82de1a6944161b152e547225cc91e9fb",
+    "base_sha256": "70d149780e714f2763beb631804a14b5b77ed7fa2c8d974393b9f36bffe41cb5",
+    "link_command": [
+      "/mnt/lustre/work/gehler/gfh527/flightrl-puffer5.pmbvox/toolchain/bin/x86_64-conda-linux-gnu-g++",
+      "-O3",
+      "-DNDEBUG",
+      "/mnt/lustre/work/gehler/gfh527/ni26_core_training_source_v1_20261117/build/core_training_source.o",
+      "-o",
+      "/mnt/lustre/work/gehler/gfh527/ni26_core_training_link_preflight_v2_20261117/ni26_core_training_source",
+      "-L/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib",
+      "-Wl,-rpath,/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib:/mnt/lustre/work/gehler/gfh527/ni26_core_car_repair_v1_20261117/build:/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs",
+      "/mnt/lustre/work/gehler/gfh527/ni26_core_car_repair_v1_20261117/build/libni26_base.so",
+      "-ltorch",
+      "-ltorch_cpu",
+      "-lc10",
+      "-ltorch_cuda",
+      "-lc10_cuda",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so"
+    ],
+    "executable_sha256": "cbee44d037901bd1b91414e5b928e5ceffde4262ebda3fbcdc58dc721c79c5a5",
+    "base_resolved": "/mnt/lustre/work/gehler/gfh527/ni26_core_car_repair_v1_20261117/build/libni26_base.so",
+    "EEG_executed": false,
+    "source_features_computed": false
+  },
+  "import_path_repair_preflight": "SOURCE_IMPORT_PASS_NO_FEATURES",
+  "further_allocation_submitted": false
+}

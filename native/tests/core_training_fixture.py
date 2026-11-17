@@ -18,6 +18,13 @@ SOURCE = ROOT / 'ni26_js321_20261117_returning2/source'
 FIT = ROOT / 'ni26_js321_20261117_returning_view_fit1'
 PACKAGE = ROOT / 'ni26_native353_qualify_v1_20261117/package'
 PINS = {
+    FIT / 'fit.json': 'eb3bcd5582a09ca1d621e44f154817e942bd13082cf953a481fed837d536635e',
+    FIT / 'returning_view_fit.py': 'c18340502a988284e12a4f272156ed11063855a4824a5d0ba64d1b06f1fe0566',
+    FIT / 'returning_view_fit.sbatch': 'bd7a23125624f1574e11cdaa9ee2789901fdd3783d38ec71f870fb60b74f02da',
+    FIT / 'returning_assets.py': '8e7066951f3ef2a1b750e511b831aabf4c3202c4b64753cdeb00ba8e5c52b292',
+    SOURCE / 'experiments/protocol.py': '390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c',
+    ROOT / 'neural-interfaces-2026/2026-competition/tracks/bci_decoding/benchmark_utils/metrics.py':
+        'fcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d',
     PACKAGE / 'native.pt': '4bf45aee1fa6457e75e504d5acf747a6c6a4e21c99a3266c0c5a514c6b5ab31c',
     SOURCE / 'experiments/features.py': '360f335d5a9224aad67af9725907cda07ce799fb574a62ae44bb7eb6cbe3dabd',
     FIT / 'source.sha256': '1196bab53ccb843123e34e411c9b9e0e682161d3448ba5ff73acb06880100297',
@@ -49,7 +56,8 @@ def main():
         raise ValueError('original source-only proof differs')
     started = time.monotonic()
     torch.set_num_threads(1)
-    sys.path.insert(0, str(SOURCE / 'experiments'))
+    sys.path[:0] = [str(SOURCE / 'experiments'),
+                   str(ROOT / 'neural-interfaces-2026/2026-competition/tracks/bci_decoding')]
     import ts_core as T
     with np.load(FIT / 'source_view_P04_s23.npz') as reference:
         ref = {key: reference[key].copy() for key in reference.files}

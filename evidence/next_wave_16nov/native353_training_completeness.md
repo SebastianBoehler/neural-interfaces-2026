@@ -102,3 +102,11 @@ Retry `ni26_core_training_source_v2_20261117` pins/runs that exact prebuilt bina
 its dependencies, same original source/feature oracle/SOS/reference/strict bounds.
 No recompile, no native-base fallback, no second retry. Aggregate7,895coresec used
 plus neural1,200/source1,200/root-initializer180 reserved=10,475<14,400coresec.
+
+3120955 FAILED49s×CPU2=98coresec BEFORE source features/fit: the oracle exporter
+omitted original producer's required official benchmark_utils import path. Source
+repair restores that identical explicit path; import-only preflight PASS. Both
+failures remain immutable;240coresec=.066667CPUh total. No further allocation.
+Root requested the complete read-only dependency/schema/owner/thread/output audit
+before reviewing any release: see native353_training_preflight.md and its JSON.
+Native source fitting remains unqualified; numerical tests/bounds are unchanged.
