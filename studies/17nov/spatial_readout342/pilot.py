@@ -1,6 +1,8 @@
 """Complete eight-arm source-only selection/refit before held P09 labels (§342)."""
 import json
 import inspect
+import os
+import platform
 import sys
 import time
 from pathlib import Path
@@ -13,7 +15,7 @@ from common import DATA, LABEL, OLD, encoder, gpu, inputs, labels, layouts, load
 from head import Head, predict
 
 ROOT=Path(__file__).resolve().parent
-GUARD=Path('/mnt/lustre/work/gehler/gfh527/ni26_spatial342_v1_20261117')
+GUARD=Path('/mnt/lustre/work/gehler/gfh527/ni26_spatial342_v2_20261117')
 
 
 def cell_nll(y, p, stream, interface):
@@ -43,10 +45,15 @@ def main():
         raise ValueError('old feature bank identity differs')
     old=np.load(OLD/'source_banks.npz');oldrows=np.r_[old['source_rows'],old['query_rows']]
     oldpositions=np.array([np.flatnonzero(oldrows==row)[0] for row in rows])
-    cpu=np.load(OLD/'cpu_a100_embeddings.npz')
+    cpu=np.load(GUARD/'same_weight_cpu_gpu_probe.npz')
     probe_positions=np.array([np.flatnonzero(source==row)[0] for row in cpu['rows']])
     for prior in ('pretrained','random'):
-        model,upstream=encoder(prior);chans=upstream.get_input_chans(d['ch_names'].astype(str).tolist())
+        model,upstream=encoder(prior)
+        if prior=='random':
+            model.load_state_dict(torch.load(GUARD/'random_initial.pt',map_location='cpu',weights_only=True),strict=True)
+            if state_sha(model)!=smoke['records']['random']['state_sha256']:
+                raise ValueError('exact matched random initial parameters differ')
+        chans=upstream.get_input_chans(d['ch_names'].astype(str).tolist())
         model.cuda();before=state_sha(model)
         patch=np.lib.format.open_memmap(ROOT/f'{prior}_patch.npy',mode='w+',dtype=np.float32,shape=(len(rows),164,400))
         with torch.no_grad():
@@ -94,18 +101,21 @@ def main():
         raise ValueError('complete matrix required before query labels')
     np.savez(ROOT/'all_fits.npz',source_rows=source,query_rows=query,**params)
     np.savez(ROOT/'query_posteriors.npz',query_rows=query,**posteriors)
-    premetric=dict(passed=True,fit_count=fit_count,source_quality=quality,fitted_readout_parity=parity,
+    premetric=dict(passed=True,node=platform.node(),torch_version=torch.__version__,numpy_version=np.__version__,
+                   device=torch.cuda.get_device_name(0),cpu_affinity=sorted(os.sched_getaffinity(0)),
+                   peak_gpu_bytes=torch.cuda.max_memory_allocated(),fit_count=fit_count,source_quality=quality,fitted_readout_parity=parity,
                    all_fits_sha256=sha(ROOT/'all_fits.npz'),posterior_sha256=sha(ROOT/'query_posteriors.npz'),
-                   source_sha256=sha(ROOT/'source.sha256'),P09_labels_opened=False,seconds=time.monotonic()-started)
+                   source_sha256=sha(ROOT/'source.sha256'),guard_sha256=sha(GUARD/'gpu_guard.json'),
+                   random_initial_sha256=sha(GUARD/'random_initial.pt'),probe_sha256=sha(GUARD/'same_weight_cpu_gpu_probe.npz'),P09_labels_opened=False,seconds=time.monotonic()-started)
     (ROOT/'complete_before_labels.json').write_text(json.dumps(premetric,indent=2))
-    # First access to held P09 labels, after persisted complete fitted artifacts and guards.
-    yquery=reader.read_training_labels(DATA,query,len(people))
-    qi=reader.read_selected(DATA,'interface',query,len(people))
     sys.path[:0]=[str(OLD/'2026-competition'),str(OLD/'experiments')]
     protocol=module('ni26_s342_official_protocol',OLD/'experiments/protocol.py')
     metric_path=Path(inspect.getfile(protocol.balanced_accuracy)).resolve()
     if metric_path.name!='metrics.py' or sha(metric_path)!='fcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d':
         raise ValueError('official metric ownership/hash differs')
+    # First access to held P09 labels, after persisted fits, guards and metric ownership.
+    yquery=reader.read_training_labels(DATA,query,len(people))
+    qi=reader.read_selected(DATA,'interface',query,len(people))
     metadata=dict(stream=np.char.add(np.char.add(d['subject'][query],'|'),d['session'][query]),interface=qi)
     results={name:protocol.score(yquery,p.argmax(1),metadata,np.ones(len(query),bool)) for name,p in posteriors.items()}
     result=dict(metric_module_path=str(metric_path),metric_module_sha256=sha(metric_path),scope='INDIVIDUAL-MODEL SOURCE6 held P09; previously exposed, not blind',results=results,

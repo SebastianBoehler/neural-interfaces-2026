@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "mode": "cpu",
+  "labels_scope": "SOURCE6 only",
+  "P09_labels_opened": false,
+  "P01_P02_P03_inference": false,
+  "records": {
+    "pretrained": {
+      "state_sha256": "0ee83d9376f5ec8afd8a6f6a1b073491006e968e65b629075f9219e13cf4314d",
+      "layout_dimensions": {
+        "pooled400": 400,
+        "temporal1600": 1600,
+        "spatial16400": 16400,
+        "full65600": 65600
+      }
+    },
+    "random": {
+      "state_sha256": "10308a83b55ccb1efff699463c996bc203610a543dbca7b1f568db133852a3fa",
+      "layout_dimensions": {
+        "pooled400": 400,
+        "temporal1600": 1600,
+        "spatial16400": 16400,
+        "full65600": 65600
+      }
+    }
+  },
+  "oracle": {},
+  "source_manifest_sha256": "0f7c09ed4a12a907307df2aa3bf13caadd71717464f91bff47156e4aa84948d9",
+  "seconds": 11.70783008215949
+}

@@ -33,7 +33,13 @@ def main():
             raise ValueError('channel mapping differs')
         before = state_sha(model)
         if mode == 'gpu':
+            with torch.no_grad():
+                same_weight_cpu = model.forward_features(x, input_chans=chans, return_patch_tokens=True).numpy()
+            if prior == 'random':
+                torch.save(model.state_dict(), 'random_initial.pt')
             model.cuda()
+            if state_sha(model) != before:
+                raise ValueError('device transfer changed frozen parameters')
         xt = x.clone().to('cuda' if mode == 'gpu' else 'cpu').requires_grad_(True)
         output = model.forward_features(xt, input_chans=chans, return_patch_tokens=True)
         output.square().mean().backward()
@@ -57,7 +63,8 @@ def main():
         for channel in (0, 20, 40):
             np.testing.assert_array_equal(values['full65600'].reshape(-1,41,4,400)[:, channel], patch[:,channel*4:channel*4+4])
         if mode == 'gpu':
-            cpu = np.load('cpu_probe.npz')[prior]
+            cpu = same_weight_cpu
+            banks[prior+'_cpu'] = same_weight_cpu
             if not np.allclose(cpu, patch, atol=2e-3, rtol=1e-3):
                 raise ValueError('CPU/A100 feature parity failed')
         records[prior] = dict(state_sha256=before, layout_dimensions={k:v.shape[1] for k,v in values.items()})
@@ -73,6 +80,7 @@ def main():
                           jac=lambda t: objective(z,target,t.reshape(3,4),c)[1].ravel(),
                           method='L-BFGS-B', options=dict(gtol=1e-10,ftol=1e-15,maxiter=2000))
         theta=result.x.reshape(3,4); loss, grad=objective(z,target,theta,c)
+        oracle[str(c)]=dict(loss=loss,max_gradient=float(np.abs(grad).max()),success=bool(result.success))
         if np.abs(grad).max()>1e-7:
             raise ValueError('independent source CPU oracle failed')
         if mode == 'gpu':
@@ -90,6 +98,7 @@ def main():
         standardized=np.ascontiguousarray(StandardScaler().fit_transform(full).astype(np.float64)/np.sqrt(164))
         _, cost=Head().fit(standardized,target,.01)
         records['full_width_cost']=cost
+        np.savez('same_weight_cpu_gpu_probe.npz',rows=rows,**banks)
     else:
         np.savez('cpu_probe.npz',rows=rows,**banks)
     result=dict(passed=True,mode=mode,labels_scope='SOURCE6 only',P09_labels_opened=False,
