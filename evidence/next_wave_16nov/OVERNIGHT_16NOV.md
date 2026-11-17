@@ -1,6 +1,6 @@
 # NI26 active campaign handoff — 17 November
 
-Updated17Nov2026 11:32CET. Autonomous implementation/broader experiments/follow-ups authorized, Galvani only.
+Updated17Nov2026 12:02CET. Autonomous implementation/broader experiments/follow-ups authorized, Galvani only.
 Provisional18:00CET decisioncheckpoint; topfive remainsobjective. No automaticupload/messages/paidproviders/newterms.
 Account≤32running/272submitted with28reserve;controllersconservatively≤244active,preserveunrelatedjobs.
 Read STATE→targetedLEDGER→OFFICIAL_CONTRACT, STATUS andowninghandoffs; source/scoreguards beforeinterpretation.
@@ -42,14 +42,14 @@ Customstack=C++/CUDA; originalrawneuralreference=stockPyTorch336/338. No unquali
 - A100known/unknown190/378/800FUNCTIONALpass; warm12AB/BApairsallpass6.10%bar,medianoverhead1.19–2.62%,max4.91%.
   Oldtiming/bitwise/45minCPUfailuresremainfailed. CPU215semanticexact81m17; novaluesaresealedtimeproof.
 - CPUreuse/FIR3117756/7COMPLETE2h27/2h32; owningcollector3117884passes. FUNCTIONALonly, notCPUtiming.
-- ALL60NEWgenuineheld-sessionNNweights/72traces+576rawB1SIFbanksPASSED source/reset/order/weightproofs.
+- ALL60NEWgenuineheld-sessionPRIMARY-NNweights/72traces+576rawB1SIFbanksPASSED source/reset/order/weightproofs.
   BothfoldsourcecontextsPASSED. Historicalcheckpointidentityunproven; oldstrictparityfailurespreserved.
 - ActualfrozenRouteB/TSEM/OwnStage/CF/CP engineering3118487PASS5m59, exactvsowningcomposition/offzero,
   recognized10/FT0/CPstop10,JSactivepre/postrec. ENGINEERING_ONLY withcachedrecordingfoldview+all10inner.
   RootchoseFIXED-PRODUCTION-PRIOR CONDITIONAL ENGINEERINGsensitivity, notgenuineheldFULL-SYSTEM DEV/rank.
-- BothnewsourceCore/PCAfits/nativeSIFraw31canaries pass; full8orderraw256banks3118623%1 running.
-  Newsourcecontexts3118631complete;4normalBNpilotspass, remaining24fits3118637%2→28assetcollector3118663queued.
-  SharednewinnerFT/wholepairedprotocol stillrequired; frozenMAD/teacherEA-G/OOFcalibrationlimitpositives.
+- BothnewsourceCore/PCAfits/nativeSIFraw31/full8orderraw256banks, ALL28normalBNfits/originalclassexports,
+  newcontexts/galleries/source-onlyteacher maps pass. Privatecopybuildprepared, modelguard/sharedinnerFTpending.
+  FrozenMAD/teacherEA-G/oldOOF ANDrest/eyeauxNNretainproductionexposure; positivesconditionalonly.
 
 ## Custom stack, broader direction and cadence
 
@@ -61,11 +61,15 @@ Customstack=C++/CUDA; originalrawneuralreference=stockPyTorch336/338. No unquali
 - §342COMPLETE3118608/57s: P09INDIVIDUAL-MODEL prepool44.630/time40.086/spatial51.347/full44.199%.
   Spatial−pooled+6.717pp but <strongerhistoricalraw64.061%; no systemgain. All32fits/guards beforelabels.
   SameweightB3/B8diagnosis explainsfailedfeatureanchor; failurespreserved. spatial342.md ownscompleteevidence.
-- §343CPUrepair SAME-nodewarmbaseline sklearn19.016s/native40.848s. FullspanfitSMOKE9.24s includes3.91sfactor;
-  fulloriginalobjective/gradient/probs pass/zerosourcechanges. Provisional; pairedtiming/memory/heldproofpending.
-- §344exactrawreference/concurrentcovariance/derangedcontrols; finalsmoke3118695 PASS58s/exactnativezeroaux.
-  FourCPU6fits3118755A/B+3118756C/D RUNNING→3118759collector; hard6.725CPUh/0A100. Noqualityresultyet.
-- Rootcanonicaldocs/342collection;external_supervision321;performance_solver343;retention344. Otherscompleted.
+- §343v1span10.729<sklearn19.995s BUT heldparityFAIL2labels/memoryworse. Preservefailure/noadoption.
+  V3HYBRID C++kernel/existingSciPy QUALIFIED: warm19.494→16.496s/CPU−19.67%; P10cold13.296→11.413s.
+  ALLsource/heldlabels match/P01,P10held≤4.96e−7; freshfitRSS1,504,564→1,494,888KiB(small,singleprobe).
+  e02a518 preservesqualifiedV3; V4class-majorfullqualification3118902→3118904pending, no runningchanges.
+- §344COMPLETE3.948CPUh/0A100: P09A64.061/B63.736/C61.175/D61.891%. Ccovprobeimprovesbuttaskworsens.
+  ALL16snapshotmaps/originalA,Bidentityguards beforelabels; nogeneralforgettingclaim/automaticweightgrid.
+- Fresh§345honestnestedcore→rawtaskdistillation; P09/sourceheldexcludedallteacherfits. Pythoncoststopkept;
+  explicitnativeCPUfeaturecost/parityroute preparing, ≤8CPUh prospectiveauthority. Noquerylabels/resultyet.
+- Rootcanonicaldocs;external_supervision321;performance_solver343;fresh_accuracy_345. Otherscompleted.
 - Bothcampaign50min/research4hheartbeatsACTIVE through17Nov18:30UTC. Latestresearch10:49:35–11:04:39CET15m04,
   research_4h_17nov_1051.md COMPLETE; NEXT≈14:51CET, no duplicatedelayed10:51block. Historyretained,notblind.
 - SSHworks,renewonlyactualfailure;submittedjobssurviveaccessloss. Neveruploadautomatically.

@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 11:32 CET
+# Campaign status: 17 November 2026, 12:02 CET
 
 Reporting: FULL-SYSTEM DEV / SEALED LEADERBOARD / INDIVIDUAL-MODEL must be explicit, with comparator.
 Custom stack=C++/CUDA; original raw neural reference=stockPyTorch336/338.
@@ -147,7 +147,7 @@ One all10seed3117236_0 passed58s, remaining5array3117240 and owningcollector3117
 Original1047arrays preserved byte/dtype/shape/stride; prior private C-order copy explained tinyinner differences.
 Outer-only adaptedFBk2swap/FBLdouble/17unit normalization preserves original inner65nets/weights/FT/gates.
 JS-all continues after recognition; exact inner identity is not final recognized-output identity.
-Missing/invalid genuine original Sinc heldfold checkpoints block full returningP04/P10 validation.
+InvalidhistoricalSinccheckpointsremainrecorded; genuineNEWprimaryheldfoldfits belowreplace nohistoricalidentityclaim.
 
 CPUworker3117246 **failed first runtime bar**: known190base82.330→JS90.303s, ratio1.09684>1.061008.
 Off17/reset/knownrec10/FT0/CPstop10/190CCcalls passed; STOP means378/800/forcedunknown/lateCP untested.
@@ -177,14 +177,14 @@ Coldsetupseparate/orderconfounded,nospeedup. Original45minlimitunchanged; TIMEOU
 IndependentCPU2153117573PASS81m17, exactold→FIR/reuse with20FT/10CP/125fusions, buffer/generator/resetproofs.
 OriginalCPU3117585/7TIMEOUT45minpreserved; separatefullFUNCTIONAL-only3117756/7 COMPLETE2h27m06/2h32m09,
 collector3117884passesall6length/mode/source/activityguards. Functional completion is not CPU timingqualification.
-All60NEWgenuineheldNNweights/72traces+576B1SIFbanksPASSEDownsource/export/reset/order/weightguards,
+All60NEWgenuineheldPRIMARY-NNweights/72traces+576B1SIFbanksPASSEDownsource/export/reset/order/weightguards,
 bothsourcefoldcontextspass. Historicalidentityunverified; oldCPU/GPUstrictQFfailurespreserved. Actualfrozen-stage
 RouteB/TSEM/OwnStage/CF/CP engineering3118487PASS5m59, exactcomposition/offzero/inner/gate/labels, JSactive
 pre+postrec;rec10/FT0/CPstop10. ENGINEERING_ONLY(cachedrecordingfoldview/originalall10inner), notRETURNINGDEV.
 BothnewsourceCore/PCAfits3118591/3118601 pass~3min/8.4GiB, sourceheldrowsabsent; nativeSIF raw31canaries3118613 pass.
-Full8order raw256banks3118623%1 run; newsourcecontexts3118631 pass. Four normalBN pilots pass; remaining24
-genuineShallow/learnedFBCfits3118637%2→28assetcollector3118663 queued, sameweights botharms. No scoreyet.
-Bridge scope is explicitly CONDITIONAL ENGINEERING with fixedproductionMAD/teacherEA-G/OOFcalibration.
+Full8order raw256banks3118623/newsourcecontexts3118631/ALL28normalBNfits+originalShallow,FBCexports pass.
+Source-onlyteacher taskmaps/galleries pass; privatecopybuild prepared, actualmodel/sharedinnerFTguards pending. No scoreyet.
+Bridge is CONDITIONAL ENGINEERING: fixedproductionMAD/teacherEA-G/oldOOF ANDoriginalrest/eyeauxNN retainexposure.
 Raw256/sharednewinnerFT/wholepairedprotocol stillrequired; a positive cannot establish held FULL-SYSTEM DEV/rank.
 
 **§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.
@@ -293,20 +293,38 @@ matchedrandom36.369/36.782/41.002/42.511%. Spatial−pooled+6.717pp, but below o
 All32source-selectedGPUheadfits/guards beforelabels, sumfit11.46s, peak1.114GB; no worker/languagecomparison.
 Failedfeatureanchor3118549preserved; sameweightsB3→B8 explainsquerynumerics. Unchangedprobabilityguards pass.
 No outerexpansion/systemgain/promotion. [Finalreport](spatial342.md) owns all8arms/controlscope.
-§343 user-requestedCPUsolverrepair ACTIVE: SAME-node warmbaseline3118664 sklearn19.016s/112.84coresec,
-native40.848s/243.96coresec. Source-span fullsmoke3118696 fits9.24s includingGram/eigen3.91s; rank2464,
-onlycenteringnullremoved; fulloriginalobjective.0015985027/gradient2.48e−7, probdiff1.49e−4/zerosourcelabelchanges.
-Provisionalcomponentresult; repeatedcontemporaneouspairs/isolatedmemory/heldinputproofpending. Noaccuracygain.
-§344 finalrealzeroaux/RNG/costsmoke3118695 PASS58s; C/Didenticallambda/groupedderangement/actualnative8updatetwin.
-FourCPU6fits3118755A/B+3118756C/D RUNNING→3118759collector; allsnapshotprobes/strongA/Bidentity beforelabels.
-Initialcoststops preserved; hardtotal6.725CPUh/0A100. TeacherC++backend reused, NNtrainingPyTorch; noqualitygainyet.
+§343 CPUrepair ACTIVE: contemporarywarmmedians span10.7294/sklearn19.9951/oldnative46.6678s, allfactorcostincluded.
+CPUcoreseconds61.98/119.05/277.89. Originalobjective/gradient/sourceparity pass, but heldP01 FAILS:
+within0/full0probmax.03925/.04063; within0TWOnon-tiedlabelchanges. Originalstricterstop changesgeneralization.
+Freshprocess fitpeakRSS span1,768,868/sklearn1,483,128/oldnative2,574,440KiB, 10mssampling.
+Thus NOTacceptedparityfix/allmetricwin. Originalfailedoutput/bounds preserved; noaccuracywasread.
+Registeredrepair: C++spanfactor/objective + existingSciPyL-BFGS-B, original44kgradient∞accepted-stepstop,
+sameftol64eps/maxls50/zeroinit, allprojectioncostcounted. Explicitlyhybrid, notcompleteC++solver.
+V2strictparitypassesbutslow27.48>sklearn18.68s. V3fusedC++kernel/SAMEexistingSciPyoptimizer QUALIFIED3118880:
+contemporarysame-nodewarm sklearn19.4943/fullD16.4958s(−15.38%), CPU115.959/93.147coresec(−19.67%).
+Cold18.400/16.084s; independentP10cold13.2956/11.4127s(−14.16%). SameP0188eval/82iter, P1071eval/65iter.
+Exactscalers/source/queryrows, independentobjective/fullgradient/badinputguards and ALLsource/heldlabels match;
+Held62-windowfixtures/person/ordermaxP012.86e−9/P104.96e−7. FreshfitRSS1,504,564→1,494,888KiB/delta89,828→82,120KiB.
+Smallmemorysingle-probeclaim; commonloadprocesspeakdominates. Oldnativevsfailedv1SPANheld≤.000776/.000607,
+zero labels with pinnedscalers supports stoppingcause. ExplicitlyHYBRID C++kernel+existingSciPyoptimizer.
+Qualifiedcheckpoint e02a518/frozenV3libf8f91b9b…6841; no runningbinary/submissionchanges oraccuracygain.
+V4class-majorGEMM fixedkernel~19%faster; strictsmoke3118902→paired/RSS/P10bench3118904pendingqualification.
+§344 COMPLETE: P09 INDIVIDUAL-MODEL A64.061/B63.736/C61.175/D61.891%; C−A−2.886pp and worseNLL.
+Finalcovariance-probeC improvesall3groupsversusA/B/D, but nottaskaccuracy. ALL16maps/source/strongA,Bidentity
+beforelabels. Mixedprefine/finaltrajectorydoesnotshowgeneralforgetting. Actual3.948CPUh/0A100/no344jobs.
+[Fulltrajectory/limits](retention344.md); no automaticauxweightgrid. TeacherC++backend, NNtrainingPyTorch.
+Fresh§345prepares honestnestedcore→rawtaskdistillation, changingtaskalignmentratherthanreconstructionweight.
+Everyteacherprior/scaler/head excludesP09ANDsourceheldperson; matchedraw/derangedcontrol. Pythonteacheractual
+cost159.8s/fullsourcefold invalidated17rowprojection: teacherstopped/pendingstudents cancelled BEFORElabels.
+ExplicitnativeCPUcausalfeature smoke preparing; historicalwrapperGPUhardcodefailurekept. Root≤8CPUh amendment
+requires actualFULLfoldcost/parity/source guards before release. No345qualityresult.
 Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
 
 ## Coordination and cadence
 
 Galvani only,32running/272submitted with28reserve; verifylivecapacitybeforeeachdispatch.
 SSHworks;12hourlocalidleretention isnotverifiedserver/VPNexpiry. Submittedjobs surviveclientloss.
-Rootowns canonicaldocs/342collection; external_supervisionowns321; performance_solver343owns343;retention344owns344.
+Rootowns canonicaldocs/342collection; external_supervisionowns321; performance_solver343owns343;fresh_accuracy_345owns345. 344complete.
 Previous339/340/341/342owners completed; no duplicatefits or unperformedcross-providerclaim.
 Usefollowup_task towakecompletedowners. Preserveallsharedledgerblocks/immutableworkspaces.
 Global scientific-discoveryskill applied; personalmasterdbaab0e. No cross-provider orWecoproviderexecution.
