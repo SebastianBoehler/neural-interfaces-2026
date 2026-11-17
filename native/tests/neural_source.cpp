@@ -17,6 +17,9 @@ void same(const std::string &key, const Tensor &actual, const Tensor &expected,
                    .max()
                    .item<double>();
   errors[key] = std::max(errors[key], error);
+  if (error > tolerance)
+    std::cerr << key << " maxabs=" << std::setprecision(17) << error << " tolerance=" << tolerance
+              << '\n';
   require(error <= tolerance, key + " maxabs=" + std::to_string(error));
 }
 Decision decision(const Tensor &x) {
@@ -49,9 +52,13 @@ int main(int argc, char **argv) {
         auto read = [&](const std::string &key) { return f.get(mode + "_" + key)[i]; };
         auto step = bank.step(x[i]);
         same(mode + "/ids", torch::tensor(step.ids, torch::kInt64), read("ids"), 0);
-        same(mode + "/members", step.probabilities, read("probs"));
         for (int64_t j = 0; j < input_ids.numel(); ++j)
-          same(mode + "/input", step.inputs.at(input_ids[j].item<int64_t>()), read("input")[j]);
+          same(mode + "/input/" + std::to_string(input_ids[j].item<int64_t>()) + "/window/" +
+                   std::to_string(i),
+               step.inputs.at(input_ids[j].item<int64_t>()), read("input")[j]);
+        for (size_t j = 0; j < step.ids.size(); ++j)
+          same(mode + "/member/" + std::to_string(step.ids[j]) + "/window/" + std::to_string(i),
+               step.probabilities[j], read("probs")[j]);
         same(mode + "/eye", eye.step(x[i]), read("eye"));
         same(mode + "/rest", rest.step(x[i]), read("rest"));
         RelabelFn relabel = [&](int64_t count) -> std::optional<Tensor> {

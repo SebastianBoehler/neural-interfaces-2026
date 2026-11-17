@@ -1,5 +1,7 @@
 # Native353 neural handoff —17Nov15:18CET
 
+Latest15:40CET:3120312 fullbuild/core/routing/hash PASS; neural firstknown-window members FAIL unchanged1e−6 (rounded2e−6), no fullprecision/member location yet. Diagnostic3120433 FAILED17s before compile because login OS library hashes differ on worker. Corrected same-source diagnostic3120467 is QUEUED, owner fresh_information_346, CPU1/16G/3min, immutable ni26_native353_first_window_v2_20261117; source30a7055d…22d63d/assets2f60f8e3…ba663/NFSlibrarye57644a9…2489a7. Preserves NFS application hashes and records actual worker OS libraries before probe/end. One same source window, C++↔HOSTPython↔existing SIFgolden, noFT/fit/gold/accuracy/tolerance change. Source-first-update oracle still HELD. No further job without coordination. Root CMake ownership already resumed/committed b0beac3.
+
 Root may resume CMake ownership now. CMake changes are limited, uncommitted with root's initial native integration: remove OpenSSL find/link; own hash.cpp/hash test; include existing core_training.cmake; prepared neural source-update test target. No other root files edited. All owned neural code and evidence are committed/pushed through6d73a1e.
 
 Runtime API: native/include/ni26/networks.h (NetBank/EyeNet/RestMember/FineTune); training.h train_raw_fbc. Own source files networks*.cpp/internal.h, finetune*.cpp, session_bn.cpp, training*.cpp/internal.h; hash.h/hash.cpp. Own source files formatted, max252LOC.

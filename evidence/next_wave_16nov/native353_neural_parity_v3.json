@@ -1,0 +1,16 @@
+{
+  "job": 3120312,
+  "state": "FAILED",
+  "exit_code": "1:0",
+  "elapsed_seconds": 302,
+  "allocated_cpus": 4,
+  "allocated_core_seconds": 1208,
+  "max_rss_kib": 5985064,
+  "complete_build": "PASS",
+  "core_routing_hash": "PASS",
+  "neural": "FAIL known/members maxabs=0.000002",
+  "actual_neural_tolerance": 1e-06,
+  "fullprecision_member_location": "pending first-window diagnostic",
+  "source_training_fit": false,
+  "accuracy_computed": false
+}
