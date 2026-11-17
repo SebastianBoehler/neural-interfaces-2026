@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "source_sha256": "b43800b26ba45d46f855416cd6d45c9d85b6ec073ca26dfae0e5a9ee4b12080b",
+  "reference336_guard_sha256": "21611cc250bb60ed77c07591c3a960c4597e925805eb5cde334748b0553e5b84",
+  "reference336_source_sha256": "7fa3da6d63270d9911de7d302c1f84e954ab02f0797818a6ae08ebca3b857383",
+  "fixture_sha256": "06644bae5a331022c755184ad71089b08c8e079271917e4a4223eafa8bd3d187",
+  "source_people": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P10"
+  ],
+  "native_scale": 25.817935280729536,
+  "native_preprocessed_batch_sha256": "25522c2071de5656f5b11fdcabe9b73229625a63e2e21a50d3afab8d643e7735",
+  "batch_rows_sha256": "d429c26e821aa6ccce4525b471afc10ea16e4f2ef61fa89f5c502e8cca6638f8",
+  "class_counts": [
+    634,
+    633,
+    631
+  ],
+  "exposure_person_counts": {
+    "coverage3": {
+      "P04": 608,
+      "P05": 224,
+      "P06": 192
+    },
+    "coverage6": {
+      "P04": 256,
+      "P05": 128,
+      "P06": 128,
+      "P07": 32,
+      "P08": 96,
+      "P10": 384
+    }
+  },
+  "exposure_class_counts": {
+    "coverage3": [
+      337,
+      347,
+      340
+    ],
+    "coverage6": [
+      324,
+      355,
+      345
+    ]
+  },
+  "group_losses_before_steps": [
+    [
+      1.8708947896957397,
+      2.18733811378479,
+      1.536745548248291
+    ],
+    [
+      1.7215968370437622,
+      2.0468029975891113,
+      1.3987514972686768
+    ],
+    [
+      0.9527691006660461,
+      1.3751933574676514,
+      0.7753340005874634
+    ],
+    [
+      0.9341298937797546,
+      1.4029825925827026,
+      0.8529550433158875
+    ],
+    [
+      1.0810222625732422,
+      1.5274385213851929,
+      0.9758053421974182
+    ],
+    [
+      1.0949674844741821,
+      1.5165719985961914,
+      0.9470362067222595
+    ],
+    [
+      1.0469448566436768,
+      1.4563077688217163,
+      0.8780667185783386
+    ],
+    [
+      1.018270492553711,
+      1.4251172542572021,
+      0.844524085521698
+    ]
+  ],
+  "group_losses_after": [
+    1.018268346786499,
+    1.4251151084899902,
+    0.8445220589637756
+  ],
+  "relative_loss_decrease": 0.4123470746130088,
+  "body_gradient_max": [
+    0.2666049897670746,
+    0.22956231236457825,
+    0.033275824040174484,
+    0.03591565415263176,
+    0.031916484236717224,
+    0.03150356188416481,
+    0.02988797426223755,
+    0.02875138446688652
+  ],
+  "body_parameter_change_max": 0.003424493595957756,
+  "native_classifier_unchanged": true,
+  "auxiliary_RNG_preserved": true,
+  "eight_step_seconds": 8.912034241016954,
+  "seconds": 19.870951619930565,
+  "source_quality_score": false,
+  "P02P03_inference": false,
+  "boundary": "optimization only; no adequate40epoch source6 quality control or scientific pretraining matrix released",
+  "canonical_remote_sha256": "2055ea70725c5e8e284a4138f56f90bc41efa055791135421422d712471bc792",
+  "slurm_allocated_seconds": 23,
+  "slurm_allocated_cpus": 2,
+  "slurm_MaxRSS_KiB": 2352980
+}

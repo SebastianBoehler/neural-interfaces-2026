@@ -46,7 +46,7 @@ unrecoverable from its log-variance representation. Report separate losses; do n
 A train-only DIRECTlinear1152→44239 head has51,007,567parameters, ~194.6MiBfloat32 weights.
 Weights+gradients+two Adam moments ~778.3MiB, excluding body, activations and temporary allocations.
 Its initialization preserves caller CPU RNG. It must not replace or alter the deployed native classifier.
-No native feature tap or optimizer bridge is implemented until §336 supplies its verified API/trace.
+Native feature tap and optimizer bridge execute only after §336 supplies its verified API/trace.
 
 Future scientific contrasts must include287moment pretext, fullcov+slow pretext, shuffledcovtarget,
 extra-supervised matched-step control and adequate native40 baseline. Neither a reconstruction gain nor
@@ -72,6 +72,32 @@ Fixture SHA06644bae5a331022c755184ad71089b08c8e079271917e4a4223eafa8bd3d187.
 Actual preparation cost (failed56s+successful54s)×2CPU=220coreseconds=.0611CPUh, no A100.
 Shared334v4 source7/source6 banks remain immutable and were not modified.
 
-Upcoming decision: collect target preparation; await §336 verified native-vs-observer/API and source recipe.
-Then preregister only a small native-body-gradient/real-target loss/cost smoke, preserving head/RNG/sampler.
-No full pilot, coverage claim, P02/P03 inference, or model promotion follows automatically.
+§336 source7 native-versus-observer proof passed before our dependent guard. API/source/guard hashes are
+recorded by the optimization report. Our adapter uses recipe.native(d) with its OWN source6 selected labels,
+not recipe.source(), which reads seven-person labels. P09 remains−1; all other excluded labels remain−1.
+
+## Completed tiny optimization/cost guard
+
+3117842 COMPLETED23s/2CPU, actualscript19.871s, eight optimization steps8.912s, MaxRSS2352980KiB.
+Native preprocessed input scale25.81793528 and batch/global-row hashes recorded. Native `_train` capture
+preserves source preprocessing/order/build, prepares originalSessionBN, and taps actual1152classifierinput.
+The native classifier retains its maxnorm parametrization, receives no gradient, and stays EXACTLY unchanged.
+Auxiliary initialization preserves the native CPU random state. Body gradients are positive/finite at all8steps,
+and body parameters change by maximum.00342449. This is a genuine body-learning path, not head-only fitting.
+Repeated source-batch group MSE diagonal/offdiagonal/slow:1.871/2.187/1.537→1.018/1.425/.845;
+overall decrease41.235%. Eight steps on one repeated batch establish optimization feasibility, not convergence,
+held-person reconstruction, useful classification or adequate original-source6 quality.
+Native source6 class counts634/633/631; fixed1024exposure class counts3people337/347/340,
+6people324/355/345. Person exposures are intentionally not uniform:3peopleP04:608/P05:224/P06:192;
+6peopleP04:256/P05:128/P06:128/P07:32/P08:96/P10:384. Coverage is confounded with this fixed subset
+and finite window trace; no causal diversity claim. Complete traces remain in the immutable fixture.
+
+Total own337 allocated CPU=(56+54+23)×2=266coreseconds=.0739CPUh; noA100. MaxRSS preparation
+v1/v2=5521600/3477732KiB; optimization2352980KiB. No local training or generated checkpoints committed.
+Completed engineering checkpoint actual17Nov07:29:23UTC /08:29:23CET.
+
+Next decision: register a SMALL scientifically matched pretext/extra-supervised/native-control source study,
+including a genuine native40 source6 quality anchor and source-held prediction criteria. Full teacher generation,
+pretext duration, controls and cost need explicit measured release; no large matrix is authorized here.
+CPU optimization does not prove A100 compatibility or cost. Any A100 route needs real native/parity/gradient/session
+preflight first. No full pilot, coverage claim, P02/P03 inference, or promotion follows automatically.
