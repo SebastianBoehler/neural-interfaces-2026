@@ -1,5 +1,5 @@
 {
-  "checked_utc": "2026-11-17T16:46:04.055135+00:00",
+  "checked_utc": "2026-11-17T17:00:10.779748+00:00",
   "scope": "ALL registered section353 Slurm allocations, including failed/cancelled/timeout jobs and source captures; root allocation records only, no batch/extern duplication",
   "method": "CPUTimeRAW = ElapsedRaw \u00d7 AllocCPUS; allocated CPU time, not observed utilization",
   "jobs": [
@@ -194,18 +194,38 @@
       "elapsed_seconds": 138,
       "allocated_cpus": 2,
       "allocated_core_seconds": 276
+    },
+    {
+      "job": 3121389,
+      "name": "ni26-native353-FT-order-repair",
+      "state": "COMPLETED",
+      "elapsed_seconds": 165,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 330
+    },
+    {
+      "job": 3121392,
+      "name": "ni26-native353-sampler",
+      "state": "COMPLETED",
+      "elapsed_seconds": 6,
+      "allocated_cpus": 1,
+      "allocated_core_seconds": 6
     }
   ],
-  "total_allocated_core_seconds": 9287,
-  "total_allocated_cpu_hours": 2.5797222222222222,
+  "total_allocated_core_seconds": 9623,
+  "total_allocated_cpu_hours": 2.6730555555555555,
   "limit_core_seconds": 14400,
-  "remaining_core_seconds": 5113,
-  "remaining_cpu_hours": 1.4202777777777778,
-  "queued_running_353_jobs": [],
+  "remaining_core_seconds": 4777,
+  "remaining_cpu_hours": 1.3269444444444445,
+  "queued_running_353_jobs": [
+    3121465
+  ],
   "prospective_arithmetic_max_core_seconds": 0,
   "initial_checked_utc": "2026-11-17 15:42:07 UTC",
   "arithmetic_actual_core_seconds": 33,
   "prospective_strict_neural_max_core_seconds": 0,
-  "conservative_classical_source_reservation_core_seconds": 0,
-  "remaining_after_both_max_core_seconds": 5113
+  "conservative_classical_source_reservation_core_seconds": 1800,
+  "remaining_after_both_max_core_seconds": 2377,
+  "root_preparation_reservation_core_seconds": 600,
+  "separately_reported_nonSlurm_PCA_login_compile_actual_CPU_seconds": 73.81
 }

@@ -1,0 +1,172 @@
+{
+  "job": 3121389,
+  "state": "COMPLETED",
+  "elapsed_seconds": 165,
+  "allocated_cpus": 2,
+  "allocated_core_seconds": 330,
+  "source_parity": "PASS",
+  "source_windows": {
+    "known": 8,
+    "unknown": 31
+  },
+  "original_bound_posterior": 1e-06,
+  "original_bound_routeB": 1e-08,
+  "row_means_byte_exact": 1599,
+  "unknown_refits": 2,
+  "unknown_steps": 40,
+  "unknown_relabels": 2,
+  "maximum_parameter_change": 0.009991581551730633,
+  "reset_copy_finite_source_activity_guards": "PASS",
+  "groups": {
+    "known/copy_bank": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "known/copy_eye_reset": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "known/copy_rest": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "known/eye": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "known/ft_change": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "known/ft_counters": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "known/ids": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "known/input": {
+      "max_abs": 7.450580596923828e-09,
+      "key": "known/input/0/window/5"
+    },
+    "known/member": {
+      "max_abs": 2.2778178443427777e-07,
+      "key": "known/member/43/window/6"
+    },
+    "known/outer": {
+      "max_abs": 5.551115123125783e-17,
+      "key": "known/outer/window/7"
+    },
+    "known/reset_bank": {
+      "max_abs": 2.2778178443427777e-07,
+      "key": "known/reset_bank/window/6"
+    },
+    "known/reset_eye": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "known/reset_rest": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "known/rest": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/copy_bank": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/copy_eye_reset": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/copy_rest": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/eye": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/fine_tune": {
+      "max_abs": 7.447012128070085e-07,
+      "key": "unknown/fine_tune/fb/window/24/refits/1"
+    },
+    "unknown/ft_change": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/ft_counters": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/ids": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/input": {
+      "max_abs": 7.450580596923828e-09,
+      "key": "unknown/input/0/window/5"
+    },
+    "unknown/member": {
+      "max_abs": 2.2778178443427777e-07,
+      "key": "unknown/member/43/window/6"
+    },
+    "unknown/outer": {
+      "max_abs": 1.1102230246251565e-16,
+      "key": "unknown/outer/window/11"
+    },
+    "unknown/reset_bank": {
+      "max_abs": 2.2778178443427777e-07,
+      "key": "unknown/reset_bank/window/6"
+    },
+    "unknown/reset_eye": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/reset_rest": {
+      "max_abs": 0.0,
+      "key": null
+    },
+    "unknown/rest": {
+      "max_abs": 0.0,
+      "key": null
+    }
+  },
+  "fine_tune_family_maxima": {
+    "fb": 7.447012128070085e-07,
+    "fbl": 8.521804462091609e-08,
+    "fbraw": 0,
+    "sinc": 1.281613792869507e-08
+  },
+  "paired_raw_trace_fields": 308,
+  "paired_raw_trace_max_abs": 0.0,
+  "paired_raw_trace_different_elements": 0,
+  "original_vs_SIF": {
+    "max_abs": 0.0,
+    "different": 0,
+    "rms": 0.0
+  },
+  "native_vs_production": {
+    "max_abs": 0.0,
+    "different": 0,
+    "rms": 0.0
+  },
+  "paired_trace_sha256": "6cf6e632f5b5b69f89964041c36aab19615d96ada407bbdae267d10cc8ac0eae",
+  "source_log_sha256": "ad0a5d265a5c570830281797b9eec00c7aa720c86c84488b577cee3eef4b388d",
+  "build_proof_sha256": "20e4edc7c095742bf663f1a26acd9a3bc9c592f196a84ab2d9695db0a20d4726",
+  "remote_snapshot": "/mnt/lustre/work/gehler/gfh527/ni26_native353_ft_repair_v1_20261117",
+  "source_manifest_sha256": "258cc91aff8e9bbb71fbdf9b149cc660316adf59874a11831009e3d648d3e28b",
+  "assets_manifest_sha256": "76372959ec70d21de70a25c551c651f9f580a2fa663130e85daa42b145dea837",
+  "libraries_manifest_sha256": "16c76d132db211b8f7671594901af113f2798ed9f67832e115f5a87d43c2bfb0",
+  "objects_manifest_sha256": "5541e71d8f771a34e0f565ecd404b080b5ea8786fe220c050bab81aff7eda23f",
+  "scope": "CPU original known8/unknown31 source component fixture; not full runtime, long session, worker, A100, offline source update, or accuracy",
+  "tolerance_changed": false,
+  "accuracy_computed": false,
+  "offline_source_update_executed": false,
+  "known_aggregate_slurm_core_seconds": 9623,
+  "remaining_slurm_core_seconds": 4777,
+  "excluded_from_sum": "PCA3121465 and root prep later actuals; separately reported PCA login compile CPU73.81sec"
+}
