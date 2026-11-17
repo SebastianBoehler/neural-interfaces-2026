@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "numerical": {
+    "least_squares_max_abs": 6.565928356572215e-16,
+    "source_order_max_abs": 1.457167719820518e-16
+  },
+  "source_only_cost_seconds": {
+    "mapping": 0.5068598315119743,
+    "target1024": 0.009423684949676195
+  },
+  "projected_seconds": 76.58703544735909,
+  "budget_passed": true,
+  "feature_sha256": "abb931da647bc1613e987ef04e3bc0f1d7c99abece389cf6d3fe58180d15eb09",
+  "embeddings_sha256": "524610d6f21633a2e93cda04007dc82996215ef60a0f14a0bbd28edd9ca2541a",
+  "source_sha256": "f7f00548a82d8b3e14ea8535dc97276ae71f07e511a93c2d2243b927ffff62e6",
+  "labels_opened": false,
+  "P01_used": false
+}
