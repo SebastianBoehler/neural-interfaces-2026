@@ -1,5 +1,5 @@
 {
-  "checked_utc": "2026-11-17T17:57:43.774289+00:00",
+  "checked_utc": "2026-11-17T18:04:12.637120+00:00",
   "scope": "ALL registered section353 Slurm allocations, including failed/cancelled/timeout jobs and source captures; root allocation records only, no batch/extern duplication",
   "method": "CPUTimeRAW = ElapsedRaw \u00d7 AllocCPUS; allocated CPU time, not observed utilization",
   "jobs": [
@@ -242,24 +242,30 @@
       "elapsed_seconds": 86,
       "allocated_cpus": 2,
       "allocated_core_seconds": 172
+    },
+    {
+      "job": 3121907,
+      "name": "ni26-native353-source-stage-trace",
+      "state": "COMPLETED",
+      "elapsed_seconds": 119,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 238
     }
   ],
-  "total_allocated_core_seconds": 11301,
-  "total_allocated_cpu_hours": 3.1391666666666667,
+  "total_allocated_core_seconds": 11539,
+  "total_allocated_cpu_hours": 3.205277777777778,
   "limit_core_seconds": 14400,
-  "remaining_core_seconds": 3099,
-  "remaining_cpu_hours": 0.8608333333333333,
-  "queued_running_353_jobs": [
-    3121907
-  ],
+  "remaining_core_seconds": 2861,
+  "remaining_cpu_hours": 0.7947222222222222,
+  "queued_running_353_jobs": [],
   "prospective_arithmetic_max_core_seconds": 0,
   "initial_checked_utc": "2026-11-17 15:42:07 UTC",
   "arithmetic_actual_core_seconds": 33,
   "prospective_strict_neural_max_core_seconds": 0,
   "conservative_classical_source_reservation_core_seconds": 0,
-  "remaining_after_both_max_core_seconds": 2499,
+  "remaining_after_both_max_core_seconds": 2861,
   "root_preparation_reservation_core_seconds": 0,
   "separately_reported_nonSlurm_PCA_login_compile_actual_CPU_seconds": 73.81,
-  "prospective_source_stage_max_core_seconds": 600,
-  "accounting_cutoff": "Known allocated jobs reported by root and siblings through3121763; root later allocations require merge before claiming global remaining capacity"
+  "prospective_source_stage_max_core_seconds": 0,
+  "accounting_cutoff": "Known allocated jobs reported by root and siblings through3121907; root later allocations require merge before claiming global remaining capacity"
 }
