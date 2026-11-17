@@ -1,3 +1,5 @@
+Current: component-only capture3120062 COMPLETE65s,1.306GiBRSS, unknown10CPrefits/125fusions/0singleclass/0errors. Native numeric comparison awaits root build. Full-NN215 timeout remains failed.
+
 # Native353 routing and emitted-label stages
 
 Prepared17November2026 under the existing engineering-only native353 budget. No accuracy scoring, new training fit or frozen package edit. Implements original v6.6 ContrastGate, IdentityGate, OwnStage, Route/RouteB, CountFilter and CausalPers using LibTorch and exported fixed SciPy SOS coefficients.

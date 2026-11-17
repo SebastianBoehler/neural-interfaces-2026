@@ -17,6 +17,7 @@ def main():
     with np.load(args.package/'weights.npz') as z:weights={k:z[k] for k in z.files}
     with np.load(args.project/'data/proteus_windows.npz',allow_pickle=True) as z:
         rows=np.flatnonzero((z['subject']=='Dreyer2026Proteus/P01')&(z['session'].astype(str)=='1'));X=z['X'][rows].copy()
+    if len(X)<80:raise ValueError('actual source session needs80windows')
     args.out.mkdir();values={'native_format':torch.tensor(1)};records=[]
     for mode,count in [('known',80),('unknown',215)]:
         c1=m.TangentCore(m.with_prefix(weights,'ts_'));c2=m.TangentCore(m.with_prefix(weights,'ts2_'));tail=m.Tail(weights);route=m.Route(weights,float(weights['member_weights'][0]/weights['member_weights'].sum()));cf=m.CountFilter(weights);cp=m.CausalPers(weights)
@@ -27,7 +28,7 @@ def main():
             shadow=tail.step(x,u[:route.n_tsem],mix);out=route.step(x,u,mix,p,shadow);gc,gi=route.last['contrast'],route.last['identity'];recognized=recognized or any(g is not None and g[2]>0 for g in (gc,gi));counted=cf.step(x,out);personal=cp.step(x,out,counted,recognized)
             for key,value in dict(x=x,u=u,mix=mix,core1=p,shadow=shadow,route=out,p=out,count=counted,cp=personal,recognized=int(recognized),contrast=gc if gc is not None else [-1,0,0],identity=gi if gi is not None else [-1,0,0]).items():result[key].append(np.asarray(value).copy())
             if i%20==0:print(mode,i,flush=True)
-        if cp.log['err'] or cf.log['err'] or (mode=='unknown' and (cp.refits!=len(range(cp.t0,count,cp.k)) or cp.fused!=125)):raise ValueError('actual component lateCP failed')
+        if route.log['err'] or cp.log['err'] or cf.log['err'] or (mode=='known' and route.log['staged']<1) or (mode=='unknown' and (cp.refits!=len(range(cp.t0,count,cp.k)) or cp.fused!=125 or cp.model is None or cp.nfail>=cp.refits)):raise ValueError('actual component lateCP failed')
         for key,value in result.items():values[mode+'_'+key]=torch.from_numpy(np.asarray(value))
         records.append(dict(mode=mode,windows=count,cp_refits=cp.refits,cp_fused=cp.fused,cp_errors=cp.log['err'],cf_errors=cf.log['err']))
         # Preserve each complete case independently; incomplete unknown is never called complete.

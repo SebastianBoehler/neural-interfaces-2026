@@ -1,0 +1,30 @@
+{
+  "status": "SOURCE_COMPONENT_FIXTURE_COMPLETE_NOT_WHOLE_MODEL",
+  "job_id": "3120062",
+  "remote": "ni26_native353_routing_components1/reference/fixture.pt",
+  "fixture_sha256": "7959412be174c070161fdd04617d4825b608b39dc03940c0aae536526a8eb1d8",
+  "proof_sha256": "ac4a7ceb6da867b9698fae6fb7000c910e0c5f07a5185b41b412eaa0bb962ddb",
+  "source_manifest_sha256": "944628bb35b6b645d1cedd8400aa173a36a62693af25f81652d05d9c1e8ea841",
+  "original_weights_sha256": "7cf13696190983cd454880d6ecb8c049902a12ec694c1a24ff74cd4013a688a2",
+  "original_module_sha256": "37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f",
+  "actual_elapsed_seconds": 65,
+  "actual_totalCPU_seconds": 64.158,
+  "peak_RSS_KiB": 1368956,
+  "source": "P01/session1 rows0..189, known80 and repeated-source unknown215",
+  "known": {
+    "windows": 80,
+    "cp_refits": 0,
+    "cp_fused": 0
+  },
+  "unknown": {
+    "windows": 215,
+    "cp_refits": 10,
+    "cp_fused": 125,
+    "cp_single_class": 0,
+    "count_latched_at": 40
+  },
+  "errors": 0,
+  "accuracy_computed": false,
+  "native_numeric_parity": "PENDING_ROOT_BUILD",
+  "scope": "Real active core1/core2 outputs half-mixture\u2192originalPythonRoute/Own/Count/CausalPers;notfullensemble/NN/RouteBextra/Tpri/workerqualification"
+}
