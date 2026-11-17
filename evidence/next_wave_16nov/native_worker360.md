@@ -136,7 +136,73 @@ At a fixed hour and the same replay mix, this increases throughput
 the exact relinked library directly against the frozen solver. Job
 3122423 checks the two long forced-adaptation lengths with graph
 optimization disabled in both arms.
-Both confirmation jobs started at about 20:57 CET. The Galvani login
-endpoint timed out before result retrieval. The exact tested filter
-source is in the C++ research baseline and passes local C++ syntax
-checking. The frozen submission remains the sealed reference.
+The exact tested filter source is in the C++ research baseline and
+passes local C++ syntax checking. Galvani results were collected after
+the connection was restored.
+
+## Vectorized C++ versus frozen
+
+Job 3122422 replayed the same three complete sessions in both run orders
+on one A100. All 578 labels in each pair, activity counters, and stage
+error guards matched. The process wall includes public data loading and
+model loading.
+
+| Pair order | Frozen replay | C++ replay | Time saved | Frozen wall | C++ wall |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Frozen → C++ | 105.887 s | 104.013 s | 1.770% | 110.982 s | 108.845 s |
+| C++ → frozen | 106.910 s | 104.585 s | 2.175% | 111.999 s | 109.494 s |
+
+The three-session ratios correspond to 64–78 seconds saved if frozen
+spent an hour on that same solver workload. All sessions recognized at
+index 10. Job 3122513 ran all 14 shuffled sessions on one A100 and
+matched all 2,655 labels and work counters. All 14 again recognized
+at index 10. The larger matched run did not save time.
+
+| Default worker measurement, all 14 sessions | Frozen | Vectorized C++ |
+| --- | ---: | ---: |
+| Solver replay | 411.785 s | 413.013 s |
+| Load model | 4.636 s | 3.988 s |
+| Wall since public data loading began | 416.837 s | 417.425 s |
+
+The C++ replay took 0.298% longer, about 11 seconds per hour if the
+same replay mix filled the hour. The comparison excludes sealed-worker
+overhead and demonstrates zero added evaluation budget.
+
+Job 3122423 ran both arms with deterministic CUDA and unoptimized
+TorchScript. The labels match at 378 windows, with all adaptation
+counters exact. The 800-window replay differs at indices 405 and 776,
+also with all counters exact. Frozen and C++ ran respectively in
+147.901 and 142.194 seconds for the 378-window stream and 170.430 and
+172.764 seconds for the 800-window stream. The long parity guard failed.
+Job 3122514 reproduces this exact pair with intermediate scores to
+identify the first stage where the disagreements become visible.
+
+The trace reproduced both arms' 1,178 emitted labels. The maximum
+absolute difference was below `3.25e-8` through the inner decoder,
+0.00565 at the outer mixture, 0.01832 after the count filter, and
+0.25257 in the final personalization scores. All earlier stage
+decisions agree at indices 405 and 776. The first outer-mixture error
+above `1e-6` occurs at cold window 61. Job 3122538 traced the first
+five fine-tuning refits. Class targets matched exactly and FP32
+confidence differences were at most `6e-8`.
+
+Job 3122574 changed only the frozen diagnostic's GPU Adam dispatch
+from the default multi-tensor path to scalar tensor calls. All 150
+labels and work counters stayed exact. The maximum outer-mixture
+error versus normal C++ fell from `4.73e-4` to `3.44e-4`, a 27% drop.
+
+Job 3122576 captured the actual fine-tuning input arrays at refits
+20 and 60. The raw filter-bank path was bitwise exact. Three other
+paths shared tiny differences, up to 3 of 1,180,800 values per slot at
+refit 60, with max absolute difference `5.96e-8`. The replays finished.
+The initial collector expected two slots. A corrected collector
+verified all four using the same logs and arrays.
+
+Job 3122583 gave the C++ refits the exact frozen causal prefixes and
+confidences for the first five refits. With the Python comparison
+also using scalar Adam, the 70-window outer-mixture max error fell
+from `1.157e-6` to `2.168e-8`, close to the input ensemble's error.
+All 70 labels matched the originals. The paired controls show that
+the optimizer dispatch and tiny input differences both contribute.
+The private diagnostic did not change either production solver, and
+ordinary long-stream parity remains unresolved.

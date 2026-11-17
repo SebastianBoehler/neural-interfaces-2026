@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 21:06 CET
+### Current campaign: 17 November 2026, about 21:37 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -199,9 +199,16 @@ port has yet to free evaluation time against frozen under default settings.
 Neural posterior transfer batching matched both AB/BA pairs and saved 0.45–0.95% of replay time. Separately,
 parallel tangent cores matched both pairs and saved 1.39–5.66%. The two optimizations missed their paired
 3% thresholds. Corrected vectorized filtering in 3122414 matched exact filter bytes, labels and counters in
-both run orders and saved 5.76–6.40% versus the prior C++ build. The exact tested source is in the native
-research baseline. Direct frozen timing and extended adaptation jobs 3122422 and 3122423 both started
-with that library. Galvani SSH timed out before their completed measurements could be retrieved.
+both run orders and saved 5.76–6.40% versus the prior C++ build. Direct frozen comparison 3122422 matched
+all 578 labels and counters in each order, saving 1.77–2.17% of replay time. The extended diagnostic 3122423
+with both graphs unoptimized matched 378 labels and differed at 2/800 despite equal activity. Full default
+timing 3122513 matched all 2,655 labels/counters. Solver replay was 411.78 s frozen versus 413.01 s vectorized
+C++ (+0.30%); wall from input loading was 416.84 versus 417.42 s. The broader pair yielded zero headroom.
+Trace 3122514 showed numerical drift entering the outer mixture after FT and amplified in personalization.
+The first five hard refit targets matched in 3122538. Python scalar CUDA Adam reduced the 150-window
+outer-mixture error by 27%. In a 70-window diagnostic with scalar Adam and exact shared fit inputs/weights,
+C++ matched the Python outer mixture to 2.17e-8. Job 3122604 checks the exact SIMD package with the ordinary
+worker settings on the two long forced-adaptation streams.
 [Current evidence](../evidence/next_wave_16nov/native_worker360.md)
 
 **Parallel accuracy — §354–356.** §354 complete after two fixed-route recoveries. Gaussian factorization lost to
@@ -237,6 +244,11 @@ versus always-JS [80% −0.035, +0.022]. The outer held person was excluded from
 archived source branch networks could include that person in their upstream training. The effect is exposed
 DEV. No selected rule or benchmarked shared-branch worker emerged.
 [§362 evidence](../evidence/next_wave_16nov/branch_ceiling362.md) · [§363 evidence](../evidence/next_wave_16nov/branch_selector363.md)
+§364 completed the matched 50 ms relation test in frozen B2_pool, eight orders and 10 held-person folds.
+Untouched 76.27934%, unadjusted S0C 76.32610%, instantaneous 76.39725%, lag 76.38662%. Lag versus
+instantaneous −0.01063 pp [80% −0.10262, +0.10458], people/order +0.04295 [−0.05706, +0.14901].
+All frozen-zero controls bitwise and all 24 new routes error-free. Lag benefit undecided. Public new-person
+scope; genuine returning and worker latency unmeasured. [§364 evidence](../evidence/next_wave_16nov/lagged364.md)
 The user moved ownership to the active Codex chat and archived the previous chat's automation.
 
 ## 2. Hard bounds (from the official code and rules)
