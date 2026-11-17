@@ -1,0 +1,19 @@
+/mnt/lustre/work/gehler/gfh527/ni26_oscillatory331_v1_20261117/oracle331.py:42: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  error=float((out-expected).abs().max());bound=1e-9 if dtype==torch.float64 else 2e-4
+Traceback (most recent call last):
+  File "/mnt/lustre/work/gehler/gfh527/ni26_oscillatory331_v1_20261117/guard331.py", line 70, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_oscillatory331_v1_20261117/guard331.py", line 47, in main
+    xx=torch.from_numpy((d['X'][r]/rms).astype(np.float32));yy=torch.from_numpy(labels(r,len(d['X'])))
+                                                                                ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_oscillatory331_v1_20261117/data331.py", line 38, in labels
+    return module.read_training_labels(DATA,rows,n)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_s306_expert_cpu_v2_20261116/source_labels.py", line 34, in read_training_labels
+    return read_selected(path, 'y', rows, total).astype(np.int64)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_s306_expert_cpu_v2_20261116/source_labels.py", line 11, in read_selected
+    raise ValueError('source rows must be sorted, unique and in range')
+ValueError: source rows must be sorted, unique and in range

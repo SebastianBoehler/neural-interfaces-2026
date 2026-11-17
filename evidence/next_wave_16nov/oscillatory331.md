@@ -30,3 +30,5 @@ Primary grounding:
 The novelty claim is only a previously unexecuted architecture/mechanism in this project.
 Its scientific merit, useful EEG information, generalization and speed are unmeasured.
 See prospectiveLEDGER§331 for exact predictions, fixed training, resource bounds and refutation rules.
+
+Execution ownership update17Nov: preparedmodel.py remains unchanged. InitialCPUguard3117534(source3a37fb7e…4e627)failed because a randomtimingprobe passedunsortedindices to the existingselected-labelreader; correct readerrejection, beforeanypilot/querylabels. Preserved`oscillatory331_guard_v1_failed.txt`. Newimmutablev2sorts ONLYthose32engineeringprobeindices, leavingtrainingbatchschedule/recipe/tolerances unchanged. V2CPUguard3117539queued/running in`/mnt/lustre/work/gehler/gfh527/ni26_oscillatory331_v2_20261117`, source`b0fec93e6c3c6e3f66cc1d967e2c3b7ba1c87e01ca8308d3d56a6f5e0fe8fde9`. It recomputes independentcomplexoracle, gradient/state/batch checks andactualconservativecostgate before anysourcepilot.
