@@ -1,0 +1,238 @@
+{
+  "scope": "ONEsourceheldcalibrationprototype;NOoutermetrics/chain/fullmatrix",
+  "source_sha256": "85d906c98def9fee7dcd5ab34363c51f4411be7b63d25e88b3ff97fa69bf5916",
+  "scientific_base": "c6f199c747dbd2c38e86165735bc86553bb53a1ed30cd348f1792ccdb17ff22f",
+  "outer": "P01",
+  "cal": "P02",
+  "records": {
+    "0": {
+      "seed": 0,
+      "source_sha256": "85d906c98def9fee7dcd5ab34363c51f4411be7b63d25e88b3ff97fa69bf5916",
+      "scientific_base": "c6f199c747dbd2c38e86165735bc86553bb53a1ed30cd348f1792ccdb17ff22f",
+      "initial_param_sha256": "def692406d5b1405fec6c5eb8aca8054faceb82ceffa2ad41ae04fd79978a7a7",
+      "checkpoint_sha256": "9fa9d132d50445bec749458534b9f2f423515c8f4c6a4151633ae4ccbccb3710",
+      "logits_sha256": "fbb9b351b72e12d272e6b445b19130511c10546cfcf903235b6d8b7cf647400b",
+      "trained": "ecd995f42c7db8891555e70dbef2adbfc23203be3128a41f938843a0a9ce27ea",
+      "training": {
+        "steps": 1480,
+        "max_gradient": 5.4097900390625,
+        "first_loss": 1.314763069152832,
+        "last_loss": 0.49584516882896423
+      },
+      "fit_people": [
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10"
+      ],
+      "outer": "P01",
+      "cal": "P02",
+      "fit_rows_sha256": "5375f62ed7d0bf0ea80d584fd0a57b10bc29778e6e4c6d9783e70e04befb5416",
+      "cal_rows_sha256": "668e756312945d20561dd9219983d309304b0c337dac22b55b52472d0ced11a3",
+      "fit_input_sha256": "9d5c95a3367216e1f1d6006d3c9aeb05a1a6cb7c85e1da9dbc5267eacc4cd194",
+      "scale": 31.08156967163086,
+      "checks": {
+        "F": {
+          "prefix_max_abs": 4.410743713378906e-06,
+          "state_sha256": "ecd995f42c7db8891555e70dbef2adbfc23203be3128a41f938843a0a9ce27ea"
+        },
+        "B": {
+          "prefix_max_abs": 8.821487426757812e-06,
+          "state_sha256": "885f9663afabc3915cebec214cc4d1a9c8d516363fad5796c14f7bb591226b79"
+        },
+        "V": {
+          "prefix_max_abs": 5.4836273193359375e-06,
+          "state_sha256": "885f9663afabc3915cebec214cc4d1a9c8d516363fad5796c14f7bb591226b79"
+        }
+      },
+      "source9_checks": {
+        "F": {
+          "prefix_max_abs": 4.291534423828125e-06,
+          "state_sha256": "e5e2ec076997e32d8e8ea7ad2ebf85a8146deb45a9e94986adb3c9d961b0086c"
+        },
+        "B": {
+          "prefix_max_abs": 5.9604644775390625e-06,
+          "state_sha256": "1de9beb2d48e9721d7ea1e66b661f56072486b1568f198526866714c284e02fa"
+        },
+        "V": {
+          "prefix_max_abs": 6.198883056640625e-06,
+          "state_sha256": "1de9beb2d48e9721d7ea1e66b661f56072486b1568f198526866714c284e02fa"
+        }
+      },
+      "original_source9_checkpoint": "276ce5466180b5bd4dad643f6dad3586f0840b7eb4882e765f1aa44c66a1623b",
+      "batches_sha256": "b8c1e410433d9e015715f78c81b7209457b29581cbcc8f2168110c51c58851fa",
+      "cost": {
+        "seed": 0,
+        "smoke": {
+          "steps": 37,
+          "max_gradient": 1.6190754175186157,
+          "first_loss": 1.314763069152832,
+          "last_loss": 1.090423345565796
+        },
+        "seconds": 3.6030776146799326,
+        "projection_seconds": 336.18465688079596,
+        "ceiling": 480,
+        "device": "NVIDIA A100-PCIE-40GB",
+        "source_sha256": "85d906c98def9fee7dcd5ab34363c51f4411be7b63d25e88b3ff97fa69bf5916",
+        "calibration_labels_opened": false
+      },
+      "train_seconds": 10.907257641665637,
+      "seconds": 19.39858011249453,
+      "calibration_labels_opened": false,
+      "outer_labels_opened": false,
+      "device": "NVIDIA A100-PCIE-40GB",
+      "node": "galvani-cn230",
+      "peak_bytes": 776994816,
+      "kernel": {
+        "torch": "2.14.1+cu126",
+        "cuda": "12.6",
+        "cudnn": 91002,
+        "threads": 6,
+        "matmul_tf32": false,
+        "cudnn_tf32": true,
+        "deterministic": false,
+        "cudnn_benchmark": false
+      }
+    },
+    "1": {
+      "seed": 1,
+      "source_sha256": "85d906c98def9fee7dcd5ab34363c51f4411be7b63d25e88b3ff97fa69bf5916",
+      "scientific_base": "c6f199c747dbd2c38e86165735bc86553bb53a1ed30cd348f1792ccdb17ff22f",
+      "initial_param_sha256": "c827eb4e447efca6a37d9615e9fed0e4cab98712360fc506a9e4822f9318952b",
+      "checkpoint_sha256": "6a8ab96113346a31d853a3027e19cadf3a73106393ae622b86eb44ce91cd3884",
+      "logits_sha256": "2397432b1eea7dd18d9924c922fe3fdf198d89360743f892981e06de04d19c2b",
+      "trained": "4c814a61f66016de47027318d51fcfef1034e3e0c598eda9275849c6ec3e7e27",
+      "training": {
+        "steps": 1480,
+        "max_gradient": 4.329026699066162,
+        "first_loss": 1.3241099119186401,
+        "last_loss": 0.35648056864738464
+      },
+      "fit_people": [
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10"
+      ],
+      "outer": "P01",
+      "cal": "P02",
+      "fit_rows_sha256": "5375f62ed7d0bf0ea80d584fd0a57b10bc29778e6e4c6d9783e70e04befb5416",
+      "cal_rows_sha256": "668e756312945d20561dd9219983d309304b0c337dac22b55b52472d0ced11a3",
+      "fit_input_sha256": "9d5c95a3367216e1f1d6006d3c9aeb05a1a6cb7c85e1da9dbc5267eacc4cd194",
+      "scale": 31.08156967163086,
+      "checks": {
+        "F": {
+          "prefix_max_abs": 8.106231689453125e-06,
+          "state_sha256": "4c814a61f66016de47027318d51fcfef1034e3e0c598eda9275849c6ec3e7e27"
+        },
+        "B": {
+          "prefix_max_abs": 4.76837158203125e-06,
+          "state_sha256": "e654a77ca0e25c2466a7acfe4c70f431b73b53ada78921ebb6424631b3ca7b29"
+        },
+        "V": {
+          "prefix_max_abs": 5.4836273193359375e-06,
+          "state_sha256": "e654a77ca0e25c2466a7acfe4c70f431b73b53ada78921ebb6424631b3ca7b29"
+        }
+      },
+      "source9_checks": {
+        "F": {
+          "prefix_max_abs": 4.649162292480469e-06,
+          "state_sha256": "c0ade0cbd42861203153a32ebf9b8ad0df813588879d97723fae3b2776683db7"
+        },
+        "B": {
+          "prefix_max_abs": 5.9604644775390625e-06,
+          "state_sha256": "a320678335257953d1a77304324ad75158f454505859359b6ebe8ec33021a815"
+        },
+        "V": {
+          "prefix_max_abs": 5.245208740234375e-06,
+          "state_sha256": "a320678335257953d1a77304324ad75158f454505859359b6ebe8ec33021a815"
+        }
+      },
+      "original_source9_checkpoint": "9286863cfd64ee1122ae47a4c03368594899adc6e4db2429891f9bc98ea1d284",
+      "batches_sha256": "564dbfa31b6712179918f67144c192d15f78938091e1aedb9f775557d9b4be34",
+      "cost": {
+        "seed": 1,
+        "smoke": {
+          "steps": 37,
+          "max_gradient": 1.2832984924316406,
+          "first_loss": 1.3241099119186401,
+          "last_loss": 0.9307829737663269
+        },
+        "seconds": 3.5966271366924047,
+        "projection_seconds": 335.7976282015443,
+        "ceiling": 480,
+        "device": "NVIDIA A100-PCIE-40GB",
+        "source_sha256": "85d906c98def9fee7dcd5ab34363c51f4411be7b63d25e88b3ff97fa69bf5916",
+        "calibration_labels_opened": false
+      },
+      "train_seconds": 10.724163570441306,
+      "seconds": 19.269142779521644,
+      "calibration_labels_opened": false,
+      "outer_labels_opened": false,
+      "device": "NVIDIA A100-PCIE-40GB",
+      "node": "galvani-cn230",
+      "peak_bytes": 776994816,
+      "kernel": {
+        "torch": "2.14.1+cu126",
+        "cuda": "12.6",
+        "cudnn": 91002,
+        "threads": 6,
+        "matmul_tf32": false,
+        "cudnn_tf32": true,
+        "deterministic": false,
+        "cudnn_benchmark": false
+      }
+    }
+  },
+  "temperatures": {
+    "F": {
+      "T": 1.5388937285003306,
+      "raw_NLL": 0.8284071582433957,
+      "fitted_NLL": 0.7852514523214569,
+      "delta_NLL": -0.04315570592193885,
+      "bound_hit": false,
+      "objective_derivative": 9.381384558082573e-09,
+      "nfev": 25,
+      "max_probability_change": 0.1419823318331438,
+      "source9_numerical_transfer_max_probability_change": 0.14170331054770136,
+      "active_fit_and_transfer": true
+    },
+    "B": {
+      "T": 1.1360243098982565,
+      "raw_NLL": 0.710916135669646,
+      "fitted_NLL": 0.7074569447032927,
+      "delta_NLL": -0.003459190966353276,
+      "bound_hit": false,
+      "objective_derivative": -2.453592884421596e-09,
+      "nfev": 28,
+      "max_probability_change": 0.042833600787342774,
+      "source9_numerical_transfer_max_probability_change": 0.04287105573508643,
+      "active_fit_and_transfer": true
+    },
+    "V": {
+      "T": 1.1359409920036443,
+      "raw_NLL": 0.7108337928199342,
+      "fitted_NLL": 0.7073779693666196,
+      "delta_NLL": -0.0034558234533146326,
+      "bound_hit": false,
+      "objective_derivative": 3.4972025275692427e-09,
+      "nfev": 16,
+      "max_probability_change": 0.042807160181578596,
+      "source9_numerical_transfer_max_probability_change": 0.04284758016859702,
+      "active_fit_and_transfer": true
+    }
+  },
+  "outer_labels_opened": false,
+  "calibration_labels_opened_after_complete_banks": true,
+  "seed_aggregation": "mean2seedprobabilities BEFOREtemperature;notmeanseedmetrics",
+  "limitation": "samecal fittedNLLoptimization only;source8to9generalization unknown;historicalqueryexposure",
+  "full_report_sha256": "1c91a7a4ff67b0fec9750eaada35750fdf2b0ebd872f3728d905ab08e6622124"
+}
