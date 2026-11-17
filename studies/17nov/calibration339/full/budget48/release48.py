@@ -12,5 +12,8 @@ if sha(CHAIN/'representation-source.sha256')!='84205fc97487176b6efa31e2e7b5b006d
 text=inspect.getsource(old.main)
 if text.count('if projection>32:')!=1:raise ValueError('budgetanchorchanged')
 env=dict(vars(old));exec(compile(text.replace('if projection>32:','if projection>48:'),'339_authorized48CPUh_envelope','exec'),env)
+if (CHAIN/'released.json').exists():raise FileExistsError('fullmatrixalreadyreleased')
+with (CHAIN/'release_intent.json').open('x') as f:json.dump(dict(job=os.environ['SLURM_JOB_ID'],budget_source_sha256=sha(Path(os.environ['BUDGET_ROOT'])/'source.sha256')),f)
+os.chdir(CHAIN)
 env['main']()
 p=CHAIN/'released.json';r=json.loads(p.read_text());r.update(actual_CPUcorehour_envelope=48,budget_source_sha256=sha(Path(os.environ['BUDGET_ROOT'])/'source.sha256'));p.write_text(json.dumps(r,indent=2))
