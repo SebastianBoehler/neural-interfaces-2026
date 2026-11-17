@@ -17,6 +17,8 @@ def main():
         if m['source_rows_sha256']!=old.digest(fit) or m['query_rows_sha256']!=old.digest(query):raise ValueError('rowschanged')
         expected=old.sha((ROOT336 if reuse else root)/'source.sha256')
         if m['source_sha256']!=expected:raise ValueError('sourcechanged')
+        prediction_hash=(json.loads((ROOT336/'results.json').read_text())['prediction_sha256'][arm] if reuse else m['prediction_sha256'])
+        if old.sha(folder/'predictions.npz')!=prediction_hash:raise ValueError('posteriorhashchanged')
         t=m['trace']
         if len(t['batches'])!=40 or t['hyper']['epochs']!=40 or not t['optimizer_owns_actual_head']:raise ValueError('incompletefit')
         if ('H' in arm)==t['head_is_parametrized'] or ('W' in arm)!=(t['criterion_weights'] is not None):raise ValueError('interactionguard')
