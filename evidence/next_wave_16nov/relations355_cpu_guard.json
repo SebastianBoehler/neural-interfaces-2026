@@ -1,0 +1,21 @@
+{
+  "original_remote_guard_sha256": "cba3a8555eb358f86a835bea7079ea4b46fad76f497d168af558954fde972211",
+  "remote_workspace": "ni26_relations355_cpu_b1_v1_20261117",
+  "models": 40,
+  "actual_orders_per_model": 8,
+  "execution_mode": "CPU_B1",
+  "backend": [
+    "cpu",
+    "float32",
+    "2.14.1+cu126",
+    1,
+    1,
+    true
+  ],
+  "all_order_reset_copy_prefix_interleaving_state_bitwise": true,
+  "labels_opened": false,
+  "max_gpuB64_vs_cpuB1_absolute": 4.380941390991211e-06,
+  "max_gpuB64_vs_cpuB1_relative_l2": 7.961834285197256e-07,
+  "gpuB64_vs_cpuB1_integer_changes": 0,
+  "note": "B64 comparisons descriptive only; old probability guard remains failed"
+}

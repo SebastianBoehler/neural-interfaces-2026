@@ -1,18 +1,19 @@
-# §355 owning handoff
-- CURRENT soleCPU-B1cohort3121783→UNCHANGEDwholecollector3121784. Sourcepilot3121761PASS12sCPU1/projection352.662s<18min; fullCPU4/12GiB20min, fourfixedonearm/affinityCPUprocesses, sameCPUfloat32/Torch2.14.1, all40×8B1/order/reset/copy/prefix/interleave/stateexact BEFOREgold. Noheldqualityread.
-- Scientific source/card commit a014bd2; source/guard proof864fb45; actual-order guard92ed76e. Native integration paused; no native sources edited.
-- Snapshot /mnt/lustre/work/gehler/gfh527/ni26_relations355_v1_20261117; manifest c71454e7ad223679912bfe30fd353d1dd3b4c4140e8f645c9bfc085ca8e2356d.
-- Source smoke3121634 PASS28s×CPU2; controller3121635 PASS1s×CPU1. Four equal449,715parameter arms, actual41×480/source-P02 activity, all8orderpreflight passed.
-- Lag3121637 COMPLETE124s×CPU2/all10folds; envelope3121638 COMPLETE144s×CPU2/all10folds. Fixed40epochs, nine-sourcepeople/fullheldpersonexclusion, no heldmetrics read.
-- Original collector3121639 CANCELLED PENDING/0runtime before labels: only bank-order replay, insufficient actual execution qualification. Allactive scientific sources preserved.
-- Added immutable actual-order snapshot ni26_relations355_order_v1_20261117; SHA1856eb516004e14e1e429f5c620521a8ff2f81edb28aa883e95cf1775c626583.
-- Old3121641 FAILED6s atP01lag6 B1vsB64 max1.25169754e−6>1e−6; probabilityguard FAILED remains. Old3121642 child cancelledpending; no gold. Intermediateinteger-only3121729/3121730 cancelledpending0runtime, supersededUNRUN. NoB64score.
-- Unchangedoriginalwholecollector via3121741 afterNEWB1guardian3121740; all20fold/40bank/checkpoint/data/sourcehashes beforemetric; replay.checkOK; originalprotocol.score/people80%CI/equal schemes.
-- Actualprior355GPU302s/CPU605coresec +sourceCPU12; CPUwholecap4800coresec+collector480 gives worst5897coresec=1.6381CPUh<6h; GPU.08389h<2h. Account32running/244active+28reserve. No autoretry/extension/provider/upload/chainclaim.
-- Scope WHOLE NEW-PERSON alternatives only. Lag0 and envelopeoffset are equal-capacity controls; no incumbent-gain/ranking/returning/physiology claim. §25/26/313/352 overlap explicitly audited in relations355.md.
-- Producer loads allPUBLIC y for source indexing/finitecheck but only nine-source y entersloss; held y never optimizer/selection/calibration/metric. Complete-beforegold refers collector quality, not campaignblinding.
+# §355 current handoff
 
-- B1snapshot ni26_relations355_b1_v1_20261117, instrumentSHA6e7c654495e226c8b3472344c20a1862f7461b06a96167f5b9c32a79c481beda. Linuxfilesystem/compile/import/fullSHA preflight before dispatch. Source128B1calls extrapolated with1.5margin+60≤540s beforequery, hard10min/CPU2A10012GiB, noautoextension. Originalfits/weights/sourcefrozen.
-- GPU3121740/3121741 BOTHcancelledPENDING0time ONLYafterCPUsource352.662s/fullsource-version40checkpoint-filesystemcompilepreflightPASS. Sourcecost/capacity-onlydevicechoice BEFOREquality. No mixeddevice/activecollector. A100workercompatibility separate; currentqualityUNKNOWN.
+- COMPLETE: guardian **3121783** passed2m03s/CPU4; unchanged collector **3121784** passed1m15s/CPU2 at18:55:28CET. Report: relations355_results.md. No owned355jobs active.
+- Full fits completed: lag3121637 in124s and envelope3121638 in144s, both A100/CPU2. All40 weights remain unchanged. Scientific source/card a014bd2; current CPU source/evidence d7abaee pushed.
+- Two fixed forms: learned50ms-lag versus instantaneous relations; learned adjacent-filter envelope alignment versus fixed channel/filter offsets. All41 sensors, four41×41 matrices, same449,715 parameters and mean/power skip. Source/coverage/prior details: relations355.md.
+- All10 leave-one-person-out folds exclude ALL held-person sessions from optimization. Seed355/40epochs fixed prospectively. Public y was loaded for indexing/finite checks, but only nine-source y entered losses; no held metric, selection or calibration.
+- CPU source pilot3121761 passed in12s/actualCPU1: four frozen P01-held models,128non-P01 source B1 forwards each, float32/one intra+interop thread; repeat/copy/state exact. Conservative four-process projection352.662s, RSS652,728KiB.
+- CPU route: four fixed one-arm processes, each pinned to one allocated CPU; same Torch2.14.1+cu126 CPU backend/float32. RequestCPU4/12GiB20min, GRESnone on2080-galvani. Estimate about6min after allocation; hard20min, no automatic retry/extension.
+- Complete Linux source/version/40-checkpoint/exclusion/filesystem/compile preflight passed BEFORE cancelling still-pending A1003121740/3121741. Device choice used source cost/capacity, not quality. No mixed GPU/CPU cohort or duplicate active collector.
+- CPU snapshot: /mnt/lustre/work/gehler/gfh527/ni26_relations355_cpu_b1_v1_20261117. Instrument SHA e7cf88cb09a27b820484fe37d2fc0558f78cc0c6c30d0b2aec174112066c3ba6.
+- CPU guardian requires ALL40 models ×8 actual pinned B1 orders BITWISE after row restoration; fresh-checkpoint reset, deepcopy,17-row prefix, interleaved source and state checks BITWISE. Full source/row/person/checkpoint/class/backend guards precede quality.
+- Original probability guard3121641 FAILED6s: P01lag6 B1/B64 max1.25169754e−6 > registered1e−6. Failure/tolerance preserved. Original B64 banks remain unqualified; comparisons are descriptive only. Fresh CPU B1 banks are scored.
+- Old collectors/proposals3121639/3121642/3121729/3121730/3121740/3121741 were cancelled pending with0runtime. No old bank was scored. Intermediate integer-only proposal superseded unrun.
+- Collector reuses original protocol.score, person/order80% intervals and equal scheme weighting; replay.check must printOK. All40 banks/20 folds must complete before quality. Predictions are stateless; eight orders are not eight independent people.
+- Actual final allocation1,259CPUcoresec=.34972CPUh and302GPUseconds=.08389h, including allsourcepilots/controller/failedguard/fits/collector; under6CPUh/2GPUh. Account≤32running/244active plus28reserve.
+- Scope: WHOLE NEW-PERSON alternatives only. No current-system/returning/sealed/ranking/physiological claim. Later A100-worker compatibility is separate. Native integration paused; no native/frozen sources changed.
 
-- SoleCPU snapshot ni26_relations355_cpu_b1_v1_20261117; instrumentSHAe7cf88cb09a27b820484fe37d2fc0558f78cc0c6c30d0b2aec174112066c3ba6. NonGPU2080pool86idlecoresatdecision. ActualsourcepilotCPU1finished12sdespitepessimistictest-onlyforecasts. Estimated~6min afterallocation/hard20min, no autoretry/extension.
+- Official whole%: instant39.338/lag42.742/offset40.272/aligned37.076. People lag−instant+5.250pp[80%2.930,7.566],8/10up; aligned−offset−2.488[−3.888,−1.112],2/10up. ALLwhole<55 inadequate; no current-system gain or familyclosure/automaticconsumer.
+- CPU-B1/GPU-B64max4.381e−6/0integerchanges descriptive ONLY; old1e−6failure retained. ResultSHA650bf80f79105d4d8d3f05bfe3a685a7680bf2cf30ff293a694dbbe6fe1806cc. All40×8actualB1 guards passed BEFOREquality/replayOK; postmetric metadata source-row/40epoch audit passed, identified as postmetric.

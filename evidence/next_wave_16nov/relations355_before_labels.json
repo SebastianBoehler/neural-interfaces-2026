@@ -1,0 +1,11 @@
+{
+  "complete_families": 2,
+  "folds": 20,
+  "banks": 40,
+  "order_zero_exact": true,
+  "stateless": true,
+  "proofs": {
+    "lag": "845475dc3541df08569c7a853879b1698e066759fa91c52dfa4c6382a7fd9c56",
+    "envelope": "ac8220862cf02172d9cb2a59ab995db17e96840a95463feae7e9f61fba8091ef"
+  }
+}

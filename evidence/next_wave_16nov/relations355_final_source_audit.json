@@ -1,0 +1,127 @@
+{
+  "scope": "Independent metadata-only final audit after primary score; no metric/model change",
+  "all20_source_row_digests_exact": true,
+  "all40_fixed40epochs_and_parameters": true,
+  "records": [
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P01",
+      "source_rows": 2465,
+      "source_rows_sha256": "927152adccc9d919666be700e4cf73b5f010f52c058bd849166a63d2a3841cb4"
+    },
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P02",
+      "source_rows": 2466,
+      "source_rows_sha256": "21235dfef0162a2ad2f0b07f899cfef95fa807ad7bada358f78d1380586a95a8"
+    },
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P03",
+      "source_rows": 2466,
+      "source_rows_sha256": "ffd992b757b746721dc8bb16814a67e8e1288cf0b5d8d6906fcc9ca44503c625"
+    },
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P04",
+      "source_rows": 2089,
+      "source_rows_sha256": "0127c742ec762e5a48884794b534b56217edc647b17a25c2ef517e68b8eb20ac"
+    },
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P05",
+      "source_rows": 2465,
+      "source_rows_sha256": "90785d6e7d3735d8d19182687bc36011616fb73d9253ca57682855d85adada23"
+    },
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P06",
+      "source_rows": 2468,
+      "source_rows_sha256": "282274213166874c5cf2f6edeb260ff4c001565496c46d36508c9cd33dfaafa6"
+    },
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P07",
+      "source_rows": 2466,
+      "source_rows_sha256": "ea5515ff7634a1d5351bd6b3777d35276d0a1caa762a9fb9363bec03201b35bd"
+    },
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P08",
+      "source_rows": 2466,
+      "source_rows_sha256": "93cc38d0f2adf4daefcfbe7ad655840e186aaf6794befcfa2e96effe228ba6b3"
+    },
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P09",
+      "source_rows": 2466,
+      "source_rows_sha256": "278a6dcd77eb45073b975f8aa792006b14217ec8ca2788b34e9131715021b2b2"
+    },
+    {
+      "family": "lag",
+      "held": "Dreyer2026Proteus/P10",
+      "source_rows": 2078,
+      "source_rows_sha256": "7f415bb83961bcb5f14d26e1f059ce76c64184955d0f5b8054d6622691d18473"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P01",
+      "source_rows": 2465,
+      "source_rows_sha256": "927152adccc9d919666be700e4cf73b5f010f52c058bd849166a63d2a3841cb4"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P02",
+      "source_rows": 2466,
+      "source_rows_sha256": "21235dfef0162a2ad2f0b07f899cfef95fa807ad7bada358f78d1380586a95a8"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P03",
+      "source_rows": 2466,
+      "source_rows_sha256": "ffd992b757b746721dc8bb16814a67e8e1288cf0b5d8d6906fcc9ca44503c625"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P04",
+      "source_rows": 2089,
+      "source_rows_sha256": "0127c742ec762e5a48884794b534b56217edc647b17a25c2ef517e68b8eb20ac"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P05",
+      "source_rows": 2465,
+      "source_rows_sha256": "90785d6e7d3735d8d19182687bc36011616fb73d9253ca57682855d85adada23"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P06",
+      "source_rows": 2468,
+      "source_rows_sha256": "282274213166874c5cf2f6edeb260ff4c001565496c46d36508c9cd33dfaafa6"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P07",
+      "source_rows": 2466,
+      "source_rows_sha256": "ea5515ff7634a1d5351bd6b3777d35276d0a1caa762a9fb9363bec03201b35bd"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P08",
+      "source_rows": 2466,
+      "source_rows_sha256": "93cc38d0f2adf4daefcfbe7ad655840e186aaf6794befcfa2e96effe228ba6b3"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P09",
+      "source_rows": 2466,
+      "source_rows_sha256": "278a6dcd77eb45073b975f8aa792006b14217ec8ca2788b34e9131715021b2b2"
+    },
+    {
+      "family": "envelope",
+      "held": "Dreyer2026Proteus/P10",
+      "source_rows": 2078,
+      "source_rows_sha256": "7f415bb83961bcb5f14d26e1f059ce76c64184955d0f5b8054d6622691d18473"
+    }
+  ]
+}
