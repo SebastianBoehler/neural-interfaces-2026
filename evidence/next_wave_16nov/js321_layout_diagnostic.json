@@ -1,0 +1,169 @@
+{
+  "status": "failed_guard_diagnostic_only",
+  "records": [
+    {
+      "t": 0,
+      "comparisons": {
+        "baseB": {
+          "final_exact": true,
+          "fields": {
+            "mix": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "core1": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "u": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "shadow": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "out_v5": {
+              "exact": true,
+              "max_error": 0.0
+            }
+          }
+        },
+        "off": {
+          "final_exact": true,
+          "fields": {
+            "mix": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "core1": {
+              "exact": false,
+              "max_error": 2.220446049250313e-16
+            },
+            "u": {
+              "exact": false,
+              "max_error": 6.394884621840902e-14
+            },
+            "shadow": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "out_v5": {
+              "exact": true,
+              "max_error": 0.0
+            }
+          }
+        },
+        "on": {
+          "final_exact": false,
+          "fields": {
+            "mix": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "core1": {
+              "exact": false,
+              "max_error": 2.220446049250313e-16
+            },
+            "u": {
+              "exact": false,
+              "max_error": 6.394884621840902e-14
+            },
+            "shadow": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "out_v5": {
+              "exact": true,
+              "max_error": 0.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "t": 1,
+      "comparisons": {
+        "baseB": {
+          "final_exact": true,
+          "fields": {
+            "mix": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "core1": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "u": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "shadow": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "out_v5": {
+              "exact": true,
+              "max_error": 0.0
+            }
+          }
+        },
+        "off": {
+          "final_exact": true,
+          "fields": {
+            "mix": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "core1": {
+              "exact": false,
+              "max_error": 2.8852059765849605e-21
+            },
+            "u": {
+              "exact": false,
+              "max_error": 7.993605777301127e-14
+            },
+            "shadow": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "out_v5": {
+              "exact": true,
+              "max_error": 0.0
+            }
+          }
+        },
+        "on": {
+          "final_exact": false,
+          "fields": {
+            "mix": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "core1": {
+              "exact": false,
+              "max_error": 2.8852059765849605e-21
+            },
+            "u": {
+              "exact": false,
+              "max_error": 7.993605777301127e-14
+            },
+            "shadow": {
+              "exact": true,
+              "max_error": 0.0
+            },
+            "out_v5": {
+              "exact": true,
+              "max_error": 0.0
+            }
+          }
+        }
+      }
+    }
+  ],
+  "source_sha256": "ee38ebabde2424c7ccfca7a20a4ee0aa4b432aa269fc276e06291ffdabde1616",
+  "active_source_sha256": "9047b8f638a41b0d364eb334c22e67767168bb74af7fb251ec0d79ac02787a18",
+  "release_allowed": false,
+  "accuracy_computed": false
+}

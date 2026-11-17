@@ -4,6 +4,7 @@ import copy
 import importlib.util
 import json
 import os
+import hashlib
 import sys
 import time
 import types
@@ -91,16 +92,19 @@ def main():
     rows=np.flatnonzero((subject=='Dreyer2026Proteus/P01')&(session==session[subject=='Dreyer2026Proteus/P01'][0]))[:45]
     if len(rows)!=45:raise ValueError('registered45real P01windows unavailable')
     with np.load(ws/'draft_off/weights.npz',allow_pickle=False) as source:z={k:source[k].copy() for k in source.files}
-    reference=owning_mix();cases={}
+    reference=owning_mix();cases={};rng_before=hashlib.sha256(torch.get_rng_state().numpy().tobytes()).hexdigest()
     for mode in ('known','unrecognized'):
         baseline=instrument(load(ws/'draft_base','original321_'+mode,channels),mode=='unrecognized')
+        repeat=instrument(load(ws/'draft_base','repeat321_'+mode,channels),mode=='unrecognized')
         off=instrument(load(ws/'draft_off','disabled321_'+mode,channels),mode=='unrecognized')
         on=instrument(load(ws/'draft_jsall','active321_'+mode,channels),mode=='unrecognized')
         maximum=0.;changed_before10=0;changed_after_rec=0;delta_fbl=0.;delta_fb=0.;off_scores=[];on_scores=[]
         for t,r in enumerate(rows):
-            a,pa,ta=frame(baseline,x[r]);b,pb,tb=frame(off,x[r]);c,pc,tc=frame(on,x[r])
+            a,pa,ta=frame(baseline,x[r]);ra,rp,rt=frame(repeat,x[r]);b,pb,tb=frame(off,x[r]);c,pc,tc=frame(on,x[r])
+            if a!=ra or not np.array_equal(pa,rp):raise ValueError('independent original final repeat differs')
             if a!=b or not np.array_equal(pa,pb):raise ValueError('disabled generated bundle changed final predict/output')
             for field in ('mix','shadow','core1','u','out_v5'):
+                if not np.array_equal(ta[field],rt[field]):raise ValueError('independent original inner repeat differs: '+field)
                 if not np.array_equal(ta[field],tb[field]) or not np.array_equal(ta[field],tc[field]):
                     raise ValueError('original inner path changed: '+field)
             for field in ('contrast','identity'):
@@ -132,12 +136,15 @@ def main():
             if t<5:frame(right,x[rows[-1-t]])
         if not np.array_equal(np.array(prefix),np.array(on_scores[:17])):
             raise ValueError('session reset/deepcopy/prefix differs')
-        cases[mode]=dict(disabled_final_bitwise=True,inner_bitwise=True,original_ft_labels_bitwise=True,
+        cases[mode]=dict(original_repeat_bitwise=True,disabled_final_bitwise=True,inner_bitwise=True,original_ft_labels_bitwise=True,
                          owning_mix_max_error=maximum,route_share=on.routeB.a,recognized_at=baseline.log6['rec'],
                          active_before10_changed_rows=changed_before10,active_after_rec_changed_rows=changed_after_rec,
                          fbl_ft_delta=delta_fbl,old_fb_ft_delta_excluded=delta_fb,cc_calls=45,reset_deepcopy_prefix=True,
                          cp_fused=baseline.cp.fused,scope='engineering in-sample components;no accuracy')
-    result=dict(status='generated_bundle_active_engineering_guards_passed',cases=cases,seconds=time.monotonic()-start,
+    result=dict(cpu_dtype=str(x.dtype),torch_threads=torch.get_num_threads(),torch_interop_threads=torch.get_num_interop_threads(),
+                blas_env={k:os.environ.get(k) for k in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS')},
+                torch_rng_before=rng_before,torch_rng_after=hashlib.sha256(torch.get_rng_state().numpy().tobytes()).hexdigest(),
+                status='generated_bundle_active_engineering_guards_passed',cases=cases,seconds=time.monotonic()-start,
                 source_sha256=sha(ws/'source.sha256'),build_sha256=sha(ws/'build.json'),
                 original_inner_gate_identity=True,original_ft_label_identity=True,disabled_identity=True,
                 study_outer_mix_parity=True,route_share17_verified=True,

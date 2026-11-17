@@ -38,14 +38,14 @@ def main():
         original=archive.read('submission.py').decode()
         if builder.bundle()!=original:raise ValueError('copied source tree does not reproduce frozen bundle exactly')
         with np.load(io.BytesIO(archive.read('weights.npz')),allow_pickle=False) as z:
-            weights={k:z[k].copy() for k in z.files}
+            weights={k:z[k].copy(order='K') for k in z.files}
         names=archive.namelist()
         if any(Path(n).name!=n for n in names):raise ValueError('non-root package file')
         for folder in ('draft_off','draft_jsall'):
             target=ws/folder;target.mkdir(exist_ok=False);archive.extractall(target)
     source=ws/'draft_src';shutil.copytree(ws/'source66',source)
     shutil.copy2(ws/'adapter.py',source/'adapter.py')
-    path=source/'solver.py';text=path.read_text()
+    path=source/'solver.py';path.chmod(0o644);text=path.read_text()
     text=once(text,'from .v6chain import Ensemble6','from .adapter import EnsembleJS')
     text=once(text,'model = Ensemble6(z,','model = EnsembleJS(z,');path.write_text(text)
     builder.SRC=source;builder.MODULES=MODULES[:-1]+('adapter','solver');bundle=builder.bundle()
@@ -61,9 +61,12 @@ def main():
             for r in recovery['models']:
                 f=Path(r['trace']);shutil.copy2(f,target/f.name);files.append(f.name)
             new.update(js_cc_files=np.array(files),js_seeds=np.arange(6),**{'js_'+k:v for k,v in inputs.items()})
-        if any(not np.array_equal(new[k],v) or new[k].dtype!=v.dtype for k,v in weights.items()):
+        if any(not np.array_equal(new[k],v) or new[k].dtype!=v.dtype or new[k].strides!=v.strides for k,v in weights.items()):
             raise ValueError('an original package weight/key changed')
         (target/'submission.py').write_text(bundle);np.savez(target/'weights.npz',**new)
+        with np.load(target/'weights.npz',allow_pickle=False) as saved:
+            if any(saved[k].strides!=v.strides for k,v in weights.items()):
+                raise ValueError('original serialized array memory layout changed')
         for name in names:
             if name not in ('submission.py','weights.npz'):
                 with zipfile.ZipFile(ws/'base_v66.zip') as archive:
