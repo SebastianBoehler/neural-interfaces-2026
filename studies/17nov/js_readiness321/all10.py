@@ -23,6 +23,16 @@ def main(seed):
     if not all(active.get(k) is True for k in ('disabled_identity','original_inner_gate_identity',
                 'original_ft_label_identity','study_outer_mix_parity','route_share17_verified')):
         raise ValueError('active outer-package path has not passed all required guards')
+    recovery=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_recovery6/recovery.json')
+    recovered=json.loads(recovery.read_text())
+    if recovered['status']!='six_seed_historical_and_export_guards_passed':
+        raise ValueError('six historical seeds have not passed')
+    for order in ('within0','within1','within2','within3','full0','full1','runs0','runs1'):
+        recipe=json.loads((ws/f'study_recipe_{order}.json').read_text())
+        if recipe['status']!='actual318_six_draw_mix_capture_passed' or len(recipe['bases'])!=6:
+            raise ValueError('complete eight-order/six-base recipe proof required')
+        if recipe['generated_bundle_sha256']!=sha(ws/'draft_jsall/submission.py'):
+            raise ValueError('actual-study recipe proof belongs to another generated bundle')
     if sha(ws/'base_v66.zip')!=ZIP_SHA:raise ValueError('original v66input ZIP differs')
     with zipfile.ZipFile(ws/'base_v66.zip') as archive:
         weights=np.load(io.BytesIO(archive.read('weights.npz')),allow_pickle=False)
