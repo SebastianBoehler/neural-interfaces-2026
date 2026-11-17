@@ -1,0 +1,49 @@
+{
+  "status": "actual_fold_injected_stage_composition_passed_ENGINEERING_ONLY",
+  "cases": {
+    "base": {
+      "max_error": 0.0,
+      "recognized_at": 10,
+      "tpri_checks": 65,
+      "tpri_max_effect": 0.0953513141125153,
+      "source_head_windows": 70,
+      "own_staged": 70,
+      "ft_refits": 0,
+      "cp_stopped": 10,
+      "original_inner_identity": true
+    },
+    "off": {
+      "max_error": 0.0,
+      "recognized_at": 10,
+      "tpri_checks": 65,
+      "tpri_max_effect": 0.0953513141125153,
+      "source_head_windows": 70,
+      "own_staged": 70,
+      "ft_refits": 0,
+      "cp_stopped": 10,
+      "original_inner_identity": true
+    },
+    "js": {
+      "max_error": 0.0,
+      "recognized_at": 10,
+      "tpri_checks": 65,
+      "tpri_max_effect": 0.09048651193374013,
+      "source_head_windows": 70,
+      "own_staged": 70,
+      "ft_refits": 0,
+      "cp_stopped": 10,
+      "original_inner_identity": true
+    }
+  },
+  "disabled_bitwise": true,
+  "active_max_delta": 0.05439686781038833,
+  "active_pre_recognition_delta": 0.01388375429616534,
+  "active_post_recognition_delta": 0.05439686781038833,
+  "accuracy_computed": false,
+  "source_sha256": "1e2256b57da82679adba7c63c29dc7496012b039286d8b6f6b7dd5e65eb8cf7b",
+  "scope": "real recording-order source-basis stimulus; inner all10 backbone retained;NOT whole heldfold accuracy/rawview proof",
+  "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_stage_guard1/output/stage_guard.json",
+  "full_sha256": "44360065990b97c3033ba168258e12cfaf94e7fc39b284ed75814aff63ac6867",
+  "job": 3118487,
+  "elapsed": "00:05:59"
+}

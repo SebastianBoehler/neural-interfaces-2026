@@ -1,0 +1,27 @@
+{
+  "status": "owning_CPU_status_complete",
+  "variants": {
+    "fir": {
+      "job": "3117757",
+      "status": "complete_functionality_passed_NOT_timing_qualified",
+      "report": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_functional1/functional_fir_cpu/functional_cpu.json",
+      "sha256": "59dfeb7e7fad556dbc32163e719aeb2d4efda1f252ea724e2c0e4725e82f28f6"
+    },
+    "reuse": {
+      "job": "3117756",
+      "status": "complete_functionality_passed_NOT_timing_qualified",
+      "report": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_functional1/functional_reuse_cpu/functional_cpu.json",
+      "sha256": "b7df6e622c41cd112857381b5bdb39277656aad9e01e382e5fa84ac8065393a6"
+    }
+  },
+  "old_failures_preserved": true,
+  "accuracy_computed": false,
+  "automatic_retry": false,
+  "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_cpu_complete2/cpu_complete.json",
+  "full_sha256": "90f69b9c07bdc9511c7ae1833cf51ec289fe75de51b207d80d32d54a6a0c2fed",
+  "elapsed": {
+    "reuse": "02:27:06",
+    "fir": "02:32:09"
+  },
+  "collector_job": 3117884
+}
