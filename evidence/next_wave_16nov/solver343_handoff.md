@@ -30,4 +30,4 @@
 - Total all343allocated8824coresec=2.4511CPUh/0GPUh, includes builds/failures; all jobs terminal.
 - Main evidence solver343.md, full_held.json, v4_qualified_prefix.json, v4_smoke.json, v4_layout.json.
 - All code files <300lines; py_compile/diff-check pass; no training/data/checkpoint committed.
-- Initial qualified checkpoint e02a518 pushed; final adoption/evidence checkpoint follows.
+- Initial checkpoint e02a518 and final source/evidence47f8cdb are committed and pushed.
