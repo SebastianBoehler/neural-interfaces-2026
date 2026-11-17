@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 18:50 CET
+### Current campaign: 17 November 2026, about 19:46 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -17,7 +17,7 @@ Account limits:32jobs running/272submitted with28reserved; preserve unrelated jo
 Report every gain as FULL-SYSTEM DEV, SEALED LEADERBOARD or INDIVIDUAL-MODEL, with baseline/cohort.
 “Custom stack” means C++/CUDA. “Original raw neural reference” means the stock PyTorch336/338 model.
 [Detailed current evidence](../evidence/next_wave_16nov/STATUS_17NOV.md) and the
-[≤80-line handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md) own dynamic sources/jobs.
+[≤80-line handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md) capture earlier sources and jobs.
 
 **Submission and rank.** Uploadedv5.1b scored .8197668759. Preparedv6.6cap250 is unchanged:
 `runs/sealed/final_zips/v66_cp1_cap250.zip`, SHA256
@@ -166,30 +166,39 @@ CAR96source arrays, REALcore2278source fit, initializer52state tensors, sampler1
 only3.4–3.6%lower API time; memory inconclusive. Raw source prep3121547 reproduces all1898float32sourceX
 BYTE_EXACT, Gerror2.956e−12, originalscale/order/session/exclusion guards pass. Dataset/source6 metadata
 uses explicitP04/P05/P06/P07/P08/P10, unsortedfirstseen sessions; P01 is outside initialsource7 inventory.
-Production raw-FBC source fitting now wires own prep/init/privatePCG64/sampler, not importedX/weights/batches.
-ONEcomposed update3121728 failed convbiasstate7.98e−5, otherstates≤1e−9. Tinygradients have24sign flips;
-Adam amplifies them. The proposedSBNsquare→multiply counterfactual3121763 hasZEROeffect and is refuted.
-A paired forward/backward stage diagnostic is authorized, no blindpatch/fullfit/tolerance relaxation.
-Current known353 Slurm11301coresec/14400, nextsource-stage diagnostic≤600; PCAstaticbuild73.81actualCPU
-reported separately. Whole-runtime/worker/long-session, otherfamily source definitions, learnedgalleries and
-complete training orchestration remain incomplete. MigratedTorchScript execution is not ownarchitecture-source proof.
-Root owns CMake/integration/worker qualification; fresh_information_346 owns lean native training/NN diagnostics.
+RawFBC source training composes native preparation, initialization and sampling. Job 3121976 fixed the FIR layout
+and matched all gradients and state tensors at the first CPU update. The six-update check 3122002 failed at step 6.
+At step 2, identical gradients and second moments isolate the first difference to the AdamW first moment. Using the
+reference lerp on the recorded inputs restored exact step-2 moments and weights. Shared Adam repair 3122019
+matched every checked field at updates 1, 2 and 6. The full 1,240-update fit and CUDA training remain open.
+[Training evidence](../evidence/next_wave_16nov/native353_training_prefix.md)
 
-**Parallel accuracy — §354/355.** §354 faithful content/style Gaussian factorization changes the tested mechanism
-from old292C. Existing strong rawO and matched same-loss/capacityL control versusG: nine40epoch/source9
-fits onP02/P03/P09,3121766/%8; allsource smoke/originalO identity passed. Initial11min projection refuted by
-measuredcost; prospective18min/runtime-based9cell amendment beforegold. Eightfits actuallyrunning, onepending;
-pendingonly memory24→8GiB follows measured~2.06GiB peak and conservative≤4GiB prediction. No scores yet.
-§355 two learned intact41channel whole decoders (lagged relations and cross-filter envelopes), eachcapacitycontrol:
-all40models fitted. B1/B64guard failed1e−6 BEFOREgold, preserved. FreshactualB1 banks replace the instrument,
-not models/scorer/metric/tolerance. A100queue delayed; SOURCE-onlyCPU pilot projects~6min, CPU4/12GiB20min
-3121783→original wholecollector3121784 queued aftercompletepreflight; oldpendingA100children cancelled0time.
-ALL40×8actualB1/order/reset/copy/state/source guards beforegold; no partialquality. Distinctwholemodel results
-are not FULL-SYSTEM gains. Owner cards/handoffs own actual IDs, source limits and ETAs.
-performance_solver343 owns354; external_supervision_17nov owns355. Preserve unrelated jobs and32running/
-272submitted/28reserve. Keep waves moving without waiting on native implementation; no automatic uploads.
-Latest scheduledprimary research14:58:15–15:15:16CET COMPLETE17m01; nextabout18:58CET. The16:51delayed
-trigger did not count as anotherpaper block. Bothcampaign/research automations remainactive; canonicalhistoryretained.
+The complete C++ runtime passed the 31-window CPU source prefix in 3121996 after a fresh-session copy repair.
+All labels matched, final scores differed by at most 1.14e−8, recognition matched at index 10, and interleaved
+copies and reset replay were exact. This case recognized early, with no FT/CP refits. Lean package build 3122004
+separates offline training from the two deployed shared libraries. An install-only repair removed the host RPATH.
+Clean worker replica A100 adapter check 3122018 passed exact 31-window label parity on both repeats.
+Warm native inference took 11.65 s versus 4.50 s frozen in this pair. Native stage profile 3122028 is queued.
+Full shuffled/long-stream parity, all-family training, gallery fitting and full orchestration are open.
+Imported TorchScript is a runtime migration artifact. [Worker evidence](../evidence/next_wave_16nov/native353_worker_prefix.md)
+
+**Parallel accuracy — §354–356.** §354 complete after two fixed-route recoveries. Gaussian factorization lost to
+the strong raw decoder by 7.44 pp [80% −10.28, −4.62] across three exposed new-person folds. Gaussian versus
+the matched learned factorizer is undecided. [§354 report](../evidence/next_wave_16nov/factorization354.md)
+
+§355 complete after the single-window replay guard. Lag 42.742% versus instantaneous 39.338%, aligned
+envelopes 37.076% versus offset control 40.272%. All four whole decoders scored below 55%. The tests
+leave open the use of lagged relations inside a strong decoder. [§355 report](../evidence/next_wave_16nov/relations355_results.md)
+
+§356 complete. On the six-base FULL-SYSTEM DEV measure the unchanged chain scored 76.2177%, the PROTEUS-only
+WORD/SUB correction 75.7174%, and the external correction 75.3670%. External versus PROTEUS-only −0.3504 pp
+[80% −0.5645, −0.1621]. MI labels stayed exact. Set aside this fixed terminal fusion. [§356 report](../evidence/next_wave_16nov/external_binary356.md)
+The [coverage audit](../evidence/next_wave_16nov/exploration_primary_sources_17nov.md) also identifies an
+unordered-prefix decoder, matched-cost control and lagged relations in a strong decoder.
+§357 source-only readiness 3122027 passed exact prefix and reset guards plus all eight label-blind orders.
+It used one source person for the new readout. Held accuracy awaits a cross-fitted comparison.
+[§357 card](../evidence/next_wave_16nov/causal_prefix357.md)
+The user moved ownership to the active Codex chat and archived the previous chat's automation.
 
 ## 2. Hard bounds (from the official code and rules)
 
@@ -394,17 +403,8 @@ artifact while exploring different mechanisms. Use the global scientific-discove
 Every4hours perform at least15actual minutes of substantive primary-source research; extra reviews do not erase
 scheduled cadence. Record actual time and distinguish retained history from independent or blind context.
 
-The provisional decision checkpoint is17Nov18:00CET, with no top-five guarantee. No upload is authorized by the
+The provisional decision checkpoint was 17 November at 18:00 CET. No upload is authorized by the
 research campaign. Obtain explicit upload authorization and check live phase/quota/storage before submission.
 Earlier upload counts/deadlines/board estimates require live verification; do not infer available quota anonymously.
-Do not ask optional implementation questions while the user sleeps. Use existing50mincampaign/4hresearch automations.
-
-§353 latest numerical status15:36CET: Route/Own/CF/CPsource COMPONENTPASS, maxCP2.413e−12, actualOwnStage/
-10CPrefits125fusions/reset/deepcopy/noerrors. Neuralknownfirstmembers~2e−6>1e−6; diagnostic3120433 noFT/gold.
-Corep1source2.6423e−7>1e−7/zerochangedlabels; owner343localizesfloat32reductions, no tolerance relaxation.
-No fullnativegraph/training/worker/speedqualification. Currenthandoffownsactualjobs/remainingrecipes.
-
-Actual15:40CET: §350source3119571 TIMEOUT90m06, downstreampilot/controllerdead-dependency, ownpendingchildren
-cancelledbyrootafterverification. No newpolicycohort/result. Ownerpreparesboundedrecovery, no blindextension.
-NNdiagnostic3120433failed17s beforecomparisononnode-localOS hash mismatch; revisedapp/NFSpins+pernodeOSrecord
-approved foroneboundedretry. C++NN andwholecoreprecisionstillunqualified, no whole-worker/promotionclaim.
+Do not ask optional implementation questions while the user sleeps. Continue work from the active Codex chat
+and the current ledger and Slurm records.
