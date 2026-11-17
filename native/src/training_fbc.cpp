@@ -24,7 +24,7 @@ RawFBC::RawFBC(const Params &state, torch::Device device) : bn_(state, device) {
                  .clone();
     require(f.sizes() == torch::IntArrayRef({sizes[i]}), "native source FIR shape differs");
     fir_.push_back(f);
-    spectra_.push_back(at::fft_rfft(f, 480 + f.numel() - 1));
+    spectra_.push_back(at::fft_rfft(f, 480 + f.numel() - 1).view({1, 1, -1}).repeat({1, 41, 1}));
   }
 }
 Tensor RawFBC::forward(const Tensor &x, bool training) {
