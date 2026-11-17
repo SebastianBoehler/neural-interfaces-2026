@@ -1,3 +1,4 @@
+#include "../src/finetune_adam.h"
 #include "../src/networks_internal.h"
 #include <iostream>
 #include <torch/csrc/jit/runtime/graph_executor.h>
@@ -8,7 +9,8 @@ Tensor texts(const std::vector<std::string> &names) {
   size_t width = 1;
   for (const auto &name : names)
     width = std::max(width, name.size() + 1);
-  auto result = torch::zeros({int64_t(names.size()), int64_t(width)}, torch::kUInt8);
+  auto result =
+      torch::zeros({int64_t(names.size()), int64_t(width)}, torch::kUInt8);
   for (size_t i = 0; i < names.size(); ++i)
     std::copy(names[i].begin(), names[i].end(), result[i].data_ptr<uint8_t>());
   return result;
@@ -16,7 +18,8 @@ Tensor texts(const std::vector<std::string> &names) {
 } // namespace
 int main(int argc, char **argv) {
   try {
-    require(argc == 5, "usage: finetune_first_refit PARAMS FIXTURE MODULE_ROOT OUTPUT");
+    require(argc == 5,
+            "usage: finetune_first_refit PARAMS FIXTURE MODULE_ROOT OUTPUT");
     torch::set_num_threads(1);
     auto z = Params::load(argv[1]), f = Params::load(argv[2]);
     auto slot = z.texts("v6_slots");
@@ -27,14 +30,17 @@ int main(int argc, char **argv) {
       if (ids[i].item<int64_t>() == member)
         column = i;
     require(column >= 0, "RAWsource input missing");
-    auto x = f.get("unknown_input").slice(0, 0, 20).select(1, column).contiguous();
+    auto x =
+        f.get("unknown_input").slice(0, 0, 20).select(1, column).contiguous();
     auto current = f.get("unknown_input")[20][column].unsqueeze(0);
     auto labels = f.get("unknown_relabel_20").argmax(1),
-         weights = std::get<0>(f.get("unknown_relabel_20").max(1)).to(torch::kFloat32);
-    auto model = torch::jit::load(
-        (std::filesystem::path(argv[3]) / z.text("net" + std::to_string(member) + "_sjit_file"))
-            .string(),
-        torch::kCPU);
+         weights = std::get<0>(f.get("unknown_relabel_20").max(1))
+                       .to(torch::kFloat32);
+    auto model =
+        torch::jit::load((std::filesystem::path(argv[3]) /
+                          z.text("net" + std::to_string(member) + "_sjit_file"))
+                             .string(),
+                         torch::kCPU);
     auto parameters = neural::trainable(model);
     for (auto &p : parameters)
       p.requires_grad_(true);
@@ -49,7 +55,8 @@ int main(int argc, char **argv) {
         names.push_back(item.name);
       buffers.push_back(item.name);
     }
-    require(names.size() == parameters.size(), "actual RAWparameter order differs");
+    require(names.size() == parameters.size(),
+            "actual RAWparameter order differs");
     Params out;
     out.tensors["native_format"] = torch::tensor(1, torch::kInt64);
     out.tensors["parameter_names"] = texts(names);
@@ -70,7 +77,7 @@ int main(int argc, char **argv) {
     {
       torch::AutoGradMode enable(true);
       torch::jit::GraphOptimizerEnabledGuard optimizer_guard(false);
-      torch::optim::Adam optimizer(parameters, torch::optim::AdamOptions(z.number("v6_ft_lr")));
+      neural::FineTuneAdam optimizer(parameters, z.number("v6_ft_lr"));
       for (int step = 0; step < 5; ++step) {
         auto prefix = "step" + std::to_string(step) + "_";
         optimizer.zero_grad();
@@ -92,12 +99,15 @@ int main(int argc, char **argv) {
         save(prefix + "logits", logits);
         save_buffers(prefix + "aug_buffer_");
         namespace F = torch::nn::functional;
-        auto ce = (weights * F::cross_entropy(logits, labels,
-                                              F::CrossEntropyFuncOptions().reduction(torch::kNone)))
-                      .sum() /
-                  weights.sum().clamp_min(1e-6);
-        auto kl = F::kl_div(torch::log_softmax(logits, 1), torch::softmax(clean, 1),
-                            F::KLDivFuncOptions().reduction(torch::kBatchMean));
+        auto ce =
+            (weights * F::cross_entropy(logits, labels,
+                                        F::CrossEntropyFuncOptions().reduction(
+                                            torch::kNone)))
+                .sum() /
+            weights.sum().clamp_min(1e-6);
+        auto kl =
+            F::kl_div(torch::log_softmax(logits, 1), torch::softmax(clean, 1),
+                      F::KLDivFuncOptions().reduction(torch::kBatchMean));
         auto loss = ce + z.number("v6_ft_lam") * kl;
         save(prefix + "ce", ce);
         save(prefix + "kl", kl);
@@ -110,12 +120,10 @@ int main(int argc, char **argv) {
         optimizer.step();
         for (size_t i = 0; i < parameters.size(); ++i) {
           save(prefix + "after_" + std::to_string(i), parameters[i]);
-          auto &state = static_cast<torch::optim::AdamParamState &>(
-              *optimizer.state().at(parameters[i].unsafeGetTensorImpl()));
-          save(prefix + "m_" + std::to_string(i), state.exp_avg());
-          save(prefix + "v_" + std::to_string(i), state.exp_avg_sq());
+          save(prefix + "m_" + std::to_string(i), optimizer.first(i));
+          save(prefix + "v_" + std::to_string(i), optimizer.second(i));
           save(prefix + "adam_step_" + std::to_string(i),
-               torch::tensor(state.step(), torch::kInt64));
+               torch::tensor(optimizer.steps(i), torch::kInt64));
         }
       }
       {
@@ -127,8 +135,10 @@ int main(int argc, char **argv) {
     }
     {
       torch::NoGradGuard guard;
-      save("current_logits", model.forward({current}).toTensor().slice(1, 0, 3));
-      save("current_p", torch::softmax(out.get("current_logits").to(torch::kFloat64), 1)[0]);
+      save("current_logits",
+           model.forward({current}).toTensor().slice(1, 0, 3));
+      save("current_p",
+           torch::softmax(out.get("current_logits").to(torch::kFloat64), 1)[0]);
       save_buffers("current_buffer_");
     }
     out.save(argv[4]);

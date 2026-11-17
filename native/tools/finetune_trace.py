@@ -77,7 +77,7 @@ def main():
     torch.save(out,args.out.with_suffix('.pt'))
     result=dict(original_method_sha256=hashlib.sha256(original.encode()).hexdigest(),observed_method_sha256=hashlib.sha256(changed.encode()).hexdigest(),
         original_vs_SIF=original_vs_SIF,native_vs_production=native_vs_production,comparisons=comparisons,source_prefix=20,current_window=20,refit=1,steps=5,
-        raw_only=True,task_labels_loaded=False,accuracy_computed=False,optimizer_repaired=False,tolerance_changed=False)
+        raw_only=True,task_labels_loaded=False,accuracy_computed=False,native_optimizer_identity='pinned snapshot source',tolerance_changed=False)
     args.out.write_text(json.dumps(result,indent=2))
     if original_vs_SIF['max_abs']>1e-6 or native_vs_production['max_abs']!=0:raise ValueError('trace does not reproduce owning consumers; no attribution allowed')
 

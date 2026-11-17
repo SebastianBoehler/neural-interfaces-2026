@@ -1,5 +1,7 @@
 # Native neural handoff — 17 November 2026
 
+Current repaired retry3121389 QUEUED CPU2/16GiB5min≤600coresec, immutable ni26_native353_ft_repair_v1_20261117. Minimal productionFT-only FineTuneAdam mirrors exactinstalledPython single-tensor order/defaults, sharedactualobserver. Source258cc91a…d3e28b/assets76372959…da837/libs16c76d13…2bfb0/objects5541e71d…da23f. Syntax/originalimport/ALLobserveranchors/defaults/sourceassetlibobject/oldloader preflightPASS; newloader fatalcheckedbeforeforward. CPU-only; strictoriginalbounds andBYTE_EXACTpairedtrace, noautoretry/extension. Actual9287coresec plus600reserved; rootcoordinates sibling600sampler/1800PCA/600prep, total12887≤14400. OfflineNNupdateHELD.
+
 Current 17:46 CET: diagnostic3121286 COMPLETED138s×AllocCPUS2=276coresec. Source parity remains FAILED under unchanged bounds. Aggregate §3539,287coresec=2.579722CPUh;5,113coresec remain of14,400 before any later sibling allocations. No owned queued/running allocation or automatic retry.
 
 Immutable diagnostic /mnt/lustre/work/gehler/gfh527/ni26_native353_ft_diagnostic_v1_20261117. Source manifestd1bd4d72…96f77; assets76372959…da837; libraries16c76d13…2bfb0. Full paired_trace.json SHA853c16a08043aa213b3076ed7f9f3f09128e9b7c57e207bec2c978f6f7f9d477; all_source.log SHAfa24a22bcb854f9d6ba3714e865bb18f46b0d5e6051689ed700253148a5a3252. Local compact evidence native353_ft_diagnostic.json. Job0 means diagnostic completed, NOT parity.
