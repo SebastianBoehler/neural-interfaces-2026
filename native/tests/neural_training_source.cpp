@@ -25,11 +25,59 @@ void same(const std::string &name, const Tensor &x, const Tensor &y,
     numeric_failed = true;
   }
 }
+void compare_moment(const std::string &name, const Tensor &actual,
+                    const Tensor &expected) {
+  same(name, actual, expected, 1e-7);
+  auto reference = expected.to(torch::kFloat64);
+  double norm = reference.norm().item<double>();
+  double error = (actual.to(torch::kFloat64) - reference).norm().item<double>();
+  double relative = norm > 0 ? error / norm : error;
+  std::cout << name << " relative_l2=" << relative << '\n';
+  if (relative > 1e-6) {
+    std::cerr << "BOUND_EXCESS " << name << " relative_l2=" << relative << '\n';
+    numeric_failed = true;
+  }
+}
+
+void compare_prefix_step(const Params &oracle, neural::RawFBC &net,
+                         torch::optim::AdamW &optimizer,
+                         const neural::SourceUpdate &update,
+                         const std::vector<std::string> &names, int64_t step) {
+  auto prefix = std::to_string(step) + "_";
+  auto field = [&](const std::string &key) { return oracle.get(prefix + key); };
+  auto &options = static_cast<torch::optim::AdamWOptions &>(
+      optimizer.param_groups()[0].options());
+  same(prefix + "schedule",
+       torch::tensor({options.lr(), std::get<0>(options.betas())}, torch::kFloat64),
+       field("schedule"), 1e-15);
+  same(prefix + "logits", update.logits, field("logits"), 1e-5);
+  same(prefix + "posterior", update.logits.to(torch::kFloat64).softmax(1),
+       field("logits").to(torch::kFloat64).softmax(1), 1e-6);
+  same(prefix + "loss", update.loss, field("loss"), 1e-6);
+  for (const auto &[name, value] : net.state().tensors)
+    same(prefix + "state/" + name, value, field("state_" + name), 1e-6);
+  auto parameters = net.parameters();
+  require(optimizer.state().size() == names.size(), "AdamW state count differs");
+  for (size_t i = 0; i < names.size(); ++i) {
+    const auto &name = names[i];
+    auto &state = optimizer.state().at(parameters[i].unsafeGetTensorImpl());
+    auto *adam = dynamic_cast<torch::optim::AdamWParamState *>(state.get());
+    require(adam && adam->step() == step &&
+                adam->step() == field("step_" + name).item<int64_t>(),
+            "AdamW state step differs: " + name);
+    same(prefix + "gradient/" + name, parameters[i].grad(),
+         field("gradient_" + name), 1e-5);
+    compare_moment(prefix + "exp_avg/" + name, adam->exp_avg(),
+                   field("exp_avg_" + name));
+    compare_moment(prefix + "exp_avg_sq/" + name, adam->exp_avg_sq(),
+                   field("exp_avg_sq_" + name));
+  }
+}
 } // namespace
 int main(int argc, char **argv) {
   try {
-    require(argc == 3, "usage: neural_training_source "
-                       "SOURCE_PREPARATION_FIXTURE UPDATE_ORACLE");
+    require(argc == 3 || argc == 4, "usage: neural_training_source "
+                       "SOURCE_PREPARATION_FIXTURE UPDATE_ORACLE [PREFIX_ORACLE]");
     torch::set_num_threads(1);
     auto raw = Params::load(argv[1]), fixture = Params::load(argv[2]);
     require(!raw.has("y"),
@@ -149,6 +197,21 @@ int main(int argc, char **argv) {
     }
     observed.save("native_source_update_observed.pt");
     std::cout << "ALL_SOURCE_UPDATE_NUMERIC_FIELDS_COLLECTED" << std::endl;
+    if (argc == 4) {
+      auto prefix_oracle = Params::load(argv[3]);
+      require(prefix_oracle.integer("prefix_steps") == 6,
+              "source prefix oracle must contain six optimizer steps");
+      compare_prefix_step(prefix_oracle, net, opt, update, names, 1);
+      for (int64_t i = 1; i < 6; ++i) {
+        auto batch = torch::tensor(prepared.epochs[0][i], torch::kInt64);
+        auto next = neural::raw_source_update(
+            net, opt, prepared.source.x.index_select(0, batch),
+            prepared.labels.index_select(0, batch), i);
+        if (i == 1 || i == 5)
+          compare_prefix_step(prefix_oracle, net, opt, next, names, i + 1);
+      }
+      std::cout << "ALL_SOURCE_PREFIX_NUMERIC_FIELDS_COLLECTED" << std::endl;
+    }
     require(
         !numeric_failed,
         "NEURAL_FIRST_SOURCE_UPDATE_NUMERIC_FAIL; original bounds exceeded");
