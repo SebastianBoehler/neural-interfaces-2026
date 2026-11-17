@@ -17,8 +17,27 @@ artifacts. This is native execution, but is not evidence that their training
 recipes or architecture definitions have been ported. Each is tracked separately.
 The one-time archive converter is tooling, not part of training or inference.
 
-Acceptance requires real-data numerical parity, exact output labels, active
-fine-tuning/personalization paths, session reset/deep-copy isolation and clean
-Linux worker/A100 compatibility. Performance comparisons must include cold load,
-warm complete inference, training work, CPU/GPU time and peak memory. Component
-speedups do not establish complete submission speed or a leaderboard gain.
+## Qualification
+
+Use frozen v6.6cap250 (ZIP SHA-256
+`9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`)
+as the prediction reference. [§353 in the ledger](../docs/LEDGER.md) records
+the exact scope and result of each comparison.
+
+1. Run the existing real-input canary with both implementations. Require
+   matching labels, final scores within the registered bound, matching
+   adaptation events and identical reset and interleaved-copy behavior.
+2. Run the actual Python adapter and native libraries in the Linux worker
+   image replica with an A100. Use complete source streams and pinned shuffled
+   orders. Cover natural recognition, active fine-tuning and personalization
+   and the long-session limits. Keep the frozen ZIP as a separate reference arm.
+3. Measure paired cold load and full warm replay. Record host RSS, live and
+   reserved GPU memory, and refit and cap counts. Compare equal work first, then
+   retain the production wall-clock budget and report any changed work.
+   Use the [60-minute one-A100 limit](https://neural-interfaces26.github.io/rules.html).
+
+Use the same model inputs, weights, metric and delivery order in each pair.
+Offline training parity and training throughput each require a matched source
+fit with held-stream prediction checks. Worker timing measures the cost of the
+completed inference artifact. New learning rules and compute allocation
+policies need their own accuracy and cost comparisons.
