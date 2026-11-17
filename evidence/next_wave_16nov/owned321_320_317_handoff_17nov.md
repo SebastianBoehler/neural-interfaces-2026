@@ -13,6 +13,8 @@
 - Deterministic validation-only CUDA3117572 exactoldself215 with20FT/10CP/125fusions. CPU215old→variants3117573 running. Standard production unchanged.
 - Phase-matched guards3117581FIR/3117582reuse PASS exactold→variant known45/unknown215, exactinner/gates/labels/generators/inputs, CPUresetbitwise; all45active/20inactiveoriginalweights guarded.
 - Standard optimized A1003117588FIR/3117586reuse passedknown190/378/800 then failedunknown378 ratios1.311509/1.247656. Unknown800 untested there; unknown190~.5 ratios setup/orderconfounded, not speedups.
-- Complete FUNCTIONAL-only A1003117602FIR/3117601reuse running, workspace `ni26_js321_20261117_functional1`; does not rescue timing bars. CPU3117587FIR/3117585reuse running; conditional functional controllers3117595/3117597.
+- Complete FUNCTIONAL-only A1003117602FIR/3117601reuse PASSED all6rows (unknown800actual24FT/480steps/noover,39CP/710fusions), workspace `ni26_js321_20261117_functional1`; does not rescue timing bars. CPU3117587FIR/3117585reuse running; conditional functional controllers3117595/3117597.
 - Next: followactualfunctional outcomes; fixedreuse finalist warm counterbalanced A100 protocol preregistered, warm_timing.py prepared (full800untimedFT/CP before reset; AB/BA×2 per190/378/800; coldcost separate). Afterok capacity-checked controller3117613 (release2) waits actual complete-functional3117601 then releases pinnedwarm1 A10045min. Initialrelease1 invalidpartition rejected beforeallocation; preserved. No timing result yet.
 - No upload/promotion, no source mutation in frozen snapshots. Root owns canonical docs; own evidence/source commits may proceed, avoid unrelated LEDGER changes.
+
+- Warm1 job3117647 failed11s beforeinference missingowningrecord.py; frozenfailurepreserved. Warm2 copiesexactowningdependency, actualSIFloginCPUimportpreflightPASS, retry3117650RUNNING. No timing rows yet.

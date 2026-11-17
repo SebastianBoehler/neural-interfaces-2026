@@ -1,0 +1,281 @@
+{
+  "status": "complete_functional_only_matrix_passed_NOT_timing_qualified",
+  "variant": "fir",
+  "device": "cuda",
+  "rows": [
+    {
+      "mode": "known",
+      "windows": 190,
+      "first": "base",
+      "base": {
+        "seconds": 28.194195676594973,
+        "cold_b1_seconds": 0.14587775710970163,
+        "warm_b1_median": 0.14801953826099634,
+        "recognized_at": 10,
+        "js_calls": 0,
+        "ft_refits": 0,
+        "cp_fused": 0,
+        "activity": {
+          "eligible": false,
+          "reason": "recognized_at10;FTandCPstopped",
+          "ft_refits": 0,
+          "cp_fused": 0
+        }
+      },
+      "js": {
+        "seconds": 25.772140325047076,
+        "cold_b1_seconds": 0.13987593818455935,
+        "warm_b1_median": 0.13530528917908669,
+        "recognized_at": 10,
+        "js_calls": 190,
+        "ft_refits": 0,
+        "cp_fused": 0,
+        "activity": {
+          "eligible": false,
+          "reason": "recognized_at10;FTandCPstopped",
+          "ft_refits": 0,
+          "cp_fused": 0
+        }
+      },
+      "descriptive_ratio": 0.9140938305412084
+    },
+    {
+      "mode": "known",
+      "windows": 378,
+      "first": "js",
+      "js": {
+        "seconds": 56.81784790195525,
+        "cold_b1_seconds": 0.13370181154459715,
+        "warm_b1_median": 0.15617443807423115,
+        "recognized_at": 10,
+        "js_calls": 378,
+        "ft_refits": 0,
+        "cp_fused": 0,
+        "activity": {
+          "eligible": false,
+          "reason": "recognized_at10;FTandCPstopped",
+          "ft_refits": 0,
+          "cp_fused": 0
+        }
+      },
+      "base": {
+        "seconds": 57.133564877323806,
+        "cold_b1_seconds": 0.15397527627646923,
+        "warm_b1_median": 0.15111526101827621,
+        "recognized_at": 10,
+        "js_calls": 0,
+        "ft_refits": 0,
+        "cp_fused": 0,
+        "activity": {
+          "eligible": false,
+          "reason": "recognized_at10;FTandCPstopped",
+          "ft_refits": 0,
+          "cp_fused": 0
+        }
+      },
+      "descriptive_ratio": 0.9944740543313468
+    },
+    {
+      "mode": "known",
+      "windows": 800,
+      "first": "base",
+      "base": {
+        "seconds": 121.90604188293219,
+        "cold_b1_seconds": 0.14752332214266062,
+        "warm_b1_median": 0.1513658594340086,
+        "recognized_at": 10,
+        "js_calls": 0,
+        "ft_refits": 0,
+        "cp_fused": 0,
+        "activity": {
+          "eligible": false,
+          "reason": "recognized_at10;FTandCPstopped",
+          "ft_refits": 0,
+          "cp_fused": 0
+        }
+      },
+      "js": {
+        "seconds": 114.68513790238649,
+        "cold_b1_seconds": 0.13842242397367954,
+        "warm_b1_median": 0.143198162317276,
+        "recognized_at": 10,
+        "js_calls": 800,
+        "ft_refits": 0,
+        "cp_fused": 0,
+        "activity": {
+          "eligible": false,
+          "reason": "recognized_at10;FTandCPstopped",
+          "ft_refits": 0,
+          "cp_fused": 0
+        }
+      },
+      "descriptive_ratio": 0.9407666439742173
+    },
+    {
+      "mode": "unrecognized",
+      "windows": 190,
+      "first": "base",
+      "base": {
+        "seconds": 75.04453350882977,
+        "cold_b1_seconds": 0.12444947473704815,
+        "warm_b1_median": 0.13765612989664078,
+        "recognized_at": -1,
+        "js_calls": 0,
+        "ft_refits": 17,
+        "cp_fused": 100,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 17,
+          "expected_ft": 17,
+          "ft_steps": 340,
+          "ft_over": 0,
+          "cp_refits": 9,
+          "expected_cp": 9,
+          "cp_fused": 100,
+          "expected_fused": 100,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "js": {
+        "seconds": 37.509036739356816,
+        "cold_b1_seconds": 0.13536524027585983,
+        "warm_b1_median": 0.1436562966555357,
+        "recognized_at": -1,
+        "js_calls": 190,
+        "ft_refits": 17,
+        "cp_fused": 100,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 17,
+          "expected_ft": 17,
+          "ft_steps": 340,
+          "ft_over": 0,
+          "cp_refits": 9,
+          "expected_cp": 9,
+          "cp_fused": 100,
+          "expected_fused": 100,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "descriptive_ratio": 0.49982370448000035
+    },
+    {
+      "mode": "unrecognized",
+      "windows": 378,
+      "first": "js",
+      "js": {
+        "seconds": 89.8104933956638,
+        "cold_b1_seconds": 0.13187517784535885,
+        "warm_b1_median": 0.16614664159715176,
+        "recognized_at": -1,
+        "js_calls": 378,
+        "ft_refits": 24,
+        "cp_fused": 288,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 24,
+          "expected_ft": 24,
+          "ft_steps": 480,
+          "ft_over": 0,
+          "cp_refits": 18,
+          "expected_cp": 18,
+          "cp_fused": 288,
+          "expected_fused": 288,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "base": {
+        "seconds": 76.1523372977972,
+        "cold_b1_seconds": 0.15292949602007866,
+        "warm_b1_median": 0.15968444850295782,
+        "recognized_at": -1,
+        "js_calls": 0,
+        "ft_refits": 24,
+        "cp_fused": 288,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 24,
+          "expected_ft": 24,
+          "ft_steps": 480,
+          "ft_over": 0,
+          "cp_refits": 18,
+          "expected_cp": 18,
+          "cp_fused": 288,
+          "expected_fused": 288,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "descriptive_ratio": 1.179353078086832
+    },
+    {
+      "mode": "unrecognized",
+      "windows": 800,
+      "first": "base",
+      "base": {
+        "seconds": 149.02301661949605,
+        "cold_b1_seconds": 0.14738503471016884,
+        "warm_b1_median": 0.16305261477828026,
+        "recognized_at": -1,
+        "js_calls": 0,
+        "ft_refits": 24,
+        "cp_fused": 710,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 24,
+          "expected_ft": 24,
+          "ft_steps": 480,
+          "ft_over": 0,
+          "cp_refits": 39,
+          "expected_cp": 39,
+          "cp_fused": 710,
+          "expected_fused": 710,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "js": {
+        "seconds": 155.19527797214687,
+        "cold_b1_seconds": 0.16163140814751387,
+        "warm_b1_median": 0.16991370543837547,
+        "recognized_at": -1,
+        "js_calls": 800,
+        "ft_refits": 24,
+        "cp_fused": 710,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 24,
+          "expected_ft": 24,
+          "ft_steps": 480,
+          "ft_over": 0,
+          "cp_refits": 39,
+          "expected_cp": 39,
+          "cp_fused": 710,
+          "expected_fused": 710,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "descriptive_ratio": 1.0414181748072555
+    }
+  ],
+  "torch": "2.14.1+cu130",
+  "numpy": "2.5.2",
+  "cuda": "13.0",
+  "deterministic_algorithms": false,
+  "prior_timing_failures_preserved": true,
+  "old_bar_reinterpreted": false,
+  "accuracy_computed": false,
+  "scope": "all190/378/800known/unrecognizedengineering;timingsdescriptive;notwhole-limit/held/returning/promotion proof",
+  "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_functional1/functional_fir_cuda/functional_cuda.json",
+  "full_sha256": "dc6ef9a64f7253e3109f71e70de8e05ea599b4a4dcaf2e1b99230db45104a66d"
+}
