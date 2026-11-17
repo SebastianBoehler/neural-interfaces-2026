@@ -29,3 +29,5 @@
 - Account reservation:≤32running/272active; controllers preserve28submission slots; capacity waitsbounded50min.
 - Wave0released24cells as3116807%4; nextdispatcher3116808 waitsafterok. Account15running/170pending afterrelease.
 - Source/evidence committed and pushed46281fe; no partialouteraccuracy examined.
+
+17Nov complete-owning result: all60folds passed fullsource/exclusion/BN/gradient/control/hash guards; collector3117176PASS0:0(6s), consumerbootstrap3117177PASS(8s). Whole per-seed-argmax averaged official A52.8361/B53.6952/C53.7346%; C−Bofficial+.03943pp, people/order+.5513[−.7633,+1.9531],6/10up; C−Aofficial+.89846pp. This globallyweakdecoder cannot establish strongrepresentationtransfer/currentgain or familyclosure. Per-seedmetrics remain separate from two-seed ensemble. Proof aux317_whole_results.json. Private24two-seedstreams staged→replay3117276→8controls3117277→zero/onesmoke3117278→guardedfullrelease, no partialchainaccuracyread. Pending-onlyCPUbackfill updates preregistered: audited2080CPU, replay5min/controls+smoke15min, sameCPU/resources/source/guards. Futurematrixrequest remainsunchanged untilactualcostreview.

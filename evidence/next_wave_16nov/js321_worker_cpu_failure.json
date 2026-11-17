@@ -1,0 +1,46 @@
+{
+  "status": "worker_slack_guard_failed",
+  "row": {
+    "mode": "known",
+    "windows": 190,
+    "first": "base",
+    "base": {
+      "seconds": 82.33040524274111,
+      "cold_b1_seconds": 0.45877069886773825,
+      "warm_b1_median": 0.4332719324156642,
+      "recognized_at": 10,
+      "js_calls": 0,
+      "ft_refits": 0,
+      "cp_fused": 0,
+      "activity": {
+        "eligible": false,
+        "reason": "recognized_at10;FTandCPstopped",
+        "ft_refits": 0,
+        "cp_fused": 0
+      }
+    },
+    "js": {
+      "seconds": 90.3032645424828,
+      "cold_b1_seconds": 0.4822304481640458,
+      "warm_b1_median": 0.47439403366297483,
+      "recognized_at": 10,
+      "js_calls": 190,
+      "ft_refits": 0,
+      "cp_fused": 0,
+      "activity": {
+        "eligible": false,
+        "reason": "recognized_at10;FTandCPstopped",
+        "ft_refits": 0,
+        "cp_fused": 0
+      }
+    },
+    "ratio": 1.0968397917662944
+  },
+  "allowed_ratio": 1.0610079575596816,
+  "no_later_rows_harvested": true,
+  "device": "cpu",
+  "cpu_scope": "CPU bar failure is not A100 timeout evidence",
+  "source_file_sha256": "2e74e5b37889ee6d47b783570c4f41f213ef83e3b4ee82f61a7bb63eff8d6395",
+  "worker_image": "7fc0389c46ac6bec7c4395a9815e9ffee04d207a2a3700aeb3aef318bf79e2d0  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/cloud/ni26_worker.sif",
+  "functional_scope": "workerload/off17/resetrepeat/known190recognitionstop passed;unrecognized/lateCP/378/800 UNTESTED due first-row stop"
+}

@@ -1,17 +1,19 @@
 # Owned continuation: §321, §320, §317 (17 Nov)
 
 Current §321 preparation is experimental. No frozen submission/ZIP changed; no upload, promotion or new version.
-Source/evidence recovery pushed through d339827; follow-up proof commit pending. Root owns canonical STATE/STATUS/handoff/research docs.
+Source/evidence recovery pushed through1593def; complete-artifact/worker outcome evidence follows. Root owns canonical STATE/STATUS/handoff/research docs.
 
 - CURRENT: raw-input repair3117225 passed0:0 actual05:00:08–05:01:07CET(59s). Snapshot `ni26_js321_20261117_inputrepair1`.
 - All6historical P01 heldweights/traces reused by hashes; actual rawInputStream input_prior_k5→export latent_bn_k2 matches all8historical orders, max8.607e−7/0non-tiedchanges. `js321_raw_input_repair.json`.
 - Active5/3117230 PASS0:0 actual05:02:07–05:10:03CET(7m56s); full raw-corrected exactoff/inner/FTlabel/gate/reset/deepcopy and6draw×8order guards passed. `js321_active5_outer_path.json`.
 - ONEcanonicalall10seed0/3117236_0 PASS0:0(58s;fit34.05s), input_prior_k5/latent_bn_k2, InputStreammax1.46e−11/CPUexport7.10e−6/CUDA7.29e−6/reset/deepcopy/hash pass. `js321_all10_seed0_smoke.json`.
 - Independentorch4controller3117237 validatedsmoke→remaining5seedarray3117240(%2)→completecollector3117241; canonicalpassedseed0 reused. Workspace `ni26_js321_20261117_orchestration4`.
+- Completeall10collector3117241 PASS0:0(6s), all6models complete/source-normalization-export-hashespass; privateartifact `orchestration4/prepared_jsall`. `js321_all10_complete.json`.
 - Worker2observer3117239 bound actualcollector→independentCPU3117246/A1003117247 afterok3117241. Workspace `ni26_js321_20261117_worker2`; corrected IDs in js321_corrected_{deployment,worker}_jobs.json.
 - Worker2 source has prospective knownrec10/FT0/CPstop10 and forcedunrecognized no-rec/no-stop; exact eligible FT/CP refit/fusion schedule counts, no FTbudget skip/runtimeerror; single-classCP attempts explicitly reported.
 - Worker image clean isolated import/compile preflight passed. CPUratio bar is engineering overhead only: CPUratio×historicalA10043.5min is NOT CPUsealedtime/A100timeout evidence. A100historical basis conditional, not wholeworker-limit proof.
-- Both device probes retain first-ratio-failure stop (≤1.061008 for hour-slack1.3 engineering bar); no later-row harvesting. No worker timing result yet.
+- CPUworker3117246 FAILED firstknown190bar:82.330→90.303s/ratio1.09684>1.061008; warmB1med433.27→474.39ms. Off17/resetrepeat/knownrec10/FT0/CPstop10/190CCcalls passed. STOP:378/800/unrecognized/lateCP UNTESTED. CPUbar≠CPUsealed/A100timeout.
+- A100worker3117247 independent/PENDING; pending-only25min/16GiB4CPU update grounded in v66A10040.58/78.15/155s190/378/800 andCPUimage3.12GiBpeak. Forecast06:32:30CET only, noGPUresult/readinessclaim.
 
 §321 proven mapping and remaining limits:
 - Explicit JS-all policy: continue outerJS after recognition, matching318; original innerweights/gates/r15labels/FTcomputations intact. Preserved innergate does NOT imply final recognizedoutput identity.
@@ -24,8 +26,8 @@ Source/evidence recovery pushed through d339827; follow-up proof commit pending.
 - All6initial all10tasks3117189 failed normalizationguard before checkpoints/export (literalinputk2); sourceall10G/scale exactly frozenoriginal, no accuracy issue. Preservefailurelogs in orchestration3; dead3117190/3117196/3117197 cancelled.
 
 Other owned lanes:
-- §317 immutable `ni26_aux317_20261117_matrix2`: final12foldwave3117175(%4)→owningcollector3117176→private315consumer3117177. No partialouter accuracy read.
-- Require owning complete60fold proof before outerlabels, then privateconsumer stage/replay/8controls/zero/6CP/source/routing guards. Existing source pilot does not establish current-system gain.
+- §317 complete60foldcollector3117176PASS0:0(6s)→privateconsumer3117177PASS(8s). WholeofficialA52.8361/B53.6952/C53.7346%; C−B+.03943pp,people/order+.5513[−.7633,1.9531],6/10up; weakdecoder,notstrongtransfer/currentgain/familyclosure.
+- Private317chain1:24two-seedstreams→replay3117276→8controls3117277→zero/onesmoke3117278→guardedfullrelease. No partialchainread. Pending-onlyauditedCPUbackfill/replay5min/control+smoke15min keepssource/guards/resources.
 - §320 sourcepilot3116903 completed0:0; H60.115/U61.156/S61.669/R62.173% P02, R−U+1.017pp but H<68.60quality stop FIRED. No fullmatrix.
 - Ranker/mask/BN/zero/source/prefix guards passed; sourceweightSD.0975. Prototype not established strongwhole decoder (312S54.694%); no automatic expansion/reliability transfer claim.
 - Details: `js321_readiness.md`, `aux317_handoff_17nov.md`, `reliability320.md`.
