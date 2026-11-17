@@ -1,0 +1,93 @@
+{
+  "status": "REAL_SOURCE_TRAINING_PARITY_PASS",
+  "job_id": 3121076,
+  "sacct": "3121076|COMPLETED|320|2|0:0|\n3121076.batch|COMPLETED|320|2|0:0|10965236K\n3121076.extern|COMPLETED|320|2|0:0|\n",
+  "allocated_coresec": 640,
+  "allocated_CPUh": 0.17777777777777778,
+  "prior_pre_numerical_failed_coresec": 240,
+  "artifact": "/mnt/lustre/work/gehler/gfh527/ni26_core_training_source_v3_20261117",
+  "scope": "REAL C10/gtol1e-4 source-only P04_s23; not Hilbert/causal-held/full-stack/performance qualification",
+  "training_log": "features relative_L2=3.79160178405e-09 limit=1e-6\nfeatures max_abs=7.59175408405e-06 limit=0.0001\nlog_glob max_abs=6.60453025603e-10 limit=1e-05\nmu max_abs=3.49919575954e-10 limit=0.0001\nsd max_abs=1.71939049665e-08 limit=0.0001\nsource_probability max_abs=8.52548054375e-09 limit=0.001\nOK native REAL source fit rows=2278 changed_labels=0 nit=16 nfev=19 objective=0.000323193492307 max_gradient=7.00376569023e-05 seconds=95.500912172\n",
+  "oracle_time": "\tCommand being timed: \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B native/tests/core_training_fixture.py fixture\"\n\tUser time (seconds): 151.12\n\tSystem time (seconds): 12.13\n\tPercent of CPU this job got: 98%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 2:46.53\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 6614216\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 4059\n\tMinor (reclaiming a frame) page faults: 721728\n\tVoluntary context switches: 20744\n\tInvoluntary context switches: 233\n\tSwaps: 0\n\tFile system inputs: 225968\n\tFile system outputs: 1985872\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+  "training_time": "\tCommand being timed: \"build/ni26_core_training_source fixture/source.pt fixture/recipe.pt fixture/reference.pt native_core.pt\"\n\tUser time (seconds): 154.32\n\tSystem time (seconds): 4.61\n\tPercent of CPU this job got: 159%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:39.71\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 7115744\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 1112745\n\tVoluntary context switches: 2362\n\tInvoluntary context switches: 251\n\tSwaps: 0\n\tFile system inputs: 0\n\tFile system outputs: 4936\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+  "final_exit": "FINAL_EXIT=0\n",
+  "source_manifest_sha256": "73f458d9566412c264e4a433052793c2030bef88544d1ef97dc6dc6d4fbe33bd",
+  "assets_manifest_sha256": "c113aa2b62e397c3fad3fe8e34b4f17f12f6f71beb069b27ff4e1db409b1c5b8",
+  "preflight_proof_sha256": "ba4f6f7ff5cfffe162ce04cddeb2f74f5bc17c63bee92425ba530ce2d676580c",
+  "source_oracle": {
+    "status": "SOURCE_ONLY_ORACLE_NO_REFIT",
+    "fold": "P04_s23",
+    "source_rows": 2278,
+    "excluded_rows": 377,
+    "source_rows_sha256": "ca4a869ff981142b692b2a4e2ecb44f075ea2494e398280f103c9a9a36bcea2b",
+    "source_labels_from": "existing source-only fit y_tr",
+    "query_labels_opened": false,
+    "query_EEG_used": false,
+    "accuracy_computed": false,
+    "native_training_run": false,
+    "original_feature_seconds": 155.93968434305862,
+    "coefficient_archive_sha256": "4bf45aee1fa6457e75e504d5acf747a6c6a4e21c99a3266c0c5a514c6b5ab31c",
+    "producer_sha256": "712eee42ed3d7321abf5b5a0dac9f7688a7e142e1de5d609a4f1c082285b93f7",
+    "pinned_inputs": {
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/fit.json": "eb3bcd5582a09ca1d621e44f154817e942bd13082cf953a481fed837d536635e",
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/returning_view_fit.py": "c18340502a988284e12a4f272156ed11063855a4824a5d0ba64d1b06f1fe0566",
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/returning_view_fit.sbatch": "bd7a23125624f1574e11cdaa9ee2789901fdd3783d38ec71f870fb60b74f02da",
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/returning_assets.py": "8e7066951f3ef2a1b750e511b831aabf4c3202c4b64753cdeb00ba8e5c52b292",
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/protocol.py": "390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/2026-competition/tracks/bci_decoding/benchmark_utils/metrics.py": "fcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d",
+      "/mnt/lustre/work/gehler/gfh527/ni26_native353_qualify_v1_20261117/package/native.pt": "4bf45aee1fa6457e75e504d5acf747a6c6a4e21c99a3266c0c5a514c6b5ab31c",
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/features.py": "360f335d5a9224aad67af9725907cda07ce799fb574a62ae44bb7eb6cbe3dabd",
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/source.sha256": "1196bab53ccb843123e34e411c9b9e0e682161d3448ba5ff73acb06880100297",
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/data/proteus_windows.npz": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/source_view_P04_s23.npz": "8f52ab55d4dea7eca9b43b610fad2c645c1f3029372570d05ab71b2187123675",
+      "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning2/source/experiments/ts_core.py": "0dd250ac222c7a1678c43a46e31ad7219e6d36369bd2b914293f8c31202d6e1c"
+    },
+    "outputs": {
+      "source.pt": "1268baef8db64775ce12c6ceb056829b4b90b2fbbd39aca0908bcfffe7281bb9",
+      "recipe.pt": "7953079bc1dd6f3184ff416bc589223401df5c81bbf0d7b6f0dc3f9dff08167d",
+      "reference.pt": "aba119c2c6985bc3fef0477c44e2f03b91e8b71e48c90d863c2c3f364bbcff3c"
+    }
+  },
+  "model_sha256": "b57eb82ac10036ec2f4617e4c84d8c658eb4355ed67885eb8c7d7516c664fe5f",
+  "model_metadata": {
+    "training_C": 10.0,
+    "training_gtol": 0.0001,
+    "training_nit": 16.0,
+    "training_nfev": 19.0,
+    "training_objective": 0.0003231934923066097,
+    "training_max_gradient": 7.00376569022555e-05
+  },
+  "model_shapes": {
+    "W": [
+      3,
+      44239
+    ],
+    "b": [
+      3
+    ],
+    "mu": [
+      44239
+    ],
+    "sd": [
+      44239
+    ],
+    "log_glob": [
+      51,
+      41,
+      41
+    ],
+    "training_rows": [
+      2278
+    ],
+    "training_person": [
+      2278
+    ],
+    "training_stream": [
+      2278
+    ]
+  },
+  "query_labels_opened": false,
+  "accuracy_computed": false,
+  "Python_fit_run": false,
+  "all_postrun_provenance_checks_pass": true
+}

@@ -1,4 +1,4 @@
-# §353 native classical source training — prepared, not runtime-qualified
+# §353 native classical source training — REAL source fold qualified
 
 API: `train_classical_core(source, recipe)` in `ni26/core_training.h`.
 CLI: `ni26_core_train RAW_SOURCE.pt IMMUTABLE_RECIPES.pt OUTPUT.pt` trains both
@@ -51,7 +51,7 @@ all other learned stage priors, native dataset ingestion and complete training
 orchestration remain separate. The cores consume no NumPy RNG. This is not a
 claim that external NumPy-RNG-dependent training routines have been ported.
 
-## Proposed minimal real-source registration, BEFORE any new fit
+## Original prepared proposal (superseded by existing-reference test)
 
 One raw fixture with two COMPLETE actual source sessions (e.g. P01/session1 and
 P02/session1, ~380 windows, all3 classes), plus a held person's session whose EEG
@@ -73,6 +73,10 @@ change trajectories and must not be hidden as a stopping change. Any failed
 source/exclusion/feature/posterior guard blocks adoption; no bounds loosened.
 No held labels, accuracy, whole-system score or separate heavy allocation.
 
-Current status: C++ syntax-only and diff checks pass; no core-training fit has
-run. Root includes `cmake/core_training.cmake` after the base+linear targets when
-its integrated build/budget is ready. All owned non-vendor source files <300LOC.
+Current status:3121076 qualifies native REAL C10/gtol1e−4 source fitting on
+2,278 P04_s23 source rows against the existing original fit; probabilitymax
+8.52548e−9/ZEROlabels. Full feature/prior/scaler/exclusion/objective guards pass.
+Hilbert fitting, causal held-input parity and full-stack training remain separate.
+See native353_training_completeness.md and native353_training_source.json for
+actual timing/RSS/provenance and preserved preparation failures. Root includes
+cmake/core_training.cmake. All owned non-vendor source files remain <300LOC.

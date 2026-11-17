@@ -1,14 +1,15 @@
-# §353 training completeness audit — prepared, not source-fit validated
+# §353 training completeness audit — REAL source fold qualified
 
 Audit17Nov2026. Native runtime functionality and native training completeness
-are separate claims. No new allocation, feature computation, fit, accuracy or
-held-label selection was performed for this audit. The new test is syntax-only.
+are separate claims. Read-only audit preparation was followed by explicitly
+released source test3121076: REAL-core P04_s23 parity PASS. Hilbert/full-stack
+training remain unqualified. No accuracy or held-label selection was performed.
 
 | Stage | Implemented in C++ | Python or imported preparation still required |
 |---|---|---|
 | Dataset ingestion | Versioned tensor archive reader and strict raw source schema | Official EEG/channel/unit/window extraction and NPZ→tensor migration. The trainer expects canonical float32[N,41,480]. |
 | Classical source features | Both actual CAR presets, SOS application, real/Hilbert covariance, source whole-session references/slow centering | Immutable SOS coefficients are migrated from the existing package. Native Butterworth coefficient design is absent. |
-| Classical priors/head | Window-weighted source log prior, native scaler and exact native L-BFGS-B; real C10/Hilbert C3, default actual-core gtol1e-4 | No Python callback. End-to-end native **source fitting remains unvalidated**; existing96-window inference/math qualification does not validate source aggregation or fitting. |
+| Classical priors/head | Window-weighted source log prior, native scaler and exact native L-BFGS-B; real C10/Hilbert C3, default actual-core gtol1e-4 | No Python callback. End-to-end REAL P04_s23 source fitting is qualified by3121076. Hilbert fitting remains unvalidated;96-window inference qualification is separate. |
 | Neural source preparation | Native inference input paths exist | Current training API consumes source_X already scaled/reordered by original Python AlignedNet._fit, plus source-session IDs. Original source G and scale and training-row order are fixture preparation. Root owns its replacement work. |
 | Neural initialization | Native RawFBC forward/backward/update consumes named tensors | Current training entry imports `initial_*` from Python build/PyTorch RNG. Root owns the new raw-FBC initializer; its unvalidated work is not counted complete here. |
 | Neural sampling | Native training consumes and checks exact1240×64 padded indices, sizes and same-session32-row chunks | Python SessionAlignedNet._batches uses NumPy default_rng permutation, choice for padding, then chunk permutation across40epochs. Exact RNG/sampling remains fixture supplied. |
@@ -23,7 +24,7 @@ returning_view_fit.py, returning_context.py, returning_galleries.py; native
 core_training*, training*, convert_package.py and neural_training_fixture.py.
 No neural source/header was changed by this audit.
 
-## Smallest concrete next training parity test
+## Executed first training parity test
 
 Prepared `native/tests/core_training_fixture.py` and `core_training_source.cpp`,
 CMake target `ni26_core_training_source`. This tests the **real core only** on the
@@ -43,7 +44,7 @@ saved float32 PC256 reproduction, and uses its existing C10 W/b/mean/scale/prior
 The Python oracle exists only for independent comparison. The native active fit
 consumes raw source EEG plus immutable SOS recipe, never reference features.
 
-Prospective fixed guards (no measurements yet): all rows/order/exclusion guards;
+Fixed guards registered before execution (results below): all rows/order/exclusion guards;
 full44,239-dimensional raw feature maxabs≤1e−4/relativeL2≤1e−6; log-prior maxabs≤1e−5;
 source scaler mean/scale maxabs≤1e−4; native fitted source probability maxabs≤1e−3
 and ZERO predicted-label changes versus original features/scaler/head. Independent
@@ -53,7 +54,7 @@ no stop or tolerance change is planned. No causal-query/full-runtime claim follo
 from source-only fit parity; Hilbert and label-free causal query checks follow
 only after this first real-core source test passes and budget is rechecked.
 
-Cost proposal, **not released**: one CPU2/16GiB/10min job, maximum1,200 allocated
+Original cost proposal (subsequently released below): one CPU2/16GiB/10min job, maximum1,200 allocated
 coresec=.333333CPUh/0GPU. Existing original Python source features took132.215s
 at1thread, original C10 head5.990s at6threads. Expected combined original feature
 recompute+native source preprocessing/fit≤360s; no speed win is presumed.
@@ -66,9 +67,9 @@ no running/pending353 jobs. Their root-authorized arithmetic check reserves180
 coresec, leaving6,500 before refunds. This proposed1,200 would leave5,300;
 root must reconcile actual completed cost and register/release before execution.
 
-Validated now: Python byte-compilation and C++20 LibTorch syntax-only check;
-`git diff --check`. Not validated: link of new test, numerical source-training
-parity, execution cost, memory, Hilbert fit, full neural fit or full-stack training.
+Validated: Python byte-compilation/C++20 syntax/diff checks, exact executable
+linkage and3121076 REAL source-training parity at its demonstrated scope below.
+Hilbert/causal-held/full-neural/full-stack training remain unqualified.
 
 ## Released source-only test, BEFORE execution
 
@@ -125,3 +126,44 @@ prebuilt executable cbee44d0…9c5a5 reused, same C10/gtol1e−4/source/PC/scale
 objective/exclusion guards. Snapshot ni26_core_training_source_v3_20261117.
 No automatic retry or extension. NN strict FT failure remains separate;
 this release is REAL classical source fit ONLY, never NN source updates.
+
+## Actual source-training qualification —3121076 COMPLETE
+
+| Fixed engineering guard | Actual | Registered bound |
+|---|---:|---:|
+| All2,278 raw44,239-dimensional source features maxabs |7.59175408405e−6|1e−4|
+| Source-feature relativeL2 |3.79160178405e−9|1e−6|
+| Source window-weighted global log prior maxabs |6.60453025603e−10|1e−5|
+| Source scaler mean maxabs |3.49919575954e−10|1e−4|
+| Source scaler scale maxabs |1.71939049665e−8|1e−4|
+| Source fitted posterior maxabs |8.52548054375e−9|1e−3|
+| All source predicted-label changes |0|0|
+| Original saved float32PC256 reproduction |BITWISEPASS|exact|
+| Poisoned exclusion/partial-session/held-person checks |PASS|all|
+| Independent final-objective difference |PASS|≤1e−10|
+
+Pure C++ raw-window→source references/priors/scaler/native L-BFGS-B API95.500912s;
+complete native process99.71s/user154.32+sys4.61coresec, peak7,115,744KiB.
+Original-feature oracle166.53s/user151.12+sys12.13, peak6,614,216KiB; it includes
+input checks/preparation/serialization and NO Python head/scaler/PCA fit.
+These differ in threads and timing boundaries: **not a matched performance win**.
+Slurm job COMPLETE320s×CPU2=640allocatedcoresec=.177778CPUh, batchMaxRSS
+10,965,236K (different collection scope from per-process GNUtime), within16GiB.
+Full job includes both programs and all manifest checks before/after. Native
+C10/gtol1e−4 metadata verified:16iterations/19evaluations, objective
+.0003231934923066097, maxgradient7.00376569022555e−5; native convergence PASS.
+
+New native model b57eb82ac10036ec2f4617e4c84d8c658eb4355ed67885eb8c7d7516c664fe5f
+at ni26_core_training_source_v3_20261117/native_core.pt. Qualified CAR base
+70d14978…1cb5 and exact executable cbee44d0…9c5a5 reused. Final source manifest
+73f458d9…e33bd/assetsc113aa2b…1c5b8/full-preflightba4f6f7f…6580c; every
+postrun source/NFS/worker-library guard PASS. Independent original source oracle
+and exact model metadata/provenance/times are in native353_training_source.json.
+No dataset/checkpoint committed. Earlier pre-numerical failures240coresec remain
+in native353_training_source_failures.json; this source-test wave880coresec
+=.244444CPUh total. Root tally8,371 before success +640=9,011coresec, before
+later allocations. No own running/pending job, retry, extension or extra fit.
+
+**Scope:** one source-only REAL-core P04_s23 fold, all source windows/features.
+No Hilbert fit, causal held-input check, whole-runtime/worker qualification,
+complete C++ PCA/gallery/neural training, accuracy, dev/rank or speed-gain claim.

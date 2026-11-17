@@ -1,10 +1,12 @@
 # §353 REAL-core source test: complete preflight checklist
 
-**Status: no new allocation.** Both failures are preserved:3120845 link provenance
+**Pre-release checklist snapshot; later source fit3121076 PASS (see training_completeness.md).**
+Both earlier failures are preserved:3120845 link provenance
 (142coresec) and3120955 missing official Python import path(98coresec). Neither
 computed original source features or ran a native fit. Total240coresec=.066667CPUh.
 Aggregate§353=7,993coresec before NN3120986 actuals; NN1,200 and root-init180 reserved.
-Numerical source fit remains UNQUALIFIED. No numerical math/test/bound was changed.
+At checklist review, numerical source fitting was still unqualified; the later
+explicitly released fit passed. No numerical math/test/bound was changed.
 
 Read-only checker: `native/tests/core_training_preflight.py` executes the ACTUAL
 fixture script's sys.path initialization/import AST; it does not call main.
