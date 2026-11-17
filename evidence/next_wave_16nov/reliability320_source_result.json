@@ -1,0 +1,146 @@
+{
+  "status": "source_pilot_complete",
+  "outer_excluded": "Dreyer2026Proteus/P01",
+  "validation_person": "Dreyer2026Proteus/P02",
+  "fit_people": [
+    "Dreyer2026Proteus/P03",
+    "Dreyer2026Proteus/P04",
+    "Dreyer2026Proteus/P05",
+    "Dreyer2026Proteus/P06",
+    "Dreyer2026Proteus/P07",
+    "Dreyer2026Proteus/P08",
+    "Dreyer2026Proteus/P09",
+    "Dreyer2026Proteus/P10"
+  ],
+  "fixed_epochs": 10,
+  "source_manifest": "204c09593294d269a528f67d0640b59c560177fae043090ae7b1aa5f2b276726",
+  "data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+  "smoke": {
+    "status": "real_source_smoke_passed",
+    "guard": {
+      "identity": true,
+      "mean_logit_identity": true,
+      "zero_mask": true,
+      "zero_ranker_uniform": true,
+      "active_masks": true,
+      "prefix_reset": true,
+      "population_bn_unchanged": true,
+      "mask_sha256": "9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"
+    },
+    "source_fit": [
+      "Dreyer2026Proteus/P04",
+      "Dreyer2026Proteus/P05",
+      "Dreyer2026Proteus/P06",
+      "Dreyer2026Proteus/P07",
+      "Dreyer2026Proteus/P08",
+      "Dreyer2026Proteus/P09",
+      "Dreyer2026Proteus/P10"
+    ],
+    "source_query": "Dreyer2026Proteus/P03",
+    "encoder": {
+      "seconds": 10.72568520763889,
+      "initial": "caaaeb69c58170fcaf0cd7e419d82566c7e9b6f41c9fcf725c4a9d615f3ad283",
+      "final": "be0d1e7c40b2d429bf2e52d90b88053420f57892256d94992f3af49b6d39128c",
+      "epochs": 1,
+      "losses": [
+        1.2343896952542392
+      ]
+    }
+  },
+  "folds": [
+    {"query":"Dreyer2026Proteus/P03","fit_people":["Dreyer2026Proteus/P04","Dreyer2026Proteus/P05","Dreyer2026Proteus/P06","Dreyer2026Proteus/P07","Dreyer2026Proteus/P08","Dreyer2026Proteus/P09","Dreyer2026Proteus/P10"],"encoder":{"seconds":36.213077954016626,"initial":"caaaeb69c58170fcaf0cd7e419d82566c7e9b6f41c9fcf725c4a9d615f3ad283","final":"a580d16c7f0169d6bffcf563c2dee2113d5a316d06f4f7421c0e50fbd8b0e936","epochs":10,"losses":[1.2343896952542392,0.9855744874838627,0.8883814703334462,0.8206955808581728,0.7726420308604385,0.7462401913874077,0.7013683337153811,0.6863558003396699,0.6652567458875251,0.6240720080606865]},"guard":{"identity":true,"mean_logit_identity":true,"zero_mask":true,"zero_ranker_uniform":true,"active_masks":true,"prefix_reset":true,"population_bn_unchanged":true,"mask_sha256":"9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"},"scale":31.471481323242188,"fit_rows_sha256":"393a55907c2473964e5cf0bfceddac770ee3e9b4e7c0d06670c57b0f1ff70b24","query_rows_sha256":"96fcf70f3f89e4d5db1883134557d04defc5d9dec3eb9fb1d5d33f84bf7e1898"},
+    {"query":"Dreyer2026Proteus/P04","fit_people":["Dreyer2026Proteus/P03","Dreyer2026Proteus/P05","Dreyer2026Proteus/P06","Dreyer2026Proteus/P07","Dreyer2026Proteus/P08","Dreyer2026Proteus/P09","Dreyer2026Proteus/P10"],"encoder":{"seconds":30.28857091628015,"initial":"0793aa6f4d340c7f9f6cc7bd13f989b1527aa1201be78b466d63064082859fee","final":"056d4e10e0920abc056e678ed1e23bf63acfcd3e202f07cc045fc69f6c0d6319","epochs":10,"losses":[1.2559190017205697,0.9157439470291138,0.8304799773074962,0.7428249584303962,0.6790815260675218,0.6365474186561726,0.596675494202861,0.5623709614630099,0.5702644641752597,0.5037871919296406]},"guard":{"identity":true,"mean_logit_identity":true,"zero_mask":true,"zero_ranker_uniform":true,"active_masks":true,"prefix_reset":true,"population_bn_unchanged":true,"mask_sha256":"9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"},"scale":34.23032760620117,"fit_rows_sha256":"412026c852c05ae5a8e422469690ffaeb09f96b47e95e3d07a7fd7f06ba86b51","query_rows_sha256":"5573faf028014f0e4f1f824365ba317c0392785c8796ff9672331e57927a7917"},
+    {"query":"Dreyer2026Proteus/P05","fit_people":["Dreyer2026Proteus/P03","Dreyer2026Proteus/P04","Dreyer2026Proteus/P06","Dreyer2026Proteus/P07","Dreyer2026Proteus/P08","Dreyer2026Proteus/P09","Dreyer2026Proteus/P10"],"encoder":{"seconds":36.66060728486627,"initial":"b2f457a31fe7c99c10b40ec0970eed325d11c489584389c6af3637f4c57ad6a3","final":"8f83ccab73bf747f8d294f411ca6cdf0761cbc7f44f0e818ced759c0dfde2b5d","epochs":10,"losses":[1.2556642510674216,1.000269662250172,0.9460123307777174,0.8539209275534658,0.7906599749218334,0.7892339663072065,0.7923802697297299,0.6882980267206827,0.6582284407182173,0.60611753301187]},"guard":{"identity":true,"mean_logit_identity":true,"zero_mask":true,"zero_ranker_uniform":true,"active_masks":true,"prefix_reset":true,"population_bn_unchanged":true,"mask_sha256":"9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"},"scale":29.314416885375977,"fit_rows_sha256":"9fe86cb578cc350de6c67f3fc2a7b84bf624ba859b6fd76002aea905389b939c","query_rows_sha256":"ceb53d500b9a99a07de21f1625eab3d2a6c0d74ca4bdae3034fbf3ded2731eed"},
+    {"query":"Dreyer2026Proteus/P06","fit_people":["Dreyer2026Proteus/P03","Dreyer2026Proteus/P04","Dreyer2026Proteus/P05","Dreyer2026Proteus/P07","Dreyer2026Proteus/P08","Dreyer2026Proteus/P09","Dreyer2026Proteus/P10"],"encoder":{"seconds":36.63076957594603,"initial":"953cad996bd30432a3e64fec86badad283cec67b4951e5b7c2d155152a2b5cd8","final":"96e5462d725228fcf62279c6098a9aa25cdf14cc858e639ac76117b138518515","epochs":10,"losses":[1.2747532508590005,1.0353982105399624,0.9232871839494416,0.8449513641270724,0.7833709861292983,0.7249020843794851,0.6920315225919088,0.6474674687241063,0.6230578241926251,0.6286790118072972]},"guard":{"identity":true,"mean_logit_identity":true,"zero_mask":true,"zero_ranker_uniform":true,"active_masks":true,"prefix_reset":true,"population_bn_unchanged":true,"mask_sha256":"9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"},"scale":30.418243408203125,"fit_rows_sha256":"b011f05a52fac81210c69c0de20c8e7f940ac25aea89967c4022eaa30d050f89","query_rows_sha256":"00ce607111e4bed38b2af61123059c9089d930163f6cfe1f6eacd869b9bad36a"},
+    {"query":"Dreyer2026Proteus/P07","fit_people":["Dreyer2026Proteus/P03","Dreyer2026Proteus/P04","Dreyer2026Proteus/P05","Dreyer2026Proteus/P06","Dreyer2026Proteus/P08","Dreyer2026Proteus/P09","Dreyer2026Proteus/P10"],"encoder":{"seconds":36.55006310204044,"initial":"5f1a0820d56759a3563221fe1cffcd3504c08a616887ab78ece815bc59e58e42","final":"0d4d86b7225e9d08d51e1c08ddcc01cce5bc028bb35d2f01df8fb7c96b3a1676","epochs":10,"losses":[1.1699526562835232,0.9623760183652242,0.880144375743288,0.8453487500999913,0.7942175847111326,0.740978641943498,0.7281875809033712,0.7050774567054979,0.6718666490280267,0.630171868837241]},"guard":{"identity":true,"mean_logit_identity":true,"zero_mask":true,"zero_ranker_uniform":true,"active_masks":true,"prefix_reset":true,"population_bn_unchanged":true,"mask_sha256":"9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"},"scale":30.028024673461914,"fit_rows_sha256":"eaea20f9a7a97b5876458a77809550850ebb9d1fab6dc946d1302c60a936fe36","query_rows_sha256":"068cfcf816fb46e157bd20f1f80fce95a494495bc230107a3ded9ae9cbc78dc9"},
+    {"query":"Dreyer2026Proteus/P08","fit_people":["Dreyer2026Proteus/P03","Dreyer2026Proteus/P04","Dreyer2026Proteus/P05","Dreyer2026Proteus/P06","Dreyer2026Proteus/P07","Dreyer2026Proteus/P09","Dreyer2026Proteus/P10"],"encoder":{"seconds":36.596256573684514,"initial":"b183d3af1d6677cacb0cc0e1aad5327987c221c974b048f624e794878bed70c8","final":"1d30f37f5ea332f9418dc067cb3f072d384d0cfe399d50403c80c913bbecb5ce","epochs":10,"losses":[1.1927619847384365,0.9595222762136748,0.8962080478668213,0.8674447175228235,0.7761303619904951,0.7605647444725037,0.7174700462456906,0.7698764403661092,0.6992125890471719,0.6489438342325615]},"guard":{"identity":true,"mean_logit_identity":true,"zero_mask":true,"zero_ranker_uniform":true,"active_masks":true,"prefix_reset":true,"population_bn_unchanged":true,"mask_sha256":"9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"},"scale":31.393238067626953,"fit_rows_sha256":"d4d4cc93ae32a4876e86f8abf9be36121182cc3ac9c1210ef70cff42d4395432","query_rows_sha256":"791a5d1789135be4e7e70794f0b4131c8dbb0f7361cff40745b4e642af42b5dd"},
+    {"query":"Dreyer2026Proteus/P09","fit_people":["Dreyer2026Proteus/P03","Dreyer2026Proteus/P04","Dreyer2026Proteus/P05","Dreyer2026Proteus/P06","Dreyer2026Proteus/P07","Dreyer2026Proteus/P08","Dreyer2026Proteus/P10"],"encoder":{"seconds":36.40291330171749,"initial":"e49c6f3a4677af8e18f3dcbf86797b5d7b03314e2facf37c5bda4015839fd7ac","final":"ce511e283021f80e2ffa71172f4fe2dce49a4ce5fed7f4f38c07cc7303e514bd","epochs":10,"losses":[1.1941375569863752,0.9902761831428065,0.8987903396288554,0.8245938799598,0.7576235659194716,0.7545196359807794,0.6984903704036366,0.6884749883955176,0.6288645195238518,0.5890570156502001]},"guard":{"identity":true,"mean_logit_identity":true,"zero_mask":true,"zero_ranker_uniform":true,"active_masks":true,"prefix_reset":true,"population_bn_unchanged":true,"mask_sha256":"9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"},"scale":31.422351837158203,"fit_rows_sha256":"0e67712039b100b30918a4e1078577590d87fc9e8475d5913801014afd5c9343","query_rows_sha256":"3404d36b360fbf18d99370c6d94b603e9bea42022addcb516dd05cbea2d77a5c"},
+    {"query":"Dreyer2026Proteus/P10","fit_people":["Dreyer2026Proteus/P03","Dreyer2026Proteus/P04","Dreyer2026Proteus/P05","Dreyer2026Proteus/P06","Dreyer2026Proteus/P07","Dreyer2026Proteus/P08","Dreyer2026Proteus/P09"],"encoder":{"seconds":29.52801246382296,"initial":"9b9855ba13de776a7a85168219bf635d4c2620d9d97edeb150e2ff519a0ad352","final":"574235ae9ffb30caff56439b89084970bd3f50e512a446c58ec2e0b5beca0322","epochs":10,"losses":[1.198649803797404,1.0019925943127386,0.9254285847699201,0.9000031528649507,0.8013053072823418,0.7966945590796294,0.774787739471153,0.759516367205867,0.6679891568643076,0.6459695122860096]},"guard":{"identity":true,"mean_logit_identity":true,"zero_mask":true,"zero_ranker_uniform":true,"active_masks":true,"prefix_reset":true,"population_bn_unchanged":true,"mask_sha256":"9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"},"scale":30.64836883544922,"fit_rows_sha256":"0c5c835ee9761689d7ca23b0734cb33d60fcd2e585d7989ef95f49de8106ed34","query_rows_sha256":"e81bcb0d3731e3e67e4e0df34d5c5cf1169ae2e6133fe6a7813f7230e9b5a360"}
+  ],
+  "ranker": {
+    "max_gradient": 0.015093883499503136,
+    "losses": [
+      0.6872022151947021,
+      0.6220456957817078
+    ],
+    "source_weight_std": 0.08895488828420639,
+    "row_weight_sha256": "e6809d21b0c197c6e4b6a9ed5299fad00d7dd1605063bf56d789c92f841d2009"
+  },
+  "source_control": {
+    "seconds": 40.485433290712535,
+    "initial": "9c4e78bef685a5fe942b773e23da76d3786e289f044ee5a5f32e8a22e8e462f0",
+    "final": "02826978f0face5d1c17566df6d3e069626dbb62d9b71b06b3e3b1ffe6ecd45e",
+    "epochs": 10,
+    "losses": [
+      1.2650809271468058,
+      0.9805667599042257,
+      0.9165996958812078,
+      0.8509989910655551,
+      0.7905358374118805,
+      0.7314537200662825,
+      0.7050581011507246,
+      0.6686030924320221,
+      0.6210821809040176,
+      0.6408299290471606
+    ]
+  },
+  "guard": {
+    "identity": true,
+    "mean_logit_identity": true,
+    "zero_mask": true,
+    "zero_ranker_uniform": true,
+    "active_masks": true,
+    "prefix_reset": true,
+    "population_bn_unchanged": true,
+    "mask_sha256": "9c91b9341ff99c00f1d7a64e3f0b67768390aef3c53e5172310ab901026b667f"
+  },
+  "results": {
+    "H": {
+      "ba": 0.6011451482772827,
+      "ce": 0.8474257026319505
+    },
+    "U": {
+      "ba": 0.6115618348121643,
+      "ce": 0.8376840149719301
+    },
+    "S": {
+      "ba": 0.6166874766349792,
+      "ce": 0.8322270768217032
+    },
+    "R": {
+      "ba": 0.6217305064201355,
+      "ce": 0.8136185714181893
+    },
+    "HC": {
+      "ba": 0.6011451482772827,
+      "ce": 0.9360364979240057
+    },
+    "UC": {
+      "ba": 0.6115618348121643,
+      "ce": 0.9488869249896541
+    },
+    "SC": {
+      "ba": 0.6166874766349792,
+      "ce": 0.9482841570467505
+    },
+    "RC": {
+      "ba": 0.6217305064201355,
+      "ce": 0.9271490927759798
+    }
+  },
+  "temperatures": {
+    "H": 4.0,
+    "U": 4.0,
+    "S": 4.0,
+    "R": 4.0
+  },
+  "source_weight_std": 0.0974561870098114,
+  "seconds": 337.3235830804333,
+  "validation_rows_sha256": "668e756312945d20561dd9219983d309304b0c337dac22b55b52472d0ced11a3",
+  "interpretation": "source-only repeatedly-usedP02 pilot;not outer/current-chain gain or paper reproduction",
+  "source_control_valid": false,
+  "instance_reliability_active": true,
+  "source_harm_stop": false,
+  "expansion_policy": "manual scientific review;no automatic outer matrix",
+  "checkpoint_sha256": "4c2ee017eb801b509b1bd5da45b86c5f53ca12fd751546e4a16273e181ffdbca"
+}

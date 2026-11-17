@@ -111,3 +111,32 @@ The job runs smoke first and stops on failure before the full pilot. Before exec
 wall time was reduced30→20min (resource-only amendment) to improve backfill; scientific source remains
 immutable. At03:22CET the scheduler estimated03:49CET start; this is not a guaranteed start/completion.
 Account snapshot before submission14running/90pending. No further job or automatic outer release.
+
+### Whole-control scope correction after registration
+
+The completed§312GPU study subsequently measured the same broad raw population-BN prototype at
+S54.694%,T53.899%,C52.384% whole official equal-cell accuracy. Its strongP02source check did not
+establish a strong whole decoder. The queued§320source pilot remains a valid bounded mechanism
+probe; its68.60% source control bound is only a one-person check. Full expansion must first address
+whole-control quality and the known sampling/optimizer/normalization differences from the original
+raw SessionBN decoder. No source result may be transferred into a current-system gain claim.
+
+## Completed bounded pilot: quality stop
+
+Job3116903 completed0:0, actual03:30:43–03:36:24CET (5m41sallocation,337.32sscript).
+All smoke/source/identity/mask/BN/reset/prefix and rankergradient checks passed. Eight source-query
+fits took29.53–36.66seach; final8personfit40.49s. P02sourcevalidationBA H60.115%,U61.156%,
+S61.669%,R62.173%; R−U+1.017pp,R−S+.504pp. Active row-dependent weights have maximumSD.0975.
+Rankingloss.6872→.6220, maxgradient.0151; no silent ranker/no-op or in-sample-query fit was observed.
+
+**Hfails the preregistered68.60% source-control bound.** No full320matrix/consumer is justified from
+this pilot. The source positive remains undecided mechanism evidence on a weak control, not a
+whole/current-system gain. Fixed10epochs and seed/order differ from317's40epoch source-selected
+checkpoint comparison; the cause of the quality miss has not been isolated. Independently,312's
+whole results already showed this rawprototype weak. The separate322training-protocol diagnosis
+addresses that control issue; do not duplicate it or close reliability aggregation as a family.
+
+All calibratedarms selected postaggregationT4 from sourcecrossfitNLL; their argmax is unchanged as
+required, but P02NLL worsens (R.814→RC.927;H.847→HC.936). Thus calibration does not transfer here.
+Full hashed report `reliability320_source_result.json`; sourcecheckpoint remains onGalvani. No
+outerP01score or other outeraccuracy was read; no automatic expansion was launched.
