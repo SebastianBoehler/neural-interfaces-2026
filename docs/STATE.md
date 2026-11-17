@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 21:51 CET
+### Current campaign: 17 November 2026, about 22:19 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -212,6 +212,13 @@ at 1/378 and 4/800 labels; counters and status logs matched. It replayed in 297.
 Exact parity failed. This does not qualify added evaluation budget.
 [Current evidence](../evidence/next_wave_16nov/native_worker360.md)
 
+**Adaptive repair — §366.** CUDA foreach Adam and rest SessionBN deepcopy give exact 378 labels in
+3122631/33 and four residual 800 mismatches despite equal counters. The actual shared-input 70-window
+optimizer test matches frozen outer scores to 2.17e-8. Ordinary pair 3122643 matches 2,655 labels and
+work counters and saves 2.85% replay time (427.32→415.14 s). This is about 103 seconds per ordinary
+solver hour at the measured mix. The active long workload is still unqualified. The largest source of
+observed confidence drift is the Hilbert core, with band-filtered input differences preceding FFT.
+
 **Parallel accuracy — §354–356.** §354 complete after two fixed-route recoveries. Gaussian factorization lost to
 the strong raw decoder by 7.44 pp [80% −10.28, −4.62] across three exposed new-person folds. Gaussian versus
 the matched learned factorizer is undecided. [§354 report](../evidence/next_wave_16nov/factorization354.md)
@@ -250,6 +257,11 @@ Untouched 76.27934%, unadjusted S0C 76.32610%, instantaneous 76.39725%, lag 76.3
 instantaneous −0.01063 pp [80% −0.10262, +0.10458], people/order +0.04295 [−0.05706, +0.14901].
 All frozen-zero controls bitwise and all 24 new routes error-free. Lag benefit undecided. Public new-person
 scope; genuine returning and worker latency unmeasured. [§364 evidence](../evidence/next_wave_16nov/lagged364.md)
+§365 moved causal personalization refits toward active use. Skip-only preserved frozen scores bitwise
+across eight orders and saved 18.44% of cached personalization wall. A later refit within the original
+prefix budget gained +0.0201 pp [80% −0.0173, +0.0579]; equal-call recycling +0.0102
+[−0.0447, +0.0734]. Both gains are undecided; cached stage savings do not measure worker wall.
+[§365 evidence](../evidence/next_wave_16nov/cp_schedule365.md)
 The user moved ownership to the active Codex chat and archived the previous chat's automation.
 
 ## 2. Hard bounds (from the official code and rules)

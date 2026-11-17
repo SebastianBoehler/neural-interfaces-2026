@@ -225,3 +225,33 @@ stress timings give no verified equivalent-work headroom. The same
 five label disagreements recur with either C++ filter implementation
 and on separate A100s. Comparison SHA-256
 `48ae6e88b1f4544bd113dcac02159ca844aaf460551e4df3e2891c9812444ea9`.
+
+## Adaptive feedback repair (§366)
+
+The next candidate matches Python's CUDA multi-tensor Adam and uses
+TorchScript deepcopy for the stateful rest decoder. The two changes
+pass the 70-window shared-refit-data control with all work and labels
+exact. The maximum outer-mixture error falls from `2.61e-6` to
+`2.17e-8` when fed the exact refit inputs and confidences. On ordinary
+inputs, the long default guard still reports four differences at 800
+windows, while the 378-window replay matches all labels. The rest-copy
+change gives identical labels to the Adam-only build on both lengths.
+
+The fresh same-A100 pair 3122643 matches all 2,655 labels and work
+counters on the 14 ordinary sessions.
+
+| Ordinary replay | Frozen | C++ |
+| --- | ---: | ---: |
+| Solver replay | 427.324 s | 415.140 s |
+| Wall from public data load | 432.599 s | 419.786 s |
+
+This pair saves 2.85% of solver time, about 1 minute 43 seconds for an
+hour of the same ordinary replay workload. All sessions recognize at
+index 10, before the first fine-tuning refit. Long adaptation remains
+a separate qualification.
+
+The contribution tap 3122649 reconstructs both input mixtures exactly.
+Replacing the Hilbert core contribution alone reproduces eight of the
+ten observed early FP32 confidence changes. In a later CPU probe,
+the band-filtered arrays already differ before the Hilbert transform.
+The worker uses SciPy DUCC FFT and LibTorch MKL FFT.
