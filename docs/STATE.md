@@ -382,3 +382,8 @@ The provisional decision checkpoint is17Nov18:00CET, with no top-five guarantee.
 research campaign. Obtain explicit upload authorization and check live phase/quota/storage before submission.
 Earlier upload counts/deadlines/board estimates require live verification; do not infer available quota anonymously.
 Do not ask optional implementation questions while the user sleeps. Use existing50mincampaign/4hresearch automations.
+
+§353 latest numerical status15:36CET: Route/Own/CF/CPsource COMPONENTPASS, maxCP2.413e−12, actualOwnStage/
+10CPrefits125fusions/reset/deepcopy/noerrors. Neuralknownfirstmembers~2e−6>1e−6; diagnostic3120433 noFT/gold.
+Corep1source2.6423e−7>1e−7/zerochangedlabels; owner343localizesfloat32reductions, no tolerance relaxation.
+No fullnativegraph/training/worker/speedqualification. Currenthandoffownsactualjobs/remainingrecipes.

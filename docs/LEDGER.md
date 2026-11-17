@@ -10224,3 +10224,22 @@ no numericbounds/coefficients/metric/labels/source change. OwnSHAknown/realFIR p
 linearfit or source-training update. Currentactualallocatedengineeringcost plusnewmax3600coresec stays
 below4CPUh aggregate; verifyaccountactuals before additionalrelease. Compilealltargets, then independent
 checkscontinueandreportfailures withoutcallinganyfailedcomparisonqualified. Originalfailuresimmutable.
+
+§353 first-window semantic diagnostic 17Nov15:32CET BEFORErun: native3120312 neural first
+known-window45member maximum exceeded unchanged1e−6 (printed~2e−6); routing/core/hash PASS.
+ONECPU1/16GiB/3min≤180coresec, reuse exactsuccessfulv3library binaries; compile tiny probe only.
+Pin all source, originalpackage/firstfixture and actualtransitive native libraries before submit.
+Same existing P01/session1 firstwindow only; no new heldlabels/FT/training/accuracy. Compare EACH
+member/fullprecision/inputgroup C++↔originalHOSTPython↔existingcleanSIFgolden to distinguish
+implementation/dtype/reduction/backend mismatch. Numeric engineering prior native↔HOSTPython≤1e−6
+if semantics match; no tolerancechange or methodselection. Any excess remains failure; diagnostic
+reports all45 rows rather than exiting at rounded aggregate. No autoextension/new job without parent.
+
+§353 v3routingSOURCECOMPONENTPASS3120312: knownroute4.44e−16/unknownroute1.52e−18/CF1.36e−19/
+CP2.413e−12max, thresholdsunchanged; Ownstaged>0==routed/noerrors/degen, CP10refits125fusions,
+reset/deepcopy17/204 andzerochangedlabels. Fullruntime/RouteBeye/Tpri remainseparate. Rootcorechecker
+firstfailedC++typedDictPyweights_onlyrestore_type_tag; exactscopedhelperallowlist(importedfunctionreturnsvalue)
+fixesreadingonly. Actualp1max2.64226994319e−7>1e−7, zerochangedlabels: NOTqualified. No boundchange.
+NativeNNfirstknownmembers~2e−6>1e−6:NOTqualified; source-onlyonewindowhostPython/C++/SIFdiagnostic
+3120433CPU1/3minqueued, noFT/optimizer/gold. Coreprecisionowner343preparesALLoutput/sourceintermediate
+comparison beforeclaimingcause. No originalevaluationbug, scoregain orwholeworkerclaim follows.
