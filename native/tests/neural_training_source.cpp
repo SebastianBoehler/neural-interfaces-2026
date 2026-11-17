@@ -8,6 +8,7 @@
 using namespace ni26;
 namespace {
 double maximum = 0;
+bool numeric_failed = false;
 void same(const std::string &name, const Tensor &x, const Tensor &y,
           double tolerance) {
   require(x.sizes() == y.sizes(), "source training shape differs: " + name);
@@ -18,7 +19,11 @@ void same(const std::string &name, const Tensor &x, const Tensor &y,
                    .item<double>();
   maximum = std::max(maximum, error);
   std::cout << name << " maxabs=" << std::setprecision(17) << error << '\n';
-  require(error <= tolerance, "source training oracle mismatch: " + name);
+  if (error > tolerance) {
+    std::cerr << "BOUND_EXCESS " << name << " maxabs=" << error
+              << " bound=" << tolerance << '\n';
+    numeric_failed = true;
+  }
 }
 } // namespace
 int main(int argc, char **argv) {
@@ -104,6 +109,14 @@ int main(int argc, char **argv) {
     auto x = prepared.source.x.index_select(0, ids),
          y = prepared.labels.index_select(0, ids);
     auto update = neural::raw_source_update(net, opt, x, y, 0);
+    Params observed;
+    observed.tensors["native_format"] = torch::tensor(1, torch::kInt64);
+    observed.tensors["first_logits"] = update.logits.cpu().clone();
+    observed.tensors["first_loss"] = update.loss.cpu().clone();
+    std::cout << "native_forward_seconds=" << update.forward_seconds
+              << " native_backward_seconds=" << update.backward_seconds
+              << " native_optimizer_seconds=" << update.optimizer_seconds
+              << '\n';
     same("first_logits", update.logits, fixture.get("first_logits"), 1e-5);
     same("first_posterior",
          torch::softmax(update.logits.to(torch::kFloat64), 1),
@@ -122,19 +135,24 @@ int main(int argc, char **argv) {
               "native source gradient inactive");
       same("gradient/" + names[i], parameters[i].grad(),
            fixture.get("first_gradient_" + names[i]), 1e-5);
+      observed.tensors["gradient_" + names[i]] =
+          parameters[i].grad().detach().cpu().clone();
     }
     require(
         (parameters[0].detach() - body_before).abs().max().item<double>() > 0 &&
             (parameters[4].detach() - head_before).abs().max().item<double>() >
                 0,
         "native first source body/head optimizer update inactive");
-    for (const auto &[name, value] : net.state().tensors)
+    for (const auto &[name, value] : net.state().tensors) {
       same("state/" + name, value, fixture.get("first_state_" + name), 1e-6);
+      observed.tensors["state_" + name] = value;
+    }
+    observed.save("native_source_update_observed.pt");
+    std::cout << "ALL_SOURCE_UPDATE_NUMERIC_FIELDS_COLLECTED" << std::endl;
+    require(
+        !numeric_failed,
+        "NEURAL_FIRST_SOURCE_UPDATE_NUMERIC_FAIL; original bounds exceeded");
     std::cout << "NEURAL_FIRST_SOURCE_UPDATE_PASS maxabs=" << maximum << '\n';
-    std::cout << "native_forward_seconds=" << update.forward_seconds
-              << " native_backward_seconds=" << update.backward_seconds
-              << " native_optimizer_seconds=" << update.optimizer_seconds
-              << '\n';
     return 0;
   } catch (const std::exception &error) {
     std::cerr << error.what() << '\n';

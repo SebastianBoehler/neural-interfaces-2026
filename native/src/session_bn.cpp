@@ -25,7 +25,7 @@ Tensor SessionBN::forward(const Tensor &x, bool training) {
             "source SessionBN batch must contain complete32-row session chunks");
     auto groups = x.size(0) / 32;
     auto z = x.reshape({groups, 32, 288, x.size(2), x.size(3)});
-    auto r1 = z.mean(std::vector<int64_t>{3, 4}), r2 = z.square().mean(std::vector<int64_t>{3, 4});
+    auto r1 = z.mean(std::vector<int64_t>{3, 4}), r2 = (z * z).mean(std::vector<int64_t>{3, 4});
     auto gm = r1.mean(1), gv = (r2.mean(1) - gm.square()).clamp_min(0);
     m = gm.unsqueeze(1).expand({groups, 32, 288}).reshape({x.size(0), 288});
     v = gv.unsqueeze(1).expand({groups, 32, 288}).reshape({x.size(0), 288});
