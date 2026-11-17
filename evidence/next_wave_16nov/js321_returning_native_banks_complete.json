@@ -1,0 +1,14 @@
+{
+  "status": "all576_native_returning_banks_complete_NO_ACCURACY",
+  "source_sha256": "a921a0e0d0ac71880267c703f53e6930dcaa80ef37f641970fabe368ec86c103",
+  "whole_returning_bridge_still_required": true,
+  "old_batch_failure_preserved": true,
+  "accuracy_computed": false,
+  "job": 3118402,
+  "files": 576,
+  "cells": 12,
+  "orders": 8,
+  "kinds": 6,
+  "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_banks_complete1/native_banks_complete.json",
+  "full_sha256": "272f5cf50de59de52ba114ef8204532ef00cb5bced4074238f9c6ff73296d523"
+}

@@ -25,6 +25,7 @@ def asset(kind,fold,seed):
     if (proof['fold'],proof['seed'])!=(fold,seed) or proof['historical_identity_claimed'] or proof['accuracy_computed']:
         raise ValueError('source scope differs')
     if proof.get('source_sha256',proof.get('source_manifest'))!=sha(base/'source.sha256'):raise ValueError('producer source changed')
+    if family not in ('sinc','cc30') and proof.get('family')!=family:raise ValueError('source family differs')
     ckpt=folder/'checkpoint.pt';trace=folder/f'trace_k{KINDS[kind]:g}.pt'
     expected=proof['trace_sha256'] if family in ('sinc','cc30') else proof['exports'][str(KINDS[kind])]['sha256']
     if sha(ckpt)!=proof['checkpoint_sha256'] or sha(trace)!=expected:raise ValueError('asset changed')
