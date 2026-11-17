@@ -1,0 +1,44 @@
+{
+  "alignment_prior_rows_sha256": {
+    "P01": "927152adccc9d919666be700e4cf73b5f010f52c058bd849166a63d2a3841cb4",
+    "P02": "21235dfef0162a2ad2f0b07f899cfef95fa807ad7bada358f78d1380586a95a8",
+    "P03": "ffd992b757b746721dc8bb16814a67e8e1288cf0b5d8d6906fcc9ca44503c625",
+    "P04": "0127c742ec762e5a48884794b534b56217edc647b17a25c2ef517e68b8eb20ac",
+    "P05": "90785d6e7d3735d8d19182687bc36011616fb73d9253ca57682855d85adada23",
+    "P06": "282274213166874c5cf2f6edeb260ff4c001565496c46d36508c9cd33dfaafa6",
+    "P07": "ea5515ff7634a1d5351bd6b3777d35276d0a1caa762a9fb9363bec03201b35bd",
+    "P08": "93cc38d0f2adf4daefcfbe7ad655840e186aaf6794befcfa2e96effe228ba6b3",
+    "P09": "278a6dcd77eb45073b975f8aa792006b14217ec8ca2788b34e9131715021b2b2",
+    "P10": "7f415bb83961bcb5f14d26e1f059ce76c64184955d0f5b8054d6622691d18473"
+  },
+  "chains": 48,
+  "conservative_full_projection_seconds": null,
+  "cp_score_domains_exact": true,
+  "decision_changes": {
+    "external": 3070,
+    "reverse": 2926,
+    "source": 4507
+  },
+  "frozen_external_model_sha256": "1e48352c606169e0006fe4a5b876a46f8724f1fc57cabfd3538c8f5555639fce",
+  "individual_bank_sha256": "1a0baa8044992a265010ef001968316dbfbf3dfcf16435b1c6cc20694a1ef9e5",
+  "max_rss_kib": 2710152,
+  "mi_decisions_exact": true,
+  "permission": "11-Nov organizer clearance",
+  "profile_fold_wall_seconds": [
+    19.983168430626392,
+    19.6037789452821,
+    19.52915119472891,
+    66.87043464835733,
+    23.48568232357502,
+    23.363830938003957,
+    23.323164713568985,
+    23.418863469734788,
+    23.143652183003724,
+    70.22440593130887
+  ],
+  "proteus_labels_opened": false,
+  "scope": "complete 10 LOSO people and 8 pinned causal orders",
+  "trained_on": "Scherer only, 710 WORD and 710 SUB rows",
+  "wall_seconds": 447.3267375109717,
+  "zero_identity": true
+}
