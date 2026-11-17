@@ -13,10 +13,17 @@
       "allocated_CPUs": 6,
       "batch_MaxRSS_KiB": 4184948,
       "node": "galvani-cn115"
+    },
+    "3119224": {
+      "state": "COMPLETED",
+      "allocated_seconds": 32,
+      "allocated_CPUs": 6,
+      "batch_MaxRSS_KiB": 4539340,
+      "node": "galvani-cn115"
     }
   },
-  "allocated_CPUcoreseconds": 542,
-  "allocated_CPUcorehours": 0.15055555555555555,
+  "allocated_CPUcoreseconds": 734,
+  "allocated_CPUcorehours": 0.2038888888888889,
   "A100hours": 0,
   "live_owned_jobs": []
 }

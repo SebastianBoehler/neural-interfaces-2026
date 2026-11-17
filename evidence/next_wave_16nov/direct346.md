@@ -91,10 +91,43 @@ direct346_heads_before_query.json, direct346_before_labels.json. Source/scaler/h
 are retained; EEG, heads.npz and probability arrays remain private onGalvani and are not committed.
 Total542allocatedCPUcoreseconds=.15056CPUh,0A100; bothjobscomplete, noneleft. ComputeJSON ownsjobcosts.
 
-Next decisive test, PROPOSED ONLY: preserve fixed369features/C=.01/allcontrols and repeat on existing
-source7 originalA checkpoint with exposedP02/P03 together. This checks transfer across source splits/people,
-not a blind cohort. No source/queryHPO or automatic new matrix. A current-system test would require an
-actual consumer and unchangedstage/route controls; the one-person whole-model gain cannot substitute.
+The initial next-step proposal used a source7 checkpoint. Root instead authorized the stronger
+NO-REFIT transfer instrument below, preserving the exactA6body/readouts rather than changing sources.
 
 Actual final collection17Nov11:35:09UTC/12:35:09CET,11m34afterinitialclock; report/commit followed.
 This audit is additional work, not replacement for scheduled14:51CET15minresearch.
+
+## Completed no-refit P02/P03 transfer check
+
+Prospectively appended§346at11:37UTC afterP09result but BEFORE either extensionquerylabel.
+Root requested SAMEsource6body, A/B/C/Dreadouts/scalers/C=.01/direct369features, ZEROnewfits.
+No source7/A7substitution. ActualA6nativeAcontrol was generated independently for eachperson.
+BothP02/P03 were excluded from actualsource6body/readout/scale fits and remain previouslyexposedpeople;
+this is a selected transfer check, not independent confirmation. Querycounts are in the complete proof.
+
+Immutable `/mnt/lustre/work/gehler/gfh527/ni26_direct346_extension_v1_20261117`, source
+e84ae47c1a8b569ad955a414be4ca6b295c6e26843dd2aaef4a06972bfa506f3.
+Job3119224COMPLETE0:0/32sallocatedCPU6/25.358sscript;3.087ssource-onlyrealpathsmoke beforequeries.
+Originalhead/scaler array hashes match exactly; reconstructed frozen NumPy versus actualsklearn
+source probabilities are BITWISEall3heads. Completebothpeople×4arms×8orders/source/frozenstate/
+prefix/deepcopy/cross-personinterleaving/reset guards were saved before either person'slabels.
+The separate zero-addition guard is array-arithmetic identity only, not a packaged disabled-member test;
+the meaningful originalmodel reset checks execute the unchanged native model repeatedly.
+
+| Person |A originalstrongraw|B latentrefit|C direct369|D deranged369|C−A|
+|---|---:|---:|---:|---:|---:|
+|P02|65.6460%|57.7460%|64.1639%|56.6377%|−1.48213pp|
+|P03|56.2275%|51.7703%|51.3909%|51.8832%|−4.83656pp|
+
+C−B P02+6.41782pp/P03−.37933pp; C−D P02+7.52614/P03−.49227pp.
+CpooledNLLP021.03187/P031.37776 remains worse thanA.76537/.97809.
+Thus P09's strong-reference decision gain did NOTtransfer with the frozen readouts: both otherpeopleloseA.
+The direct summary remains useful over weakB onP02 but notP03; that cannot support robust improvement.
+No automaticcurrent-systemconsumer/outermatrix follows; root's bothpeoplegain condition did not pass.
+This does not close signedslow/highband information, alternative readout training or rawdata families.
+
+Exactbothperson/allorder/provenance reports: direct346_extension_result.json,
+direct346_extension_before_labels.json, direct346_extension_source_smoke.json.
+Additional192CPUcoreseconds=.05333CPUh; total734=.20389CPUh,0A100, noownedjobsremain.
+Original542coresecond study stays separate above. Newsourcefiles/snapshots preserve every originalartifact.
+Actual finalcollection11:40:34UTC/12:40:34CET,16m59after11:23:35start; documentation/commits followed.
