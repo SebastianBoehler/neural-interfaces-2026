@@ -1,6 +1,6 @@
 # NI26 active campaign handoff — 17 November
 
-Updated17Nov2026 12:02CET. Autonomous implementation/broader experiments/follow-ups authorized, Galvani only.
+Updated17Nov2026 12:38CET. Autonomous implementation/broader experiments/follow-ups authorized, Galvani only.
 Provisional18:00CET decisioncheckpoint; topfive remainsobjective. No automaticupload/messages/paidproviders/newterms.
 Account≤32running/272submitted with28reserve;controllersconservatively≤244active,preserveunrelatedjobs.
 Read STATE→targetedLEDGER→OFFICIAL_CONTRACT, STATUS andowninghandoffs; source/scoreguards beforeinterpretation.
@@ -61,15 +61,16 @@ Customstack=C++/CUDA; originalrawneuralreference=stockPyTorch336/338. No unquali
 - §342COMPLETE3118608/57s: P09INDIVIDUAL-MODEL prepool44.630/time40.086/spatial51.347/full44.199%.
   Spatial−pooled+6.717pp but <strongerhistoricalraw64.061%; no systemgain. All32fits/guards beforelabels.
   SameweightB3/B8diagnosis explainsfailedfeatureanchor; failurespreserved. spatial342.md ownscompleteevidence.
-- §343v1span10.729<sklearn19.995s BUT heldparityFAIL2labels/memoryworse. Preservefailure/noadoption.
-  V3HYBRID C++kernel/existingSciPy QUALIFIED: warm19.494→16.496s/CPU−19.67%; P10cold13.296→11.413s.
-  ALLsource/heldlabels match/P01,P10held≤4.96e−7; freshfitRSS1,504,564→1,494,888KiB(small,singleprobe).
-  e02a518 preservesqualifiedV3; V4class-majorfullqualification3118902→3118904pending, no runningchanges.
-- §344COMPLETE3.948CPUh/0A100: P09A64.061/B63.736/C61.175/D61.891%. Ccovprobeimprovesbuttaskworsens.
-  ALL16snapshotmaps/originalA,Bidentityguards beforelabels; nogeneralforgettingclaim/automaticweightgrid.
-- Fresh§345honestnestedcore→rawtaskdistillation; P09/sourceheldexcludedallteacherfits. Pythoncoststopkept;
-  explicitnativeCPUfeaturecost/parityroute preparing, ≤8CPUh prospectiveauthority. Noquerylabels/resultyet.
-- Rootcanonicaldocs;external_supervision321;performance_solver343;fresh_accuracy_345. Otherscompleted.
+- §343COMPLETEV4C++kernel+sameSciPyoptimizer: warm19.747→16.436s/core−20.43%; P10cold15.433→10.757s.
+  Full1534held-streamlabelsMATCH/maxprob6.65e−8. FreshfitRAMincrement−7.77%(singleprobes/loadedRSSdiffers).
+  FutureexplicitAPIonly, qualifiedV4SHA7a2715ad…939bd; oldfailedspan/stopskept. solver343.md ownscompleteproof.
+- §344COMPLETE3.948CPUh/0GPU: P09A64.061/B63.736/C61.175/D61.891%; covprobeimprovesbuttaskworsens.
+- §345COMPLETE2.186CPUh/0GPU: P09raw64.061/KD61.665/deranged63.051/teacher63.382%; teacher<raw,notsupposed69%.
+  Allnested/source/gradient/zero/eightorderguards beforelabels; no fullsystemgain/automaticgrid.
+- §346COMPLETE.151CPUh: P09A6raw64.061/Brefit60.686/C+369direct65.447/Dderanged60.640%, C−A+1.386pp.
+  INDIVIDUAL-MODEL/exposedP09only, NLLworse; relatedslowinfoalreadyincore/SessionEM. OriginalA8banksBITWISE.
+  SamefrozenNO-REFIT P02/P03extension prepares; allqueriesexcludedfits, stillhistoricallyexposed/notindependent.
+- Rootcanonicaldocs;external_supervision321;fresh_information_346extension. Otherownerscompleted.
 - Bothcampaign50min/research4hheartbeatsACTIVE through17Nov18:30UTC. Latestresearch10:49:35–11:04:39CET15m04,
   research_4h_17nov_1051.md COMPLETE; NEXT≈14:51CET, no duplicatedelayed10:51block. Historyretained,notblind.
 - SSHworks,renewonlyactualfailure;submittedjobssurviveaccessloss. Neveruploadautomatically.
