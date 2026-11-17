@@ -1,0 +1,368 @@
+{
+  "passed": true,
+  "labels_opened": false,
+  "source_rows": [
+    1900,
+    1521,
+    568,
+    755
+  ],
+  "source": {
+    "fit_people": [
+      "Dreyer2026Proteus/P04",
+      "Dreyer2026Proteus/P05",
+      "Dreyer2026Proteus/P06",
+      "Dreyer2026Proteus/P07",
+      "Dreyer2026Proteus/P08",
+      "Dreyer2026Proteus/P09",
+      "Dreyer2026Proteus/P10"
+    ],
+    "excluded": [
+      "P01",
+      "P02",
+      "P03"
+    ],
+    "rows_sha256": "393a55907c2473964e5cf0bfceddac770ee3e9b4e7c0d06670c57b0f1ff70b24",
+    "input_sha256": "e14dbab824b45f09901ba693a907df5c44a8a95f8c15583d95c6e8d601bf09c1",
+    "projection_sha256": "f08449957eaa2a01f00e88bca2599a462131837a00e0acc2f23987cc1b552329",
+    "contrast": "source per-frequency moments,pooled training channels/time;no per-window stats",
+    "labels_opened": false
+  },
+  "montage": {
+    "mne_version": "1.13.2",
+    "coordinates_sha256": "6a6adc0fc24ec9c523fe5b20220d14b51e78dcbf318bafcf27c6d3fa4ba8a1a7",
+    "neighbors_sha256": "ad58074847516bdbde539b35e8818c3e2627af4ac83ec1f0f1af9a7f980afcdb",
+    "names": [
+      "C2",
+      "CP2",
+      "P2",
+      "Pz",
+      "CPz",
+      "Cz",
+      "C1",
+      "CP1",
+      "P1",
+      "P3",
+      "PO7",
+      "P5",
+      "TP7",
+      "CP5",
+      "CP3",
+      "C3",
+      "PO8",
+      "P6",
+      "P4",
+      "TP8",
+      "CP6",
+      "CP4",
+      "C6",
+      "C4",
+      "FC6",
+      "FC4",
+      "FC2",
+      "F6",
+      "F4",
+      "F2",
+      "AF4",
+      "AF3",
+      "F5",
+      "F3",
+      "F1",
+      "Fz",
+      "FC5",
+      "FC3",
+      "FC1",
+      "FCz",
+      "C5"
+    ]
+  },
+  "neighbors": [
+    [
+      26,
+      1,
+      23,
+      5
+    ],
+    [
+      2,
+      0,
+      21,
+      4
+    ],
+    [
+      18,
+      3,
+      1,
+      21
+    ],
+    [
+      8,
+      2,
+      4,
+      7
+    ],
+    [
+      7,
+      3,
+      5,
+      1
+    ],
+    [
+      6,
+      4,
+      39,
+      0
+    ],
+    [
+      7,
+      38,
+      5,
+      15
+    ],
+    [
+      4,
+      6,
+      8,
+      14
+    ],
+    [
+      3,
+      9,
+      7,
+      14
+    ],
+    [
+      11,
+      8,
+      14,
+      13
+    ],
+    [
+      11,
+      9,
+      12,
+      13
+    ],
+    [
+      9,
+      13,
+      10,
+      14
+    ],
+    [
+      13,
+      40,
+      11,
+      10
+    ],
+    [
+      11,
+      40,
+      14,
+      12
+    ],
+    [
+      9,
+      15,
+      7,
+      13
+    ],
+    [
+      14,
+      37,
+      40,
+      6
+    ],
+    [
+      17,
+      18,
+      19,
+      20
+    ],
+    [
+      18,
+      20,
+      16,
+      21
+    ],
+    [
+      17,
+      2,
+      21,
+      1
+    ],
+    [
+      20,
+      22,
+      17,
+      16
+    ],
+    [
+      22,
+      17,
+      21,
+      19
+    ],
+    [
+      18,
+      23,
+      1,
+      20
+    ],
+    [
+      24,
+      20,
+      23,
+      19
+    ],
+    [
+      21,
+      25,
+      22,
+      0
+    ],
+    [
+      27,
+      22,
+      25,
+      28
+    ],
+    [
+      28,
+      24,
+      23,
+      26
+    ],
+    [
+      39,
+      25,
+      29,
+      0
+    ],
+    [
+      28,
+      24,
+      30,
+      25
+    ],
+    [
+      29,
+      27,
+      30,
+      25
+    ],
+    [
+      28,
+      35,
+      26,
+      30
+    ],
+    [
+      28,
+      27,
+      29,
+      35
+    ],
+    [
+      33,
+      32,
+      34,
+      35
+    ],
+    [
+      33,
+      36,
+      31,
+      37
+    ],
+    [
+      34,
+      32,
+      37,
+      31
+    ],
+    [
+      35,
+      33,
+      38,
+      31
+    ],
+    [
+      34,
+      29,
+      39,
+      26
+    ],
+    [
+      40,
+      32,
+      37,
+      33
+    ],
+    [
+      33,
+      36,
+      15,
+      38
+    ],
+    [
+      39,
+      37,
+      34,
+      6
+    ],
+    [
+      38,
+      26,
+      35,
+      5
+    ],
+    [
+      13,
+      36,
+      15,
+      12
+    ]
+  ],
+  "zero_identity_max_abs": 3.5762786865234375e-07,
+  "checks": {
+    "pretrained": {
+      "batch_max_abs": 0.0,
+      "amplitude": 1.6112895011901855,
+      "finalsample": 0.952646017074585,
+      "parameter_gradients": {
+        "reference": 0.056248825043439865,
+        "spatial": 0.08096575736999512,
+        "filter_gain": 0.30676618218421936,
+        "contrast": 0.3985787630081177,
+        "offset": 0.592396080493927
+      },
+      "timing": {
+        "forward_B1_seconds": 0.335785161703825,
+        "forward_B4_seconds": 1.3454904925699036,
+        "renderer_backward_B4_seconds": 3.4940265342593193
+      },
+      "encoder_sha256": "190859844203f530e178165b42ed96c811144b0c1945d8b8e8306e68e468ab48"
+    },
+    "random": {
+      "batch_max_abs": 0.0,
+      "amplitude": 0.4392111301422119,
+      "finalsample": 0.0017878413200378418,
+      "parameter_gradients": {
+        "reference": 0.000782962772063911,
+        "spatial": 0.0023914752528071404,
+        "filter_gain": 0.0170509684830904,
+        "contrast": 0.00818901602178812,
+        "offset": 0.033826228231191635
+      },
+      "timing": {
+        "forward_B1_seconds": 0.3268527686595917,
+        "forward_B4_seconds": 1.2335702314351995,
+        "renderer_backward_B4_seconds": 3.557199358008802
+      },
+      "encoder_sha256": "0aa00599324ab5ad2d45a5887949586bd61be1f63da3884f7d9e7b483e62d536"
+    }
+  },
+  "source_sha256": "953b440e067cc4506f5644cbe9d701ea678f9cf34d365830a4f767103b4d0a32",
+  "feature_sha256": "2c9fa75d175e6c77d22b249fc73f00a2c3c4374c07bc4467cc1010d620f45a69"
+}
