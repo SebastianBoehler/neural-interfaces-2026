@@ -14,6 +14,7 @@ def test_common_anchor_patch_is_active_and_fail_closed():
     patched = patch_source(source)
     assert 'load_common_anchor(shard, refmeta, cache_hashes' in patched
     assert 'fit_native(native,train,labels)' not in patched
+    assert "d['y']" not in patched
     assert "torch.device('cpu')" in patched
     assert "'anchor_policy':'s305_common'" in patched
     with pytest.raises(ValueError):
