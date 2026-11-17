@@ -1,6 +1,10 @@
-# §342 frozen spatial readout — live handoff 17Nov09:48UTC
+# §342 frozen spatial readout — completed 17Nov11:16CET
 
 Scope: INDIVIDUAL-MODEL SOURCE6/P09 only. No FULL-SYSTEM DEV/SEALED/rank result.
+Pilot3118608 COMPLETE57s/0:0; all32fits/source/numericalguards beforelabels.
+Pretrained pooled44.630/temporal40.086/spatial51.347/full44.199%; random36.369/36.782/41.002/42.511%.
+Spatial−pooled+6.717pp but below strongerhistoricalraw64.061%; no promotion/outerexpansion.
+Rootcollected exactguard/resultJSON; compact final reportspatial342.md owns outcome. No ownedjobsremain.
 Prior §329 retained1600 averages all41channels, retaining4time. Upstream token order is channel-major/time-minor
 (`rearrange B N A T -> B (N A) T`), not an implementation-error proof. Spatial and full layouts are new.
 Card `studies/17nov/spatial_readout342/CARD.md`; prospective registrations appended LIVE LEDGER by this owner.
