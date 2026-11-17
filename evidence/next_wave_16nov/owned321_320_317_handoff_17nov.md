@@ -1,23 +1,20 @@
 # Owned317/320/321 handoff — 17 November
 
-- §317 complete60fold3117176→3117177; weak wholeA52.8361/B53.6952/C53.7346%. Complete current-chain3117358 C−B official+.002274pp[−.049902,.056308], people+.012[−.046749,.070972],7/10up: undecided/no gain claim.
-- §320 pilot3116903 H60.115 below68.60quality stop; no expansion.
-- §321 corrected raw prior5/latentBN2 proof3117225 and active5 guard3117230 passed. All10sixseed collector3117241 complete; immutable original artifact `ni26_js321_20261117_orchestration4/prepared_jsall`, manifestc7d77d4d0ffbc338c0f9e0b0f0bd2b5dd2221fdde5fcb5436eaf63262d82e2c4.
-- Original all10failure3117189/inputk2 and deaddeps preserved; genuine returning Sinc heldcheckpoints still missing/invalid. No substitute/returning gain claim.
-- JS-all policy continues outerJS after recognition, matches318; original inner/gates/FTlabels preserved, final recognized posteriors change. Remove adaptedFB35–40 outer only; retainFB41–46; doubleFBL59–64; outer17/rest1/17 vs originalinner15.
-- B2_pool complete selected318 posthoc +.272396officialpp[.004869,.527102], people+.277955[−.006993,.545638],6/10; P04−.048350/P10+.565349 new-person emulation, not confirmation/package/sealed.
-- Frozen ZIP9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed unchanged. All1047original arrays preserve byte/dtype/shape/strides (orderK repair).
-- Unoptimized CPU3117246 known190 ratio1.09684 failed; A1003117247 known3781.237657 failed. CPU bar is engineering only; no CPUratio×A100sealed estimate.
-- Profile3117399 sharedFIR saves~69% auxiliary microbench, exact outputs; snapshots shared2/inputreuse2 preserve weights/source, originalbank untouched. Inputreuse reads current originallast_inputs35 afteroriginalbank/FT with exact fingerprint/call/reset checks.
-- Original GPU reset drift6.25236e−8 documented3117552; standard215FTselfrepeat3117567 final.000302381/0labels. No causal attribution. Strictoldfailures remain failed.
-- Deterministic validation-only CUDA3117572 exactoldself215 with20FT/10CP/125fusions. CPU215old→variants3117573 running. Standard production unchanged.
-- Phase-matched guards3117581FIR/3117582reuse PASS exactold→variant known45/unknown215, exactinner/gates/labels/generators/inputs, CPUresetbitwise; all45active/20inactiveoriginalweights guarded.
-- Standard optimized A1003117588FIR/3117586reuse passedknown190/378/800 then failedunknown378 ratios1.311509/1.247656. Unknown800 untested there; unknown190~.5 ratios setup/orderconfounded, not speedups.
-- Complete FUNCTIONAL-only A1003117602FIR/3117601reuse PASSED all6rows (unknown800actual24FT/480steps/noover,39CP/710fusions), workspace `ni26_js321_20261117_functional1`; does not rescue timing bars. CPU3117587FIR/3117585reuse TIMEOUT45min (incomplete,notbarfailure); conditional functional controllers3117595/3117597.
-- Next: followactualfunctional outcomes; fixedreuse finalist warm counterbalanced A100 protocol preregistered, warm_timing.py prepared (full800untimedFT/CP before reset; AB/BA×2 per190/378/800; coldcost separate). Afterok capacity-checked controller3117613 (release2) waits actual complete-functional3117601 then releases pinnedwarm1 A10045min. Initialrelease1 invalidpartition rejected beforeallocation; preserved. No timing result yet.
-- No upload/promotion, no source mutation in frozen snapshots. Root owns canonical docs; own evidence/source commits may proceed, avoid unrelated LEDGER changes.
-
-- Warm1 job3117647 failed11s beforeinference missingowningrecord.py; frozenfailurepreserved. Warm2 copiesexactowningdependency, actualSIFloginCPUimportpreflightPASS, retry3117650RUNNING. No timing rows yet.
-- CPUstandard45min parents remainunchanged; TIMEOUT-only controllers3117679reuse/3117680FIR prospectivelyrelease alreadyregistered functionalCPU180min onlyon actualTIMEOUT. Otherstates no release, barcontrollers remainexclusiveactualbartrigger; source/capacityguarded.
-- CPUtimeout controllers3117679/3117680 completed→fullFUNCTIONAL-only CPU3117756reuse/3117757FIR actuallyRUNNING180min each; no oldbarrescue. Warm3117650 running378repeats; CPU215semantic3117573 PASSED81m17 exactold→FIR/reuse through215 with20FT/10CP/125fusions,reset/deepcopy/generators/immutableweights guarded.
-- Warm3117650 original45min remains (Slurmdeniedregistered45→60extension). AfteranyTIMEOUT-only3117850 releasesNEWfullidenticalwarm3/65min fromscratch (no partialreuse), source/SIFpreflightPASS, actualpaircost forecast~50m30+margin; anyotherstate no rerun.
+- §317 complete60fold3117176→3117177: whole A52.8361/B53.6952/C53.7346%, globally weak. Completecurrent chain3117358 C−B official+.002274pp[−.049902,.056308], people+.012[−.046749,.070972],7/10up: undecided/no gain claim.
+- §320 sourcepilot3116903 H60.115 below68.60quality stop; no expansion.
+- §321 all10sixseed corrected collector3117241 complete; original private artifact `ni26_js321_20261117_orchestration4/prepared_jsall`, manifestc7d77d4d0ffbc338c0f9e0b0f0bd2b5dd2221fdde5fcb5436eaf63262d82e2c4.
+- Actual raw input prior5 differs from latent BN2. Repair3117225/active5 guard3117230 passed. Initial3117189k2 failures and dead dependencies preserved.
+- JS-all continues outerJS after recognition, matching318; originalinner/gates/FTlabels stay intact but final recognizedposteriors change. OuterFB35–40 removed, FB41–46 retained, FBL59–64 doubled; outer17/rest1/17 vs originalinner15.
+- Complete selected318B2_pool posthoc +.272396officialpp[.004869,.527102], people+.277955[−.006993,.545638],6/10up; P04−.048350/P10+.565349 newperson emulation, not confirmation/package/returning/sealed.
+- GenuineoriginalSinc returning P04/P10 checkpoints missing/invalid: still blocks returning validation. No substitute or in-sample gain claim. FrozenZIP9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed unchanged.
+- Same-weight optimized snapshots `ni26_js321_20261117_shared2` and `ni26_js321_20261117_inputreuse2`; original bank untouched. Reuse reads current originallast_inputs35 afteroriginalbank/FT, exact fingerprint/callback/reset checks.
+- Earlier bitwise reset and standardFT selfrepeat failures preserved. CPUreset exact; GPUoldcold→reset drift6.25236e−8, standardFT215 selfrepeat final.000302381/0labels; no causal attribution.
+- Deterministic validation-only CUDAoldself3117572 exact. Phase-matched old→FIR/reuse3117581/3117582 PASS exactthroughknown45/unknown215, originalinner/gates/FTlabels/inputs/generators/45active+20inactiveoriginalweights/buffers protected.
+- Independent deterministicCPU215semantic3117573 PASS81m17 exactold→bothvariants, reset/deepcopy bitwise,20FT/10CP/125fusions. Not worker timing evidence.
+- Standardunoptimized CPU3117246/A1003117247 overhead stops preserved. Optimized A1003117588FIR/3117586reuse passedknownalllengths then failedunknown378bar1.311509/1.247656. No reinterpretation.
+- Complete standard FUNCTIONAL-only A1003117602FIR/3117601reuse PASSED all190/378/800 known/unknown. Unknown800 both24FT/480steps/noover,39CP/710fusions. Timing descriptive only.
+- Standard CPU3117585reuse/3117587FIR TIMEOUT45min, incomplete/notbarfailure. TIMEOUT-only3117679/3117680 released fullFUNCTIONAL-only CPU3117756reuse/3117757FIR, RUNNING180min4CPU24GiB. Workspace `ni26_js321_20261117_functional1`; no further automatic retries.
+- Warm1 job3117647 failed beforeinference missingowningrecord.py. Separatewarm2 exactdependency +actualSIFimportpreflight passed; warm3117650 COMPLETE43m59 within ORIGINAL45min.
+- NEW warm study all12AB/BApairs pass1.061008 engineeringbar: median1901.02427/3781.01188/8001.02616, max1.04908. Real800warm base156.69–158.72/JS161.47–164.38s. Coldsetup225.835/169.144 separately/orderconfounded, not speedup.
+- Prospective TimeLimitextension denied; no change to45min. TIMEOUT-only3117850 correctly NO_RELEASE onCOMPLETED. Preparedwarm3/65min unused. All olderfailed protocols preserved; historical43.5min extrapolation conditional, notsealed proof.
+- Next owning checks: follow CPU3117756/3117757 complete/noerrors/actualFTCP. Fullreturning validation remains blocked; no upload/promotion/version designation. Root owns canonical docs.

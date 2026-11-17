@@ -214,3 +214,16 @@ CPUstandard3117585/3117587 both stopped actual45min allocationTIMEOUT, not barfa
 Independent deterministic CPU215 semantic3117573 PASSED81m17 (4872.22s script): oldJS→FIR/reuse maximumoutputerror0.0, reset/deepcopybitwise, originalinner/FTlabels/inputs/generators/immutableweight/buffer guards,20FT/10CP/125fusions. Validation-only controlledexecutor; not standardGPU/CPU worker timing qualification. `js321_cpu215_semantics.json` pins fullremote report/hash.
 
 Measured800pair spacing~7m30 forecasts~50m30 warm fullmatrix, beyondinitial45min estimate. Beforeexpiry, sourceverified/prospectivelyregistered resource-only45→60 amendment was denied bySlurm; original45min unchanged. Separate preregistered afterany controller3117850 releases ONLYactualTIMEOUT→immutablewarm3, full identical Python/record/weights/flags/all12pairs fromscratch,65min ceiling (~50m30+20%margin rounded), no partialtimingreuse. ActualSIFloginCPU import/sourcepreflightPASS;32/244capacityatdispatch. Non-timeout parent causesno release, no furtherautomaticretry.
+
+
+### Complete warmed timing — original allocation completed
+Job3117650 COMPLETED43m59 within its ORIGINAL45min limit; Slurm-denied extension had no effect. All12pairs retained, all pass1.061008 registered warmed engineering bar. Controller3117850 observed COMPLETED and correctly released nothing; preparedwarm3 unused.
+
+|Unrecognized windows|Median JS/base ratio|Four-pair range|Base seconds range|JS seconds range|
+|---|---:|---:|---:|---:|
+|190|1.02427|1.01621–1.03754|39.784–41.047|41.277–41.820|
+|378|1.01188|.99450–1.03555|73.642–77.594|73.237–80.353|
+|800|1.02616|1.02137–1.04908|156.691–158.718|161.474–164.381|
+
+Actualuntimed800setup cost base225.835/JS169.144s separately; first-arm setup/order differs, not a speedup comparison or causal attribution. Everywarm800arm had24FTrefits/480steps/noover,39CPrefits/710fusions; all lengths satisfy their exact schedules and source/runtime guards. Standard production executor: Torch2.14.1+cu130,1thread, deterministicFalse,cuDNNbenchmarkFalse/deterministicFalse,TF32False. Four-pair ranges are descriptive, not population confidence intervals.
+This completes the NEW warmed overhead protocol only. It does not turn earlier standard first-stop failures into passes. Historical43.5min is a forced-unrecognized full-workload basis; ratio extrapolation assumes comparable hardware/workload/warm shape coverage and excludes uncertain setup frequency. No unconditional sealed-hour, CPU or returning-person qualification follows. FullstandardCPUfunctional3117756/3117757 stillrunning; genuineoriginalreturning Sinc checkpoints remainblocked. `js321_warm_counterbalanced.json` pins fullactualreport/hash.
