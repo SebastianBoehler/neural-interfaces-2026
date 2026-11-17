@@ -13,7 +13,7 @@ Actual external inference dependencies: NumPy; Torch/TorchScript/autograd/functi
 | extras | Rest/eye models have separate per-session state; eye features enter nonlinear SessionEM. No module-level mutable state crosses sessions. |
 | finetune | Per-family trainable copies and optimizer/RNG, original shadow/relabel labels and input histories, exact trigger/cap/session-time accounting; source weights immutable. |
 | v6chain/routing | Original inner15 computes gates and FT labels; recB latches before outer mix6. Inner, RouteB, label/shadow tails and OwnStage are separate evolving state. Recognition does not imply final output equals inner output. |
-| countfilter/cpers | Count-filter latch and CP six-checkpoint fusion/refit accumulators, prefix/gate stopping, class-degeneracy checks; require actual late FT/CP activity rather than only final labels. |
+| countfilter/cpers | Count-filter latch and CP latest per-band CSP/LDA model and refit accumulators, prefix/gate stopping, class-degeneracy checks; require actual late FT/CP activity rather than only final labels. |
 | copy/reset | `fresh_model` deepcopies and resets every original and auxiliary buffer, Torch generator, stream covariance, personal heads/tails and clock. Independently interleaved instances must match isolated prefixes; original weight/buffer hashes remain fixed. |
 | JS input reuse | Read exactly original current `nets.last_inputs[35]` after bank/FT, once per window; original bank/cache unchanged. Six auxiliary tails still evolve even when §350 chooses baseline outer recipe. |
 

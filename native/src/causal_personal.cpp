@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <limits>
 #include <torch/torch.h>
 namespace ni26 {
 using namespace torch::indexing;

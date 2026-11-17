@@ -129,6 +129,6 @@ RouteStats Route::stats() const { return impl_->counters; }
 void Route::set_core1_share(double a) { impl_->a = a; }
 void Route::set_prior(double k, const Tensor &m) {
   impl_->kappa = k;
-  impl_->prior = m.to(torch::kFloat64).clone();
+  impl_->prior = m.defined() ? m.to(torch::kFloat64).clone() : Tensor{};
 }
 } // namespace ni26
