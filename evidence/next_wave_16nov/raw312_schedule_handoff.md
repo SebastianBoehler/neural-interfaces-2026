@@ -12,3 +12,4 @@
 - Original315consumer remains GPU-pinned. A completeCPUconsumer needs prospective registration/new source pin, chosen from availability/timing rather than outer accuracy. No silent fallback or mixed-device completion.
 - CPUsetup3116414failed before training on copied read-only run.py; corrected immutable setup3116415passed. No running source was mutated.
 - Root owns current timetable/portfolio/STATE. Re-estimate from CPUwhole-cell completions and`cpu_jobs.jsonl`; do not quote24GPUhours or24CPUallocation-hours as wallclock.
+- First two further CPUproduction S/FBC cells completed in3m42s and3m54s (3116421_0/_1), consistent with the4m02Tprobe. The route remains partial; no held accuracy was read.
