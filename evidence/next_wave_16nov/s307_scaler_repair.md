@@ -41,3 +41,14 @@
   pending release 3116016 was cancelled after the corrected release was queued.
   Completion, full-chain scoring, returning-person validation and package
   compatibility remain unproven.
+- Array 3116401 subsequently completed P02–P08 and P10, all with eight-order
+  anchor/zero/reset checks. P09 task 8 failed the existing 1e-5 guard: its
+  within0 maximum posterior difference was 0.0005000141604326047, with zero
+  changed non-tied labels. Its output remains preserved without a passing
+  cpu-route marker; assembly 3116402 is dependency-blocked. Its pinned scaler
+  hash matches §305. The independent fits both passed objective/gradient
+  guards but followed different trajectories: 1,037 versus 687 evaluations,
+  with losses 0.001603343031554732 and 0.001603343390722035. The failed target
+  ran on `galvani-cn002`; the reference fit ran on `galvani-cn208`. This
+  establishes numerical variation, not its root cause. No threshold was
+  relaxed, no failed output reused, and no incomplete score was read.
