@@ -50,3 +50,12 @@ Current validation: all owned C++ translation units/test pass local syntax-only
 checks against installed LibTorch headers; vendor C passes C99 syntax-only;
 fixture exporter passes py_compile. No local training or independent cluster
 allocation was run. Real-source integrated build/run remains coordinator-owned.
+
+Integrated build3119688 compiled the native solver and linked both ni26_base
+and ni26_linear_source. Generic probe/routing executables then failed at link
+time because OpenBLAS was a PRIVATE dependency: the cross-linker could not find
+the indirect library, despite correct base DT_NEEDED/RPATH and actual exported
+LP64 symbols. The linear test linked successfully because it already named the
+same library directly. The CMake fragment now propagates OpenBLAS PUBLIC to all
+base consumers. This changes dependency propagation only; no math, ABI or
+stopping tolerance changed. A fresh coordinator build must verify the fix.

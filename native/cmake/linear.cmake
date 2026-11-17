@@ -10,7 +10,7 @@ set_target_properties(ni26_lbfgsb PROPERTIES C_STANDARD 99 C_STANDARD_REQUIRED O
 target_compile_definitions(ni26_lbfgsb PRIVATE BLAS_SYMBOL_PREFIX=scipy_)
 target_sources(ni26_base PRIVATE "${NI26_LINEAR_ROOT}/src/linear.cpp"
   "${NI26_LINEAR_ROOT}/src/lbfgsb.cpp" "${NI26_LINEAR_ROOT}/src/scaler.cpp")
-target_link_libraries(ni26_base PRIVATE ni26_lbfgsb "${NI26_LBFGSB_BLAS_LIBRARY}")
+target_link_libraries(ni26_base PRIVATE ni26_lbfgsb PUBLIC "${NI26_LBFGSB_BLAS_LIBRARY}")
 get_filename_component(NI26_LBFGSB_BLAS_DIRECTORY "${NI26_LBFGSB_BLAS_LIBRARY}" DIRECTORY)
 set_property(TARGET ni26_base APPEND PROPERTY BUILD_RPATH "${NI26_LBFGSB_BLAS_DIRECTORY}")
 add_executable(ni26_linear_source "${NI26_LINEAR_ROOT}/tests/linear_source.cpp")
