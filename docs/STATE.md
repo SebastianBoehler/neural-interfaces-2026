@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 21:37 CET
+### Current campaign: 17 November 2026, about 21:51 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -207,8 +207,9 @@ C++ (+0.30%); wall from input loading was 416.84 versus 417.42 s. The broader pa
 Trace 3122514 showed numerical drift entering the outer mixture after FT and amplified in personalization.
 The first five hard refit targets matched in 3122538. Python scalar CUDA Adam reduced the 150-window
 outer-mixture error by 27%. In a 70-window diagnostic with scalar Adam and exact shared fit inputs/weights,
-C++ matched the Python outer mixture to 2.17e-8. Job 3122604 checks the exact SIMD package with the ordinary
-worker settings on the two long forced-adaptation streams.
+C++ matched the Python outer mixture to 2.17e-8. Default long SIMD worker 3122604 reproduced the prior mismatch
+at 1/378 and 4/800 labels; counters and status logs matched. It replayed in 297.42 s versus 308.30 s for frozen.
+Exact parity failed. This does not qualify added evaluation budget.
 [Current evidence](../evidence/next_wave_16nov/native_worker360.md)
 
 **Parallel accuracy — §354–356.** §354 complete after two fixed-route recoveries. Gaussian factorization lost to

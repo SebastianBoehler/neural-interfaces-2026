@@ -206,3 +206,22 @@ All 70 labels matched the originals. The paired controls show that
 the optimizer dispatch and tiny input differences both contribute.
 The private diagnostic did not change either production solver, and
 ordinary long-stream parity remains unresolved.
+
+### Default long replay
+
+Job 3122604 completed both standard-worker stress replays on one A100.
+All work counters match and the stage logs report zero errors. C++
+reproduced every label from the previous C++ build on both lengths.
+The frozen arm also reproduced every earlier reference label.
+
+| Forced-unrecognized windows | Frozen replay | C++ replay | Changed labels |
+| --- | ---: | ---: | ---: |
+| 378 | 153.059 s | 146.045 s | 1 at index 297 |
+| 800 | 155.238 s | 151.378 s | 4 at indices 312, 405, 602, 612 |
+| Total | 308.298 s | 297.423 s | 5 across both streams |
+
+The replay took 3.53% less time in C++. Exact parity failed, so the
+stress timings give no verified equivalent-work headroom. The same
+five label disagreements recur with either C++ filter implementation
+and on separate A100s. Comparison SHA-256
+`48ae6e88b1f4544bd113dcac02159ca844aaf460551e4df3e2891c9812444ea9`.
