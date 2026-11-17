@@ -1,0 +1,72 @@
+{
+  "data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+  "folds": [
+    {
+      "held": "Dreyer2026Proteus/P01",
+      "source_people": [
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P09",
+        "Dreyer2026Proteus/P10"
+      ],
+      "rows_sha256": "927152adccc9d919666be700e4cf73b5f010f52c058bd849166a63d2a3841cb4",
+      "arms": {
+        "offset": {
+          "seconds": 2.808830483816564,
+          "losses": [
+            1.1192176096821411,
+            0.9232436507517136
+          ],
+          "guards": {
+            "reset_interleaving_deepcopy_exact": true,
+            "b1_max": 5.960464477539063e-08,
+            "changed_relation_max": 1.5024367570877075,
+            "unchanged_inference_state": true
+          },
+          "bank_sha256": "e2fa031be78a1640f345606482f22c56a3cdf5896aba9d6c7e270cc7e80b28f4",
+          "checkpoint_sha256": "b4c81269668e9eeac43bf693f67c661c2440e73a016094765505f8bf2366f139",
+          "parameters": 449715
+        },
+        "aligned": {
+          "seconds": 0.37726527499035,
+          "losses": [
+            1.1737990369661342,
+            1.0065797894286335
+          ],
+          "guards": {
+            "reset_interleaving_deepcopy_exact": true,
+            "b1_max": 1.1920928955078125e-07,
+            "changed_relation_max": 1.5881617069244385,
+            "unchanged_inference_state": true
+          },
+          "bank_sha256": "032be4f654782b20e8a72243fa8cf420d964fc6029824f5712a863a743b69e4b",
+          "checkpoint_sha256": "a4edfca260c17fd18fc935acdd7b011100bbfa7c8c781bbc49bda5371ab4d1d6",
+          "parameters": 449715
+        }
+      }
+    }
+  ],
+  "epochs": 2,
+  "source": {
+    "collect.py": "60ad63f4af7fd4f87dd3ed4b04d7f68b22b21a4d8ad7e929d022dfd61096b3f0",
+    "dispatch.py": "46ae462a52ca23c0a3da141a4a5e84d6595d6a1fab5dd78f575cd7e5f69a62b2",
+    "preflight.py": "068b3e5a06797120e7c8e2c847e9414b28c43c44b70101cbf2fbfdd2c7b39e57",
+    "run.py": "2447c9e054b8a304c15b65431741e4e69e0b23c85a2dc8b216c0cbab89d278ec",
+    "model.py": "6b2d54aedbfb8131e21b0e15771e8862441eeab36f365006ca5f0312e591bbeb"
+  },
+  "device": "NVIDIA A100-PCIE-40GB",
+  "torch": "2.14.1+cu126",
+  "stateless": true,
+  "tf32": false,
+  "seed": 355,
+  "labels_scored": false,
+  "seconds": 3.813131410628557,
+  "maxrss_kib": 1338304,
+  "cuda_peak_bytes": 623470080,
+  "projected_family_seconds": 1263.9394231885672
+}

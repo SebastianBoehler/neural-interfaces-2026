@@ -1,0 +1,28 @@
+{
+  "real_source": "P02",
+  "rows": [
+    190,
+    191,
+    192,
+    193
+  ],
+  "parameters": {
+    "instant": 449715,
+    "lag6": 449715,
+    "offset": 449715,
+    "aligned": 449715
+  },
+  "all_initial_tensors_equal": true,
+  "all_four_real_source_gradients_active": true,
+  "eight_pinned_independent_orders": {
+    "within0": "4dd65c1aef3aa3bd49e7926c4923a7684281f31aab76a40a571e0a0cbce3f1c0",
+    "within1": "e8132cc329a0c661aae1855f02d5aeb6293241906a0d171b9ccb824d83703774",
+    "within2": "2c67f35698a8cc4c0528c286c2e32908ad3f7cced9e1d4ffb72ef2c806079b0e",
+    "within3": "f58d263b08898ae6323cf3b6da74c674771a2013abc80b2c95b425cc774acbb6",
+    "full0": "7585fc946dd30e28ee27ca660171c6013563cb829f5f3d8feeb98d8d30f7a7e5",
+    "full1": "75aec8d0821da771db5a69c3ad34feba21c476aeebb09833b8c37258c0a5a018",
+    "runs0": "2d140300638b5cc939226494f5c181c363c652dcc61294a1e9490552e1b7440c",
+    "runs1": "d997fdfcb61a13afbeed4ee2c9a4df4758be33305aca28b2febe6e6eb002d633"
+  },
+  "fit_or_accuracy": false
+}
