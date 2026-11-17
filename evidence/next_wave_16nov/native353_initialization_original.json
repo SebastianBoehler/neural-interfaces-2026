@@ -1,0 +1,18 @@
+{
+  "source_sha256": {
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/project/experiments/deep.py": "abe2f4e35fedc40aa6fd66b55ad89135e81189965f31d993bfad853cc73f363a",
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/project/experiments/session_bn.py": "af0dced9bdcd78781380ff71017d96910f214c545d53c83e121f12d42785fc80",
+    "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/fbcnet.py": "604e690ad1743a8dc9eeb87c0c3065d28619cbd4dbda8c9790e60924cafbe81a"
+  },
+  "torch_version": "2.14.1+cu126",
+  "seeds": [
+    0,
+    1
+  ],
+  "initialization_only": true,
+  "eeg_loaded": false,
+  "labels_loaded": false,
+  "forward_calls": 0,
+  "optimizer_steps": 0,
+  "fixture_sha256": "d3945def3e2169f923a11e85cd3ee0a97eb4d420c8ddba56ec1bd974dbb60375"
+}

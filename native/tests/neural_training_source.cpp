@@ -1,5 +1,6 @@
 #include "../src/training_internal.h"
 #include "ni26/math.h"
+#include "ni26/initialization.h"
 #include <chrono>
 #include <iomanip>
 #include <iostream>
@@ -23,7 +24,16 @@ int main(int argc, char **argv) {
     torch::set_num_threads(1);
     auto fixture = Params::load(argv[1]);
     require(fixture.integer("source_only") == 1, "source-only fixture required");
-    neural::RawFBC net(fixture.subset("initial_"), torch::kCPU);
+    auto original = fixture.subset("initial_");
+    auto seed = fixture.integer("initialization_seed");
+    require(seed >= 0, "source initialization seed must be nonnegative");
+    auto initialized = initialize_raw_fbc(original, static_cast<uint64_t>(seed));
+    require(initialized.tensors.size() == original.tensors.size() + 1,
+            "native source initializer state fields differ");
+    for (const auto &[key, value] : original.tensors)
+      require(torch::equal(initialized.get(key), value), "source initializer differs: " + key);
+    std::cout << "SOURCE_NATIVE_INITIALIZER_BYTE_EXACT fields=" << original.tensors.size() << '\n';
+    neural::RawFBC net(initialized, torch::kCPU);
     auto parameters = net.parameters();
     auto body_before = parameters[0].detach().clone(), head_before = parameters[4].detach().clone();
     torch::optim::AdamW opt(parameters, torch::optim::AdamWOptions(.001).weight_decay(.001));

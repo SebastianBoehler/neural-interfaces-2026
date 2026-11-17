@@ -1,4 +1,5 @@
 #include "ni26/math.h"
+#include "ni26/initialization.h"
 #include "training_internal.h"
 #include <cmath>
 #include <set>
@@ -51,7 +52,10 @@ Params train_raw_fbc(const Params &fixture, torch::Device device) {
        sizes = fixture.get("batch_sizes").to(torch::kCPU, torch::kInt64);
   require(batches.sizes() == torch::IntArrayRef({1240, 64}) && sizes.numel() == 1240,
           "native exact40×31 source batch plan differs");
-  neural::RawFBC net(fixture.subset("initial_"), device);
+  auto seed = fixture.integer("initialization_seed");
+  require(seed >= 0, "native source initializer seed must be nonnegative");
+  auto initial_state = initialize_raw_fbc(fixture.subset("initial_"), static_cast<uint64_t>(seed));
+  neural::RawFBC net(initial_state, device);
   auto parameters = net.parameters();
   torch::optim::AdamW optimizer(parameters, torch::optim::AdamWOptions(.001).weight_decay(.001));
   std::vector<Tensor> losses;

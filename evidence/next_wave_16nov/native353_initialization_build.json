@@ -1,0 +1,72 @@
+{
+  "compile_commands": [
+    [
+      "/mnt/lustre/work/gehler/gfh527/flightrl-puffer5.pmbvox/toolchain/bin/x86_64-conda-linux-gnu-g++",
+      "-D_GLIBCXX_USE_CXX11_ABI=1",
+      "-Dni26_base_EXPORTS",
+      "-I/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/native/include",
+      "-I/mnt/lustre/work/gehler/gfh527/ni26_native353_parity_v3_20261117/include",
+      "-isystem",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/include",
+      "-isystem",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++20",
+      "-fPIC",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-c",
+      "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/native/src/initialization.cpp",
+      "-o",
+      "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/build/initialization.o"
+    ],
+    [
+      "/mnt/lustre/work/gehler/gfh527/flightrl-puffer5.pmbvox/toolchain/bin/x86_64-conda-linux-gnu-g++",
+      "-D_GLIBCXX_USE_CXX11_ABI=1",
+      "-Dni26_base_EXPORTS",
+      "-I/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/native/include",
+      "-I/mnt/lustre/work/gehler/gfh527/ni26_native353_parity_v3_20261117/include",
+      "-isystem",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/include",
+      "-isystem",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++20",
+      "-fPIC",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-c",
+      "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/native/tests/initialization_source.cpp",
+      "-o",
+      "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/build/initialization_source.o"
+    ]
+  ],
+  "link_command": [
+    "/mnt/lustre/work/gehler/gfh527/flightrl-puffer5.pmbvox/toolchain/bin/x86_64-conda-linux-gnu-g++",
+    "-O3",
+    "-DNDEBUG",
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/build/initialization.o",
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/build/initialization_source.o",
+    "-o",
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/build/ni26_initialization_source",
+    "-L/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib",
+    "-Wl,-rpath,/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib:/mnt/lustre/work/gehler/gfh527/ni26_core_car_repair_v1_20261117/build:/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs",
+    "/mnt/lustre/work/gehler/gfh527/ni26_core_car_repair_v1_20261117/build/libni26_base.so",
+    "-ltorch",
+    "-ltorch_cpu",
+    "-lc10",
+    "-ltorch_cuda",
+    "-lc10_cuda",
+    "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so"
+  ],
+  "base_sha256": "70d149780e714f2763beb631804a14b5b77ed7fa2c8d974393b9f36bffe41cb5",
+  "objects": {
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/build/initialization.o": "e88b1257c109298d15c5384e19ecdcf0c45e98d9ebfc6caca86a08b3da873d10",
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/build/initialization_source.o": "79f427d25a867856f993d71779beb3f561cda208bd7e171317158ebf264e5fad"
+  },
+  "executable_sha256": "f73381e3a209c1f227eb1de858a2807c9d8bc29f3c4783ba141de4168a3b9ba6"
+}

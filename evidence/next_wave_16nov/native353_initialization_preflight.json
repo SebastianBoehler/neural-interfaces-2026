@@ -1,0 +1,17 @@
+{
+  "status": "IMPORT_SOURCE_AND_DEPENDENCY_PREFLIGHT_PASS",
+  "owners": {
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/project/experiments/deep.py": "abe2f4e35fedc40aa6fd66b55ad89135e81189965f31d993bfad853cc73f363a",
+    "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117/project/experiments/session_bn.py": "af0dced9bdcd78781380ff71017d96910f214c545d53c83e121f12d42785fc80",
+    "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/fbcnet.py": "604e690ad1743a8dc9eeb87c0c3065d28619cbd4dbda8c9790e60924cafbe81a",
+    "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/modules/convolution.py": "6fa8ef4a9d5b4bcb242147d7d99b67fc91f2c57f2ade1bda12ac8e9b336746c7",
+    "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/modules/linear.py": "bcc6e42799b65cbf587b4869bea6b6255389fde8507e4c10afd5814790bdd5ed",
+    "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/modules/filter.py": "d86be001cb22a4be5caa8a8b9eae2c9b8149691b6607528e3e3e070a185e3068",
+    "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/nn/init.py": "59dad5f51cb700bbe3a323a4169e77489470c25582838594f98e8e55f8156f7d"
+  },
+  "source_manifest_sha256": "7763aa227c0cffd13428977e47af4d656c9f5fafcd6a3ae5ee4ec8724b1dfef3",
+  "library_manifest_sha256": "17435d3c0219df896c4e3fdd69041edfd19b1a5153170338208558ac2e4e15b6",
+  "eeg_loaded": false,
+  "forward_calls": 0,
+  "optimizer_steps": 0
+}

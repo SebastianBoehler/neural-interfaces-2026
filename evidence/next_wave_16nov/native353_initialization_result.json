@@ -1,0 +1,26 @@
+{
+  "job": 3120984,
+  "status": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed_seconds": 90,
+  "requested_cpus": 1,
+  "allocated_cpus": 2,
+  "allocated_core_seconds": 180,
+  "max_rss_kib": 1444532,
+  "state_tensors_byte_exact": 52,
+  "seeds": [
+    0,
+    1
+  ],
+  "global_cpu_rng_unchanged": true,
+  "wrong_fir_shape_rejected": true,
+  "eeg_loaded": false,
+  "forward_calls": 0,
+  "optimizer_steps": 0,
+  "accuracy_computed": false,
+  "original_capture_wall_seconds": 9.37,
+  "native_static_test_wall_seconds": 0.45,
+  "matched_speed_benchmark": false,
+  "snapshot": "/mnt/lustre/work/gehler/gfh527/ni26_native353_initialization_v1_20261117",
+  "scope": "raw FBC/SessionBN static initializer only; source-training integration syntax-checked, first-update oracle held"
+}

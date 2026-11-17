@@ -12,7 +12,7 @@ int main(int argc,char** argv) {
     auto result=ni26::train_raw_fbc(source,torch::Device(argv[3]));
     result.tensors["native_format"]=torch::tensor(int64_t(1));
     result.save(argv[2]);
-    std::cout<<"native raw FBC source loop completed; initialization/batch provenance remains fixture-owned\n";
+    std::cout<<"native raw FBC source loop completed; source preparation/batch plan remain fixture-owned\n";
     return 0;
   } catch(const std::exception& error) {std::cerr<<error.what()<<'\n';return 1;}
 }

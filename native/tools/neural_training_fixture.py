@@ -49,7 +49,7 @@ def main():
         updated=self.net.state_dict();body='spatial_conv.0.parametrizations.weight.original';head='final_layer.parametrizations.weight.original'
         body_change=float((updated[body]-initial[body]).abs().max());head_change=float((updated[head]-initial[head]).abs().max())
         if body_change<=0 or head_change<=0 or float(self.net.final_layer.weight.norm(dim=1).max())>.500001:raise ValueError('original first body/head update or constraint inactive')
-        fields.update(source_only=np.int64(1),epochs=np.int64(40),source_people=np.array(sorted(set(people[fit]))),excluded_people=np.array(['P02','P03','P09']),
+        fields.update(source_only=np.int64(1),epochs=np.int64(40),initialization_seed=np.int64(self.seed),source_people=np.array(sorted(set(people[fit]))),excluded_people=np.array(['P02','P03','P09']),
             source_X=x.numpy(),source_y=y.numpy(),source_session=np.asarray(self._row_sess,np.int64),batch_indices=padded,batch_sizes=sizes,
             expected_schedule=np.asarray(schedule,np.float64),first_logits=logits.detach().numpy(),first_loss=loss.detach().numpy())
         fields.update({'initial_'+key:value.numpy() for key,value in initial.items()})
