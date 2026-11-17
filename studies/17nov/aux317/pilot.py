@@ -25,9 +25,9 @@ def sha(path):
     return h.hexdigest()
 
 
-def identity_guard(x, y, sx, sy):
+def identity_guard(x, y, sx, sy, seed=0):
     """Separate main step then discarded auxiliary step equals main-only update exactly."""
-    net = Encoder('fb', 0, 'cpu')
+    net = Encoder('fb', seed, 'cpu')
     twin = copy.deepcopy(net)
     head = nn.Linear(net.dim, 2)
     opts = [torch.optim.AdamW(list(n.body.parameters()) + list(n.task.parameters()), lr=.001)

@@ -151,3 +151,21 @@ BA is a debugging diagnostic, not selected evidence of efficacy. Full40epoch bou
 submitted to separate `ni26_aux317_20261117_pilot1` workspace after capacity check15running/87pending.
 Linear extrapolation is about17min for all three arms; allocation45min remains conservative. The
 same source manifest is pinned; no full matrix or chain score is queued.
+
+## Full study continuation
+
+Source pilot3116570 completed0:0, actual02:24:04–02:39:25CET on17Nov (15m21s).
+Selected sourceP02BA A73.506%,B73.598%,C72.859%; selectedepochs9/10/10. C−B−.739pp
+stays within the declared3pp harm bound; A is.529pp below prior strong raw74.035% control.
+Selected auxiliaryvalidationBA B56.67/C58.0% exceeds the declared52% optimization concern.
+All registered numerical/source/BN/no-transfer guards pass. This is one source person's result,
+not held-person efficacy evidence or a current-system gain.
+
+Following the user's unattended-work authorization, the concrete60foldCPU study and private315
+consumer were preregistered in§317. Repaired nested-producer smoke3116739 passed after a missing
+benchmark_utils dependency blocked firstsnapshot3116724 beforetraining. Failedsnapshotmatrix1
+is preserved; immutablematrix2contains the unchanged official submodule link and metric hashes.
+Afterokcontroller3116804 releases24/24/12fold waves with≤4allocations, accountcapacity/reservation
+checks, exactcomplete60fold wholecollector, then privatelyforked315consumer. See `aux317_handoff_17nov.md`.
+No outer accuracy or partialfold result has been opened. Consumer additions retain existing
+views/routing/stages and use the same fixed two-seed arithmetic-probability ensemble in sixCPbases.

@@ -53,9 +53,10 @@ def evaluate(net, x, labels):
     return loss, ba
 
 
-def train(arm, x, y, vx, vy, sx, sy, ss, svx, svy, epochs):
+def train(arm, x, y, vx, vy, sx, sy, ss, svx, svy, epochs, seed=0,
+          select=True, return_model=False):
     started = time.monotonic()
-    net = Encoder('fb', 0, 'cpu')
+    net = Encoder('fb', seed, 'cpu')
     head = nn.Linear(net.dim, 2)
     initial = fingerprint(net)
     initial_aux = fingerprint(head)
@@ -64,9 +65,9 @@ def train(arm, x, y, vx, vy, sx, sy, ss, svx, svy, epochs):
         net.moment_mean.copy_(z.mean(0)); net.moment_sd.copy_(z.std(0).clamp_min(1e-3))
     main = torch.optim.AdamW(list(net.body.parameters()) + list(net.task.parameters()), lr=.001, weight_decay=.001)
     aux = torch.optim.AdamW(list(net.body.parameters()) + list(head.parameters()), lr=.001, weight_decay=.001)
-    gen = torch.Generator().manual_seed(317)
-    extra_gen = torch.Generator().manual_seed(318)
-    rng = np.random.default_rng(317)
+    gen = torch.Generator().manual_seed(317 + seed)
+    extra_gen = torch.Generator().manual_seed(318 + seed)
+    rng = np.random.default_rng(317 + seed)
     people = sorted(set(ss.tolist()))
     class_weight = len(y) / (3 * torch.bincount(y, minlength=3).float())
     logs, best, state, max_grad, zero_steps = [], float('inf'), None, 0., 0
@@ -111,7 +112,7 @@ def train(arm, x, y, vx, vy, sx, sy, ss, svx, svy, epochs):
         print(arm, logs[-1], flush=True)
         if not np.isfinite(val_loss):
             raise ValueError('nonfinite source validation')
-        if val_loss < best:
+        if not select or val_loss < best:
             best, state = val_loss, copy.deepcopy(net.state_dict())
         # Stop immediately on material training collapse, never consult outer data.
         if ep >= 4 and val_loss > 5:
@@ -120,7 +121,10 @@ def train(arm, x, y, vx, vy, sx, sy, ss, svx, svy, epochs):
     selected_loss, selected_ba = evaluate(net, vx, vy)
     if arm == 'C' and max_grad <= 0:
         raise ValueError('joint supervision never reached encoder')
-    return dict(arm=arm, seconds=time.monotonic()-started, initial=initial,
+    result = dict(arm=arm, seconds=time.monotonic()-started, initial=initial,
                 initial_aux=initial_aux, final=fingerprint(net), source_plan=plan.hexdigest(),
                 selected_source_loss=selected_loss, selected_source_ba=selected_ba,
-                auxiliary_max_effective_gradient=max_grad, stopped_steps=zero_steps, epochs=logs)
+                auxiliary_max_effective_gradient=max_grad, stopped_steps=zero_steps, epochs=logs,
+                selected_epochs=min(logs,key=lambda r:r['loss'])['epoch'] if select else epochs,
+                seed=seed, checkpoint_selection='source-validation' if select else 'fixed-source-selected-epochs')
+    return (result, net) if return_model else result
