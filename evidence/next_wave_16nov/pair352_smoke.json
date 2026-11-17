@@ -1,0 +1,19 @@
+{
+  "features_100_s": 0.9731488106772304,
+  "fit_pair_s": 0.0680613899603486,
+  "projected_wall_s": 276.1875635100994,
+  "maxrss_kib": 556676,
+  "real_window_covariance_exact": true,
+  "training_twin_exact": true,
+  "causal_17prefix_exact": true,
+  "all_8_source_orders_pinned": true,
+  "source_data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+  "source_hashes": {
+    "collect.py": "49181be90c6b8e35514e3065f7447a3be5891a00cc4e2eab6bd318abdd23f73e",
+    "data.py": "10ab487a8c3bbf588a4ef10ced6834f28a58da8dddac355e83185b18214185b5",
+    "diagnose_prefix.py": "727c6d581c9771ac3c89ff024388fbb171a0579dc975ccd9abe7d15051999b0b",
+    "geometry.py": "dee66a828b8813080d6ebc4830c366b6555230a9d5962eeea37da2f20284ad15",
+    "producer.py": "4024dad6cfa9478fdbd8558a2c880978ddb40bd1385fa70c6d71ea5073614be2",
+    "smoke.py": "0c74d0fbdaa53c18622e2575749522390edda574e94e43f6c131f938a493bae6"
+  }
+}
