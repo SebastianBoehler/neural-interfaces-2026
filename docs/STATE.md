@@ -17,8 +17,9 @@ Prepared v6.6 is unchanged. Its unvalidated .824–.829 scenario maps to about10
 §314 temporal features improve their matched weak decoder by2.182 official points, but not a package gain.
 §310 entropy-sign transfer and §306 interface experts do not establish a new current-system gain.
 §305/308 CPU evaluation now runs at four allocations each. §304 provenance recovery passed and its69cell
-wave is running. §307 independent anchor parity remains under diagnosis with the original strict guard.
-§312 GPU guards passed, but production is queue-limited; shorter reservations are being assessed from measured cost.
+wave is running. §307 independent anchor parity now passes (max2.60e−14) after matching the pinned scaler
+and single-thread fitting; production3116401 is running. §312 GPU guards passed, but production is
+queue-limited; pending wave1 reservations are shortened45→10minutes and a complete-cost probe is being prepared.
 No upload was made. Fresh SSH master started01:02CET; no server/VPN expiry time has been verified.
 
 ### Overnight update: 17 Nov 2026, about 00:22 CET

@@ -28,12 +28,15 @@ Source and compact observed values: [live_board_17nov.json](live_board_17nov.jso
   approximately01:30–02:00 if measured4–5min/cell persists.
 - §304 conditional CORAL: provenance recovery3116320 passed;69cells3116327%4→scorer3116328;
   approximately02:30–03:30, with node contention/queue uncertainty. Historical controls remain locked.
-- §307 learned adaptation: scaler repair alone still missed the strict unchanged anchor guard.
-  Exact-thread independent-fit pilot3116329 is pending/running; no reliable production ETA yet.
+- §307 learned adaptation: exact-scaler plus single-thread pilot3116329 passed every unchanged
+  eight-order anchor/prefix/reset/zero check, max probability error2.60e−14. Production3116401%2
+  now runs P02–P10 →assembly3116402; the obsolete failed-dependency release3116016 was cancelled.
+  Both earlier failed pilots remain recorded. Full-chain release retains its own capacity/source guards.
 - §312 raw pretraining: CPU guard699s; CUDA guards3115787/3115989 passed33s/56s. GPU supervised
   FBCNet source fit12.79s and Shallow5.63s are not full producer timings. First80fitwave3115990
   awaits allocation; scheduler currently predicts first06:40, with a long reservation-based tail.
-  Owner is reviewing shorter requests against measured costs, preserving source and all controls.
+  All pending wave1 tasks now request10minutes instead of45, preserving computation/source. Owner
+  is preparing a complete producer-cost probe and separately registered CPU route; no mixed-device matrix.
   Callback3115991 queues remaining80 and collector;315bridge3116075 follows. Full ETA unconfirmed.
 
 Times are estimates from measured work, not guarantees. Read complete guarded blocks independently.

@@ -4,7 +4,7 @@ Objective: broad scientific exploration and a stronger submission by 17 November
 Checkpoint: provisionally 18:00 CET. Top five is the objective, not a measured result.
 New heavy compute: Galvani only; SSH mlcloud-galvani requires eduVPN and authentication.
 Keep all user jobs within 32 running / 272 submitted, preserving 28 slots. Do not touch unrelated jobs.
-Read STATE → LEDGER → OFFICIAL_CONTRACT. Preserve source snapshots. No upload is authorized.
+Read STATE → LEDGER → OFFICIAL_CONTRACT. STATUS_17NOV.md supersedes older jobs below. No upload is authorized.
 
 ## Evidence at 17 November, about 00:22 CET
 
@@ -29,15 +29,15 @@ Read STATE → LEDGER → OFFICIAL_CONTRACT. Preserve source snapshots. No uploa
 - §304 conditional CORAL: first80 fits complete; second80 array3115042 finished. Controller queued
   seeds4–5; inspect its outputs for actual new IDs. Then240-fold assembly →192 streams → guarded chain.
   Sources: coral_repair; evidence: coral304_assembly.md. At most6 fit and2 chain allocations.
-- §305: all10 native fits complete. Old assembler3114946 failed a sibling import; corrected3115452 passed.
-  Recovered replay/stage3115536 passed OK →zero3115537 →treatment3115538 →scorer3115539; arrays%2.
+- §305: all10 fits and eight zero controls passed. Corrected assembler3115452 and replay3115536 passed.
+  Treatment3115538 now%4 →scorer3115539; same sources/arms after scheduling-only amendment.
 - §306: all10 CPU folds3115525%2 running →scorer3115526. Five GPU folds remain unscored; no mixed-device
   fold matrix. CPU/GPU training posterior identity is not established. Read the interface-expert evidence.
-- §307: 90 crossfits3115215 complete →verifier3115216 →10 CPU meta fits3115217%2.
-  Target callback3115483 follows recovered305 anchor;40 artifacts →target guard →targets →chain.
-  GPU compatibility3115209 is independent. meta_adaptation_design.md owns the scientific design.
+- §307 crossfits/meta fits complete. Corrected pilot3116329 passed the unchanged anchor guard (2.60e−14)
+  with the pinned305scaler and original single-thread fit. New targets3116401%2 →assembly3116402;
+  chain has separate source/capacity guards. Failed pilots remain recorded; old3116016cancelled.
 - §308: 20 person/seed fits and88 deltas complete. Recovery3115771 passed replay OK; launcher3115772
-  queued8 zeros3115773 →80 treatment cells3115774 →scorer3115775, arrays%2.
+  queued8 zeros3115773 (passed) →80 treatment cells3115774 now%4 →scorer3115775.
 - §310: strong-core entropy-sign pilot3115415 passed;9 targets3115485 and assembler3115486 complete.
   Full-chain DAG dispatched; entropy_sign_s310.md/private job manifest has generated IDs. Group%2.
 - Read only complete guarded treatment matrices. Recover verified script/dependency failures without
