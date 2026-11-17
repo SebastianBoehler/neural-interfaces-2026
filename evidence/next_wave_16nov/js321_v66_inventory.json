@@ -1,0 +1,99 @@
+{
+  "zip_sha256": "9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed",
+  "submission_sha256": "37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f",
+  "original_weight_sum": 1.8749999999999996,
+  "n_nets": 65,
+  "slots": {
+    "fbraw": {
+      "indices": [
+        47,
+        48,
+        49,
+        50,
+        51,
+        52
+      ],
+      "files": [
+        "sbn_fbcnet_raw_k20_s0.pt",
+        "sbn_fbcnet_raw_k20_s1.pt",
+        "sbn_fbcnet_raw_k20_s2.pt",
+        "sbn_fbcnet_raw_k20_s3.pt",
+        "sbn_fbcnet_raw_k20_s4.pt",
+        "sbn_fbcnet_raw_k20_s5.pt"
+      ],
+      "normalized_weight": 0.06666666666666667
+    },
+    "fb": {
+      "indices": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ],
+      "files": [
+        "sbn_k2_s0.pt",
+        "sbn_k2_s1.pt",
+        "sbn_k2_s2.pt",
+        "sbn_k2_s3.pt",
+        "sbn_k2_s4.pt",
+        "sbn_k2_s5.pt"
+      ],
+      "normalized_weight": 0.06666666666666667
+    },
+    "sinc": {
+      "indices": [
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "files": [
+        "sbn_sincshallow_ea_ptm7r_rot05_k20_s0.pt",
+        "sbn_sincshallow_ea_ptm7r_rot05_k20_s1.pt",
+        "sbn_sincshallow_ea_ptm7r_rot05_k20_s2.pt",
+        "sbn_sincshallow_ea_ptm7r_rot05_k20_s3.pt",
+        "sbn_sincshallow_ea_ptm7r_rot05_k20_s4.pt",
+        "sbn_sincshallow_ea_ptm7r_rot05_k20_s5.pt"
+      ],
+      "normalized_weight": 0.06666666666666667
+    },
+    "fbl": {
+      "indices": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64
+      ],
+      "files": [
+        "sbn_fblight_ea_rot05_k5_s0.pt",
+        "sbn_fblight_ea_rot05_k5_s1.pt",
+        "sbn_fblight_ea_rot05_k5_s2.pt",
+        "sbn_fblight_ea_rot05_k5_s3.pt",
+        "sbn_fblight_ea_rot05_k5_s4.pt",
+        "sbn_fblight_ea_rot05_k5_s5.pt"
+      ],
+      "normalized_weight": 0.06666666666666667
+    }
+  },
+  "ft_members": [
+    47,
+    35,
+    53,
+    59
+  ],
+  "routed": 1,
+  "labels": 0,
+  "relabel": 1,
+  "rest_weight": 0.0625,
+  "cp_on": 1,
+  "ft_cap": 250,
+  "base_core1_share": 0.06666666666666668,
+  "v66_outer_core1_share": 0.06250000000000001,
+  "js_outer_core1_share": 0.05882352941176472
+}
