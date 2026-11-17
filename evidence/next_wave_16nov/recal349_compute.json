@@ -1,0 +1,30 @@
+{
+  "jobs": {
+    "3119534": {
+      "state": "COMPLETED",
+      "allocated_seconds": 65,
+      "CPUs": 2,
+      "MaxRSS_MiB": 2178.5,
+      "node": "galvani-cn002"
+    },
+    "3119559": {
+      "state": "COMPLETED",
+      "allocated_seconds": 53,
+      "CPUs": 6,
+      "MaxRSS_KiB": 1822888,
+      "node": "galvani-cn002"
+    },
+    "3119566": {
+      "state": "COMPLETED",
+      "allocated_seconds": 15,
+      "CPUs": 2,
+      "MaxRSS_KiB": 690260,
+      "node": "galvani-cn002"
+    }
+  },
+  "allocated_CPUcoreseconds": 478,
+  "allocated_CPUcorehours": 0.13277777777777777,
+  "A100hours": 0,
+  "owned_jobs_remaining": [],
+  "optimizer_steps": 0
+}
