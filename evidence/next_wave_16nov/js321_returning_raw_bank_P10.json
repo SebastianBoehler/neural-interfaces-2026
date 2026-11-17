@@ -1,0 +1,138 @@
+{
+  "status": "full_native_raw_causal256_eightorder_bank_passed_NOT_accuracy",
+  "fold": "P10_s23",
+  "checks": [
+    {
+      "order": "within0",
+      "session": "Dreyer2026Proteus/P10|2",
+      "count": 186,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "within0",
+      "session": "Dreyer2026Proteus/P10|3",
+      "count": 199,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "within1",
+      "session": "Dreyer2026Proteus/P10|2",
+      "count": 186,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "within1",
+      "session": "Dreyer2026Proteus/P10|3",
+      "count": 199,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "within2",
+      "session": "Dreyer2026Proteus/P10|2",
+      "count": 186,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "within2",
+      "session": "Dreyer2026Proteus/P10|3",
+      "count": 199,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "within3",
+      "session": "Dreyer2026Proteus/P10|2",
+      "count": 186,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "within3",
+      "session": "Dreyer2026Proteus/P10|3",
+      "count": 199,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "full0",
+      "session": "Dreyer2026Proteus/P10|2",
+      "count": 186,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "full0",
+      "session": "Dreyer2026Proteus/P10|3",
+      "count": 199,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "full1",
+      "session": "Dreyer2026Proteus/P10|2",
+      "count": 186,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "full1",
+      "session": "Dreyer2026Proteus/P10|3",
+      "count": 199,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "runs0",
+      "session": "Dreyer2026Proteus/P10|2",
+      "count": 186,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "runs0",
+      "session": "Dreyer2026Proteus/P10|3",
+      "count": 199,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "runs1",
+      "session": "Dreyer2026Proteus/P10|2",
+      "count": 186,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    },
+    {
+      "order": "runs1",
+      "session": "Dreyer2026Proteus/P10|3",
+      "count": 199,
+      "repeat_maxabs": 0.0,
+      "prefix_copy_maxabs": 0.0
+    }
+  ],
+  "source_fit_sha256": "ab59b6e9b2bd1104db9bfec80acf4e075a3151819f9b1d33c15d26f14e46a833",
+  "native_canary_sha256": "f528b36801e1b732da29cf91ae832aacdb3ae9c7301d20100dcecac9edbb9688",
+  "source_sha256": "ae9aeb4168896a578b2468bbf8c357fb9f92013d220afb371c61d130290d088c",
+  "train_rows_sha256": "db255fd45af6d17fa4ba1829781bac5a92a08afa1bec4e5bf85266b56ea84790",
+  "held_rows_sha256": "8aaa3c2c7d59a3851fb0c6cb0ece879771484a9a0151885c645df7b889e439b2",
+  "files": {
+    "within0.npz": "ca51909f1dc28b120090c56f6b12aa24f4437aa48a9a07be206e6a3b0662d900",
+    "within1.npz": "64ed86186543fb97f9d7c8bb1ef2957666cd0bd18b31e21f58f26ca565861d17",
+    "within2.npz": "aa435b3e755d118d5ce719b76ef70897a1cf195972417f8b5d7c305ca34bd7b4",
+    "within3.npz": "3896a2643956cb2eb5cdc72c64c1c54a08a2e68f46678b12af2a81b3946ec851",
+    "full0.npz": "b97dd7860f79855f5cf7eff3c2ecfd6eb26127e3acba7ad52468c1994fc50903",
+    "full1.npz": "fe04ec1d652f8f0a90ffc087791d3d07c52f6a2a084cc0c3a9138f2041b51e04",
+    "runs0.npz": "bcc69ed80f1fe39487ba77480544800b0c635c3cee2c5c935850e0568903dc3a",
+    "runs1.npz": "087139413267f3a8535338d9079d8aa5d5be83540c67dce1483670d25b937237"
+  },
+  "seconds": 435.1467703934759,
+  "query_labels_read": false,
+  "accuracy_computed": false,
+  "executor": "actual_clean_worker_SIF_CPU",
+  "scope": "raw core/view reconstruction only; full original-inner and wholepair still required"
+}

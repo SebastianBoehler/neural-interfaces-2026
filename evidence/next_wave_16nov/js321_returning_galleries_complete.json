@@ -1,0 +1,39 @@
+{
+  "status": "both_source_galleries_complete_CONDITIONAL",
+  "folds": [
+    {
+      "status": "new_source_coordinate_galleries_complete_CONDITIONAL_oldOOF",
+      "fold": "P04_s23",
+      "source_rows": 2278,
+      "held_rows": 377,
+      "train_rows_sha256": "ca4a869ff981142b692b2a4e2ecb44f075ea2494e398280f103c9a9a36bcea2b",
+      "source_basis_sha256": "8f52ab55d4dea7eca9b43b610fad2c645c1f3029372570d05ab71b2187123675",
+      "arrays_sha256": "ac6fccde415e70891c55e7d717f74d093005c2d63860c32daa6346e5798ba19a",
+      "original_OOF_cache_sha256": "df5798dacb87a0bd1ea4ea6a883983dbcecd2ba37c759736d3ad1bcd979dadcf",
+      "OOF_key": "B2_pool|tsem|all_loso",
+      "old_OOF_outer_exposure_RETAINED": true,
+      "query_labels_read": false,
+      "accuracy_computed": false,
+      "source_sha256": "547fc93979732f5a397943814b89f8419b2b257d75bb7004c7cc5572ff25d695",
+      "scope": "sourcefit true galleries/newcoordinate Q using unchanged old OOF posterior calibration;not all-components-excluded generalization"
+    },
+    {
+      "status": "new_source_coordinate_galleries_complete_CONDITIONAL_oldOOF",
+      "fold": "P10_s23",
+      "source_rows": 2270,
+      "held_rows": 385,
+      "train_rows_sha256": "db255fd45af6d17fa4ba1829781bac5a92a08afa1bec4e5bf85266b56ea84790",
+      "source_basis_sha256": "ab59b6e9b2bd1104db9bfec80acf4e075a3151819f9b1d33c15d26f14e46a833",
+      "arrays_sha256": "d7a843109780b5219fb9713d3f6795ea22c11b67caab6bac2e4574fe8dd6a488",
+      "original_OOF_cache_sha256": "df5798dacb87a0bd1ea4ea6a883983dbcecd2ba37c759736d3ad1bcd979dadcf",
+      "OOF_key": "B2_pool|tsem|all_loso",
+      "old_OOF_outer_exposure_RETAINED": true,
+      "query_labels_read": false,
+      "accuracy_computed": false,
+      "source_sha256": "547fc93979732f5a397943814b89f8419b2b257d75bb7004c7cc5572ff25d695",
+      "scope": "sourcefit true galleries/newcoordinate Q using unchanged old OOF posterior calibration;not all-components-excluded generalization"
+    }
+  ],
+  "seconds": 3.1618197141215205,
+  "accuracy_computed": false
+}

@@ -1,0 +1,67 @@
+{
+  "status": "twofold_three_arm_private_source_bridge_built_NOT_validated",
+  "artifacts": [
+    {
+      "fold": "P04_s23",
+      "arm": "base",
+      "path": "P04_s23/base",
+      "source_package": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_active5/draft_base",
+      "source_module_sha256": "37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f",
+      "module_sha256": "37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f",
+      "weights_sha256": "89db16ec21d18ef6a283d93fde34c3e23e4767ac5fc74907514d331e20462169"
+    },
+    {
+      "fold": "P04_s23",
+      "arm": "off",
+      "path": "P04_s23/off",
+      "source_package": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputreuse2/draft_off",
+      "source_module_sha256": "a61bad3dc5268af04a071dffe58a4db0a84fff86224974d5175a83c4ed601d54",
+      "module_sha256": "a61bad3dc5268af04a071dffe58a4db0a84fff86224974d5175a83c4ed601d54",
+      "weights_sha256": "4e1851d086f3203064cfe9016ee34fa02698a58b215da94b33140d002fb7f1c1"
+    },
+    {
+      "fold": "P04_s23",
+      "arm": "js",
+      "path": "P04_s23/js",
+      "source_package": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputreuse2/prepared_jsall",
+      "source_module_sha256": "a61bad3dc5268af04a071dffe58a4db0a84fff86224974d5175a83c4ed601d54",
+      "module_sha256": "a61bad3dc5268af04a071dffe58a4db0a84fff86224974d5175a83c4ed601d54",
+      "weights_sha256": "ec32b6a7ddb3f28ef04cabb6b6aded4d28a44f04d106763f479dfab62c389e04"
+    },
+    {
+      "fold": "P10_s23",
+      "arm": "base",
+      "path": "P10_s23/base",
+      "source_package": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_active5/draft_base",
+      "source_module_sha256": "37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f",
+      "module_sha256": "37c666a8a63c043c290bd35c527c26c6cfaf028bbe55c746cb8c685dac9fb69f",
+      "weights_sha256": "baeb61ad6babc503c9d2a9764780c10cc32b677baa35eb985512704e5efd16d6"
+    },
+    {
+      "fold": "P10_s23",
+      "arm": "off",
+      "path": "P10_s23/off",
+      "source_package": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputreuse2/draft_off",
+      "source_module_sha256": "a61bad3dc5268af04a071dffe58a4db0a84fff86224974d5175a83c4ed601d54",
+      "module_sha256": "a61bad3dc5268af04a071dffe58a4db0a84fff86224974d5175a83c4ed601d54",
+      "weights_sha256": "5d22c781b18c2e12f8f30e8df8de2fc3a22d24efac6e60dc16d70d95695e9e9e"
+    },
+    {
+      "fold": "P10_s23",
+      "arm": "js",
+      "path": "P10_s23/js",
+      "source_package": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputreuse2/prepared_jsall",
+      "source_module_sha256": "a61bad3dc5268af04a071dffe58a4db0a84fff86224974d5175a83c4ed601d54",
+      "module_sha256": "a61bad3dc5268af04a071dffe58a4db0a84fff86224974d5175a83c4ed601d54",
+      "weights_sha256": "5af0e8baf302113d5417b2f398024d938e12324d62cc922f8b0da308196b338a"
+    }
+  ],
+  "source_sha256": "910f9e07231415ce091c13f43677e4cb0418d01d0c17ca1f5b05033184f9099c",
+  "accuracy_computed": false,
+  "scope": "ENGINEERING_CONDITIONAL_FIXED_PRODUCTION_PRIOR_ONLY",
+  "retained": "ORIGINAL rest4/eye auxiliary productionNN;other classical member weights outside core1;globalMAD/event/scalar priors;teacherG;oldOOFposterior calibration",
+  "source_fitted": "PRIMARY+INNER NetBank neural task weights/maps;core1/PCA256;personalheads/Tpri/OwnTCS;truecontrast/bio galleries and centering;NOT rest4/eyeaux",
+  "required_next": "actualmodule/source/offidentity/innerFT/gate/reset/deepcopy/fullraw active guards BEFORE any wholepaired conditional score",
+  "full_manifest_sha256": "4141e13721928b21248af7c1eedcd10a18f20c2293631aeaa529bad619d13aaa",
+  "full_manifest": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_bundle2/bundle_complete.json"
+}

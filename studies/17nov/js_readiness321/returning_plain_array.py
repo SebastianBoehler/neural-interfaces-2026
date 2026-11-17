@@ -12,7 +12,7 @@ import numpy as np
 import torch
 from torch.nn import functional as F
 
-from returning_plain_collect import ROOT,checked,asset
+from returning_plain_collect import ROOT,checked,asset,FAMILIES
 from returning_bank import input_class
 from returning_train import sha
 
@@ -36,16 +36,23 @@ def owners(source):
     return functions,namespace
 
 
-def main():
+def main(mode):
+    if mode not in ("pilot","all"):raise ValueError("registered mode required")
+    if mode=="all":
+        complete=ROOT/"ni26_js321_20261117_returning_plain_complete1/plain_complete.json"
+        owning=json.loads(complete.read_text())
+        if owning["status"]!="all28_new_genuine_source_plain_weights_complete_NOT_accuracy" or len(owning["assets"])!=28:raise ValueError("complete owning28 manifest required")
     torch.set_num_threads(1);start=time.monotonic();source=ROOT/'ni26_js321_20261117_returning2/source'
     sys.path[:0]=[str(source/'experiments'),str(ROOT/'neural-interfaces-2026/2026-competition/tracks/bci_decoding')]
     import deep
     exporters,namespace=owners(source);Input=input_class();records=[]
     data=source/'data/proteus_windows.npz'
     with np.load(data,allow_pickle=True) as z:
-        rows=np.flatnonzero((z['subject']=='Dreyer2026Proteus/P04')&(z['session'].astype(str)=='2'))[:31];X=z['X'][rows].copy()
-    for cfg in ('shallow_ea','fbcnet_ea_tf'):
-        proof=checked(cfg,'P04_s23',0);path=asset(cfg,'P04_s23',0);c=torch.load(path/'checkpoint.pt',map_location='cpu',weights_only=False);r=c['recipe']
+        raw=z['X'].copy();sub=z['subject'].copy();session=z['session'].astype(str)
+    cases=[(c,f,s) for c,n in FAMILIES.items() for f in ('P04_s23','P10_s23') for s in range(n)] if mode=='all' else [(c,'P04_s23',0) for c in ('shallow_ea','fbcnet_ea_tf')]
+    for cfg,fold,seed in cases:
+        rows=np.flatnonzero((sub=='Dreyer2026Proteus/'+fold[:3])&(session=='2'))[:31];X=raw[rows]
+        proof=checked(cfg,fold,seed);path=asset(cfg,fold,seed);c=torch.load(path/'checkpoint.pt',map_location='cpu',weights_only=False);r=c['recipe']
         net=deep.build(r['arch'],41,480,True).eval();net.load_state_dict(c['state'],strict=True)
         m=types.SimpleNamespace(net=net,align=r['align'],k=r['k'],G=c['G'],scale=c['scale'])
         p=exporters['net_params' if cfg.startswith('shallow') else 'fbc_params'](m)
@@ -58,9 +65,9 @@ def main():
         error=float(np.abs(ref-got).max());changed=(ref.argmax(1)!=got.argmax(1))&(np.sort(ref,axis=1)[:,-1]-np.sort(ref,axis=1)[:,-2]>2e-4)
         if error>1e-4 or changed.any() or not np.array_equal(got,repeat):raise ValueError(f'original runtime vs genuine PyTorch failed {cfg} {error}')
         if not all(torch.equal(v,net.state_dict()[k]) for k,v in before.items()):raise ValueError('PyTorch state mutated')
-        np.savez(cfg+'_arrays.npz',**p);records.append(dict(family=cfg,original_runtime_class=type(original).__name__,maxabs=error,nontied_changes=int(changed.sum()),samepath_bitwise=True,asset=proof,array_sha256=sha(cfg+'_arrays.npz')))
+        name=f'{cfg}_{fold}_s{seed}_arrays.npz';np.savez(name,**p);records.append(dict(family=cfg,fold=fold,seed=seed,original_runtime_class=type(original).__name__,maxabs=error,nontied_changes=int(changed.sum()),samepath_bitwise=True,asset=proof,array_sha256=sha(name)))
     Path('array_guard.json').write_text(json.dumps(dict(status='original_plain_runtime_source_array_export_passed_NOT_accuracy',cases=records,
-        source_sha256=sha('source.sha256'),seconds=time.monotonic()-start,query_labels_read=False,accuracy_computed=False),indent=2))
+        mode=mode,source_sha256=sha('source.sha256'),seconds=time.monotonic()-start,query_labels_read=False,accuracy_computed=False),indent=2))
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':main(sys.argv[1])

@@ -1,0 +1,47 @@
+{
+  "status": "both_source_teacher_maps_complete_NOT_accuracy",
+  "folds": [
+    {
+      "status": "new_source_teacher_taskmap_export_passed_NOT_accuracy",
+      "fold": "P04_s23",
+      "train_count": 2278,
+      "held_count": 377,
+      "train_rows_sha256": "ca4a869ff981142b692b2a4e2ecb44f075ea2494e398280f103c9a9a36bcea2b",
+      "held_rows_sha256": "07db73505fa397db8afdcff984bc6d6a408a04c569681d0528946987c5be6d1c",
+      "external_teacher_sha256": "98f7df456dcbecaaadb2e0c0a09a130dc6fd3e2de187adf606dd1ce1b4330b5c",
+      "taskmap_C": 0.01,
+      "class_weight": "balanced",
+      "teacher_sha256": "361519feb9bacb85f6387a1dd0a2611b1cf597f0b4f85ed004a07609dc874806",
+      "source_sha256": "a8f300af630199e00e36413ebd454b5a2f17cf6e7c88db1a6914ec17241cdad9",
+      "export_maxabs": 7.402856755378551e-08,
+      "saved_samepath_bitwise": true,
+      "external_heads_immutable": true,
+      "held_labels_poisoned": true,
+      "accuracy_computed": false,
+      "scope": "NEW source-only task map;frozen external heads and original global production input G/scale retained explicitly conditional"
+    },
+    {
+      "status": "new_source_teacher_taskmap_export_passed_NOT_accuracy",
+      "fold": "P10_s23",
+      "train_count": 2270,
+      "held_count": 385,
+      "train_rows_sha256": "db255fd45af6d17fa4ba1829781bac5a92a08afa1bec4e5bf85266b56ea84790",
+      "held_rows_sha256": "8aaa3c2c7d59a3851fb0c6cb0ece879771484a9a0151885c645df7b889e439b2",
+      "external_teacher_sha256": "98f7df456dcbecaaadb2e0c0a09a130dc6fd3e2de187adf606dd1ce1b4330b5c",
+      "taskmap_C": 0.01,
+      "class_weight": "balanced",
+      "teacher_sha256": "64f74cf9a81abbe8d66519b7126ee43eeda18a1eaadd6f0cc169d27d15c594b7",
+      "source_sha256": "a8f300af630199e00e36413ebd454b5a2f17cf6e7c88db1a6914ec17241cdad9",
+      "export_maxabs": 4.1437866415972024e-08,
+      "saved_samepath_bitwise": true,
+      "external_heads_immutable": true,
+      "held_labels_poisoned": true,
+      "accuracy_computed": false,
+      "scope": "NEW source-only task map;frozen external heads and original global production input G/scale retained explicitly conditional"
+    }
+  ],
+  "b1_12source_seconds": 2.849169391207397,
+  "feature_seconds": 569.2316234763712,
+  "seconds": 594.691263563931,
+  "accuracy_computed": false
+}
