@@ -19,7 +19,7 @@ void require(bool valid, const char* message) {
 torch::Tensor matrix(const double* x, std::int64_t n, std::int64_t d) {
     require(x && n > 0 && d > 0, "missing or empty float64 matrix");
     auto result = torch::from_blob(const_cast<double*>(x), {n, d}, options);
-    require(torch::isfinite(result).all().item<bool>(), "nonfinite matrix");
+    for (std::int64_t index = 0; index < n * d; ++index) require(std::isfinite(x[index]), "nonfinite matrix");
     return result;
 }
 
