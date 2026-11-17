@@ -1,0 +1,66 @@
+{
+  "status": "READONLY_POSTHOC_SUPPLEMENTAL_EQUAL_SCHEME_NOT_PRIMARY_NOT_GENERALIZATION",
+  "primary_report": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_pair_cpu_complete1/conditional_results.json",
+  "primary_sha256": "d0532701c0b88a4acd8fd8bd3d6b7b98469ef1d6bae0758b34ce690d50313f04",
+  "primary_uniform8_JS_minus_base_pp": -0.28791689726966135,
+  "primary_uniform8_95pct_descriptor_pp": [
+    -0.876627604166667,
+    -0.11310253267974091
+  ],
+  "primary_orderweights": {
+    "within": 0.5,
+    "full": 0.25,
+    "runs": 0.25
+  },
+  "supplemental_orderweights": {
+    "within": 0.3333333333333333,
+    "full": 0.3333333333333333,
+    "runs": 0.3333333333333333
+  },
+  "supplemental_equal_scheme_JS_minus_base_pp": -0.26150654034015214,
+  "supplemental_equal_scheme_80pct_descriptor_pp": [
+    -0.662657743428915,
+    -0.1501651007625273
+  ],
+  "supplemental_person_JS_minus_base_pp": {
+    "P04": -0.6226198476702508,
+    "P10": -0.17122821350762743
+  },
+  "person_order_JS_minus_base_pp": {
+    "P04": {
+      "within0": -0.7728494623655879,
+      "within1": -0.5381944444444509,
+      "within2": 0.26041666666667407,
+      "within3": -2.117495519713264,
+      "full0": -0.5208333333333259,
+      "full1": -0.2945788530466009,
+      "runs0": -1.075828853046601,
+      "runs1": -0.26041666666666297
+    },
+    "P10": {
+      "within0": -0.26041666666667407,
+      "within1": -0.2777777777777768,
+      "within2": 0.0,
+      "within3": -0.5055147058823595,
+      "full0": -0.26041666666666297,
+      "full1": -0.26041666666666297,
+      "runs0": 0.26041666666666297,
+      "runs1": -0.2450980392156854
+    }
+  },
+  "person_scheme_JS_minus_base_pp": {
+    "P04": {
+      "within": -0.7920306899641627,
+      "full": -0.4077060931899634,
+      "runs": -0.6681227598566264
+    },
+    "P10": {
+      "within": -0.2609272875817026,
+      "full": -0.26041666666667407,
+      "runs": 0.007659313725494332
+    }
+  },
+  "source_sha256": "f3586a85bc8eb29c8d413551d60ff6f51e9f6aeb68501f7871ff5d51bef87d9b",
+  "scope": "samecompleteactualCPU3armrecordedofficialmetrics;oldauxNN/classical/teacherG/OOFexposure;ONLY2people",
+  "caveats": "Posthocconventioncheck;uniform8primaryunchanged;80%supplementdifferentfrom95%primary;NOmodel/evaluator/HPOchange;NOsealed/rank/promotionproof"
+}

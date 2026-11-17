@@ -1,5 +1,16 @@
 # §321 returning-person validation: new genuine checkpoint scope
 
+## Complete conditional result — 17 November
+
+All16 CPU cells and owningcollector3119253 completed; ALL16source/frame/row metadata passed beforegold, replay/check printedOK. Originaloff/control identity isexact, commoninner/gates/FTlabels/inputs arebitwise, sourceweights/non-sessionbuffers unchanged, raw256match0 and maximumowningJSrecipeerror≤machineprecision.
+
+PRIMARY uniform8orders (within50%/full25%/runs25%): returning-weighted0.2P04+0.8P10 JS−base **−0.287917pp**,95%descriptivepeople/order interval[−0.876628,−0.113103]. P04:89.695761→89.030788%(−0.664973pp);P10:95.960279→95.766626%(−0.193653pp). Equalpersondelta−0.429313pp;7/8weightedordersnegative. This is a returning-risk signal, not an implementation failure or independentgeneralization result.
+
+SEPARATE POSTHOC equal-scheme1/3 conventioncheck:−0.261507pp,80%descriptive interval[−0.662658,−0.150165];P04−0.622620/P10−0.171228pp. Primarypoint/95%descriptor remainunchanged. No model/metric/HPO change or sealedprojection.
+
+Scope: NEWsource-fittedprimary/innerNetBank taskNNs,sourceheads/PCA/galleries; ORIGINALsharedrest4/eyeauxNNs+otherclassicalproductionweights/priors/teacherG/oldOOFexposure remainfixed. Bothpeopleonly; deterministicCPUvalidation. **NOT genuinelyheldFULLSYSTEMDEV, ranking/promotion proof or a reason to alterfrozen submissions.** The absoluteconditional scores are not comparableto76.218%full-currentdev. Weightedpointdoesnotcrossregistered−.5ppharmbar, but bothpeopledecline; neitherpersonaloneclosesdirection. Fullsource/per-order/provenance: js321_returning_conditional_results.json and js321_returning_scheme_supplement.json.
+
+
 Historical checkpoint identity remains refuted. §281 job3110506 used candidate source `4370f1fc772d1a3377d3758d599b0b364b3231eb`; seed0 frozen-QF reconstruction differed by .005591801/one label for P04 and .005279755/zero labels for P10. Those checkpoints were correctly not persisted. The complete original remote training revision was never established. This failure does not make a newly trained, correctly excluded fold invalid; it prevents calling it the historical fold.
 
 The documented recipe and required inputs exist. `experiments/session_bn.py:make` resolves `sincshallow_ea_ptm7r_rot05_sbn` through `run_cv.resolve`; `deep.AlignedNet._fit` supplies AdamW/OneCycle, 40epochs, lr/wd.001, batch64, rotation.05. Session groups32 are noncausal during training, latent test prior20; causal EA input prior remains5. Original m7r trunks0–5 exist, with their exact current hashes pinned in each training snapshot. No external data is added.

@@ -1,4 +1,4 @@
-# Owned317/320/321 handoff — 17 November, updated after12:54CET checks
+# Owned317/320/321 handoff — 17 November, updated aftercomplete13:25–13:30CET checks
 
 - Root owns canonical STATE/STATUS/research/handoff. This owner edits only317/320/321 source/evidence/additiveLEDGER. Never change frozen submissions/officialsubmodule; no upload/promotion/version designation authorized.
 - Historical research inherited; no fresh-isolation or inventedtimedblock claim. Strongest fullsystem76.218% stays unchanged; no establishedtopfive/independentbreakthrough.
@@ -31,6 +31,7 @@
 - Owningcollector3119253 afterokremaining15 in `ni26_js321_20261117_returning_pair_cpu_complete1`. FirstALL16source/frame/hash/rows/exactkeys NOYpreflight; thenoldv3replay/checkmustprintOK; thenrecheckALL16beforefirstgold/UNCHANGEDprotocol.score. No partialoutermetrics. CPUcollector rejects mixeddevices.
 - Registeredwholeconditional16cells=2people×8orders,3actualarms/naturalrecognition, JS-allpost-rec policy. PriorJS−base0.0pp[−.6,+.6]. Reportbothpeople/equalpersonJ/0.2P04+.8P10, 2000nestedpeople+orderdescriptivebootstrapseed3211701 (ONLY2people; no generalizationCI).
 - Atobservedonecell12m56rate, two remainingwaves suggest~13:18–13:30 IFotherorderssimilar; recognition/FTvariation canextend. Hard100min/cell unchanged; no numerical/runtimebar lowered. Usercapacity≤32running/244activeadmission(272cap/28reserve), sourcecontrollerchecks andpercellchecks; unrelatedjobs untouched.
-- Next: followactual3119252/3119253; diagnoseanyguardfailurebeforefreshsource; NEVERreadgold/metrics untilcompleteALL16. Finalreportconditionalonly, strongestmeasuredstackpreserved. No automaticpromotion/upload/newversion.
+- COMPLETE: remaining15array3119252allCOMPLETED0:0; owning3119253PASS1m27, ALL16NoYpreflight thenreplayOK thenofficialmetric. Primaryuniform8/95%descriptor weighted−.287917pp[−.876628,−.113103], P04−.664973/P10−.193653,7/8ordersnegative. Off/base0/all32sessionguardspass. Fixedproductionexposure meansCONDITIONALONLY, no genuineheld/rank/sealedproof.
+- POSTHOCsupplementequal-scheme1/3 weighted−.261507pp/80%descriptor[−.662658,−.150165], bothpeopledecline. Primaryunchanged. Parentrequestedreadonlypre/postactualrecognitionerror-attribution next, thenpossibleSINGLEpolicy350ifcleaninterface/cost; no grid/no parallelmodels/no originalafter-recidentityclaim. No automaticpromotion/upload/newversion.
 - Sources/evidence: studies/17nov/js_readiness321/; js321_returning.md; js321_returning_pair_guard.json; js321_returning_cpu_smoke.json; js321_returning_cpu_release.json. RemotecompleteCPUresult expected `...returning_pair_cpu_complete1/conditional_results.json`.
 - Futuregitcommits use `git commit --only -- <ownedpaths>`; sourcecommit72ec78b pickedupanotheragent'salready-staged345manifestdeletion, rootnotified/nohistoryrewrite. SharedLEDGERadditiveonly, no staleoverwrite.

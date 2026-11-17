@@ -1,0 +1,62 @@
+{
+  "status": "COMPLETE_CONDITIONAL_ENGINEERING_SENSITIVITY_NOT_FULLSYSTEMDEV",
+  "person_metrics_percent": {
+    "P04": {
+      "base": 89.69576052867383,
+      "off": 89.69576052867383,
+      "js": 89.03078797043011
+    },
+    "P10": {
+      "base": 95.96027922663318,
+      "off": 95.96027922663318,
+      "js": 95.76662624460704
+    }
+  },
+  "returning_weighted_JS_minus_base_pp": -0.28791689726966135,
+  "people_order_descriptive_interval_pp": [
+    -0.876627604166667,
+    -0.11310253267974091
+  ],
+  "equal_person_JS_minus_base_pp": -0.42931277013493613,
+  "person_JS_minus_base_pp": {
+    "P04": -0.6649725582437274,
+    "P10": -0.19365298202614484
+  },
+  "order_returning_weighted_delta_pp": {
+    "within0": -0.36290322580645684,
+    "within1": -0.3298611111111116,
+    "within2": 0.052083333333334814,
+    "within3": -0.8279108686485404,
+    "full0": -0.31249999999999556,
+    "full1": -0.26724910394265056,
+    "runs0": -0.0068324372759898,
+    "runs1": -0.24816176470588092
+  },
+  "off_minus_base_exact_zero": true,
+  "guard_sha256": "78a13e9f6e5fb2a17c7285f634e068d5b52c71ae9062ba3f323cf147f887c839",
+  "source_sha256": "9e8bdfeb06ac206c1c678e087f88424305888dae755641fea896430c870a7a14",
+  "replay_check_sha256": "5faba4e1c72f60850a7e557fea817212b48db99497111cd263639d29bbed3bdf",
+  "metric_owner": "unchanged experiments/protocol.py:score official cell balanced_accuracy",
+  "metric_source_sha256": "390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c",
+  "scope": "ONLYpairedfixed-production-priorengineeringconditional;primary+innerNNsourcefit;rest4_eyeauxNN/classical/teacherG/oldOOFexposureRETAINED",
+  "limitations": "ONLYtwopeople/selecteddev;positiveCANNOTestablishindependentgeneralization/rank/sealedprojection/promotion;deterministicvalidationexecutorNOTstandardtiming",
+  "upload_or_promotion": false,
+  "full_report": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_pair_cpu_complete1/conditional_results.json",
+  "full_report_sha256": "d0532701c0b88a4acd8fd8bd3d6b7b98469ef1d6bae0758b34ce690d50313f04",
+  "primary_scheme_weights": {
+    "within": 0.5,
+    "full": 0.25,
+    "runs": 0.25
+  },
+  "descriptor_level_percent": 95,
+  "complete_cells": 16,
+  "complete_guard_summary": {
+    "actual_sessions": 32,
+    "all_off_base_bitwise": true,
+    "all_inner_gate_FT_bitwise": true,
+    "all_source_immutable": true,
+    "max_owning_recipe_abs": 3.3306690738754696e-16,
+    "max_raw_view_abs": 0.0,
+    "all_no_budget_over": true
+  }
+}
