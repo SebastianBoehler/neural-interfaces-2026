@@ -6,7 +6,6 @@ import time
 from pathlib import Path
 import numpy as np
 import torch
-from sklearn.preprocessing import StandardScaler
 
 ROOT = Path(os.environ['NI26_WS']).resolve(strict=True)
 CACHE = Path(os.environ['S307_CACHE']).resolve(strict=True)
@@ -17,6 +16,7 @@ from bridge import Native
 from adapt import FEATURES, BLOCKS, Session
 from crossfit import fit_native, sha
 from ids import person_ids
+from reference_scaler import load_scaler
 
 ORDERS = ('within0','within1','within2','within3','full0','full1','runs0','runs1')
 ARMS = ('anchor','fixed','scalar','blocks','scalar0','scalar1','blocks0','blocks1')
@@ -57,10 +57,20 @@ def main(held):
     if not np.array_equal(train_rows,np.flatnonzero(subject != held)) or held in set(subject[train_rows]):
         raise ValueError('target person entered anchor fit')
     X = np.ascontiguousarray(np.concatenate(features)[position],dtype=np.float64)
-    scaler = StandardScaler().fit(X)
-    train = np.ascontiguousarray(scaler.transform(X),dtype=np.float64)
+    reference = Path(os.environ['S307_S305_ROOT']).resolve(strict=True)
+    shard = reference / f'runs/s305_converged_shards/{held}.npz'
+    lock = json.loads((reference / 'runs/s305_converged/manifest.json').read_text())
+    if lock['shards'].get(shard.name) != sha(shard):
+        raise ValueError('§305 reference shard checksum mismatch')
+    with np.load(shard, allow_pickle=False) as z:
+        refmeta = json.loads(str(z['metadata'].item()))
+    if refmeta['held'] != held or refmeta['held_accuracy_computed'] is not False:
+        raise ValueError('§305 reference fold mismatch')
+    mean, scale = load_scaler(os.environ['S301_ALL_REFERENCES'], held, train_rows,
+                              refmeta['reference_sha256'], X.shape[1])
     labels = np.ascontiguousarray(d['y'][train_rows],dtype=np.int64)
     native = Native(); start = time.monotonic()
+    train = native.standardize(X, mean, scale)
     theta,loss,grad,calls = fit_native(native,train,labels)
     prior = np.ascontiguousarray(np.average(np.stack(priors),axis=0,weights=counts))
     device = torch.device('cuda:0')
@@ -78,7 +88,7 @@ def main(held):
             for session in dict.fromkeys(sessions[delivered]):
                 group = delivered[sessions[delivered] == session]; loc = np.searchsorted(saved['rows'],group)
                 raw = native.causal(prior,np.ascontiguousarray(saved['cov'][loc]),np.ascontiguousarray(saved['slow'][loc]))
-                x = torch.as_tensor((raw-scaler.mean_)/scaler.scale_,dtype=torch.float64,device=device)
+                x = torch.as_tensor(native.standardize(raw,mean,scale),dtype=torch.float64,device=device)
                 handles = {'anchor':[Session(anchor,bias,torch.tensor(0.,device=device,dtype=torch.float64),enabled=False)],
                            'zero':[Session(anchor,bias,torch.tensor(0.,device=device,dtype=torch.float64))],
                            'fixed':[Session(anchor,bias,torch.tensor(1.,device=device,dtype=torch.float64))],
@@ -109,6 +119,7 @@ def main(held):
                 if not np.isfinite(p).all() or not np.allclose(p.sum(1),1,atol=1e-10,rtol=0): raise ValueError('invalid target posterior')
                 payload[f'{a}|{order}'] = p
     meta = {'held':held,'train_people':train_people,'cache_sha256':cache_hashes,'fit_loss':loss,'fit_gradmax':grad,'fit_calls':calls,
+            'reference_sha256':refmeta['reference_sha256'],'reference_shard_sha256':sha(shard),
             'dataset_sha256':sha(ROOT/'data/proteus_windows.npz'),'permutation_sha256':sha(ROOT/'runs/shuffle_perms.npz'),
             'models_sha256':{f'{a}_s{s}':sha(ROOT/f'runs/s307/meta/{held}_{a}_s{s}.npz') for a in ('scalar','blocks') for s in (0,1)},
             'updates':counts_by_order,'max_delta_ratio':max_delta,'seconds':time.monotonic()-start,'held_accuracy_computed':False}
