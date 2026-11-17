@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 06:50 CET
+# Campaign status: 17 November 2026, 08:05 CET
 
 Submission unchanged: uploaded v5.1b **.8197668759**. Prepared v6.6 cap250 remains unchanged;
 ZIP SHA `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
@@ -85,7 +85,7 @@ module-path/orchestration repairs preserved original producer source and metric.
 Whole per-seed averaged official A(extraPROTEUS)52.8361/B(external stop-gradient)53.6952/
 C(continued external gradient)53.7346%. C−B+.03943official, people/order+.5513[−.7633,+1.9531],6/10up.
 Large seed differences; not two-seed ensemble accuracy or isolated auxiliary gain. C−A+.89846official.
-[Owned evidence](aux317_handoff_17nov.md). The guarded full-current-system consumer is running independently.
+[Owned evidence](aux317_handoff_17nov.md). Its complete guarded current-system comparison is recorded below; no further317job remains.
 
 **§322/323 normalization:** selected322source pilot found matched SessionBN gains5.4–8.3points on exposedP02/P03,
 but training and inference changed together. Complete32380fits/20folds/128per-seed streams separate those phases:
@@ -157,19 +157,21 @@ Controller3117342 verified actualGPUbar failure/source/image and released one6mi
 Profile3117399 passed: all6FIRfingerprints match; oneFIR+sixindependenttails versus sixfullSJit calls has
 EXACT0.0 probabilityerror across two alternated-reset17window runs. Auxiliary-networktime.2509/.2441s→
 .07674/.07639s(68.7–69.4%less). This is component timing, not whole-worker or sealed speedup.
-Separate immutable same-weight optimization is being prepared; fresh raw/active/reset/paired-worker guards
-remain necessary. Separate readonly-current-input variant also registered. Initial guards3117415/3117429
-failed before inference on a newly assumed persisted stream column; owning protocol derives stream fromsubject/session.
-Failures preserved/deadcontrollers canceled; realNPZ/loginCPU schema smoke precedes replacementGPUguards.
-No tolerance relaxation, candidate promotion or new accuracy score; failed source remains intact.
-Replacementguards3117535/3117537passed raw/known45/off/inner checks then FAILED GPUbitwise reset/deepcopy
-beforeunrecognizedFT. Diagnostic3117552: oldJS/FIR/reuse share sameGPUcold→reset finaldrift6.25236e−8,
-CC1.82155e−7,0labelchanges; CPUcold/reset/deepcopy bitwise, GPUfreshold→old exact. NoFTnoise explanation.
-Phase-matched CPU/GPU/source controls are separately registered; old failures remainfailed and workerreleaseblocked.
-[Reset diagnostic](js321_reset_diagnostic.json). Cause is not yet established.
-New215FTcontrol3117565failed pre-inference metadata assertion:65declared nets contain45active/20zero-weight.
-Derive live IDs from originalweights, inspect everyinstantiated buffer and preserve inactiveparameterhashes.
-No FT-noise result or worker release exists from that failure.
+Separate FIR-only and readonly-current-input variants preserve all original tensors/paths. ActualNetBank
+instantiates45nonzero-weight networks;20declaredinactive arrays remain covered by unchangedNPZhashes.
+OldstandardGPUselfcontrol exhibits6.25e−8reset drift beforeFT and3.02e−4final drift withFT;0labels.
+Deterministicold215control3117572passes EXACT0 alloutputs/FTparameters/generators, and controlled
+old→FIR3117581/reuse3117582 proofs pass EXACT0 through20FT/10CP/125fusions, originalinputs/gates/labels.
+Oldbitwise failures are preserved; no bound was fitted to noise and production flags remain unchanged.
+Separate standardA100 first-stop optimizedworkers pass known190/378/800(maxratioFIR1.0553/reuse1.0493),
+thenfail unknown378(FIR1.3115/reuse1.2477). Those rows are relativebar failures, not observed timeouts.
+CompleteFUNCTIONAL-onlyA1003117602FIR/3117601reuse now PASS all6known/unknown190/378/800rows.
+Unknown800has24FTrefits/480steps/noover,39CPrefits/710fusions. Reuse800absolute134.875→137.939s is
+DESCRIPTIVE, not a timing-pass claim. Firstunknown190payscommoncoldFTsetup, so its~.5ratio is not speedup.
+NewcounterbalancedAB/BA timing3117650 is running afteractualuntimed800FT/CP thenreset; coldcostseparate.
+Firstwarm3117647failed missingrecord.py pre-inference; separate owningdependency-onlyretry/importsmoke passed.
+CPU2153117573andstandardCPU3117585/7 continue; timeout-only fullfunctionalcontinuations are registered.
+MissinggenuineoriginalSincfolds stillblock returningvalidation. No optimizedcandidate qualification/promotion.
 
 **§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.
 C−control+.048820official[−.114472,+.218121], people/order+.036[−.150914,+.231166],5/10up.
@@ -207,30 +209,52 @@ or familyclosure. These are exposed source people, not independent/returning/sea
 reproduce all original official person/interfacecell scores exactly. [Owned handoff](labram330_handoff.md).
 No new candidate or score projection follows.
 
-**§331 independent raw state-space decoder RUNNING:** realCPUguard3117539passed32s.
-Independent480-stepcomplex oracle max float64output5.55e−17/gradient8.88e−16; float32output5.96e−8/
-gradient2.38e−7, initialS/Fexact, allactivity/state/B1-B4/modulus checks pass.
-Initial cost gate53.14min>36min stopped release. Explicit budget-only75minserialpilot3117541 runs unchanged
-40epochs/source/model/batches, allL/F/S/referencefits beforequerylabels; no mixed-devicebank/duplicate fit.
-The proposed pending-onlyparallelreplacement did not execute because canonicalpilot was alreadyrunning.
-At06:45 L/F40complete, S4/40; estimated full result07:00–07:10conditional on finalreference/guards.
-P01 has no labels/fitting/aggregate statistics; unchangedRhelper materializes independentper-windowcovcachesforallX.
-[Scope](oscillatory331.md), [actualguard](oscillatory331_guard.json). No query/source-performance result yet.
+**§331 independent raw oscillatory decoder COMPLETE:**3117541passed33m14, all40epoch L/F/S/Rfits,
+checkpoints/banks/state/officialguards before querylabels. Local45.902/static49.122/selective48.358%,
+unchangedrawSessionBN61.776% across exposedP02/P03. Static−local+3.220pp bothup; selective−static−.764bothdown.
+SourceCE improvesL.379/F.317/S.302, but transferweak; not optimizer-convergence or familyclosureproof.
+Postfit3117574independentdirect480stepcomplex oracle onactualtrainedselectivity passes output/gradients;
+float32≤1.79e−7, actualrho varies. FinalB1/B4≤1.193e−7, parameteractivity/state/modulusguards pass.
+Originalcostgate53.14>36min preserved; separate75minserialallocationunchangedscience, parallelreplacement
+neverfired afterlaunch. No duplicatefits or outerexpansion. [Complete scope](oscillatory331.md).
+
+**§332 mean/variance/donor intervention COMPLETE:**collector3117655passed07:59:41CET/25s,
+all20person×seedcells/80originalcheckpoints/10views×8orders. OriginalF/Bprobabilities BITWISE0error,
+originalwholemetrics reproduced. Mean-only−fixed P0.000pp[0,0]/S+.014[−.031,+.062].
+Variance-only−fixed P+3.921[2.241,5.881]/S+4.607[2.720,7.085]officialpp;
+people/order+4.437/+5.661. Selfboth−sourcedonor P+4.267[2.682,6.327]/S+5.849[3.950,8.481].
+Mean×varianceinteraction CIspans0. ActualONEBNlayer; featurevarianceadaptation supports thissavedweightform,
+not a physiologicalcause/newchain gain. Initialfloat32moment guardfailure/transparentf64oracleamendment
+preserved; normalizationarithmeticunchanged. Completecompactsourceevidenceownedbyfresh_solution_audit.
+
+**§333 label-free information-retention probe COMPLETE:**3117678guard4s/3117681pilot25s.
+All9savedAtom/rawbanks fit fixedridge.1 on P04–P10 to fullsource-fixed44,239cov/slowteacher, no labels/newNNfit.
+Allmaps/guards beforequeryerror. PrepooldiagrelativeMSE.864/.670 versusrandom.898/.887(P02/P03),
+retained.944/.668 versusrandom1.004/1.045. Offdiagonalprepool1.157/1.053, retained1.304/1.248;
+retained+raw1.467/1.190. Ratio1 is source-mean predictor. Diagonal recovery improves; offdiagonal lineartransfer
+is weak. Thisfixedridge/exposedcrosspersonprobe doesnotproveinformationabsent or explain classificationcausally.
+[Complete diagnostic](retention333.md), [allerrors/guards/hashes](retention333_results.json).
+
+**§334 coherent whole generative model COMPLETE:**3117620passed95s, all7sourceheld6-personrefits,
+full7refit/48banks/guards BEFORE querylabels. Static58.875%, translation/mixture49.891%, hardMAP49.737%.
+Sourceheld selectedη.25NLL7.315 vs uniform1.099, severelymiscalibrated. ActualfittedCPU/A100featureposterior
+3.14e−14/0nontiedchanges. Full44,239invertiblegeometry retained. Source-onlyaudit3117674 finds
+residualclasscontrast.00769 vssemantic63.3895 underD−2scaling; g/πposteriorsnearlyuniform, translationactive.
+Mixture−translationprobmax1.02e−7: aggregatehypothesisactivity failed to establish eachlatentuseful.
+Negativefixedmodel, notgenerativefamilyclosure. [Complete evidence](generative334.md).
+§335source-held-only20-control residualscaling/temperaturestudy passedsmoke3117689(53s);
+seven6-personrefits3117719%4→completecollector3117726 queued. Measuredbudget<2CPUcoreh. NO P02/P03inference/scoring.
+Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
 
 ## Coordination and cadence
 
-Galvani only,32running/272submitted with28reserve. Latest05:47CET account snapshot:37active/7running,
-no dead dependency observed; verify capacity before each dispatch. SSH renewed01:02CET still works.
-ControlPersist43200 means12-hour local idle retention, not VPN/server expiry. Submitted jobs survive client loss.
-Root owns canonical STATE/STATUS/handoff; external_supervision owns321/317; fresh_architecture owns328/329/330;
-fresh_solution_audit completed323diagnosis/CPU312 and now owns331numericguard/sourcepilot. Use followup_task to wake completed owners.
-Do not overwrite others' ledger blocks or immutable snapshots; reconcile shared files before commit.
-
-Global scientific-discovery skill applied; personal masterdbaab0e. No cross-provider execution.
-Native pairedCPU inference63–64ms versus cachedPython113–117ms is narrow; A100solve1.062s versus CPU238.483s
-also changes device/trajectory. No energy/end-to-end efficiency claim. No Weco service/provider was run.
-Last scheduled research02:48:22–03:09:39 CET lasted21m17s; [report](research_4h_17nov_0250.md).
-Extra artifact-informed fresh-chat review05:13:54–05:30:14 CET lasted16m20; canonical history retained, not blind.
-The scheduled06:51≥15minblock is now starting in fresh-chat worker scheduled_research_0652.
-Collect actual clock duration/report before markingcomplete; do not duplicate this active block. Bothautomationsactive.
-Next17Nov18:00CET decision checkpoint remains provisional; local selected gains do not establish topfive readiness.
+Galvani only,32running/272submitted with28reserve. Latestroot07:59CET dispatch:12active/7running,
+verifylivecapacitybeforeeachdispatch. SSHworks;12hourlocalidleretention isnotverifiedserver/VPNexpiry.
+Submittedjobs surviveclientloss. Rootowns canonicaldocs/333; external_supervisionowns321; fresh_solution_audit
+owns332/strong-referencebridge; scheduled_research_0652completedtimedblock/334andnowowns335source-onlystudy.
+Usefollowup_task towakecompletedowners. Preserveallsharedledgerblocks/immutableworkspaces.
+Global scientific-discoveryskill applied; personalmasterdbaab0e. No cross-provider orWecoproviderexecution.
+NativepairedCPU63–64msvscachedPython113–117msisnarrow;A100solve1.062svsCPU238.483schangesdevice/trajectory.
+Noenergy/end-to-endclaim. Lastscheduledresearch06:52:44–07:07:51CET15m07;[report](research_4h_17nov_0652.md).
+Extra05:13–05:30reviewnotreplacement;canonicalhistoryretained,notblind. BothautomationsACTIVE,nextresearch~10:51CET.
+Next17Nov18:00CET decisioncheckpointprovisional;nonewqualifiedsubmission/topfiveproof.

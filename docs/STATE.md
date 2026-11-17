@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 Nov 2026, about 06:50 CET
+### Current campaign: 17 Nov 2026, about 08:05 CET
 
 The user authorizes ongoing overnight implementation, broader whole alternatives and justified follow-ups.
 The provisional decision checkpoint is 17 November 18:00 CET. Top five is an objective, not a verified result.
@@ -68,12 +68,23 @@ Pretrained−randomFT+5.594points is positive on both people, but random fitting
 pretrainedFT−frozen+2.158 is mixed across people. Pretrained sourcefit100% does not generalize well here.
 Neither form establishes a useful whole decoder or closes this prior. Import/metric-path failures and a
 canonical fixed-readout/raw-reference repeat are preserved separately; no identity to lost outputs is claimed.
-§331's independent raw oscillatory decoder passed real CPU direct-recurrence/output/gradient/state/activity
-checks. Its initial36min cost gate stopped release; a separate75min allocation3117541 is running unchanged
-40epoch L/F/S controls plus original raw reference. A conditional parallel replacement did not fire after
-launch; there are no duplicate fits. At06:45 L/F completed and S was training; estimated result07:00–07:10CET,
-conditional on final guards. No query accuracy yet. P01 labels/fitting/aggregate statistics are excluded;
-the unchanged reference may materialize independent per-window covariance caches for all publicX.
+§331's independent raw oscillatory decoder completed all40epochs/guards before queries: local45.902%,
+staticrecurrence49.122%, selectivedecay48.358%, unchangedrawreference61.776% across exposedP02/P03.
+Recurrence beats its localcontrol on both people; inputselectivity does not. Trainedselectivity/direct-complex
+oracle passes, so an inactive initialscan is not the explanation. No outer expansion or familyclosure.
+
+**New mechanism wave.** Complete§332same-weight factorial reproduces originalF/B BITWISE on all20person/seedcells.
+Mean-only−fixed≈0; variance-only gains3.921/4.607officialpoints for population/SessionBN training.
+Selfboth−sourcedonor4.267/5.849points; only ONEactualBNlayer, no deepernetwork claim. This isolates feature
+variance adaptation in these savedweakmodels, not a full-system gain or physiological cause.
+Complete§333label-free frozenAtom probes recover diagonal structure better thanrandom; offdiagonal linear
+reconstruction generally fails to beat source-mean. Full44,239teachercoordinates retained, no labels/newNNfit.
+Fixedridge/crossperson probe limits prevent an information-absence or classifier-cause claim.
+Complete§334coherentgenerative pilot: static58.875%, translation/mixture49.891%, hard49.737%.
+Source-held NLL7.315 versusuniform1.099 is poor; source-onlyaudit finds likelihoodscaling nearly silences
+geometry/permutation whiletranslation dominates. Allfullcoordinates retained does not prove usefulmechanism.
+§335source-only scale/temperature follow-up passedsmoke3117689; sevenparallelfolds3117719→collector3117726
+arequeued. NoP02/P03inference, exposedquery tuning orouterexpansion.
 §320 reliability's unchanged source
 control failed its registered quality premise; no outer expansion.
 
@@ -90,30 +101,26 @@ then failed the same runtime bar at known378:49.409→61.152s, ratio1.23766>1.06
 The failure is a relative engineering bar, not an observed timeout. Length800/unrecognized/late-CP remain
 untested there. Conditional profile3117399 passed: fingerprinted one-FIR/six-tail execution gives exact0.0 probability error
 and about69% less auxiliary-network time on17realwindows. This is component timing, not whole-worker speed.
-Separate same-weight SharedFIR-only and readonly-current-input variants are being prepared.
-Initial schema failures were corrected using the owning subject/session derivation and real CPU smoke.
-Replacement guards passed raw/known/off/inner paths, then failed GPU bitwise reset/deepcopy before lateFT.
-Actual oldJS self-control shows the SAME tiny GPU cold→reset drift in all3forms (maxfinal6.25e−8,0label
-changes), while CPU reset/deepcopy are bitwise and GPU fresh-load repeats exact. No FT ran in this failure.
-The new215FT self-control first stopped on another metadata assertion:65declared nets have45active/20zero-weight.
-Expected active IDs must come from the unchanged weight mask; the failure supplies no FT-noise evidence.
-A separately registered phase-matched guard compares old/new at identical execution phases and measures
-an actual old→old215FT control before attributing later discrepancies. The old bitwise failures remain failed;
-GPU numerical cause and optimized worker qualification are still open. No tolerance was silently relaxed.
+Separate SharedFIR-only and readonly-current-input variants now pass exact controlled-executor
+old→new215FT/reset/CP/generator/state proofs. Actual45nonzero-weight nets run;20declaredinactive arrays
+remain hash-preserved. StandardGPUold→old FTnoise was measured separately; deterministic validation
+removesit without relaxing1e−8 bounds or changingproduction flags. Oldfailedbitwise/timingchecks remainfailed.
+Bothoptimized standardA100first-stop probes pass known190/378/800 but fail unknown378relativebar.
+SeparatecompleteFUNCTIONAL-onlyA1003117601/3117602 now pass allknown/unknown190/378/800, including
+unknown80024FTrefits/480steps/noover,39CPrefits/710fusions. This is function coverage, not timing acceptance.
+Untimedactual800FT/CP activation thenreset plus counterbalancedAB/BA warmedtiming is running3117650;
+its firstdependency-importfailure is preserved. IndependentCPU215andlongCPUworkers continue.
 Returning heldfold
 validation remains blocked by missing/invalid genuine original Sinc checkpoints. No candidate is qualified.
 
 **Native stack and research cadence.** Paired CPU inference63–64ms versus cached Python113–117ms has a narrow scope.
 Resident A100 solve1.062s versus CPU238.483s changes device/trajectory; neither establishes energy or full-worker speed.
 The global scientific-discovery skill is applied; no cross-provider execution is claimed.
-Last scheduled primary-source block 02:48:22–03:09:39 CET lasted21m17s:
-[scheduled report](../evidence/next_wave_16nov/research_4h_17nov_0250.md).
-An additional fresh-chat artifact-informed review 05:13:54–05:30:14 CET lasted16m20s:
-[fresh review](../evidence/next_wave_16nov/fresh_architecture_17nov.md).
-It retains canonical history and is not blind; it does not replace the next scheduled block around06:51 CET.
+Last scheduled primary-source block06:52:44–07:07:51CET lasted15m07:
+[scheduled report](../evidence/next_wave_16nov/research_4h_17nov_0652.md).
+The extra05:13–05:30fresh-chat review did not replace it. Canonicalhistorywas retained; neitherwasblind.
 Both50-minute campaign and4-hour≥15-minute research heartbeats remain active through17November evening.
-The scheduled06:51block is now starting in fresh-chat worker scheduled_research_0652; collect its actual
-start/end/duration and substantive artifact before marking the block complete. Do not duplicate its active work.
+Next scheduledresearchslot is about10:51CET; verifyactualcadence/duration, do not duplicatecompleted0652block.
 SSH renewed01:02 CET still works; local12-hour idle retention is not a verified server/VPN expiry.
 Submitted jobs continue without a client. Ask for renewal only when access actually fails.
 
