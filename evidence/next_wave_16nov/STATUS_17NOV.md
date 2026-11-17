@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 09:46 CET
+# Campaign status: 17 November 2026, 10:40 CET
 
 Reporting: FULL-SYSTEM DEV / SEALED LEADERBOARD / INDIVIDUAL-MODEL must be explicit, with comparator.
 Custom stack=C++/CUDA; original raw neural reference=stockPyTorch336/338.
@@ -177,11 +177,12 @@ Coldsetupseparate/orderconfounded,nospeedup. Original45minlimitunchanged; TIMEOU
 IndependentCPU2153117573PASS81m17, exactold→FIR/reuse with20FT/10CP/125fusions, buffer/generator/resetproofs.
 OriginalCPU3117585/7TIMEOUT45minpreserved; separatefullFUNCTIONAL-only3117756/7 stillRUNNING,
 completecollector3117884pending. Owningevidencepushedcb544d9; source/regenerationauditforreturningstartsnext.
-OriginalhistoricalSincidentityunverified, recipe/dataexist. Newgenuineheld-sessionSincpilotPASSEDown-weight
-export/reset/sourceguard; remaining11folds3117930+12held-specificCC30fits3117941/3117998running/queued.
-FullpairedreturningDEV regenerates originalinnergates/relabels/FT/classicstagefolds usingSAMEnewweightsinbotharms,
-notall10deploymentweights/historicalidentity. ExistingFBcheckpointCPUQFbridgefailed1.16e−5vs1e−5/0labels;
-samecheckpointA100guardregistered, no thresholdchange. No candidatequalification/promotion/upload.
+All60NEWgenuineheldNNweights/72traces+576B1SIFbanksPASSEDownsource/export/reset/order/weightguards,
+bothsourcefoldcontextspass. Historicalidentityunverified; oldCPU/GPUstrictQFfailurespreserved. Actualfrozen-stage
+RouteB/TSEM/OwnStage/CF/CP engineering3118487PASS5m59, exactcomposition/offzero/inner/gate/labels, JSactive
+pre+postrec;rec10/FT0/CPstop10. ENGINEERING_ONLY(cachedrecordingfoldview/originalall10inner), notRETURNINGDEV.
+Fullpairedreturningneedsrawcausal256view/newsharedinnerFT/populationcalibrationscope; no returningscore yet.
+CPUreuse3117756COMPLETE2h27m06;FIR3117757stillrunning800, status3117884waitsboth. No promotion/upload.
 
 **§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.
 C−control+.048820official[−.114472,+.218121], people/order+.036[−.150914,+.231166],5/10up.
@@ -273,9 +274,20 @@ finitebank4320×480rank480,cond2916,signalattenuation≠absence; CARchangesrawNN
 whileteacher~1e−6invariant. No taskcausality/NNsufficiency claim. MissingprefineNN/auxweights limitsforgettingattribution.
 §339 source-onlytemperatureprototypecomplete(all2×3×8banks/guardsbeforeP02labels): fitNLLF−.043156,
 B−.003459/V−.003456,T1.5389/1.1360/1.1359, activeprobabilities/exactargmax. Not calibrationgeneralization.
-Full10outer/cyclic-sourcecal-person raw/calF/B/V/current-systemcomparison authorized; measuredcold/warm
-costguard andfirstfaithfulfullcellbeforeparallelwholewave; allfits/calibrations beforeoutermetrics.
-§341 customC++CPUsolverprofile/residentGPUreuse planned; no newaccuracygrid.
+Full§339 ALL20nestedsource8banks/30source-onlyT/48membersnowcomplete; sameA100route, no2080mixture.
+RawFBexact323/rawVexact332; replayOK. OriginalCPU6fullchainzero/RF/RVsmokesPASS181–193s;
+RFwithin0all6basefinalscores BITWISEold323. Remaining53cells3118433%8→finalscorer3118434active.
+Sameweight/fullstages/sixdependentCPbases; ALL6arms/control/zero beforemetrics. CallbackCWDfailurebeforefirstsbatch
+preserved, budget-onlyfixed3118432releasesonce. Conservative39.33CPUh<48authority, original1.2MAXformula.
+[ExactDAG/source](calibration339_full_handoff.md). No339treatmentqualityclaimyet.
+§341complete: samebinary/sourceCPUrepeat80.35s1thread/45.47s6,historic243notreproduced;96.4%matrixmultiply.
+Validation-onlypatchpreservescoefficients/loss/grad/predictions EXACT; checkedAPI2.26x/1.36x, headB12.30→.91ms.
+FullCPUsolve41.96→41.59s(singlepair), no practicalfullsolver/core/worker/accuracyclaim. Futurecanonicalsourceonly;
+activeremotebinariesunchanged. [Evidence](solver341_handoff.md). GPUresident/batchreuseplanunrun.
+Fresh§342source-onlyspatialreadoutpilotpreparing: oldAtompooled400andtime-retained1600bothaverage41channels;
+explicitchannel-retained16400/full65600layoutsnotpreviouslytested. Source6/P09, fixedsourceP10Cselection,
+matchedrandom/all4layouts, C-awareGPU-provensolver/exactcachedassets. CPU3118519→A1003118520smokequeued,
+noheadaccuracyyet. Scopegap/hypothesis, notencoderbugorproofpooledtokenslackspatialinformation.
 Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
 
 ## Coordination and cadence
