@@ -1,0 +1,18 @@
+link312.py: OK
+link312.sbatch: OK
+sbatch: error: Batch job submission failed: Job dependency problem
+Traceback (most recent call last):
+  File "/mnt/lustre/work/gehler/gfh527/ni26_s315_link312_20261117/link312.py", line 31, in <module>
+    main()
+  File "/mnt/lustre/work/gehler/gfh527/ni26_s315_link312_20261117/link312.py", line 24, in main
+    smoke = submit(f'--dependency=afterok:{stage}:{CONTROL_JOB}', 'studies/17nov/representation_chain/job.sbatch', 'smoke')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_s315_link312_20261117/link312.py", line 22, in submit
+    return subprocess.check_output(['sbatch', '--parsable', *args], text=True).strip().split(';')[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/home/gehler/gfh527/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/home/gehler/gfh527/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['sbatch', '--parsable', '--dependency=afterok:3116657:3116073', 'studies/17nov/representation_chain/job.sbatch', 'smoke']' returned non-zero exit status 1.
