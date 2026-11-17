@@ -72,9 +72,16 @@ The stage logs reported zero errors.
 
 Both solvers see the same first 378 inputs in each run. Frozen changes its
 label at index 297 between fresh sessions. C++ changes its label at
-index 312. The matched counts and timing do not qualify equivalent outputs.
-Job 3122389 repeats the first 330 inputs twice per arm with explicit
-deterministic CUDA settings to isolate sources of repeat variation.
+index 312. Exact parity failed despite the same work counts.
+Job 3122389 repeated the first 330 inputs twice per arm on a second A100
+with explicit deterministic CUDA settings. Each arm and repeat reproduced
+its corresponding default-worker prefix exactly. The cold cross-arm
+disagreement remained at index 297, and the warm disagreement at 312.
+Job 3122401 disabled TorchScript graph optimization in both arms.
+All 330 labels matched across the two solvers and both fresh repeats.
+Each repeat still performed 24 fine-tuning refits and 16 personalization
+refits. This identifies graph execution sensitivity in the measured
+prefix. Default-worker long-stream parity remains open.
 
 Each pair runs on one A100 and includes copies and resets, B1 transfers,
 CUDA synchronization, and stream teardown. The report records label and
@@ -103,6 +110,33 @@ collector looked for a stress file. The current normal-only comparator
 revalidated the stored outputs after checking the manifests and stage logs.
 The change missed the 3% paired threshold. Production keeps the original bank.
 
-Job 3122137 tests whether running the two independent tangent cores
-concurrently saves time. It changes only scheduling and uses the same
-three complete real sessions, two CPUs, one A100 and AB/BA comparison.
+Job 3122137 runs the two independent tangent cores concurrently. It
+changes only scheduling. All labels and counters match across the same
+three sessions and both orderings. Original → parallel saves **5.657%**
+(116.607 → 110.011 s); parallel → original saves **1.386%** (112.366 →
+110.809 s). The second pair misses the 3% threshold. Production keeps
+the existing scheduling.
+
+The channel-parallel filter groups four independent rows so the
+compiler can vectorize the recurrence. Job 3122398 stopped when the
+original draft failed the exact numerical probe. That draft had read
+the start sample after each filter section instead of once per pass.
+The corrected job 3122414 checks the exact samples before any timing.
+It passed for all frozen filter designs on real EEG (984,480 FP64
+values, SHA256 `af4607e6…5b5b`). Both pair orders matched all 578
+predictions and work counters.
+
+| Pair order | Original C++ | Vectorized C++ | Replay saving |
+| --- | ---: | ---: | ---: |
+| Original → vectorized | 110.894 s | 103.802 s | 6.395% |
+| Vectorized → original | 110.871 s | 104.488 s | 5.756% |
+
+At a fixed hour and the same replay mix, this increases throughput
+**6.11–6.83% relative to the previous C++ build**. Job 3122422 compares
+the exact relinked library directly against the frozen solver. Job
+3122423 checks the two long forced-adaptation lengths with graph
+optimization disabled in both arms.
+Both confirmation jobs started at about 20:57 CET. The Galvani login
+endpoint timed out before result retrieval. The exact tested filter
+source is in the C++ research baseline and passes local C++ syntax
+checking. The frozen submission remains the sealed reference.

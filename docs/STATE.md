@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 20:02 CET
+### Current campaign: 17 November 2026, about 21:06 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -170,7 +170,9 @@ RawFBC source training composes native preparation, initialization and sampling.
 and matched all gradients and state tensors at the first CPU update. The six-update check 3122002 failed at step 6.
 At step 2, identical gradients and second moments isolate the first difference to the AdamW first moment. Using the
 reference lerp on the recorded inputs restored exact step-2 moments and weights. Shared Adam repair 3122019
-matched every checked field at updates 1, 2 and 6. The full 1,240-update fit and CUDA training remain open.
+matched every checked field at updates 1, 2 and 6. Complete CPU fit 3122086 matched all 1,240 losses and 17
+final tensors exactly. Both checkpoints gave identical posteriors and labels for 31 unseen P01 windows through
+the reference causal decoder. CUDA training and a matched raw-to-fit speed comparison remain open.
 [Training evidence](../evidence/next_wave_16nov/native353_training_prefix.md)
 
 The complete C++ runtime passed the 31-window CPU source prefix in 3121996 after a fresh-session copy repair.
@@ -190,10 +192,16 @@ The worker replica matched every label and activity counter on two fresh copies 
 per copy. Job 3122084 matched all 2,655 outputs across 14 shuffled sessions. All recognized at index 10.
 C++ replay took 449.87 s versus 415.08 s frozen on the same A100. Throughput fell 7.73%.
 Long forced adaptation job 3122085 matched refit counts but failed exact parity at 1/378 and 4/800 labels.
-Each arm varied at one index on the shared prefix across fresh copies. A deterministic worker diagnostic
-3122389 is running. The port has yet to free evaluation time against frozen.
-Neural posterior transfer batching matched both AB/BA pairs but saved 0.45–0.95% of replay time; production uses
-the existing bank. Parallel tangent cores are a separate scratch test in 3122137.
+Each arm varied at one index on the shared prefix across fresh copies. Diagnostic 3122389 reproduced the
+same cold/warm differences with deterministic CUDA on a second A100. With TorchScript graph optimization
+disabled in both arms, job 3122401 matched all 330 active-adaptation labels across two fresh repeats. The
+port has yet to free evaluation time against frozen under default settings.
+Neural posterior transfer batching matched both AB/BA pairs and saved 0.45–0.95% of replay time. Separately,
+parallel tangent cores matched both pairs and saved 1.39–5.66%. The two optimizations missed their paired
+3% thresholds. Corrected vectorized filtering in 3122414 matched exact filter bytes, labels and counters in
+both run orders and saved 5.76–6.40% versus the prior C++ build. The exact tested source is in the native
+research baseline. Direct frozen timing and extended adaptation jobs 3122422 and 3122423 both started
+with that library. Galvani SSH timed out before their completed measurements could be retrieved.
 [Current evidence](../evidence/next_wave_16nov/native_worker360.md)
 
 **Parallel accuracy — §354–356.** §354 complete after two fixed-route recoveries. Gaussian factorization lost to
@@ -222,6 +230,13 @@ This exposed INDIVIDUAL-MODEL pilot gives no evidence of a full-system gain.
 but moved the six-base new-person score by −0.0015 pp [80% −0.0469, +0.0490]. On B2_pool it moved −0.0571 pp
 [−0.1761, +0.0747]. Returning equality is structural on the earlier conditional replay. Keep the standard
 estimator. [§361 evidence](../evidence/next_wave_16nov/fractional_csp361.md)
+§362 measured a B2_pool label-assisted choice upper bound of +1.60 pp versus base and +1.33 pp versus JS.
+The branches disagree on 682 of 21,240 predictions. The returning proxy bound was +0.10 pp versus base.
+§363 tested one causal margin selector on those complete branch outputs. It moved six-base DEV −0.009 pp
+versus always-JS [80% −0.035, +0.022]. The outer held person was excluded from the selector fit, while
+archived source branch networks could include that person in their upstream training. The effect is exposed
+DEV. No selected rule or benchmarked shared-branch worker emerged.
+[§362 evidence](../evidence/next_wave_16nov/branch_ceiling362.md) · [§363 evidence](../evidence/next_wave_16nov/branch_selector363.md)
 The user moved ownership to the active Codex chat and archived the previous chat's automation.
 
 ## 2. Hard bounds (from the official code and rules)
