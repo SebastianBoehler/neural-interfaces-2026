@@ -1,0 +1,32 @@
+{
+  "status": "all60_new_genuine_returning_weights_complete",
+  "records": 60,
+  "masks": {
+    "P04_s23": [
+      "ca4a869ff981142b692b2a4e2ecb44f075ea2494e398280f103c9a9a36bcea2b",
+      "07db73505fa397db8afdcff984bc6d6a408a04c569681d0528946987c5be6d1c",
+      2278,
+      377
+    ],
+    "P10_s23": [
+      "db255fd45af6d17fa4ba1829781bac5a92a08afa1bec4e5bf85266b56ea84790",
+      "8aaa3c2c7d59a3851fb0c6cb0ece879771484a9a0151885c645df7b889e439b2",
+      2270,
+      385
+    ]
+  },
+  "source_sha256": "5326c934ac902869728225aefa3b1c78712e3938aef38f2620fbe41f56ba62a6",
+  "producer_job": 3118074,
+  "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_neural_complete1/returning_neural_complete.json",
+  "full_sha256": "c8485c68fe5dd7e9310ec34b28bbfbb407cc3cf8edcf20a65760b1a1c189fdb8",
+  "accuracy_computed": false,
+  "historical_identity_claimed": false,
+  "whole_returning_bridge_still_required": true,
+  "coverage": {
+    "sinc": 12,
+    "cc30": 12,
+    "fb": 12,
+    "fbl": 12,
+    "fbraw": 12
+  }
+}

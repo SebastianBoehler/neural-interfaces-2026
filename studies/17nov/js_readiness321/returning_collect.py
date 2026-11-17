@@ -33,8 +33,21 @@ def main():
                     if sha(path.parent/file)!=proof[k]:raise ValueError('checkpoint/export changed')
                 records.append(dict(family=family,fold=fold,seed=seed,proof=str(path),proof_sha256=sha(path),
                                     checkpoint_sha256=proof['checkpoint_sha256'],trace_sha256=proof['trace_sha256']))
-    if len(records)!=24:raise ValueError('incomplete returning matrix')
-    Path('returning_complete.json').write_text(json.dumps(dict(status='all24_new_genuine_returning_weights_complete',
+    for family in ('fb','fbl','fbraw'):
+        for fold in ('P04_s23','P10_s23'):
+            for seed in range(6):
+                pilot=(fold,seed)==('P04_s23',0)
+                base=ROOT/('ni26_js321_20261117_returning_other_pilot1' if pilot else 'ni26_js321_20261117_returning_other_full1')
+                path=base/'other'/f'{family}_{fold}_s{seed}'/'proof.json';proof=json.loads(path.read_text())
+                if proof['status']!='new_genuine_other_family_source_export_passed' or (proof['family'],proof['fold'],proof['seed'])!=(family,fold,seed):raise ValueError('wrong other-family source proof')
+                if proof['historical_identity_claimed'] or proof['accuracy_computed'] or proof['source_sha256']!=sha(base/'source.sha256'):raise ValueError('scope/source differs')
+                if tuple(proof[k] for k in ('train_rows_sha256','held_rows_sha256','train_count','held_count'))!=masks[fold]:raise ValueError('other-family source exclusion differs')
+                if sha(path.parent/'checkpoint.pt')!=proof['checkpoint_sha256']:raise ValueError('other checkpoint changed')
+                for k,e in proof['exports'].items():
+                    if sha(path.parent/f'trace_k{float(k):g}.pt')!=e['sha256']:raise ValueError('other export changed')
+                records.append(dict(family=family,fold=fold,seed=seed,proof=str(path),proof_sha256=sha(path),checkpoint_sha256=proof['checkpoint_sha256'],exports=proof['exports']))
+    if len(records)!=60:raise ValueError('incomplete returning matrix')
+    Path('returning_neural_complete.json').write_text(json.dumps(dict(status='all60_new_genuine_returning_weights_complete',
         records=records,masks=masks,accuracy_computed=False,historical_identity_claimed=False,
         whole_returning_bridge_still_required=True,source_sha256=sha('source.sha256')),indent=2))
 

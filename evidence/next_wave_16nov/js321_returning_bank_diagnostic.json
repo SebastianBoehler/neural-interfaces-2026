@@ -1,0 +1,113 @@
+{
+  "job": 3118188,
+  "old_guard_failure_preserved": true,
+  "accuracy_computed": false,
+  "forms": {
+    "0": {
+      "torch": "2.14.1+cu126",
+      "cuda": "12.6",
+      "cudnn_tf32": false,
+      "matmul_tf32": false,
+      "source_sha256": "172409e04b2fa4bb4403560665680fa5a93414ba4e23c1943575117abc76052a",
+      "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_bank_diag1/diagnostic_tf32_0.json",
+      "full_sha256": "82e53a53d86a63145f68b33ad27dae180bab51348ac2f301502f7caa4af25f3e",
+      "models": [
+        {
+          "kind": "sinc",
+          "max_batch_window": 3.097244344330008e-07,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "cc30",
+          "max_batch_window": 6.402657580784066e-07,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "fb",
+          "max_batch_window": 7.937897002485705e-07,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "fb5",
+          "max_batch_window": 1.2267536455556893e-06,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "fbl",
+          "max_batch_window": 0.00011219645935012235,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "fbraw",
+          "max_batch_window": 1.6680278439817897e-05,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        }
+      ]
+    },
+    "1": {
+      "torch": "2.14.1+cu126",
+      "cuda": "12.6",
+      "cudnn_tf32": true,
+      "matmul_tf32": false,
+      "source_sha256": "172409e04b2fa4bb4403560665680fa5a93414ba4e23c1943575117abc76052a",
+      "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_bank_diag1/diagnostic_tf32_1.json",
+      "full_sha256": "40476b2b3829639f1fd1e5d1882f9d31605f53c9e2d3344c3087e654c643a765",
+      "models": [
+        {
+          "kind": "sinc",
+          "max_batch_window": 0.002923238850587484,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "cc30",
+          "max_batch_window": 6.402657580784066e-07,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "fb",
+          "max_batch_window": 7.937897002485705e-07,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "fb5",
+          "max_batch_window": 1.2267536455556893e-06,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "fbl",
+          "max_batch_window": 0.00011219645935012235,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        },
+        {
+          "kind": "fbraw",
+          "max_batch_window": 1.6680278439817897e-05,
+          "max_selfrepeat": 0.0,
+          "changed_labels": 0,
+          "immutable_unchanged": true
+        }
+      ]
+    }
+  }
+}
