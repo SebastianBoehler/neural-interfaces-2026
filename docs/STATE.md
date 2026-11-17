@@ -389,6 +389,6 @@ Corep1source2.6423e−7>1e−7/zerochangedlabels; owner343localizesfloat32reduct
 No fullnativegraph/training/worker/speedqualification. Currenthandoffownsactualjobs/remainingrecipes.
 
 Actual15:40CET: §350source3119571 TIMEOUT90m06, downstreampilot/controllerdead-dependency, ownpendingchildren
-cancelledbyownerafterverification. No newpolicycohort/result. Ownerpreparesboundedrecovery, no blindextension.
+cancelledbyrootafterverification. No newpolicycohort/result. Ownerpreparesboundedrecovery, no blindextension.
 NNdiagnostic3120433failed17s beforecomparisononnode-localOS hash mismatch; revisedapp/NFSpins+pernodeOSrecord
 approved foroneboundedretry. C++NN andwholecoreprecisionstillunqualified, no whole-worker/promotionclaim.

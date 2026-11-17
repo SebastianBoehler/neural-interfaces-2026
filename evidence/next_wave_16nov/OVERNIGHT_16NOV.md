@@ -53,7 +53,7 @@ Topfiveobjective/unverified; provisional18:00CETcandidatecheckpoint, userretains
 ## Ownership and live accuracy DAG
 - Rootownscanonicaldocs/nativeintegration/masterruntime; sourcecheckpointb0beac3 committed, furtherdoccheckpointdue.
 - external_supervision_17nov:350+nativegates/routing/CF/CP. Source3503119571 TIMEOUT90m06;
-  pilot3119687/controller3119719dead-dependency, ownercancelsownpendingchildren onlyafterverifiedfailure.
+  pilot3119687/controller3119719dead-dependency, rootcancelledtheseownpendingchildren afterverifiedfailure.
   Known80guardpartialPASS; no completedunknown215proof/newpolicygold. BoundedGPU/sharedbankrecoveryproposalrequested;
   no replacement350sourcejob yet. Original350HARD7.9CPUh andconditionalexposurelimitsstillapply.
 - fresh_information_346: nativeNN/FT/training+same-fixtureretry3120312neuralerrorwatch.
