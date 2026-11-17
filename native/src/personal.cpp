@@ -4,6 +4,10 @@ namespace ni26 {
 using namespace torch::indexing;
 OwnStage::OwnStage(const Params &z)
     : z_(z), sos_(filters(z, "own_sos")), slow_(z.get("own_slow_sos")) {
+  for (const auto *key :
+       {"own_prior", "own_csp", "own_t_mu", "own_t_sd", "own_t_W", "own_t_c",
+        "own_c_W", "own_c_c", "own_s_W", "own_s_c"})
+    z_.tensors[key] = z.get(key).to(torch::kFloat64);
   reset();
 }
 OwnStage::OwnStage(const OwnStage &o)

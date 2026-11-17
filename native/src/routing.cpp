@@ -1,4 +1,5 @@
 #include "ni26/routing.h"
+#include <iostream>
 #include <torch/torch.h>
 namespace ni26 {
 struct Route::Impl {
@@ -15,7 +16,10 @@ struct Route::Impl {
   RouteStats counters;
   Impl(const Params &p, double share, bool outer)
       : z(p), contrast(p), identity(p), own(p), tail(p, outer), a(share),
-        g(p.number("route_slot_g")), dim(p.get("tsem_V").size(1)) {}
+        g(p.number("route_slot_g")), dim(p.get("tsem_V").size(1)) {
+    for (const auto *key : {"route_ps1_W", "route_ps1_c"})
+      z.tensors[key] = p.get(key).to(torch::kFloat64);
+  }
   Impl(const Impl &o)
       : z(o.z), contrast(o.contrast), identity(o.identity), own(o.own),
         tail(o.tail), a(o.a), g(o.g), kappa(o.kappa), dim(o.dim),
@@ -73,7 +77,9 @@ struct Route::Impl {
           counters.staged++;
         }
       }
-    } catch (const std::exception &) {
+    } catch (const std::exception &error) {
+      std::cerr << "[own-stage] error at window " << counters.windows - 1
+                << ": " << error.what() << std::endl;
       counters.errors++;
     }
     U.push_back(u.clone());
@@ -123,6 +129,6 @@ RouteStats Route::stats() const { return impl_->counters; }
 void Route::set_core1_share(double a) { impl_->a = a; }
 void Route::set_prior(double k, const Tensor &m) {
   impl_->kappa = k;
-  impl_->prior = m.clone();
+  impl_->prior = m.to(torch::kFloat64).clone();
 }
 } // namespace ni26

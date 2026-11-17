@@ -3,10 +3,10 @@
 namespace ni26 {
 using namespace torch::indexing;
 ContrastGate::ContrastGate(const Params &z)
-    : basis_(z.get("route_Q")), tau_(z.number("route_tau")),
+    : basis_(z.get("route_Q").to(torch::kFloat64)), tau_(z.number("route_tau")),
       width_(z.number("route_ramp")), rho_(z.number("route_rho")),
       clip_(z.number("route_clip")), start_(z.integer("route_t_start")) {
-  auto g = z.get("route_gal").flatten(1);
+  auto g = z.get("route_gal").to(torch::kFloat64).flatten(1);
   auto a = g - torch::matmul(torch::matmul(g, basis_), basis_.t());
   gallery_ = a / a.norm(2, 1, true);
 }
@@ -43,7 +43,12 @@ Decision ContrastGate::step(const std::vector<Tensor> &U,
   double score = scores[j].item<double>();
   return GateDecision{j, score, ramp(score, tau_, width_)};
 }
-IdentityGate::IdentityGate(const Params &z) : z_(z) { reset(); }
+IdentityGate::IdentityGate(const Params &z) : z_(z) {
+  for (const auto *key :
+       {"bio_mu", "bio_sd", "bio_V", "bio_B", "bio_W", "bio_S", "bio_gal"})
+    z_.tensors[key] = z.get(key).to(torch::kFloat64);
+  reset();
+}
 IdentityGate::IdentityGate(const IdentityGate &o)
     : z_(o.z_), sum_(o.sum_.defined() ? o.sum_.clone() : Tensor()), n_(o.n_) {}
 IdentityGate &IdentityGate::operator=(const IdentityGate &o) {

@@ -1,4 +1,5 @@
 #include "ni26/output.h"
+#include <iostream>
 #include <torch/torch.h>
 namespace ni26 {
 using namespace torch::indexing;
@@ -10,6 +11,8 @@ struct CountFilter::Impl {
   OutputStats info;
   int64_t H, K;
   explicit Impl(const Params &p) : z(p), sos(filters(p, "v6_cf_sos")) {
+    for (const auto *key : {"v6_cf_W", "v6_cf_sw", "v6_cf_lp"})
+      z.tensors[key] = p.get(key).to(torch::kFloat64);
     auto L = p.get("v6_cf_Ls");
     H = L.size(0);
     K = p.integer("v6_cf_K");
@@ -124,7 +127,9 @@ Tensor CountFilter::step(const Tensor &x, const Tensor &p) {
     s.info.windows++;
     finite(out, "count filter");
     return s.info.stopped ? out : p;
-  } catch (const std::exception &) {
+  } catch (const std::exception &error) {
+    std::cerr << "[count-filter] error at window " << s.info.windows << ": "
+              << error.what() << std::endl;
     s.info.dead = true;
     s.info.errors++;
     s.info.windows++;

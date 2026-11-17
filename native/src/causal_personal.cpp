@@ -1,6 +1,7 @@
 #include "ni26/output.h"
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 #include <torch/torch.h>
 namespace ni26 {
 using namespace torch::indexing;
@@ -200,7 +201,9 @@ Tensor CausalPers::step(const Tensor &x, const Tensor &p, const Tensor &count_p,
     finite(result, "causal personal scores");
     s.info.fused++;
     return result;
-  } catch (const std::exception &) {
+  } catch (const std::exception &error) {
+    std::cerr << "[cpers] error at window " << s.info.windows - 1 << ": "
+              << error.what() << std::endl;
     s.info.dead = true;
     s.info.errors++;
     return count_p;
