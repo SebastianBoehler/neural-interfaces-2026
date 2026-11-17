@@ -1,5 +1,4 @@
 """Prospective FT/CP-warmed counterbalanced production timing; no accuracy."""
-import copy
 import hashlib
 import json
 from pathlib import Path
@@ -28,6 +27,9 @@ def main():
     if torch.are_deterministic_algorithms_enabled():raise ValueError('standard executor required')
     if not torch.cuda.is_available() or 'A100' not in torch.cuda.get_device_name(0):raise ValueError('A100 required')
     torch.set_num_threads(1)
+    phase=json.loads(Path('/semantics/phase_reuse.json').read_text())
+    if phase['status']!='phase_matched_optimization_guard_passed' or phase['complete_sha256']!=worker.sha('/experiment/complete.json'):
+        raise ValueError('phase/artifact prerequisite differs')
     complete=json.loads(Path('/experiment/complete.json').read_text())
     for name,digest in complete['files'].items():
         if worker.sha(Path('/experiment/prepared_jsall')/name)!=digest:raise ValueError('artifact changed')
