@@ -107,3 +107,59 @@ Publish all3people/all3arms/all8orders only after the complete before-labels pro
 Actual completed qualification/control/preflight cost868coreseconds=.24111CPUh; runningfits excluded.
 `crops347_compute.json` owns later resource accounting. Source manifests retained as compact evidence;
 the current localsource.sha256 describes current runnable files, not every prior snapshot's manifest.
+
+
+PendingC memory review at12:20UTC: source-smokeMaxRSS3,153,648KiB(3.008GiB), runningB
+2,884,676KiB(2.751GiB). A prospectiveC-only24→12GiB amendment was recorded. The first command's
+12G suffix was rejected; before corrected numeric12288could apply, Cnaturally started at13:20:51CET
+cn114 with original24GiB. No resource request changed; bothfits keep6CPU/24GiB/15min.
+No cancellation/requeue/runningBchange or memory/scheduling speedup claim. ActualjobIDs are
+3119364(B,array0) and3119363(C,array1), which matters for correct sstat memory accounting.
+
+
+Legacy-harness provenance clarification: `AlignedNet.__init__` computes cached PER-WINDOW covariances
+for the full loaded official X array, including query rows. `features.covariances` centers within each
+window and produces one independent matrix per row; it does not aggregate people or windows.
+For these models `align=False`: inference `_aligned` uses only X/scale and never consumes those query
+covariances. The fitted G/scale use C[fit] only and match original source6 exactly; optimization/scalers/
+readouts use only source6 labels/rows. Thus immutable machine flags `held_transformed:false` mean no
+held NEURAL FORWARD, direct-summary or held RAW-EDF processing before the declared gates; they are
+not literally proof that no held pointwise cached covariance was computed. The original flags remain
+unchanged and this note narrows their wording. No target aggregate, future-window adaptation or hidden
+label enters the fitted parameters or predictions through this unused precomputation. This is an
+experiment-harness limitation, not a validated package/export path; no package was built by these studies.
+
+## Completed matched result — negative
+
+Both fullfits and collector3119365PASS0:0. All72banks and source/initializer/G/scale/40originalbatch/
+matchedextraeligibility/labels/RNG/activepath/checkpoint/prefix/reset guards passed BEFORE347querylabels.
+The unchanged original scorer and fixed scheme-equal order summary were used for every arm.
+
+| Exposed person |A originalraw40|B extraofficialrepeat|C late3.5–7.5|C−B|C−A|
+|---|---:|---:|---:|---:|---:|
+|P02|65.6460%|64.5822%|50.5968%|−13.98540pp|−15.04919pp|
+|P03|56.2275%|54.8724%|54.2773%|−.59513pp|−1.95023pp|
+|P09|64.0610%|64.8812%|54.2894%|−10.59177pp|−9.77161pp|
+
+Selected3personmeans A61.97817/B61.44526/C53.05449%, descriptive, no peopleCI or independent confirmation.
+Extra optimizer work/schedule is controlled byB. Fixed late-label pooling harms this form;
+P02/P09 miss the positive C−B prior widely, while P03's smaller effect does not close a family alone.
+The all-source-original causalNLL diagnostic wasB.35525/C.54550; recallsB.972/.874/.938 versus
+C.943/.705/.800. These learned Cmodels are already less compatible with original source windows.
+This does not identify physiological causality, normalization-prior contamination, representation conflict,
+or the optimum training loss. There is no full-system/rank/returning/worker/promotion claim.
+No crop/weight grid or current-system consumer is justified by these negatives.
+
+FullBscript389.307s/training356.204s; C488.413s/training449.128s. Differentnodes/resources prevent a
+paired speed interpretation. Settled allocation B461s×6CPU, C523s×6CPU, collector28s×2CPU.
+All347allocations total6,828coreseconds=1.89667CPUh,0A100, noownedjobsremain.
+BfullMaxRSS7,068,768KiB(~6.74GiB),C6,869,512KiB(~6.55GiB): the earlier3GiBsource-smoke/earlyB
+sample did NOT bound fullfit plus repeated-deepcopy verification memory. No12GiBupdate took effect;
+both actually used24GiB. Do not infer a3×full-memory margin from the early sample.
+
+Exact compact crops347_result.json/before_labels.json/compute.json retain allpeople/orders/control hashes.
+Originaldatasets/checkpoints/prediction arrays remain private. Originalfailedqualification is preserved.
+Actual collection12:34:06UTC/13:34:06CET. §346+347work since11:23:35UTC spans70m31 throughcollection,
+with6,828+734=7,562allocatedCPUcoreseconds=2.10056CPUh, not70minutes of scheduledprimary research.
+Root requests a separatelyregistered§349source-only phase/ONEBNmoment mechanism diagnostic next;
+there is no new jointhead/training/normalization-grid authorization from this result.

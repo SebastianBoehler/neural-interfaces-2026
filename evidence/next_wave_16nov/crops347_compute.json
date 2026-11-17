@@ -29,14 +29,35 @@
       "allocated_seconds": 22,
       "CPUs": 2,
       "MaxRSS_KiB": 1814500
+    },
+    "3119363_0": {
+      "actual_JobID": 3119364,
+      "state": "COMPLETED",
+      "allocated_seconds": 461,
+      "CPUs": 6,
+      "MaxRSS_KiB": 7068768,
+      "node": "galvani-cn002",
+      "memory_GiB": 24
+    },
+    "3119363_1": {
+      "actual_JobID": 3119363,
+      "state": "COMPLETED",
+      "allocated_seconds": 523,
+      "CPUs": 6,
+      "MaxRSS_KiB": 6869512,
+      "node": "galvani-cn114",
+      "memory_GiB": 24
+    },
+    "3119365": {
+      "state": "COMPLETED",
+      "allocated_seconds": 28,
+      "CPUs": 2,
+      "MaxRSS_KiB": 1376892,
+      "node": "galvani-cn102"
     }
   },
-  "completed_CPUcoreseconds": 868,
-  "completed_CPUcorehours": 0.2411111111111111,
+  "completed_CPUcoreseconds": 6828,
+  "completed_CPUcorehours": 1.8966666666666667,
   "A100hours": 0,
-  "pending_or_running_jobs": [
-    "3119363_0",
-    "3119363_1",
-    "3119365"
-  ]
+  "pending_or_running_jobs": []
 }

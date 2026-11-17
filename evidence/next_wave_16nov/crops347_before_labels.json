@@ -1,0 +1,11 @@
+{
+  "all3arms_all3people_all8orders": true,
+  "source_sha256": "ead1aefb6e50b3f453dfaaa369ff071693b1449a9f44da376a00a43a072b8a76",
+  "control_checkpoint_sha256": "eadd5c23c9f7cac239bf78a99993d8d3e47392d24d166e0ede6fce5b0e6ac9f8",
+  "original_source_proofs": {
+    "/mnt/lustre/work/gehler/gfh527/ni26_direct346_v1_20261117": "703eb6afecfd8414ed10c6cd1dc93dc340ebe2b9c0dea7531d165ca2388d993f",
+    "/mnt/lustre/work/gehler/gfh527/ni26_direct346_extension_v1_20261117": "dee726155ba28ab63e71d90e10ae47797a9c3870fb56fd908674099461108a84"
+  },
+  "predictions_sha256": "07b8f00b95467073c28077d83b43c129c862edb5703da14591da93120fb52320",
+  "held_labels_opened": false
+}

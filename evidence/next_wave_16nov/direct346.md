@@ -131,3 +131,16 @@ direct346_extension_before_labels.json, direct346_extension_source_smoke.json.
 Additional192CPUcoreseconds=.05333CPUh; total734=.20389CPUh,0A100, noownedjobsremain.
 Original542coresecond study stays separate above. Newsourcefiles/snapshots preserve every originalartifact.
 Actual finalcollection11:40:34UTC/12:40:34CET,16m59after11:23:35start; documentation/commits followed.
+
+
+Legacy-harness provenance clarification: `AlignedNet.__init__` computes cached PER-WINDOW covariances
+for the full loaded official X array, including query rows. `features.covariances` centers within each
+window and produces one independent matrix per row; it does not aggregate people or windows.
+For these models `align=False`: inference `_aligned` uses only X/scale and never consumes those query
+covariances. The fitted G/scale use C[fit] only and match original source6 exactly; optimization/scalers/
+readouts use only source6 labels/rows. Thus immutable machine flags `held_transformed:false` mean no
+held NEURAL FORWARD, direct-summary or held RAW-EDF processing before the declared gates; they are
+not literally proof that no held pointwise cached covariance was computed. The original flags remain
+unchanged and this note narrows their wording. No target aggregate, future-window adaptation or hidden
+label enters the fitted parameters or predictions through this unused precomputation. This is an
+experiment-harness limitation, not a validated package/export path; no package was built by these studies.
