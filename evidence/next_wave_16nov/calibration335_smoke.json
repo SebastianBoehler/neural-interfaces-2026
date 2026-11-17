@@ -1,0 +1,11 @@
+{
+  "seconds": 53.10744676925242,
+  "projection_cpu_coreseconds": 1328.8390149371698,
+  "cost_pass": true,
+  "no_held_scores": true,
+  "guards": {
+    "passed": true,
+    "original334_max_abs": 0.0,
+    "dimensions": 44239
+  }
+}
