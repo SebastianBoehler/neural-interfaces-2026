@@ -1,0 +1,174 @@
+{
+  "actors": {
+    "P01": {
+      "held": "P01",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "2512c1b6480ee9ce05b7a4b1110bfdf2a6d37a735083c0ec51602d6c3fd47b19",
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "train_source": "bcbb7ea6301a74c0dbb82df34dce75f51fdc7bcf16147caa12bdde568538c215",
+      "actor_source": "1c6cd0e0a399cc60979801982437d5614b1e7635ec7f8899a80106401bbd5aaf",
+      "held_labels_opened": false,
+      "checks": {
+        "a6": 0.0,
+        "population": 0.0,
+        "step": 9.5367431640625e-07,
+        "prefix": 2.086162567138672e-06,
+        "fixed_set": 0.0
+      },
+      "outputs_sha256": "017a6e22801e7878fb3ff6170cb2c2cf8c1fd8278c145c9a233ff3ee64f7bcaa",
+      "seconds": 95.73284115735441
+    },
+    "P02": {
+      "held": "P02",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "668e756312945d20561dd9219983d309304b0c337dac22b55b52472d0ced11a3",
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "train_source": "bcbb7ea6301a74c0dbb82df34dce75f51fdc7bcf16147caa12bdde568538c215",
+      "actor_source": "1c6cd0e0a399cc60979801982437d5614b1e7635ec7f8899a80106401bbd5aaf",
+      "held_labels_opened": false,
+      "checks": {
+        "a6": 0.0,
+        "population": 0.0,
+        "step": 9.5367431640625e-07,
+        "prefix": 1.9073486328125e-06,
+        "fixed_set": 0.0
+      },
+      "outputs_sha256": "b19308b0cd90594ef4567b5e961b7988667080084b89d6e9bc41fa6fa2aeb229",
+      "seconds": 95.60896774940193
+    },
+    "P03": {
+      "held": "P03",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "96fcf70f3f89e4d5db1883134557d04defc5d9dec3eb9fb1d5d33f84bf7e1898",
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "train_source": "bcbb7ea6301a74c0dbb82df34dce75f51fdc7bcf16147caa12bdde568538c215",
+      "actor_source": "1c6cd0e0a399cc60979801982437d5614b1e7635ec7f8899a80106401bbd5aaf",
+      "held_labels_opened": false,
+      "checks": {
+        "a6": 0.0,
+        "population": 0.0,
+        "step": 9.5367431640625e-07,
+        "prefix": 2.205371856689453e-06,
+        "fixed_set": 0.0
+      },
+      "outputs_sha256": "c8b159e9c50ab1448670fae1f6c50c1bbea064804f4b076363b9840c3a77a3f7",
+      "seconds": 96.34795539919287
+    },
+    "P09": {
+      "held": "P09",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "3404d36b360fbf18d99370c6d94b603e9bea42022addcb516dd05cbea2d77a5c",
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "train_source": "bcbb7ea6301a74c0dbb82df34dce75f51fdc7bcf16147caa12bdde568538c215",
+      "actor_source": "1c6cd0e0a399cc60979801982437d5614b1e7635ec7f8899a80106401bbd5aaf",
+      "held_labels_opened": false,
+      "checks": {
+        "a6": 0.0,
+        "population": 0.0,
+        "step": 9.5367431640625e-07,
+        "prefix": 1.6689300537109375e-06,
+        "fixed_set": 0.0
+      },
+      "outputs_sha256": "0228eaff483103fd724501da203fed7459612ea7235f4f43459229223cf36866",
+      "seconds": 76.31745293736458
+    }
+  },
+  "source_only_training": {
+    "C": {
+      "arm": "C",
+      "source_sha": "bcbb7ea6301a74c0dbb82df34dce75f51fdc7bcf16147caa12bdde568538c215",
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "episodes": "2cc35a0786a846168ddfbe45cf9f88ae230c327d6d7361723659dede81c8cd79",
+      "held_labels_opened": false,
+      "seconds": 11.930998838040978,
+      "smoke": false,
+      "checks": {
+        "teacher_tail_max_logit_error": 9.5367431640625e-07,
+        "initial_state": "bea5052636d13205b9b62d2cf49544ee1957b8d162ac0e550f4f1c3cccac02cf"
+      },
+      "last8_average": [
+        2.57290717959404,
+        0.2615704145282507
+      ],
+      "first8_average": [
+        0.016556281712837517,
+        0.4647647701203823
+      ],
+      "checkpoints": {
+        "C": "0ae8c82b57e3d4ae50c84568a6772cc9fc346ba46dfa8231024c7940752b75f5"
+      }
+    },
+    "D": {
+      "arm": "D",
+      "source_sha": "bcbb7ea6301a74c0dbb82df34dce75f51fdc7bcf16147caa12bdde568538c215",
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "episodes": "2cc35a0786a846168ddfbe45cf9f88ae230c327d6d7361723659dede81c8cd79",
+      "held_labels_opened": false,
+      "seconds": 12.88260277081281,
+      "smoke": false,
+      "checks": {
+        "teacher_tail_max_logit_error": 9.5367431640625e-07,
+        "initial_state": "bea5052636d13205b9b62d2cf49544ee1957b8d162ac0e550f4f1c3cccac02cf"
+      },
+      "last8_average": [
+        0.5373714081943035,
+        0.31416092067956924
+      ],
+      "first8_average": [
+        0.016108841984532773,
+        0.46663957089185715
+      ],
+      "checkpoints": {
+        "D": "d9ff99e383f6a87900db6917ad707a946a71db112c1384c3d35ee0e6d694177a",
+        "DC": "bc7a2a9da6be4ce120a28a420e674647c7265f7e06ea1ac4b5f491ff87785395"
+      }
+    }
+  },
+  "held_labels_opened": false,
+  "actor_source": "1c6cd0e0a399cc60979801982437d5614b1e7635ec7f8899a80106401bbd5aaf",
+  "metric_sha": "390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c"
+}
