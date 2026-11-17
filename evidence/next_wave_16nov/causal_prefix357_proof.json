@@ -1,0 +1,64 @@
+{
+  "status": "SOURCE_ONLY_READINESS_PASS",
+  "source_trace": {
+    "P02": {
+      "rows_sha": "668e756312945d20561dd9219983d309304b0c337dac22b55b52472d0ced11a3",
+      "support_sha": "6ff73343259074b36ee857d83bf0f5953d722e3d563ded1080912638959aa27e",
+      "original_probability_max_abs": 4.689525717194165e-07,
+      "rows": 189
+    },
+    "P03": {
+      "rows_sha": "96fcf70f3f89e4d5db1883134557d04defc5d9dec3eb9fb1d5d33f84bf7e1898",
+      "support_sha": "8a6629568a4f5d6fc017a09a05ecb857f5752658239f8caeaaf915bea5ede26b",
+      "original_probability_max_abs": 5.611734269495017e-07,
+      "rows": 189
+    }
+  },
+  "body_sha": "eadd5c23c9f7cac239bf78a99993d8d3e47392d24d166e0ede6fce5b0e6ac9f8",
+  "fit_people": [
+    "P02"
+  ],
+  "guard_people": [
+    "P03"
+  ],
+  "p03_labels_opened": false,
+  "p01_p09_neural_forward": false,
+  "quality_scored": false,
+  "orders": [
+    "within0",
+    "within1",
+    "within2",
+    "within3",
+    "full0",
+    "full1",
+    "runs0",
+    "runs1"
+  ],
+  "matched_current": {
+    "active_gradient_max": 0.010984596573066472,
+    "parameter_change_max": 0.04877456985299325,
+    "parameters": 18819,
+    "initial_sha": "76d0dd660356e6f3524480862d04757a3454a21b888c610d1c21eb0d3f9375d4",
+    "source_loss_initial": 0.7671273145715217,
+    "source_loss_final": 0.7101069859029024,
+    "optimizer_steps": 16
+  },
+  "learned_prefix": {
+    "active_gradient_max": 0.010803938246292721,
+    "parameter_change_max": 0.04802272779911826,
+    "parameters": 18819,
+    "initial_sha": "76d0dd660356e6f3524480862d04757a3454a21b888c610d1c21eb0d3f9375d4",
+    "source_loss_initial": 0.766620684891418,
+    "source_loss_final": 0.7104524239867318,
+    "optimizer_steps": 16
+  },
+  "guards": {
+    "vector_vs_step": 2.220446049250313e-16,
+    "prefix": 0.0,
+    "same_set": 5.551115123125783e-17,
+    "source_interleave": 0.0,
+    "prefix_sensitivity": 0.05188282400077571
+  },
+  "wall_s": 23.871866270899773,
+  "rss_kib": 2265464
+}
