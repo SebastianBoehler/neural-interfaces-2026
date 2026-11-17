@@ -1,0 +1,10 @@
+{
+  "status": "POLICY350_REMAINING15_RELEASED_AFTER_ACTUAL_SMOKE",
+  "array_job": "3120588",
+  "collector_job": "3120589",
+  "pilot_proof_sha256": "ca0e398e27411cc5c81b1d06e49fb37d5bf59dd7f3b28a7fb59274208f5d3de2",
+  "guard_sha256": "4f383deec2888941b467b1295d05f612f70e8b6b1223bbae708aeaab0a16ca14",
+  "smoke_seconds": 332.54525636602193,
+  "maximum_allocated_CPUhours": 7.87,
+  "accuracy_read": false
+}

@@ -1,0 +1,65 @@
+{
+  "status": "POLICY350_COMPLETE_WHOLE_CELL_NOT_SCORED",
+  "index": 0,
+  "fold": "P04_s23",
+  "order": "within0",
+  "rows": 377,
+  "official_cell_keys": [
+    [
+      "2",
+      "BrainHero"
+    ],
+    [
+      "2",
+      "Graz"
+    ],
+    [
+      "3",
+      "BrainHero"
+    ],
+    [
+      "3",
+      "Graz"
+    ]
+  ],
+  "records": [
+    {
+      "session": "2",
+      "windows": 189,
+      "activation": {
+        "rec": 60,
+        "ft_refits": 4,
+        "cp_fused": 0,
+        "cp_stopped": 60
+      },
+      "js_windows": 60,
+      "base_recipe_windows": 129,
+      "recipe_maxabs": 3.3306690738754696e-16,
+      "rawview_maxabs": 0.0,
+      "reset_copy_prefix_exact": true
+    },
+    {
+      "session": "3",
+      "windows": 188,
+      "activation": {
+        "rec": 10,
+        "ft_refits": 0,
+        "cp_fused": 0,
+        "cp_stopped": 10
+      },
+      "js_windows": 10,
+      "base_recipe_windows": 178,
+      "recipe_maxabs": 2.220446049250313e-16,
+      "rawview_maxabs": 0.0,
+      "reset_copy_prefix_exact": true
+    }
+  ],
+  "seconds": 332.54525636602193,
+  "source_sha256": "06d3f4c6d9b30057c1f9bb3179b48fdcd0205c615576aaa34ba8fb8065011be8",
+  "owning_guard_sha256": "4f383deec2888941b467b1295d05f612f70e8b6b1223bbae708aeaab0a16ca14",
+  "predictions_sha256": "bfb3fec58be56228475d5b9bfea48291b72c33dd534b9bec4ba1b82ef7482f74",
+  "query_labels_loaded": false,
+  "executor": "cleanSIF_CPU_deterministic",
+  "guard_executor": "cleanSIF_A100_deterministic",
+  "CPU_unknown215_proven": false
+}

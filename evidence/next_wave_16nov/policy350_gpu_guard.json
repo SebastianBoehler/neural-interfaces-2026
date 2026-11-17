@@ -1,0 +1,105 @@
+{
+  "status": "POLICY350_GPU_SOURCE_FUNCTIONAL_PASS_NOT_ACCURACY",
+  "cases": {
+    "known80": {
+      "activation": {
+        "base": {
+          "rec": 10,
+          "ft": 0,
+          "cp": 0,
+          "js": null,
+          "base": null
+        },
+        "off": {
+          "rec": 10,
+          "ft": 0,
+          "cp": 0,
+          "js": 0,
+          "base": 80
+        },
+        "js": {
+          "rec": 10,
+          "ft": 0,
+          "cp": 0,
+          "js": null,
+          "base": null
+        },
+        "on": {
+          "rec": 10,
+          "ft": 0,
+          "cp": 0,
+          "js": 80,
+          "base": 0
+        },
+        "policy": {
+          "rec": 10,
+          "ft": 0,
+          "cp": 0,
+          "js": 10,
+          "base": 70
+        }
+      },
+      "maximum_identity_error": 0.0,
+      "original_inner_gates_FT_exact": true,
+      "all_buffers_immutable": true,
+      "reset_deepcopy_prefix_exact": true
+    },
+    "forced_unrecognized215": {
+      "activation": {
+        "base": {
+          "rec": -1,
+          "ft": 20,
+          "cp": 125,
+          "js": null,
+          "base": null
+        },
+        "off": {
+          "rec": -1,
+          "ft": 20,
+          "cp": 125,
+          "js": 0,
+          "base": 215
+        },
+        "js": {
+          "rec": -1,
+          "ft": 20,
+          "cp": 125,
+          "js": null,
+          "base": null
+        },
+        "on": {
+          "rec": -1,
+          "ft": 20,
+          "cp": 125,
+          "js": 215,
+          "base": 0
+        },
+        "policy": {
+          "rec": -1,
+          "ft": 20,
+          "cp": 125,
+          "js": 215,
+          "base": 0
+        }
+      },
+      "maximum_identity_error": 0.0,
+      "original_inner_gates_FT_exact": true,
+      "all_buffers_immutable": true,
+      "reset_deepcopy_prefix_exact": true
+    }
+  },
+  "seconds": 606.3193580172956,
+  "source_sha256": "9152000cc0ccf4e999de0306ac4cc97a0328482acc798db1a5a060fb83155282",
+  "build_sha256": "9338c7cf5e69043ddd0425ce4df2638b22a6ee3b7a7f3ebd4bc85f8c18913a65",
+  "executor": "cleanSIF_A100_deterministic",
+  "CPU_unknown215_proven": false,
+  "CUDA_device": "NVIDIA A100-PCIE-40GB",
+  "CUDA_peak_allocated": 3924686848,
+  "torch_deterministic": true,
+  "cudnn_benchmark": false,
+  "cudnn_deterministic": true,
+  "matmul_TF32": false,
+  "cudnn_TF32": false,
+  "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+  "accuracy_computed": false
+}
