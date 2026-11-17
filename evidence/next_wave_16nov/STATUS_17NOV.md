@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 10:40 CET
+# Campaign status: 17 November 2026, 11:32 CET
 
 Reporting: FULL-SYSTEM DEV / SEALED LEADERBOARD / INDIVIDUAL-MODEL must be explicit, with comparator.
 Custom stack=C++/CUDA; original raw neural reference=stockPyTorch336/338.
@@ -175,14 +175,17 @@ CounterbalancedAB/BA timing3117650 COMPLETE43m59, all12pairspass6.10%bar:
 medianoverhead190/378/8002.43%/1.19%/2.62%, max4.91%. Actual800base156.69–158.72s/JS161.47–164.38s.
 Coldsetupseparate/orderconfounded,nospeedup. Original45minlimitunchanged; TIMEOUT-onlyretrycorrectlyNO_RELEASE.
 IndependentCPU2153117573PASS81m17, exactold→FIR/reuse with20FT/10CP/125fusions, buffer/generator/resetproofs.
-OriginalCPU3117585/7TIMEOUT45minpreserved; separatefullFUNCTIONAL-only3117756/7 stillRUNNING,
-completecollector3117884pending. Owningevidencepushedcb544d9; source/regenerationauditforreturningstartsnext.
+OriginalCPU3117585/7TIMEOUT45minpreserved; separatefullFUNCTIONAL-only3117756/7 COMPLETE2h27m06/2h32m09,
+collector3117884passesall6length/mode/source/activityguards. Functional completion is not CPU timingqualification.
 All60NEWgenuineheldNNweights/72traces+576B1SIFbanksPASSEDownsource/export/reset/order/weightguards,
 bothsourcefoldcontextspass. Historicalidentityunverified; oldCPU/GPUstrictQFfailurespreserved. Actualfrozen-stage
 RouteB/TSEM/OwnStage/CF/CP engineering3118487PASS5m59, exactcomposition/offzero/inner/gate/labels, JSactive
 pre+postrec;rec10/FT0/CPstop10. ENGINEERING_ONLY(cachedrecordingfoldview/originalall10inner), notRETURNINGDEV.
-Fullpairedreturningneedsrawcausal256view/newsharedinnerFT/populationcalibrationscope; no returningscore yet.
-CPUreuse3117756COMPLETE2h27m06;FIR3117757stillrunning800, status3117884waitsboth. No promotion/upload.
+BothnewsourceCore/PCAfits3118591/3118601 pass~3min/8.4GiB, sourceheldrowsabsent; nativeSIF raw31canaries3118613 pass.
+Full8order raw256banks3118623%1 run; newsourcecontexts3118631 pass. Four normalBN pilots pass; remaining24
+genuineShallow/learnedFBCfits3118637%2→28assetcollector3118663 queued, sameweights botharms. No scoreyet.
+Bridge scope is explicitly CONDITIONAL ENGINEERING with fixedproductionMAD/teacherEA-G/OOFcalibration.
+Raw256/sharednewinnerFT/wholepairedprotocol stillrequired; a positive cannot establish held FULL-SYSTEM DEV/rank.
 
 **§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.
 C−control+.048820official[−.114472,+.218121], people/order+.036[−.150914,+.231166],5/10up.
@@ -272,33 +275,43 @@ Actual2.205CPUcoreh/0A100;64pretextsteps,oneperson/seed,prefinecheckpointsabsent
 [Evidence](pretraining337.md). §340 numericalfeature/learningaudit usesactualFIR/source-onlyinputs,noaccuracy:
 finitebank4320×480rank480,cond2916,signalattenuation≠absence; CARchangesrawNNfeatures1.188sourceSD,
 whileteacher~1e−6invariant. No taskcausality/NNsufficiency claim. MissingprefineNN/auxweights limitsforgettingattribution.
-§339 source-onlytemperatureprototypecomplete(all2×3×8banks/guardsbeforeP02labels): fitNLLF−.043156,
-B−.003459/V−.003456,T1.5389/1.1360/1.1359, activeprobabilities/exactargmax. Not calibrationgeneralization.
-Full§339 ALL20nestedsource8banks/30source-onlyT/48membersnowcomplete; sameA100route, no2080mixture.
-RawFBexact323/rawVexact332; replayOK. OriginalCPU6fullchainzero/RF/RVsmokesPASS181–193s;
-RFwithin0all6basefinalscores BITWISEold323. Remaining53cells3118433%8→finalscorer3118434active.
-Sameweight/fullstages/sixdependentCPbases; ALL6arms/control/zero beforemetrics. CallbackCWDfailurebeforefirstsbatch
-preserved, budget-onlyfixed3118432releasesonce. Conservative39.33CPUh<48authority, original1.2MAXformula.
-[ExactDAG/source](calibration339_full_handoff.md). No339treatmentqualityclaimyet.
+§339 COMPLETE: ALL20nestedsource8banks/30source-onlyT/48members/64cells/384CPoutputs and original
+source/zero/order/route/endpointguards pass before finalscorer3118434. Control76.217673%; official FULL-SYSTEM DEV:
+rawF+.03846[−.09626,.17026], rawB−.03295[−.18929,.12581], rawV−.03086[−.18945,.13084]pp;
+calF+.04531[−.07573,.16648], calB−.05331[−.20539,.10204], calV−.04812[−.20169,.10722]pp.
+Every controlcontrast interval spanszero. Cal−rawF+.00685/B−.02036/V−.01726pp are uncertain.
+INDIVIDUAL-MODEL two-seedmean F54.727/B58.782/V58.817% is unchangedbytemperature; ~4pp did not stack.
+Activeprobability/decisionchanges ruleoutno-op, notcausalexplanation. Sameweight/fullstages/sixdependentCPbases;
+newpersonroutingemulation, notpackagedreturning/sealed. Actual24.06CPUcoreh/.2075A100h. No ownedjobs/promotion.
+[Completecontrasts/guards/source](calibration339_full_handoff.md), [report](calibration339_full_results.json).
 §341complete: samebinary/sourceCPUrepeat80.35s1thread/45.47s6,historic243notreproduced;96.4%matrixmultiply.
 Validation-onlypatchpreservescoefficients/loss/grad/predictions EXACT; checkedAPI2.26x/1.36x, headB12.30→.91ms.
 FullCPUsolve41.96→41.59s(singlepair), no practicalfullsolver/core/worker/accuracyclaim. Futurecanonicalsourceonly;
 activeremotebinariesunchanged. [Evidence](solver341_handoff.md). GPUresident/batchreuseplanunrun.
-Fresh§342source-onlyspatialreadoutpilotpreparing: oldAtompooled400andtime-retained1600bothaverage41channels;
-explicitchannel-retained16400/full65600layoutsnotpreviouslytested. Source6/P09, fixedsourceP10Cselection,
-matchedrandom/all4layouts, C-awareGPU-provensolver/exactcachedassets. CPU3118519→A1003118520smokequeued,
-noheadaccuracyyet. Scopegap/hypothesis, notencoderbugorproofpooledtokenslackspatialinformation.
+§342 COMPLETE3118608/57s: P09 INDIVIDUAL-MODEL prepool44.630/time40.086/spatial51.347/full44.199%;
+matchedrandom36.369/36.782/41.002/42.511%. Spatial−pooled+6.717pp, but below originalraw64.061% contextualreference.
+All32source-selectedGPUheadfits/guards beforelabels, sumfit11.46s, peak1.114GB; no worker/languagecomparison.
+Failedfeatureanchor3118549preserved; sameweightsB3→B8 explainsquerynumerics. Unchangedprobabilityguards pass.
+No outerexpansion/systemgain/promotion. [Finalreport](spatial342.md) owns all8arms/controlscope.
+§343 user-requestedCPUsolverrepair ACTIVE: SAME-node warmbaseline3118664 sklearn19.016s/112.84coresec,
+native40.848s/243.96coresec. Source-span fullsmoke3118696 fits9.24s includingGram/eigen3.91s; rank2464,
+onlycenteringnullremoved; fulloriginalobjective.0015985027/gradient2.48e−7, probdiff1.49e−4/zerosourcelabelchanges.
+Provisionalcomponentresult; repeatedcontemporaneouspairs/isolatedmemory/heldinputproofpending. Noaccuracygain.
+§344 finalrealzeroaux/RNG/costsmoke3118695 PASS58s; C/Didenticallambda/groupedderangement/actualnative8updatetwin.
+FourCPU6fits3118755A/B+3118756C/D RUNNING→3118759collector; allsnapshotprobes/strongA/Bidentity beforelabels.
+Initialcoststops preserved; hardtotal6.725CPUh/0A100. TeacherC++backend reused, NNtrainingPyTorch; noqualitygainyet.
 Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
 
 ## Coordination and cadence
 
-Galvani only,32running/272submitted with28reserve. Latestroot07:59CET dispatch:12active/7running,
-verifylivecapacitybeforeeachdispatch. SSHworks;12hourlocalidleretention isnotverifiedserver/VPNexpiry.
-Submittedjobs surviveclientloss. Rootowns canonicaldocs/333; external_supervisionowns321; fresh_solution_audit
-owns332/strong-referencebridge; scheduled_research_0652completedtimedblock/334andnowowns335source-onlystudy.
+Galvani only,32running/272submitted with28reserve; verifylivecapacitybeforeeachdispatch.
+SSHworks;12hourlocalidleretention isnotverifiedserver/VPNexpiry. Submittedjobs surviveclientloss.
+Rootowns canonicaldocs/342collection; external_supervisionowns321; performance_solver343owns343;retention344owns344.
+Previous339/340/341/342owners completed; no duplicatefits or unperformedcross-providerclaim.
 Usefollowup_task towakecompletedowners. Preserveallsharedledgerblocks/immutableworkspaces.
 Global scientific-discoveryskill applied; personalmasterdbaab0e. No cross-provider orWecoproviderexecution.
 NativepairedCPU63–64msvscachedPython113–117msisnarrow;A100solve1.062svsCPU238.483schangesdevice/trajectory.
-Noenergy/end-to-endclaim. Lastscheduledresearch06:52:44–07:07:51CET15m07;[report](research_4h_17nov_0652.md).
-Extra05:13–05:30reviewnotreplacement;canonicalhistoryretained,notblind. BothautomationsACTIVE,nextresearch~10:51CET.
+Noenergy/end-to-endclaim. Scheduledresearch10:49:35–11:04:39CET COMPLETE15m04;
+[report](research_4h_17nov_1051.md). Next≈14:51CET; no duplicate delayed10:51trigger. Canonicalhistoryretained,notblind.
+BothautomationsACTIVE; latest researchmotivates344, qualifiesCMx7-MMsource-taskidentity before newdatawork.
 Next17Nov18:00CET decisioncheckpointprovisional;nonewqualifiedsubmission/topfiveproof.

@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 10:38 CET
+### Current campaign: 17 November 2026, about 11:32 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -56,28 +56,30 @@ Earlier visual/EEGpriors, spatialoccupancy and rawstate-space pilots did not bea
 these are limited forms, not architecture-family ceilings. §340finiteFIRbank is fullrank480/condition2916:
 frequencyattenuation is not mathematicalinformationabsence before compression. CARsensitivity is not taskcausality.
 
-**Active full-system normalization test — §339.** Source-onlytemperatureprototype passed: fittedNLLchanges
-fixed−.0432/both−.00346/variance−.00346; activeprobabilities, unchangedargmax. Those are fitting results.
-ALL20nestedsource8seedbanks, ALL30source-onlytemperatures and48raw/calibratedF/B/V members are complete.
-Outerperson is excluded from innertraining ANDcycliccalibrationperson; allTfreeze before treatment metrics.
-Largestcold-epochcoststops are preserved; correctedwarm/completefit measurement passed. SameA100route throughout.
-OriginalreplayOK; rawF/B endpoints reproduce323, rawV reproduces332. Threefullchain smokes passed181–193s.
-Remaining53originalCPU6cells3118433%8→completeowningscorer3118434 now run. All6arms/control/zero mustpass
-before interpreting metrics. Same memberweight/stages/sixdependentCPbases; no evaluator rewrite or package claim.
-Resource envelope≤1A100h/48actualCPUcoreh, original1.2×MAXcostformula retained; no source/math changes.
-[Owner handoff](../evidence/next_wave_16nov/calibration339_full_handoff.md) owns exact DAG/source changes.
+**Completed full-system normalization test — §339.** All20nestedsource8seedbanks/30source-onlytemperatures,
+48members/64cells/384CPoutputs and originalsource/zero/order/route/endpointguards pass; scorer3118434 COMPLETE.
+Control76.217673%; rawfixed/both/variance FULL-SYSTEM DEV deltas+.03846/−.03295/−.03086pp;
+calibratedfixed/both/variance+.04531/−.05331/−.04812pp. ALLsix people/order intervals spanzero.
+Calibrated−raw fixed+.00685/both−.02036/variance−.01726pp are uncertain. No established system gain.
+Two-seed INDIVIDUAL-MODEL fixed54.727/both58.782/variance58.817%: the ~4pp gain did not stack here.
+Probability/decision changes rule out an inactive addition; they do not explain the attenuation causally.
+Actual24.06CPUcoreh/.2075A100h. New-person routingemulation only; no packagedreturning/sealed result.
+[Owner handoff](../evidence/next_wave_16nov/calibration339_full_handoff.md) owns all contrasts/source limits.
 
 **Candidate qualification — §321.** CorrectedrawEAprior5 versuslatentBNprior2 proofs/all6all10models pass.
 JS-all preserves innergates/FTlabels but changes outermix even afterrecognition. No finalrecognizedidentity claim.
 SharedFIR/inputreuse preserve original45active nets and20inactiveweightsets; controlledCPU/GPU semantics exact.
 CompleteA100known/unknown190/378/800functionality passes; warm12AB/BApairs pass6.10%engineeringbar,
 medianoverhead2.43/1.19/2.62%, max4.91%. Oldfailedbitwise/timing/CPU45mintests remainfailed.
-LongCPUfunctional3117756/7 test800 now; collector3117884 waits both. No sealed runtime proof.
+LongCPUfunctional3117756/7 COMPLETE2h27/2h32; collector3117884 passes. No CPU timing or sealed runtime proof.
 All60NEWgenuineheld-sessionNNweights/72traces and576B1SIFbanks pass source/export/reset/order guards.
 Bothfold-specificsourcecontexts pass. Historical checkpoint identity remains unproven, not silently substituted.
 ActualRouteB/TSEM/OwnStage/CF/CP engineeringbridge3118487 uses originalfrozenclasses and explicit contexts.
-FullgenuinepairedRETURNINGDEV still needs rawcausal256view/sharedinnerFT/source-calibration scope;
-retv6 defaults differ and cachedrecordingPC permutations are not rawcausal fidelity. No returningscore yet.
+BothneworiginalsourceCore/PCAfits and nativeSIF raw31canaries pass. Actualfull8order raw256banks3118623%1
+run; new sourcecontexts3118631 complete. Four normalBN sourcepilots pass; remaining24fits3118637%2→3118663
+queued. Still needs sharednewinnerFT/wholepairedprotocol before score; cachedrecordingPC is not rawcausal.
+Root explicitly chose FIXED-PRODUCTION-PRIOR CONDITIONAL ENGINEERING sensitivity: frozenMAD/teacherEA-G/
+OOFcalibration remain. A positive cannot establish genuinely held FULL-SYSTEM DEV/rank/promotion. No score yet.
 [Owner evidence](../evidence/next_wave_16nov/js321_returning.md) records these measured limits.
 
 **Custom stack and new readout exploration.** PairedCPUclassical-core63–64ms versus cachedPython113–117ms
@@ -86,16 +88,24 @@ is a narrow~1.8× inference result. ResidentA100linearhead1.062s versus CPU238.4
 One-linefinite-validation patch preserves exactmath, improvescheckedAPI2.26×/1.36× and head-onlyB12.30→.91ms;
 fullCPUsolve41.96→41.59s(singlepair), no practicalfullsolve/core/accuracy claim. Future sourceonly, activebinariesunchanged.
 GPUresident/batchedreuse remains a plan. Neuralnetworktraining stillusesPyTorch, not a completeC++NNrewrite.
-Freshworker spatial_readout342 audits actualAtomreadout: oldpooled400 averagesalltokens, oldretained1600
-averages41channels but keeps4timepositions. Explicit41channel/full164tokenreadouts were not tested there.
-New§342source-onlyP09pilot is being prepared with matchedrandom/controlwidths, fixedsourceP10Cselection,
-GPU-provenC-awarecustomlinearhead and frozenexactassets. This is a scopegap/hypothesis, not an encoderbug.
+User requests full CPU solver repair. Fresh§343 SAME-node warmbaseline3118664: sklearn19.016s/native40.848s.
+Source-span smoke3118696 fits9.24s INCLUDING3.91sGram/eigen+5.16ssolve/reconstruction/checks; originalobjective/
+gradient/probabilityguards pass, zero sourcelabelchanges. Repeatedpairedtiming/isolatedmemory/heldinputproofpending;
+this is a provisional component result, not yet full implementationqualification or accuracy gain.
+§342 COMPLETE57s/32fits: pretrained pooled44.630/temporal40.086/spatial51.347/full44.199% onexposedP09.
+Spatial−pooled+6.717 INDIVIDUAL-MODELpp, but below strongerhistoricalraw64.061%; no systemgain/promotion.
+Randommatchedspatial41.002%; exactsource/CPU-GPU probabilityguards pass beforelabels. Oldbatchgeometry
+featureanchor failure preserved/explained; no historicalrandomidentity claim. Reportspatial342.md owns scope.
+§344 concurrentcovariance-learning follow-up is registered/implemented: exactoriginalrawreference,
+sequential pretext, concurrentauxiliary and class/person-preserving derangementcontrol; source6/P09 only.
+Finalzeroaux/RNG/update/costsmoke3118695 passes58s; fourCPU6fits3118755A/B and3118756C/D running→3118759collector.
+Allactualsnapshotprobes/source/identityguards precede scores. Hardtotal≤6.725CPUcoreh/0A100; noqualitygainyet.
 
-**Ownership and cadence.** Root owns canonicaldocs. external_supervision_17nov owns321; fresh_solution_audit
-owns339; spatial_readout342 owns342. scheduled_research_0652 completed340/341; no paid/providerexecution.
+**Ownership and cadence.** Root owns canonicaldocs/342collection. external_supervision_17nov owns321;
+performance_solver343 owns343; retention344 owns344. 339/340/341/342 owners completed; no paid/providerexecution.
 Usefollowup_task for completed owners. Keep sharedledgeradditions, immutable snapshots and unrelated files intact.
-Lastscheduledprimaryresearch06:52:44–07:07:51CET lasted15m07, reportresearch_4h_17nov_0652.md.
-Nextfour-hourblock≈10:51CET; extra05:13–05:30review did not replace it. Canonicalhistoryretained, notblind.
+Latest scheduledresearch10:49:35–11:04:39CET lasted15m04, reportresearch_4h_17nov_1051.md COMPLETE.
+Nextfour-hourblock≈14:51CET; do not duplicate delayed10:51trigger. Canonicalhistoryretained, notblind.
 Both50mincampaign/4hresearchheartbeats remainACTIVE through17Nov18:30UTC. SSHworks;renewonlyactualfailure.
 
 ## 2. Hard bounds (from the official code and rules)
