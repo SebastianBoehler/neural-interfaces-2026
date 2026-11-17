@@ -136,7 +136,7 @@ def validate(orders, arms, streams):
     return output
 
 
-def cell(arm, order):
+def cell(arm, order, resume_cp=None):
     if arm not in RECIPES or order not in ORDERS:
         raise ValueError('unregistered chain cell')
     add, swap, zero = RECIPES[arm]
@@ -145,7 +145,12 @@ def cell(arm, order):
     start = time.monotonic()
     run = ROOT / MEMBER / 'run_s_v66.py'
     cp = ROOT / MEMBER / 's281_cp.py'
-    subprocess.run([sys.executable, '-B', '-I', str(run), order], env=context, cwd=ROOT, check=True)
+    if resume_cp is None:
+        subprocess.run([sys.executable, '-B', '-I', str(run), order],
+                       env=context, cwd=ROOT, check=True)
+    else:
+        from repair import verify_resume
+        verify_resume(arm, order, resume_cp)
     upstream = time.monotonic() - start
     subprocess.run([sys.executable, '-B', '-I', str(cp), arm, order, BASE], env=context, cwd=ROOT, check=True)
     if zero:
