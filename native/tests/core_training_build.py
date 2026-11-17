@@ -29,7 +29,8 @@ def main():
         *flags['CXX_INCLUDES'], *flags['CXX_FLAGS'], '-o', str(obj), '-c', str(root / 'native/tests/core_training_source.cpp')]
     subprocess.run(compile_command, check=True)
     link = [str(obj) if token.endswith('/probe.cpp.o') else
-            str(BASE) if token == 'libni26_base.so' else token for token in command]
+            str(BASE) if token == 'libni26_base.so' else
+            token.replace(str(old), str(BASE.parent)) for token in command]
     link[link.index('-o') + 1] = 'ni26_core_training_source'
     subprocess.run(link, cwd=build, check=True)
     dependencies = subprocess.check_output(['ldd', str(build / 'ni26_core_training_source')], text=True)

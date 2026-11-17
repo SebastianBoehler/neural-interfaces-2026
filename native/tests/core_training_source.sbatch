@@ -28,6 +28,9 @@ finish() {
   exit "$status"
 }
 trap finish EXIT
-/usr/bin/time -v "$py" -B native/tests/core_training_build.py > build.log 2> build.time
+test -x build/ni26_core_training_source
+ldd build/ni26_core_training_source > executable_ldd.txt
+grep -F "$(dirname "$base")/libni26_base.so" executable_ldd.txt >/dev/null
+if grep -q "not found" executable_ldd.txt; then exit 1; fi
 /usr/bin/time -v "$py" -B native/tests/core_training_fixture.py fixture > oracle.log 2> oracle.time
 /usr/bin/time -v build/ni26_core_training_source fixture/source.pt fixture/recipe.pt fixture/reference.pt native_core.pt > training.log 2> training.time

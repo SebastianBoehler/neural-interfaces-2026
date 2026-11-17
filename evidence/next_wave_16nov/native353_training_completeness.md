@@ -86,3 +86,19 @@ No new held inputs/labels, accuracy, full-system scoring or source-refit selecti
 Script `native/tests/core_training_source.sbatch`; source/build proof is retained.
 Original source/full-dimensional feature/PC/scaler/prior/objective/exclusion bounds
 above stay fixed; first failure stops, preserves artifacts and blocks adoption.
+
+### Preserved pre-numerical failure and explicit one retry
+
+3120845 FAILED71s×CPU2=142allocatedcoresec. The new executable provenance guard
+caught the copied original DT_RPATH resolving the OLD parity_v3 base despite the
+absolute link input and LD_LIBRARY_PATH. No original features or native fit ran.
+The old snapshot/logs/object remain immutable. Root explicitly authorized ONE
+fresh same-cap retry, after link+ldd preflight with the unchanged compiled object.
+Only old-build DT_RPATH is replaced by qualified CAR base.parent; no math change.
+Actual preflight link+ldd PASS/no EEG execution, unchanged objectSHA
+9300162e1558365876008d484ed4d4df82de1a6944161b152e547225cc91e9fb;
+correct executableSHA cbee44d037901bd1b91414e5b928e5ceffde4262ebda3fbcdc58dc721c79c5a5.
+Retry `ni26_core_training_source_v2_20261117` pins/runs that exact prebuilt binary,
+its dependencies, same original source/feature oracle/SOS/reference/strict bounds.
+No recompile, no native-base fallback, no second retry. Aggregate7,895coresec used
+plus neural1,200/source1,200/root-initializer180 reserved=10,475<14,400coresec.
