@@ -387,3 +387,8 @@ Do not ask optional implementation questions while the user sleeps. Use existing
 10CPrefits125fusions/reset/deepcopy/noerrors. Neuralknownfirstmembers~2e−6>1e−6; diagnostic3120433 noFT/gold.
 Corep1source2.6423e−7>1e−7/zerochangedlabels; owner343localizesfloat32reductions, no tolerance relaxation.
 No fullnativegraph/training/worker/speedqualification. Currenthandoffownsactualjobs/remainingrecipes.
+
+Actual15:40CET: §350source3119571 TIMEOUT90m06, downstreampilot/controllerdead-dependency, ownpendingchildren
+cancelledbyownerafterverification. No newpolicycohort/result. Ownerpreparesboundedrecovery, no blindextension.
+NNdiagnostic3120433failed17s beforecomparisononnode-localOS hash mismatch; revisedapp/NFSpins+pernodeOSrecord
+approved foroneboundedretry. C++NN andwholecoreprecisionstillunqualified, no whole-worker/promotionclaim.

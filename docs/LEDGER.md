@@ -10243,3 +10243,12 @@ fixesreadingonly. Actualp1max2.64226994319e−7>1e−7, zerochangedlabels: NOTqu
 NativeNNfirstknownmembers~2e−6>1e−6:NOTqualified; source-onlyonewindowhostPython/C++/SIFdiagnostic
 3120433CPU1/3minqueued, noFT/optimizer/gold. Coreprecisionowner343preparesALLoutput/sourceintermediate
 comparison beforeclaimingcause. No originalevaluationbug, scoregain orwholeworkerclaim follows.
+
+§350 actualsource3119571 TIMEOUT90m06, notsuccessfulguard. Known80partialsemanticPASS retained;
+unknown215completeproof absent. Pendingpilot3119687/controller3119719 aredeaddependencies, ownercancelsonly
+afterfailure. No score/cohortrelease/automaticextension. CostedGPU orsharedsourcebank recoverymustbeprospectively
+specifiedbeforelaunch; unchangedonepolicy/conditionalexposure/remainingbudgetlimits, no evaluatorrewrite.
+§353diagnostic3120433failed17s BEFOREcompile/forward becauseloginOS /lib64hashes incorrectlytreatedas
+sharedimmutableNFSdeps. ApprovedONECPU1/3min correctedretry retainsALLapplication/Torch/NFS source/libpins;
+actualworker-localOS hashesrecordedafterplacementBEFOREprobeandverifiedend. No numericthreshold/source/model/
+fit/accuracychange; oldmanifestpreserved. CurrentheldnativeNNtrainingoracle remainsheld.

@@ -1,4 +1,4 @@
-# NI26 active handoff — 17 November 2026, 15:36 CET
+# NI26 active handoff — 17 November 2026, 15:40 CET
 Read STATE→targetedLEDGER/actualsource→OFFICIAL_CONTRACT→STATUS→owninghandoffs. Keepthis≤80lines.
 Userauthorizesfull own-C++active training+inference AND continuingwideaccuracyresearch onGalvanionly.
 ThinrequiredPythonSolveradapteronly; optimizednativeTorch/BLASdepsallowed. No automaticupload/provider/terms/messages.
@@ -40,8 +40,9 @@ Topfiveobjective/unverified; provisional18:00CETcandidatecheckpoint, userretains
   Rootrepairacceptsexactfiniteintegralfloatwithinint64; fractional/nonfinite/complexfail. No tolerance/mathchange.
 - 3120312compiled/sourceexecuted: routingCF/latestCPnumericalPASS(maxCP2.413e−12), actualOwnStageactive,
   noerrors,10CPrefits125fusions, reset/deepcopy17/204/zerochangedlabels. COMPONENTonly, notwholeworker.
-- NNfirstknownmembers~2e−6 fails1e−6; owner346singlewindow HOSTPython/C++/SIFdiagnostic3120433 queued,
-  CPU1/3min/noFT/train/accuracy. No tolerancechange. Rootcore p1max2.6423e−7fails1e−7/zerochangedlabels;
+- NNfirstknownmembers~2e−6 fails1e−6; owner346singlewindow HOSTPython/C++/SIFdiagnostic3120433 FAILED17s beforecomparison,
+  loginOS-library hash pins mismatchednode-localOS; ownNFS/Torchpinsunchanged, repairretryapprovedCPU1/3min.
+  NoFT/train/accuracy/tolerancechange. Rootcore p1max2.6423e−7fails1e−7/zerochangedlabels;
   originalPythonreaderfirstfailedtypedDict; scopedrestore_type_tag allowlistfixedreader, failurepreserved.
   performance_solver343 ownsboundedcoreprecisiondiag(ALLoutputs→firststagecomparison), no newfit.
 - Source-trainingsteporacleHELDuntilNNparity; nofull40epochnativefit/completeworkerspeedclaim.
@@ -51,9 +52,10 @@ Topfiveobjective/unverified; provisional18:00CETcandidatecheckpoint, userretains
 
 ## Ownership and live accuracy DAG
 - Rootownscanonicaldocs/nativeintegration/masterruntime; sourcecheckpointb0beac3 committed, furtherdoccheckpointdue.
-- external_supervision_17nov:350+nativegates/routing/CF/CP. Ownsource3503119571 CPU2/90min→pilot3119687_0
-  CPU2/9min→failclosedcontroller3119719→remaining15%8+completecollector ONLYafteractualallguards/cost.
-  350HARD7.9CPUh, nopartialgold; guardabout75minrunningat15:20CET. No automaticextension.
+- external_supervision_17nov:350+nativegates/routing/CF/CP. Source3503119571 TIMEOUT90m06;
+  pilot3119687/controller3119719dead-dependency, ownercancelsownpendingchildren onlyafterverifiedfailure.
+  Known80guardpartialPASS; no completedunknown215proof/newpolicygold. BoundedGPU/sharedbankrecoveryproposalrequested;
+  no replacement350sourcejob yet. Original350HARD7.9CPUh andconditionalexposurelimitsstillapply.
 - fresh_information_346: nativeNN/FT/training+same-fixtureretry3120312neuralerrorwatch.
 - performance_solver343: nativeoptimizer/classicalsourceworkflowprepared; activecoreprecisiondiagnosisowner.
 - external_instrument_348completed351/352, idle. Preserveunrelatedrolling.py/.sbatch andsharedindex.
