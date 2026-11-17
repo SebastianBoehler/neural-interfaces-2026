@@ -131,3 +131,66 @@ G2,160,972KiB;8GiB covers≥2×observed and predicted≤4GiB full inference peak
 Source workflows use one Python process plus shell, direct Tensor batches and
 in-process deepcopy; no process-worker/DataLoader pool. Account actuals/late
 inference peaks will be reported before claiming a resource result.
+
+Before collector gold, independently smoke the exact collector gradient guard on
+completed P02/O SOURCE EEG/checkpoint only (no query labels/score/update), ONECPU2/
+12GiB≤2min≤240coresec. At release only5producer jobs run, so ≤8 lane concurrency
+holds. Require its pass in collector dependency as well as all9fits. Revised worst
+20,640+240=20,880coresec=5.8CPUh<6; no extra architecture fit or changed test bound.
+
+## Two runtime failures and explicit bounded recovery BEFORE any gold
+
+Final audit:7cells COMPLETE672–925s; P02/L(index3) andP03/O(index5) TIMEOUT18min,
+BOTH oncn123. No query labels/score opened. The earlier live status that P02/L had
+completed was premature; queue disappearance is not completion. Failed logs and
+snapshots preserved, dead collector3121898 cancelled only whilePENDING/no gold.
+Seven completed numerical banks retained; no partial cohort scoring or selection.
+Full successful peak≤3,846,232KiB, so8GiB RAM satisfies≥2×observed full-fit/inference
+peak. Timeouts were not OOM; a slow/contended-node explanation remains descriptive.
+
+Go past the original no-retry rule for ONE exact two-cell runtime/resource recovery:
+fresh ni26_factor354_recovery_v1_20261117, identical source bytes/manifest, existing
+passed smoke, same seeds/source40epochs/models/optimizer/sampler/guard bounds.
+Dispatch ONLYindices3,5, CPU2/8GiB19min/%2, EXCLUDEcn123 before new fits. No method,
+checkpoint selection, weaker stopping, extra epoch or accuracy-driven choice.
+Fresh collectorv3 fixed-roots P02/L+P03/O to recovery outputs, other7 to original;
+all9success/8banks/gradientguards required before labels. No dynamic fallback.
+
+Conservative actual cost16,328coresec includes largest batch/main elapsed for both
+timeouts plus originalsmoke246/sourcegradient44. Recovery2×2CPU×19min=4,560,
+collector2CPU×5min=600 =>maximum21,488<21,600coresec6CPUh. No further automatic
+retry/extension. The latest complete scheduler artifact, not an earlier live poll,
+owns statuses.
+
+## Complete pilot result
+
+Both fixed recovery cells completed. Collector 3122000 completed in 30 seconds
+on one CPU. It selected P02/L and P03/O from the recovery snapshot and the
+other seven cells from the original snapshot. Both producer manifests match
+`3d662db2…e4f3c`. The collector checked all nine source masks, checkpoints
+and eight delivered orders. The original source-only auxiliary gradient
+check ran on the actual O checkpoint for each person before held labels opened.
+
+| Held person | Raw O | Matched L | Gaussian G |
+| --- | ---: | ---: | ---: |
+| P02 | 66.485% | 57.429% | 64.121% |
+| P03 | 59.434% | 55.439% | 48.517% |
+| P09 | 60.503% | 54.578% | 51.461% |
+
+The Gaussian form lost **7.442 percentage points versus the strong raw control**,
+with an 80% people/order interval of [−10.282, −4.621]. It lost on all three
+people. The matched factorizer also lost to raw by 6.326 points [−8.004, −4.673].
+Gaussian minus matched was −1.116 points [−5.603, +3.377], so the pilot does
+not resolve the Gaussian mechanism relative to its matched factorizer.
+The A/M controls were not fit beyond smoke. The run cannot attribute the loss
+to an individual auxiliary objective or cover other content/style methods.
+These are exposed new-person, one-seed individual-model results.
+
+Actual total Slurm allocation was 18,942 CPU core-seconds, including both
+timeouts and the recoveries. Taking the larger scheduler job or step record
+gives a conservative 18,948 core-seconds, or 5.263 CPU-hours. GPU use was zero.
+The biggest reported step RSS was 3,846,232 KiB. All owned jobs are complete.
+
+The collector manifest is `c2309513…e830f`. [Before-label proof](factorization354_before_labels.json)
+and [full results](factorization354_result.json) retain exact routes, hashes and
+per-person order results.

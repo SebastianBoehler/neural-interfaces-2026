@@ -7,6 +7,11 @@ import numpy as np
 import torch
 
 STUDY=Path('/mnt/lustre/work/gehler/gfh527/ni26_factor354_v1_20261117')
+RECOVERY=STUDY.with_name('ni26_factor354_recovery_v1_20261117')
+GRADIENT_SMOKE=STUDY.with_name('ni26_factor354_gradient_smoke_v1_20261117')
+SOURCE_SHA='3d662db2f44d8d83e623c0240333eea941aad1a54b8ec4da6b93f0092d8e4f3c'
+GRADIENT_SMOKE_SHA='70bc58334210956b38cd7ac7ee5b372dfa763f7e2a9aaf6076e6d4ea174219df'
+RECOVERED={('P02','L'),('P03','O')}
 sys.path.insert(0,str(STUDY))
 from data354 import original,PEOPLE,ORDERS
 from gradient354 import check as gradient_check
@@ -17,17 +22,32 @@ def average(by):
     return float(np.mean([np.mean([by[o] for o in ORDERS if o.startswith(prefix)]) for prefix in ('within','full','runs')]))
 
 
+def producer_output(person,arm):
+    root=RECOVERY if (person,arm) in RECOVERED else STUDY
+    return root/'output'/person/arm
+
+
+def verify_producers():
+    for producer in (STUDY,RECOVERY):
+        if original.sha(producer/'source.sha256')!=SOURCE_SHA:raise ValueError('producer manifest changed')
+        for line in (producer/'source.sha256').read_text().splitlines():
+            pin,name=line.split(maxsplit=1)
+            if original.sha(producer/name)!=pin:raise ValueError('producer source changed')
+        if not json.loads((producer/'smoke.json').read_text())['original_one_epoch_BITWISE']:
+            raise ValueError('baseline smoke missing')
+    if original.sha(GRADIENT_SMOKE/'result.json')!=GRADIENT_SMOKE_SHA:
+        raise ValueError('gradient smoke proof changed')
+    if original.sha(Path(__file__).parent/'gradient354.py')!=original.sha(GRADIENT_SMOKE/'gradient354.py'):
+        raise ValueError('executed gradient check differs from the source smoke')
+
+
 def main():
-    root=Path.cwd();data,_,_,people=original.load();source_sha=original.sha(STUDY/'source.sha256')
-    for line in (STUDY/'source.sha256').read_text().splitlines():
-        pin,name=line.split(maxsplit=1)
-        if original.sha(STUDY/name)!=pin:raise ValueError('producer source changed')
-    if not json.loads((STUDY/'smoke.json').read_text())['original_one_epoch_BITWISE']:raise ValueError('baseline smoke missing')
+    root=Path.cwd();verify_producers();data,_,_,people=original.load();source_sha=SOURCE_SHA
     banks={};cards={};proof={};changed={}
     for person in PEOPLE:
         held=np.flatnonzero(people==person);fit=np.flatnonzero(people!=person);initial=[];plans=[];scales=[]
         for arm in ARMS:
-            folder=STUDY/'output'/person/arm;card=json.loads((folder/'record.json').read_text());trace=card['trace']
+            folder=producer_output(person,arm);card=json.loads((folder/'record.json').read_text());trace=card['trace']
             if card['source_sha256']!=source_sha or card['query_labels_opened'] or card['person']!=person or card['arm']!=arm:
                 raise ValueError('cell scope/label/source guard')
             if card['source_rows_sha256']!=original.digest(fit) or card['query_rows_sha256']!=original.digest(held):raise ValueError('cell row guard')
@@ -50,14 +70,15 @@ def main():
             if any(p.shape!=(len(held),3) or not np.isfinite(p).all() or (p<0).any() or not np.allclose(p.sum(1),1,atol=1e-10,rtol=0) for p in bank.values()):
                 raise ValueError('probability guard')
             initial.append(trace['initial_backbone_sha256']);scales.append(trace['scale']);banks[person,arm]=bank;cards[person,arm]=card
-            proof[person+'_'+arm]=dict(record_sha256=original.sha(folder/'record.json'),prediction_sha256=card['prediction_sha256'])
+            proof[person+'_'+arm]=dict(record_sha256=original.sha(folder/'record.json'),
+                prediction_sha256=card['prediction_sha256'],producer=str(folder.parents[2]))
         if len(set(initial))!=1 or len(set(scales))!=1 or plans[0]!=plans[1]:raise ValueError('matched initial state/scale/sampler guard')
         for arm in ('L','G'):
             changed[person+'_'+arm]=max(float(np.abs(banks[person,arm][o]-banks[person,'O'][o]).max()) for o in ORDERS)
             if changed[person+'_'+arm]<=1e-8:raise ValueError('candidate prediction silent no-op')
     if original.sha(original.BASE/'runs/shuffle_perms.npz')!='6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f':
         raise ValueError('canonical delivery orders changed')
-    gradients={person:gradient_check(data,people,person,STUDY/'output'/person) for person in PEOPLE}
+    gradients={person:gradient_check(data,people,person,producer_output(person,'O').parent) for person in PEOPLE}
     before=dict(auxiliary_gradient_guards=gradients,status='ALL_NINE_CELLS_EIGHT_ORDERS_GUARDED_BEFORE_GOLD',source_sha256=source_sha,cells=proof,
         probability_change=changed,query_labels_opened=False,unrun_arms=['A','M'],
         legacy_recipe_tag='original inference helper retains baseline recipe string; actual arm/adapter/source hashes above define the executed model')

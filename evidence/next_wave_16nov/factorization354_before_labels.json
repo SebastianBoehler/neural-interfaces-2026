@@ -1,0 +1,235 @@
+{
+  "auxiliary_gradient_guards": {
+    "P02": {
+      "held_person": "P02",
+      "source_people": [
+        "P01",
+        "P03"
+      ],
+      "probe": {
+        "L": {
+          "order": {
+            "loss": 0.0,
+            "weighted_gradient_max": 0.0,
+            "hinge_satisfied": true
+          },
+          "style": {
+            "loss": 0.014591852203011513,
+            "weighted_gradient_max": 2.7367173970560543e-05,
+            "hinge_satisfied": false
+          },
+          "contrast": {
+            "loss": 5.120730400085449,
+            "weighted_gradient_max": 0.2764747738838196,
+            "hinge_satisfied": false
+          },
+          "reconstruction": {
+            "loss": 3.8782882690429688,
+            "weighted_gradient_max": 0.008544227108359337,
+            "hinge_satisfied": false
+          }
+        },
+        "G": {
+          "order": {
+            "loss": 0.0028939577750861645,
+            "weighted_gradient_max": 0.00012377859093248844,
+            "hinge_satisfied": false
+          },
+          "style": {
+            "loss": 0.016062011942267418,
+            "weighted_gradient_max": 2.969820525322575e-05,
+            "hinge_satisfied": false
+          },
+          "contrast": {
+            "loss": 4.125504016876221,
+            "weighted_gradient_max": 0.00013545398542191833,
+            "hinge_satisfied": false
+          },
+          "reconstruction": {
+            "loss": 7.100165843963623,
+            "weighted_gradient_max": 0.027479074895381927,
+            "hinge_satisfied": false
+          }
+        }
+      },
+      "optimizer_steps": 0,
+      "query_labels_opened": false,
+      "source_rows_sha256": "0e1dcdb0ea562fad80614f6d793f34d357ef69ac6749438d65c9142862d958b9"
+    },
+    "P03": {
+      "held_person": "P03",
+      "source_people": [
+        "P01",
+        "P02"
+      ],
+      "probe": {
+        "L": {
+          "order": {
+            "loss": 0.0,
+            "weighted_gradient_max": 0.0,
+            "hinge_satisfied": true
+          },
+          "style": {
+            "loss": 0.013180756941437721,
+            "weighted_gradient_max": 1.7715419744490646e-05,
+            "hinge_satisfied": false
+          },
+          "contrast": {
+            "loss": 4.419032573699951,
+            "weighted_gradient_max": 0.23041068017482758,
+            "hinge_satisfied": false
+          },
+          "reconstruction": {
+            "loss": 4.590548038482666,
+            "weighted_gradient_max": 0.010337112471461296,
+            "hinge_satisfied": false
+          }
+        },
+        "G": {
+          "order": {
+            "loss": 0.0013712672516703606,
+            "weighted_gradient_max": 0.00017696150462143123,
+            "hinge_satisfied": false
+          },
+          "style": {
+            "loss": 0.01604020595550537,
+            "weighted_gradient_max": 3.728905721800402e-05,
+            "hinge_satisfied": false
+          },
+          "contrast": {
+            "loss": 4.113170146942139,
+            "weighted_gradient_max": 0.0003582937060855329,
+            "hinge_satisfied": false
+          },
+          "reconstruction": {
+            "loss": 8.267468452453613,
+            "weighted_gradient_max": 0.030665043741464615,
+            "hinge_satisfied": false
+          }
+        }
+      },
+      "optimizer_steps": 0,
+      "query_labels_opened": false,
+      "source_rows_sha256": "053169ed1743df67736d498ccb92a7e05953b894ef235244e3eafb61433475b1"
+    },
+    "P09": {
+      "held_person": "P09",
+      "source_people": [
+        "P01",
+        "P02"
+      ],
+      "probe": {
+        "L": {
+          "order": {
+            "loss": 0.0,
+            "weighted_gradient_max": 0.0,
+            "hinge_satisfied": true
+          },
+          "style": {
+            "loss": 0.015198874287307262,
+            "weighted_gradient_max": 2.3838259949116036e-05,
+            "hinge_satisfied": false
+          },
+          "contrast": {
+            "loss": 4.429553031921387,
+            "weighted_gradient_max": 0.21419060230255127,
+            "hinge_satisfied": false
+          },
+          "reconstruction": {
+            "loss": 4.1768693923950195,
+            "weighted_gradient_max": 0.009808549657464027,
+            "hinge_satisfied": false
+          }
+        },
+        "G": {
+          "order": {
+            "loss": 0.0014365005772560835,
+            "weighted_gradient_max": 0.00017038150690495968,
+            "hinge_satisfied": false
+          },
+          "style": {
+            "loss": 0.015051212161779404,
+            "weighted_gradient_max": 3.437123814364895e-05,
+            "hinge_satisfied": false
+          },
+          "contrast": {
+            "loss": 4.120550632476807,
+            "weighted_gradient_max": 9.847879846347496e-05,
+            "hinge_satisfied": false
+          },
+          "reconstruction": {
+            "loss": 7.210143566131592,
+            "weighted_gradient_max": 0.02737555466592312,
+            "hinge_satisfied": false
+          }
+        }
+      },
+      "optimizer_steps": 0,
+      "query_labels_opened": false,
+      "source_rows_sha256": "053169ed1743df67736d498ccb92a7e05953b894ef235244e3eafb61433475b1"
+    }
+  },
+  "status": "ALL_NINE_CELLS_EIGHT_ORDERS_GUARDED_BEFORE_GOLD",
+  "source_sha256": "3d662db2f44d8d83e623c0240333eea941aad1a54b8ec4da6b93f0092d8e4f3c",
+  "cells": {
+    "P02_O": {
+      "record_sha256": "5fc04c3cc9f34c84298c8ecb704ea121a71ce1915cf4cb8a654acf513bedda2b",
+      "prediction_sha256": "af1e8f4e963a0d32b5fd657bcece73908a17d993d5f7166dc21ea1cb0cb4bdfc",
+      "producer": "/mnt/lustre/work/gehler/gfh527/ni26_factor354_v1_20261117"
+    },
+    "P02_L": {
+      "record_sha256": "04ae859af3e1764c1efb2bf32acaf3dfce9d014a01fc305b68150894c49c8e2b",
+      "prediction_sha256": "c5584e402562d1e9dc3a96050697f5130fec9bd04a4f49e9efdba855526ce67b",
+      "producer": "/mnt/lustre/work/gehler/gfh527/ni26_factor354_recovery_v1_20261117"
+    },
+    "P02_G": {
+      "record_sha256": "6ae15a1eca34594a815eb60f24dec9c5655a6c9841c4d9da34761b3dc68cea32",
+      "prediction_sha256": "4acfb693607d6a2df5701864460178bff1f926c0fb17bf7b761a60754b72da15",
+      "producer": "/mnt/lustre/work/gehler/gfh527/ni26_factor354_v1_20261117"
+    },
+    "P03_O": {
+      "record_sha256": "5eff2b329c5f2b99549e0fd4219c552ced326d3b6b8fb4bac6f7eb9da2e776a8",
+      "prediction_sha256": "0b9a83d5e2a5be595a1319676916d0df3ba3d996f1f4a025c3c956c460ab5476",
+      "producer": "/mnt/lustre/work/gehler/gfh527/ni26_factor354_recovery_v1_20261117"
+    },
+    "P03_L": {
+      "record_sha256": "1bcecc4e7eb085f752870295ffd552ea897f6cba791eab09c79250512a7ac120",
+      "prediction_sha256": "2cd25623905ae05a9bcf6ffa4d4fee9d512d6114a04fc45872fcc53916e8c142",
+      "producer": "/mnt/lustre/work/gehler/gfh527/ni26_factor354_v1_20261117"
+    },
+    "P03_G": {
+      "record_sha256": "000d355317f1b7bfe1cc07da95c55f27997dff3f624cbb9f2cce50d07db2c415",
+      "prediction_sha256": "354689d7b945684de9d002ae4780a951022395f872b2b1856847f960a11b6724",
+      "producer": "/mnt/lustre/work/gehler/gfh527/ni26_factor354_v1_20261117"
+    },
+    "P09_O": {
+      "record_sha256": "ec3202f5fae1012ea5d3e25f502f6d755b1454da55a28c0e296ab7a9fb2ee38b",
+      "prediction_sha256": "496356886c71c761c62a0b888bae8981fc80eee3ac11c89fc04888fc03be7cb0",
+      "producer": "/mnt/lustre/work/gehler/gfh527/ni26_factor354_v1_20261117"
+    },
+    "P09_L": {
+      "record_sha256": "25eaba1823ff58cd6a150845d3cad4808ed46e0d4f8a086c3780b02376a6b86a",
+      "prediction_sha256": "c32798fac6f592a29f063141bbca28f485dddd0a571220ca00b51d40215a2660",
+      "producer": "/mnt/lustre/work/gehler/gfh527/ni26_factor354_v1_20261117"
+    },
+    "P09_G": {
+      "record_sha256": "9ceb24defe83c637e3f8dc970fb3212d9afc83f7bb8d583c5e21d7de0aef10c1",
+      "prediction_sha256": "08b2d83ec36ccfee14b03ecc455fd5f972737aa28ceabf6ef540d12c9bdc25ab",
+      "producer": "/mnt/lustre/work/gehler/gfh527/ni26_factor354_v1_20261117"
+    }
+  },
+  "probability_change": {
+    "P02_L": 0.9810561149098529,
+    "P02_G": 0.7954819248953322,
+    "P03_L": 0.8722239691067145,
+    "P03_G": 0.8451267553567231,
+    "P09_L": 0.8715165758823287,
+    "P09_G": 0.8214588255231199
+  },
+  "query_labels_opened": false,
+  "unrun_arms": [
+    "A",
+    "M"
+  ],
+  "legacy_recipe_tag": "original inference helper retains baseline recipe string; actual arm/adapter/source hashes above define the executed model"
+}
