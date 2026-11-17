@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 12:42 CET
+# Campaign status: 17 November 2026, 15:23 CET
 
 Reporting: FULL-SYSTEM DEV / SEALED LEADERBOARD / INDIVIDUAL-MODEL must be explicit, with comparator.
 Custom stack=C++/CUDA; original raw neural reference=stockPyTorch336/338.
@@ -183,7 +183,7 @@ RouteB/TSEM/OwnStage/CF/CP engineering3118487PASS5m59, exactcomposition/offzero/
 pre+postrec;rec10/FT0/CPstop10. ENGINEERING_ONLY(cachedrecordingfoldview/originalall10inner), notRETURNINGDEV.
 BothnewsourceCore/PCAfits3118591/3118601 pass~3min/8.4GiB, sourceheldrowsabsent; nativeSIF raw31canaries3118613 pass.
 Full8order raw256banks3118623/newsourcecontexts3118631/ALL28normalBNfits+originalShallow,FBCexports pass.
-Source-onlyteacher taskmaps/galleries pass; privatecopybuild prepared, actualmodel/sharedinnerFTguards pending. No scoreyet.
+Source-onlyteacher maps/galleries/private3arm/source-inner/recognition/FT guards pass. No scoreyet.
 Bridge is CONDITIONAL ENGINEERING: fixedproductionMAD/teacherEA-G/oldOOF ANDoriginalrest/eyeauxNN retainexposure.
 Raw256/sharednewinnerFT/wholepairedprotocol stillrequired; a positive cannot establish held FULL-SYSTEM DEV/rank.
 
@@ -321,19 +321,61 @@ C−strongA−1.482/−4.837pp, sameA6/source6/heads/scalers/C=.01/0newfits; all
 P09positive DOESNOTtransfer; no fullsystemexpansion. Allthreepeoplepreviouslyexposed/selectionlimitsexplicit.
 Next boundedrawtask-outsidecrop sourceaudit checksactualoldshiftedcropcoverage and tensor/cue provenance first.
 BIDSsourceinventory500Hz/41EEG/0EOG/EMG finds7,592nominalseconds outsideofficialcrop, NOTgloballyuntested.
-ActualoldordinaryBN-EAcrops2/3s and§277SSLstart4usedsome; exactrawSessionBN/step-matchedlatecrop gapneedsqualification.
+ActualoldordinaryBN-EAcrops2/3s and§277SSLstart4usedsome; §347exactrawSessionBN/step-matchedlatecrop gap registered.
+§347 qualification3119303 PASS208s:60sourceEDFs/1898officialrows/1894latecrops; fixed3.5–7.5fitsactual800ends,
+4unsupportedextraendsexcludedBOTHextraarmsbutoriginalrowsretained. Float32VOLTS→µVorder restoresA6prefixBITWISE;
+oldhelperroundingposterior1.636e−6>1e−6 failurepreserved. No loosebounds/querylabels/newdataindependenceclaim.
+Sourcecontrol3119319 PASS59s: actualnativeAref/Adisabled BITWISE; B/Csameinitializer,31base+31extra,source/labels/RNG/
+normalization/chunks, activegradient/updates. Conservativefull2fit1438s,total3.246CPUh<8; no automaticoutermatrix.
+Actualsame-sourceproducer/controlpreflight3119346 PASS; fullCPU6/24GiB15minB/C array3119363%2→CPU2/3mincollector3119365
+released13:15CET. OriginalA6control retained; allB/C×3people×8orders plus sourcematchedproof beforelabels. No347scoreyet.
+Approx7–12minconcurrent+queuebasedsourcecost, actualcompletionnotassumed. BCOMPLETE356sfit/389sscript withall
+2480step/40base-batch/source/8orderguards, noquerylabels; Cstarted13:20:51cn11424GiB. Pending-only12GiBrightsizing
+attemptfailedbecauseitstarted, NOresourcechange/cancel/requeue/speedupclaim. [Ownedevidence](crops347.md).
+§347FULLCOMPLETE/allmatched/source/72bankguards beforelabels: P02A65.646/B64.582/C50.597%,
+P03A56.228/B54.872/C54.277%, P09A64.061/B64.881/C54.289%. LateC−B−13.985/−.595/−10.592pp.
+Original-sourceNLLC.5455>B.3552; C alreadylesscompatiblewithsourceofficialviews. No positive/familyclosure/fullsystemclaim.
+Actual1.89667CPUh/0GPU, nojobs. Fullfit/deepcopyMaxRSSB6.74/C6.55GiB >3GiBsmoke;24GiBunchanged.
+Next349 ONEBNphase/sourceaudit+onefrozen-source-normcounterfactualpreparing, ≤1CPUh, no newtraining/grid.
+LegacyAlignedNet computesPOINTWISEcovcacheonallpublicX inclheld, unusedbyrawunalignedinference; no crossrowfit/
+querylabels/parameterstats fromheld. Literalheld_transformed:falseoverstatescacheabsence; interpretednarrowlyinownreports.
+§348 COMPLETEmetadata qualification:8308rows/201recordings/24people exactexportmapping,16guaranteednativechannels;
+everyMIcrop.5sannotatedsound/MA2–3s. CMxcancondition-stresstest, notuniversalWORD/SUB/3classvalidation.
+Existing12m8ccheckpointsusedCMx; old+1.67comparisonincrement NOTteacheraccuracy. No EEGaccuracy/fit.
+[Qualifiedscope](external_instrument348.md). New351 auditssemanticmatchedShin/Schererdata/trialindependence beforeanyfit.
 Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
+
+## Current implementation and new completed results
+
+§349 COMPLETE: frozen official-phase BNprior minus mixed-phase control changes P02−.808/P03−.138/P09+1.087
+INDIVIDUAL-MODELpp, still below strongA by15.857/2.088/8.685. OriginalB/C ALL16banksBITWISE;
+genericrecal controls0accuracychange. No recovery of latepooling damage, noall-late-data closure.
+§351metadata qualified SchererWORD/SUB. §352 COMPLETE PROTEUS-only frozen externalbinarycov59.030%
+versuspower53.260%,+5.770pp[80%people/day/order+3.958,+7.541],8/9up. SourceLOPOcov66.899%,10/10abovechance
+beforeexternalgold. Allbanks/source/reset/orderguards beforelabels. External clinical/language/hardware/QClimits;
+notFULL-SYSTEMDEV/three-class/sealed/rankgain. [Report](external_pair352.md).
+
+User requests full own-C++ active training+inference. Newnative/ ports every active runtime class, including
+fine-tuning, plus native linearoptimizer and ownrawFBC/SessionBN/AdamW-OneCycle source-loop. Implementation
+is not qualification. Native initializer/sourceprep/sampler/remainingfamilytraining/PCA/gallerypipeline pending.
+TorchScript migration artifacts execute in C++; that does not claim their architecture definitions were rewritten.
+Base/core/tails/routing/optimizer compiled. Full3120077 failed186s/4CPU on missingOpenSSLheader BEFOREtests;
+NNowner removes hostOpenSSLdependency without dropping FIRidentityguard. Earlier failures preserved.
+Reference captures3120062(65s,known80/unknown215components,10CPrefits125fusions) and3120067(56s,known8/unknown31,
+2FTrefits40steps) PASS; no C++numericparity yet. Full215NNcapture3119621 TIMEOUT20min/nofixture, notextended.
+§353engineeringbudget4CPUh; allheavyworkGalvani. Source-training-steporacleprepared/releaseHELD untilNNparity.
+§350 single gatedpolicy sourceguard3119571→wholepilot3119687→failclosedcontroller3119719 active, conditionalonly.
 
 ## Coordination and cadence
 
-Galvani only,32running/272submitted with28reserve; verifylivecapacitybeforeeachdispatch.
-SSHworks;12hourlocalidleretention isnotverifiedserver/VPNexpiry. Submittedjobs surviveclientloss.
-Rootowns canonicaldocs/342collection; external_supervisionowns321; fresh_information_346owns346extension;343/344/345complete.
-Previous339/340/341/342owners completed; no duplicatefits or unperformedcross-providerclaim.
-Usefollowup_task towakecompletedowners. Preserveallsharedledgerblocks/immutableworkspaces.
-Global scientific-discoveryskill applied; personalmasterdbaab0e. No cross-provider orWecoproviderexecution.
-NativepairedCPU63–64msvscachedPython113–117msisnarrow;A100solve1.062svsCPU238.483schangesdevice/trajectory.
-Noenergy/end-to-endclaim. Scheduledresearch10:49:35–11:04:39CET COMPLETE15m04;
-[report](research_4h_17nov_1051.md). Next≈14:51CET; no duplicate delayed10:51trigger. Canonicalhistoryretained,notblind.
-BothautomationsACTIVE; latest researchmotivates344, qualifiesCMx7-MMsource-taskidentity before newdatawork.
-Next17Nov18:00CET decisioncheckpointprovisional;nonewqualifiedsubmission/topfiveproof.
+Root owns canonicaldocs/nativeintegration; external_supervision_17nov owns350/native-routing/output;
+fresh_information_346 owns nativeNN/FT/training; performance_solver343 owns optimizer/classicaltraining.
+External351/352 ownercompleted. Preserve allimmutable snapshots/failedbars and sharedledgerappenditions.
+Scheduledresearch10:49:35–11:04:39CET COMPLETE15m04; next15minblock due≈14:51CET.
+BothautomationsACTIVEthrough17Nov18:30UTC; Galvanionly≤32running/272submitted/28reserve.
+SSHworks; jobscontinueafterclientloss. Provisional18:00CETcandidatecheckpoint, userretainsuploadauthority.
+
+353update15:23CET: allCPPtargetscompiled3120247; SHA/FIRPASS. CPUcacheguardfailurefixed6d73a1e.
+3120215NATIVElinearPASS82/88/maxprob6.38e−9/zeroheldlabels; one4thread19.823sNOTmatchedspeedup.
+RootscalarparserfixacceptsactualNPZwholefloatingem_nmin; same-fixtureparity3120312queued, no sourcefit.
+Scheduledresearch14:58:15–15:15:16CET COMPLETE17m01, [report](research_4h_17nov_1458.md). Next≈18:58CET.

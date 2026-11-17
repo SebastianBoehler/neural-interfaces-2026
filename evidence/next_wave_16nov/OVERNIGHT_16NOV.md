@@ -1,77 +1,63 @@
-# NI26 active campaign handoff — 17 November
+# NI26 active handoff — 17 November 2026, 15:23 CET
+Read STATE→targetedLEDGER/actualsource→OFFICIAL_CONTRACT→STATUS→owninghandoffs. Keepthis≤80lines.
+Userauthorizesfull own-C++active training+inference AND continuingwideaccuracyresearch onGalvanionly.
+ThinrequiredPythonSolveradapteronly; optimizednativeTorch/BLASdepsallowed. No automaticupload/provider/terms/messages.
+PreservepinnedZIP/submodule/data/otheragents. ≤32running/272submitted/28reserve;controllers≤244active.
+EverygainexplicitFULL-SYSTEM DEV/SEALED LEADERBOARD/INDIVIDUAL-MODEL/EXTERNALBINARY pluscomparator.
+Topfiveobjective/unverified; provisional18:00CETcandidatecheckpoint, userretainsuploadauthority.
 
-Updated17Nov2026 12:42CET. Autonomous implementation/broader experiments/follow-ups authorized, Galvani only.
-Provisional18:00CET decisioncheckpoint; topfive remainsobjective. No automaticupload/messages/paidproviders/newterms.
-Account≤32running/272submitted with28reserve;controllersconservatively≤244active,preserveunrelatedjobs.
-Read STATE→targetedLEDGER→OFFICIAL_CONTRACT, STATUS andowninghandoffs; source/scoreguards beforeinterpretation.
-Everygain: FULL-SYSTEM DEV / SEALED LEADERBOARD / INDIVIDUAL-MODEL, baseline+cohort explicit.
-Customstack=C++/CUDA; originalrawneuralreference=stockPyTorch336/338. No unqualifiedpartial-model “points”.
+## Submission and accuracy evidence
+- Uploadedv5.1b .8197668759; preparedv6.6cap250 unchangedSHA9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed.
+- Lastverifiedboard01:12CET16thentry/15thteam; laterbotchecks. Old.824–.829/~10th–14thscenario UNVALIDATED.
+- Selected318JS(CC30FBswap+FBL2) newpersonFULL-SYSTEMDEV76.218→76.441%,+.2234pp.
+  Actual6seedB2_pool76.279→76.552%,+.2724official/people+.278[−.007,.546],6/10up;selected/reusedDEV.
+- Returning321COMPLETE CONDITIONALENGINEERING(primaryuniform8): P04−.665/P10−.194pp,.2/.8weighted−.2879.
+  RetainedCore2/rest/eye/teacherG/oldOOF/MADproductionexposure; NOTindependentDEV/rank/sealedharm/promotion.
+  Posthocpre-rec−.0866/post-rec−.2013pp association, notcausalproof; equal-schemesupplementSEPARATE.
+- 323/332~4ppINDIVIDUALvarianceadaptation real;339all6FULLSYSTEMintervalsspan0. No automaticweightgrid.
+- 337/344covarianceretention and345honestKD failstrongrawA; teacher63.38notassumed69. No familyceilings.
+- 346direct369P09+1.386individualpp didnottransferP02−1.482/P03−4.837. Frozenmethodnotexpanded.
+- 347late3.5–7.5s training losesvsstepmatchedrepeat P02−13.985/P03−.595/P09−10.592. Actualboundsqualified.
+- 349COMPLETE ownofficialBNprior−mixed changes−.808/−.138/+1.087pp; allbelowstrongA. No recovery/familyclosure.
+- 348CMxmetadataqualified butacousticpromptconfounded;351SchererWORD/SUBsame-runauditcomplete.
+- 352COMPLETE frozenPROTEUS-only→9Schererclinicalpeople externalbinarycov59.030 versuspower53.260%,
+  +5.770pp[80%people/day/order+3.958,+7.541],8/9up; sourceLOPOcov66.899%,10/10abovechancebeforeexternalgold.
+  Allsource/bank/reset/orderguards.19channels/capacity/cue/language/hardware/QClimits; NOTFULLSYSTEM/rankgain.
 
-## Candidate and strongest evidence
+## Native port — active implementation, not complete qualification
+- Original343 hybridC++objective+SciPy optimizer warm19.747→16.436s;1534heldlabels match/maxprob6.65e−8.
+  Old243snotreproduced. Pairedclassicalinference113–117→63–64ms ~1.8xCOMPONENT, notwholeworker.
+- New353 native/ now implements allactive runtimeclasses, nativeartifactIO/DSP/cores/tails/routing/Own/CF/latestCP,
+  neuralbank/Eye/Rest/FT, nativeC L-BFGS-B and ownC++rawFBC source-traininggraph/AdamW-OneCycle.
+- ActualpackagedcoresC10/C3/gtol1e−4 differfrom343C.3/gtol1e−5. NativeclassicalsourceCLIprepared/syntaxpass.
+- Nativefromscratchinitialization/sourceprep/NumPyPCG64sampling/remainingfamilytraining/PCA/gallery stillPENDING.
+  MigratedTorchScriptgraphs executeC++, butarenotproofeacharchitecture/trainingdefinitionported.
+- AllC++targets compiledLinux3120247; SHAknown/actualFIRPASS. SourceNNcomparisonstoppedCPUcacheCUDAquery;
+  exactCPUearly-returnfix6d73a1e. No sourceNNtrainingfit/wholeworker/A100/speedqualification.
+- 3120215nativeLINEAR_PASS:2465×44239,exact82iterations/88evaluations,maxprob6.37673e−9/zeroheldlabels.
+  ONE4threadfit19.8232s isnotmatchedspeedupversusold6threadnumbers. No Python/SciPy callback.
+- 3120215core/tail/routing testsstoppedBEFOREcomparison: em_nminfloat6420 rejectedbyownintegerparser.
+  Rootrepairacceptsexactfiniteintegralfloatwithinint64; fractional/nonfinite/complexfail. No tolerance/mathchange.
+- Currentparityretry3120312 immutable ni26_native353_parity_v3_20261117 CPU4/16GiB15min:
+  same96sourcecore/tail,known80/unknown215routingCOMPONENTS,known8/unknown31NN+2FT40step,hash.
+  Linearpassednotrepeated; no fullnative40epoch/sourceupdatefit. NativefirstupdateoracleHELDuntilNNparity.
+- FullNN215goldencapture3119621 TIMEOUT20min/nofullfixture preserved. ReplacementCOMPONENT3120062PASS65s
+  10CPrefits125fusions; NN3120067PASS56s/2FT40steps/dtheta.00999. TheseareREFERENCES,notC++parity.
+- Shared353engineeringcap4CPUh; inspectactualsum beforemoreallocations. Frozenproductionunchanged/unuploaded.
 
-- Uploadedv5.1b.8197668759; preparedv6.6cap250 unchanged/SHA9c4d5538…117ed. No promotion/upload/newsealedscore.
-- Lastliveboard01:12CET16thentry/15thteam; laterbotchecks. Officialmirrordated16Novisnotnewliveposition.
-  v6.6.824–.829/~10th–14thdisplayedrank isunvalidatedscenario. Fifththresholdlast.837–.839.
-- §318selectedFULL-SYSTEMDEV JSCC30FBswap+FBL2:76.218→76.441%,+.2234official[.0738,.3512].
-  Actual6seedB2_pool76.279→76.552%,+.2724official/people+.278[−.007,.546],6/10up;selected/newpersononly.
-- Completed305/308/310/312/313/315/316/317 show no establishedincrementalcontrolgain. 301/307failedparitykept.
-- §323wholeINDIVIDUAL-MODELcausal−fixed+3.898/+4.588pp; fullsystemall8arm−controlintervalsspan0.
-  GainabsentalreadybeforeCP;~84–85%newmembercorrectionsalreadyensemblecorrect. Overlapnotcausalproof.
-- §332variance-only+3.921/+4.607INDIVIDUAL-MODELpp,mean~0,source-donorworse; ONEBNlayer/sameweights.
-- §329/330frozen/fullFTAtomforms~45–46%belowraw~62%; §331staticrecurrence49.12>local45.90but<raw61.78.
-  Differentrepresentationsactuallytested; no architecturefamilyclosure. §325visual/328occupancyalsoweak/matchedrandom.
-- §333label-freefixedlinearprobe:pretraineddiagonalretention>random,offdiagonalusuallyworse-source-mean.
-- §334generativemixture49.89<static58.88%;335calibrationimprovesNLLbutmixturedoesnotbeatsemantictranslation.
-- §336/338INDIVIDUAL-MODEL: original61.776/head62.827; combinations62.516/62.013/61.973hurtP03.
-  P09heldsourceoriginal64.061/head62.747/head+weight65.179; noconsistentstacking/fullsystemgain.
-- §337P09INDIVIDUAL-MODEL:original64.061/cov63.736/moment62.512/shuffled61.669/extraCE63.441%.
-  Cov−moment+1.224ppBUTcov−original−.325pp; postfinefeatureprobeunimproved. Oneperson/seed/64steps,notclosed.
+## Ownership and live accuracy DAG
+- Rootownscanonicaldocs/nativeintegration/masterruntime; sourcecheckpointb0beac3 committed, furtherdoccheckpointdue.
+- external_supervision_17nov:350+nativegates/routing/CF/CP. Ownsource3503119571 CPU2/90min→pilot3119687_0
+  CPU2/9min→failclosedcontroller3119719→remaining15%8+completecollector ONLYafteractualallguards/cost.
+  350HARD7.9CPUh, nopartialgold; guardabout75minrunningat15:20CET. No automaticextension.
+- fresh_information_346: nativeNN/FT/training+same-fixtureretry3120312neuralerrorwatch.
+- performance_solver343: nativeoptimizer/classicalsourceworkflowprepared; wakeviafollowupforlinear/corefailures.
+- external_instrument_348completed351/352, idle. Preserveunrelatedrolling.py/.sbatch andsharedindex.
+- Commit--only explicitownpaths/noAIauthor; rootownscommonLEDGERincludingotherowners'appenditions.
 
-## Completed normalization experiment
-
-- §339ALL20nestedsource8banks/30sourceT/48members/64cells/384CPoutputs+alloriginalguards COMPLETE.
-- Control76.217673%; rawF/B/V deltas+.03846/−.03295/−.03086pp, calF/B/V+.04531/−.05331/−.04812pp.
-  ALL FULL-SYSTEM DEV controlintervalsspan0; cal−rawalso uncertain. ~4pp INDIVIDUAL-MODELgain didnotstack.
-- Actual24.06CPUcoreh/.2075A100h; newpersonroutingemulation, notpackagedreturning/sealed. No promotion.
-  calibration339_full_handoff.md/results.json own allcontrasts/source/limits; no remaining339jobs.
-
-## Candidate qualification
-
-- §321all6all10correctedrawEA5/latent2exports/privateJSartifactpassed; originalarrays/innerlabels/gatespreserved.
-  OuterJScontinuesafterrecognition;finalrecognizedoutputidentitynotclaimed.45active/20inactiveweighthashesprotected.
-- A100known/unknown190/378/800FUNCTIONALpass; warm12AB/BApairsallpass6.10%bar,medianoverhead1.19–2.62%,max4.91%.
-  Oldtiming/bitwise/45minCPUfailuresremainfailed. CPU215semanticexact81m17; novaluesaresealedtimeproof.
-- CPUreuse/FIR3117756/7COMPLETE2h27/2h32; owningcollector3117884passes. FUNCTIONALonly, notCPUtiming.
-- ALL60NEWgenuineheld-sessionPRIMARY-NNweights/72traces+576rawB1SIFbanksPASSED source/reset/order/weightproofs.
-  BothfoldsourcecontextsPASSED. Historicalcheckpointidentityunproven; oldstrictparityfailurespreserved.
-- ActualfrozenRouteB/TSEM/OwnStage/CF/CP engineering3118487PASS5m59, exactvsowningcomposition/offzero,
-  recognized10/FT0/CPstop10,JSactivepre/postrec. ENGINEERING_ONLY withcachedrecordingfoldview+all10inner.
-  RootchoseFIXED-PRODUCTION-PRIOR CONDITIONAL ENGINEERINGsensitivity, notgenuineheldFULL-SYSTEM DEV/rank.
-- BothnewsourceCore/PCAfits/nativeSIFraw31/full8orderraw256banks, ALL28normalBNfits/originalclassexports,
-  newcontexts/galleries/source-onlyteacher maps pass. Privatecopybuildprepared, modelguard/sharedinnerFTpending.
-  FrozenMAD/teacherEA-G/oldOOF ANDrest/eyeauxNNretainproductionexposure; positivesconditionalonly.
-
-## Custom stack, broader direction and cadence
-
-- PairedCPUclassicalcore113–117→63–64ms~1.8x. ResidentA100linearhead1.062svscustomCPU238.483s changesdevice/trajectory.
-- §341samebinaryrepeat80.35s1thread/45.47s6; historical243notreproduced;96.4%matrixmultiply,notcopies/dispatch.
-  Validationpatchpreservesexactmath:checkedAPI2.26x/1.36x,head-onlyB12.30→.91ms;fullCPUsolve~42sunchanged.
-  FUTUREcanonicalsourceonly; activebinariesunchanged. GPUresident/batchreusePLANunrun; NNtrainingstillPyTorch.
-- §340finiteFIRoperatorFULLRANK480/cond2916, attenuation≠absencebeforecompression;CARsensitivitynotcausality.
-- §342COMPLETE3118608/57s: P09INDIVIDUAL-MODEL prepool44.630/time40.086/spatial51.347/full44.199%.
-  Spatial−pooled+6.717pp but <strongerhistoricalraw64.061%; no systemgain. All32fits/guards beforelabels.
-  SameweightB3/B8diagnosis explainsfailedfeatureanchor; failurespreserved. spatial342.md ownscompleteevidence.
-- §343COMPLETEV4C++kernel+sameSciPyoptimizer: warm19.747→16.436s/core−20.43%; P10cold15.433→10.757s.
-  Full1534held-streamlabelsMATCH/maxprob6.65e−8. FreshfitRAMincrement−7.77%(singleprobes/loadedRSSdiffers).
-  FutureexplicitAPIonly, qualifiedV4SHA7a2715ad…939bd; oldfailedspan/stopskept. solver343.md ownscompleteproof.
-- §344COMPLETE3.948CPUh/0GPU: P09A64.061/B63.736/C61.175/D61.891%; covprobeimprovesbuttaskworsens.
-- §345COMPLETE2.186CPUh/0GPU: P09raw64.061/KD61.665/deranged63.051/teacher63.382%; teacher<raw,notsupposed69%.
-  Allnested/source/gradient/zero/eightorderguards beforelabels; no fullsystemgain/automaticgrid.
-- §346COMPLETE.151CPUh: P09A6raw64.061/Brefit60.686/C+369direct65.447/Dderanged60.640%, C−A+1.386pp.
-  INDIVIDUAL-MODEL/exposedP09only, NLLworse; relatedslowinfoalreadyincore/SessionEM. OriginalA8banksBITWISE.
-  NO-REFIT3119224 COMPLETE: C−strongA P02−1.482/P03−4.837pp. P09positiveNOTtransfer; nofullsystemexpansion.
-  Rawlatecropqualificationnext; oldEAcrops2/3s+§277SSLstart4alreadyusedpart, NOTgloballyuntesteddata.
-- Rootcanonicaldocs;external_supervision321;fresh_information_346extension. Otherownerscompleted.
-- Bothcampaign50min/research4hheartbeatsACTIVE through17Nov18:30UTC. Latestresearch10:49:35–11:04:39CET15m04,
-  research_4h_17nov_1051.md COMPLETE; NEXT≈14:51CET, no duplicatedelayed10:51block. Historyretained,notblind.
-- SSHworks,renewonlyactualfailure;submittedjobssurviveaccessloss. Neveruploadautomatically.
+## Cadence and next decisions
+- Scheduledresearch14:58:15–15:15:16CET COMPLETE17m01; research_4h_17nov_1458.md. Next≈18:58CET≥15min.
+  Readrecentpapersagainstactual292C/293/313; donotrelabelrepeatsasnewroots. No newaccuracywavefromthisreport.
+- Both50mincampaign/4hresearchautomationsACTIVEthrough17Nov18:30UTC. Readliveownership,notstalethreadnames.
+- After353parity: cleanLinuxworker/SIF and A100complete-path/reset/deepcopy proof, pairedwholecosts;
+  thencomplete source-native training recipes and controllednewarchitectures. Neverpromoteaftercompilealone.

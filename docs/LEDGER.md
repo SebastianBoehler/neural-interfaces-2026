@@ -9838,3 +9838,389 @@ All542allocatedCPUcoreseconds=.15056CPUh/0A100, no346jobsremain. Source cc433f9b
 **§346 frozenextension COMPLETE17Nov11:40UTC.**3119224PASS0:0/32sCPU6; source-onlyrealpathsmoke3.087s/manualNumPy-vs-ACTUALsklearnfrozenhead probabilities BITWISEall3heads; exactoldheads/scalers/source6body/exclusion/state/sourcehashes andbothpersons×4arms×8orders/prefix/deepcopy/crosspersonreset guards BEFOREeitherquerylabels. Zeroadditioncheck is arithmeticidentityONLY, not packageddisabled-membervalidation; actualrepeatnativecalls verifyreset. P02/P03each189windows; ZEROnewfits/source-or-queryselection. SAMEoriginalA6controls/readouts: P02A65.6460/B57.7460/C64.1639/D56.6377%; P03A56.2275/B51.7703/C51.3909/D51.8832%. C−A−1.48213/−4.83656pp; C−B+6.41782/−.37933; C−D+7.52614/−.49227. P09positive DOESNOTtransfer tobothotherexposedpeople; no robuststrong-referencegain. CpooledNLL1.03187/1.37776>A.76537/.97809. Bothpeoplepublished, noindependent/fullsystem/rank/promotion/familyclosure. Root's bothpeoplegaincondition failed: nofullcurrentconsumerlaunch. Additional192CPUcoresec=.05333CPUh; ALL346total734=.20389CPUh/0A100/noownedjobs. Extensionimmutable e84ae47c…506f3; direct346_extension_{result,before_labels,source_smoke}.json +direct346.md/compute ownproof. Initialstudy751035epushed; extensioncommitfollows. Actualauditthroughcollection11:23:35–11:40:34UTC=16m59, plusdocs/commits; doesNOTreplace14:51CETscheduledresearch.
 
 §321 CPUcollector ordering hardened BEFORE anyCPUmetric: complete16 source/frame/hash/rawcanonical/exactcellkey validation runs as `collect preflight` (NOY) BEFOREthe shell invokesoldv3 replay/check, because replay/check itself opensbaselinegold. Then unchangedreplay/check mustprintOK; metricphase revalidatesALL16 again beforeprotocol.load/officialscore. This enforces literalall16-before-anygold ordering, notonlybeforethe newconditionalmetric. Exactderivedcellkeys, no numeric/scientificchange.
+
+
+### 347. SUPERVISED LATE CUE DATA ON EXACT STRONG RAW SESSIONBN — QUALIFICATION FIRST (17Nov11:49UTC, before EEGprocessing/training347)
+
+**Actualoldcoverageaudit.** Shiftedcropsarenotgloballyuntested: archived `runs/experiments/probs_crops/fbcnet_ea_c23-{dev_loso,dev_session}-s0.npz` +local/crops_s0.log prove ordinaryEA/AlignedNet FBCNet used2/3soffsets(1,900/385rows,recordingorder/no newsourcehashguards);40epochswithtripletrainingrows, not matchedsteps. `experiments/run_cv.py` definesc234/raw/otherforms butconfigurationaloneisnotexecutionproof. Coreaug/§100test classical population/personalheads; §277actual26chEEGNetSSL usesstart0.5/2/3/4butfinefitlabelsoriginalonly. These do NOT establish a matchedsource6rawSessionBN supervisedlatevsrepeatedofficial comparison; do notcall newobservations extrapeople or globallyunuseddata.
+
+**Source-onlytimingqualificationalreadyobservedBEFOREfixedoffsetselection.**6sourcepeople P04/P05/P06/P07/P08/P10,1,898cues. First strictpassFAILED onmissingendmarker; completeeventaudit distinguishes actualend_trialvalue800 frommisnamedrunstop32770.1,894haveactual800end; FOURBHlastcueslack800anddeclared8saloneisinsufficientforlateextras. Actualqualifiedcue→end7.634–8.080s, feedbackstart2.626–3.110s. This REFUTESold7.98–8.01summary/fixed3.9→7.9qualification. Prospectivelyfixedlatecrop3.5→7.5s fitsALL1,894actualendedcues; same480samples/120Hz,1.5soverlapwithofficial1–5s and2.5soutside(62.5%). No pertrialoffset, padding, clipping, alternatecroporassumedmissingend. Alloriginal1,898rows remainA/B/C; onlyEXTRAB/C shareexact1,894mask/multiplicity/labels/session/run. Sourceonlymetadatachoice, no queryHPO.
+
+**Guardedrawsourcepreparation.** FirstexistingSOURCE P04 taskEDF under oneCPU2/24GiB≤20minGalvaniallocation; reuse EXACTimmutable312data.py processed() owner5aa3e0af44a362e10ab151058d456f72fb98ed7d640e47acb1f818b989ce102d. Original41channelorder/volts→µV,500Hznotch50/60harmonics+0.1–75HzfullrecordFIRthen120Hzresampling. Restoreofficial1–5scrops from matchedBIDScue/onset/run/task/channel/sample grids; expectedmaxabs≤2e−4µV onALLsourceoriginalrows, firstfileguard BEFOREremainingfiles. RealA6sourceprefixoriginalvsreconstructedposteriors≤1e−6/zeroalllabels. Eachrow'sofficialsourceclass mustmatchBIDScue labelmap mi0/sub1/word2; eachlateend≤actual800end/declaredcueend andbefore nextcue, complete rawbounds. Validate all1,894mask/4excludedextrareasons, dtypefloat32/shape41×480/finite/prefix/batch-independence, source/raw/owner/channel/row/input hashes; saveeachsource rawfileSHA. NoqueryEEGprocessing/labels. Fullrecordzero-phaseFIRhascontextoutsidecrop alreadyintheofficialtensor; no causality/no-overlapclaim foritsrawfilter support.
+
+**Conditionalmatchedscience, NOTreleasedbyqualificationregistration.** Afterpassedexactsourcepreparation+realnativecost/zeroguards, compareAexactoriginalsource6native40 againstBsameoriginaltrainingwithEXTRAofficialrepeatupdates andCsameEXTRArow/labels/batch/optimizerstepbudgetusinglatecrops; fitsteps/epochinterleavingmechanismmustbeprospectivelypinnedafternarrowcostsmokeBEFOREtraining. Freezeoriginalofficial-sourceG/scale/normalizationinALLarms, no pooledlateRMS/EAchange. No reconstruction/KD/auxweight/headgrid. SameSOURCE6, seed0, constrainedhead/nativeSessionBN/k20; exposedqueriesP02/P03/P09all8orders/allarmsbeforelabels, correctoriginalA6comparators. Priors C−B+.5pp[−1.5,+2.5],C−A0pp[−2,+2]; selected/exposedinstrument, noindependent/fullsystemclaim. Noisy/disagreeingpeopleundecided; failedinput/source/activepath/zero/stepguardinvalidates. Sourcephase/feedbackconfoundsmeasured, no physiologicalcausalityclaim.
+
+**Budget.** Initial2CPU20minrawqualification≤.667CPUh. Complete347envelope≤8CPUcoreh/.5A100h afterMEASUREDsmoke, notautomaticlargematrix. ThisqualificationusesnoGPU. Freezeallsource/outputs,≤32running/272submitted/28reserve; no localtraining/provider/newterms/download/upload. Rootownscanonicaldocs; evidencecrops347/studycrops347ownqualification. No14:51scheduledresearchreplacement.
+
+
+**§347 firstqualification FAILED/prospective no-bound-change source diagnosis,17Nov11:57UTC.**3119273FAILED1:0/13sCPU2 aftersource1898/1894metadata/4maskpassed andfirstfileALLofficialinput≤2e−4passed, atA6seven-SOURCEwindowposteriors≤1e−6/zeroalllabels. Noextraexports/training/heldlabels. Originalv1failed.json lacksnumericalprefixerror; observabilitygap preserved. InspectingactualNeuralSetownerfinds rawget_data castfloat32 VOLTS beforelater scale_factor1e6, whereas old312processed() returnsdoubleVOLTS×1e6thenfinalfloat32. This is candidate rounding-pathcause, not acceptedexplanation. ONECPU2/24GiB≤2min SAME7SOURCEwindows diagnostic willrecordraw/cache/aligned/posteriorerrors,changedlabels,sameinputrepeat,state/k/scale,ownerSHA foroldrounding andEXACTofficialfloat32V→scale candidate, withouttraining/exports/queryEEG/labels/tolerancerelaxation. Numericprior officialcasting bitwiseinputidentity, olddifference≤2e−4; ifsame-inputrepeatfails investigate modelroute beforeprocessingremainingfiles. Keepoldfailure; fixonlyaftermeasuredcausalsourceevidence. Counts toward3478CPUh total.
+
+
+**§347 roundingcause confirmed +prospective v2qualificationonly,17Nov11:59UTC.**3119299PASS diagnostic: old312doubleV→µV→float32 yieldsraw1.52588e−5µV/aligned9.53674e−7/actualA6posterior1.635827e−6,0labelchanges; unchanged1e−6 boundcorrectlyrejects. Exactowner-orderfloat32V→µV candidate raw3.72529e−9µV/aligned1.16415e−10/posteriorsBITWISE, samecache repeat0/modelstateunchanged/eval/k20. ActualNeuralSetfileSHA2096711092d89a2b95835beaabf9d07d0e5369dfd363b85cd2035c0d442e71e7 confirms MneTimedArray.from_nativefloat32VOLTS thenlater_get_timed_array scale_factor. Newimmutablev2reusesSAME312filter/resamplehelper, explicitlyrecoversVOLTS fromitsfloat64µVoutput thenfloat32-before×1e6 (roundtrip residualnotbitwiseinput; mustpass originalguards). ONLYroundingorderchanged; allbounds/masks/timing/source/firstfileprefix/allrowparity unchanged. Preservev1failure/diagnosis. ONECPU2/24GiB20minv2fullsourcequalification; no training/accuracyautomaticrelease.
+
+
+**§347 conditional TRAINING-METHOD/COST-SMOKE registration,17Nov12:02UTC BEFORE347optimizerupdates.** Qualificationv2mustPASS first; no permissionfortrainingfromfailedv1. Pin ONEcoherent matchedinterleaved40-epoch recipe: Aunchangedoriginal1240step/native40source6checkpoint; B/Ceach preserveALL1898originalsourcewindows andsourceG/scale, append1894eligible extra windows. Bextras areexactoriginal1–5tensorcopies; Cextras qualifiedfixed3.5–7.5data. Sameeligibleglobalrows/labels/ordering/multiplicity, noqueryrows/RMS/EArefit. In eachepoch get the ORIGINALnative31session-chunkminibatches usingoriginalsampler+seed0RNG; independently get nativebatches on eligiblepositions usingfixed347RNG. BothmustyieldEXACT31batches; otherwiseSTOPbeforetraining (no resamplingpolicyfallback). Interleavebasebatch1,extrabatch1,... preserving32same-session chunks. Same2480totalAdamW/OneCycle(.001,.001)steps/40epochsB/C, nativeconstrained3×1152head/no auxiliaryloss, ordinarysourceGscale unchanged. OriginalAhas1240steps; Bcontrols extraoptimization andschedule, C−B isolates latevsrepeatdata inthisform. EveryB/Cbatch/view/label/RNGtrace mustmatch except actualextraEEG; preserveoriginalfinalstreamconsumer/k20/all8orders.
+Source-onlysmoke ONECPU6/24GiB≤5min AFTERcompletequalifiedcache. Four1epochreal fits: unmodifiednativeAref31steps; wrapperAdisabled31stepsmustBITWISEmatchallfinalweights/sourceGscale; B/C62stepseach. RequirebeforeSBNswapinitializerSHAagainstexactA6originaltrace, activebody/headgradients+updates, boundheadnorm.5, finiteunweightedCE, original/eligiblechunk/session/rowlabels/sourceexclusions, exactBcopy andnonidenticalClate, identicalB/Csampler/multiplicity/initialRNG, no parsedunusedflags/caches. Recordstepwalltimes cold separately; conservativefull forecast1.5×40×sum(B,C1epochwarmcost)+180s plusactualqualification/smokecoreseconds MUSTremain≤8CPUh. NoheldEEG/labels/score. Ifpass, prospectivelyreleaseexact2fitCPU6/24G≤15minjobs pluscompletecollector; noautomaticrecipechange/tolerance/earlystop/outermatrix. Epoch1smokechecksroute/activeprocessing/cost, not40epochhistoricalidentityoraccuracy. A6baselineweightsremainunchanged; bothB/Cstates+ALL3people×8banks saved/sourceguardedbeforeanynew347querylabelscore.
+
+
+**§347 source-controlsmoke3119319PASS + conditionaltwofitrelease,17Nov12:12UTC BEFOREfullfits.** All4oneepochsourcefitspassed: nativeAref versusdisabledwrapperA finalstate/G/scale BITWISE; B/C31base+31eligiblebatches/62steps, SAMEoriginalA6initializer/sourceG/scale/sourceoriginalX/eligiblelabels/multiplicity/RNG/chunks, Bextraexactcopy/CactivechangedEEGandfinalweights, constrainedhead/bodygrad/stepguards. Source5e3ca578f502cee17064ebc408bdea38815253f9adf7f3946bfa95686c981824; script50.359s, conservative2fullfitprojection1438.024s/total11686.3coresec=3.246CPUh<8. Noquerytransforms/labels/accuracy.
+Before2fullfits, ONECPU2/8GiB≤2minactualproduce/collectimport+qualifiedinput/sourceA6controlbanks preflight; nofit/labels. Owncompleteproducer/collector sourcecopy MUSTpreserve smokedtraining347.py EXACTbytes, and allimmutablequallate/body/sourceproofs. OnitsPASSreleaseONEarray2tasks%2 CPU6/24GiB≤15min each, exactregisteredB/C40epochs/2480steps. EachmustmatchALL40originalA6base-batchhashes, extraeligiblebatches/labels/RNGmatchedB/C; allP02/P03/P09×8banks savedwithreset/prefix/deepcopy/sourceinput/checkpointproofsbeforecollector. CollectorafterokBOTHjobs,CPU2/8GiB≤3min, verifiesALL48newbanks+24existingA6banks andbothfullsource/step/method/activeextra/fileguards, savesbeforelabelsprooftheninvokesUNCHANGEDofficialprotocolscore. ExistingA6controlbanks from346original+NO-REFITextension mustpinactualeadd5c23body/source6/rows, notA7substitution. Publishall3people/all3arms/all8orders pluspooledwindowNLL; noqueryHPO orselectedbestperson. No independent/peopleCI/fullsystem/rankclaim. Currentaccountcaprecheckedbeforerelease; cannotcancelothers. Broad1438sfitprojectionmeans~12minconservativeconcurrentruntimeplusqueue, notpromisedETA.
+
+
+**§347 pendingCresource-only amendment,17Nov12:20UTC BEFOREschedulerupdate.** RootauthorizespendingCrightsizeifactualmemoryfits. Actualsource-smoke3119319MaxRSS3,153,648KiB≈3.008GiB; RUNNINGBrealJobID3119364(batchforarray3119363_0) sstatMaxRSS2,884,676KiB≈2.751GiB. Bothwellbelow8GiB. C3119363_1(realJobID3119363) remainsPENDING(Resources), currently24GiB,forecast13:30:48CETnodecn002; forecastnotguarantee. ReduceONLYPENDINGCmemory24→12GiB (~3.99×largermeasuredpeak), SAME6CPU/15min/source/sampler/steps/allguards/outputs. No cancellation/requeue/runningBchange/device/precision/recipe/fallback. This mayimprovescheduling butRAMcause/speedupunproven; finalactualresourceaccountingrecordsbothrequests. IfSlurmdisallowsupdate, retainoriginalrequest/reportwithoutmutatingcode. Existingimmutableproduce.sbatch24G/sourceversionremainsunchanged; pendingjob'sactualschedulerresource amendment is separatelyregisteredhere.
+
+
+**§347 observedmemory-updateattempt didNOTchangejobs,17Nov12:21UTC.** scontrol MinMemoryNode=12Grejectedsuffixsyntax; allocationremained24G. Correctnumeric12288requestthenrejected 'Job is no longer pending execution': CnaturallySTARTED13:20:51CETcn114 atoriginal6CPU/24G/15min. No resourcechange/cancel/requeue/runningBmutation; bothfitsrunningoriginalrecipe/resources. Preserveattemptandrace; cannotclaimmemoryrightsizing or inducedschedulingspeedup. BactualJobID3119364, Cactual3119363; arraynames3119363_0/1. Source-smoke3.008GiB/Bsampled2.751GiBareobservedpeaks, notgeneralmemoryguarantees.
+
+### 348. INDEPENDENT MI/MA INSTRUMENT QUALIFICATION, NOT AUGMENTATION (17Nov, before new measures)
+**Scope/mechanism:** qualify existing CMx7-MM bytes as a separate person/trial instrument for
+PROTEUS-trained MI-versus-SUB rules. No WORD equivalence, external training grid, EEG accuracy,
+new data/weight download or full-system forecast. Fresh worker retains history, not blind.
+Read actual §189/233/277/278/317/345–347 coverage; distinguish old direct pooling/task-private
+supervision from a source-frozen external validation instrument.
+**Sources:** OpenNeuro ds007554 revision c76eec74254a1ba570224e210e744a2a1fcf3111,
+DOI10.18112/openneuro.ds007554.v1.0.0; primary acquisition paper
+https://doi.org/10.1038/s41597-026-08125-y; existing Galvani exporter/code/data only.
+**Prospective prediction:** all8308 existing export rows receive unique person/session/recording/
+class/onset/source-cue mapping; no task-label uncertainty survives primary-paper reconciliation.
+Expect all sampled raw Status-to-TSV discrepancies≤10ms. These are qualification predictions,
+not accuracy priors; already observed missingfirstMIcue/MA4sgrid are not new discoveries.
+**Refutation/stop:** unresolved task identity, nonunique provenance, unknown physical-channel mapping,
+or cue/task confounding that prevents the proposed causal claim blocks that claim and all new fitting.
+Do not silently repair pinned exports. Record exact mismatch and the minimum corrected artifact.
+A condition-associated external binary instrument may remain usable with explicit limitations.
+**Controls/artifact:** metadata/export manifest with hashes/units/native-channel identity, person/session/
+recording/cue/crop grouping, spoken-prompt overlap and pretask/run controls; deterministic mapping from
+owning exporter. Check actual historical consumers before claiming unused data. Future scoring requires
+its own frozen source/class/grouping/pacing controls and numeric preregistration.
+**Budget:**≤1CPUcoreh/0GPU for metadata/code/status qualification; read small existing signals only if
+necessary, no local training. Galvani account≤32running/272submitted,28reserve; no broad allocation.
+Owner evidence `evidence/next_wave_16nov/external_instrument348.md`; optional code
+`studies/17nov/external_instrument348/`, each source<300lines. No canonical STATE/STATUS edits.
+
+**§348 qualification RESULT (17Nov12:30UTC, clock checked):** real-recording smoke then exactall8308row/201recording
+metadata/log mapping passed,24people; noEEGaccuracy/training/samplesread.19nominalcommonchannels reduce
+to16guaranteednativechannels afterrecording-specificchannelrejection (CP1×5,F3×1,P4×1). AllMIcrops
+annotatedsoundoverlap.5s versusallMA2–3s: acousticexposureseparatestasksbyconstruction, personholdout
+cannotremovethatconfound.63pairedMI/MAsessions; proposedpublished-QCexclusion008/017/019leaves
+21people/57pairs. MI taskinstructionsverifiedin24Mar2026authorpaper,rightarm/beeps; MAspokendigit
+add/sub0–9differsPROTEUSserialsubtraction. Sidecar2back/first25scue/QCcontradictionsremainexplicit.
+Existingm8cteacheruseverified36historicalWave9fits incl12m8cweights; old+1.67iscomparisonincrement,
+notteacheraccuracy. NewPROTEUS-onlyexternalconditionassociatedinstrumentisuntested; universalcognitive
+ruleclaimNOTqualified. Noautomaticfit; newsource/classes/grouping/acousticcontrolsneededbeforeaccuracy.
+≤7CPUstime/0GPU, noSlurmallocation. Evidence external_instrument348.md/external348_metadata.json;
+Galvanifullrowmanifest/sourcehashes retained. NoNEWStatuscheck; old4.814msobservationnotrelabelednew.
+
+§321 primaryreport convention clarified beforeinterpretation: preserve IMMUTABLEcollector3119253 primaryUNIFORM8orders = within50%/full25%/runs25%, with registered95%descriptiveinterval(2.5/97.5), notcurrentequal-scheme convention. Parent permits separate readonly POSTHOCsupplement aftercomplete: reweightrecordedunchangedofficialperorder metrics to within/full/runs1/3each; report BOTHpeople/perorder, same0.2P04+.8P10, plus80%descriptive interval(10/90) ifcomputed. No model/evaluationmetric/HPO changes or primaryswap. Supplementalcalculation usescompleteverifiedprimaryreport ONLY, fixedseed3211702/2000nestedpeople+within-schemeorderresamples; clearlydescriptiveONLY2people/productionexposure, notgeneralization/sealedmix. This conventioncheck is specifiedbeforeitscalculation andwillalwaysbelabelledposthoc; no bestweight/CIlevel chosen fromresult.
+
+
+**§346/347 literalflag provenanceclarification,17Nov12:30UTC.** Read-owning-sourceaudit finds legacyAlignedNet.__init__precomputes per-rowcovariances forWHOLEloadedX(includingqueryrows); features.covariances centers/einsums WITHINeachwindow, noacrossrowaggregation. Rawalign=False inference `_aligned` usesONLYX/scale, neverqueryC; G/scaleusesC[fit]ONLY, exactoriginalsource6proof. Nativebodyoptimization/readout/scalers/sourcegradients remainstrictsource6, noquerylabels/statistics/parameterdependency. Thereforeimmutableheld_transformed:falseflagsmeanNOHELDNEURALFORWARD/DIRECTSUMMARY/RAW-EDFprocessingbeforegates, NOTliteralabsenceofpointwiseunusedheldcovcomputation. Narrowclaimin346/347reports; preserveproofs/activejobs, nofailuretolerancechange/cancellation/newfit. This is unusedexperiment-harnessprecomputation, notpackagecausalvalidation or evidenceoffitted-sourceleakage. Existingcrosssession/reset/prefix/sourceaggregateguardsstillapply.
+
+
+**§347 COMPLETE17Nov12:34UTC.** BOTH40epoch2480stepfits3119363_0/1PASS0:0; collector3119365PASS28s afterALLoriginalA6sourceinitializer/Gscale/40basehashes/B-Csameeligiblelabels/RNG/extra/source/activepath/checkpoint/input/reset/prefix and72bankguards BEFOREquerylabels. P02A65.6460/B64.5822/C50.5968%; P03A56.2275/B54.8724/C54.2773%; P09A64.0610/B64.8812/C54.2894%. C−B−13.98540/−.59513/−10.59177pp; C−A−15.04919/−1.95023/−9.77161; B−A−1.06379/−1.35510/+.82016. Selected3personmean A61.97817/B61.44526/C53.05449%, no independentpeopleCI. SameeligibleextraEEGphase, notextraoptimizersteps, explainsthecontrastbydesign; itsphysiological/statisticalcause NOTidentified. Nativecausalsource-originalNLLB.35525/C.54550, recallsB.972/.874/.938,C.943/.705/.800: alreadylesscompatiblewithoriginalsourcewindowsoftheselearnedmodels; noaggregatewholetrainingconvergenceclaim. Fixedlate-labelpoolingFAILSthisform, notallraw/extracrops/lateinformation/architectures; no crop/weightgrid/consumerlaunch/fullsystem/rankclaim.
+Bactual461sCPU6/peak7068768KiB~6.74GiB; C523sCPU6/6869512KiB~6.55GiB;collector28sCPU2. Earlier3GiBsmoke/earlyBmemory DIDNOTboundlaterfullfit+repeateddeepcopyguardpeak; failed12GiBrightsizeattemptneverapplied(actual24GiBboth). No generalmemorymargin/CPUtimeorlanguage-speedclaim. ALL3476828CPUcoresec=1.89667CPUh/0A100inclfailures/qualification/smoke/preflight; nojobsremain. PLUS346734sec gives7562=2.10056CPUhcombined. Evidencecrops347_{result,before_labels,compute}.json/reportownsall3people/all8orders/sourcebounds/proofs. Codequalificationcheckpointa7a0f49pushed; finalnegativecheckpointfollows. Rootauthorizesseparate§349source-onlyphase/ONEBNrecalibrationmechanism, NOTnewtraining/jointhead/cropgrid. Scheduled14:51CETresearchunreplaced.
+
+### 351. SEMANTICALLY MATCHED EXTERNAL COGNITIVE INSTRUMENT — METADATA FIRST (17Nov, before new measures)
+**Question:** identify one existing permitted source with actual WORD generation versus SUB or a
+matched task/baseline condition. Do not force CMx7-MM accuracy under its disjoint auditory exposure.
+Read owning Shin2018/Scherer/Shin2017 exports, primary acquisition instructions/terms and actual §278/
+§317 consumers. No new EEG accuracy, fitting, dataset/weight download, terms acceptance or provider.
+**Mechanism/artifact:** source/raw-marker/window provenance qualification distinguishes real shared
+semantic labels from word processing, generic rest or task-separated acquisition. A future PROTEUS-only
+frozen binary instrument requires a matching pair, actual person/native-channel/cue/grouping/QC identity
+and controls. No current teacher pretrained on those people can claim independent validation there.
+**Prospective numeric checks:** expect all3120 Shin2018 rows to map uniquely to26people×3runs×20trials
+×2crops, classes baseline/WG balanced,16native PROTEUS channels, raw BrainVision1000Hz/µV; expect
+stored onset to precede actual exported crop by1s per owning exporter. Predict zero MA/SUB condition in
+this source; therefore no Shin-only WORD-versus-SUB binary instrument. For Scherer expect9people,
+2sessions each, task labels including HAND/SUB/WORD in shared recordings; read acquisition instructions
+before declaring serial-subtraction/letter-generation equivalence or cue matching.
+**Refutation/stop:** marker/class disagreement, nonunique trial identity, source terms/provenance gaps,
+no matched semantic pair or unaddressable condition acquisition confounding blocks the corresponding
+accuracy claim. A task-versus-baseline source is not a PROTEUS three-class or WORD-versus-SUB test.
+Retain negative controls and historical use; do not rename old pooling as novel independent validation.
+**Budget:** metadata/code/primary-source research≤1CPUh/0GPU; no EEG samples need decoding. One real
+metadata smoke precedes complete mapping. Root owns canonical docs; evidence external_semantics351.md,
+optional code studies/17nov/external_semantics351. Leave shared ledger commit to root. Does not replace
+14:51CET scheduled≥15min primary-source block. Actual start12:40:29UTC recorded from clock.
+
+§321 COMPLETEconditionalcohort/collector3119253 PASS1m27: all16actualCPUcells/32sessionssource/frame/row/immutable/offinner/gate/FT/input/rawview guards passed BEFOREgold, replay/checkOK, unchangedofficialprotocol.score. PRIMARYuniform8orders(within.5/full.25/runs.25) returning.2P04+.8P10 JS−base−.287916897pp,95%DESCRIPTIVEpeople/order[−.876627604,−.113102533]. P04base89.695760529→JS89.030787970%(−.664972558pp);P10base95.960279227→JS95.766626245%(−.193652982pp);equalperson−.429312770pp,7/8weightedordersnegative. Off/baseexactzero; no semanticguardfailure. Weightedpointnotpastregistered−.5harmbar, bothpeopledecline; neitheraloneclosesdirection. ScopeCONDITIONALENGINEERINGONLY with fixedproductionrest/eyeauxNN/classical/teacherG/oldOOFexposure and deterministicCPU; NOTgenuineheldFULLSYSTEMDEV/rank/sealed/promotion, no combinationwithselected318newpersongain.
+
+§321 separate readonlyPOSTHOC equal-scheme conventioncheck complete: within/full/runs1/3 each weighted−.261506540pp;80%DESCRIPTIVEpeople/within-schemeorderinterval[−.662657743,−.150165101];P04−.622619848/P10−.171228214pp. Samecompleteofficialmetricrecords; sourcefixed3211702/2000bootstrap, no primaryswap/model/evaluator/HPOchanges. PrimaryreportSHA d0532701c0b88a4acd8fd8bd3d6b7b98469ef1d6bae0758b34ce690d50313f04 unchanged. Negativeconventionchecksupportsreturningriskdiagnosis, not universalmethodclosure. Parentrequested boundedposthocBEFORE/AFTERactualruntime-recognitioncontributions next, no true-IDgating/no source-score-banksplice policy.
+
+
+### 349. FROZEN ONEBN SOURCE-ONLY RECALIBRATION AFTER LATE-PHASE HARM (17Nov12:45UTC,before349sourcecomputations/querylabels)
+
+**Question/actualconsumer.** §347C−Bharm P02−13.985/P03−.595/P09−10.592pp motivates ONEmechanisticcounterfactual, notcrop/weight/headgrid. Late3.5–7.5fullyfeedbackphase+higherrawRMS may shift populationBNprior versus learnedbody/classgeometry. ActualvendorFBCNet604e690a…e81a has filterbank→spatialconstrainedConv→ONEBN(`spatial_conv.1`,expected288channels)→activation→4logvarbins→1152constrainedclasshead; no dropout/earlierBN. ActualpinnedSessionBN applies k20current/past mean+secondmoment `(rv+rm²)`; training m32same-sessionchunks updates momentum.1 EMA ofchunkmean and BIASEDwithinchunkvar (r2mean−chunkmean²), notglobalbetween-sessionvariance. Requiretheseactualclass/shape/eps/causal/momentum/k/sourcefile guards BEFOREintervention; ifnotpresentSTOP.
+
+**ONEfixedrecalibrationdefinition.** Freeze EACH347B/Cactualbody/classifier/BNaffine/FIR/allparameters/G/scale. OnORIGINAL1898SOURCEofficialwindowsONLY cacheeachwindow'sFINAL-modelpre-BNfirst/secondmoments (actualhook, no upstreamBN/dropout). Reconstruct EXACToriginal40×31nativebase-batchplan(seed0) andverifyall40hashesagainstA6/347proof. Fromnativeinitialrunningmean0/var1 replay ONLYthe actualSessionBNmomentum.1statisticupdates atfixedFINALactivations;1280notassumed: actual40×31=1240updates. Original32same-sessionchunks/padding/multiplicity/samplingarepreserved; noglobalvarianceestimator, queryaggregate, B→Cmomenttransplant, classconditioning oroptimizer. BNmean/var aretheONLYchangedmodelbuffers; alllearnedweights/affines/otherbuffersandk20fixed. A/B/Coriginalcontrols plusB_recal/C_recal; noall-net.train/dropout/backprop/newjointphasehead. SeparateactualONEBNclone.train() on aREALsource64activationfixture is allowed ONLYasstatisticsoracle, nevermutatestargetnetwork; actualnativeevalconsumer/prefixformulaalsoverified. Fullsourcebeforequeries proof, noheldlabels inphase/stats/cost.
+
+**Source diagnostics beforequery.** ForeachfrozenB/C, compareofficial1898 versusqualifiedlate1894pre-BNmeans/biasedvariances, standardizedphase shifts and3class-pair geometry forpre-BNmoments and1152penultimatefeatures, usingmatched1894officialrows/labels forphasegeometry. Source-onlyoriginalsourceNLL/classrecalls mustreproduce347diagnostic; report late-sourceNLL/classrecalls separatelywithCURRENToriginalk20prior. Allsource normalization/descriptives source-only, notnewmodel-facingtransforms. Classgeometry isdescriptive, notphysiologicalcausality orproofthatlateinformationisabsent. EverynewBNpriorusesitsOWNmodelofficialsourceactivations, noquerycovariance/statistics. Legacyunusedper-windowheldcovcache disclaimerfrom346/347continues; 'source-only' meansfittedmoments/forwards/aggregates/labels, notliterallyno pointwiselegacycache.
+
+**Gates/resources.** FirstONECPU2/24GiB≤3minsource-onlyprepare+realoracle+costsmoke, noqueryneuralforwards/labels. Fullallsourcepre-BNmoments/phasefeaturesmaybesavedonceandsharedwithsame-studyqueryconsumer; benchmarkactualsource-sessionforward/7prefix/reset/smallnet-deepcopy, nofulldatasetdeepcopy. Projectactualfull4×8×3queryworkplusverification+overhead andactualpreparecostconservatively1.5×; total≤1CPUcoreh/0GPUorSTOPbeforequeryrelease. PredictionphaseONECPU6/24GiB≤6minonlyifmeasuredremainingcorebudgetpermits, thenCPU2≤2mincollector; includesallfailedcalls. Immutablepath/source/model/stat/batch/permutation/input hashes; no training/newdata/provider/terms/upload/productionchange. Account32running/272submitted/28reserve.
+
+**Queryprotocol/numericprior.** AftercompleteSOURCEphase/stats/oracle/budget, reproduceoriginal347B/CALL8banks≤1e−6/zeroALLlabels BEFOREusingrecalibration, originalA6actualbanks/proofs retained. Allfivearms×3previouslyEXPOSEDpeopleP02/P03/P09×8pinnedorders, samecurrent/pastnativek20/eval/sessionreset/no-future/prefix/net-onlydeepcopy/interleave/finite/active-buffer/unchangedweightguards. Savecompleteprobabilities/proofsBEFOREnew349querylabels; unchangedofficialmetric, source+queryperpeopleallarms/allorders/poolwindowNLL. Priors C_recal−C+2pp[-2,+10], B_recal−B0pp[-2,+2]; C_recalvsstrongAdecisiveforstrongreferenceclaim. Chosenafter347, selected/exposed—notindependent/fullsystem/rank. Ifrecaldoesnotrecover, doNOTcallalllateinformationuseless; body/phase/taskloss conflictremains. NoextraBNgrid/cropweightgrid/training/jointhead authorizedhere. Nextscheduled14:51CETresearchunchanged.
+
+**§351 metadata qualification RESULT (17Nov, before any external accuracy):** real raw-metadata smoke
+passes40Shin/240Scherer rows. Complete3120Shinrows→26people×3runs×20trials×2crops exact;16native
+channels,1000Hz/µV, onsetstored1sbeforeactualcrop. PrimarydataREADME explicitly mapsS16verbalfluency/
+S32baseline; noSUB/MA. Old13personexport reverses numericlabels comparedwithnew26personexport;
+classnames are decisive. Complete2130Schererrows→9people×2days/142recoveredruns,19nativechannels,
+256Hz; everyrun25trials/5eachrawclass,withinrungaps12.50–13.50s,betweengaps>20s. E/Hday2have7runs,
+others8,explaining2130versusnominal2160. WORD/SUBpair1420rows withsamevisual/beep schedule and
+Spanishlettergeneration/serialsubtractionsemantics; noCMxspokenpromptdensitydifference. Existing
+4scropcue+1→+5includeslast.25sofvisualcue; no4sprecuestretchfits3sprepareperiod. RawMATnumericX
+payloadSKIPPED, metadataonlydecoded. Fullauditruntime/cost recordedsemantics351_metadata.json.
+PrimaryownerCCBY-NC-ND andexisting11Novorganizer-clearancerecordretained; nousertermsacceptance.
+SchererPROTEUS-onlyfrozenbinaryinstrument isqualifiedforregistrationwithsensor/source/sanity/QClimits,
+notphysiologicalcausality/independentcampaignconfirmation. Newfitrequiresseparateprospective§352.
+
+§321 parent-authorized POSTHOCrecognition attribution, specified BEFOREcalculation: samecomplete16CPU predictionbanks/proofs and unchangedofficialmetric; no newmodel/evaluator/HPO. Derive actualsessiondeliverypositions frompinnedperms andloggedcommon firstrecognition `rec` (zero-based: originalstep62 sets `log.rec=log.n−1` BEFOREmix6); pre t<rec, post t≥rec; neverrecognized entirelypre. No trueperson-IDgating. Per-cell/arm classweights use ACTUALofficial`balanced_accuracy` union(ytrue,ypred), includingpredicted-absentclasses; per-windowcorrectnesscontribution 1/(Ncells*Nunionclasses*Ntrueclass). JS−base contributions sumEXACT primaryofficialtotal (≤1e−10pp), bothphaseparts sumsame; verifyagainstownerbalanced_accuracy/primarymetrics. Prediction: weightedpost-rec loss≤−.15pp andaccounts≥halfoftotalnegative−.287917pp; pre-rec in[−.15,+.15]pp. Refute post-rec explanation ifpost≥0 or|post|<half|total|; reconstructionfailurestopsinterpretation. This locatesrecordederrors, NOTa causaldenominator-onlyablation orscoreofnewpolicy. Report bothpeople/uniform8primary andequal-scheme supplemental; preserveprimary/supplement.
+
+### 352. PROTEUS-ONLY FROZEN WORD-VERSUS-SUB EXTERNAL STRESS TEST (17Nov, before source/target feature measures)
+Root explicitly authorizes ONE binary external test after §351 metadata qualification. No external fit,
+calibration, HPO, teacher/checkpoint import or new data. §351 raw metadata matches every2130exportrow
+and recovers142runs/18days/9people; SchererWORD/SUB1420rows share acquisition timing and task semantics.
+**Scope:** two coherent, matched19-native-channel decoders trained only on PROTEUS WORD/SUB. This is an
+external condition-discrimination instrument, not current-chain/three-class/sealed gain or physiology.
+Spanishletterfluency and lowerinitialsubtractionnumbers differ; clinicalpopulation/oldhardware/QClimits
+remain. Public Scherer labels were already inspected for provenance, so no blind/campaign-fresh claim.
+**Fixed mechanism:** same4–40Hz inputbandpass,19channelorder,µV/120Hz/4s,cue+1→+5crop andCAR; no
+interpolation/padding or lowfrequencyslowblock. Use genericPython covariance math, not343fixed3class API.
+12fixed overlapping bands4–8/6–10/8–12/10–14/12–16/14–18/16–20/18–24/20–28/24–32/28–36/32–40Hz,
+full+twohalfwindowcovariance,trace shrinkage.1. Train per-session log-Euclidean reference; causal target
+referencek20 withPROTEUS-onlymeanlogcovprior, reset eachday, no label/future/order metadata modelinput.
+A diagonal logcovariance(power); B fullweighteduppertriangle(logcovariance). Samecovariance/reference/
+layout,source-onlyStandardScaler,fixedL2binaryLogisticRegressionC.05,maxiter2000,balancedclassweights.
+The contrast tests spatialcrosschannelreadout plus its larger capacity, not isolated capacity-matched
+physiology. No head/grid/temperature/strength selection. Labelorder SUB0/WORD1 fromPROTEUS1/2.
+**Source sanity before external gold:** produceall10leave-one-PROTEUS-person-out pairedpredictions;
+allpersonsessions excluded fromreference/scaler/head; officialperson/session/interfacebinaryBA. Botharms
+retain exactsamecrops/features/exposure. RequireBsourcepersonmeanBA≥60% and≥7/10people>50% before
+readingexternalaccuracy; otherwise stop externalscore as inadequatecommon-channeldecoder. This is a
+predeclaredminimumsignalcheck, not an efficacy gate/familyclosure. No source-derivedmodelselection.
+Thenonefinalfitperarm onall10PROTEUSpeople; predictALL2130Schererrows BEFOREopeningexternaly inthis
+producer; onlycollectorselects1420WORD/SUB usingqualified351manifest. No pooledcrosscorpusnormalizer.
+**Orders/guards:** sameeightpinnedwithin/full/runs shuffleddeliveryorders fromowningshuffleperms, raw
+recoveredrunids, withindayreset. Fixedsourceclass/person/channel/row/input/codehashes andsourceexclusion;
+finiteSPD/features/probabilities/classes, nofitexternalrows, exacttrainingtwins, immutablefittedhead,
+interleaveddays/reset/17prefixcausalguard, pinnedordervsindependentpermutationcheck, disjointunique
+trialids, sourcegoldafterallLOPObanks and externalgoldafterALLbanks/sourceguard. Everydayoutputs
+alignedtocanonicalrows; omitMIonlyduringexternalmetric. No4sprecuetest: prepareperiodonly3s;
+existingcropincludeslast.25sofvisualcue. No extra allegedlysilentcontrol or causalityclaim.
+**Numeric prior:** Bexternalperson/dayBA58%[48,70],A55%[48,65],B−A+3pp[−4,+10]; source19B70%[60,80].
+Refute this decoder's cross-corpus discrimination ifB≤50% withupper80%people/dayCI≤50; positive
+B−AwithCIspanning0 remainsundecided. Reportbotharms/all9people/bothdays/eightorders andpeople-nested
+day/orderbootstrap80%,sourcecontrols and trueclass counts. Small/contrarypeople do not close a family.
+**Budget:** firstrealPROTEUS-onlyfeature/fit/guardcostsmoke (no held/externalaccuracy), then source-locked
+ONECPU2/8GiB≤40minallocation ifmeasuredprojection≤40min/RSS≤6GiB; explicitTorchunused/BLAS1thread,
+≤2CPUallocation-hours total/0GPU. No localtraining. Account≤32running/272submitted/28reserve; no
+additionalwaveifboundsfail. Code studies/17nov/external_pair352; smoke andimmutablebefore_labelsproof.
+No upload/terms/provider; does not replace14:51CETresearchblock. Root ownscanonicaldocs/ledgercommit.
+
+
+**§349 causalcontrol correction BEFOREany349runtime/labels,17Nov12:51UTC.** Rootaddsnecessarysame-updatecontrol: initialproposed31×40official-onlystatreplayconfoundsphasewithfixed-final-body recalibration/EMAstepcount, and is SUPERSEDEDUNRUN. Recalibratefromnative0/1init withEXACTactual347INTERLEAVED62×40=2480statupdates andSAMEbaseRNG0/extraRNG347/31+31batches/32same-sessionchunks/padding/eligibility/multiplicity; verifyboth40baseAND40extrabatchhashes. ThreecounterfactualsONLY: B_recal (ownFINALBbody, original+eligibleOFFICIAL-repeat); C_mixed_recal (ownFINALCbody, original+ACTUALeligibleLATE, reproducingitsphasemixtureatfrozenfinalweights); C_official_recal (SAMEFINALCbody, original+eligibleOFFICIAL-repeat). No C←Bbuffers. Eachupdateaveragesper32chunkmean/biasedwithinchunkvar ACROSSGchunks, excludingbetween-chunkmeanvariance, justactualSessionBNcode/oracle. OriginalB/C/A retained: sixarms×3exposedpeople×8orders. Primaryphasecontrast C_official_recal−C_mixed_recal prior+2pp[-2,+10]; C_mixed_recal−C genericfinalbodycontrol0pp[-2,+2]; originalrequested C_official_recal−C+2[-2,+10],B_recal−B0[-2,+2]retained. C_official_recalvsAdecisive. Sourceonlyphasecache/ownmoments/weightsfrozen/nooptimizer/dropout/evalconsumer/k20/guards/budgetunchanged. Actual349source/querycomputationshavenotrun; preparatorysourcecodeeditedonly. Querycostprojectionupdatesfrom4to5new8orderbanks(Areused)beforeanyrelease. ThisisONEphase-priorintervention+matchedrecalibrationcontrol, NOTnormalizationgrid; nolabel-selection/crop/weight/headvariants.
+
+§352 implementation clarification BEFORE smoke/fitting: causal streams retainallMI/SUB/WORD input
+windows for bothsourceheldpeople andScherer, withMIomittedonlyinbinaryheadfitting/metric. Source
+referencecovariances useallPROTEUSsourcewindows withoutMIlabels; noexternalstatistic entersprior.
+This keepssource/targetstateexposurematched. OfficialPROTEUSpermutations are verifiedagainstpinned
+runs/shuffle_perms.npz onALL2655rows beforebinaryscoring; foreignorders have nohistoricalpin and use
+thesameindependentlycheckedrecipewithrecovered142runids, frozenbeforetargetaccuracy. Common4–40Hz
+postfilterisidentical; acquisitionfilters/hardwaredifferandcannotberetroactivelymadeidentical.
+
+§352 firstsmoke3119536FAILED beforePythonimport: source incorrectlystagedunderlogin/tmp, invisible
+oncomputenode. Preserve1s/2CPUfailure; noscientificmeasure/accuracy. CorrectedSAMEsourcefrozenunder
+Lustre ni26_pair352_20261117_v1; realcost/sourceguard rerunbeforeanyproducerrelease. No tolerance,
+channel/band/class/prior/metric/budgetchange; no automaticCPU/GPUfallback.
+
+§352 realsmoke3119551FAILED atbitwise17prefixprobabilities AFTERsourcepinnedorders andexacttraining
+twin;9s/2CPU/RSS850448KiB. Noaccuracy. Preservefailure. Prospectivesource-onlydiagnosis separates
+featureprefixidentity frombatchedLRdotrounding andchecksrowwiseactualsklearnprediction. Ifrowwise
+restoresbitwiseidentitywithoutchangingfit/classlabels, useexactone-windowpredictpathforsmoke/full;
+no numericboundrelaxation. OtherwiseSTOPandinspectcausalfeatures beforeproducerrelease.
+
+§352 diagnosis3119554PASS5s/2CPU: bothfeatureprefixesBITWISE; powerprobabilitiesBITWISE, covariance
+batchedLRdifference1.1102230246251565e−16/zerochangedlabels. Actualone-row sklearnprediction restores
+BITWISEbotharms. Useone-windowpredictioninnewimmutablev2, no fittedmath/tolerancechange; oldv1failure
+preserved. Rerunexactrealcost/allguardsbeforefullrelease; no score read in diagnosis.
+
+§352 v2smoke3119555PASS:100realPROTEUSwindows feature.973s/pairedfit.068s, projected276.19s,
+RSS556676KiB; exacttrainingtwin/7windowcovariance/17prefixbotharms/ALL8pinnedsourceordersPASS.
+SAMEv2sourcefullONECPU2/8GiB40min released afteroksmoke withsourcehash/cost/RSS/owningfeaturesSHA
+failclosedguards. Exactone-windowLRprediction; sourcepriors/scaler/headexcludeallforeignrows.
+FullproducerincludesallsourceLOPO/alltargetbanks BEFOREcollector source-sanity→externalgold.
+No newparameters/priors/thresholds; noadditionalwave. Sourceproof/recoveredgroups ownallreadiness.
+
+
+**§349 sourcepreparation3119534PASS/fullcounterfactualrelease,17Nov13:00UTC BEFOREquery349labels.**65sCPU2/52.330sscript; noqueryneuralforwards/optimizer. ACTUALONEBN288/m32/.1/k20 biased-chunk/nativeupdate/nativeevalconsumer oraclesPASS(update/eval0,maxindependentbiasedvar2.10e−8); each2480statupdates/ALL40base+extra hashidentities. GenericBrec/Cmixedrec priormeandrift≈1e−5/varlogdrift≈1.5e−5, originalsourceNLLnearlyunchanged(.3552455/.5454971). Cofficialrecvarlogshift.11507/mean.000528/sourceNLL.5338121, noquerygainyet. BofficialsourceNLL.35525/late1.00599(SUBrecall.874→.218); Cofficial.54550/late.61544. PenultimateSUB–WORDphasecosineB.1006/C.2845 versusMI–WORD.8246/.8593: descriptivephasegeometryshift, notphysiologyorcausebyitself.
+Preparedsource5289c02467542dec14016cc028c92a1ccdbe07723adb3f80c2ee12dd83901a7a, bufferfilea7acbc1b1fea8b3c5dde0761cfee3cf4275dc8bba9ac336867062739140ef65e. MeasuredSOURCE187-windowmax.00320273s/window projects5new8orderbanks256.196s/total2041.84coresec=.5672CPUh<1. ReleaseONEfrozenqueryCPU6/24GiB≤6min, source349/moments349 EXACTpreparedbytes; originalB/CALL8zero-controlbanks≤1e−6/zeroalllabels BEFOREanynewpriorinstall; source-onlystats/parameterhashchangeonly2buffers, unmodifiednativek20consumer/reset/prefix/net-onlydeepcopyguards. ThenafterokCPU2/8GiB≤2mincollector verifies6arms/3people/8orders=144cellbanks+allproofs/source/buffer/hash/oldA6controls BEFOREopening349goldonceandinvokingUNCHANGEDofficialscorer. Originalreadouts/scale/A6/controlbodiesunchanged, no jointhead/training/cropgrid. Hardallocatedmax130+2160+240=2530coresec<3600unlessfurtherfailure, accountcapacitychecked. Existing347negativeevidencepreserved; priorsselected/exposed. Allsourceonlyrecaldefinition/controlrefinementstillapplies.
+
+### §350 — Runtime-unrecognized-only JS outer recipe (17 Nov; prospective, conditional)
+- Mechanism: one continuous existing outer-tail state; select JS recipe only while actual runtime `recB` is false, baseline outer recipe after the latch, which is computed before `mix6`. Original inner15/gates/FT labels/source assets unchanged. Auxiliary six tails still consume exactly once per window, avoiding hidden BN history changes. Set RouteB Core1 coefficient1/17 for JS and1/16 for baseline. No true-person metadata, prediction-bank splice, parallel full model, per-person choice or policy grid.
+- Motivation is posthoc: complete §321 conditional weighted loss−.287917pp partitions−.086582 before/−.201335 after actual recognition. This does NOT establish personal-head causality: retained direct-held-label-trained Core2/rest shares also change2/16→2/17 (fully routed2/18→2/19); eye is nonlinear. Fixed production exposure remains. Conditional engineering only, not genuine held full-system dev, rank/sealed forecast or promotion evidence.
+- Numeric prediction before any new policy labels: returning .2P04+.8P10 policy−JS+.2pp[−.4,+.8], policy−base0pp[−.4,+.4]. Report both people, unchanged uniform8 primary and separately labeled equal-scheme supplement. Preserve entire existing base/JS cohort; new policy must execute every raw window. All16 complete source guards and replay OK before any new policy gold/metric. Refutation: semantic/state invariant failure stops release; scientific differences remain conditional and small/noisy evidence does not close a direction.
+- Controls before scoring: mode0 reproduces baseline bitwise on CPU; mode1 reproduces existing JS≤1e−8; gated mode equals JS on actual forced-unrecognized215 path, with20FT/125CP, and switches on actual known recognition. Original inner/gates/FT labels/inputs exact; all65 original network buffers plus auxiliary reset/deepcopy/source immutable tensors checked. Source/prefix reset and one-current-input callback counts checked. Post-recognition baseline RECIPE is not claimed to erase earlier JS tail history.
+- Budget/source lock: Galvani only, max1 initial CPU allocation2CPU90min (≤3CPUh), no new fits/data. Existing three-arm16 cohort consumed7.33944CPUh; single-policy cost expected~2.45CPUh. After measured guard and actual one-cell smoke, remaining full16 single-policy workers use2CPU≤9min each (≤4.8CPUh), total including collectors≤8CPUh; no release if measured cost cannot fit. Capacity≤32running/272active with28reserve, explicit CPU executor, no device fallback. Source pinned in separate immutable workspace before execution. No upload or package promotion.
+
+### 353. FULL ACTIVE C++ TRAINING AND INFERENCE PORT (17Nov14:13CET, before native353 fits/timings)
+User explicitly authorizes full own-C++ pipeline, with optimized native dependencies and only the
+competition-required thin Python entry. Scope is active v6.6-cap250/reference training and inference,
+not every historical research script. Frozen packages, official submodule/metric and running studies
+remain unchanged. LibTorch is an optimized C++ dependency; no Python tensor/NumPy/SciPy/sklearn
+computation or optimizer callback may remain in the completed native train/inference executables.
+Pre-existing TorchScript weights can be migration artifacts executed by C++, but do not establish
+native source training/architecture completion. Inventory every active path and unsupported path;
+missing stages or settings fail loudly, never substitute a simpler decoder or silent fallback.
+
+Mechanism: remove interpreter dispatch/array transfers and redundant per-window work; reuse shared
+FIR/features/buffers, then measured same-window parallelism only where beneficial. Preserve current
+input float32(1,41,480), all active models/weights/stops, causal delivery and independent session state.
+Native source fits and training must exclude query people/sessions exactly as the chosen reference.
+No accuracy-method change inside port qualification. Numeric engineering prior: whole warm CPU
+inference 1.1–1.5x speedup, A100 1.0–1.2x, native matched reference linear fit at least its qualified
+343 speed with zero all held labels; these are hypotheses, not promises. Neural training initially
+parity, speed undecided because LibTorch reuses the same optimized kernels. No leaderboard gain prior
+from language alone. Refute speed advantage at matched quality/work if complete paired costs worsen.
+
+Build and real-source guard first, then pinned zero-change/prefix/reset/interleave/deep-copy and
+complete CPU/clean-worker/A100 outputs. Individual component claims remain separate until the whole
+runtime passes. Measure warm AB/BA pairs, actual CPU/GPU time and memory, cold artifact/load costs.
+First engineering allocation at most CPU4/16GiB/30min (2CPUh), one source-locked build/parity smoke;
+no held accuracy, local training, new fit, new provider/data, upload or native candidate promotion.
+Any source-only real training fixture must be registered before computation and run on Galvani.
+Root owns native/include/ni26/{artifact,math,tail}.h, native/src/{artifact,math,filter,tail}*.cpp and
+integration/build; delegated native subsystems get separate ownership and source locks.
+
+
+**§349 COMPLETE17Nov13:06UTC.** Source3119534/query3119559/collector3119566 ALLPASS0:0. ActualONEBN288/m32/.1/k20/sourcebiasedchunk+nativeconsumeroracle; each2480SAME62×40statupdates/base+extrahashes. Original347B/CALL16banks BITWISE BEFORErecalibration. ALL6arms×3exposedpeople×8orders=144cellbanks/unchangedALLweights-affines/ONLYown2BNbuffers/source-provenance/reset/prefix/net-onlydeepcopy/activeprobabilityguards BEFORE349labels. B_recal−B=0accuracy ALL3; C_mixed_recal−C=0 ALL3 despiteactivebuffer/probabilitychanges (genericfixedfinalbodycontrols). C_official_recal−C_mixed: P02−.807665/P03−.137955/P09+1.086566pp; accuracies49.78915/54.13932/55.37596%, stillvsA−15.85685/−2.08819/−8.68505pp. Matchedphase-priorreplacement DOESNOTrecoverlarge347late-trainingdamage; not allBN/data/lateinformationfamilyclosure nor solebody/classcauseproof. SourcephaseNLL/geometrysupportsconditiondependence; nopromotion/current-system/rank/independentclaim, no newtraining/jointphasehead branch.
+Actualsource65sCPU2/query53sCPU6/collect15sCPU2=478coresec=.13278CPUh/0GPU,0optimizersteps, no349jobsremain. Queryscript39.527s; source52.330s. SourceMaxRSS2178.5MiB/query1822888KiB; net-onlyguardavoidsdatasetdeepcopies, no broadmemory/speedclaim. Combined346+347+349=8040coresec=2.23333CPUh/0A100. Evidence recal349_{prepare,result,before_labels,prediction_proof,original_before_recal,compute}.json/report; source5289c024…01a7a/query27c00649…226e8/buffersa7acbc1b…f65e; sourcepriorvectors/privatecheckpointsnotcommitted. 14:51scheduledresearchunreplaced. Usernewpriority FULLactive-stackC++runtime/training;349immutable, nofurtheraccuracyfollowuphere.
+
+**§352 COMPLETE (17Nov13:13:27UTC clock-verified collection):**3119558PASS0:0/10m46/CPU2,
+RSS2847008KiB. ALL10PROTEUSperson-held/controlbanks + all2130foreignrows×2arms×8orders/prefix/reset/
+interleave/source-exclusion/frozenhead/sourcehashguards passed BEFOREexternalgold. Collectorfirst
+openedsourcegold: power62.77327/cov66.89940% BINARYSOURCEperson/cellBA; cov10/10peopleabove50,
+registered≥60/≥7sanityPASS. P04power55.1892/cov59.7875,P1059.9501/67.8501; new-personLOPO,notreturning.
+THENexternalgold:9Schererclinicalpeople/18days/142runs/1420WORD-SUBrows,PROTEUS-onlyfittedlearner.
+EXTERNALBINARYBApower53.26017%[80%people/day/order51.95809,54.60069],cov59.03026[56.72495,61.35689];
+cov−power+5.77009pp[3.95833,7.54092],8/9peopleup. Capacitychangeswithcovreadout; cue.25s/clinical/
+language/acquisition/QC/campaignselectionlimitsremain. Thisqualifiesacondition-discriminationinstrument,
+NOTuniversalcognitiverules/current-systemgain/rank/physiology. No41channelbinarycomparator measured.
+Processwall640.980s/CPU638.483s; allpreliminary+fullallocation1332CPUcoresec=.370CPUh/0GPU.
+Smokeprojection276sunderestimatedfull10fold/8ordercausalinference; reportactualcost,notruntimegain.
+Allownedjobsdone;nofurtherfit/grid/upload. Evidenceexternal_pair352.md/pair352_result/source_sanity/
+before_labelsJSON; source studies/17nov/external_pair352. ActualPythonSHAidentitiesverifiedlocal.
+
+§353 first native basebuild3119649FAILED60s/4CPU/RSS4.63GiB BEFORE data migration/numerical run:
+C++ Tensor assignment `{}` was ambiguous; explicit `Tensor{}` is the sole behavior-neutral fix.
+Preserve immutablev1. NativeTorch headers now SYSTEM includes to suppress vendor unusedparameter noise.
+Newimmutablev2 build4CPU15min + routingreference2CPU20min + failed240CPU-sec maximum6240coresec<2CPUh.
+No fit/accuracy. Basefixture96 actualP01/session1 SOURCE windows, labels never loaded; actual frozen
+TangentCore(real+Hilbert),Tail/reapply outputs compared, probabilities≤1e−7/zero all labels,
+standardized features≤1e−4 declared before native output. Same-binary prefix/copy guards remain
+separate from cross-language numerical tolerance. No tolerance relaxation after a failed measurement.
+
+§353 v2build3119654 COMPILED base/core/tails/probe successfully, thenFAILED84s/4CPU before data:
+remote repo lacked the pinned local final ZIP. No numerical score/fit. Stage EXACTlocal9c4d5538…17ed
+ZIP to isolated read-only assets, verify SHA; do not synthesize/rebuild package or change frozenfiles.
+Newbounded2CPU10min qualification reuses hashed v2binaries+source; no recompile. Cumulative maximum
+240+336+2400routingcapture+1200qualification=4176coresec<2CPUh because both builds already finished.
+No math/tolerance/source-row changes. Successful compile is not numerical or worker qualification.
+
+§353 componentqualification3119674FAILED29s/2CPU after exact frozen ZIP/sourcefixture export, BEFORE
+comparison: native probe used float32 stored PCA matrix in a float64 matmul; Python original explicitly
+casts projection matrices tofloat64. Fix native consumer to that exact reference precision; no source,
+metric/tolerance change. Also make sqrt(2) upper-triangle weights explicitlyfloat64 as originalNumPy,
+rather than scalar-onlyTorchwhere defaultfloat32. Preservev2failure and exact generatedsourcefixture.
+
+§353 native linear-source verification amendment BEFORE fitting: same pinned2465×44239 P01SOURCE
+matrix/labels/scaler as343, C=.3/zero/unpenalizedbias/exactstops/BLAS; native reversecommunication
+L-BFGS-B C implementation from installedSciPy1.18.1 BSD source, linked optimizednativeOpenBLAS only.
+No Python/SciPy runtime callback. Require actual82accepted/88evaluations, independentautograd gradient,
+NaN/±Inf/incompleteclass/scalerconstant-column guards; both completeheldwithin0/full0 probability
+parity/zero labels without loadingheldgold. Report actualmaxerror; old343 tolerance1e−3 retained,
+not equivalent to old observed6.65e−8 until measured. This is one same-reference engineeringfit, not
+new accuracy search. Full sourcefixture exported once from pinnedprovenance, no extra model selection.
+Next integrated build/sourcecheck ≤4CPU20min/16GiB, including thisfit and actual routingfixture;
+aggregate353engineering allocation cap raised prospectively to4CPUh after measured builds≤84s and
+source96windowcapture≤29s, native source-capture20min separate. No A100 allocation/accuracy/upload.
+- §350 concrete continuation (before policy labels): ALL16 actual owning raw-mask/session/interface/cardinality input preflight PASS; sourceguard3119571→afterok one whole CPU smoke3119687_0 (2CPU16GiB9min, source-locked whole1). A separate pinned controller may release remaining15 at%8 ONLY after actual owning guard+smoke hashes, both sessions, active recipe/reset/callback proofs and measured smoke≤540s. Whole policy executes raw windows; comparisons reuse the complete immutable §321 base/JS controls, never splice candidate predictions. Maximum allocated budget180CPUmin sourceguard+288cells+2release+4collector=474min=7.9CPUh. No native353 budget is used.
+- Complete collector is a schema adapter to unchanged experiments/protocol.py:score, same uniform8 primary (.5within/.25full/.25runs), .2P04+.8P10, both people/equal-person; 2000people/order descriptive95%bootstrapseed3501701. Equal-scheme point is separately labeled supplemental. All16 actual source/proof/row/key/hash guards precede first new gold; replay/check.py must printOK and guards repeat before metrics. No first-person/partial-quality read or policy grid; fixed direct-held-label production exposure remains. Runtime/semantic failure blocks release without tolerance changes.
+- §353 routing recovery, prospective17Nov14:45CET: original full-NN sourcecapture3119621 hit its unchanged20min hard limit; no complete tensorfixture/proof, no numericalpass. Approved ONE source COMPONENT-only CPU2/16GiB10min capture under revised shared353aggregate4CPUh (no extra native build allocation from this owner). Uses actual frozen v66 active5/draft_base core1/core2 outputs on P01session1, their0.5/0.5 mixture (same component instrument as rootcore/tail fixture), original shadow/Route/Own/Count/CausalPers classes. Known80/forced-unrecognized215 repeated-real-source windows; never loads task labels. No NNforward, accuracy, wholeensemble-equivalence or fullworker-latepath claim. Checkpoint every completecase and print every20windows; no time extension if it fails.
+- Native component hypothesis: all source gates/posteriors/logscores≤1e−8 maxabs against the actual original Python component mapping; zero non-tied label changes; original session reset/deepcopy isolation. Require no route/count/CP errors, actualknownOwnStage activity, unknownCP10refits/125fusions with a learned non-uniform classifier (not merely uniform/single-class bypass). Refutation: numerical/activity/source failure preserves failure and blocks equivalence; no tolerance fit or substitution. Root owns next complete C++ build/test after the fixture exists. FullNN timeout and pending-assertion cancellation remain separate evidence.
+
+§353 neural SOURCE qualification amendment17Nov14:44CET BEFOREcapture/nativecomparison: preserve
+3119621 full215-window reference TIMEOUT/no completefixture; do not interpret it as nativefailure.
+One checkpointed source capture known8 + forced-unrecognized31 ACTUALP01/session1 windows from
+EXACTfrozen37c666a8…b69f submission/7cf13696…88a2 weights. No task labels loaded or accuracy.
+Capture the already-executed45neuralmembers/inputgroups/Eye/Rest/two4familyFTrefits20+30/relabel
+matrices and originalRouteB inputs/output without extra NNforwards; checkpoint0/20/30 and each
+completecase. Mechanism is exact ownC++runtime/optimizer equivalence, not a new decoder. Numeric
+prior source posterior/FT difference≤1e−6, RouteB≤1e−8; no new label/gainprior. Require same member
+order/inputgroups/reset/deepcopy/sessionlocalstate/FT40steps+positive parameterchange and autograd
+active inside outerNoGradGuard. Refit source-only fixed pseudo-labels, no source training or query.
+Refute parity on any mismatch/activity/bypass failure; preserve failures without tolerance changes.
+ONE cleanSIFCPU2/16GiB/10min capture maximum1200coresec within root's4CPUh aggregate353cap;
+print actual first-window/checkpoint timings, no automatic extension if cap fails. Root's next
+shared native build runs native/tests/neural_source.cpp against completed fixture only. Native
+rawFBC40epoch training entry is implemented but NOTRUN; Python initial/sourceprep/PCG64batch fixture
+remains explicit migration and requires separate source-training registration before computation.
+
+§353 neuralcapture3120067 COMPLETE0:0/56s×CPU2=112coresec=.031111CPUh,
+MaxRSS2302588KiB. known8=5.273608s; unknown31=34.947553s with2actual4familyFTrefits/
+40steps/2relabels/dtheta.00999158/0errors; no source/tasklabels/accuracy. Exact fullfixture
+08e36889…9f3a8/source manifest8633674a…6f8d in ni26_native353_neural_reference_v1_20261117.
+Native comparison PENDINGrootsharedbuild; successfulPythoncapture is not C++equivalence.
+
+§353 native source-training FIRST-UPDATE card17Nov14:51CET BEFOREanytrainingfixture/update:
+Prepared only, RELEASEHELD until native inference parity. Exact stock rawA6 source6 P04/P05/P06/
+P07/P08/P10,1898officialsourcewindows; excludeP02/P03/P09 from labels/fits/sourceaggregates.
+Reuse source-locked original initializer/source normalization; fixture exports all40×31 batches,
+same-session32row chunks/labels, exact OneCycle1240 used LR AND beta1 trace. Python reference makes
+ONEoriginal source optimizer update only; ownC++graph makes ONEsame update. No query forward/gold,
+noHPO/full40fit. Mechanism is graph/SessionBN/autograd/AdamW equivalence. Numeric prior posterior/
+updatedstate error≤1e−6, logits/gradients≤1e−5,1240LR/beta trace≤1e−15; positive body/head
+gradients and actual parameter changes required. Same constrained288spatial/1152head/FIR/biased
+within32chunkBN/unbiasedtemporalvar. Refute parity if any path/gradient/update/constraint/schedule
+check fails; report mismatch without relaxing tolerance. Prepared scripts: neural_training_fixture.py/
+neural_training_source.cpp. Future release at mostCPU2/16GiB/5min=600coresec after parent's
+shared-budget projection; record original/native graph costs directly, NOTfrom neural inference.
+No job yet. Migration initial/sourceprep/PCG64sampling remains explicit, not native-from-scratch
+completion. Full native40epoch fit and other family source graphs require later qualified cards.
+
+§353 neural-recoveryv2 allocation17Nov15:07CET BEFOREsubmit: preserve3120077 OpenSSL
+compiler-header failure186s/4CPU and all previous source fixtures. Own SHA25681LOC replaces only
+load-time fingerprint dependency, same strict607a…506c6/class/length/dtype/order checks. Local
+empty/abc/multiblock/million-a/actual3724FIR/tamper checks PASS; Linux parity not established.
+ONEimmutable native353_neural_recovery_v2 job CPU4/16GiB/15min≤3600coresec=1CPUh, inside
+parent4CPUh aggregate (earlier failures/captures~1.1CPUh + existing-componentmax.533h). Source
+manifest and ALLactualpackage/neuralfixture assets pinned before submit. Fresh complete C++build
+acceptable; run purehash test and original known8/unknown31 neural/FT/RouteB comparison independently
+from3120215 classical suite. Do NOT rerun linear/classical source fits or any source-training fit;
+source-trainingCLI/oracle may compile only. Same registered≤1e−6 neural/input/FT/≤1e−8 RouteB/
+exactcounters/positiveoptimizerchange/reset/copy rules; fail closed without automatic extension or
+tolerance change. No tasklabels/accuracy/leaderboard/upload/A100. CMake temporary ownership limited
+to removingOpenSSL/addhash+test/includeexistingcoretraining+preparedneuraltargets, root code intact.
+
+§353 independent existing-binary job3120215 COMPLETEchecks/overallFAILED58sCPU4. Native linearSOURCE_PASS:
+2465×44239, exact82iterations/88evaluations, objective/independentgradient/finite/scaler checks pass;
+zero completewithin0/full0 heldlabels changed, maxprob6.37673e−9. ONE4threadnativefit19.8232s isnotmatched
+against earlier6thread19.7467ssklearn or16.4362shybrid and doesnotestablishspeedup. It runsnoPython/SciPy
+optimizer callbacks; nativeCvendor/optimizedOpenBLAS remain declareddeps. Core/tail/routing tests failed
+BEFORE comparison: em_nmin is a whole-number float64 inactualNPZ, whileour genericintegerparser rejected
+allfloats. Correctparser accepts EXACTfiniteintegralfloating scalarwithinint64bounds, stillrejectsnonintegral,
+complex/out-of-range; sourcePython usesint(z[key]). No coefficient/metric/tolerancechange. Neural recovery
+3120247 compiledALLCPPtargets+SHArealFIR PASS; neuralcomparisonSTOPPED inCPUconstructor queryingCUDA
+primarycontext. Ownfix returnsbeforeCUDAqueries forCPUdevice, retainsCUDApath. Preserveallfailedsnapshots.
+First nativeNN/source graphtrainingoracle remainsheld, no40epochfit, nofullworker/accuracyclaim.
+
+Scheduledresearch block14:58:15–15:15:16CET COMPLETE17m01 actualelapsed. Primaryrecentalignment/DEFT/
+capacity-controls/LEAF/graph/hypergraph/attention leads checked against292C/293/313/323/339/349/352actualscopes.
+Report research_4h_17nov_1458.md ownsproposals/readlimits. No newaccuracyrun/provider/data/terms/upload.
+
+§353 nextparity-v3 CPU4/16GiB15min source-locked retry prospectively uses EXACTsame96component,
+80/215routing-component and8/31neuralSOURCEfixtures. Only CPUcacheguard/integral-scalar consumer repairs;
+no numericbounds/coefficients/metric/labels/source change. OwnSHAknown/realFIR preserved. No repeatofpassed
+linearfit or source-training update. Currentactualallocatedengineeringcost plusnewmax3600coresec stays
+below4CPUh aggregate; verifyaccountactuals before additionalrelease. Compilealltargets, then independent
+checkscontinueandreportfailures withoutcallinganyfailedcomparisonqualified. Originalfailuresimmutable.

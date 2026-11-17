@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 12:42 CET
+### Current campaign: 17 November 2026, about 15:23 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -77,14 +77,20 @@ Bothfold-specificsourcecontexts pass. Historical checkpoint identity remains unp
 ActualRouteB/TSEM/OwnStage/CF/CP engineeringbridge3118487 uses originalfrozenclasses and explicit contexts.
 BothneworiginalsourceCore/PCAfits/nativeSIF raw31canaries/full8order raw256banks3118623 pass.
 All28newnormalBN sourcefits+originalShallow/FBCexport guards, newcontexts/sourcegalleries and source-onlyteacher
-taskmaps pass; privatecopybuild is prepared, notmodelvalidated. SharednewinnerFT/wholepairedprotocol stillneeded.
+taskmaps pass. Actualprivate3arm/source-inner/recognition/FT/rawview/softwareguards pass; completeconditional comparison runs.
 Root explicitly chose FIXED-PRODUCTION-PRIOR CONDITIONAL ENGINEERING sensitivity: frozenMAD/teacherEA-G/
 OOFcalibration AND originalrest/eyeauxiliaryNN remainfixedproductionpriors. Primary/innerNN sourceexclusion does
 not covertheseauxiliaries. A positive cannot establish held FULL-SYSTEM DEV/rank/promotion. No score yet.
 Fullsourcebridgeguard3118899 PASS6m20, off/base/inner/gates/FTlabels/reset/prefix exact; JSrecipe≤2.22e−16.
-Initialcellcohort stopped BEFOREinference at ownincorrect6-versus4cell metadata assertion, not an officialmetricbug.
-Prospectiverepair uses actualsession/interface keys/all16inputpreflight and onecellsmoke. Explicit all-CPU conditional
-cohort preparing after cancelledGPUqueuepilot; no scoreyet. Ownerhandoff owns exact livejobs/limits.
+Initialcellcohort failed own6-versus4cell metadata assertion BEFOREinference; preserved, notofficialmetricbug.
+RepairedALL16exactinputpreflight passed. ExplicitCPU fullcell3119222_0 PASS12m56/RSS4.04GiB; bothsessions
+originalinner/off/recipe/raw256/prefix/immutable guards pass; rec60/4FT andrec10/0FT actuallyactive.
+ALL16CPUcells/collector3119253 COMPLETE; ALLsource/frame/zero/rawview/row/8orderguards beforegold, replayOK.
+CONDITIONALreturning primaryUNIFORM8orders: P04base89.6958→JS89.0308%(−.6650pp), P1095.9603→95.7666%(−.1937pp).
+Returning.2/.8weighted−.2879pp,95%DESCRIPTIVEpeople/order[−.8766,−.1131];7/8weightedordersnegative.
+Bothdecline, but conditionaltwopersonresult isnotindependentgeneralization/sealedharm/rankproof. Keepnewperson
+selected+.2724separate. Equal-scheme1/3 supplement is read-only/separate; no primaryswap or promotion.
+Prospective§350posthocpre/post-recognitionattribution→singleJS-only-unrecognizedpolicy preparedbyowner; no newpolicyfit/scoreyet.
 [Owner evidence](../evidence/next_wave_16nov/js321_returning.md) records these measured limits.
 
 **Custom stack and new readout exploration.** PairedCPUclassical-core63–64ms versus cachedPython113–117ms
@@ -114,15 +120,59 @@ Allsource/gradient/1240step/RNG/eightorderguards pass, allocated2.186CPUh/0GPU. 
 run-derangedD60.640% P09INDIVIDUAL-MODEL. C−A+1.386pp,7/8orders; pooledNLLworse, notfullsystem/calibrationgain.
 OriginalAall8BITWISE, allguardsbeforelabels; .151CPUh/0GPU. FrozenNO-REFIT extension3119224 COMPLETE:
 P02A65.646/C64.164%(−1.482pp); P03A56.227/C51.391%(−4.837pp). Samefrozenmethod/source6; allguardsbeforelabels.
-P09positive DIDNOTtransfer; thisreadoutnotready/fullsystemexpansionunjustified. Rawtask-outsidecrop sourceauditnext.
+P09positive DIDNOTtransfer; thisreadoutnotready/fullsystemexpansionunjustified. §347late-supervision follow-up below.
 Sourceinventoryfinds7,592nominalseconds outsideofficialcrop, NOTgloballyuntested: oldEA2/3scroptraining and
-§277SSLstart4alreadyusedsome. Narrownewquestion: exactrawSessionBN/step-matchedlatecrop, sourcequalificationnext.
+§277SSLstart4alreadyusedsome. §347newquestion is exactrawSessionBN/step-matchedlate versusrepeatedofficialsupervision.
+Sourcequalification3119303 PASS: ALL60EDFs/1898officialrows matchtensorbounds, A6sourceprefixBITWISE;1894actualended
+late3.5–7.5crops qualified,4unanchoredextrasomittedBOTHextraarms. Earlierrounding-orderfailurepreserved/diagnosed,
+no loosenedbounds. NativeofficialG/scale fixedallarms, noqueryfits/labels. Sourcecontrol3119319 PASS59s:
+Aref/AwrapperBITWISE, B/C31base+31eligibleextra batches/RNG/labels/chunks/initializer match, activebody/head.
+Actualentrypreflight3119346 PASS; fullB-repeat/C-late40epoch2480step fits3119363[0,1]%2 released→3119365collector.
+§347FULLCOMPLETE: originalA/repeatedofficialB/lateC INDIVIDUAL-MODEL P02 65.646/64.582/50.597%,
+P03 56.228/54.872/54.277%, P09 64.061/64.881/54.289%. C−B−13.985/−.595/−10.592pp, all3peopleworse.
+Allmatched2480step/source/initializer/40base-batch/72bankguards beforelabels; source-originalNLLC.5455>B.3552.
+Latepoolingharms thisform, extraofficialupdatesdonotexplainlargeharm; no rawdataabsence/familyclosure/systemclaim.
+Actual1.897CPUh/0GPU/alljobsdone; fullfit+deepcopyRSS~6.7GiB exceededearliersmoke3GiB; bothstayed24GiB.
+§349COMPLETE: own-official versusmatchedmixedBNprior changesP02−.808/P03−.138/P09+1.087INDIVIDUAL-MODELpp;
+stillbelowstrongAby15.857/2.088/8.685pp. Genericrecalibrationchanges0accuracy; originalB/CALL16banksBITWISE.
+Priorreplacementdoesnotrecoverlate-trainingdamage, norclosealllate-data mechanisms.
+Sourceprecisionlimit: legacyAlignedNet precomputesPOINTWISEcovsforallpublicX(includingheld), notcrossrowstats;
+rawunalignedinferenceignoresheldcovs, G/scale/weights useONLYsource. Oldheld_transformed:false meansnoheld
+NEURALforward/directfeatures/rawEDFprocessingbeforegates, notliteralnopointwisecovcache; immutableproofsunmodified.
+§348CMxmetadataqualification COMPLETE:8308rows/201recordings/24people mapped;16guaranteednativechannels.
+EveryMIcrop.5sannotatedsound/MA2–3s: condition/promptconfounded, nouniversalrule/WORDclaim oraccuracy.
+Actualold12m8cpretrainedteacherusedcorpus; old+1.67wasincrement, notteacheraccuracy. §351semanticmatchedqualification COMPLETE: ShinWG≠SUB; SchererWORD/SUBsame-run metadataqualified.
+§352COMPLETE frozenPROTEUS-only→Schererbinary: covariance59.030% versuspower53.260%,
+EXTERNALWORD/SUB+5.770pp[80%people/day/order+3.958,+7.541],8/9peopleup. SourceLOPOcov66.899%,
+10/10abovechance; sourcegatepassed beforeexternalgold. Allbanks/source/reset/orderguards pass.
+Clinical/language/acquisition/QC/campaignselection/19-channelcapacitylimits remain; noFULL-SYSTEM/rankgain.
 
-**Ownership and cadence.** Root owns canonicaldocs/342collection. external_supervision_17nov owns321;
-fresh_information_346 owns346extension. 343/345and339/340/341/342/344 owners completed; no paid/providerexecution.
+
+**Full C++ port — §353, actively implementing.** Userrequireswholeactive training+inference, notjustkernels.
+Isolated native/ implements native artifactIO/DSP/two cores/tails, gates/OwnStage/RouteB, CountFilter/latestCPmodel,
+neuralbank/Eye/Rest, fine-tuning, standaloneC L-BFGS-B and ownC++rawFBC source-training loop.
+OnlyrequiredPythonentryisadapter. TorchScriptfiles are migrated C++-executed graphartifacts, notproofall
+architecture/training definitionswereported. Fullnative init/sampling/sourcepreparation/remainingfamilyrecipes
+andPCA/gallerytraining remainincomplete. Do not callfullstackready/nativeNNtrainingvalidated.
+Base/core/tails/routing/nativeoptimizer COMPILED; initialcompile/staging/dtype/linkfailures preserved.
+Fullbuild3120077 failed186s onneuralOpenSSLheader AFTERbase/routing/lineartestslinked, before anynumericaltest.
+Recovery3120247 compiledALLCPPtargets+SHAknown/FIRPASS; NNconstructorstoppedCPUCUDAquery, nowfixed6d73a1e.
+3120215standaloneNATIVElinearPASS82iterations/88evaluations/maxprob6.38e−9/zeroheldlabels; one4thread19.823s
+isnotpairedspeedproof. Core/tail/routing stoppedbeforecomparisononfloatwholeem_nmin; integerparserrepaired.
+Same-fixture3120312 parityretryqueued, no linearrepeat/sourceNNtrainingfit. Seecompacthandoffforlivepaths.
+NNownercorrectsdependency; actualsource C++parity/no completeworkerspeedclaim yet. OriginalfullNN215reference
+3119621 TIMEOUT20min/no completefixture. Bounded COMPONENTcapture3120062 PASS65s/actualCP10refits125fusions;
+NNcapture3120067 PASS56s/twoactualFT40steps. Thesearegoldenreferencecaptures, NOTC++parity.
+NativeC++trainingsteporacleprepared/releaseHELD untilNNparity; full40epochunrun.
+§350 guard3119571→wholecellpilot3119687→failclosedcontroller3119719 queued; noresults/promotionyet.
+
+**Ownership and cadence.** Root ownscanonicaldocs/nativeIO/math/cores/tails/masterruntime/build.
+external_supervision_17nov owns350+nativegates/routing/CF/CP; fresh_information_346 ownsnativeNN/FT/training;
+performance_solver343 ownsnativeoptimizer/classicalsourceworkflow. 349/351/352complete; externalinstrumentowneridle.
+No paid/providerexecution; activeCPPsources isolatedfromfrozenpackages/runningaccuracyjobs.
 Usefollowup_task for completed owners. Keep sharedledgeradditions, immutable snapshots and unrelated files intact.
-Latest scheduledresearch10:49:35–11:04:39CET lasted15m04, reportresearch_4h_17nov_1051.md COMPLETE.
-Nextfour-hourblock≈14:51CET; do not duplicate delayed10:51trigger. Canonicalhistoryretained, notblind.
+Latest scheduledresearch14:58:15–15:15:16CET lasted17m01, reportresearch_4h_17nov_1458.md COMPLETE.
+Nextfour-hourblock≈18:58CET; do not duplicate delayed14:51trigger. Canonicalhistoryretained, notblind.
 Both50mincampaign/4hresearchheartbeats remainACTIVE through17Nov18:30UTC. SSHworks;renewonlyactualfailure.
 
 ## 2. Hard bounds (from the official code and rules)
