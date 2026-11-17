@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 12:38 CET
+### Current campaign: 17 November 2026, about 12:42 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -112,8 +112,9 @@ P09INDIVIDUAL-MODEL raw64.061/KD61.665/deranged63.051/teacher63.382%; actualteac
 Allsource/gradient/1240step/RNG/eightorderguards pass, allocated2.186CPUh/0GPU. NoFULL-SYSTEM DEV/rankgain.
 §346 COMPLETEdirect-summarypilot: A6raw64.061/matchedrefitB60.686/C+369signedslow+highpower65.447/
 run-derangedD60.640% P09INDIVIDUAL-MODEL. C−A+1.386pp,7/8orders; pooledNLLworse, notfullsystem/calibrationgain.
-OriginalAall8BITWISE, allguardsbeforelabels; .151CPUh/0GPU. FrozenNO-REFIT P02/P03extension preparing under
-samebody/source6/readouts/scalers; bothqueriesexcludedallfits, historicallyexposed/notindependent. Noautomaticmatrix.
+OriginalAall8BITWISE, allguardsbeforelabels; .151CPUh/0GPU. FrozenNO-REFIT extension3119224 COMPLETE:
+P02A65.646/C64.164%(−1.482pp); P03A56.227/C51.391%(−4.837pp). Samefrozenmethod/source6; allguardsbeforelabels.
+P09positive DIDNOTtransfer; thisreadoutnotready/fullsystemexpansionunjustified. Rawtask-outsidecrop sourceauditnext.
 Unusedtraininginformationaudit confirms7,592nominalcuedseconds outsideofficialcrop, notyetqualifiednewdata.
 
 **Ownership and cadence.** Root owns canonicaldocs/342collection. external_supervision_17nov owns321;

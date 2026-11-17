@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 12:38 CET
+# Campaign status: 17 November 2026, 12:42 CET
 
 Reporting: FULL-SYSTEM DEV / SEALED LEADERBOARD / INDIVIDUAL-MODEL must be explicit, with comparator.
 Custom stack=C++/CUDA; original raw neural reference=stockPyTorch336/338.
@@ -316,8 +316,10 @@ Pythoncostprojectionfailure/wrapperGPUhardcodefailurepreserved; explicitCPU0nati
 Cadds369signedslowtrajectory/high-bandpowerfeatures; Dsamewidthsource-run-labelblindderangement.
 C−A+1.3859pp(7/8orders), C−B+4.7608/C−D+4.8072pp; strongerAcontrolincluded, all8AprobabilitiesBITWISE.
 PooledNLLC.953>A.827: notcalibration/fullsystem/independentgain; relatedinfoalreadyincore/SessionEM.
-FrozenNO-REFIT P02/P03extension prepares sameA6/source6/heads/scalers/form/C=.01; allqueriesexcludedfits,
-but allthreepeoplepreviouslyexposed/selectionlimits explicit. No largeoutermatrix/fullsystemclaim.
+FrozenNO-REFIT extension3119224 COMPLETE: P02A65.646/B57.746/C64.164/D56.638%; P03A56.227/B51.770/C51.391/D51.883%.
+C−strongA−1.482/−4.837pp, sameA6/source6/heads/scalers/C=.01/0newfits; all4×2×8guards beforeeitherlabels.
+P09positive DOESNOTtransfer; no fullsystemexpansion. Allthreepeoplepreviouslyexposed/selectionlimitsexplicit.
+Next boundedrawtask-outsidecrop sourceaudit checksactualoldshiftedcropcoverage and tensor/cue provenance first.
 BIDSsourceinventory500Hz/41EEG/0EOG/EMG confirms7,592nominalunusedcuedseconds; cropdependenceunqualified.
 Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
 

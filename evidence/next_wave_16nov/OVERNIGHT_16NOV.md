@@ -1,6 +1,6 @@
 # NI26 active campaign handoff — 17 November
 
-Updated17Nov2026 12:38CET. Autonomous implementation/broader experiments/follow-ups authorized, Galvani only.
+Updated17Nov2026 12:42CET. Autonomous implementation/broader experiments/follow-ups authorized, Galvani only.
 Provisional18:00CET decisioncheckpoint; topfive remainsobjective. No automaticupload/messages/paidproviders/newterms.
 Account≤32running/272submitted with28reserve;controllersconservatively≤244active,preserveunrelatedjobs.
 Read STATE→targetedLEDGER→OFFICIAL_CONTRACT, STATUS andowninghandoffs; source/scoreguards beforeinterpretation.
@@ -69,7 +69,8 @@ Customstack=C++/CUDA; originalrawneuralreference=stockPyTorch336/338. No unquali
   Allnested/source/gradient/zero/eightorderguards beforelabels; no fullsystemgain/automaticgrid.
 - §346COMPLETE.151CPUh: P09A6raw64.061/Brefit60.686/C+369direct65.447/Dderanged60.640%, C−A+1.386pp.
   INDIVIDUAL-MODEL/exposedP09only, NLLworse; relatedslowinfoalreadyincore/SessionEM. OriginalA8banksBITWISE.
-  SamefrozenNO-REFIT P02/P03extension prepares; allqueriesexcludedfits, stillhistoricallyexposed/notindependent.
+  NO-REFIT3119224 COMPLETE: C−strongA P02−1.482/P03−4.837pp. P09positiveNOTtransfer; nofullsystemexpansion.
+  Actualoldshiftedcropcoverage/rawtensor/cueprovenance auditnext beforeunusedcuedtrainingdataquestion.
 - Rootcanonicaldocs;external_supervision321;fresh_information_346extension. Otherownerscompleted.
 - Bothcampaign50min/research4hheartbeatsACTIVE through17Nov18:30UTC. Latestresearch10:49:35–11:04:39CET15m04,
   research_4h_17nov_1051.md COMPLETE; NEXT≈14:51CET, no duplicatedelayed10:51block. Historyretained,notblind.
