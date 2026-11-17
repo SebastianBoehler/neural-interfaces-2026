@@ -20,7 +20,9 @@ class SosFilter {
  public:
   explicit SosFilter(const Tensor& sections);
   Tensor operator()(const Tensor& x) const;
+  Tensor with_float_padding(const Tensor& x) const;
  private:
+  Tensor apply(const Tensor& x, bool float_padding) const;
   Tensor coefficients_, initial_;
   int64_t pad_;
 };

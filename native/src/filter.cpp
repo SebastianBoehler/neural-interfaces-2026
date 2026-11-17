@@ -28,6 +28,13 @@ SosFilter::SosFilter(const Tensor& sections) {
   pad_ = 3 * (2 * coefficients_.size(0) + 1 - std::min(zero_a, zero_b));
 }
 Tensor SosFilter::operator()(const Tensor& input) const {
+  return apply(input, false);
+}
+Tensor SosFilter::with_float_padding(const Tensor& input) const {
+  require(input.scalar_type() == torch::kFloat32, "SOS float padding expects float32 input");
+  return apply(input, true);
+}
+Tensor SosFilter::apply(const Tensor& input, bool float_padding) const {
   require(input.dim() >= 1 && input.size(-1) > pad_, "window shorter than SOS padding");
   auto x = input.to(torch::kCPU, torch::kFloat64).contiguous();
   auto output = torch::empty_like(x);
@@ -58,13 +65,17 @@ Tensor SosFilter::operator()(const Tensor& input) const {
       }
     }
   };
+  auto odd_pad = [float_padding](double endpoint, double reflected) {
+    if (float_padding) return double(2.f * float(endpoint) - float(reflected));
+    return 2. * endpoint - reflected;
+  };
   for (int64_t row = 0; row < rows; row += lanes) {
     const auto active = std::min(rows - row, lanes);
     for (int64_t lane = 0; lane < lanes; ++lane) {
       const auto* source = raw + (row + std::min(lane, active-1))*n;
-      for (int64_t j = 0; j < pad_; ++j) padded[j][lane] = 2*source[0] - source[pad_-j];
+      for (int64_t j = 0; j < pad_; ++j) padded[j][lane] = odd_pad(source[0], source[pad_-j]);
       for (int64_t j = 0; j < n; ++j) padded[pad_+j][lane] = source[j];
-      for (int64_t j = 0; j < pad_; ++j) padded[pad_+n+j][lane] = 2*source[n-1] - source[n-2-j];
+      for (int64_t j = 0; j < pad_; ++j) padded[pad_+n+j][lane] = odd_pad(source[n-1], source[n-2-j]);
     }
     forward(); std::reverse(padded.begin(), padded.end());
     forward(); std::reverse(padded.begin(), padded.end());

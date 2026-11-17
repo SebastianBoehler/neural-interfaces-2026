@@ -27,7 +27,8 @@ std::pair<Tensor,Tensor> TangentCore::step(const Tensor& raw) {
   finite(raw,"tangent input");
   auto x=common_average_reference_float32(raw);
   std::vector<Tensor> bands;
-  for (const auto& filter : bank_) bands.push_back(filter(x).to(torch::kFloat32));
+  // SciPy reflects the float32 window before running the float64 SOS filter.
+  for (const auto& filter : bank_) bands.push_back(filter.with_float_padding(x).to(torch::kFloat32));
   auto b=torch::stack(bands);
   const bool analytic=z_.has("hilbert") && z_.number("hilbert")!=0;
   if (analytic) {
@@ -55,7 +56,7 @@ std::pair<Tensor,Tensor> TangentCore::step(const Tensor& raw) {
   auto tangent=spectral(torch::matmul(torch::matmul(whitening,cov),whitening),SpectralFunction::Log);
   auto features=upper_features(tangent).flatten();
   auto step=z_.integer("slow_step");
-  auto slow=slow_(x).slice(-1,step/2,480,step).flatten().to(torch::kFloat32).to(torch::kFloat64);
+  auto slow=slow_.with_float_padding(x).slice(-1,step/2,480,step).flatten().to(torch::kFloat32).to(torch::kFloat64);
   slow_sum_=slow_sum_.defined()?slow_sum_+slow:slow.clone();
   features=torch::cat({features,slow-slow_sum_/(prior+count_)});
   auto standardized=(features-z_.get("mu"))/z_.get("sd");
