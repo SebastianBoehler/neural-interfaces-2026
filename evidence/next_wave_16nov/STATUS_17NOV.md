@@ -178,3 +178,65 @@ The original raw §315consumer smoke passed and released3116968→3116969. At04:
 §31647/64 and raw §31512/54 treatment cells complete. Account115active/14running, no dead dependencies.
 All further scores await complete guarded matrices. Both automation prompts now refer to these current
 priorities and owning evidence, replacing obsolete pending-job instructions. No new package or upload.
+
+## Complete normalization and component results:17November,04:50CET
+
+§323's complete guarded80fits/20folds/128streams distinguish training from inference normalization.
+Without skip, causal versus fixed inference on identical fitted weights gains3.898 official points
+[80%2.216,5.875] for population-trained models and4.588[2.692,7.092] for SessionBN-trained models.
+People/order effects are4.437[2.093,6.814] and5.654[3.081,8.247],8/10 and9/10people up.
+Training-type contrasts alone cross zero. All eight whole-decoder official means:
+
+| Training | Skip | Fixed inference | Causal inference |
+| --- | --- | ---: | ---: |
+| PopulationBN | off |54.545%|58.443%|
+| PopulationBN | on |55.130%|58.014%|
+| SessionBN | off |53.820%|58.408%|
+| SessionBN | on |55.450%|59.045%|
+
+The skip attenuates the causal-minus-fixed contrast by about1point; its causal-arm effect is not
+established as harmful. This selected whole study explains part of the normalization question,
+not the entire earlier gap or a current-system gain. [Whole report](norm323_whole_results.json),
+[interactions](norm323_interactions.json). The [post-hoc prefix diagnostic](norm323_prefix_results.json)
+uses fixed full-cell/class weights and bins that sum exactly; most total contribution occurs after40windows,
+where most windows occur. It does not establish an age threshold or intrinsically easier late windows.
+
+All §323controls/replay/stage/input/zero/six-CP smoke passed.70remaining full-system cells3117101
+with concurrency4→scorer3117171→interaction report3117174; no partial chain score.
+§313's complete spectral core interventions establish no control gain: IMAG76.1050/BOTH76.1210%
+versus76.2177% control. [Chain report](spectral_s313_chain_results.json).
+§316's complete scalar adaptation beats fixed-update control by+.0806people/order[.0134,.1479],
+but scalar−current is−.0929[−.2416,+.0512]. Separate original307parity remains failed.
+
+Actual all6seed deployment's post-hoc §321B2_pool contrast is76.279335→76.551732%,+.2724official
+[.0049,.5271]; people/order+.2780[−.0070,+.5456],6/10up. Within/full/runs people effects
+are+.0203/+.6640/+.1496; delivery-scope transfer is uncertain. P04/P10 are new-person folds here.
+[Complete extraction](js321_pool_contrast.json). All six heldfold checkpoints and active adapter passed.
+The copied package preserves all1,047original arrays' bytes/dtypes/shapes/strides; a private copy's
+array-order change explained2e−16inner differences and was corrected without relaxing exact guards.
+The study-matched JS-all policy can change final recognized outputs despite exact inner-gate/FT-label parity.
+Six all10models3117189→collector3117190 gate isolated worker CPU3117196/A1003117197 checks.
+No package promotion; returning and runtime qualification remain open.
+
+§324's complete21bank source factorial passed all guards,8m51onA100. Full-intensity pretrained
+42.462% beat random by6.010points but lost to direct53.936/rawSessionBN62.299% across P02/P03.
+Full channels and frequency views did not consistently recover the deficit. [Scope/results](visual_s324.md).
+No outer expansion. §325 source-learned rendering and §326 conditional source-logit invariance are
+assigned next learning questions with controls, not measured gains or new independent representation families.
+
+### Package-guard correction,17November,about05:00CET
+
+All six initial §321all10tasks3117189 failed a normalization assertion before checkpoints/export;
+dead collector3117190 and worker jobs3117196/3117197 were cancelled. Source G/scale match the original
+package exactly. The error conflated causal inputEAprior5 with latentSessionBNprior2: `set_k(2)` changes
+the latter only. The old held-bank input metadata was wrong. Recovered weights, prealigned exports,
+disabled/inner identity and outer-mix algebra retain their measured scope; old raw-bank equivalence does not.
+The owner is preparing a separate corrected input-prior snapshot and end-to-end raw-window proof against
+all eight historical held streams, then one all10seed smoke before releasing the other five. No tolerance
+was relaxed and no failed run was relabeled. Corrected raw-input repair3117225 is now queued;
+active5 and a one-seed all10smoke precede any remaining-seed release. No ready package is claimed.
+
+§325source-learned rendering CPUguard3117222 is queued with conditional single-A100 continuation;
+§326source-class/person logit penalty prep3117223→A100pilot3117224 is queued. Both need real source,
+gradient/objective/reset guards before query accuracy; neither has an outer result. At05:00CET the
+account had82active/10running. Existing full-system evaluations continue independently.

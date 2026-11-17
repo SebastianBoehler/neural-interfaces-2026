@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 Nov 2026, about 04:15 CET
+### Current campaign: 17 Nov 2026, about 04:50 CET
 
 The user authorizes ongoing overnight implementation, broader whole alternatives and justified follow-ups.
 The provisional decision checkpoint is17November18:00CET. Top five is an objective, not a verified result.
@@ -29,9 +29,9 @@ people/order +.184[+.0323,+.3327],7/10up. Selected and small; no independent con
 §305 fixed-head native port preserves76.218%; converged fitting does not improve it.
 §308 nonlinear/kernel heads, §310 entropy transfer and §315 temporal additions establish no control gain.
 §313 imaginary spectral features beat matched real features in the whole decoder, but not BASE reliably;
-the full-system integration remains pending. BASE matches §305converged, not the historical §306original head.
+its complete full-system integration establishes no control gain. BASE matches §305converged, not §306historical.
 Original §301training-head and §307independent-refit parity failures remain failures. §316 is a separately
-registered common-anchor adaptation study, with exact static/source guards and its own ongoing full-system matrix.
+registered common-anchor study: learned scalar beats its fixed-update control slightly, but not the current system.
 
 **Representation and supervision results.** Complete §312GPU raw-pretraining whole models are weak:
 FBCNet S54.694/T53.899/C52.384/F45.934%; Shallow S50.062/T50.321/C51.511/F45.606%.
@@ -45,20 +45,29 @@ Source-only body/skip probes do not support skip dominance. §317's continued ex
 **New source evidence and follow-ups.** §322's matched normalization × skip pilot found
 SessionBN ahead by5.4–8.3points on P02/P03, with mixed smaller skip effects.
 These two source people were previously exposed; training and inference normalization changed together.
-§323 prospectively separates training norm from fixed/causal inference using identical fitted weights,
-both skip settings,10heldpeople×2seeds,80fits bundled into20cells and all8orders. CPU guard3117038
-and A100 smoke3117039 passed;19remaining cells3117052→wholecollector3117053→stage3117054
-→inputguard3117074→chain smoke3117055. Replay passed; private archive-matched controls are running.
+§323's complete80fit whole study separates those phases: same-weight causal inference gains3.898/4.588
+official points over fixed inference without skip, for population/SessionBN training respectively.
+Training-normalization contrasts alone are uncertain. Best whole arm59.045% remains below the current system;
+this quantifies a mechanism, not a chain or sealed gain. Replay, all controls, stage/input and chain smoke passed;
+70full-system cells3117101→scorer3117171→interaction report3117174 are queued, with no partial score read.
 §319 public DINOv2 engineering passed: full41/16row A100B1 about13/4.7ms. Fixed-PCA pretrained51.39%
 lost to random57.68/direct62.88% on one selected source person. §324 prepares distinct full-channel/frequency-time
-source controls; this does not close visual priors. §320 learned reliability was positive against its uniform
+source controls also completed: pretrained full-intensity42.46% versus direct53.94/rawSessionBN62.30%
+across two exposed source people; no outer expansion. §325 prepares a source-learned display comparison,
+and §326 audits source-class/person logit invariance on the strong native features. These are assigned learning forms,
+not additional completed representations. §320 learned reliability was positive against its uniform
 source comparator, but unchanged H60.115% failed68.60%quality; no outer expansion.
 
 **Candidate validation.** §321 recovered one CC30heldfold checkpoint exactly and passed CPU/CUDA export/reset checks.
 The study changes the OUTER mix after FT deltas, normalizes17units, and preserves original inner gates/labels/FT.
-A global checkpoint/weight swap is wrong. All6seed deployment correspondsB2_pool, not the six-base average.
-Its effect, six-seed active adapter parity, actual recognized/returning policy, worker checks and timing still need validation.
-Preserved inner-gate identity does not establish unchanged final recognized outputs. No new package is ready.
+A global checkpoint/weight swap is wrong. All6seed deployment correspondsB2_pool: selected+.2724official
+points, people/order+.2780[−.0070,+.5456], not the six-base average or independent confirmation.
+Six heldfold weights/prealigned exports, inner/off identity and mix algebra passed. All10array3117189 failed
+a normalization guard: inputEAprior is5, while latentSessionBNprior is2; old held-bank metadata conflated them.
+This invalidates the old raw-bank/study-equivalence claim, not the completed dev reports or recovered weights.
+Dead collector/worker dependencies were cancelled. Corrected raw-window→historical-stream proof and a one-seed
+all10smoke must precede another full release. JS-all continues after recognition; inner-gate identity is not
+final recognized identity. Returning and worker/timing checks remain unvalidated. No new package is ready.
 
 **Native stack and research cadence.** Paired CPU inference63–64ms versus cachedPython113–117ms has a narrow scope.
 ResidentA100 full source solve1.062s versus CPU238.483s also changes device/optimizer trajectory;
