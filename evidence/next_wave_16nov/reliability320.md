@@ -100,3 +100,14 @@ arms and complete outer producers first. No outer scorer or full consumer is rel
 Cost anchor: §31740epoch two-update arm~297–313s on6CPU, §312single-update sourceFBCNet213s.
 Nine10epoch single-update fits estimate6–12min plus I/O/ranker; request one6CPU/16GB/30min Galvani
 allocation, explicitCPU only. Account≤32running/272active and28reservedslots. Record actual cost.
+
+## Prepared and queued
+
+Single allocation3116903 is queued in
+`/mnt/lustre/work/gehler/gfh527/ni26_reliability320_20261117_pilot1`.
+Source manifestSHA`204c09593294d269a528f67d0640b59c560177fae043090ae7b1aa5f2b276726`.
+Python compile and Bash syntax checks passed; no real source smoke or320accuracy result yet.
+The job runs smoke first and stops on failure before the full pilot. Before execution its requested
+wall time was reduced30→20min (resource-only amendment) to improve backfill; scientific source remains
+immutable. At03:22CET the scheduler estimated03:49CET start; this is not a guaranteed start/completion.
+Account snapshot before submission14running/90pending. No further job or automatic outer release.
