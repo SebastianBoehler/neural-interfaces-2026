@@ -1,0 +1,32 @@
+{
+  "attempts": [
+    {
+      "job": 3120433,
+      "seconds": 17,
+      "cpus": 1,
+      "state": "FAILED",
+      "phase": "login vs worker OS library manifest, before compile"
+    },
+    {
+      "job": 3120467,
+      "seconds": 67,
+      "cpus": 1,
+      "state": "FAILED",
+      "phase": "standalone link omitted production transitive libraries, before forward"
+    },
+    {
+      "job": 3120517,
+      "seconds": 110,
+      "cpus": 1,
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "max_rss_kib": 1435796
+    }
+  ],
+  "total_allocated_core_seconds": 194,
+  "source_windows_executed": 1,
+  "optimizer_steps": 0,
+  "accuracy_computed": false,
+  "diagnostic_sha256": "b827c4e5c209a4b401d6df006c6dd36794f5a2dfa35f6b8ae5df78510ce7792f",
+  "worker_library_manifest_sha256": "a2e2f602fce7c365c92bbcf983d79f9b977b5ff2335f99724429a6c00e281489"
+}

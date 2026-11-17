@@ -7,6 +7,7 @@ import sys
 
 import numpy as np
 import torch
+from torch.jit._pickle import restore_type_tag
 
 
 def main():
@@ -17,7 +18,8 @@ def main():
     spec=importlib.util.spec_from_file_location('frozen_first_source_window',args.package/'submission.py')
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     with np.load(args.package/'weights.npz',allow_pickle=False) as archive:z={k:archive[k] for k in archive.files}
-    fixture=torch.load(args.fixture,weights_only=True,map_location='cpu');native=torch.load(args.native,weights_only=True,map_location='cpu')
+    fixture=torch.load(args.fixture,weights_only=True,map_location='cpu')
+    with torch.serialization.safe_globals([restore_type_tag]):native=torch.load(args.native,weights_only=True,map_location='cpu')
     x=fixture['known_x'][0].numpy();count=int(z['n_nets']);weights=z['member_weights'].astype(np.float64);weights/=weights.sum()
     bank=module.NetBank([module.with_prefix(z,f'net{i}_') for i in range(count)],weights[1:1+count]!=0,'cpu',args.package)
     actual=bank(x);ids=np.array([i for i,_ in actual]);host=np.stack([v for _,v in actual]);gold=fixture['known_probs'][0].numpy();cpp=native['probs'].numpy()
