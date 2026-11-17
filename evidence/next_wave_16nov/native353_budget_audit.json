@@ -1,0 +1,179 @@
+{
+  "checked_utc": "2026-11-17T16:03:14.709784+00:00",
+  "scope": "ALL registered section353 Slurm allocations, including failed/cancelled/timeout jobs and source captures; root allocation records only, no batch/extern duplication",
+  "method": "CPUTimeRAW = ElapsedRaw \u00d7 AllocCPUS; allocated CPU time, not observed utilization",
+  "jobs": [
+    {
+      "job": 3119620,
+      "name": "ni26-native353-source-route",
+      "state": "CANCELLED by 5394",
+      "elapsed_seconds": 11,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 22
+    },
+    {
+      "job": 3119621,
+      "name": "ni26-native353-source-route",
+      "state": "TIMEOUT",
+      "elapsed_seconds": 1201,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 2402
+    },
+    {
+      "job": 3119649,
+      "name": "ni26-native353-build",
+      "state": "FAILED",
+      "elapsed_seconds": 60,
+      "allocated_cpus": 4,
+      "allocated_core_seconds": 240
+    },
+    {
+      "job": 3119654,
+      "name": "ni26-native353-build",
+      "state": "FAILED",
+      "elapsed_seconds": 84,
+      "allocated_cpus": 4,
+      "allocated_core_seconds": 336
+    },
+    {
+      "job": 3119674,
+      "name": "ni26-native353-components",
+      "state": "FAILED",
+      "elapsed_seconds": 29,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 58
+    },
+    {
+      "job": 3119688,
+      "name": "ni26-native353-integrated",
+      "state": "FAILED",
+      "elapsed_seconds": 152,
+      "allocated_cpus": 4,
+      "allocated_core_seconds": 608
+    },
+    {
+      "job": 3120062,
+      "name": "ni26-native353-route-components",
+      "state": "COMPLETED",
+      "elapsed_seconds": 65,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 130
+    },
+    {
+      "job": 3120067,
+      "name": "ni26-native353-neural-source",
+      "state": "COMPLETED",
+      "elapsed_seconds": 56,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 112
+    },
+    {
+      "job": 3120077,
+      "name": "ni26-native353-full",
+      "state": "FAILED",
+      "elapsed_seconds": 186,
+      "allocated_cpus": 4,
+      "allocated_core_seconds": 744
+    },
+    {
+      "job": 3120215,
+      "name": "ni26-native353-existing",
+      "state": "FAILED",
+      "elapsed_seconds": 58,
+      "allocated_cpus": 4,
+      "allocated_core_seconds": 232
+    },
+    {
+      "job": 3120247,
+      "name": "ni26-native353-neural-recovery",
+      "state": "FAILED",
+      "elapsed_seconds": 265,
+      "allocated_cpus": 4,
+      "allocated_core_seconds": 1060
+    },
+    {
+      "job": 3120312,
+      "name": "ni26-native353-parity",
+      "state": "FAILED",
+      "elapsed_seconds": 302,
+      "allocated_cpus": 4,
+      "allocated_core_seconds": 1208
+    },
+    {
+      "job": 3120433,
+      "name": "ni26-native353-first-window",
+      "state": "FAILED",
+      "elapsed_seconds": 17,
+      "allocated_cpus": 1,
+      "allocated_core_seconds": 17
+    },
+    {
+      "job": 3120467,
+      "name": "ni26-native353-first-window",
+      "state": "FAILED",
+      "elapsed_seconds": 67,
+      "allocated_cpus": 1,
+      "allocated_core_seconds": 67
+    },
+    {
+      "job": 3120503,
+      "name": "ni26-core-precision",
+      "state": "COMPLETED",
+      "elapsed_seconds": 86,
+      "allocated_cpus": 1,
+      "allocated_core_seconds": 86
+    },
+    {
+      "job": 3120517,
+      "name": "ni26-native353-first-window",
+      "state": "COMPLETED",
+      "elapsed_seconds": 110,
+      "allocated_cpus": 1,
+      "allocated_core_seconds": 110
+    },
+    {
+      "job": 3120535,
+      "name": "ni26-core-CAR-repair",
+      "state": "COMPLETED",
+      "elapsed_seconds": 144,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 288
+    },
+    {
+      "job": 3120762,
+      "name": "ni26-native353-input-arithmetic",
+      "state": "COMPLETED",
+      "elapsed_seconds": 33,
+      "allocated_cpus": 1,
+      "allocated_core_seconds": 33
+    },
+    {
+      "job": 3120845,
+      "name": "ni26-core-source-fit",
+      "state": "FAILED",
+      "elapsed_seconds": 71,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 142
+    },
+    {
+      "job": 3120955,
+      "name": "ni26-core-source-fit",
+      "state": "FAILED",
+      "elapsed_seconds": 49,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 98
+    }
+  ],
+  "total_allocated_core_seconds": 7993,
+  "total_allocated_cpu_hours": 2.2202777777777776,
+  "limit_core_seconds": 14400,
+  "remaining_core_seconds": 6407,
+  "remaining_cpu_hours": 1.7797222222222222,
+  "queued_running_353_jobs": [],
+  "prospective_arithmetic_max_core_seconds": 0,
+  "initial_checked_utc": "2026-11-17 15:42:07 UTC",
+  "arithmetic_actual_core_seconds": 33,
+  "prospective_strict_neural_max_core_seconds": 1200,
+  "conservative_classical_source_reservation_core_seconds": 1200,
+  "remaining_after_both_max_core_seconds": 4007
+}

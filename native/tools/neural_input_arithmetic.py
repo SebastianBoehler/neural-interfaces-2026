@@ -34,14 +34,21 @@ def main():
         for window,x in enumerate(f['known_x']):
             raw=x.numpy();original_mean=raw.mean(-1,keepdims=True);torch_mean=x.mean(-1,True)
             expected=reference(raw);same=f['known_input'][window,j].numpy()
+            original_centered=raw-original_mean;shrink=float(p['shrink'])
+            original_cov=np.einsum('nct,ndt->ncd',original_centered[None],original_centered[None],dtype=np.float64)/480
+            trace=np.trace(original_cov,axis1=1,axis2=2)[:,None,None]/41
+            original_cov=((1-shrink)*original_cov+shrink*trace*np.eye(41))[0]
+            k=float(p['k']);original_R=(k*p['G']+reference.cov_sum)/(k+window+1)
+            original_P=module.eig_apply(original_R,lambda v:1/np.sqrt(np.maximum(v,1e-12)))
             stages={}
             for name,mean in [('torch_mean',torch_mean),('original_mean',torch.from_numpy(original_mean))]:
                 centered=(x-mean).to(torch.float64);cov=centered@centered.T/480
-                shrink=float(p['shrink']);cov=(1-shrink)*cov+shrink*cov.trace()/41*torch.eye(41,dtype=torch.float64)
-                sums[name]=sums[name]+cov;k=float(p['k']);R=(k*prior+sums[name])/(k+window+1)
+                cov=(1-shrink)*cov+shrink*cov.trace()/41*torch.eye(41,dtype=torch.float64)
+                sums[name]=sums[name]+cov;R=(k*prior+sums[name])/(k+window+1)
                 values,vectors=torch.linalg.eigh(R,UPLO='L');P=(vectors*values.clamp_min(1e-12).rsqrt()[None,:])@vectors.T
                 transformed=(P@x.to(torch.float64)).to(torch.float32)
-                stage=dict(output=difference(transformed.numpy(),expected),covsum=difference(sums[name].numpy(),reference.cov_sum))
+                stage=dict(centered=difference(centered.numpy(),original_centered.astype(np.float64)),cov=difference(cov.numpy(),original_cov),
+                    covsum=difference(sums[name].numpy(),reference.cov_sum),R=difference(R.numpy(),original_R),P=difference(P.numpy(),original_P),output=difference(transformed.numpy(),expected))
                 if window==0:stage['native_capture']=difference(transformed.numpy(),native[f'input_{member}'].numpy())
                 stages[name]=stage
             records.append(dict(member=member,window=window,original_vs_golden=difference(expected,same),mean=difference(torch_mean.numpy(),original_mean),stages=stages))
