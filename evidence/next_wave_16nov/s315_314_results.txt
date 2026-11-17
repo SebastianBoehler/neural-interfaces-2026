@@ -1,0 +1,11 @@
+§281 new-person cell-balanced accuracy; six bases, scheme-equal, 80% people/order bootstrap
+Routing uses §201 fold-specific emulation; packaged gate and routed returning-person tail are not validated.
+P04/P10 are held-out new people, not returning-session scores.
+control cell-equal: {'mean': 76.21767294925993, 'interval': [69.59571807614846, 83.5901502764241]}
+control: 79.635 [75.29892119978706, 83.76666914557221] P04 52.472 P10 82.878
+TF - control cell-equal: {'mean': -0.11563152836784472, 'interval': [-0.29793375583387866, 0.0658444439294711]}
+TF - control: -0.136 [-0.312248929705669, 0.035431858443538224] up 6/10 P04 +0.282 P10 -0.409 schemes {'within': -0.31976577355131736, 'full': 0.00294373854576655, 'runs': -0.0921824261571281}
+TFD - control cell-equal: {'mean': -0.10979321756408059, 'interval': [-0.2708775623303201, 0.10709198581557473]}
+TFD - control: +0.008 [-0.15832439636289894, 0.18157904065142025] up 6/10 P04 -0.302 P10 -0.509 schemes {'within': -0.03855312505156938, 'full': 0.024258679443025954, 'runs': 0.03930650569975604}
+TFD - TF cell-equal: {'mean': 0.005838310803764128, 'interval': [-0.1952366944541571, 0.2667579102119115]}
+TFD - TF: +0.145 [-0.05219245160831499, 0.3544937225918574] up 6/10 P04 -0.583 P10 -0.099 schemes {'within': 0.281212648499748, 'full': 0.021314940897259403, 'runs': 0.13148893185688415}
