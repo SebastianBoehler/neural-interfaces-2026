@@ -1,6 +1,7 @@
 #include "ni26/math.h"
 #include <torch/torch.h>
 #include <algorithm>
+#include <array>
 #include <vector>
 
 namespace ni26 {
@@ -34,26 +35,43 @@ Tensor SosFilter::operator()(const Tensor& input) const {
   const auto* coefficients = coefficients_.data_ptr<double>();
   const auto* initial = initial_.data_ptr<double>();
   const auto* raw = x.data_ptr<double>(); auto* result = output.data_ptr<double>();
-  std::vector<double> padded(n + 2 * pad_);
+  constexpr int64_t lanes = 4;
+  using Values = std::array<double, lanes>;
+  std::vector<Values> padded(n + 2 * pad_);
   auto forward = [&] {
-    const double first = padded.front();
+    const auto first = padded.front();
     for (int64_t s = 0; s < coefficients_.size(0); ++s) {
       const auto* c = coefficients + 6*s;
-      double z0 = initial[2*s] * first, z1 = initial[2*s+1] * first;
-      for (double& v : padded) {
-        double y = c[0] * v + z0;
-        z0 = c[1] * v - c[4] * y + z1; z1 = c[2] * v - c[5] * y; v = y;
+      Values z0, z1;
+      for (int64_t lane = 0; lane < lanes; ++lane) {
+        z0[lane] = initial[2*s] * first[lane];
+        z1[lane] = initial[2*s+1] * first[lane];
+      }
+      for (auto& step : padded) {
+        for (int64_t lane = 0; lane < lanes; ++lane) {
+          const double v = step[lane];
+          const double y = c[0] * v + z0[lane];
+          z0[lane] = c[1] * v - c[4] * y + z1[lane];
+          z1[lane] = c[2] * v - c[5] * y;
+          step[lane] = y;
+        }
       }
     }
   };
-  for (int64_t row = 0; row < rows; ++row) {
-    const auto* source = raw + row*n;
-    for (int64_t j = 0; j < pad_; ++j) padded[j] = 2*source[0] - source[pad_-j];
-    std::copy(source, source+n, padded.begin()+pad_);
-    for (int64_t j = 0; j < pad_; ++j) padded[pad_+n+j] = 2*source[n-1] - source[n-2-j];
+  for (int64_t row = 0; row < rows; row += lanes) {
+    const auto active = std::min(rows - row, lanes);
+    for (int64_t lane = 0; lane < lanes; ++lane) {
+      const auto* source = raw + (row + std::min(lane, active-1))*n;
+      for (int64_t j = 0; j < pad_; ++j) padded[j][lane] = 2*source[0] - source[pad_-j];
+      for (int64_t j = 0; j < n; ++j) padded[pad_+j][lane] = source[j];
+      for (int64_t j = 0; j < pad_; ++j) padded[pad_+n+j][lane] = 2*source[n-1] - source[n-2-j];
+    }
     forward(); std::reverse(padded.begin(), padded.end());
     forward(); std::reverse(padded.begin(), padded.end());
-    std::copy(padded.begin()+pad_, padded.begin()+pad_+n, result+row*n);
+    for (int64_t lane = 0; lane < active; ++lane) {
+      auto* dest = result + (row+lane)*n;
+      for (int64_t j = 0; j < n; ++j) dest[j] = padded[pad_+j][lane];
+    }
   }
   return output;
 }
