@@ -1,0 +1,21 @@
+{
+  "checked_at": "17 Nov 2026 01:12 CET",
+  "source": "https://www.codabench.org/api/phases/30483/get_leaderboard/",
+  "submission_id": 1050185,
+  "displayed_rank": 16,
+  "distinct_team_rank": 15,
+  "displayed_score": 0.82,
+  "recorded_exact_score": 0.8197668759,
+  "leader_displayed_score": 0.859,
+  "fifth_displayed_score": 0.839,
+  "fifth_distinct_team_score": 0.837,
+  "v66_unvalidated_score_scenario": [
+    0.824,
+    0.829
+  ],
+  "v66_displayed_rank_scenario": [
+    10,
+    14
+  ],
+  "note": "Public API returns rounded scores; forecast is not a confidence interval or sealed result."
+}

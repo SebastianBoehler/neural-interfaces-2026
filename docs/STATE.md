@@ -9,6 +9,18 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
+### Live check: 17 Nov 2026, about 01:15 CET
+
+[Current results, jobs and estimated times](../evidence/next_wave_16nov/STATUS_17NOV.md) supersedes older queue snapshots.
+Live Codabench now ranks uploaded v5.1b 16th by entry, 15th after merging team entries; leader .859.
+Prepared v6.6 is unchanged. Its unvalidated .824–.829 scenario maps to about10th–14th by entry.
+§314 temporal features improve their matched weak decoder by2.182 official points, but not a package gain.
+§310 entropy-sign transfer and §306 interface experts do not establish a new current-system gain.
+§305/308 CPU evaluation now runs at four allocations each. §304 provenance recovery passed and its69cell
+wave is running. §307 independent anchor parity remains under diagnosis with the original strict guard.
+§312 GPU guards passed, but production is queue-limited; shorter reservations are being assessed from measured cost.
+No upload was made. Fresh SSH master started01:02CET; no server/VPN expiry time has been verified.
+
 ### Overnight update: 17 Nov 2026, about 00:22 CET
 
 The user authorizes changes throughout this codebase, including earlier architectures, split choices,
