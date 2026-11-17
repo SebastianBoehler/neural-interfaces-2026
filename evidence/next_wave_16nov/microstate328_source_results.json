@@ -1,0 +1,211 @@
+{
+  "source_only": true,
+  "P01_labels_opened": false,
+  "previously_exposed_queries": [
+    "P02",
+    "P03"
+  ],
+  "results": {
+    "raw287": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.4477486559139785,
+          "balanced_accuracy_session_mean": 0.4480873442566991,
+          "balanced_accuracy": 0.4480873442566991,
+          "accuracy": 0.4497354497354497,
+          "n_cells": 2,
+          "cell_scores": [
+            0.3746639784946237,
+            0.5208333333333334
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.44218189964157706,
+          "balanced_accuracy_session_mean": 0.4424549837856289,
+          "balanced_accuracy": 0.4424549837856289,
+          "accuracy": 0.43915343915343913,
+          "n_cells": 2,
+          "cell_scores": [
+            0.40519713261648743,
+            0.4791666666666667
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.4449652777777778,
+      "feature_sha256": "267ebe372d0456b76b3a11c145c5aa06228ebe0edbb605e3c702ec705ba43210",
+      "dimensions": 287
+    },
+    "occupancy": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.39672939068100366,
+          "balanced_accuracy_session_mean": 0.3961133512544803,
+          "balanced_accuracy": 0.3961133512544803,
+          "accuracy": 0.3968253968253968,
+          "n_cells": 2,
+          "cell_scores": [
+            0.44970878136200726,
+            0.34375
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.30308019713261647,
+          "balanced_accuracy_session_mean": 0.302235343061956,
+          "balanced_accuracy": 0.302235343061956,
+          "accuracy": 0.30158730158730157,
+          "n_cells": 2,
+          "cell_scores": [
+            0.3040770609318996,
+            0.3020833333333333
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.34990479390681006,
+      "feature_sha256": "47f2753080ed23bc992945201c5cf13179cdf7978a4d372c8c7fc66e61c366a2",
+      "dimensions": 16
+    },
+    "raw_occupancy": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.46320564516129037,
+          "balanced_accuracy_session_mean": 0.46321364567332307,
+          "balanced_accuracy": 0.46321364567332307,
+          "accuracy": 0.4656084656084656,
+          "n_cells": 2,
+          "cell_scores": [
+            0.4055779569892473,
+            0.5208333333333334
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.5085013440860215,
+          "balanced_accuracy_session_mean": 0.5093232633555215,
+          "balanced_accuracy": 0.5093232633555215,
+          "accuracy": 0.5079365079365079,
+          "n_cells": 2,
+          "cell_scores": [
+            0.48575268817204303,
+            0.53125
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.48585349462365596,
+      "feature_sha256": "45975325a27f02aac0d40c340fe3daf2bad908dbffa0d8500af0d8fa46a8ad18",
+      "dimensions": 303
+    },
+    "ordered": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.4378472222222223,
+          "balanced_accuracy_session_mean": 0.4380066990954088,
+          "balanced_accuracy": 0.4380066990954088,
+          "accuracy": 0.43915343915343913,
+          "n_cells": 2,
+          "cell_scores": [
+            0.3756944444444445,
+            0.5
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.4975582437275986,
+          "balanced_accuracy_session_mean": 0.4974745050349889,
+          "balanced_accuracy": 0.4974745050349889,
+          "accuracy": 0.4973544973544973,
+          "n_cells": 2,
+          "cell_scores": [
+            0.49511648745519715,
+            0.5
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.46770273297491044,
+      "feature_sha256": "3443595610e0276ac22c88075a95579115ab6bb4380ec73d9365d1cdd08158a6",
+      "dimensions": 575
+    },
+    "shuffled": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.47799059139784944,
+          "balanced_accuracy_session_mean": 0.47834794760197985,
+          "balanced_accuracy": 0.47834794760197985,
+          "accuracy": 0.48148148148148145,
+          "n_cells": 2,
+          "cell_scores": [
+            0.41431451612903225,
+            0.5416666666666666
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.4407930107526882,
+          "balanced_accuracy_session_mean": 0.440097499573306,
+          "balanced_accuracy": 0.440097499573306,
+          "accuracy": 0.43915343915343913,
+          "n_cells": 2,
+          "cell_scores": [
+            0.42325268817204303,
+            0.4583333333333333
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.4593918010752688,
+      "feature_sha256": "a98c39e02ff2e36825b91dc024869508d4d068570c6ba3e3d46797cdb87f938f",
+      "dimensions": 575
+    },
+    "random": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.4319556451612903,
+          "balanced_accuracy_session_mean": 0.4321316564260112,
+          "balanced_accuracy": 0.4321316564260112,
+          "accuracy": 0.43386243386243384,
+          "n_cells": 2,
+          "cell_scores": [
+            0.353494623655914,
+            0.5104166666666666
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.4498207885304659,
+          "balanced_accuracy_session_mean": 0.45093285970302094,
+          "balanced_accuracy": 0.45093285970302094,
+          "accuracy": 0.4497354497354497,
+          "n_cells": 2,
+          "cell_scores": [
+            0.33714157706093184,
+            0.5625
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.4408882168458781,
+      "feature_sha256": "24b228aa4b1319d4a6a8943eef81a2d0917069726f24b24ddbeeba7f855db475",
+      "dimensions": 575
+    }
+  },
+  "guard": {
+    "passed": true,
+    "labels_opened": false,
+    "P01_excluded": true,
+    "fit_people": [
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P09",
+      "P10"
+    ],
+    "source_rows_sha256": "393a55907c2473964e5cf0bfceddac770ee3e9b4e7c0d06670c57b0f1ff70b24",
+    "query_rows_sha256": "c81881681ebb5e19b41eb574436584c2cc14f52fd18854215cc03b8fade4aaed",
+    "codebook_sha256": "0e0d62f6b6efecaba1743af05f006117fdb375086ede066ca93b3aa7257990e9",
+    "data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+    "source_sha256": "4dade504b4011b6697c3a2a78d073b342b05cce70581ec24da173e950b1c3527",
+    "seconds": 7.123174781911075
+  },
+  "whole_model_b1_ms_median": 1.8633934669196606,
+  "timing_scope": "all six feature banks plus ordered head, CPU B1;conservative pilot path",
+  "total_seconds": 34.25179476477206,
+  "peak_rss_kib": 1572724,
+  "source_sha256": "4dade504b4011b6697c3a2a78d073b342b05cce70581ec24da173e950b1c3527",
+  "label_reader_sha256": "35edab56fe754e6c77a81f54f2010baca7e0912af55af9564043b2a8bde8c4dc",
+  "limitation": "two exposed source people;no outer/current-system/returning/sealed gain"
+}

@@ -1,0 +1,67 @@
+{
+  "checked_utc": "2026-11-17T04:18:56.731138+00:00",
+  "huggingface_revision": "72189644cef9a91b7b436c5f37f083c1366e2f21",
+  "gated": false,
+  "private": false,
+  "last_modified": "2026-11-08T08:24:43.000Z",
+  "code_revision": "59e4e7ea2d855cda5573c312b380b109f1856764",
+  "selected_models": [
+    {
+      "id": "atom-base",
+      "model": "Atom-B",
+      "architecture": "labram_base_patch200_200",
+      "format": "safetensors",
+      "file": "atom/atom-base.safetensors",
+      "file_bytes": 36636632,
+      "export_sha256": "0e40253e5fc6a7b08b55760634e66c50ce5afe183663f434d5db793f39e295fb",
+      "input_contract": {
+        "sample_rate_hz": 200,
+        "patch_samples": 200,
+        "normalization": "scale_0.01"
+      }
+    },
+    {
+      "id": "atom-large",
+      "model": "Atom-L",
+      "architecture": "labram_large_patch200_200",
+      "format": "safetensors",
+      "file": "atom/atom-large.safetensors",
+      "file_bytes": 212001576,
+      "export_sha256": "a28e97f7bd73bd7ff55f3b5d680f48807c335cf3134d1281228a061056aaf52b",
+      "input_contract": {
+        "sample_rate_hz": 200,
+        "patch_samples": 200,
+        "normalization": "scale_0.01"
+      }
+    },
+    {
+      "id": "atom-base",
+      "model": "Atom-B",
+      "architecture": "labram_base_patch200_200",
+      "format": "safetensors",
+      "file": "best-full-ft/atom/atom-base.safetensors",
+      "file_bytes": 36636632,
+      "export_sha256": "c303d69892012656392cfea63deb0cd1424efffa0d88fb007ee19128b4310bcc",
+      "input_contract": {
+        "sample_rate_hz": 200,
+        "patch_samples": 200,
+        "normalization": "scale_0.01"
+      }
+    },
+    {
+      "id": "atom-large",
+      "model": "Atom-L",
+      "architecture": "labram_large_patch200_200",
+      "format": "safetensors",
+      "file": "best-full-ft/atom/atom-large.safetensors",
+      "file_bytes": 212001576,
+      "export_sha256": "ff09aeda4a4cb4d89ecc88001f1aa9528afe32ce4191ed9ad70177fdaee2b7ed",
+      "input_contract": {
+        "sample_rate_hz": 200,
+        "patch_samples": 200,
+        "normalization": "scale_0.01"
+      }
+    }
+  ],
+  "weights_downloaded": false
+}
