@@ -1,14 +1,14 @@
 # Owned continuation: §321, §320, §317 (17 Nov)
 
 Current §321 preparation is experimental. No frozen submission/ZIP changed; no upload, promotion or new version.
-Source/evidence pushed through d5a4b6c. Root owns canonical STATE/STATUS/handoff/research docs.
+Source/evidence recovery pushed through d339827; follow-up proof commit pending. Root owns canonical STATE/STATUS/handoff/research docs.
 
 - CURRENT: raw-input repair3117225 passed0:0 actual05:00:08–05:01:07CET(59s). Snapshot `ni26_js321_20261117_inputrepair1`.
 - All6historical P01 heldweights/traces reused by hashes; actual rawInputStream input_prior_k5→export latent_bn_k2 matches all8historical orders, max8.607e−7/0non-tiedchanges. `js321_raw_input_repair.json`.
-- Active5/3117230 running corrected full exactoff/inner/FTlabel/gate/reset/deepcopy/6draw×8order guards in immutable `ni26_js321_20261117_active5`.
-- Afterok independent controller3117231 in `ni26_js321_20261117_orchestration4` verifies every source/build/recovery/raw/state proof, then releases ONEall10seed0 normalization/export smoke.
-- After successful seed0 artifact/input/export/reset/deepcopy proof, remaining controller releases seeds1–5(%2) and owning completecollector, reusing canonicalpassedseed0. Dynamic IDs: `orchestration4/smoke_jobs.json`, then `released.json`.
-- Worker2observer3117232 dynamically waits actualnewcompletecollector and queues independent CPU/A100 worker probes afterok. IDs: `ni26_js321_20261117_worker2/worker_jobs.json`.
+- Active5/3117230 PASS0:0 actual05:02:07–05:10:03CET(7m56s); full raw-corrected exactoff/inner/FTlabel/gate/reset/deepcopy and6draw×8order guards passed. `js321_active5_outer_path.json`.
+- ONEcanonicalall10seed0/3117236_0 PASS0:0(58s;fit34.05s), input_prior_k5/latent_bn_k2, InputStreammax1.46e−11/CPUexport7.10e−6/CUDA7.29e−6/reset/deepcopy/hash pass. `js321_all10_seed0_smoke.json`.
+- Independentorch4controller3117237 validatedsmoke→remaining5seedarray3117240(%2)→completecollector3117241; canonicalpassedseed0 reused. Workspace `ni26_js321_20261117_orchestration4`.
+- Worker2observer3117239 bound actualcollector→independentCPU3117246/A1003117247 afterok3117241. Workspace `ni26_js321_20261117_worker2`; corrected IDs in js321_corrected_{deployment,worker}_jobs.json.
 - Worker2 source has prospective knownrec10/FT0/CPstop10 and forcedunrecognized no-rec/no-stop; exact eligible FT/CP refit/fusion schedule counts, no FTbudget skip/runtimeerror; single-classCP attempts explicitly reported.
 - Worker image clean isolated import/compile preflight passed. CPUratio bar is engineering overhead only: CPUratio×historicalA10043.5min is NOT CPUsealedtime/A100timeout evidence. A100historical basis conditional, not wholeworker-limit proof.
 - Both device probes retain first-ratio-failure stop (≤1.061008 for hour-slack1.3 engineering bar); no later-row harvesting. No worker timing result yet.

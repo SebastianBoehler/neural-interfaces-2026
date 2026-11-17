@@ -1,0 +1,58 @@
+{
+  "cpu_dtype": "float32",
+  "torch_threads": 1,
+  "torch_interop_threads": 4,
+  "blas_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "torch_rng_before": "ac3037f83aaaee338f45232670d4058e476c087003b80122bc06e3e731eb04fb",
+  "torch_rng_after": "ac3037f83aaaee338f45232670d4058e476c087003b80122bc06e3e731eb04fb",
+  "status": "generated_bundle_active_engineering_guards_passed",
+  "cases": {
+    "known": {
+      "original_repeat_bitwise": true,
+      "disabled_final_bitwise": true,
+      "inner_bitwise": true,
+      "original_ft_labels_bitwise": true,
+      "owning_mix_max_error": 2.220446049250313e-16,
+      "route_share": 0.05882352941176472,
+      "recognized_at": 10,
+      "active_before10_changed_rows": 10,
+      "active_after_rec_changed_rows": 35,
+      "fbl_ft_delta": 0.0,
+      "old_fb_ft_delta_excluded": 0.0,
+      "cc_calls": 45,
+      "reset_deepcopy_prefix": true,
+      "cp_fused": 0,
+      "scope": "engineering in-sample components;no accuracy"
+    },
+    "unrecognized": {
+      "original_repeat_bitwise": true,
+      "disabled_final_bitwise": true,
+      "inner_bitwise": true,
+      "original_ft_labels_bitwise": true,
+      "owning_mix_max_error": 3.3306690738754696e-16,
+      "route_share": 0.05882352941176472,
+      "recognized_at": -1,
+      "active_before10_changed_rows": 10,
+      "active_after_rec_changed_rows": 0,
+      "fbl_ft_delta": 0.15430067291890243,
+      "old_fb_ft_delta_excluded": 0.252313376217733,
+      "cc_calls": 45,
+      "reset_deepcopy_prefix": true,
+      "cp_fused": 0,
+      "scope": "engineering in-sample components;no accuracy"
+    }
+  },
+  "seconds": 398.5682996828109,
+  "source_sha256": "adfe86c94aafd90ad1f6a9310b3a1e3e976d1addd8c6149e76e841011d82d228",
+  "build_sha256": "a320bd2cffeadbce5b972acfbcc70ed454d1b339ab0368b712046db3efee410c",
+  "original_inner_gate_identity": true,
+  "original_ft_label_identity": true,
+  "disabled_identity": true,
+  "study_outer_mix_parity": true,
+  "route_share17_verified": true,
+  "limitations": "P01CC30heldfold;other original members all10;no heldwhole/returning/lateCP/worker/timing claim"
+}

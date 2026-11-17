@@ -1,0 +1,22 @@
+{
+  "proof": {
+    "active_source": "adfe86c94aafd90ad1f6a9310b3a1e3e976d1addd8c6149e76e841011d82d228",
+    "active_proof": "3b4ea9f74ff7d73065a76f092d9e8311596186e956b45c80219d27b554acdeef",
+    "recovery": "9a1e084eb4fc37e0de8185f840cc1b1d11dec4d23f79b3d73120f35108ffbf41",
+    "policy": "JS-all"
+  },
+  "smoke": {
+    "proof": {
+      "active_source": "adfe86c94aafd90ad1f6a9310b3a1e3e976d1addd8c6149e76e841011d82d228",
+      "active_proof": "3b4ea9f74ff7d73065a76f092d9e8311596186e956b45c80219d27b554acdeef",
+      "recovery": "9a1e084eb4fc37e0de8185f840cc1b1d11dec4d23f79b3d73120f35108ffbf41",
+      "policy": "JS-all"
+    },
+    "smoke": "3117236",
+    "remaining_controller": "3117237"
+  },
+  "train": "3117240",
+  "collector": "3117241",
+  "canonical_seed0_sha256": "e2da7a830c049c270cfdc3733a046f9dc266a63f7a289495fba27d20c36d2210",
+  "training": "all10 deployment only;no score"
+}

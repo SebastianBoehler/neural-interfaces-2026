@@ -1,0 +1,39 @@
+{
+  "input_prior_k": 5.0,
+  "latent_bn_k": 2.0,
+  "seed": 0,
+  "fit_people": [
+    "Dreyer2026Proteus/P01",
+    "Dreyer2026Proteus/P02",
+    "Dreyer2026Proteus/P03",
+    "Dreyer2026Proteus/P04",
+    "Dreyer2026Proteus/P05",
+    "Dreyer2026Proteus/P06",
+    "Dreyer2026Proteus/P07",
+    "Dreyer2026Proteus/P08",
+    "Dreyer2026Proteus/P09",
+    "Dreyer2026Proteus/P10"
+  ],
+  "held": null,
+  "use": "all10 deployment only;never a heldfold prediction",
+  "source_manifest": "b114ad15e3c989316013518f0ebdb73ac64157030eecd6dcdff80f46226fedd1",
+  "guard_sha256": "fa059acfb9f815cdbd696f05e3ac8910262e4ddcc44e26231f2e8196aea60100",
+  "active_path_sha256": "3b4ea9f74ff7d73065a76f092d9e8311596186e956b45c80219d27b554acdeef",
+  "base_zip_sha256": "9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed",
+  "parameter_sha256": "17c2b37d0aa6f6deae38ddde1f78d7451e40eebaf6f7531fc1a51b7787dd7a15",
+  "fit_seconds": 34.04582895990461,
+  "input_stream_max_error": 1.4551915228366852e-11,
+  "export": {
+    "cpu_probability_errors": {
+      "17": 2.1311123054035264e-06,
+      "61": 3.4046754651684275e-06,
+      "190": 7.101537738973818e-06
+    },
+    "cuda_probability_error": 7.2852997841099665e-06,
+    "saved_reset": true,
+    "deepcopy_interleaved": true,
+    "stream_buffers": 3,
+    "trace_sha256": "c1589c317c69b1faa262f6b5dbd40dd0e23e86da864c2ff64096baea1dbcfe1f"
+  },
+  "checkpoint_sha256": "e2da7a830c049c270cfdc3733a046f9dc266a63f7a289495fba27d20c36d2210"
+}
