@@ -27,3 +27,5 @@
 - Source files: `studies/17nov/aux317/`; local compile/Bash syntax and private315patch/2seed6base adapter tests passed.
 - Old sourcepilot workspaces remainimmutable: `ni26_aux317_20261117_smoke1`, `ni26_aux317_20261117_pilot1`.
 - Account reservation:≤32running/272active; controllers preserve28submission slots; capacity waitsbounded50min.
+- Wave0released24cells as3116807%4; nextdispatcher3116808 waitsafterok. Account15running/170pending afterrelease.
+- Source/evidence committed and pushed46281fe; no partialouteraccuracy examined.
