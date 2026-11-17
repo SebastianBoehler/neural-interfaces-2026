@@ -10,6 +10,7 @@
 using namespace ni26;
 namespace {
 std::map<std::string, double> errors;
+bool numeric_failed = false;
 void same(const std::string &key, const Tensor &actual, const Tensor &expected,
           double tolerance = 1e-6) {
   require(actual.sizes() == expected.sizes(), "shape differs: " + key);
@@ -22,7 +23,11 @@ void same(const std::string &key, const Tensor &actual, const Tensor &expected,
   if (error > tolerance)
     std::cerr << key << " maxabs=" << std::setprecision(17) << error << " tolerance=" << tolerance
               << '\n';
-  require(error <= tolerance, key + " maxabs=" + std::to_string(error));
+  if (error > tolerance) {
+    if (tolerance == 0)
+      throw std::runtime_error(key + " exact structural/copy guard failed");
+    numeric_failed = true;
+  }
 }
 Decision decision(const Tensor &x) {
   if (x[0].item<int64_t>() < 0)
@@ -35,6 +40,8 @@ int main(int argc, char **argv) {
     require(argc == 4, "usage: neural_source PARAMS FIXTURE MODULE_ROOT");
     torch::set_num_threads(1);
     auto z = Params::load(argv[1]), f = Params::load(argv[2]);
+    Params observed;
+    observed.tensors["native_format"] = torch::tensor(1, torch::kInt64);
     for (const std::string mode : {"known", "unknown"}) {
       auto x = f.get(mode + "_x");
       for (int64_t i = 0; i < x.size(0); ++i) {
@@ -75,31 +82,36 @@ int main(int argc, char **argv) {
         for (size_t j = 0; j < step.ids.size(); ++j)
           same(mode + "/member/" + std::to_string(step.ids[j]) + "/window/" + std::to_string(i),
                step.probabilities[j], read("probs")[j]);
-        same(mode + "/eye", eye.step(x[i]), read("eye"));
-        same(mode + "/rest", rest.step(x[i]), read("rest"));
+        same(mode + "/eye/window/" + std::to_string(i), eye.step(x[i]), read("eye"));
+        same(mode + "/rest/window/" + std::to_string(i), rest.step(x[i]), read("rest"));
         RelabelFn relabel = [&](int64_t count) -> std::optional<Tensor> {
           auto key = mode + "_relabel_" + std::to_string(count);
           return f.has(key) ? std::optional<Tensor>(f.get(key)) : std::nullopt;
         };
         auto tuned = ft.step(step, read("label"), relabel);
         auto active = read("ft_active");
+        auto stats = ft.stats();
         for (size_t j = 0; j < names.size(); ++j) {
           require(bool(tuned.count(names[j])) == bool(active[j].item<int64_t>()),
                   "fine-tuning activity differs");
           if (tuned.count(names[j]))
-            same(mode + "/fine_tune/" + names[j], tuned.at(names[j]), read("ft")[j]);
+            observed.tensors[mode + "_ft_" + names[j] + "_" + std::to_string(i)] =
+                tuned.at(names[j]).clone();
+          if (tuned.count(names[j]))
+            same(mode + "/fine_tune/" + names[j] + "/window/" + std::to_string(i) + "/refits/" +
+                     std::to_string(stats.refits),
+                 tuned.at(names[j]), read("ft")[j]);
         }
-        auto stats = ft.stats();
         auto expected = read("ft_stats");
         std::vector<int64_t> counts{stats.refits, stats.steps, stats.relabels, stats.capped,
                                     stats.over};
-        same(mode + "/ft_counters", torch::tensor(counts, torch::kInt64), expected.slice(0, 0, 5),
-             0);
-        same(mode + "/ft_change", torch::tensor(stats.maximum_parameter_change, torch::kFloat64),
-             expected[5]);
+        same(mode + "/ft_counters/window/" + std::to_string(i),
+             torch::tensor(counts, torch::kInt64), expected.slice(0, 0, 5), 0);
+        same(mode + "/ft_change/window/" + std::to_string(i),
+             torch::tensor(stats.maximum_parameter_change, torch::kFloat64), expected[5]);
         auto out = outer.step_given(x[i], read("u"), read("mix6"), read("core1"), read("eye"),
                                     decision(read("contrast")), decision(read("identity")));
-        same(mode + "/outer", out, read("outer"), 1e-8);
+        same(mode + "/outer/window/" + std::to_string(i), out, read("outer"), 1e-8);
         if (i == 4) {
           NetBank a = bank, b = bank;
           auto pa = a.step(x[i + 1]), pb = b.step(x[i + 1]);
@@ -130,13 +142,19 @@ int main(int argc, char **argv) {
       require(ft.stats().windows == 0 && ft.stats().steps == 0,
               "native fine-tuning reset retained state");
       for (int64_t i = 0; i < 8; ++i) {
-        same(mode + "/reset_bank", bank.step(x[i]).probabilities, f.get(mode + "_probs")[i]);
-        same(mode + "/reset_eye", eye.step(x[i]), f.get(mode + "_eye")[i]);
-        same(mode + "/reset_rest", rest.step(x[i]), f.get(mode + "_rest")[i]);
+        same(mode + "/reset_bank/window/" + std::to_string(i), bank.step(x[i]).probabilities,
+             f.get(mode + "_probs")[i]);
+        same(mode + "/reset_eye/window/" + std::to_string(i), eye.step(x[i]),
+             f.get(mode + "_eye")[i]);
+        same(mode + "/reset_rest/window/" + std::to_string(i), rest.step(x[i]),
+             f.get(mode + "_rest")[i]);
       }
     }
     for (const auto &[key, error] : errors)
       std::cout << key << " maxabs=" << std::setprecision(17) << error << '\n';
+    std::cout << "ALL_SOURCE_NUMERIC_FIELDS_COLLECTED" << std::endl;
+    observed.save("neural_observed.pt");
+    require(!numeric_failed, "NEURAL_SOURCE_NUMERIC_FAIL; original bounds exceeded");
     std::cout << "NEURAL_SOURCE_PASS\n";
     return 0;
   } catch (const std::exception &e) {

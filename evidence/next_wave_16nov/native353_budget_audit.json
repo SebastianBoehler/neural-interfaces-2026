@@ -1,5 +1,5 @@
 {
-  "checked_utc": "2026-11-17T16:03:14.709784+00:00",
+  "checked_utc": "2026-11-17T16:46:04.055135+00:00",
   "scope": "ALL registered section353 Slurm allocations, including failed/cancelled/timeout jobs and source captures; root allocation records only, no batch/extern duplication",
   "method": "CPUTimeRAW = ElapsedRaw \u00d7 AllocCPUS; allocated CPU time, not observed utilization",
   "jobs": [
@@ -162,18 +162,50 @@
       "elapsed_seconds": 49,
       "allocated_cpus": 2,
       "allocated_core_seconds": 98
+    },
+    {
+      "job": 3120986,
+      "name": "ni26-native353-row-mean",
+      "state": "FAILED",
+      "elapsed_seconds": 99,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 198
+    },
+    {
+      "job": 3120984,
+      "name": "ni26-native353-initializer",
+      "state": "COMPLETED",
+      "elapsed_seconds": 90,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 180
+    },
+    {
+      "job": 3121076,
+      "name": "ni26-core-source-fit",
+      "state": "COMPLETED",
+      "elapsed_seconds": 320,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 640
+    },
+    {
+      "job": 3121286,
+      "name": "ni26-native353-FT-stage-diagnostic",
+      "state": "COMPLETED",
+      "elapsed_seconds": 138,
+      "allocated_cpus": 2,
+      "allocated_core_seconds": 276
     }
   ],
-  "total_allocated_core_seconds": 7993,
-  "total_allocated_cpu_hours": 2.2202777777777776,
+  "total_allocated_core_seconds": 9287,
+  "total_allocated_cpu_hours": 2.5797222222222222,
   "limit_core_seconds": 14400,
-  "remaining_core_seconds": 6407,
-  "remaining_cpu_hours": 1.7797222222222222,
+  "remaining_core_seconds": 5113,
+  "remaining_cpu_hours": 1.4202777777777778,
   "queued_running_353_jobs": [],
   "prospective_arithmetic_max_core_seconds": 0,
   "initial_checked_utc": "2026-11-17 15:42:07 UTC",
   "arithmetic_actual_core_seconds": 33,
-  "prospective_strict_neural_max_core_seconds": 1200,
-  "conservative_classical_source_reservation_core_seconds": 1200,
-  "remaining_after_both_max_core_seconds": 4007
+  "prospective_strict_neural_max_core_seconds": 0,
+  "conservative_classical_source_reservation_core_seconds": 0,
+  "remaining_after_both_max_core_seconds": 5113
 }
