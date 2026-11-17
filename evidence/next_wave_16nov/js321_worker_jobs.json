@@ -1,0 +1,8 @@
+{
+  "collector": "3117190",
+  "owning_release_sha256": "cd0168c8dc350872e4540fa06ed515c0999c5ee9dad3681bbdd04ba6cb0d3623",
+  "jobs": {
+    "cpu": "3117196",
+    "cuda": "3117197"
+  }
+}

@@ -37,3 +37,6 @@
 - Active3/3117085failedexactC1; diagnostic3117087originalrepeatexact/off=on tinydeviation tracedto10Fortran→C arrays via.copy(). FixorderK; no tolerancechange. All1047arraydtype/shape/bytes/strides+originalZIP/build/importpreflightpass.
 - Active4/3117092 correctedguard running; orchestration3controller3117093afterok→proofverify→all10sixseedA100array%2→collector/privateartifact. DynamicIDs ni26_js321_20261117_orchestration3/released.json.
 - Worker1observer3117097afterok3117093→actualcollectorafterok→CPU/A100isolatedworkerchecks; dynamicIDs worker1/worker_jobs.json. Firsttimingratio>1.061008stops. Noaccuracy/upload/promotion. Previousblockedcontrollers3117083/3117086cancelled.
+- 321active43117092COMPLETE0:0(actual04:37:18–04:44:05CET,6m47s): exactinner/offfinal/FTlabels/reset/deepcopy,8orders×6realrecipespass. Knownrec10; JS-allchanges10pre10+35postrecposteriors; no recognizedidentityclaim. Source0aeed45c…724e.
+- 3117093verified/releasedall10sixseed3117189(%2)→collector3117190; workerobserver3117097→collectorafterok CPU3117196/A1003117197. Allcapacityguards/sourcepins; noaccuracy/upload/promotion. Evidence js321_{outer_active_path,study_recipe_guards,deployment_jobs,worker_jobs}.json.
+- 317final12sourcefoldwave3117175(%4)→owningcollector3117176→private315consumer3117177nowqueued; preserve immutablematrix2/no partialouterread.

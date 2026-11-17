@@ -1,0 +1,14 @@
+{
+  "proof": {
+    "active_source": "0aeed45c4de5757aae0b7a82219878f8954b8ff0afa0bcf806a321b4f3c2724e",
+    "active_proof": "6816c6ddc78d57daa963e17f48df13dcc65eb77e69930e38f2f45e2d9fc6c7c5",
+    "recovery": "8c11682571ffff84935122874cfc97b036dcb437a83160f51bdd11cee725d129",
+    "policy": "JS-all"
+  },
+  "train": "3117189",
+  "collector": "3117190",
+  "running_at_release": 16,
+  "active_at_release": 117,
+  "active_workspace": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_active4",
+  "training": "all10 deployment only;no score"
+}
