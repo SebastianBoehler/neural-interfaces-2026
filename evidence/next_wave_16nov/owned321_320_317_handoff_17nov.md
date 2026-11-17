@@ -18,3 +18,4 @@
 - No upload/promotion, no source mutation in frozen snapshots. Root owns canonical docs; own evidence/source commits may proceed, avoid unrelated LEDGER changes.
 
 - Warm1 job3117647 failed11s beforeinference missingowningrecord.py; frozenfailurepreserved. Warm2 copiesexactowningdependency, actualSIFloginCPUimportpreflightPASS, retry3117650RUNNING. No timing rows yet.
+- CPUstandard45min parents remainunchanged; TIMEOUT-only controllers3117679reuse/3117680FIR prospectivelyrelease alreadyregistered functionalCPU180min onlyon actualTIMEOUT. Otherstates no release, barcontrollers remainexclusiveactualbartrigger; source/capacityguarded.
