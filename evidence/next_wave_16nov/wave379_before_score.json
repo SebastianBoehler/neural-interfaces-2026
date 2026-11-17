@@ -1,0 +1,127 @@
+{
+  "source_sha": "a2fb59c104a29bf248ec843645c9fd4adbdbd0f3ee66b36e37ca2421374119c2",
+  "controls_sha": "3f5ceae9662d759112352701c55a194ccdb78249e171ec2d97a604c9aba88b2b",
+  "orders_sha": "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f",
+  "folds": {
+    "P01": {
+      "proof_sha256": "b6d9b726ae6954fb5e2e4190c8bebf3587d3056f332c54ff22eeb3aca4422f77",
+      "archive_sha256": "a235e25b0a258cbed4a90176328ef5b211b37e7dab26656ed5968b571da1e060",
+      "seconds": 7.602998970076442,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    },
+    "P02": {
+      "proof_sha256": "e2bd75e428036e5bfe0146e75bc016beee8d726f250795e127eb9ebaa7f79227",
+      "archive_sha256": "5a07a8d5ace7025503b64c173d49698c0cc8d6f24a4514fb4123b974749120cd",
+      "seconds": 11.806313586886972,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    },
+    "P03": {
+      "proof_sha256": "82a7f16c24e9ac1d312952d61f3800238bd608147b0f618e8815fe12a1f3ba8f",
+      "archive_sha256": "259e325fa7b4b041d3694250f3afa3ce4757375c89494eafb095b49270a7f6ed",
+      "seconds": 7.542991105467081,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    },
+    "P04": {
+      "proof_sha256": "9d8aac3a1c87cca7f789798be1501d99e3a5c980969f4a9fd5606ffde2a1b39f",
+      "archive_sha256": "a9de1adc63971a9c644f2d2277fe41bdec8f4f843c0552684f7948ddb1c3cdd0",
+      "seconds": 20.75115696527064,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    },
+    "P05": {
+      "proof_sha256": "586aef22a5626dea7da900befc609beeb69966a23df8ff06b60ea65c2a33128a",
+      "archive_sha256": "b23b8f43839c5796c47bb8ebb6b710b3b76e7f9bea1dfa80441e317ce9c274e3",
+      "seconds": 7.837275542318821,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    },
+    "P06": {
+      "proof_sha256": "ee34d0f42c47f46515ae2b5b5ca9e0e32a244d27f069ca8392eecdc1b0a39332",
+      "archive_sha256": "06fd319288dc172bf98d824a64e5e42f6d0c347bd6b34830e88b54a622ff7414",
+      "seconds": 9.424694495275617,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    },
+    "P07": {
+      "proof_sha256": "67597222d9f88077ba6fdef6b94fccbca7c033f6506fcc39447e38098b7e1876",
+      "archive_sha256": "b743a512333b15d239b13787f9d098f6e1f7f1c7d3d18acb62c77473f3f0ad78",
+      "seconds": 7.572614050470293,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    },
+    "P08": {
+      "proof_sha256": "93582fc960b14da7780e97d55497382b5e669836759d547d9c7cc0568cdacfd4",
+      "archive_sha256": "d43d18f19706dd291fc3467fe88070e518c1426a42ef16d169a87ce2a0dbd5e3",
+      "seconds": 7.5782109359279275,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    },
+    "P09": {
+      "proof_sha256": "373212c57f29db94b17eae1e1197a83083539e32fbb00bfacde9972798acddc6",
+      "archive_sha256": "930857ba4730df83c9e417c164e09f142e3b7066f1bfe666d441435a2e8f0bb9",
+      "seconds": 9.496245769783854,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    },
+    "P10": {
+      "proof_sha256": "ea8006eea110a524454bbd6367238667a1f363d78e5590a9b4035d0f07748918",
+      "archive_sha256": "197a82b5ab8bf0f5b4393b3f8bffb78deb4cbb15e916da0b7ff5688a58ed0062",
+      "seconds": 15.57778435293585,
+      "guard": {
+        "prefix": true,
+        "reset": true,
+        "step_equivalence": true,
+        "active": true,
+        "finite": true
+      }
+    }
+  }
+}

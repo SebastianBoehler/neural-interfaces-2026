@@ -1,0 +1,100 @@
+{
+  "primary_sha256": "c889b03138f70182f837dc5d59f000436925a8c562d0639c15737767dc3ce880",
+  "cells": 28,
+  "orders": [
+    "within0",
+    "within1",
+    "within2",
+    "within3",
+    "full0",
+    "full1",
+    "runs0",
+    "runs1"
+  ],
+  "classes_by_label": {
+    "static": {
+      "recall_pct": [
+        39.16861280107148,
+        49.39585309930424,
+        43.79519542800434
+      ],
+      "no_prediction_cell_orders": [
+        0,
+        0,
+        0
+      ]
+    },
+    "norm": {
+      "recall_pct": [
+        36.13596009060836,
+        46.16732765014608,
+        50.14380121139113
+      ],
+      "no_prediction_cell_orders": [
+        0,
+        0,
+        0
+      ]
+    },
+    "memory": {
+      "recall_pct": [
+        33.532234930030604,
+        53.47506005090208,
+        38.070144805697566
+      ],
+      "no_prediction_cell_orders": [
+        0,
+        0,
+        0
+      ]
+    },
+    "blank": {
+      "recall_pct": [
+        58.12552377736411,
+        42.77868607120268,
+        22.806606235375128
+      ],
+      "no_prediction_cell_orders": [
+        0,
+        0,
+        32
+      ]
+    },
+    "donor": {
+      "recall_pct": [
+        30.049494891811,
+        63.64846056029939,
+        35.40414087515801
+      ],
+      "no_prediction_cell_orders": [
+        8,
+        0,
+        0
+      ]
+    },
+    "frozen": {
+      "recall_pct": [
+        81.52902682323393,
+        75.30542660612633,
+        72.00355163501254
+      ],
+      "no_prediction_cell_orders": [
+        0,
+        0,
+        0
+      ]
+    },
+    "JS": {
+      "recall_pct": [
+        81.55819933066849,
+        75.733897557679,
+        72.36309764798578
+      ],
+      "no_prediction_cell_orders": [
+        0,
+        0,
+        0
+      ]
+    }
+  }
+}
