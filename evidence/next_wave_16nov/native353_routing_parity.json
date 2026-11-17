@@ -1,0 +1,32 @@
+{
+  "status": "PASS_SOURCE_COMPONENT_ROUTING_NOT_WHOLE_MODEL",
+  "job": "3120312",
+  "remote": "ni26_native353_parity_v3_20261117/routing.log",
+  "log_sha256": "1bff476a991625a736c7e892bc17c1dd46c9ac07aa1f92620b72bf985b475110",
+  "native_test_sha256": "79405729a237afda47bc505c677ccdb767d3f57d24ff0ee852e21b64f24b10ad",
+  "maxabs": {
+    "known/count": 1.3552527156068805e-19,
+    "known/cp": 1.3552527156068805e-19,
+    "known/route": 4.440892098500626e-16,
+    "unknown/count": 2.3822801641527197e-22,
+    "unknown/cp": 2.41229258790554e-12,
+    "unknown/route": 1.5178830414797062e-18
+  },
+  "tolerance": 1e-08,
+  "source_cases": {
+    "known": 80,
+    "forced_unrecognized": 215
+  },
+  "asserted_guards": [
+    "zero non-tied source label changes",
+    "no native OwnStage error/degenerate bypass",
+    "known OwnStage staged>0 ==routed",
+    "CP10refits/125fusions",
+    "reset source-prefix replay",
+    "independent deepcopy17/204",
+    "count/CP no dead/error bypass"
+  ],
+  "scope": "Actual frozen sourcecore halfmixture \u2192Python/CPP Route/Own/gates/Count/CausalPers;notwholeensemble/RouteBextra/Tpri/NN/worker qualification",
+  "accuracy_computed": false,
+  "remaining": "separate neural member mismatch blocks fullstack;fullNN215capture timeout preserved"
+}

@@ -1,3 +1,5 @@
+Current: native source COMPONENT parity PASS3120312. Maximum CP error2.41229259e−12<1e−8; OwnStage active/no bypass, reset/deepcopy/non-tied labels asserted. Whole-stack remains unqualified (separate neural mismatch). Details native353_routing_parity.json.
+
 Current: component-only capture3120062 COMPLETE65s,1.306GiBRSS, unknown10CPrefits/125fusions/0singleclass/0errors. Native numeric comparison awaits root build. Full-NN215 timeout remains failed.
 
 # Native353 routing and emitted-label stages
