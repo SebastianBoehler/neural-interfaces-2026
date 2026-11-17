@@ -9,6 +9,24 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
+### Completed overnight blocks: 17 Nov 2026, about 03:40 CET
+
+§318 conditional-CORAL30 swap plus FBL factor2 improves the guarded local new-person comparison:
+76.2177→76.4410%, +.2234 official points [80% +.0738,+.3512]; people/order +.184[+.0323,+.3327],7/10up.
+This selected, small dev result is promising, not independent confirmation, proven synergy or a sealed gain.
+§321 checks exact package mapping and reference parity before a new candidate can be prepared.
+The study alters the outer mix after fine-tuning deltas; a global checkpoint/weight swap would change the inner gate/label chain.
+
+§308 complete head integrations do not improve current control. §312's complete160fold GPU whole study
+gives FBCNet supervised54.694%, pretrained/fine-tuned53.899%, matchedextra-supervised52.384%;
+paired pretraining effects remain uncertain. One strong P02 source check did not establish a strong whole decoder.
+The new report-only collector import failure was repaired with explicit module-path guards; producer sources and metric are unchanged.
+Its registered full-system consumer continues separately. A source-only normalization/skip attribution pilot is being prepared;
+populationBN, session sampling, schedule, epoch selection and skip differ from the original raw SessionBN reference.
+Source probes do not support skip dominance; seed also changes inner validation selection, so its variation is not isolated RNG noise.
+§319 visual and §320 reliability source pilots are queued. See [current status](../evidence/next_wave_16nov/STATUS_17NOV.md)
+and the [overnight handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md). No upload or candidate promotion.
+
 ### Research update: 17 Nov 2026, about 03:10 CET
 
 The [four-hour research block](../evidence/next_wave_16nov/research_4h_17nov_0250.md) ran02:48:22–03:09:39CET,
@@ -16,7 +34,9 @@ The [four-hour research block](../evidence/next_wave_16nov/research_4h_17nov_025
 §319 is assigned a source-only visual-pretraining feasibility/pilot lane using a public licensed DINOv2 backbone;
 §320 is assigned a separate source-crossfitted forward-only reliability mechanism. Neither has a score or claimed gain.
 §317's source pilot passed and its matched60fold CPU study is queued in guarded24/24/12waves, starting3116807.
-Existing §308/312/313/316/318 workflows continue; complete guarded blocks decide subsequent combinations.
+By03:22CET all160§312GPU producers completed; guarded collector3116577 and recovered315consumer await release.
+The failure was a purged completed-control jobID, with source/archive/CP verification preserved; see current status.
+Existing §308/313/316/318 workflows continue; complete guarded blocks decide subsequent combinations.
 Prepared v6.6 and official score remain unchanged. Upload remains under user control.
 
 ### Research update: 17 Nov 2026, about 02:20 CET

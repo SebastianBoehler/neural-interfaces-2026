@@ -91,6 +91,13 @@ controls. Freeze or explicitly control BatchNorm state across views. Require fix
 mask identity, no-future/reset guards and measured B1 cost. Do not open outer labels
 or silently attach the experiment to an unfinished §312/317 matrix.
 
+Continuation audit after the timed block: the worker's [pinned author-code review](reliability320.md)
+records batch-mean source supervision, unscaled masked features, a zero-default sorter-loss
+coefficient, cumulative reliability, output temperature.25 and different BN handling between
+weighted and uniform release paths. These observations concern public revision
+`603e30dc4534144194fe88d4bec38fdd67f5d079`, not proof of the paper's experimental code path.
+Our source-crossfitted/stateless probe is explicitly BFT-inspired and controls those differences.
+
 ### Offline tabular priors: readiness improved, still a lower-priority lead
 
 The current official [TabPFN repository](https://github.com/PriorLabs/TabPFN)

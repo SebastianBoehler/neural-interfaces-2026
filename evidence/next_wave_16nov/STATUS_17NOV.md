@@ -83,3 +83,60 @@ Prepared v6.6 and official score/rank are unchanged by these studies. No upload 
 - Fresh Galvani check03:12CET:125active jobs,16running/109pending; zero dead dependencies observed.
   §308scorer3115775 and §313chain scorer3116439 await their running treatments.
   §318second-wave cells3116841 are running; complete scorer3116842 is dependency-pending.
+
+## Producer and dependency update:17November,03:22CET
+
+- All160§312GPU producers completed0:0. The complete guarded collector3116577 waits for CPUpriority;
+  Slurm forecast03:46CET is conditional. No outer result has been read.
+- The old315bridge failed on a purged completed-control jobID. Direct source/archive/route/48CP
+  verification passed. Recovered DAG3116577→stage3116657→smoke3116902 preserves scientific source.
+  [Failure and recovery evidence](raw312_schedule_handoff.md) distinguishes this repair from an evaluator change.
+- IndependentCPUroute had84guardedoutputs at03:16CET; recentcells took5:00–6:49. Do not mix routes.
+- §316fresh10targetfolds/assembler, all8zeros and smoke passed. Its complete chain scorer remains pending.
+  §308/313/318 also await complete treatment matrices; none supplies a new score yet.
+
+## Completed blocks and follow-ups:17November,03:40CET
+
+§318 conditional-CORAL30 FB-slot swap plus FBL factor2 (JS) passed the complete eight-order,
+six-base current-system guards. Local new-person official equal-cell score76.217673→76.441042%:
+**+.2234points [80% +.0738,+.3512]**. People/order effect+.184[+.0323,+.3327],7/10up;
+P04+.161/P10+.484 are held-out new-person effects, not returning-session scores.
+The combination was selected after earlier results and remains small relative to person variation.
+Its interaction interval crosses zero: no synergy is established. [Complete report](coral_fbl_s318_results.txt).
+
+The [selected post-hoc diagnostic](coral_fbl_s318_diagnostic.txt) locates the gain before finalCP:
+V6Fr+.2264 versus final+.2234points; the difference interval crosses zero. Most final corrections
+come from subtraction/word generation. More correct argmax labels coexist with lower true-class
+probability margins; Brier change remains uncertain. This does not identify an earlier-stage cause.
+§321 audits exact package mapping and a same-fold checkpoint/export reference before all-person training.
+Inner gate/label/FT computations must stay separate from the changed outer mix. No new package is ready.
+
+§308's complete nonlinear/kernel head integrations do not establish a control gain; best tanh76.1048%
+versus76.2177% control. The quadratic-versus-projected-linear contrast changes width/ridge geometry
+and does not isolate nonlinearity. [Guarded report](strong_heads_s308_results.json).
+
+§312 GPU whole-decoder means after all160fold/source/checkpoint/row guards:
+
+| Encoder | Supervised S | Frozen pretrained F | Pretrained/fine-tuned T | Extra-supervised C |
+| --- | ---: | ---: | ---: | ---: |
+| FBCNet |54.694%|45.934%|53.899%|52.384%|
+| Shallow |50.062%|45.606%|50.321%|51.511%|
+
+T−C people/order FBCNet+1.657[−.459,+4.001], Shallow−.591[−2.126,+.851]; both undecided.
+T−S is also uncertain. Frozen pretraining is a weak comparator; these results do not establish a
+pretraining gain over S/C or close the family. [Whole report](raw312_gpu_whole_results.json),
+SHA1030e86966f7b7a1d9cade0fb60dafd2c00e29d159430b774c504878cec8db5b.
+Independent-seed metrics are averaged; §315's fixed two-seed member integration remains a separate test.
+
+Corrected collector3116911 passed after a guarded import-path-only recovery; failed3116577 remains
+recorded. Existing stage3116657→smoke3116902 follows it. No producer or official metric changed.
+Gap audit3116925 confirms complete provenance and large seed/inner-validation-path variation;
+source-only body/skip probes do not support skip dominance. SessionBN/sampling/schedule/epoch/skip
+differences are competing explanations. §322 prepares matched source-only attribution controls.
+
+§319 no-score visual preflight3116906 and §320 source-crossfitted reliabilitypilot3116903 are queued
+with guarded continuations and no automatic outer matrix. Preparedv6.6 and uploaded score remain unchanged.
+
+At03:40CET Galvani had69active jobs:11running/58pending and no dead dependencies observed.
+Raw315stage3116657 passed; smoke3116902 awaited priority. §317wave1 had22/24complete,2running,
+with its capacity-checked continuation intact. SSH access worked; no renewal was required.

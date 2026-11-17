@@ -1,6 +1,6 @@
 # Overnight campaign: 16–17 November
 
-Updated: 17 Nov 2026 03:12 CET. User is asleep and explicitly authorizes continued experiments and follow-ups.
+Updated: 17 Nov 2026 03:40 CET. User is asleep and explicitly authorizes continued experiments and follow-ups.
 Goal: stronger validated candidate by17November evening, provisional18:00CET checkpoint.
 Top five remains an objective. No new package gain or sealed score is established.
 Use Galvani only; keep all user jobs within32running/272submitted and preserve unrelated jobs.
@@ -18,23 +18,24 @@ Never upload automatically. Preserve official tensor/metric, frozen packages and
   Independent spectral-only49.871%. These whole scores do not establish a chain/member gain.
 - §314 temporal whole49.158% versus46.975%, but §315integration TFD−control−.110official points,
   people/order+.008[−.158,+.182]. Complete zero/order/source/CP guards passed; undecided.
-- §304 conditional30swap−current+.0545official[−.1085,+.2273]; small uncertain positive.
-  It beats matched plain/unconditional members. Strength30versus10 confounds mechanism attribution.
+- §318 CC30swap+FBL2:76.218→76.441% new-person dev,+.2234official[.0738,.3512]; people/order
+  +.184[.0323,.3327],7/10up. Selected/small, not independent confirmation; synergy unproven.
+- §312 wholeGPU: FBCS54.694/T53.899/C52.384/F45.934%; ShallowS50.062/T50.321/C51.511/F45.606%.
 - §306interface experts and §310entropy sign do not establish a current-system gain.
 - Native inference63–64ms versus cachedPython113–117ms in one pairedCPU scope. ResidentA100
   full source solve1.062s versus CPU238.483s; device/trajectory differ, no energy/worker claim.
 
 ## Active studies and exact dependencies
 
-- §308 nonlinear/kernel heads:20fits/88deltas complete; zero3115773passed.
-  Full treatment3115774%4 →scorer3115775. Preserve its immutable recovery snapshot.
+- §308 complete guarded80cell chain: no new head beats76.218% control; tanh76.105%.
+  Report strong_heads_s308_results.json; old downstreamfeatures retained, no family closure.
 - §313 full-chain spectral comparisons: source matrix/replay passed; component cells are running,
   with complete scorer3116439 dependency-pending at03:12CET; jobname s313-member.
-- §312 original GPU matrix: both guards passed; first80array3115990completed and callback3116412
-  releases second80 with10minute requests. Complete GPUcollector →315stage/consumer3116075.
-  First complete cells took31–39s, but GPU availability is intermittent; no partial outer score.
+- §312 GPU: all160producers and guarded correctedcollector3116911 completed0:0; reportSHA1030e869…db5b.
+  Failed3116577imported wrongrunmodule; separate guarded path-only wrapper, no producer/metricchange.
+  Stage3116657passed→smoke3116902pending at03:40CET; unchanged315source, both old failures preserved.
 - §312 independent ALL-CPU route: manifest528284dc…5ef4, complete Tcell3116416passed242s;
-  S cells~222–234s.8-cell waves at%4; current continuation3116430uses10minute requests.
+  84guardedoutputs at03:16CET; wave10array3116881→3116882. Recentcells5:00–6:49,8cellwaves%4.
   Complete160cell CPUmatrix only; never mix CPU/GPUfolds. Provisional whole CPU05:00–08:00CET,
   conditional on capacity/cost/guards. raw312_schedule_handoff.md owns current wave IDs/paths.
   Its full-chain consumer must be separately pinned to this CPUroute before any use.
@@ -46,31 +47,33 @@ Never upload automatically. Preserve official tensor/metric, frozen packages and
   not jobname. It tests adaptation conditional on a fixed trained anchor, not independent solver parity.
 - §317 continued auxiliary ShinWG supervision: source-only A/B/C pilot passed; C−B−.739pp did not
   trigger3pp harm stop. New nested-producer smoke3116739passed.60fold24/24/12waves start3116807%4,
-  continuation3116808→complete whole collector→private guarded315consumer. No outer score read.
+  Firstwave22/24complete at03:40CET;3116808→wholecollector→private315consumer. No outer score read.
   Handoff aux317_handoff_17nov.md owns sources/guards; source1bc0d892…5636.
-- §318 conditional30add/swap plus FBL2: four real smoke cells passed, replay/guard3116565passed;
-  FBL2matches299bitwise. Wave2array3116841 is running; complete scorer3116842 dependency-pending.
-  Preserve scheduler lock1a6d79d3…144f and scientific lock. No complete318result yet.
-- §319 visual prior: fresh_solution_audit owns source-only DINOv2 no-score feasibility/pilot preparation.
-  §320 forward-only reliability: external_supervision_17nov owns source-crossfitted mechanism pilot preparation.
-  Neither is a scored result; each initially≤1new allocation and must preregister controls before scoring.
+- §318 complete all8orders×6bases, scorer3116842passed; reportSHA9abebd50…0874. Posthoc saved-stage
+  diagnostic3116910passed: gain precedesfinalCP; more argmaxcorrections coexist with lowertrueclassmargin.
+- §319 source-only visual preflight3116906 queued→guardedA100preflight→boundedpilot; source0a80aeb0…f943.
+- §320 source-crossfitted reliabilitypilot3116903 queued, source204c0959…6726; no automaticoutermatrix.
+- §321 external_supervision owns JSpackage-readiness: separateoutermix required; no globalweightswap.
+  CC30study savedno checkpoints; samefold retrain/exportparity before all10training. No newcandidate ready.
+- §322 thread_context prepares source-only norm/skip controls after312gap audit3116925 passed.
+  P02results dependonseed+inner-validationpath; sourceprobes do not show skipdominance. No322score yet.
 
 ## Ownership and overnight decisions
 
 - Root owns candidate decisions, canonical status, full-system integration and grouped ledger checkpoints.
-- routing_audit owns316/common-anchor and native/spectral diagnostics; no unnecessary numerical retries.
-- external_supervision_17nov owns317source pilot and guarded expansion. thread_context owns318.
+- thread_context owns chain checks/312gap/318diagnostic/322; fresh_solution_audit owns319.
+- external_supervision_17nov owns321 and queued317/320; preserve all immutable running sources.
 - Existing workers may be idle; use followup_task to reactivate them, not send_message alone.
 - Read complete guarded blocks as they land; queue justified next questions without waiting for other lanes.
   Small positives remain uncertain, not closed. Preserve matched controls and selection disclosure.
-- At03:12CET worker observed125active:16running/109pending, zero DependencyNeverSatisfied.
+- At03:40CET worker observed69active/11running/58pending, zero DependencyNeverSatisfied.
 - Keep representation/data/supervision breadth alongside combinations. A native port or new head is not
   an independent representation. Fresh workers disclose shared history; no cross-provider run occurred.
 - Globalscientific-discovery skill is installed for Codex/Claude; personal masterdbaab0e contains source.
   Apply its coverage audit, candidate lineage and evidence-backed evolution without public private-data leaks.
 -50minute campaign and4hour≥15minute research heartbeats are ACTIVE through17November evening.
   Latest research02:48:22–03:09:39CET,21m17s: research_4h_17nov_0250.md. Next~06:51CET.
-- SSH was renewed01:02CET and worked02:30CET; local12hour idle retention is not server/VPNexpiry.
+- SSH was renewed01:02CET and worked03:40CET; local12hour idle retention is not server/VPNexpiry.
   Submitted jobs continue without access. Request authentication only if actual access expires.
 - Smoke all new source on real data; require replayOK, full source/order/reset/zero/provenance guards.
   Do not lower guards, substitute models or mix incomplete routes silently. Validate worker package before upload.
