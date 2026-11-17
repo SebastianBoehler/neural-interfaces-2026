@@ -4,7 +4,7 @@
 #include <torch/torch.h>
 
 namespace ni26::neural {
-// Match the single-tensor update order of the Python Adam and AdamW references.
+// Match Python Adam and AdamW dispatch for CPU and CUDA tensors.
 class Adam {
 public:
   Adam(std::vector<Tensor> parameters, double lr, double weight_decay = 0.)
@@ -25,6 +25,10 @@ public:
   void step() { step(lr_, .9); }
   void step(double lr, double beta1) {
     torch::NoGradGuard guard;
+    if (!parameters_.empty() && parameters_.front().is_cuda()) {
+      step_cuda(lr, beta1);
+      return;
+    }
     for (size_t i = 0; i < parameters_.size(); ++i) {
       auto &p = parameters_[i];
       const auto &g = p.grad();
@@ -49,6 +53,35 @@ public:
   int64_t steps(size_t i) const { return steps_.at(i); }
 
 private:
+  void step_cuda(double lr, double beta1) {
+    std::vector<Tensor> parameters, gradients, first, second;
+    std::vector<at::Scalar> sizes, corrections;
+    for (size_t i = 0; i < parameters_.size(); ++i) {
+      const auto &p = parameters_[i], &g = p.grad();
+      if (!g.defined())
+        continue;
+      require(!g.is_sparse(), "Adam requires dense gradients");
+      parameters.push_back(p);
+      gradients.push_back(g);
+      first.push_back(first_[i]);
+      second.push_back(second_[i]);
+      double step = ++steps_[i];
+      sizes.emplace_back(-lr / (1 - std::pow(beta1, step)));
+      corrections.emplace_back(std::pow(1 - std::pow(beta2_, step), 0.5));
+    }
+    if (parameters.empty())
+      return;
+    if (weight_decay_ != 0.)
+      at::_foreach_mul_(parameters, 1 - lr * weight_decay_);
+    at::_foreach_lerp_(first, gradients, 1 - beta1);
+    at::_foreach_mul_(second, beta2_);
+    at::_foreach_addcmul_(second, gradients, gradients, 1 - beta2_);
+    auto denominator = at::_foreach_sqrt(second);
+    at::_foreach_div_(denominator, corrections);
+    at::_foreach_add_(denominator, epsilon_);
+    at::_foreach_addcdiv_(parameters, first, denominator, sizes);
+  }
+
   static constexpr double beta2_ = 0.999, epsilon_ = 1e-8;
   std::vector<Tensor> parameters_, first_, second_;
   double lr_, weight_decay_;
