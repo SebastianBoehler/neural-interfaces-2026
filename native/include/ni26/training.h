@@ -2,8 +2,9 @@
 #include "ni26/artifact.h"
 
 namespace ni26 {
-// First parity entry consumes an explicit source-only initial state and padded
-// source batch schedule. Native source preparation/init/sampling are tracked
-// separately; this interface cannot be described as their completed port.
-Params train_raw_fbc(const Params &fixture, torch::Device device);
+// Existing source6 raw-FBC recipe: raw x/stream/person/fit_mask/held_person/y,
+// fixed fir_ coefficients, source identities and initialization_seed. Source
+// preprocessing, initialization and all40epoch batches are constructed
+// natively.
+Params train_raw_fbc(const Params &source, torch::Device device);
 } // namespace ni26

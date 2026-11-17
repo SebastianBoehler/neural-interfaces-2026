@@ -25,6 +25,7 @@ def main():
         if state_sha(self.net)!=reference['trace']['initial_state_sha256']:raise ValueError('original rawA initializer changed')
         if self.scale!=reference['trace']['scale'] or weighted or head_only or avg is not None or self.aug or self.rot or self.align:raise ValueError('source recipe changed')
         self._prepare()
+        if self.ls!=0 or self.epochs!=40 or epochs!=40 or lr!=.001 or self.wd!=.001 or self.batch!=64 or self.group!=32 or self.causal or self.seed!=0:raise ValueError('source optimizer/group/loss recipe changed')
         if sha(inspect.getfile(type(self.net)))!='604e690ad1743a8dc9eeb87c0c3065d28619cbd4dbda8c9790e60924cafbe81a':raise ValueError('original FBC architecture owner changed')
         initial={key:value.detach().clone() for key,value in self.net.state_dict().items()}
         plan=[batch for _ in range(40) for batch in self._batches(rows,rng)]
@@ -50,14 +51,17 @@ def main():
         body_change=float((updated[body]-initial[body]).abs().max());head_change=float((updated[head]-initial[head]).abs().max())
         if body_change<=0 or head_change<=0 or float(self.net.final_layer.weight.norm(dim=1).max())>.500001:raise ValueError('original first body/head update or constraint inactive')
         fields.update(source_only=np.int64(1),epochs=np.int64(40),initialization_seed=np.int64(self.seed),source_people=np.array(sorted(set(people[fit]))),excluded_people=np.array(['P02','P03','P09']),
-            source_X=x.numpy(),source_y=y.numpy(),source_session=np.asarray(self._row_sess,np.int64),batch_indices=padded,batch_sizes=sizes,
+            source_X=x.numpy(),source_y=y.numpy(),source_rows=np.asarray(self._order,np.int64),source_session=np.asarray(self._row_sess,np.int64),batch_indices=padded,batch_sizes=sizes,
             expected_schedule=np.asarray(schedule,np.float64),first_logits=logits.detach().numpy(),first_loss=loss.detach().numpy())
         fields.update({'initial_'+key:value.numpy() for key,value in initial.items()})
         fields.update({'first_gradient_'+key:value.numpy() for key,value in gradients.items()})
         fields.update({'first_state_'+key:value.detach().numpy() for key,value in self.net.state_dict().items()})
         record.update(original_initializer_sha256=reference['trace']['initial_state_sha256'],native_fixture_initial_state_sha256=state_sha_from(initial),
             rows_sha256=digest(self._order),source_X_sha256=digest(x.numpy()),source_y_sha256=digest(y.numpy()),scale=self.scale,
-            batch_plan_sha256=digest(padded),first_loss=float(loss),optimizer_steps=1,query_labels_opened=False,query_forward=False,
+            batch_plan_sha256=digest(padded),first_loss=float(loss),optimizer_steps=1,
+            original_helper_materializes_public_X=True,original_helper_materializes_full_public_y_array=False,
+            original_label_reader_seeks_selected_source_entries_only=True,original_helper_public_covariance_cache=True,
+            selected_source_labels_enter_loss=True,held_scoring=False,query_forward=False,
             first_forward_seconds=forward_seconds,first_backward_seconds=backward_seconds,first_optimizer_seconds=optimizer_seconds,
             first_body_change_max=body_change,first_head_change_max=head_change)
     model._train=types.MethodType(capture,model);model.fit(fit)

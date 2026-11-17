@@ -1,5 +1,8 @@
 #pragma once
+#include "ni26/preparation.h"
+#include "ni26/sampling.h"
 #include "ni26/training.h"
+#include <torch/optim/adamw.h>
 #include <vector>
 
 namespace ni26::neural {
@@ -23,4 +26,17 @@ private:
   SessionBN bn_;
 };
 std::pair<double, double> one_cycle(int64_t step, int64_t total);
+struct RawTrainingSource {
+  RawNeuralSource source;
+  Tensor labels;
+  Params initial;
+  std::vector<Batches> epochs;
+};
+RawTrainingSource prepare_raw_training_source(const Params &input);
+struct SourceUpdate {
+  Tensor logits, loss;
+  double forward_seconds, backward_seconds, optimizer_seconds;
+};
+SourceUpdate raw_source_update(RawFBC &net, torch::optim::AdamW &optimizer,
+                               const Tensor &x, const Tensor &y, int64_t step);
 } // namespace ni26::neural
