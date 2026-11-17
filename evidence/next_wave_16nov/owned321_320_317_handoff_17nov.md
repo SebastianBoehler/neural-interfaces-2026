@@ -1,45 +1,31 @@
-# Owned continuation:321,320,317 (17Nov)
+# Owned continuation: §321, §320, §317 (17 Nov)
 
-- §321audit/source/guard committed+pushed e085329; §320qualitystop dc2afe5.
-- No sourceZIP/frozen submission changed; no newcandidate/version/promotion/upload.
-- §321selectedJS=.2234officialpp,people/order+.184; selectedsmallreused-devresult,notconfirmation.
-- Correctmapping: originalinnerweights/nets/gates/r15labels/FTcomputations unchanged; OUTERonly FBk2net35–40 swap removesitswholeoldFTcontribution;FBk5stays.
-- DoublewholeadaptedFBLnet59–64; outerunits16→17,rest/core1RouteBshare1/17; innerRoute share1/15.
-- Actual318CCstreams selecteachbase'sseedsubset; all6deploymentcorrespondsB2_pool,notallsixbasedraws.
-- Returningwholeoutputidentityafterrecognition is NOT implied by preservedinnergateidentity; silentlyturningJSoff therechangespolicy.
-- Initial304producerdidnotsaveweights; now ONE recoveredP01seed0modelmatchesexactly.
-- §321A100guard3116954 COMPLETED0:0,03:47:13–03:48:06CET;fit33.007s/script48.24s.
-- ParameterSHAexact db62cedc6a66b52b3e583288cd71ca3c1a27bf9a2bf94166a6cb7a56eec8c1d9;8orderprobabilitydiff0,0changednontiedpredictions.
-- CPUexportmax6.97e−6,CUDA7.98e−6;zerosavedstate,prefix/reset/deepcopyinterleaving passed.
-- Workspace `/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_reference1`.
-- OwnsourceSHA676408c488d2bb150c4ae08463fd349f80a76cf971f04d37f2543a5ae7a7e747.
-- `result.json`,original `base_v66.zip`copy/hash,39file `draft_base`copy; noJSruntimeadapter yet.
-- Membercheckpoint andtracepersistthere; source/hardware/order/archive/assemblerhashes validated. NoP01groundtruthscore.
-- Nextdecisive321test: outeradapter JSoffidentity+originalinnergate/labels exact +matchingreal6seedheldfoldB2_poolmix; otherrequiredcheckpoints first.
-- `all10.py SEED`preparedbutREFUSESwithoutactiveouterpathproof; noall10wavequeued. Neverreuseall10weightsasheldfoldmodels.
-- FullreturningP04/P10blockedbyinvalid/missingoriginalSincfoldcheckpoints; no substitutes.
-- FullworkerCPU/A100B1and190/378/800timing/function/reset/sourceguardsgates remain; slack>=1.3 conditionalbasis,notsealedprojection.
-- §320singleCPUsourcepilot3116903 COMPLETED0:0,03:30:43–03:36:24CET;script337.32s.
-- SourceP02BA H60.115/U61.156/S61.669/R62.173%;R−U+1.017pp,butH<68.60qualitybar FIRED.
-- Rankeractive/BN/zero/mask/source/prefixguards pass;sourceweightSD.0975;loss.6872→.6220.
-- AllpostcalibrationsT4keepargmaxbutworsenP02NLL;no320outermatrix/consumerreleased.
-- PrototypeisNOTestablishedstrongwholedecoder:312wholeS54.694%;separate322protocoldiagnosisisrightnextcontrolwork,avoidduplicatewave.
-- §320workspace `ni26_reliability320_20261117_pilot1`;ownedfullreport `reliability320_source_result.json`.
-- §317productionremainsimmutable/unreadouteraccuracy; wave0array3116807 completed, wave1array3116927 thennextdispatcher3116928.
-- Rootproducer `/mnt/lustre/work/gehler/gfh527/ni26_aux317_20261117_matrix2`.
-- Check `wave2_jobs.json` afterwave1complete forlast12array/wholecollector/private315consumerIDs.
-- Exact60foldowningcollectorbeforeouterlabels,thenprivate315stage/replay/8controls/zero-one6CPguard→fullconsumer.
-- Detailedownerrecords:js321_readiness.md,reliability320.md,aux317_handoff_17nov.md;rootcanonicaldocsuntouched.
-- Continuation:3117049 six real P01 seeds recovered exact historical weights/probabilities; exports/stateguards pass191.17s. Proof js321_six_seed_recovery.json. All6deployment mapsB2_pool.
-- Posthoc complete guarded318read3117050: B2pool76.279335→76.551732%,+.272396pp[.004869,.527102]; people/order+.277955[−.006993,.545638],6/10up; P04−.048350/P10+.565349newperson emulation only.
-- Active copiedbundle3117079 queued CPU4/16GB20min in ni26_js321_20261117_active1. Explicit JS-all continues outer intervention after recognition; originalinnergate exact≠final recognizedoutput identity. Off mustbitwiseidentity. Noall10 untilrealactive/sixdraw8order guards pass.
-- Prelaunch diagnostic-order fix: cancelledpending3117079; active2/3117082 replacesit, removesonlyowningrunnerfinalLOGdiagnostic beforedeferredcapture. Source preserved. All10entrynowrequires8×6recipeproofs+sixedrecovery; d1d88f1.
-- Active3/3117085failedexactC1; diagnostic3117087originalrepeatexact/off=on tinydeviation tracedto10Fortran→C arrays via.copy(). FixorderK; no tolerancechange. All1047arraydtype/shape/bytes/strides+originalZIP/build/importpreflightpass.
-- Active4/3117092 correctedguard running; orchestration3controller3117093afterok→proofverify→all10sixseedA100array%2→collector/privateartifact. DynamicIDs ni26_js321_20261117_orchestration3/released.json.
-- Worker1observer3117097afterok3117093→actualcollectorafterok→CPU/A100isolatedworkerchecks; dynamicIDs worker1/worker_jobs.json. Firsttimingratio>1.061008stops. Noaccuracy/upload/promotion. Previousblockedcontrollers3117083/3117086cancelled.
-- 321active43117092COMPLETE0:0(actual04:37:18–04:44:05CET,6m47s): exactinner/offfinal/FTlabels/reset/deepcopy,8orders×6realrecipespass. Knownrec10; JS-allchanges10pre10+35postrecposteriors; no recognizedidentityclaim. Source0aeed45c…724e.
-- 3117093verified/releasedall10sixseed3117189(%2)→collector3117190; workerobserver3117097→collectorafterok CPU3117196/A1003117197. Allcapacityguards/sourcepins; noaccuracy/upload/promotion. Evidence js321_{outer_active_path,study_recipe_guards,deployment_jobs,worker_jobs}.json.
-- 317final12sourcefoldwave3117175(%4)→owningcollector3117176→private315consumer3117177nowqueued; preserve immutablematrix2/no partialouterread.
-- URGENTsupersedesold321DAG: all63117189failednormalizationguard(inputk2literalwrong;actualEAinputk5,latentBNk2). All10G/scaleexactfrozenoriginal. Oldheldweights/prealigned/off-inner/outeralgebravalid;oldrawbankequivalenceINVALID. Dead3117190/3117196/3117197cancelled.
-- Rawrepair3117225PASS0:0(actual05:00:08–05:01:07CET,59s): actualraw6seeds×8ordersowningInputStreamk5→exporttrace→historicprobs pass. Snapshotinputrepair1; proofjs321_raw_input_repair.json.
-- Currentactive53117230→orch4controller3117231→ONEall10seed0smoke→remaining5(%2)→completecollector. IDsorch4/smoke_jobs.json/released.json. Worker2observer3117232→actualnewcollectorafterok→independentCPU/A100; exactFT/CP/recognitionactivationguardsnowprospective. CPUbar≠CPUsealedestimate/A100timeoutevidence. No priorguardpass/readinessclaimrevived.
+Current §321 preparation is experimental. No frozen submission/ZIP changed; no upload, promotion or new version.
+Source/evidence pushed through d5a4b6c. Root owns canonical STATE/STATUS/handoff/research docs.
+
+- CURRENT: raw-input repair3117225 passed0:0 actual05:00:08–05:01:07CET(59s). Snapshot `ni26_js321_20261117_inputrepair1`.
+- All6historical P01 heldweights/traces reused by hashes; actual rawInputStream input_prior_k5→export latent_bn_k2 matches all8historical orders, max8.607e−7/0non-tiedchanges. `js321_raw_input_repair.json`.
+- Active5/3117230 running corrected full exactoff/inner/FTlabel/gate/reset/deepcopy/6draw×8order guards in immutable `ni26_js321_20261117_active5`.
+- Afterok independent controller3117231 in `ni26_js321_20261117_orchestration4` verifies every source/build/recovery/raw/state proof, then releases ONEall10seed0 normalization/export smoke.
+- After successful seed0 artifact/input/export/reset/deepcopy proof, remaining controller releases seeds1–5(%2) and owning completecollector, reusing canonicalpassedseed0. Dynamic IDs: `orchestration4/smoke_jobs.json`, then `released.json`.
+- Worker2observer3117232 dynamically waits actualnewcompletecollector and queues independent CPU/A100 worker probes afterok. IDs: `ni26_js321_20261117_worker2/worker_jobs.json`.
+- Worker2 source has prospective knownrec10/FT0/CPstop10 and forcedunrecognized no-rec/no-stop; exact eligible FT/CP refit/fusion schedule counts, no FTbudget skip/runtimeerror; single-classCP attempts explicitly reported.
+- Worker image clean isolated import/compile preflight passed. CPUratio bar is engineering overhead only: CPUratio×historicalA10043.5min is NOT CPUsealedtime/A100timeout evidence. A100historical basis conditional, not wholeworker-limit proof.
+- Both device probes retain first-ratio-failure stop (≤1.061008 for hour-slack1.3 engineering bar); no later-row harvesting. No worker timing result yet.
+
+§321 proven mapping and remaining limits:
+- Explicit JS-all policy: continue outerJS after recognition, matching318; original innerweights/gates/r15labels/FTcomputations intact. Preserved innergate does NOT imply final recognizedoutput identity.
+- Outer swap removes whole original adaptedFBslot net35–40 only; FBnet41–46 stays. Double whole adaptedFBLnet59–64. Outer16→17units; rest/core1RouteBshare1/17; innerRoute1/15.
+- All6deployment mapsB2_pool: posthoc complete318guarded result76.279335→76.551732%,+.272396pp[.004869,.527102]; people/order+.277955[−.006993,.545638],6/10up. P04−.048350/P10+.565349 newperson routing emulation, not returning package evidence.
+- Missing/invalid genuine originalSinc heldfold checkpoints still block full returningP04/P10 package validation; no substitute models/in-sample gain claim.
+- Six historical source model weights/probabilities exact; prealigned export/source exclusion proofs valid. Full raw fidelity now established only by corrected3117225, not earlierk2bank.
+- Initial builder copied10Fortran arrays intoCorder; exactguard failed3117085. Diagnostic3117087originalrepeat exact/off=on tinydeviation; orderK fix preserved all1047original dtype/shape/bytes/strides. No tolerance relaxation.
+- Active4/3117092 passed engineering off/inner/mix/reset guards; knownrec10 and JS-all changed10pre10+35postrec posteriorrows. Its oldrawCCbank/study-equivalence claim INVALID because metadata usedinputk2, while actualEAinput is5 (latentSBN2).
+- All6initial all10tasks3117189 failed normalizationguard before checkpoints/export (literalinputk2); sourceall10G/scale exactly frozenoriginal, no accuracy issue. Preservefailurelogs in orchestration3; dead3117190/3117196/3117197 cancelled.
+
+Other owned lanes:
+- §317 immutable `ni26_aux317_20261117_matrix2`: final12foldwave3117175(%4)→owningcollector3117176→private315consumer3117177. No partialouter accuracy read.
+- Require owning complete60fold proof before outerlabels, then privateconsumer stage/replay/8controls/zero/6CP/source/routing guards. Existing source pilot does not establish current-system gain.
+- §320 sourcepilot3116903 completed0:0; H60.115/U61.156/S61.669/R62.173% P02, R−U+1.017pp but H<68.60quality stop FIRED. No fullmatrix.
+- Ranker/mask/BN/zero/source/prefix guards passed; sourceweightSD.0975. Prototype not established strongwhole decoder (312S54.694%); no automatic expansion/reliability transfer claim.
+- Details: `js321_readiness.md`, `aux317_handoff_17nov.md`, `reliability320.md`.
