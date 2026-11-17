@@ -21,4 +21,12 @@ manifest SHA-256 is
 `da00d4603be02274254324b47762cd927dc9451dec4f4012107dfa2c4d2ccf82`;
 chain manifest SHA-256 is
 `0d6660f5d33d1527fb76f6aee907161ab920c2b81e43580c7846368677c82ab6`.
-Original §307 outputs remain unchanged. No §316 score has been read.
+Original §307 outputs remain unchanged. P09 pilot **3116532 completed 0:0**
+in 1:36. Across the eight static streams, the largest difference from §305
+was 2.33e-14, with no changed non-tied labels. Zero/update-disabled identity,
+session reset, prefix and bounded updates also passed. No score was read.
+
+Release **3116533 completed 0:0** and submitted ten fresh target cells as
+**3116543** (%2), followed by complete assembly **3116544** and the guarded
+chain dispatcher. The obsolete pending §307 assembler 3116402 was cancelled
+only after this new dispatch; its failed target evidence remains intact.
