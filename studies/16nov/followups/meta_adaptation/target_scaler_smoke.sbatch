@@ -10,6 +10,7 @@
 set -euo pipefail
 cd "${S307_SCALER_SNAPSHOT:?}"
 source studies/16nov/followups/meta_adaptation/env.sh
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 export S307_S305_ROOT=/mnt/lustre/work/gehler/gfh527/ni26_s305_assembler_recover_v1_20261116
 export S301_ALL_REFERENCES=/mnt/lustre/work/gehler/gfh527/ni26_s301_native_reference_all_20261116/runs/s301_reference_all
 for f in source.sha256 pinned.sha256 target-src.sha256 meta-cpu-src.sha256; do sha256sum -c "$f" >/dev/null; done
