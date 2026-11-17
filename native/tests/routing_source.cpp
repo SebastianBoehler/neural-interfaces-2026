@@ -104,6 +104,12 @@ int main(int argc, char **argv) {
       }
       require(!cp.stats().dead && !cf.stats().dead,
               "silent native stage bypass");
+      require(route.stats().errors == 0 && route.stats().degenerate == 0,
+              "native OwnStage error or degenerate bypass");
+      if (mode == "known")
+        require(route.stats().staged > 0 &&
+                    route.stats().staged == route.stats().routed,
+                "native known OwnStage inactive");
       if (mode == "unknown")
         require(cp.stats().refits ==
                         (214 - z.integer("v6_cp_t0")) / z.integer("v6_cp_k") +
