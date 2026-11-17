@@ -1,0 +1,183 @@
+{
+  "source_only": true,
+  "P01_labels_opened": false,
+  "previously_exposed_queries": [
+    "P02",
+    "P03"
+  ],
+  "results": {
+    "raw287": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.4477486559139785,
+          "balanced_accuracy_session_mean": 0.4480873442566991,
+          "balanced_accuracy": 0.4480873442566991,
+          "accuracy": 0.4497354497354497,
+          "n_cells": 2,
+          "cell_scores": [
+            0.3746639784946237,
+            0.5208333333333334
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.44218189964157706,
+          "balanced_accuracy_session_mean": 0.4424549837856289,
+          "balanced_accuracy": 0.4424549837856289,
+          "accuracy": 0.43915343915343913,
+          "n_cells": 2,
+          "cell_scores": [
+            0.40519713261648743,
+            0.4791666666666667
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.4449652777777778,
+      "dimensions": 287
+    },
+    "raw_occupancy": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.46320564516129037,
+          "balanced_accuracy_session_mean": 0.46321364567332307,
+          "balanced_accuracy": 0.46321364567332307,
+          "accuracy": 0.4656084656084656,
+          "n_cells": 2,
+          "cell_scores": [
+            0.4055779569892473,
+            0.5208333333333334
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.5085013440860215,
+          "balanced_accuracy_session_mean": 0.5093232633555215,
+          "balanced_accuracy": 0.5093232633555215,
+          "accuracy": 0.5079365079365079,
+          "n_cells": 2,
+          "cell_scores": [
+            0.48575268817204303,
+            0.53125
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.48585349462365596,
+      "dimensions": 303
+    },
+    "raw_random_occupancy": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.45782930107526887,
+          "balanced_accuracy_session_mean": 0.45783996842464586,
+          "balanced_accuracy": 0.45783996842464586,
+          "accuracy": 0.4603174603174603,
+          "n_cells": 2,
+          "cell_scores": [
+            0.4156586021505377,
+            0.5
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.5085013440860215,
+          "balanced_accuracy_session_mean": 0.5095739460658816,
+          "balanced_accuracy": 0.5095739460658816,
+          "accuracy": 0.5079365079365079,
+          "n_cells": 2,
+          "cell_scores": [
+            0.46491935483870966,
+            0.5520833333333334
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.4831653225806452,
+      "dimensions": 303
+    },
+    "raw_cov": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.5477486559139785,
+          "balanced_accuracy_session_mean": 0.5483924304488821,
+          "balanced_accuracy": 0.5483924304488821,
+          "accuracy": 0.5502645502645502,
+          "n_cells": 2,
+          "cell_scores": [
+            0.4913306451612904,
+            0.6041666666666666
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.42653449820788525,
+          "balanced_accuracy_session_mean": 0.42597392899812253,
+          "balanced_accuracy": 0.42597392899812253,
+          "accuracy": 0.42857142857142855,
+          "n_cells": 2,
+          "cell_scores": [
+            0.42598566308243724,
+            0.4270833333333333
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.48714157706093186,
+      "dimensions": 1148
+    },
+    "raw_cov_occupancy": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.5477486559139786,
+          "balanced_accuracy_session_mean": 0.548224419696194,
+          "balanced_accuracy": 0.548224419696194,
+          "accuracy": 0.5502645502645502,
+          "n_cells": 2,
+          "cell_scores": [
+            0.5121639784946237,
+            0.5833333333333334
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.4107414874551971,
+          "balanced_accuracy_session_mean": 0.41001557433009045,
+          "balanced_accuracy": 0.41001557433009045,
+          "accuracy": 0.4126984126984127,
+          "n_cells": 2,
+          "cell_scores": [
+            0.41523297491039424,
+            0.40625
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.47924507168458785,
+      "dimensions": 1164
+    },
+    "raw_cov_random_occupancy": {
+      "people": {
+        "P02": {
+          "balanced_accuracy_cell_mean": 0.5321236559139785,
+          "balanced_accuracy_session_mean": 0.5327674304488821,
+          "balanced_accuracy": 0.5327674304488821,
+          "accuracy": 0.5343915343915344,
+          "n_cells": 2,
+          "cell_scores": [
+            0.470497311827957,
+            0.59375
+          ]
+        },
+        "P03": {
+          "balanced_accuracy_cell_mean": 0.4268817204301075,
+          "balanced_accuracy_session_mean": 0.42605926779313874,
+          "balanced_accuracy": 0.42605926779313874,
+          "accuracy": 0.42857142857142855,
+          "n_cells": 2,
+          "cell_scores": [
+            0.43709677419354837,
+            0.4166666666666667
+          ]
+        }
+      },
+      "mean_person_cell_ba": 0.479502688172043,
+      "dimensions": 1164
+    }
+  },
+  "source_sha256": "48955235df288b66810ca5cf82dd0342e693c6fc5795e108398c16d4267817a2",
+  "original_source_sha256": "4dade504b4011b6697c3a2a78d073b342b05cce70581ec24da173e950b1c3527",
+  "codebook_sha256": "0e0d62f6b6efecaba1743af05f006117fdb375086ede066ca93b3aa7257990e9",
+  "seconds": 10.407559720333666,
+  "limits": "same16centroids/split/sourceheads;smallsourcegeometrystatisticcomparison;noouter/current-systemgain"
+}

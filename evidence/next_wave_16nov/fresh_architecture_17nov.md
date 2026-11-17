@@ -215,7 +215,7 @@ Not a GPUworker/package runtime or quality claim. Sourcefiles111/87lines.
 Allocate next representation effort to the new released Atom prior after its actual preflight,
 then a controlled small source experiment and credible whole comparator. Keep raw selectiveSSM
 as a separately engineered root; do not copy an unlicensed hard-coded22channel release.
-The microstate pilot supplied an actual changed-information test and a negative result;
+The microstate pilot supplied an actual changed-information test and a negative temporal result;
 its cheap latency does not justify further accuracy matrices without a stronger form.
 
 Recurring failure to avoid: weakwholemodel+positivecomponent is repeatedly mistaken for
@@ -242,3 +242,37 @@ This extra phase-boundary review does not replace the nextscheduled06:51CET rese
   establishA100 compatibility; that is the pendingpreflight's explicit purpose.
 - No automaticouter/fullFT/newpackage follows either sourcepilot. Inspect actual guards,
   referencequality, both exposedquery people and source/revision hashes before decisions.
+
+## §328 static-information clarification, continuation after timed review
+
+Raw→raw+occupancy is positive on both exposedpeople: P02+1.546pp andP03+6.632pp,
+mean+4.089pp. This differs from the negative temporal-dynamics contrast.
+The actualtokenizer uses abs(correlation), so both occupancy and angularcovariance are
+polarity-invariant; signedE[normalizedtopography]cannotbe restored by thisoccupancy.
+
+Registered same16centroid/sourceRMS/split follow-up3117354 completed0:0 in12s;
+source `48955235df288b66810ca5cf82dd0342e693c6fc5795e108398c16d4267817a2`.
+Originalraw/raw+occupancy featurehashes and officialcellscores reproduced exactly;
+source/exclusion/PSD/trace1/861width/stateless guards passed. [Result](microstate328_static_results.json).
+Mean officialcellBA: raw44.497, learnedoccupancy+raw48.585, randomoccupancy+raw48.317;
+angularcov+raw48.714, cov+learnedoccupancy47.925, cov+randomoccupancy47.950.
+P02cov54.775→cov+learned54.775(≈0), P03cov42.653→41.074(−1.579pp).
+Randomdirections recover almost the entire staticgain; learned−random+.269pp.
+No evidence of learned/non-Gaussian staticinformation beyond this angularcovarianceform.
+Covariance effects disagree acrosspeople, and allwholedecodersremainweak; nofamilyclosure.
+
+## §329 route chosen prospectively by availability
+
+At05:35CET A100forecast06:58CET (~80minaway). Preserve3117332 asindependentA100
+compatibility. Originalsource3117338 and replacement3117341 were canceled whilepending,
+before any329accuracy, preventing duplicate/result-based device selection.
+Explicit2080Ti route3117344 has one20minallocation, source
+`057627db1f85aab13e0cab308f0a21d4e7c6645202b86fe2202160f4e4e44833`, workspace
+`/mnt/lustre/work/gehler/gfh527/ni26_labram329_2080_v1_20261117`.
+It firstguardsexactassets/input/strictload/CPU2080features, thenmeasuresB1/memory, thenfits
+the same9heads+unchangedrawreference. PinnedSDPAMATHonly, TF32off, nomixeddevicebanks.
+Beforequerylabels everyactualfittedheadmust matchCPUreference sourcewindowprobabilities
+within1e−3 withzero nontiedargmaxchanges; featureabs2e−3/rel1e−3 is not alone enough.
+A100scope remains independent; its later result doesnotretroactivelylabel2080sourceaccuracy.
+At05:39CET2080forecast06:23:56CET. Queued is not passed. Preserve rawcontrols/splits,
+readoutqualitydiagnostics, featurebankhashes and source-exposure limits whenresultsarrive.

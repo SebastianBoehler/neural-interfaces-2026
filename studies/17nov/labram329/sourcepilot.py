@@ -9,6 +9,7 @@ import numpy as np
 import torch
 from scipy.signal import resample_poly
 from safetensors.torch import load_file
+from sklearn.metrics import log_loss
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -94,12 +95,17 @@ def main():
             if not np.array_equal(banks[f'{prior}_{kind}_raw'][:,-287:],rawblock):raise ValueError('rawfactor differs')
         del model
     if any(not np.isfinite(b).all() for b in banks.values()):raise ValueError('nonfinitebank')
-    yfit=shared.labels(fit,len(d['X']));models={}
+    yfit=shared.labels(fit,len(d['X']));models={};fit_quality={}
+    np.savez(ROOT/'source_banks.npz',source_rows=fit,query_rows=query,**banks)
     for name,bank in banks.items():
         m=make_pipeline(StandardScaler(),LogisticRegression(C=.01,max_iter=2000))
         m.fit(bank[:n],yfit)
         if int(m[-1].n_iter_.max())>=2000:raise ValueError('fixedhead didnotconverge')
         models[name]=m
+        pfit=m.predict_proba(bank[:n]);pred=pfit.argmax(1)
+        fit_quality[name]=dict(iterations=int(m[-1].n_iter_.max()),source_train_logloss=float(log_loss(yfit,pfit,labels=[0,1,2])),
+            source_train_accuracy=float(np.mean(pred==yfit)),source_class_recalls=[float(np.mean(pred[yfit==c]==c)) for c in range(3)],
+            source_probability_sd=np.std(pfit,axis=0).tolist())
     from baseline import predict
     raw_reference,reference_meta=predict(d,fit,query,yfit)
     # All representations, sourcefits and rawreference must complete before either query labels open.
@@ -116,7 +122,7 @@ def main():
     reference={order:score(p.argmax(1)) for order,p in raw_reference.items()}
     result=dict(source_only=True,P01_labels_opened=False,fit_people=sorted(set(people[fit])),previously_exposed_queries=['P02','P03'],
         source_sha256=sha(ROOT/'source.sha256'),preflight_source_sha256=guard['source_sha256'],raw_reference_metadata=reference_meta,
-        results=results,raw_reference_by_order=reference,seconds=time.monotonic()-started,peak_gpu_bytes=torch.cuda.max_memory_allocated(),
+        results=results,source_fit_quality=fit_quality,source_banks_sha256=sha(ROOT/'source_banks.npz'),raw_reference_by_order=reference,seconds=time.monotonic()-started,peak_gpu_bytes=torch.cuda.max_memory_allocated(),
         limits='no outer/current-system/sealedgain;upstream participant exposure unknown;all heads prospectively fixedC')
     with (ROOT/'source_result.json').open('x') as f:json.dump(result,f,indent=2)
     print(json.dumps(result),flush=True)
