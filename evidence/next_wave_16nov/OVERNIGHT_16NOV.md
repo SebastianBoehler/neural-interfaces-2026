@@ -1,6 +1,6 @@
 # Overnight campaign: 16–17 November
 
-Updated:17Nov2026 06:20CET. User asleep; ongoing implementation, experiments and justified follow-ups authorized.
+Updated:17Nov2026 06:50CET. User asleep; ongoing implementation, experiments and justified follow-ups authorized.
 Goal: stronger validated candidate by17Nov evening, provisional18:00CET checkpoint; top five is not established.
 Galvani only:≤32account jobs running/≤272submitted with28reserve. Preserve unrelated jobs.
 Read STATE→LEDGER→OFFICIAL_CONTRACT; STATUS_17NOV.md owns detailed results/report hashes.
@@ -46,22 +46,23 @@ No automatic upload. Preserve tensor/metric/session boundaries, frozen packages 
   known190ratio1.03104passed;known37849.409→61.152s,ratio1.23766failedbar1.061008.800/unknown/lateCPuntested.
   Relativebar≠actualtimeout. Profile3117399PASS:oneFIR+6tailsexact0error/~69%lessauxnetworktime,
   notwholeworkerspeedup; FIR-onlyandreadonlyinputreusevariantsregistered. Initialguardsfailedpre-inference
-  NPZstream-column assumption; derivefromsubject/session perowningprotocol, CPUmetadata smokebeforenewGPUguards.
+  NPZstream-columnfailurespreserved. ReplacementguardsfailedGPUbitwiseresetbeforelateFT; actualoldselfcontrol
+  shows SAME6.25e−8cold→resetdrift/all3forms,0labels;CPUbitwise.215FTcontrolmetadatafailed65declared≠45active,
+  noFTresult. Derivelive45fromunchangedweights; phase-matchedguards/self-controlbeforeworkerrelease.
   Missing/invalidgenuineoriginalSincfolds blockfullreturningvalidation. No candidatequalified.
   owned321_320_317_handoff_17nov.md owns dynamicIDs/source/scopes.
 - §317ALLCOMPLETE: originalreplay/8controls/zero/activity/30cells/scorer3117358PASS19s; no furtherownedjobs.
 - §312ALL-CPU160/160+collector3117428PASS06:12CET/1min. FBCS52.249/T54.816/C55.421/F47.604;
   T−Cuncertain. T−S+2.140peoplepp, C−S+4.477; noisolatedpretraininggain/mixedGPUfolds/duplicateCPUchain.
-- §329newMITLaBraM-at-ScaleAtom-Ldefaultprior,notbenchmarkselectedepoch;pretrainingoverlapunknown.
-  IndependentA100preflight3117332forecast06:58;explicit2080compatibility→9frozenheads3117344forecast06:23:56.
-  Sameweights/source7/splits/CPUfittedreadoutguard beforequerylabels;one20minallocation, no329resultyet.
-- Separate§330fullFTpreparedBEFORE329scores:3117398 afterany329 readsONLYguards/cost/hashes,
-  conditionallyreleasesone≤30min2080allocation. Matchedpretrain/random fullFT/frozencontrols,12fixedepochs;
-  actualencodergradients/updates/budget/paritybeforequerylabels. Noaccuracy-basedrelease/automaticouterwave.
-
-- §331independentrawoscillatoryselective-statearchitectureprepared: matchedstatic/localcontrols,source7only,
- 40fixedepochs; actualcomplexrecurrence+gradient/numerical/activity/costguardbeforeoneboundedCPUpilot.
- No331result/reproductionclaim/automaticouterwave. oscillatory331.md/LEDGERownfixedscope.
+- §329actualCPU/A100strict425key/input/gradient/reset+fittedreadoutproof PASS. Dynamicimport/metricpathfailures
+ preserved; canonicalfixedreadout/rawrefrepeat3117559PASS109s, exactsavedbanks. Frozenpre+raw45.955/random46.023
+ <strongraw62.238%. DifferentPRIORSactuallytested, nofrozenformgain/outerexpansion/familyclosure.
+- §330A1003117553COMPLETE625s/3.542GB:preFT45.299/frozen43.141,randomFT39.705/frozen43.957%.
+ PreFT−random+5.594bothpeoplebutrandomoptimizerlimited;preFT−frozen+2.158mixed. SourcepreFT100%,weakquery.
+- §331realCPUoracle/activity/stateguard3117539PASS32s; initial36mincostgatefires. Explicit75minserialpilot
+ 3117541RUNNING40fixedepochs. Pending-onlyparallelsplitdidnotfireafterlaunch; no duplicatefits.
+ At06:45L/Fdone,S4/40; estimatedcomplete07:00–07:10conditionalfinalR/guards, noqueryaccuracyyet.
+ P01excludedlabels/fits/aggregatestats; unchangedRmaybuildindependentperwindowcovcacheforallpublicX.
 
 ## Coordination and continuation
 
@@ -71,6 +72,7 @@ No automatic upload. Preserve tensor/metric/session boundaries, frozen packages 
 - Verify livecapacity beforedispatch; recent05:47snapshot37active/7running,no deaddependenciesobserved.
 - Global scientific-discovery skill applied; personalmasterdbaab0e. No cross-provider execution claimed.
 - Both50mincampaign/4hour≥15minresearch automationsACTIVE. Lastscheduled02:48:22–03:09:39CET21m17.
-  Extrafresh-chat05:13:54–05:30:14CET16m20retainscanonicalhistory,notblind; nextscheduled~06:51unchanged.
+  Extra05:13:54–05:30:14CET16m20notblind. Scheduled06:51block STARTING worker scheduled_research_0652;
+  collectactual≥15min/reportbeforecomplete; no duplicateblock. Canonicalhistoryretained,notblind.
 - SSHrenewed01:02CET andstillworks;12hourlocalidleretention isnotserver/VPNexpiry.
   Submittedjobs surviveaccessloss. Ask renewalonlyonactualfailure. Neveruploadautomatically.

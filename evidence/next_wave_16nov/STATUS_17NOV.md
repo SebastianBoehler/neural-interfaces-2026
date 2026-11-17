@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 06:20 CET
+# Campaign status: 17 November 2026, 06:50 CET
 
 Submission unchanged: uploaded v5.1b **.8197668759**. Prepared v6.6 cap250 remains unchanged;
 ZIP SHA `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
@@ -162,6 +162,14 @@ remain necessary. Separate readonly-current-input variant also registered. Initi
 failed before inference on a newly assumed persisted stream column; owning protocol derives stream fromsubject/session.
 Failures preserved/deadcontrollers canceled; realNPZ/loginCPU schema smoke precedes replacementGPUguards.
 No tolerance relaxation, candidate promotion or new accuracy score; failed source remains intact.
+Replacementguards3117535/3117537passed raw/known45/off/inner checks then FAILED GPUbitwise reset/deepcopy
+beforeunrecognizedFT. Diagnostic3117552: oldJS/FIR/reuse share sameGPUcold→reset finaldrift6.25236e−8,
+CC1.82155e−7,0labelchanges; CPUcold/reset/deepcopy bitwise, GPUfreshold→old exact. NoFTnoise explanation.
+Phase-matched CPU/GPU/source controls are separately registered; old failures remainfailed and workerreleaseblocked.
+[Reset diagnostic](js321_reset_diagnostic.json). Cause is not yet established.
+New215FTcontrol3117565failed pre-inference metadata assertion:65declared nets contain45active/20zero-weight.
+Derive live IDs from originalweights, inspect everyinstantiated buffer and preserve inactiveparameterhashes.
+No FT-noise result or worker release exists from that failure.
 
 **§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.
 C−control+.048820official[−.114472,+.218121], people/order+.036[−.150914,+.231166],5/10up.
@@ -175,21 +183,39 @@ FBC T−S+2.140[+.740,+3.561], but compute-matched C−S+4.477[+2.376,+6.660]; n
 [Independent CPU report](raw312_cpu_whole_results.json), SHA`bfb6abdf0c489032a77f97d7800b2151ef3ac7f9f5e94e03e417f71a0f259f70`.
 No device-fold mixing/CPUchain/automatic outer wave. [Scheduling/source record](raw312_schedule_handoff.md).
 
-**§329 new released EEG prior:** MIT LaBraM-at-Scale Atom-Ldefault pretraining encoder46.3M, release2Nov2026.
-Defaultpretrain weights are not the benchmark-selected best-full-ft epoch. Training overlap unknown.
-A100preflight3117332 pending, forecast06:58 CET. Independent explicit2080Ti compatibility→ninefrozenhead
-sourcepilot3117344 pending, forecast06:23:56 CET; one20minallocation, CPU-fitted-readout guard beforequerylabels.
-Identical pretrained/random×two pooling×raw factor, rawonly plus unchanged rawSessionBNreference;
-P04–P10fit/P02P03exposedqueries/P01excluded. No329numerical/accuracy result yet, no mixed-device bank.
-Separate full-finetuning form§330 is being prepared prospectively, before329scores; release requires actual guards,
-not favorable accuracy. [Fresh architecture review](fresh_architecture_17nov.md). No new outer matrix automatically.
+**§329 new released Atom-L prior COMPLETE source instrument:** CPU3117540/A1003117543 strict425-key/input/
+gradient/reset proof passed. A100B1~14.493ms/593MB. ActualCPU/A100fittedheadprobabilityerror1.4667e−5,
+0argmaxchanges; featuremaxabs.00282955 passes combinedatol.002+rtol.001, notabsolute.002 alone.
+Initialdynamic-module and latercachedmetric-module failures are preserved. Canonical fixedC/rawreference repeat
+3117559passed109.26s using exact savedencoderbanks; no identity to lost process-localoutputs is claimed.
+All heads/scalers/rawcheckpoint/querybanks/source metadata now saved beforemetriclabels.
+Official source-personmean: raw44.236%; prepool39.836/random36.313; preretained43.587/random41.938;
+prepool+raw44.738/random43.645; preretained+raw45.955/random46.023. BestfixedpretrainedP0247.347/P0344.563
+versus random43.733/48.313, mixed. StrongrawSessionBN66.873/57.604→62.238mean is better.
+Retained+rawsourcefit88.884%/NLL.432,52–85LRiterations; no solvercap explains weakquery quality.
+[Canonical source result](labram329_source_result.json). Defaultweights atom/atom-large.safetensors SHAa28e97…;
+ff09aeda… is the benchmark-selected best-full-ft file, which was NOT used. No device-selected source-score duplication.
 
-**§331 independent raw state-space decoder PREPARED:** two32-wide oscillatory blocks over all480samples,
-input-selective versus matched static and local controls, identical source-fitted287branch. No pretrained/code assets;
-not Mamba/S5/S7 reproduction. Source-only40epochs/P04–P10fit/P02P03exposedqueries/P01excluded.
-Independent complex direct-recurrence output/gradient, active/inactive-path and actual-cost guards precede a bounded
-CPU pilot; no numerical/source score yet. [Prospective scope](oscillatory331.md). This is a different architecture,
-not another incumbent head. The user authorizes preparation/execution; no automatic outer/chain expansion.
+**§330 fixed fullFT/frozen controls COMPLETE:** A1003117553passed0:0,625.08s/3.542GBpeak.
+All4fits/12epochs/actualbodyupdates/CPU-A100fittedheadparities preceded query scoring.
+Pretrainedfrozen43.141%, pretrainedFT45.299%; randomfrozen43.957%, randomFT39.705%.
+PreFT−randomFT+5.594pp is positive on bothP02/P03(+5.337/+5.851), but randomfit remains optimizer-limited:
+sourcepreFT100%/loss.001286/gradient.00387, randomFT98.946%/.08149/.3949.
+PreFT−prefrozen+2.158pp is mixed(+5.585/−1.269). Whole45.299% remains belowraw62.238%; no outer expansion
+or familyclosure. These are exposed source people, not independent/returning/sealed results.
+[CompleteFTresult](labram330_source_result.json), [checkpoint replay](labram330_checkpoint_replay.json)
+reproduce all original official person/interfacecell scores exactly. [Owned handoff](labram330_handoff.md).
+No new candidate or score projection follows.
+
+**§331 independent raw state-space decoder RUNNING:** realCPUguard3117539passed32s.
+Independent480-stepcomplex oracle max float64output5.55e−17/gradient8.88e−16; float32output5.96e−8/
+gradient2.38e−7, initialS/Fexact, allactivity/state/B1-B4/modulus checks pass.
+Initial cost gate53.14min>36min stopped release. Explicit budget-only75minserialpilot3117541 runs unchanged
+40epochs/source/model/batches, allL/F/S/referencefits beforequerylabels; no mixed-devicebank/duplicate fit.
+The proposed pending-onlyparallelreplacement did not execute because canonicalpilot was alreadyrunning.
+At06:45 L/F40complete, S4/40; estimated full result07:00–07:10conditional on finalreference/guards.
+P01 has no labels/fitting/aggregate statistics; unchangedRhelper materializes independentper-windowcovcachesforallX.
+[Scope](oscillatory331.md), [actualguard](oscillatory331_guard.json). No query/source-performance result yet.
 
 ## Coordination and cadence
 
@@ -205,5 +231,6 @@ Native pairedCPU inference63–64ms versus cachedPython113–117ms is narrow; A1
 also changes device/trajectory. No energy/end-to-end efficiency claim. No Weco service/provider was run.
 Last scheduled research02:48:22–03:09:39 CET lasted21m17s; [report](research_4h_17nov_0250.md).
 Extra artifact-informed fresh-chat review05:13:54–05:30:14 CET lasted16m20; canonical history retained, not blind.
-It does not replace next scheduled≥15min block around06:51 CET. Both50mincampaign/4hresearch automations active.
+The scheduled06:51≥15minblock is now starting in fresh-chat worker scheduled_research_0652.
+Collect actual clock duration/report before markingcomplete; do not duplicate this active block. Bothautomationsactive.
 Next17Nov18:00CET decision checkpoint remains provisional; local selected gains do not establish topfive readiness.

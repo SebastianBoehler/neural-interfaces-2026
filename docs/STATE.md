@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 Nov 2026, about 06:20 CET
+### Current campaign: 17 Nov 2026, about 06:50 CET
 
 The user authorizes ongoing overnight implementation, broader whole alternatives and justified follow-ups.
 The provisional decision checkpoint is 17 November 18:00 CET. Top five is an objective, not a verified result.
@@ -60,12 +60,21 @@ prove optimizer quality or failure. §326/327 source-logit invariance has no con
 §328 learned spatial-state occupancy adds 4.089 points to a weak 44.497% raw source control, but random
 occupancy and angular covariance recover the same gain. Ordered dynamics and occupancy conditional on
 covariance do not establish useful extra information in this form; the wider family is not closed.
-§329 stages the newly released MIT LaBraM-at-Scale Atom-L weights as a genuinely different prior.
-Independent A100 compatibility and an explicit 2080Ti compatibility→nine frozen source-head route are queued;
-no §329 numerical or accuracy result yet. Separate full-finetuning preparation must retain its own registration.
-§331 prepares an independently implemented raw oscillatory selective-state decoder, with matched static/local
-controls and source-only40epoch training. Numerical/direct-recurrence guards precede any source score.
-It is not a paper reproduction, foundation model or measured gain. §320 reliability's unchanged source
+§329's new MIT Atom-L prior now passes actual CPU/A100425-key/load/input/gradient/reset and fitted-readout
+checks. Canonical frozen source report3117559 gives best pretrained45.955%, matched random46.023%,
+versus unchanged raw SessionBN62.238% across exposedP02/P03. Separate §330 full12epoch/four-control fit
+3117553 completed: pretrainedFT45.299/frozen43.141%, randomFT39.705/frozen43.957%.
+Pretrained−randomFT+5.594points is positive on both people, but random fitting remains optimizer-limited;
+pretrainedFT−frozen+2.158 is mixed across people. Pretrained sourcefit100% does not generalize well here.
+Neither form establishes a useful whole decoder or closes this prior. Import/metric-path failures and a
+canonical fixed-readout/raw-reference repeat are preserved separately; no identity to lost outputs is claimed.
+§331's independent raw oscillatory decoder passed real CPU direct-recurrence/output/gradient/state/activity
+checks. Its initial36min cost gate stopped release; a separate75min allocation3117541 is running unchanged
+40epoch L/F/S controls plus original raw reference. A conditional parallel replacement did not fire after
+launch; there are no duplicate fits. At06:45 L/F completed and S was training; estimated result07:00–07:10CET,
+conditional on final guards. No query accuracy yet. P01 labels/fitting/aggregate statistics are excluded;
+the unchanged reference may materialize independent per-window covariance caches for all publicX.
+§320 reliability's unchanged source
 control failed its registered quality premise; no outer expansion.
 
 **JS candidate validation.** §321's corrected raw InputStream prior5 and latent SessionBN prior2 now pass
@@ -82,9 +91,15 @@ The failure is a relative engineering bar, not an observed timeout. Length800/un
 untested there. Conditional profile3117399 passed: fingerprinted one-FIR/six-tail execution gives exact0.0 probability error
 and about69% less auxiliary-network time on17realwindows. This is component timing, not whole-worker speed.
 Separate same-weight SharedFIR-only and readonly-current-input variants are being prepared.
-Both initial source guards failed on a new adapter's missing persisted stream column before inference;
-source subject/session columns must generate it as the owning protocol does. Failures remain recorded;
-CPU schema smoke precedes replacement GPU guards. No parity/timing result from either optimized variant yet.
+Initial schema failures were corrected using the owning subject/session derivation and real CPU smoke.
+Replacement guards passed raw/known/off/inner paths, then failed GPU bitwise reset/deepcopy before lateFT.
+Actual oldJS self-control shows the SAME tiny GPU cold→reset drift in all3forms (maxfinal6.25e−8,0label
+changes), while CPU reset/deepcopy are bitwise and GPU fresh-load repeats exact. No FT ran in this failure.
+The new215FT self-control first stopped on another metadata assertion:65declared nets have45active/20zero-weight.
+Expected active IDs must come from the unchanged weight mask; the failure supplies no FT-noise evidence.
+A separately registered phase-matched guard compares old/new at identical execution phases and measures
+an actual old→old215FT control before attributing later discrepancies. The old bitwise failures remain failed;
+GPU numerical cause and optimized worker qualification are still open. No tolerance was silently relaxed.
 Returning heldfold
 validation remains blocked by missing/invalid genuine original Sinc checkpoints. No candidate is qualified.
 
@@ -97,6 +112,8 @@ An additional fresh-chat artifact-informed review 05:13:54–05:30:14 CET lasted
 [fresh review](../evidence/next_wave_16nov/fresh_architecture_17nov.md).
 It retains canonical history and is not blind; it does not replace the next scheduled block around06:51 CET.
 Both50-minute campaign and4-hour≥15-minute research heartbeats remain active through17November evening.
+The scheduled06:51block is now starting in fresh-chat worker scheduled_research_0652; collect its actual
+start/end/duration and substantive artifact before marking the block complete. Do not duplicate its active work.
 SSH renewed01:02 CET still works; local12-hour idle retention is not a verified server/VPN expiry.
 Submitted jobs continue without a client. Ask for renewal only when access actually fails.
 
