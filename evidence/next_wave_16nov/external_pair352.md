@@ -80,8 +80,8 @@ changes capacity as well as spatial information; cue, clinical and acquisition l
 The moderate 66.9% common-channel source control also limits comparison with the stronger 41-channel
 current system. There was no source-only 41-channel binary comparator or physiological negative control.
 
-Actual producer time640.98seconds/process CPU638.48seconds; complete allocation646seconds on two CPUs,
-MaxRSS2,847,008KiB (about2.72GiB). All four preliminary jobs plus the full allocation used1,332allocated
-CPU-core-seconds, **0.370CPUh/0GPUh**. The smoke's276second projection underestimated the complete
+Actual producer time 640.98 seconds/process CPU 638.48 seconds; complete allocation 646 seconds on two CPUs,
+MaxRSS 2,847,008 KiB (about 2.72 GiB). All four preliminary jobs plus the full allocation used 1,332 allocated
+CPU-core-seconds, **0.370 CPUh/0 GPUh**. The smoke's 276-second projection underestimated the complete
 10-fold/eight-order causal-reference and one-window prediction workload; no performance claim follows.
 All owned jobs are complete. No additional fit, feature grid, package change or upload was launched.
