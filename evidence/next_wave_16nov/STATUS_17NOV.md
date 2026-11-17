@@ -1,4 +1,7 @@
-# Campaign status: 17 November 2026, 08:53 CET
+# Campaign status: 17 November 2026, 09:46 CET
+
+Reporting: FULL-SYSTEM DEV / SEALED LEADERBOARD / INDIVIDUAL-MODEL must be explicit, with comparator.
+Custom stack=C++/CUDA; original raw neural reference=stockPyTorch336/338.
 
 Submission unchanged: uploaded v5.1b **.8197668759**. Prepared v6.6 cap250 remains unchanged;
 ZIP SHA `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
@@ -174,7 +177,11 @@ Coldsetupseparate/orderconfounded,nospeedup. Original45minlimitunchanged; TIMEOU
 IndependentCPU2153117573PASS81m17, exactold→FIR/reuse with20FT/10CP/125fusions, buffer/generator/resetproofs.
 OriginalCPU3117585/7TIMEOUT45minpreserved; separatefullFUNCTIONAL-only3117756/7 stillRUNNING,
 completecollector3117884pending. Owningevidencepushedcb544d9; source/regenerationauditforreturningstartsnext.
-MissinggenuineoriginalSincfolds stillblock returningvalidation. No optimizedcandidate qualification/promotion.
+OriginalhistoricalSincidentityunverified, recipe/dataexist. Newgenuineheld-sessionSincpilotPASSEDown-weight
+export/reset/sourceguard; remaining11folds3117930+12held-specificCC30fits3117941/3117998running/queued.
+FullpairedreturningDEV regenerates originalinnergates/relabels/FT/classicstagefolds usingSAMEnewweightsinbotharms,
+notall10deploymentweights/historicalidentity. ExistingFBcheckpointCPUQFbridgefailed1.16e−5vs1e−5/0labels;
+samecheckpointA100guardregistered, no thresholdchange. No candidatequalification/promotion/upload.
 
 **§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.
 C−control+.048820official[−.114472,+.218121], people/order+.036[−.150914,+.231166],5/10up.
@@ -254,11 +261,21 @@ NOA100/P02/P03inference/scoring. Usefulcalibrationdoesnotestablishusefulgeometry
 uncenteredscaleU61.157%(−.619), classbalancedW62.343%(+.567), changedbatchscheduleB62.932%(+1.156).
 H/W improve bothpreviouslyexposedP02/P03; B worsensP03. All1360steps/init/RNG/source/optimizer/reset/prefix guards
 beforelabels; A matches331R. Actual284–312s/arm, notarchitecture/ensemblegain. [Evidence](reference336_handoff.md).
-§338 prospectiveH/W/Bcombinations plus source-heldinstrument arebeingprepared, no jobs/results yet.
-§337 real-datafull44239teacherparity7.53e−14; nativebodyupdates/classifierunchanged/RNGguardPASS.
-Repeatedsourcebatchloss−41.2%only, no generalizationclaim. Preparation266CPUcoreseconds; no A100/livelargepilot.
-NextsmallmatchedSOURCE6/P09 pretext+shuffledtarget+extra-supervised+nativecontrolstudy beingregistered;
-shareexactnativecontrolwith338ifidentitiesmatch. [Handoff](covariance337_handoff.md).
+§338 combinations COMPLETE: INDIVIDUAL-MODEL source7mean HW62.516/HB62.013/HWB61.973vsH62.827%.
+EverycombinationlosesP03. Source6heldP09A64.061/H62.747/HW65.179/HB61.630/HWB61.327%; no consistentgain.
+All10new+4reusedcells beforemetrics; no selectedcombination/full-systempromotion. [Report](combinations338_results.json).
+§337 fourmatchedpretextfits+collectorCOMPLETE: INDIVIDUAL-MODEL/P09 original64.061/M62.512/C63.736/
+shuffled61.669/extraCE63.441%. C−M+1.224pp,C−shuffle+2.067,C−original−.325. No FULL-SYSTEM DEV gain.
+Nativewordinraw337reportmeansORIGINALPYTORCHREFERENCE. CovpostfinefeatureMSEworseall3groups.
+Actual2.205CPUcoreh/0A100;64pretextsteps,oneperson/seed,prefinecheckpointsabsent, no familyclosure.
+[Evidence](pretraining337.md). §340 numericalfeature/learningaudit usesactualFIR/source-onlyinputs,noaccuracy:
+finitebank4320×480rank480,cond2916,signalattenuation≠absence; CARchangesrawNNfeatures1.188sourceSD,
+whileteacher~1e−6invariant. No taskcausality/NNsufficiency claim. MissingprefineNN/auxweights limitsforgettingattribution.
+§339 source-onlytemperatureprototypecomplete(all2×3×8banks/guardsbeforeP02labels): fitNLLF−.043156,
+B−.003459/V−.003456,T1.5389/1.1360/1.1359, activeprobabilities/exactargmax. Not calibrationgeneralization.
+Full10outer/cyclic-sourcecal-person raw/calF/B/V/current-systemcomparison authorized; measuredcold/warm
+costguard andfirstfaithfulfullcellbeforeparallelwholewave; allfits/calibrations beforeoutermetrics.
+§341 customC++CPUsolverprofile/residentGPUreuse planned; no newaccuracygrid.
 Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
 
 ## Coordination and cadence

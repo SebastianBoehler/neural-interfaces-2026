@@ -9,10 +9,13 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 Nov 2026, about 08:53 CET
+### Current campaign: 17 Nov 2026, about 09:46 CET
 
 The user authorizes ongoing overnight implementation, broader whole alternatives and justified follow-ups.
 The provisional decision checkpoint is 17 November 18:00 CET. Top five is an objective, not a verified result.
+Reporting rule (user17Nov): label every gain FULL-SYSTEM DEV, SEALED LEADERBOARD, or INDIVIDUAL-MODEL;
+name its baseline/cohort. Never use unqualified “points” for a weaker-comparator/model-only improvement.
+“Custom stack” means our C++/CUDA backend. Call336/338's stock PyTorch model “original raw neural reference”.
 Use Galvani only. Respect 32 running/272 submitted account jobs and 28 reserved slots; preserve unrelated jobs.
 [Current results](../evidence/next_wave_16nov/STATUS_17NOV.md) and the
 [overnight handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md) own detailed evidence/jobs.
@@ -90,10 +93,18 @@ NoP02/P03inference orouterexpansion.
 §336 exact strong raw-reference comparison is COMPLETE: native61.776%, relaxed head constraint62.827%
 (+1.050points,both exposed peopleup), classweighting62.343%(+.567), changedbatches62.932%(+1.156,mixedpeople).
 These are five matched40epoch SOURCE7 fits, not current-system gains. Nativecontrolreproduces331Rexactly.
-§338 prospective combinations plus a source-held confirmation instrument are being prepared; no combinationrunyet.
-§337 covariance-target pretraining/sourcecoverage preparation passed Native/Python featureparity and actual
-nativebodygradient/update guard. Repeated-batch reconstruction loss−41.2% is engineering activity, notgeneralization.
-Next small SOURCE6/P09 study compares matchedpretext/shuffled/extra-supervised/nativecontrols; notqueuedyet.
+§338 combinations COMPLETE: individual-model exposedmean HW62.516/HB62.013/HWB61.973 versusH62.827%;
+allcombinationsloseonP03. P09heldsourceinstrument A64.061/H62.747/HW65.179%, soHleadnotuniformlytransfers.
+No combinationpromoted/full-systemgain. Correctedallocation-cachev2preservesscience; all10+4banksguarded.
+§337 covariance-pretraining COMPLETE, INDIVIDUAL-MODEL/P09: original64.061%, moment62.512,cov63.736,
+shuffled61.669,extraCE63.441. Cov−moment+1.224points BUT cov−original−.325; no full-system/leaderboardgain.
+Post-finefitreconstructiondoesnotimprove. Oneperson/seed/64pretextsteps; pre-finecheckpointsnotretained.
+§339 source-onlytemperatureprototype PASSED: fixedfitNLL−.0432,both/variance−.00346,softscoresactive,
+argmaxunchanged. Thisisfitting, notcalibrationgeneralization. Fullnested10outer/cycliccal-person F/B/V raw/cal
+current-systemcomparisonisbeingprepared; correctedcold/warmmeasuredcostguardauthorizedbeforelargestfold.
+§340 source-onlyFIRauditfindsfinite480samplefilterbankFULLRANK(condition2916), soattenuationisnotproof
+ofinformationabsence. OriginalrawneuralfeaturesareCAR-sensitivewhileteacherisinvariant; no taskcausalclaim.
+§341 customC++CPUsolverregression/profile+residentGPUreuse plan follows340; noaccuracygridqueued.
 §320 reliability's unchanged source
 control failed its registered quality premise; no outer expansion.
 
@@ -122,10 +133,13 @@ Medianoverhead190/378/800 is2.43%/1.19%/2.62%, max4.91%; actual800base156.69–1
 JS161.47–164.38s. Coldsetup recordedseparately, notspeedup. Original45minlimitunchanged; retrycorrectlynotreleased.
 Independent deterministicCPU215semantic3117573 PASSED81m17, exactold→FIR/reuse through20FT/10CP/125fusions.
 BothstandardCPUprobes3117585/7TIMEOUT45minpreserved; completeFUNCTIONAL-onlyreuse3117756/FIR3117757
-remainRUNNING4CPU/24GiB180min, owningcompletecollector3117884pending. Fullreturningvalidation isnowbeing
-investigated for faithful regeneration of missinggenuineSincfolds; no in-sample/historicalidentity substitute.
-Returning heldfold
-validation remains blocked by missing/invalid genuine original Sinc checkpoints. No candidate is qualified.
+remainRUNNING4CPU/24GiB180min, owningcompletecollector3117884pending. OriginalSinc historicalidentity
+is unverified, but documentedrecipe/dataexist. Newgenuineheld-sessionSincpilot passedsourcepoisoning/ownexport
+guards; remaining11folds3117930 and12held-specificCC30fits(initial3117941+remaining3117998) are running/queued.
+BotharmswillshareNEWgenuineweights; fullpairedreturningvalidation mustregenerate originalgates/relabels/FT
+andallsource-dependentclassicstages. Thisisnewcheckpointdevvalidation, nothistoricalQF/ZIPidentity.
+No newcandidatequalification orupload. ExistingFBsourcebridge hit1.16e−5CPU/QFerrorvs1e−5bound; unchanged
+checkpointA100comparisonregistered toseparatedeviceexecutionfromidentity, no thresholdrelaxation.
 
 **Native stack and research cadence.** Paired CPU inference63–64ms versus cached Python113–117ms has a narrow scope.
 Resident A100 solve1.062s versus CPU238.483s changes device/trajectory; neither establishes energy or full-worker speed.
