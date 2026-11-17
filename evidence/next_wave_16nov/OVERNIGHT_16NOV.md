@@ -1,4 +1,4 @@
-# NI26 active handoff — 17 November 2026, about 16:40 CET
+# NI26 active handoff — 17 November 2026, about 17:25 CET
 Read STATE→targetedLEDGER/actualsource→OFFICIAL_CONTRACT→STATUS→owninghandoffs. Keep this≤80lines.
 User authorizes full own-C++ active training+inference and wider accuracy work on Galvani only.
 Thin required Python entry; optimized native Torch/BLAS dependencies allowed. No automatic upload/provider/terms/messages.
@@ -36,26 +36,26 @@ Top-five objective unverified. Provisional18:00CET decision checkpoint; user ret
 - CARrepair3120535 COMPLETE: all96source NumPy CAR arrays exact across1,889,280values; original bounds pass:
   p1 2.35e−10/p2 4.77e−9/features7.73e−7/tail8.79e−13/reapply1.71e−11,zero labels.
   Source COMPONENT only, not whole-worker/training. native353_core_precision.md; pushed2a3cd91.
-- Neural3120517 one-window45members PASS1e−6,max6.07e−7; rawmembers and hostPython↔SIF BITWISE.
-  Longerknown8 failure unresolved; oldlog had no failingwindow/member. Original firstwindow-failure claim corrected.
-  EAinputdifference2.38e−7. No tolerancechange. native353_neural_handoff.md; evidencef238314.
-- Next3120762 CPU1/16GiB3min: existingknown8 source arithmetic only; mean/cov/P/h and originalmean substitution.
-  ZERO NNforwards/FT/fit/gold. Strict8/31 test not released; source-training first-update oracle stays held.
-- Aggregate35317allocation audit7720coresec=2.14444CPUh of4; arithmetic reservation180 leaves6500coresec.
-  Coordinate all allocations; no automatic budget extension or repeated passedfits.
-- Native initialization/sourceprep/NumPyPCG64sampling/remainingfamilytraining/PCA/gallery still pending.
+- Neural temporalmean repair3120986 FIRST all1599means/39windows BYTE_EXACT and completeknown8 PASS.
+  UnknownFTfbraw fails unchanged1e−6 at1.1296823e−6; exactFTwindow missing fromlog. Failure preserved.
+  InstalledPythonAdam lerp versusC++mul/add verified; cause notproved. Owner346 prepares paired5stepFTdiagnostic.
+- Raw-FBC owninitializer3120984 PASS ALL52state tensors/seeds0+1 BYTE_EXACT/globalRNG unchanged/badFIRrejected.
+  RequestedCPU1, actualallocated2,90s=180coresec. SourceNNconsumer integration syntaxPASS; updateoracleHELD.
+- REALclassical source-fit3121076 PASS all2278rows/features/prior/scaler/objective/exclusion guards,
+  sourceprob8.53e−9/ZEROlabels. NativeAPI95.5s unpaired; no speed/query/accuracy/Hilbert/whole-stack proof.
+- Shared353 actual9011coresec=2.5031CPUh of4; newFTdiagnostic reserved≤600, no other allocatedfit pending.
+- Other-family initialization/sourceprep/exactPCG64sampling/PCA/gallery/sourceNN40epochfit still incomplete.
   MigratedTorchScript executingC++ is not proof everyarchitecture/trainingdefinition ported.
-- Nativeclassical sourceCLI prepared/syntaxpass only; original activeC10/C3/gtol1e−4 differ343C.3/gtol1e−5.
-- No complete native source fit, cleanSIF/A100whole-runtime parity, pairedwholecost/RAM or submissioncompat proof.
+- No cleanSIF/A100whole-runtime parity, pairedwholecost/RAM or submissioncompat proof.
 - Earlier343 hybridC++objective+SciPyoptimizer19.747→16.436s is separate;1534heldlabels match/maxprob6.65e−8.
   Classicalinference113–117→63–64ms≈1.8× component only. Old243s regression not reproduced.
 
 ## Ownership and next work
 - Root owns canonicaldocs/nativeintegration/masterruntime and new raw-FBC initializer files.
-- fresh_information_346 owns nativeNN/FT/training; arithmetic3120762 then costed minimal repair/strictsequence.
-- performance_solver343 owns nativeoptimizer/classicalsource; prepares existing-reference source-fit test, no newallocation yet.
-- external_supervision_17nov final350evidence complete1046d3e; push hit GitHub443timeout/retry. No policy variants.
+- fresh_information_346 owns nativeNN/FT/training; paired firstRAWrefit diagnostic authorized≤600coresec.
+- performance_solver343 owns nativeoptimizer/classicalsource; REALfitcomplete, exactPCA/LAPACK preparation next.
+- external_supervision_17nov now prepares native sampler/RNG with metadata-only oracle; no allocation yet.
 - Preserve unrelated rolling.py/.sbatch/returning_pair_collect.sbatch. Commit--only explicit ownpaths, noAIauthor.
 - Before trusting chainresults replay/check.py must printOK; shuffledscore needs ownzero/orderguards.
-- Scheduledresearch14:58:15–15:15:16CET COMPLETE17m01; next≈18:58CET≥15min. No duplicate delayedtrigger.
+- Scheduledresearch14:58:15–15:15:16CET COMPLETE17m01; next≈18:58CET≥15min.16:51delayedtrigger skipped; nativecodework not counted as paperblock.
 - Both50mincampaign/4hresearch automations ACTIVE through17Nov18:30UTC; renewSSH onlyonactualfailure.

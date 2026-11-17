@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 16:40 CET
+### Current campaign: 17 November 2026, about 17:25 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -155,28 +155,36 @@ Clinical/language/acquisition/QC/campaignselection/19-channelcapacitylimits rema
 Isolated native/ implements native artifactIO/DSP/two cores/tails, gates/OwnStage/RouteB, CountFilter/latestCPmodel,
 neuralbank/Eye/Rest, fine-tuning, standaloneC L-BFGS-B and ownC++rawFBC source-training loop.
 OnlyrequiredPythonentryisadapter. TorchScriptfiles are migrated C++-executed graphartifacts, notproofall
-architecture/training definitionswereported. Fullnative init/sampling/sourcepreparation/remainingfamilyrecipes
+architecture/training definitionswereported. Other-family init/sampling/sourcepreparation/remainingfamilyrecipes
 andPCA/gallerytraining remainincomplete. Do not callfullstackready/nativeNNtrainingvalidated.
 All C++ targets build; native SHA/FIR guards pass. Earlier build/staging/dtype/CPU-CUDA-query failures remain recorded.
 Native linear optimizer3120215 passes82iterations/88evaluations, maxprob6.38e−9/zeroheldlabels. One4thread19.823s
 is not a paired whole-stack speed result. Routing/OwnStage/CF/CP component3120312 passes, including10CPrefits,
 125fusions and reset/deepcopy. CAR repair3120535 matches all96 NumPy source arrays exactly; unchanged downstream
 core/features/tail/reapply bounds pass, zero changed labels. This is host-source COMPONENT parity, not worker proof.
-Neural one-window3120517 passes all45 members at1e−6 (max6.07e−7); raw-input members and hostPython↔SIF are bitwise.
-Aligned-input differences remain; the original longer-known-prefix failure is unresolved. The earlier log did not
-identify the failed window, so the previous first-window failure description was unsupported. No tolerance changed.
-Owner346 now checks existing known8 source arithmetic without NN forward/training/gold. Shared353 budget audit:
-17allocations total7720coresec=2.14444CPUh of4; no full native source-training fit or whole-worker speedup established.
-Native initialization/source preparation/sampling/other training recipes and full worker qualification remain work.
-Training first-update oracle stays held until neural parity. See owning handoffs for exact next allocation IDs.
+Neural input diagnosis3120762 isolates NumPy/Torch float32 temporal-mean order. Repair3120986 FIRSTmatches all1599
+row means across39sourcewindows byte-exactly and passes complete known8, but unknown fine-tuning fbraw fails:
+1.1296823e−6>unchanged1e−6. Window/refit not logged for that field; corrected diagnostic context is prepared.
+No tolerance change or whole-neural claim. Owner346 prepares one bounded input/gradient/Adam-state diagnostic;
+the installed Python lerp versus C++mul/add difference is verified code, not yet demonstrated as the cause.
+Own raw-FBC initializer3120984 passes ALL52 original state tensors for seeds0/1 byte-exactly, globalCPU RNG
+unchanged and wrongFIRshape rejected. Source-training integration syntax passes; source NN update remains held.
+REAL classical source fit3121076 passes2278rows/allfeatures/prior/scaler/objective/exclusion guards, sourceprob
+max8.53e−9/ZEROchangedlabels. Native API95.5s is unpaired engineering timing, not whole-stack speed evidence.
+Original source PC256 reproduction is bitwise; no newPythonfit/querylabels/accuracy. Hilbert/causal-held/whole-worker
+training qualification remains separate. Source preparation, exact NumPyPCG64 sampling, other family recipes,
+PCA/gallery training and full worker compatibility remain work. Shared353 actual9011coresec=2.5031CPUh of4,
+including all preparation failures and initializer actual2CPU allocation. FT diagnostic reserved≤600coresec.
+See owning handoffs; native353_initialization.md/native353_core_training.md own component limits.
 
 **Ownership and cadence.** Root ownscanonicaldocs/nativeIO/math/cores/tails/masterruntime/build.
-external_supervision_17nov owns350+nativegates/routing/CF/CP; fresh_information_346 ownsnativeNN/FT/training;
-performance_solver343 ownsnativeoptimizer/classicalsourceworkflow. 349/351/352complete; externalinstrumentowneridle.
+external_supervision_17nov owns native sampler/RNG preparation (350/routing complete); fresh_information_346 owns
+nativeNN/FT/training; performance_solver343 owns nativeoptimizer/classical training and PCA preparation.
 No paid/providerexecution; activeCPPsources isolatedfromfrozenpackages/runningaccuracyjobs.
 Usefollowup_task for completed owners. Keep sharedledgeradditions, immutable snapshots and unrelated files intact.
 Latest scheduledresearch14:58:15–15:15:16CET lasted17m01, reportresearch_4h_17nov_1458.md COMPLETE.
-Nextfour-hourblock≈18:58CET; do not duplicate delayed14:51trigger. Canonicalhistoryretained, notblind.
+Nextfour-hourblock≈18:58CET; the16:51CET research trigger was delayed, so no duplicate paper block was counted.
+This turn advanced native implementation/qualification. Canonicalhistoryretained, notblind.
 Both50mincampaign/4hresearchheartbeats remainACTIVE through17Nov18:30UTC. SSHworks;renewonlyactualfailure.
 
 ## 2. Hard bounds (from the official code and rules)
