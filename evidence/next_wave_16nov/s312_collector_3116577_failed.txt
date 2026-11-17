@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/mnt/lustre/work/gehler/gfh527/ni26_raw312_20261117_matrix2/collect.py", line 13, in <module>
+    from run import ARMS, ORDERS
+  File "/mnt/lustre/work/gehler/gfh527/ni26_raw312_20261117_matrix2/studies/14nov/newmember/run.py", line 14, in <module>
+    REPO = os.path.abspath(__file__ + "/../../../.."); O = sys.argv[1]; SC_ = O.rstrip("0123456789"); PS = O[len(SC_):]
+                                                           ~~~~~~~~^^^
+IndexError: list index out of range
