@@ -1,6 +1,8 @@
+#include "../src/networks_internal.h"
 #include "ni26/math.h"
 #include "ni26/networks.h"
 #include "ni26/routing.h"
+#include <cstring>
 #include <iomanip>
 #include <iostream>
 #include <torch/torch.h>
@@ -33,6 +35,20 @@ int main(int argc, char **argv) {
     require(argc == 4, "usage: neural_source PARAMS FIXTURE MODULE_ROOT");
     torch::set_num_threads(1);
     auto z = Params::load(argv[1]), f = Params::load(argv[2]);
+    for (const std::string mode : {"known", "unknown"}) {
+      auto x = f.get(mode + "_x");
+      for (int64_t i = 0; i < x.size(0); ++i) {
+        auto mean = neural::temporal_row_mean_float32(x[i]);
+        auto expected_mean = f.get(mode + "_row_means")[i].contiguous();
+        require(expected_mean.scalar_type() == torch::kFloat32 &&
+                    expected_mean.sizes() == mean.sizes(),
+                "invalid source row-mean oracle");
+        require(std::memcmp(mean.const_data_ptr(), expected_mean.const_data_ptr(), mean.nbytes()) ==
+                    0,
+                "source row mean not BYTE_EXACT at " + mode + "/window/" + std::to_string(i));
+      }
+    }
+    std::cout << "SOURCE_ROW_MEANS_BYTE_EXACT windows=39 values=1599" << std::endl;
     auto weights = z.get("member_weights").to(torch::kFloat64);
     weights = weights / weights.sum();
     const std::filesystem::path root = argv[3];
@@ -101,6 +117,11 @@ int main(int argc, char **argv) {
         require(ft.stats().refits == 2 && ft.stats().steps == 40 &&
                     ft.stats().maximum_parameter_change > 0,
                 "native two-refit path inactive");
+      auto info = ft.stats();
+      std::cout << mode << " source_windows=" << x.size(0) << " refits=" << info.refits
+                << " steps=" << info.steps << " relabels=" << info.relabels
+                << " parameter_change=" << std::setprecision(17) << info.maximum_parameter_change
+                << std::endl;
       bank.reset();
       eye.reset();
       rest.reset();

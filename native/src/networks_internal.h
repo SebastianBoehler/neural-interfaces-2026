@@ -24,6 +24,7 @@ private:
   int64_t count_ = 0;
 };
 std::string input_key(const Params &p);
+Tensor temporal_row_mean_float32(const Tensor &x);
 class Network {
 public:
   virtual ~Network() = default;

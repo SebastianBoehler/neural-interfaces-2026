@@ -1,13 +1,52 @@
 #include "networks_internal.h"
+#include <array>
 #include <torch/torch.h>
 
 namespace ni26::neural {
 namespace {
+// Preserve NumPy2.5.4's contiguous-axis float32 reduction order.
+// https://github.com/numpy/numpy/blob/v2.5.4/numpy/_core/src/umath/loops_utils.h.src
+float pairwise_sum(const float *values, int64_t count) {
+  if (count < 8) {
+    float sum = -0.0f;
+    for (int64_t i = 0; i < count; ++i)
+      sum += values[i];
+    return sum;
+  }
+  if (count <= 128) {
+    std::array<float, 8> lanes;
+    for (int j = 0; j < 8; ++j)
+      lanes[j] = values[j];
+    int64_t i = 8;
+    for (; i < count - count % 8; i += 8)
+      for (int j = 0; j < 8; ++j)
+        lanes[j] += values[i + j];
+    float sum = ((lanes[0] + lanes[1]) + (lanes[2] + lanes[3])) +
+                ((lanes[4] + lanes[5]) + (lanes[6] + lanes[7]));
+    for (; i < count; ++i)
+      sum += values[i];
+    return sum;
+  }
+  auto half = (count / 2) / 8 * 8;
+  return pairwise_sum(values, half) + pairwise_sum(values + half, count - half);
+}
 std::string bytes(const Tensor &value) {
   auto x = value.detach().cpu().contiguous();
   return std::string(static_cast<const char *>(x.const_data_ptr()), x.nbytes());
 }
 } // namespace
+Tensor temporal_row_mean_float32(const Tensor &x) {
+  require(x.device().is_cpu() && x.scalar_type() == torch::kFloat32 &&
+              x.sizes() == torch::IntArrayRef({41, 480}),
+          "temporal row mean requires CPU float32(41,480)");
+  auto contiguous = x.contiguous();
+  auto result = torch::empty({41, 1}, x.options());
+  const auto *values = contiguous.const_data_ptr<float>();
+  auto *means = result.data_ptr<float>();
+  for (int channel = 0; channel < 41; ++channel)
+    means[channel] = (0.0f + pairwise_sum(values + channel * 480, 480)) / 480.0f;
+  return result;
+}
 std::string input_key(const Params &p) {
   std::string result;
   for (const auto *key : {"align", "k", "G", "scale", "shrink"})
@@ -49,7 +88,7 @@ Tensor InputStream::step(const Tensor &input) {
   if (!align_)
     return (x / scale_).to(torch::kFloat32);
   // The reference centers its float32 window before float64 covariance products.
-  auto centered = (input - input.mean(-1, true)).to(torch::kFloat64);
+  auto centered = (input - temporal_row_mean_float32(input)).to(torch::kFloat64);
   auto c = torch::matmul(centered, centered.t()) / 480.;
   c = (1 - shrink_) * c + shrink_ * c.trace() / 41 * torch::eye(41, c.options());
   sum_ = sum_ + c;
