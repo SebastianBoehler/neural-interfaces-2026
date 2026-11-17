@@ -1,4 +1,4 @@
-# NI26 thread retrospective — 17 November, 13:00 CET
+# NI26 thread retrospective — 17 November, 13:07 CET
 
 This records the campaign since the Claude handover, including overnight work.
 It separates measured improvements, diagnostic findings, unsuccessful methods and pending work.
@@ -76,9 +76,9 @@ These negative forms do not establish universal architecture ceilings or exhaust
 
 | Work | Actual status | Next decision/time |
 | --- | --- | --- |
-| §321 returning comparison | Pilot3119222_0 passed12m56;8CPU cells3119252 running,7pending; collector3119253 waiting | Finish BOTHpeople/all8orders before any metric; approximately13:20–13:30 if remaining cases resemble the pilot, later if recognition/FT is slower |
-| §347 late-crop source qualification | Diagnostic3119299 isolated the rounding-order failure; repaired qualification3119303 queued13:00CET | CPU2/20min allocation bound plus queue; qualify ALL source crops before any training, no accuracy ETA yet |
-| §347 possible training | Not queued | Only after qualification/cost proof: original raw reference, extra official repeats, and matched late-crop updates |
+| §321 returning comparison |2/16cells complete including pilot;8CPU cells3119252 running,6pending; collector3119253 waiting | Finish BOTHpeople/all8orders before any metric; approximately13:20–13:30 if remaining cases resemble the pilot, later if recognition/FT is slower |
+| §347 late-crop source qualification |3119303 PASS208s: ALL60sourceEDFs/1898officialcrops/1894eligiblelatecrops and original-model prefix parity pass | No held labels or accuracy read; original normalization remains fixed |
+| §347 control/cost smoke |3119319 submitted13:06CET,CPU6/max5min; four one-epoch source-only checks | Original/wrapper exact identity, matched batch/step/source controls and measured cost must pass before two40epoch accuracy fits are released |
 | Primary-source research |10:49:35–11:04:39CET block complete15m04 | Next scheduled block about14:51CET; not replaced by intervening audits |
 | Submission decision | Provisional18:00CET | Assess full-system evidence, artifact fidelity and runtime; upload remains the user's decision |
 
