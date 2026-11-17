@@ -1,79 +1,77 @@
 # Overnight campaign: 16–17 November
 
-Updated: 17 Nov 2026 03:40 CET. User is asleep and explicitly authorizes continued experiments and follow-ups.
-Goal: stronger validated candidate by17November evening, provisional18:00CET checkpoint.
-Top five remains an objective. No new package gain or sealed score is established.
-Use Galvani only; keep all user jobs within32running/272submitted and preserve unrelated jobs.
-Read STATE →LEDGER →OFFICIAL_CONTRACT; STATUS_17NOV.md owns detailed completed results.
-Never upload automatically. Preserve official tensor/metric, frozen packages and official submodule.
+Updated:17Nov2026 04:20CET. User asleep; continued implementation, experiments and follow-ups authorized.
+Goal: stronger validated candidate by17Nov evening, provisional18:00CET checkpoint; top five is not established.
+Galvani only: ≤32account jobs running/≤272submitted with28reserve. Preserve unrelated jobs.
+Read STATE→LEDGER→OFFICIAL_CONTRACT; STATUS_17NOV.md owns detailed results and report hashes.
+No automatic upload. Preserve tensor/metric/session boundaries, frozen packages and official submodule.
 
-## Current submission and evidence
+## Measured candidate and completed results
 
-- Uploaded v5.1b: .8197668759; prepared v6.6cap250 unchanged, ZIP SHA9c4d5538…117ed.
-- Last live board check01:12CET:16th entry/15th team; fifth team .837, leader .859.
-  Unvalidated v6.6scenario .824–.829 maps to~10th–14th entry. Refresh before citing current rank.
-- §305 complete: fixed native head preserves76.218%; converged native75.966%. No gain established.
-  Source/cache audit shows313BASE closely matches305converged, not306historical original.
-- §313 whole complete: IMAG62.956%, REAL60.983%, BASE62.716%; IMAG beats REAL but not BASE reliably.
-  Independent spectral-only49.871%. These whole scores do not establish a chain/member gain.
-- §314 temporal whole49.158% versus46.975%, but §315integration TFD−control−.110official points,
-  people/order+.008[−.158,+.182]. Complete zero/order/source/CP guards passed; undecided.
-- §318 CC30swap+FBL2:76.218→76.441% new-person dev,+.2234official[.0738,.3512]; people/order
-  +.184[.0323,.3327],7/10up. Selected/small, not independent confirmation; synergy unproven.
-- §312 wholeGPU: FBCS54.694/T53.899/C52.384/F45.934%; ShallowS50.062/T50.321/C51.511/F45.606%.
-- §306interface experts and §310entropy sign do not establish a current-system gain.
-- Native inference63–64ms versus cachedPython113–117ms in one pairedCPU scope. ResidentA100
-  full source solve1.062s versus CPU238.483s; device/trajectory differ, no energy/worker claim.
+- Uploaded v5.1b:.8197668759; preparedv6.6cap250 unchanged, ZIP SHA9c4d5538…117ed.
+- Last board01:12CET:16th entry/15th team, fifthteam.837/leader.859; refresh before current-rank claims.
+  v6.6scenario.824–.829 is unvalidated. No new sealed score, candidate promotion or upload.
+- §318JS CC30FBswap+FBL2:76.218→76.441% localnewperson,+.2234official[.0738,.3512];
+  people/order+.184[.0323,.3327],7/10up. Selected/small; interaction spanszero, not confirmed synergy.
+- §318diagnostic:gain already beforefinalCP; moreargmaxcorrections coexist with lowertrueclassmargin.
+- §305fixednative preserves76.218%; convergence,308heads,310entropy and315temporal do not establishgain.
+- §313whole IMAG62.956/REAL60.983/BASE62.716%; imaginary beats real, notBASE reliably.
+  BASEcloselymatches305converged, not306historical. Spectral-only49.871%; integration pending.
+- §312GPUwhole FBCS54.694/T53.899/C52.384/F45.934%; Shallow50.062/50.321/51.511/45.606%.
+  SourceP02quality was notwholequality; seed changes both initialization and inner-validation path.
+- NativeCPUinference63–64ms versus cachedPython113–117ms, narrowpairedscope.
+  ResidentA100solve1.062s versusCPU238.483s also changesdevice/trajectory; noenergy/end-to-end claim.
 
-## Active studies and exact dependencies
+## Active original studies
 
-- §308 complete guarded80cell chain: no new head beats76.218% control; tanh76.105%.
-  Report strong_heads_s308_results.json; old downstreamfeatures retained, no family closure.
-- §313 full-chain spectral comparisons: source matrix/replay passed; component cells are running,
-  with complete scorer3116439 dependency-pending at03:12CET; jobname s313-member.
-- §312 GPU: all160producers and guarded correctedcollector3116911 completed0:0; reportSHA1030e869…db5b.
-  Failed3116577imported wrongrunmodule; separate guarded path-only wrapper, no producer/metricchange.
-  Stage3116657passed→smoke3116902pending at03:40CET; unchanged315source, both old failures preserved.
-- §312 independent ALL-CPU route: manifest528284dc…5ef4, complete Tcell3116416passed242s;
-  84guardedoutputs at03:16CET; wave10array3116881→3116882. Recentcells5:00–6:49,8cellwaves%4.
-  Complete160cell CPUmatrix only; never mix CPU/GPUfolds. Provisional whole CPU05:00–08:00CET,
-  conditional on capacity/cost/guards. raw312_schedule_handoff.md owns current wave IDs/paths.
-  Its full-chain consumer must be separately pinned to this CPUroute before any use.
-- §307 independent-refit route FAILED P09parity; failed outputs/source remain preserved.
-  Its obsolete pending assembler3116402was cancelled after new316dispatch. Never relabel as passing.
-- §316 DISTINCT common-anchor adaptation: exact305coefficients/scalers for all arms/ALL10fresh targets.
-  P09pilot3116532passed2.33e−14; targets3116543%2 →assembly3116544 →capacity-checked chain.
-  Workspaces ni26_s316_common_20261117; inherited Slurm names may still say s307. Identify bysource,
-  not jobname. It tests adaptation conditional on a fixed trained anchor, not independent solver parity.
-- §317 continued auxiliary ShinWG supervision: source-only A/B/C pilot passed; C−B−.739pp did not
-  trigger3pp harm stop. New nested-producer smoke3116739passed.60fold24/24/12waves start3116807%4,
-  Firstwave22/24complete at03:40CET;3116808→wholecollector→private315consumer. No outer score read.
-  Handoff aux317_handoff_17nov.md owns sources/guards; source1bc0d892…5636.
-- §318 complete all8orders×6bases, scorer3116842passed; reportSHA9abebd50…0874. Posthoc saved-stage
-  diagnostic3116910passed: gain precedesfinalCP; more argmaxcorrections coexist with lowertrueclassmargin.
-- §319 source-only visual preflight3116906 queued→guardedA100preflight→boundedpilot; source0a80aeb0…f943.
-- §320 source-crossfitted reliabilitypilot3116903 queued, source204c0959…6726; no automaticoutermatrix.
-- §321 external_supervision owns JSpackage-readiness: separateoutermix required; no globalweightswap.
-  CC30study savedno checkpoints; samefold retrain/exportparity before all10training. No newcandidate ready.
-- §322 thread_context prepares source-only norm/skip controls after312gap audit3116925 passed.
-  P02results dependonseed+inner-validationpath; sourceprobes do not show skipdominance. No322score yet.
+- §312GPUcomplete160fold/source/checkpoint guards passed correctedcollector3116911; source unchanged.
+  Import-path recovery preserved failed3116577 and purged-IDbridge3116075; neither relabeledpassing.
+- §315GPUrawconsumer smoke3116902 passed allcontrol/zero/route/6CPguards in7m01, released54cells
+  3116968%4→scorer3116969. At04:07CET2complete/3running; no complete chain score.
+- §312ALL-CPUroute source528284dc…5ef4 staysseparate. At04:07wave13array3117029(105–112)
+  →callback3117030. Recentcells5–7min; provisionalcomplete05:00–08:00CET remains conditional.
+  raw312_schedule_handoff.md owns dynamicIDs; no CPUconsumer withoutseparatepin/registration.
+- §313spectral chain3116438:30/40complete at04:07CET,2running/8pending→complete scorer3116439.
+- §316common305anchor: fresh10target/staticguards passed; chain3116663 had39/64complete,
+  2running/23pending at04:07→scorer3116664. Original307independentP09parity FAILED, preserved.
+  Workspaces ni26_s316_common_20261117; legacySlurmnames may says307, identifybysource.
+- §317externaljointShinWG:sourcepilotpassed; full60fold CPU24/24/12waves continue.
+  First24done; wave1array3116927→3116928 thenlast12/wholecollector/private315consumer.
+  Source1bc0d892…5636; aux317_handoff_17nov.md andowned321_320_317_handoff_17nov.md own guards/IDs.
 
-## Ownership and overnight decisions
+## New results and next independent questions
 
-- Root owns candidate decisions, canonical status, full-system integration and grouped ledger checkpoints.
-- thread_context owns chain checks/312gap/318diagnostic/322; fresh_solution_audit owns319.
-- external_supervision_17nov owns321 and queued317/320; preserve all immutable running sources.
-- Existing workers may be idle; use followup_task to reactivate them, not send_message alone.
-- Read complete guarded blocks as they land; queue justified next questions without waiting for other lanes.
-  Small positives remain uncertain, not closed. Preserve matched controls and selection disclosure.
-- At03:40CET worker observed69active/11running/58pending, zero DependencyNeverSatisfied.
-- Keep representation/data/supervision breadth alongside combinations. A native port or new head is not
-  an independent representation. Fresh workers disclose shared history; no cross-provider run occurred.
-- Globalscientific-discovery skill is installed for Codex/Claude; personal masterdbaab0e contains source.
-  Apply its coverage audit, candidate lineage and evidence-backed evolution without public private-data leaks.
--50minute campaign and4hour≥15minute research heartbeats are ACTIVE through17November evening.
-  Latest research02:48:22–03:09:39CET,21m17s: research_4h_17nov_0250.md. Next~06:51CET.
-- SSH was renewed01:02CET and worked03:40CET; local12hour idle retention is not server/VPNexpiry.
-  Submitted jobs continue without access. Request authentication only if actual access expires.
-- Smoke all new source on real data; require replayOK, full source/order/reset/zero/provenance guards.
-  Do not lower guards, substitute models or mix incomplete routes silently. Validate worker package before upload.
+- §322sourcepilot:matchedSessionBN advantage5.4–8.3pp onP02/P03, mixedsmallskip effects.
+  Twoexposedsourcepeople; normalization changes bothtraining andcausalinference, nooutergain.
+  Pilot3116953 passed; source94308385…63297f2, normskip322.md owns details.
+- §323prospectivefullstudy:80fitsbundled20person/seedcells;8arms separate trainBN×fixed/causal
+  inference×skip. Eachinferencepair reusesidentical trainedweights; all8orders, noouterHPO.
+  CPUguard3117038 andcanonicalP10A100smoke3117039 passed;smoke1m23/peak784MB.
+  Remaining19folds3117052%4→completewholecollector3117053→stage3117054→inputguard3117074
+  →chainsmoke3117055. Replay3117040passed;8controlcells3117041 running.
+  Producer88437e69…24eb6d5, private315consumerbaf212bd…dafbd55c. No323accuracyyet.
+- §319visualengineering passed CPU/A100:full41/16rows~394/134msCPU,12.96/4.69msA100.
+  Pretrained51.39% <random57.68/direct62.88 onselectedP02; nofullmatrixfromthisform.
+  Publicassetshashed, fullsourceguards passed; visual_s319.md owns exactterms/checkpoint hashes.
+- §324preparesdistinctsource-onlyfull41/PCA16×intensity/frequency-time controls after319negative.
+  P01excluded; nomatrix/gain claim. Scope/guards/budget must be registered before accuracy.
+- §320reliabilitysourcepilotcomplete:H60.115/U61.156/S61.669/R62.173;H<68.60qualitystopFIRED.
+  Noouterexpansion; futurestronger-normalization application needsnewregistration/wholecontrol.
+- §321JSpackage:oneP01seed0CCcheckpoint/8streams recoveredEXACT;CPU/CUDAexports≤8e−6/resetpassed.
+  Recoverseeds1–5 andactiveouteradapterparity next. Actualall6deploymentisB2_pool, notsixbaseaverage;
+  posthocB2_poolcontrast needscompleteguards. SeparateouterFBk2swap/FTremoval,adaptedFBLdouble,17units.
+  Innergate/labels/FTunchanged doesNOTimplyfinalrecognizedidentity. Firstpolicyisstudy-matchedJS-all;
+  recognized/first10/returning/worker/timing remainunvalidated. Noall10wave/newpackage ready.
+
+## Coordination and continuation
+
+- Root owns canonicalstatus/candidates; thread_context owns323 andoriginalchainchecks.
+- external_supervision_17nov owns321 andqueued317/320; fresh_solution_audit owns324/319.
+- Use followup_task toreactivate idleworkers; preserve immutablejobs, existing ownership and failed evidence.
+- Queue justified follow-ups fromcompleteblocks withoutwaiting all lanes; uncertainpositive≠closure.
+- Last04:07queue110active/11running, no deaddependencies. Verify freshcounts before dispatch.
+- Global scientific-discovery skill applied; personalmasterdbaab0e. No cross-provider execution claimed.
+- Both50minute and4hour≥15minute research automations ACTIVE; prompts refreshed thiscycle.
+  Last substantiveblock02:48:22–03:09:39CET,21m17s; next~06:51CET. Recordactualtime andprimarysources.
+- SSHrenewed01:02CET andworked04:07CET;12hourlocalidleretention isnotserver/VPNexpiry.
+  Submittedjobs survive accessloss. Ask renewalonlyonactualfailure. Neveruploadautomatically.

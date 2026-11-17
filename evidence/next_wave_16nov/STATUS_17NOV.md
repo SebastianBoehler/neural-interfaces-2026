@@ -140,3 +140,41 @@ with guarded continuations and no automatic outer matrix. Preparedv6.6 and uploa
 At03:40CET Galvani had69active jobs:11running/58pending and no dead dependencies observed.
 Raw315stage3116657 passed; smoke3116902 awaited priority. §317wave1 had22/24complete,2running,
 with its capacity-checked continuation intact. SSH access worked; no renewal was required.
+
+## Source mechanisms and releases:17November,04:20CET
+
+§322's matched SessionBN versus populationBN source pilot improved P02/P03 by7.19/8.34points
+without skip, and7.57/5.44 with skip. All four arms shared initialization, head width, session-chunk
+batches,40epochs and1360updates. Skip effects were smaller/mixed. Both validation people were previously
+exposed; the normalization factor changes training and causal inference together. This is evidence
+for the next question, not an outer/chain/returning/sealed gain. [Source report](normskip322_pilot.json).
+
+§323 now separates those phases prospectively:80fits in20person/seed cells, eight fixed arms
+from trainingBN × fixed/causal inference × skip; identical fitted weights within each inference pair.
+All10heldpeople,2seeds,8orders precede the complete official-metric whole and fixed-member chain tests.
+CPUguard3117038 and canonical P10 A100smoke3117039 passed. Smoke took1m23s, with60.52s measured
+work and784MB peak allocated GPU memory. Remaining19cells3117052%4→collector3117053→stage3117054
+→inputidentityguard3117074→chainsmoke3117055. Replay3117040 passed; controls3117041 are running.
+Separate guarded interaction reports complete the factorial analysis; no §323accuracy has been read.
+
+§319 passed strict/offline/shape/amplitude/padding/gradient/reset checks. Warm A100B1 full41rows12.96ms,
+bounded16rows4.69ms; CPU394/134ms. These are encoder timings, not full package measurements.
+Its selected source P02 pretrained51.39% lost to random57.68/direct62.88%; no outer matrix follows.
+§324 prepares full-channel/frequency-time controls because projection was not required by measured latency.
+[Visual scope](visual_s319.md) distinguishes this fixed display from the paper's learned renderer.
+
+§320 source pilot completed: H60.115/U61.156/static61.669/learned62.173% on repeatedly used P02.
+The +1.017point learned-versus-uniform effect is on a weak control: H failed its preregistered68.60%
+quality bound. No outer expansion. [Report](reliability320_source_result.json).
+
+§321 exactly recovered one heldfold CC30model and all8historical probability streams; CPU/CUDA exports
+were within8e−6, with reset/deepcopy guards passed. Six-seed active adapter and whole package validation
+continue. Its first policy is study-matched JS-all; preserving inner gates/labels is not final-output
+identity after recognition. Actual all6seed deployment correspondsB2_pool, whose separate contrast
+must be reported rather than inheriting the six-base-average+.2234point result.
+[Package readiness](owned321_320_317_handoff_17nov.md) records the remaining gates and blocked returning reference.
+
+The original raw §315consumer smoke passed and released3116968→3116969. At04:20CET, §313 had34/40,
+§31647/64 and raw §31512/54 treatment cells complete. Account115active/14running, no dead dependencies.
+All further scores await complete guarded matrices. Both automation prompts now refer to these current
+priorities and owning evidence, replacing obsolete pending-job instructions. No new package or upload.

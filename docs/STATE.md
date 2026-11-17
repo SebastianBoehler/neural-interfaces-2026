@@ -9,95 +9,66 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Completed overnight blocks: 17 Nov 2026, about 03:40 CET
+### Current campaign: 17 Nov 2026, about 04:15 CET
 
-§318 conditional-CORAL30 swap plus FBL factor2 improves the guarded local new-person comparison:
-76.2177→76.4410%, +.2234 official points [80% +.0738,+.3512]; people/order +.184[+.0323,+.3327],7/10up.
-This selected, small dev result is promising, not independent confirmation, proven synergy or a sealed gain.
-§321 checks exact package mapping and reference parity before a new candidate can be prepared.
-The study alters the outer mix after fine-tuning deltas; a global checkpoint/weight swap would change the inner gate/label chain.
+The user authorizes ongoing overnight implementation, broader whole alternatives and justified follow-ups.
+The provisional decision checkpoint is17November18:00CET. Top five is an objective, not a verified result.
+Use Galvani only. Respect32running/272submitted account jobs and28reserved slots; preserve unrelated jobs.
+[Current results](../evidence/next_wave_16nov/STATUS_17NOV.md) and the
+[overnight handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md) own detailed evidence/jobs.
 
-§308 complete head integrations do not improve current control. §312's complete160fold GPU whole study
-gives FBCNet supervised54.694%, pretrained/fine-tuned53.899%, matchedextra-supervised52.384%;
-paired pretraining effects remain uncertain. One strong P02 source check did not establish a strong whole decoder.
-The new report-only collector import failure was repaired with explicit module-path guards; producer sources and metric are unchanged.
-Its registered full-system consumer continues separately. A source-only normalization/skip attribution pilot is being prepared;
-populationBN, session sampling, schedule, epoch selection and skip differ from the original raw SessionBN reference.
-Source probes do not support skip dominance; seed also changes inner validation selection, so its variation is not isolated RNG noise.
-§319 visual and §320 reliability source pilots are queued. See [current status](../evidence/next_wave_16nov/STATUS_17NOV.md)
-and the [overnight handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md). No upload or candidate promotion.
+**Submission remains unchanged.** Uploaded v5.1b scored .8197668759. Prepared v6.6cap250 ZIP is
+`runs/sealed/final_zips/v66_cp1_cap250.zip`, SHA256
+`9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
+No upload or new candidate promotion. Last board snapshot01:12CET was16th entry/15th team; refresh before citing current rank.
+The .824–.829 v6.6scenario is unvalidated sealed transfer, not a measured score.
 
-### Research update: 17 Nov 2026, about 03:10 CET
+**Completed current-system comparisons.** §318 CC30 FB-slot swap plus FBL factor2 gives
+76.2177→76.4410% local new-person dev, +.2234 official points [80% +.0738,+.3512];
+people/order +.184[+.0323,+.3327],7/10up. Selected and small; no independent confirmation or proven synergy.
+§305 fixed-head native port preserves76.218%; converged fitting does not improve it.
+§308 nonlinear/kernel heads, §310 entropy transfer and §315 temporal additions establish no control gain.
+§313 imaginary spectral features beat matched real features in the whole decoder, but not BASE reliably;
+the full-system integration remains pending. BASE matches §305converged, not the historical §306original head.
+Original §301training-head and §307independent-refit parity failures remain failures. §316 is a separately
+registered common-anchor adaptation study, with exact static/source guards and its own ongoing full-system matrix.
 
-The [four-hour research block](../evidence/next_wave_16nov/research_4h_17nov_0250.md) ran02:48:22–03:09:39CET,
-21minutes17seconds. It rechecks completed results and primary research, and distinguishes prior review from new execution.
-§319 is assigned a source-only visual-pretraining feasibility/pilot lane using a public licensed DINOv2 backbone;
-§320 is assigned a separate source-crossfitted forward-only reliability mechanism. Neither has a score or claimed gain.
-§317's source pilot passed and its matched60fold CPU study is queued in guarded24/24/12waves, starting3116807.
-By03:22CET all160§312GPU producers completed; guarded collector3116577 and recovered315consumer await release.
-The failure was a purged completed-control jobID, with source/archive/CP verification preserved; see current status.
-Existing §308/313/316/318 workflows continue; complete guarded blocks decide subsequent combinations.
-Prepared v6.6 and official score remain unchanged. Upload remains under user control.
+**Representation and supervision results.** Complete §312GPU raw-pretraining whole models are weak:
+FBCNet S54.694/T53.899/C52.384/F45.934%; Shallow S50.062/T50.321/C51.511/F45.606%.
+Paired pretraining effects remain uncertain; the guarded fixed two-seed full-system consumer continues.
+The all-CPU route stays separate; never mix folds. A report-only import-path failure was repaired with
+module-path and full160fold/source/checkpoint guards; producer source and official metric were unchanged.
+One strong P02 source check did not establish a strong whole decoder. Seed also selects validation people/epochs.
+Source-only body/skip probes do not support skip dominance. §317's continued external cognitive-supervision
+60fold study continues with its private whole/chain consumer; its source pilot is not an outer gain.
 
-### Research update: 17 Nov 2026, about 02:20 CET
+**New source evidence and follow-ups.** §322's matched normalization × skip pilot found
+SessionBN ahead by5.4–8.3points on P02/P03, with mixed smaller skip effects.
+These two source people were previously exposed; training and inference normalization changed together.
+§323 prospectively separates training norm from fixed/causal inference using identical fitted weights,
+both skip settings,10heldpeople×2seeds,80fits bundled into20cells and all8orders. CPU guard3117038
+and A100 smoke3117039 passed;19remaining cells3117052→wholecollector3117053→stage3117054
+→inputguard3117074→chain smoke3117055. Replay passed; private archive-matched controls are running.
+§319 public DINOv2 engineering passed: full41/16row A100B1 about13/4.7ms. Fixed-PCA pretrained51.39%
+lost to random57.68/direct62.88% on one selected source person. §324 prepares distinct full-channel/frequency-time
+source controls; this does not close visual priors. §320 learned reliability was positive against its uniform
+source comparator, but unchanged H60.115% failed68.60%quality; no outer expansion.
 
-Completed §305/§313-whole/§315-temporal/§304 reports are in [current status](../evidence/next_wave_16nov/STATUS_17NOV.md).
-No new submission gain is established. Fixed-head native port preserves the current score; tighter fitting does not improve it.
-Temporal standalone gain does not establish a full-system member gain. Imaginary spectral features beat matched real features,
-but not the converged BASE with confidence. Conditional CORAL30 swap is +.0545 official points versus current control,
-with an interval crossing zero; §318 tests combinations with FBL2 while broader lanes continue.
-§307 independent refit failed P09parity. Separate preregistered §316 uses common verified §305anchors for ALL10fresh targets;
-pilot passed and production is running. §317 prepares source-private continued external supervision after checking actual
-prior coverage and primary source terms. The raw §312 CPU/GPU matrices stay separate. No upload or package change.
+**Candidate validation.** §321 recovered one CC30heldfold checkpoint exactly and passed CPU/CUDA export/reset checks.
+The study changes the OUTER mix after FT deltas, normalizes17units, and preserves original inner gates/labels/FT.
+A global checkpoint/weight swap is wrong. All6seed deployment correspondsB2_pool, not the six-base average.
+Its effect, six-seed active adapter parity, actual recognized/returning policy, worker checks and timing still need validation.
+Preserved inner-gate identity does not establish unchanged final recognized outputs. No new package is ready.
 
-### Live check: 17 Nov 2026, about 01:15 CET
-
-[Current results, jobs and estimated times](../evidence/next_wave_16nov/STATUS_17NOV.md) supersedes older queue snapshots.
-Live Codabench now ranks uploaded v5.1b 16th by entry, 15th after merging team entries; leader .859.
-Prepared v6.6 is unchanged. Its unvalidated .824–.829 scenario maps to about10th–14th by entry.
-§314 temporal features improve their matched weak decoder by2.182 official points, but not a package gain.
-§310 entropy-sign transfer and §306 interface experts do not establish a new current-system gain.
-§305/308 CPU evaluation now runs at four allocations each. §304 provenance recovery passed and its69cell
-wave is running. §307 independent anchor parity now passes (max2.60e−14) after matching the pinned scaler
-and single-thread fitting; production3116401 is running. §312 GPU guards passed, but production is
-queue-limited; pending wave1 reservations are shortened45→10minutes and a complete-cost probe is being prepared.
-No upload was made. Fresh SSH master started01:02CET; no server/VPN expiry time has been verified.
-
-### Overnight update: 17 Nov 2026, about 00:22 CET
-
-The user authorizes changes throughout this codebase, including earlier architectures, split choices,
-and stage boundaries. The official contract and honest source/test separation remain fixed. Search whole
-alternative systems as well as incumbent improvements; see [overnight handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md).
-
-- §294–296 complete without an established new current-system gain. §299 FBL2 is +.096pp
-  [−.072,+.262] versus control; uncertain. §302 temperature2 repairs part of EEGNet harm but
-  does not beat its neutral ENU control. §300 locates much of that harm before count/CP.
-- §301 strong native feature parity passed, original training-head parity failed. §305 separately
-  tests converged heads; its full guarded matrix remains in progress. Do not turn training loss into dev gain.
-- Paired P01 inference is113–117ms for cached-coefficient Python versus63–64ms nativeCPU,
-  probability error≤2.20e−8. NativeCPU full-solve training is243–244s versus Python19–20s,
-  with different stopping tightness below one objective target. §309 tests resident A100 training.
-- §303 complete: compact native connectivity confidence flattening49.78% vsstatic48.90%;
-  exploratory person/order effect+.858[+.601,+1.111],9/10up. The weak whole decoder remains
-  below76.22%. §310 transfers the entropy-term sign to the strong native core. §304conditional
-  CORAL, §306interface experts, §307source-trained adaptation and §308nonlinear/kernel heads
-  are in flight. CPUroutes now release work independently of delayed GPUcompatibility checks.
-- Research block22:51:07–23:06:18CET completed. [Primary-source synthesis](../evidence/next_wave_16nov/research_4h_16nov.md)
-  includes9–13November publications and explicit transfer limits. Recurring50-minute campaign
-  and four-hour,≥15-minute research heartbeats are active through the17November evening checkpoint.
-- User prioritizes materially different representations in the next wave. [Representation portfolio](../evidence/next_wave_16nov/representation_portfolio_17nov.md)
-  separates existing strong-core refinements from §312 raw-recording pretraining, §313 full-channel
-  spectral structure and §314 temporal dynamics. §312 source-learning pilot3115785 and official-window
-  preprocessing parity3115791 passed; its full training DAG is being prepared. §313 real-window
-  smoke3115857 and label-free feature preparation3115858 passed. §314 source-only pilot3115983
-  is running, with callback3115987 to release20 bundled fits after guards. No new accuracy is established.
-  The system already has a complex-Hilbert member; phase is not wholly absent. Raw-pretraining
-  backbones are existing models with changed supervision, not new architectures. Global scientific-discovery
-  skill is installed and applied; personal master commit dbaab0e contains its public source.
-- §309 A100 resident fitting completed: median1.062s versus CPU238.483s for the same P01 source
-  matrix/objective/options; objective gap1.04e−10. Different device and optimizer trajectories contribute;
-  no held-prediction, end-to-end, energy or worker claim. [Measured scope](../evidence/next_wave_16nov/native_device_s309.md).
-- Submission/candidate status is unchanged. Top five is the objective, not an official result or promise.
+**Native stack and research cadence.** Paired CPU inference63–64ms versus cachedPython113–117ms has a narrow scope.
+ResidentA100 full source solve1.062s versus CPU238.483s also changes device/optimizer trajectory;
+neither result establishes energy, end-to-end or worker speed. See the owned evidence before broader claims.
+The global scientific-discovery skill is installed and applied; no cross-provider execution is claimed.
+Latest timed primary-source review02:48:22–03:09:39CET lasted21m17s:
+[research report](../evidence/next_wave_16nov/research_4h_17nov_0250.md).
+Both50minute campaign and4hour≥15minute research heartbeats remain active through17November evening.
+SSH was renewed01:02CET; local12hour idle retention is not a verified server/VPNexpiry.
+Submitted jobs continue without an active client. Ask for renewal only when access actually fails.
 
 ### Update: 16 Nov 2026
 
