@@ -19,12 +19,12 @@ Report every gain as FULL-SYSTEM DEV, SEALED LEADERBOARD or INDIVIDUAL-MODEL, wi
 [Detailed current evidence](../evidence/next_wave_16nov/STATUS_17NOV.md) and the
 [≤80-line handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md) capture earlier sources and jobs.
 
-**Submission and rank.** Uploadedv5.1b scored .8197668759. Preparedv6.6cap250 is unchanged:
-`runs/sealed/final_zips/v66_cp1_cap250.zip`, SHA256
+**Submission and rank.** Uploaded v5.1b scored .8197668759 in 1,287 s. The official leaderboard mirror updated
+17 November at 16:44 CET and displayed .841 at fifth place, about 2.12 percentage points above our score.
+Prepared v6.6cap250 is unchanged: `runs/sealed/final_zips/v66_cp1_cap250.zip`, SHA256
 `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
-No upload or new candidate promotion. Last verified liveboard01:12CET:16thentry/15thteam.
-Laterrefreshes returned a botchallenge; the officialmirror is dated16Nov, not a newliveposition.
-The v6.6 .824–.829 sealed-score scenario/~10th–14thdisplayedrank is an unvalidated estimate.
+The v6.6 .824–.829 sealed-score scenario is unvalidated.
+[Official leaderboard](https://neural-interfaces26.github.io/leaderboard.html#bci)
 
 **Best measured full-system change.** Selected§318 CC30FB-slot replacement plusFBLfactor2:
 76.2177→76.4410% new-person FULL-SYSTEM DEV, +.2234percentagepoints[80%+.0738,+.3512];
@@ -181,8 +181,20 @@ Clean worker replica A100 adapter check 3122018 passed exact 31-window label par
 Warm native inference took 11.65 s versus 4.50 s frozen in this pair. Profile 3122028 locates 6.65 s in
 the neural bank on one window. Worker counterfactual 3122043 changed only TorchScript clone to deepcopy
 in the stateful neural bank. Warm replay fell from 11.77 s to 5.09 s on the same A100, all 31 labels exact.
-Full shuffled/long-stream parity, all-family training, gallery fitting and full orchestration are open.
-Imported TorchScript is a runtime migration artifact. [Worker evidence](../evidence/next_wave_16nov/native353_worker_prefix.md)
+Imported TorchScript is a runtime migration artifact. All-family training, gallery fitting and full orchestration
+are open. [Earlier worker evidence](../evidence/next_wave_16nov/native353_worker_prefix.md)
+
+**Current-source A100 worker benchmark — §360.** Rebuilt package 3122062 passed installation.
+The worker replica matched every label and activity counter on two fresh copies of 31 ordinary and
+64 forced-unrecognized windows. The latter performed five fine-tuning refits and three personalization refits
+per copy. Job 3122084 matched all 2,655 outputs across 14 shuffled sessions. All recognized at index 10.
+C++ replay took 449.87 s versus 415.08 s frozen on the same A100. Throughput fell 7.73%.
+Long forced adaptation job 3122085 matched refit counts but failed exact parity at 1/378 and 4/800 labels.
+Each arm varied at one index on the shared prefix across fresh copies. A deterministic worker diagnostic
+3122389 is running. The port has yet to free evaluation time against frozen.
+Neural posterior transfer batching matched both AB/BA pairs but saved 0.45–0.95% of replay time; production uses
+the existing bank. Parallel tangent cores are a separate scratch test in 3122137.
+[Current evidence](../evidence/next_wave_16nov/native_worker360.md)
 
 **Parallel accuracy — §354–356.** §354 complete after two fixed-route recoveries. Gaussian factorization lost to
 the strong raw decoder by 7.44 pp [80% −10.28, −4.62] across three exposed new-person folds. Gaussian versus
@@ -206,6 +218,10 @@ as job 3122050. Untouched A6 scored 60.785%, current-only 59.187%, and prefix 59
 matched control +0.489 pp [80% −0.052, +1.037] and versus untouched A6 −1.109 pp [−2.296,+0.088].
 This exposed INDIVIDUAL-MODEL pilot gives no evidence of a full-system gain.
 [§358 evidence](../evidence/next_wave_16nov/causal_prefix357.md#358-four-person-input-qualification) · [§359 card](../evidence/next_wave_16nov/causal_prefix359.md)
+§361 fractional CSP completed all 48 full frozen-chain controls bitwise. The intervention changed 934 decisions
+but moved the six-base new-person score by −0.0015 pp [80% −0.0469, +0.0490]. On B2_pool it moved −0.0571 pp
+[−0.1761, +0.0747]. Returning equality is structural on the earlier conditional replay. Keep the standard
+estimator. [§361 evidence](../evidence/next_wave_16nov/fractional_csp361.md)
 The user moved ownership to the active Codex chat and archived the previous chat's automation.
 
 ## 2. Hard bounds (from the official code and rules)
