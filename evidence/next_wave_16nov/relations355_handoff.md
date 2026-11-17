@@ -8,8 +8,9 @@
 - Added immutable actual-order snapshot ni26_relations355_order_v1_20261117; SHA1856eb516004e14e1e429f5c620521a8ff2f81edb28aa883e95cf1775c626583.
 - Old3121641 FAILED6s atP01lag6 B1vsB64 max1.25169754e−6>1e−6; probabilityguard FAILED remains. Old3121642 child cancelledpending; no gold. Intermediateinteger-only3121729/3121730 cancelledpending0runtime, supersededUNRUN. NoB64score.
 - Unchangedoriginalwholecollector via3121741 afterNEWB1guardian3121740; all20fold/40bank/checkpoint/data/sourcehashes beforemetric; replay.checkOK; originalprotocol.score/people80%CI/equal schemes.
-- Max1.9GPUh/<6CPUh inclnewguard, account32running/244active+28reserve. No autoretry/extension/provider/upload/chainclaim.
+- Actualprevious355GPU302s/CPU605coresec; pendingB1cap600GPU/1200CPUcoresec pluscollector480CPUcoresec gives worst.25056GPUh/.63472CPUh, under2GPUh/6CPUh. Account32running/244active+28reserve. No autoretry/extension/provider/upload/chainclaim.
 - Scope WHOLE NEW-PERSON alternatives only. Lag0 and envelopeoffset are equal-capacity controls; no incumbent-gain/ranking/returning/physiology claim. §25/26/313/352 overlap explicitly audited in relations355.md.
 - Producer loads allPUBLIC y for source indexing/finitecheck but only nine-source y entersloss; held y never optimizer/selection/calibration/metric. Complete-beforegold refers collector quality, not campaignblinding.
 
 - B1snapshot ni26_relations355_b1_v1_20261117, instrumentSHA6e7c654495e226c8b3472344c20a1862f7461b06a96167f5b9c32a79c481beda. Linuxfilesystem/compile/import/fullSHA preflight before dispatch. Source128B1calls extrapolated with1.5margin+60≤540s beforequery, hard10min/CPU2A10012GiB, noautoextension. Originalfits/weights/sourcefrozen.
+- Latest queue-onlytest forecasts later on2080/V100/newA100 than existing3121740 forecast23:33CET; RETAIN originalA100route, nofallback/duplicate. SchedulerforecastnotETA. Current quality UNKNOWN untilALLnewB1banks/guards and originalmetriccomplete.
