@@ -41,3 +41,6 @@ Offline training parity and training throughput each require a matched source
 fit with held-stream prediction checks. Worker timing measures the cost of the
 completed inference artifact. New learning rules and compute allocation
 policies need their own accuracy and cost comparisons.
+
+The [A100 worker overlay](worker-parity/README.md) preserves the tested inference
+and adaptation build, its numerical dependencies, and its package manifest.

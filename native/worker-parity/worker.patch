@@ -1,0 +1,48 @@
+--- a/native/src/core.cpp
++++ b/native/src/core.cpp
+@@ -1,0 +2 @@
++#include "core_complex_mean.h"
+@@ -2,0 +4,2 @@
++#include <complex>
++#include <cstring>
+@@ -3,0 +7,2 @@
++extern "C" int ni26_hilbert_probe(const float*, std::complex<float>*, size_t, size_t, size_t);
++
+@@ -30 +34,0 @@
+-  // SciPy reflects the float32 window before running the float64 SOS filter.
+@@ -35,4 +39,5 @@
+-    auto multiplier=torch::zeros({480},b.options());
+-    multiplier.index_put_({0},1.);multiplier.index_put_({240},1.);
+-    multiplier.slice(0,1,240).fill_(2.);
+-    b=torch::fft_ifft(torch::fft_fft(b,480,-1)*multiplier,480,-1);
++    std::vector<std::complex<float>> values(static_cast<size_t>(b.numel()));
++    require(ni26_hilbert_probe(b.data_ptr<float>(), values.data(), b.size(0),
++                               b.size(1), b.size(2)) == 0, "native Hilbert transform failed");
++    b=torch::empty(b.sizes(), b.options().dtype(torch::kComplexFloat));
++    std::memcpy(b.data_ptr(),values.data(),values.size()*sizeof(values[0]));
+@@ -46 +51,2 @@
+-    auto centered=(segment-segment.mean(-1,true)).to(analytic?torch::kComplexDouble:torch::kFloat64);
++    auto mean=analytic?core_complex_mean(segment):segment.mean(-1,true);
++    auto centered=(segment-mean).to(analytic?torch::kComplexDouble:torch::kFloat64);
+--- a/native/src/networks_input.cpp
++++ b/native/src/networks_input.cpp
+@@ -3,0 +4,2 @@
++extern "C" void ni26_cov_witness(const float*, double*);
++extern "C" int ni26_inverse_root(const char*, const double*, double*);
+@@ -4,0 +7 @@
++
+@@ -91,3 +94,4 @@
+-  auto centered = (input - temporal_row_mean_float32(input)).to(torch::kFloat64);
+-  auto c = torch::matmul(centered, centered.t()) / 480.;
+-  c = (1 - shrink_) * c + shrink_ * c.trace() / 41 * torch::eye(41, c.options());
++  auto centered = (input - temporal_row_mean_float32(input)).contiguous();
++  auto c = torch::empty({41,41}, x.options());
++  ni26_cov_witness(centered.data_ptr<float>(),c.data_ptr<double>());
++  c = (1 - shrink_) * c + shrink_ * (c.trace() / 41.) * torch::eye(41, c.options());
+@@ -96 +100,5 @@
+-  auto p = spectral((k_ * prior_ + sum_) / (k_ + count_), SpectralFunction::InverseRoot);
++  auto reference = ((k_ * prior_ + sum_) / (k_ + count_)).contiguous();
++  auto p = torch::empty_like(reference);
++  constexpr auto lapack = "/usr/local/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-61654e39.so";
++  require(ni26_inverse_root(lapack,reference.data_ptr<double>(),p.data_ptr<double>()) == 0,
++          "worker EA eigensolve failed");
