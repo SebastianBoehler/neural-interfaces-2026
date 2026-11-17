@@ -7,11 +7,14 @@ TangentCore::TangentCore(const Params& z)
     : z_(z), bank_(filters(z,"sos")), slow_(z.get("slow_sos")) { reset(); }
 TangentCore::TangentCore(const TangentCore& other)
     : z_(other.z_),bank_(other.bank_),slow_(other.slow_),
-      log_sum_(other.log_sum_.clone()),slow_sum_(other.slow_sum_.clone()),count_(other.count_) {}
+      log_sum_(other.log_sum_.clone()),
+      slow_sum_(other.slow_sum_.defined()?other.slow_sum_.clone():Tensor{}),
+      count_(other.count_) {}
 TangentCore& TangentCore::operator=(const TangentCore& other) {
   if (this != &other) {
     z_=other.z_;bank_=other.bank_;slow_=other.slow_;
-    log_sum_=other.log_sum_.clone();slow_sum_=other.slow_sum_.clone();count_=other.count_;
+    log_sum_=other.log_sum_.clone();
+    slow_sum_=other.slow_sum_.defined()?other.slow_sum_.clone():Tensor{};count_=other.count_;
   }
   return *this;
 }
