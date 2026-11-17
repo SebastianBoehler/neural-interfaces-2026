@@ -73,7 +73,8 @@ def main():
     # This is the original feature implementation only. No Core.fit, scaler.fit or PCA fit.
     standardized = (features.F - ref['ts_mu']) / ref['ts_sd']
     basis = np.concatenate((ref['tsem_V'], ref['route_V_hi']), axis=1).astype(np.float64)
-    with threadpool_limits(limits=6):
+    # Original producer leaves its six-thread SVD context before this projection.
+    with threadpool_limits(limits=1):
         pc = ((standardized - ref['tsem_m']) @ basis).astype(np.float32)
     if not np.array_equal(pc, ref['pc_tr']):
         raise ValueError('recomputed original features do not reproduce saved source PCA coordinates')
