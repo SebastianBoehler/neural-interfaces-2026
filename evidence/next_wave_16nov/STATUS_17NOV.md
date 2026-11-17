@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 08:05 CET
+# Campaign status: 17 November 2026, 08:13 CET
 
 Submission unchanged: uploaded v5.1b **.8197668759**. Prepared v6.6 cap250 remains unchanged;
 ZIP SHA `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
@@ -170,8 +170,9 @@ Unknown800has24FTrefits/480steps/noover,39CPrefits/710fusions. Reuse800absolute1
 DESCRIPTIVE, not a timing-pass claim. Firstunknown190payscommoncoldFTsetup, so its~.5ratio is not speedup.
 NewcounterbalancedAB/BA timing3117650 is running afteractualuntimed800FT/CP thenreset; coldcostseparate.
 Firstwarm3117647failed missingrecord.py pre-inference; separate owningdependency-onlyretry/importsmoke passed.
-CPU2153117573continues. StandardCPUreuse3117585TIMEOUT45m04, originalfailurepreserved;
-TIMEOUT-onlycontroller3117679 mayrelease the separatefullfunctional180minprobe. FIRCPUwasnearlimit;verifyactualstate.
+CPU2153117573continues. BothstandardCPUprobes3117585/7TIMEOUT45min, originalfailurespreserved.
+TIMEOUT-onlydispatchers releasedcompleteFUNCTIONAL-onlyCPUreuse3117756/FIR3117757, actuallyRUNNING
+4CPU/24GiB180min each. No latencybarrescue. Owningcheckpointee878a7 containsactualallocation/sourceproof.
 MissinggenuineoriginalSincfolds stillblock returningvalidation. No optimizedcandidate qualification/promotion.
 
 **§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.

@@ -1,6 +1,6 @@
 # Overnight campaign: 16–17 November
 
-Updated17Nov2026 08:05CET. Ongoing implementation, broader experiments and justified follow-ups authorized.
+Updated17Nov2026 08:13CET. Ongoing implementation, broader experiments and justified follow-ups authorized.
 Goal stronger validated candidate by17Nov evening; provisional18:00CET checkpoint. Topfive not established.
 Galvani only:≤32account running/≤272submitted,28reserve. Preserve unrelatedjobs; no paidproviders/messages/upload.
 Read STATE→LEDGER→OFFICIAL_CONTRACT, STATUS_17NOV.md andactualowningevidence. Frozenpackages/submoduleunchanged.
@@ -58,8 +58,8 @@ Read STATE→LEDGER→OFFICIAL_CONTRACT, STATUS_17NOV.md andactualowningevidence
   39CP/710fusions. Descriptivereuse800134.875→137.939s doesnotqualifytiming.
 - WarmcounterbalancedAB/BA3117650RUNNINGafteractualuntimed800FT/CPthenreset. Coldcostseparate.
   Warm13117647missingrecord.pyfailurepreserved;owningdependency-onlySIFimportsmoke precedesretry.
-  CPU2153117573continues;reuseCPU3117585TIMEOUT45m04preserved,FIRnearlimit;controllers3117679/80
-  mayreleaseexistingcomplete-functional180minprotocolONLYafteractualTIMEOUT,no duplicates/oldbarrescue.
+  CPU2153117573continues;bothoriginalCPU3117585/7TIMEOUT45minpreserved. ActualTIMEOUT-onlydispatchers
+  releasedcompleteFUNCTIONAL-onlyreuse3117756/FIR3117757, RUNNING4CPU/24GiB180min,no oldbarrescue.
   MissinggenuineoriginalSincfoldsblockreturningvalidation. No qualifiednewpackage.
 - external_supervisionowns321;fresh_solution_auditowns332/referencebridge;scheduled_research_0652owns335;
   rootcanonicaldocs/333. Usefollowup_task toreactivatecompletedworkers. Neveroverwriteothers'ledgerblocks.

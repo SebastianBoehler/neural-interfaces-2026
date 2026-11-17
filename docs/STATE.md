@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 Nov 2026, about 08:05 CET
+### Current campaign: 17 Nov 2026, about 08:13 CET
 
 The user authorizes ongoing overnight implementation, broader whole alternatives and justified follow-ups.
 The provisional decision checkpoint is 17 November 18:00 CET. Top five is an objective, not a verified result.
@@ -112,8 +112,9 @@ Bothoptimized standardA100first-stop probes pass known190/378/800 but fail unkno
 SeparatecompleteFUNCTIONAL-onlyA1003117601/3117602 now pass allknown/unknown190/378/800, including
 unknown80024FTrefits/480steps/noover,39CPrefits/710fusions. This is function coverage, not timing acceptance.
 Untimedactual800FT/CP activation thenreset plus counterbalancedAB/BA warmedtiming is running3117650;
-its firstdependency-importfailure is preserved. IndependentCPU215continues; CPUreuse3117585TIMEOUT45m04preserved, completefunctional180min
-continuationrequiresactualTIMEOUT-onlycontroller3117679. FIRCPUwasnearthe45minlimit;verifyliveoutcome.
+its firstdependency-importfailure is preserved. IndependentCPU2153117573continues. BothstandardCPUprobes3117585/7TIMEOUT45min, failurespreserved.
+ActualTIMEOUT-onlycontrollers releasedcompleteFUNCTIONAL-onlyreuse3117756/FIR3117757, nowRUNNING
+4CPU/24GiB180min each. This proves no latencybar pass; optimizedA100warmtiming remainsrunning.
 Returning heldfold
 validation remains blocked by missing/invalid genuine original Sinc checkpoints. No candidate is qualified.
 
