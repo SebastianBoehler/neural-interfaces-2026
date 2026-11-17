@@ -1,5 +1,5 @@
 # §355 owning handoff
-- Current freshB1guardian3121740→unchangedwholecollector3121741; SAME40weights, no refit, all40×8B1 actualorders/reset/copy/prefix/interleave/state BITWISE; B64 descriptive ONLY. No heldmetrics read.
+- CURRENT soleCPU-B1cohort3121783→UNCHANGEDwholecollector3121784. Sourcepilot3121761PASS12sCPU1/projection352.662s<18min; fullCPU4/12GiB20min, fourfixedonearm/affinityCPUprocesses, sameCPUfloat32/Torch2.14.1, all40×8B1/order/reset/copy/prefix/interleave/stateexact BEFOREgold. Noheldqualityread.
 - Scientific source/card commit a014bd2; source/guard proof864fb45; actual-order guard92ed76e. Native integration paused; no native sources edited.
 - Snapshot /mnt/lustre/work/gehler/gfh527/ni26_relations355_v1_20261117; manifest c71454e7ad223679912bfe30fd353d1dd3b4c4140e8f645c9bfc085ca8e2356d.
 - Source smoke3121634 PASS28s×CPU2; controller3121635 PASS1s×CPU1. Four equal449,715parameter arms, actual41×480/source-P02 activity, all8orderpreflight passed.
@@ -8,9 +8,11 @@
 - Added immutable actual-order snapshot ni26_relations355_order_v1_20261117; SHA1856eb516004e14e1e429f5c620521a8ff2f81edb28aa883e95cf1775c626583.
 - Old3121641 FAILED6s atP01lag6 B1vsB64 max1.25169754e−6>1e−6; probabilityguard FAILED remains. Old3121642 child cancelledpending; no gold. Intermediateinteger-only3121729/3121730 cancelledpending0runtime, supersededUNRUN. NoB64score.
 - Unchangedoriginalwholecollector via3121741 afterNEWB1guardian3121740; all20fold/40bank/checkpoint/data/sourcehashes beforemetric; replay.checkOK; originalprotocol.score/people80%CI/equal schemes.
-- Actualprevious355GPU302s/CPU605coresec; pendingB1cap600GPU/1200CPUcoresec pluscollector480CPUcoresec gives worst.25056GPUh/.63472CPUh, under2GPUh/6CPUh. Account32running/244active+28reserve. No autoretry/extension/provider/upload/chainclaim.
+- Actualprior355GPU302s/CPU605coresec +sourceCPU12; CPUwholecap4800coresec+collector480 gives worst5897coresec=1.6381CPUh<6h; GPU.08389h<2h. Account32running/244active+28reserve. No autoretry/extension/provider/upload/chainclaim.
 - Scope WHOLE NEW-PERSON alternatives only. Lag0 and envelopeoffset are equal-capacity controls; no incumbent-gain/ranking/returning/physiology claim. §25/26/313/352 overlap explicitly audited in relations355.md.
 - Producer loads allPUBLIC y for source indexing/finitecheck but only nine-source y entersloss; held y never optimizer/selection/calibration/metric. Complete-beforegold refers collector quality, not campaignblinding.
 
 - B1snapshot ni26_relations355_b1_v1_20261117, instrumentSHA6e7c654495e226c8b3472344c20a1862f7461b06a96167f5b9c32a79c481beda. Linuxfilesystem/compile/import/fullSHA preflight before dispatch. Source128B1calls extrapolated with1.5margin+60≤540s beforequery, hard10min/CPU2A10012GiB, noautoextension. Originalfits/weights/sourcefrozen.
-- Latest queue-onlytest forecasts later on2080/V100/newA100 than existing3121740 forecast23:33CET; RETAIN originalA100route, nofallback/duplicate. SchedulerforecastnotETA. Current quality UNKNOWN untilALLnewB1banks/guards and originalmetriccomplete.
+- GPU3121740/3121741 BOTHcancelledPENDING0time ONLYafterCPUsource352.662s/fullsource-version40checkpoint-filesystemcompilepreflightPASS. Sourcecost/capacity-onlydevicechoice BEFOREquality. No mixeddevice/activecollector. A100workercompatibility separate; currentqualityUNKNOWN.
+
+- SoleCPU snapshot ni26_relations355_cpu_b1_v1_20261117; instrumentSHAe7cf88cb09a27b820484fe37d2fc0558f78cc0c6c30d0b2aec174112066c3ba6. NonGPU2080pool86idlecoresatdecision. ActualsourcepilotCPU1finished12sdespitepessimistictest-onlyforecasts. Estimated~6min afterallocation/hard20min, no autoretry/extension.
