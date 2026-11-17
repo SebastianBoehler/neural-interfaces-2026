@@ -1,0 +1,126 @@
+{
+  "fir": {
+    "job": 3117588,
+    "status": "worker_slack_guard_failed",
+    "row": {
+      "mode": "unrecognized",
+      "windows": 378,
+      "first": "js",
+      "base": {
+        "seconds": 71.97565555106848,
+        "cold_b1_seconds": 0.1321838852018118,
+        "warm_b1_median": 0.14213671907782555,
+        "recognized_at": -1,
+        "js_calls": 0,
+        "ft_refits": 24,
+        "cp_fused": 288,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 24,
+          "expected_ft": 24,
+          "ft_steps": 480,
+          "ft_over": 0,
+          "cp_refits": 18,
+          "expected_cp": 18,
+          "cp_fused": 288,
+          "expected_fused": 288,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "js": {
+        "seconds": 94.3966868519783,
+        "cold_b1_seconds": 0.15476401057094336,
+        "warm_b1_median": 0.1673210123553872,
+        "recognized_at": -1,
+        "js_calls": 378,
+        "ft_refits": 24,
+        "cp_fused": 288,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 24,
+          "expected_ft": 24,
+          "ft_steps": 480,
+          "ft_over": 0,
+          "cp_refits": 18,
+          "expected_cp": 18,
+          "cp_fused": 288,
+          "expected_fused": 288,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "ratio": 1.311508538953168
+    },
+    "allowed_ratio": 1.0610079575596816,
+    "no_later_rows_harvested": true,
+    "device": "cuda",
+    "cpu_scope": "CPU bar failure is not A100 timeout evidence",
+    "full_sha256": "c8ece525d4c05f804d6ebf403c3917f922128ce1d55abefb26664ee6cadd67b7",
+    "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_phase_dag1/output_fir_cuda/cuda_failure.json"
+  },
+  "reuse": {
+    "job": 3117586,
+    "status": "worker_slack_guard_failed",
+    "row": {
+      "mode": "unrecognized",
+      "windows": 378,
+      "first": "js",
+      "base": {
+        "seconds": 70.04310798225924,
+        "cold_b1_seconds": 0.13252120837569237,
+        "warm_b1_median": 0.14100768603384495,
+        "recognized_at": -1,
+        "js_calls": 0,
+        "ft_refits": 24,
+        "cp_fused": 288,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 24,
+          "expected_ft": 24,
+          "ft_steps": 480,
+          "ft_over": 0,
+          "cp_refits": 18,
+          "expected_cp": 18,
+          "cp_fused": 288,
+          "expected_fused": 288,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "js": {
+        "seconds": 87.38967813691124,
+        "cold_b1_seconds": 0.13018860574811697,
+        "warm_b1_median": 0.14620125526562333,
+        "recognized_at": -1,
+        "js_calls": 378,
+        "ft_refits": 24,
+        "cp_fused": 288,
+        "activity": {
+          "eligible": true,
+          "ft_refits": 24,
+          "expected_ft": 24,
+          "ft_steps": 480,
+          "ft_over": 0,
+          "cp_refits": 18,
+          "expected_cp": 18,
+          "cp_fused": 288,
+          "expected_fused": 288,
+          "cp_single_class": 0,
+          "cp_model_available": true,
+          "cp_training_class_eligibility": "single-class attempts explicitly reported, not treated as errors"
+        }
+      },
+      "ratio": 1.2476556317153373
+    },
+    "allowed_ratio": 1.0610079575596816,
+    "no_later_rows_harvested": true,
+    "device": "cuda",
+    "cpu_scope": "CPU bar failure is not A100 timeout evidence",
+    "full_sha256": "19ffa1037d54281051c669e61d7bf76016d192ee8f76129f56d4dfddd631804f",
+    "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_phase_dag1/output_reuse_cuda/cuda_failure.json"
+  }
+}
