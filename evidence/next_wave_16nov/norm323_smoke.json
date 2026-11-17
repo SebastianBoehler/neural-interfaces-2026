@@ -1,0 +1,65 @@
+{
+  "batches_sha256": "5af1b512704e96393a5ac316e4711f7d5bf1c56b3f45cf49142d768357aaba62",
+  "checkpoints": {
+    "P0": "b67e88a3e199d4c2f98593978a3c492ee12f32254f3b06cf35b4f2e61fc43c92",
+    "P1": "0757bd6b68e1119823d9b21de7b97219ef9c78c02e66aa0aa7ab29cafa3a7734",
+    "S0": "ab972c3c7f14e907516ccd3f9e99960bdc2bb771ef0ac9b037eac7cb62aa2e65",
+    "S1": "a1b4fdbba66edc831eb537392c22349a19581a247ef0821337b4fca75824e256"
+  },
+  "data_sha256": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+  "device": "NVIDIA A100-PCIE-40GB",
+  "elapsed_seconds": 60.51531725609675,
+  "fit_people": [
+    "Dreyer2026Proteus/P01",
+    "Dreyer2026Proteus/P02",
+    "Dreyer2026Proteus/P03",
+    "Dreyer2026Proteus/P04",
+    "Dreyer2026Proteus/P05",
+    "Dreyer2026Proteus/P06",
+    "Dreyer2026Proteus/P07",
+    "Dreyer2026Proteus/P08",
+    "Dreyer2026Proteus/P09"
+  ],
+  "held": "P10",
+  "held_labels_opened": false,
+  "held_rows_sha256": "e81bcb0d3731e3e67e4e0df34d5c5cf1169ae2e6133fe6a7813f7230e9b5a360",
+  "initial_sha256": {
+    "P0": "def692406d5b1405fec6c5eb8aca8054faceb82ceffa2ad41ae04fd79978a7a7",
+    "P1": "def692406d5b1405fec6c5eb8aca8054faceb82ceffa2ad41ae04fd79978a7a7",
+    "S0": "def692406d5b1405fec6c5eb8aca8054faceb82ceffa2ad41ae04fd79978a7a7",
+    "S1": "def692406d5b1405fec6c5eb8aca8054faceb82ceffa2ad41ae04fd79978a7a7"
+  },
+  "peak_gpu_bytes": 783884288,
+  "permutation_sha256": "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f",
+  "scale": 28.941972732543945,
+  "seed": 0,
+  "session_policy": "causal and independently reset",
+  "source_manifest_sha256": "88437e69b5eaf7ff84a3635df88fe68b38394abbc527629b0f41c7fcc24eb6d5",
+  "source_rows_sha256": "7f415bb83961bcb5f14d26e1f059ce76c64184955d0f5b8054d6622691d18473",
+  "training": {
+    "P0": {
+      "first_loss": 1.2068440914154053,
+      "last_loss": 0.41503119468688965,
+      "max_gradient": 6.7945780754089355,
+      "steps": 1320
+    },
+    "P1": {
+      "first_loss": 1.3136709928512573,
+      "last_loss": 0.3883588910102844,
+      "max_gradient": 5.743329048156738,
+      "steps": 1320
+    },
+    "S0": {
+      "first_loss": 1.2164452075958252,
+      "last_loss": 0.32454508543014526,
+      "max_gradient": 4.132829666137695,
+      "steps": 1320
+    },
+    "S1": {
+      "first_loss": 1.3270655870437622,
+      "last_loss": 0.3068358302116394,
+      "max_gradient": 4.1277570724487305,
+      "steps": 1320
+    }
+  }
+}
