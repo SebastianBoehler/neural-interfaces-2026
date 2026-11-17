@@ -28,23 +28,43 @@ def main(cfg,fold,seed,mode='fit'):
                   k=5.,rot=0.,aug=False,init=None,adabn=None,seed=seed,ft=0,net_kw={})
     if recipe!=expected:raise ValueError(f'original documented recipe mismatch {recipe}')
     if mode=='preflight':print(json.dumps(recipe));return
-    if not torch.cuda.is_available() or 'A100' not in torch.cuda.get_device_name():raise ValueError('registered A100 required')
-    seen=[];aligned=m._aligned
-    def observed(rows,*args,**kw):seen.append(np.asarray(rows).copy());return aligned(rows,*args,**kw)
-    m._aligned=observed;start=time.monotonic();m.fit(train);m._aligned=aligned;fit_seconds=time.monotonic()-start
-    if not np.array_equal(np.sort(np.concatenate(seen)),train) or not np.array_equal(m.G,m.C[train].mean(0)):
-        raise ValueError('actual source fit/EA rows differ')
-    out=Path('plain')/f'{cfg}_{fold}_s{seed}';out.mkdir(parents=True,exist_ok=False)
-    meta=dict(family=cfg,fold=fold,seed=seed,recipe=recipe,train_count=len(train),held_count=len(held),fit_seconds=fit_seconds,
-              train_rows_sha256=hashlib.sha256(train.astype('<i8').tobytes()).hexdigest(),
-              held_rows_sha256=hashlib.sha256(held.astype('<i8').tobytes()).hexdigest(),source_sha256=sha('source.sha256'),
-              historical_identity_claimed=False,accuracy_computed=False,job=os.environ.get('SLURM_JOB_ID'))
+    if mode=='recover':
+        if (cfg,fold,seed)!=('shallow_ea','P04_s23',0):raise ValueError('only actual failed export checkpoint registered')
+        import deep
+        prior=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_plain_pilot1/plain/shallow_ea_P04_s23_s0/checkpoint.pt')
+        ck=torch.load(prior,map_location='cpu',weights_only=False)
+        if ck['recipe']!=recipe or ck['train_count']!=len(train) or ck['held_count']!=len(held):raise ValueError('recovery source recipe differs')
+        m.net=deep.build(arch,41,480,m.pretrained,**m.net_kw);m.net.load_state_dict(ck['state'],strict=True)
+        m.G,m.scale=ck['G'],ck['scale'];meta={k:v for k,v in ck.items() if k not in ('state','G','scale')}
+        if meta['train_rows_sha256']!=hashlib.sha256(train.astype('<i8').tobytes()).hexdigest():raise ValueError('recovery source mask differs')
+        meta.update(recovered_checkpoint_sha256=sha(prior),recovery_source_sha256=sha('source.sha256'))
+        start=time.monotonic();out=Path('plain')/f'{cfg}_{fold}_s{seed}';out.mkdir(parents=True,exist_ok=False)
+    else:
+        if not torch.cuda.is_available() or 'A100' not in torch.cuda.get_device_name():raise ValueError('registered A100 required')
+        seen=[];aligned=m._aligned
+        def observed(rows,*args,**kw):seen.append(np.asarray(rows).copy());return aligned(rows,*args,**kw)
+        m._aligned=observed;start=time.monotonic();m.fit(train);m._aligned=aligned;fit_seconds=time.monotonic()-start
+        if not np.array_equal(np.sort(np.concatenate(seen)),train) or not np.array_equal(m.G,m.C[train].mean(0)):
+            raise ValueError('actual source fit/EA rows differ')
+        out=Path('plain')/f'{cfg}_{fold}_s{seed}';out.mkdir(parents=True,exist_ok=False)
+        meta=dict(family=cfg,fold=fold,seed=seed,recipe=recipe,train_count=len(train),held_count=len(held),fit_seconds=fit_seconds,
+                  train_rows_sha256=hashlib.sha256(train.astype('<i8').tobytes()).hexdigest(),
+                  held_rows_sha256=hashlib.sha256(held.astype('<i8').tobytes()).hexdigest(),source_sha256=sha('source.sha256'),
+                  historical_identity_claimed=False,accuracy_computed=False,job=os.environ.get('SLURM_JOB_ID'))
     m.net.cpu().eval();m.dev='cpu';checkpoint=out/'checkpoint.pt'
     torch.save(dict(state=m.net.state_dict(),G=m.G,scale=m.scale,**meta),checkpoint)
     rows=held[d['stream'][held]==d['stream'][held[0]]][:31];x=torch.from_numpy(np.ascontiguousarray(m._aligned(rows,causal=True),dtype=np.float32))
     path=Path('source/scripts/export_external_teacher.py');nodes=[n for n in ast.parse(path.read_text()).body if isinstance(n,ast.FunctionDef) and n.name=='device_free_trace']
     if len(nodes)!=1:raise ValueError('original device-free exporter missing')
     ns={'torch':torch};exec(compile(ast.Module(body=nodes,type_ignores=[]),str(path),'exec'),ns)
+    with torch.no_grad():eager_before=m.net(x[:5]).clone()
+    state_before={k:v.clone() for k,v in m.net.state_dict().items()}
+    # Exact metadata-only remedy from original export_external_teacher.py:65-68.
+    m.net._chs_info=m.net._chs_info or [{'ch_name':f'ch{c}'} for c in range(41)]
+    m.net._sfreq=m.net._sfreq or 120.;m.net._input_window_seconds=m.net._input_window_seconds or 4.
+    with torch.no_grad():eager_after=m.net(x[:5])
+    if not torch.equal(eager_before,eager_after) or not all(torch.equal(v,m.net.state_dict()[k]) for k,v in state_before.items()):
+        raise ValueError('metadata-only export remedy changed eager/state')
     trace=ns['device_free_trace'](m.net,x[:4]);trace.eval();errors={}
     before={k:v.clone() for k,v in trace.state_dict().items()}
     with torch.no_grad():

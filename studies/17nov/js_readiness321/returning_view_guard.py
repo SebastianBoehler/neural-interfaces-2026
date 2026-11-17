@@ -27,16 +27,18 @@ def frozen_class():
     return ns['TangentCore']
 
 
-def main():
+def main(fold):
+    if fold not in ("P04_s23","P10_s23"):raise ValueError("registered fold required")
+    fit=FIT if fold=="P04_s23" else ROOT/"ni26_js321_20261117_returning_view_fit_p10_1"
     import sys
     torch.set_num_threads(1);start=time.monotonic();source=ROOT/'ni26_js321_20261117_returning2/source'
     sys.path[:0]=[str(source/'experiments'),str(ROOT/'neural-interfaces-2026/2026-competition/tracks/bci_decoding')]
     import ts_core as T
-    meta=json.loads((FIT/'fit.json').read_text());asset=FIT/'source_view_P04_s23.npz'
+    meta=json.loads((fit/'fit.json').read_text());asset=fit/f'source_view_{fold}.npz'
     if meta['status']!='original_source_core_PCA256_fit_complete_NOT_raw_parity' or meta['artifact_sha256']!=sha(asset):raise ValueError('complete source fit required')
     with np.load(asset) as z:p={k[3:]:z[k].copy() for k in z.files if k.startswith('ts_')};m=z['tsem_m'].copy();V=np.concatenate((z['tsem_V'],z['route_V_hi']),1).astype(np.float64)
     with np.load(source/'data/proteus_windows.npz',allow_pickle=True) as z:
-        rows=np.flatnonzero((z['subject']=='Dreyer2026Proteus/P04')&(z['session'].astype(str)=='2'))[:31]
+        rows=np.flatnonzero((z['subject']=='Dreyer2026Proteus/'+fold[:3])&(z['session'].astype(str)=='2'))[:31]
         X=z['X'][rows].copy();channels=z['ch_names'].copy()
     if len(rows)!=31 or X.shape!=(31,41,480) or V.shape!=(44239,256):raise ValueError('real canary shape differs')
     # Query labels are never read. Reference Feats uses the same real prefix and no fitted query statistics.
@@ -52,7 +54,7 @@ def main():
     actual=feed(model,X);reference=np.c_[ref_p,ref_u]
     errors=dict(probability=float(np.abs(actual[:,:3]-reference[:,:3]).max()),view256=float(np.abs(actual[:,3:]-reference[:,3:]).max()))
     report=dict(status='raw_causal256_reference_guard_FAILED',errors=errors,reference_bound=1e-4,source_sha256=sha('source.sha256'),
-                source_fit_sha256=sha(asset),query_rows=rows.tolist(),query_labels_read=False,accuracy_computed=False,
+                source_fit_sha256=sha(asset),fold=fold,query_rows=rows.tolist(),query_labels_read=False,accuracy_computed=False,
                 raw_dtype=str(X.dtype),torch_version=torch.__version__,seconds=time.monotonic()-start)
     Path('raw_view_guard.json').write_text(json.dumps(report,indent=2))
     if max(errors.values())>1e-4:raise ValueError(f'original causal reference guard failed {errors}')
@@ -66,4 +68,6 @@ def main():
     Path('raw_view_guard.json').write_text(json.dumps(report,indent=2));print(json.dumps(report),flush=True)
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    import sys
+    main(sys.argv[1])
