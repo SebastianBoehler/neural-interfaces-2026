@@ -6,9 +6,6 @@
 
 namespace ni26::neural {
 namespace {
-Tensor field(const Params &p, const std::string &key, torch::Device dev, torch::ScalarType dtype) {
-  return p.get(key).to(dev, dtype);
-}
 struct Shallow final : Network {
   Params t;
   Tensor weight, bias;

@@ -25,6 +25,7 @@ int main(int argc, char **argv) {
     require(fixture.integer("source_only") == 1, "source-only fixture required");
     neural::RawFBC net(fixture.subset("initial_"), torch::kCPU);
     auto parameters = net.parameters();
+    auto body_before = parameters[0].detach().clone(), head_before = parameters[4].detach().clone();
     torch::optim::AdamW opt(parameters, torch::optim::AdamWOptions(.001).weight_decay(.001));
     auto schedule = fixture.get("expected_schedule");
     require(schedule.sizes() == torch::IntArrayRef({1240, 2}), "full scheduler fixture required");
@@ -69,6 +70,9 @@ int main(int argc, char **argv) {
     }
     begun = std::chrono::steady_clock::now();
     opt.step();
+    require((parameters[0].detach() - body_before).abs().max().item<double>() > 0 &&
+                (parameters[4].detach() - head_before).abs().max().item<double>() > 0,
+            "native first source body/head optimizer update inactive");
     auto optimizer_seconds =
         std::chrono::duration<double>(std::chrono::steady_clock::now() - begun).count();
     for (const auto &[name, value] : net.state().tensors)

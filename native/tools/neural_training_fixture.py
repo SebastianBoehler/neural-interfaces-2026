@@ -44,8 +44,11 @@ def main():
         self.net.train();idx=plan[0];opt.zero_grad();started=time.perf_counter();logits=self.net(x[idx]);loss=loss_fn(logits,y[idx]);forward_seconds=time.perf_counter()-started
         started=time.perf_counter();loss.backward();backward_seconds=time.perf_counter()-started
         gradients={key:value.grad.detach().clone() for key,value in self.net.named_parameters() if value.grad is not None}
-        if not gradients or max(float(v.abs().max()) for v in gradients.values())<=0:raise ValueError('original first source gradient inactive')
+        if not gradients or any(not torch.isfinite(v).all() for v in gradients.values()) or max(float(v.abs().max()) for v in gradients.values())<=0:raise ValueError('original first source gradient inactive/nonfinite')
         started=time.perf_counter();opt.step();optimizer_seconds=time.perf_counter()-started
+        updated=self.net.state_dict();body='spatial_conv.0.parametrizations.weight.original';head='final_layer.parametrizations.weight.original'
+        body_change=float((updated[body]-initial[body]).abs().max());head_change=float((updated[head]-initial[head]).abs().max())
+        if body_change<=0 or head_change<=0 or float(self.net.final_layer.weight.norm(dim=1).max())>.500001:raise ValueError('original first body/head update or constraint inactive')
         fields.update(source_only=np.int64(1),epochs=np.int64(40),source_people=np.array(sorted(set(people[fit]))),excluded_people=np.array(['P02','P03','P09']),
             source_X=x.numpy(),source_y=y.numpy(),source_session=np.asarray(self._row_sess,np.int64),batch_indices=padded,batch_sizes=sizes,
             expected_schedule=np.asarray(schedule,np.float64),first_logits=logits.detach().numpy(),first_loss=loss.detach().numpy())
@@ -55,7 +58,8 @@ def main():
         record.update(original_initializer_sha256=reference['trace']['initial_state_sha256'],native_fixture_initial_state_sha256=state_sha_from(initial),
             rows_sha256=digest(self._order),source_X_sha256=digest(x.numpy()),source_y_sha256=digest(y.numpy()),scale=self.scale,
             batch_plan_sha256=digest(padded),first_loss=float(loss),optimizer_steps=1,query_labels_opened=False,query_forward=False,
-            first_forward_seconds=forward_seconds,first_backward_seconds=backward_seconds,first_optimizer_seconds=optimizer_seconds)
+            first_forward_seconds=forward_seconds,first_backward_seconds=backward_seconds,first_optimizer_seconds=optimizer_seconds,
+            first_body_change_max=body_change,first_head_change_max=head_change)
     model._train=types.MethodType(capture,model);model.fit(fit)
     args.out.mkdir(exist_ok=False);save_tensors(args.out/'training_fixture.pt',fields)
     record.update(fixture_sha256=sha(args.out/'training_fixture.pt'),producer_sha256=sha(Path(__file__)),source_people=sorted(set(people[fit])))
