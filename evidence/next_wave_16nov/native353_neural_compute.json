@@ -1,0 +1,16 @@
+{
+  "job": 3120067,
+  "state": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed_seconds": 56,
+  "allocated_cpus": 2,
+  "allocated_core_seconds": 112,
+  "allocated_cpu_hours": 0.03111111111111111,
+  "max_rss_kib": 2302588,
+  "source_snapshot": "/mnt/lustre/work/gehler/gfh527/ni26_native353_neural_reference_v1_20261117",
+  "source_manifest_sha256": "8633674a2297d033411150be95ef424450e2a2db2ab4d6cb727470b2ba496f8d",
+  "fixture_sha256": "08e368896bca2837d0157744f0d0497a2db8b2cd3d08b5a61f016f2f19e9f3a8",
+  "native_comparison": "pending",
+  "task_labels_loaded": false,
+  "accuracy_computed": false
+}

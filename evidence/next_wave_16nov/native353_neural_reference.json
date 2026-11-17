@@ -1,0 +1,27 @@
+{
+  "cases": [
+    {
+      "mode": "known",
+      "windows": 8,
+      "seconds": 5.2736076060682535,
+      "refits": 0,
+      "steps": 0,
+      "relabels": 0,
+      "dtheta": 0.0,
+      "errors": 0
+    },
+    {
+      "mode": "unknown",
+      "windows": 31,
+      "seconds": 34.947553284000605,
+      "refits": 2,
+      "steps": 40,
+      "relabels": 2,
+      "dtheta": 0.009991581551730633,
+      "errors": 0
+    }
+  ],
+  "accuracy_computed": false,
+  "task_labels_loaded": false,
+  "source_sha256": "3a6809d3996b16485262b4c35caab140f8110b335096dc58a6ecbd0c4a4154db"
+}

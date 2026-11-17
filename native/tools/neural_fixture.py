@@ -28,7 +28,7 @@ def main():
     args.out.mkdir(exist_ok=False);result={'native_format':torch.tensor(1),'source_rows':torch.from_numpy(rows)};proof=[]
     for mode,count in [('known',8),('unknown',31)]:
         model=instrument(load_model(args.package,channels,'native353_neural_'+mode,'cpu'),mode=='unknown');ft_clock_restart(model)
-        captures={key:[] for key in ('x','ids','probs','input','eye','rest','label','ft','ft_active','ft_stats','u','mix6','core1','contrast','identity','outer')}
+        captures={key:[] for key in ('x','ids','probs','input','eye','rest','label','ft','ft_active','ft_stats','u','mix6','core1','contrast','identity','outer','runtime_scores')}
         inputs=sorted({ids[0][0] for _,ids in model.nets.groups}|set(model.ft.member.values()))
         result['input_ids']=torch.tensor(inputs,dtype=torch.int64)
         names=list(model.ft.member);original_refit=model.ft.refit;relab={};outer=model.routeB.stepx
@@ -46,10 +46,10 @@ def main():
         model.ft.refit=types.MethodType(refit,model.ft);model.routeB.stepx=types.MethodType(step_outer,model.routeB)
         begun=time.monotonic()
         for i in range(count):
-            frame(model,x[i]);trace=model.trace
+            _,scores,_=frame(model,x[i]);trace=model.trace
             if model.dead or not trace.get('v6'):raise ValueError('reference neural path inactive/error')
             v=trace['v6'];ids=list(v['members']);tuned=v['p_ft']
-            for key,value in [('x',x[i]),('ids',np.asarray(ids,np.int64)),('probs',np.stack([v['members'][j] for j in ids])),
+            for key,value in [('x',x[i]),('runtime_scores',scores),('ids',np.asarray(ids,np.int64)),('probs',np.stack([v['members'][j] for j in ids])),
                               ('input',np.stack([model.nets.last_inputs[j] for j in inputs])),('eye',v['extra']),('rest',v['rest']),('label',v['label']),
                               ('ft',np.stack([tuned.get(s,np.zeros(3)) for s in names])),('ft_active',np.asarray([s in tuned for s in names],np.int64)),
                               ('ft_stats',np.asarray([model.ft.refits,model.ft.steps,model.ft.relabels,model.ft.capped,model.ft.over,model.ft.dtheta],np.float64))]:
