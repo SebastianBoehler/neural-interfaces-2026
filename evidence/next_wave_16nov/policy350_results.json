@@ -1,0 +1,171 @@
+{
+  "status": "COMPLETE_POLICY350_CONDITIONAL_ENGINEERING_NOT_FULLSYSTEMDEV",
+  "contrasts": {
+    "policy_minus_base": {
+      "primary_uniform8_weighted_pp": -0.11934363799283199,
+      "primary_95percent_descriptive_people_order": [
+        -0.28038106938844526,
+        -0.001085069444445968
+      ],
+      "person_pp": {
+        "P04": -0.19741263440860302,
+        "P10": -0.09982638888888923
+      },
+      "equal_person_pp": -0.14861951164874612,
+      "supplemental_equal_scheme_weighted_pp": -0.10588410991636803,
+      "order_pp": {
+        "within0": -0.05208333333333259,
+        "within1": -0.22054211469534124,
+        "within2": 0.0,
+        "within3": -0.36626344086022167,
+        "full0": -0.4687499999999911,
+        "full1": -0.0016801075268824128,
+        "runs0": 0.15456989247311315,
+        "runs1": 0.0
+      }
+    },
+    "policy_minus_JSall": {
+      "primary_uniform8_weighted_pp": 0.16857325927682937,
+      "primary_95percent_descriptive_people_order": [
+        0.029679840686275948,
+        0.5961852808579736
+      ],
+      "person_pp": {
+        "P04": 0.4675599238351244,
+        "P10": 0.09382659313725561
+      },
+      "equal_person_pp": 0.28069325848619,
+      "supplemental_equal_scheme_weighted_pp": 0.15562243042378263,
+      "order_pp": {
+        "within0": 0.31081989247312425,
+        "within1": 0.10931899641577036,
+        "within2": -0.052083333333334814,
+        "within3": 0.4616474277883187,
+        "full0": -0.15624999999999556,
+        "full1": 0.26556899641576814,
+        "runs0": 0.16140232974910296,
+        "runs1": 0.24816176470588092
+      }
+    }
+  },
+  "cells": [
+    {
+      "index": 0,
+      "fold": "P04_s23",
+      "order": "within0",
+      "proof_sha256": "ca0e398e27411cc5c81b1d06e49fb37d5bf59dd7f3b28a7fb59274208f5d3de2",
+      "predictions_sha256": "bfb3fec58be56228475d5b9bfea48291b72c33dd534b9bec4ba1b82ef7482f74"
+    },
+    {
+      "index": 1,
+      "fold": "P04_s23",
+      "order": "within1",
+      "proof_sha256": "014dc8063b6cb2d9993bfcf80e6c2a1e59ef2ac0e101e659a9e1f52559fe1862",
+      "predictions_sha256": "2f0ab3daee5b3118b1e323a5b30841cb5c704410c34f0f7c718e890f92058f5b"
+    },
+    {
+      "index": 2,
+      "fold": "P04_s23",
+      "order": "within2",
+      "proof_sha256": "64206db1104a4b48bd452d1d9d950ef53a07a6931356ad8c658c60f2cb90d476",
+      "predictions_sha256": "c35013a6120fe7a68953ba39bf40d4ad512049884d19899cad3e5f62334f7f81"
+    },
+    {
+      "index": 3,
+      "fold": "P04_s23",
+      "order": "within3",
+      "proof_sha256": "f9822ce64cf18de11bbb6f78023708231235a2c22fd2489d18ca125e86b7b989",
+      "predictions_sha256": "52bc6f4ab4acb00d789f25c1c053c9ea8910bc9d40d7e626b5231198484c30ad"
+    },
+    {
+      "index": 4,
+      "fold": "P04_s23",
+      "order": "full0",
+      "proof_sha256": "c0f50a9e66ab7e1b189a13cd85346e66ab58f55175e14963bb0d4ddb966241b6",
+      "predictions_sha256": "fdcd71192bd94370457f16afb260594718d8d59c71e75335e072e4a3e9d5d23b"
+    },
+    {
+      "index": 5,
+      "fold": "P04_s23",
+      "order": "full1",
+      "proof_sha256": "d2d3b63bf6ec6674c50ec3cb6135d9d2407dec4bb0ed18d886118197cd282290",
+      "predictions_sha256": "d9b093d6c258ba1fff5803c058a485f60858b08f818ede8baebca95522a29935"
+    },
+    {
+      "index": 6,
+      "fold": "P04_s23",
+      "order": "runs0",
+      "proof_sha256": "f061748b7a3d3c781b6b8344c89c36c9d4fdfad855b3bbbbb9736a21a56f2a65",
+      "predictions_sha256": "a11ff8d974fb0c713bac18956fa56dcdf9d1cefae645296998f1b62df29adbd5"
+    },
+    {
+      "index": 7,
+      "fold": "P04_s23",
+      "order": "runs1",
+      "proof_sha256": "b33258f84fd755a0274d88a00c9d0feb5d193dcce885d4b93af0765cc9069a04",
+      "predictions_sha256": "29c1226ef89a6d740458fb550aff1b4d6271230e7e008df3e259ec7ba633721e"
+    },
+    {
+      "index": 8,
+      "fold": "P10_s23",
+      "order": "within0",
+      "proof_sha256": "de00b82ae0e1e040e3a1b1a931b6d8cfba40f4dc03ee7fc82818f7ac3bf68544",
+      "predictions_sha256": "297a1323cad65f53e20fba13de6d2ba2506ec964c9f26618af2dc8b95a7ba016"
+    },
+    {
+      "index": 9,
+      "fold": "P10_s23",
+      "order": "within1",
+      "proof_sha256": "273ff639c097cb8b98f544862183c8a4d2ab9786b81456d6a0c7968f9e606792",
+      "predictions_sha256": "aba0e166153d6a809705fbdcbf21a7aecf645d88a23c72aa1f678009c9b4d9e7"
+    },
+    {
+      "index": 10,
+      "fold": "P10_s23",
+      "order": "within2",
+      "proof_sha256": "4e221fd68e924e8ba47500acea628b531bba041595d5a18bf52fc1aa33cccbc6",
+      "predictions_sha256": "0d56b4918f40dd6ead10ff0f3e1e20d608238d65f75e958ac590b6c2a342b39b"
+    },
+    {
+      "index": 11,
+      "fold": "P10_s23",
+      "order": "within3",
+      "proof_sha256": "4750d026380556e1434fb6446329c35e26f5cf62d1cea9ac888f52549c3546ba",
+      "predictions_sha256": "f171cea1ad87569bbb43f35de2adc56b5d7f10c0f2cfc3b1e1eae6dae63f663e"
+    },
+    {
+      "index": 12,
+      "fold": "P10_s23",
+      "order": "full0",
+      "proof_sha256": "6903808a1ca94881c52eef84b82134c0e8706b4248b5e24744d594cfb09466bb",
+      "predictions_sha256": "4377f14c2d1c35e9e10bf3fa3e882e78e0b07558d67095346887651655698e2d"
+    },
+    {
+      "index": 13,
+      "fold": "P10_s23",
+      "order": "full1",
+      "proof_sha256": "b45e91fa9b14483a2e72379684d28becec5ee65cb28bd8842bfe14f855102f2b",
+      "predictions_sha256": "1f9867753e55ce9fd56e7fcf5f0781c7e739ef6600660774174f2bfb967e1615"
+    },
+    {
+      "index": 14,
+      "fold": "P10_s23",
+      "order": "runs0",
+      "proof_sha256": "a27f14b2f9d27808caa72e2f4e939e7dc1051fad43cac52b003890f23c8babb9",
+      "predictions_sha256": "fd8c6a64490b11f6260aed385767ea8c57f8c9cf69c541f54cd645be40bea833"
+    },
+    {
+      "index": 15,
+      "fold": "P10_s23",
+      "order": "runs1",
+      "proof_sha256": "03062b083de228065729ec728aff1124af7ad5024545c3a410911d5ab4367d86",
+      "predictions_sha256": "f0bdb83cb0ea17c7fa8761d1066efac02b14258ddf997121ec99599d8fa9c72b"
+    }
+  ],
+  "source_sha256": "97bc8236c6bca7d12c70a0e6716e76af62f371e72956dff01f75edae290d8226",
+  "guard_sha256": "4f383deec2888941b467b1295d05f612f70e8b6b1223bbae708aeaab0a16ca14",
+  "metric_owner_sha256": "390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c",
+  "scope": "Fixed direct-held-trained production classical/rest/eye+globalteacherG/oldOOF retained;notindependentgeneralization/rank/sealed/promotion",
+  "accuracy_computed": true,
+  "upload_or_promotion": false
+}

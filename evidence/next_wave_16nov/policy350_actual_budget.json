@@ -123,5 +123,8 @@
       "seconds": 336,
       "cpus": 2
     }
-  ]
+  ],
+  "final_collector_job": "3120698",
+  "final_collector_elapsed_seconds": 90,
+  "final_allocated_CPUhours": 6.2575
 }
