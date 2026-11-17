@@ -1,0 +1,16 @@
+{
+  "scope": "selector-only held on exposed full-chain DEV archives",
+  "cc30_stream_references_verified": 48,
+  "cc30_source_fold_artifacts_verified": 60,
+  "validation_sha256": "0c020596c7ee06b895fbced6f6c4efa5ffbb88b9a77a8a2f260b90f11f8ab070",
+  "example": {
+    "selector_held_person": "P01",
+    "selector_training_person": "P02",
+    "producer": "conditional30_s0_P02.npz",
+    "producer_training_people": ["P01", "P03", "P04", "P05", "P06", "P07", "P08", "P09", "P10"],
+    "producer_training_rows": 2466,
+    "train_rows_sha256": "21235dfef0162a2ad2f0b07f899cfef95fa807ad7bada358f78d1380586a95a8",
+    "stitched_stream": "ttt18within0_fb_cc30_base-all_loso-s0.npz"
+  },
+  "interpretation": "The selector excludes held labels and rows directly. Its archived source features are produced by earlier outer-overlapping nine-person models."
+}

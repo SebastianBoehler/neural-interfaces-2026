@@ -1,0 +1,273 @@
+{
+  "folds": {
+    "P01": {
+      "fit_people": [
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10"
+      ],
+      "source_decisive": 3246,
+      "held_disagreements": 298,
+      "selector_JS": 282,
+      "fixed_JS": 280,
+      "source_OOF_JS_rate": 0.9301509301509302,
+      "margin_cut": -0.2682085089805152,
+      "coefficients": [
+        -0.08434143024060894,
+        -0.014709709057009832,
+        0.010260430281731184,
+        0.14723246851096758
+      ],
+      "source_only": true
+    },
+    "P02": {
+      "fit_people": [
+        "P01",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10"
+      ],
+      "source_decisive": 3382,
+      "held_disagreements": 151,
+      "selector_JS": 142,
+      "fixed_JS": 140,
+      "source_OOF_JS_rate": 0.8922064777327935,
+      "margin_cut": -0.19854818281107645,
+      "coefficients": [
+        -0.11286534438276025,
+        -0.04066157773571998,
+        0.04027572999116171,
+        0.1537028694063182
+      ],
+      "source_only": true
+    },
+    "P03": {
+      "fit_people": [
+        "P01",
+        "P02",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10"
+      ],
+      "source_decisive": 3369,
+      "held_disagreements": 193,
+      "selector_JS": 185,
+      "fixed_JS": 178,
+      "source_OOF_JS_rate": 0.9268666893965223,
+      "margin_cut": -0.2561252395865492,
+      "coefficients": [
+        -0.08973382849535542,
+        -0.0070612452378884145,
+        0.030078897502637546,
+        0.15120964994134328
+      ],
+      "source_only": true
+    },
+    "P04": {
+      "fit_people": [
+        "P01",
+        "P02",
+        "P03",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10"
+      ],
+      "source_decisive": 2261,
+      "held_disagreements": 1546,
+      "selector_JS": 1380,
+      "fixed_JS": 1377,
+      "source_OOF_JS_rate": 0.9134280353792549,
+      "margin_cut": -0.220784801422527,
+      "coefficients": [
+        -0.1525411079885442,
+        -0.052226229943515674,
+        0.016348903477906122,
+        0.15125947194196893
+      ],
+      "source_only": true
+    },
+    "P05": {
+      "fit_people": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10"
+      ],
+      "source_decisive": 3142,
+      "held_disagreements": 438,
+      "selector_JS": 412,
+      "fixed_JS": 389,
+      "source_OOF_JS_rate": 0.9143222506393862,
+      "margin_cut": -0.22824978952880715,
+      "coefficients": [
+        -0.11879360108596974,
+        0.043873320685286786,
+        0.05835663075884908,
+        0.0801686228680138
+      ],
+      "source_only": true
+    },
+    "P06": {
+      "fit_people": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P07",
+        "P08",
+        "P09",
+        "P10"
+      ],
+      "source_decisive": 3321,
+      "held_disagreements": 226,
+      "selector_JS": 218,
+      "fixed_JS": 216,
+      "source_OOF_JS_rate": 0.9293571674114816,
+      "margin_cut": -0.26653110606519215,
+      "coefficients": [
+        -0.10165557382550054,
+        -0.02356328954981924,
+        0.02691444166487964,
+        0.132827519911697
+      ],
+      "source_only": true
+    },
+    "P07": {
+      "fit_people": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P08",
+        "P09",
+        "P10"
+      ],
+      "source_decisive": 3344,
+      "held_disagreements": 194,
+      "selector_JS": 181,
+      "fixed_JS": 166,
+      "source_OOF_JS_rate": 0.8565076107405507,
+      "margin_cut": -0.15432352412850536,
+      "coefficients": [
+        -0.09534493546474569,
+        -0.02777719639248289,
+        0.03365408063545039,
+        0.14730250662032346
+      ],
+      "source_only": true
+    },
+    "P08": {
+      "fit_people": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P09",
+        "P10"
+      ],
+      "source_decisive": 3382,
+      "held_disagreements": 146,
+      "selector_JS": 139,
+      "fixed_JS": 134,
+      "source_OOF_JS_rate": 0.8691919191919192,
+      "margin_cut": -0.17035086631388474,
+      "coefficients": [
+        -0.12208720298368093,
+        -0.032307830518296846,
+        0.048571040429408345,
+        0.1430613586624612
+      ],
+      "source_only": true
+    },
+    "P09": {
+      "fit_people": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "source_decisive": 3357,
+      "held_disagreements": 181,
+      "selector_JS": 177,
+      "fixed_JS": 169,
+      "source_OOF_JS_rate": 0.8933697881066303,
+      "margin_cut": -0.20042634005452087,
+      "coefficients": [
+        -0.07712419564415524,
+        -0.010395863345505059,
+        0.041739622163779085,
+        0.14145420988146962
+      ],
+      "source_only": true
+    },
+    "P10": {
+      "fit_people": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09"
+      ],
+      "source_decisive": 2921,
+      "held_disagreements": 648,
+      "selector_JS": 529,
+      "fixed_JS": 539,
+      "source_OOF_JS_rate": 0.8100212807119366,
+      "margin_cut": -0.11827871854339178,
+      "coefficients": [
+        -0.0898053278946973,
+        0.02812373729497142,
+        0.04341318690484961,
+        0.11417536197813649
+      ],
+      "source_only": true
+    }
+  },
+  "outputs_sha256": "df668bff888f4433eafa7d954246218c21762487518a20c78b47ab6b8aa6a0af",
+  "held_scoring_labels_opened": false,
+  "source_sha256": "f18fc86a9a33ef4bf657d4e10f86759fa49987728ffe99cbe74e6b1c1acac41b",
+  "selector_JS_total": 3645,
+  "fixed_JS_total": 3588,
+  "disagreement_total": 4021,
+  "selector_JS_B2_pool": 625,
+  "fixed_JS_B2_pool": 615,
+  "causal_current_only": true
+}
