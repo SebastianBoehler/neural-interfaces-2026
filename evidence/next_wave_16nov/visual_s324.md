@@ -15,3 +15,5 @@ No-score guard checks source exclusion/hashes, tone-row selectivity and support<
 The primary source contrasts are full−PCA, frequency−intensity and pretrained−random, with/without identical rawinformation. Report all fixedforms/per-person metrics; do not select a flattering outer read. Weak/one-person recovery remains uncertain. A learned display/montage would be a distinct later form with separate registration, not a silent change to these frozen displays.
 
 Pending3117078was canceled before execution to add the audited CPU-only2080-preemptable partition and preserve28reserved slots (continuation limit244active). This changes scheduling, not scientific computation. Account observed60active/11running at04:35CET.
+
+**Guard completed:**3117089passed0:0in34seconds. Real-source tone-row/Nyquist/frequency variation, finalsample/amplitude, finitegradient, frozenstate and interleaving checks passed for all fixedforms. Compact proof`visual324_guard.json`. Guard released one source-only A100pilot3117090(20minute cap), pending at04:37CET; no324accuracyread. Owned registration/source checkpoint`e72b3ce`.

@@ -1,0 +1,104 @@
+{
+  "passed": true,
+  "labels_opened": false,
+  "source": {
+    "fit_people": [
+      "Dreyer2026Proteus/P04",
+      "Dreyer2026Proteus/P05",
+      "Dreyer2026Proteus/P06",
+      "Dreyer2026Proteus/P07",
+      "Dreyer2026Proteus/P08",
+      "Dreyer2026Proteus/P09",
+      "Dreyer2026Proteus/P10"
+    ],
+    "excluded": [
+      "P01",
+      "P02",
+      "P03"
+    ],
+    "rows_sha256": "393a55907c2473964e5cf0bfceddac770ee3e9b4e7c0d06670c57b0f1ff70b24",
+    "input_sha256": "e14dbab824b45f09901ba693a907df5c44a8a95f8c15583d95c6e8d601bf09c1",
+    "projection_sha256": "f08449957eaa2a01f00e88bca2599a462131837a00e0acc2f23987cc1b552329",
+    "contrast": "source per-frequency moments,pooled training channels/time;no per-window stats",
+    "labels_opened": false
+  },
+  "states": {
+    "pretrained": "190859844203f530e178165b42ed96c811144b0c1945d8b8e8306e68e468ab48",
+    "random": "0aa00599324ab5ad2d45a5887949586bd61be1f63da3884f7d9e7b483e62d536"
+  },
+  "source_windows": [
+    1900,
+    1521
+  ],
+  "tone_peak_rows": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "frequency_centers": [
+    1.0,
+    1.3610498905181885,
+    1.85245680809021,
+    2.5212862491607666,
+    3.431596279144287,
+    4.670573711395264,
+    6.356884002685547,
+    8.652036666870117,
+    11.775853157043457,
+    16.027524948120117,
+    21.814260482788086,
+    29.690298080444336,
+    40.409976959228516,
+    54.99999237060547
+  ],
+  "filter_sha256": "fdd8a77737dd2d8badf1804db7b5a6a27a753ca64e34668c585fd82276634ff3",
+  "raw_skip_sha256": "64045f25c3a0968f2d6304c36c2042a0872d0e7007fa35e6209c81f746c4a57f",
+  "checks": {
+    "41|intensity|pretrained": {
+      "amplitude": 1.6113059520721436,
+      "final_sample": 0.952643871307373
+    },
+    "41|intensity|random": {
+      "amplitude": 0.43921101093292236,
+      "final_sample": 0.0017878413200378418
+    },
+    "41|frequency|pretrained": {
+      "amplitude": 0.6466314196586609,
+      "final_sample": 0.7854008078575134
+    },
+    "41|frequency|random": {
+      "amplitude": 1.3770885467529297,
+      "final_sample": 0.007941961288452148
+    },
+    "16|intensity|pretrained": {
+      "amplitude": 1.4458637237548828,
+      "final_sample": 0.08398890495300293
+    },
+    "16|intensity|random": {
+      "amplitude": 0.6521372199058533,
+      "final_sample": 0.002031717449426651
+    },
+    "16|frequency|pretrained": {
+      "amplitude": 0.6333699226379395,
+      "final_sample": 0.3052050471305847
+    },
+    "16|frequency|random": {
+      "amplitude": 1.4217995405197144,
+      "final_sample": 0.030890509486198425
+    }
+  },
+  "source_sha256": "84c7004a5d2202ac1d4d4c490f146b9058863edda38a49db30223596ef5a281e",
+  "renderer_sha256": "a81748fe32a825f727f99db9a4036d773cea7861690a0e546aa5222cbd8972b2",
+  "feature_guard_sha256": "72b9112a3439eb9d1290edb68c64d03e5fc3ceda2ccaa97bb14daacc1c56cf15"
+}
