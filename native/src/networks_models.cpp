@@ -1,9 +1,7 @@
 #include "networks_internal.h"
+#include "ni26/hash.h"
 #include <ATen/ops/fft_irfft.h>
 #include <ATen/ops/fft_rfft.h>
-#include <iomanip>
-#include <openssl/evp.h>
-#include <sstream>
 #include <torch/torch.h>
 
 namespace ni26::neural {
@@ -95,30 +93,19 @@ std::string fir_digest(const torch::jit::Module &module) {
   auto filters = bank.attr("fir_list").toModule();
   const std::vector<int64_t> lengths{199, 199, 133, 99, 81, 67, 57, 51, 45};
   size_t i = 0;
-  std::unique_ptr<EVP_MD_CTX, decltype(&EVP_MD_CTX_free)> ctx(EVP_MD_CTX_new(), EVP_MD_CTX_free);
-  require(bool(ctx), "cannot allocate FIR fingerprint context");
-  require(EVP_DigestInit_ex(ctx.get(), EVP_sha256(), nullptr) == 1,
-          "cannot initialize FIR fingerprint");
+  std::vector<uint8_t> coefficients;
   for (const auto &p : filters.named_parameters(false)) {
     require(i < lengths.size() && p.name == std::to_string(i) &&
                 p.value.scalar_type() == torch::kFloat32 &&
                 p.value.sizes() == torch::IntArrayRef({lengths[i]}),
             "shared FIR parameter contract differs");
     auto x = p.value.detach().cpu().contiguous();
-    require(EVP_DigestUpdate(ctx.get(), x.const_data_ptr(), x.nbytes()) == 1,
-            "cannot hash FIR coefficients");
+    const auto *bytes = static_cast<const uint8_t *>(x.const_data_ptr());
+    coefficients.insert(coefficients.end(), bytes, bytes + x.nbytes());
     ++i;
   }
   require(i == lengths.size(), "missing shared FIR filters");
-  unsigned char data[EVP_MAX_MD_SIZE];
-  unsigned int length = 0;
-  require(EVP_DigestFinal_ex(ctx.get(), data, &length) == 1 && length == 32,
-          "cannot finalize FIR fingerprint");
-  std::ostringstream out;
-  out << std::hex << std::setfill('0');
-  for (unsigned int j = 0; j < length; ++j)
-    out << std::setw(2) << int(data[j]);
-  return out.str();
+  return sha256(coefficients.data(), coefficients.size());
 }
 struct Jit final : Network {
   std::shared_ptr<torch::jit::Module> module;
