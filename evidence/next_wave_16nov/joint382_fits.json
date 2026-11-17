@@ -1,0 +1,123 @@
+{
+  "F": {
+    "groups": [
+      "norm"
+    ],
+    "before": {
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359"
+    },
+    "after": {
+      "norm": "fb7603178399b4cdd2b078f65cde063fcb1d6ddc8b0a782be2d4fded8ba91ad6"
+    },
+    "first_grad": {
+      "norm": 0.08441847562789917
+    },
+    "frozen_sha": "340908da5f7d7529b217f9c987661176c1c46d07cf43aba433dffcc42c73053f",
+    "batches": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "seed": 382,
+    "steps": 120,
+    "first8_ce": 0.4540664404630661,
+    "last8_ce": 0.5127547867596149,
+    "seconds": 5.18759277369827,
+    "arm": "F",
+    "source_sha": "67829e9fe023605f5426d1bb035f9b51f00e8fc026c9b6824fdae3035b92c5a9",
+    "scope": [
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P10"
+    ],
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "held_labels_opened": false,
+    "probe_max_error": 1.5497207641601562e-06,
+    "checkpoint_sha": "8d4c51a5c25cff0534b61fe92fbdb19a8287049f564b7b05629d36527f764def"
+  },
+  "J": {
+    "groups": [
+      "body",
+      "norm",
+      "head"
+    ],
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "36384a170f4f41c5bbd0170fe67c26411b902de258abc8e111cdcb99355c77fe",
+      "norm": "2eb056454343e3fe10fb38ea11a4d2078df914071f3dddfd3867f3d1c770acf1",
+      "head": "3d1c725cb3a538e8346a65b9ef89d7c65e13b902b7bb2c4e8b0366212ab91ccd"
+    },
+    "first_grad": {
+      "body": 1.675201416015625,
+      "norm": 0.08441847562789917,
+      "head": 0.23588654398918152
+    },
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "seed": 382,
+    "steps": 120,
+    "first8_ce": 0.4608483798801899,
+    "last8_ce": 0.4985404722392559,
+    "seconds": 7.127858380787075,
+    "arm": "J",
+    "source_sha": "67829e9fe023605f5426d1bb035f9b51f00e8fc026c9b6824fdae3035b92c5a9",
+    "scope": [
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P10"
+    ],
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "held_labels_opened": false,
+    "probe_max_error": 1.5497207641601562e-06,
+    "checkpoint_sha": "7cc45204bfed24c345c535c06a296fefaebc1e4af252b4caad599fe035a34d77"
+  },
+  "K": {
+    "groups": [
+      "body",
+      "norm",
+      "head"
+    ],
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "33a75637b02772692602324a89d90e7cc7679c9020e7277b824b4eb5326ba1de",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "822a7313b2f47f42feecd45c39776f26f3e9ae7806e0be99d96948dc0d0a5933",
+      "norm": "376c2f77c98508f64c802c1f28d89cb575c6b99969bf23aee6a8bfc8d752771d",
+      "head": "13c2f68e72fed40194cb97d001ad91cab0a463345d2bf8653783a65f9a2a9296"
+    },
+    "first_grad": {
+      "body": 1.3680204153060913,
+      "norm": 0.033224545419216156,
+      "head": 0.2245878130197525
+    },
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "seed": 382,
+    "steps": 120,
+    "first8_ce": 0.45736273750662804,
+    "last8_ce": 0.5048834085464478,
+    "seconds": 3.733864202629775,
+    "arm": "K",
+    "source_sha": "67829e9fe023605f5426d1bb035f9b51f00e8fc026c9b6824fdae3035b92c5a9",
+    "scope": [
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P10"
+    ],
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "held_labels_opened": false,
+    "probe_max_error": 1.537799835205078e-05,
+    "checkpoint_sha": "c4bf85eb18fb51d4f36f48c098aab1024ab7b84259dbd1abac1dd18089e2262b"
+  }
+}
