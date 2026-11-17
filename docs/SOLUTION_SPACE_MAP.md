@@ -1,5 +1,8 @@
 # Map: what the rules allow against what we tested (13 Nov 2026)
 
+This is the 13 November snapshot. The [17 November audit](../evidence/next_wave_16nov/exploration_primary_sources_17nov.md)
+reviews the later whole-decoder results, open comparisons and current evaluation contract.
+
 **Purpose.** Asked by the user on 13 Nov: set the experimental space (git history, the documents, the wide waves
 since 11 Nov) against the allowed solution space, to find approaches we missed, scopes we narrowed too early, and
 paths we closed or set aside on weak evidence.
