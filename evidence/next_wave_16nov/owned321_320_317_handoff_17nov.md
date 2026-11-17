@@ -29,3 +29,6 @@
 - NEWsource-only originalCore/PCA256 job3118591 QUEUED in `ni26_js321_20261117_returning_view_fit1`: P04train2278/held377absent, originalts_core/Corelr10+originalexport_tsem.pc_basis256, low/highfloat32,pc_trfloat32.6CPU24GiB15min,featurethreads1/LR-SVD6. Actualuserqueue empty beforeadmission. Noaccuracy.
 - Next: collect3118591; realraw31canary againstoriginalcausalreference prob/view≤1e−4, native samepath/reset/prefix/deepcopy≤1e−8 beforeuse; thenfullrawviewcost/coverage. No automaticaccuracy/newmodelwave yet.
 - Source/evidence paths `studies/17nov/js_readiness321/`, `evidence/next_wave_16nov/js321_returning.md`; alloldfailures preserved. SharedLEDGER additiveonly; no frozenfiles modified.
+- UPDATE3118591 COMPLETE2m58/8.43GiB;3118592 PASS15s raw31 probability4.12e−14/view4.33e−13/reset-prefix-deepcopy0/high128active. Compact sourcefit/rawguard JSONs tracked. MainCPUonly; native/full8order pending.
+- P10same-sourceCore/PCA3118601 RUNNING/QUEUED;4normal-BN P04seed0pilots3118602%1 QUEUED after all4actualrecipe/realdata CPUpreflights. Hard6minA1002CPU8GiB each, no remaining24until guards/cost pass.
+- Calibrationaudit added js321_returning.md: currentoldOOFall_loso arrays have outerexposure; exactnestedsourceOOF absent. Zero-bias QR unsafe (arbitrarysecondaxis). No unboundednested evaluator/policyvariant launched.
