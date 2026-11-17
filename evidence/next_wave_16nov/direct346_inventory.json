@@ -1,0 +1,472 @@
+{
+  "source_people": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P10"
+  ],
+  "excluded_event_reads": [
+    "P01",
+    "P02",
+    "P03",
+    "P09"
+  ],
+  "EEG_loaded": false,
+  "n_source_recordings": 80,
+  "sampling_rates": [
+    500
+  ],
+  "EEG_EOG_EMG_counts": [
+    [
+      41,
+      0,
+      0
+    ]
+  ],
+  "task_recordings": {
+    "AcquisitionBH": 10,
+    "AcquisitionGraz": 10,
+    "BaselineCE": 10,
+    "BaselineOE": 10,
+    "OnlineRawBH": 20,
+    "OnlineRawGraz": 20
+  },
+  "task_recording_seconds": {
+    "AcquisitionBH": 4295.0,
+    "AcquisitionGraz": 4660.0,
+    "BaselineCE": 1870.0,
+    "BaselineOE": 1870.0,
+    "OnlineRawBH": 7236.0,
+    "OnlineRawGraz": 7820.0
+  },
+  "event_columns": [
+    "duration",
+    "onset",
+    "sample",
+    "trial_type",
+    "value"
+  ],
+  "source_event_types": {
+    "start_trial": 1900,
+    "fixation_cross": 1920,
+    "sub": 633,
+    "start_feedback": 1897,
+    "end_trial": 1925,
+    "word": 631,
+    "mi": 634,
+    "start_experiment": 50,
+    "beep": 1000,
+    "end_session": 30,
+    "OVTK_StimulationId_Train": 51,
+    "OVTK_StimulationId_BaselineStart": 20,
+    "OVTK_StimulationId_BaselineStop": 20
+  },
+  "cued_task_seconds": 15184.0,
+  "official_task_seconds": 7592.0,
+  "nominal_other_cued_task_seconds": 7592.0,
+  "limitation": "duration sums overlap trials only as reported; not exported/certified independent crops; metadata not model inputs",
+  "files": [
+    {
+      "path": "sub-P04/ses-1/eeg/sub-P04_ses-1_task-AcquisitionBH_run-1_eeg.json",
+      "sha256": "0c32bc188383d20d5fa61f33e249a92f8b92df6f0a8e7530a2da68ee5e2ff26f",
+      "events_sha256": "04164925f0364999ed771837e233a95b4c6fffe82a87b9ff339e767819736dd9"
+    },
+    {
+      "path": "sub-P04/ses-1/eeg/sub-P04_ses-1_task-AcquisitionGraz_run-2_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "5cdc704f8a53ea6528b206650304994a527c153135e950bb13082c8f6af5fcc9"
+    },
+    {
+      "path": "sub-P04/ses-1/eeg/sub-P04_ses-1_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P04/ses-1/eeg/sub-P04_ses-1_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P04/ses-1/eeg/sub-P04_ses-1_task-OnlineRawBH_run-3_eeg.json",
+      "sha256": "144942d5a37f1d7ff3a9a5a39ab92ae849d9a6c316e2fc70db61961543e17287",
+      "events_sha256": "4545abab16bcb5102bf829aa067b58b8d767282cfb32bb7ea42f5b40d68950e6"
+    },
+    {
+      "path": "sub-P04/ses-1/eeg/sub-P04_ses-1_task-OnlineRawBH_run-5_eeg.json",
+      "sha256": "cdbc047544fcf249eb322ad18ef635a154174c137bbfac6e9981b7c207b168a4",
+      "events_sha256": "266f6760bb6c4838c4f89138f70a492103d070cc62c9f80da42aa7884d596dd1"
+    },
+    {
+      "path": "sub-P04/ses-1/eeg/sub-P04_ses-1_task-OnlineRawGraz_run-4_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "68f44078a87fd298452b7666f6eb7ce4107a0ba089d80826136297a3183cc53e"
+    },
+    {
+      "path": "sub-P04/ses-1/eeg/sub-P04_ses-1_task-OnlineRawGraz_run-6_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "c66f98a0359026465453d941dd549b4a7365a6af3a02d0c72762c944254389e9"
+    },
+    {
+      "path": "sub-P04/ses-2/eeg/sub-P04_ses-2_task-AcquisitionBH_run-1_eeg.json",
+      "sha256": "3cde57aff78609aa4ec1d06128f174729c91c9c168d66b8cfd3e24e6339a5139",
+      "events_sha256": "6912f0cf5b4dbd2f912c9c399df741564bd1df4fbfd858f46a2a420f7d84c1a1"
+    },
+    {
+      "path": "sub-P04/ses-2/eeg/sub-P04_ses-2_task-AcquisitionGraz_run-2_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "f1ae11babc2c8ba6373575b6f539d5ab335059978f2df3b878e3c0d0c9fb8af7"
+    },
+    {
+      "path": "sub-P04/ses-2/eeg/sub-P04_ses-2_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P04/ses-2/eeg/sub-P04_ses-2_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P04/ses-2/eeg/sub-P04_ses-2_task-OnlineRawBH_run-3_eeg.json",
+      "sha256": "4b94210413c0ac850598c6efe7c5e695d4b8b36cda8be695a9ea06beea55f400",
+      "events_sha256": "0cccbaca95def414cc3f117ba9f70cb41a99e4fa527076dac3c7f6110c2dbdff"
+    },
+    {
+      "path": "sub-P04/ses-2/eeg/sub-P04_ses-2_task-OnlineRawBH_run-4_eeg.json",
+      "sha256": "c264757bc4351b4259c2f44a360808a653dc8233c8c2b8801ab8c5079704ebbd",
+      "events_sha256": "86937b9e6c59586652e4d9e46b4d628871797e0af1b14651ee40855583c09dd7"
+    },
+    {
+      "path": "sub-P04/ses-2/eeg/sub-P04_ses-2_task-OnlineRawGraz_run-5_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "3a1599e4821aadfa5f86e292bd3ff3575d1e7d58249f104e346bfa6cb99d7b04"
+    },
+    {
+      "path": "sub-P04/ses-2/eeg/sub-P04_ses-2_task-OnlineRawGraz_run-6_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "4b596e898705b1d408d512e53d129be26b05f9ddfda0a4925ae5255189581c4c"
+    },
+    {
+      "path": "sub-P04/ses-3/eeg/sub-P04_ses-3_task-AcquisitionBH_run-1_eeg.json",
+      "sha256": "92ea3cb3aa8a9c359d271db39c98914bef9018504b5dc5a0b2c62518b1e421e6",
+      "events_sha256": "c45fa63b04ea0599afce226e836b566d8ccf57f0cb53082fa2cc7c495febe899"
+    },
+    {
+      "path": "sub-P04/ses-3/eeg/sub-P04_ses-3_task-AcquisitionGraz_run-2_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "7ea5ef8f57cf2725520b52eab8de400a6dd1ef813d46070d2344a278a0220239"
+    },
+    {
+      "path": "sub-P04/ses-3/eeg/sub-P04_ses-3_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P04/ses-3/eeg/sub-P04_ses-3_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P04/ses-3/eeg/sub-P04_ses-3_task-OnlineRawBH_run-3_eeg.json",
+      "sha256": "ce218f5ca237acf2ef5674130279c5b36d255e9931dcdbb68561c0079f21182e",
+      "events_sha256": "5f088707771409a9a5f38de9fc4e06edea7079b0350ee82834df656ab84eea3f"
+    },
+    {
+      "path": "sub-P04/ses-3/eeg/sub-P04_ses-3_task-OnlineRawBH_run-6_eeg.json",
+      "sha256": "c264757bc4351b4259c2f44a360808a653dc8233c8c2b8801ab8c5079704ebbd",
+      "events_sha256": "de25d157c0778efa2589213b5ec93aeef06229983e2aff1c406e412566126898"
+    },
+    {
+      "path": "sub-P04/ses-3/eeg/sub-P04_ses-3_task-OnlineRawGraz_run-4_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "d0bcffc4f6873bac230617f52c69a6a13f268aff1b53fa2799db1a7b3c36b570"
+    },
+    {
+      "path": "sub-P04/ses-3/eeg/sub-P04_ses-3_task-OnlineRawGraz_run-5_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "7573dd195e2d8a521ba9b0d4f0b8c0c40ae3149bdd77d25e08c983b35b612fc8"
+    },
+    {
+      "path": "sub-P05/ses-1/eeg/sub-P05_ses-1_task-AcquisitionBH_run-2_eeg.json",
+      "sha256": "81e3e1161dc2b473d8ed2ebe681282985d0a8979c2e8b8c3ce7c44b7300b1ff8",
+      "events_sha256": "21a5e0c3b4e1f6708a3c4d74f5567f07832d352192248af23abc6db22d258faa"
+    },
+    {
+      "path": "sub-P05/ses-1/eeg/sub-P05_ses-1_task-AcquisitionGraz_run-1_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "2d1914a29255a46636b658d6bf1151ef939e8eea6d7d4f22503485e03c4ede14"
+    },
+    {
+      "path": "sub-P05/ses-1/eeg/sub-P05_ses-1_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P05/ses-1/eeg/sub-P05_ses-1_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P05/ses-1/eeg/sub-P05_ses-1_task-OnlineRawBH_run-4_eeg.json",
+      "sha256": "ba1139bfc1d505db8c3c018981bbb60ea57f3fd45b626fd0ae9c898744a69e56",
+      "events_sha256": "da986567ab5b8cf4148f604bd463ebd43453a5ee6aa30ad94acba442b4237df7"
+    },
+    {
+      "path": "sub-P05/ses-1/eeg/sub-P05_ses-1_task-OnlineRawBH_run-6_eeg.json",
+      "sha256": "4be846100d2e50f58833dc6c094a705ec20d91967015cc5f8813b50f39a52ad0",
+      "events_sha256": "c02e4fcb2b20ced29854a2b268a3e11bb5b1a1936ffc7611dcd25db3a6307fd8"
+    },
+    {
+      "path": "sub-P05/ses-1/eeg/sub-P05_ses-1_task-OnlineRawGraz_run-3_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "8e88ee41a2dac1bd2c7ac83e0b4b2e10464e16c3cf7219007ea934fa16cf714e"
+    },
+    {
+      "path": "sub-P05/ses-1/eeg/sub-P05_ses-1_task-OnlineRawGraz_run-5_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "1bab449826ba3c715ad1a4c4bbdfa83b26dc778aa832d7d71c55a93c1f2346f0"
+    },
+    {
+      "path": "sub-P06/ses-1/eeg/sub-P06_ses-1_task-AcquisitionBH_run-1_eeg.json",
+      "sha256": "d9a846d1d14bbace5b6454014d4e6c135af8037fae25aa96e1dc43b5f2ad0a70",
+      "events_sha256": "2e1fde36855d90c3f584475490f8e4ef0ccd304c256a725c89c3a846050f013b"
+    },
+    {
+      "path": "sub-P06/ses-1/eeg/sub-P06_ses-1_task-AcquisitionGraz_run-2_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "ded11afd63c4d502fb4276403464e4857e8fa547b85d098411d92adcf37c7416"
+    },
+    {
+      "path": "sub-P06/ses-1/eeg/sub-P06_ses-1_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P06/ses-1/eeg/sub-P06_ses-1_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P06/ses-1/eeg/sub-P06_ses-1_task-OnlineRawBH_run-3_eeg.json",
+      "sha256": "8e10592d7bc5141b27f59b549a320f9b350a2fc88502f2ab554dfb0a30f8052e",
+      "events_sha256": "2b35dbee4ef45b8c2ea38853afb29b7599497d98e207d16a36ab6ca43d566e08"
+    },
+    {
+      "path": "sub-P06/ses-1/eeg/sub-P06_ses-1_task-OnlineRawBH_run-5_eeg.json",
+      "sha256": "ce218f5ca237acf2ef5674130279c5b36d255e9931dcdbb68561c0079f21182e",
+      "events_sha256": "d5920fea18b04ea64c2a98062aaddc184c983a24bef4525e08c4d99c48d15922"
+    },
+    {
+      "path": "sub-P06/ses-1/eeg/sub-P06_ses-1_task-OnlineRawGraz_run-4_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "8a4a7025044457a8f299a08359698410c1b18eafa14912ecb1bad1a4ff78654f"
+    },
+    {
+      "path": "sub-P06/ses-1/eeg/sub-P06_ses-1_task-OnlineRawGraz_run-6_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "0b2612726349e59d736291e54aa295dc5e016ee27ec9a4640de2891af5d5a7e8"
+    },
+    {
+      "path": "sub-P07/ses-1/eeg/sub-P07_ses-1_task-AcquisitionBH_run-1_eeg.json",
+      "sha256": "da95266c05363a056c4997735263d23cd857f4712690c65e77ab46cc10009e83",
+      "events_sha256": "26e56136c5abc04a1b95312a948b19b206f842683b46c0568d05d381961f2ca2"
+    },
+    {
+      "path": "sub-P07/ses-1/eeg/sub-P07_ses-1_task-AcquisitionGraz_run-2_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "4c3da86ea22c11cb653c641e0cd4ae97036a87eeb48ea4f23169c3f0d6aa1b7d"
+    },
+    {
+      "path": "sub-P07/ses-1/eeg/sub-P07_ses-1_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P07/ses-1/eeg/sub-P07_ses-1_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P07/ses-1/eeg/sub-P07_ses-1_task-OnlineRawBH_run-4_eeg.json",
+      "sha256": "601405ab9adb46bc6b381e422f8a5b628e6679f4886ac101159917a420b239e3",
+      "events_sha256": "5ffa6ec8925b53769b33b9d9eb211a4bb4cebbbce730763ee0e8696af79d98de"
+    },
+    {
+      "path": "sub-P07/ses-1/eeg/sub-P07_ses-1_task-OnlineRawBH_run-6_eeg.json",
+      "sha256": "b85c98f86b1b33469f3504bd1e326b11de83a08bc8fc563bbfc1d12576d8c74a",
+      "events_sha256": "7f635417a81cfc039385a4c58b1aacce7e208a42f58c0aa528e02f411c41495b"
+    },
+    {
+      "path": "sub-P07/ses-1/eeg/sub-P07_ses-1_task-OnlineRawGraz_run-3_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "af71e324272318d33dce5eb7a36ad520aff5b9e4da787647f4daf84785eb7da3"
+    },
+    {
+      "path": "sub-P07/ses-1/eeg/sub-P07_ses-1_task-OnlineRawGraz_run-5_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "ada64ac7dc2bfc00f7358a81e37fd7cc41687066f39d333da3283e0cd4a93be5"
+    },
+    {
+      "path": "sub-P08/ses-1/eeg/sub-P08_ses-1_task-AcquisitionBH_run-1_eeg.json",
+      "sha256": "ef78736ff6b242f9d004fd26b0310612b8bd0bca229e1b93b39a9b1e0311d42c",
+      "events_sha256": "68a849a4a3f922a4f36df72469489252069b2bde07498c614109f88046467090"
+    },
+    {
+      "path": "sub-P08/ses-1/eeg/sub-P08_ses-1_task-AcquisitionGraz_run-2_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "448c08abc95747ec99972fe3e71f053a249b035d45402be2ef6271c901445628"
+    },
+    {
+      "path": "sub-P08/ses-1/eeg/sub-P08_ses-1_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P08/ses-1/eeg/sub-P08_ses-1_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P08/ses-1/eeg/sub-P08_ses-1_task-OnlineRawBH_run-5_eeg.json",
+      "sha256": "ce218f5ca237acf2ef5674130279c5b36d255e9931dcdbb68561c0079f21182e",
+      "events_sha256": "33cc98f6bebb2af49a33d59dfe23ff95f05d5a6f5c518ea8115c0215988f9a53"
+    },
+    {
+      "path": "sub-P08/ses-1/eeg/sub-P08_ses-1_task-OnlineRawBH_run-6_eeg.json",
+      "sha256": "ce218f5ca237acf2ef5674130279c5b36d255e9931dcdbb68561c0079f21182e",
+      "events_sha256": "10e4098d44d7c42a7721cf5d77b6c9b1f09fc4312dbf60dcc857c350a46da7d7"
+    },
+    {
+      "path": "sub-P08/ses-1/eeg/sub-P08_ses-1_task-OnlineRawGraz_run-3_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "fff1381c9ff21e1ef2d6d619e27c9bb64863e9046c1ac823520c80c182f2c088"
+    },
+    {
+      "path": "sub-P08/ses-1/eeg/sub-P08_ses-1_task-OnlineRawGraz_run-4_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "3b605cdd7bdf63b2a1d314b775b6948518076fc27781ab77744c36b88079595e"
+    },
+    {
+      "path": "sub-P10/ses-1/eeg/sub-P10_ses-1_task-AcquisitionBH_run-1_eeg.json",
+      "sha256": "21ebfb8a626fa07a2035903d664321e299a37775ec0827e15706a43c98f1f958",
+      "events_sha256": "ff1e3b209d2892fc59255e57b18e0815decca9d8b43d9c1e275f1634aa793c97"
+    },
+    {
+      "path": "sub-P10/ses-1/eeg/sub-P10_ses-1_task-AcquisitionGraz_run-2_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "bce5317dfcfe064a051eda252dadef609b33b69ef8f7470b109491dc542eb692"
+    },
+    {
+      "path": "sub-P10/ses-1/eeg/sub-P10_ses-1_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P10/ses-1/eeg/sub-P10_ses-1_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P10/ses-1/eeg/sub-P10_ses-1_task-OnlineRawBH_run-3_eeg.json",
+      "sha256": "7a4349b390d035bef1ac11e90a20df0d0fb301ba126f4054c5c667d6d2c9cff0",
+      "events_sha256": "5994d47e8e32d19c088f383108156c847d942d7cafd9de6a04416aa4fff53e9b"
+    },
+    {
+      "path": "sub-P10/ses-1/eeg/sub-P10_ses-1_task-OnlineRawBH_run-5_eeg.json",
+      "sha256": "b85c98f86b1b33469f3504bd1e326b11de83a08bc8fc563bbfc1d12576d8c74a",
+      "events_sha256": "3d68a5658519bfede796d4bf8892ec17dff27a2524a4ccafa938802b9c8153d3"
+    },
+    {
+      "path": "sub-P10/ses-1/eeg/sub-P10_ses-1_task-OnlineRawGraz_run-4_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "b88eda58b963bdf93899262afb20db14c5e4d814ad39d91456199930b03af7d3"
+    },
+    {
+      "path": "sub-P10/ses-1/eeg/sub-P10_ses-1_task-OnlineRawGraz_run-6_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "5bb7da619ee8b4b89fb36f39a4998b4c616ced5ff17fcb7c3954b5e3587693cd"
+    },
+    {
+      "path": "sub-P10/ses-2/eeg/sub-P10_ses-2_task-AcquisitionBH_run-1_eeg.json",
+      "sha256": "cfd63b4c2be1b30493e5e4a46ce8bc0e4818335df4466aa1615d03ecb281adf4",
+      "events_sha256": "54486748f9edd1b858c04214acb371fab7107a0412e0aaed8d3f36a521642b5d"
+    },
+    {
+      "path": "sub-P10/ses-2/eeg/sub-P10_ses-2_task-AcquisitionGraz_run-2_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "bf3e009c7d8db73482d378dbefd09d6ff37b554d650b850057bf1f10d576b966"
+    },
+    {
+      "path": "sub-P10/ses-2/eeg/sub-P10_ses-2_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P10/ses-2/eeg/sub-P10_ses-2_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P10/ses-2/eeg/sub-P10_ses-2_task-OnlineRawBH_run-4_eeg.json",
+      "sha256": "c264757bc4351b4259c2f44a360808a653dc8233c8c2b8801ab8c5079704ebbd",
+      "events_sha256": "ceced9da45166ee84b7957f36a57814601e92a1616745bea917282e07b8522bc"
+    },
+    {
+      "path": "sub-P10/ses-2/eeg/sub-P10_ses-2_task-OnlineRawBH_run-5_eeg.json",
+      "sha256": "4b94210413c0ac850598c6efe7c5e695d4b8b36cda8be695a9ea06beea55f400",
+      "events_sha256": "c48ddd89a7f2f62ecc99bc86fc27e1ef5dbdd48f485f9435c83eeb3fd8e13138"
+    },
+    {
+      "path": "sub-P10/ses-2/eeg/sub-P10_ses-2_task-OnlineRawGraz_run-3_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "db0532ed9f05f9d7b4136317e4bd0e051db47b2b96f72b5c5e1123895cfdca38"
+    },
+    {
+      "path": "sub-P10/ses-2/eeg/sub-P10_ses-2_task-OnlineRawGraz_run-6_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "751f06c0447795dfa3273084bf1d30e51f7faf2e7612031094113532a0a78598"
+    },
+    {
+      "path": "sub-P10/ses-3/eeg/sub-P10_ses-3_task-AcquisitionBH_run-2_eeg.json",
+      "sha256": "3e584b9c9b8ca479956c965f0179a51c5f791b6ee297388e3939f41e147ac08f",
+      "events_sha256": "f0c1688e9b94e2b7ec3471448d5b904e89b6ec3deeebaa17e72e1a9d831c6e67"
+    },
+    {
+      "path": "sub-P10/ses-3/eeg/sub-P10_ses-3_task-AcquisitionGraz_run-1_eeg.json",
+      "sha256": "71b5bc55ed71e0d1c72183391dc2f64294035ec6d1ce0c606fec2aa32ce9d5fa",
+      "events_sha256": "021f2d2b9e8cec46401cc0d39c3741b6b017be03e22d39abcab69052a59160a9"
+    },
+    {
+      "path": "sub-P10/ses-3/eeg/sub-P10_ses-3_task-BaselineCE_run-0_eeg.json",
+      "sha256": "dfc54833e3d5de7ab03638cb570c8237612ff40b1ab63dbd33d135b417bb17a2",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P10/ses-3/eeg/sub-P10_ses-3_task-BaselineOE_run-0_eeg.json",
+      "sha256": "e3eb7127f5475511e0e2a6bd787cb636b2a94db4c1d895be2357c56f899b15f1",
+      "events_sha256": "732d24b58fb80fc936f612c862c62500eca7109f9c0ce69c88f50e205ab4f358"
+    },
+    {
+      "path": "sub-P10/ses-3/eeg/sub-P10_ses-3_task-OnlineRawBH_run-5_eeg.json",
+      "sha256": "214becef230bc819d54b2e246f5b645d121abbf00f4b1c5948736d55097fbfe3",
+      "events_sha256": "e51e6a8bf8ec882439335bb01d2668cf61015e4121917d122b5db6eac94fabcc"
+    },
+    {
+      "path": "sub-P10/ses-3/eeg/sub-P10_ses-3_task-OnlineRawBH_run-6_eeg.json",
+      "sha256": "e4c43aafb51764252c6e92304beb1ea7df61e8c3515553f84d0ca7b131b6e610",
+      "events_sha256": "09e41ebf7019f46a2234be394ed0f2208635f686156843b24cc23a2941b3107c"
+    },
+    {
+      "path": "sub-P10/ses-3/eeg/sub-P10_ses-3_task-OnlineRawGraz_run-3_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "1b9118cc91e57a55622143a2fc38f79d600303bedb014d4238dfe62deadb6d27"
+    },
+    {
+      "path": "sub-P10/ses-3/eeg/sub-P10_ses-3_task-OnlineRawGraz_run-4_eeg.json",
+      "sha256": "b7f555f75e94218cc577559d321191a17a7c450a5b806c9c39a5269a0d599cc0",
+      "events_sha256": "e7584ea782b30e2d4261b7010d3570227a514c49540a1824f83046c2ac44fa4c"
+    }
+  ]
+}

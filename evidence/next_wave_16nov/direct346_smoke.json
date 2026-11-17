@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "budget_passed": true,
+  "source_sha256": "cc433f9b3f36dc381debb5b7a803784a67c5b397958e852cfecdbd36dc429dde",
+  "checkpoint_sha256": "eadd5c23c9f7cac239bf78a99993d8d3e47392d24d166e0ede6fce5b0e6ac9f8",
+  "rows_sha256": "519dab4a01ae8b3e5915b28bd996841ba9e8545254605f9784d3186b875b879d",
+  "source_people": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P10"
+  ],
+  "held_transformed": false,
+  "held_labels_opened": false,
+  "native_guard": {
+    "prefix_probability_max": 4.464179310659233e-07,
+    "state_sha256": "b28d152175f2004b672fcee3d940be6b3a95a52c6ca6853102daeb4de4173262",
+    "rows_sha256": "519dab4a01ae8b3e5915b28bd996841ba9e8545254605f9784d3186b875b879d",
+    "order_sha256": "4dd65c1aef3aa3bd49e7926c4923a7684281f31aab76a40a571e0a0cbce3f1c0"
+  },
+  "direct_sha256": "940693993cae6fae04ac68fcf32b44443af6428c175d8a0686e45728860f67b8",
+  "derangement_sha256": "bdb27856441cec70fb30bef948c301f30614c0d0639ae3977187b7302c0304db",
+  "traces": {
+    "B": {
+      "scaler_mean_sha256": "8cf611e7f1c88ba83cdd116ecd1f8dfbad5a6a8b75e3eb554fb216d8374be5c2",
+      "scaler_scale_sha256": "ce7adaae943bbe0a419eb31e5c5fa7af961b5643a27238af4b5cfb11af108669",
+      "coefficient_sha256": "06d2e295263fcf830130265c02d1715ed1cc00167fb4f6a254171ff3283131f6",
+      "iterations": [
+        49
+      ],
+      "width": 1152
+    },
+    "C": {
+      "scaler_mean_sha256": "eb4538b3747b571f9f2bb814268587380f1c22324c4257126ee25232682e7eb0",
+      "scaler_scale_sha256": "d46b88d6e5e8765f6285748c53fefce09ff3c5bc86c71aab5fdca255039014b6",
+      "coefficient_sha256": "e51c512d40550dc028e36746c099400f0c68169bd5f62df6cfe2cab0982fa4f9",
+      "iterations": [
+        58
+      ],
+      "width": 1521
+    },
+    "D": {
+      "scaler_mean_sha256": "02945ef2f25beefe091babb60fe1ee7b2c19b011592f72687c22e326d7e85705",
+      "scaler_scale_sha256": "4c5b96d95795104a109d78fc7d9bacd2dd0339ced7992dcf0117862f4603049c",
+      "coefficient_sha256": "f55b64b9c0ff15eb376404d152265e6dfb8a3981b53c8f30b9a4cc261a848346",
+      "iterations": [
+        62
+      ],
+      "width": 1521
+    }
+  },
+  "feature_seconds": 3.2629157789051533,
+  "three_heads_seconds": 0.669181217905134,
+  "projected_full_seconds": 380.28380064958856,
+  "projected_total_CPUcoreseconds": 2419.9267548861444,
+  "seconds": 9.111975494306535
+}

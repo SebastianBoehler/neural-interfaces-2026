@@ -1,0 +1,22 @@
+{
+  "jobs": {
+    "3119200": {
+      "state": "COMPLETED",
+      "allocated_seconds": 76,
+      "allocated_CPUs": 2,
+      "batch_MaxRSS_KiB": 2101740,
+      "node": "galvani-cn001"
+    },
+    "3119204": {
+      "state": "COMPLETED",
+      "allocated_seconds": 65,
+      "allocated_CPUs": 6,
+      "batch_MaxRSS_KiB": 4184948,
+      "node": "galvani-cn115"
+    }
+  },
+  "allocated_CPUcoreseconds": 542,
+  "allocated_CPUcorehours": 0.15055555555555555,
+  "A100hours": 0,
+  "live_owned_jobs": []
+}
