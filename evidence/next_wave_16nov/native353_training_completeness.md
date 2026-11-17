@@ -69,3 +69,20 @@ root must reconcile actual completed cost and register/release before execution.
 Validated now: Python byte-compilation and C++20 LibTorch syntax-only check;
 `git diff --check`. Not validated: link of new test, numerical source-training
 parity, execution cost, memory, Hilbert fit, full neural fit or full-stack training.
+
+## Released source-only test, BEFORE execution
+
+Root explicitly released the fixed test17Nov2026 after arithmetic3120762 completed.
+Aggregate actual7,753coresec; reserve1,200 for neural strict8/31 and1,200 here:
+10,153<14,400coresec. This ONE CPU2/16GiB/10min release has no extension/retry.
+Immutable snapshot `ni26_core_training_source_v1_20261117`; exact source/header/
+reference/data/coefficient/base/transitive-NFS-library hashes checked before submit
+and on worker. Worker-local dependencies fingerprinted after placement and checked
+at exit. Compile ONE source-test TU with original CMake ABI/flags/link argv and
+qualified CAR base70d14978…1cb5; no base rebuild, no Python head/scaler/PCA fit.
+The independent source feature oracle and native fit execute serially; time/RSS
+recorded separately. Original one-thread PC projection context is preserved.
+No new held inputs/labels, accuracy, full-system scoring or source-refit selection.
+Script `native/tests/core_training_source.sbatch`; source/build proof is retained.
+Original source/full-dimensional feature/PC/scaler/prior/objective/exclusion bounds
+above stay fixed; first failure stops, preserves artifacts and blocks adoption.
