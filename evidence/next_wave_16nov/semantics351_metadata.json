@@ -1,0 +1,200 @@
+{
+  "scope": "metadata only; EEG numeric payload never decoded",
+  "source_hashes": {
+    "audit.py": "aa951f5af45a93ef03b7452cfecef92aaaead0097da121e9f968bc9230563e36",
+    "mat_metadata.py": "d8013571b1db945700b9e1d56f1aee129323ee11994f4ca4e32ec00cbd98ada3"
+  },
+  "wall_s": 29.30173742689658,
+  "cpu_s": 28.665951441,
+  "shin": {
+    "source_sha256": "47ba7da2ea3ab5d70f3f9cd00de3998d7e27d1066dfb03711215ee48ba48c6ea",
+    "rows": 3120,
+    "native_target_channels": [
+      "C3",
+      "C4",
+      "CP1",
+      "CP2",
+      "CP5",
+      "CP6",
+      "Cz",
+      "F1",
+      "F2",
+      "FC1",
+      "FC2",
+      "FC5",
+      "FC6",
+      "P3",
+      "P4",
+      "Pz"
+    ],
+    "EEG_sampling_hz": 1000,
+    "stored_onset_to_actual_crop_s": 1,
+    "unique_row_identity": true,
+    "metadata_records": 78,
+    "header_typos": [
+      {
+        "person": 17,
+        "run": 2
+      }
+    ]
+  },
+  "scherer": {
+    "source_sha256": "a6188799753276451235678d08e92fd79162a95ec8099dbbb85e2ed9e2701e91",
+    "rows": 2130,
+    "runs": 142,
+    "native_target_channels": [
+      "P2",
+      "Pz",
+      "CPz",
+      "Cz",
+      "P1",
+      "P3",
+      "P5",
+      "CP3",
+      "C3",
+      "P6",
+      "P4",
+      "CP4",
+      "C4",
+      "FC4",
+      "F4",
+      "F3",
+      "Fz",
+      "FC3",
+      "FCz"
+    ],
+    "EEG_sampling_hz": 256,
+    "unique_row_identity": true,
+    "pair_WORD_SUB_rows": 1420,
+    "run_recovery": "25 consecutive trials, five of each class; all internal gaps 12.49\u201313.51s, boundary gaps >20s",
+    "metadata_records": 18,
+    "person_day_counts": [
+      {
+        "person": "A",
+        "session": 1,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "A",
+        "session": 2,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "C",
+        "session": 1,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "C",
+        "session": 2,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "D",
+        "session": 1,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "D",
+        "session": 2,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "E",
+        "session": 1,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "E",
+        "session": 2,
+        "runs": 7,
+        "exported_rows": 105,
+        "source_trials_all_five_classes": 175
+      },
+      {
+        "person": "F",
+        "session": 1,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "F",
+        "session": 2,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "G",
+        "session": 1,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "G",
+        "session": 2,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "H",
+        "session": 1,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "H",
+        "session": 2,
+        "runs": 7,
+        "exported_rows": 105,
+        "source_trials_all_five_classes": 175
+      },
+      {
+        "person": "J",
+        "session": 1,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "J",
+        "session": 2,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "L",
+        "session": 1,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      },
+      {
+        "person": "L",
+        "session": 2,
+        "runs": 8,
+        "exported_rows": 120,
+        "source_trials_all_five_classes": 200
+      }
+    ]
+  }
+}
