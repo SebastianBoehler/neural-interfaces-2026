@@ -78,3 +78,70 @@ otherwise report contrasts as weak/inconclusive rather than a prior family ceili
 Selected priors: C−M+1pp[−3,+5]; C−S+1pp[−3,+5]; C−E0pp[−3,+3]; reconstruction reduction.05[−.10,+.20].
 One source-held person/seed cannot settle generalization. No model choice, new precision/epoch tuning,
 P02/P03query, chain integration, package, upload or wider matrix follows automatically.
+
+## Complete pilot outcome
+
+All4producers3118019_0/1/2/3 completed0:0 in310/318/261/262allocatedseconds.
+Collector3118023 completed0:0 in18s. All4×64pretext+1240native40steps, initialnative states,
+complete final40batch/RNG/scale/head/source guards match sharedA6. All five8orderbanks, population
+embeddings and full-target source ridge maps passed before P09 labels. Numerical ridge oracle maximum
+7.11e−15; source-order maximum2.66e−15; all1152embedding coordinates active on source6.
+
+| Whole decoder | P09 official % | Cell NLL | Cell Brier |
+|---|---:|---:|---:|
+| Native40 sharedA6 |64.061|.820121|.478883|
+| Moment pretext64→native40 |62.512|.815563|.475040|
+| Fullcov pretext64→native40 |63.736|.820397|.481170|
+| Shuffledcov pretext64→native40 |61.669|.814755|.477676|
+| ExtraCE64→native40 |63.441|.825950|.482298|
+
+C−M+1.224pp, C−S+2.067pp, C−E+.295pp, but C−native−.325pp. C beats S on all8orders of this SAME
+person; this is descriptive delivery consistency, not eight independent people or transfer confirmation.
+NLL/Brier do not support a Cprobability-quality advantage over native, M or S. The small native difference is within the
+project's general local-noise scale; no established native improvement, no closure.
+NativeA6 meets the preregistered adequacy checks: source populationBN CE.489679, sourceclassrecalls
+.866/.791/.797 and heldaccuracy64.061%. This is a genuine adequate reference, not a weak substitute.
+All pretext arms have source populationBN CE.478–.503, sourceclassrecalls>.78; final40epoch last31step
+mean CE M.399/C.405/S.401/E.393. These are optimization observations, not proof of convergence.
+
+| After-final40 linear probe | Diagonal relativeMSE | Offdiagonal relativeMSE | Slow relativeMSE |
+|---|---:|---:|---:|
+| Native |.274176|1.150086|1.280035|
+| Moment |.270162|1.155507|1.307684|
+| Covariance |.296958|1.163694|1.322454|
+| Shuffled |.281311|1.141195|1.280225|
+| ExtraCE |.266652|1.151036|1.284683|
+
+RelativeMSE divides held squared error by the source6-mean predictor's error, separately per group.
+The covariance arm does not improve this post-finefit reconstruction instrument against native, moment,
+shuffled or extraCE on ANYgroup. Offdiagonal/slow are worse than a source-mean predictor in all five.
+This does not prove information is absent: source3teacher geometry, populationBN shift, fixed ridge.1,
+linear accessibility, narrow9band encoder support,64step pretext optimization and final40epoch forgetting
+remain competing explanations. There is no pre-finefit held representation snapshot, so this pilot cannot
+locate whether information was learned during pretext and then overwritten.
+
+Mean first8→last8pretext group losses C3.653/1.696/1.784→2.847/.961/1.411; M2.019/2.105→1.288/1.500;
+S3.600/1.666/1.716→2.154/.977/1.034; E1.173→.922. Different batches/target assignments mean these
+are learning-curve observations, not a common converged source reconstruction test or C−S error proof.
+Head size/lossdimension/FLOP differences remain explicit. C−S is the matched association contrast;
+C−M is not a pure information-objective isolation. No population interval from oneperson/seed.
+
+Actual own337 aggregate allocation7938coreseconds=2.205CPUh, including previous337preparation,
+teacher, both smokes, all4finefits and collector; shared338A6 separately accounted. No A100 allocation.
+PeakRSS teacher6382360KiB; producers3127468–3587448KiB; collector2147164KiB.
+No337jobs remain. No checkpoints/data were committed. No P02/P03query, epoch/precision/model selection or promotion.
+Canonical complete report SHA2c6edadd7ebe464037dbaadfc3eb4f0f9cea1f78bd64895c06b962c44c1351ba.
+Compact local copy preserves all scores/order contrasts/reconstruction/groups/source hashes and learning
+curves; long native step timings are summarized, original remote result remains immutable.
+The canonical report's metric_sha256 is the protocol wrapper390fd6…4a2c. Independent resolved import
+inspection confirms actualofficialfunction ANDmodule2026-competition/benchmark_utils/metrics.py,
+SHAfcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d.
+No metric implementation, tensor or score changed. Compact evidence labels wrapper/function separately.
+
+Next decision: keep this fixed64pretext form as no demonstrated native gain, not a family closure.
+Before a larger objective/coverage study, discriminate insufficient pretext learning from finefit forgetting
+with a prospectively frozen source-only checkpoint instrument and an adequate source reconstruction test.
+A broader frequency/information path would need a genuinely matched encoder change; forcing another
+auxiliary head or selecting moreP09epochs would not resolve these competing causes.
+
+Actual outcome-checkpoint clock17Nov2026,08:27:06UTC /09:27:06CET;33m01 elapsed since phase start.

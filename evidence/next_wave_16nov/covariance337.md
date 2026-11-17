@@ -1,5 +1,7 @@
 # §337 covariance-target pretraining × source exposure coverage
 
+Current continuation: matched64pretext pilot is complete; see pretraining337_handoff.md/results.
+
 Prepared 17Nov2026; owner scheduled_research_0652. Native-reference bridge owner fresh_solution_audit (§336).
 This is preparation and small real-data engineering work, not a released whole-model matrix.
 No P02/P03 predictions, query labels, package, upload, new corpus or gated assets are authorized here.
