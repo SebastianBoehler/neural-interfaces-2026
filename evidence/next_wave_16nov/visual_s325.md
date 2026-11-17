@@ -1,6 +1,6 @@
 # §325 source-learned physical display — 17 November 2026
 
-Registered before325labels/accuracy in LEDGER§325. This extends fixed-display319/324within the same visual-prior family; those studies never learned a display. Primary SeeEEG§3.2–3.3 was re-read: its learned input and cross-person head fitting motivate this independently implemented bounded experiment. No restricted source, reproduction, new literature, dataset or prior-winning claim.
+Registered before325labels/accuracy in LEDGER§325. This extends fixed-display319/324within the same visual-prior family; those studies never learned a display. Primary [SeeEEG](https://arxiv.org/html/2611.17031v1)§3.2–3.3 was re-read: its learned input and cross-person head fitting motivate this independently implemented bounded experiment. No restricted source, reproduction, new literature, dataset or prior-winning claim.
 
 CPU no-score guard3117222queued; immutable workspace`/mnt/lustre/work/gehler/gfh527/ni26_visual325_v1_20261117`, sourceSHA`953b440e067cc4506f5644cbe9d701ea678f9cf34d365830a4f767103b4d0a32`. Compilation and Bash syntax pass. Only passed CPUguard releases one A100allocation≤30min; CUDA no-label guard measures actual B1/B4/parity/backwardcost beforefitlabels and stops if projected script>1440s. No outer/current-system continuation.
 
