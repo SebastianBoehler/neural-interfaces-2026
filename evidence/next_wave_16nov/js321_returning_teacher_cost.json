@@ -1,0 +1,32 @@
+{
+  "status": "actual_external_teacher_source_cost_and_decomposition_passed_NOT_mapfit",
+  "source_rows": [
+    1900,
+    1901,
+    1902,
+    1903,
+    1904,
+    1905,
+    1906,
+    1907,
+    1908,
+    1909,
+    1910,
+    1911
+  ],
+  "feature_shape": [
+    12,
+    38
+  ],
+  "feature_seconds": 2.979168518446386,
+  "composition_maxabs": 0.0,
+  "immutable_weights_buffers": true,
+  "teacher_sha256": "98f7df456dcbecaaadb2e0c0a09a130dc6fd3e2de187adf606dd1ce1b4330b5c",
+  "weights_sha256": "444f8ff3db7c6763d0fd3dabe37a29e2ea4a19287c34b1f4e7ac0055877c874d",
+  "source_sha256": "3ed12583d7670f7691c2cc1d0f616d0b329c3f5ed42e68df2af8055f22034327",
+  "maxrss_KiB": 670704,
+  "seconds": 9.848556530661881,
+  "query_labels_read": false,
+  "accuracy_computed": false,
+  "scope": "frozen external heads/input productionG;sourceonly12windows;fullmap cost unmeasured"
+}

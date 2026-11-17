@@ -35,7 +35,10 @@ def main(fold):
     if sha(data)!='2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327':raise ValueError('data changed')
     with np.load(data,allow_pickle=True) as z:sub=z['subject'];session=z['session'].astype(str);y=z['y'].astype(np.int64)
     held=(sub=='Dreyer2026Proteus/'+fold[:3])&(session!='1');train=np.flatnonzero(~held);query=np.flatnonzero(held)
-    file=MAIN/f'runs/replay_data/feats_exact/seen_session-{fold}.npz'
+    fit=ROOT/('ni26_js321_20261117_returning_view_fit1' if fold=='P04_s23' else 'ni26_js321_20261117_returning_view_fit_p10_1')
+    file=fit/f'source_view_{fold}.npz'
+    proof=json.loads((fit/'fit.json').read_text())
+    if proof['status']!='original_source_core_PCA256_fit_complete_NOT_raw_parity' or proof['artifact_sha256']!=sha(file):raise ValueError('new source basis fit proof absent')
     with np.load(file,allow_pickle=False) as f:idx=f['idx_tr'].copy();pc=f['pc_tr'].astype(np.float64);labels=f['y_tr'].copy()
     if not np.array_equal(np.sort(idx),train) or not np.array_equal(labels,y[idx]) or pc.shape!=(len(train),256):raise ValueError('source feature/basis rows differ')
     stream=sub+'|'+session;per={}
@@ -72,7 +75,7 @@ def main(fold):
     meta=dict(status='fold_personal_context_source_fit_complete_ENGINEERING_ONLY',fold=fold,train_count=len(train),held_count=len(query),
               train_rows_sha256=hashlib.sha256(train.astype('<i8').tobytes()).hexdigest(),held_rows_sha256=hashlib.sha256(query.astype('<i8').tobytes()).hexdigest(),
               person_source_hashes=source_rows,feature_basis_sha256=sha(file),source_sha256=sha('source.sha256'),seconds=time.monotonic()-start,
-              query_labels_used=False,accuracy_computed=False,view_basis_scope='cached exact-source-index PC256 basis; raw order/full256 reconstruction remains separate',
+              query_labels_used=False,accuracy_computed=False,view_basis_scope='NEW original source-fit PC256 basis; native raw canary passed, complete raw8order bank separate',
               population_scope='frozen current-system scalar/event/calibration constants retained; not all-components-excluded validation',
               frozen_zip_sha256=sha(archive),names=names)
     out=Path('context_'+fold+'.npz');np.savez(out,**context,metadata=json.dumps(meta));meta['arrays_sha256']=sha(out)
