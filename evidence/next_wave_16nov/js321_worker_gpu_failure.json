@@ -1,0 +1,47 @@
+{
+  "status": "worker_slack_guard_failed",
+  "row": {
+    "mode": "known",
+    "windows": 378,
+    "first": "js",
+    "base": {
+      "seconds": 49.40944588184357,
+      "cold_b1_seconds": 0.13035159092396498,
+      "warm_b1_median": 0.1314117810688913,
+      "recognized_at": 10,
+      "js_calls": 0,
+      "ft_refits": 0,
+      "cp_fused": 0,
+      "activity": {
+        "eligible": false,
+        "reason": "recognized_at10;FTandCPstopped",
+        "ft_refits": 0,
+        "cp_fused": 0
+      }
+    },
+    "js": {
+      "seconds": 61.15196358738467,
+      "cold_b1_seconds": 0.16528605297207832,
+      "warm_b1_median": 0.16411603428423405,
+      "recognized_at": 10,
+      "js_calls": 378,
+      "ft_refits": 0,
+      "cp_fused": 0,
+      "activity": {
+        "eligible": false,
+        "reason": "recognized_at10;FTandCPstopped",
+        "ft_refits": 0,
+        "cp_fused": 0
+      }
+    },
+    "ratio": 1.237657344581881
+  },
+  "allowed_ratio": 1.0610079575596816,
+  "no_later_rows_harvested": true,
+  "device": "cuda",
+  "cpu_scope": "CPU bar failure is not A100 timeout evidence",
+  "source_report_sha256": "a558affc5d3831325944505ada758bbe90f1f44fcf8208f261b2b0e8ffb62462",
+  "actual_start": "2026-11-17 05:48:20 CET",
+  "actual_end": "2026-11-17 05:52:32 CET",
+  "scope": "known190ratio1.03104passed;known378engineeringbarfailed;800/unrecognized/lateCPuntested;notawholeworker-timeoutproof"
+}

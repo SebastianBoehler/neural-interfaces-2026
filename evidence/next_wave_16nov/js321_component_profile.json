@@ -1,0 +1,62 @@
+{
+  "status": "same_weight_component_profile_complete",
+  "torch": "2.14.1+cu130",
+  "gpu": "NVIDIA A100-PCIE-40GB",
+  "source_artifact_sha256": "c7d77d4d0ffbc338c0f9e0b0f0bd2b5dd2221fdde5fcb5436eaf63262d82e2c4",
+  "baseline_dispatch": [
+    "SJit",
+    "SJit",
+    "SJit",
+    "SJit",
+    "SJit",
+    "SJit"
+  ],
+  "shared_dispatch": [
+    "SharedFIRSJit",
+    "SharedFIRSJit",
+    "SharedFIRSJit",
+    "SharedFIRSJit",
+    "SharedFIRSJit",
+    "SharedFIRSJit"
+  ],
+  "fir_fingerprint": "607a44ee25576803092c03d77feb67411fe7a2266475fc730ae7ae28c81506c6",
+  "same_input_group": true,
+  "real_windows": 17,
+  "input_seconds": 0.027458790224045515,
+  "single_fir_prefix_seconds": 0.580355548299849,
+  "microbenchmark": [
+    {
+      "round": 0,
+      "order": [
+        "full",
+        "shared"
+      ],
+      "max_probability_error": 0.0,
+      "seconds": {
+        "full": 0.25087437639012933,
+        "shared": 0.07674314500764012
+      },
+      "ratio": 0.30590268369336576
+    },
+    {
+      "round": 1,
+      "order": [
+        "shared",
+        "full"
+      ],
+      "max_probability_error": 0.0,
+      "seconds": {
+        "shared": 0.07639357913285494,
+        "full": 0.2440930400043726
+      },
+      "ratio": 0.31296910035405534
+    }
+  ],
+  "median_step_seconds": 0.1486499016173184,
+  "median_aux_bank_seconds": 0.016600766219198704,
+  "median_base_bank_seconds": 0.06761326408013701,
+  "median_tangent_seconds": 0.0892279832623899,
+  "scope": "known17in-sample engineering components;not whole-adapter parity/held accuracy/worker-ready/timing-bar recovery",
+  "accuracy_computed": false,
+  "optimized_package_created": false
+}
