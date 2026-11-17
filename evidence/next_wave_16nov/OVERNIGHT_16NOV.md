@@ -1,61 +1,63 @@
-# NI26 active handoff — 17 November 2026, about 17:25 CET
-Read STATE→targetedLEDGER/actualsource→OFFICIAL_CONTRACT→STATUS→owninghandoffs. Keep this≤80lines.
-User authorizes full own-C++ active training+inference and wider accuracy work on Galvani only.
-Thin required Python entry; optimized native Torch/BLAS dependencies allowed. No automatic upload/provider/terms/messages.
-Preserve frozen ZIP/submodule/data/unrelated changes. ≤32running/272submitted/28reserve;controllers≤244active.
-Label every gain FULL-SYSTEM DEV/SEALED LEADERBOARD/INDIVIDUAL-MODEL/EXTERNAL BINARY plus comparator.
-Top-five objective unverified. Provisional18:00CET decision checkpoint; user retains upload authority.
+# NI26 active handoff — 17 November 2026, about18:50CET
+Read STATE→targetedLEDGER/actualsource→OFFICIAL_CONTRACT→STATUS→owninghandoffs. Keep≤80lines.
+USER: lean/slim parity-trusted native baseline first, then newalgorithms onit; targetimplementation TODAY.
+Keep independent accuracy/leaderboard experiments active inparallel. Preserve currentreferencebehavior.
+No speculativeframework/configzoo. OnlyrequiredPythonadapter/knownoptimizednativedeps; noautomaticupload.
+Galvani only;32running/272submitted/28reserve, preserveunrelatedjobs/frozenpackages/submodule/data.
+Label gains FULL-SYSTEM DEV/SEALED LEADERBOARD/INDIVIDUAL-MODEL/EXTERNALBINARY pluscomparator.
 
-## Submission and accuracy
-- Uploadedv5.1b .8197668759; preparedv6.6cap250 unchanged, unuploaded.
-  ZIP SHA9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed.
-- Lastverifiedboard01:12CET16thentry/15thteam; laterbotchecks. Old.824–.829/~10th–14th scenario UNVALIDATED.
-- Selected318JS newperson FULL-SYSTEM DEV76.218→76.441%,+.2234pp.
-  Actual6seedB2_pool76.279→76.552%,+.2724official/people+.278[−.007,.546],6/10up; selected/reusedDEV.
-- Returning321 CONDITIONAL ENGINEERING: P04−.665/P10−.194pp, weighted−.2879. Retained production exposure.
-- 350 COMPLETE: one runtime-unrecognized-only JS policy, all16wholecells/source/zero/order/replay guards pass.
-  Weighted policy−baseline−.11934pp[95%descriptive−.28038,−.00109], P04−.19741/P10−.09983.
-  Versus JS-all+.16857pp; reduces regression but both belowbaseline. No independent DEV/rank/sealed/promotion proof.
-  GPUguard3120515 and CPUwholepilot3120518 pass; remaining3120588/collector3120698 complete.
-  CPUunknown215 stillunproved. Old90mCPUtimeout/deadchildren/missingimportcollector failure preserved.
-  Final6.2575CPUh; no further policy variants. policy350_results.md owns final evidence.
-- 323/332~4pp INDIVIDUAL variance adaptation real;339all6 FULL-SYSTEM intervals span0.
-- 337/344covariance retention and345honestKD lose strongraw;346P09+1.386pp failsP02−1.482/P03−4.837.
-- 347late3.5–7.5s training loses stepmatched repeat onall3;349ownofficialBNprior doesnotrecover. No familyclosure.
-- 351semantic auditcomplete;352PROTEUS-only→9Schererpeople external WORD/SUB cov59.030 versuspower53.260%,
-  +5.770pp[80%+3.958,+7.541],8/9up. SourceLOPOcov66.899%,10/10abovechance beforeexternalgold.
-  Clinical/cue/language/hardware/19channel-capacity/QClimits; notFULL-SYSTEM/rankgain.
+## Submission and scientific state
+- Uploadedv5.1b .8197668759; preparedv6.6cap250 unchanged/unuploaded.
+  SHA9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed.
+- Lastverifiedboard01:12CET16thentry/15thteam; laterbotchecks. Oldsealedrankscenario unvalidated.
+- Selected318newpersonFULL-SYSTEMDEV +.2234pp; actual6seedB2_pool +.2724pp/people+.278[−.007,.546],6/10up.
+  Reused/selectedDEV, notindependentreturning/sealedgain. No newpromotion at18:00checkpoint/topfiveunverified.
+- Returning321 JS-allweighted−.2879pp. Conditional350gatedpolicy−baseline−.11934pp,−.19741P04/−.09983P10;
+  +.16857versusJS-all. Retainedproductionexposure; notgenuineheldDEV/rankproof.350complete/noothervariants.
+- 323/332~4ppindividualvarianceadaptation didnotstack339; all6fullsystemCIs span0. No familyclosure.
+- 345KDteacherweakerthanraw;346P09+1.386 failsP02/P03;347latepoolingworse;349priorchange norecovery.
+- 352externalWORD/SUB cov59.030 versuspower53.260%,+5.770pp/8of9up, sourceLOPOcov66.899%; notsystem/rankgain.
 
-## Full native port353 — implementation and qualification separate
-- User-progress estimate≈55–60% FULL training+inference scope; engineering judgment, not a measured metric.
-- Allactive runtimeclasses implemented: artifactIO/DSP/two cores/tails/OwnStage/routing/CF/latestCP,
-  neuralbank/Eye/Rest/FT/masterruntime; native C L-BFGS-B and own rawFBC/SessionBN/AdamW-OneCycle source loop.
-- AllC++targets compiled; ownSHA known/FIR/tamper guards pass. Old build/link/staging/CPU-CUDA failures retained.
-- Native linear3120215 PASS82iterations/88eval,maxprob6.38e−9,zeroheldlabels; one4thread19.823s isNOTpairedspeed.
-- Routing3120312 source COMPONENT PASS, actual OwnStage,10CPrefits125fusions/reset/deepcopy/zero labels.
-- CARrepair3120535 COMPLETE: all96source NumPy CAR arrays exact across1,889,280values; original bounds pass:
-  p1 2.35e−10/p2 4.77e−9/features7.73e−7/tail8.79e−13/reapply1.71e−11,zero labels.
-  Source COMPONENT only, not whole-worker/training. native353_core_precision.md; pushed2a3cd91.
-- Neural temporalmean repair3120986 FIRST all1599means/39windows BYTE_EXACT and completeknown8 PASS.
-  UnknownFTfbraw fails unchanged1e−6 at1.1296823e−6; exactFTwindow missing fromlog. Failure preserved.
-  InstalledPythonAdam lerp versusC++mul/add verified; cause notproved. Owner346 prepares paired5stepFTdiagnostic.
-- Raw-FBC owninitializer3120984 PASS ALL52state tensors/seeds0+1 BYTE_EXACT/globalRNG unchanged/badFIRrejected.
-  RequestedCPU1, actualallocated2,90s=180coresec. SourceNNconsumer integration syntaxPASS; updateoracleHELD.
-- REALclassical source-fit3121076 PASS all2278rows/features/prior/scaler/objective/exclusion guards,
-  sourceprob8.53e−9/ZEROlabels. NativeAPI95.5s unpaired; no speed/query/accuracy/Hilbert/whole-stack proof.
-- Shared353 actual9011coresec=2.5031CPUh of4; newFTdiagnostic reserved≤600, no other allocatedfit pending.
-- Other-family initialization/sourceprep/exactPCG64sampling/PCA/gallery/sourceNN40epochfit still incomplete.
-  MigratedTorchScript executingC++ is not proof everyarchitecture/trainingdefinition ported.
-- No cleanSIF/A100whole-runtime parity, pairedwholecost/RAM or submissioncompat proof.
-- Earlier343 hybridC++objective+SciPyoptimizer19.747→16.436s is separate;1534heldlabels match/maxprob6.65e−8.
-  Classicalinference113–117→63–64ms≈1.8× component only. Old243s regression not reproduced.
+## Accuracy waves now independent of C++ port
+- 354ownerperformance_solver343: faithfulDEFTcontent/styleGaussianfactorization vs strongrawO andmatchedL.
+  Full9source9×40epochcells(P02/P03/P09×O/L/G),3121766/%8→collector3121852.
+  Actualsource smoke3121748passedoriginalO BITWISE andactiveGaussian/auxiliary/capacity/sampler guards.
+  Runtime-based11→18minand15→9cell amendment BEFOREgold. RemainingA/Msmokednotfullscored.
+  Eightfitsactuallyrunning/onepending after pending-only24→8GiBresize (measuredpeak2.06GiB).
+  No partialscore. Registeredfull9×8banks/sourceguards beforelabels; wholepilotnotcurrent-systemgain.
+- 355ownerexternal_supervision_17nov: laggedintact41relations andcross-filterenvelope, eachcapacitycontrol.
+  All40modelsfit; originalB1/B64probabilityguardFAILED1e−6 beforegold, preserved/noB64metric.
+  FreshactualB1 instrument/SAMEweights/unchangedoriginalwholemetric+scorer; all40×8B1/order/reset/copy/state.
+  A100forecastlate; SOURCE-onlyCPU pilot12s, conservative4processreplay352.66s; choiceBEFOREquality.
+  CPU4/12GiB20min3121783→collector3121784 queued; oldpendingA1003121740/41 cancelled0runtime.
+  QualityUNKNOWN; noaccuracy-basedhardwareselection/mixedbanks/refit/tolerancerelaxation.
 
-## Ownership and next work
-- Root owns canonicaldocs/nativeintegration/masterruntime and new raw-FBC initializer files.
-- fresh_information_346 owns nativeNN/FT/training; paired firstRAWrefit diagnostic authorized≤600coresec.
-- performance_solver343 owns nativeoptimizer/classicalsource; REALfitcomplete, exactPCA/LAPACK preparation next.
-- external_supervision_17nov now prepares native sampler/RNG with metadata-only oracle; no allocation yet.
-- Preserve unrelated rolling.py/.sbatch/returning_pair_collect.sbatch. Commit--only explicit ownpaths, noAIauthor.
-- Before trusting chainresults replay/check.py must printOK; shuffledscore needs ownzero/orderguards.
-- Scheduledresearch14:58:15–15:15:16CET COMPLETE17m01; next≈18:58CET≥15min.16:51delayedtrigger skipped; nativecodework not counted as paperblock.
-- Both50mincampaign/4hresearch automations ACTIVE through17Nov18:30UTC; renewSSH onlyonactualfailure.
+## Native353 qualified components and current blocker
+- Allruntimeclasses implemented, nativeartifact/DSP/twocores/tails/routing/Own/CF/latestCP/NN/Eye/Rest/FT.
+- NativeCPUlinear82iter/88eval,maxprob6.38e−9/zeroheldlabels. One19.823sfitnotmatchedwhole-speedproof.
+- Routing/CPcomponentPASS10CPrefits125fusions; CAR96sourcearrays BYTE_EXACT/zerochangedlabels.
+- REALsourcefit3121076 PASS2278rows/sourceprob8.53e−9/zero labels;95.5sAPIunpaired/notwhole-speedclaim.
+- CPUneural3121389 PASSknown8/unknown31,originalbounds/reset/copy/source/activity/2FTrefits40steps.
+  All308pairedRAWtracefieldsBYTE_EXACT; fixedPythonAdamlerp vsC++mul/addoperationorder. CPUonly.
+- OwnrawFBCinit52statetensors/seeds0+1BYTE_EXACT/globalRNGunchanged; staticonly,180coresec.
+- Nativesampler3121392 PASS1240batches/40oldhashes/41RNGstates+5seededgecases,6coresec.
+- PCA3121465 mean/basis/ALLsingulars/sourcePC EXACT;oneRNNRpair3.4–3.6%faster, memoryinconclusive.
+  Sourceinputonly; nativecore→PCAcompositionunqualified.942allocatedcoresec+separate73.81staticCPUbuild.
+- Rootrawprep3121547 PASS1898sourceX BYTE_EXACT,G2.956e−12,scale/order/session/exclusion.268coresec.
+  SharedSourceDataextract/classicalintegration syntaxonly; priorREALproofbelongsoldimmutablebinary.
+- ProductionrawFBCtrainingnowownprep/init/privatePCG64/batches, noimportedX/initialweights/batchtables.
+  ComposedONEupdate3121728failedconvbiasstate7.98e−5; otherstates≤1e−9. Tinybiasgrad24signflipsamplifiedbyAdam.
+  r2square→multiplycounterfactual3121763 ZEROeffect/refuted. Preservebothfailures/nofull40fit.
+  NativeNNownerpreparespairedforward/backwardstage trace onexistingfixture,NOoptimizerupdate/newfit.
+- Known353Slurm11301/14400coresec; nextstagediagnostic≤600reserved; separatePCAstaticCPU73.81.
+- Wholemasterraw-to-output/longsession/A100/cleanworker/timing stillUNQUALIFIED; nextrootpriority.
+  MigratedTorchScript executesC++ butotherarchitecture-source trainingdefinitionsnotallported.
+- Remainingotherfamilies/galleries/completeorchestration; no whole-speed/RAM/accuracyclaimfromlanguageport.
+
+## Ownership and cadence
+- Rootcanonicaldocs/CMake/nativeintegration/worker;fresh_information_346 ownsNN/training/diagnostic.
+- 354/355ownersautonomouslypre-register/smoke/queuewithinisolatedstudies; donotblockonCPP.
+- Preserveunrelatedrolling.py/.sbatch/returning_pair_collect.sbatch. Commit--only explicitpaths/noAIauthor.
+- Existingfrozenpackages unchanged; localchainresult requiresreplay/check.py OK plusownshuffledguards.
+- Lastprimaryresearch14:58:15–15:15:16CET COMPLETE17m01; nextabout18:58CET≥15actualminutes.
+- Both50mincampaign/4hresearchautomationsactive; userwantscontinuedworktoday,renewSSHonlyactualfailure.

@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 17:25 CET
+# Campaign status: 17 November 2026, 18:50 CET
 
 Reporting: FULL-SYSTEM DEV / SEALED LEADERBOARD / INDIVIDUAL-MODEL must be explicit, with comparator.
 Custom stack=C++/CUDA; original raw neural reference=stockPyTorch336/338.
@@ -385,3 +385,5 @@ BothautomationsACTIVEthrough17Nov18:30UTC; Galvanionly≤32running/272submitted/
 SSHworks; jobscontinueafterclientloss. Provisional18:00CETcandidatecheckpoint, userretainsuploadauthority.
 Scheduledresearch14:58:15–15:15:16CET COMPLETE17m01, [report](research_4h_17nov_1458.md). Next≈18:58CET.
 The16:51CET delayed research trigger did not create another paper block; native implementation continued.
+
+Latest18:50CET: native CPUneural+FT3121389 PASS including308byte-exacttrace fields; sampler/PCA/rawsourceprep qualified (sourceX1898BYTE_EXACT). Composedrawsourceupdate stillfails convbiasstate7.98e−5; r2operatorcounterfactual refuted/noeffect. Stageforward/backward diagnostic authorized, no fullfit/relaxedbound. Known353Slurm11301coresec plusseparatePCAstaticbuild73.81actualCPU. §354 ninefull40epochfits3121766/%8:8running/1pending after measuredsafe pending-onlyRAMresize; §355all40fitscomplete, actualCPU B1replay3121783→3121784 queued, qualityunknown. B64guardfailedpreserved; unchangedwholemetric/scorer. No newpackage/rank/promotion. Nativeimplementationtodaytarget, parityfirst, parallelscientificwavesindependent. See factorization354.md,relations355_handoff.md andnative353_neural_handoff.md.

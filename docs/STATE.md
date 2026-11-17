@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 17:25 CET
+### Current campaign: 17 November 2026, about 18:50 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -151,41 +151,45 @@ EXTERNALWORD/SUB+5.770pp[80%people/day/order+3.958,+7.541],8/9peopleup. SourceLO
 Clinical/language/acquisition/QC/campaignselection/19-channelcapacitylimits remain; noFULL-SYSTEM/rankgain.
 
 
-**Full C++ port — §353, actively implementing.** Userrequireswholeactive training+inference, notjustkernels.
-Isolated native/ implements native artifactIO/DSP/two cores/tails, gates/OwnStage/RouteB, CountFilter/latestCPmodel,
-neuralbank/Eye/Rest, fine-tuning, standaloneC L-BFGS-B and ownC++rawFBC source-training loop.
-OnlyrequiredPythonentryisadapter. TorchScriptfiles are migrated C++-executed graphartifacts, notproofall
-architecture/training definitionswereported. Other-family init/sampling/sourcepreparation/remainingfamilyrecipes
-andPCA/gallerytraining remainincomplete. Do not callfullstackready/nativeNNtrainingvalidated.
-All C++ targets build; native SHA/FIR guards pass. Earlier build/staging/dtype/CPU-CUDA-query failures remain recorded.
-Native linear optimizer3120215 passes82iterations/88evaluations, maxprob6.38e−9/zeroheldlabels. One4thread19.823s
-is not a paired whole-stack speed result. Routing/OwnStage/CF/CP component3120312 passes, including10CPrefits,
-125fusions and reset/deepcopy. CAR repair3120535 matches all96 NumPy source arrays exactly; unchanged downstream
-core/features/tail/reapply bounds pass, zero changed labels. This is host-source COMPONENT parity, not worker proof.
-Neural input diagnosis3120762 isolates NumPy/Torch float32 temporal-mean order. Repair3120986 FIRSTmatches all1599
-row means across39sourcewindows byte-exactly and passes complete known8, but unknown fine-tuning fbraw fails:
-1.1296823e−6>unchanged1e−6. Window/refit not logged for that field; corrected diagnostic context is prepared.
-No tolerance change or whole-neural claim. Owner346 prepares one bounded input/gradient/Adam-state diagnostic;
-the installed Python lerp versus C++mul/add difference is verified code, not yet demonstrated as the cause.
-Own raw-FBC initializer3120984 passes ALL52 original state tensors for seeds0/1 byte-exactly, globalCPU RNG
-unchanged and wrongFIRshape rejected. Source-training integration syntax passes; source NN update remains held.
-REAL classical source fit3121076 passes2278rows/allfeatures/prior/scaler/objective/exclusion guards, sourceprob
-max8.53e−9/ZEROchangedlabels. Native API95.5s is unpaired engineering timing, not whole-stack speed evidence.
-Original source PC256 reproduction is bitwise; no newPythonfit/querylabels/accuracy. Hilbert/causal-held/whole-worker
-training qualification remains separate. Source preparation, exact NumPyPCG64 sampling, other family recipes,
-PCA/gallery training and full worker compatibility remain work. Shared353 actual9011coresec=2.5031CPUh of4,
-including all preparation failures and initializer actual2CPU allocation. FT diagnostic reserved≤600coresec.
-See owning handoffs; native353_initialization.md/native353_core_training.md own component limits.
+**Current work: lean native baseline plus independent accuracy waves.** Preserve the current reference behavior
+and small explicit interfaces; complete parity before using the native stack as the experimental baseline.
+Implementation target is today, with worker/function/timing qualification deciding readiness. No whole-stack
+speedup, memory win or top-five result is established. The18:00CET provisional checkpoint passed without
+new candidate promotion. Frozenv6.6 remains unchanged; scientific experiments continue independently.
 
-**Ownership and cadence.** Root ownscanonicaldocs/nativeIO/math/cores/tails/masterruntime/build.
-external_supervision_17nov owns native sampler/RNG preparation (350/routing complete); fresh_information_346 owns
-nativeNN/FT/training; performance_solver343 owns nativeoptimizer/classical training and PCA preparation.
-No paid/providerexecution; activeCPPsources isolatedfromfrozenpackages/runningaccuracyjobs.
-Usefollowup_task for completed owners. Keep sharedledgeradditions, immutable snapshots and unrelated files intact.
-Latest scheduledresearch14:58:15–15:15:16CET lasted17m01, reportresearch_4h_17nov_1458.md COMPLETE.
-Nextfour-hourblock≈18:58CET; the16:51CET research trigger was delayed, so no duplicate paper block was counted.
-This turn advanced native implementation/qualification. Canonicalhistoryretained, notblind.
-Both50mincampaign/4hresearchheartbeats remainACTIVE through17Nov18:30UTC. SSHworks;renewonlyactualfailure.
+**Full C++ port — §353.** Native artifact/DSP/cores/tails/routing/Own/CF/CP/neuralbank/FT/masterruntime exist.
+All earlier failed builds/proofs remain preserved. CPU neural known8/unknown31 now PASS all originalbounds:
+3121389 fixes FT Adam operation order, all308 paired source trace fields BYTE_EXACT;2refits40steps/2relabels,
+reset/copy/source/activity guards pass. This is component CPU proof, not whole-runtime/long-session/A100 proof.
+CAR96source arrays, REALcore2278source fit, initializer52state tensors, sampler1240batches/40epochhashes/
+41RNGstates and PCAmean/basis/ALLsingulars/sourcePC qualify at their recorded scopes. PCAoneRNNRpair is
+only3.4–3.6%lower API time; memory inconclusive. Raw source prep3121547 reproduces all1898float32sourceX
+BYTE_EXACT, Gerror2.956e−12, originalscale/order/session/exclusion guards pass. Dataset/source6 metadata
+uses explicitP04/P05/P06/P07/P08/P10, unsortedfirstseen sessions; P01 is outside initialsource7 inventory.
+Production raw-FBC source fitting now wires own prep/init/privatePCG64/sampler, not importedX/weights/batches.
+ONEcomposed update3121728 failed convbiasstate7.98e−5, otherstates≤1e−9. Tinygradients have24sign flips;
+Adam amplifies them. The proposedSBNsquare→multiply counterfactual3121763 hasZEROeffect and is refuted.
+A paired forward/backward stage diagnostic is authorized, no blindpatch/fullfit/tolerance relaxation.
+Current known353 Slurm11301coresec/14400, nextsource-stage diagnostic≤600; PCAstaticbuild73.81actualCPU
+reported separately. Whole-runtime/worker/long-session, otherfamily source definitions, learnedgalleries and
+complete training orchestration remain incomplete. MigratedTorchScript execution is not ownarchitecture-source proof.
+Root owns CMake/integration/worker qualification; fresh_information_346 owns lean native training/NN diagnostics.
+
+**Parallel accuracy — §354/355.** §354 faithful content/style Gaussian factorization changes the tested mechanism
+from old292C. Existing strong rawO and matched same-loss/capacityL control versusG: nine40epoch/source9
+fits onP02/P03/P09,3121766/%8; allsource smoke/originalO identity passed. Initial11min projection refuted by
+measuredcost; prospective18min/runtime-based9cell amendment beforegold. Eightfits actuallyrunning, onepending;
+pendingonly memory24→8GiB follows measured~2.06GiB peak and conservative≤4GiB prediction. No scores yet.
+§355 two learned intact41channel whole decoders (lagged relations and cross-filter envelopes), eachcapacitycontrol:
+all40models fitted. B1/B64guard failed1e−6 BEFOREgold, preserved. FreshactualB1 banks replace the instrument,
+not models/scorer/metric/tolerance. A100queue delayed; SOURCE-onlyCPU pilot projects~6min, CPU4/12GiB20min
+3121783→original wholecollector3121784 queued aftercompletepreflight; oldpendingA100children cancelled0time.
+ALL40×8actualB1/order/reset/copy/state/source guards beforegold; no partialquality. Distinctwholemodel results
+are not FULL-SYSTEM gains. Owner cards/handoffs own actual IDs, source limits and ETAs.
+performance_solver343 owns354; external_supervision_17nov owns355. Preserve unrelated jobs and32running/
+272submitted/28reserve. Keep waves moving without waiting on native implementation; no automatic uploads.
+Latest scheduledprimary research14:58:15–15:15:16CET COMPLETE17m01; nextabout18:58CET. The16:51delayed
+trigger did not count as anotherpaper block. Bothcampaign/research automations remainactive; canonicalhistoryretained.
 
 ## 2. Hard bounds (from the official code and rules)
 
