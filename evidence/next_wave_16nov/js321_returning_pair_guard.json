@@ -1,0 +1,69 @@
+{
+  "status": "actual_private_source_bridge_guards_passed_NOT_accuracy",
+  "cases": {
+    "source_known80": {
+      "off_base_bitwise": true,
+      "inner_gate_FT_chain_bitwise": true,
+      "owning_mix_maxabs": 2.220446049250313e-16,
+      "source_JS_activity_max": 0.018562075149021973,
+      "records": {
+        "base": {
+          "rec": 10,
+          "ft_refits": 0,
+          "cp_fused": 0,
+          "cp_stopped": 10
+        },
+        "off": {
+          "rec": 10,
+          "ft_refits": 0,
+          "cp_fused": 0,
+          "cp_stopped": 10
+        },
+        "js": {
+          "rec": 10,
+          "ft_refits": 0,
+          "cp_fused": 0,
+          "cp_stopped": 10
+        }
+      },
+      "reset_copy_prefix_bitwise": true,
+      "scope": "source known session or repeated-real-window functional stress;NOaccuracy"
+    },
+    "forced_unrecognized215_real_window_replay": {
+      "off_base_bitwise": true,
+      "inner_gate_FT_chain_bitwise": true,
+      "owning_mix_maxabs": 2.220446049250313e-16,
+      "source_JS_activity_max": 0.869100606518681,
+      "records": {
+        "base": {
+          "rec": -1,
+          "ft_refits": 20,
+          "cp_fused": 125,
+          "cp_stopped": null
+        },
+        "off": {
+          "rec": -1,
+          "ft_refits": 20,
+          "cp_fused": 125,
+          "cp_stopped": null
+        },
+        "js": {
+          "rec": -1,
+          "ft_refits": 20,
+          "cp_fused": 125,
+          "cp_stopped": null
+        }
+      },
+      "reset_copy_prefix_bitwise": true,
+      "scope": "source known session or repeated-real-window functional stress;NOaccuracy"
+    }
+  },
+  "source_sha256": "8266878623674bb4898f58fac3a185afc365e74521b883ea929ad5978f985151",
+  "bundle_manifest_sha256": "4141e13721928b21248af7c1eedcd10a18f20c2293631aeaa529bad619d13aaa",
+  "seconds": 368.91115118190646,
+  "deterministic_validation_executor": true,
+  "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+  "torch_deterministic": true,
+  "accuracy_computed": false,
+  "scope": "ENGINEERING_CONDITIONAL;originalrest_eye/classical_production_exposure_retained;notstandard_worker_timing"
+}

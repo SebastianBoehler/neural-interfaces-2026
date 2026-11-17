@@ -1,0 +1,16 @@
+{
+  "status": "actual_smoke_passed_remaining15_released_NOT_scored",
+  "pilot_job": "3119222",
+  "pilot_proof_sha256": "9cdbdf4696b0ebc3976b9a9de6212aedf97edc87a17a4859eb80489b888a97da",
+  "actual_smoke_elapsed_s": 776,
+  "actual_smoke_maxrss_KiB": 4235656.0,
+  "throttle": 8,
+  "remaining_array": "3119252",
+  "owning_full_source_sha256": "933e49cc29bc74526e39bff707fab9887e4590c018d4a681f6e835071cef3f17",
+  "controller_source_sha256": "b3991907dc68b47e417ced1d1abdb6d1d9f73675c746016fb180ed5706e44de6",
+  "user_running_at_release": 1,
+  "user_active_at_release": 1,
+  "accuracy_computed": false,
+  "scope": "CONDITIONAL_ENGINEERING_ONLY",
+  "owning_collector": "3119253"
+}

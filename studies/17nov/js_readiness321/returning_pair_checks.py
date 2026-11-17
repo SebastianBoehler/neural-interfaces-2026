@@ -9,15 +9,20 @@ from package_guard import frame,reference_mix,same_gate
 
 class Frames:
     """Match independent processes' RNG streams while interleaving the three real models."""
-    def __init__(self,keys):
-        torch.manual_seed(3211701);torch.cuda.manual_seed_all(3211701)
-        self.rng={k:(torch.get_rng_state().clone(),torch.cuda.get_rng_state().clone()) for k in keys}
+    def __init__(self,keys,device='cuda'):
+        if device not in ('cpu','cuda'):raise ValueError('explicit registered executor required')
+        self.cuda=device=='cuda';torch.manual_seed(3211701)
+        if self.cuda:torch.cuda.manual_seed_all(3211701)
+        initial=(torch.get_rng_state().clone(),)+( (torch.cuda.get_rng_state().clone(),) if self.cuda else ())
+        self.rng={k:initial for k in keys}
 
     def __call__(self,models,raw):
         data={};hashes=[]
         for k,m in models.items():
-            cpu,cuda=self.rng[k];torch.set_rng_state(cpu);torch.cuda.set_rng_state(cuda)
-            data[k]=frame(m,raw);self.rng[k]=(torch.get_rng_state().clone(),torch.cuda.get_rng_state().clone())
+            torch.set_rng_state(self.rng[k][0])
+            if self.cuda:torch.cuda.set_rng_state(self.rng[k][1])
+            data[k]=frame(m,raw)
+            self.rng[k]=(torch.get_rng_state().clone(),)+( (torch.cuda.get_rng_state().clone(),) if self.cuda else ())
             hashes.append(tuple(hashlib.sha256(v.numpy().tobytes()).hexdigest() for v in self.rng[k]))
         if len(set(hashes))!=1:raise ValueError('matched independent-process RNG streams diverged across source arms')
         return data

@@ -6,33 +6,40 @@ from pathlib import Path
 import numpy as np
 
 from returning_assets import ROOT,sha
+from returning_pair_metadata import held_metadata
 
-CELLS=ROOT/'ni26_js321_20261117_returning_pair_full1'
+CELLS=ROOT/'ni26_js321_20261117_returning_pair_cpu1'
 GUARD=ROOT/'ni26_js321_20261117_returning_pair_guard2/output/pair_guard.json'
 ORDERS=('within0','within1','within2','within3','full0','full1','runs0','runs1')
 
 
-def main():
+def main(mode):
+    if mode not in ("preflight","collect"):raise ValueError("explicit collector stage required")
     guard=json.loads(GUARD.read_text())
     if guard['status']!='actual_private_source_bridge_guards_passed_NOT_accuracy':raise ValueError('owning source guard required before any labels')
     with np.load(ROOT/'neural-interfaces-2026/data/proteus_windows.npz',allow_pickle=True) as z:
-        subjects=z['subject'].copy();sessions=z['session'].astype(str);interfaces=z['interface'].copy()
-    expected={p:np.flatnonzero((subjects=='Dreyer2026Proteus/'+p)&(sessions!='1')) for p in ('P04','P10')}
+        subjects=z['subject'].copy();sessions=z['session'].astype(str);interfaces=z['interface'].copy();split=z['split'].copy()
+    metadata=held_metadata(dict(subject=subjects,session=sessions,interface=interfaces,split=split))
+    expected={p:metadata[p+'_s23']['rows'] for p in ('P04','P10')}
     predictions=[];records=[]
     for i in range(16):
         folder=CELLS/f'cell_{i}';p=json.loads((folder/'proof.json').read_text());file=folder/'predictions.npz'
         fold=('P04_s23','P10_s23')[i//8];order=ORDERS[i%8]
         if (p['status'],p['index'],p['fold'],p['order'])!=('complete_actual_conditional_pair_cell_NOT_scored',i,fold,order):raise ValueError('incomplete fixed16cell recipe')
+        if p['executor']!='cleanSIF_cpu_deterministic_validation_matched_independent_RNG':raise ValueError('one explicit CPU cohort required;no mixed-device collection')
         if p['accuracy_computed'] or p['query_labels_read'] or p['guard_sha256']!=sha(GUARD) or p['bundle_manifest_sha256']!=guard['bundle_manifest_sha256'] or p['source_sha256']!=sha(CELLS/'source.sha256') or p['predictions_sha256']!=sha(file):raise ValueError('source/predictions/guard changed')
         if len(p['records'])!=2 or any(not r['off_base_final_bitwise'] or not r['common_inner_gate_FT_bitwise'] or not r['source_immutable'] or r['owning_mix_maxabs']>1e-8 or r['raw_view_maxabs']>1e-8 or any(v['ft_over'] for v in r['activation'].values()) for r in p['records']):raise ValueError('whole actual frame/session guard failed')
         with np.load(file) as z:a={k:z[k].copy() for k in z.files}
         idx=expected[fold[:3]]
-        if not np.array_equal(a['index'],idx) or len(idx)!=(377 if i//8==0 else 385) or len(set(zip(sessions[idx],interfaces[idx])))!=6:raise ValueError('complete raw metadata/canonical/six-cell coverage failed BEFORElabels')
+        if not np.array_equal(a['index'],idx) or len(idx)!=(377 if i//8==0 else 385) or [list(v) for v in sorted(set(zip(sessions[idx],interfaces[idx])))]!=metadata[fold]['cell_keys'] or p['official_cell_keys']!=metadata[fold]['cell_keys']:raise ValueError('complete raw metadata/canonical/four-cell coverage failed BEFORElabels')
         for arm in ('base','off','js'):
             if a[arm+'_labels'].shape!=(len(idx),) or a[arm+'_scores'].shape!=(len(idx),3) or not np.isin(a[arm+'_labels'],[0,1,2]).all():raise ValueError('complete prediction coverage/classschema failed BEFORElabels')
         if not np.array_equal(a['base_scores'],a['off_scores']) or not np.array_equal(a['base_labels'],a['off_labels']):raise ValueError('complete zerochange control failed')
         if not all(np.isfinite(v).all() for v in a.values()):raise ValueError('nonfinite complete predictions')
         predictions.append(a);records.append(dict(index=i,fold=fold,order=order,predictions_sha256=sha(file),proof_sha256=sha(folder/'proof.json')))
+    if mode=='preflight':
+        Path('collect_preflight.json').write_text(json.dumps(dict(status='ALL16_source_frame_row_metadata_verified_BEFOREgold',cells=records,accuracy_computed=False),indent=2))
+        print('ALL16_BEFORE_GOLD_OK',flush=True);return
     # Every source/frame/wholecase guard above completes before this first label load/metric call.
     replay=Path('replay_check.txt').read_text()
     if not any(line.strip()=='OK' for line in replay.splitlines()):raise ValueError('owning v3 replay/check.py did not print OK')
@@ -45,7 +52,7 @@ def main():
         parts={}
         for k,arm in enumerate(('base','off','js')):
             m=protocol.score(d['y'][idx],a[arm+'_labels'],d,mask)
-            if m['n_cells']!=6:raise ValueError('official six-cell coverage differs')
+            if m['n_cells']!=len(metadata[('P04','P10')[person]+'_s23']['cell_keys']):raise ValueError('official four-cell coverage differs')
             score[person,i%8,k]=m['balanced_accuracy_cell_mean'];parts[arm]=m
         details.append(dict(fold=('P04','P10')[person],order=ORDERS[i%8],metrics=parts))
     delta=100*(score[:,:,2]-score[:,:,0]);weights=np.array([.2,.8]);point=float(weights@delta.mean(1));rng=np.random.default_rng(3211701);boot=[]
@@ -64,4 +71,4 @@ def main():
     Path('conditional_results.json').write_text(json.dumps(report,indent=2));print(json.dumps(report),flush=True)
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':main(sys.argv[1])
