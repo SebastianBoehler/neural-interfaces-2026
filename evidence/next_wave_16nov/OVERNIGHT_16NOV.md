@@ -1,6 +1,6 @@
 # Overnight campaign: 16–17 November
 
-Updated17Nov2026 08:13CET. Ongoing implementation, broader experiments and justified follow-ups authorized.
+Updated17Nov2026 08:53CET. Ongoing implementation, broader experiments and justified follow-ups authorized.
 Goal stronger validated candidate by17Nov evening; provisional18:00CET checkpoint. Topfive not established.
 Galvani only:≤32account running/≤272submitted,28reserve. Preserve unrelatedjobs; no paidproviders/messages/upload.
 Read STATE→LEDGER→OFFICIAL_CONTRACT, STATUS_17NOV.md andactualowningevidence. Frozenpackages/submoduleunchanged.
@@ -44,7 +44,10 @@ Read STATE→LEDGER→OFFICIAL_CONTRACT, STATUS_17NOV.md andactualowningevidence
   Source-onlylatentaudit3117674PASS;all44239coordinates retained butnotmeaningfulclassmechanismproof.
   §335sourceheld20controlsCOMPLETE3117719→3117726:semantictranslationNLL.938013beatsuniformall7;
   bestmixture.938245worseall7. HighρP04auditcollapsesnullg0/b0,πuniform;noP02/P03inference.
-  Next336exactstrong-referencebridge/337covariance-target×coverage preparematchedquality/optimizationguards.
+- §336COMPLETE5×40epochfits: native61.776/Hheadconstraintoff62.827(+1.050bothpeople)/Wweighting62.343(+.567),
+  Bbatchschedule62.932(+1.156,mixedpeople). Source7exposedqueriesonly,nofullsystemgain. Next338combinations+
+  source-heldcheckprepared,notqueued. §337target/nativeoptimizationguardsPASS, trainbatchloss−41.2%nottransfer;
+  nextsmallSOURCE6/P09matchedpretext/shuffle/extra-supervised/nativepilotbeingregistered,notqueuedyet.
 - Shared334v4featuremanifestc8ebeac1…bf9e/source7abb931da…5eb09 immutable;333reused,noduplicatebuild.
 
 ## Candidate engineering and live ownership
@@ -56,11 +59,11 @@ Read STATE→LEDGER→OFFICIAL_CONTRACT, STATUS_17NOV.md andactualowningevidence
 - OptimizedA100first-stopknown190/378/800PASS;unknown378barFAILFIR1.3115/reuse1.2477. Notactualtimeout.
   SeparateCOMPLETEFUNCTIONAL-only3117602FIR/3117601reuseall6rowsPASS:unknown80024FT/480steps/noover,
   39CP/710fusions. Descriptivereuse800134.875→137.939s doesnotqualifytiming.
-- WarmcounterbalancedAB/BA3117650RUNNINGafteractualuntimed800FT/CPthenreset. Coldcostseparate.
-  Warm13117647missingrecord.pyfailurepreserved;owningdependency-onlySIFimportsmoke precedesretry.
-  CPU2153117573continues;bothoriginalCPU3117585/7TIMEOUT45minpreserved. ActualTIMEOUT-onlydispatchers
-  releasedcompleteFUNCTIONAL-onlyreuse3117756/FIR3117757, RUNNING4CPU/24GiB180min,no oldbarrescue.
-  MissinggenuineoriginalSincfoldsblockreturningvalidation. No qualifiednewpackage.
+- WarmA1003117650COMPLETE43m59/all12pairspass6.10%bar: medianoverhead2.43/1.19/2.62%,max4.91%.
+  Actual800base156.69–158.72/JS161.47–164.38s;coldseparate,nospeedup. Original45minlimit,no retryreleased.
+  CPU215semantic3117573PASS81m17/exactold→bothvariants. FullCPUfunctional3117756/7RUNNING,
+  collector3117884pending; old45minCPUtimeouts preserved. FaithfulmissingSincfoldregenerationauditnext;
+  no returningqualification/in-samplefallback/promotion/upload. Owning321handoffhasactualsources/scopes.
 - external_supervisionowns321;fresh_solution_auditowns332/referencebridge;scheduled_research_0652owns335;
   rootcanonicaldocs/333. Usefollowup_task toreactivatecompletedworkers. Neveroverwriteothers'ledgerblocks.
 - NativepairedCPU63–64msvscachedPython113–117msnarrow;A100solve1.062svsCPU238.483schangesdevice/trajectory.

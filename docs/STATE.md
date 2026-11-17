@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 Nov 2026, about 08:13 CET
+### Current campaign: 17 Nov 2026, about 08:53 CET
 
 The user authorizes ongoing overnight implementation, broader whole alternatives and justified follow-ups.
 The provisional decision checkpoint is 17 November 18:00 CET. Top five is an objective, not a verified result.
@@ -86,8 +86,14 @@ geometry/permutation whiletranslation dominates. Allfullcoordinates retained doe
 §335source-only20-controlstudy3117719→3117726 is complete: semantictranslationη.01 NLL.938013
 beatsuniform1.099 onall7source-heldpeople; bestmixture.938245 isworseonall7. Highresidualprecision
 activatesprobabilitiesbutcollapses tonullgeometry/uniformpermutations onP04source-helddiagnostic.
-NoP02/P03inference orouterexpansion. §336exactstrong-referencebridge and§337matchedcovariance-target
-pretraining/sourcecoverage arebeingprepared with sharedanchor/qualityguards, not a releasedweakmatrix.
+NoP02/P03inference orouterexpansion.
+§336 exact strong raw-reference comparison is COMPLETE: native61.776%, relaxed head constraint62.827%
+(+1.050points,both exposed peopleup), classweighting62.343%(+.567), changedbatches62.932%(+1.156,mixedpeople).
+These are five matched40epoch SOURCE7 fits, not current-system gains. Nativecontrolreproduces331Rexactly.
+§338 prospective combinations plus a source-held confirmation instrument are being prepared; no combinationrunyet.
+§337 covariance-target pretraining/sourcecoverage preparation passed Native/Python featureparity and actual
+nativebodygradient/update guard. Repeated-batch reconstruction loss−41.2% is engineering activity, notgeneralization.
+Next small SOURCE6/P09 study compares matchedpretext/shuffled/extra-supervised/nativecontrols; notqueuedyet.
 §320 reliability's unchanged source
 control failed its registered quality premise; no outer expansion.
 
@@ -111,10 +117,13 @@ removesit without relaxing1e−8 bounds or changingproduction flags. Oldfailedbi
 Bothoptimized standardA100first-stop probes pass known190/378/800 but fail unknown378relativebar.
 SeparatecompleteFUNCTIONAL-onlyA1003117601/3117602 now pass allknown/unknown190/378/800, including
 unknown80024FTrefits/480steps/noover,39CPrefits/710fusions. This is function coverage, not timing acceptance.
-Untimedactual800FT/CP activation thenreset plus counterbalancedAB/BA warmedtiming is running3117650;
-its firstdependency-importfailure is preserved. IndependentCPU2153117573continues. BothstandardCPUprobes3117585/7TIMEOUT45min, failurespreserved.
-ActualTIMEOUT-onlycontrollers releasedcompleteFUNCTIONAL-onlyreuse3117756/FIR3117757, nowRUNNING
-4CPU/24GiB180min each. This proves no latencybar pass; optimizedA100warmtiming remainsrunning.
+Counterbalanced warmed A100 timing3117650 is COMPLETE43m59: all12pairs pass registered6.10%bar.
+Medianoverhead190/378/800 is2.43%/1.19%/2.62%, max4.91%; actual800base156.69–158.72s,
+JS161.47–164.38s. Coldsetup recordedseparately, notspeedup. Original45minlimitunchanged; retrycorrectlynotreleased.
+Independent deterministicCPU215semantic3117573 PASSED81m17, exactold→FIR/reuse through20FT/10CP/125fusions.
+BothstandardCPUprobes3117585/7TIMEOUT45minpreserved; completeFUNCTIONAL-onlyreuse3117756/FIR3117757
+remainRUNNING4CPU/24GiB180min, owningcompletecollector3117884pending. Fullreturningvalidation isnowbeing
+investigated for faithful regeneration of missinggenuineSincfolds; no in-sample/historicalidentity substitute.
 Returning heldfold
 validation remains blocked by missing/invalid genuine original Sinc checkpoints. No candidate is qualified.
 

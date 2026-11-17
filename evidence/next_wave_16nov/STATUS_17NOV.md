@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 08:13 CET
+# Campaign status: 17 November 2026, 08:53 CET
 
 Submission unchanged: uploaded v5.1b **.8197668759**. Prepared v6.6 cap250 remains unchanged;
 ZIP SHA `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
@@ -168,11 +168,12 @@ thenfail unknown378(FIR1.3115/reuse1.2477). Those rows are relativebar failures,
 CompleteFUNCTIONAL-onlyA1003117602FIR/3117601reuse now PASS all6known/unknown190/378/800rows.
 Unknown800has24FTrefits/480steps/noover,39CPrefits/710fusions. Reuse800absolute134.875→137.939s is
 DESCRIPTIVE, not a timing-pass claim. Firstunknown190payscommoncoldFTsetup, so its~.5ratio is not speedup.
-NewcounterbalancedAB/BA timing3117650 is running afteractualuntimed800FT/CP thenreset; coldcostseparate.
-Firstwarm3117647failed missingrecord.py pre-inference; separate owningdependency-onlyretry/importsmoke passed.
-CPU2153117573continues. BothstandardCPUprobes3117585/7TIMEOUT45min, originalfailurespreserved.
-TIMEOUT-onlydispatchers releasedcompleteFUNCTIONAL-onlyCPUreuse3117756/FIR3117757, actuallyRUNNING
-4CPU/24GiB180min each. No latencybarrescue. Owningcheckpointee878a7 containsactualallocation/sourceproof.
+CounterbalancedAB/BA timing3117650 COMPLETE43m59, all12pairspass6.10%bar:
+medianoverhead190/378/8002.43%/1.19%/2.62%, max4.91%. Actual800base156.69–158.72s/JS161.47–164.38s.
+Coldsetupseparate/orderconfounded,nospeedup. Original45minlimitunchanged; TIMEOUT-onlyretrycorrectlyNO_RELEASE.
+IndependentCPU2153117573PASS81m17, exactold→FIR/reuse with20FT/10CP/125fusions, buffer/generator/resetproofs.
+OriginalCPU3117585/7TIMEOUT45minpreserved; separatefullFUNCTIONAL-only3117756/7 stillRUNNING,
+completecollector3117884pending. Owningevidencepushedcb544d9; source/regenerationauditforreturningstartsnext.
 MissinggenuineoriginalSincfolds stillblock returningvalidation. No optimizedcandidate qualification/promotion.
 
 **§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.
@@ -249,7 +250,15 @@ NLL.938013/Brier.559839/official56.468%, NLLbeatsuniformonall7people. Bestmixtur
 isworsethansemanticcontrolonall7;ρ100.956346/ρ10000.964811. Largeρactivatesresidualevidence butP04audit
 findsg0nullgeometry/b0posterior1andπuniforminall3sessions. Actual652CPUcoreseconds=.1811CPUh,
 NOA100/P02/P03inference/scoring. Usefulcalibrationdoesnotestablishusefulgeometrymarginalization.
-Next§336strong-referencebridge/§337covariance-target×sourcecoverage preparematchedanchor/qualityguards.
+§336 COMPLETE five40epochSOURCE7arms3117844→3117845: nativeA61.776%, noheadmaxnormH62.827%(+1.050pp),
+uncenteredscaleU61.157%(−.619), classbalancedW62.343%(+.567), changedbatchscheduleB62.932%(+1.156).
+H/W improve bothpreviouslyexposedP02/P03; B worsensP03. All1360steps/init/RNG/source/optimizer/reset/prefix guards
+beforelabels; A matches331R. Actual284–312s/arm, notarchitecture/ensemblegain. [Evidence](reference336_handoff.md).
+§338 prospectiveH/W/Bcombinations plus source-heldinstrument arebeingprepared, no jobs/results yet.
+§337 real-datafull44239teacherparity7.53e−14; nativebodyupdates/classifierunchanged/RNGguardPASS.
+Repeatedsourcebatchloss−41.2%only, no generalizationclaim. Preparation266CPUcoreseconds; no A100/livelargepilot.
+NextsmallmatchedSOURCE6/P09 pretext+shuffledtarget+extra-supervised+nativecontrolstudy beingregistered;
+shareexactnativecontrolwith338ifidentitiesmatch. [Handoff](covariance337_handoff.md).
 Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
 
 ## Coordination and cadence
