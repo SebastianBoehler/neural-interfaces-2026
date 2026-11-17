@@ -24,7 +24,8 @@ def main():
     smoke=m.train(probe,x,y,mu,sd,cw,groups);torch.cuda.synchronize();seconds=time.monotonic()-tick
     if before==fingerprint(probe) or smoke['max_gradient']<=0:raise ValueError('source8trainingno-op')
     projection=1.5*seconds*40*2+120
-    if projection>480:raise ValueError(f'prototypebudgetstop:{projection}')
+    (root/'cost.json').write_text(json.dumps(dict(smoke=smoke,seconds=seconds,projection_seconds=projection,limit_seconds=540,device=torch.cuda.get_device_name(),source_sha256=src.sha(root/'source.sha256'),calibration_labels_opened=False)))
+    if projection>540:raise ValueError(f'prototypebudgetstop:{projection}')
     del probe,x,y;gc.collect();torch.cuda.empty_cache()
     for seed in (0,1):
         m.SEED=seed;x,y,scale,mu,sd,cw,groups=m.setup(d,rows,'cuda');model=m.Factor('population',False,'cuda')

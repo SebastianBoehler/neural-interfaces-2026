@@ -7,9 +7,9 @@
 #SBATCH --time=00:10:00
 #SBATCH --job-name=ni26-s339-sourcecal
 set -euo pipefail
-cd /mnt/lustre/work/gehler/gfh527/ni26_calibration339_v1_20261117
+cd /mnt/lustre/work/gehler/gfh527/ni26_calibration339_v2_20261117
 sha256sum -c source.sha256 >/dev/null
-export CAL_ROOT=/mnt/lustre/work/gehler/gfh527/ni26_calibration339_v1_20261117
+export CAL_ROOT=/mnt/lustre/work/gehler/gfh527/ni26_calibration339_v2_20261117
 export NI26_DEVICE=cuda OMP_NUM_THREADS=6 OPENBLAS_NUM_THREADS=6 MKL_NUM_THREADS=6 PYTHONDONTWRITEBYTECODE=1
 export TORCHINDUCTOR_CACHE_DIR="${CAL_ROOT}/runtime-cache/${SLURM_JOB_ID}"
 export TRITON_CACHE_DIR="${TORCHINDUCTOR_CACHE_DIR}/triton"

@@ -1,0 +1,1 @@
+{"smoke": {"steps": 37, "max_gradient": 1.6190754175186157, "first_loss": 1.314763069152832, "last_loss": 1.090423345565796}, "seconds": 3.877101209014654, "projection_seconds": 585.2521450817585, "limit_seconds": 540, "device": "NVIDIA A100-PCIE-40GB", "source_sha256": "c6f199c747dbd2c38e86165735bc86553bb53a1ed30cd348f1792ccdb17ff22f", "calibration_labels_opened": false}
