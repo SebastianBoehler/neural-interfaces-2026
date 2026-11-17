@@ -70,3 +70,13 @@ retention, not a verified VPN/server authentication expiry. Submitted jobs survi
   No partial outer scores. §308 and313full-chain evaluations remain in progress.
 
 Prepared v6.6 and official score/rank are unchanged by these studies. No upload authorized or made.
+
+## Research and dispatch update:17November,03:10CET
+
+- The21m17s primary-source/coverage review is [recorded here](research_4h_17nov_0250.md).
+  SeeEEG was already reviewed; public Apache2 DINOv2 provides a concrete alternate backbone for a new pilot.
+- §319 visual-prior feasibility and §320 source-crossfitted forward-only reliability are assigned.
+  These are preparation states, not queued production matrices or measured gains.
+- §317 source pilot passed its guards; first24of60nested CPU producers are3116807%4,
+  with capacity-checked24/24/12continuation and a complete whole/chain consumer.
+- Other active workflows continue; no partial outer accuracy is read to select follow-ups.

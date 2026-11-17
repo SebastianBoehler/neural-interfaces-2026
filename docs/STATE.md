@@ -9,6 +9,16 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
+### Research update: 17 Nov 2026, about 03:10 CET
+
+The [four-hour research block](../evidence/next_wave_16nov/research_4h_17nov_0250.md) ran02:48:22–03:09:39CET,
+21minutes17seconds. It rechecks completed results and primary research, and distinguishes prior review from new execution.
+§319 is assigned a source-only visual-pretraining feasibility/pilot lane using a public licensed DINOv2 backbone;
+§320 is assigned a separate source-crossfitted forward-only reliability mechanism. Neither has a score or claimed gain.
+§317's source pilot passed and its matched60fold CPU study is queued in guarded24/24/12waves, starting3116807.
+Existing §308/312/313/316/318 workflows continue; complete guarded blocks decide subsequent combinations.
+Prepared v6.6 and official score remain unchanged. Upload remains under user control.
+
 ### Research update: 17 Nov 2026, about 02:20 CET
 
 Completed §305/§313-whole/§315-temporal/§304 reports are in [current status](../evidence/next_wave_16nov/STATUS_17NOV.md).
