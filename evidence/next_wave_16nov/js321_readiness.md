@@ -148,3 +148,11 @@ recover other required sourcecheckpoints before calling it whole-study/package p
 Read-only follow-up also verified original304source `ch_names` exactly equal the frozenbundle's
 41`CH_NAMES` positions. The source/P01 checkpoint guard is not using a different montage ordering.
 Owned continuation note: `owned321_320_317_handoff_17nov.md`.
+
+### 17 Nov continuation: actual six-seed recovery and deployment-relevant contrast
+
+Recovery3117049 passed all six P01 seed identities, exact historical probabilities/parameter hashes, CPU/CUDA export bounds and saved reset/deepcopy guards. Seeds1–5 took33.39/28.98/29.13/29.37/34.44s; total recovery191.17s. Seed0 reused only its previously validated checkpoint/trace. Compact proof: `js321_six_seed_recovery.json`; immutable workspace `ni26_js321_20261117_recovery6`, manifest5a103449b7802e72c2663bc60d2ff793b60a1b1a542669220c61c043d9053ea8.
+
+The preregistered **post-hoc** B2_pool extraction3117050 re-ran the complete owning318 collector before labels. B2_pool control76.279335%, JS76.551732%; official effect+0.272396pp[0.004869,0.527102], people/order+0.277955pp[−0.006993,0.545638],6/10people improve. P04−0.048350pp/P10+0.565349pp are new-person routing-emulation effects, not returning-person package validation. Other five base effects range+0.134053 to+0.301971officialpp. These selected reused-dev results are not independent confirmation. Exact owning metrics/provenance are in `js321_pool_contrast.json`.
+
+Copied-bundle guard3117079 is queued on explicit4CPU/16GiB/20min, immutable workspace `ni26_js321_20261117_active1`. Policy is **JS-all**, matching318: original inner gates/FT labels stay exact, but final output continues outer JS after recognition. The guard separately reports actual final changes before10/afterrecognition; preserving inner gates is not final recognized-output identity. JS-off must exactly reproduce original outputs. The active reference uses real65-member/rest/FT outputs and six distinct recovered CC traces, with all six actual318 draw recipes across8orders captured before stages/accuracy. All10 training remains blocked until these checks pass. No returning, full-worker, later-CP or runtime readiness is claimed.
