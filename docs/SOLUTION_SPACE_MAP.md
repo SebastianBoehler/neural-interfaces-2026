@@ -1,7 +1,8 @@
 # Map: what the rules allow against what we tested (13 Nov 2026)
 
-This is the 13 November snapshot. The [17 November audit](../evidence/next_wave_16nov/exploration_primary_sources_17nov.md)
-reviews the later whole-decoder results, open comparisons and current evaluation contract.
+This is the 13 November snapshot. Use the [current solution-space review](../evidence/next_wave_16nov/solution_space_review_17nov.md)
+for the latest search decisions and rules. The recorded 21.5-minute sealed runtime
+belongs to v5.1b. Later packages have their own timing evidence.
 
 **Purpose.** Asked by the user on 13 Nov: set the experimental space (git history, the documents, the wide waves
 since 11 Nov) against the allowed solution space, to find approaches we missed, scopes we narrowed too early, and

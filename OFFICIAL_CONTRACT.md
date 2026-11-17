@@ -65,8 +65,10 @@ This records the official implementation; it does not claim a completed run.
   This permits native implementation behind the Python entry point; it does
   not validate our binary against the worker. The message and reply are
   [in the Track 2 Discord channel](https://discord.com/channels/1405198616934481961/1547897829253451877/1562024877135896619).
-- Evaluation is inference-only. No training or dataset download occurs there.
-  The competition YAML sets a 3,600-second evaluation limit.
+- The sealed evaluator runs `predict` without an offline `fit` or dataset
+  download. Label-free adaptation, including gradient updates inside `predict`,
+  may use the current session's delivered EEG. The competition YAML sets a
+  3,600-second evaluation limit. [Scientific FAQ](https://raw.githubusercontent.com/neural-interfaces26/2026-competition/main/codabench/pages/scientific_faq_bci.md#streaming-and-adaptation)
 
 ## Official commands from the competition checkout
 

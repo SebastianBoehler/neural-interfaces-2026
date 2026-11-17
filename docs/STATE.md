@@ -9,18 +9,21 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 22:19 CET
+### Current campaign: 17 November 2026, late CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
-The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
+Top five remains the objective.
 Account limits:32jobs running/272submitted with28reserved; preserve unrelated jobs. Never upload automatically.
 Report every gain as FULL-SYSTEM DEV, SEALED LEADERBOARD or INDIVIDUAL-MODEL, with baseline/cohort.
 “Custom stack” means C++/CUDA. “Original raw neural reference” means the stock PyTorch336/338 model.
-[Detailed current evidence](../evidence/next_wave_16nov/STATUS_17NOV.md) and the
-[≤80-line handoff](../evidence/next_wave_16nov/OVERNIGHT_16NOV.md) capture earlier sources and jobs.
+Use the [current handoff](../evidence/next_wave_16nov/HANDOFF_17NOV.md) for a fresh session.
+The [solution-space review](../evidence/next_wave_16nov/solution_space_review_17nov.md) records
+current scoring priorities and the evidence that would change them.
+The [earlier detailed status](../evidence/next_wave_16nov/STATUS_17NOV.md) captures past sources and jobs.
 
 **Submission and rank.** Uploaded v5.1b scored .8197668759 in 1,287 s. The official leaderboard mirror updated
 17 November at 16:44 CET and displayed .841 at fifth place, about 2.12 percentage points above our score.
+Counting the two ETRI_EnSeption entries once gives a provisional fifth-team benchmark of .837, a 1.72-point gap.
 Prepared v6.6cap250 is unchanged: `runs/sealed/final_zips/v66_cp1_cap250.zip`, SHA256
 `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`.
 The v6.6 .824–.829 sealed-score scenario is unvalidated.
