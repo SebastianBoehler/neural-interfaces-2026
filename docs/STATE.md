@@ -13,6 +13,8 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 [Overnight checkpoint, live jobs and noon candidate decision](../evidence/next_wave_16nov/OVERNIGHT_18NOV.md). The current plan calls for a penultimate candidate by Wednesday noon and reserves Friday evening for the final decision. The sealed best remains v5.1b.
 
+The dedicated [whole waveform decoder](../evidence/next_wave_16nov/wave379.md) scored 41.69% with learned memory, versus 44.12% with a matched static decoder and 76.28% with the full frozen stack. A separately matched [multiscale decoder](../evidence/next_wave_16nov/scale380.md) scored 44.74% versus 44.84% for learned waveform filters. These are ten-person public development results. [Recent methods and protocol comparison](../evidence/next_wave_16nov/recent_methods_18nov.md).
+
 ### Current campaign: 17 November 2026, late CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.

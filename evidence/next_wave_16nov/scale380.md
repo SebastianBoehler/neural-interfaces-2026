@@ -30,3 +30,40 @@ held inference. The fixed source manifest is
 in Galvani `ni26_scale380_v2_20261118`. Its smoke, ten A100 fold producers
 and CPU collector are 3123282, 3123283 and 3123284. The decision rule and
 compute bounds are in [the ledger](../../docs/LEDGER.md).
+
+## Results
+
+All 30 fitted checkpoints passed source, parameter, active-branch, order,
+reset, prefix and finite-value guards. The original replay printed OK. The
+independent CPU step-by-step audit reproduced every one of the 63,720 A100
+decisions, across all ten held people, eight orders and three arms.
+
+| Whole decoder | Official equal-cell new-person DEV |
+|---|---:|
+| RAW | 44.835% |
+| SPEC | 44.738% |
+| PERM | 43.338% |
+| Frozen cap250 | 76.279% |
+| JS | 76.552% |
+
+SPEC−PERM was +1.400 pp [paired people/order 80% interval +0.720,+2.171],
+positive for 7/10 people. SPEC−RAW was −0.097 pp [−1.028,+0.793], positive
+for 5/10; P04 +2.309 pp and P10 −1.632 pp as new people. SPEC−JS was
+−31.814 pp [−37.384,−26.390], negative for all ten. The aligned branch
+beat its disrupted counterpart. Its advantage over the signed raw decoder
+remains undecided. Both complete systems are far below the common strong
+controls. The early 32-window supplementary estimate covers only three of
+28 cells; the later stratum covers all 28. No rank, returning or deployment
+claim follows. [Full results](scale380_result.json) · [Independent CPU audit](scale380_cpu_audit.json)
+
+V1 failed smoke and v2 successful smoke used 12 and seven A100-seconds.
+The ten producer allocations used 211 A100-seconds together. The total was
+230 A100-seconds (0.064 A100-hours). Primary scorer 3123284 used 128 s
+on two CPU cores and audit 3123300 used 62 s on two CPU cores.
+
+For context, the original §379 explicit-normalization model scored 44.149%
+on the identical ten-person/eight-order DEV matrix. RAW and SPEC are +0.686
+and +0.589 pp above that historical architecture, respectively. These are
+post-hoc differences of means; neither is a registered attribution to spectral
+features. The matched SPEC−RAW comparison above remains the primary test.
+[§379 results](wave379_result.json)
