@@ -1,7 +1,7 @@
 # §345 — source-person-crossfitted task distillation
 
 Owner: fresh_accuracy_345. Fresh chat retained canonical history; not blind.
-Status: source/zero smoke passed; honest teacher and two native40 arms queued, no held labels opened.
+Status: COMPLETE; both native40 arms and guarded collector passed. Pilot did not improve the raw reference.
 Primary comparison is INDIVIDUAL-MODEL exposed P09/source6/seed0 against the exact raw native reference.
 Current FULL-SYSTEM DEV reference remains76.217673% across new people; no system gain claimed.
 
@@ -90,3 +90,36 @@ Corrected conservative total3.898CPUcoreh; root prospectively authorized≤8CPUc
 Hard all requested allocations, including cancelled/failed jobs,≤4.23CPUcoreh/0A100h.
 Current teacher3119013 → native40array3119014 + KL-only gradient3119015 → guarded collector3119016.
 Workspaces `ni26_distill345_{smoke,teacher,pilot}_v3_20261117`. Original snapshots remain immutable.
+
+
+## Complete result and decision
+
+Collector3119016 COMPLETE after all source/zero/activity/native40/inference checks. INDIVIDUAL-MODEL
+P09/source6/seed0, scheme-equal mean of all8orders:
+
+| Arm | Balanced accuracy | Δ versus exact rawA | Window-mean NLL |
+|---|---:|---:|---:|
+| Exact original rawA |64.0610%|—|.82719|
+| Honest source-person OOF KD |61.6649%|−2.3961pp|.85257|
+| Person/class-preserving derangement |63.0508%|−1.0102pp|.84574|
+| Actual matched classical teacher |63.3815%|−.6795pp|1.09539|
+
+KD−deranged=−1.3859pp. The actual teacher did NOT beat rawA; its source-person OOF BA was54.848%.
+Do not rename it a stronger matched teacher or substitute historical69%. This form fails to improve
+native task accuracy; per-window teacher uncertainty hurts relative to the class/person-preserving
+control. That does not close task distillation with a genuinely stronger crossfitted teacher, another
+coherent system, or new information. One exposed person/seed supplies no people interval, independent
+confirmation, FULL-SYSTEM DEV gain, returning-person result, sealed score or rank prediction.
+No temperature/weight grid or automatic matrix follows this negative pilot.
+NLL here is a plain window mean, not cell/class-balanced; do not compare it with344 balancedNLL.
+
+Direct KL-only body/head gradients: actual10.185/31.529; deranged9.061/26.004. Both scientific arms
+had1240activeKDsteps, identical rawA initialization/source scale/40batch/RNG trace, actual constrained
+classifier updates and complete causal prefix/reset/eightorder checks before held labels. RawA checkpoint
+SHAeadd5c23c9f7cac239bf78a99993d8d3e47392d24d166e0ede6fce5b0e6ac9f8 verified unchanged.
+Native40 actual scripts KD315.53s / deranged224.06s. All jobs, including cancelled/failed smokes:
+2.1864allocatedCPUcoreh /1.33525usedCPUcoreh /0A100h (plus≈10s source header/Status reads).
+`distillation345_result.json` retains compact scores/source identities/guards/costs; full immutable remote
+report SHA2765bb657127c5ed02b97c059f67e123f3bff6e3043d2718e37b21175966f168.
+Original cancelled-guard `activity.source.sha256` was unused and removed; current main manifest covers
+all11actualsource/script files. Removal did not affect remote snapshots, collectors or queued jobs.
