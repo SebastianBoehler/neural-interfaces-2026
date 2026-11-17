@@ -28,3 +28,13 @@ Required consumption sequence before any score:
 5. Use the existing owning whole scorer, fixed B2_pool six-seed deployment and eight orders. Require same-path-zero/control/order/replay/all-six-CP-weight guards, reset/prefix and actual activity before labels. Register exact contrasts and source maps before scoring. Report P04/P10 separately and returning .2/.8 weighting, with people/order uncertainty. No in-sample replay or inherited new-person gain claim.
 
 Provisional returning JS−new-control prediction is0pp[−.5,+.7], not the selected new-person+.272pp. Full returning accuracy has not been calculated. Source training and numerical guards are preparation only. Frozen files remain unchanged; no upload or promotion is authorized.
+
+## Subsequent precise source findings
+
+A100 same-checkpoint guard3118024 also exceeded the unchanged historical1e−5 bar: FB P04seed0 max1.256634e−5, zero labels; self-repeat≤1e−8. This did not establish a device explanation. Both failures remain failures. The old three-field checkpoints contain state/G/scale but no fitted-row metadata; near archived probabilities and exact source G alone are not represented as direct neural-fit provenance.
+
+A new source-audited four-family baseline is therefore being prepared for both arms. FB/FBL/raw pilots3118030 PASS36/34/27s (fit22.807/22.255/14.153s), with actual input-row observer, held-label/weight poisoning, source-only G, own-weight export/reset/deepcopy. ExportmaxFB2.42e−6/FBL1.72e−7/raw1.446e−5, all below prospectively registered own-export1e−4; this does not relax historical1e−5. FB exports BOTH latent2/5, FBL5, raw20; causal inputprior5 applies only aligned arms. Remaining33fits3118036%2 follow actual completed pilots/CC30, immutable `ni26_js321_20261117_returning_other_full1`. Measured cost forecasts15–20A100min, eachcell capped5min. All60sourceweights/72traces must precede whole accuracy.
+
+All24Sinc/CC30source proofs passed owningcollector3118027 (`ni26_js321_20261117_returning_complete1/returning_complete.json`). Both classic/gate training masks independently match source rows exactly (P04 2278/P10 2270). No returning accuracy has been read.
+
+Additional silent-noop audit: `run_s_v66.py`/`s281_cp.py` directly support the unrecognized all-LOSO path; setting `PROTO=seen_session` is not a genuine routed validation. `run_s.py` rejects PROTO and fixes p0=all_loso, and `s281_cp.apply_sessions` hardcodes recognition=False. The returning extension must use actual `retv6`/route4 decisions and pass each recognized flag into the original CausalPers, which stops on recognition. The existing route prefix scaffolding can supply that bridge, but it is not already a complete returning consumer.

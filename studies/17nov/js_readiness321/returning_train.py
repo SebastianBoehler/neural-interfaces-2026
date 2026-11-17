@@ -45,13 +45,13 @@ def prepare(fold,seed):
     return d,model,sb,np.flatnonzero(train),np.flatnonzero(held),recipe,trunk
 
 
-def export(model,sb,inputs,path):
-    model.net.cpu().eval();model.dev='cpu';model.set_k(20.)
+def export(model,sb,inputs,path,latent_k=20.):
+    model.net.cpu().eval();model.dev='cpu';model.set_k(latent_k)
     p=Path.cwd()/'source/scripts/export_external_teacher.py';tree=ast.parse(p.read_text())
     fn=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='device_free_trace']
     if len(fn)!=1:raise ValueError('owning exporter absent')
     ns={'torch':torch};exec(compile(ast.Module(body=fn,type_ignores=[]),str(p),'exec'),ns)
-    trace=ns['device_free_trace'](sb.to_stream(model.net,20.),torch.from_numpy(inputs[:4]))
+    trace=ns['device_free_trace'](sb.to_stream(model.net,latent_k),torch.from_numpy(inputs[:4]))
     sb.reset_stream(trace);trace.save(str(path));errors={}
     with torch.no_grad():
         for n in (5,17,len(inputs)):
