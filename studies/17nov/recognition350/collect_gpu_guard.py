@@ -7,7 +7,7 @@ import numpy as np
 
 from returning_assets import ROOT,sha
 from returning_pair_metadata import held_metadata
-from returning_pair_collect import ORDERS
+ORDERS=('within0','within1','within2','within3','full0','full1','runs0','runs1')
 
 CELLS=ROOT/'ni26_recognition350_20261117_whole2'
 OLD=ROOT/'ni26_js321_20261117_returning_pair_cpu1'

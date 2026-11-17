@@ -1,0 +1,127 @@
+{
+  "spent_CPUhours": 6.2325,
+  "with_new_collector_max_CPUhours": 6.299166666666666,
+  "original_max_CPUhours": 7.9,
+  "jobs": [
+    {
+      "job": "3119571",
+      "state": "TIMEOUT",
+      "seconds": 5406,
+      "cpus": 2
+    },
+    {
+      "job": "3120515",
+      "state": "COMPLETED",
+      "seconds": 619,
+      "cpus": 2
+    },
+    {
+      "job": "3120518_0",
+      "state": "COMPLETED",
+      "seconds": 342,
+      "cpus": 2
+    },
+    {
+      "job": "3120527",
+      "state": "COMPLETED",
+      "seconds": 0,
+      "cpus": 1
+    },
+    {
+      "job": "3120589",
+      "state": "FAILED",
+      "seconds": 1,
+      "cpus": 1
+    },
+    {
+      "job": "3120588_1",
+      "state": "COMPLETED",
+      "seconds": 340,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_2",
+      "state": "COMPLETED",
+      "seconds": 354,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_3",
+      "state": "COMPLETED",
+      "seconds": 312,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_4",
+      "state": "COMPLETED",
+      "seconds": 312,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_5",
+      "state": "COMPLETED",
+      "seconds": 360,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_6",
+      "state": "COMPLETED",
+      "seconds": 339,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_7",
+      "state": "COMPLETED",
+      "seconds": 340,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_8",
+      "state": "COMPLETED",
+      "seconds": 355,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_9",
+      "state": "COMPLETED",
+      "seconds": 354,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_10",
+      "state": "COMPLETED",
+      "seconds": 295,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_11",
+      "state": "COMPLETED",
+      "seconds": 285,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_12",
+      "state": "COMPLETED",
+      "seconds": 306,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_13",
+      "state": "COMPLETED",
+      "seconds": 283,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_14",
+      "state": "COMPLETED",
+      "seconds": 280,
+      "cpus": 2
+    },
+    {
+      "job": "3120588_15",
+      "state": "COMPLETED",
+      "seconds": 336,
+      "cpus": 2
+    }
+  ]
+}
