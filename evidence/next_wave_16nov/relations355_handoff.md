@@ -1,0 +1,12 @@
+# §355 owning handoff
+- Scientific source/card commit a014bd2; source/guard proof864fb45; actual-order guard92ed76e. Native integration paused; no native sources edited.
+- Snapshot /mnt/lustre/work/gehler/gfh527/ni26_relations355_v1_20261117; manifest c71454e7ad223679912bfe30fd353d1dd3b4c4140e8f645c9bfc085ca8e2356d.
+- Source smoke3121634 PASS28s×CPU2; controller3121635 PASS1s×CPU1. Four equal449,715parameter arms, actual41×480/source-P02 activity, all8orderpreflight passed.
+- Lag3121637 COMPLETE124s×CPU2/all10folds; envelope3121638 RUNNING lastcheck. Fixed40epochs, nine-sourcepeople/fullheldpersonexclusion, no heldmetrics read.
+- Original collector3121639 CANCELLED PENDING/0runtime before labels: only bank-order replay, insufficient actual execution qualification. Allactive scientific sources preserved.
+- Added immutable actual-order snapshot ni26_relations355_order_v1_20261117; SHA1856eb516004e14e1e429f5c620521a8ff2f81edb28aa883e95cf1775c626583.
+- ActualB1all40models×8order guardian3121641 afterBOTHproducers,10minA100/2CPU, requiresBITWISE order/state and EVERYqueryrowB1vsB64≤1e−6/0labels, no y load; failclosed.
+- Unchangedoriginalwholecollector via3121642 afterguardian; all20fold/40bank/checkpoint/data/sourcehashes beforemetric; replay.checkOK; originalprotocol.score/people80%CI/equal schemes.
+- Max1.9GPUh/<6CPUh inclnewguard, account32running/244active+28reserve. No autoretry/extension/provider/upload/chainclaim.
+- Scope WHOLE NEW-PERSON alternatives only. Lag0 and envelopeoffset are equal-capacity controls; no incumbent-gain/ranking/returning/physiology claim. §25/26/313/352 overlap explicitly audited in relations355.md.
+- Producer loads allPUBLIC y for source indexing/finitecheck but only nine-source y entersloss; held y never optimizer/selection/calibration/metric. Complete-beforegold refers collector quality, not campaignblinding.
