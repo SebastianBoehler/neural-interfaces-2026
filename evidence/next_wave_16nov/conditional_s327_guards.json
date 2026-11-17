@@ -1,0 +1,48 @@
+{
+  "L0": 0.0015915977668186706,
+  "changed_labels": {
+    "mild": 44,
+    "moderate": 93
+  },
+  "device": "NVIDIA A100-PCIE-40GB",
+  "diagnostics": {
+    "mild": {
+      "calls": 2501,
+      "coefficient": 1.5915977668186706e-05,
+      "gradmax": 4.5339019822322515e-07,
+      "initial_penalty_fraction": 0.01,
+      "loss": 0.0016011783527942812,
+      "penalty_ratio": 0.38589829133359155,
+      "source_margin": 8.402273146868216,
+      "weight_delta": 0.04976457237145705
+    },
+    "moderate": {
+      "calls": 254,
+      "coefficient": 0.00015915977668186707,
+      "gradmax": 3.0219334119106494e-07,
+      "initial_penalty_fraction": 0.1,
+      "loss": 0.001616984731443712,
+      "penalty_ratio": 0.03589205907773586,
+      "source_margin": 8.358349663569069,
+      "weight_delta": 0.11930298129759592
+    },
+    "zero": {
+      "calls": 574,
+      "gradmax": 3.19902307850439e-07,
+      "loss": 0.0015915977668186706,
+      "penalty_ratio": 1.0,
+      "source_margin": 8.445217937216533,
+      "weight_delta": 0.0
+    }
+  },
+  "elapsed_s": 16.70361455762759,
+  "finite_difference": 5.756286814229127,
+  "max_rss_kib": 2788632,
+  "old_guards_sha256": "cfc6b4a9f4199cca3077f9c29ee794bc171ebb659a8f40eee1bd791cd939c02b",
+  "peak_gpu_bytes": 1537496576,
+  "prediction_sha256": "fba5d491d2835804b4086b86a6aa50e2cdc983575dc1b354c39c0414e8948be4",
+  "prepare_sha256": "3be78106fcddb987d91eac6523ef0836703089bdef20b331766e7f46614741d3",
+  "q": 0.21908693826826728,
+  "query_labels_read_for_accuracy": false,
+  "source_train_sha256": "5f9b3bcc2d46445e060d509d8b7a66b61be873016d06ca790b759be6b614cd96"
+}

@@ -1,0 +1,7 @@
+# §327 loss-calibrated conditional logits
+
+The source-only, post-hoc follow-up was preregistered in LEDGER §327 after §326 was read. Source implementation commit `9ce2e79`; frozen source manifest SHA-256 `0e8f17648fd314787f5dd4089a446e88d306f483b07cc78fab9f1dc2462fade6`. A100 pilot `3117238` completed 0:0 in 25 seconds, with peak GPU memory 1,537,496,576 bytes. [Guard report](conditional_s327_guards.json) SHA `f54741ac4d02b17d7aac365dfef52e7be5d4dc75a3e5a8f0c228a69597797cc2`; [source scores](conditional_s327_score.json) SHA `a274055414ea11c0ec83be383c773c601129b82763434aabcd28f3aaab24f640`.
+
+All sixteen zero-head query predictions matched the earlier §326 control. Source hashes and seven-person exclusion, source loss/gradient, real-data finite difference, D=0 and gauge guards passed before query scoring. Scheme-equal cell balanced accuracy for P02 was 78.913% zero, 78.229% with initial penalty 1% of source loss, and 77.609% with 10%. P03 was 59.042%, 58.921%, 59.577%, respectively. The two people were already exposed in §326; the results are not outer or full-system evidence.
+
+Conditional-offset P(W)/q ratios were 1.000, 0.386 and 0.0359; source true-class margins were 8.445, 8.402 and 8.358. The 1% fit reached the configured 2,500-evaluation limit; its extra final check was call 2,501, and the final maximum gradient was 4.53e−7, below the registered 1e−5 guard. The 10% fit took 254 calls. The lower-strength result remains solver-limited despite passing that gradient guard. No automatic outer study, package or upload followed.
