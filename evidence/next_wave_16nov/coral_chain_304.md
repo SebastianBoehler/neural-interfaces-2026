@@ -5,3 +5,33 @@ The registered chain compares four matched, independently fitted families: plain
 The private chain snapshot is `/mnt/lustre/work/gehler/gfh527/ni26_s304_coral_chain_20261116`. Archived controls and original source checks passed before patching; the four patched runner/scorer files match independent local hashes. Final chain source-manifest SHA-256 is `c0c811dcb1ddf12bc6955ad887a4ac8d9f527e5afe628a95422f5713471e9cc7`; patched-runner manifest SHA-256 is `4d02d709b011ec1fe58e14144f0d23b1f52dde8701fbf6154e602dee12ef798b`. Three local tests cover the eight recipes, deterministic patching across Python hash seeds, exact producer matrix and changed-fold rejection. Remote isolated imports and shell syntax checks pass.
 
 After the producer assembler completes, the resource agent will submit the absolute `studies/16nov/followups/coral_repair/chain/stage.sbatch` with the producer workspace argument. It verifies the 240 producer fold hashes, source/data/permutation identity and exact 192 stream names, hashes, indices and probability arrays before private copying. Replay and a zero/plain-add/conditional-swap full-chain smoke follow. Only if their independent gate, source and six-CP checks pass does the dispatcher queue 69 remaining cells at `%4` and the full scorer. The scorer rechecks the exact assembler validation, producer files and stream lock. No §304 chain result has been scored or uploaded.
+
+## 17 November control-provenance recovery
+
+Release 3115850 failed before any §304 score. The archived controls were made
+by `s281_cp.py` SHA `49292fce9afbb505d5e39a9a27d4c2686c7140f445d1680fc3085017ee498f73`;
+the patched §304 CP script has SHA
+`f8566b7e373927726853940af7864d43d88e8e4c3caf01ab085367c6a230327f`.
+The original control checker incorrectly required the patched source hash for
+historical controls. All 128 control artifacts in the recovery copy were checked
+byte-for-byte against the actual historical workspace and pinned by
+`control-original.sha256`, SHA
+`42782d6c2b7de4a8adddfcc5282eadbc0294dd84185a31a2706a90856eb35660`.
+
+The immutable recovery workspace is
+`/mnt/lustre/work/gehler/gfh527/ni26_s304_coral_chain_recovery_20261117`.
+Its `recovery.sha256` is
+`5b6dd5153d101814c6be70dde1991dcb5e7d4090a463608e8503d78ebb020e71`.
+The scorer source, treatment producer and original provenance checks are
+unchanged. A wrapper routes only control validation to the historical workspace,
+checks each copied control against the pinned digest, and invokes the existing
+full `load_output` provenance checks there. It routes all treatment arms through
+the unchanged recovery scorer. The corrupted-copy unit regression passed.
+
+Recovery check 3116320 passed 0:0: official replay printed `OK`; all 128 control
+copies and historical CP source matched; and the original within0 zero/add/swap
+smoke passed gate, stream, six-CP, routing and package checks. Release 3116321
+passed and queued remaining 69 cells as array 3116327 at %4, followed by full
+scorer 3116328. No §304 score has been read. The original three-cell smoke took
+14m11s: about 85 minutes for 18 four-cell waves is a compute-only estimate,
+excluding queue delays, recovery checks and final scoring.
