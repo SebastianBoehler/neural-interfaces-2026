@@ -170,7 +170,8 @@ Unknown800has24FTrefits/480steps/noover,39CPrefits/710fusions. Reuse800absolute1
 DESCRIPTIVE, not a timing-pass claim. Firstunknown190payscommoncoldFTsetup, so its~.5ratio is not speedup.
 NewcounterbalancedAB/BA timing3117650 is running afteractualuntimed800FT/CP thenreset; coldcostseparate.
 Firstwarm3117647failed missingrecord.py pre-inference; separate owningdependency-onlyretry/importsmoke passed.
-CPU2153117573andstandardCPU3117585/7 continue; timeout-only fullfunctionalcontinuations are registered.
+CPU2153117573continues. StandardCPUreuse3117585TIMEOUT45m04, originalfailurepreserved;
+TIMEOUT-onlycontroller3117679 mayrelease the separatefullfunctional180minprobe. FIRCPUwasnearlimit;verifyactualstate.
 MissinggenuineoriginalSincfolds stillblock returningvalidation. No optimizedcandidate qualification/promotion.
 
 **§317 private chain COMPLETE:** all30cells/control/zero/source/route/six-CP guards passed, scorer3117358passed19s.
@@ -242,8 +243,12 @@ Sourceheld selectedη.25NLL7.315 vs uniform1.099, severelymiscalibrated. Actualf
 residualclasscontrast.00769 vssemantic63.3895 underD−2scaling; g/πposteriorsnearlyuniform, translationactive.
 Mixture−translationprobmax1.02e−7: aggregatehypothesisactivity failed to establish eachlatentuseful.
 Negativefixedmodel, notgenerativefamilyclosure. [Complete evidence](generative334.md).
-§335source-held-only20-control residualscaling/temperaturestudy passedsmoke3117689(53s);
-seven6-personrefits3117719%4→completecollector3117726 queued. Measuredbudget<2CPUcoreh. NO P02/P03inference/scoring.
+§335source-held-only20-controlstudy3117719→3117726 COMPLETE: bestsemantictranslationη.01
+NLL.938013/Brier.559839/official56.468%, NLLbeatsuniformonall7people. Bestmixtureη.01ρ1NLL.938245
+isworsethansemanticcontrolonall7;ρ100.956346/ρ10000.964811. Largeρactivatesresidualevidence butP04audit
+findsg0nullgeometry/b0posterior1andπuniforminall3sessions. Actual652CPUcoreseconds=.1811CPUh,
+NOA100/P02/P03inference/scoring. Usefulcalibrationdoesnotestablishusefulgeometrymarginalization.
+Next§336strong-referencebridge/§337covariance-target×sourcecoverage preparematchedanchor/qualityguards.
 Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
 
 ## Coordination and cadence

@@ -42,9 +42,9 @@ Read STATE→LEDGER→OFFICIAL_CONTRACT, STATUS_17NOV.md andactualowningevidence
 - §334COMPLETE3117620(95s):static58.875%,translation/mixture49.891%,hard49.737%sourcewhole.
   SourceheldNLL7.315vsuniform1.099; geometry/permutationnearlysilencedbyDscaledresidual,translationdominates.
   Source-onlylatentaudit3117674PASS;all44239coordinates retained butnotmeaningfulclassmechanismproof.
-  No generativefamilyclosure. Ownernow§335SOURCEHELDONLY20fixedcontrols/scaling/temperature arms.
-  Smoke3117689PASS53s; sourcefoldarray3117719%4→collector3117726queued,≤2CPUcoreh.
-  NoP02/P03transform/inference/labels;compareuniform/NLL/actualgπbactivity;all20pathsretained.
+  §335sourceheld20controlsCOMPLETE3117719→3117726:semantictranslationNLL.938013beatsuniformall7;
+  bestmixture.938245worseall7. HighρP04auditcollapsesnullg0/b0,πuniform;noP02/P03inference.
+  Next336exactstrong-referencebridge/337covariance-target×coverage preparematchedquality/optimizationguards.
 - Shared334v4featuremanifestc8ebeac1…bf9e/source7abb931da…5eb09 immutable;333reused,noduplicatebuild.
 
 ## Candidate engineering and live ownership
@@ -58,7 +58,8 @@ Read STATE→LEDGER→OFFICIAL_CONTRACT, STATUS_17NOV.md andactualowningevidence
   39CP/710fusions. Descriptivereuse800134.875→137.939s doesnotqualifytiming.
 - WarmcounterbalancedAB/BA3117650RUNNINGafteractualuntimed800FT/CPthenreset. Coldcostseparate.
   Warm13117647missingrecord.pyfailurepreserved;owningdependency-onlySIFimportsmoke precedesretry.
-  CPU2153117573andstandardCPU3117585/7continue;TIMEOUT-onlycontrollers3117679/80 registered,no duplicates.
+  CPU2153117573continues;reuseCPU3117585TIMEOUT45m04preserved,FIRnearlimit;controllers3117679/80
+  mayreleaseexistingcomplete-functional180minprotocolONLYafteractualTIMEOUT,no duplicates/oldbarrescue.
   MissinggenuineoriginalSincfoldsblockreturningvalidation. No qualifiednewpackage.
 - external_supervisionowns321;fresh_solution_auditowns332/referencebridge;scheduled_research_0652owns335;
   rootcanonicaldocs/333. Usefollowup_task toreactivatecompletedworkers. Neveroverwriteothers'ledgerblocks.

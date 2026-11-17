@@ -83,8 +83,11 @@ Fixedridge/crossperson probe limits prevent an information-absence or classifier
 Complete§334coherentgenerative pilot: static58.875%, translation/mixture49.891%, hard49.737%.
 Source-held NLL7.315 versusuniform1.099 is poor; source-onlyaudit finds likelihoodscaling nearly silences
 geometry/permutation whiletranslation dominates. Allfullcoordinates retained does not prove usefulmechanism.
-§335source-only scale/temperature follow-up passedsmoke3117689; sevenparallelfolds3117719→collector3117726
-arequeued. NoP02/P03inference, exposedquery tuning orouterexpansion.
+§335source-only20-controlstudy3117719→3117726 is complete: semantictranslationη.01 NLL.938013
+beatsuniform1.099 onall7source-heldpeople; bestmixture.938245 isworseonall7. Highresidualprecision
+activatesprobabilitiesbutcollapses tonullgeometry/uniformpermutations onP04source-helddiagnostic.
+NoP02/P03inference orouterexpansion. §336exactstrong-referencebridge and§337matchedcovariance-target
+pretraining/sourcecoverage arebeingprepared with sharedanchor/qualityguards, not a releasedweakmatrix.
 §320 reliability's unchanged source
 control failed its registered quality premise; no outer expansion.
 
@@ -109,7 +112,8 @@ Bothoptimized standardA100first-stop probes pass known190/378/800 but fail unkno
 SeparatecompleteFUNCTIONAL-onlyA1003117601/3117602 now pass allknown/unknown190/378/800, including
 unknown80024FTrefits/480steps/noover,39CPrefits/710fusions. This is function coverage, not timing acceptance.
 Untimedactual800FT/CP activation thenreset plus counterbalancedAB/BA warmedtiming is running3117650;
-its firstdependency-importfailure is preserved. IndependentCPU215andlongCPUworkers continue.
+its firstdependency-importfailure is preserved. IndependentCPU215continues; CPUreuse3117585TIMEOUT45m04preserved, completefunctional180min
+continuationrequiresactualTIMEOUT-onlycontroller3117679. FIRCPUwasnearthe45minlimit;verifyliveoutcome.
 Returning heldfold
 validation remains blocked by missing/invalid genuine original Sinc checkpoints. No candidate is qualified.
 
