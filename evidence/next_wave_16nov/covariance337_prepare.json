@@ -1,0 +1,50 @@
+{
+  "source_sha256": "29d1c4b43fdcba0b409c240763d294e1b70d90d527ce5b6cc3257b0410282bb2",
+  "fit_people": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P10"
+  ],
+  "common_teacher_people": [
+    "P04",
+    "P05",
+    "P06"
+  ],
+  "held": "P09",
+  "common_rows_sha256": "8811d4ca197cd53a891a5677075aaea2c78010ec06da6e8fdcfb5f1f0658443e",
+  "reference_sha256": "b7d436d400ec13a8bb3cf98c6a4812878d03aa42bbc75581cba9431e2ea3e22d",
+  "scaler_mean_sha256": "fbc86c3294c2e51e02fea4a323b99110784d954e9f3a1b2e4353c57cf5c287bf",
+  "scaler_std_sha256": "94331f541897aafd70ad7acb95fa4d0f695ff5561b749e481f77fc4fe40902a7",
+  "fixture_sha256": "06644bae5a331022c755184ad71089b08c8e079271917e4a4223eafa8bd3d187",
+  "fixture_rows_sha256": "1a3a7aec7af639e8668c2c3422481b4edd3695f3f0f70cb4260a2ea2c566da1d",
+  "cache_hashes": {
+    "P04": "ffa8a3328f229c66953a7618bb97ca4d426346cdb96716d4b6ea279a63ae4d9a",
+    "P05": "c4c29902950f1d5ed57f8d3aefd32f4e9a2bc49fa58fa15ce7d259ff8ddca338",
+    "P06": "447f5d5ecc578a27a64960e131f1d7cb78c87371af38fa99e9adc70981e1f7f2",
+    "P07": "695ffede8496694925776c5f386824eadd8e18a5956569759503e6e102e42e26",
+    "P08": "d462a8d20633fd011e63314c22b449875c3ea3fce03db4c670c910447365d24f",
+    "P10": "d4195cfc92c0032ed6e023f170aad6bb459bb565cbba11f3484ffd106836014a"
+  },
+  "native_python_max_abs": 7.527312106958561e-14,
+  "group_sizes": [
+    2091,
+    41820,
+    328
+  ],
+  "teacher_seconds": 38.606478970032185,
+  "seconds": 50.85501766484231,
+  "full_teacher_source_rows": 943,
+  "fixture_rows": 256,
+  "equal_exposures": {
+    "coverage3": 1024,
+    "coverage6": 1024
+  },
+  "labels_opened": false,
+  "model_optimization": false,
+  "P02P03_inference": false,
+  "source_quality_score": false,
+  "passed": true
+}
