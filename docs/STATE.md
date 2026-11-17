@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 15:23 CET
+### Current campaign: 17 November 2026, about 16:40 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -90,7 +90,10 @@ CONDITIONALreturning primaryUNIFORM8orders: P04base89.6958→JS89.0308%(−.6650
 Returning.2/.8weighted−.2879pp,95%DESCRIPTIVEpeople/order[−.8766,−.1131];7/8weightedordersnegative.
 Bothdecline, but conditionaltwopersonresult isnotindependentgeneralization/sealedharm/rankproof. Keepnewperson
 selected+.2724separate. Equal-scheme1/3 supplement is read-only/separate; no primaryswap or promotion.
-Prospective§350posthocpre/post-recognitionattribution→singleJS-only-unrecognizedpolicy preparedbyowner; no newpolicyfit/scoreyet.
+§350 COMPLETE conditional returning policy: JS only while runtime-unrecognized reduces the JS-all regression,
+but remains below baseline: weighted −.11934pp[95%descriptive−.28038,−.00109], P04−.19741/P10−.09983.
+Versus JS-all +.16857pp; same retained-production exposure, not independent DEV/sealed/rank evidence.
+All16 whole cells, original guards and replay pass. No further policy variants or promotion.
 [Owner evidence](../evidence/next_wave_16nov/js321_returning.md) records these measured limits.
 
 **Custom stack and new readout exploration.** PairedCPUclassical-core63–64ms versus cachedPython113–117ms
@@ -154,17 +157,18 @@ neuralbank/Eye/Rest, fine-tuning, standaloneC L-BFGS-B and ownC++rawFBC source-t
 OnlyrequiredPythonentryisadapter. TorchScriptfiles are migrated C++-executed graphartifacts, notproofall
 architecture/training definitionswereported. Fullnative init/sampling/sourcepreparation/remainingfamilyrecipes
 andPCA/gallerytraining remainincomplete. Do not callfullstackready/nativeNNtrainingvalidated.
-Base/core/tails/routing/nativeoptimizer COMPILED; initialcompile/staging/dtype/linkfailures preserved.
-Fullbuild3120077 failed186s onneuralOpenSSLheader AFTERbase/routing/lineartestslinked, before anynumericaltest.
-Recovery3120247 compiledALLCPPtargets+SHAknown/FIRPASS; NNconstructorstoppedCPUCUDAquery, nowfixed6d73a1e.
-3120215standaloneNATIVElinearPASS82iterations/88evaluations/maxprob6.38e−9/zeroheldlabels; one4thread19.823s
-isnotpairedspeedproof. Core/tail/routing stoppedbeforecomparisononfloatwholeem_nmin; integerparserrepaired.
-Same-fixture3120312 parityretryqueued, no linearrepeat/sourceNNtrainingfit. Seecompacthandoffforlivepaths.
-NNownercorrectsdependency; actualsource C++parity/no completeworkerspeedclaim yet. OriginalfullNN215reference
-3119621 TIMEOUT20min/no completefixture. Bounded COMPONENTcapture3120062 PASS65s/actualCP10refits125fusions;
-NNcapture3120067 PASS56s/twoactualFT40steps. Thesearegoldenreferencecaptures, NOTC++parity.
-NativeC++trainingsteporacleprepared/releaseHELD untilNNparity; full40epochunrun.
-§350 guard3119571→wholecellpilot3119687→failclosedcontroller3119719 queued; noresults/promotionyet.
+All C++ targets build; native SHA/FIR guards pass. Earlier build/staging/dtype/CPU-CUDA-query failures remain recorded.
+Native linear optimizer3120215 passes82iterations/88evaluations, maxprob6.38e−9/zeroheldlabels. One4thread19.823s
+is not a paired whole-stack speed result. Routing/OwnStage/CF/CP component3120312 passes, including10CPrefits,
+125fusions and reset/deepcopy. CAR repair3120535 matches all96 NumPy source arrays exactly; unchanged downstream
+core/features/tail/reapply bounds pass, zero changed labels. This is host-source COMPONENT parity, not worker proof.
+Neural one-window3120517 passes all45 members at1e−6 (max6.07e−7); raw-input members and hostPython↔SIF are bitwise.
+Aligned-input differences remain; the original longer-known-prefix failure is unresolved. The earlier log did not
+identify the failed window, so the previous first-window failure description was unsupported. No tolerance changed.
+Owner346 now checks existing known8 source arithmetic without NN forward/training/gold. Shared353 budget audit:
+17allocations total7720coresec=2.14444CPUh of4; no full native source-training fit or whole-worker speedup established.
+Native initialization/source preparation/sampling/other training recipes and full worker qualification remain work.
+Training first-update oracle stays held until neural parity. See owning handoffs for exact next allocation IDs.
 
 **Ownership and cadence.** Root ownscanonicaldocs/nativeIO/math/cores/tails/masterruntime/build.
 external_supervision_17nov owns350+nativegates/routing/CF/CP; fresh_information_346 ownsnativeNN/FT/training;

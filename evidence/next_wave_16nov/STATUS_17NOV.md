@@ -1,4 +1,4 @@
-# Campaign status: 17 November 2026, 15:23 CET
+# Campaign status: 17 November 2026, 16:40 CET
 
 Reporting: FULL-SYSTEM DEV / SEALED LEADERBOARD / INDIVIDUAL-MODEL must be explicit, with comparator.
 Custom stack=C++/CUDA; original raw neural reference=stockPyTorch336/338.
@@ -359,23 +359,24 @@ User requests full own-C++ active training+inference. Newnative/ ports every act
 fine-tuning, plus native linearoptimizer and ownrawFBC/SessionBN/AdamW-OneCycle source-loop. Implementation
 is not qualification. Native initializer/sourceprep/sampler/remainingfamilytraining/PCA/gallerypipeline pending.
 TorchScript migration artifacts execute in C++; that does not claim their architecture definitions were rewritten.
-Base/core/tails/routing/optimizer compiled. Full3120077 failed186s/4CPU on missingOpenSSLheader BEFOREtests;
-NNowner removes hostOpenSSLdependency without dropping FIRidentityguard. Earlier failures preserved.
-Reference captures3120062(65s,known80/unknown215components,10CPrefits125fusions) and3120067(56s,known8/unknown31,
-2FTrefits40steps) PASS; no C++numericparity yet. Full215NNcapture3119621 TIMEOUT20min/nofixture, notextended.
-§353engineeringbudget4CPUh; allheavyworkGalvani. Source-training-steporacleprepared/releaseHELD untilNNparity.
-§350 single gatedpolicy sourceguard3119571→wholepilot3119687→failclosedcontroller3119719 active, conditionalonly.
+All C++ targets build and SHA/FIR guards pass; earlier failures stay recorded. Native linear3120215 passes
+82iterations/88evaluations/maxprob6.38e−9/zeroheldlabels; one4thread19.823s is not matched whole-stack speed evidence.
+Routing/OwnStage/CF/CP3120312 passes including10CPrefits125fusions/reset/deepcopy. CAR repair3120535 matches all96
+NumPy CAR arrays exactly and passes original core/features/tail/reapply bounds with zero label changes.
+[Core precision proof](native353_core_precision.md) is host-source component qualification only.
+Neural3120517 single-window all45members passes1e−6, max6.07e−7; raw-input members and hostPython↔SIF bitwise.
+The longer-known-prefix failure remains unresolved; its original log lacked a failing window/member. Aligned-input
+arithmetic is the next isolated check, not a justified tolerance change. No full native source fit has run.
+§35317-allocation audit:7720coresec=2.14444CPUh spent of4; new arithmetic check reserved≤180coresec.
+§350 COMPLETE all16cells/guards/replay: conditional policy−baseline −.11934pp[95%descriptive−.28038,−.00109],
+P04−.19741/P10−.09983; policy−JS-all +.16857pp. Both people remain below baseline; no promotion/rank claim.
+[Final policy evidence](policy350_results.md); actual6.2575CPUh, all jobs complete, no further variants queued.
 
 ## Coordination and cadence
 
 Root owns canonicaldocs/nativeintegration; external_supervision_17nov owns350/native-routing/output;
 fresh_information_346 owns nativeNN/FT/training; performance_solver343 owns optimizer/classicaltraining.
 External351/352 ownercompleted. Preserve allimmutable snapshots/failedbars and sharedledgerappenditions.
-Scheduledresearch10:49:35–11:04:39CET COMPLETE15m04; next15minblock due≈14:51CET.
 BothautomationsACTIVEthrough17Nov18:30UTC; Galvanionly≤32running/272submitted/28reserve.
 SSHworks; jobscontinueafterclientloss. Provisional18:00CETcandidatecheckpoint, userretainsuploadauthority.
-
-353update15:23CET: allCPPtargetscompiled3120247; SHA/FIRPASS. CPUcacheguardfailurefixed6d73a1e.
-3120215NATIVElinearPASS82/88/maxprob6.38e−9/zeroheldlabels; one4thread19.823sNOTmatchedspeedup.
-RootscalarparserfixacceptsactualNPZwholefloatingem_nmin; same-fixtureparity3120312queued, no sourcefit.
 Scheduledresearch14:58:15–15:15:16CET COMPLETE17m01, [report](research_4h_17nov_1458.md). Next≈18:58CET.
