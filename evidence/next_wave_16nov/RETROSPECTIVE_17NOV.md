@@ -77,7 +77,7 @@ These negative forms do not establish universal architecture ceilings or exhaust
 | Work | Actual status | Next decision/time |
 | --- | --- | --- |
 | §321 returning comparison | Pilot3119222_0 passed12m56;8CPU cells3119252 running,7pending; collector3119253 waiting | Finish BOTHpeople/all8orders before any metric; approximately13:20–13:30 if remaining cases resemble the pilot, later if recognition/FT is slower |
-| §347 late-crop source qualification | First preparation failed a source posterior guard; diagnostic3119299 isolated rounding-order difference and restored bitwise source-prefix outputs | Prepare a source-only retry, then qualify ALL source crops before any training; no accuracy ETA yet |
+| §347 late-crop source qualification | Diagnostic3119299 isolated the rounding-order failure; repaired qualification3119303 queued13:00CET | CPU2/20min allocation bound plus queue; qualify ALL source crops before any training, no accuracy ETA yet |
 | §347 possible training | Not queued | Only after qualification/cost proof: original raw reference, extra official repeats, and matched late-crop updates |
 | Primary-source research |10:49:35–11:04:39CET block complete15m04 | Next scheduled block about14:51CET; not replaced by intervening audits |
 | Submission decision | Provisional18:00CET | Assess full-system evidence, artifact fidelity and runtime; upload remains the user's decision |
