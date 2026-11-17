@@ -144,3 +144,7 @@ whole-package/study parity, returning folds and worker/timing gates remainunvali
 was queued; `all10.py` stillrefuses until explicitactivepathproof is present. Nextdecisive test is
 the source-only outeradapter/controlidentity plus real matching6seedheldfoldB2_pool mix proof;
 recover other required sourcecheckpoints before calling it whole-study/package parity.
+
+Read-only follow-up also verified original304source `ch_names` exactly equal the frozenbundle's
+41`CH_NAMES` positions. The source/P01 checkpoint guard is not using a different montage ordering.
+Owned continuation note: `owned321_320_317_handoff_17nov.md`.

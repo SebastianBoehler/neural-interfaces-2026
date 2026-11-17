@@ -1,0 +1,32 @@
+# Owned continuation:321,320,317 (17Nov)
+
+- §321audit/source/guard committed+pushed e085329; §320qualitystop dc2afe5.
+- No sourceZIP/frozen submission changed; no newcandidate/version/promotion/upload.
+- §321selectedJS=.2234officialpp,people/order+.184; selectedsmallreused-devresult,notconfirmation.
+- Correctmapping: originalinnerweights/nets/gates/r15labels/FTcomputations unchanged; OUTERonly FBk2net35–40 swap removesitswholeoldFTcontribution;FBk5stays.
+- DoublewholeadaptedFBLnet59–64; outerunits16→17,rest/core1RouteBshare1/17; innerRoute share1/15.
+- Actual318CCstreams selecteachbase'sseedsubset; all6deploymentcorrespondsB2_pool,notallsixbasedraws.
+- Returningwholeoutputidentityafterrecognition is NOT implied by preservedinnergateidentity; silentlyturningJSoff therechangespolicy.
+- Initial304producerdidnotsaveweights; now ONE recoveredP01seed0modelmatchesexactly.
+- §321A100guard3116954 COMPLETED0:0,03:47:13–03:48:06CET;fit33.007s/script48.24s.
+- ParameterSHAexact db62cedc6a66b52b3e583288cd71ca3c1a27bf9a2bf94166a6cb7a56eec8c1d9;8orderprobabilitydiff0,0changednontiedpredictions.
+- CPUexportmax6.97e−6,CUDA7.98e−6;zerosavedstate,prefix/reset/deepcopyinterleaving passed.
+- Workspace `/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_reference1`.
+- OwnsourceSHA676408c488d2bb150c4ae08463fd349f80a76cf971f04d37f2543a5ae7a7e747.
+- `result.json`,original `base_v66.zip`copy/hash,39file `draft_base`copy; noJSruntimeadapter yet.
+- Membercheckpoint andtracepersistthere; source/hardware/order/archive/assemblerhashes validated. NoP01groundtruthscore.
+- Nextdecisive321test: outeradapter JSoffidentity+originalinnergate/labels exact +matchingreal6seedheldfoldB2_poolmix; otherrequiredcheckpoints first.
+- `all10.py SEED`preparedbutREFUSESwithoutactiveouterpathproof; noall10wavequeued. Neverreuseall10weightsasheldfoldmodels.
+- FullreturningP04/P10blockedbyinvalid/missingoriginalSincfoldcheckpoints; no substitutes.
+- FullworkerCPU/A100B1and190/378/800timing/function/reset/sourceguardsgates remain; slack>=1.3 conditionalbasis,notsealedprojection.
+- §320singleCPUsourcepilot3116903 COMPLETED0:0,03:30:43–03:36:24CET;script337.32s.
+- SourceP02BA H60.115/U61.156/S61.669/R62.173%;R−U+1.017pp,butH<68.60qualitybar FIRED.
+- Rankeractive/BN/zero/mask/source/prefixguards pass;sourceweightSD.0975;loss.6872→.6220.
+- AllpostcalibrationsT4keepargmaxbutworsenP02NLL;no320outermatrix/consumerreleased.
+- PrototypeisNOTestablishedstrongwholedecoder:312wholeS54.694%;separate322protocoldiagnosisisrightnextcontrolwork,avoidduplicatewave.
+- §320workspace `ni26_reliability320_20261117_pilot1`;ownedfullreport `reliability320_source_result.json`.
+- §317productionremainsimmutable/unreadouteraccuracy; wave0array3116807 completed, wave1array3116927 thennextdispatcher3116928.
+- Rootproducer `/mnt/lustre/work/gehler/gfh527/ni26_aux317_20261117_matrix2`.
+- Check `wave2_jobs.json` afterwave1complete forlast12array/wholecollector/private315consumerIDs.
+- Exact60foldowningcollectorbeforeouterlabels,thenprivate315stage/replay/8controls/zero-one6CPguard→fullconsumer.
+- Detailedownerrecords:js321_readiness.md,reliability320.md,aux317_handoff_17nov.md;rootcanonicaldocsuntouched.
