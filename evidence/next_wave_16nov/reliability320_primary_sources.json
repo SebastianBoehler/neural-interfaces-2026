@@ -1,0 +1,47 @@
+{
+  "repository": "https://github.com/sylyoung/DeepTransferEEG",
+  "revision": "603e30dc4534144194fe88d4bec38fdd67f5d079",
+  "license": "MIT",
+  "source_files": [
+    {
+      "path": "tl/bft.py",
+      "blob_sha": "14b1e711494685e13c402955f39fb2c46864cebf",
+      "sha256": "13331e440d05f0dd02c484498aba64d21a5685bf3e5cb60e97f1c2e7e5252e33"
+    },
+    {
+      "path": "paper/BFT/code/BFT-classify/dropout.py",
+      "blob_sha": "f2cf5872b69fdf64c4c9d8111f2fd705044916a6",
+      "sha256": "83f1b0be0294987438f368356eebd44d32dfe21f6a4559bbd312f5fb760026f1"
+    },
+    {
+      "path": "paper/BFT/code/BFT-classify/train_loss_model.py",
+      "blob_sha": "de756b9913b704ddb4a78e89414b9487b2b8b2e2",
+      "sha256": "0a38f969703669ae0a7b50fd84d2975c5e072a09459d065c5df3b6189cd2b5f4"
+    },
+    {
+      "path": "paper/BFT/code/BFT-classify/models/losspredictor.py",
+      "blob_sha": "7bf2df1b4b7d15cb8a63be6b6c8f76be072ec303",
+      "sha256": "655ee4483c44d0bdd7d81f2a48203b3f4f90523b3d1ffe8e055ad5c322b3ce77"
+    },
+    {
+      "path": "paper/BFT/code/BFT-classify/test.py",
+      "blob_sha": "fe149250ec7cad80d0e6bbddd30c25257996f49d",
+      "sha256": "173e1f9230cfc5b5be69299e7bd77db8f19cb5f030766ef0d125873995822903"
+    },
+    {
+      "path": "paper/BFT/code/sodeep/sodeep.py",
+      "blob_sha": "51edeea08c9dff019c6db5aae2a913abf03e3e24",
+      "sha256": "71e17088686a99e0b9c465cce4632bcb5685bc573e11f8b1ff85c38b5cc7dd74"
+    },
+    {
+      "path": "LICENSE",
+      "blob_sha": "9b2e1a129fc4b6fdc8b586523414e6faf4fc9b48",
+      "sha256": "162caf61d1c06d398455fc7c8c29489f15fd5763ba75affc79dbc3aa8574e498"
+    },
+    {
+      "path": "paper/BFT/code/BFT-classify/train_pre_model.py",
+      "blob_sha": "f26f97dc1dda1252d58c5c7a06cca818ffb1b0db",
+      "sha256": "92dc26b791ad496839e3c172a58559b16c67cc1770b92e9543e0a6ba28ba67b1"
+    }
+  ]
+}
