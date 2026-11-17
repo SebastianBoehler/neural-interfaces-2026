@@ -1,0 +1,141 @@
+{
+  "status": "PCA_COMPLETE_READ_ONLY_PREFLIGHT_PASS",
+  "fixture_sha256": "9cceb941e72c14f5d2ec9652e983930f6c0ba352dd102c32fe86cac432e9b28b",
+  "reference_helper_sha256": "52ee28e5e5b314a204e13c7439a8f3ec891a3d21e9524bd3034b9e2a63c95104",
+  "preflight_sha256": "b7e01b987ec2be021cb2caf303c6716eca6784eae21b2e45c33ad9fecdd23ff1",
+  "source_rows_sha256": "ca4a869ff981142b692b2a4e2ecb44f075ea2494e398280f103c9a9a36bcea2b",
+  "source_feature_shape": [
+    2278,
+    44239
+  ],
+  "source_feature_dtype": "torch.float64",
+  "source_rows": 2278,
+  "width": 44239,
+  "reference_headers": {
+    "ts_mu": {
+      "shape": [
+        44239
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "ts_sd": {
+      "shape": [
+        44239
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "idx_tr": {
+      "shape": [
+        2278
+      ],
+      "dtype": "int64",
+      "fortran": false
+    },
+    "tsem_m": {
+      "shape": [
+        44239
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "tsem_V": {
+      "shape": [
+        44239,
+        128
+      ],
+      "dtype": "float32",
+      "fortran": true
+    },
+    "route_V_hi": {
+      "shape": [
+        44239,
+        128
+      ],
+      "dtype": "float32",
+      "fortran": true
+    },
+    "singular_values": {
+      "shape": [
+        2278
+      ],
+      "dtype": "float64",
+      "fortran": false
+    },
+    "pc_tr": {
+      "shape": [
+        2278,
+        256
+      ],
+      "dtype": "float32",
+      "fortran": false
+    }
+  },
+  "owner_sha256": "6b45b1de48df7733aa6edc20eb2957a33911f5a20b5324563943a744b21d181c",
+  "function_imports": {
+    "svd": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy/linalg/_decomp_svd.py",
+    "svd_flip": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/sklearn/utils/extmath.py"
+  },
+  "pinned_inputs": {
+    "/mnt/lustre/work/gehler/gfh527/ni26_core_training_source_v3_20261117/fixture/reference.pt": "aba119c2c6985bc3fef0477c44e2f03b91e8b71e48c90d863c2c3f364bbcff3c",
+    "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_returning_view_fit1/source_view_P04_s23.npz": "8f52ab55d4dea7eca9b43b610fad2c645c1f3029372570d05ab71b2187123675"
+  },
+  "provider_path": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+  "provider_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+  "executable_sha256": "305d39feb6b25d9c8be06a9e3ef77923514151fb08d8445d7bcecf1372abe082",
+  "base_sha256": "70d149780e714f2763beb631804a14b5b77ed7fa2c8d974393b9f36bffe41cb5",
+  "threadpools": [
+    {
+      "user_api": "openmp",
+      "internal_api": "openmp",
+      "num_threads": 6,
+      "prefix": "libgomp",
+      "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+      "version": null
+    },
+    {
+      "user_api": "openmp",
+      "internal_api": "openmp",
+      "num_threads": 6,
+      "prefix": "libgomp",
+      "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+      "version": null
+    },
+    {
+      "user_api": "blas",
+      "internal_api": "openblas",
+      "num_threads": 6,
+      "prefix": "libscipy_openblas",
+      "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+      "version": "0.3.31.dev",
+      "threading_layer": "pthreads",
+      "architecture": "SkylakeX"
+    },
+    {
+      "user_api": "blas",
+      "internal_api": "openblas",
+      "num_threads": 6,
+      "prefix": "libscipy_openblas",
+      "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+      "version": "0.3.34.106.0",
+      "threading_layer": "pthreads",
+      "architecture": "SkylakeX"
+    }
+  ],
+  "native_provider_threads": 6,
+  "imported_module_count": 2358,
+  "imported_modules_sha256": "d7b7feb4693f830e4f37597f086a49775fa87bbfdf5fbe55f85f09dea53f0bbe",
+  "python_executable": "/mnt/lustre/home/gehler/gfh527/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/bin/python3.12",
+  "python_executable_sha256": "eaaa308032c4aa063df5880c4c293cd458b4629d503fbc2c03ec163d71f7f790",
+  "setup_output": "common.pt",
+  "comparison_output": "comparison",
+  "outputs_absent": true,
+  "features_mapped_not_computed": true,
+  "standardization_run": false,
+  "SVD_run": false,
+  "head_fit": false,
+  "query_EEG_used": false,
+  "query_labels_opened": false,
+  "accuracy_computed": false
+}

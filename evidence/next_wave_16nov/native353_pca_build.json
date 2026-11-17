@@ -1,0 +1,78 @@
+{
+  "status": "PCA_BUILD_LINK_LDD_PASS_NO_NUMERICAL_EXECUTION",
+  "base_sha256": "70d149780e714f2763beb631804a14b5b77ed7fa2c8d974393b9f36bffe41cb5",
+  "sources": {
+    "native/src/pca.cpp": "1a21334c5bd472ed6d474d65ad6614f19c94252fe8546396fd4791301d626b58",
+    "native/tests/pca_source.cpp": "6b5d179a9b509aadfe1f1026942143157ab717959f9ad851263865d603b85cf5"
+  },
+  "compile_commands": [
+    [
+      "/mnt/lustre/work/gehler/gfh527/flightrl-puffer5.pmbvox/toolchain/bin/x86_64-conda-linux-gnu-g++",
+      "-D_GLIBCXX_USE_CXX11_ABI=1",
+      "-Dni26_base_EXPORTS",
+      "-I/mnt/lustre/work/gehler/gfh527/ni26_pca_source_v1_20261117/native/include",
+      "-I/mnt/lustre/work/gehler/gfh527/ni26_native353_parity_v3_20261117/include",
+      "-isystem",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/include",
+      "-isystem",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++20",
+      "-fPIC",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-o",
+      "/mnt/lustre/work/gehler/gfh527/ni26_pca_source_v1_20261117/build/pca.o",
+      "-c",
+      "/mnt/lustre/work/gehler/gfh527/ni26_pca_source_v1_20261117/native/src/pca.cpp"
+    ],
+    [
+      "/mnt/lustre/work/gehler/gfh527/flightrl-puffer5.pmbvox/toolchain/bin/x86_64-conda-linux-gnu-g++",
+      "-D_GLIBCXX_USE_CXX11_ABI=1",
+      "-Dni26_base_EXPORTS",
+      "-I/mnt/lustre/work/gehler/gfh527/ni26_pca_source_v1_20261117/native/include",
+      "-I/mnt/lustre/work/gehler/gfh527/ni26_native353_parity_v3_20261117/include",
+      "-isystem",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/include",
+      "-isystem",
+      "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++20",
+      "-fPIC",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-o",
+      "/mnt/lustre/work/gehler/gfh527/ni26_pca_source_v1_20261117/build/pca_source.o",
+      "-c",
+      "/mnt/lustre/work/gehler/gfh527/ni26_pca_source_v1_20261117/native/tests/pca_source.cpp"
+    ]
+  ],
+  "link_command": [
+    "/mnt/lustre/work/gehler/gfh527/flightrl-puffer5.pmbvox/toolchain/bin/x86_64-conda-linux-gnu-g++",
+    "-O3",
+    "-DNDEBUG",
+    "/mnt/lustre/work/gehler/gfh527/ni26_pca_source_v1_20261117/build/pca.o",
+    "/mnt/lustre/work/gehler/gfh527/ni26_pca_source_v1_20261117/build/pca_source.o",
+    "-o",
+    "ni26_pca_source",
+    "-L/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib",
+    "-Wl,-rpath,/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib:/mnt/lustre/work/gehler/gfh527/ni26_core_car_repair_v1_20261117/build:/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs",
+    "/mnt/lustre/work/gehler/gfh527/ni26_core_car_repair_v1_20261117/build/libni26_base.so",
+    "-ltorch",
+    "-ltorch_cpu",
+    "-lc10",
+    "-ltorch_cuda",
+    "-lc10_cuda",
+    "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so"
+  ],
+  "objects": {
+    "pca.o": "94e2078862d10cabac42db1731fc5deeca027ed2c5868f8e82ff96a0cda2baea",
+    "pca_source.o": "08dcc0a66efd6bb2b01522db4ed556eec77f5e9ca1e69a616662ac10038e064d"
+  },
+  "executable_sha256": "305d39feb6b25d9c8be06a9e3ef77923514151fb08d8445d7bcecf1372abe082",
+  "base_rebuilt": false
+}

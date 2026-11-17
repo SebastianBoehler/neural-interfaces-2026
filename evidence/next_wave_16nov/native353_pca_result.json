@@ -1,0 +1,125 @@
+{
+  "status": "COMMON_SOURCE_NATIVE_PCA_PARITY_PASS",
+  "job_id": 3121465,
+  "scope": "existing original standardized SOURCE matrix only; no raw-source/core/PCA composition or full-stack claim",
+  "sacct": "3121465|COMPLETED|157|6|0:0|\n3121465.batch|COMPLETED|157|6|0:0|6008988K\n3121465.extern|COMPLETED|157|6|0:0|\n",
+  "allocated_coresec": 942,
+  "allocated_CPUh": 0.26166666666666666,
+  "static_build_actual_CPUcoresec": 73.81,
+  "static_build_wall_seconds": 74,
+  "static_build_conservative_CPU2coresec": 148,
+  "artifact": "/mnt/lustre/work/gehler/gfh527/ni26_pca_source_v1_20261117",
+  "result": {
+    "status": "PCA_SOURCE_MATCHED_PASS",
+    "reference_seconds": [
+      22.429156351834536,
+      23.004609432071447
+    ],
+    "native_seconds": [
+      21.617565907,
+      22.21399831
+    ],
+    "reference_loaded_peak_KiB": 1394560,
+    "reference_loaded_rss_KiB": 1394560,
+    "reference_fit_peak_KiB": 4966204,
+    "native_loaded_rss_KiB": 1173384,
+    "native_loaded_peak_KiB": 4921724,
+    "native_fit_peak_KiB": 4921724,
+    "errors": {
+      "mean": 0.0,
+      "basis": 0.0,
+      "all_singular_relative": 0.0
+    },
+    "threads": 6,
+    "pools": [
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 6,
+        "prefix": "libgomp",
+        "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+        "version": null
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 6,
+        "prefix": "libscipy_openblas",
+        "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "version": "0.3.34.106.0",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 6,
+        "prefix": "libgomp",
+        "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+        "version": null
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 6,
+        "prefix": "libscipy_openblas",
+        "filepath": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+        "version": "0.3.31.dev",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      }
+    ],
+    "owner_sha256": "6b45b1de48df7733aa6edc20eb2957a33911f5a20b5324563943a744b21d181c",
+    "input_sha256": "a8e49bb65c0d33cb15f1bd13ad9b78a729098b11814c84fa0988e804f0acbc5e",
+    "exe_sha256": "305d39feb6b25d9c8be06a9e3ef77923514151fb08d8445d7bcecf1372abe082",
+    "affinity": [
+      13,
+      14,
+      15,
+      49,
+      50,
+      51
+    ],
+    "memory_scope": "current loaded RSS and whole-process high-water before/after fit; includes any earlier parser peak; not process-tree total",
+    "accuracy_computed": false,
+    "query_labels_opened": false,
+    "head_fit": false
+  },
+  "native_log": "pca_fit=0 seconds=21.6176 workspace_elements=20773082\npca_fit=1 seconds=22.214 workspace_elements=20773082\nPCA_SOURCE_PASS mean=0 basis=0 singular_relative=0 orthogonal=1.19557874712e-09 projection_max=0 projection_relative=0 full_energy_residual=1.47863537332e-16 captured_energy_residual=3.94142354822e-11 loaded_rss_KiB=1173384 loaded_peak_KiB=4921724 fit_peak_KiB=4921724\n{\"status\": \"PCA_SOURCE_MATCHED_PASS\", \"reference_seconds\": [22.429156351834536, 23.004609432071447], \"native_seconds\": [21.617565907, 22.21399831], \"reference_loaded_peak_KiB\": 1394560, \"reference_loaded_rss_KiB\": 1394560, \"reference_fit_peak_KiB\": 4966204, \"native_loaded_rss_KiB\": 1173384, \"native_loaded_peak_KiB\": 4921724, \"native_fit_peak_KiB\": 4921724, \"errors\": {\"mean\": 0.0, \"basis\": 0.0, \"all_singular_relative\": 0.0}, \"threads\": 6, \"pools\": [{\"user_api\": \"openmp\", \"internal_api\": \"openmp\", \"num_threads\": 6, \"prefix\": \"libgomp\", \"filepath\": \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0\", \"version\": null}, {\"user_api\": \"blas\", \"internal_api\": \"openblas\", \"num_threads\": 6, \"prefix\": \"libscipy_openblas\", \"filepath\": \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so\", \"version\": \"0.3.34.106.0\", \"threading_layer\": \"pthreads\", \"architecture\": \"SkylakeX\"}, {\"user_api\": \"openmp\", \"internal_api\": \"openmp\", \"num_threads\": 6, \"prefix\": \"libgomp\", \"filepath\": \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1\", \"version\": null}, {\"user_api\": \"blas\", \"internal_api\": \"openblas\", \"num_threads\": 6, \"prefix\": \"libscipy_openblas\", \"filepath\": \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so\", \"version\": \"0.3.31.dev\", \"threading_layer\": \"pthreads\", \"architecture\": \"SkylakeX\"}], \"owner_sha256\": \"6b45b1de48df7733aa6edc20eb2957a33911f5a20b5324563943a744b21d181c\", \"input_sha256\": \"a8e49bb65c0d33cb15f1bd13ad9b78a729098b11814c84fa0988e804f0acbc5e\", \"exe_sha256\": \"305d39feb6b25d9c8be06a9e3ef77923514151fb08d8445d7bcecf1372abe082\", \"affinity\": [13, 14, 15, 49, 50, 51], \"memory_scope\": \"current loaded RSS and whole-process high-water before/after fit; includes any earlier parser peak; not process-tree total\", \"accuracy_computed\": false, \"query_labels_opened\": false, \"head_fit\": false}\n",
+  "setup_time": "\tCommand being timed: \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B native/tests/pca_fixture.py common.pt\"\n\tUser time (seconds): 7.84\n\tSystem time (seconds): 2.63\n\tPercent of CPU this job got: 106%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:09.86\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 3016752\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 187587\n\tVoluntary context switches: 3987\n\tInvoluntary context switches: 26\n\tSwaps: 0\n\tFile system inputs: 0\n\tFile system outputs: 1668408\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+  "comparison_time": "\tCommand being timed: \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B native/tests/pca_reference.py common.pt build/ni26_pca_source comparison\"\n\tUser time (seconds): 500.17\n\tSystem time (seconds): 6.00\n\tPercent of CPU this job got: 494%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:42.42\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 4966204\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 19\n\tMinor (reclaiming a frame) page faults: 368203\n\tVoluntary context switches: 5333\n\tInvoluntary context switches: 480\n\tSwaps: 0\n\tFile system inputs: 40\n\tFile system outputs: 89240\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+  "build_time": "\tCommand being timed: \"/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python -B native/tests/pca_build.py\"\n\tUser time (seconds): 41.12\n\tSystem time (seconds): 32.69\n\tPercent of CPU this job got: 99%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:14.00\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 1449488\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 4613\n\tMinor (reclaiming a frame) page faults: 735217\n\tVoluntary context switches: 71355\n\tInvoluntary context switches: 1376\n\tSwaps: 0\n\tFile system inputs: 146456\n\tFile system outputs: 1216\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+  "final_exit": "FINAL_EXIT=0\n",
+  "source_manifest_sha256": "7a1e552ec30b303f36855711c44e92e547afba1349cc8e4407a4e4d18c3f208e",
+  "assets_manifest_sha256": "1f6de1dc5f87a93688f90fe65b34704077af17509886163eb44c4d51f7ee3e1d",
+  "preflight_proof_sha256": "eca062427b5e82b27ad960c850557ca37e3ce9a078526a66324d830960e5a1de",
+  "model_sha256": "9ae57abb513c4c00a09ca1634f6ecc7ce6b2f29871bd87784276bfaf0dbc2e98",
+  "common_input_sha256": "a8e49bb65c0d33cb15f1bd13ad9b78a729098b11814c84fa0988e804f0acbc5e",
+  "shapes": {
+    "mean": [
+      44239
+    ],
+    "basis": [
+      44239,
+      256
+    ],
+    "singular_values": [
+      2278
+    ]
+  },
+  "dtypes": {
+    "mean": "torch.float64",
+    "basis": "torch.float32",
+    "singular_values": "torch.float64"
+  },
+  "workspace_elements": 20773082,
+  "workspace_bytes": 166184656,
+  "cold_observed_native_reduction_pct": 3.618461756222735,
+  "warm_observed_native_reduction_pct": 3.4367509016224873,
+  "memory_comparison_conclusive": false,
+  "memory_limit": "native high-water was already reached before fitting; old parser or inherited process peak is not separable, no fit-only RSS advantage established",
+  "all_postrun_provenance_checks_pass": true,
+  "query_labels_opened": false,
+  "accuracy_computed": false,
+  "head_fit": false
+}
