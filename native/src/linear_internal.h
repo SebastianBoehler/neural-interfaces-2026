@@ -12,5 +12,7 @@ struct LbfgsbResult {
   double objective = 0;
 };
 using ValueGradient = std::function<double(const double*, double*)>;
-LbfgsbResult minimize_lbfgsb(int64_t variables, const ValueGradient& objective);
+enum class LinearReference { Qualified343, ActualCore };
+LbfgsbResult minimize_lbfgsb(int64_t variables, const ValueGradient& objective,
+                             LinearReference reference);
 }

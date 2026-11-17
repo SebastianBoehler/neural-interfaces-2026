@@ -12,6 +12,8 @@ struct LinearFit {
   double objective = 0, max_gradient = 0;
 };
 LinearFit fit_multinomial(const Tensor& x, const Tensor& y, double c);
+// Actual exported ts_core/ts_core2 heads use sklearn default gtol=1e-4.
+LinearFit fit_multinomial_core(const Tensor& x, const Tensor& y, double c);
 
 struct StandardScaler {
   Tensor mean, scale;

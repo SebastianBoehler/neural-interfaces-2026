@@ -67,7 +67,8 @@ class Objective {
   Tensor logits_,weights_,gradient_;
 };
 }
-LinearFit fit_multinomial(const Tensor& x, const Tensor& y, double c) {
+static LinearFit fit_reference(const Tensor& x, const Tensor& y, double c,
+                               detail::LinearReference reference) {
   torch::NoGradGuard guard;
   detail::linear_input(x,2);
   require(std::isfinite(c) && c>0,"linear C must be finite and positive");
@@ -82,7 +83,7 @@ LinearFit fit_multinomial(const Tensor& x, const Tensor& y, double c) {
   require(seen[0] && seen[1] && seen[2],"native linear training requires all three classes");
   Objective objective(x,y,c);
   auto fit=detail::minimize_lbfgsb(3*(x.size(1)+1),
-      [&](const double* theta,double* gradient) { return objective(theta,gradient); });
+      [&](const double* theta,double* gradient) { return objective(theta,gradient); }, reference);
   auto theta=torch::from_blob(fit.parameters.data(),{x.size(1)+1,3},x.options()).t().contiguous();
   LinearFit result;
   result.weights=theta.slice(1,0,x.size(1)).contiguous();
@@ -93,4 +94,11 @@ LinearFit fit_multinomial(const Tensor& x, const Tensor& y, double c) {
   for (auto value:fit.gradient) result.max_gradient=std::max(result.max_gradient,std::abs(value));
   return result;
 }
+LinearFit fit_multinomial(const Tensor& x, const Tensor& y, double c) {
+  return fit_reference(x,y,c,detail::LinearReference::Qualified343);
+}
+LinearFit fit_multinomial_core(const Tensor& x, const Tensor& y, double c) {
+  return fit_reference(x,y,c,detail::LinearReference::ActualCore);
+}
+
 }

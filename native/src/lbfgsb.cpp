@@ -8,7 +8,14 @@ extern "C" {
 }
 
 namespace ni26::detail {
-LbfgsbResult minimize_lbfgsb(int64_t variables, const ValueGradient& objective) {
+LbfgsbResult minimize_lbfgsb(int64_t variables, const ValueGradient& objective,
+                             LinearReference reference) {
+  double gradient_tolerance;
+  switch (reference) {
+    case LinearReference::Qualified343: gradient_tolerance=1e-5;break;
+    case LinearReference::ActualCore: gradient_tolerance=1e-4;break;
+    default: throw std::runtime_error("unsupported native linear reference preset");
+  }
   static_assert(sizeof(CBLAS_INT) == 4, "qualified L-BFGS-B uses LP64 BLAS integers");
   require(variables > 0 && variables <= INT_MAX, "invalid native L-BFGS-B dimension");
   constexpr int history = 10, max_iterations = 2000, max_evaluations = 15000;
@@ -24,7 +31,7 @@ LbfgsbResult minimize_lbfgsb(int64_t variables, const ValueGradient& objective) 
   std::array<double,29> double_save{};
   while (true) {
     setulb(n, history, result.parameters.data(), lower.data(), upper.data(), bounds.data(),
-           &result.objective, result.gradient.data(), 64., 1e-5, work.data(), integer_work.data(),
+           &result.objective, result.gradient.data(), 64., gradient_tolerance, work.data(), integer_work.data(),
            task.data(), logical_save.data(), integer_save.data(), double_save.data(),
            max_linesearch, line_task.data());
     if (task[0] == 3) {

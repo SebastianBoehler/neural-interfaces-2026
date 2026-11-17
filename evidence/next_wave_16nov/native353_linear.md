@@ -59,3 +59,11 @@ LP64 symbols. The linear test linked successfully because it already named the
 same library directly. The CMake fragment now propagates OpenBLAS PUBLIC to all
 base consumers. This changes dependency propagation only; no math, ABI or
 stopping tolerance changed. A fresh coordinator build must verify the fix.
+
+The later actual-core workflow audit found that ts_core/ts_core2 exporters use
+sklearn default gtol1e-4. An explicit fixed fit_multinomial_core entry now selects
+that actual-consumer preset; fit_multinomial retains the qualified343 gtol1e-5.
+There is no public generic tolerance override. Integrated3120077 confirmed the
+PUBLIC fix by linking base, linear-source and routing-source targets, but a
+separate neural OpenSSL header failure prevented numerical tests. No runtime
+parity is claimed from compile/link success.
