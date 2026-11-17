@@ -1,0 +1,61 @@
+{
+  "error": "actualA6 original raw-source prefix posterior failed",
+  "source_sha256": "e300e05488fc8bf32ed6ec1e5af0ca89cc2dadbbb9be790e31f3da12fd481894",
+  "completed_source_files": [],
+  "metadata_summary": {
+    "source_people": [
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P10"
+    ],
+    "original_rows": 1898,
+    "extra_rows": 1894,
+    "extra_rows_sha256": "5c884851ab9ed75b0d94d308b81c8b365e406eff93a369e6ac5526ea4729af0e",
+    "missing_extra": [
+      {
+        "path": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/data/neural_compet/Dreyer2026Proteus/download/nm000290/sub-P04/ses-2/eeg/sub-P04_ses-2_task-AcquisitionBH_run-1_events.tsv",
+        "row": 2121,
+        "cue": 372.756,
+        "reason": "no true800end before nextcue"
+      },
+      {
+        "path": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/data/neural_compet/Dreyer2026Proteus/download/nm000290/sub-P06/ses-1/eeg/sub-P06_ses-1_task-AcquisitionBH_run-1_events.tsv",
+        "row": 598,
+        "cue": 352.234,
+        "reason": "no true800end before nextcue"
+      },
+      {
+        "path": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/data/neural_compet/Dreyer2026Proteus/download/nm000290/sub-P07/ses-1/eeg/sub-P07_ses-1_task-AcquisitionBH_run-1_events.tsv",
+        "row": 787,
+        "cue": 376.772,
+        "reason": "no true800end before nextcue"
+      },
+      {
+        "path": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/data/neural_compet/Dreyer2026Proteus/download/nm000290/sub-P10/ses-3/eeg/sub-P10_ses-3_task-AcquisitionBH_run-2_events.tsv",
+        "row": 1388,
+        "cue": 350.374,
+        "reason": "no true800end before nextcue"
+      }
+    ],
+    "true_end_range": [
+      7.633999999999986,
+      8.080000000000013
+    ],
+    "feedback_range": [
+      2.6259999999999764,
+      3.1100000000000136
+    ],
+    "fixed_late_seconds": [
+      3.5,
+      7.5
+    ],
+    "official_overlap_seconds": 1.5,
+    "nominal_outside_seconds": 2.5,
+    "metadata_uses_query": false
+  },
+  "held_labels_opened": false,
+  "seconds": 6.427914446219802
+}

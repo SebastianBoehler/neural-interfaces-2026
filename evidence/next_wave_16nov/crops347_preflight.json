@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "source_sha256": "ead1aefb6e50b3f453dfaaa369ff071693b1449a9f44da376a00a43a072b8a76",
+  "actual_imports": [
+    "/mnt/lustre/work/gehler/gfh527/ni26_crops347_full_v1_20261117/produce347.py",
+    "/mnt/lustre/work/gehler/gfh527/ni26_crops347_full_v1_20261117/collect347.py"
+  ],
+  "source_rows_sha256": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+  "query_rows_sha256": "453efb426061533a2f2cfd11a8bb2df0376bbb7bcd0af968f79a2a16da3f6c99",
+  "query_counts": {
+    "P02": 189,
+    "P03": 189,
+    "P09": 189
+  },
+  "checkpoint_sha256": "eadd5c23c9f7cac239bf78a99993d8d3e47392d24d166e0ede6fce5b0e6ac9f8",
+  "late_sha256": "c1dcb7979a53525ac5edbff81dcdbe01c9fdc2d40ec166b182ed48da97cd6042",
+  "original_control_proofs": {
+    "/mnt/lustre/work/gehler/gfh527/ni26_direct346_v1_20261117": "703eb6afecfd8414ed10c6cd1dc93dc340ebe2b9c0dea7531d165ca2388d993f",
+    "/mnt/lustre/work/gehler/gfh527/ni26_direct346_extension_v1_20261117": "dee726155ba28ab63e71d90e10ae47797a9c3870fb56fd908674099461108a84"
+  },
+  "all8_original_banks_finite": true,
+  "held_labels_opened": false,
+  "new_fits": 0
+}

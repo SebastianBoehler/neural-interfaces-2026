@@ -1,0 +1,42 @@
+{
+  "jobs": {
+    "3119273": {
+      "state": "FAILED",
+      "allocated_seconds": 13,
+      "CPUs": 2,
+      "MaxRSS_KiB": 1371092
+    },
+    "3119299": {
+      "state": "COMPLETED",
+      "allocated_seconds": 14,
+      "CPUs": 2,
+      "MaxRSS_KiB": 1344464
+    },
+    "3119303": {
+      "state": "COMPLETED",
+      "allocated_seconds": 208,
+      "CPUs": 2,
+      "MaxRSS_KiB": 3188308
+    },
+    "3119319": {
+      "state": "COMPLETED",
+      "allocated_seconds": 59,
+      "CPUs": 6,
+      "MaxRSS_KiB": 3153648
+    },
+    "3119346": {
+      "state": "COMPLETED",
+      "allocated_seconds": 22,
+      "CPUs": 2,
+      "MaxRSS_KiB": 1814500
+    }
+  },
+  "completed_CPUcoreseconds": 868,
+  "completed_CPUcorehours": 0.2411111111111111,
+  "A100hours": 0,
+  "pending_or_running_jobs": [
+    "3119363_0",
+    "3119363_1",
+    "3119365"
+  ]
+}

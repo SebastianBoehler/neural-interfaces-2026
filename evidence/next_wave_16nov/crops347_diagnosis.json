@@ -1,0 +1,43 @@
+{
+  "source_sha256": "ae59b2e344ff49e3c184efda7cfb26277b5c54fdd3edada1ac058e8a20fc746d",
+  "source_file": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/data/neural_compet/Dreyer2026Proteus/download/nm000290/sub-P04/ses-1/eeg/sub-P04_ses-1_task-AcquisitionBH_run-1_eeg.edf",
+  "rows_sha256": "288daa8daf2460317e2d81269459a0388a021cd9c56d992580c61fb26d946e9d",
+  "diagnostics": {
+    "cached": {
+      "raw_maxabs": 0.0,
+      "aligned_maxabs": 0.0,
+      "raw_bitwise": true,
+      "input_sha256": "a6010be7c0ef193f7e42fd706b17517509a4e53f9546cab1c8e4595262322160",
+      "probability_maxabs": 0.0,
+      "changed_labels": 0
+    },
+    "old_doubleV_to_uV_then_float32": {
+      "raw_maxabs": 1.52587890625e-05,
+      "aligned_maxabs": 9.5367431640625e-07,
+      "raw_bitwise": false,
+      "input_sha256": "72e874e2126db1b564eb4ee29956689ebff56090243eae518ecc9e3b247e81e0",
+      "probability_maxabs": 1.635827052703931e-06,
+      "changed_labels": 0
+    },
+    "official_float32V_then_scale": {
+      "raw_maxabs": 3.725290298461914e-09,
+      "aligned_maxabs": 1.1641532182693481e-10,
+      "raw_bitwise": false,
+      "input_sha256": "ee9c57b60b96627b30d831aa9b106da32344b6c5b2742beac9ca7191e25b716f",
+      "probability_maxabs": 0.0,
+      "changed_labels": 0
+    }
+  },
+  "cached_repeat_error": 0.0,
+  "native_align": false,
+  "native_scale": 25.817935280729536,
+  "net_training": false,
+  "BN_k": [
+    20.0
+  ],
+  "state_unchanged": true,
+  "extractor_source_sha256": "2096711092d89a2b95835beaabf9d07d0e5369dfd363b85cd2035c0d442e71e7",
+  "held_transformed": false,
+  "held_labels_opened": false,
+  "seconds": 6.245441145263612
+}
