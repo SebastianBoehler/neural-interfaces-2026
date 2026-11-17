@@ -26,3 +26,25 @@ CPU reference fixture SHA `15f8080148292aa62c64f9cc21262ce6747ef81826fa061bbcb74
 Remote results and provenance are in `ni26_native353_worker_v2_20261117`.
 Job cost was 200 CPU core-seconds and 100 A100 seconds. The later shared
 Adam training repair used its own qualification artifact.
+
+## Stage profile
+
+Job 3122028 measured unmodified 12.01 s and clocked 11.89 s warm on a second
+A100-PCIE-40GB. All 31 labels matched. Local clocks covered 99.6% of the
+clocked run, with a clocked/unmodified ratio of 0.990.
+
+The neural bank took 8.68 s, including 6.65 s at window index 1. The main
+thread waited 1.40 s for the classical cores. The cores ran for 3.37 s
+inside their asynchronous task and overlapped the bank. The serial timeline
+uses the 1.40 s wait. Only 4.71 s of clocked step time
+remained after excluding the single slow window.
+
+Counterfactual 3122043 changes only the stateful neural bank's TorchScript
+copy operation. The frozen Python solver uses deepcopy. LibTorch clone also
+copies the class and methods. The one-TU A100 comparison reduced warm replay
+from **11.77 s to 5.09 s**, a 56.7% reduction relative to unmodified native on
+the same worker. Both arms matched the 31 frozen labels across both repeats.
+This establishes the cost of the copy choice in this fixture. Complete
+stream parity and timed comparisons with frozen remain open. Job 3122043
+used 264 CPU core-seconds and 132 A100 seconds.
+[LibTorch implementation](https://raw.githubusercontent.com/pytorch/pytorch/v2.9.0/torch/csrc/jit/api/module.cpp)

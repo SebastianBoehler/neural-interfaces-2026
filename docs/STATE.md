@@ -9,7 +9,7 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
-### Current campaign: 17 November 2026, about 19:46 CET
+### Current campaign: 17 November 2026, about 20:02 CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 The provisional decision checkpoint is17Nov18:00CET. Top five remains an objective, not a verified result.
@@ -178,7 +178,9 @@ All labels matched, final scores differed by at most 1.14e−8, recognition matc
 copies and reset replay were exact. This case recognized early, with no FT/CP refits. Lean package build 3122004
 separates offline training from the two deployed shared libraries. An install-only repair removed the host RPATH.
 Clean worker replica A100 adapter check 3122018 passed exact 31-window label parity on both repeats.
-Warm native inference took 11.65 s versus 4.50 s frozen in this pair. Native stage profile 3122028 is queued.
+Warm native inference took 11.65 s versus 4.50 s frozen in this pair. Profile 3122028 locates 6.65 s in
+the neural bank on one window. Worker counterfactual 3122043 changed only TorchScript clone to deepcopy
+in the stateful neural bank. Warm replay fell from 11.77 s to 5.09 s on the same A100, all 31 labels exact.
 Full shuffled/long-stream parity, all-family training, gallery fitting and full orchestration are open.
 Imported TorchScript is a runtime migration artifact. [Worker evidence](../evidence/next_wave_16nov/native353_worker_prefix.md)
 
@@ -198,6 +200,12 @@ unordered-prefix decoder, matched-cost control and lagged relations in a strong 
 §357 source-only readiness 3122027 passed exact prefix and reset guards plus all eight label-blind orders.
 It used one source person for the new readout. Held accuracy awaits a cross-fitted comparison.
 [§357 card](../evidence/next_wave_16nov/causal_prefix357.md)
+§358 repaired four-person label-free bank job 3122038 passed all 757 rows and 32 causal banks.
+All 24 archived comparisons retained identical labels. Four-person held readout comparison §359 completed
+as job 3122050. Untouched A6 scored 60.785%, current-only 59.187%, and prefix 59.676%. Prefix versus
+matched control +0.489 pp [80% −0.052, +1.037] and versus untouched A6 −1.109 pp [−2.296,+0.088].
+This exposed INDIVIDUAL-MODEL pilot gives no evidence of a full-system gain.
+[§358 evidence](../evidence/next_wave_16nov/causal_prefix357.md#358-four-person-input-qualification) · [§359 card](../evidence/next_wave_16nov/causal_prefix359.md)
 The user moved ownership to the active Codex chat and archived the previous chat's automation.
 
 ## 2. Hard bounds (from the official code and rules)
