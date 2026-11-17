@@ -33,7 +33,7 @@ ClassicalWindow ClassicalPreprocessor::operator()(const Tensor& raw) const {
   require(raw.device().is_cpu() && raw.scalar_type()==torch::kFloat32 &&
           raw.sizes()==torch::IntArrayRef({41,480}),"classical input must be CPU float32(41,480)");
   finite(raw,"classical source window");
-  auto x=raw-raw.mean(0,true);
+  auto x=common_average_reference_float32(raw);
   std::vector<Tensor> bands;
   for (const auto& filter:bank_) bands.push_back(filter(x).to(torch::kFloat32));
   auto b=torch::stack(bands);

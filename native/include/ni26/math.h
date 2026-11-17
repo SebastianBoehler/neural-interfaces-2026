@@ -10,6 +10,8 @@ Tensor lda_posterior(const Tensor& z, const Tensor& means, const Tensor& inverse
 Tensor covariance(const Tensor& x, bool unbiased = true);
 Tensor median(const Tensor& x, int64_t dim);
 Tensor upper_features(const Tensor& x);
+// Match NumPy float32 channel-axis reduction for the fixed 41x480 model input.
+Tensor common_average_reference_float32(const Tensor& raw);
 void require(bool condition, const std::string& message);
 void finite(const Tensor& x, const std::string& name);
 double ramp(double score, double threshold, double width);

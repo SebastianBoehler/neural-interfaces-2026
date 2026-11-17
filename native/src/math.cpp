@@ -19,6 +19,20 @@ Tensor spectral(const Tensor& x, SpectralFunction fn, double floor) {
   else e = e.clamp_min(floor).rsqrt();
   return torch::matmul(v * e.unsqueeze(-2), v.transpose(-2, -1).conj());
 }
+Tensor common_average_reference_float32(const Tensor& raw) {
+  require(raw.device().is_cpu() && raw.scalar_type()==torch::kFloat32 && raw.is_contiguous() &&
+          raw.sizes()==torch::IntArrayRef({41,480}), "CAR requires contiguous CPU float32(41,480)");
+  auto output=torch::empty_like(raw);
+  const auto* input=raw.data_ptr<float>();auto* values=output.data_ptr<float>();
+  for (int64_t time=0;time<480;++time) {
+    float sum=0;
+    for (int64_t channel=0;channel<41;++channel) sum+=input[channel*480+time];
+    const float mean=sum/41.0f;
+    for (int64_t channel=0;channel<41;++channel)
+      values[channel*480+time]=input[channel*480+time]-mean;
+  }
+  return output;
+}
 Tensor normalize(const Tensor& p) { return p / p.sum(-1, true); }
 Tensor posterior(const Tensor& z) { return torch::softmax(z, -1); }
 Tensor lda_posterior(const Tensor& z, const Tensor& means, const Tensor& inverse) {

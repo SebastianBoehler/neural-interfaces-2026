@@ -22,7 +22,7 @@ std::pair<Tensor,Tensor> TangentCore::step(const Tensor& raw) {
   require(raw.sizes()==torch::IntArrayRef({41,480}) && raw.scalar_type()==torch::kFloat32,
           "tangent input must be float32(41,480)");
   finite(raw,"tangent input");
-  auto x=raw-raw.mean(0,true);
+  auto x=common_average_reference_float32(raw);
   std::vector<Tensor> bands;
   for (const auto& filter : bank_) bands.push_back(filter(x).to(torch::kFloat32));
   auto b=torch::stack(bands);

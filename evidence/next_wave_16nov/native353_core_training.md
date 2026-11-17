@@ -39,7 +39,9 @@ Feature order is band-major full/two-half blocks, then328 slow entries:
 44,239 real /35,629 Hilbert. Native scaler and fixed actual-core L-BFGS-B follow.
 Covariance buffers are released before scaler/head allocation.
 `ClassicalPreprocessor` exposes covariance/log/slow for shared inference reuse;
-root's existing TangentCore has not been refactored by this worker.
+complete window-stage sharing with TangentCore remains pending. Both now use the
+qualified NumPy-order CAR helper (see native353_core_precision.md); no source fit
+was run by that component repair.
 
 ## Explicit remaining scope
 
