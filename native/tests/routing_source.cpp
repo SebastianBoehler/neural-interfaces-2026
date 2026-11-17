@@ -1,6 +1,7 @@
 #include "ni26/output.h"
 #include "ni26/routing.h"
 #include <algorithm>
+#include <iomanip>
 #include <iostream>
 #include <torch/torch.h>
 using namespace ni26;
@@ -10,6 +11,7 @@ int main(int argc, char **argv) {
     torch::set_num_threads(1);
     auto z = Params::load(argv[1]), f = Params::load(argv[2]);
     double maximum = 0;
+    std::map<std::string, double> errors;
     for (const std::string mode : {"known", "unknown"}) {
       Route route(z, z.get("member_weights")[0].item<double>() /
                          z.get("member_weights").sum().item<double>());
@@ -30,11 +32,25 @@ int main(int argc, char **argv) {
         auto count = cf.step(X[i], read("p"));
         auto personal = cp.step(X[i], read("p"), count,
                                 read("recognized").item<int64_t>() != 0);
+        int field = 0;
         for (auto pair : {std::pair<Tensor, Tensor>{routed, read("route")},
                           {count, read("count")},
                           {personal, read("cp")}}) {
           double error = (pair.first - pair.second).abs().max().item<double>();
           maximum = std::max(maximum, error);
+          std::string key =
+              mode + "/" +
+              std::vector<std::string>{"route", "count", "cp"}[field++];
+          errors[key] = std::max(errors[key], error);
+          if (error > 1e-8)
+            std::cerr << key << " window=" << i
+                      << " maxabs=" << std::setprecision(17) << error
+                      << std::endl;
+          auto sorted = std::get<0>(pair.second.sort());
+          if ((sorted[-1] - sorted[-2]).item<double>() > 2e-8)
+            require(pair.first.argmax().item<int64_t>() ==
+                        pair.second.argmax().item<int64_t>(),
+                    "non-tied source class changed");
           require(error <= 1e-8, "source stage mismatch at " + mode + "/" +
                                      std::to_string(i) +
                                      " maxabs=" + std::to_string(error));
@@ -121,6 +137,9 @@ int main(int argc, char **argv) {
 
       std::cout << mode << " SOURCE_PASS maxabs=" << maximum << std::endl;
     }
+    for (auto &item : errors)
+      std::cout << item.first << " maxabs=" << std::setprecision(17)
+                << item.second << std::endl;
     return 0;
   } catch (const std::exception &e) {
     std::cerr << e.what() << std::endl;
