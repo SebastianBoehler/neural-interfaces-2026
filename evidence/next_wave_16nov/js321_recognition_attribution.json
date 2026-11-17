@@ -1,0 +1,26 @@
+{
+  "status": "READONLY_POSTHOC_RECOGNITION_ERROR_ATTRIBUTION_COMPLETE",
+  "primary_sha256": "d0532701c0b88a4acd8fd8bd3d6b7b98469ef1d6bae0758b34ce690d50313f04",
+  "source_sha256": "e524d7c7aad6aee4cbf161977bb6ba785c3a2e970cfc48ac19d629599b9b5f81",
+  "primary_uniform8_weighted_pre_pp": -0.086581541218638,
+  "primary_uniform8_weighted_post_pp": -0.20133535605102257,
+  "primary_total_pp": -0.2879168972696606,
+  "person_uniform8_parts": {
+    "P04": {
+      "pre_pp": -0.03360215053763441,
+      "post_pp": -0.6313704077060932
+    },
+    "P10": {
+      "pre_pp": -0.09982638888888888,
+      "post_pp": -0.0938265931372549
+    }
+  },
+  "supplemental_equal_scheme_weighted_parts": {
+    "pre_pp": -0.07956242532855436,
+    "post_pp": -0.18194411501159605
+  },
+  "maximum_reconstruction_error_pp": 7.438494264988549e-15,
+  "all_cell_arm_union_classes_012": true,
+  "scope": "Actualruntimefirst-recognitionlatch/positions,NOTtrue-IDgating;officialcell/classweights;NOnewmodel/policy/evaluator;conditionalexposureunchanged",
+  "limitation": "Associationofrecordederrorwithpost-recognition;cannotseparateC30/FBLweight/denominator/historycausesorclaimnewpolicyperformance"
+}
