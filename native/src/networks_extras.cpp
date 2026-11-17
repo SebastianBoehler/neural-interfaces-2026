@@ -107,7 +107,7 @@ struct RestMember::Impl {
       : stream(z.subset("v6_rest_")), device(d), nets(modules(z, "v6_rest_files", d, r)) {}
   Impl(const Impl &x) : stream(x.stream), device(x.device) {
     for (const auto &m : x.nets)
-      nets.push_back(std::make_shared<torch::jit::Module>(m->clone()));
+      nets.push_back(std::make_shared<torch::jit::Module>(m->deepcopy()));
   }
 };
 RestMember::RestMember(const Params &z, torch::Device d, const std::filesystem::path &r)
