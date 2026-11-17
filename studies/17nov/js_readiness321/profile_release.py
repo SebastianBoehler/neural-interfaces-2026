@@ -11,7 +11,7 @@ WORKER=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_worker2')
 
 
 def main():
-    ws=Path.cwd();manifest(ws);path=WORKER/'output_cuda/cuda_failure.json'
+    ws=Path.cwd();manifest(ws);manifest(WORKER);path=WORKER/'output_cuda/cuda_failure.json'
     if not path.exists():
         (ws/'decision.json').write_text(json.dumps(dict(status='no_gpu_runtime_bar_failure_profile_not_released')));return
     report=json.loads(path.read_text())

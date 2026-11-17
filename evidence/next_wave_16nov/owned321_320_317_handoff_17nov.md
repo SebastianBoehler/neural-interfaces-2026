@@ -14,7 +14,7 @@ Source/evidence recovery pushed through1593def; complete-artifact/worker outcome
 - Worker image clean isolated import/compile preflight passed. CPUratio bar is engineering overhead only: CPUratio×historicalA10043.5min is NOT CPUsealedtime/A100timeout evidence. A100historical basis conditional, not wholeworker-limit proof.
 - CPUworker3117246 FAILED firstknown190bar:82.330→90.303s/ratio1.09684>1.061008; warmB1med433.27→474.39ms. Off17/resetrepeat/knownrec10/FT0/CPstop10/190CCcalls passed. STOP:378/800/unrecognized/lateCP UNTESTED. CPUbar≠CPUsealed/A100timeout.
 - A100worker3117247 independent/PENDING; pending-only25min/16GiB4CPU update grounded in v66A10040.58/78.15/155s190/378/800 andCPUimage3.12GiBpeak. Forecast06:32:30CET only, noGPUresult/readinessclaim.
-- Conditionalprofile controller3117339 afterany3117247 onlyreleasesone6minA100 ifactualGPUruntimebarfailure JSON; noimport/OOM/pass trigger. Profile1 source pins real17window6fullSJit vs fingerprintedSharedFIRhelper, input/basebank/tangent timings, ≤1e−8equivalence; nooptimizedartifact/newscore.
+- Conditionalprofile controller3117342 afterany3117247 onlyreleasesone6minA100 ifactualGPUruntimebarfailure JSON; noimport/OOM/pass trigger. Profile2 source pins real17window6fullSJit vs fingerprintedSharedFIRhelper, input/basebank/tangent timings, ≤1e−8equivalence; nooptimizedartifact/newscore.
 
 §321 proven mapping and remaining limits:
 - Explicit JS-all policy: continue outerJS after recognition, matching318; original innerweights/gates/r15labels/FTcomputations intact. Preserved innergate does NOT imply final recognizedoutput identity.

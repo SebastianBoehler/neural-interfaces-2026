@@ -11,6 +11,9 @@ cd "${SLURM_SUBMIT_DIR:?}"
 sha256sum -c source.sha256 >/dev/null
 sif=/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/cloud/ni26_worker.sif
 test -f "$sif"
+expected=$(cut -d' ' -f1 /mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_worker2/output_cuda/worker_image.sha256)
+actual=$(sha256sum "$sif" | cut -d' ' -f1)
+test "$actual" = "$expected"
 out="$PWD/output_profile"
 mkdir "$out"
 sha256sum "$sif" > "$out/worker_image.sha256"
