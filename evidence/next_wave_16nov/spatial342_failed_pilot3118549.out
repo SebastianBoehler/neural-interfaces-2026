@@ -1,0 +1,14 @@
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/mnt/lustre/work/gehler/gfh527/ni26_spatial342_pilot_v2_20261117/pilot.py", line 128, in <module>
+    main()
+  File "/mnt/lustre/work/gehler/gfh527/ni26_spatial342_pilot_v2_20261117/pilot.py", line 70, in main
+    raise ValueError('exact-row old feature parity failed')
+ValueError: exact-row old feature parity failed
+srun: error: galvani-cn219: task 0: Exited with exit code 1
+srun: Terminating StepId=3118549.0

@@ -1,0 +1,78 @@
+{
+  "scope": "source-only same-weight numerical diagnostic; no labels/fitting/taskmetrics",
+  "device": "NVIDIA A100-PCIE-40GB",
+  "state_sha256": "0ee83d9376f5ec8afd8a6f6a1b073491006e968e65b629075f9219e13cf4314d",
+  "source_rows": [
+    1900,
+    1901,
+    1902
+  ],
+  "batch_rows": [
+    1896,
+    1897,
+    1898,
+    1899,
+    1900,
+    1901,
+    1902,
+    1903
+  ],
+  "pooling_reduction": {
+    "B1": {
+      "pooled_max_abs": 3.814697265625e-06,
+      "temporal_max_abs": 7.62939453125e-06
+    },
+    "B3": {
+      "pooled_max_abs": 5.7220458984375e-06,
+      "temporal_max_abs": 7.62939453125e-06
+    },
+    "B8": {
+      "pooled_max_abs": 9.5367431640625e-06,
+      "temporal_max_abs": 5.7220458984375e-06
+    }
+  },
+  "comparisons": {
+    "sameweightCPU_B3_GPU_B3": {
+      "full_patch_max_abs": 0.0018277168273925781,
+      "original_CPU_GPU_bound_pass": true,
+      "layouts": {
+        "pooled400": 6.818771362304688e-05,
+        "temporal1600": 0.00016951560974121094,
+        "spatial16400": 0.0006327629089355469,
+        "full65600": 0.0018277168273925781
+      }
+    },
+    "GPU_B1_B3": {
+      "full_patch_max_abs": 0.0010509490966796875,
+      "original_CPU_GPU_bound_pass": true,
+      "layouts": {
+        "pooled400": 4.124641418457031e-05,
+        "temporal1600": 0.00012493133544921875,
+        "spatial16400": 0.0003437995910644531,
+        "full65600": 0.0010509490966796875
+      }
+    },
+    "GPU_B3_B8": {
+      "full_patch_max_abs": 0.004292488098144531,
+      "original_CPU_GPU_bound_pass": true,
+      "layouts": {
+        "pooled400": 0.0001690387725830078,
+        "temporal1600": 0.0004584789276123047,
+        "spatial16400": 0.0011844635009765625,
+        "full65600": 0.004292488098144531
+      }
+    },
+    "oldGPU_B3_newGPU_B3": {
+      "full_patch_max_abs": 0.0,
+      "original_CPU_GPU_bound_pass": true,
+      "layouts": {
+        "pooled400": 0.0,
+        "temporal1600": 0.0,
+        "spatial16400": 0.0,
+        "full65600": 0.0
+      }
+    }
+  },
+  "old_temporal_sameB8_max_abs": 5.7220458984375e-06,
+  "old_temporal_sameB8_registered_bound_pass": true
+}

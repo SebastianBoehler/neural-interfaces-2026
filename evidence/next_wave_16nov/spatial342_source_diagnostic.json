@@ -1,0 +1,250 @@
+{
+  "scope": "source-only diagnostic; no fitting/labels/metrics",
+  "node": "galvani-cn002",
+  "failed_manifest_sha256": "93d996cdd21b69ba81632e534bd2264a7d5286d106ae5c45dac3a59d2fd9df90",
+  "old_bank_sha256": "524610d6f21633a2e93cda04007dc82996215ef60a0f14a0bbd28edd9ca2541a",
+  "old_probe_sha256": "d6cc464bfeeb22f014d2e9382a456774cedc0159976d940319c4c165b0944712",
+  "pretrained_patch_sha256": "7919b2c54962aadafc2f394fb4d58f2ba834d4a3c1e384b1ea13b46961caa2d6",
+  "input_probe_max_abs": 0.0,
+  "current_source_rows_sha256": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+  "source_people": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P10"
+  ],
+  "comparisons": {
+    "pooled400": {
+      "max_abs": 1.33514404296875e-05,
+      "max_relative": 0.025292670354247093,
+      "max_abs_coordinate": [
+        127,
+        67
+      ],
+      "max_abs_official_row": 695,
+      "values_at_worst": [
+        29.678621292114258,
+        29.678607940673828
+      ],
+      "failed_coordinates": 0,
+      "failed_rows": [],
+      "error_quantiles": [
+        1.7881393432617188e-07,
+        8.344650268554688e-07,
+        1.9073486328125e-06,
+        1.33514404296875e-05
+      ]
+    },
+    "temporal1600": {
+      "max_abs": 1.1444091796875e-05,
+      "max_relative": 2.0625,
+      "max_abs_coordinate": [
+        418,
+        467
+      ],
+      "max_abs_official_row": 986,
+      "values_at_worst": [
+        33.01885986328125,
+        33.01884841918945
+      ],
+      "failed_coordinates": 0,
+      "failed_rows": [],
+      "error_quantiles": [
+        1.1920928955078125e-07,
+        4.76837158203125e-07,
+        1.9073486328125e-06,
+        1.1444091796875e-05
+      ]
+    },
+    "pooled400_oldCPU": {
+      "max_abs": 0.00024080276489257812,
+      "max_relative": 0.016514958813786507,
+      "max_abs_coordinate": [
+        2,
+        362
+      ],
+      "max_abs_official_row": 1902,
+      "values_at_worst": [
+        2.966254472732544,
+        2.9664952754974365
+      ],
+      "failed_coordinates": 0,
+      "failed_rows": [],
+      "error_quantiles": [
+        1.3887882232666016e-05,
+        5.0332397222518955e-05,
+        0.00010956406593322753,
+        0.00024080276489257812
+      ]
+    },
+    "pooled400_oldGPU": {
+      "max_abs": 0.0001690387725830078,
+      "max_relative": 0.013408767990767956,
+      "max_abs_coordinate": [
+        2,
+        362
+      ],
+      "max_abs_official_row": 1902,
+      "values_at_worst": [
+        2.966254472732544,
+        2.966423511505127
+      ],
+      "failed_coordinates": 0,
+      "failed_rows": [],
+      "error_quantiles": [
+        9.5367431640625e-06,
+        3.266334533691406e-05,
+        6.869316101074216e-05,
+        0.0001690387725830078
+      ]
+    },
+    "temporal1600_oldCPU": {
+      "max_abs": 0.0006962418556213379,
+      "max_relative": 0.10504084825515747,
+      "max_abs_coordinate": [
+        2,
+        762
+      ],
+      "max_abs_official_row": 1902,
+      "values_at_worst": [
+        -0.8202239274978638,
+        -0.8195276856422424
+      ],
+      "failed_coordinates": 16,
+      "failed_rows": [
+        1902
+      ],
+      "error_quantiles": [
+        2.193450927734375e-05,
+        8.821487426757812e-05,
+        0.00024986386299133303,
+        0.0006962418556213379
+      ]
+    },
+    "temporal1600_oldGPU": {
+      "max_abs": 0.0004584789276123047,
+      "max_relative": 0.2634865939617157,
+      "max_abs_coordinate": [
+        2,
+        491
+      ],
+      "max_abs_official_row": 1902,
+      "values_at_worst": [
+        3.836148262023926,
+        3.836606740951538
+      ],
+      "failed_coordinates": 4,
+      "failed_rows": [
+        1902
+      ],
+      "error_quantiles": [
+        1.7881393432617188e-05,
+        5.9604644775390625e-05,
+        0.00015784442424774195,
+        0.0004584789276123047
+      ]
+    },
+    "spatial16400_oldCPU": {
+      "max_abs": 0.0010919570922851562,
+      "max_relative": 1.14372718334198,
+      "max_abs_coordinate": [
+        2,
+        141
+      ],
+      "max_abs_official_row": 1902,
+      "values_at_worst": [
+        -4.418835163116455,
+        -4.41774320602417
+      ],
+      "failed_coordinates": 394,
+      "failed_rows": [
+        1900,
+        1901,
+        1902
+      ],
+      "error_quantiles": [
+        4.661083221435547e-05,
+        0.00015175938606262198,
+        0.0003333091735839844,
+        0.0010919570922851562
+      ]
+    },
+    "spatial16400_oldGPU": {
+      "max_abs": 0.0011844635009765625,
+      "max_relative": 1.5082926750183105,
+      "max_abs_coordinate": [
+        2,
+        3494
+      ],
+      "max_abs_official_row": 1902,
+      "values_at_worst": [
+        -13.94632339477539,
+        -13.945138931274414
+      ],
+      "failed_coordinates": 143,
+      "failed_rows": [
+        1900,
+        1901,
+        1902
+      ],
+      "error_quantiles": [
+        3.814697265625e-05,
+        0.00011849403381347656,
+        0.0002524852752685547,
+        0.0011844635009765625
+      ]
+    },
+    "full65600_oldCPU": {
+      "max_abs": 0.004100799560546875,
+      "max_relative": 5.643026828765869,
+      "max_abs_coordinate": [
+        2,
+        59691
+      ],
+      "max_abs_official_row": 1902,
+      "values_at_worst": [
+        18.850744247436523,
+        18.85484504699707
+      ],
+      "failed_coordinates": 7809,
+      "failed_rows": [
+        1900,
+        1901,
+        1902
+      ],
+      "error_quantiles": [
+        7.915496826171875e-05,
+        0.0002791881561279297,
+        0.000721395611763001,
+        0.004100799560546875
+      ]
+    },
+    "full65600_oldGPU": {
+      "max_abs": 0.004292488098144531,
+      "max_relative": 23.46763801574707,
+      "max_abs_coordinate": [
+        2,
+        13094
+      ],
+      "max_abs_official_row": 1902,
+      "values_at_worst": [
+        4.861251354217529,
+        4.865543842315674
+      ],
+      "failed_coordinates": 4292,
+      "failed_rows": [
+        1900,
+        1901,
+        1902
+      ],
+      "error_quantiles": [
+        6.67572021484375e-05,
+        0.00022077560424804688,
+        0.0005517005920410156,
+        0.004292488098144531
+      ]
+    }
+  }
+}

@@ -40,7 +40,7 @@ def main():
     reader=module('ni26_s342_source_metadata',LABEL)
     interface=reader.read_selected(DATA,'interface',source,len(people))
     streams=np.char.add(np.char.add(d['subject'][source],'|'),d['session'][source])
-    head=Head();quality={};params={};posteriors={};parity={};fit_count=0
+    head=Head();quality={};params={};posteriors={};parity={};anchors={};fit_count=0
     if sha(OLD/'source_banks.npz')!='524610d6f21633a2e93cda04007dc82996215ef60a0f14a0bbd28edd9ca2541a':
         raise ValueError('old feature bank identity differs')
     old=np.load(OLD/'source_banks.npz');oldrows=np.r_[old['source_rows'],old['query_rows']]
@@ -66,8 +66,14 @@ def main():
         banks=layouts(patch);cpu_banks=layouts(cpu[prior+'_cpu'])
         for layout,oldname in (('pooled400','pooled'),('temporal1600','retained')):
             expected=old[f'{prior}_{oldname}'][oldpositions]
-            if not np.allclose(banks[layout],expected,atol=2e-4,rtol=1e-4):
-                raise ValueError('exact-row old feature parity failed')
+            error=float(np.abs(banks[layout][:n]-expected[:n]).max())
+            source_pass=bool(np.allclose(banks[layout][:n],expected[:n],atol=2e-4,rtol=1e-4))
+            anchors[prior+'_'+layout]=dict(source_max_abs=error,source_registered_bound_pass=source_pass,
+                query_max_abs=float(np.abs(banks[layout][n:]-expected[n:]).max()),
+                historical_state_identity='exact pretrained weights' if prior=='pretrained' else 'NOT established; new pinned seed329 state')
+            (ROOT/'feature_anchors.json').write_text(json.dumps(anchors,indent=2))
+            if prior=='pretrained' and not source_pass:
+                raise ValueError('pretrained SOURCE6 old feature anchor failed: '+layout)
         for layout,bank in banks.items():
             name=f'{prior}_{layout}';factor=np.sqrt(bank.shape[1]/400)
             scaler=StandardScaler().fit(bank[:n][inner])
@@ -93,6 +99,18 @@ def main():
                 raise ValueError('fitted CPU/A100 readout guard failed')
             parity[name]=dict(max_probability_error=error,nontied_changes=changes)
             posteriors[name]=predict(np.ascontiguousarray(scaler.transform(bank[n:]).astype(np.float64)/factor),theta)
+            if prior=='pretrained' and layout in ('pooled400','temporal1600'):
+                oldkind='pooled' if layout=='pooled400' else 'retained'
+                oldquery=old[prior+'_'+oldkind][oldpositions[n:]]
+                pold=predict(np.ascontiguousarray(scaler.transform(oldquery).astype(np.float64)/factor),theta)
+                marginold=np.sort(pold,axis=1)[:,-1]-np.sort(pold,axis=1)[:,-2]
+                qerror=float(np.abs(pold-posteriors[name]).max())
+                qchanges=int(np.sum((pold.argmax(1)!=posteriors[name].argmax(1))&(marginold>1e-6)))
+                anchors[name]['fitted_cached_P09_max_probability_error']=qerror
+                anchors[name]['fitted_cached_P09_nontied_changes']=qchanges
+                (ROOT/'feature_anchors.json').write_text(json.dumps(anchors,indent=2))
+                if qerror>1e-3 or qchanges:
+                    raise ValueError('label-free old cached P09 fitted-probability guard failed: '+name)
             params[name+'_theta']=theta;params[name+'_mean']=scaler.mean_;params[name+'_scale']=scaler.scale_
             quality[name]=dict(tuning=tuning,selected_C=chosen,final_fit=info,source_accuracy=float(np.mean(psource.argmax(1)==y)),
                                source_NLL=float(-np.log(psource[np.arange(n),y]).mean()),encoder_state_sha256=before)
@@ -104,7 +122,7 @@ def main():
     premetric=dict(passed=True,node=platform.node(),torch_version=torch.__version__,numpy_version=np.__version__,
                    device=torch.cuda.get_device_name(0),cpu_affinity=sorted(os.sched_getaffinity(0)),
                    peak_gpu_bytes=torch.cuda.max_memory_allocated(),fit_count=fit_count,source_quality=quality,fitted_readout_parity=parity,
-                   all_fits_sha256=sha(ROOT/'all_fits.npz'),posterior_sha256=sha(ROOT/'query_posteriors.npz'),
+                   feature_anchors=anchors,all_fits_sha256=sha(ROOT/'all_fits.npz'),posterior_sha256=sha(ROOT/'query_posteriors.npz'),
                    source_sha256=sha(ROOT/'source.sha256'),guard_sha256=sha(GUARD/'gpu_guard.json'),
                    random_initial_sha256=sha(GUARD/'random_initial.pt'),probe_sha256=sha(GUARD/'same_weight_cpu_gpu_probe.npz'),P09_labels_opened=False,seconds=time.monotonic()-started)
     (ROOT/'complete_before_labels.json').write_text(json.dumps(premetric,indent=2))

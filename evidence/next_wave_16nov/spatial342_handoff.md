@@ -44,3 +44,18 @@ Oldpooled/temporal frozenbanks verified SHA524610…2541a/exactrows/oldfeaturebo
 No new raw reference fit; historical338A6 64.061 is contextual originalPyTorchrawreference, differentdevice/seed.
 Predictions spatial−pooled+3pp[−4,+10],full−spatial0[−3,+4],pre−random+1[−3,+5].
 No automatic winner expansion/outer/current-system/promotion/upload. Report all8arms and limits.
+
+## 17Nov10:15UTC engineering continuation (supersedes live DAG above)
+
+v2A1003118527PASS22s; controller3118541PASS3s releasedpilot3118549 FAILED25s beforeanyheads/metrics.
+Source-onlycacheddiag3118593PASS6s: allSOURCE6oldpretrainedpool/temporal PASSunchangedbound.
+CachedP09arrayaudit3118599PASS6s: temporal8coordinatesfailonlyP09lastrows2652/2654,maxabs.0004697.
+Same-weightsourceA100diag3118600PASS27s isolatesbatchgeometry: oldGPU_B3→newGPU_B3 BITWISE0;
+B3→B8 alone temporal.00045848/fullpatch.00429249, originalCPU/GPUcombinedboundPASS.
+SameB8oldtemporal max5.72e−6PASS. Oldsource7N2087 ends7rows; old329sourceendsharesB8withP02query,
+newSOURCE6+P09 endsB7. NoP02/P03inferencewasdone. CachedP09arrayauditreadnolabels/newinference.
+Prospectiverepair documentedLEDGER: oldfeatureboundenforcedSOURCE6pretrainedonly; preservefailedqueryfeatureclaim.
+ALL8currentCPU/batch fittedprobguards remain≤1e−3/zeronontiedchanges; ADDprepool/temporaloldcachedP09fittedprobguard.
+RandomhistoricalidentityNOTproved; new4randomlayouts useEXACTsamev2initialstate/currentpatches.
+Pilot3118608QUEUED in `ni26_spatial342_pilot_v3_20261117`, source2ace9a0075c34e8e50f26b04caae1cd4e36b75201d7c4c2c012f614ccd8c2628.
+Same20minA100/CPU2/16GiB; actualpriorA100106s, hardaggregate1306s=.363h, CPU<2h. No342performancecomputedyet.
