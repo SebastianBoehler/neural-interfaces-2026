@@ -1,0 +1,202 @@
+{
+  "source_exclusions": [
+    {
+      "person": "Dreyer2026Proteus/P01",
+      "training_people": [
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P09",
+        "Dreyer2026Proteus/P10"
+      ],
+      "train_rows_sha256": "927152adccc9d919666be700e4cf73b5f010f52c058bd849166a63d2a3841cb4",
+      "model_sha256": "999c9c18808f417ce807d4e46768211c4610a9cef4e3c8b49d836ca8851f5fe1"
+    },
+    {
+      "person": "Dreyer2026Proteus/P02",
+      "training_people": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P09",
+        "Dreyer2026Proteus/P10"
+      ],
+      "train_rows_sha256": "21235dfef0162a2ad2f0b07f899cfef95fa807ad7bada358f78d1380586a95a8",
+      "model_sha256": "7627bb79d2d55f8e030b335ca312e8a7abd71b9d764dce504ea6f127bf9ba62f"
+    },
+    {
+      "person": "Dreyer2026Proteus/P03",
+      "training_people": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P09",
+        "Dreyer2026Proteus/P10"
+      ],
+      "train_rows_sha256": "ffd992b757b746721dc8bb16814a67e8e1288cf0b5d8d6906fcc9ca44503c625",
+      "model_sha256": "7547438f3dab8439e55590fd8d60c5e6296ccbc066c73efc34270f3c53d38467"
+    },
+    {
+      "person": "Dreyer2026Proteus/P04",
+      "training_people": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P09",
+        "Dreyer2026Proteus/P10"
+      ],
+      "train_rows_sha256": "0127c742ec762e5a48884794b534b56217edc647b17a25c2ef517e68b8eb20ac",
+      "model_sha256": "207bd0cc3df270f4fce60625e12bab9ce2c02693d82752cc6881af33978ecda6"
+    },
+    {
+      "person": "Dreyer2026Proteus/P05",
+      "training_people": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P09",
+        "Dreyer2026Proteus/P10"
+      ],
+      "train_rows_sha256": "90785d6e7d3735d8d19182687bc36011616fb73d9253ca57682855d85adada23",
+      "model_sha256": "d3a9bd0fccd30b0e812069221947b341a0b4f2a1b7a56f714b905a50514ff6c8"
+    },
+    {
+      "person": "Dreyer2026Proteus/P06",
+      "training_people": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P09",
+        "Dreyer2026Proteus/P10"
+      ],
+      "train_rows_sha256": "282274213166874c5cf2f6edeb260ff4c001565496c46d36508c9cd33dfaafa6",
+      "model_sha256": "3988733eb272e6bc5819c45686159d6eabd8bb2efc089b449a5e2229676bd4db"
+    },
+    {
+      "person": "Dreyer2026Proteus/P07",
+      "training_people": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P09",
+        "Dreyer2026Proteus/P10"
+      ],
+      "train_rows_sha256": "ea5515ff7634a1d5351bd6b3777d35276d0a1caa762a9fb9363bec03201b35bd",
+      "model_sha256": "54b57cd0cfd109c6726e0bf197644de2e436eb8832e1714cc3e5eaf338a21c26"
+    },
+    {
+      "person": "Dreyer2026Proteus/P08",
+      "training_people": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P09",
+        "Dreyer2026Proteus/P10"
+      ],
+      "train_rows_sha256": "93cc38d0f2adf4daefcfbe7ad655840e186aaf6794befcfa2e96effe228ba6b3",
+      "model_sha256": "1ae1fa576958df8c59a1b403fccc8e8698a46ae5369f2a8401e7fb884cdb8062"
+    },
+    {
+      "person": "Dreyer2026Proteus/P09",
+      "training_people": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P10"
+      ],
+      "train_rows_sha256": "278a6dcd77eb45073b975f8aa792006b14217ec8ca2788b34e9131715021b2b2",
+      "model_sha256": "9b9f98aec40fdf19d6dd4947770af37b93f2bbee9656fb51ef9c86fc521f3e9d"
+    },
+    {
+      "person": "Dreyer2026Proteus/P10",
+      "training_people": [
+        "Dreyer2026Proteus/P01",
+        "Dreyer2026Proteus/P02",
+        "Dreyer2026Proteus/P03",
+        "Dreyer2026Proteus/P04",
+        "Dreyer2026Proteus/P05",
+        "Dreyer2026Proteus/P06",
+        "Dreyer2026Proteus/P07",
+        "Dreyer2026Proteus/P08",
+        "Dreyer2026Proteus/P09"
+      ],
+      "train_rows_sha256": "7f415bb83961bcb5f14d26e1f059ce76c64184955d0f5b8054d6622691d18473",
+      "model_sha256": "d3e55541630e35b51e3374902dae166bd49f3b6bb6c391f8e381d2ee6a03a7c7"
+    }
+  ],
+  "target_labels_opened": false,
+  "source_rows": 2655,
+  "target_rows_all_tasks": 2130,
+  "orders": [
+    "within0",
+    "within1",
+    "within2",
+    "within3",
+    "full0",
+    "full1",
+    "runs0",
+    "runs1"
+  ],
+  "source_model_sha256": "6798d11313c2805aa664dd1bf7cd37889092666dc2d676c2ebf0f2e0f485d128",
+  "prefix_reset_interleaving_and_immutable_guards": true,
+  "inputs": {
+    "data/proteus_windows.npz": "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327",
+    "data/scherer2015/windows.npz": "a6188799753276451235678d08e92fd79162a95ec8099dbbb85e2ed9e2701e91",
+    "runs/shuffle_perms.npz": "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f",
+    "runs/diag/external_semantics351/scherer_rows.tsv.gz": "8ea44213aa0add5058312777553f4fa527720381f473f6542cba42eee2dac10d"
+  },
+  "source_hashes": {
+    "collect.py": "49181be90c6b8e35514e3065f7447a3be5891a00cc4e2eab6bd318abdd23f73e",
+    "data.py": "10ab487a8c3bbf588a4ef10ced6834f28a58da8dddac355e83185b18214185b5",
+    "diagnose_prefix.py": "727c6d581c9771ac3c89ff024388fbb171a0579dc975ccd9abe7d15051999b0b",
+    "geometry.py": "dee66a828b8813080d6ebc4830c366b6555230a9d5962eeea37da2f20284ad15",
+    "producer.py": "4024dad6cfa9478fdbd8558a2c880978ddb40bd1385fa70c6d71ea5073614be2",
+    "smoke.py": "0c74d0fbdaa53c18622e2575749522390edda574e94e43f6c131f938a493bae6"
+  },
+  "outputs": {
+    "target_predictions.npz": "aa8602afaa1e3e526a68ab1a8944f249ad96e5696b86be045f43fbd849fa1e7d",
+    "source_predictions.npz": "729c33b8679e43ab2c96171b3c90c0fe13168de5a21c959b6c77b75e7b5164e3",
+    "frozen_source_models.pkl": "6798d11313c2805aa664dd1bf7cd37889092666dc2d676c2ebf0f2e0f485d128",
+    "target_orders.npz": "fd2f121c1f031e13407b3b5e7b54c61ea4c74f8ea02eb38635513f106cfb4da0"
+  },
+  "wall_s": 640.9799629682675,
+  "cpu_s": 638.48321337,
+  "maxrss_kib": 2710148
+}
