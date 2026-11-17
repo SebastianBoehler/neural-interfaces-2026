@@ -1,0 +1,51 @@
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:497: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = mne.channels.make_standard_montage("standard_1020")
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:1452: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = make_standard_montage("standard_1020")
+Traceback (most recent call last):
+  File "/mnt/lustre/work/gehler/gfh527/ni26_distill345_smoke_v2_20261117/smoke345.py", line 13, in <module>
+    p,teacher=fit_predict('P04',v,d,people,y,perms,smoke=False)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_distill345_smoke_v2_20261117/teacher345.py", line 60, in fit_predict
+    feat=causal(values[target],use,prior)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_distill345_smoke_v2_20261117/teacher345.py", line 39, in causal
+    result=lib.causal(np.ascontiguousarray(prior),np.ascontiguousarray(v['cov'][loc]),np.ascontiguousarray(v['slow'][loc]))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_s301_native_producer_v3_20261116/studies/16nov/followups/native_core/bridge.py", line 106, in causal
+    raise RuntimeError(self.core.nc_error().decode())
+RuntimeError: CUDA error: no CUDA-capable device is detected
+Search for `cudaErrorNoDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+Device-side assertions were explicitly omitted for this error check; the error probably arose while initializing the DSA handlers.
+Exception raised from dsa_get_device_count at /__w/pytorch/pytorch/c10/cuda/CUDADeviceAssertionHost.cpp:62 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7facfcd0460d in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0xc4e6 (0x7facfcdb24e6 in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #2: c10::cuda::CUDAKernelLaunchRegistry::CUDAKernelLaunchRegistry() + 0xaa (0x7facfcdf445a in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #3: c10::cuda::CUDAKernelLaunchRegistry::get_singleton_ref() + 0x4a (0x7facfcdf49ca in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #4: c10::cuda::c10_cuda_check_implementation(int, char const*, char const*, unsigned int, bool, c10::cuda::CUDAErrorLogCapture*) + 0x4a2 (0x7facfcdf56a2 in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #5: <unknown function> + 0x1f4e4 (0x7facfcdc54e4 in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #6: at::native::to(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, bool, std::optional<c10::MemoryFormat>) + 0x3e3 (0x7fad3bf04d43 in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: <unknown function> + 0x32079d2 (0x7fad3cf9e9d2 in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: at::_ops::to_dtype_layout::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, bool, std::optional<c10::MemoryFormat>) + 0x200 (0x7fad3c6c11e0 in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::Tensor::to(c10::TensorOptions, bool, bool, std::optional<c10::MemoryFormat>) const + 0xf9 (0x7facbfa818a9 in /mnt/lustre/work/gehler/gfh527/ni26_s301_native_full_v3_20261116/runs/s301_full_build/libnative_core.so)
+frame #10: Session::Session(double const*, int) + 0x121 (0x7facbfa82e91 in /mnt/lustre/work/gehler/gfh527/ni26_s301_native_full_v3_20261116/runs/s301_full_build/libnative_core.so)
+frame #11: nc_create + 0x35 (0x7facbfa80a55 in /mnt/lustre/work/gehler/gfh527/ni26_s301_native_full_v3_20261116/runs/s301_full_build/libnative_core.so)
+frame #12: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x919052]
+frame #13: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x917d5a]
+frame #14: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x917927]
+frame #15: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x7e65ad]
+frame #16: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x7e5075]
+frame #17: _PyEval_EvalFrameDefault + 0x2d9d (0x18197fb in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python)
+frame #18: PyEval_EvalCode + 0xde (0x187301e in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python)
+frame #19: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x18b0757]
+frame #20: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x1a34e85]
+frame #21: _PyRun_SimpleFileObject + 0x10e (0x1a346ce in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python)
+frame #22: _PyRun_AnyFileObject + 0x4a (0x1a344ca in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python)
+frame #23: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x1a34455]
+frame #24: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x1a3435d]
+frame #25: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x1adc275]
+frame #26: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x198848f]
+frame #27: /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python() [0x19882f6]
+frame #28: __libc_start_main + 0xe5 (0x7fae08b87865 in /lib64/libc.so.6)
+frame #29: _start + 0x29 (0x19bbfe9 in /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin/python)
+
