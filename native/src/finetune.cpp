@@ -11,10 +11,15 @@
 
 namespace ni26 {
 namespace {
-void release_cache() {
+void release_cache(torch::Device device) {
 #ifdef NI26_WITH_CUDA
+  // A CPU model must not initialize or query a CUDA driver during reset/refit.
+  if (!device.is_cuda())
+    return;
   if (c10::cuda::getDeviceIndexWithPrimaryContext())
     c10::cuda::CUDACachingAllocator::emptyCache();
+#else
+  (void)device;
 #endif
 }
 std::vector<int64_t> integers(const Tensor &value) {
@@ -84,7 +89,7 @@ struct FineTune::Impl {
     labels.clear();
     confidence.clear();
     stats = {};
-    release_cache();
+    release_cache(device);
   }
   void load() {
     if (!nets.empty())
@@ -167,10 +172,10 @@ struct FineTune::Impl {
       }
       ++stats.refits;
     } catch (...) {
-      release_cache();
+      release_cache(device);
       throw;
     }
-    release_cache();
+    release_cache(device);
   }
 };
 FineTune::FineTune(const Params &z, const Tensor &w, torch::Device d,

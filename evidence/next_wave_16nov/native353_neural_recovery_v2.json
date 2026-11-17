@@ -1,0 +1,18 @@
+{
+  "job": 3120247,
+  "state": "FAILED",
+  "exit_code": "1:0",
+  "elapsed_seconds": 265,
+  "allocated_cpus": 4,
+  "allocated_core_seconds": 1060,
+  "max_rss_kib": 6853580,
+  "complete_build": "PASS",
+  "linux_sha256_known_real_fir_tamper": "PASS",
+  "neural_comparison": "not_started",
+  "failure": "CPU FineTune reset queried CUDA driver through getDeviceIndexWithPrimaryContext",
+  "repair": "return before all CUDA calls when requested model device is CPU",
+  "source_manifest_sha256": "e4c6feae89397ef4a2eb0909b8f3fc9fb18153940937c01af4d682ba67269f59",
+  "assets_manifest_sha256": "2f60f8e33af4d89aaa615b6f0b29213c3e57ffe655160b57d48b942d5dfba663",
+  "source_training_fit": false,
+  "accuracy_computed": false
+}
