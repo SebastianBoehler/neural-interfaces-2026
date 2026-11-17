@@ -153,7 +153,7 @@ struct Jit final : Network {
   std::shared_ptr<Network> clone() const override {
     auto out = std::make_shared<Jit>(*this);
     if (stateful)
-      out->module = std::make_shared<torch::jit::Module>(module->clone());
+      out->module = std::make_shared<torch::jit::Module>(module->deepcopy());
     return out;
   }
 };
