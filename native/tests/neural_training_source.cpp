@@ -1,3 +1,4 @@
+#include "../src/adam.h"
 #include "../src/training_internal.h"
 #include "ni26/initialization.h"
 #include "ni26/math.h"
@@ -40,15 +41,13 @@ void compare_moment(const std::string &name, const Tensor &actual,
 }
 
 void compare_prefix_step(const Params &oracle, neural::RawFBC &net,
-                         torch::optim::AdamW &optimizer,
+                         const neural::Adam &optimizer,
                          const neural::SourceUpdate &update,
                          const std::vector<std::string> &names, int64_t step) {
   auto prefix = std::to_string(step) + "_";
   auto field = [&](const std::string &key) { return oracle.get(prefix + key); };
-  auto &options = static_cast<torch::optim::AdamWOptions &>(
-      optimizer.param_groups()[0].options());
   same(prefix + "schedule",
-       torch::tensor({options.lr(), std::get<0>(options.betas())}, torch::kFloat64),
+       torch::tensor({update.learning_rate, update.beta1}, torch::kFloat64),
        field("schedule"), 1e-15);
   same(prefix + "logits", update.logits, field("logits"), 1e-5);
   same(prefix + "posterior", update.logits.to(torch::kFloat64).softmax(1),
@@ -57,19 +56,17 @@ void compare_prefix_step(const Params &oracle, neural::RawFBC &net,
   for (const auto &[name, value] : net.state().tensors)
     same(prefix + "state/" + name, value, field("state_" + name), 1e-6);
   auto parameters = net.parameters();
-  require(optimizer.state().size() == names.size(), "AdamW state count differs");
+  require(parameters.size() == names.size(), "AdamW parameter count differs");
   for (size_t i = 0; i < names.size(); ++i) {
     const auto &name = names[i];
-    auto &state = optimizer.state().at(parameters[i].unsafeGetTensorImpl());
-    auto *adam = dynamic_cast<torch::optim::AdamWParamState *>(state.get());
-    require(adam && adam->step() == step &&
-                adam->step() == field("step_" + name).item<int64_t>(),
+    require(optimizer.steps(i) == step &&
+                optimizer.steps(i) == field("step_" + name).item<int64_t>(),
             "AdamW state step differs: " + name);
     same(prefix + "gradient/" + name, parameters[i].grad(),
          field("gradient_" + name), 1e-5);
-    compare_moment(prefix + "exp_avg/" + name, adam->exp_avg(),
+    compare_moment(prefix + "exp_avg/" + name, optimizer.first(i),
                    field("exp_avg_" + name));
-    compare_moment(prefix + "exp_avg_sq/" + name, adam->exp_avg_sq(),
+    compare_moment(prefix + "exp_avg_sq/" + name, optimizer.second(i),
                    field("exp_avg_sq_" + name));
   }
 }
@@ -142,8 +139,7 @@ int main(int argc, char **argv) {
     auto parameters = net.parameters();
     auto body_before = parameters[0].detach().clone(),
          head_before = parameters[4].detach().clone();
-    torch::optim::AdamW opt(
-        parameters, torch::optim::AdamWOptions(.001).weight_decay(.001));
+    neural::Adam opt(parameters, .001, .001);
     auto schedule = fixture.get("expected_schedule");
     require(schedule.sizes() == torch::IntArrayRef({1240, 2}),
             "full scheduler fixture required");

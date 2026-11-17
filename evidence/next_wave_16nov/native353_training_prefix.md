@@ -1,4 +1,6 @@
-# Six-update CPU training parity failed
+# Six-update CPU training parity
+
+## Initial failure
 
 Galvani job `3122002` ended at 19:29:43 CET on 17 November 2026 after 139 seconds and 278 CPU core-seconds. Both paths completed six source updates on `galvani-cn001`. The original `SessionNet._train` reproduced all first-update oracle fields exactly. The native path reproduced the 1,898 prepared windows, 26 initialization fields, 1,240-batch plan, and OneCycle schedule. Both paths used Torch 2.14.1 and trained on the same source-only batches. The job did not run a full fit or score held data.
 
@@ -19,6 +21,16 @@ The earliest compared mismatch is the first AdamW moment at update 2. The instal
 
 The arithmetic replay passed on one CPU thread in 6.62 seconds of measured process work. It used the saved update-1 parameters and moments, exact update-2 gradients, learning rate `4.001720919567721e-5` and beta `0.9499982073754503`. Multiply-add reproduced all six measured native first-moment max and relative errors and all six parameter max errors exactly. Changing only the first-moment formula to `lerp_` reproduced all six Python first-moment tensors and updated parameters exactly. The second moment matches exactly in both arms. The comparison uses native numeric summaries because the native update-2 arrays were never saved. The replay used only the 855,797-byte original trace and native log, with zero new Slurm allocations, forward/backward passes, or production edits.
 
-This establishes the source of the observed update-2 error. Later gradients and the step-6 failure still require a rerun. Share the existing native Adam update arithmetic with explicit decoupled decay and the scheduled beta, then repeat the same six-update comparison before extending the trajectory.
+This establishes the source of the observed update-2 error. A six-step production rerun is needed to check later gradients.
 
 Snapshot `ni26_native353_source_prefix_v1_20261117`. Source manifest `22e2bad25195c38a44ebff8031e1d2b8fc14fb799de991bee3f07f0710870214`. Original trace `bf26fe55773afde012afb8f5e63c1e2b4aad8e6d517b34f1a2fd82573e868c36`. Native log `d7b32d92a690354b0584af797f5d6302f485a1885d6dba359a3de402063140b1`. Build proof `1750ee75a46466322ae3619ee743ca099b48e38129d9e4f1839913bd23d3500e`.
+
+## Shared Adam repair passed
+
+The native trainer and online fine-tuning now share one Adam implementation. Offline training passes the OneCycle learning rate and first-moment beta, and applies decoupled weight decay at `.001` before the moment update. The online call keeps its original learning rate, `.9` and `.999` betas, and zero weight decay.
+
+Galvani job `3122019` completed at 19:39:48 CET on 17 November 2026. It took 171 seconds and 342 CPU core-seconds. The original reference trace matches the initial run byte-for-byte. At updates 1, 2 and 6, native logits, posteriors, loss, all six gradients, both moments, all 17 compared state tensors, and schedule fields matched exactly. Counters match, all source and initialization checks passed, and the source covariance-prior difference remains `2.956e-12`. The update-6 spatial-convolution bias error fell from `1.4289e-4` to zero. Each manifest and loaded library checksum passed before and after execution.
+
+This qualifies the six-update CPU prefix on the existing source fixture. The full 1,240-update training trajectory, held predictions, CUDA training, and whole-pipeline speed still need their own evidence. The separate worker pilot uses its earlier pinned inference binary.
+
+Snapshot `ni26_native353_source_prefix_v2_20261117`. Source manifest `b4f0e0c5d6fd7f0a6dd2b6a26423f37c8964515162f51d604829ebaf5be89903`. Native log `45e8483bd5d1c78d2fbe97dcb7921f08091767ffb4cdb89f4c4cd7b73283cad3`. Build proof `bc0c1a382570aa1f8ebc4a5b6ebf7bc3146b3107e89c8ab7e5a7cdda89ebe7e4`.

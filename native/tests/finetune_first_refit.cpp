@@ -1,4 +1,4 @@
-#include "../src/finetune_adam.h"
+#include "../src/adam.h"
 #include "../src/networks_internal.h"
 #include <iostream>
 #include <torch/csrc/jit/runtime/graph_executor.h>
@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
     {
       torch::AutoGradMode enable(true);
       torch::jit::GraphOptimizerEnabledGuard optimizer_guard(false);
-      neural::FineTuneAdam optimizer(parameters, z.number("v6_ft_lr"));
+      neural::Adam optimizer(parameters, z.number("v6_ft_lr"));
       for (int step = 0; step < 5; ++step) {
         auto prefix = "step" + std::to_string(step) + "_";
         optimizer.zero_grad();

@@ -1,3 +1,4 @@
+#include "adam.h"
 #include "ni26/hash.h"
 #include "ni26/initialization.h"
 #include "ni26/math.h"
@@ -65,14 +66,10 @@ RawTrainingSource prepare_raw_training_source(const Params &input) {
     epochs.push_back(session_batches(rows, sessions, 32, 64, rng));
   return {std::move(source), labels, std::move(initial), std::move(epochs)};
 }
-SourceUpdate raw_source_update(RawFBC &net, torch::optim::AdamW &optimizer,
+SourceUpdate raw_source_update(RawFBC &net, Adam &optimizer,
                                const Tensor &x, const Tensor &y, int64_t step) {
   torch::AutoGradMode enable_grad(true);
   auto [lr, beta] = one_cycle(step, 1240);
-  auto &options = static_cast<torch::optim::AdamWOptions &>(
-      optimizer.param_groups()[0].options());
-  options.lr(lr);
-  options.betas(std::make_tuple(beta, .999));
   optimizer.zero_grad();
   auto begun = std::chrono::steady_clock::now();
   auto logits = net.forward(x, true);
@@ -91,10 +88,10 @@ SourceUpdate raw_source_update(RawFBC &net, torch::optim::AdamW &optimizer,
       std::chrono::duration<double>(std::chrono::steady_clock::now() - begun)
           .count();
   begun = std::chrono::steady_clock::now();
-  optimizer.step();
+  optimizer.step(lr, beta);
   double update =
       std::chrono::duration<double>(std::chrono::steady_clock::now() - begun)
           .count();
-  return {logits.detach(), loss.detach(), forward, backward, update};
+  return {logits.detach(), loss.detach(), forward, backward, update, lr, beta};
 }
 } // namespace ni26::neural

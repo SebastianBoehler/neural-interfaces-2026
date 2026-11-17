@@ -1,3 +1,4 @@
+#include "adam.h"
 #include "ni26/math.h"
 #include "training_internal.h"
 #include <cmath>
@@ -33,8 +34,7 @@ Params train_raw_fbc(const Params &input, torch::Device device) {
   auto source = neural::prepare_raw_training_source(input);
   neural::RawFBC net(source.initial, device);
   auto parameters = net.parameters();
-  torch::optim::AdamW optimizer(
-      parameters, torch::optim::AdamWOptions(.001).weight_decay(.001));
+  neural::Adam optimizer(parameters, .001, .001);
   std::vector<Tensor> losses;
   double gradient_max = 0;
   auto body_initial = parameters.front().detach().clone();

@@ -1,5 +1,5 @@
 #include "networks_internal.h"
-#include "finetune_adam.h"
+#include "adam.h"
 #include <chrono>
 #include <fstream>
 #include <sstream>
@@ -135,7 +135,7 @@ struct FineTune::Impl {
         auto parameters = neural::trainable(m);
         for (auto &p : parameters)
           p.requires_grad_(true);
-        neural::FineTuneAdam optimizer(parameters, lr);
+        neural::Adam optimizer(parameters, lr);
         for (int64_t step = 0; step < steps; ++step) {
           optimizer.zero_grad();
           neural::zero_stream(m);

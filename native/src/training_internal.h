@@ -2,10 +2,10 @@
 #include "ni26/preparation.h"
 #include "ni26/sampling.h"
 #include "ni26/training.h"
-#include <torch/optim/adamw.h>
 #include <vector>
 
 namespace ni26::neural {
+class Adam;
 // Exact SessionNet group32, non-causal training; k20 causal evaluation.
 class SessionBN {
 public:
@@ -36,7 +36,8 @@ RawTrainingSource prepare_raw_training_source(const Params &input);
 struct SourceUpdate {
   Tensor logits, loss;
   double forward_seconds, backward_seconds, optimizer_seconds;
+  double learning_rate, beta1;
 };
-SourceUpdate raw_source_update(RawFBC &net, torch::optim::AdamW &optimizer,
+SourceUpdate raw_source_update(RawFBC &net, Adam &optimizer,
                                const Tensor &x, const Tensor &y, int64_t step);
 } // namespace ni26::neural
