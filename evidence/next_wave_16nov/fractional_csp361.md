@@ -53,3 +53,28 @@ covariances changed 21 decisions before scoring. The prefix, session-reset
 and recognition-at-63 guard passed. Peak process RSS was 1,577,844 KiB and the
 conservative full replay projection was 1,491 seconds. Full run 3122094 uses
 the same pinned source manifest `9e889431…9ccd`.
+
+## Complete full-system result
+
+Job 3122094 completed in 17m17s on two CPUs. The original scores matched all
+48 archived controls bitwise. The fractional estimator ran 6,048 refits and
+changed 934 predictions across the dependent six-base, eight-order comparisons.
+The project replay and all guards passed before scoring with the unchanged
+official metric.
+
+| New-person full-system dev | Frozen control | Fractional | Change and 80% official interval |
+| --- | ---: | ---: | ---: |
+| Six-base mean | 76.217673% | 76.216162% | −0.0015 pp [−0.0469, +0.0490] |
+| B2_pool | 76.279335% | 76.222243% | −0.0571 pp [−0.1761, +0.0747] |
+
+The six-base people/order change was +0.0059 pp [−0.0382, +0.0534], with four of
+ten held people improving. The fixed effect is inconclusive and gives no
+improvement over the frozen system. P04 and P10 are new-person folds in this
+comparison. In the separate conditional returning proxy, all 32 audited sessions
+stop CP before any fusion, so this change cannot affect their predictions.
+Later recognition can still allow CP influence. Returning accuracy was not rerun.
+
+The two allocations used 2,292 CPU core-seconds and zero GPU. Full compute took
+958.81 script seconds and peak process RSS was 1,608,700 KiB. Caching was used for
+research replay only. No worker latency or sealed score follows.
+[Proof summary](fractional_csp361_proof_summary.json) · [Full results](fractional_csp361_result.json)

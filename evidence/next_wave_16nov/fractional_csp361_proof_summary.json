@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "source_sha256": "9e889431c92f4759c79e0724446d19fc9503ac5b726464f73f9ed22b548f9ccd",
+  "elapsed_s": 958.8067066017538,
+  "production_projection_s": null,
+  "maxrss_kib": 1608700,
+  "scoring_labels_opened": false,
+  "archived_control_cells": 48,
+  "returning_conditional": {
+    "method": "all 32 natural sessions stop CP before any fusion; source proof and smoke, no whole rerun",
+    "stop_positions": {
+      "P04_s23|within0": [
+        60,
+        10
+      ],
+      "P04_s23|within1": [
+        60,
+        10
+      ],
+      "P04_s23|within2": [
+        60,
+        10
+      ],
+      "P04_s23|within3": [
+        63,
+        10
+      ],
+      "P04_s23|full0": [
+        10,
+        10
+      ],
+      "P04_s23|full1": [
+        32,
+        10
+      ],
+      "P04_s23|runs0": [
+        20,
+        10
+      ],
+      "P04_s23|runs1": [
+        10,
+        10
+      ],
+      "P10_s23|within0": [
+        60,
+        10
+      ],
+      "P10_s23|within1": [
+        60,
+        10
+      ],
+      "P10_s23|within2": [
+        60,
+        11
+      ],
+      "P10_s23|within3": [
+        10,
+        10
+      ],
+      "P10_s23|full0": [
+        28,
+        10
+      ],
+      "P10_s23|full1": [
+        10,
+        10
+      ],
+      "P10_s23|runs0": [
+        10,
+        10
+      ],
+      "P10_s23|runs1": [
+        59,
+        10
+      ]
+    },
+    "delta_pp": {
+      "P04": 0.0,
+      "P10": 0.0
+    }
+  },
+  "predictions_sha256": "aa3c024b969c237ad4b7ec917d358004c2d6cd660d54bb257d1bfbd4cf893030",
+  "full_before_labels_sha256": "fbfb8156c81efce5839ecc46e4bc892a2b2f937f514631308cbd929e90b30d6b",
+  "zero_max_abs": 0.0,
+  "decision_changes": 934,
+  "fractional_refits": 6048
+}
