@@ -70,7 +70,7 @@ Customstack=C++/CUDA; originalrawneuralreference=stockPyTorch336/338. No unquali
 - §346COMPLETE.151CPUh: P09A6raw64.061/Brefit60.686/C+369direct65.447/Dderanged60.640%, C−A+1.386pp.
   INDIVIDUAL-MODEL/exposedP09only, NLLworse; relatedslowinfoalreadyincore/SessionEM. OriginalA8banksBITWISE.
   NO-REFIT3119224 COMPLETE: C−strongA P02−1.482/P03−4.837pp. P09positiveNOTtransfer; nofullsystemexpansion.
-  Actualoldshiftedcropcoverage/rawtensor/cueprovenance auditnext beforeunusedcuedtrainingdataquestion.
+  Rawlatecropqualificationnext; oldEAcrops2/3s+§277SSLstart4alreadyusedpart, NOTgloballyuntesteddata.
 - Rootcanonicaldocs;external_supervision321;fresh_information_346extension. Otherownerscompleted.
 - Bothcampaign50min/research4hheartbeatsACTIVE through17Nov18:30UTC. Latestresearch10:49:35–11:04:39CET15m04,
   research_4h_17nov_1051.md COMPLETE; NEXT≈14:51CET, no duplicatedelayed10:51block. Historyretained,notblind.

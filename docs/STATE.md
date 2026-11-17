@@ -115,7 +115,8 @@ run-derangedD60.640% P09INDIVIDUAL-MODEL. C−A+1.386pp,7/8orders; pooledNLLwors
 OriginalAall8BITWISE, allguardsbeforelabels; .151CPUh/0GPU. FrozenNO-REFIT extension3119224 COMPLETE:
 P02A65.646/C64.164%(−1.482pp); P03A56.227/C51.391%(−4.837pp). Samefrozenmethod/source6; allguardsbeforelabels.
 P09positive DIDNOTtransfer; thisreadoutnotready/fullsystemexpansionunjustified. Rawtask-outsidecrop sourceauditnext.
-Unusedtraininginformationaudit confirms7,592nominalcuedseconds outsideofficialcrop, notyetqualifiednewdata.
+Sourceinventoryfinds7,592nominalseconds outsideofficialcrop, NOTgloballyuntested: oldEA2/3scroptraining and
+§277SSLstart4alreadyusedsome. Narrownewquestion: exactrawSessionBN/step-matchedlatecrop, sourcequalificationnext.
 
 **Ownership and cadence.** Root owns canonicaldocs/342collection. external_supervision_17nov owns321;
 fresh_information_346 owns346extension. 343/345and339/340/341/342/344 owners completed; no paid/providerexecution.

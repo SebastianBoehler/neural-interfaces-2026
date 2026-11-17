@@ -320,7 +320,8 @@ FrozenNO-REFIT extension3119224 COMPLETE: P02A65.646/B57.746/C64.164/D56.638%; P
 C−strongA−1.482/−4.837pp, sameA6/source6/heads/scalers/C=.01/0newfits; all4×2×8guards beforeeitherlabels.
 P09positive DOESNOTtransfer; no fullsystemexpansion. Allthreepeoplepreviouslyexposed/selectionlimitsexplicit.
 Next boundedrawtask-outsidecrop sourceaudit checksactualoldshiftedcropcoverage and tensor/cue provenance first.
-BIDSsourceinventory500Hz/41EEG/0EOG/EMG confirms7,592nominalunusedcuedseconds; cropdependenceunqualified.
+BIDSsourceinventory500Hz/41EEG/0EOG/EMG finds7,592nominalseconds outsideofficialcrop, NOTgloballyuntested.
+ActualoldordinaryBN-EAcrops2/3s and§277SSLstart4usedsome; exactrawSessionBN/step-matchedlatecrop gapneedsqualification.
 Sharedv4teacher remainsimmutable, reused by333withoutduplicatebuild.
 
 ## Coordination and cadence
