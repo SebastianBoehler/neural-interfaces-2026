@@ -3,7 +3,7 @@
 Prepared17November2026, before any§329sourceaccuracy. Rootowns STATE/STATUS.
 This continuation doesnotreplace scheduled06:51CETresearchblock.
 
-## Active artifacts/jobs
+## Historical first dispatches (superseded below)
 
 - §329 A100engineering3117332: immutable `ni26_labram329_v3_20261117`,
   source936aecfa1040d3c75c767feef448da3f17662b5f908587b59d8a2405ec21118f;
@@ -52,3 +52,36 @@ Epochlosses/finalgradients/sourceclassrecalls/param/checkpoint/scaler/bankhashes
 Selecteduncertainpriors: pretrainedFT65%[50,78]; FT−matchedfrozen+5pp[−3,+12];
 pretrainedFT−randomFT+3pp[−5,+10]. WeakfrozenprobeorunderconvergedFTdoesnotclosefamily.
 Noautomaticoutermatrix,upload,packageoradditionaltrainingform.
+
+## Actual recovery status, about06:40CET
+
+InitialA1003117332/20803117344failedbeforeload: missing sys.modules registration for timm.
+330release3117398correctlyblocked; noaccuracy. RealCPUrepairguard3117540passed15s/425keys.
+CPUreport[labram329_cpu_guard.json](labram329_cpu_guard.json), actualmoduleSHA
+ff99c31afa9dceb1923f796e349ea9e132d633b8816c251a6e50be00e3306c8d.
+FixedA1003117543passed18s; [preflight](labram329_A100_preflight.json),14.493msB1/593MB.
+2080queueforecast09:20CETledtoexplicitA100route BEFOREscores; pending20807542/7544canceled.
+
+A100source3117550/sourcef5dcaf520fb65d5587cf5a4ad3373c22e35bd4761e1ee44f64c9eeb9792a84be
+passed[CPU/A100compatibility](labram329_A100_compatibility.json) and
+[actual9fittedreadouts](labram329_A100_fitted_readout_guard.json): maxprob1.4667e−5/0changes.
+Pretrainedfeaturemaxabs.00282955passescombinedatol.002+rtol.001, notabsolute.002alone.
+All9features/sourcefits/rawreferencecompleted, thenmetricpathguardstoppedbeforeaccuracyreport:
+BASEbaselinecachedgenericprotocol; sys.pathchangealonecouldnotreplaceit.
+[No-scorecollisionguard](labram329_metric_import_guard.json)3117558passedbeforecanonicalrecovery.
+
+Originalprocess-localheads/rawprobabilitieswereNOTpersisted; nohonestno-refitrecoveryexists.
+Canceledrecovery3117557(24s)hasnoresult/accuracyread; preserveitslog.
+RootauthorizedONEcanonicalfixedC/rawreference repeat from EXACTsavedbankSHA
+524610d6f21633a2e93cda04007dc82996215ef60a0f14a0bbd28edd9ca2541a.
+Recovery3117559/sourcec3cd08f69416b6b5d265aa44f0c34c5db554767ed69579259e6b16e464081dba,
+workspace ni26_atom329_report_v2_20261117: savesallcoefficients/scalers/rawcheckpoint/
+queryprobabilitybanks/sourcequality/hashesBEFOREmetric/labels. Newcanonicalinstrument,
+notbitwiseidentitytolostoutputs; rawGPUrepeatlimitsmustremainexplicit.
+
+330engineering-onlycontroller3117551releasedactualA100fit3117553 withoutreading329accuracy.
+Workspace ni26_finetune330_v3_A100_20261117, source
+97c94f769070fa62e9f708f0ba425b48e92cea5bbbb6de86082e16e11032e9a1.
+Running: pretrainedfrozen12epochsdone; pretrainedFT10epochsdone whenchecked, noqueryscore.
+Same12epochs/fourarms/guards; if24minprojectionfires, keepstopandregisterlargerbudgetseparately.
+Directexecsessionwatch≤60swaits replacesincorrectmailboxwaitingforshellexit.

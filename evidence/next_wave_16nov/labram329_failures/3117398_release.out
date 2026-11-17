@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/mnt/lustre/work/gehler/gfh527/ni26_finetune330_v1_20261117/release.py", line 35, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_finetune330_v1_20261117/release.py", line 21, in main
+    guard=json.loads((SOURCE/'compatibility.json').read_text());readout=json.loads((SOURCE/'fitted_readout_guard.json').read_text())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/home/gehler/gfh527/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lustre/home/gehler/gfh527/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/lustre/work/gehler/gfh527/ni26_labram329_2080_v1_20261117/compatibility.json'

@@ -46,6 +46,9 @@ def state_sha(model):
 
 def main():
     started=time.monotonic();torch.set_num_threads(6)
+    cpu_path=Path('/mnt/lustre/work/gehler/gfh527/ni26_atom329_cpuguard_v1_20261117/cpu_guard.json')
+    cpu=json.loads(cpu_path.read_text())
+    if not cpu['passed'] or cpu['labels_opened'] or cpu['loaded_encoder_keys']!=425:raise ValueError('actualCPUstrictloadguardrequired')
     if sha(DATA)!=DATA_SHA:raise ValueError('official tensor changed')
     for line in (ROOT/'source.sha256').read_text().splitlines():
         expected,name=line.split(maxsplit=1)
@@ -71,7 +74,7 @@ def main():
     subprocess.run([sys.executable,'-m','pip','install','--no-index','--no-deps','--target',str(ASSETS/'runtime'),str(ASSETS/'timm-0.9.16-py3-none-any.whl')],check=True)
     sys.path.insert(0,str(ASSETS/'runtime'))
     spec=importlib.util.spec_from_file_location('ni26_atom329_upstream',ASSETS/'labram.py')
-    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    module=importlib.util.module_from_spec(spec);sys.modules[spec.name]=module;spec.loader.exec_module(module)
     if Path(module.__file__).resolve()!=ASSETS/'labram.py':raise ValueError('upstream module path differs')
     with np.load(DATA,allow_pickle=False) as z:
         names=z['ch_names'].astype(str).tolist();people=np.array([str(x).split('/')[-1] for x in z['subject']])

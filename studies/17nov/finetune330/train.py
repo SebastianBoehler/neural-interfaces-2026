@@ -13,8 +13,8 @@ from scipy.signal import resample_poly
 from torch import nn
 
 ROOT=Path(__file__).resolve().parent
-SOURCE=Path('/mnt/lustre/work/gehler/gfh527/ni26_labram329_2080_v1_20261117')
-SOURCE_SHA='057627db1f85aab13e0cab308f0a21d4e7c6645202b86fe2202160f4e4e44833'
+SOURCE=Path('/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117')
+SOURCE_SHA='f5dcaf520fb65d5587cf5a4ad3373c22e35bd4761e1ee44f64c9eeb9792a84be'
 EPOCHS=12
 
 
@@ -26,7 +26,7 @@ def sha(path):
 
 
 def module(name,path):
-    spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+    spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);sys.modules[name]=m;spec.loader.exec_module(m);return m
 
 
 class Decoder(nn.Module):
@@ -65,7 +65,7 @@ def main():
     guard=json.loads((SOURCE/'compatibility.json').read_text());readout=json.loads((SOURCE/'fitted_readout_guard.json').read_text())
     if not guard['passed'] or guard['labels_opened'] or len(readout)!=9 or any(v['probability_max_abs']>1e-3 or v['nontied_argmax_changes'] for v in readout.values()):raise ValueError('329numericalguardsrequired')
     if guard['peak_gpu_bytes']>8*1024**3 or guard['comparisons']['pretrained']['B1_median_ms']>=100:raise ValueError('329resourceguardfailed')
-    if not torch.cuda.is_available() or '2080 Ti' not in torch.cuda.get_device_name(0):raise ValueError('explicit2080routeonly')
+    if not torch.cuda.is_available() or 'A100' not in torch.cuda.get_device_name(0):raise ValueError('explicitA100routeonly')
     torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
     torch.backends.cuda.enable_flash_sdp(False);torch.backends.cuda.enable_mem_efficient_sdp(False);torch.backends.cuda.enable_math_sdp(True);torch.backends.cuda.enable_cudnn_sdp(False)
     sys.path[:0]=[str(SOURCE/'assets/runtime'),'/mnt/lustre/work/gehler/gfh527/ni26_visual324_v2_20261117']

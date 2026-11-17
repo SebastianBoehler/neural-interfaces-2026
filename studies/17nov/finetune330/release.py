@@ -5,8 +5,8 @@ import subprocess
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parent
-SOURCE=Path('/mnt/lustre/work/gehler/gfh527/ni26_labram329_2080_v1_20261117')
-SOURCE_SHA='057627db1f85aab13e0cab308f0a21d4e7c6645202b86fe2202160f4e4e44833'
+SOURCE=Path('/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117')
+SOURCE_SHA='f5dcaf520fb65d5587cf5a4ad3373c22e35bd4761e1ee44f64c9eeb9792a84be'
 
 
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -19,7 +19,7 @@ def main():
             if sha(folder/name)!=expected:raise ValueError('immutable sourcechanged')
     if sha(SOURCE/'source.sha256')!=SOURCE_SHA:raise ValueError('329sourceidentitydiffers')
     guard=json.loads((SOURCE/'compatibility.json').read_text());readout=json.loads((SOURCE/'fitted_readout_guard.json').read_text())
-    if not guard['passed'] or guard['labels_opened'] or '2080 Ti' not in guard['device']:raise ValueError('passed2080engineeringrequired')
+    if not guard['passed'] or guard['labels_opened'] or 'A100' not in guard['device']:raise ValueError('passedA100engineeringrequired')
     if guard['peak_gpu_bytes']>8*1024**3 or guard['comparisons']['pretrained']['B1_median_ms']>=100:raise ValueError('measuredresourceboundfailed')
     if len(readout)!=9 or any(v['probability_max_abs']>1e-3 or v['nontied_argmax_changes'] for v in readout.values()):raise ValueError('actualfittedreadoutnumericalguardfailed')
     # Do not open source_result.json: release cannot depend on its queryaccuracies.

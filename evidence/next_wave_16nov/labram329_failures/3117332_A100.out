@@ -1,0 +1,27 @@
+Processing ./assets/timm-0.9.16-py3-none-any.whl
+Installing collected packages: timm
+Successfully installed timm-0.9.16
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/mnt/lustre/work/gehler/gfh527/ni26_labram329_v3_20261117/preflight.py", line 137, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_labram329_v3_20261117/preflight.py", line 74, in main
+    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/mnt/lustre/work/gehler/gfh527/ni26_labram329_v3_20261117/assets/labram.py", line 673, in <module>
+    @register_model
+     ^^^^^^^^^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_labram329_v3_20261117/assets/runtime/timm/models/_registry.py", line 77, in register_model
+    mod = sys.modules[fn.__module__]
+          ~~~~~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'ni26_atom329_upstream'
+srun: error: galvani-cn207: task 0: Exited with exit code 1
+srun: Terminating StepId=3117332.0

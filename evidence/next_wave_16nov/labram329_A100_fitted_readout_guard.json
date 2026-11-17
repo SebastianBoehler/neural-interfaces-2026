@@ -1,0 +1,38 @@
+{
+  "raw287": {
+    "probability_max_abs": 0.0,
+    "nontied_argmax_changes": 0
+  },
+  "pretrained_pooled": {
+    "probability_max_abs": 1.2427568435668945e-05,
+    "nontied_argmax_changes": 0
+  },
+  "pretrained_pooled_raw": {
+    "probability_max_abs": 1.4666646337202494e-05,
+    "nontied_argmax_changes": 0
+  },
+  "pretrained_retained": {
+    "probability_max_abs": 1.3023614883422852e-05,
+    "nontied_argmax_changes": 0
+  },
+  "pretrained_retained_raw": {
+    "probability_max_abs": 9.939817882442803e-06,
+    "nontied_argmax_changes": 0
+  },
+  "random_pooled": {
+    "probability_max_abs": 8.344650268554688e-07,
+    "nontied_argmax_changes": 0
+  },
+  "random_pooled_raw": {
+    "probability_max_abs": 5.294250033094361e-07,
+    "nontied_argmax_changes": 0
+  },
+  "random_retained": {
+    "probability_max_abs": 4.76837158203125e-07,
+    "nontied_argmax_changes": 0
+  },
+  "random_retained_raw": {
+    "probability_max_abs": 1.6661041590815273e-07,
+    "nontied_argmax_changes": 0
+  }
+}

@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=gehler
-#SBATCH --partition=2080-galvani,2080-preemptable-galvani
+#SBATCH --partition=a100-galvani,a100-preemptable-galvani
 #SBATCH --exclude=galvani-cn109,galvani-cn111,galvani-cn121,galvani-cn122
 #SBATCH --cpus-per-task=6
 #SBATCH --mem=24G

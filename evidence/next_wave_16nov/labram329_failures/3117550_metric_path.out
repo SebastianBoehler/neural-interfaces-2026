@@ -1,0 +1,42 @@
+Processing ./assets/timm-0.9.16-py3-none-any.whl
+Installing collected packages: timm
+Successfully installed timm-0.9.16
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+{"passed": true, "labels_opened": false, "device": "NVIDIA A100-PCIE-40GB", "compared_devices": ["CPU", "A100"], "A100_verified": true, "comparisons": {"pretrained": {"max_abs": 0.0028295516967773438, "nontied_head_changes": 0, "B1_median_ms": 14.423450222238898, "B1_p90_ms": 14.45655906572938, "amplitude_max_abs": 0.2693977355957031, "encoder_state_sha256": "1759f7b28de889678e391736eb503acd126f883428246311cd63752786cbe42c"}, "random": {"max_abs": 5.0067901611328125e-06, "nontied_head_changes": 0, "B1_median_ms": 14.584883349016309, "B1_p90_ms": 14.611500035971403, "amplitude_max_abs": 4.916476249694824, "encoder_state_sha256": "22a0877ca1764091c3e6e0350ab6248d50b9f250dcd30c014c4333a45eab497d"}}, "channel_indices": [0, 43, 54, 65, 64, 53, 42, 41, 52, 63, 62, 71, 61, 49, 50, 51, 40, 79, 67, 66, 57, 56, 55, 45, 44, 34, 33, 32, 23, 22, 21, 11, 7, 17, 18, 19, 20, 28, 29, 30, 31, 39], "source_rows": [1900, 1901, 1902], "removed_pretraining_keys": ["lm_head.bias", "lm_head.weight", "projection_head.0.bias", "projection_head.0.weight", "student.lm_head.bias", "student.lm_head.weight", "student.mask_token"], "source_sha256": "f5dcaf520fb65d5587cf5a4ad3373c22e35bd4761e1ee44f64c9eeb9792a84be", "weight_sha256": "a28e97f7bd73bd7ff55f3b5d680f48807c335cf3134d1281228a061056aaf52b", "actual_weight_bytes": 212001576, "code_revision": "59e4e7ea2d855cda5573c312b380b109f1856764", "weight_revision": "72189644cef9a91b7b436c5f37f083c1366e2f21", "module_sha256": "ff99c31afa9dceb1923f796e349ea9e132d633b8816c251a6e50be00e3306c8d", "embedding_artifact_sha256": "d6cc464bfeeb22f014d2e9382a456774cedc0159976d940319c4c165b0944712", "original_A100_source_sha256": "936aecfa1040d3c75c767feef448da3f17662b5f908587b59d8a2405ec21118f", "attention_backend": "explicit PyTorch SDPA MATH only;Flash/Efficient/cuDNNdisabled", "TF32": false, "peak_gpu_bytes": 456899584, "seconds": 14.200562454294413, "limits": "CPUA100readinessonly;A100verificationpending;nosource/outer/workeraccuracy"}
+/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/assets/labram.py:673: UserWarning: Overwriting labram_base_patch200_200 in registry with ni26_atom329_frozen_upstream.labram_base_patch200_200. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  @register_model
+/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/assets/labram.py:681: UserWarning: Overwriting labram_large_patch200_200 in registry with ni26_atom329_frozen_upstream.labram_large_patch200_200. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  @register_model
+/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/assets/labram.py:689: UserWarning: Overwriting labram_huge_patch200_200 in registry with ni26_atom329_frozen_upstream.labram_huge_patch200_200. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  @register_model
+/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/assets/labram.py:698: UserWarning: Overwriting labram_giant_patch200_200 in registry with ni26_atom329_frozen_upstream.labram_giant_patch200_200. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  @register_model
+/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/assets/labram.py:706: UserWarning: Overwriting labram_giant_s_patch200_200 in registry with ni26_atom329_frozen_upstream.labram_giant_s_patch200_200. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  @register_model
+/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/assets/labram.py:716: UserWarning: Overwriting labram_giant_m_patch200_200 in registry with ni26_atom329_frozen_upstream.labram_giant_m_patch200_200. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  @register_model
+/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/assets/labram.py:726: UserWarning: Overwriting labram_giant_l_patch200_200 in registry with ni26_atom329_frozen_upstream.labram_giant_l_patch200_200. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  @register_model
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:497: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = mne.channels.make_standard_montage("standard_1020")
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:1452: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = make_standard_montage("standard_1020")
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+Traceback (most recent call last):
+  File "/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/compat_a100.py", line 127, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/compat_a100.py", line 124, in main
+    source_a100.main()
+  File "/mnt/lustre/work/gehler/gfh527/ni26_labram329_A100source_v1_20261117/source_a100.py", line 136, in main
+    if Path(protocol.__file__).resolve()!=ROOT/'experiments/protocol.py':raise ValueError('metricprotocol differs')
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: metricprotocol differs
+srun: error: galvani-cn223: task 0: Exited with exit code 1
+srun: Terminating StepId=3117550.0

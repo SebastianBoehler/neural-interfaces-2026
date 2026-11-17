@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "labels_opened": false,
+  "models_fit": false,
+  "collision_reproduced": true,
+  "cached_protocol": "/mnt/lustre/work/gehler/gfh527/ni26_raw312_20261117_matrix2/experiments/protocol.py",
+  "named_protocol": "/mnt/lustre/work/gehler/gfh527/ni26_atom329_metricguard_v1_20261117/experiments/protocol.py",
+  "score_function_path": "/mnt/lustre/work/gehler/gfh527/ni26_atom329_metricguard_v1_20261117/experiments/protocol.py",
+  "score_file_sha256": "390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c",
+  "actual_metric_path": "/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/2026-competition/benchmark_utils/metrics.py",
+  "actual_metric_sha256": "fcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d",
+  "official_snapshot_metric_sha256": "fcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d"
+}

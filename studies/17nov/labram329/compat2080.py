@@ -18,13 +18,16 @@ ORIGINAL_SHA='936aecfa1040d3c75c767feef448da3f17662b5f908587b59d8a2405ec21118f'
 
 def module(name,path):
     spec=importlib.util.spec_from_file_location(name,path)
-    value=importlib.util.module_from_spec(spec);spec.loader.exec_module(value)
+    value=importlib.util.module_from_spec(spec);sys.modules[name]=value;spec.loader.exec_module(value)
     if Path(value.__file__).resolve()!=path.resolve():raise ValueError('modulepath differs')
     return value
 
 
 def main():
     started=time.monotonic();torch.set_num_threads(6)
+    cpu_path=Path('/mnt/lustre/work/gehler/gfh527/ni26_atom329_cpuguard_v1_20261117/cpu_guard.json')
+    cpu=json.loads(cpu_path.read_text())
+    if not cpu['passed'] or cpu['labels_opened'] or cpu['loaded_encoder_keys']!=425:raise ValueError('actualCPUstrictloadguardrequired')
     original=module('ni26_atom329_original',ORIGINAL/'preflight.py')
     sha,fetch=original.sha,original.fetch
     if sha(ORIGINAL/'source.sha256')!=ORIGINAL_SHA:raise ValueError('A100source identity differs')

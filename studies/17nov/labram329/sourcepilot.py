@@ -29,7 +29,7 @@ def sha(path):
 
 def module(name,path):
     spec=importlib.util.spec_from_file_location(name,path)
-    result=importlib.util.module_from_spec(spec);spec.loader.exec_module(result)
+    result=importlib.util.module_from_spec(spec);sys.modules[name]=result;spec.loader.exec_module(result)
     if Path(result.__file__).resolve()!=path.resolve():raise ValueError('modulepath differs')
     return result
 

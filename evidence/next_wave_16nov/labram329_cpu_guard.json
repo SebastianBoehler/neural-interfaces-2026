@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "labels_opened": false,
+  "source_rows": [
+    1900,
+    1901,
+    1902
+  ],
+  "output_shape": [
+    3,
+    164,
+    400
+  ],
+  "removed_pretraining_keys": [
+    "lm_head.bias",
+    "lm_head.weight",
+    "projection_head.0.bias",
+    "projection_head.0.weight",
+    "student.lm_head.bias",
+    "student.lm_head.weight",
+    "student.mask_token"
+  ],
+  "loaded_encoder_keys": 425,
+  "input_gradient_max": 5042.02734375,
+  "module_sha256": "ff99c31afa9dceb1923f796e349ea9e132d633b8816c251a6e50be00e3306c8d",
+  "weight_sha256": "a28e97f7bd73bd7ff55f3b5d680f48807c335cf3134d1281228a061056aaf52b",
+  "fixed_import": "sys.modules[spec.name]=module before exec_module;actualtimmregistrationworks"
+}
