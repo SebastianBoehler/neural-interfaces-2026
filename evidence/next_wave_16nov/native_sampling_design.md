@@ -1,0 +1,21 @@
+Completed: exact native sampler3121392 PASS in6s×actualAllocCPUS1=6coresec. All1240 ordered batches,40 historical hashes,41 RNG states and5 independent primitive seed cases matched exactly. Metadata/RNG compatibility only; no neural initialization/update/fit/accuracy was run.
+
+# Exact native SessionNet sampler — design and source boundary
+
+Scope: private RNG and session-chunk sampling only. No X/y values, neural initialization, neural forward, fit, accuracy or source-update oracle. Root owns CMake, canonical documents and shared registration; this owner changes sampling.h, sampling*.cpp and isolated sampling validation only.
+
+Actual metadata chain: direct346/common346→pretrain337/common.source→reference_bridge336/recipe336→oscillatory331/data331.load. The first mask explicitly INCLUDES P04…P10 (source7), excluding P01/P02/P03. A second explicit FIT roster P04/P05/P06/P07/P08/P10 removes P09. Generic exclusion P02/P03/P09 is wrong because it admits P01. CONTROL: ni26_combinations338_v2_20261117/output/source6/A/record.json. Both top.source_rows_sha256 and trace.source_order_sha256 are882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f. trace.scale is scalar; no source_X/input hash exists there.
+
+Original first-seen stream order is P06|1,P07|1,P10|1,P10|2,P10|3,P05|1,P08|1,P04|1,P04|2,P04|3. Counts187,189,192,186,199,190,189,189,189,188 total1898. Sorted-subject grouping would be wrong. Group32 pads54 rows to61 chunks/1952 rows per epoch; batch64 combines two randomly ordered chunks, except final32-row batch. Forty epochs yield1240 batches. Counting steps uses a separate fresh RNG and cannot consume the training stream.
+
+The metadata oracle AST-extracts only original selected metadata assignments and _batches. It decodes only dataset subject/session keys. It never imports Torch, calls common.source/native/fit or loads model parameters. Login metadata preflight already matched all40 historical CONTROL epoch hashes under installed NumPy2.5.4 revisiona3d0ef1df045b858e68115001fdabc930bb3b68c. Shared output: ni26_native353_sampling_metadata1/oracle/metadata.npz; schema source_fit/source_order globalint64,row_session localint64,stream_names,batch_indices1240×64(−1 serialization padding),batch_sizes,rng_states41×6uint64,group/batch/seed/epochs.
+
+Native implementation is self-contained C++: scalar-uint64 SeedSequence→PCG64 XSL-RR128/64 with retained uint32 half cache; permutation masked rejection; choice Floyd/tail shuffle and Lemire bounded draws. No std::shuffle/seed_seq, Python/NumPy runtime or cached batch oracle. Attribution and selected licenses in native/tests/SAMPLING_NOTICE.md. Source algorithms pinned to NumPy v2.5.4 bit_generator.pyx,_pcg64.pyx,pcg64.h,_generator.pyx,distributions.c. The actual installed implementation is the behavioral authority.
+
+API: Pcg64(seed),next32/next64/interval/bounded/permutation/choice/state; group_session_rows(source,global_streams) preserves first-seen order; session_batches(rows,row_session,group,batch,rng) and session_batch_count. Outputs are local grouped-training indices, not global rows. RNG copies are independent and unrelated draws cannot affect a fit.
+
+Exact success checks: original source mask/order and historical40 epoch hashes; all1240 ordered batches including padding; same-session32-row chunk purity; per-epoch complete RNG state (128-bit state/increment plus cached32 flag/value); separate count RNG; copy/interleaving; scalar seeds0/1/5/2^32/2^64−1; mixed32/64 cached draws,0/1/small permutations, replacement/without-replacement and large-population choice threshold. Any mismatch fails without tolerance or fallback. No scientific model claim follows.
+
+Cost proposal BEFORE ANY allocation: one CPU1/5min/1GiB standalone metadata+ordinary-C++ compile/test (≤300 coresec), zero GPU. NumPy metadata smoke is light login preflight; no allocation was submitted. Current shared353 spent9011coresec +reservedFT600 +proposed300 =9911coresec. Root must record/coordinate the shared allocation before submission. No training/update/accuracy task is released.
+
+Actual release registration reserved600coresec for possible AllocCPUS2; actualAllocCPUS1 used6. Aggregate9287→9293coresec excludes any other-owner jobs after that snapshot. No retry/extension/additional allocation.
