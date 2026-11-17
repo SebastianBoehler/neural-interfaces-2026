@@ -1,0 +1,298 @@
+{
+  "status": "phase_matched_optimization_guard_passed",
+  "variant": "reuse",
+  "seconds": 442.57476073876023,
+  "source_sha256": "1a3c08f957ebe7c8aba9423ba8bfd312f24cb674b165b1649d3ae2b582d21948",
+  "artifact_source_sha256": "2554e28cb11d0b37cf5413cc0c12efe01ffea016ad82c28781aa3277aa96b1d4",
+  "complete_sha256": "e5366e73708b0a6e275c0006077df9bcea5376e845fae75e96e2deee84fd75b0",
+  "control_sha256": "62f17792ba4a727756565e033667bbea9d8c57337a923030f015c52317337d8d",
+  "deterministic_algorithms": true,
+  "old_GPU_bitwise_reset_failures_preserved": true,
+  "accuracy_computed": false,
+  "scope": "phase-matched engineering;not a timing-bar/returning/held-accuracy pass",
+  "full_remote_path": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_phase1/phase_reuse.json",
+  "full_sha256": "bea3d9b2658644aa05220d5adc5dd0d2ae206a53d4b9646e7986812ee3410d26",
+  "cases": {
+    "known": {
+      "max_output_error": 0.0,
+      "original_inner_labels_bitwise": true,
+      "off45_bitwise": true,
+      "initial_states": [
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "active": 45,
+          "declared": 65,
+          "all_stream_buffers_zero": true,
+          "stream_buffer_count": 135
+        },
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "active": 45,
+          "declared": 65,
+          "all_stream_buffers_zero": true,
+          "stream_buffer_count": 135
+        }
+      ],
+      "final_states": [
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "active": 45,
+          "declared": 65,
+          "all_stream_buffers_zero": false,
+          "stream_buffer_count": 135
+        },
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "active": 45,
+          "declared": 65,
+          "all_stream_buffers_zero": false,
+          "stream_buffer_count": 135
+        }
+      ],
+      "activity": {
+        "old_ft": 0,
+        "new_ft": 0,
+        "old_cp": 0,
+        "new_cp": 0,
+        "old_fused": 0,
+        "new_fused": 0
+      },
+      "reset": {
+        "max_paired_reset_error": 0.0,
+        "cold_to_reset_drift": [
+          6.252363982106601e-08,
+          6.252363982106601e-08
+        ],
+        "reset_states": [
+          {
+            "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+            "original_declared_members": 65,
+            "original_active_members": 45,
+            "original_inactive_ids": [
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33
+            ],
+            "stream_buffer_count": 135,
+            "all_stream_buffers_zero": true,
+            "nonzero_stream_buffers": 0,
+            "core1_n": 0,
+            "core2_n": 0,
+            "original_input_n": [
+              0,
+              0
+            ],
+            "auxiliary_input_n": 0,
+            "eye_n": 0,
+            "rest_input_n": 0,
+            "ft_labels": 0,
+            "cp_t": 0
+          },
+          {
+            "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+            "original_declared_members": 65,
+            "original_active_members": 45,
+            "original_inactive_ids": [
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33
+            ],
+            "stream_buffer_count": 135,
+            "all_stream_buffers_zero": true,
+            "nonzero_stream_buffers": 0,
+            "core1_n": 0,
+            "core2_n": 0,
+            "original_input_n": [
+              0,
+              0
+            ],
+            "auxiliary_input_n": 0,
+            "eye_n": 0,
+            "rest_input_n": 0,
+            "ft_labels": 0,
+            "cp_t": 0
+          }
+        ],
+        "deepcopy_interleaved": true,
+        "cpu_self_bitwise": false,
+        "gpu_self_bitwise_not_required_old_failure_preserved": true
+      },
+      "input_reuse_checked": true
+    },
+    "unrecognized": {
+      "max_output_error": 0.0,
+      "original_inner_labels_bitwise": true,
+      "off45_bitwise": true,
+      "initial_states": [
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "active": 45,
+          "declared": 65,
+          "all_stream_buffers_zero": true,
+          "stream_buffer_count": 135
+        },
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "active": 45,
+          "declared": 65,
+          "all_stream_buffers_zero": true,
+          "stream_buffer_count": 135
+        }
+      ],
+      "final_states": [
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "active": 45,
+          "declared": 65,
+          "all_stream_buffers_zero": false,
+          "stream_buffer_count": 135
+        },
+        {
+          "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+          "active": 45,
+          "declared": 65,
+          "all_stream_buffers_zero": false,
+          "stream_buffer_count": 135
+        }
+      ],
+      "activity": {
+        "old_ft": 20,
+        "new_ft": 20,
+        "old_cp": 10,
+        "new_cp": 10,
+        "old_fused": 125,
+        "new_fused": 125
+      },
+      "reset": {
+        "max_paired_reset_error": 0.0,
+        "cold_to_reset_drift": [
+          6.252363982106601e-08,
+          6.252363982106601e-08
+        ],
+        "reset_states": [
+          {
+            "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+            "original_declared_members": 65,
+            "original_active_members": 45,
+            "original_inactive_ids": [
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33
+            ],
+            "stream_buffer_count": 135,
+            "all_stream_buffers_zero": true,
+            "nonzero_stream_buffers": 0,
+            "core1_n": 0,
+            "core2_n": 0,
+            "original_input_n": [
+              0,
+              0
+            ],
+            "auxiliary_input_n": 0,
+            "eye_n": 0,
+            "rest_input_n": 0,
+            "ft_labels": 0,
+            "cp_t": 0
+          },
+          {
+            "immutable_sha256": "d4c2b27c6b4916fa8fc479688f4e3ad2c8ac1ba4fcc6d9c79ca9f6b254af0397",
+            "original_declared_members": 65,
+            "original_active_members": 45,
+            "original_inactive_ids": [
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33
+            ],
+            "stream_buffer_count": 135,
+            "all_stream_buffers_zero": true,
+            "nonzero_stream_buffers": 0,
+            "core1_n": 0,
+            "core2_n": 0,
+            "original_input_n": [
+              0,
+              0
+            ],
+            "auxiliary_input_n": 0,
+            "eye_n": 0,
+            "rest_input_n": 0,
+            "ft_labels": 0,
+            "cp_t": 0
+          }
+        ],
+        "deepcopy_interleaved": true,
+        "cpu_self_bitwise": false,
+        "gpu_self_bitwise_not_required_old_failure_preserved": true
+      },
+      "input_reuse_checked": true
+    }
+  },
+  "cpu_paired_max_error": 0.0
+}
