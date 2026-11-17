@@ -44,7 +44,9 @@ libraries, packages and the official submodule are unchanged. Engineering
 qualification does not establish a development-accuracy/full-system gain,
 sealed-worker compatibility or upload approval.
 
-`reference_classmajor.cpp` is a separately registered layout probe. It copies
-only the small parameter/gradient buffers and keeps the same optimizer
-interface. Its fixed-parameter microbenchmark must win before new fit tests;
-it is not an accepted replacement merely because it compiles.
+The current C++ kernel uses class-major matrix products internally. Only the
+small parameter/gradient buffers change layout; SciPy still receives its
+original feature-major/class-minor arrays. The fixed-parameter layout probe
+and complete source/held/time/memory qualification passed before adoption.
+The earlier candidate source is preserved in commit e02a518 and its immutable
+Galvani snapshot; `reference.cpp` now contains that tested implementation.

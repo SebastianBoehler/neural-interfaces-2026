@@ -1,0 +1,33 @@
+# §343 final handoff — qualified CPU fitting API
+
+- Complete; no owned jobs remain. Root owns canonical STATE/STATUS/OVERNIGHT/LEDGER commits.
+- Future explicit API: `FullReference(library).fit(x,y)` in studies/17nov/solver343/reference.py.
+- Canonical own `reference.cpp` now equals the tested v4 class-major source; candidate duplicate removed.
+- Fixed C=.3, float64, source external scaler, zero init, mean CE+weightL2/(2*C*N), bias free.
+- Existing SciPy L-BFGS-B retained with exact sklearn stop/options/layout; this is a hybrid optimizer.
+- Borrow/validate X once; reusable buffers; fused scalar CE/softmax/L2/finite; two matrix products.
+- Internal class-major GEMM copies only small weights/gradient arrays; optimizer remains class-fast.
+- P01 contemporary warm median19.7467→16.4362s,−16.76%; CPUcore117.3624→93.3867,−20.43%.
+- P10 contemporary cold15.4332→10.7565s,−30.30%; CPUcore91.4340→60.4633,−33.87%.
+- Same actual counts: P0188evals/82iters, P1071/65; original full-gradient/finite guards pass.
+- Fresh sampled fit RSS increments77,796→71,748KiB,−7.77%; loaded baseline differs121,024KiB.
+- Do not attribute complete absolute RSS difference to kernel; process peaks loading-dominated/single probes.
+- Fullheld3119053 PASS165s CPU2/8GiB,141.70s script; allfour Python62 featurecanaries passed FIRST.
+- CompleteP01 within0/full0=190each/one session, maxprob7.35e−9/5.38e−9; ZEROalllabels.
+- CompleteP10 within0/full0=577each/three sessions, maxprob6.65e−8/5.86e−8; ZEROalllabels.
+- All1534windows, samefrozenprior/scaler/source/query/permutation/core, explicit nc_create CPU0.
+- No held labels/accuracy; P10 weights source-only exported CPU2 because benchmark did not save them.
+- This qualifies two people/two orders, not allfolds/eightorders/frozen package/worker/full-system gain.
+- Frozen active producer libraries/submissions/official submodule untouched. Nothing uploaded.
+- Current validated binary: /mnt/lustre/work/gehler/gfh527/ni26_solver343_layout_v4_20261117/build/libspan.so.
+- SHA256 7a2715ad8b912a8c464d304ca1a671bed9dd889deaf5b8bf99907fe6efa939bd.
+- Build3118894→kernel3118896→strictsmoke3118902→paired/memory/P103118904→fullheld3119053 allPASS.
+- Oldnative243s not reproduced: freshquiet40.8/busy46.7s, tighterstop370eval versus sklearn88eval.
+- V1 source-span faster but HELDFAIL .04063/2labels(P01), .04560/1label(P10); preserved/no adoption.
+- Oldnative versus v1 span held≤.000776/zero labels; reference-optimizer parity fixes discrepancy.
+- V3 also qualified; v4 kernel~18.8% faster, fullfit improvement versus v3 not separately established.
+- Wrongdependency3118873 failed12s before library existed; no fit, preserved log; corrected retry passed.
+- Total all343allocated8824coresec=2.4511CPUh/0GPUh, includes builds/failures; all jobs terminal.
+- Main evidence solver343.md, full_held.json, v4_qualified_prefix.json, v4_smoke.json, v4_layout.json.
+- All code files <300lines; py_compile/diff-check pass; no training/data/checkpoint committed.
+- Initial qualified checkpoint e02a518 pushed; final adoption/evidence checkpoint follows.

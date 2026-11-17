@@ -1,82 +1,88 @@
-# §343 CPU solver repair
+# §343 CPU solver repair — qualified v4
 
-**Qualified engineering implementation: v3 FullReference.** It keeps the full
-44,239-feature objective and the reference SciPy L-BFGS-B optimizer/stopping.
-C++ borrows and validates source X once, reuses buffers, and computes analytical
-value/gradient with fused softmax/CE/L2/finite checks. This is a hybrid existing
-SciPy optimizer plus custom C++ kernel, not a fully C++ optimizer/language claim.
-No active producer, package, submission or official-submodule change.
+**Prepared and qualified:** `FullReference` in `studies/17nov/solver343/reference.py`,
+backed by `reference.cpp`. The C++ kernel validates source X once, borrows it,
+reuses buffers and fuses softmax/CE/L2/finite checks. Internal class-major matrix
+products copy only small parameter/gradient buffers. SciPy receives its original
+class-fast layout and uses EXACT reference L-BFGS-B/C=.3/float64/zero-init/gtol1e−5/
+ftol64eps/maxiter2000/maxls50. Bias is unpenalized. This remains an existing SciPy
+optimizer plus custom C++ kernel, not a fully C++ optimizer or language comparison.
+No active producer, production binary, submission or official-submodule change.
 
 ## Matched complete fits
 
-Job3118880 passed on galvani-cn102 with six bound logical CPUs. All setup,
-validation, callbacks and output reconstruction count. Independent verification
-runs outside both timed fits. Input/scaler/source/row/library hashes are in
-`solver343_v3_qualified.json`; kernel/finite checks are in `solver343_v3_smoke.json`.
+Job3118904 passed on galvani-cn102 with six bound logical CPUs. All validation,
+callbacks, optimizer work and output reconstruction count. Independent verification
+is outside both timed fits. Source/scaler/row/library/affinity hashes and actual
+optimizer counts are in `solver343_v4_qualified_prefix.json`.
 
-| Workload | sklearn | v3 full-D C++ | Change |
+| Workload | sklearn | v4 full-D C++ | Change |
 |---|---:|---:|---:|
-| P01 cold fit |18.4002s|16.0840s|−12.59%|
-| P01 warm ABBA median |19.4943s|16.4958s|−15.38% (1.182×)|
-| P01 warm CPU core-seconds median |115.959|93.147|−19.67%|
-| P10 independent cold fit |13.2956s|11.4127s|−14.16%|
-| P10 CPU core-seconds |79.042|64.447|−18.46%|
+| P01 cold fit |18.5253s|15.7469s|−15.00%|
+| P01 warm ABBA median |19.7467s|16.4362s|−16.76% (1.201×)|
+| P01 warm CPU core-seconds median |117.3624|93.3867|−20.43%|
+| P10 independent cold fit |15.4332s|10.7565s|−30.30%|
+| P10 CPU core-seconds |91.4340|60.4633|−33.87%|
 
 P01 both use82iterations/88actual value-gradient evaluations; P10 both use65/71.
-The source objective and gradient guards pass. Label-free held within0/full0
-maximum probability errors are ≤2.86e−9 on P01 and ≤4.96e−7 on P10, against a
-preregistered1e−3 bound. All held labels agree, including all non-tied cases.
-Every fixture scaler and source row matches the actual fit exactly. The query
-person/count/order/source exclusion and immutable fixture hashes pass.
-No held labels or accuracy were used.
+Independent real mini/full original objective/gradient-vector and NaN/±Inf guards
+pass. Six fixed-parameter paired kernel calls per method improved v3 .1005s to
+class-major .08164s (~18.8%); this is a kernel result, not an additional full-fit
+speedup claim versus v3 measured in a separate allocation.
 
-Fresh-process 10ms sampled memory probes:
+Fresh-process 10ms sampled memory probes, KiB:
 
-| KiB | sklearn | v3 full-D C++ |
+| Measure | sklearn | v4 full-D C++ |
 |---|---:|---:|
-| Loaded resident baseline |1,414,736|1,412,768|
-| Sampled fit peak RSS |1,504,564|1,494,888|
-| Increment above loaded RSS |89,828|82,120|
-| Process peak including data loading |2,272,388|2,270,440|
+| Loaded resident baseline |1,414,648|1,293,624|
+| Sampled fit peak RSS |1,492,444|1,365,372|
+| Increment above loaded RSS |77,796|71,748|
+| Process peak including data loading |2,272,392|2,270,384|
 
-The fit increment is7,708KiB smaller (8.58%); absolute fit peak is0.64% smaller.
-This is one fresh process per method. Process peaks are dominated by matrix
-loading and do not establish a general peak-memory improvement. Timing repeats
-are two warm fits per method, on one node with concurrent unrelated work.
-No energy/worker/runtime/full-system or generalization-gain claim follows.
+The fit increment is6,048KiB smaller (7.77%). Loaded baselines differ by121,024KiB;
+do not attribute the complete absolute-peak difference to the solver. Process
+peaks are dominated by loading. This is one fresh process per method and two
+warm fits per method on one shared node. No energy or general hardware claim.
 
-## Failed source-span shortcut and its diagnosis
+## Complete label-free held streams
 
-The original native370-evaluation solver took40.8s in a fresh quiet-node repeat,
-not the historical243s. Contemporary busy-node repeats took46.7s. sklearn used
-weaker stopping; those timings did not isolate language.
+Job3119053 passed CPU2/8GiB in165s allocated wall,141.70s measured script time.
+ALL four old Python62-window feature canaries pass FIRST: max feature error
+≤3.77e−6 and relative L2≤5.59e−9, against1e−4/1e−6 bounds. The frozen native
+causal producer runs explicitly on CPU device0 with original prior/scaler,
+pinned source/query rows and within0/full0 permutations. Each session resets.
 
-The first source-span implementation reduced2465×44239 to2465×2464 and fitted
-in~10.73s with a tighter objective. Only a centering-null eigenvalue was removed;
-Gram relative reconstruction error was3.35e−15. Source outputs looked similar,
-but the untouched reference's held outputs did not: P01 maxprobability error
-.04063 and two within0 changed labels; P10 .04560 and one full0 changed label.
-Those strict failures remain failures; v1 is not adopted.
+| Complete stream | Windows | Sessions | Max probability error | Changed labels |
+|---|---:|---:|---:|---:|
+| P01 within0 |190|1|7.35e−9|0|
+| P01 full0 |190|1|5.38e−9|0|
+| P10 within0 |577|3|6.65e−8|0|
+| P10 full0 |577|3|5.86e−8|0|
 
-On the exact pinned held fixtures, v1 span versus old tightly converged native
-has maxprobability errors .000776/.000607 and zero changed labels. Using the
-reference optimizer/stopping restores span held parity to <6e−9. This supports
-stopping/trajectory differences as the main cause; source parity alone was
-insufficient. The reference-optimizer span route costs ~18.51s and extra memory;
-the full-D v3 route currently has the better measured tradeoff.
+ALL1534windows meet≤1e−3 and zero non-tied-label bounds; all labels agree.
+P01 uses existing frozen source heads. Because the earlier benchmark did not
+save P10 coefficients, one source-only P10 pair was exported on CPU2 with the
+same objective/scaler/optimizer/options/counts and source/62-prefix guards before
+full inputs were generated. This validates these two people/two orders, not all
+eight orders, all folds, an immutable submission artifact or worker compatibility.
+No held labels or accuracy were read. Details: `solver343_full_held.json`.
 
-## Provenance and scope
+## Failed shortcut retained and scope
 
-Immutable workspaces are `/mnt/lustre/work/gehler/gfh527/ni26_solver343_*_20261117`.
-V3 library SHA256 is
-`f8f91b9b1ab723bf13b49a7a87731e4a3792b0d58b2ccc34f26be0d09c006841`.
-Build3118872 and strictsmoke3118875 precede benchmark3118880. An incorrectly
-queued smoke3118873 ran before its library existed and failed12s; its log was
-preserved and corrected3118875 ran only after the actual build. No fit was
-produced by3118873. Earlier v1/v2 evidence remains in the companion JSON files.
+The old native370-evaluation solve took~40.8s in a fresh repeat, not historical243s;
+busy-node repeats took~46.7s. Its stricter stopping did different work. The initial
+source-span Torch solver reached a tighter optimum in~10.73s and passed source
+parity, but FAILED held parity: P01 .04063/two labels; P10 .04560/one label. It is
+not adopted. Against the old tightly converged native head, that span instrument
+has held errors≤.000776 and zero label changes; matching reference optimizer/stop
+restores held parity. This supports stopping/trajectory as the main discrepancy.
+V3 was separately qualified before the controlled v4 layout change; all failed
+and intermediate evidence remains in the companion JSON files and git history.
 
-Future-source metadata corrects the legacy `accepted_gradient_checks` label:
-full-D observes accepted iterations; SciPy itself performs the real gradient
-stop. The mathematical implementation and options are unchanged by that rename.
-One separately registered class-major GEMM layout microbenchmark is pending;
-its source is `reference_classmajor.cpp`, not an accepted replacement yet.
+V4 library SHA256:
+`7a2715ad8b912a8c464d304ca1a671bed9dd889deaf5b8bf99907fe6efa939bd`.
+Build3118894→kernel3118896→strictsmoke3118902→benchmark3118904→fullheld3119053.
+All jobs are complete. Total allocated compute, including failures/builds:
+8824CPU-core-seconds=2.4511CPUh;0GPUh (`solver343_compute.json`). Wrong-dependency
+smoke3118873 failed before any fit; its log is preserved. No dev/full-system/
+sealed/rank/worker/fully-C++-optimizer claim or upload follows from this repair.

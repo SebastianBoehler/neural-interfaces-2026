@@ -14,7 +14,7 @@ thread_local std::string error;
 const auto options = torch::TensorOptions().dtype(torch::kFloat64).device(torch::kCPU);
 using Clock = std::chrono::steady_clock;
 void require(bool value, const char* why) { if (!value) throw std::invalid_argument(why); }
-struct Context { torch::Tensor x, y, z, basis, logits, gradient; int64_t n, d, rank; double c; bool full=false; };
+struct Context { torch::Tensor x, y, z, basis, logits, gradient, class_weights; int64_t n, d, rank; double c; bool full=false; };
 template<class F> int checked(F operation) {
     try { error.clear(); torch::NoGradGuard guard; operation(); return 0; }
     catch (const std::exception& e) { error=e.what(); return -1; }
@@ -84,9 +84,13 @@ extern "C" int s343r_objective(void* raw, const double* theta, double* loss, dou
         auto& h=context(raw);require(loss && gradient,"missing objective outputs");
         auto p=parameters(h,theta), weights=p.slice(0,0,h.rank);
         if (!h.logits.defined()) {
-            h.logits=torch::empty({h.n,3},options);h.gradient=torch::empty({h.rank+1,3},options);
+            h.logits=torch::empty({h.n,3},options);h.gradient=torch::empty({3,h.rank},options);
+            h.class_weights=torch::empty({3,h.rank},options);
         }
-        torch::mm_out(h.logits,h.z,weights);
+        auto class_weights=h.class_weights.data_ptr<double>();
+        for (int64_t j=0;j<h.rank;++j) for (int k=0;k<3;++k)
+            class_weights[k*h.rank+j]=theta[3*j+k];
+        torch::mm_out(h.logits,h.z,h.class_weights.t());
         auto residual=h.logits.data_ptr<double>();auto target=h.y.data_ptr<int64_t>();
         double value=0.,bias[3]{};
         for (int64_t i=0;i<h.n;++i) {
@@ -97,17 +101,17 @@ extern "C" int s343r_objective(void* raw, const double* theta, double* loss, dou
             for (int k=0;k<3;++k) { double v=(std::exp(z[k]-largest)/denominator-(target[i]==k))/h.n;
                 residual[3*i+k]=v;bias[k]+=v; }
         }
-        auto dw=h.gradient.slice(0,0,h.rank);
-        torch::mm_out(dw,h.z.t(),h.logits);
-        auto g=h.gradient.data_ptr<double>();double penalty=0.;
-        for (int64_t i=0;i<3*h.rank;++i) {
-            penalty+=theta[i]*theta[i];g[i]+=theta[i]/(h.c*h.n);
-            require(std::isfinite(g[i]),"nonfinite objective gradient");
+        torch::mm_out(h.gradient,h.logits.t(),h.z);
+        auto class_gradient=h.gradient.data_ptr<double>();double penalty=0.;
+        for (int64_t j=0;j<h.rank;++j) for (int k=0;k<3;++k) {
+            auto i=3*j+k;
+            penalty+=theta[i]*theta[i];gradient[i]=class_gradient[k*h.rank+j]+theta[i]/(h.c*h.n);
+            require(std::isfinite(gradient[i]),"nonfinite objective gradient");
         }
-        for (int k=0;k<3;++k) { g[3*h.rank+k]=bias[k];require(std::isfinite(bias[k]),"nonfinite bias gradient"); }
+        for (int k=0;k<3;++k) { gradient[3*h.rank+k]=bias[k];require(std::isfinite(bias[k]),"nonfinite bias gradient"); }
         *loss=value/h.n+penalty/(2*h.c*h.n);
         require(std::isfinite(*loss),"nonfinite objective");
-        std::memcpy(gradient,g,3*(h.rank+1)*sizeof(double));
+
     });
 }
 extern "C" int s343r_original_gradient(void* raw, const double* gradient, double* maximum) {
