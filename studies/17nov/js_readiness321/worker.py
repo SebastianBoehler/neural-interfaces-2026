@@ -36,6 +36,26 @@ def run(model,x,device):
                 cp_fused=cur.cp.fused if cur.cp is not None else None),cur
 
 
+def activity(cur,n,mode):
+    if cur.log6['err'] or cur.cp.dead or cur.cp.log['err']:raise ValueError('chain/CP runtime error')
+    if mode=='known':
+        if cur.log6['rec']!=10 or cur.ft.refits!=0 or cur.cp.stopped!=10:
+            raise ValueError('known first-session recognition/stop path differs')
+        return dict(eligible=False,reason='recognized_at10;FTandCPstopped',ft_refits=cur.ft.refits,cp_fused=cur.cp.fused)
+    if cur.recB or cur.log6['rec']>=0 or cur.cp.stopped is not None:
+        raise ValueError('forced-unrecognized path recognized/stopped')
+    ft=cur.ft;cp=cur.cp
+    expected_ft=max(0,(min(n-1,ft.cap)-ft.t0)//ft.every+1)
+    expected_cp=max(0,(n-1-cp.t0)//cp.k+1)
+    expected_fused=max(0,n-max(cp.t0,cp.w0))
+    if not ft.on or ft.over or ft.refits!=expected_ft or cp.refits!=expected_cp or cp.fused!=expected_fused:
+        raise ValueError('eligible FT/CP activation count differs from actual v66 schedule')
+    return dict(eligible=True,ft_refits=ft.refits,expected_ft=expected_ft,ft_steps=ft.steps,ft_over=ft.over,
+                cp_refits=cp.refits,expected_cp=expected_cp,cp_fused=cp.fused,expected_fused=expected_fused,
+                cp_single_class=cp.nfail,cp_model_available=cp.model is not None,
+                cp_training_class_eligibility='single-class attempts explicitly reported, not treated as errors')
+
+
 def main(device):
     if device not in ('cpu','cuda'):raise ValueError('explicit device required')
     torch.set_num_threads(1)
@@ -64,17 +84,19 @@ def main(device):
             results={};order=('base','js') if index%2==0 else ('js','base')
             for key in order:
                 results[key],cur=run(pair[key],x[:n],device)
+                results[key]['activity']=activity(cur,n,mode)
                 if key=='js' and cur.js_calls!=n:raise ValueError('worker auxiliary member became inactive')
             ratio=results['js']['seconds']/results['base']['seconds']
             rows.append(dict(mode=mode,windows=n,first=order[0],base=results['base'],js=results['js'],ratio=ratio))
             print(mode,n,ratio,flush=True)
             if ratio>limit:
-                Path('/out/'+device+'_failure.json').write_text(json.dumps(dict(status='worker_slack_guard_failed',row=rows[-1],allowed_ratio=limit,no_later_rows_harvested=True),indent=2))
+                Path('/out/'+device+'_failure.json').write_text(json.dumps(dict(status='worker_slack_guard_failed',row=rows[-1],allowed_ratio=limit,no_later_rows_harvested=True,device=device,cpu_scope='CPU bar failure is not A100 timeout evidence'),indent=2))
                 raise ValueError('predeclared slack guard failed;stop before subsequent timing rows')
     maximum=max(r['ratio'] for r in rows);limit=(60/1.3)/43.5
     report=dict(status='worker_engineering_complete' if maximum<=limit else 'worker_slack_guard_failed',device=device,
                 torch=torch.__version__,numpy=np.__version__,cuda=torch.version.cuda,rows=rows,max_ratio=maximum,
-                allowed_ratio=limit,historical_minutes=43.5,hour_slack=60/(43.5*maximum),
+                allowed_ratio=limit,historical_A100_minutes_conditional=43.5,conditional_A100_hour_slack=60/(43.5*maximum) if device=='cuda' else None,
+                cpu_scope='CPU compatibility/paired overhead engineering bar only;CPUratio×A100historical time is not a CPU sealed estimate',
                 scope='real source windows concatenated only for length stress;not held accuracy or sealed forecast',
                 policy='JS-all continues after recognition',accuracy_computed=False)
     maps=Path('/proc/self/maps').read_text()

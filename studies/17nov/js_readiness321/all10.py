@@ -23,7 +23,7 @@ def main(seed):
     if not all(active.get(k) is True for k in ('disabled_identity','original_inner_gate_identity',
                 'original_ft_label_identity','study_outer_mix_parity','route_share17_verified')):
         raise ValueError('active outer-package path has not passed all required guards')
-    recovery=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_recovery6/recovery.json')
+    recovery=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/recovery.json')
     recovered=json.loads(recovery.read_text())
     if recovered['status']!='six_seed_historical_and_export_guards_passed':
         raise ValueError('six historical seeds have not passed')
@@ -50,10 +50,10 @@ def main(seed):
     if set(model.fit_subjects)!=set(people) or model.repair_stats['gradient_norm']<=0:
         raise ValueError('deployment source/activity guard failed')
     if (not np.allclose(model.G,expected['G'],atol=1e-9,rtol=1e-9)
-            or abs(model.scale-float(expected['scale']))>=1e-9 or float(expected['k'])!=2.
+            or abs(model.scale-float(expected['scale']))>=1e-9 or float(expected['k'])!=5. or model.k!=5.
             or model.align is not True or not bool(expected['align']) or float(expected['shrink'])!=1e-3):
         raise ValueError('CC30 normalization differs from original package FBk2 input')
-    metadata=dict(seed=seed,fit_people=people,held=None,use='all10 deployment only;never a heldfold prediction',
+    metadata=dict(input_prior_k=float(model.k),latent_bn_k=2.,seed=seed,fit_people=people,held=None,use='all10 deployment only;never a heldfold prediction',
                   source_manifest=sha(ws/'source.sha256'),guard_sha256=sha(ws/'result.json'),
                   active_path_sha256=sha(ws/'outer_active_path.json'),base_zip_sha256=ZIP_SHA,
                   parameter_sha256=module.weights(model.net),fit_seconds=time.monotonic()-started)

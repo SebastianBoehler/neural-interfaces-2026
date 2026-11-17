@@ -5,8 +5,8 @@ from pathlib import Path
 
 from reference import sha
 
-ACTIVE=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_active4')
-RECOVERY=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_recovery6')
+ACTIVE=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_active5')
+RECOVERY=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1')
 ORDERS=('within0','within1','within2','within3','full0','full1','runs0','runs1')
 BASES={'B2_pool','B2_s012','B2_s345','B2_s0','B2_s1','B2_s2'}
 
@@ -22,6 +22,8 @@ def manifest(folder):
 def verify():
     source=manifest(ACTIVE);manifest(RECOVERY)
     recovery=read(RECOVERY/'recovery.json')
+    if recovery.get('raw_input_all_seeds_orders_passed') is not True or recovery.get('raw_input_k')!=5.:
+        raise ValueError('corrected raw-input six-seed/eight-order guard missing')
     if recovery['status']!='six_seed_historical_and_export_guards_passed' or [r['seed'] for r in recovery['models']]!=list(range(6)):
         raise ValueError('complete six historical source seeds required')
     for row in recovery['models']:

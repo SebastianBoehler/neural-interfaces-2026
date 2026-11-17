@@ -7,7 +7,7 @@ from pathlib import Path
 from reference import sha
 from proofs import manifest
 
-ORCHESTRATION=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_orchestration3')
+ORCHESTRATION=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_orchestration4')
 
 
 def submit(*args):return subprocess.check_output(['sbatch','--parsable',*args],text=True).strip().split(';')[0]

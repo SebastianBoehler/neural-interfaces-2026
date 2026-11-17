@@ -1,0 +1,431 @@
+{
+  "status": "six_seed_historical_and_export_guards_passed",
+  "held": "P01",
+  "fit_people": [
+    "Dreyer2026Proteus/P02",
+    "Dreyer2026Proteus/P03",
+    "Dreyer2026Proteus/P04",
+    "Dreyer2026Proteus/P05",
+    "Dreyer2026Proteus/P06",
+    "Dreyer2026Proteus/P07",
+    "Dreyer2026Proteus/P08",
+    "Dreyer2026Proteus/P09",
+    "Dreyer2026Proteus/P10"
+  ],
+  "actual_study_bases": {
+    "B2_s0": [
+      0
+    ],
+    "B2_s1": [
+      1
+    ],
+    "B2_s2": [
+      2
+    ],
+    "B2_s012": [
+      0,
+      1,
+      2
+    ],
+    "B2_s345": [
+      3,
+      4,
+      5
+    ],
+    "B2_pool": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "study_runner_sha256": "b9f091d337d3eca7dd0a512462044b5866bafaf46a799b52f69a7b66953e355f",
+  "source_sha256": "66f490fb534ae64574d9553c7cd33c27c1555820acbd1016382fea6697157a7f",
+  "models": [
+    {
+      "seed": 0,
+      "reused_from": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_reference1",
+      "historical_guard": {
+        "max_probability_error": 0.0,
+        "changed_non_tied": 0,
+        "non_tied_rows": 1520,
+        "passed": true
+      },
+      "export": {
+        "cpu_probability_errors": {
+          "17": 2.020720033801826e-06,
+          "61": 3.971293249249719e-06,
+          "190": 6.966576634903632e-06
+        },
+        "cuda_probability_error": 7.980120717565597e-06,
+        "saved_reset": true,
+        "deepcopy_interleaved": true,
+        "stream_buffers": 3,
+        "trace_sha256": "5fde9531448d1ab088f989e7232f25cbaaef62d0042afdb6efc900a57de73fd8"
+      },
+      "checkpoint": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_s0.pt",
+      "trace": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_k2_s0.pt",
+      "checkpoint_sha256": "e5e940e27ac86f6796fac2c674bf06f0de9aaef54681990d544c010346e84b46",
+      "trace_sha256": "5fde9531448d1ab088f989e7232f25cbaaef62d0042afdb6efc900a57de73fd8",
+      "archive_sha256": "816a07b13d7c33ace1bdb4268ac415ba89ba9c4652372cc7ffbd595ede5f0d94",
+      "raw_input_guard": {
+        "within0": {
+          "max_error": 7.15518772176349e-07,
+          "non_tied_changes": 0
+        },
+        "within1": {
+          "max_error": 6.279543180442992e-07,
+          "non_tied_changes": 0
+        },
+        "within2": {
+          "max_error": 6.518350899042957e-07,
+          "non_tied_changes": 0
+        },
+        "within3": {
+          "max_error": 5.431849478543249e-07,
+          "non_tied_changes": 0
+        },
+        "full0": {
+          "max_error": 8.166196822090299e-07,
+          "non_tied_changes": 0
+        },
+        "full1": {
+          "max_error": 6.068786856938679e-07,
+          "non_tied_changes": 0
+        },
+        "runs0": {
+          "max_error": 7.987770869188893e-07,
+          "non_tied_changes": 0
+        },
+        "runs1": {
+          "max_error": 7.29705818214299e-07,
+          "non_tied_changes": 0
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fit_seconds": 33.39155773911625,
+      "historical_guard": {
+        "max_probability_error": 0.0,
+        "changed_non_tied": 0,
+        "non_tied_rows": 1520,
+        "passed": true
+      },
+      "parameter_sha256": "661973644dbc9fa0c5bd6513f7af43fe8e0f9f3f538c3a138884c0b4f61589e4",
+      "archive_parameter_sha256": "661973644dbc9fa0c5bd6513f7af43fe8e0f9f3f538c3a138884c0b4f61589e4",
+      "export": {
+        "cpu_probability_errors": {
+          "17": 1.734524546326277e-06,
+          "61": 2.8906240964188257e-06,
+          "190": 6.2935241714745516e-06
+        },
+        "cuda_probability_error": 6.6857263048003546e-06,
+        "saved_reset": true,
+        "deepcopy_interleaved": true,
+        "stream_buffers": 3,
+        "trace_sha256": "b07dc05815a24c0f16387a48ecc9b0cf313d48ec20efd73d173323efeaaf258f"
+      },
+      "checkpoint": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_s1.pt",
+      "trace": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_k2_s1.pt",
+      "checkpoint_sha256": "ae6f88a66d44a9885b87032334d97a360dd8164b6d5ef6d9a40811eefe1253b1",
+      "trace_sha256": "b07dc05815a24c0f16387a48ecc9b0cf313d48ec20efd73d173323efeaaf258f",
+      "archive_sha256": "f4b37878b574e2fb7fdd3fdbdf74c73c75d8d1dd4061a3fed761c42fe27f3871",
+      "raw_input_guard": {
+        "within0": {
+          "max_error": 6.916436538495496e-07,
+          "non_tied_changes": 0
+        },
+        "within1": {
+          "max_error": 5.130220662730167e-07,
+          "non_tied_changes": 0
+        },
+        "within2": {
+          "max_error": 4.878702859478778e-07,
+          "non_tied_changes": 0
+        },
+        "within3": {
+          "max_error": 5.531242550094184e-07,
+          "non_tied_changes": 0
+        },
+        "full0": {
+          "max_error": 5.98056552392201e-07,
+          "non_tied_changes": 0
+        },
+        "full1": {
+          "max_error": 6.311528856217663e-07,
+          "non_tied_changes": 0
+        },
+        "runs0": {
+          "max_error": 5.576691080033669e-07,
+          "non_tied_changes": 0
+        },
+        "runs1": {
+          "max_error": 7.317359737024631e-07,
+          "non_tied_changes": 0
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fit_seconds": 28.98175070201978,
+      "historical_guard": {
+        "max_probability_error": 0.0,
+        "changed_non_tied": 0,
+        "non_tied_rows": 1520,
+        "passed": true
+      },
+      "parameter_sha256": "9053d1aed741ea6ea310710a7c76b1fd36b3e9c9ece18efa1056891d68abffb7",
+      "archive_parameter_sha256": "9053d1aed741ea6ea310710a7c76b1fd36b3e9c9ece18efa1056891d68abffb7",
+      "export": {
+        "cpu_probability_errors": {
+          "17": 1.789198382950996e-06,
+          "61": 4.642969774482086e-06,
+          "190": 7.982774717030239e-06
+        },
+        "cuda_probability_error": 5.793326114500452e-06,
+        "saved_reset": true,
+        "deepcopy_interleaved": true,
+        "stream_buffers": 3,
+        "trace_sha256": "cbb3a5e124caaa4b7eb7e301cf72557b7fb9a07411931dd3295f072035551c34"
+      },
+      "checkpoint": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_s2.pt",
+      "trace": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_k2_s2.pt",
+      "checkpoint_sha256": "3e2aaf53c6896b2647e166bd1b1653ee96e2baaf05dcb3766bf2d83aaae99446",
+      "trace_sha256": "cbb3a5e124caaa4b7eb7e301cf72557b7fb9a07411931dd3295f072035551c34",
+      "archive_sha256": "928d9c136d9b80c5b8d6a3cc89365795fcb5b9b5f4195aa0e9f99519da02ba34",
+      "raw_input_guard": {
+        "within0": {
+          "max_error": 6.004678776427852e-07,
+          "non_tied_changes": 0
+        },
+        "within1": {
+          "max_error": 7.883236690653384e-07,
+          "non_tied_changes": 0
+        },
+        "within2": {
+          "max_error": 5.891648967581986e-07,
+          "non_tied_changes": 0
+        },
+        "within3": {
+          "max_error": 6.435380934810553e-07,
+          "non_tied_changes": 0
+        },
+        "full0": {
+          "max_error": 7.385951311666972e-07,
+          "non_tied_changes": 0
+        },
+        "full1": {
+          "max_error": 6.194905534107065e-07,
+          "non_tied_changes": 0
+        },
+        "runs0": {
+          "max_error": 8.174440843111697e-07,
+          "non_tied_changes": 0
+        },
+        "runs1": {
+          "max_error": 5.500107946310173e-07,
+          "non_tied_changes": 0
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fit_seconds": 29.13303911872208,
+      "historical_guard": {
+        "max_probability_error": 0.0,
+        "changed_non_tied": 0,
+        "non_tied_rows": 1520,
+        "passed": true
+      },
+      "parameter_sha256": "6bc8c8130f71e85bd4d9429271ba177979f66b9905c57ca2faefbca565383cd2",
+      "archive_parameter_sha256": "6bc8c8130f71e85bd4d9429271ba177979f66b9905c57ca2faefbca565383cd2",
+      "export": {
+        "cpu_probability_errors": {
+          "17": 1.8761713189707763e-06,
+          "61": 4.9372380843681896e-06,
+          "190": 8.750783625721681e-06
+        },
+        "cuda_probability_error": 6.022446042641683e-06,
+        "saved_reset": true,
+        "deepcopy_interleaved": true,
+        "stream_buffers": 3,
+        "trace_sha256": "fce296e06159281c343ec2d3dc27d2db9cdec02cfc3513b36d2fec44a35f88dd"
+      },
+      "checkpoint": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_s3.pt",
+      "trace": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_k2_s3.pt",
+      "checkpoint_sha256": "ab4541dceb270379ac7c6749247b395d5f0c6d707a46ff7cf5963321f1efce8b",
+      "trace_sha256": "fce296e06159281c343ec2d3dc27d2db9cdec02cfc3513b36d2fec44a35f88dd",
+      "archive_sha256": "0164ae6ee099236d8a41026e2412d3e0720c6f0359cc5c2128b01acc7c6baa5c",
+      "raw_input_guard": {
+        "within0": {
+          "max_error": 6.49261131302481e-07,
+          "non_tied_changes": 0
+        },
+        "within1": {
+          "max_error": 6.98255144870874e-07,
+          "non_tied_changes": 0
+        },
+        "within2": {
+          "max_error": 6.136995800432032e-07,
+          "non_tied_changes": 0
+        },
+        "within3": {
+          "max_error": 8.213060904149749e-07,
+          "non_tied_changes": 0
+        },
+        "full0": {
+          "max_error": 8.567172629092568e-07,
+          "non_tied_changes": 0
+        },
+        "full1": {
+          "max_error": 8.020215991888513e-07,
+          "non_tied_changes": 0
+        },
+        "runs0": {
+          "max_error": 8.606949575273859e-07,
+          "non_tied_changes": 0
+        },
+        "runs1": {
+          "max_error": 6.429348980985239e-07,
+          "non_tied_changes": 0
+        }
+      }
+    },
+    {
+      "seed": 4,
+      "fit_seconds": 29.36814667703584,
+      "historical_guard": {
+        "max_probability_error": 0.0,
+        "changed_non_tied": 0,
+        "non_tied_rows": 1520,
+        "passed": true
+      },
+      "parameter_sha256": "4a72f3bfe1fc47f2584bac188bd1c3e2b60013458d597150a972602bcf2ea33e",
+      "archive_parameter_sha256": "4a72f3bfe1fc47f2584bac188bd1c3e2b60013458d597150a972602bcf2ea33e",
+      "export": {
+        "cpu_probability_errors": {
+          "17": 2.304048159373906e-06,
+          "61": 2.548059196749719e-06,
+          "190": 4.731059747797861e-06
+        },
+        "cuda_probability_error": 4.563239903887517e-06,
+        "saved_reset": true,
+        "deepcopy_interleaved": true,
+        "stream_buffers": 3,
+        "trace_sha256": "402dd1aabc0f522f3f030561f4d7a2501e22ee3ba4705adc6bba5a580f7a1911"
+      },
+      "checkpoint": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_s4.pt",
+      "trace": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_k2_s4.pt",
+      "checkpoint_sha256": "210a3dcc3b396363703557bd453ab3a9675b9d1e1831173371ef20fd63bb8acd",
+      "trace_sha256": "402dd1aabc0f522f3f030561f4d7a2501e22ee3ba4705adc6bba5a580f7a1911",
+      "archive_sha256": "372aa5dca198e3325b7b16499d2baabf75cffd8a54c368de800af67d1dac43dc",
+      "raw_input_guard": {
+        "within0": {
+          "max_error": 5.533026012916054e-07,
+          "non_tied_changes": 0
+        },
+        "within1": {
+          "max_error": 6.131221343963489e-07,
+          "non_tied_changes": 0
+        },
+        "within2": {
+          "max_error": 4.576621969176742e-07,
+          "non_tied_changes": 0
+        },
+        "within3": {
+          "max_error": 6.018689446829484e-07,
+          "non_tied_changes": 0
+        },
+        "full0": {
+          "max_error": 5.777276711471657e-07,
+          "non_tied_changes": 0
+        },
+        "full1": {
+          "max_error": 7.099038159541493e-07,
+          "non_tied_changes": 0
+        },
+        "runs0": {
+          "max_error": 4.468449166239452e-07,
+          "non_tied_changes": 0
+        },
+        "runs1": {
+          "max_error": 5.187057077749024e-07,
+          "non_tied_changes": 0
+        }
+      }
+    },
+    {
+      "seed": 5,
+      "fit_seconds": 34.44013288477436,
+      "historical_guard": {
+        "max_probability_error": 0.0,
+        "changed_non_tied": 0,
+        "non_tied_rows": 1520,
+        "passed": true
+      },
+      "parameter_sha256": "f3ed63fb92a03191d188f899c1386737079e142b35f616321ca7f7d3f56939bb",
+      "archive_parameter_sha256": "f3ed63fb92a03191d188f899c1386737079e142b35f616321ca7f7d3f56939bb",
+      "export": {
+        "cpu_probability_errors": {
+          "17": 3.4948365235654144e-06,
+          "61": 3.4948365235654144e-06,
+          "190": 5.712153978376655e-06
+        },
+        "cuda_probability_error": 5.4521526794415465e-06,
+        "saved_reset": true,
+        "deepcopy_interleaved": true,
+        "stream_buffers": 3,
+        "trace_sha256": "7a264b957633a07b8c11e920e70e88e7502d784debabf734234f08daa5ecc741"
+      },
+      "checkpoint": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_s5.pt",
+      "trace": "/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1/held/cc30_P01_k2_s5.pt",
+      "checkpoint_sha256": "d617e33f4d5a768e5d258b6aa29a2702d196267df2fdb8f1d9251ff1ccfd7590",
+      "trace_sha256": "7a264b957633a07b8c11e920e70e88e7502d784debabf734234f08daa5ecc741",
+      "archive_sha256": "2aa23631f974637206eb70aafa7b77e81bdb17fbef2916b707066237888cf39b",
+      "raw_input_guard": {
+        "within0": {
+          "max_error": 7.666599813882513e-07,
+          "non_tied_changes": 0
+        },
+        "within1": {
+          "max_error": 6.385675104803035e-07,
+          "non_tied_changes": 0
+        },
+        "within2": {
+          "max_error": 5.948603549743581e-07,
+          "non_tied_changes": 0
+        },
+        "within3": {
+          "max_error": 7.881258078379361e-07,
+          "non_tied_changes": 0
+        },
+        "full0": {
+          "max_error": 7.044101510977896e-07,
+          "non_tied_changes": 0
+        },
+        "full1": {
+          "max_error": 6.91695996923869e-07,
+          "non_tied_changes": 0
+        },
+        "runs0": {
+          "max_error": 5.969882120870906e-07,
+          "non_tied_changes": 0
+        },
+        "runs1": {
+          "max_error": 6.43190636029356e-07,
+          "non_tied_changes": 0
+        }
+      }
+    }
+  ],
+  "metrics_computed": false,
+  "seconds": 191.1682198094204,
+  "held_input_sha256": "accf0b818f785ebd0f05357321ced7e71b4c9f3df14fdf7e3992eaa5fe162e13",
+  "raw_input_k": 5.0,
+  "latent_sessionbn_k": 2.0,
+  "raw_input_repair": "oldk2metadata_invalid;newk5matchesactualsource",
+  "raw_input_all_seeds_orders_passed": true
+}

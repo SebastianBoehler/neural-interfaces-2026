@@ -11,7 +11,7 @@ import numpy as np
 
 from reference import sha
 
-RECOVERY=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_recovery6')
+RECOVERY=Path('/mnt/lustre/work/gehler/gfh527/ni26_js321_20261117_inputrepair1')
 ZIP_SHA='9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed'
 MODULES=('numerics','tangent','inputs','nets','stages','gates','personal','routing','ensemble',
          'extras','finetune','countfilter','cpers','v6chain','solver')
