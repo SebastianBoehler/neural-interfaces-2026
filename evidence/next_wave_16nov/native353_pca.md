@@ -95,3 +95,16 @@ after linear.cmake); tests/pca_source.cpp,pca_fixture.py,pca_reference.py. New
 source files remain<300lines. Link/runtime/numerical/complete training integration
 are unvalidated. Need a staged exact-base executable and complete input/dependency
 preflight before any allocation; earlier source-training failures remain preserved.
+
+## Explicit matched-test release, BEFORE allocation
+
+Root reviewed the code/card and released ONE CPU6/16GiB≤5min allocation after
+complete final-snapshot module/schema/field/hash/ELF/thread/output preflight.
+Fixed bounds and R-N-N-R/copy/setup/memory boundaries above remain unchanged.
+No new head/EEG/labels, no automatic extension/retry. Current actual9,287coresec
+includes later FT diagnostic276; reserves FTrepair600+sampler600+PCA1800+
+root sourceprep600=12,887<14,400. Immutable ni26_pca_source_v1_20261117.
+Narrow build-only preflight compiles2TUs and links exact existing CAR base/provider,
+without SVD/feature execution; its actual static build cost is reported separately.
+Old3121076 qualified scope stays on its old binary, not the source-boundary refactor.
+This test does not qualify raw-source/native-core/PCA composition.
