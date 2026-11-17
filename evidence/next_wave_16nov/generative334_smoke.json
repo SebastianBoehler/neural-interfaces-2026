@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "labels_opened": "P04-P10 source only",
+  "query_labels_opened": false,
+  "P01_used": false,
+  "source_sha256": "6fcdcd6cc7898979d605b9bbb3c22a2fb0f4116b44718dd75c7b82ac8864a736",
+  "feature_sha256": "abb931da647bc1613e987ef04e3bc0f1d7c99abece389cf6d3fe58180d15eb09",
+  "cache_probe": {
+    "dependency_manifest_sha256": "c8ebeac134d610dc78111700ae84f5e61d74fdf0f500510ba079fca2fdc7bf9e"
+  },
+  "proof": {
+    "inverse_max_abs": 2.303934820702125e-12,
+    "anchor_max_nonuniform": 0.6666666666666679,
+    "final_logweight_range": 957.4797158276691,
+    "all_arms": [
+      "static",
+      "translation",
+      "mixture",
+      "hard",
+      "cyclic",
+      "anchor_off"
+    ],
+    "dimensions": 44239
+  },
+  "preparation_seconds": 3.561364538036287,
+  "fit_seconds": 3.7089158073067665,
+  "full_source_bank_seconds": 4.0336631666868925,
+  "full_source_density_seconds": 4.019967851694673,
+  "projected_remaining_pilot_seconds": 225.52406430942938,
+  "projected_cpu_coreseconds_including_preparation_and_smoke": 2104.6347280563787,
+  "cost_pass": true,
+  "metric_path": "/mnt/lustre/work/gehler/gfh527/ni26_raw312_cpu_20261117_v2/experiments/protocol.py",
+  "total_seconds": 22.904644291847944,
+  "canonical_remote_sha256": "b366a55f4b17394bd4b9ac1ec649f7bf8cac2a396efc9029b20d22070bbd3084",
+  "source_rows_count": 2087,
+  "source_rows_sha256": "393a55907c2473964e5cf0bfceddac770ee3e9b4e7c0d06670c57b0f1ff70b24",
+  "query_rows_count": 378,
+  "query_rows_sha256": "c81881681ebb5e19b41eb574436584c2cc14f52fd18854215cc03b8fade4aaed"
+}

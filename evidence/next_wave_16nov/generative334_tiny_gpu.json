@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "labels_opened": false,
+  "P01_used": false,
+  "source_sha256": "c80d66257e006bb4ed6d87ec5e89b14b24f53c59a293241cc7bd53e4480b4379",
+  "covariance_cache_sha256": "ffa8a3328f229c66953a7618bb97ca4d426346cdb96716d4b6ea279a63ae4d9a",
+  "reference_sha256": "8af5590136f5e3b4a5a588c0df4a12f8654d01a37094b894109878ac45fdd8bc",
+  "slowmean_sha256": "d66f5be3fc1fbb0a10d370db2d026793f6906216ccbaaea63f3a4a836eabf8de",
+  "costs_seconds": [
+    1.0796736241318285,
+    0.07185774762183428,
+    0.07331264996901155
+  ],
+  "CPU_A100_maxabs": [
+    1.1554646128786317e-13,
+    1.1554646128786317e-13,
+    1.1554646128786317e-13
+  ],
+  "projected_all8_seconds": 889.9178204238415,
+  "projected_A100hours": 0.24719939456217818,
+  "projected_CPUcorehours": 1.483196367373069,
+  "limits": "tiny warmed preparation, not wholepilot/worker runtime"
+}

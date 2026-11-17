@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "labels_opened": false,
+  "P01_used": false,
+  "source_sha256": "e956da7fee096268676fff364c9f29d2553d6f717a7b06e4e3bb1e61226b2ab2",
+  "source_rows": [
+    1900,
+    1901,
+    1902
+  ],
+  "reference_sha256": "ffa8a3328f229c66953a7618bb97ca4d426346cdb96716d4b6ea279a63ae4d9a",
+  "native_python_max_abs": 2.78388423424758e-13,
+  "cache_probe": {
+    "covariance_max_abs": 3.4087882170297235e-06,
+    "slow_max_abs": 2.9802322387695312e-08
+  },
+  "measured_three_rows_seconds": 0.1021160390228033,
+  "projected_all8_reference_seconds": 1239.552559018135,
+  "projected_cpu_corehours": 2.065920931696892,
+  "total_seconds": 2.8951991009525955
+}
