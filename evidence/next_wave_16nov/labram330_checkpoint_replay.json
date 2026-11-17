@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "no_training": true,
+  "all4checkpoint_hashes_verified": true,
+  "query_probability_sha256": "2ec25debcc4135fcfe95a9f1168e43fdb20a0825d3c02b29c9954f1e83ac58a8",
+  "original_result_sha256": "45e220f5bcbe60c3f8fd4213e962d62fe7028b280ef57f56ebbe2bf852591c06",
+  "producer_source_sha256": "97c94f769070fa62e9f708f0ba425b48e92cea5bbbb6de86082e16e11032e9a1",
+  "source_sha256": "f8f6b35d606b24b511a2af950e50d91b9230c67f6fc83dd22b090514f2fdab7b",
+  "explicit_protocol_path": "/mnt/lustre/work/gehler/gfh527/ni26_finetune330_replay_v1_20261117/experiments/protocol.py",
+  "actual_metric_path": "/mnt/lustre/work/gehler/gfh527/ni26_finetune330_replay_v1_20261117/2026-competition/benchmark_utils/metrics.py",
+  "actual_metric_sha256": "fcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d",
+  "scores": {
+    "pretrained_frozen": {
+      "P02": {
+        "balanced_accuracy_cell_mean": 0.41666666666666663,
+        "balanced_accuracy_session_mean": 0.4168346774193548,
+        "balanced_accuracy": 0.4168346774193548,
+        "accuracy": 0.41798941798941797,
+        "n_cells": 2,
+        "cell_scores": [
+          0.3645833333333333,
+          0.46875
+        ]
+      },
+      "P03": {
+        "balanced_accuracy_cell_mean": 0.44615815412186377,
+        "balanced_accuracy_session_mean": 0.44714861751152074,
+        "balanced_accuracy": 0.44714861751152074,
+        "accuracy": 0.4444444444444444,
+        "n_cells": 2,
+        "cell_scores": [
+          0.3923163082437276,
+          0.5
+        ]
+      }
+    },
+    "pretrained_FT": {
+      "P02": {
+        "balanced_accuracy_cell_mean": 0.4725134408602151,
+        "balanced_accuracy_session_mean": 0.47140083632019114,
+        "balanced_accuracy": 0.47140083632019114,
+        "accuracy": 0.4708994708994709,
+        "n_cells": 2,
+        "cell_scores": [
+          0.4450268817204301,
+          0.5
+        ]
+      },
+      "P03": {
+        "balanced_accuracy_cell_mean": 0.4334677419354839,
+        "balanced_accuracy_session_mean": 0.43495850401092334,
+        "balanced_accuracy": 0.43495850401092334,
+        "accuracy": 0.43386243386243384,
+        "n_cells": 2,
+        "cell_scores": [
+          0.39818548387096775,
+          0.46875
+        ]
+      }
+    },
+    "random_frozen": {
+      "P02": {
+        "balanced_accuracy_cell_mean": 0.390625,
+        "balanced_accuracy_session_mean": 0.3907930107526882,
+        "balanced_accuracy": 0.3907930107526882,
+        "accuracy": 0.3915343915343915,
+        "n_cells": 2,
+        "cell_scores": [
+          0.34375,
+          0.4375
+        ]
+      },
+      "P03": {
+        "balanced_accuracy_cell_mean": 0.4885192652329749,
+        "balanced_accuracy_session_mean": 0.4890686337258918,
+        "balanced_accuracy": 0.4890686337258918,
+        "accuracy": 0.48677248677248675,
+        "n_cells": 2,
+        "cell_scores": [
+          0.46662186379928317,
+          0.5104166666666666
+        ]
+      }
+    },
+    "random_FT": {
+      "P02": {
+        "balanced_accuracy_cell_mean": 0.41914202508960574,
+        "balanced_accuracy_session_mean": 0.417781404676566,
+        "balanced_accuracy": 0.417781404676566,
+        "accuracy": 0.41798941798941797,
+        "n_cells": 2,
+        "cell_scores": [
+          0.44245071684587817,
+          0.3958333333333333
+        ]
+      },
+      "P03": {
+        "balanced_accuracy_cell_mean": 0.3749551971326165,
+        "balanced_accuracy_session_mean": 0.37639742276839055,
+        "balanced_accuracy": 0.37639742276839055,
+        "accuracy": 0.37566137566137564,
+        "n_cells": 2,
+        "cell_scores": [
+          0.29157706093189967,
+          0.4583333333333333
+        ]
+      }
+    }
+  },
+  "limits": "exactcompletecheckpoint/metricreplay onA100;notouter/workerverification"
+}

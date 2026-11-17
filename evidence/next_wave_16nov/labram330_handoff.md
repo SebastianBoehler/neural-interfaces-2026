@@ -1,87 +1,63 @@
-# Atom-L continuation handoff
+# Current Atom-L source-study handoff,17Nov about06:48CET
 
-Prepared17November2026, before any§329sourceaccuracy. Rootowns STATE/STATUS.
-This continuation doesnotreplace scheduled06:51CETresearchblock.
+Allowned§328/329/330jobscomplete; noactiveGPU/controller/collector remains.
+RootownsSTATE/STATUS. Theextra16m20phase-review didnotreplace06:51CETscheduledresearch.
 
-## Historical first dispatches (superseded below)
-
-- §329 A100engineering3117332: immutable `ni26_labram329_v3_20261117`,
-  source936aecfa1040d3c75c767feef448da3f17662b5f908587b59d8a2405ec21118f;
-  independentcompatibilityonly. Forecast06:58CET, noactualresultatpreparation.
-- §329 chosen2080guard→source3117344: `ni26_labram329_2080_v1_20261117`,
-  source057627db1f85aab13e0cab308f0a21d4e7c6645202b86fe2202160f4e4e44833;
-  forecast06:23:56CET. ONE20minallocation, explicitdevice/SDPAMATH/TF32off.
-  OriginalA100source3117338/3117341canceledpendingbeforeresults; noduplicateaccuracy.
-- §330 releasecontroller3117398 afterany3117344: `ni26_finetune330_v1_20261117`,
-  source3c58729c7a33f78c383064b4cbc5ffbeb21fa4c438759432e43a8c9697dedc5b.
-  ReadsONLYengineering/fitted-readoutguards+cost/memory/sourcehashes, never329queryaccuracy.
-  Ifpassed/capacityavailable, releasesONE≤30min2080trainingallocation; actualIDinrelease.json.
-  Failedreleaseisablocker, notanaccuracyresult; noautomaticretry/widening.
-
-## Shared upstream assets and source protocol
+## Actual upstream artifact
 
 Officialcode59e4e7ea2d855cda5573c312b380b109f1856764;
-HF72189644cef9a91b7b436c5f37f083c1366e2f21, defaultpretrain-onlyAtom-L,
-212001576B, SHAa28e97f7bd73bd7ff55f3b5d680f48807c335cf3134d1281228a061056aaf52b.
-MITcode+weightsverifiedfromactualtext/metadata; ungated/public. Noaccount/termsacceptance.
-Inputcurrent41×480@120Hz→polyphase800@200Hz→µV/100, exactchannelmap, retainedpostnormpatches.
-No physicalbandwidthrestoredabove60Hz; unknownparticipantoverlapwithupstreampretraining.
-PretraininginventorycontainsDreyer2023/EEGMAT; noliteralPROTEUSnameisnotproofnofamilyexposure.
+HF72189644cef9a91b7b436c5f37f083c1366e2f21,MITcode+weights/ungatedpublic.
+ALLactualruns useDEFAULT `atom/atom-large.safetensors`,212001576B,
+SHAa28e97f7bd73bd7ff55f3b5d680f48807c335cf3134d1281228a061056aaf52b.
+`best-full-ft/atom/atom-large.safetensors`=ff09aeda4a4cb4d89ecc88001f1aa9528afe32ce4191ed9ad70177fdaee2b7ed
+wasinspectedmetadataONLY, neverourtrainingartifact. Itselectsapretrainingepochby23-taskbenchmark.
+ActualupstreammoduleSHAff99c31afa9dceb1923f796e349ea9e132d633b8816c251a6e50be00e3306c8d.
+425strictencoderkeys loaded;46,258,720encoderparameters;7explicitpretrainkeysremoved.
+41×480/120Hz→polyphase800/200Hz→µV/100;MATHSDPA/TF32off/sourceA100only.
+Dreyer2023/EEGMAToccurinpretraininginventory;participant-levelPROTEUSoverlapunknown.
 
-P04–P10fit; P02/P03previouslyexposedsourcequeries; P01excludedallfit/scalers/query.
-Statelessqueryinference, officialcellBA, notouter/current-system/returning/sealedproof.
-§329: ninefixedStandardScaler+LR C=.01heads: pretrained/random × pooled400/retained1600
-×with/withoutidenticalraw287, plusrawalone. Unchangedsource740epochcausalrawSBNcontext.
-Allsourcefits/actualCPU2080fitted-headparitybeforequerylabels; savebanks/source-fitquality.
+## Common protocol and limits
 
-## Separate §330 full-FT form
+P04–P10fit;P02/P03previouslyexposedsourcequeries;P01excludedallfit/scalers/query.
+Statelessqueries;officialperson/session/interfacecellBA, notouter/current-system/sealedproof.
+Explicitidenticalraw287branch;noqueryHPO/weightselection/newdownload/upload/package.
+Historicalfailures/importrepairsandcanceledjobs remain inLEDGER/git andlabram329_failures/.
 
-Fourarms pretrainedFT/pretrainedfrozen/randomFT/randomfrozen; all12FIXEDepochs/batch16.
-All46.3Mencoderparametersadapt inFT. Sameheadseed330; classbalancedCE; bodyAdamWlr1e−4,
-head1e−3,wd.01, cosine1%start; identicalsource-onlyinitialconditioning andraw287.
-Frozencontrols haveequalclassifierupdatesoncachedsameinitialfeatures, notmatchedFLOPs.
-Finalepochonly; noqueryHPO/earlystop. Fixed12epochsareaconvergencelimit, notaconvergenceclaim.
+## §329 frozen factorial and recovered instrument
 
-Beforefulltraining: realthree-classsourcebatchsmoke; activefinitebodygradient/nonzeroencoderupdate,
-lastsamplegradient, CPU/GPUactualfitted-headprobability≤1e−3/zero nontiedargmaxchanges,
-repeat/interleaving/deepcopy, restoresmokeinitialstatebeforefixedschedule.
-Warmactualstepcost×completefourarms+180soverheadmustbe≤24min; peakGPU≤8GiB.
-EveryfinalfittedheadCPU/GPUcheckandallfourtrainedoutputsfinishbeforequerylabels.
-Epochlosses/finalgradients/sourceclassrecalls/param/checkpoint/scaler/bankhashesreported.
+ActualA100CPU/feature/fitted-readoutguards passed;B1~14.42ms,457MBcompatibilitypeak.
+PretrainedCPU/GPUfeaturemaxabs.00282955passedcombinedatol.002+rtol.001;
+actual9fittedreadoutmaxprob1.4667e−5/zero nontiedchanges.
+Originalproducer3117550failedmetricmodulepathafterfits; itsheads/rawoutputswerenotpersisted.
+RootauthorizedcanonicalfixedC.01readout/rawreferenceREPEATfromexactbanks, noencoderre-extraction.
+Recovery3117559completed0:0/109.26s; sourcec3cd08f69416b6b5d265aa44f0c34c5db554767ed69579259e6b16e464081dba;
+workspace `/mnt/lustre/work/gehler/gfh527/ni26_atom329_report_v2_20261117`.
+All9coefficients/scalers/rawcheckpoint/querybanks/quality/hashes persistedBEFOREmetric/labels.
+[Report](labram329_source_result.json),[artifactmanifest](labram329_recovered_artifacts.json),
+[readoutguard](labram329_canonical_readout_guard.json),[metricguard](labram329_metric_import_guard.json).
+MeanofficialcellBA raw44.236;pretrainedpool39.836/random36.313;retained43.587/41.938;
+pool+raw44.738/43.645;retained+raw45.955/46.023. Bestfixedprior−randommixedpeople.
+UnchangedrawSBN66.873/57.604→62.238mean. Retained+rawsourceacc88.884%/NLL.432,
+71LRiterations:weakqueryresultisnotsolvercap. Noouterexpansion/familyclosure.
 
-Selecteduncertainpriors: pretrainedFT65%[50,78]; FT−matchedfrozen+5pp[−3,+12];
-pretrainedFT−randomFT+3pp[−5,+10]. WeakfrozenprobeorunderconvergedFTdoesnotclosefamily.
-Noautomaticoutermatrix,upload,packageoradditionaltrainingform.
+## §330 full-FT factorial and complete replay
 
-## Actual recovery status, about06:40CET
+ActualA1003117553completed0:0/625.08s/3.542GBpeak; all4arms12FIXEDepochs/batch16.
+Source97c94f769070fa62e9f708f0ba425b48e92cea5bbbb6de86082e16e11032e9a1,
+workspace `/mnt/lustre/work/gehler/gfh527/ni26_finetune330_v3_A100_20261117`.
+Sameheadupdates/sourceconditioning/raw287;FTbody1e−4/head1e−3,AdamWwd.01,
+cosine1%start/finalepoch;frozenbodycontrolsusecachedfeatures, notmatchedFLOPs.
+Allbodyupdates/frozenidentity/realgradients/cost/memory/CPU-A100fitted-headguards passedbeforequeries.
+[Complete4armreport+checkpoint/scaler/bankhashes](labram330_source_result.json).
+MeanofficialcellBA pretrainedfrozen43.141/pretrainedFT45.299/randomfrozen43.957/randomFT39.705.
+PreFT−randomFT+5.594pp,bothpeoplepositive(+5.337/+5.851);FT−prefrozen+2.158pp,mixedpeople.
+SourcepreFT100%train/.001286loss/.00387lastgrad;random98.946%/.081489/.394876:
+fixed12epochoptimizationlimitsremain;don'tassignpretrainingeffectsolelytorepresentationtransfer.
+Whole45.30iswellbelowrawSBN62.24;noouter/current-systemgainorbroaderfamilyclosure.
 
-InitialA1003117332/20803117344failedbeforeload: missing sys.modules registration for timm.
-330release3117398correctlyblocked; noaccuracy. RealCPUrepairguard3117540passed15s/425keys.
-CPUreport[labram329_cpu_guard.json](labram329_cpu_guard.json), actualmoduleSHA
-ff99c31afa9dceb1923f796e349ea9e132d633b8816c251a6e50be00e3306c8d.
-FixedA1003117543passed18s; [preflight](labram329_A100_preflight.json),14.493msB1/593MB.
-2080queueforecast09:20CETledtoexplicitA100route BEFOREscores; pending20807542/7544canceled.
-
-A100source3117550/sourcef5dcaf520fb65d5587cf5a4ad3373c22e35bd4761e1ee44f64c9eeb9792a84be
-passed[CPU/A100compatibility](labram329_A100_compatibility.json) and
-[actual9fittedreadouts](labram329_A100_fitted_readout_guard.json): maxprob1.4667e−5/0changes.
-Pretrainedfeaturemaxabs.00282955passescombinedatol.002+rtol.001, notabsolute.002alone.
-All9features/sourcefits/rawreferencecompleted, thenmetricpathguardstoppedbeforeaccuracyreport:
-BASEbaselinecachedgenericprotocol; sys.pathchangealonecouldnotreplaceit.
-[No-scorecollisionguard](labram329_metric_import_guard.json)3117558passedbeforecanonicalrecovery.
-
-Originalprocess-localheads/rawprobabilitieswereNOTpersisted; nohonestno-refitrecoveryexists.
-Canceledrecovery3117557(24s)hasnoresult/accuracyread; preserveitslog.
-RootauthorizedONEcanonicalfixedC/rawreference repeat from EXACTsavedbankSHA
-524610d6f21633a2e93cda04007dc82996215ef60a0f14a0bbd28edd9ca2541a.
-Recovery3117559/sourcec3cd08f69416b6b5d265aa44f0c34c5db554767ed69579259e6b16e464081dba,
-workspace ni26_atom329_report_v2_20261117: savesallcoefficients/scalers/rawcheckpoint/
-queryprobabilitybanks/sourcequality/hashesBEFOREmetric/labels. Newcanonicalinstrument,
-notbitwiseidentitytolostoutputs; rawGPUrepeatlimitsmustremainexplicit.
-
-330engineering-onlycontroller3117551releasedactualA100fit3117553 withoutreading329accuracy.
-Workspace ni26_finetune330_v3_A100_20261117, source
-97c94f769070fa62e9f708f0ba425b48e92cea5bbbb6de86082e16e11032e9a1.
-Running: pretrainedfrozen12epochsdone; pretrainedFT10epochsdone whenchecked, noqueryscore.
-Same12epochs/fourarms/guards; if24minprojectionfires, keepstopandregisterlargerbudgetseparately.
-Directexecsessionwatch≤60swaits replacesincorrectmailboxwaitingforshellexit.
+No-trainingexactcheckpoint→querybank→namedofficialmetric replay3117566completed0:0/24s.
+ALLfourhash-verifiedcheckpoints reproducedALLoriginalofficialperson/cellscoresEXACTLY.
+[Replayproof](labram330_checkpoint_replay.json),sourcef8f6b35d606b24b511a2af950e50d91b9230c67f6fc83dd22b090514f2fdab7b;
+workspace `/mnt/lustre/work/gehler/gfh527/ni26_finetune330_replay_v1_20261117`.
+SavedqueryprobabilitybankSHA2ec25debcc4135fcfe95a9f1168e43fdb20a0825d3c02b29c9954f1e83ac58a8.
+ActualofficialmetricSHAfcc739400806a74259f248618501376a4fe53f2b5a40ccdc20db6a9e2369787d.

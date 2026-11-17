@@ -1,0 +1,14 @@
+{
+  "random_pooled_fitted_head.npz": "a5c8f93849d427dfefd20682a00e72818ec5ed57d90d998537f2f665abd8469f",
+  "raw287_fitted_head.npz": "234a076c222121eaddeb59e0c517f7c82b1996ac74ad0b9e76d710690e848b08",
+  "random_retained_fitted_head.npz": "883e82002e6202376936696fae92a09e0f2cbe734e0fa888d2bd2c31e684e46c",
+  "random_retained_raw_fitted_head.npz": "d031badeea8b06f8c491d27e51640813d848c33622413b35bd2513398bd4131b",
+  "pretrained_retained_raw_fitted_head.npz": "62f1da882266a6008fb426163d61181f6dfa7fb0c6f1631fe34ae1c4b96e18e4",
+  "random_pooled_raw_fitted_head.npz": "04d716e59f372b9266089fd348d1c408bad2bf5d53c3eace042b69eccfd8c5e0",
+  "query_probabilities.npz": "c5ecd2417dcdac97073c2bf75a55b167d886df8a654f6cc20e60301e223acf3c",
+  "pretrained_pooled_fitted_head.npz": "e7511273df1feedf9b18660c0da2e4cd8d2156d95626973615600f434e2bcfed",
+  "pretrained_pooled_raw_fitted_head.npz": "93633198cf1219e71d5ad84d7b575c52118d86310b7f9cfc3290fd99c809b1cd",
+  "raw_reference.npz": "2b7335dd3ca8b55d49a6a337630965b6c083b5ffd5d0ab7fd578e3f1baa2512d",
+  "pretrained_retained_fitted_head.npz": "993d161aca67d186c984d2c995bbd9122cfaade5abfd695686973dc3196e7b37",
+  "raw_reference_checkpoint.pt": "16fdafc2ba2ef5a2321f44289c5aa609fb9b4f248538efb67c913bef790049b3"
+}

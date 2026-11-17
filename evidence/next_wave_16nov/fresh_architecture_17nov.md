@@ -276,3 +276,6 @@ within1e−3 withzero nontiedargmaxchanges; featureabs2e−3/rel1e−3 is not al
 A100scope remains independent; its later result doesnotretroactivelylabel2080sourceaccuracy.
 At05:39CET2080forecast06:23:56CET. Queued is not passed. Preserve rawcontrols/splits,
 readoutqualitydiagnostics, featurebankhashes and source-exposure limits whenresultsarrive.
+
+Completionupdate: §329frozen/§330fullFT andexactcheckpointreplay completed;
+[current-onlyhandoff](labram330_handoff.md) supersedes historicalqueuedstatesabove.
