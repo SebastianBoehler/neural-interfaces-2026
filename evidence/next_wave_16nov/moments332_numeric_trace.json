@@ -1,0 +1,110 @@
+{
+  "P": {
+    "input_shape": [
+      12,
+      288,
+      1,
+      480
+    ],
+    "input_max": 0.5431358218193054,
+    "running_mean_max": 0.22070907056331635,
+    "running_var_min": 2.435247370158322e-05,
+    "eps": 1e-05,
+    "errors": {
+      "M|torch.float64": {
+        "direct_same_dtype_error": 9.769962616701378e-15,
+        "cumsum_vs_f64_error": 9.769962616701378e-15,
+        "direct_vs_f64_error": 0.0
+      },
+      "M|torch.float32": {
+        "direct_same_dtype_error": 4.5299530029296875e-06,
+        "cumsum_vs_f64_error": 3.903811061967133e-06,
+        "direct_vs_f64_error": 4.810508188679563e-06
+      },
+      "V|torch.float64": {
+        "direct_same_dtype_error": 8.93507490218326e-13,
+        "cumsum_vs_f64_error": 8.93507490218326e-13,
+        "direct_vs_f64_error": 0.0
+      },
+      "V|torch.float32": {
+        "direct_same_dtype_error": 0.000457763671875,
+        "cumsum_vs_f64_error": 0.00031178990508173854,
+        "direct_vs_f64_error": 0.0004138418454022741
+      },
+      "B|torch.float64": {
+        "direct_same_dtype_error": 9.023892744153272e-13,
+        "cumsum_vs_f64_error": 9.023892744153272e-13,
+        "direct_vs_f64_error": 0.0
+      },
+      "B|torch.float32": {
+        "direct_same_dtype_error": 0.00046062469482421875,
+        "cumsum_vs_f64_error": 0.0003128491626132046,
+        "direct_vs_f64_error": 0.00041652229250388473
+      },
+      "D|torch.float64": {
+        "direct_same_dtype_error": 9.166001291305292e-13,
+        "cumsum_vs_f64_error": 9.166001291305292e-13,
+        "direct_vs_f64_error": 0.0
+      },
+      "D|torch.float32": {
+        "direct_same_dtype_error": 0.0003509521484375,
+        "cumsum_vs_f64_error": 0.0002642579477880602,
+        "direct_vs_f64_error": 0.0003789847449171546
+      }
+    }
+  },
+  "S": {
+    "input_shape": [
+      12,
+      288,
+      1,
+      480
+    ],
+    "input_max": 0.7029063701629639,
+    "running_mean_max": 0.1988297551870346,
+    "running_var_min": 3.423123780521564e-05,
+    "eps": 1e-05,
+    "errors": {
+      "M|torch.float64": {
+        "direct_same_dtype_error": 1.1324274851176597e-14,
+        "cumsum_vs_f64_error": 1.1324274851176597e-14,
+        "direct_vs_f64_error": 0.0
+      },
+      "M|torch.float32": {
+        "direct_same_dtype_error": 4.76837158203125e-06,
+        "cumsum_vs_f64_error": 2.6403510120509566e-06,
+        "direct_vs_f64_error": 3.860113765075113e-06
+      },
+      "V|torch.float64": {
+        "direct_same_dtype_error": 6.461498003318411e-13,
+        "cumsum_vs_f64_error": 6.461498003318411e-13,
+        "direct_vs_f64_error": 0.0
+      },
+      "V|torch.float32": {
+        "direct_same_dtype_error": 0.0002422332763671875,
+        "cumsum_vs_f64_error": 0.00028189200406325554,
+        "direct_vs_f64_error": 0.0002046595299498577
+      },
+      "B|torch.float64": {
+        "direct_same_dtype_error": 6.536993168992922e-13,
+        "cumsum_vs_f64_error": 6.536993168992922e-13,
+        "direct_vs_f64_error": 0.0
+      },
+      "B|torch.float32": {
+        "direct_same_dtype_error": 0.00023937225341796875,
+        "cumsum_vs_f64_error": 0.00028162221635597007,
+        "direct_vs_f64_error": 0.0002021062043491284
+      },
+      "D|torch.float64": {
+        "direct_same_dtype_error": 7.913669719528116e-13,
+        "cumsum_vs_f64_error": 7.913669719528116e-13,
+        "direct_vs_f64_error": 0.0
+      },
+      "D|torch.float32": {
+        "direct_same_dtype_error": 0.0002765655517578125,
+        "cumsum_vs_f64_error": 0.00019653658562912568,
+        "direct_vs_f64_error": 0.00024806259524190466
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:497: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = mne.channels.make_standard_montage("standard_1020")
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:1452: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+  montage = make_standard_montage("standard_1020")
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/modules/filter.py:172: UserWarning: Creating the filter banks equally divided in the interval 4Hz to 40Hz with almost equal bandwidths. If you want a specific interval, please specify 'band_filters' as a list of tuples.
+  warn(
+/mnt/lustre/work/gehler/gfh527/ni26_moments332_v1_20261117/guard332.py:32: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  error=float((adapted(z)-direct(adapted,z,mode)).abs().max())
+Traceback (most recent call last):
+  File "/mnt/lustre/work/gehler/gfh527/ni26_moments332_v1_20261117/guard332.py", line 54, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/mnt/lustre/work/gehler/gfh527/ni26_moments332_v1_20261117/guard332.py", line 34, in main
+    if error>bound:raise ValueError('independentmomentoraclefailed')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: independentmomentoraclefailed
