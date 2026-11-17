@@ -229,6 +229,20 @@ Replay takes 402.22→397.99 s (1.05% saved, 38 s per matched solver hour); wall
 3122787 also matches every long-stream label and counter, with no ordinary timing.
 [Exact worker evidence](../evidence/next_wave_16nov/native366_worker.md)
 
+**Native experiment throughput — §368.** Two independent short active replays share one A100
+with exact labels and work in 3122839. C++ takes 142.50 s serial and 108.62 s overlapped.
+Frozen takes 147.58 s serial and 116.32 s overlapped. Peak device samples during overlap
+are 3,039 MiB C++ and 3,927 MiB frozen. Both fit. This measures development throughput
+for 96-window jobs, with full sealed execution still separate.
+[Native experiment evidence](../evidence/next_wave_16nov/native_iteration368_369.md)
+
+**Native policy changes — §369.** The experiment varies one existing artifact scalar without a
+library rebuild. Native skip matches stock bitwise over eight held-person DEV orders and reduces
+measured personalization-stage time by 4.1%. A first fit at window 90 changes DEV by +0.0128 pp
+[80% −0.1079,+0.1350]. Both variants match the 190-window A100 anchor. Unequal template warmup
+leaves whole-worker speed open. One short ordinary CUDA profile (§370) measures 3,075 launches
+per window, with launch APIs accounting for 14.4% of profiled wall. Graph or fusion speed is open.
+
 **Parallel accuracy — §354–356.** §354 complete after two fixed-route recoveries. Gaussian factorization lost to
 the strong raw decoder by 7.44 pp [80% −10.28, −4.62] across three exposed new-person folds. Gaussian versus
 the matched learned factorizer is undecided. [§354 report](../evidence/next_wave_16nov/factorization354.md)

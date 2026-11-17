@@ -21,7 +21,8 @@ packages to exercise full adaptation. Each stream started from a fresh model cop
 
 All work counters matched. Each stream made 24 neural refits and 480 optimizer
 steps. Personalization made 18 and 39 refits and 288 and 710 fusions, respectively.
-Soft time caps fired at 12 and 54 refits in the two streams. Neither arm logged a
+The 250-window prefix cap skipped 12 and 54 scheduled neural refits in the two
+streams. No refit hit the cumulative time limit. Neither arm logged a
 stage error. Maximum host RSS was 3,188,768 KiB frozen and 2,990,608 KiB C++.
 Peak reserved CUDA memory was 5.952 GB and 5.948 GB, respectively.
 
