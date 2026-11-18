@@ -26,7 +26,7 @@ def write(name, payload):
 
 def packaged(family, blob):
     assert sha(PACKAGE) == PACKAGE_SHA
-    member = PEERS[family][3]
+    member = {'fb': 35, 'fbraw': 47, 'sinc': 53}[family]
     with zipfile.ZipFile(PACKAGE) as archive:
         archive_source = Path('sealed_submission.py')
         with archive_source.open('xb') as f:
