@@ -38,7 +38,14 @@ def fraction(a, v):
     return float(np.square(a @ v).sum() / np.square(a).sum())
 
 
-def main(smoke):
+def agreement(graz, brain, j):
+    keep = np.arange(len(graz)) != j
+    delta = graz[j] - brain[j]
+    frac = [fraction(delta, axes(graz[keep], brain[keep], shift)[0]) for shift in range(5)]
+    return frac[0] - np.mean(frac[1:])
+
+
+def run(smoke, estimator=axes, audit_person=agreement, amplify=False):
     check(digest(PRIOR / 'source.sha256') == '587b2cae97ec18e463c17676ccc79ae4ec7178b60f91977087e68beef9c8de64', 'source imports')
     for line in (PRIOR / 'source.sha256').read_text().splitlines():
         sha, name = line.split(maxsplit=1)
@@ -80,14 +87,9 @@ def main(smoke):
     graz, brain = centroids(src, people, iface, session, y)
     directions, spectra = {}, {}
     for a, offset in [('X',0),('D1',1),('D2',3)]:
-        directions[a], spectra[a] = axes(graz, brain, offset)
+        directions[a], spectra[a] = estimator(graz, brain, offset)
     directions['M'] = directions['X']
-    audit = []
-    for j in range(len(graz)):
-        keep = np.arange(len(graz)) != j
-        delta = graz[j] - brain[j]
-        frac = [fraction(delta, axes(graz[keep], brain[keep], shift)[0]) for shift in range(5)]
-        audit.append(frac[0] - np.mean(frac[1:]))
+    audit = [audit_person(graz, brain, j) for j in range(len(graz))]
     base = squareform(pdist(src, 'sqeuclidean'))
     held_dist = cdist(query, src, 'sqeuclidean')
     scale = np.median(base[np.triu_indices(len(src), 1)])
@@ -98,7 +100,7 @@ def main(smoke):
         if a != 'O':
             proj = src @ directions[a]
             check(abs(np.var(proj, axis=0, ddof=1).sum()-3) < 1e-7, 'projection energy')
-            factor = .75 if a == 'M' else -.75
+            factor = .75 if (a == 'M') != amplify else -.75
             train = base + factor * squareform(pdist(proj, 'sqeuclidean'))
             test = held_dist + factor * cdist(query @ directions[a], proj, 'sqeuclidean')
         outputs[a] = predict(np.exp(-train/scale), np.exp(-test/scale), weights, np.eye(3)[y])
@@ -112,4 +114,4 @@ def main(smoke):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1] == 'smoke')
+    run(sys.argv[1] == 'smoke')

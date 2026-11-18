@@ -8,6 +8,8 @@ ROOT=Path('/mnt/lustre/work/gehler/gfh527')
 FULL=ROOT/'ni26_priv401_full_v1_20261118'
 SOURCE=ROOT/'ni26_align404_v1_20261118'
 
+SOURCE_PIN='23762a6bbea74582a1553bdbc26f28c1cdcf21a4b5c07b9ac8ba1ce429f92309'
+
 
 def pin(root,expected):
     raw=(root/'source.sha256').read_bytes()
@@ -18,7 +20,7 @@ def pin(root,expected):
 
 
 def members():
-    pin(SOURCE,'23762a6bbea74582a1553bdbc26f28c1cdcf21a4b5c07b9ac8ba1ce429f92309')
+    pin(SOURCE,SOURCE_PIN)
     card=json.loads((SOURCE/'source.json').read_text())
     assert not card['query_labels_opened'] and card['eligible']==1898 and card['held']==757
     assert card['source']==hashlib.sha256((SOURCE/'source.sha256').read_bytes()).hexdigest()
