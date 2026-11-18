@@ -21,3 +21,17 @@ All 40 arm/order captures reproduced archived V6Fr decisions and probabilities w
 ## Crossed rebalancing state
 
 §400b gives each learned or donor current mixture the native trajectory's class multiplier, then reruns EM, TSEM, the joint count filter and personalization. An independent reconstruction from the actual previous 30 native mixture rows (uniform prior count 5, exponent 1.15) matched every original native rebalanced probability to 1.89e−15 across 48 base/order cells. Each session starts with an empty history. Galvani snapshot ni26_stage400b_cross_v1_20261118. Smoke 3124061, 16 L/D cells 3124062, collector 3124063, state reconstruction 3124066.
+
+§400b completed all 96 learned/donor endpoints (six bases, eight orders each). Crossed learned scored 76.012%, crossed donor 76.156%, own-state learned 75.956%, native 76.233%, stock 76.279%, and the separately selected JS system 76.552%.
+
+| Full-system comparison | B2_pool, pp [paired 80%] | Six-base mean, pp [paired 80%] |
+|---|---:|---:|
+| Crossed learned − own-state learned | +0.056 [−0.142,+0.241] | +0.080 [−0.037,+0.190] |
+| Crossed learned − crossed donor | −0.144 [−0.289,+0.048] | −0.055 [−0.140,+0.048] |
+| Crossed learned − native | −0.220 [−0.406,+0.006] | −0.114 [−0.195,−0.008] |
+| Crossed learned − stock | −0.267 [−0.481,+0.039] | −0.147 [−0.315,+0.053] |
+| Crossed learned − selected JS | −0.540 [−0.802,−0.202] | — |
+
+New-person P04/P10 changed −0.739/−0.346 pp against native. Endpoint changes from sharing native state missed all three registered numerical predictions. The small improvement over own-state L remained undecided. The selected JS comparison used identical rows from a separate complete model. No package was constructed. [Full paired results](stage400_full.json)
+
+With exactly the same native multiplier on both arms, learned−native went from +0.283 pp at the mix to −0.348 immediately after rebalancing, and learned−donor from +0.454 to −0.113. On six bases the corresponding changes were +0.278→−0.288 and +0.520→−0.086. Thus, the shared rolling class adjustment is sufficient to reverse the advantage on these rows. Arm-specific history feedback is unnecessary for that sign change. Intermediate audit 3124085 reproduced the upstream mixture decisions exactly. The computed comparisons retain each arm's downstream confidence and personalized refits.
