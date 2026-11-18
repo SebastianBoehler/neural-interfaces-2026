@@ -73,3 +73,11 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F11 Ferranti smoke 510567 completed in 11 s; both authenticated P01 actors reached Galvani. Source matched episode, donor, reference and initialization digests across arms.
 - F-C5 3127921 completed. P01 held-new used 155 versus 190 covariance calls. Two returning samples used 21 versus 70 calls. Terminal scores and selected rows were bitwise equal. Full paired array 3127930 and collector 3127931 accepted.
 - F10 completed both seeds. The isolated update changed cap250 by +0.131 and −0.031 pp with both intervals crossing zero. See verified hashes in the [ledger](../docs/LEDGER.md).
+
+## Wednesday 18 November, 16:51 CET
+
+- The [Wednesday decision brief](DECISION_18NOV.md) is complete and published on the campaign branch. Staged v6.6cap250 is the selection and sealed v5.1b is the alternate. Both archive SHA-256 values matched on a fresh check.
+- Galvani scoring completed for [D2](wave_factorial/result-18nov.md) at 16:07, [F11](wave_input/result-18nov.md) at 16:19, [F-C7](cap250-c7-result.md) at 16:32 and [F-C8](cap250-c8-result.md) at 16:49. Each collector exited 0:0. The refreshed waveform figures include both authenticated F11 seeds.
+- F-C8 found −0.020 pp for causal arbitration on new delivery orders for the same Scherer people. The effect remains undecided and did not meet the registered rule for release qualification.
+- Track 2 organizers reported a slower RTX sealed worker, an increased evaluation limit and a large queue. The 4,800-second figure was reported by a participant. Galvani A100 timing remains a development measurement. [Runtime provenance](../OFFICIAL_CONTRACT.md)
+- Ferranti and Galvani were idle at this handoff. F12 trainable spectral initialization and exact whole-worker qualification of the score-preserving F-C5 optimization are in preparation.
