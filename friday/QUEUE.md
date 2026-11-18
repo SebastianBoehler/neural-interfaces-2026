@@ -124,3 +124,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - [Causal EA preflight](ea_restream/result-18nov.md) traced the two missing historical slots to trainable-FIR FBCNet with EA and shallow EA. Trainable-FIR FBCNet reproduced the historical posteriors exactly on three source-excluded anchors. The corrected delivery changed 18 of 190 decisions on the initial member-only P01 replay. The complete-system accuracy effect remains open.
 - The full trainable-FIR FBCNet reconstruction is registered and staged. Galvani assets 3129279, real eight-order smoke 3129280, source-excluded fold array 3129281 and completeness validator 3129282 form the next wave. The shallow EA reproduction remains separate. No downstream scoring follows until both slots qualify.
+
+## Wednesday 18 November, 19:32 CET
+
+- Sealed submission **1058969** finished at **0.8298729992** and ranked **#15** at the verified check. Runtime **2,554.9166 s**. Top-ten cutoff **0.8350952562**. One attempt remains. [Official decision brief](DECISION_18NOV.md#official-penultimate-receipt)
+- The trainable-FIR FBCNet causal reconstruction completed at 19:28 with all 50 folds and 13,275 recorded posteriors bitwise exact. Its label-blind eight-delivery bank is sealed. The shallow EA reconstruction remains unresolved and gates a fully causal complete-system score. [EA reconstruction](ea_restream/result-18nov.md) · [Day review](RETROSPECTIVE_18NOV.md)

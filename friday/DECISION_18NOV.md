@@ -1,6 +1,6 @@
 # Wednesday Track 2 decision brief
 
-**Current selection is staged v6.6cap250. The alternate is sealed v5.1b.** Sebastian set an evening target above 0.845 on the sealed ranking metric. The clean waveform variants tested so far trail cap250 on ten held-new public people. The fixed spectral kernel's gains did not reproduce on the independent Scherer cohort. Sebastian chose stronger held-person and external evidence as the tie-break inside the development noise band. Both archives passed SHA and ZIP CRC checks on 18 November. The exact staged cap250 also passed the real-window reset smoke, and the chain replay printed `OK`.
+**Sealed v6.6cap250 is the current best.** Submission **1058969** scored **0.8298729992** and ranked **#15** at 19:32 CET. That is **+1.0106 pp** over v5.1b and **0.5222 pp** below the current top-ten cutoff. V5.1b remains the alternate. Both archives passed SHA and ZIP CRC checks before release. Cap250 passed the real-window reset smoke and the chain replay printed `OK`. [Official scores](https://www.codabench.org/api/leaderboards/19997/)
 
 ## Sealed score and rank scenario
 
@@ -79,8 +79,11 @@ Prefer the untouched staged cap250 ZIP on the current evidence. Ferranti complet
 | Wednesday 16:50, completed | F-C8 exact repeat of the fixed causal rule scored within the noise band on two additional orders. |
 | Wednesday 18:43, completed | Locked exact v6.6cap250 after the last accuracy replication. |
 | Wednesday 18:45, accepted | Codabench submission **1058969** was running on first observation. Today's allowance is 1/1 used and the total is 6/7 used. |
+| Wednesday 19:32, verified | **0.8298729992**, rank **#15**, **2,554.9166 seconds**. The same leaderboard had a top-ten cutoff of **0.8350952562**. |
 | Friday 20 November, 18:00, planned | Final candidate and alternate. Use held-person and independent external evidence to break ties inside development noise. |
 
 ## Official penultimate receipt
 
 `s_boehler` submitted `v66_cp1_cap250.zip` as `v6.6cap250` to the Sealed Final Phase at **18:45 CET**. Codabench accepted ID **1058969**. SHA-256 `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`; ZIP CRC clean immediately before upload. The initial observed status was **Running**. [My Submissions](https://www.codabench.org/competitions/17982/#/participate-tab)
+
+Codabench finished with **0.8298729992 balanced accuracy cell mean**. It separately reported balanced accuracy 0.8296611037, accuracy 0.8296569238, and runtime **2,554.9166 s**. At the 19:32 CET check the submission was ranked **#15** by entry and the #10 score was **0.8350952562**. The remaining gap is **0.5222 pp**. One sealed submission remains. [Live standings](https://www.codabench.org/competitions/17982/#/results-tab) · [Exact scores](https://www.codabench.org/api/leaderboards/19997/)
