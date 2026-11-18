@@ -28,7 +28,7 @@ The [lunch recommendation](../evidence/next_wave_16nov/lunch_recommendation_18no
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
 Top five remains the objective.
 Account limits:32jobs running/272submitted with28reserved; preserve unrelated jobs. Never upload automatically.
-Report every gain as FULL-SYSTEM DEV, SEALED LEADERBOARD or INDIVIDUAL-MODEL, with baseline/cohort.
+Report every gain as FULL-SYSTEM DEV, SEALED LEADERBOARD or INDIVIDUAL-MODEL, with baseline/cohort. For competition updates, give the corresponding 0–1 leaderboard units, the comparator and the dated entry-rank implications where available. Label transfer assumptions and keep standalone gains separate from full-system score scenarios.
 “Custom stack” means C++/CUDA. “Original raw neural reference” means the stock PyTorch336/338 model.
 Use the [current handoff](../evidence/next_wave_16nov/HANDOFF_17NOV.md) for a fresh session.
 The [solution-space review](../evidence/next_wave_16nov/solution_space_review_17nov.md) records

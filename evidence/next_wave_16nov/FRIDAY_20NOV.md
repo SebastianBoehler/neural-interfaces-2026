@@ -22,3 +22,9 @@ On Galvani, the §455n historical full-system smoke, eight-order replay and both
 A rolling queue check runs every 50 minutes through Friday 20 November, 18:00 CET. It can start new preregistered waves and recover failed dependencies. The split applies to research lanes. Slurm assigns hardware independently, and the two families require different amounts of CPU and GPU work.
 
 The next cap250 refinement acts before the late personalization stage. It compares trust in the class-count model inferred from previous predictions against fixed trust and stock. The real-data smoke passed; eight-order array 3126940 and collector 3126943 were submitted. The returning-role recovery uses jobs 3126944–3126946. Both Ferranti H100 qualification jobs passed and production fits began at 13:10 CET. [Ferranti mechanisms and checks](memory454.md)
+
+### Wednesday score and rank reference
+
+At 13:19 CET on 18 November, the public Codabench results for sealed task 36954 put v5.1b at entry #20 with 0.8197668759. The #19, #15, #14, #13 and #10 entries scored 0.8207452902, 0.8237705196, 0.8253647372, 0.8314157695 and 0.8350310945. The #5 entry scored 0.8412138586. A cap250 score of 0.824–0.829 would occupy #15–14 with those entries fixed. This planning scenario predates the upload and has no calibrated probability. [Codabench results](https://www.codabench.org/api/leaderboards/19997/)
+
+On deployment-count-matched public new-person folds, learned retrieval improved by +0.002174 and +0.001583 in 0–1 score units. Assuming the full measured effect on 56.6% new-person cells and zero on returning cells yields +0.001231 and +0.000896 on top of an unknown cap250 sealed score. The fixed early-count change yields +0.000354 under the same assumptions. These are separate comparisons to one stock baseline. [Learned memory results](matched456_learned.json) · [Early count results](early455_result.json)
