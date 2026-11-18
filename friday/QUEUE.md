@@ -119,3 +119,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - F-C10, F-C9 and F-C4r completed and did not advance. The nine-person RTX proxy replay measured +0.304 pp for staged cap250 versus v5.1b, with its paired interval crossing zero. [Day review](RETROSPECTIVE_18NOV.md)
 - Codabench accepted exact staged v6.6cap250, submission **1058969**, at **18:45 CET**. First observed status was Running. Today's quota is 1/1 used, total 6/7 used. Read the [signed-in submission page](https://www.codabench.org/competitions/17982/#/participate-tab) for its individual score when published.
+
+## Wednesday 18 November, 19:14 CET
+
+- [Causal EA preflight](ea_restream/result-18nov.md) traced the two missing historical slots to trainable-FIR FBCNet with EA and shallow EA. Trainable-FIR FBCNet reproduced the historical posteriors exactly on three source-excluded anchors. The corrected delivery changed 18 of 190 decisions on the initial member-only P01 replay. The complete-system accuracy effect remains open.
+- The full trainable-FIR FBCNet reconstruction is registered and staged. Galvani assets 3129279, real eight-order smoke 3129280, source-excluded fold array 3129281 and completeness validator 3129282 form the next wave. The shallow EA reproduction remains separate. No downstream scoring follows until both slots qualify.
