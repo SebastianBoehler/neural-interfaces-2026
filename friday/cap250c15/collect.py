@@ -79,7 +79,9 @@ def verify(source):
                     assert act["windows"] == len(rows) and act["errors"] == act["ft_over"] == 0
                     assert act["ft_steps"] == 20*act["ft_refits"]
                     assert [act[k] for k in STOCK_WORK] == stock["protected_work"] == value["protected_work"]
-                    assert max(value["protected_max"].values()) <= 2e-5
+                    drift = value["protected_max"].copy()
+                    assert drift.pop("native_warm_individual") <= 1e-3
+                    assert max(drift.values()) <= 2e-5 and value["refit_eeg_sha"] == stock["refit_eeg_sha"]
                     assert stat["calls"] == stat["em_calls"] == len(rows)
                     assert stat["rb_calls"] == (0 if arm == "stock" else len(rows))
                     assert stat["exposure_max_error"] <= 2e-12

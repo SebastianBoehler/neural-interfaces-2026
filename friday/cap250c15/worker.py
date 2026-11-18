@@ -1,6 +1,7 @@
 """Run matched full cap250 sessions with the outer-tail rebalancer intervention."""
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from time import perf_counter
@@ -16,6 +17,7 @@ from settings import ARMS, SEEDS, STOCK_WORK, schedule
 
 
 TOL = 2e-5
+WARM_TOL = 1e-3
 PUBLIC = Path("/native/reference_normal.json")
 
 
@@ -56,8 +58,11 @@ def run(template, eeg, rows, arm):
     assert got["rb_calls"] == (0 if arm == "stock" else len(labels))
     assert got["exposure_max_error"] <= EXPOSURE_TOL
     work = [activity[k] for k in STOCK_WORK]
+    input_sha = {k: hashlib.sha256(np.asarray(value, dtype="<f4").tobytes()).hexdigest()
+                 for k, value in model.ft.X.items()}
     info = dict(labels=labels, activity=activity, seconds=seconds, receipt=got,
-                own_staged=model.routeB.log["staged"], own_routed=model.routeB.log["routed"], protected_work=work)
+                own_staged=model.routeB.log["staged"], own_routed=model.routeB.log["routed"], protected_work=work,
+                refit_eeg_sha=input_sha)
     arrays = dict(v5=v5, gate=gates, targets=targets, warm=warm, latch=means, posterior=posterior)
     arrays = {k: np.asarray(v) for k, v in arrays.items()}
     arrays["ft_lab"] = np.asarray(model.ft.lab)
@@ -74,7 +79,7 @@ def diff(x, y):
 def protected(reference, candidate):
     a, x = reference
     b, y = candidate
-    assert a["protected_work"] == b["protected_work"]
+    assert a["protected_work"] == b["protected_work"] and a["refit_eeg_sha"] == b["refit_eeg_sha"]
     assert a["own_staged"] == b["own_staged"] and a["own_routed"] == b["own_routed"]
     assert np.array_equal(x["latch"], y["latch"]) and np.array_equal(x["ft_lab"], y["ft_lab"])
     assert np.array_equal(x["gate"][:, :, 0], y["gate"][:, :, 0])
@@ -82,10 +87,12 @@ def protected(reference, candidate):
     for k in ("v5", "warm", "targets"):
         assert np.array_equal(x[k].reshape(len(a["labels"]), -1, 3).argmax(-1),
                               y[k].reshape(len(a["labels"]), -1, 3).argmax(-1)), k
-    names = ("v5", "gate", "targets", "warm", "ft_weights")
+    names = ("v5", "gate", "targets", "ft_weights")
     errors = {k: diff(x[k], y[k]) for k in names}
     errors["outer_mix"] = diff(x["posterior"][:, :3], y["posterior"][:, :3])
     assert max(errors.values()) <= TOL, errors
+    errors["native_warm_individual"] = diff(x["warm"], y["warm"])
+    assert errors["native_warm_individual"] <= WARM_TOL, errors
     return errors
 
 
@@ -103,8 +110,8 @@ def repetitions(arm, group, other, model, eeg, results):
 
 
 def grade_smoke(model, eeg, rows, other, archive):
-    pre, _ = run(model, eeg, rows, "stock")
-    archive_parity(pre, archive)
+    pre = run(model, eeg, rows, "stock")
+    archive_parity(pre[0], archive)
     results = {a: run(model, eeg, rows, a) for a in ("stock", "identity", "scalar", "robust")}
     stock = results["stock"]
     stock_m = stock[1]["posterior"]
@@ -114,6 +121,8 @@ def grade_smoke(model, eeg, rows, other, archive):
     assert control <= TOL
     print(f"PASS archive and identity control, max posterior error {control:.7g}", flush=True)
     report = {}
+    repeats = dict(stock=protected(stock, pre), identity=protected(stock, results["identity"]))
+    print(f"PASS independent warm control {repeats}", flush=True)
     for a, (info, tape) in results.items():
         assert info["activity"]["recognized"] == -1 and info["activity"]["ft_refits"] > 0
         error = protected(stock, (info, tape))
@@ -125,7 +134,7 @@ def grade_smoke(model, eeg, rows, other, archive):
     assert r[0]["receipt"]["clipped_history_occurrences"] > 0
     assert diff(r[1]["posterior"][:, 3:6], s[1]["posterior"][:, 3:6]) > .001
     assert diff(r[1]["posterior"][:, 3:6], stock_m[:, 3:6]) > .001
-    return report
+    return report, repeats
 
 
 def recognized():
@@ -197,8 +206,9 @@ def main(mode, index):
         key = who+"|1|411"
         rows, other = (deliveries[411][f"{who}|{day}"] for day in (1, 2))
         assert len(rows) == 120 and rows[0] == 1257 and other[0] == 1383
-        evidence = grade_smoke(model, eeg, rows, other, archive[key])
-        evidence = dict(arms=evidence, rows=rows.tolist(), recognized_public=recognized(), passed=True)
+        arms, repeats = grade_smoke(model, eeg, rows, other, archive[key])
+        evidence = dict(arms=arms, warm_repeat=repeats, rows=rows.tolist(),
+                        recognized_public=recognized(), passed=True)
         smoke_sha = None
         dest = Path("smoke.json")
     else:
