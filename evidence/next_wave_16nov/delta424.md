@@ -1,6 +1,6 @@
 # §424 Counterfactual history distillation on identical queries
 
-The learned A6 used session history on all four fit-excluded PROTEUS people. Matching the explicit teacher’s change in logits gave similar accuracy to matching teacher changes from different query windows. Both seeds scored below the matched label-only fit. On 26 Shin2018 people, the estimated benefit of intact history was positive but uncertain. Both preregistered superiority criteria remain unmet.
+Keeping session history improved mean accuracy across four fit-excluded PROTEUS people. Three of four improved at seed 382 and four of four at seed 1382. Matching the explicit teacher’s change in logits gave similar accuracy to matching teacher changes from different query windows. Both seeds scored below the matched label-only fit. On 26 Shin2018 people, the estimated benefit of intact history was positive but uncertain. Both preregistered superiority criteria remain unmet.
 
 | Measurement, pp | Seed 382 | Seed 1382 |
 |---|---:|---:|
