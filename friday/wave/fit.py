@@ -118,9 +118,11 @@ def check_behavior(model, x):
         raise ValueError("session history is inactive or nonfinite")
 
 
-def fit(kind, seed, held, smoke, data_path, order_path, device):
-    if device == "cuda" and "H100" not in torch.cuda.get_device_name():
-        raise RuntimeError("expected Ferranti H100")
+def fit(kind, seed, held, smoke, data_path, order_path, device, gpu_family="H100"):
+    if gpu_family == "A100" and kind not in BAND_KINDS:
+        raise ValueError("A100 source release applies only to F12")
+    if device == "cuda" and gpu_family not in torch.cuda.get_device_name():
+        raise RuntimeError(f"expected a {gpu_family} GPU for this source release")
     torch.set_num_threads(1)
     torch.manual_seed(seed)
     torch.backends.cuda.matmul.allow_tf32 = False
@@ -260,6 +262,7 @@ if __name__ == "__main__":
     parser.add_argument("seed", type=int, choices=(460, 1460))
     parser.add_argument("held", choices=PEOPLE)
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--gpu-family", choices=("H100", "A100"), default="H100")
     args = parser.parse_args()
     fit(args.kind, args.seed, args.held, args.smoke, Path("proteus_windows.npz"),
-        Path("shuffle_perms.npz"), "cuda")
+        Path("shuffle_perms.npz"), "cuda", args.gpu_family)
