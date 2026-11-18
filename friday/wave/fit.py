@@ -13,6 +13,7 @@ from source_labels import read_training_labels
 from waveform import Decoder
 from raw import KINDS as RAW_KINDS, MaskedObjective, RawDecoder
 from synthetic import KINDS as STYLE_KINDS, SourceStyle
+from normalize import KINDS as NORM_KINDS, NormalizedRawDecoder
 from temporal import KINDS as TEMPORAL_KINDS, SourceJitter, TemporalDecoder
 
 
@@ -21,11 +22,13 @@ ORDER_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
 ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 PEOPLE = tuple(f"P{i:02}" for i in range(1, 11))
 MOTOR_KINDS = ("motor_transfer", "motor_null")
-RAW_ACTORS = (*RAW_KINDS, *STYLE_KINDS)
+RAW_ACTORS = (*RAW_KINDS, *STYLE_KINDS, *NORM_KINDS)
 KINDS = ("prototype", "centered", *TEMPORAL_KINDS, *MOTOR_KINDS, *RAW_ACTORS)
 
 
 def make_decoder(kind):
+    if kind in NORM_KINDS:
+        return NormalizedRawDecoder(kind)
     if kind in RAW_ACTORS:
         return RawDecoder()
     if kind in MOTOR_KINDS:
