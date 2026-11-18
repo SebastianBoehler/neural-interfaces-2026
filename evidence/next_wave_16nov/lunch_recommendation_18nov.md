@@ -1,6 +1,6 @@
 # Penultimate Track 2 selection · working brief for Wednesday 18 November
 
-**Provisional choice at 07:32 CET: v6.6cap250.** Review at 08:00 and finalize the recommendation by 11:30 CET. Selection cutoff is noon. Friday evening remains the final decision window. The candidate is staged locally.
+**Provisional morning choice: v6.6cap250.** Review at 08:00 and finalize the recommendation by 11:30 CET. Selection cutoff is noon. Friday evening remains the final decision window. The candidate is staged locally.
 
 | Artifact or control | Verified identity / result |
 |---|---|
