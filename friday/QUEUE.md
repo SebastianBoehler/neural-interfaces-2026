@@ -39,3 +39,10 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F8 tests synthetic source-session covariance against a variance-matched gain control. Ferranti 510134 smoke eligible, 510135/136 follow. Manifest `93f2dcaf3f64badc6735a40c175a777b2c11f65c1df1ac5f9a5f74c01d4b21a5`. Real local covariance, waveform, session reset, and no-op guards passed. Score release in `ni26_friday_wave_style_20261118`.
 - Backfill requests for the three eligible Ferranti smoke jobs were shortened to two minutes while pending. Their scientific inputs and array limits are unchanged. Slurm forecast 14:54 CET for the F7 smoke at inspection. F6 and F8 had no start estimate.
 - F-C4 passed real A100 smoke and reached production. Galvani 3127453 cap three, 3127454 afterok. F-C3 last three tasks were still live. [F-C4 receipt](cap250-c4-queue.md)
+
+## Wednesday 18 November, 14:24 CET
+
+- F6 and F7 Ferranti smoke 510118 and 510122 completed in 8 and 9 s. Their held smokes 3127399/7402 and 3127438/7441 also completed. Full actor tasks were queued for priority. Only each pending array's first fold reduced its time request to two minutes for backfill. Other tasks retain five minutes until first-fold elapsed is verified.
+- F8 CPU preflight 3127482 completed, pinned stock parity and replay OK. Held smokes/seed scorers 3127483–88, diagonal and F7 comparisons 3127489–92 accepted. F8 Ferranti smoke forecast 15:10 CET, subject to resource availability.
+- F-C3 exact comparison completed and remained undecided. [Report](cap250-c3-result.md) F-C4 smoke passed and workers 3127453 were in flight.
+- The existing Friday heartbeat now includes Sebastian's whole-model objective and evidence figure updates. [Raw EEG experiments and next mechanism](RAW_MODEL.md)

@@ -82,3 +82,5 @@ Registered 18 November 2026 before F8 fitting. Does changing plausible cross-cha
 [Generative augmentation with held-person evaluation](https://arxiv.org/abs/2607.22733)
 
 **F5 completed.** Exact staged stock scored 48.456% FULL-SYSTEM EXTERNAL on nine Scherer people and two orders. Actual-identity corrections lost −3.284 [80% −4.160,−2.338] and −3.975 [−5.033,−2.873] pp versus stock, but beat the wrong-class swap by +1.366 and +1.009 pp with positive paired intervals. The objective learned something about the confusion structure and the resulting integration did not transfer against real stock. [Independent A100 results](../friday/errorfit/external-result.md)
+
+**F-C3 completed.** Exact external cap250 48.4557%, stable-pseudo-label treatment 48.2705%. Treatment versus stock −0.185 pp [80% −0.463,+0.116], placebo +0.165 pp [−0.069,+0.417]. Both contrasts remain undecided. Work counts and all 4,260 canonical stock labels matched. Warm ratio 1.0011× with uncertain variation. [Independent exact worker report](../friday/cap250-c3-result.md)
