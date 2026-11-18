@@ -24,7 +24,9 @@ class Slot:
         if self.actor is None:
             self.original.reset_state()
         else:
-            self.actor.reset()
+            with torch.no_grad(), torch.jit.optimized_execution(False):
+                if self.actor.reset().item() != 0:
+                    raise ValueError("the replacement session state did not reset")
 
     def __call__(self, x):
         if self.window is not None or x.shape != (41, 480) or x.dtype != np.float32:
@@ -39,7 +41,7 @@ class Slot:
             posterior = self.original.proba(scaled, cache)
         else:
             window = torch.from_numpy(self.window[None]).to(device=scaled.device)
-            # Keep CUDA graph profiling from changing a fresh actor copy’s numerics.
+            # Keep CUDA graph profiling from changing a fresh actor copy's numerics.
             with torch.jit.optimized_execution(False):
                 posterior = self.actor(window)
         self.window = None
