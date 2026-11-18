@@ -121,7 +121,11 @@ def main():
         for arm in controls:
             matched = np.stack([r[family,arm,'all'] for r in rowscores[:-1]])
             src, dev = mean_order(matched[:,4]), mean_order(matched[:,:4])
-            levels[family+'/'+arm] = dict(source_six=float(src.mean()), development_five_train=float(dev.mean()),
+            person_weight = [len(set(session[person==p])) for p in SOURCES+DEV]
+            official_all = np.average(np.r_[src,dev.mean(axis=0)],weights=person_weight)
+            if family=='full' and arm=='Z':
+                np.testing.assert_allclose(official_all,76.2793,atol=.0001,rtol=0)
+            levels[family+'/'+arm] = dict(official_all=float(official_all),source_six=float(src.mean()), development_five_train=float(dev.mean()),
                 development_six_train=float(mean_order(rows[family,arm,'all']).mean()),
                 matched_ten=float((src.sum()+dev.mean(axis=0).sum())/10))
         for m in ('all','session1','Graz','BrainHero','0','1','2'):
