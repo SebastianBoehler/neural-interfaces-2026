@@ -30,3 +30,10 @@ At 13:19 CET on 18 November, the public Codabench results for sealed task 36954 
 On deployment-count-matched public new-person folds, learned retrieval improved by +0.002174 and +0.001583 in 0–1 score units. Assuming the full measured effect on 56.6% new-person cells and zero on returning cells yields +0.001231 and +0.000896 on top of an unknown cap250 sealed score. The fixed early-count change yields +0.000354 under the same assumptions. These are separate comparisons to one stock baseline. [Learned memory results](matched456_learned.json) · [Early count results](early455_result.json)
 
 The clean-checkout campaign records new jobs and the original graph and external receipts in the [Wednesday decision handoff](EVENING_HANDOFF_18NOV.md).
+
+
+**17:09 CET scoring audit.** The [audit](scoring_audit_18nov.md) confirms the historical stock only
+partially replays delivery order: transformer/shallow EA members stay recorded-order. Label terminal
+contrasts accordingly; their exact identities do not qualify a fully causal package comparison.
+Re-stream those members and all dependent stages before a new full-system promotion claim. Fresh
+orders on repeatedly examined people test order robustness, not fresh-person generalization.

@@ -9,6 +9,14 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 ## 1. Where we stand
 
+**18 November scoring audit:** historical shuffled full-system comparisons retain recording-order
+transformer and shallow EA inputs. Their `STRICT` guard exempts these members. Treat those comparisons
+as **historical full-system DEV with partial delivery replay**, including the three-seed cap250 stock.
+Exact identity checks do not establish full delivery causality. Repeated public/external cohorts and
+new orders also do not provide fresh-person confirmation. The training-cache repair and next validation
+priorities are in the [scoring audit](../evidence/next_wave_16nov/scoring_audit_18nov.md).
+The packaged solver's causal behavior is a separate question; no staged ZIP changed in this audit.
+
 [Friday research queue, comparisons and first results](../evidence/next_wave_16nov/FRIDAY_20NOV.md).
 
 ### Wednesday 18 November lunch decision

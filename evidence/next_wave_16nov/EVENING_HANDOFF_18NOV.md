@@ -37,3 +37,16 @@ Primary sources: docs/LEDGER.md §§454–459, evidence/next_wave_16nov/native45
 
 - F6–F9 completed before 15:08 CET. F7 supervised raw waveform beat F3 as a whole decoder by +4.952/+4.421 pp, and F9 fixed normalization reached 48.070%/48.591%. All terminal waveform insertions trailed 76.1039% cap250. F10 isolates normalization residual, Galvani 3127918–20. F11 raw sensor scaling is preregistered. [Completed held results](../../../neural-interfaces-2026-friday/friday/wave/results-f6-f9-18nov.md)
 - F-C4 exact external +0.119 pp with interval spanning zero against stock; release unchanged. F-C5 tests exact lazy covariance as a work-saving change and leaves original refits/selector intact. Both frozen ZIP SHA-256 digests still match. [Current decision brief](../../../neural-interfaces-2026-friday/friday/DECISION_18NOV.md)
+
+
+## Scoring audit · 17:09 CET
+
+The [scoring audit](scoring_audit_18nov.md) confirms the historical shuffled stock retains
+recording-order transformer/shallow EA inputs. Its terminal comparisons are conditional historical
+DEV, with partial delivery replay. Exact zero controls do not resolve that causality gap. Prioritize
+rebuilding those member streams and dependent stages before further small terminal-policy sweeps.
+Whole-decoder F12 remains a separately interpretable experiment. Reused public and Scherer people
+plus fresh orders do not establish fresh-person confirmation. Three reproduced training no-ops are
+repaired locally with four passing real-EEG regression checks; no affected campaign score identified.
+Galvani refreshed at approximately 17:08 CET: F12 arrays 3128355/3128356 and dependent score jobs
+3128357–3128360 are now pending. Ferranti returned no live jobs. This audit did not alter those jobs.

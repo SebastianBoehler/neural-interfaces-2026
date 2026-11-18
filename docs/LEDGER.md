@@ -11275,3 +11275,18 @@ The 1,894 qualified recorded source feedback markers occur +2.626–3.110s after
 §459 external launched on Galvani, 18 Nov 13:33 CET, root ni26_external459_v2_20261118. Official-image A100 smoke 3127026 tests cold G/day1 canonical and 17-window prefix. Array 3127027 (18 canonical/replication worker processes, nine-person coverage each) follows successful smoke; score 3127033 follows all workers. Source checksums cover original archive, 18 historical control files, official image, benchmark, code, inputs and source-fit checkpoint hashes. The fresh recording-order replay printed OK. Initial v1 captured a dangling relative symlink for a shared fit import; 3127024/25 canceled, no scores used. V2 dereferenced and verified it before launch. The external fit uses the unchanged staged cap250 ZIP and two research actors read from frozen all-source checkpoints.
 
 **§458d whole-worker cost of native all-source two-seed graph, registered before measurement.** In the clean Linux worker SIF on A100, run the unchanged staged cap250 on the first canonical Scherer day and order0 for participants A and G (indices 0 and 5 in the sorted external file; use actual names in report). On the augmented arm apply the §458 native graph to each already-delivered EEG, with authenticated §459 all-source weights, source statistics and per-session centroid. Both arms observe identical stock scores and counters, report the same 1-window API behavior and time fresh-model creation through returned labels, including deferred graph creation inside the session. Two fresh-process paired repeats per person with order alternation; same node/device per pair. Require archive stock identity and native genuine single-seed decisions equal to §459 PyTorch for every tested row. Real smoke with independent fresh-prefix weights/graph before full. Predict augmented/stock median ≤1.03 per person; higher ratio misses. Also report setup, graph median increment and complete runtime variability; neither two pairs nor this external mix predicts private time. Numerical or stock mismatch fails qualification on that stream. No upload.
+
+
+**18 November scoring-validity audit (unscored engineering checks).** The audit in
+`evidence/next_wave_16nov/scoring_audit_18nov.md` traces the historical three-seed stock to
+`shufcombo.py`'s explicit transformer/shallow EA recording-order exemption. A label-blind real-EEG
+check reproduces the mismatch: P01/full0's first row 94 includes 94 unavailable recording-prefix
+windows in cached alignment; immediate and correctly delivered first-window alignment match exactly.
+No accuracy impact was scored. Historical complete-stack effects retain their values but have
+partial-delivery-replay scope, not full causal-package qualification. Rebuilding the missing member
+streams and every dependent stage remains required for that qualification. Real-EEG regression
+checks also reproduced and repaired two training-cache no-ops (plain model reused for SessionNet;
+changed co-training skipped) and silent acceptance of unsupported ordinary-training sample weights.
+All four regression checks now pass, including preserved inference-only cache reuse; v3 replay OK.
+Recent standalone waveform actors bypass this cache. No completed campaign score was identified as
+affected by these training bugs. No frozen ZIP, remote source snapshot or official submodule changed.
