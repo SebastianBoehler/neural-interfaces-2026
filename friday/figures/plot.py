@@ -62,6 +62,7 @@ def wave_plot(root, out):
                          d["absolute"]["wave_genuine"]["pp"]))
     heat = np.array([[r[2]["people"][p] for p in PEOPLE] for r in rows])
     n = len(rows)
+    heat_limit = max(2.5, float(np.ceil(np.abs(heat).max())))
     fig = plt.figure(figsize=(12.5, max(7.4, n * .39 + 2.0)), layout="constrained")
     fig.get_layout_engine().set(rect=(.005, .04, .99, .955))
     ax = fig.subplots(1, 3, width_ratios=[1.0, 2.05, .66], sharey=True)
@@ -77,9 +78,9 @@ def wave_plot(root, out):
                        ms=5.5, lw=1.65, capsize=2.5, color=color, zorder=3)
         ax[2].scatter(whole, y, s=32, marker="o" if seed == 460 else "D", color=color, zorder=3)
     ax[0].axvline(0, color=MUTED, lw=.9, ls=(0, (4, 3)))
-    img = ax[1].imshow(heat, cmap="RdBu", norm=TwoSlopeNorm(vcenter=0, vmin=-2.5, vmax=2.5),
+    img = ax[1].imshow(heat, cmap="RdBu", norm=TwoSlopeNorm(vcenter=0, vmin=-heat_limit, vmax=heat_limit),
                        aspect="auto", interpolation="nearest")
-    cb = fig.colorbar(img, ax=ax[1], location="bottom", shrink=.8, pad=.06, extend="both")
+    cb = fig.colorbar(img, ax=ax[1], location="bottom", shrink=.8, pad=.06)
     cb.set_label("Per-person change (percentage points)", fontsize=9)
     ax[0].set_yticks(range(n), [f"{label}  ·  {seed}" for label, seed, _, _ in rows])
     ax[0].set_ylim(n-.5, -.5)
