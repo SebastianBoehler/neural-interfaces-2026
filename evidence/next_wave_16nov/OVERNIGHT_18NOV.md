@@ -79,3 +79,9 @@ The workstation return monitor logs to .journal/ferranti-382-return.log. Every 5
 01:13 CET. §383 paired terminal fusion complete. JS B2_pool J−zero +0.002/+0.045 pp (382/1382), J−donor −0.076/−0.076 pp, all primary intervals span zero. [Evidence](fusion383.md). §383b oracle attribution 3123400 → 3123401 uses committed decisions to bound the potential of this fixed pair.
 
 01:14 CET. §383b complete. At the registered 5% weight the JS real-history member offered +0.307/+0.340 pp in weighted corrections, while new errors cost −0.305/−0.295 pp. The perfect-selector ceiling applies to this pair only. [Attribution](fusion383.md)
+
+§384 and §384b COMPLETE by 01:17 CET. All 3123397/98/99 and 3123409/10/11 passed. B2_pool trained selector−stock +0.097 [−0.098,+0.282] / −0.024 [−0.198,+0.149] pp. A label-assisted 100% pure training-row selector gained only +0.163 pp [−0.007,+0.350]. No lunch candidate. Shuffled evidence replaced more stock-selected rows and scored +0.231/+0.209 pp, an exposed four-person hint for a new turnover-matched test. [Evidence](selection384.md)
+
+01:17 CET. §385 verifies the exact uploaded v5.1b and staged cap250 archives on naturally routed Scherer sessions in the official worker image. Smoke 3123415 → nine people 3123416 → collector 3123417. All 39 cap250 members match the previously measured worker reference. [Qualification](lunch_qualification385.md)
+
+01:34 CET. §385 complete across two days each for nine external Scherer participants. Actual ZIPs v5.1b 47.963%, cap250 48.456%, difference +0.493 pp [80% −0.311,+1.286]. All 36 natural cap250 sessions exercised active fine-tuning; zero stage errors. Keep staged cap250 for lunch. The private score and wall time remain unknown. [Evidence](lunch_qualification385.md)

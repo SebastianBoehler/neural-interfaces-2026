@@ -1,0 +1,776 @@
+{
+  "arms": [
+    "old",
+    "cap"
+  ],
+  "people": [
+    "Scherer2015/A",
+    "Scherer2015/C",
+    "Scherer2015/D",
+    "Scherer2015/E",
+    "Scherer2015/F",
+    "Scherer2015/G",
+    "Scherer2015/H",
+    "Scherer2015/J",
+    "Scherer2015/L"
+  ],
+  "acc": [
+    47.96296296296296,
+    48.45568783068783
+  ],
+  "classes": [
+    [
+      53.125,
+      45.6547619047619,
+      45.10912698412699
+    ],
+    [
+      53.64087301587303,
+      46.42857142857142,
+      45.297619047619044
+    ]
+  ],
+  "diff": 0.4927248677248675,
+  "ci80": [
+    -0.31084656084656115,
+    1.2863756613756612
+  ],
+  "order_diff": [
+    0.7738095238095233,
+    0.21164021164021155
+  ],
+  "person_diff": [
+    1.0416666666666667,
+    -0.20833333333333337,
+    -0.625,
+    3.363095238095238,
+    -0.625,
+    -1.2500000000000004,
+    0.8630952380952376,
+    0.4166666666666667,
+    1.4583333333333315
+  ],
+  "changed": 384,
+  "activity": {
+    "old|Scherer2015/A|1|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/A|2|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/A|1|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/A|2|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap|Scherer2015/A|1|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/A|2|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/A|1|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/A|2|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "old|Scherer2015/C|1|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/C|2|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/C|1|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/C|2|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap|Scherer2015/C|1|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/C|2|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/C|1|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/C|2|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "old|Scherer2015/D|1|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/D|2|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/D|1|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/D|2|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap|Scherer2015/D|1|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/D|2|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/D|1|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/D|2|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "old|Scherer2015/E|1|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/E|2|0": {
+      "n": 105,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/E|1|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/E|2|1": {
+      "n": 105,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap|Scherer2015/E|1|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/E|2|0": {
+      "windows": 105,
+      "recognized": -1,
+      "ft_refits": 9,
+      "ft_steps": 180,
+      "ft_relabels": 9,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 15,
+      "errors": 0
+    },
+    "cap|Scherer2015/E|1|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/E|2|1": {
+      "windows": 105,
+      "recognized": -1,
+      "ft_refits": 9,
+      "ft_steps": 180,
+      "ft_relabels": 9,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 15,
+      "errors": 0
+    },
+    "old|Scherer2015/F|1|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/F|2|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/F|1|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/F|2|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap|Scherer2015/F|1|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/F|2|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/F|1|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/F|2|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "old|Scherer2015/G|1|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/G|2|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/G|1|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/G|2|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap|Scherer2015/G|1|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/G|2|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/G|1|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/G|2|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "old|Scherer2015/H|1|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/H|2|0": {
+      "n": 105,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/H|1|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/H|2|1": {
+      "n": 105,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap|Scherer2015/H|1|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/H|2|0": {
+      "windows": 105,
+      "recognized": -1,
+      "ft_refits": 9,
+      "ft_steps": 180,
+      "ft_relabels": 9,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 15,
+      "errors": 0
+    },
+    "cap|Scherer2015/H|1|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/H|2|1": {
+      "windows": 105,
+      "recognized": -1,
+      "ft_refits": 9,
+      "ft_steps": 180,
+      "ft_relabels": 9,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 15,
+      "errors": 0
+    },
+    "old|Scherer2015/J|1|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/J|2|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/J|1|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/J|2|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap|Scherer2015/J|1|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/J|2|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/J|1|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/J|2|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "old|Scherer2015/L|1|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/L|2|0": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/L|1|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "old|Scherer2015/L|2|1": {
+      "n": 120,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap|Scherer2015/L|1|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/L|2|0": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/L|1|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    },
+    "cap|Scherer2015/L|2|1": {
+      "windows": 120,
+      "recognized": -1,
+      "ft_refits": 10,
+      "ft_steps": 200,
+      "ft_relabels": 10,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 5,
+      "cp_fused": 30,
+      "errors": 0
+    }
+  }
+}
