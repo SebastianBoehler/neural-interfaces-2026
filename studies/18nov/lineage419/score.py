@@ -51,7 +51,7 @@ def summary(old, new, weights):
                 delta_by_person=average(delta).tolist(), delta_by_order=np.average(delta, axis=1, weights=weights).tolist())
 
 
-def main():
+def guarded_matrices():
     if (STORE/"replay.txt").read_text().splitlines()[-1] != "OK":
         raise ValueError("replay/check.py must pass")
     perm = RUN/"shuffle_perms.npz"
@@ -70,7 +70,6 @@ def main():
         pin(ROOT/path)
     if (detector.J.TAU,detector.J.FLOOR,detector.C.NDIM,detector.C.REG)!=(2,.5,6,1):
         raise ValueError("detector configuration differs")
-    results = {}
     for protocol, people in PEOPLE.items():
         with np.load(base,allow_pickle=True) as z:
             rows, owners, cells, labels = [z[f"{k}|{protocol}"] for k in ("idx","person","cell","y")]
@@ -116,8 +115,15 @@ def main():
             before.append(metric.person_accuracy(old,labels,cells,owners,people))
             after.append(metric.person_accuracy(new,labels,cells,owners,people))
         weights=np.array([len(np.unique(cells[owners==p])) for p in people])
+        yield protocol, np.asarray(before), np.asarray(after), weights, len(rows)
+
+
+def main():
+    results = {}
+    for protocol, before, after, weights, row_count in guarded_matrices():
+        people = PEOPLE[protocol]
         results[protocol]=dict(official=summary(before,after,weights), equal_person=summary(before,after,np.ones(len(people))),
-                               rows=len(rows),cells=int(weights.sum()),people=people)
+                               rows=row_count,cells=int(weights.sum()),people=people)
         if protocol=="seen_session":
             results[protocol]["assumed_returning"]=summary(before,after,np.array([.2,.8]))
     report=dict(orders=metric.ORDERS,scope="historical fold emulation",results=results,sha256=LOCK)
