@@ -71,6 +71,27 @@ class BoundedSession(nn.Module):
         return out
 
 
+class FrozenFIR(nn.Module):
+    """Preserve the native centered FFT convolution without a traced CPU device constant."""
+    def __init__(self, native):
+        super().__init__()
+        if native.method_iir or native.forward_filter or len(native.fir_list) != 9 or native.n_chans != 41:
+            raise ValueError("original FBCNet FIR FFT branch differs")
+        self.firs = nn.ParameterList([nn.Parameter(f.detach().clone(), requires_grad=False)
+                                     for f in native.fir_list])
+
+    def forward(self, window: torch.Tensor) -> torch.Tensor:
+        bands: list[torch.Tensor] = []
+        for taps in self.firs:
+            coefficients = taps.unsqueeze(0).repeat(41, 1).unsqueeze(0)
+            size = window.size(-1) + coefficients.size(-1) - 1
+            freq = torch.fft.rfft(window, n=size) * torch.fft.rfft(coefficients, n=size)
+            full = torch.fft.irfft(freq, n=size)
+            start = (size - window.size(-1)) // 2
+            bands.append(full[..., start:start + window.size(-1)].unsqueeze(1))
+        return torch.cat(bands, dim=1)
+
+
 class ExportedActor(nn.Module):
     def __init__(self, trained, normalizer, scale):
         super().__init__()
@@ -89,6 +110,7 @@ class ExportedActor(nn.Module):
         remove_parametrizations(conv, "weight", leave_parametrized=True)
         if not torch.equal(conv.weight, effective):
             raise ValueError("frozen spatial weight differs from its native MaxNorm value")
+        self.body.spectral_filtering = torch.jit.script(FrozenFIR(self.body.spectral_filtering).eval())
         self.body.spatial_conv[1] = torch.jit.script(BoundedSession(normalizer).eval())
         self.register_buffer("scale", torch.tensor(scale, dtype=torch.float32))
         self.register_buffer("fixed_zero", torch.zeros((1, 287), dtype=torch.float32))
@@ -106,7 +128,8 @@ class ExportedActor(nn.Module):
 def export_actor(trained, normalizer, scale, sample):
     actor = ExportedActor(trained, normalizer, scale).eval()
     actor.reset()
-    compiled = torch.jit.trace_module(actor, {"forward": (sample,), "reset": ()}, check_trace=False)
+    with torch.backends.cudnn.flags(allow_tf32=False):
+        compiled = torch.jit.trace_module(actor, {"forward": (sample,), "reset": ()}, check_trace=False)
     if compiled.reset().item() != 0:
         raise ValueError("exported reset did not clear the history")
     return compiled

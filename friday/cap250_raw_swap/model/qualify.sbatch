@@ -17,7 +17,7 @@ f15e=$base/ni26_friday_s1c_skip_external_20261118
 f16=$base/ni26_friday_s1c_distill_20261118
 f16e=$base/ni26_friday_s1c_distill_external_20261118
 cross=$base/ni26_cross411b_20261118
-work=$base/ni26_friday_cap250_raw_model_20261118
+work=${SLURM_SUBMIT_DIR:?}
 image=$repo/runs/cloud/ni26_worker.sif
 cd "$work"
 sha256sum --quiet -c source.sha256
