@@ -203,3 +203,14 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F18 completed at 23:44:37 CET. Energy-matched local sensor withholding remains undecided against both hard CE and dispersed withholding. [F18 results](fbc323_sensor/result-18nov.md)
 - F19 Ferranti smoke `511265` passed in 10 seconds at 23:44:18 CET and exactly recovered both flat F17 states. The H100 array `511266` is held pending authenticated Galvani smoke `3132601`. Independent replay `3132602` receives each completed fold, and collector `3132603` waits for all twenty blind banks. [Registration](../docs/LEDGER.md#f19--jointly-learned-raw-s1c-hierarchy-crossed-with-matched-jitter)
 - The running local relay is `bash friday/fbc323_hierarchy/run_dependencies.sh 511265 511266 3132601 3132602`. Remote source and held releases use `friday_s1c_hierarchy_20261118` and `ni26_friday_s1c_hierarchy_20261118`. The relay verifies both smoke completions before releasing source work. Once the source array is released, `bash friday/fbc323_hierarchy/relay.sh 511266 3132602` copies completed folds and safely releases their corresponding held tasks.
+
+## Wednesday 18 November, overnight top-three campaign
+
+[Target and decision evidence](OVERNIGHT_TOP3.md).
+
+| Lane | Current evidence and queued dependencies |
+|---|---|
+| Full cap250 four-arm combination | F-C14 A100 smoke 3132597, nine-person 3132604 afterok smoke, scorer 3132605 afterok all banks. Fresh Scherer deliveries on the reused nine people. |
+| Whole raw decoder | F19 source 511265 and independent held smoke 3132601 passed. Ferranti 511266, Galvani 3132602 and collector 3132603 use authenticated per-fold relay. See the F19 commands above. |
+| Held-new within0 | Raw and FB EA historical warm controls passed exactly. Two FBLight visits exceeded numerical tolerance with identical decisions. Same-original RTX recovery 3132595 and independent terminal zero 3132606 gate fresh paired production. |
+| Returning | Fresh source-excluded raw/Sinc warm consumers passed 3132599 with both target arms. Native gate and mixture still need common-fit regeneration before full-system comparison. [Receipts](ea_returning/fresh-warm-result-18nov.md) |

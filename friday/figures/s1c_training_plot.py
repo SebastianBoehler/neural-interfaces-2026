@@ -39,6 +39,15 @@ LAYOUTS = {
             ("bounded_jitter_minus_hard", "Rigid jitter\nvs hard CE"),
             ("bounded_phase_minus_jitter", "Dispersive phase\nvs rigid jitter"),
         )),
+    "3b759900d0add003dd10b2eb832348deab3a6e61ec1343851f81f452d53fa9ba": dict(
+        title="Spatial sensor withholding produced mixed S1C effects",
+        stem="held-s1c-spatial-withholding", xlim=(-1.40, 1.55),
+        caption="Bounded inference. The masked arms matched electrode count and removed energy.",
+        contrasts=(
+            ("bounded_local_minus_hard", "Local electrodes\nvs hard CE"),
+            ("bounded_dispersed_minus_hard", "Dispersed electrodes\nvs hard CE"),
+            ("bounded_local_minus_dispersed", "Local electrodes\nvs dispersed electrodes"),
+        )),
 }
 
 
