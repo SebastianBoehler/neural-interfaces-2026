@@ -45,6 +45,12 @@ def save(fig, out, stem):
     plt.close(fig)
 
 
+def waveform_row(data, label, seed, full_contrast, whole_arm):
+    if abs(data["absolute"]["stock"]["pp"] - STOCK) > 1e-8:
+        raise ValueError("mismatched complete-stock score")
+    return label, seed, data["contrasts"][full_contrast], data["absolute"][whole_arm]["pp"]
+
+
 def wave_plot(root, out):
     rows = []
     for folder, label, name in MODELS:
@@ -55,11 +61,18 @@ def wave_plot(root, out):
             print(f"{name}: waiting for a complete seed pair")
             continue
         for s, path in zip(SEEDS, paths, strict=True):
-            d = read(path)
-            if abs(d["absolute"]["stock"]["pp"] - STOCK) > 1e-8:
-                raise ValueError("mismatched complete-stock score")
-            rows.append((label, s, d["contrasts"]["full_genuine-stock"],
-                         d["absolute"]["wave_genuine"]["pp"]))
+            rows.append(waveform_row(read(path), label, s, "full_genuine-stock", "wave_genuine"))
+    scale_paths = [root / "scale" / f"input_scale_{seed}_result.json" for seed in SEEDS]
+    if all(path.is_file() for path in scale_paths):
+        scale_results = [read(path) for path in scale_paths]
+        if tuple(result["seed"] for result in scale_results) != SEEDS:
+            raise ValueError("mismatched sensor scale seeds")
+        for fit, label in (("genuine", "Sensor scale · own history"), ("donor", "Sensor scale · donor training")):
+            arm = f"{fit}_trained_genuine"
+            for seed, data in zip(SEEDS, scale_results, strict=True):
+                rows.append(waveform_row(data, label, seed, f"full_{arm}-stock", f"wave_{arm}"))
+    else:
+        print("sensor scaling: waiting for a complete seed pair")
     heat = np.array([[r[2]["people"][p] for p in PEOPLE] for r in rows])
     n = len(rows)
     heat_limit = max(2.5, float(np.ceil(np.abs(heat).max())))
