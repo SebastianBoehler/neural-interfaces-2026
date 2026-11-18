@@ -12,6 +12,7 @@ from torch.nn import functional as F
 from source_labels import read_training_labels
 from waveform import Decoder
 from raw import KINDS as RAW_KINDS, MaskedObjective, RawDecoder
+from synthetic import KINDS as STYLE_KINDS, SourceStyle
 from temporal import KINDS as TEMPORAL_KINDS, SourceJitter, TemporalDecoder
 
 
@@ -20,11 +21,12 @@ ORDER_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
 ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 PEOPLE = tuple(f"P{i:02}" for i in range(1, 11))
 MOTOR_KINDS = ("motor_transfer", "motor_null")
-KINDS = ("prototype", "centered", *TEMPORAL_KINDS, *MOTOR_KINDS, *RAW_KINDS)
+RAW_ACTORS = (*RAW_KINDS, *STYLE_KINDS)
+KINDS = ("prototype", "centered", *TEMPORAL_KINDS, *MOTOR_KINDS, *RAW_ACTORS)
 
 
 def make_decoder(kind):
-    if kind in RAW_KINDS:
+    if kind in RAW_ACTORS:
         return RawDecoder()
     if kind in MOTOR_KINDS:
         kind = "chronological"
@@ -130,18 +132,23 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
     provenance = initialize_motor(model, kind, seed) if kind in MOTOR_KINDS else {}
     source_eeg = torch.from_numpy(x[src]).to(device)
     steps = 4 if smoke else 600
+    style = (SourceStyle(source_eeg, sessions, people[src], weights, kind, seed)
+             if kind in STYLE_KINDS else None)
     jitter = SourceJitter(kind, seed, steps) if kind in TEMPORAL_KINDS[2:] else None
     with torch.no_grad():
         spectrum = model.prepare(source_eeg) if jitter is None else None
-    masked = MaskedObjective(model, kind, seed, device) if kind in RAW_KINDS else None
+    masked = MaskedObjective(model, kind, seed, device) if kind in RAW_ACTORS else None
     extra_params = list(masked.head.parameters()) if masked is not None else []
     optimizer = torch.optim.AdamW([*model.parameters(), *extra_params], lr=.001, weight_decay=.001)
     initial = {name: value.detach().clone() for name, value in model.named_parameters()}
     rng = np.random.default_rng(seed)
     for update in range(steps):
-        rows = rng.choice(sessions[rng.integers(len(sessions))], size=96, replace=False)
+        episode = rng.integers(len(sessions))
+        rows = rng.choice(sessions[episode], size=96, replace=False)
         batch = (spectrum[rows] if jitter is None else
                  model.prepare(jitter(source_eeg[rows], update)))
+        if style is not None and update % 2 == 0:
+            batch = style(batch, episode)
         z = model.encode(batch)
         static = model.static(z)
         logits = model.sequence(z, static, model.writes(z, static))
@@ -171,6 +178,10 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
             masked.update(model)
     if not loss.isfinite() or any(torch.equal(initial[n], p) for n, p in model.named_parameters()):
         raise ValueError("inactive or nonfinite fit")
+    if style is not None:
+        if style.applied != steps // 2:
+            raise ValueError("synthetic episodes did not cover the registered dose")
+        provenance["synthetic_updates"] = style.applied
     model.eval()
     check_behavior(model, source_eeg[sessions[0][:24]])
     donor_stream = str(sorted(set(streams[src]))[0])
