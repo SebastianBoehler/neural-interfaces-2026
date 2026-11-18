@@ -81,3 +81,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F-C8 found −0.020 pp for causal arbitration on new delivery orders for the same Scherer people. The effect remains undecided and did not meet the registered rule for release qualification.
 - Track 2 organizers reported a slower RTX sealed worker, an increased evaluation limit and a large queue. The 4,800-second figure was reported by a participant. Galvani A100 timing remains a development measurement. [Runtime provenance](../OFFICIAL_CONTRACT.md)
 - Ferranti and Galvani were idle at this handoff. F12 trainable spectral initialization and exact whole-worker qualification of the score-preserving F-C5 optimization are in preparation.
+
+## Wednesday 18 November, 17:01 CET
+
+- [F12 raw filter-bank initialization](wave/band-queue-18nov.md) is registered. Ferranti real smoke 510747 precedes paired production arrays 510748/49. Galvani preflight 3128300 precedes the paired held smoke 3128301. Seed scorers 3128302/03 wait for authenticated pairs. Run `bash friday/wave/band_release.sh` from this worktree to authenticate checkpoint pairs and release the appropriate holds.
+- [F-C5a exact A100 worker profiling](cap250-c5a-queue.md) is registered. The first cold/warm smoke found numeric differences within stock while matching the archived first label. The revised check measures stock's cold/warm difference and still requires bitwise stock/deferred equality inside each matched phase. Both frozen archives are preserved.
