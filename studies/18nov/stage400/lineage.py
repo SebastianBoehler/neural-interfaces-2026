@@ -1,8 +1,7 @@
 """Track each original gain and injury into mixture and the full personalized decision."""
 import json
 import numpy as np
-from capture import HERE,ORIG
-from score import sc,summary_factory
+from score import HERE,ORIG,sc,summary_factory
 
 
 def main():
