@@ -1,0 +1,17 @@
+18cc1df462635fef976676af726d5586c9b2279fad52706282a9b8570c3a15e2  inputs_audit.json
+a01929b52e7d7ba3ecaa001785c2f3a0811fd6dbb0564fde5070d0418af35713  /mnt/lustre/work/gehler/gfh527/ni26_friday_ea_matrix_20261118/source.sha256
+c1b4d6f86640cebd61cffbf43740950fa37ec7c86b4c598d254c7be83b27bb9f  /mnt/lustre/work/gehler/gfh527/ni26_friday_ea_shallow_fresh_20261118/source.sha256
+77859ae85f426da7f478cd5398451a91a5b12ce6128745c2f9805d62ee6b709d  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/replay_data/inputs.npz
+589c8d0e6bc1499c65f341b5c89d234b82f7f55b775681aa6b416f20dd04faf5  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/fbcnet_ea_tf-seen_session-s0.npz
+57ae08db6fadf23ad2f305ebeedffbed29216482aa17e0dfa45a4e9a4bfdad6d  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/fbcnet_ea_tf-seen_session-s1.npz
+765ec1a53794498030ab123ecaf231c5b2ba06a51765197acd3f645bfc7491f9  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/fbcnet_ea_tf-seen_session-s2.npz
+4239262fa791c08c2c15961ff1ef0822fd3525d272d6650c9efcd0ab6955e5c7  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/fbcnet_ea_tf-seen_session-s3.npz
+cc02cf1ef78ea6e36e7265ab0a09b33df9340001d0cfc514fdfd063b7d620ffb  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/fbcnet_ea_tf-seen_session-s4.npz
+e409e7362470cc323fb752ad7169bd9cac49b8304e921002c48ff13cf647a328  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/shallow_ea-seen_session-s0.npz
+bd7fcb2890caf79ddba2d05e5c56d7d6695f14e84bb9611a28b388b4bbb70043  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/shallow_ea-seen_session-s1.npz
+218042b19c6a69ab5ca8a3cdfd7b8462575acc47952925d36eeb8606cf8b0adc  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/shallow_ea-seen_session-s2.npz
+bbe65b792f8f71ad6251f28cbcea894ced833fef572a2656bf5948bdee773ad7  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/shallow_ea-seen_session-s3.npz
+db3d91faa3199ae1ebf664f6f529690cd4d934e05a89ad48ca21eaf7abe19eee  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/shallow_ea-seen_session-s4.npz
+9ca21c20451c1fd0d725d572e2e8769749b142115940261808df4a1b5720b5ec  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/experiments/probs/shallow_ea-seen_session-s5.npz
+2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/data/proteus_windows.npz
+6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f  /mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/runs/shuffle_perms.npz
