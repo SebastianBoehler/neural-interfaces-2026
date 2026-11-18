@@ -1,0 +1,146 @@
+{
+  "exposed": {
+    "N386": {
+      "swaps": 1881,
+      "added_conf": 0.5941248480497935,
+      "removed_conf": 0.6515459453787086,
+      "added_correct": 0.7878787878787878,
+      "removed_correct": 0.8474215842636895
+    },
+    "N1386": {
+      "swaps": 1881,
+      "added_conf": 0.5935258922711261,
+      "removed_conf": 0.6525152824236826,
+      "added_correct": 0.784688995215311,
+      "removed_correct": 0.8660287081339713
+    },
+    "A386": {
+      "swaps": 1881,
+      "added_conf": 0.4272984109109922,
+      "removed_conf": 0.8502033364259455,
+      "added_correct": 0.4864433811802233,
+      "removed_correct": 0.9633173843700159
+    },
+    "A1386": {
+      "swaps": 1881,
+      "added_conf": 0.42714288198586664,
+      "removed_conf": 0.8518194033071629,
+      "added_correct": 0.4864433811802233,
+      "removed_correct": 0.9686337054758107
+    },
+    "G": {
+      "swaps": 1881,
+      "added_conf": 0.5939763717072115,
+      "removed_conf": 0.6520408176158984,
+      "added_correct": 0.7814992025518341,
+      "removed_correct": 0.8564593301435407
+    },
+    "H": {
+      "swaps": 1881,
+      "added_conf": 0.5938858080898936,
+      "removed_conf": 0.6519990772214866,
+      "added_correct": 0.7676767676767676,
+      "removed_correct": 0.8405103668261563
+    },
+    "R": {
+      "swaps": 1881,
+      "added_conf": 0.5937965328486786,
+      "removed_conf": 0.6522737213552536,
+      "added_correct": 0.7772461456671983,
+      "removed_correct": 0.8474215842636895
+    },
+    "B": {
+      "swaps": 1881,
+      "added_conf": 0.6076407412117558,
+      "removed_conf": 0.6369230932913075,
+      "added_correct": 0.8027644869750132,
+      "removed_correct": 0.8484848484848485
+    },
+    "F386": {
+      "swaps": 1881,
+      "added_conf": 0.5126138111969564,
+      "removed_conf": 0.742575365976727,
+      "added_correct": 0.6570972886762361,
+      "removed_correct": 0.9074960127591707
+    },
+    "F1386": {
+      "swaps": 1881,
+      "added_conf": 0.51530129664886,
+      "removed_conf": 0.7463177113948763,
+      "added_correct": 0.6602870813397129,
+      "removed_correct": 0.9250398724082934
+    }
+  },
+  "other": {
+    "N386": {
+      "swaps": 4712,
+      "added_conf": 0.5524916223017894,
+      "removed_conf": 0.5978538983885724,
+      "added_correct": 0.7232597623089984,
+      "removed_correct": 0.7797113752122241
+    },
+    "N1386": {
+      "swaps": 4712,
+      "added_conf": 0.5526593045880211,
+      "removed_conf": 0.597754845221753,
+      "added_correct": 0.7236842105263158,
+      "removed_correct": 0.7867147707979627
+    },
+    "A386": {
+      "swaps": 4712,
+      "added_conf": 0.42018529911270974,
+      "removed_conf": 0.787402678135599,
+      "added_correct": 0.5303480475382003,
+      "removed_correct": 0.9013157894736842
+    },
+    "A1386": {
+      "swaps": 4712,
+      "added_conf": 0.4194600540885294,
+      "removed_conf": 0.7871372710742651,
+      "added_correct": 0.5316213921901528,
+      "removed_correct": 0.8998302207130731
+    },
+    "G": {
+      "swaps": 4712,
+      "added_conf": 0.5524188049630925,
+      "removed_conf": 0.5976072318965794,
+      "added_correct": 0.7192275042444821,
+      "removed_correct": 0.7841680814940577
+    },
+    "H": {
+      "swaps": 4712,
+      "added_conf": 0.5525859686433763,
+      "removed_conf": 0.5973858038542226,
+      "added_correct": 0.7249575551782682,
+      "removed_correct": 0.7824702886247877
+    },
+    "R": {
+      "swaps": 4712,
+      "added_conf": 0.5523994292855161,
+      "removed_conf": 0.5975075921578197,
+      "added_correct": 0.7200764006791172,
+      "removed_correct": 0.7852292020373515
+    },
+    "B": {
+      "swaps": 4712,
+      "added_conf": 0.5638067189521822,
+      "removed_conf": 0.5862251745065727,
+      "added_correct": 0.733446519524618,
+      "removed_correct": 0.7703735144312394
+    },
+    "F386": {
+      "swaps": 4712,
+      "added_conf": 0.49113975402049986,
+      "removed_conf": 0.6819203410468401,
+      "added_correct": 0.634974533106961,
+      "removed_correct": 0.8412563667232598
+    },
+    "F1386": {
+      "swaps": 4712,
+      "added_conf": 0.4893213937751607,
+      "removed_conf": 0.6835955755124169,
+      "added_correct": 0.6320033955857386,
+      "removed_correct": 0.8457130730050934
+    }
+  }
+}

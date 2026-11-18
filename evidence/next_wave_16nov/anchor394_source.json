@@ -1,0 +1,142 @@
+{
+  "JT_382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "53d75b19b1873784bf57f18f05d0e6bbb961dbf7aa8cd4bf9ad64e7b38db3402",
+    "steps": 120,
+    "active": 119,
+    "ratio_mean": 0.34999999679437205,
+    "source_probe": {
+      "kl": 0.006322302030942713,
+      "ce": 0.3985955584794283,
+      "agreement": 0.9713541865348816
+    }
+  },
+  "JP_382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "40465801cc4402466eb16b2176ac66bbdfd12332f3604864328fff2d60d5aa2f",
+    "steps": 120,
+    "active": 119,
+    "ratio_mean": 0.3499999947908546,
+    "source_probe": {
+      "kl": 0.005670483079787421,
+      "ce": 0.41618338227272034,
+      "agreement": 0.9826389029622078
+    }
+  },
+  "KT_382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "4344d21ab10e06af87d6c220dfd8e289cd20c3b6a748ce48d28dcf0dc9cb877d",
+    "steps": 120,
+    "active": 119,
+    "ratio_mean": 0.3499999940395355,
+    "source_probe": {
+      "kl": 0.0017817252082750201,
+      "ce": 0.40651903425653774,
+      "agreement": 0.9800347412625948
+    }
+  },
+  "KP_382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "f1edc5ae198ab6444bf92595c7d3f4a8601cfdc2abf7415e81ad82cdfe286015",
+    "steps": 120,
+    "active": 119,
+    "ratio_mean": 0.3499999947908546,
+    "source_probe": {
+      "kl": 0.00037798060050893884,
+      "ce": 0.4147158165772756,
+      "agreement": 0.9904513955116272
+    }
+  },
+  "JU_382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "8ad2ac9c7eec4de4625f242a672dc133a0637026bdb62af513795aaa19038d89",
+    "steps": 120,
+    "active": 0,
+    "ratio_mean": null,
+    "source_probe": {
+      "kl": 0.009302663384005427,
+      "ce": 0.39622944220900536,
+      "agreement": 0.9678819651405016
+    }
+  },
+  "KU_382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "e6b42d3a3594c5db4f962bfbd0dbc25b4fe44e9822d894b679854cb69280d8c1",
+    "steps": 120,
+    "active": 0,
+    "ratio_mean": null,
+    "source_probe": {
+      "kl": 0.003660910277782629,
+      "ce": 0.4060472697019577,
+      "agreement": 0.9722222412625948
+    }
+  },
+  "JT_1382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "1af922ec68f1d5a036a05ff37e010524ada16c4cc470e5d7e769833a0b8aa6bc",
+    "steps": 120,
+    "active": 119,
+    "ratio_mean": 0.3499999940395355,
+    "source_probe": {
+      "kl": 0.013807254241934666,
+      "ce": 0.4000353043278058,
+      "agreement": 0.955729179084301
+    }
+  },
+  "JP_1382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "a01be6f17dcca5b735df68b446acb8cfdce0d5883010f2559bd77e11ccf662ca",
+    "steps": 120,
+    "active": 119,
+    "ratio_mean": 0.34999999679437205,
+    "source_probe": {
+      "kl": 0.014026253261060143,
+      "ce": 0.4197676343222459,
+      "agreement": 0.9583333507180214
+    }
+  },
+  "KT_1382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "daa25979eb9a37767213a9215d5fe253a21938c95e1ac942db0abaf2ffba3da1",
+    "steps": 120,
+    "active": 119,
+    "ratio_mean": 0.3499999942899752,
+    "source_probe": {
+      "kl": 0.0069072996799756465,
+      "ce": 0.4070635202030341,
+      "agreement": 0.9661458482344946
+    }
+  },
+  "KP_1382": {
+    "source": "8be310f01637857c9d625e7df613cb7466ca2999fe2a2ee29b3f3cf46bf7d3ac",
+    "episodes": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "weights": "1c5f2bd90887c898c07f1f64915c80ccbcb3a1dad6277245eac68994880c013c",
+    "steps": 120,
+    "active": 119,
+    "ratio_mean": 0.34999999554217365,
+    "source_probe": {
+      "kl": 0.007267824471152077,
+      "ce": 0.41749656200408936,
+      "agreement": 0.9626736293236414
+    }
+  }
+}
