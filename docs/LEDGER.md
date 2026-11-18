@@ -16,3 +16,7 @@ Registered 18 November 2026 before any held score. In both arms, train an entire
 ## F-C1 · Separate the count prior from chain confidence
 
 Registered 18 November 2026 before scoring. The [F-C1 preregistration](../friday/cap250-ledger.md) fixes the post-latch mechanism, three controls, held-new and returning cohorts, predictions, refutation rule, and budget.
+
+## F-C2 · Equalize covariance contributions during CSP refits
+
+Registered 18 November 2026 before scoring. The [F-C2 preregistration](../friday/cap250-c2.md) fixes the shape-normalized filter fit, amplitude control, paired historical stack, conditional external qualification, predictions and refutation rule.
