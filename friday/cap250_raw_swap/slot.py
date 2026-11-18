@@ -39,7 +39,9 @@ class Slot:
             posterior = self.original.proba(scaled, cache)
         else:
             window = torch.from_numpy(self.window[None]).to(device=scaled.device)
-            posterior = self.actor(window)
+            # Keep CUDA graph profiling from changing a fresh actor copy’s numerics.
+            with torch.jit.optimized_execution(False):
+                posterior = self.actor(window)
         self.window = None
         self.calls += 1
         if posterior.shape != (1, 3) or posterior.dtype != torch.float64:
