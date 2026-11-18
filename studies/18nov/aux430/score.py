@@ -25,17 +25,18 @@ def main():
             assert candidate.shape == old.shape == nine.shape == (2655, 3)
             assert str(data["raw_sha"]) == lineage.metric.sha256(lineage.STORE / f"s281_v66p_control_{order}.npz")
             assert str(data["cp_sha"]) == lineage.metric.sha256(lineage.STORE / f"control_{order}_B2_pool.npz")
-            assert float(data["max_eye_log_change"]) > 0 and float(data["max_rest_change"]) > 0
+            assert float(data["max_eye_log_change"]) > 0
+            assert (float(data["max_rest_change"]) > 0) == (order in ("within0", "within1"))
         flipped[order] = int(np.sum(candidate.argmax(1) != nine.argmax(1)))
         three.append(lineage.metric.person_accuracy(candidate, labels, cells, owners, lineage.PEOPLE[protocol]))
 
     proto, old, nine, weights, n = next(lineage.guarded_matrices(observe_order=add))
     assert proto == "all_loso" and n == 2655 and weights.sum() == 28 and len(three) == 8
-    inputs = [(old, nine, "nine_minus_old"), (old, three, "three_minus_old"), (nine, three, "three_minus_nine")]
+    inputs = [(old, nine, "historical_minus_old"), (old, three, "three_minus_old"), (nine, three, "three_minus_historical")]
     report = {name: {k: lineage.summary(a, b, w) for k, w in
                      (("official", weights), ("equal_person", np.ones(len(weights))))} for a, b, name in inputs}
     owner = json.loads((ROOT / "evidence/next_wave_16nov/lineage419_result.json").read_text())
-    assert report["nine_minus_old"]["official"] == owner["results"][proto]["official"]
+    assert report["historical_minus_old"]["official"] == owner["results"][proto]["official"]
     report.update(orders=lineage.metric.ORDERS, people=lineage.PEOPLE[proto], rows=n,
                   cell_weights=weights.tolist(), changed_labels_by_order=flipped, three_sha256=hashes)
     json.dump(report, sys.stdout, indent=2)

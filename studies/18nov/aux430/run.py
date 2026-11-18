@@ -38,8 +38,8 @@ def main():
         assert digest(path) == locks[path], path
     pins = json.loads(provenance.read_text())["inputs_sha256"]
 
-    def verify_aux(files, directory, prefix):
-        expected = [RUN / directory / ORDER / f"{prefix}-all_loso-s{s}.npz" for s in range(9)]
+    def verify_aux(files, directory, prefix, count):
+        expected = [RUN / directory / ORDER / f"{prefix}-all_loso-s{s}.npz" for s in range(count)]
         assert list(map(Path, files)) == expected
         for path in expected:
             match = [v for k, v in pins.items() if k.endswith("/" + str(path.relative_to(ROOT)))]
@@ -56,8 +56,9 @@ def main():
     preamble, sep, _ = source.read_text().partition("\nfor bn in S.BASES:")
     assert sep
     exec(compile(preamble, str(source), "exec"), context)
-    verify_aux(context["OCS"], "ocushuf", "oc_nomix")
-    verify_aux(context["RSS"], "restshuf", "rest4_sh_r1")
+    verify_aux(context["OCS"], "ocushuf", "oc_nomix", 9)
+    rest_count = 9 if ORDER in ("within0", "within1") else 3
+    verify_aux(context["RSS"], "restshuf", "rest4_sh_r1", rest_count)
     base = "B2_pool"
     gate = context["gm"].gate
 
@@ -77,7 +78,7 @@ def main():
                 mean = np.mean([context["ld"](f) for f in context[files][:3]], axis=0)
                 value = np.log(np.clip(mean, 1e-3, 1)) if key == "OCU" else mean
                 aux_max[key] = float(np.max(np.abs(value - context[key])))
-                assert aux_max[key] > 0
+                assert (aux_max[key] > 0) == (key == "OCU" or rest_count == 9)
                 context[key] = value
         for arm in ("P0r", "V6Fr"):
             context["chain"](base, arm, context["Pperm"])
