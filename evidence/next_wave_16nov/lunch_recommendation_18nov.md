@@ -33,4 +33,13 @@ A private count-filter optimization saved 8.43 and 8.39 seconds in two complete 
 
 **Historical transfer.** Two prior package changes give concrete reference points. The v4.1 change gained +0.58 pp on its development measure and +0.267 pp sealed. The v5.1b change gained +0.89 pp on development and +0.361 pp sealed. Both changed returning-person handling. Cap250 also adapts on new people, so multiplying its development or external effect by either historical ratio would give an unsupported forecast. [State and metric history](../../docs/STATE.md) · [Official upload log](../../docs/SEALED_UPLOADS.md)
 
-**How to use the official result.** Check live phase and remaining quota before any upload, and obtain Sebastian's explicit authorization. Record upload ID, actual file hash, score and elapsed time. A higher score validates the aggregate package change on the private cohort. A flat or lower score provides evidence against assuming the public gains transfer and calls for revisiting the returning/new-person mix. A timeout calls for investigating worker startup frequency and full runtime. One aggregate score cannot attribute the change to personalization, fine-tuning or their interaction. Base Friday's choice on the official result and paired evidence available at that point.
+**How Wednesday informs Friday.** Before any upload, confirm live phase and quota and obtain Sebastian's explicit authorization for this archive. Record its ID, ZIP hash, individual submission score and elapsed seconds. Use the individual score even if the best-score leaderboard continues to display v5.1b. Compute the change in percentage points as `100 × (new score − 0.8197668759)`. For example, a score of 0.82500 would be **+0.5233 pp**. The public development gain cannot be added to the sealed score directly.
+
+| Wednesday outcome | Friday implication |
+|---|---|
+| Cap250 beats 81.9767% and finishes within budget | Use cap250 as the private reference for any finalist. Require paired evidence for the *additional* Friday change, including its cost. |
+| Cap250 ties or trails v5.1b | Keep v5.1b as the sealed reference. Reassess release changes under both returning- and new-person assumptions; the aggregate score cannot identify which component lost. |
+| Cap250 times out or fails | Use the actual job status and available diagnostics to select the matching worker replay. Recheck quota before planning a replacement. |
+| No Wednesday run | Friday has no new private observation. Compare candidates with the measured public, external and runtime evidence and retain this uncertainty. |
+
+Friday evening, 20 November is the final decision window.
