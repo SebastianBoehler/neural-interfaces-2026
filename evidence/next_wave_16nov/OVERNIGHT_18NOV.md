@@ -73,3 +73,9 @@ The workstation return monitor logs to .journal/ferranti-382-return.log. Every 5
 01:09 CET. §383 tests whether the learned A6 member improves the complete decoder on the same held people. Replay and label-blind smoke 3123391 → two seed replays 3123392 → paired collector 3123393. §384 upstream integration feasibility and independent lunch package qualification are in progress. The active Wednesday candidate remains v6.6cap250.
 
 01:09 CET. §383 registered fixed 5% terminal posterior fusion of §382 J/F/K and session controls after frozen or JS; 10% sensitivity, both seeds, same four held people and eight actual orders. Use real §318 score domains before/after personalization age 90. Galvani 3123391 label-blind full-route smoke → 3123392 paired seed runs → 3123393 collector.
+
+01:12 CET. §384 tests J/K information inside causal personalization's actual training-row selector. Jobs 3123397 → 3123398 (8 seed/person workers) → 3123399. Root ni26_selection384_v1_20261118, source d58a4d9b75aa6cca648f59126eb593e51c42f4cc242346a65e0d0d55fe840500. Complete four-person B2_pool trajectories, two actor seeds, eight shuffled orders, prior and predicted class unchanged for each row; learned, raw, temperature-only, K-only and within-class shuffled controls. Read scores only after zero/native endpoint, quota, prefix and matrix checks.
+
+01:13 CET. §383 paired terminal fusion complete. JS B2_pool J−zero +0.002/+0.045 pp (382/1382), J−donor −0.076/−0.076 pp, all primary intervals span zero. [Evidence](fusion383.md). §383b oracle attribution 3123400 → 3123401 uses committed decisions to bound the potential of this fixed pair.
+
+01:14 CET. §383b complete. At the registered 5% weight the JS real-history member offered +0.307/+0.340 pp in weighted corrections, while new errors cost −0.305/−0.295 pp. The perfect-selector ceiling applies to this pair only. [Attribution](fusion383.md)
