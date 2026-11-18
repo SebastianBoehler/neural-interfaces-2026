@@ -27,3 +27,18 @@ The registered repair replaces only the active Sinc seed 0 across the ten origin
 The live Sinc mix changes by one-sixth of the fresh-minus-archived full0 seed-0 probability difference before the existing normalization. Both arms share that same replacement. Both incumbent shadows, recognition traces and strict-past refit targets are rebuilt. The archived exact zero remains a separate instrument. Any recognized session blocks the paired refits until its routed tail is reproduced.
 
 The four active refits must consume these new arm-specific targets. Sinc uses its fresh seed-0 state. The other three families use authenticated restored source fits. Their adapted-minus-same-fit-frozen deltas enter the paired system through the original seed-0 policy. Earlier LPC and regenerated targets belong to a different upstream input. The held-new full0 result remains a fresh matched instrument.
+
+## Fresh shared bridge result
+
+Galvani 3131547 completed at 21:38:50 CET. The archived zero still matched exactly. The independent one-sixth Sinc formula matched within 1.67e−16, and the live Sinc member changed by up to 0.00097338. The common replacement moved the historical incumbent shadow by up to 0.00006703. Both fresh arms shared that Sinc tensor. Both routed zero of 14 sessions with the identical archived recording-order calibration and 2,515 finite Bio scores. Each arm reproduced 240 refit states and 24,180 strict-past vectors with current-emission error ≤2.22e−16.
+
+The read-only release is `/mnt/lustre/work/gehler/gfh527/ni26_friday_causal_rebuild_20261118/sinc_seed0_bridge_v3`.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| `status.json` | `97354afac6073876a447f255d2d8f08dbee874b6326d1981c99ae638f2d4fd73` |
+| `bridge.npz` | `a5ffe5aacd01f10b61813cf879a8798e383c4a743865663ebc29dde76f413ffb` |
+| `historical/chain_v51b_full0.npz` | `7309bf047b5ea2f9049301aa30559536bdf86dd9e0c5f54656184815f5d244cb` |
+| `corrected/chain_v51b_full0.npz` | `bdfd1c167ea616a9926956465ca894045fc6b08ed94bef216b54739ee054885c` |
+
+These outputs were generated without held gold. The complete replay was queued as 3131569 after all four active refit productions. The separate official metric reader 3131570 waits for the complete replay's immutable decision proof.
