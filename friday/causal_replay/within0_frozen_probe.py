@@ -8,7 +8,7 @@ from types import SimpleNamespace
 import numpy as np
 import torch
 
-from fresh_sinc import replay, state_hash
+from fresh_sinc import evaluate, replay, state_hash
 from member_inputs import ORDERS, pinned_delivery
 from refit_smoke import ARCHIVE, HERE, ROOT, TOL, changed, file_sha, waveform_data
 from restore_refit import RELEASE, RELEASE_SHA, restore
@@ -36,7 +36,7 @@ def old_base(family, rows):
     return p[rows]
 
 
-def saved_fit(api, family, data, rows, sequence):
+def saved_fit(api, family, data, rows, sequence, reset_rows):
     meta = json.loads((RELEASE / "members" / f"{family}_s0.json").read_text())
     if ((meta["member"], meta["seed"], meta["order"], meta["rows"], meta["smoke"],
          meta["held_labels_opened"]) != (family, 0, "full0", 2655, False, False)
@@ -56,11 +56,15 @@ def saved_fit(api, family, data, rows, sequence):
         np.testing.assert_array_equal(model._aligned(r, True)[:1], model._aligned(r[:1], True))
     with torch.inference_mode():
         values, prefix = replay(model, data, rows, sequence)
+        before = evaluate(model, sequence[:64])
+        evaluate(model, reset_rows)
+        np.testing.assert_array_equal(evaluate(model, sequence[:64]), before)
     if state_hash(model.net) != state:
         raise ValueError(f"frozen state changed for {family}")
     difference = changed(values, old_base(family, rows))
     return dict(**difference, eligible=difference["changed"] == 0 and difference["max_abs"] <= TOL,
-                prefix_max_abs=prefix, fit_rows_sha256=fit_sha, source_checkpoint=entry["sha256"],
+                prefix_max_abs=prefix, interleaved_reset_exact=True,
+                fit_rows_sha256=fit_sha, source_checkpoint=entry["sha256"],
                 source_gpu=meta["gpu"])
 
 
@@ -107,7 +111,7 @@ def main():
     data = waveform_data()
     held = data["subject"] == f"Dreyer2026Proteus/{PERSON}"
     rows = np.flatnonzero(held)
-    if len(rows) != 190 or len(np.unique(data["stream"][rows])) < 2 or len(np.unique(data["subject"][~held])) != 9:
+    if len(rows) != 190 or len(np.unique(data["stream"][rows])) != 1 or len(np.unique(data["subject"][~held])) != 9:
         raise ValueError("unexpected held scope")
     deliveries = pinned_delivery(ROOT / "runs/shuffle_perms.npz")
     p = deliveries[ORDERS.index(ORDER)]
@@ -117,14 +121,16 @@ def main():
         np.testing.assert_array_equal(bridge["delivery"], p)
     sequence = p[held[p]]
     np.testing.assert_array_equal(np.sort(sequence), rows)
-    if np.array_equal(sequence, rows):
+    reset_rows = p[data["stream"][p] == "Dreyer2026Proteus/P02|1"][:64]
+    if np.array_equal(sequence, rows) or len(reset_rows) != 64 or held[reset_rows].any():
         raise ValueError("within0 delivery is inactive")
     api = SimpleNamespace(ARCHS=ARCHS, make=lambda family, d, seed: make(ARCHS[family][0], d, seed))
-    candidates = {family: saved_fit(api, family, data, rows, sequence) for family in ARCHS}
+    candidates = {family: saved_fit(api, family, data, rows, sequence, reset_rows) for family in ARCHS}
     sinc = fresh_sinc(rows, sequence, deliveries)
     eligible = all(item["eligible"] for item in candidates.values()) and sinc["active"]
     output = dict(person=PERSON, order=ORDER, rows=len(rows), candidates=candidates, fresh_sinc=sinc,
                   qualified_p01=eligible, held_labels_opened=False, prediction_mode="frozen",
+                  reset_interleaving="P02 visit 1, 64 windows, discarded",
                   gpu=gpu, node=os.environ["SLURMD_NODENAME"], torch=torch.__version__,
                   delivery_sha256=hashlib.sha256(p.astype("<i8").tobytes()).hexdigest(),
                   source_sha256=file_sha(HERE / "source.sha256"))
