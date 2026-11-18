@@ -94,6 +94,12 @@ def sync(device):
 
 @torch.no_grad()
 def qualified(path, x, delivery, reference, device):
+    # CUDA profiling can choose different arithmetic for cold and warmed methods.
+    with torch.jit.optimized_execution(False):
+        return qualified_without_profiling(path, x, delivery, reference, device)
+
+
+def qualified_without_profiling(path, x, delivery, reference, device):
     module = torch.jit.load(str(path), map_location=device).eval()
     ensure_reset(module)
     before = immutable_tensors(module)
@@ -198,7 +204,7 @@ def run(person_index, mode):
         print(json.dumps(records[str(seed)], sort_keys=True), flush=True)
     report = dict(seeds=records, source=sha(HERE / "source.sha256"), person=name, orders=ORDERS,
                   device=torch.cuda.get_device_name(), torch=str(torch.__version__),
-                  class_order=["motor imagery", "mental subtraction", "word generation"],
+                  class_order=["motor imagery", "mental subtraction", "word generation"], jit_optimized_execution=False,
                   held_gold_opened=False)
     output = HERE / ("model-receipt.json" if mode == "export" else f"check-{person_index}.json")
     with output.open("x") as handle:

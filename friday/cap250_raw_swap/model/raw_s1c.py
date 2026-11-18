@@ -13,8 +13,9 @@ class RawS1C:
 
     @torch.no_grad()
     def reset_state(self):
-        if self.module.reset().item() != 0:
-            raise ValueError("S1C reset failed")
+        with torch.jit.optimized_execution(False):
+            if self.module.reset().item() != 0:
+                raise ValueError("S1C reset failed")
 
     @torch.no_grad()
     def predict_proba(self, window):
@@ -23,4 +24,5 @@ class RawS1C:
             value = value.unsqueeze(0)
         if value.shape != (1, 41, 480) or value.dtype != torch.float32:
             raise ValueError("raw S1C requires one float32 41-channel, 480-sample window")
-        return self.module(value.contiguous()).cpu().numpy()[0]
+        with torch.jit.optimized_execution(False):
+            return self.module(value.contiguous()).cpu().numpy()[0]
