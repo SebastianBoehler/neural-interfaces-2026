@@ -23,6 +23,12 @@ MODELS = (
     ("time", "Reversal-invariant", "symmetric"),
     ("time", "Coherent shifts", "coherent_time"),
     ("time", "Scattered shifts", "scattered_time"),
+    ("motor", "PhysioNet transfer", "motor_transfer"),
+    ("motor", "Shuffled motor source", "motor_null"),
+    ("raw", "Raw supervised", "raw_supervised"),
+    ("raw", "Masked latent", "raw_masked"),
+    ("style", "Synthetic covariance", "raw_style_full"),
+    ("style", "Matched sensor gains", "raw_style_diagonal"),
 )
 PEOPLE = [f"P{i:02}" for i in range(1, 11)]
 
@@ -40,18 +46,24 @@ def save(fig, out, stem):
 def wave_plot(root, out):
     rows = []
     for folder, label, name in MODELS:
-        for s in SEEDS:
-            d = read(root / folder / f"{name}_{s}_result.json")
+        paths = [root / folder / f"{name}_{seed}_result.json" for seed in SEEDS]
+        if not all(path.is_file() for path in paths):
+            if folder in ("prototype", "time"):
+                raise FileNotFoundError(f"incomplete reference results for {name}")
+            print(f"{name}: waiting for a complete seed pair")
+            continue
+        for s, path in zip(SEEDS, paths, strict=True):
+            d = read(path)
             if abs(d["absolute"]["stock"]["pp"] - STOCK) > 1e-8:
                 raise ValueError("mismatched complete-stock score")
             rows.append((label, s, d["contrasts"]["full_genuine-stock"],
                          d["absolute"]["wave_genuine"]["pp"]))
     heat = np.array([[r[2]["people"][p] for p in PEOPLE] for r in rows])
     n = len(rows)
-    fig = plt.figure(figsize=(12.5, 7.4), layout="constrained")
+    fig = plt.figure(figsize=(12.5, max(7.4, n * .39 + 2.0)), layout="constrained")
     fig.get_layout_engine().set(rect=(.005, .04, .99, .955))
     ax = fig.subplots(1, 3, width_ratios=[1.0, 2.05, .66], sharey=True)
-    fig.suptitle("Single waveform decoders trail cap250 on held people", x=.022, ha="left",
+    fig.suptitle("Waveform decoders on held PROTEUS people", x=.022, ha="left",
                  fontsize=20, weight="bold")
     for a, title in zip(ax, ["Full stack vs stock", "Full-stack change by held person", "Whole decoder"]):
         a.set_title(title, loc="left", pad=11, fontsize=12.5, weight="bold")
