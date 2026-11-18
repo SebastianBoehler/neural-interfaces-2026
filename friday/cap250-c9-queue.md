@@ -1,0 +1,7 @@
+# F-C9 · Live adaptation reliability validation queue
+
+Registered at `21f0779` before replay. Exact-worker source `a9a058c`, manifest `8ebb664bf73d6f232746c46e3b3632027adfb8a06903f1d5a4486964bddd098a`, Galvani directory `ni26_friday_c9_v1_20261118`. The source lock covers the staged ZIP digest, its member manifest, exact archive predictions, official worker image and EEG inputs. [Main delivery-audit interpretation and exact preflight](cap250-readiness-18nov.md)
+
+Real A100 smoke 3128678 completed at 17:47:36 CET. On Scherer/G seed 411 the 120-window stock terminal and inner v5.1b labels matched their archives. The neutral scale reproduced stock. Both active variants changed the adaptation input while preserving the inner labels and original activity. A fresh 36-window prefix reproduced candidate labels and the active reliability sequence. In a separate P10 public 31-window prefix, the original recognition at age 10 and archived labels matched. The A100 smoke receipt is `df52239a7f13dd7211177aba94a33ec75ecdfd7289ea40f9a6baffd69c7e5abc`.
+
+Galvani 3128702 runs 9 paired A100 tasks with concurrency 3. Each replays two complete visits at seeds 411 and 1411 under exact stock, fixed 0.75, and strictly past-weighted adaptation. CPU scorer 3128703 waits for all 9 and authenticates the decision bank before opening labels. The paired score covers repeated external participants. Both staged packages remain immutable.
