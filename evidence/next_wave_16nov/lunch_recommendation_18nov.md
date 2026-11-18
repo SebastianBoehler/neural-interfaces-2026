@@ -1,6 +1,6 @@
 # Penultimate Track 2 selection · working brief for Wednesday 18 November
 
-**Provisional morning choice: v6.6cap250.** Review at 08:00 and finalize the recommendation by 11:30 CET. Selection cutoff is noon. Friday evening remains the final decision window. The candidate is staged locally.
+**Provisional morning choice: v6.6cap250.** The 08:00 review retained this choice. The recommendation is due by 11:30 CET. Selection cutoff is noon. Friday evening remains the final decision window. The candidate is staged locally.
 
 | Artifact or control | Verified identity / result |
 |---|---|
@@ -9,15 +9,19 @@
 | Official competition source | `a66bc23d1a0e686b895c093a642b45c74970758b` |
 | Previous sealed archive | v5.1b, SHA-256 `4a0bc427f2c9c862ee779db5766badeae93f783446561f4dc8abb43589933bef`. Sealed balanced accuracy 81.9767%, wall time 1,287 s. |
 
+**Public development evidence.** Historical full-system fold simulations estimate cap250 minus v5.1b at +1.556 pp [80% +1.009,+2.071] on ten new people, with nine improving. Returning P04 and P10 gained +1.808 and +0.682 pp. The planning mix yields +1.274 pp. The simulations differ from the archive in auxiliary ensemble size, input order for some components and returning-route behavior. Both release archives trained on the public data, so their literal public replay cannot measure this held-person effect. [Lineage and paired measurements](lineage419.md)
+
 **Evidence for selection.** The exact candidate and incumbent were compared on nine external Scherer participants. Cap250 improved from 47.963% to 48.456%, a paired +0.493 pp [80% −0.311,+1.286]. A second pair of fresh orders gave +0.040 pp [−0.837,+0.929], with one order favoring v5.1b. The four-order mean is +0.266 pp on the same nine people. Population, task timing and channel reconstruction limit transfer. Public new-person dev gives the JS alternative +0.272 pp over cap250. Its conditional returning comparison gives −0.288 pp with only two people. At the campaign's assumed 57/43 mix, the expected difference is about +0.03 pp, too uncertain to displace the already-qualified package. [Exact archive comparison](lunch_qualification385.md) · [Order replication](cross411b_package.json) · [Returning-person comparison](js321_returning.md)
 
 For JS versus cap250, the break-even share of new people is about 51.4% under the assumed returning-person mix. At 40%, 57% and 70% new, the projected JS differences are −0.064, +0.031 and +0.104 pp respectively. These are sensitivity calculations from two development estimates. The private mix and both underlying effect sizes are uncertain.
 
 The exact candidate increased a word-versus-subtraction label contrast on 26 external word-generation participants by +5.32 pp [80% +3.46,+7.12]. Resetting the same archives every 20 windows reduced that advantage to +2.18 pp. The paired benefit of the longer history was +3.14 pp [+1.28,+5.00]. The subtraction study yielded +0.52 pp [−0.86,+1.95]. Fixation has no competition label, which limits these measurements to task selectivity. [Task and reset controls](selectivity415.md)
 
-The 05:45 review kept cap250. Signed phase slope and both cross-interface interventions trailed stock on the same four development people. The proposed rebalancing correction also trailed stock on the ten-person comparison by 0.163 pp [80% 0.010, 0.320]. These cohorts overlap earlier development tests. [Phase slope](phase402.md) · [Cross-interface controls](align404.md) · [Rebalancing](rebalance403.md)
+Preserving original run blocks on the external Scherer data gave +0.463 pp and shuffling the blocks gave +0.142 pp, versus +0.040 pp under matched full-session shuffling. All three intervals included zero. The possible change in package advantage exceeded the preregistered ±1 pp equivalence margin. [Order-scope comparison](scope416.md)
 
 **Runtime.** On an A100 the 250-window adaptation cap activated naturally on 320- and 813-window external streams. Reversing the order moved a 52–58 s incremental cost to whichever stream first activated fine-tuning. All decisions and work counts repeated. The private session mix and process layout determine how often this cost recurs. The 60-minute sealed limit remains unverified. [Paired worker timing](runtime387.md)
+
+Two clean A100 allocations compared the exact archives on the same four 190-window sessions. Cap250 took 584.05 versus 349.50 seconds on one, and 211.22 versus 114.61 seconds on the other. All 3,040 archived decisions matched. Both standardized workloads fit the historical headroom under the tested process scenarios. The hidden workload and hardware remain unknown. [Exact-archive timing and scenario bounds](budget414.md)
 
 A private count-filter optimization saved 8.43 and 8.39 seconds in two complete A100 worker runs. That is approximately 2.4% of those three-recording runs. The optimization is outside the staged archive. [Worker comparison](qualification408.md)
 
