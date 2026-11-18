@@ -3,7 +3,12 @@ import json
 from pathlib import Path
 import sys
 import numpy as np
-from actor import ARMS,PEOPLE,SEEDS,root,joint,lock
+import hashlib
+
+root=Path('/mnt/lustre/work/gehler/gfh527')
+ARMS=('real','destroyed','cyclic','donor')
+PEOPLE=('P01','P02','P03','P09')
+SEEDS=(412,1412)
 
 sys.path.insert(0,str(root/'ni26_fusion383_v1_20261118'))
 from experiment import interval
@@ -12,7 +17,8 @@ from fusion_inputs import CHAIN,member_bank,official,probability,restore,sha
 
 def main():
     assert Path('replay.log').read_text().splitlines()[-1]=='OK'
-    assert lock()==json.loads(Path('fits.json').read_text())
+    for rec in json.loads(Path('fits.json').read_text()).values():
+        assert sha(Path('fits')/f"{rec['arm']}_{rec['seed']}.pt")==rec['weights']
     sc,scores,meta,ages=restore()
     assert sc.BASES[0]=='B2_pool'
     sealed={}
@@ -45,7 +51,7 @@ def main():
                             key=f'{seed}|{kind}|{arm}'
                             active[key]=active.get(key,0)+int((final!=zero).sum())
     Path('before_labels.json').write_text(json.dumps(dict(actors=sealed,decisions={
-        '|'.join(map(str,k)):joint.digest(v) for k,v in pred.items()})))
+        '|'.join(map(str,k)):hashlib.sha256(np.ascontiguousarray(v).tobytes()).hexdigest() for k,v in pred.items()})))
     with np.load(CHAIN/'data/proteus_windows.npz') as d:
         y=d['y']
     metric=official()
