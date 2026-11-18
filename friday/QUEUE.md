@@ -57,3 +57,9 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F8 held smokes 3127483/86 completed with exact first-window reset and active genuine/donor/blank paths. All 120 F6–F8 production fits still await Ferranti priority. Updated estimate for the first reduced F7 task was 15:12 CET, subject to availability.
 - F9 learns the speed of session normalization in the raw decoder. Real local EEG checks confirmed identical baseline initialization and first-window output, causal prefix/reset parity, and active prior gradients. Ferranti smoke 510310 pending. Production 510311/12 accepted behind afterok for the smoke and both F7 arrays. Actor SHA-256 `4d601b39e4ab65dd519e1257b24829cf7ef3883c981f69834623fcc1cc7ed526`.
 - Galvani F9 preflight 3127716 started. Fixed held smoke/scores 3127717–19, learned 3127720–22, learned versus fixed 3127723/24, and fixed versus independent F7 3127725/26. Relay with `bash friday/wave/relay.sh norm` and verify checkpoints before releasing. F-C4 exact worker jobs remain active.
+
+## Wednesday 18 November, 15:24 CET
+
+- F6–F9 all completed. Raw supervised F7 reached Galvani paired scores at 15:02:50 CET, 4.95 and 4.42 pp above F3 as whole decoders. All terminal insertions remained below stock. F9 fixed normalization reached 48.07% and 48.59%. It beat matched blank and donor on both seeds. [Paired F6–F9 results](wave/results-f6-f9-18nov.md)
+- F10 isolates the F9 normalization update at the cap250 terminal. Galvani real smoke 3127918 and afterok paired jobs 3127919/20 accepted. F11 raw sensor scaling and F-C5 exact lazy covariance registered, actor smoke and dispatch in preparation.
+- The updated figures include all completed seed pairs through F9. Both preserved ZIPs and the public EEG input passed hash verification. The release selection remains staged cap250 with sealed v5.1b as alternate.

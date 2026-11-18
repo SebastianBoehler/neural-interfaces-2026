@@ -111,3 +111,5 @@ Registered 18 November 2026 before F11 outputs. F9 fixed embedding normalization
 ## F-C5 · Compute CSP features only when consumed
 
 Registered 18 November 2026 before scoring. The [preregistration](../friday/cap250-c5.md) fixes pure lazy covariance with the unchanged original selector, refit and fusion. It requires exact held-new and returning terminal score parity, counts only actual consumed windows and qualifies whole-worker timing separately.
+
+**F6–F9 completed.** Supervised raw waveform improved over F3 at both seeds. Masked latent training, authentic versus shuffled motor pretraining, synthetic covariance and a learned versus fixed normalization prior remain undecided. Both fixed and learned normalization improved over their own blank and same-age donor controls on both seeds. All complete waveform logit insertions trailed stock. [Paired results, actual completion times, and provenance](../friday/wave/results-f6-f9-18nov.md)
