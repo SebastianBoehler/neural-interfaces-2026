@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 
 from bridge_owner import BASE, HERE, ROOT, pin, sha, start_module
-from complete_zero import FEAT, HASHES
+from complete_zero import FEAT, FAMILIES, HASHES
 
 KEYS = tuple(f"{arm}|{name}" for arm in ("historical", "corrected") for name in ("P0r", "cap250"))
 METRIC = BASE / "neural-interfaces-2026/2026-competition/benchmark_utils/metrics.py"
@@ -19,7 +19,8 @@ def authenticate(proof_sha):
     pin(proof, proof_sha)
     receipt = json.loads(proof.read_text())
     if (receipt["order"] != "full0" or receipt["source_sha256"] != sha(HERE / "source.sha256")
-            or not receipt["complete"] or receipt["held_labels_opened"] or len(receipt["matrix"]) != 24
+            or not receipt["complete"] or receipt["held_labels_opened"]
+            or set(receipt["matrix"]) != {f"{name}_s0" for name in FAMILIES}
             or not receipt["active_archive_prefix"]
             or any(v["exact_interleaved_prefix_checks"] != 3 or min(v["count_affected_prefix_rows"]) <= 0
                    for v in receipt["terminal"].values())):

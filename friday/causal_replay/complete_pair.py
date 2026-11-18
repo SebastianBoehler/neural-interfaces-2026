@@ -28,39 +28,40 @@ def matrix(root, ctx, source_sha):
     if len(prefix) != 280:
         raise ValueError("unexpected session warmup count")
     proofs, banks = {}, {arm: {} for arm in ("base", *TARGETS)}
+    if ctx.ALLSEED or ctx.BS[STACK] != list(range(6)):
+        raise ValueError("historical B2_pool must consume six frozen seeds and only the seed-0 refit")
     for name in FAMILIES:
-        for seed in range(6):
-            key = name, seed
-            path = root / "members" / f"{name}_s{seed}.npz"
-            receipt = path.with_suffix(".json")
-            m = json.loads(receipt.read_text())
-            expected = dict(member=name, seed=seed, smoke=False, order=ORDER,
-                            rows=len(p), targets=TARGETS, held_labels_opened=False)
-            if any(m[k] != v for k, v in expected.items()) or len(m["fit_states"]) != 10:
-                raise ValueError(f"missing matched refit proof {key}")
-            if not 0 <= m["archived_frozen_max_abs"] <= FIT_TOL:
-                raise ValueError(f"regenerated member does not qualify against the anchored frozen input {key}")
-            pin(path, m["output_sha256"])
-            with np.load(path, allow_pickle=False) as z:
-                if not np.array_equal(z["index"], np.arange(len(p))) or not np.array_equal(z["delivery"], p):
-                    raise ValueError(f"member order or rows differ {key}")
-                for arm, out in banks.items():
-                    values = z[arm]
-                    if (values.shape != (len(p), 3) or not np.isfinite(values).all() or (values < 0).any()
-                            or not np.allclose(values.sum(1), 1, rtol=0, atol=1e-10)):
-                        raise ValueError(f"invalid member probabilities {key} {arm}")
-                    out[key] = values
-            frozen = banks["base"][key]
-            archived = ctx.FR17[key]
-            if (not np.array_equal(frozen.argmax(1), archived.argmax(1))
-                    or float(np.abs(frozen - archived).max()) > FIT_TOL):
-                raise ValueError(f"common regenerated base is too far from the live frozen input {key}")
-            causal, historical = (banks[arm][key] for arm in ("causal", "historical"))
-            if (not np.array_equal(causal[prefix], frozen[prefix])
-                    or not np.array_equal(historical[prefix], frozen[prefix])
-                    or float(np.abs(causal - historical).max()) <= 1e-4):
-                raise ValueError(f"paired refit activation or warmup differs {key}")
-            proofs[f"{name}_s{seed}"] = dict(npz=m["output_sha256"], receipt=sha(receipt), actor=m["actor_sha256"])
+        key = name, 0
+        path = root / "members" / f"{name}_s0.npz"
+        receipt = path.with_suffix(".json")
+        m = json.loads(receipt.read_text())
+        expected = dict(member=name, seed=0, smoke=False, order=ORDER,
+                        rows=len(p), targets=TARGETS, held_labels_opened=False)
+        if any(m[k] != v for k, v in expected.items()) or len(m["fit_states"]) != 10:
+            raise ValueError(f"missing matched refit proof {key}")
+        if not 0 <= m["archived_frozen_max_abs"] <= FIT_TOL:
+            raise ValueError(f"regenerated member does not qualify against the anchored frozen input {key}")
+        pin(path, m["output_sha256"])
+        with np.load(path, allow_pickle=False) as z:
+            if not np.array_equal(z["index"], np.arange(len(p))) or not np.array_equal(z["delivery"], p):
+                raise ValueError(f"member order or rows differ {key}")
+            for arm, out in banks.items():
+                values = z[arm]
+                if (values.shape != (len(p), 3) or not np.isfinite(values).all() or (values < 0).any()
+                        or not np.allclose(values.sum(1), 1, rtol=0, atol=1e-10)):
+                    raise ValueError(f"invalid member probabilities {key} {arm}")
+                out[key] = values
+        frozen = banks["base"][key]
+        archived = ctx.FR17[key]
+        if (not np.array_equal(frozen.argmax(1), archived.argmax(1))
+                or float(np.abs(frozen - archived).max()) > FIT_TOL):
+            raise ValueError(f"common regenerated base is too far from the live frozen input {key}")
+        causal, historical = (banks[arm][key] for arm in ("causal", "historical"))
+        if (not np.array_equal(causal[prefix], frozen[prefix])
+                or not np.array_equal(historical[prefix], frozen[prefix])
+                or float(np.abs(causal - historical).max()) <= 1e-4):
+            raise ValueError(f"paired refit activation or warmup differs {key}")
+        proofs[f"{name}_s0"] = dict(npz=m["output_sha256"], receipt=sha(receipt), actor=m["actor_sha256"])
     return banks, proofs
 
 
