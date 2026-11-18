@@ -92,3 +92,9 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - [F12 active A100 release](wave/band-queue-18nov.md) passed a real paired source smoke with FP32 convolution on both arms. The pending H100 wave was canceled before it started. Galvani source arrays 3128355/56 feed the same-site held preflight/smoke and scorers 3128357–60. The first spectral production fit finished at 17:08 CET. These scheduler dependencies require no workstation relay. The historical F7/F9 references used H100.
 - F-C5a smoke 3128324 matched all 151 archived labels and work counts. Recognized output score bits matched and covariance calls went from 10 to zero. Unrecognized covariance calls fell from 120 to 79 and score vectors began to differ at the first neural refit, before personalized fusion. The exact score-bit condition blocks the profiling array. Source-pinned shared-input diagnostic `5c6e4ac` is staged for dispatch after connectivity returns.
 - Both Galvani and Ferranti SSH attempts timed out on port 2221. The local eduVPN connection reports disconnected. Check existing F12 job IDs before dispatching any retry. Resume the diagnostic after restoring cluster access.
+
+## Wednesday 18 November, 17:22 CET
+
+- Galvani SSH is restored. Ferranti responds and still requires keyboard-interactive authentication. F12 and the current cap250 diagnostic use Galvani.
+- [F12 results](wave/band-result-18nov.md) are complete, with 40 successful source fits and both paired held scores at 17:16 CET. Spectral initialization scored 41.372% and 41.152% as a whole decoder. Its matched random contrasts were +0.176 and −1.847 pp. The standalone figure shows both seeds and per-person changes.
+- Galvani A100 job 3128477 is running the preregistered exact shared-input diagnostic from `5c6e4ac`. The full-worker timing array depends on resolving the score-bit difference in the unrecognized route.
