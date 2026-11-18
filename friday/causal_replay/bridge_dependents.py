@@ -3,7 +3,7 @@ import json
 
 import numpy as np
 
-from bridge_owner import HERE, MEANS, ORDER, PINS, pin, guarded_load, owner, sha
+from bridge_owner import HERE, MEANS, ORDER, PINS, RAW, pin, guarded_load, owner, sha
 from bridge_recognition import REFERENCE, recognise
 from bridge_refit import relabel
 
@@ -14,7 +14,7 @@ BRIDGE_RECEIPT_SHA = "c61b3c47ac051452eed49a2afdf5ae994fc26432366ac77d68c421879b
 ARCHIVED_ROUTE_SHA = "befe52d9c2491c15fbc613eb62ed45186969de69ee5b1cffe63906d834a600d7"
 
 
-def upload_free_write(path, value):
+def write_npz(path, value):
     with path.open("xb") as handle:
         np.savez_compressed(handle, **value)
     return sha(path)
@@ -29,7 +29,7 @@ def main():
         raise ValueError("upstream bridge proof is invalid")
     pin(REFERENCE, ARCHIVED_ROUTE_SHA)
     archive = json.loads(REFERENCE.read_text())
-    if archive["order"] != ORDER or archive["archive_sha256"] not in PINS.values():
+    if archive["order"] != ORDER or archive["archive_sha256"] != PINS[RAW]:
         raise ValueError("archived route does not authenticate the zero arm")
     routed_path = HERE / "route_full0.npz"
     refit_path = HERE / "relab_corrected_v51b_full0.npz"
@@ -38,7 +38,7 @@ def main():
         with np.load(BRIDGE, allow_pickle=False) as sealed:
             bridge = dict(sealed)
         routes, trace = recognise(ctx, bridge, archive)
-        route_sha = upload_free_write(routed_path, dict(index=bridge["index"], delivery=bridge["delivery"], **routes))
+        route_sha = write_npz(routed_path, dict(index=bridge["index"], delivery=bridge["delivery"], **routes))
         manifest = dict(**trace, order=ORDER, bridge=BRIDGE_SHA, bridge_receipt=BRIDGE_RECEIPT_SHA,
                         recognition_output=route_sha, historical_route=ARCHIVED_ROUTE_SHA, held_labels_opened=False,
                         scored=False, code=sha(HERE / "source.sha256"))
@@ -46,7 +46,7 @@ def main():
             bank, stats = relabel(ctx, bridge)
             bank["relab"] = bank.pop("corrected|relab")
             bank["all_loso"] = bank.pop("corrected|all_loso")
-            manifest.update(refit_output=upload_free_write(refit_path, bank), refits=stats)
+            manifest.update(refit_output=write_npz(refit_path, bank), refits=stats)
         manifest["opened"] = {str(path): digest for path, digest in sorted(opened.items())}
     with (HERE / "dependents_full0.json").open("x") as handle:
         json.dump(manifest, handle, indent=2, sort_keys=True)
