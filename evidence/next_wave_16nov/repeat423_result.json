@@ -1,0 +1,25 @@
+{
+  "original": [
+    48.67724867724868,
+    48.716931216931215
+  ],
+  "repeat": [
+    48.67724867724868,
+    48.716931216931215
+  ],
+  "original_delta": 0.03968253968253921,
+  "repeat_delta": 0.03968253968253921,
+  "delta_shift": 0.0,
+  "details": {
+    "old": {
+      "delivered": 4260,
+      "flips": [],
+      "counter_changes": []
+    },
+    "cap": {
+      "delivered": 4260,
+      "flips": [],
+      "counter_changes": []
+    }
+  }
+}
