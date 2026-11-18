@@ -1,6 +1,6 @@
 # Friday Track 2 queue
 
-Branch `codex/friday-clean-stack`. Active through Friday 20 November, 18:00 CET. The existing Track 2 Friday experiment queue heartbeat is active at 50-minute intervals in this chat. Prefer stronger held-person and external evidence to break alternate ties inside the development noise band.
+Branch `codex/friday-clean-stack`. Active through Friday 20 November, 18:00 CET. The existing Track 2 Friday experiment queue heartbeat is active at 50-minute intervals in this chat. Optimize for the highest eligible sealed Track 2 rank. Evaluate complete submission candidates on held-new and returning people, independent external data and worker timing. Standalone held-new scores guide the raw-waveform lane. Prefer stronger held-person and external evidence to break alternate ties inside the development noise band.
 
 ## Wednesday 18 November, 13:39 CET
 

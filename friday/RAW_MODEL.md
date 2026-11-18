@@ -1,6 +1,6 @@
 # One raw-waveform decoder
 
-The exploration target is whole-model balanced accuracy on people absent from training. The model receives the official preprocessed float32 EEG, one window of 41 channels and 480 samples at 120 Hz. F7 learns the sensor and time filters, temporal layers, class head and session readout jointly. The deployment path is a single small model. The auxiliary head and moving-average target exist during training only.
+The campaign target is the highest eligible sealed Track 2 rank. Whole-model balanced accuracy on people absent from training measures generalization in this exploration lane. Select the complete submission using both unseen and returning-person validation, independent external checks and measured worker time. The model receives the official preprocessed float32 EEG, one window of 41 channels and 480 samples at 120 Hz. F7 learns the sensor and time filters, temporal layers, class head and session readout jointly. The deployment path is a single small model. The auxiliary head and moving-average target exist during training only.
 
 ## Evidence that changes the design
 
