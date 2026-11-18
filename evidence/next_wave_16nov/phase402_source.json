@@ -1,0 +1,20 @@
+{
+  "source": "9298835a36bcbcfc5df5ca22bc09cddb23335170f7a70eb8096db9ce3657a388",
+  "members": "929a52aba013c11556100c8cff8b78e532969b7a8adf6600ef5c23ee4c2ad4ad",
+  "train_people": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P10"
+  ],
+  "held": [
+    "P01",
+    "P02",
+    "P03",
+    "P09"
+  ],
+  "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+  "query_labels_opened": false
+}
