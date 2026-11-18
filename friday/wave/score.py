@@ -1,5 +1,6 @@
 """Score held-excluded waveform checkpoints against the matched §430 cap250 replay."""
 import argparse
+from contextlib import nullcontext
 import hashlib
 import json
 from pathlib import Path
@@ -15,6 +16,7 @@ PERMS = BASE / "runs/shuffle_perms.npz"
 DATA_SHA = "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
 PERMS_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
 STOCK_SCORE = 76.10391516713594
+NUMPY_STRING_ACTOR = "58e6e23425f0ee195a62916d130dd406c7a56b75aa77b3b35323846755af8fc2"
 PARENTS = {
     "ni26_match456_v2_20261118/stocks456.py":
         "184522613cd35e54435fb3a5688949d9b9eb6cd046e18a0be361c40b3a86902c",
@@ -118,6 +120,16 @@ def checked_decisions(values, rows, ages, baseline):
     return {key: value.astype(np.uint8) for key, value in decisions.items()}
 
 
+def checkpoint_loader(actor_pin):
+    """Keep the weights-only loader for the pinned F1/F2 NumPy donor string."""
+    if actor_pin != NUMPY_STRING_ACTOR:
+        return nullcontext()
+    from numpy._core.multiarray import scalar
+    from torch.serialization import safe_globals
+
+    return safe_globals([scalar, np.dtype, np.dtypes.StrDType])
+
+
 def make_bank(kind, seed, people_to_score, meta, ages, baseline):
     from fit import read_inputs, score_checkpoint
 
@@ -133,8 +145,9 @@ def make_bank(kind, seed, people_to_score, meta, ages, baseline):
     for person in people_to_score:
         prefix = "" if full else "smoke_"
         path = Path("checkpoints") / f"{prefix}{kind}_{seed}_{person}.pt"
-        proof[person] = check_actor(path, kind, seed, person, actor_pin, people, full)
-        values = score_checkpoint(path, x, people, streams, perms, device="cpu")
+        with checkpoint_loader(actor_pin):
+            proof[person] = check_actor(path, kind, seed, person, actor_pin, people, full)
+            values = score_checkpoint(path, x, people, streams, perms, device="cpu")
         rows = np.flatnonzero(people == person)
         for (order, arm), pred in checked_decisions(values, rows, ages, baseline).items():
             decisions[f"{person}|{order}|{arm}"] = pred
