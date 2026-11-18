@@ -30,7 +30,7 @@ def main():
         with np.load(path) as data:
             assert np.array_equal(rows, data["rows"])
             route[order] = json.loads(str(data["route"]))
-            assert set(route[order]) == {"P04|2", "P04|3", "P10|2", "P10|3"}
+            assert {name.split("/")[-1] for name in route[order]} == {"P04|2", "P04|3", "P10|2", "P10|3"}
             for filename, sha in json.loads(str(data["input_sha"])).items():
                 assert metric.sha256(ROOT / filename) == sha
             for tag in ("historical", "three"):
