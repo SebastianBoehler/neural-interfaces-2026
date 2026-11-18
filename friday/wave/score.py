@@ -37,7 +37,10 @@ COMPARATORS = {
     "scattered_time": ("chronological",),
     "motor_transfer": ("motor_null", "chronological"),
     "motor_null": ("chronological",),
+    "raw_masked": ("raw_supervised", "chronological"),
+    "raw_supervised": ("chronological",),
 }
+RAW_KINDS = ("raw_supervised", "raw_masked")
 KINDS = tuple(sorted(set(COMPARATORS) | {r for arms in COMPARATORS.values() for r in arms}))
 ARMS = ("stock", *(f"wave_{h}" for h in HISTORY), *(f"full_{h}" for h in HISTORY))
 
@@ -178,14 +181,14 @@ def committed(stem, root=Path("."), proof_sha=None):
         return {k: bank[k] for k in bank}, proof["decisions"]
 
 
-def summarize(bank, pairs, meta, interval, metric, ref_kinds=(), evaluate_motor=False):
+def summarize(bank, pairs, meta, interval, metric, ref_kinds=(), evaluate_motor=False, ages=None):
     with np.load(DATA, allow_pickle=False) as data:
         labels = data["y"]
-    return score_bank(bank, pairs, meta, interval, metric, labels, ref_kinds, evaluate_motor)
+    return score_bank(bank, pairs, meta, interval, metric, labels, ref_kinds, evaluate_motor, ages)
 
 
 def comparator(kind, ref, seed):
-    if kind not in MOTOR_KINDS or ref != "chronological":
+    if kind not in (*MOTOR_KINDS, *RAW_KINDS) or ref != "chronological":
         return committed(f"{ref}_{seed}")
     proof = {
         460: "86561c6d4f93ff77974f21f3130d2824f71c4ea92952ab287a4efb07e31200c2",
@@ -194,7 +197,7 @@ def comparator(kind, ref, seed):
     return committed(f"chronological_{seed}", WORK / "ni26_friday_wave_time_20261118", proof[seed])
 
 
-def compare(kind, seed, meta, interval, metric):
+def compare(kind, seed, meta, ages, interval, metric):
     check(kind in COMPARATORS, f"no paired comparator for {kind}")
     ref_kinds = COMPARATORS[kind]
     candidate, digest = committed(f"{kind}_{seed}")
@@ -214,7 +217,8 @@ def compare(kind, seed, meta, interval, metric):
             genuine, blank = f"{scope}_genuine", f"{scope}_blank"
             pairs.extend([(f"{ref}_{genuine}", f"{ref}_{blank}"),
                           (genuine, f"{ref}_{genuine}")])
-    result = summarize(candidate, pairs, meta, interval, metric, ref_kinds, kind in MOTOR_KINDS)
+    result = summarize(candidate, pairs, meta, interval, metric, ref_kinds,
+                       evaluate_motor=kind in MOTOR_KINDS, ages=ages if kind in RAW_KINDS else None)
     result["parent_decision_sha256"] = proofs
     Path(f"comparison_{kind}_{seed}.json").write_text(json.dumps(result, indent=2) + "\n")
 
@@ -233,7 +237,7 @@ def main():
     check(args.kind and args.seed, "kind and seed required")
     stem = f"{args.kind}_{args.seed}"
     if args.mode == "compare":
-        compare(args.kind, args.seed, meta, interval, metric)
+        compare(args.kind, args.seed, meta, ages, interval, metric)
         return
     people = PEOPLE[:1] if args.mode == "smoke" else PEOPLE
     bank, actors = make_bank(args.kind, args.seed, people, meta, ages, baseline)
@@ -250,7 +254,8 @@ def main():
              for scope in ("wave", "full") for arm in ("blank", "donor")]
     pairs += [(arm, "stock") for arm in ARMS if arm != "stock"]
     saved, _ = committed(stem)
-    result = summarize(saved, pairs, meta, interval, metric, evaluate_motor=args.kind in MOTOR_KINDS)
+    result = summarize(saved, pairs, meta, interval, metric,
+                       evaluate_motor=args.kind in MOTOR_KINDS, ages=ages if args.kind in RAW_KINDS else None)
     Path(f"{stem}_result.json").write_text(json.dumps({**proof, **result}, indent=2) + "\n")
     print(json.dumps({arm: row["pp"] for arm, row in result["absolute"].items()}))
 
