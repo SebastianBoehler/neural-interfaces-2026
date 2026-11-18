@@ -41,13 +41,13 @@ def source_gains(person, steps):
     return torch.from_numpy(gains).cuda(), (coherent, independent)
 
 
-def run(person, arm, smoke, init_seed=379):
+def run(person, arm, smoke, init_seed=379, decoder_cls=Decoder):
     prior = Path(os.environ['WAVE379'])
     steps = 2 if smoke else 360
     gains, schedules = source_gains(person, steps)
     assert arm in ('clean', 'coherent', 'independent')
     schedule = torch.from_numpy(schedules[int(arm == 'independent')]).cuda()
-    class GainDecoder(Decoder):
+    class GainDecoder(decoder_cls):
         def __init__(self):
             torch.manual_seed(init_seed)
             super().__init__()
