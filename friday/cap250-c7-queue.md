@@ -1,0 +1,7 @@
+# F-C7 fitted source and exact external worker receipt
+
+The PROTEUS source smoke 3128118 passed in 1m11s with historical replay OK and batch-to-one-window feature parity. Fit 3128121 used all 1,663 disagreements across the eight authenticated §430 deliveries. Genuine source utility chose the incumbent on 64 rows and the source-permuted control on zero. These counts describe training behavior. The selector artifact SHA-256 is `fb71ab5bac6b3b1235b6464338bed699c86cf247d095fd2f3b11d153890fea81`.
+
+Exact A100 smoke 3128122 completed in 1m43s. All 120 canonical cap250 labels and work counts matched §385 for Scherer/G, day 1, order 0. The cap250 inner incumbent label matched the independently archived v5.1b label on every smoke window. One-window feature parity and fresh 17-window prefix checks passed. The full smoke exercised ten neural refits, 200 Adam updates, five personalization refits and 30 fusions with zero errors. Smoke receipt `a0e82311e8b3a4db97a5d73fb4bedae2a96f9d4b97c317a4feb0a1d387c8af9f`.
+
+Nine paired A100 producers were accepted as array 3128141, with a limit of three concurrent tasks and 10 minutes per task. The dependent label scorer is 3128142. Account gehler had zero active jobs immediately before dispatch. Source commit `4432eb8`, manifest `7927abf1d34bbe8b35b5d5a03dd30dd64e4f33461cd44341ed5bd0714baf4e22`. Remote directory `/mnt/lustre/work/gehler/gfh527/ni26_friday_c7_v1_20261118`. [Preregistration and isolation audit](cap250-c7.md)
