@@ -1,0 +1,132 @@
+{
+  "F": {
+    "groups": [
+      "norm"
+    ],
+    "before": {
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359"
+    },
+    "after": {
+      "norm": "ddb1060dd1573c7d749b21752094f48464df4293d6dbe179a66487ee5fb8c932"
+    },
+    "first_grad": {
+      "norm": 0.05464539676904678
+    },
+    "frozen_sha": "340908da5f7d7529b217f9c987661176c1c46d07cf43aba433dffcc42c73053f",
+    "batches": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "seed": 1382,
+    "steps": 120,
+    "first8_ce": 0.45549361035227776,
+    "last8_ce": 0.4367768317461014,
+    "seconds": 5.129559209002764,
+    "arm": "F",
+    "source_sha": "67829e9fe023605f5426d1bb035f9b51f00e8fc026c9b6824fdae3035b92c5a9",
+    "bundle_sha": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "source_only": true,
+    "scope": [
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P10"
+    ],
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "held_labels_opened": false,
+    "device": "NVIDIA H100 80GB HBM3",
+    "probe_max_error": 1.5795230865478516e-06,
+    "checkpoint_sha": "6233debf112b4902c92cd6c6a6710e7746a245a63d066ca471f64928f8ecd00d"
+  },
+  "J": {
+    "groups": [
+      "body",
+      "norm",
+      "head"
+    ],
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "6be893bf4e9404feb10fa4d36613e35b3878d13e9b6db15487ad38c8d9bae740",
+      "norm": "b85408fd41121ec274942bb3ab8a19006187ae36359c3556b7c02044e9624518",
+      "head": "91835971e3dd17d5abe4f40910ff25aad8738e4d56138341f1f0d459b894a087"
+    },
+    "first_grad": {
+      "body": 1.8386273384094238,
+      "norm": 0.05464539676904678,
+      "head": 0.14625829458236694
+    },
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "seed": 1382,
+    "steps": 120,
+    "first8_ce": 0.4604930318892002,
+    "last8_ce": 0.421047605574131,
+    "seconds": 5.078615869999339,
+    "arm": "J",
+    "source_sha": "67829e9fe023605f5426d1bb035f9b51f00e8fc026c9b6824fdae3035b92c5a9",
+    "bundle_sha": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "source_only": true,
+    "scope": [
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P10"
+    ],
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "held_labels_opened": false,
+    "device": "NVIDIA H100 80GB HBM3",
+    "probe_max_error": 1.5795230865478516e-06,
+    "checkpoint_sha": "0185f49dad54dbc8ce8cfc2176fe6666041d829adb883050a1385a1be95b0bcf"
+  },
+  "K": {
+    "groups": [
+      "body",
+      "norm",
+      "head"
+    ],
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "33a75637b02772692602324a89d90e7cc7679c9020e7277b824b4eb5326ba1de",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "19bc9940fe1e19289e35b7b7c93b6a439bca423370ddc149033abd59911f921d",
+      "norm": "be260d27e713ce83b4120dea0ea862fa43a20077654d00c7d7960658ce9e0f61",
+      "head": "e905a908f05eafc3129fbe3d85abfee0fa9384b218b0471f292cc83de3b95e6a"
+    },
+    "first_grad": {
+      "body": 1.5473836660385132,
+      "norm": 0.02966901659965515,
+      "head": 0.1408907026052475
+    },
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "seed": 1382,
+    "steps": 120,
+    "first8_ce": 0.45994992926716805,
+    "last8_ce": 0.4298955872654915,
+    "seconds": 4.718350906994601,
+    "arm": "K",
+    "source_sha": "67829e9fe023605f5426d1bb035f9b51f00e8fc026c9b6824fdae3035b92c5a9",
+    "bundle_sha": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "source_only": true,
+    "scope": [
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P10"
+    ],
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "held_labels_opened": false,
+    "device": "NVIDIA H100 80GB HBM3",
+    "probe_max_error": 1.7881393432617188e-06,
+    "checkpoint_sha": "f83b615b331b3d2bd7ba6e9eaaab9776b6b02ff5c8564edd9c51a69d503ed200"
+  }
+}
