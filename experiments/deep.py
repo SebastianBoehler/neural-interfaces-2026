@@ -262,14 +262,18 @@ class AlignedNet:
         return X if self.tcrop is None else np.ascontiguousarray(X[..., slice(*self.tcrop)])
 
     def fit(self, idx):
-        from protocol import require_honoured; require_honoured(self.d, idx, {"w"}, type(self).__name__)  # nolow (~m) is not read by any deep net
+        from protocol import require_honoured
+        # Only the external-data training path consumes sample weights; the ordinary path uses mean CE.
+        honours = {"w"} if self.d.get("tag") else set()
+        require_honoured(self.d, idx, honours, type(self).__name__)
+        # Subclasses change training beyond this cache's settings (SessionBN, chunk augmentation, etc.).
+        if self.adabn is None or type(self) is not AlignedNet:
+            return self._fit(idx)
         key = (id(self.d["X"]), self.arch, self.align, self.k, self.epochs, self.lr,
                self.wd, self.seed, self.batch, self.aug, self.ft, self.dev,
                self.pretrained, self.ls, self.lld, self.lp, self.crops,
                tuple(sorted(self.net_kw.items())), self.train_fir, self.dro, self.pbal, self.tcrop, self.init,
-               self.swa, self.cmix, self.rot, self.fsc, self.mstyle, self.adv, self.ref_band, self.ref_clip, self.am, self.coral, self.dann, self.swad, self.dist, self.dist_T, hash(np.asarray(idx).tobytes()))
-        if self.adabn is None:  # only the *_bn* configs reuse trained nets
-            return self._fit(idx)
+               self.swa, self.cmix, self.rot, self.fsc, self.mstyle, self.adv, self.ref_band, self.ref_clip, self.am, self.coral, self.dann, self.swad, self.dist, self.dist_T, self.cotrain, hash(np.asarray(idx).tobytes()))
         if key not in self._fitted:  # kept on CPU to bound device memory
             self._fit(idx)
             self._fitted[key] = (copy.deepcopy(self.net).cpu(), self.G, self.scale)
