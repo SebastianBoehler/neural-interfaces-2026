@@ -1,0 +1,19 @@
+# Restore fully causal held-person comparisons
+
+The final sealed attempt should use evidence from both causally delivered model paths. Today's v6.6cap250 score is the sealed reference at 0.8298729992. Historical development deltas remain partial-delivery evidence. The corrected FBCNet member bank is complete. Shallow EA requires a fresh matched source fit, shared by both comparator arms. This changes the development instrument. The frozen ZIPs retain their original weights. [Delivery audit](../../../neural-interfaces-2026/evidence/next_wave_16nov/scoring_audit_18nov.md) · [FBCNet reconstruction](../ea_restream/result-18nov.md)
+
+| Stage | Input and success check |
+| --- | --- |
+| Authenticate member inputs | `member_inputs.py` checks both member families against their bank hashes and the eight pinned orders. Seal the original five trainable-FIR FBCNet seeds and six Shallow seeds as per-order means in canonical recording layout. Check first delivery and prefix in each producer. |
+| Replace the two historical recording-order slots | `shufcombo.py` first applies `S.apply` to establish delivery order. Install the new slot 1 and slot 3 arrays from their canonical layouts indexed once by `P`. Both arms use the same arrays. An identity run with the archived original member inputs must reproduce the historical comparators. The active run must assert the actual changed slot values at the mixer. |
+| Rebuild the incumbent stream | Recompute the `P0r` mix, rebalancing, recognition and shadow stages with the corrected slots and all existing causal inputs. Save the shadow and recognition decisions under the corrected input hashes. Compare full and truncated real prefixes and session resets. |
+| Rebuild labels for cap250 refits | Apply the causal EM and TSEM state to the earlier rows at each refit age, as in `studies/14nov/ftrelabel/relabel.py`. Keep only strict prefix rows and verify that the state reproduces the actual current output. The historical label-export path prints held accuracy. A producer must remove that diagnostic and verify held-label independence before opening scoring labels. |
+| Replay cap250 with the corrected bank | Recompute all dependent `r15c250` refits from corrected shadow prefixes, then the new mix, filter and personalized covariance stage. Preserve version, schedules and the upstream stock/zero policies. Regenerate both systems' decisions in each pinned order and seal them before final scoring. |
+| Measure the paired effect | Use the official participant/session/interface cell metric and paired people/order intervals. Keep held-new and fit-excluded returning evaluations distinct. The returning replay needs source fits and recognition for its own visits. Add exact-package checks on external sessions before qualifying an archive for Friday. |
+
+Reusing cached `LPC` probabilities, pseudo-labels, routing or final scores after changing a mixer input would make the result internally inconsistent. The one-order reconstruction should prove all real data dependencies before starting broad final-score comparisons. Preserve a separate manifest for each historical, corrected and proposed-treatment run.
+
+## Verified inputs
+
+- The exact FBCNet bank yielded the five-seed mean for all eight orders and 2,655 recording rows. An independent sum reproduced the bank mean bit for bit, and a deliberately wrong hash failed before output. Galvani receipt `ni26_friday_causal_rebuild_20261118/fbcnet_ea_tf_slot1_means.json`, output SHA-256 `93048f398201e17db0ceb1814861319ba3590e7b986f98d15073740a064a047d`. No held labels were opened.
+- The fresh Shallow EA P10/seed 0 duplicate-fit A100 smoke `3129779` reproduced weights, buffers and predictions bit for bit across three sessions and nine deliveries. The remaining held-excluded fits `3129788` and collector `3129789` were accepted at the 19:41 CET check. Both systems will use these same freshly fitted Shallow models.
