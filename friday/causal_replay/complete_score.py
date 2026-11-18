@@ -40,8 +40,7 @@ def authenticate(proof_sha):
     return columns
 
 
-def score(proof_sha):
-    predicted = authenticate(proof_sha)
+def score_columns(predicted, proof_sha, output, scope):
     pin(METRIC, METRIC_HASH)
     official = start_module("ni26_official_metrics", METRIC, METRIC.read_text())
     pin(FEAT, HASHES[FEAT])
@@ -66,17 +65,22 @@ def score(proof_sha):
     contrasts = {"historical_cap250_minus_incumbent": np.array([-1, 1, 0, 0]),
                  "corrected_cap250_minus_incumbent": np.array([0, 0, -1, 1]),
                  "corrected_minus_historical_gain": np.array([1, -1, -1, 1])}
-    result = dict(scope="FULL-SYSTEM DEV, one held-new order, B2_pool", order="full0",
+    result = dict(scope=scope, order="full0",
                   absolute_balanced_accuracy_pct=dict(zip(KEYS, point)), proof_sha256=proof_sha,
                   people=list(people), official_cells=int(weights.sum()),
                   paired_person_bootstrap=dict(draws=len(draw), seed=460, interval=0.80),
                   contrasts={key: dict(pp=float(point @ v), paired80=np.percentile(bootstrap @ v, (10, 90)).tolist())
                              for key, v in contrasts.items()})
-    output = HERE / "matched_full0_score.json"
     with output.open("x") as handle:
         json.dump(result, handle, sort_keys=True, indent=2)
         handle.write("\n")
     output.chmod(0o444)
+
+
+
+def score(proof_sha):
+    score_columns(authenticate(proof_sha), proof_sha, HERE / "matched_full0_score.json",
+                  "FULL-SYSTEM DEV, one held-new order, B2_pool")
 
 
 if __name__ == "__main__":
