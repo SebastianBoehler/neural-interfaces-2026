@@ -32,6 +32,8 @@ The matched FBLight target replay `3131050` passed at 20:43:09 CET. Both refit b
 
 Production refits and checkpoint restoration passed for FB raw, FB with EA and FBLight seed 0. Sinc reproduced decisions on the original GPU node but missed the posterior guard. The matched fresh instrument replaces only the frozen Sinc seed 0 contribution in both arms and retains the other five Sinc seeds and fixed historical calibration. It regenerates both live shadows, both recognition traces and all four refits, with each Sinc refit anchored to its own fresh frozen checkpoint. [Sinc source audit](sinc-provenance-18nov.md)
 
+The Galvani fresh seed-0 bank `ni26_friday_sinc_seed0_fresh_full0_v3_20261118/frozen.npz` SHA-256 is `9d4a50ff8b50ca9acf287689158aedfe93e76720d46b32ccac12b34f057d5492`. The collector passed all ten fit-excluded folds at 21:37:10 CET. Under `ni26_friday_causal_rebuild_20261118`, `sinc_seed0_bridge_v3/status.json` SHA-256 `97354afac6073876a447f255d2d8f08dbee874b6326d1981c99ae638f2d4fd73` authenticates both new strict-prefix target aliases and actual unrouted recognition. The four live refits use those aliases under `refit_restore_pair_v1`, source manifest SHA-256 `5f5547048b53a1033d196cdce9c3e6ab8d0e7b8b14962632b7d0b5e0a5e57f37`.
+
 ## Returning-person inputs
 
 Use the original `seen_session` folds. Source rows for each fold include that person's first visit and exclude both of that person's later visits. P04 has 2,278 source and 377 held rows. P10 has 2,270 source and 385 held rows. The archived five trainable-FIR FBCNet seeds and first six Shallow EA seeds independently reproduced their returning `B2_pool` slot means exactly. Including Shallow seeds 6 and 7 changes the archived slot by up to 0.183115.
