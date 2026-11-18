@@ -51,6 +51,58 @@ def waveform_row(data, label, seed, full_contrast, whole_arm):
     return label, seed, data["contrasts"][full_contrast], data["absolute"][whole_arm]["pp"]
 
 
+def band_plot(root, out):
+    paths = [root / "band" / f"band_{seed}_result.json" for seed in SEEDS]
+    if not all(path.is_file() for path in paths):
+        print("filter-bank initialization: waiting for a complete seed pair")
+        return
+    results = [read(path) for path in paths]
+    for seed, result in zip(SEEDS, results, strict=True):
+        if (result["seed"], result["source_gpu"], result["historical_f7_f9_gpu"]) != (seed, "A100", "H100"):
+            raise ValueError("mismatched filter-bank seed or training GPU")
+        if abs(result["absolute"]["stock"]["pp"] - STOCK) > 1e-8:
+            raise ValueError("mismatched complete-stock score")
+    anchor = results[0]["historical_s1c"]
+    if any(result["historical_s1c"]["sha256"] != anchor["sha256"] for result in results):
+        raise ValueError("mismatched historical filter-bank reference")
+
+    fig, (whole, people) = plt.subplots(1, 2, figsize=(11.6, 6.2), layout="constrained")
+    fig.get_layout_engine().set(rect=(.015, .06, .98, .94))
+    fig.suptitle("Trainable filter-bank initialization on held EEG", x=.025, ha="left",
+                 fontsize=20, weight="bold")
+    whole.set_title("Whole-decoder balanced accuracy", loc="left", weight="bold")
+    people.set_title("Spectral minus random initialization", loc="left", weight="bold")
+    arms = ("spectral_genuine", "random_genuine", "f7", "f9")
+    for seed, result, color, marker, offset in zip(SEEDS, results, (BLUE, GOLD), ("o", "D"), (-.11, .11), strict=True):
+        values = [result["absolute"][arm]["pp"] for arm in arms]
+        whole.scatter(values, np.arange(len(arms)) + offset, color=color, marker=marker,
+                      label=f"Seed {seed}", s=44)
+        contrast = result["contrasts"]["spectral_genuine-random_genuine"]
+        mean = contrast["pp"]
+        low, high = contrast["paired80"]
+        people.errorbar(mean, offset, xerr=[[mean - low], [high - mean]], color=color,
+                        fmt=marker, ms=5, lw=1.5, capsize=3)
+        people.scatter([contrast["people"][name] for name in PEOPLE],
+                       np.arange(1, len(PEOPLE) + 1) + offset, color=color, marker=marker, s=30)
+    whole.scatter(anchor["score"], len(arms), color=MUTED, marker="|", s=130)
+    whole.set_yticks(range(len(arms) + 1), ["F12 spectral · A100", "F12 random · A100",
+                                          "F7 supervised · H100", "F9 fixed norm · H100",
+                                          "Historical filter bank"])
+    whole.set_ylim(len(arms) + 1.0, -.48)
+    whole.set_xlabel("Balanced accuracy (%)")
+    whole.legend(loc="lower left", frameon=False, fontsize=8.5, ncol=2)
+    people.set_yticks(range(len(PEOPLE) + 1), ["Pooled (paired 80%)", *PEOPLE])
+    people.set_ylim(len(PEOPLE) + .48, -.55)
+    people.set_xlabel("Whole-decoder change (percentage points)")
+    people.axvline(0, color=MUTED, ls="--", lw=.85)
+    for axis in (whole, people):
+        axis.grid(axis="x", alpha=.19)
+        axis.set_axisbelow(True)
+    fig.text(.025, .02, "18 Nov 2026  ·  10 fit-excluded PROTEUS people  ·  8 pinned orders  ·  Historical results are reference points",
+             fontsize=8.6, color=MUTED)
+    save(fig, out, "held-filter-initialization")
+
+
 def wave_plot(root, out):
     rows = []
     for folder, label, name in MODELS:
@@ -192,6 +244,7 @@ def main():
                          "ytick.color": MUTED, "font.family": "DejaVu Sans",
                          "axes.edgecolor": "#c3cddb"})
     wave_plot(args.reports, args.output)
+    band_plot(args.reports, args.output)
     runtime_plot(args.reports, args.output)
     input_plot(args.eeg, args.output)
 
