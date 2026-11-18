@@ -143,6 +143,7 @@ def main(person):
                   held_labels_opened=False, prediction_mode="frozen",
                   reset_interleaving=f"{reset_stream}, 64 windows, discarded",
                   gpu=gpu, node=os.environ["SLURMD_NODENAME"], torch=torch.__version__,
+                  p04_smoke_sha256=os.environ["NI26_WITHIN0_P04_SHA"],
                   delivery_sha256=rows_sha(p),
                   source_sha256=file_sha(HERE / "source.sha256"))
     encoded = json.dumps(output, indent=2, sort_keys=True, allow_nan=False)
@@ -155,5 +156,5 @@ def main(person):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("fold", type=int, choices=range(2, 11))
+    parser.add_argument("fold", type=int, choices=(2, 3, 5, 6, 7, 8, 9, 10))
     main(PEOPLE[parser.parse_args().fold - 1])
