@@ -14,7 +14,7 @@ import encoder312
 import model322
 import modes
 import session_bn
-from bounded_bn import normalize, verify_normalization
+from bounded_bn import activation_probe, normalize, verify_normalization
 from data323 import DATA, DATA_SHA, ORDERS, PEOPLE, ROOT, sha
 
 
@@ -114,12 +114,20 @@ def run(held, seed, smoke):
     if len(layers) != 1 or layers[0].k != 20.0 or layers[0].m != 32:
         raise ValueError("expected the original S1C normalization layer")
     layer = layers[0]
-    captured = []
+    probe = None
+    inactive_example = None
+
+    def capture(layer, args):
+        nonlocal probe, inactive_example
+        if inactive_example is None:
+            inactive_example = args[0][:10].clone()
+        probe = activation_probe(layer, args[0])
+
     original = np.full_like(archived, np.nan)
     for order, pos, xx, _ in session_batches(x, stream, test, meta["scale"], perms):
         handle = None
-        if not captured:
-            handle = layer.register_forward_pre_hook(lambda _, args: captured.append(args[0][:10].clone()))
+        if probe is None:
+            handle = layer.register_forward_pre_hook(capture)
         original[ORDERS.index(order), pos] = modes.probabilities(model, xx, "cuda")
         if handle is not None:
             handle.remove()
@@ -127,7 +135,8 @@ def run(held, seed, smoke):
     if not np.allclose(original, archived, atol=ATOL, rtol=RTOL) or not np.array_equal(
             original.argmax(2), archived.argmax(2)):
         raise ValueError(f"archived S1C parity failed: max abs {parity}")
-    oracle_error = verify_normalization(layer, captured[0])
+    oracle_error = verify_normalization(layer, probe if probe is not None else inactive_example,
+                                        active_required=probe is not None)
     counts = []
     layer.forward = MethodType(lambda self, xx: normalize(self, xx, counts), layer)
     bounded = np.full_like(archived, np.nan)
@@ -152,7 +161,9 @@ def run(held, seed, smoke):
                 raise ValueError("interleaved session changed an earlier prefix")
         bounded[i, pos] = q
         sessions += 1
-    if (encoder312.fingerprint(model) != fingerprint or not active or
+    if bool(active) != (probe is not None) or (not active and not np.array_equal(bounded, original)):
+        raise ValueError("candidate activity disagrees with the label-free activation scan")
+    if (encoder312.fingerprint(model) != fingerprint or
             not np.isfinite(bounded).all() or not np.allclose(bounded.sum(2), 1, atol=1e-6)):
         raise ValueError("changed frozen state, inactive bounded history or incomplete replay")
     receipt = dict(held=held, seed=seed, data=DATA_SHA, orders=ORDER_SHA, origin=ORIGIN_SHA,
@@ -161,7 +172,8 @@ def run(held, seed, smoke):
                    source_rows=meta["source_rows_sha256"], held_rows=meta["held_rows_sha256"],
                    archived_posterior_max_abs=parity, activation_oracle_max_abs=oracle_error,
                    prefix_posterior_max_abs=prefix_max, first_windows_exact=sessions,
-                   active_past_channel_windows=active, device=torch.cuda.get_device_name(0),
+                   active_past_channel_windows=active, oracle_probe_exercised=probe is not None,
+                   device=torch.cuda.get_device_name(0),
                    held_labels_opened=False, original_labels_exact=True, disabled_activations_exact=True)
     if not smoke:
         output = HERE / "folds" / f"{held}_s{seed}.npz"

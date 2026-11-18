@@ -4,7 +4,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=6
 #SBATCH --mem=16G
-#SBATCH --time=00:07:00
+#SBATCH --time=00:02:00
 #SBATCH --job-name=ni26-f13-s1c
 #SBATCH --output=f13-%A_%a.out
 set -euo pipefail
@@ -17,8 +17,8 @@ sha256sum --quiet -c source.sha256
 (cd "$ORIGIN" && sha256sum --quiet -c source323.sha256)
 export PYTHONPATH="$ORIGIN:$ORIGIN/experiments:$ORIGIN/studies/14nov/newmember"
 export NI26_DEVICE=cuda OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
-if [[ "$#" == 1 && "$1" == smoke ]]; then
-    "$PY" -B replay_f13.py P10 0 --smoke
+if [[ "$#" == 2 && "$1" == smoke ]]; then
+    "$PY" -B replay_f13.py "$2" 0 --smoke
 else
     id=${SLURM_ARRAY_TASK_ID:?}
     printf -v person 'P%02d' "$((id%10+1))"

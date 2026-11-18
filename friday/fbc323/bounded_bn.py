@@ -6,6 +6,17 @@ def preceding(value):
     return torch.cat((torch.zeros_like(value[:1]), value[:-1].cumsum(0)))
 
 
+def activation_probe(layer, x):
+    """Find the earliest real active transition for the label-free oracle."""
+    centered = x[:-1].double().flatten(2) - layer.running_mean.double()[None, :, None]
+    limit = 4 * layer.running_var.double().clamp_min(layer.eps)
+    active_rows = torch.nonzero((centered.square().mean(2) > limit).any(1))
+    if not len(active_rows):
+        return None
+    first = int(active_rows[0, 0])
+    return x[max(0, first - 8):first + 2].clone()
+
+
 def normalize(layer, x, statistics, enabled=True):
     if layer.training or layer.k != 20.0 or x.ndim < 3 or not len(x):
         raise ValueError("expected a nonempty S1C evaluation stream and k=20")
@@ -38,7 +49,7 @@ def normalize(layer, x, statistics, enabled=True):
     return layer._affine(out, (1, -1) + (1,) * len(axes))
 
 
-def verify_normalization(layer, x):
+def verify_normalization(layer, x, active_required):
     """Check real activations against the original and a direct float64 calculation."""
     original = layer(x)
     unweighted = normalize(layer, x, [], enabled=False)
@@ -66,8 +77,10 @@ def verify_normalization(layer, x):
         len(x), x.shape[1], *((1,) * (x.ndim - 2))).expand_as(x)
     if not torch.equal(bounded[~active], original[~active]):
         raise ValueError("bounded normalization changed activations without clipped history")
-    if not active.any():
-        raise ValueError("real activation probe did not exercise clipped history")
+    if bool(active.any()) != active_required:
+        raise ValueError("the oracle did not reproduce the activation scan")
+    if not active_required:
+        return 0.0
     active_expected = expected[active]
     active_actual = bounded[active].double()
     torch.testing.assert_close(active_actual, active_expected, rtol=2e-5, atol=2e-5)

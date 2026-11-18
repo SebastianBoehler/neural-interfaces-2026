@@ -48,9 +48,11 @@ def authenticate_held(array_id, report, subject, person):
                 meta = json.loads(str(z["metadata"]))
                 if any(meta[k] != value for k, value in expected.items()):
                     raise ValueError(f"blind worker provenance differs for {key}")
+                active = meta["active_past_channel_windows"]
                 if (not np.array_equal(z["index"], idx) or not np.array_equal(z["original"], archived)
                         or "A100" not in meta["device"] or meta["first_windows_exact"] < len(ORDERS)
-                        or not meta["active_past_channel_windows"]):
+                        or active < 0 or bool(active) != meta["oracle_probe_exercised"]
+                        or (not active and not np.array_equal(z["original"], z["bounded"]))):
                     raise ValueError(f"blind worker baseline or intervention differs for {key}")
                 for arm in ARMS:
                     values = z[arm]
@@ -62,6 +64,10 @@ def authenticate_held(array_id, report, subject, person):
             receipts[key], digests[prediction.name] = meta, digest
     if any((v < 0).any() for v in merged.values()):
         raise ValueError("missing rows after blind merge")
+    for seed in (0, 1):
+        if not any(receipt["seed"] == seed and receipt["oracle_probe_exercised"]
+                   for receipt in receipts.values()) or np.array_equal(merged["original", seed], merged["bounded", seed]):
+            raise ValueError(f"no verified active bounded decision in seed {seed}")
     lock = HERE / "decision_banks.sha256"
     with lock.open("x") as handle:
         for name, digest in sorted(digests.items()):
