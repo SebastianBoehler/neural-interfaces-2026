@@ -2,6 +2,7 @@
 import json
 import os
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 
@@ -11,27 +12,23 @@ from stocks456 import NATIVE, STAGES, module, ref
 
 def build(meta, ages, stock, smoke):
     policy = module(NATIVE, 'policy', '59e3b26ffa371f9cb9e12663f49214063e54b5f67fb6a232ec6c30c780682df2')
-    sys.modules['policy'] = policy
+    owner = NATIVE / 'run.py'
+    assert ref.sha(owner) == 'e7a1aa1fb573d10b9805a16c3a39dca960bf940277665d2b72f0efd6c43c75e6'
     from fusion_inputs import OWNER
-    sys.path.insert(0, str(OWNER))
-    producer = module(NATIVE, 'run', 'e7a1aa1fb573d10b9805a16c3a39dca960bf940277665d2b72f0efd6c43c75e6')
+    env = {**os.environ, 'PYTHONPATH':os.environ['PYTHONPATH']+os.pathsep+str(OWNER)}
     out = {}
     for order in ref.ORDERS[:1] if smoke else ref.ORDERS:
         name = order+'.npz'
         source = ref.source_manifest(NATIVE/'source.sha256')
         proof = json.loads((NATIVE/(order+'.json')).read_text())
         assert proof['source'] == source and proof['bank'] == ref.sha(NATIVE/name)
-        original = Path.cwd()
         with tempfile.TemporaryDirectory() as tmp:
-            os.chdir(tmp)
-            try:
-                Path('source.sha256').symlink_to(NATIVE/'source.sha256')
-                producer.process(order)
-                with np.load(name) as rerun, np.load(NATIVE/name) as measured:
-                    assert set(rerun.files) == set(measured.files)
-                    assert all(np.array_equal(rerun[k], measured[k]) for k in rerun)
-            finally:
-                os.chdir(original)
+            work = Path(tmp)
+            (work/'source.sha256').symlink_to(NATIVE/'source.sha256')
+            subprocess.run([sys.executable,str(owner),order], cwd=work, env=env, check=True)
+            with np.load(work/name) as rerun, np.load(NATIVE/name) as measured:
+                assert set(rerun.files) == set(measured.files)
+                assert all(np.array_equal(rerun[k],measured[k]) for k in rerun)
         path = STAGES / f'stages_{order}.npz'
         proof = json.loads(path.with_suffix('.json').read_text())
         assert proof['order'] == order and ref.sha(path) == proof['output']
