@@ -5,13 +5,11 @@ import shutil
 import subprocess
 import sys
 
-original = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path('../ni26_cross411b_20261118').resolve()
-for manifest in ('sources.sha256', 'members.sha256', 'inputs.sha256'):
-    subprocess.run(['sha256sum','-c','--status',manifest],cwd=original,check=True)
-for offset in (30,60):
-    lane = Path(f'offset{offset}')
+def prepare_lane(original, lane, dataset):
+    for manifest in ('sources.sha256', 'members.sha256', 'inputs.sha256'):
+        subprocess.run(['sha256sum','-c','--status',manifest],cwd=original,check=True)
     lane.mkdir()
-    dataset = Path(f'shift{offset}.npz').resolve()
+    dataset = dataset.resolve()
     for arm in ('old','cap'):
         (lane/arm).symlink_to(original/arm, target_is_directory=True)
     for name in ('worker.py','data.py','replay.py','collect.py','collect.sbatch','members.sha256'):
@@ -35,3 +33,12 @@ for offset in (30,60):
     files = sorted(f for f in lane.iterdir() if f.is_file())
     (lane/'sources.sha256').write_text(''.join(
         f'{hashlib.sha256(f.read_bytes()).hexdigest()}  {f.name}\n' for f in files))
+
+if __name__ == '__main__':
+    original = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path('../ni26_cross411b_20261118').resolve()
+    if len(sys.argv) == 4:
+        prepare_lane(original, Path(sys.argv[2]), Path(sys.argv[3]))
+    else:
+        assert len(sys.argv) <= 2
+        for offset in (30,60):
+            prepare_lane(original, Path(f'offset{offset}'), Path(f'shift{offset}.npz'))
