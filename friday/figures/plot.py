@@ -29,6 +29,8 @@ MODELS = (
     ("raw", "Masked latent", "raw_masked"),
     ("style", "Synthetic covariance", "raw_style_full"),
     ("style", "Matched sensor gains", "raw_style_diagonal"),
+    ("norm", "Fixed normalization", "raw_norm_fixed"),
+    ("norm", "Learned normalization", "raw_norm_learned"),
 )
 PEOPLE = [f"P{i:02}" for i in range(1, 11)]
 

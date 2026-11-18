@@ -51,3 +51,9 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - Ferranti F8 smoke 510134 completed in 10 seconds. All three source smoke pairs (F6/F7/F8) completed. F6 510119/120, F7 510123/124 and F8 510135/136 are accepted and await H100 priority. F8 held smoke jobs 3127483/86 started after authenticated transfer.
 - Held score and runtime figures are saved as PNG and PDF in this chat's visualization directory. The generator reads all complete seed pairs and omits unscored models with a visible message.
+
+## Wednesday 18 November, 14:34 CET
+
+- F8 held smokes 3127483/86 completed with exact first-window reset and active genuine/donor/blank paths. All 120 F6–F8 production fits still await Ferranti priority. Updated estimate for the first reduced F7 task was 15:12 CET, subject to availability.
+- F9 learns the speed of session normalization in the raw decoder. Real local EEG checks confirmed identical baseline initialization and first-window output, causal prefix/reset parity, and active prior gradients. Ferranti smoke 510310 pending. Production 510311/12 accepted behind afterok for the smoke and both F7 arrays. Actor SHA-256 `4d601b39e4ab65dd519e1257b24829cf7ef3883c981f69834623fcc1cc7ed526`.
+- Galvani F9 preflight 3127716 started. Fixed held smoke/scores 3127717–19, learned 3127720–22, learned versus fixed 3127723/24, and fixed versus independent F7 3127725/26. Relay with `bash friday/wave/relay.sh norm` and verify checkpoints before releasing. F-C4 exact worker jobs remain active.
