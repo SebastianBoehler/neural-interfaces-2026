@@ -75,7 +75,7 @@ def main():
                     orders=x.mean(0).tolist(), persons=person.tolist())
     effects = {k:estimate(v) for k,v in [('stock',stock), ('zero',zero), ('off',off),
                                           ('optimizer',stock-zero), ('branch',zero-off)]}
-    np.testing.assert_allclose((stock-zero)+(zero-off)+off, stock)
+    np.testing.assert_allclose((stock-zero)+(zero-off)+off, stock, atol=1e-10, rtol=0)
     Path('result.json').write_text(json.dumps(dict(
         effects=effects, absolute_selectivity=dict(zip(('old','stock','zero','off'), values.mean((2,3)).tolist())),
         changed_per_20_deliveries=changed, activity=activity, horizon_order=[60,20], people=26, deliveries=2, reserve_person=26), indent=2)+'\n')
