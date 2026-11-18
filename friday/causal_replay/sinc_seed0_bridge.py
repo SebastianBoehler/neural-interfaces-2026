@@ -80,7 +80,7 @@ def change_sinc(ctx, archived, frozen, old, anchored_rec):
     return ctx.norm(before)[ctx.Pperm], ctx.norm(after)[ctx.Pperm], formula
 
 
-def fresh_controls(ctx, archived, frozen, zero):
+def fresh_controls(ctx, archived, frozen, zero, order=ORDER):
     old = ctx.FR17.copy()
     anchored_rec = ctx.FR6.copy()
     slot = ctx.SLOT["sinc"]
@@ -89,7 +89,7 @@ def fresh_controls(ctx, archived, frozen, zero):
     original, want, error = change_sinc(ctx, archived[slot], frozen, old, anchored_rec)
     if not np.array_equal(zero["members"][MEMBER], original):
         raise ValueError("independent Sinc formula does not reproduce the archived mixer member")
-    patches = corrected(ctx.Pperm)
+    patches = corrected(ctx.Pperm, order)
     arms = {"historical": install(ctx, {}), "corrected": install(ctx, patches)}
     for arm, tape in arms.items():
         if not np.array_equal(tape["members"][MEMBER], want):
@@ -98,7 +98,7 @@ def fresh_controls(ctx, archived, frozen, zero):
            for key, value in zero["members"].items() if key != MEMBER):
         raise ValueError("fresh historical arm changed an unregistered live member")
     if any(ctx.FR17[key] is not v for key, v in old.items() if key != SEED0):
-        raise ValueError("an unrelated archived full0 member was substituted")
+        raise ValueError("an unrelated archived frozen member was substituted")
     if any(ctx.FR6[key] is not v for key, v in anchored_rec.items()):
         raise ValueError("archived recording anchor was modified")
     changed = float(np.abs(arms["historical"]["shadow"] - zero["shadow"]).max())
