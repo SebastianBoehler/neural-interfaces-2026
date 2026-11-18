@@ -1,6 +1,6 @@
 # Penultimate Track 2 selection · working brief for Wednesday 18 November
 
-**Provisional morning choice: v6.6cap250.** The 08:00 review retained this choice. The recommendation is due by 11:30 CET. Selection cutoff is noon. Friday evening remains the final decision window. The candidate is staged locally.
+**Recommendation for the penultimate submission: v6.6cap250.** At 10:54 CET the staged ZIP and in-archive source reproduced the hashes below and the ZIP integrity check passed. Selection cutoff is 12:00 CET. Friday evening remains the final decision window. The candidate is staged locally and awaits upload authorization.
 
 | Artifact or control | Verified identity / result |
 |---|---|
