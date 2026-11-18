@@ -135,7 +135,8 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
     receipt = dict(kind=kind, seed=seed, held=held, steps=steps, device=str(device),
                    gpu=torch.cuda.get_device_name() if device == "cuda" else None,
                    torch=torch.__version__, actor=sha(Path("actor.sha256")), checkpoint=sha(path),
-                   data=DATA_SHA, orders=ORDER_SHA, train_people=train_people, train_rows=source_hash(src))
+                   data=DATA_SHA, orders=ORDER_SHA, held_labels_opened=False,
+                   train_people=train_people, train_rows=source_hash(src))
     path.with_suffix(".json").write_text(json.dumps(receipt, indent=2) + "\n")
     print(f"{kind} {seed} {held}: {steps} source updates and causal guards OK", flush=True)
 
