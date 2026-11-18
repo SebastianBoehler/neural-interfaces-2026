@@ -102,3 +102,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 ## Wednesday 18 November, 17:24 CET
 
 - [F-C5a attribution diagnostic](cap250-c5a-result.md) completed at 17:23:22 CET. On identical live inputs, terminal score vectors matched bitwise in both passes and covariance calls fell from 120 to 79. The two independent stock workers diverged at neural refit age 20. The current evidence qualifies stage equivalence and leaves independent whole-worker timing unresolved.
+
+## Wednesday 18 November, 17:28 CET
+
+- Both Ferranti and Galvani SSH logins are verified. F12 completed on Galvani. Ferranti F12 jobs were canceled before starting during the earlier platform transfer.
+- F13 is registered on the historical §323 S1C checkpoints. It bounds the contribution of unusually energetic past windows to causal normalization. The exact A100 reproduction and the matched comparison use the same archived inputs and weights.
