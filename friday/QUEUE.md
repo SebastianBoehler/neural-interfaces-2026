@@ -69,3 +69,6 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F10 P04 real smoke 3127918 passed exact F9 logits and archived decisions, active isolated reads and first-window stock zero. Seed scorers 3127919/20 released.
 - F11 Ferranti real smoke 510567 and afterok 20-fit arrays 510568/69 accepted. Galvani preflight 3127923 completed; held smoke 3127924 and scorers 3127925/26 depend on actor evidence. Matching actor manifest `501909d4e1623d13bb62e9f780df7d23db34f39003df3a6eba42bf2b04a12fed`.
 - F-C5 Galvani matched CPU smoke 3127921 started with exact stock/selection/no-op guards.
+
+- F11 Ferranti smoke 510567 completed in 11 s; both authenticated P01 actors reached Galvani. Source matched episode, donor, reference and initialization digests across arms.
+- F-C5 3127921 completed. P01 held-new used 155 versus 190 covariance calls. Two returning samples used 21 versus 70 calls. Terminal scores and selected rows were bitwise equal. Full paired array 3127930 and collector 3127931 accepted.
