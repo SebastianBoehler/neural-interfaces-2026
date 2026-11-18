@@ -100,6 +100,9 @@ def main(mode):
     ref.close()
     if mode=='zero':
         record['legacy_winner_ramp_max_abs']=archive_guard(snapshots['zero'][0],idx)
+        routes=record['zero']
+        assert sum(v['routed_rows'] for v in routes.values())==702
+        assert [routes[v]['post_latch_zero_ages'] for v in ('P04|2','P04|3','P10|2','P10|3')]==[[11],[],[30],[]]
     else:
         old,new=(snapshots[arm][0] for arm in ('fresh_recording','fresh_causal'))
         record['matched_delta']={k:float(np.abs(new[k]-old[k]).max()) for k in ('em','staged','preown')}

@@ -19,6 +19,7 @@ class Capture:
         self.ctx,self.idx=ctx,idx
         self.gates,self.pending,self.slots,self.head_view,self.personal={},{},{},{},{}
         self.prior,self.preown,self.staged=None,None,None
+        self.source_by_fold={}
         self.prefix=False
 
     @contextmanager
@@ -47,6 +48,8 @@ class Capture:
             value=gate(p,f,oof)
             if active():
                 assert p==PROTO and f in ('P04_s23','P10_s23')
+                assert f not in self.source_by_fold
+                self.source_by_fold[f]=value[4]
                 for s,(X,_,rows) in value[0].items():
                     assert s in SESSIONS and s not in self.head_view
                     self.head_view[s]=(np.array(rows), X[:,:256].copy(), f)
@@ -140,7 +143,8 @@ class Capture:
             rec,j=ctx.K.REC[PROTO,s]
             assert np.array_equal(rr,rec) and np.array_equal(jj,j)
             hit=rr>0; before=np.flatnonzero(hit)[0]
-            assert np.array_equal(hit,np.arange(len(rows))>=before)
+            recognised=np.arange(len(rows))>=before
+            gaps=np.flatnonzero(recognised & ~hit)
             names=g['names']; current=names[jj[hit]][0]
             assert str(current).endswith(owner) and (names[jj[hit]]==current).all()
             assert set(self.personal[s])=={str(current)}
@@ -153,6 +157,9 @@ class Capture:
             exact(expected_out,stages['staged'][rows])
             assert np.array_equal(stages['kappa'][rows],20.*rr)
             prior=stages['personal_prior'][rows]
+            per=self.source_by_fold[h[2]][str(current)]
+            source_prior=np.mean([np.stack([ctx.A.R3.stdz(X[:,:128])[y==c].mean(0) for c in range(3)]) for X,y in per],0)
+            exact(prior[hit][0],source_prior)
             assert not np.any(prior[~hit]) and np.any(prior[hit]) and (prior[hit]==prior[hit][0]).all()
             assert np.any(stages['tsem_age'][rows][hit]>0)
             own_change=float(np.abs(stages['staged'][rows]-raw).max())
@@ -162,12 +169,13 @@ class Capture:
             assert np.array_equal(head.classes_,np.arange(3))
             expected_head=head.predict_proba(ctx.A.RR.causal_std(h[1]))
             exact(expected_head[hit],self.slots[s]['head'][hit])
-            g.update(winner_r=rr,winner_j=jj,owner=np.array(str(current)),pc256=h[1],
+            g.update(winner_r=rr,winner_j=jj,recognised=recognised,owner=np.array(str(current)),pc256=h[1],
                      source_head_w=head.coef_,source_head_c=head.intercept_,own_logs=logs)
             g.update(self.slots[s])
             for key,v in g.items():
                 stages[f'{short}|{key}']=v
             expected[short]=dict(owner=owner,age=int(before),routed_rows=int(hit.sum()),
+                recognised_rows=int(recognised.sum()),post_latch_zero_ages=gaps.tolist(),
                 own_max_abs=own_change,head_tsem_view_max_abs=float(np.abs(g['pc256'][:,:128]-stages['tsem_pc'][rows]).max()))
-        assert sum(v['routed_rows'] for v in expected.values())==704
+        assert sum(v['recognised_rows'] for v in expected.values())==704
         return stages,expected
