@@ -4,19 +4,19 @@
 
 ## Sealed score and rank scenario
 
-At 13:39 CET on 18 November, Codabench sealed v5.1b entry 1050185 scored **0.8197668759**, ranked **#20** by entry, and took **1,287.04 seconds**. Cap250 is staged. Its private score is unknown. Thresholds hold other entries fixed and use the same leaderboard task (36954). [Live Codabench result](https://www.codabench.org/api/leaderboards/19997/)
+At 15:23 CET on 18 November, Codabench sealed v5.1b entry 1050185 scored **0.8197668759**, ranked **#20** by entry, and took **1,287.04 seconds**. Cap250 is staged. Its private score is unknown. Thresholds hold other entries fixed and use the same leaderboard task (36954). [Live Codabench result](https://www.codabench.org/api/leaderboards/19997/)
 
 | Target | Entry score to beat | Gain from v5.1b |
 | --- | ---: | ---: |
 | #19 | 0.820745 | +0.098 pp |
-| #15 | 0.823771 | +0.400 pp |
-| #14 | 0.825365 | +0.560 pp |
-| #13 | 0.831416 | +1.165 pp |
-| #10 | 0.835031 | +1.526 pp |
+| #15 | 0.825365 | +0.560 pp |
+| #14 | 0.831416 | +1.165 pp |
+| #13 | 0.832424 | +1.266 pp |
+| #10 | 0.835095 | +1.533 pp |
 | #5 | 0.841214 | +2.145 pp |
 | #1 | 0.859411 | +3.964 pp |
 
-An entry score of 0.824 would place #15 in this snapshot. Scores of 0.826–0.829 would place #14. These are rank scenarios with fixed competitors. The public development gain has no calibrated conversion to a sealed score.
+An entry score of 0.824 would place #16 in this snapshot. Scores of 0.826–0.829 would place #15. These are rank scenarios with fixed competitors. The public development gain has no calibrated conversion to a sealed score.
 
 ## Accuracy evidence
 
