@@ -119,10 +119,43 @@ def runtime_plot(root, out):
     save(fig, out, "a100-profile")
 
 
+
+def input_plot(data, out):
+    """Use the first valid example per class under one person's identical setup."""
+    sensors = ("C3", "Cz", "C4")
+    tasks = ("Motor imagery", "Mental subtraction", "Word generation")
+    with np.load(data, allow_pickle=False) as z:
+        people = np.array([p.split("/")[-1] for p in z["subject"]])
+        mask = (people == "P04") & (z["session"] == "1") & (z["interface"] == "Graz")
+        rows = [np.flatnonzero(mask & (z["y"] == i))[0] for i in range(3)]
+        electrode = [list(z["ch_names"]).index(s) for s in sensors]
+        x = z["X"][rows][:, electrode]
+    if x.shape != (3, 3, 480):
+        raise ValueError("invalid official window example")
+    fig, axes = plt.subplots(3, 3, figsize=(11.8, 6.1), sharex=True, sharey="row", layout="constrained")
+    fig.get_layout_engine().set(rect=(.005, .05, .99, .94))
+    fig.suptitle("What the raw-waveform decoder receives", x=.02, ha="left", fontsize=20, weight="bold")
+    time = np.arange(480) / 120
+    for col, title in enumerate(tasks):
+        axes[0, col].set_title(title, loc="left", weight="bold")
+        for row, sensor in enumerate(sensors):
+            ax = axes[row, col]
+            ax.plot(time, x[col, row], color=(BLUE, TEAL, GOLD)[row], lw=1)
+            ax.axhline(0, color=MUTED, lw=.5, alpha=.45)
+            ax.grid(axis="x", alpha=.15)
+            ax.set_xlim(0, 4)
+            if col == 0:
+                ax.set_ylabel(f"{sensor} (µV)")
+        axes[-1, col].set_xlabel("Seconds within input window")
+    fig.text(.02, .015, "P04 · session 1 · Graz · first recorded example per class · 3 of 41 EEG channels · 120 Hz",
+             fontsize=9, color=MUTED)
+    save(fig, out, "official-eeg-input")
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("reports", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("eeg", type=Path)
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update({"figure.facecolor": BG, "axes.facecolor": "#ffffff",
@@ -132,6 +165,7 @@ def main():
                          "axes.edgecolor": "#c3cddb"})
     wave_plot(args.reports, args.output)
     runtime_plot(args.reports, args.output)
+    input_plot(args.eeg, args.output)
 
 
 if __name__ == "__main__":
