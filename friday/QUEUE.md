@@ -114,3 +114,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - [F13](fbc323/result-18nov.md) matched the original S1C archive on all 42,480 decisions. Bounded normalization gained +0.668 and +0.708 pp on held-new whole-model scores, with intervals crossing zero. F-C10 tests transfer to the six exact cap250 FBCNet members. Galvani zero qualification 3128700 precedes any changed worker.
 - F-C9 exact smoke 3128678 passed at 17:47 CET. A100 array 3128702 and collector 3128703 score a causal reliability gate within complete cap250 on Scherer.
 - D-RTX smoke 3128675 started the two frozen ZIPs on an RTX 2080 Ti worker and verified reset and active cap250 refits. Paired workers 3128676 and collector 3128677 continue. The development GPU tests hardware sensitivity. The official RTX model and its timing remain unverified.
+
+## Wednesday 18 November, 18:45 CET
+
+- F-C10, F-C9 and F-C4r completed and did not advance. The nine-person RTX proxy replay measured +0.304 pp for staged cap250 versus v5.1b, with its paired interval crossing zero. [Day review](RETROSPECTIVE_18NOV.md)
+- Codabench accepted exact staged v6.6cap250, submission **1058969**, at **18:45 CET**. First observed status was Running. Today's quota is 1/1 used, total 6/7 used. Read the [signed-in submission page](https://www.codabench.org/competitions/17982/#/participate-tab) for its individual score when published.

@@ -52,6 +52,7 @@ The 18 November scoring audit found that two Euclidean-alignment members of the 
 | F-C7, learned branch selection, exact FULL-SYSTEM EXTERNAL | −0.053 pp [80% −0.228,+0.132] versus cap250 and the source-permuted arm. The preregistered F-C6 causal comparator gained +0.208 pp [+0.023,+0.394] on the same nine previously examined Scherer participants and two orders. [Exact external evidence](cap250-c7-result.md) |
 | F-C8, fixed causal branch selection, exact FULL-SYSTEM EXTERNAL | −0.020 pp [80% −0.205,+0.146] versus cap250 on two fresh orders for the same nine Scherer people. The two order effects were −0.093 and +0.053 pp. [Order replication](cap250-c8-result.md) |
 | F-C9 and F-C10, exact FULL-SYSTEM EXTERNAL | The neural refit reliability gate scored −0.248 pp [80% −0.665,+0.169] versus cap250. Bounded history in the actual six FBCNet members scored −0.255 pp [−0.579,+0.046]. Both comparisons used the reused Scherer cohort. [F-C9](cap250-c9-result.md) · [F-C10](cap250c10/result-18nov.md) |
+| F-C4r balanced refits, exact FULL-SYSTEM EXTERNAL | −0.291 pp [80% −0.810,+0.198] versus cap250. Both additional delivery orders for the same Scherer people were negative. [F-C4r](cap250-c4r-result.md) |
 
 [Exact archive selection evidence](../../neural-interfaces-2026/evidence/next_wave_16nov/lunch_recommendation_18nov.md) · [Returning spectral kernel](../../neural-interfaces-2026/evidence/next_wave_16nov/kernel457.md) · [Waveform evidence](wave/results-18nov.md) · [F6–F9 paired results](wave/results-f6-f9-18nov.md) · [External receipts](../../neural-interfaces-2026/evidence/next_wave_16nov/EVENING_HANDOFF_18NOV.md)
 
@@ -76,6 +77,10 @@ Prefer the untouched staged cap250 ZIP on the current evidence. Ferranti complet
 | Wednesday 16:19, completed | Both F11 seeds scored. Causal sensor scaling lowered the full-system score on held-new PROTEUS people. |
 | Wednesday 16:32, completed | F-C7 exact Scherer transfer. The learned selector did not improve cap250. |
 | Wednesday 16:50, completed | F-C8 exact repeat of the fixed causal rule scored within the noise band on two additional orders. |
-| Wednesday 19:35, planned | Lock the package selected for today after the last exact validation checks. |
-| Wednesday 20:00, deadline | Submit one penultimate archive to the Sealed Final Phase and record its job ID. Codabench's queue determines the score time. |
+| Wednesday 18:43, completed | Locked exact v6.6cap250 after the last accuracy replication. |
+| Wednesday 18:45, accepted | Codabench submission **1058969** was running on first observation. Today's allowance is 1/1 used and the total is 6/7 used. |
 | Friday 20 November, 18:00, planned | Final candidate and alternate. Use held-person and independent external evidence to break ties inside development noise. |
+
+## Official penultimate receipt
+
+`s_boehler` submitted `v66_cp1_cap250.zip` as `v6.6cap250` to the Sealed Final Phase at **18:45 CET**. Codabench accepted ID **1058969**. SHA-256 `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`; ZIP CRC clean immediately before upload. The initial observed status was **Running**. [My Submissions](https://www.codabench.org/competitions/17982/#/participate-tab)
