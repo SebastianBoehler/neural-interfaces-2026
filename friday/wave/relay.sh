@@ -3,11 +3,16 @@
 set -euo pipefail
 ferranti=mlcloud-ferranti
 galvani=mlcloud-galvani
-source_dir=ni26/friday_wave_20261118
-target_dir=/mnt/lustre/work/gehler/gfh527/ni26_friday_wave_20261118/checkpoints
+case ${1:-wave} in
+    wave) release=friday_wave_20261118 ;;
+    time) release=friday_wave_time_20261118 ;;
+    *) printf 'Unknown release %s\n' "$1" >&2; exit 2 ;;
+esac
+source_dir="ni26/$release"
+target_dir="/mnt/lustre/work/gehler/gfh527/ni26_$release/checkpoints"
 scratch=$(mktemp -d)
-trap 'rm -rf "$scratch"' EXIT
-ssh -o BatchMode=yes "$ferranti" 'cd ~/ni26/friday_wave_20261118; for f in *.json; do
+trap 'find "$scratch" -depth -delete' EXIT
+ssh -o BatchMode=yes "$ferranti" "cd ~/ni26/$release" '; for f in *.json; do
     [[ -f "$f" && -s "${f%.json}.pt" ]] || continue
     printf "%s\n%s\n" "$f" "${f%.json}.pt"
 done' > "$scratch/files"
