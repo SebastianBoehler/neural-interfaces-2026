@@ -1,10 +1,10 @@
 # Wednesday Track 2 decision brief · working version
 
-**Current selection is staged v6.6cap250. The alternate is sealed v5.1b.** The clean waveform variants tested so far trail cap250 on ten held-new public people. The fixed spectral kernel's gains did not reproduce on the independent Scherer cohort. Sebastian chose stronger held-person and external evidence as the tie-break inside the development noise band. At 18:00 CET this brief needs a fresh leaderboard check and completed F-C5 and F11 evidence if available. Both listed archives passed SHA and ZIP CRC checks on 18 November.
+**Current selection is staged v6.6cap250. The alternate is sealed v5.1b.** Sebastian set an evening target above 0.845 on the sealed ranking metric. The clean waveform variants tested so far trail cap250 on ten held-new public people. The fixed spectral kernel's gains did not reproduce on the independent Scherer cohort. Sebastian chose stronger held-person and external evidence as the tie-break inside the development noise band. Both archives passed SHA and ZIP CRC checks on 18 November. The exact staged cap250 also passed the real-window reset smoke, and the chain replay printed `OK`.
 
 ## Sealed score and rank scenario
 
-At 15:23 CET on 18 November, Codabench sealed v5.1b entry 1050185 scored **0.8197668759**, ranked **#20** by entry, and took **1,287.04 seconds**. Cap250 is staged. Its private score is unknown. Thresholds hold other entries fixed and use the same leaderboard task (36954). [Live Codabench result](https://www.codabench.org/api/leaderboards/19997/)
+At 15:51 CET on 18 November, Codabench sealed v5.1b entry 1050185 scored **0.8197668759**, ranked **#20** by entry, and took **1,287.04 seconds**. Cap250 is staged. Its private score is unknown. Thresholds hold other entries fixed and use the sealed ranking metric, balanced accuracy cell mean (task 36954). [Live Codabench result](https://www.codabench.org/api/leaderboards/19997/)
 
 | Target | Entry score to beat | Gain from v5.1b |
 | --- | ---: | ---: |
@@ -14,9 +14,14 @@ At 15:23 CET on 18 November, Codabench sealed v5.1b entry 1050185 scored **0.819
 | #13 | 0.832424 | +1.266 pp |
 | #10 | 0.835095 | +1.533 pp |
 | #5 | 0.841214 | +2.145 pp |
+| Evening target | 0.845000 | +2.523 pp |
+| #4 | 0.845643 | +2.588 pp |
+| #3 | 0.846932 | +2.717 pp |
 | #1 | 0.859411 | +3.964 pp |
 
 An entry score of 0.824 would place #16 in this snapshot. Scores of 0.826–0.829 would place #15. These are rank scenarios with fixed competitors. The public development gain has no calibrated conversion to a sealed score.
+
+At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used today and five of seven total. The phase ends Saturday 21 November at 23:59 CET. The shared evaluation queue determines when a sealed result appears. [Codabench submissions](https://www.codabench.org/competitions/17982/#/submissions-tab) · [Track 2 submission guide](https://www.codabench.org/competitions/17982/participate.md)
 
 ## Accuracy evidence
 
@@ -41,8 +46,9 @@ An entry score of 0.824 would place #16 in this snapshot. Scores of 0.826–0.82
 
 - Sealed v5.1b had **2,313 seconds** of measured headroom against the 3,600-second limit. On two standardized four-session A100 process pairs, exact v6.6cap250 took **584.05 vs 349.50 seconds** and **211.22 vs 114.61 seconds**. The hidden workload, ratios on sealed streams, and actual cap250 sealed time remain unknown. [Exact process pairs](../../neural-interfaces-2026/evidence/next_wave_16nov/budget414.md)
 - The native cap250 release reproduced every label and work counter. Its paired solver replay was **1.05% faster** on 2,655 ordinary public windows and **3.23% faster** on 1,178 forced-adaptation windows. Each workload has one pair. [Native release parity](../evidence/next_wave_16nov/native366_worker.md)
+- F-C5 reproduced all **27,336 historical score vectors** bit for bit. It reduced the CPU personalizer time by **17.0% on held-new people** and **79.9% on returning people**. The change has no effect on replay accuracy. Full-worker timing remains unmeasured. [F-C5 evidence](cap250-c5-result.md)
 - Isolated C++ CUDA graph replay for two kernel seeds took **0.169–0.170 ms per EEG window** on P04/P10. The clean worker replay on two external people measured **0.31–0.38 ms per window** for the graph increment and **0.991×/1.001×** with respect to stock for complete session time. Two rotated warm pairs per person had matching stock labels and work counts. The graph is affordable in these workloads. Its accuracy evidence does not justify replacing the staged package. [Isolated timing](../../neural-interfaces-2026/evidence/next_wave_16nov/native458.md) · [Worker receipt](../../neural-interfaces-2026/evidence/next_wave_16nov/EVENING_HANDOFF_18NOV.md)
 
 ## Decision condition
 
-Prefer the untouched staged cap250 ZIP on the current evidence. Preserve v5.1b as the sealed alternate. F5 lost on the independent Scherer sessions. F6 tests PhysioNet sensorimotor transfer. F7 and F8 optimize a single compact raw-waveform decoder for unseen people. F-C3 and F-C4 completed with uncertain external effects. F6–F9 completed. F10 completed with undecided effects for the isolated causal normalization update. F-C5 measures exact-preserving covariance work savings. F11 tests raw sensor normalization. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
+Prefer the untouched staged cap250 ZIP on the current evidence. F11 waits for one Ferranti training retry before Galvani can complete the second matched score. Ferranti estimated a 16:17 CET start as of 15:53 CET. The additional replay work uses Galvani and stored predictions. Leonardo rejected the current SSH key, while both active clusters remained reachable. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
