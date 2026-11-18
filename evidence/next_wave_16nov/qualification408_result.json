@@ -1,0 +1,148 @@
+{
+  "savings": {
+    "returning": {
+      "paired_percent": [
+        3.064763352835398,
+        3.0471062589258358
+      ],
+      "median_percent": 3.055934805880617
+    },
+    "unknown": {
+      "paired_percent": [
+        2.600305979900186,
+        2.1971999169134615
+      ],
+      "median_percent": 2.3987529484068237
+    }
+  },
+  "source_sha": "9f93b2a49b0da9eead06ad650ac32bfb3e6c15201086f198f92bfd71f03ee164",
+  "private_members_sha": "db962464a74c5a44f1c3a9cda9e26b0fb2fc2528d32e6a93e198d36f3e8ebd59",
+  "input_pair_sha": [
+    "b488304a16e2c3133d0d46cb457fb0734b8f320b2e2e051b5a5afb4ac2cf2c61",
+    "9d6fe5c27e4c2f584f35db0448e4f2491ec63ce32c8531a5556d8821a9789c65",
+    "399e57fe776698c5e321baf3b217e46b0064168c34829e259ae0518305f388c8"
+  ],
+  "process_seconds": [
+    [
+      351.99,
+      343.56
+    ],
+    [
+      358.14,
+      349.75
+    ],
+    [
+      371.48,
+      357.4
+    ]
+  ],
+  "streams": {
+    "P10-3": {
+      "views": [
+        199,
+        40
+      ],
+      "activity": {
+        "windows": 199,
+        "recognized": 10,
+        "ft_refits": 0,
+        "ft_steps": 0,
+        "ft_relabels": 0,
+        "ft_capped": 0,
+        "ft_over": 0,
+        "cp_refits": 0,
+        "cp_fused": 0,
+        "errors": 0
+      },
+      "latch": 40,
+      "rows_sha": "b1d1789f6b55e4aa4adf2e94a8ce85a60597805bbd3fdf34664d4884ae7c9a6f",
+      "posterior_sha": "13287a2acc94de324e4b47fa2e85abc753ad82de56ac86b4cb14d68dd9b467e9",
+      "default_seconds": [
+        [
+          29.38393743429333,
+          28.483389288187027
+        ],
+        [
+          29.6297285790788,
+          28.726879265042953
+        ]
+      ]
+    },
+    "Schirrmeister2017/1": {
+      "views": [
+        320,
+        150
+      ],
+      "activity": {
+        "windows": 320,
+        "recognized": -1,
+        "ft_refits": 24,
+        "ft_steps": 480,
+        "ft_relabels": 24,
+        "ft_capped": 6,
+        "ft_over": 0,
+        "cp_refits": 15,
+        "cp_fused": 230,
+        "errors": 0
+      },
+      "latch": null,
+      "rows_sha": "8fbeee62fd8a929b00ac3f22881b45d3af3de0ae3ee81b0199cbbf26e6b79d93",
+      "posterior_sha": "bb300b04b81d03ef5584884c606793a42c5fdfcae922bc3a81e4865cef095c6a",
+      "default_seconds": [
+        [
+          115.17603170499206,
+          113.79540132731199
+        ],
+        [
+          117.64508241193835,
+          117.2750933150528
+        ]
+      ]
+    },
+    "Schirrmeister2017/2": {
+      "views": [
+        813,
+        150
+      ],
+      "activity": {
+        "windows": 813,
+        "recognized": -1,
+        "ft_refits": 24,
+        "ft_steps": 480,
+        "ft_relabels": 24,
+        "ft_capped": 56,
+        "ft_over": 0,
+        "cp_refits": 40,
+        "cp_fused": 723,
+        "errors": 0
+      },
+      "latch": null,
+      "rows_sha": "2affaa368a4c9c795181a12befc9be1b4318a1d89aa4db54b3629e47dc10a47e",
+      "posterior_sha": "ac564e572c3847342583a9e1ee244b5200a0155a86e5e2f273e08740559acd09",
+      "default_seconds": [
+        [
+          156.18320735823363,
+          150.507667215541
+        ],
+        [
+          158.28809887706302,
+          152.59528434392996
+        ]
+      ]
+    }
+  },
+  "default_stock_stock_smoke": {
+    "P10-3": [
+      "2bce47c4f2fbcc38ac7f0d3366dbd7c2650fa7ea6b9c8b476e7a7c57204929bd",
+      "2bce47c4f2fbcc38ac7f0d3366dbd7c2650fa7ea6b9c8b476e7a7c57204929bd"
+    ],
+    "Schirrmeister2017/1": [
+      "d7218ae2a0b6c167fe866e1ae4486df13c3ef44718c0b293f5c223ac73ea47d9",
+      "5d1aee707807582613989168ff4ed79aa2dfcb29451313f950c4936e5d6d4cb3"
+    ],
+    "Schirrmeister2017/2": [
+      "7d0b93c4b89697e7c4127d22cd42bb2ffb4daf65816dfbf6d9d30df3bb584a46",
+      "44872f3c658226b5c4b86eebb5e953f09a6460f47727710bb8e85599d1400006"
+    ]
+  }
+}
