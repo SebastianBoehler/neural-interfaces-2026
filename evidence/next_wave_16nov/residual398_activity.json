@@ -1,0 +1,66 @@
+{
+  "382_RT": {
+    "whole_label_changes": 45,
+    "substituted_vs_A6": 14,
+    "total_kept": 14630,
+    "different_refits": 14,
+    "refits": 288,
+    "final_label_changes": 1
+  },
+  "382_RP": {
+    "whole_label_changes": 46,
+    "substituted_vs_A6": 8,
+    "total_kept": 14630,
+    "different_refits": 8,
+    "refits": 288,
+    "final_label_changes": 1
+  },
+  "382_RU": {
+    "whole_label_changes": 99,
+    "substituted_vs_A6": 16,
+    "total_kept": 14630,
+    "different_refits": 16,
+    "refits": 288,
+    "final_label_changes": 2
+  },
+  "382_CT": {
+    "whole_label_changes": 18,
+    "substituted_vs_A6": 6,
+    "total_kept": 14630,
+    "different_refits": 6,
+    "refits": 288,
+    "final_label_changes": 0
+  },
+  "1382_RT": {
+    "whole_label_changes": 69,
+    "substituted_vs_A6": 13,
+    "total_kept": 14630,
+    "different_refits": 13,
+    "refits": 288,
+    "final_label_changes": 1
+  },
+  "1382_RP": {
+    "whole_label_changes": 62,
+    "substituted_vs_A6": 11,
+    "total_kept": 14630,
+    "different_refits": 11,
+    "refits": 288,
+    "final_label_changes": 1
+  },
+  "1382_RU": {
+    "whole_label_changes": 126,
+    "substituted_vs_A6": 28,
+    "total_kept": 14630,
+    "different_refits": 27,
+    "refits": 288,
+    "final_label_changes": 2
+  },
+  "1382_CT": {
+    "whole_label_changes": 39,
+    "substituted_vs_A6": 11,
+    "total_kept": 14630,
+    "different_refits": 11,
+    "refits": 288,
+    "final_label_changes": 1
+  }
+}

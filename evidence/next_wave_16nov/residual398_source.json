@@ -1,0 +1,82 @@
+{
+  "RT_382": {
+    "source": "950b042541f4522e31bcdf2c96ebc93b42ae1871b92f20a846d1be32aaefd20c",
+    "weights": "6e460cfcd1ff16de05325a45c5fdb8bd8fd8bb0bc9d2e94896a55ce1a5368f6f",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "initial": "ac058d24cdb759c5a779167ced96225b3d1884a5b774ae9d936ed99f6351698e",
+    "fixed": "a5c5182080f49d64720fc5c2fc11a312c90ecd466943de173df17a34cf9802df",
+    "active": 119,
+    "source_ce": 0.46746160338322323,
+    "max_logit_shift": 0.06084275245666504
+  },
+  "RP_382": {
+    "source": "950b042541f4522e31bcdf2c96ebc93b42ae1871b92f20a846d1be32aaefd20c",
+    "weights": "db5816c8cd97d384dc9256340fd72aafcee79fc002a2ce54be8273355a69d939",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "initial": "ac058d24cdb759c5a779167ced96225b3d1884a5b774ae9d936ed99f6351698e",
+    "fixed": "a5c5182080f49d64720fc5c2fc11a312c90ecd466943de173df17a34cf9802df",
+    "active": 119,
+    "source_ce": 0.4688013878961404,
+    "max_logit_shift": 0.04097628593444824
+  },
+  "RU_382": {
+    "source": "950b042541f4522e31bcdf2c96ebc93b42ae1871b92f20a846d1be32aaefd20c",
+    "weights": "52db3080832c066bb020cde8316ba4f1b4d48cf2471a9b8c2ea60570c530b5aa",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "initial": "ac058d24cdb759c5a779167ced96225b3d1884a5b774ae9d936ed99f6351698e",
+    "fixed": "a5c5182080f49d64720fc5c2fc11a312c90ecd466943de173df17a34cf9802df",
+    "active": 0,
+    "source_ce": 0.4659792942305406,
+    "max_logit_shift": 0.10141372680664062
+  },
+  "CT_382": {
+    "source": "950b042541f4522e31bcdf2c96ebc93b42ae1871b92f20a846d1be32aaefd20c",
+    "weights": "e332ec443d898e086baca2efe8e39d676e4d4ddd2f9308ca2bdb3c20779edaea",
+    "episodes": "80b1a860d0c3293879f8df46b4fc12bb366ecbad3a781a26daadecf8fdc30b14",
+    "initial": "ac058d24cdb759c5a779167ced96225b3d1884a5b774ae9d936ed99f6351698e",
+    "fixed": "a5c5182080f49d64720fc5c2fc11a312c90ecd466943de173df17a34cf9802df",
+    "active": 119,
+    "source_ce": 0.4688287178675334,
+    "max_logit_shift": 0.04162955284118652
+  },
+  "RT_1382": {
+    "source": "950b042541f4522e31bcdf2c96ebc93b42ae1871b92f20a846d1be32aaefd20c",
+    "weights": "c911af57f84af4b458c086a0304100651a43f5b4146961c7ff00d8936fea5e9e",
+    "episodes": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "initial": "ac058d24cdb759c5a779167ced96225b3d1884a5b774ae9d936ed99f6351698e",
+    "fixed": "a5c5182080f49d64720fc5c2fc11a312c90ecd466943de173df17a34cf9802df",
+    "active": 119,
+    "source_ce": 0.46647971247633296,
+    "max_logit_shift": 0.08463478088378906
+  },
+  "RP_1382": {
+    "source": "950b042541f4522e31bcdf2c96ebc93b42ae1871b92f20a846d1be32aaefd20c",
+    "weights": "81236f44030cf4aa26bb4098b1fc637dab79fa9e667d190b34cfc6da1e78c3db",
+    "episodes": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "initial": "ac058d24cdb759c5a779167ced96225b3d1884a5b774ae9d936ed99f6351698e",
+    "fixed": "a5c5182080f49d64720fc5c2fc11a312c90ecd466943de173df17a34cf9802df",
+    "active": 119,
+    "source_ce": 0.4680522531270981,
+    "max_logit_shift": 0.05927610397338867
+  },
+  "RU_1382": {
+    "source": "950b042541f4522e31bcdf2c96ebc93b42ae1871b92f20a846d1be32aaefd20c",
+    "weights": "a3ed75601a4e32b1a0ba0614fddbeb58c19343c9572cdaea23f3a94bf5832c0c",
+    "episodes": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "initial": "ac058d24cdb759c5a779167ced96225b3d1884a5b774ae9d936ed99f6351698e",
+    "fixed": "a5c5182080f49d64720fc5c2fc11a312c90ecd466943de173df17a34cf9802df",
+    "active": 0,
+    "source_ce": 0.4651864692568779,
+    "max_logit_shift": 0.12369036674499512
+  },
+  "CT_1382": {
+    "source": "950b042541f4522e31bcdf2c96ebc93b42ae1871b92f20a846d1be32aaefd20c",
+    "weights": "f6c947d076f0e630f922e403568ab7a797219322d050cd8f763a85bcd7475d66",
+    "episodes": "8c610791f46072494c9f53b8f1436e96202dcc3aa57c62ea186a2eb13ffa435f",
+    "initial": "ac058d24cdb759c5a779167ced96225b3d1884a5b774ae9d936ed99f6351698e",
+    "fixed": "a5c5182080f49d64720fc5c2fc11a312c90ecd466943de173df17a34cf9802df",
+    "active": 119,
+    "source_ce": 0.4683098929623763,
+    "max_logit_shift": 0.05273127555847168
+  }
+}
