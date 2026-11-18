@@ -47,6 +47,11 @@ def stream(template, bank, rows, observer):
 
 def main(arm, mode, replica):
     assert torch.__version__ == '2.14.1+cu130' and 'A100' in torch.cuda.get_device_name()
+    if mode in ('smoke', 'parity'):
+        torch.manual_seed(408)
+        np.random.seed(408)
+        torch.backends.cudnn.benchmark = False
+        torch.use_deterministic_algorithms(True)
     px, sessions, channels = replay.read_source()
     known = dict(sessions)
     with np.load('/external.npz') as z:
@@ -66,14 +71,14 @@ def main(arm, mode, replica):
     assert warm['activity']['ft_steps'] > 0
     records = {}
     for name, bank, rows in tasks:
-        if mode == 'smoke':
+        if mode in ('smoke', 'diagnose'):
             rows = rows[:65]
         record = stream(model, bank, rows, mode != 'time')
         assert record['labels'] == prior[name]['labels'][:len(rows)]
         a = record['activity']
         assert (a['recognized'] >= 0) == (name == 'P10-3')
         assert (a['ft_steps'] > 0) == (name != 'P10-3')
-        if mode != 'smoke':
+        if mode in ('time', 'parity'):
             assert a == prior[name]['activity']
         records[name] = record
     Path(f'{arm}-{replica}.json').write_text(json.dumps(records))

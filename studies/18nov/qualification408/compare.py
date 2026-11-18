@@ -7,20 +7,24 @@ import sys
 def compare(rep):
     def read(arm):
         return json.loads(Path(f'{arm}-{rep}.json').read_text())
-    a, b = read('stock'), read('pruned')
+    second = 'repeat' if rep == '3' else 'pruned'
+    a, b = read('stock'), read(second)
     assert a.keys() == b.keys()
     rows = {}
     for name, stock in a.items():
         pruned = b[name]
         for key in stock.keys() - {'views', 'seconds'}:
-            assert stock[key] == pruned[key], (name, key)
-        if rep != '-1':
+            if rep != '3' or key != 'posterior_sha':
+                assert stock[key] == pruned[key], (name, key)
+        if rep not in ('-1', '3'):
             assert stock['views'] > pruned['views']
         rows[name] = {key: [stock[key], pruned[key]] for key in ('views', 'seconds')}
         rows[name].update({key: stock[key] for key in ('activity', 'latch', 'rows_sha')})
         if 'posterior_sha' in stock:
             rows[name]['posterior_sha'] = stock['posterior_sha']
-    wall = [float(Path(f'{arm}-{rep}.seconds').read_text()) for arm in ('stock', 'pruned')]
+            if rep == '3':
+                rows[name]['second_posterior_sha'] = pruned['posterior_sha']
+    wall = [float(Path(f'{arm}-{rep}.seconds').read_text()) for arm in ('stock', second)]
     Path(f'pair-{rep}.json').write_text(json.dumps(dict(streams=rows, process_seconds=wall), indent=2))
 
 
