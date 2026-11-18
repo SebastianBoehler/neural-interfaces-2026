@@ -80,3 +80,5 @@ Registered 18 November 2026 before F8 fitting. Does changing plausible cross-cha
 - Ferranti source smoke and two 20-fit arrays, five minutes per task and cap four per array. Galvani independent held inference and frozen branch replay. Use only source-fitted transformations and original public recordings. External confirmation and A100 one-window timing required before a release. No upload.
 
 [Generative augmentation with held-person evaluation](https://arxiv.org/abs/2607.22733)
+
+**F5 completed.** Exact staged stock scored 48.456% FULL-SYSTEM EXTERNAL on nine Scherer people and two orders. Actual-identity corrections lost −3.284 [80% −4.160,−2.338] and −3.975 [−5.033,−2.873] pp versus stock, but beat the wrong-class swap by +1.366 and +1.009 pp with positive paired intervals. The objective learned something about the confusion structure and the resulting integration did not transfer against real stock. [Independent A100 results](../friday/errorfit/external-result.md)

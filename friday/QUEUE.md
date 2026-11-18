@@ -30,3 +30,12 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F6 Galvani pretrain smoke 3127409 pending Priority, fit array 3127410 pending Dependency. Ferranti 510118 held for four verified pretraining pairs, 510119/120 depend on its real smoke. Galvani held scoring 3127397 and 3127399–408 accepted. Pretrain source SHA-256 `29bba6c9f91880cfb6a25df6739c9e192110a5575094f6d0e457e94b486b7ccb`, fine-tune source `e880f323149946ad98d7a89e9b59ab616e80572967aa656f00f88c5dadd80dbb`.
 - F-C2 completed and remains undecided. F-C3 3127173 smoke completed, 3127268 paired A100 production underway, 3127269 collector pending. F-C4 real smoke 3127413 accepted. [Cap250 F-C3 proof](cap250-c3-queue.md)
 - The Wednesday decision brief has a [working version](DECISION_18NOV.md). Refresh it and post the result by 18:00 CET.
+
+## Wednesday 18 November, 14:17 CET
+
+- F5 completed, exact staged stock 48.456% and both fit-excluded corrective decoder seeds lower by 3.284 and 3.975 pp on independent Scherer participants. [Exact external repeat](errorfit/external-result.md)
+- F6 Galvani pretraining smoke and all four 1200-step fits completed and their manifests/encoder checkpoints reached Ferranti. Ferranti 510118 eligible, fit arrays 510119/120 await smoke. Galvani held preflight 3127397 completed.
+- Sebastian selected best whole-model score on unseen people as the new exploration priority. F7 standalone raw temporal decoder tests a matched masked self-supervised training term. Ferranti 510122 smoke eligible and pending, 510123/124 follow. Ferranti actor manifest SHA-256 `1c246675c86008fe9e1aaa09d1e41824460359145871a39a65d8da634b3348e1`. Galvani 3127437 preflight completed, held 3127438–43 and matched compares 3127444–47 queued.
+- F8 tests synthetic source-session covariance against a variance-matched gain control. Ferranti 510134 smoke eligible, 510135/136 follow. Manifest `93f2dcaf3f64badc6735a40c175a777b2c11f65c1df1ac5f9a5f74c01d4b21a5`. Real local covariance, waveform, session reset, and no-op guards passed. Score release in `ni26_friday_wave_style_20261118`.
+- Backfill requests for the three eligible Ferranti smoke jobs were shortened to two minutes while pending. Their scientific inputs and array limits are unchanged. Slurm forecast 14:54 CET for the F7 smoke at inspection. F6 and F8 had no start estimate.
+- F-C4 passed real A100 smoke and reached production. Galvani 3127453 cap three, 3127454 afterok. F-C3 last three tasks were still live. [F-C4 receipt](cap250-c4-queue.md)
