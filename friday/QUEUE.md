@@ -107,3 +107,10 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - Both Ferranti and Galvani SSH logins are verified. F12 completed on Galvani. Ferranti F12 jobs were canceled before starting during the earlier platform transfer.
 - F13 is registered on the historical §323 S1C checkpoints. It bounds the contribution of unusually energetic past windows to causal normalization. The exact A100 reproduction and the matched comparison use the same archived inputs and weights.
+
+## Wednesday 18 November, penultimate submission window
+
+- One sealed upload is authorized by 20:00 CET. Target candidate lock is 19:35 CET. At 17:38, today's attempt was available and two attempts remained overall. The 17:39 top-ten cutoff was 0.8350952562. [Decision brief](DECISION_18NOV.md)
+- [F13](fbc323/result-18nov.md) matched the original S1C archive on all 42,480 decisions. Bounded normalization gained +0.668 and +0.708 pp on held-new whole-model scores, with intervals crossing zero. F-C10 tests transfer to the six exact cap250 FBCNet members. Galvani zero qualification 3128700 precedes any changed worker.
+- F-C9 exact smoke 3128678 passed at 17:47 CET. A100 array 3128702 and collector 3128703 score a causal reliability gate within complete cap250 on Scherer.
+- D-RTX smoke 3128675 started the two frozen ZIPs on an RTX 2080 Ti worker and verified reset and active cap250 refits. Paired workers 3128676 and collector 3128677 continue. The development GPU tests hardware sensitivity. The official RTX model and its timing remain unverified.
