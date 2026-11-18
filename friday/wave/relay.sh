@@ -10,6 +10,7 @@ case ${1:-wave} in
     raw) release=friday_wave_raw_20261118 ;;
     style) release=friday_wave_style_20261118 ;;
     norm) release=friday_wave_norm_20261118 ;;
+    band) release=friday_wave_band_20261118 ;;
     *) printf 'Unknown release %s\n' "$1" >&2; exit 2 ;;
 esac
 source_dir="ni26/$release"
