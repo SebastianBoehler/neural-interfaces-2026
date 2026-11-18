@@ -22,3 +22,19 @@ Galvani input preflight 3129221 passed at 18:56:54 CET. A100 3129222_0 failed th
 | FBCNet recording and causal proof | `2d716f3ac9b996a15023c119d354e3407d6bfc269e9bf8b2ba1d0bc1aba66458` |
 | Shallow recording failure proof | `2dc6e068e16f284accf495d589739827970a7eb67ec2a1bacac4cd369aefc7bc` |
 | FBCNet causal full0 member bank | `57d643becb9233863317901a4854f53b628cd172c3ac704b0e3c4ea218cd850b` |
+
+## D-EAa additional FBCNet anchors
+
+Both preregistered anchors reproduced their entire archived recording-order posterior arrays bit for bit. The causal first-window alignment agreed exactly with the independent calculation in all four sessions. Within each session, the first 16 model outputs agreed within 6.849e−7 and interleaved reset reproduced the prefix exactly.
+
+| Held fold | Source and held rows | Full0 first rows | Full0 decisions changed versus recording lookup |
+| --- | ---: | --- | ---: |
+| P10, seed 0 | 2,078 and 577 | 1077, 1300, 1390 | 40 |
+| P01, seed 1 | 2,465 and 190 | 94 | 22 |
+
+All input and A100 checks finished by 19:04:44 CET. Galvani 3129231 and 3129232_0/1 exited 0:0. The release `ni26_friday_ea_anchors_20261118` independently verified both CPU-readable checkpoints against their fitted-state fingerprints. New code `a00fe54` and source manifest `32612c9c02caaa8adf74dbedeed566bcfec7c9ad9e2a1b6e7d21731cefe1313c`. The original weights' provenance is still unavailable. The result covers these member replays only.
+
+| Fold | Recording proof SHA-256 | Reconstructed checkpoint SHA-256 | Full0 bank SHA-256 |
+| --- | --- | --- | --- |
+| P10, seed 0 | `61efb8998668bcb49486f46fccd3ef22e26b3eb2ebd4da1eb935cb04e5e4d9b5` | `9ad6f449e0ee115be10749caff2561e29f1f33f4242550d6431d3c57cdf38cf8` | `8e7943dcca5078dab6c042667eb5129a302b8de44b8e8da0e72baae067410f25` |
+| P01, seed 1 | `8fe26e92634521335e9f4ce49896d5e196bac475f33367ea13611e7c95256443` | `ee79a87315c620bb1173f6b75ca4c9eea362ae1b8a1dff105a7bdd58c417486e` | `f22fe30300874903c2adac70e7cc0a42e244270d12fe2b80cb0f18aec07bc0c8` |
