@@ -32,10 +32,10 @@ def load_count(current):
     return start_module("bridge_package_count", source, text)
 
 
-def count_filter(count, raw):
-    latched = count.latch(ORDER)
-    hc = count.J.hyp_cache(ORDER, "wprior", count.X, count.LAM, sessions=count.SESS, proto=count.PROTO)
-    return count.gate(raw, count.J.filt_joint(raw, hc, "urn"), ORDER, latched), latched
+def count_filter(count, raw, order=ORDER):
+    latched = count.latch(order)
+    hc = count.J.hyp_cache(order, "wprior", count.X, count.LAM, sessions=count.SESS, proto=count.PROTO)
+    return count.gate(raw, count.J.filt_joint(raw, hc, "urn"), order, latched), latched
 
 
 @contextmanager
@@ -49,9 +49,9 @@ def limit_session(count, session):
         count.SESS, count.C.order_rows = original_sessions, original_order
 
 
-def live_tail(count, final, raw, windows, delivery, verify_prefix=True):
-    filtered, latch = count_filter(count, raw)
-    sessions = [count.C.order_rows(ORDER, s, count.PROTO) for s in count.SESS]
+def live_tail(count, final, raw, windows, delivery, verify_prefix=True, order=ORDER):
+    filtered, latch = count_filter(count, raw, order)
+    sessions = [count.C.order_rows(order, s, count.PROTO) for s in count.SESS]
     if not np.array_equal(np.concatenate(sessions), delivery):
         raise ValueError("terminal stage did not see the same pinned delivery")
     terminal = final.apply_sessions(windows, raw, filtered, sessions)
@@ -59,14 +59,14 @@ def live_tail(count, final, raw, windows, delivery, verify_prefix=True):
     personalized = int(np.count_nonzero(np.any(terminal != filtered, axis=1)))
     if not filter_rows or not personalized or not any(w is not None for w in latch.values()):
         raise ValueError("the archived count/CSP stages did not activate")
-    proof = (active_prefixes(count, final, raw, filtered, terminal, windows, latch) if verify_prefix else {})
+    proof = (active_prefixes(count, final, raw, filtered, terminal, windows, latch, order) if verify_prefix else {})
     return dict(raw=raw, filtered=filtered, terminal=terminal), dict(
         latch={str(s): t for s, t in latch.items()}, filter_affected_rows=filter_rows,
         personalization_affected_rows=personalized, **proof)
 
 
 
-def active_prefixes(count, final, raw, filtered, terminal, windows, latch):
+def active_prefixes(count, final, raw, filtered, terminal, windows, latch, order=ORDER):
     active = [session for session in count.SESS if latch[session] is not None and latch[session] < PREFIX]
     if not active:
         raise ValueError("no latched count filter is active inside the tested prefix")
@@ -75,8 +75,8 @@ def active_prefixes(count, final, raw, filtered, terminal, windows, latch):
     count_rows = []
     for session in (first, second, first):
         with limit_session(count, session):
-            prefix, _ = count_filter(count, raw)
-            rows = count.C.order_rows(ORDER, session, count.PROTO)
+            prefix, _ = count_filter(count, raw, order)
+            rows = count.C.order_rows(order, session, count.PROTO)
         actor = final.CP.CausalPers(final.CONFIG)
         scores = np.stack([actor.step(windows[r], raw[r], prefix[r], False) for r in rows])
         if (len(rows) != PREFIX or not actor.refits or not actor.fused or actor.log["err"]

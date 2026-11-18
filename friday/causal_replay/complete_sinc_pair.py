@@ -50,7 +50,7 @@ def restore_sinc(ctx, path, bank):
         ctx.FR17[SEED0] = z["full0"]
 
 
-def pair_refits(root, source_sha, ctx, evidence, status_sha, initial):
+def pair_refits(root, source_sha, ctx, evidence, status_sha, initial, order=ORDER):
     pin(root / "source.sha256", source_sha)
     target_pins = {"historical": evidence["inputs"]["historical"]["sha256"],
                    "causal": evidence["inputs"]["corrected"]["sha256"]}
@@ -64,7 +64,7 @@ def pair_refits(root, source_sha, ctx, evidence, status_sha, initial):
         path = root / "members" / f"{family}_s0.npz"
         receipt = path.with_suffix(".json")
         meta = json.loads(receipt.read_text())
-        expected = dict(member=family, seed=0, rows=len(ctx.Pperm), order=ORDER, smoke=False,
+        expected = dict(member=family, seed=0, rows=len(ctx.Pperm), order=order, smoke=False,
                         held_labels_opened=False, actor_sha256=REFIT_ACTOR_SHA, targets=target_pins,
                         bridge_sha256=evidence["bridge"]["sha256"], bridge_status_sha256=status_sha)
         got_fit = {name: item["fit_rows_sha"] for name, item in meta["fit_states"].items()}
