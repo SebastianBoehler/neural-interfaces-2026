@@ -59,7 +59,7 @@ def permutation_reset(perm,idx,stream):
     return {**perm,PROTO:reverse}
 
 
-def run(ctx,prep,perm,aux,replace_slots):
+def run(ctx,prep,perm,aux,replace_slots,stream):
     oof,_,deltas,_,_=prep
     pp=perm[PROTO]
     reset=(ctx.ns['_BIO'],ctx.A._H,ctx.K.STREAMS,ctx.K.REC,ctx.K.NM)
@@ -80,6 +80,8 @@ def run(ctx,prep,perm,aux,replace_slots):
     a,gm=ctx.A,ctx.gm
     keys=('sess','GE','pc128')
     tape={k:ctx.Z[f'{k}|{PROTO}'].copy() for k in keys}
+    tape['session']=stream[ctx.IDX[pp]]
+    assert set(tape['session'])==SESSIONS
     base,_=a.mix(STACK,PROTO,a.FAMS)
     b=a.M.rebal(base,PROTO,None)
     g=gm.gate(b,PROTO)
@@ -128,7 +130,7 @@ def run(ctx,prep,perm,aux,replace_slots):
             routing[s]=dict(owner=None,age=None)
             continue
         rows,ramp,person=routes[key]
-        assert np.array_equal(np.flatnonzero(tape['sess']==s),rows)
+        assert np.array_equal(np.flatnonzero(tape['session']==s),rows)
         owners,gi,_=ctx.K.NM[key]
         assert np.array_equal(ctx.IDX[pp[rows]],gi)
         routing[s]=dict(owner=person,age=int(np.flatnonzero(ramp>0)[0]))

@@ -36,7 +36,7 @@ def refit_trace(ctx,layout,idx,output):
     records={}
     bank={}
     for name in sorted(SESSIONS):
-        rows=layout[tape['sess'][layout]==name]
+        rows=layout[tape['session'][layout]==name]
         age=routing[name]['age']
         tgrid=np.arange(20,min(251,len(rows),age if age is not None else len(rows)),10)
         topics=('GE','pc128','rebal','gate','em','shadow')
@@ -74,17 +74,17 @@ def seal(mode,idx,layout,records,payload,opened):
 def zero(ctx,prep,idx,stream,refs):
     _,perm,_,count9,count3=prep
     reverse=permutation_reset(perm,idx,stream)
-    old=run(ctx,prep,perm,count9,None)
+    old=run(ctx,prep,perm,count9,None,stream)
     for name,ref in refs[1].items():
         actual=old[0][name].astype(np.float32)
         assert np.array_equal(actual,ref),(name,float(np.abs(actual-ref).max()))
-    deployment=run(ctx,prep,perm,count3,None)
+    deployment=run(ctx,prep,perm,count3,None,stream)
     assert np.array_equal(deployment[0]['T'].astype(np.float32),refs[2])
     assert {s:v['age'] for s,v in deployment[2].items()}==LEGACY_AGES
     assert all(s.endswith('/'+v['owner']+s[-2:]) for s,v in deployment[2].items())
     slots={k:deployment[1][f'slot{k}'].copy() for k in (1,3)}
-    equal(deployment,run(ctx,prep,perm,count3,slots))
-    equal(deployment,run(ctx,prep,reverse,count3,slots))
+    equal(deployment,run(ctx,prep,perm,count3,slots,stream))
+    equal(deployment,run(ctx,prep,reverse,count3,slots,stream))
     r,bank=refit_trace(ctx,perm[PROTO],idx,deployment)
     assert r['P10-2']['ages']==[20] and sum(v['past_rows'] for v in r.values())==20
     payload={**deployment[0],**deployment[1],**bank}
@@ -105,8 +105,8 @@ def matched(ctx,prep,idx,stream,refs):
     paths={}
     records={}
     for n,values in zip(('fresh_recording','fresh_causal'),ms):
-        actor=run(ctx,prep,perm,count3,values)
-        equal(actor,run(ctx,prep,reverse,count3,values))
+        actor=run(ctx,prep,perm,count3,values,stream)
+        equal(actor,run(ctx,prep,reverse,count3,values,stream))
         s,track=refit_trace(ctx,perm[PROTO],idx,actor)
         records[n]=dict(route=actor[2],refits=s,reverse_session_exact=True,
                         global_rows=digest(idx[perm[PROTO]]))
