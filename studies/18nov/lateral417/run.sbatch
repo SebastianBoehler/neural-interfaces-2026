@@ -13,4 +13,4 @@ if [[ $1 = smoke ]]; then
     (cd /mnt/lustre/work/gehler/gfh527/ni26_s318_coral_fbl_20261117 && "$py" replay/check.py) >replay.log
 fi
 grep -Fx OK replay.log
-"$py" -B study.py "$1"
+"$py" -B study.py "$@"

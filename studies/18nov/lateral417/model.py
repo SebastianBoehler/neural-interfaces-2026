@@ -52,3 +52,17 @@ def decode(logp):
         return softmax(logsumexp(logp + np.log(prior[:, :, None]), axis=1), axis=1)
     return dict(native=post[:, 0], reverse=post[:, 1], equal=mix(np.full(len(logp), .5)),
                 latent=mix(np.array(history))), np.array(history)
+
+
+def temperature(partition, rows, labels, weight, people):
+    grid = np.array([1, 2, 4, 8, 16, 32, 64])
+    losses = []
+    assert len(np.unique(people)) == 6
+    for p in np.unique(people):
+        held = people == p
+        logits = emissions(partition, rows[~held], labels[~held], weight[~held])[rows[held], 0]
+        logits = logits[None] * grid[:, None, None]
+        nll = logsumexp(logits, axis=2) - logits[:, np.arange(held.sum()), labels[held]]
+        losses.append(np.average(nll, axis=1, weights=weight[held]))
+    loss = np.mean(losses, axis=0)
+    return int(grid[loss.argmin()]), loss.tolist()
