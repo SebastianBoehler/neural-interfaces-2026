@@ -41,20 +41,23 @@ def source_gains(person, steps):
     return torch.from_numpy(gains).cuda(), (coherent, independent)
 
 
-def run(person, arm, smoke):
+def run(person, arm, smoke, init_seed=379):
     prior = Path(os.environ['WAVE379'])
     steps = 2 if smoke else 360
     gains, schedules = source_gains(person, steps)
-    schedule = torch.from_numpy(schedules[('coherent', 'independent').index(arm)]).cuda()
+    assert arm in ('clean', 'coherent', 'independent')
+    schedule = torch.from_numpy(schedules[int(arm == 'independent')]).cuda()
     class GainDecoder(Decoder):
         def __init__(self):
+            torch.manual_seed(init_seed)
             super().__init__()
             self.episode = 0
 
         def step(self, x, kind, state=None):
             if self.training:
                 assert len(x) == 96 and state is None
-                x = x * gains[schedule[self.episode], :, None]
+                if arm != 'clean':
+                    x = x * gains[schedule[self.episode], :, None]
                 self.episode += 1
             else:
                 assert self.episode == steps
