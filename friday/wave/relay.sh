@@ -6,6 +6,7 @@ galvani=mlcloud-galvani
 case ${1:-wave} in
     wave) release=friday_wave_20261118 ;;
     time) release=friday_wave_time_20261118 ;;
+    motor) release=friday_wave_motor_20261118 ;;
     *) printf 'Unknown release %s\n' "$1" >&2; exit 2 ;;
 esac
 source_dir="ni26/$release"

@@ -58,3 +58,5 @@ Registered 18 November 2026 after F1–F4, before F6 fitting. The preceding comp
 ## F-C4 · Rebalance the Adam refit's pseudo-class loss mass
 
 Registered 18 November 2026 before scoring. The [preregistration](../friday/cap250-c4.md) fixes symmetric control weights, unchanged CE mass and optimizer schedule, external comparison, predictions and refutation rule.
+
+**F1–F4 completed.** F1's positive full-system direction was refuted. F2 reduced the measured history-specific effect with both negative paired intervals, and its absolute difference against F1 remained undecided. F3/F4 timing contrasts were undecided across seeds. Every full-stack point estimate fell below the authenticated 76.1039% stock. [Held-person results and provenance](../friday/wave/results-18nov.md)
