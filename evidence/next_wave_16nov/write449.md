@@ -31,3 +31,19 @@ Semantic subtraction reduced standalone accuracy from 59.705% to 56.226% and fro
 The registered §449b incremental full-system comparison required a semantic advantage over the wrong-task control at both seeds and over unchanged at one. The experiment did not meet either condition. The original frozen historical full stack remained the reference at 81.216% and original explicit A6 at 60.785%. Scorer 3126139 passed replay, checked all six historical means per seed, then calculated equal-cell accuracy and intervals that resample both people and deliveries. Only these four previously examined public people were tested.
 
 [Full scores and per-person contrasts](write449_result.json) · [Source intervention diagnostic](write449_diagnostic.json) · [Source data and checkpoint fingerprints](write449_source.json).
+
+## Post-result test of the opposite direction
+
+After observing the subtraction results, §449c registered one new prediction on the same four exposed people. Reflecting the subtracted write about the original write axis preserves both norm and angular distance while changing only the direction of the edit. The matched wrong-task control receives the same reflection. The source task contrast energy rose 29.83% and 29.87%, and rose 21.74% and 21.76% when the evaluated source session was excluded from prototype estimation. The source-only diagnostic was Galvani 3126187. P01 smoke 3126186 and the three remaining held actors 3126193 passed. Both historical checkpoint and per-person input hashes remained fixed. The preregistration and implementation are revisions `6fb743e` and `f42bc05`.
+
+| Amplified-write INDIVIDUAL-MODEL contrast, percentage points | Seed 382, paired 80% interval | Seed 1382, paired 80% interval |
+|---|---:|---:|
+| Amplified minus unchanged, genuine history | +0.988 [−0.360, +2.269] | +0.208 [−1.460, +1.771] |
+| Amplified minus reflected wrong task, genuine history | +3.620 [+1.439, +5.767] | +1.536 [−0.511, +3.659] |
+| Amplified genuine minus same-age donor | +9.075 [+4.963, +13.202] | +8.419 [+4.491, +12.297] |
+| Amplified genuine minus blank | +6.880 [+4.669, +9.071] | +5.500 [+2.367, +8.717] |
+| Reflected wrong task minus unchanged, genuine history | −2.632 [−3.900, −1.299] | −1.329 [−2.317, −0.321] |
+
+The absolute amplified scores were 60.693% and 58.332%. P02 improved by 4.27 and 4.34 points. P03 lost 0.74 and 1.31, and P09 lost 0.62 and 2.16. Amplification changed 624 and 569 decisions. Both genuine-minus-unchanged intervals span zero, so a transferable individual-model gain remains undecided. The wrong-task direction caused harm at both seeds. The large genuine-minus-donor gap includes a 1.32-point loss for the amplified donor itself at each seed.
+
+The preregistered downstream test required both contrasts to exceed +0.30 points at both seeds and each contrast to have a positive lower bound on at least one seed. Seed 1382 gained +0.208 against unchanged, and neither seed had a positive lower bound against unchanged. The incremental full-system comparison was therefore deferred. Replay and historical means passed before final scoring in Galvani job 3126194. [Amplification scores and all per-person contrasts](write449_amplify_result.json) · [Amplification source diagnostic](write449_amplify_diagnostic.json).
