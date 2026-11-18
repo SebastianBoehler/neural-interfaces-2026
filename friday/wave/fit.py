@@ -11,6 +11,7 @@ from torch.nn import functional as F
 
 from source_labels import read_training_labels
 from waveform import Decoder
+from raw import KINDS as RAW_KINDS, MaskedObjective, RawDecoder
 from temporal import KINDS as TEMPORAL_KINDS, SourceJitter, TemporalDecoder
 
 
@@ -19,10 +20,12 @@ ORDER_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
 ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 PEOPLE = tuple(f"P{i:02}" for i in range(1, 11))
 MOTOR_KINDS = ("motor_transfer", "motor_null")
-KINDS = ("prototype", "centered", *TEMPORAL_KINDS, *MOTOR_KINDS)
+KINDS = ("prototype", "centered", *TEMPORAL_KINDS, *MOTOR_KINDS, *RAW_KINDS)
 
 
 def make_decoder(kind):
+    if kind in RAW_KINDS:
+        return RawDecoder()
     if kind in MOTOR_KINDS:
         kind = "chronological"
     return TemporalDecoder(kind) if kind in TEMPORAL_KINDS else Decoder(kind)
@@ -89,7 +92,7 @@ def source_weights(labels, src, streams, interfaces):
 
 @torch.no_grad()
 def check_behavior(model, x):
-    encoded = model.encode(model.spectrum(x))
+    encoded = model.encode(model.prepare(x))
     static = model.static(encoded)
     writes = model.writes(encoded, static)
     logits = model.sequence(encoded, static, writes)
@@ -129,14 +132,16 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
     steps = 4 if smoke else 600
     jitter = SourceJitter(kind, seed, steps) if kind in TEMPORAL_KINDS[2:] else None
     with torch.no_grad():
-        spectrum = model.spectrum(source_eeg) if jitter is None else None
-    optimizer = torch.optim.AdamW(model.parameters(), lr=.001, weight_decay=.001)
+        spectrum = model.prepare(source_eeg) if jitter is None else None
+    masked = MaskedObjective(model, kind, seed, device) if kind in RAW_KINDS else None
+    extra_params = list(masked.head.parameters()) if masked is not None else []
+    optimizer = torch.optim.AdamW([*model.parameters(), *extra_params], lr=.001, weight_decay=.001)
     initial = {name: value.detach().clone() for name, value in model.named_parameters()}
     rng = np.random.default_rng(seed)
     for update in range(steps):
         rows = rng.choice(sessions[rng.integers(len(sessions))], size=96, replace=False)
         batch = (spectrum[rows] if jitter is None else
-                 model.spectrum(jitter(source_eeg[rows], update)))
+                 model.prepare(jitter(source_eeg[rows], update)))
         z = model.encode(batch)
         static = model.static(z)
         logits = model.sequence(z, static, model.writes(z, static))
@@ -146,6 +151,15 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
         template_error = (model.templates[train_y] - z.detach()).square().mean(dim=-1)
         loss = ((ce + .25 * ce_static + .05 * template_error) * weights[rows]).mean()
         optimizer.zero_grad(set_to_none=True)
+        if masked is not None:
+            auxiliary = masked(model, batch)
+            if update == 0:
+                grad = torch.autograd.grad(auxiliary, model.stem.weight, allow_unused=True,
+                                           retain_graph=True)[0]
+                active = grad is not None and grad.isfinite().all() and grad.abs().max() > 0
+                if bool(active) != masked.update_encoder:
+                    raise ValueError("masked objective routes an unexpected encoder gradient")
+            loss = loss + .20 * auxiliary
         loss.backward()
         if update in (0, steps - 1):
             for name, param in model.named_parameters():
@@ -153,6 +167,8 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
                 if grad is None or not grad.isfinite().all() or grad.abs().max() == 0:
                     raise ValueError(f"invalid gradient for {name}")
         optimizer.step()
+        if masked is not None:
+            masked.update(model)
     if not loss.isfinite() or any(torch.equal(initial[n], p) for n, p in model.named_parameters()):
         raise ValueError("inactive or nonfinite fit")
     model.eval()
@@ -183,7 +199,7 @@ def score_checkpoint(path, x, people, streams, perms, device="cpu"):
     model.load_state_dict(payload["model"])
     idx = np.flatnonzero(people == held)
     donor_idx = np.flatnonzero(streams == donor)
-    donor_z = model.encode(model.spectrum(torch.from_numpy(x[donor_idx]).to(device)))
+    donor_z = model.encode(model.prepare(torch.from_numpy(x[donor_idx]).to(device)))
     donor_writes = model.writes(donor_z, model.static(donor_z))
     out = {arm: np.full((8, len(idx), 3), np.nan, np.float32)
            for arm in ("genuine", "donor", "blank")}
@@ -194,7 +210,7 @@ def score_checkpoint(path, x, people, streams, perms, device="cpu"):
         for stream in sorted(set(streams[idx])):
             stream_rows = rows[streams[rows] == stream]
             pos = np.searchsorted(idx, stream_rows)
-            z = model.encode(model.spectrum(torch.from_numpy(x[stream_rows]).to(device)))
+            z = model.encode(model.prepare(torch.from_numpy(x[stream_rows]).to(device)))
             static = model.static(z)
             own = model.writes(z, static)
             other = donor_writes[torch.arange(len(z), device=device) % len(donor_writes)]
