@@ -8,7 +8,7 @@
 #SBATCH --job-name=ni26-aux430
 set -euo pipefail
 source_root=/mnt/lustre/work/gehler/gfh527
-work=$source_root/ni26_aux430_20261118
+work=${SLURM_SUBMIT_DIR:?}
 cd "$work"
 sha256sum --check source.sha256
 cd "$source_root/ni26_s318_coral_fbl_20261117"
