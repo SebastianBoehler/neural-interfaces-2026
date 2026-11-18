@@ -98,8 +98,8 @@ def runtime_plot(root, out):
     fig.get_layout_engine().set(rect=(.005, .065, .99, .925))
     fig.suptitle("A100 timing for two spectral kernel seeds", x=.02, ha="left",
                  fontsize=20, weight="bold")
-    kernel.set_title("Isolated one-window kernel calls", loc="left", fontsize=12.5, weight="bold")
-    worker.set_title("Complete paired cap250 sessions", loc="left", fontsize=12.5, weight="bold")
+    kernel.set_title("Isolated kernel latency", loc="left", fontsize=12.5, weight="bold")
+    worker.set_title("Full cap250 session time", loc="left", fontsize=12.5, weight="bold")
     methods = [("serial", "Serial", MUTED), ("batch", "Batched", BLUE), ("graph", "CUDA graph", TEAL)]
     for i, person in enumerate(("P04", "P10")):
         data = read(root / "profile" / f"{person}.json")
