@@ -83,7 +83,7 @@ def run_stream(stream, model, x, target):
     return got, actual
 
 
-def session(stream, model, rows, source_target, relab_sha, archive, reset_rows):
+def session(stream, model, rows, source_target, relab_sha, archive, reset_rows, exact_reset):
     n = len(rows)
     if not PREFIX <= n <= 199:
         raise ValueError(f"unexpected §257 visit length {n}")
@@ -97,10 +97,15 @@ def session(stream, model, rows, source_target, relab_sha, archive, reset_rows):
     prefix_target = target[:PREFIX].copy()
     prefix_target[:, 3:-1].reshape(PREFIX, 18, 3)[:, 20 + 10 * np.arange(18) >= PREFIX] = np.nan
     got, steps = run_stream(stream, model, x, target)
-    p1, prefix_steps = run_stream(stream, model, xp, prefix_target)
+    p0, prefix_steps = run_stream(stream, model, xp, prefix_target)
+    p1, _ = run_stream(stream, model, xp, prefix_target)
     evaluate(model, reset_rows)
     p2, _ = run_stream(stream, model, xp, prefix_target)
-    np.testing.assert_array_equal(p1[REFIT_NAME], p2[REFIT_NAME])
+    same = changed(p0[REFIT_NAME], p1[REFIT_NAME])
+    reset = changed(p1[REFIT_NAME], p2[REFIT_NAME])
+    bound = 0. if exact_reset else TOL
+    if any(r["changed"] or r["max_abs"] > bound for r in (same, reset)):
+        raise ValueError(f"warm prefix repeat/reset differs: consecutive={same}, interleaved={reset}")
     finite = np.isfinite(got[REFIT_NAME]).all()
     active = float(np.abs(got[REFIT_NAME][20:] - got["base"][20:]).max())
     first_active = float(np.abs(got[REFIT_NAME][20] - got["base"][20]).max())
@@ -111,16 +116,27 @@ def session(stream, model, rows, source_target, relab_sha, archive, reset_rows):
     return dict(rows=n, base=changed(got["base"], archive["base"][rows]),
                 warm=changed(got[REFIT_NAME], archive[REFIT_NAME][rows]), steps=steps,
                 prefix_steps=prefix_steps, prefix=prefix, first_active_abs=first_active, warm_movement_abs=active,
-                first_20_exact=True, interleaved_reset_exact=True, strict_targets_exact=True)
+                first_20_exact=True, consecutive_repeat=same, interleaved_repeat=reset,
+                interleaved_reset_exact=reset["max_abs"] == 0, strict_targets_exact=True)
 
 
-def run(family, smoke):
+def run(family, smoke, deterministic):
     if file_sha(FROZEN) != FROZEN_SHA or file_sha(RELEASE / "source.sha256") != RELEASE_SHA:
         raise ValueError("qualified frozen provenance differs")
     frozen = json.loads(FROZEN.read_text())
     if (frozen["held_labels_opened"] or frozen["order"] != ORDER or not frozen["frozen_inputs_eligible"]
             or not frozen["families"][family]["eligible"] or frozen["rows"] != 2655):
         raise ValueError(f"unqualified frozen import for {family}")
+    if family != "fbl" or (deterministic and not smoke):
+        raise ValueError("v2 is only the registered FBLight repeatability diagnostic")
+    if deterministic:
+        if os.environ.get("CUBLAS_WORKSPACE_CONFIG") != ":4096:8":
+            raise ValueError("missing deterministic cuBLAS workspace")
+        torch.use_deterministic_algorithms(True)
+        torch.backends.cudnn.benchmark = False
+        torch.backends.cudnn.deterministic = True
+    elif torch.are_deterministic_algorithms_enabled() or os.environ.get("CUBLAS_WORKSPACE_CONFIG"):
+        raise ValueError("legacy archive geometry must have original default algorithm selection")
     api, stream, targets = actor()
     archive = reference(family)
     chain, relab = file_sha(CHAIN), file_sha(RELAB)
@@ -133,6 +149,7 @@ def run(family, smoke):
     if not np.array_equal(np.sort(p), np.arange(2655)) or rows_sha(p) != frozen["delivery_sha256"]:
         raise ValueError("within0 permutation disagrees with the frozen qualification")
     smoke_sha = None if smoke else os.environ["NI26_WITHIN0_WARM_SMOKE_SHA"]
+    repeat_sha = None if smoke else os.environ["NI26_WITHIN0_WARM_REPEAT_SHA"]
     all_sessions, fits = {}, {}
     for person in PEOPLE[:1] if smoke else PEOPLE[1:]:
         entry = proof["fit_states"][person]
@@ -149,23 +166,24 @@ def run(family, smoke):
             raise ValueError("interleaving session is missing or held")
         for visit in dict.fromkeys(data["stream"][delivered]):
             rows = delivered[data["stream"][delivered] == visit]
-            all_sessions[visit] = session(stream, model, rows, targets, relab, archive, reset)
+            all_sessions[visit] = session(stream, model, rows, targets, relab, archive, reset, deterministic)
         if state_hash(model.net) != state or data["y"][held].max() != -1:
             raise ValueError(f"refit mutated a frozen source or opened gold {person}")
         fits[person] = entry
     passed = all(r[k]["changed"] == 0 and r[k]["max_abs"] <= TOL for r in all_sessions.values()
                  for k in ("base", "warm"))
-    path = HERE / ("smoke" if smoke else "members") / f"{family}.json"
+    path = HERE / ("deterministic" if deterministic else "smoke" if smoke else "members") / f"{family}.json"
     with path.open("x") as handle:
         evidence = dict(family=family, order=ORDER, held_labels_opened=False, smoke=smoke, source=source,
                         actor_sha256=file_sha(FTREL), frozen_sha256=FROZEN_SHA, chain_sha256=chain,
                         relab_sha256=relab, fits=fits, sessions=all_sessions, archive_parity=passed,
-                        smoke_sha256=smoke_sha, gpu=torch.cuda.get_device_name(), node=os.environ["SLURMD_NODENAME"])
+                        smoke_sha256=smoke_sha, repeat_sha256=repeat_sha, deterministic=deterministic,
+                        gpu=torch.cuda.get_device_name(), node=os.environ["SLURMD_NODENAME"])
         json.dump(evidence, handle, indent=2, sort_keys=True, allow_nan=False)
         handle.write("\n")
     path.chmod(0o444)
     print(f"within0 {family}: archive parity {passed}, receipt {file_sha(path)}", flush=True)
-    if not passed:
+    if not passed and not deterministic:
         raise SystemExit("historical warm archive parity failed")
 
 
@@ -173,5 +191,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("task", type=int, choices=ACTORS)
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--deterministic", action="store_true")
     args = parser.parse_args()
-    run(ACTORS[args.task], args.smoke)
+    run(ACTORS[args.task], args.smoke, args.deterministic)
