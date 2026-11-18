@@ -41,6 +41,8 @@ def run(template, eeg, rows, arm, actor=None, *, keep_posteriors=False):
                 or abs(float(posterior.sum()) - 1) > 1e-6):
             raise ValueError("the full worker received an invalid member posterior")
         if keep_posteriors:
+            if slot is not None and not np.array_equal(posterior, slot.last_posterior.cpu().numpy()[0]):
+                raise ValueError("the mixer did not take the native slot tensor as emitted")
             posteriors.append(posterior.tolist())
         labels.append(int(label[0]))
     torch.cuda.synchronize()
@@ -58,6 +60,14 @@ def stock_parity(got, expected, label):
     for key in ("labels", "activity"):
         if got[key] != expected[key]:
             raise ValueError(f"archive {key} parity failed for {label}")
+
+
+def posterior_parity(reference, current, label):
+    a, b = np.asarray(reference), np.asarray(current)
+    max_abs = float(np.max(np.abs(a - b)))
+    if max_abs > 2e-5 or not np.array_equal(a.argmax(1), b.argmax(1)):
+        raise ValueError(f"{label} member posterior difference {max_abs:.7g}")
+    return max_abs
 
 
 def assert_prefix(long, short):
@@ -90,20 +100,23 @@ def control(template, eeg, sessions, archive):
     identity = run(template, eeg, rows, "identity", keep_posteriors=True)
     stock_parity(stock[0], expected, name)
     stock_parity(identity[0], stock[0], "identity")
-    if identity[1] != stock[1]:
-        raise ValueError("the identity hook changed the native posterior")
+    repeated = run(template, eeg, rows, "stock", keep_posteriors=True)
+    stock_parity(repeated[0], stock[0], "stock repeat")
+    differences = dict(identity=posterior_parity(stock[1], identity[1], "identity"),
+                       stock_repeat=posterior_parity(stock[1], repeated[1], "stock repeat"))
     canonical = np.sort(sessions[0][1])[:31]
     canonical_stock = run(template, eeg, canonical, "stock", keep_posteriors=True)
     canonical_identity = run(template, eeg, canonical, "identity", keep_posteriors=True)
     stock_parity(canonical_identity[0], canonical_stock[0], "recording-order identity")
-    if canonical_identity[1] != canonical_stock[1]:
-        raise ValueError("the recording-order identity posterior changed")
-    return stock, identity, rows
+    differences["recording_identity"] = posterior_parity(
+        canonical_stock[1], canonical_identity[1], "recording-order identity")
+    return stock, identity, rows, differences
 
 
 def smoke(template, eeg, sessions, archive, actors):
-    stock, identity, rows = control(template, eeg, sessions, archive)
-    report = {"stock": stock[0], "identity": identity[0]}
+    stock, identity, rows, differences = control(template, eeg, sessions, archive)
+    report = {"stock": stock[0], "identity": identity[0], "control_differences": differences}
+    print(f"PASS exact stock and identity control: {differences}", flush=True)
     other = sessions[1][1][:31]
     for arm, actor in actors.items():
         repeat = run(template, eeg, rows[:31], arm, actor, keep_posteriors=True)

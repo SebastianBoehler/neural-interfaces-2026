@@ -16,12 +16,12 @@ work=$PWD
 sha256sum -c --status source.sha256
 (cd "$prior" && sha256sum -c --status "$work/parents.sha256" && sha256sum -c --status members.sha256)
 mode=${1:?expected zero, smoke or produce}
-if [[ "$mode" == zero ]]; then
+if [[ "$mode" != produce ]]; then
     (cd "$prior" && sha256sum -c --status inputs.sha256)
     echo "9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed  $original/v66_cp1_cap250.zip" | sha256sum -c --status
     (cd "$base/ni26_s318_coral_fbl_20261117" && OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 "$repo/.venv/bin/python" replay/check.py) > replay.log
-else
-    test -s zero.sha256
+fi
+if [[ "$mode" != zero ]]; then
     (cd actors && sha256sum -c --status "$work/actors.sha256")
 fi
 grep -Fx OK replay.log

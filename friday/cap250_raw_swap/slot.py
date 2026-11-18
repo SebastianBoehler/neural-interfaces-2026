@@ -20,6 +20,7 @@ class Slot:
 
     def reset_state(self):
         self.window = None
+        self.last_posterior = None
         self.calls = 0
         if self.actor is None:
             self.original.reset_state()
@@ -48,6 +49,7 @@ class Slot:
         self.calls += 1
         if posterior.shape != (1, 3) or posterior.dtype != torch.float64:
             raise ValueError("the replacement must emit the native three-class posterior")
+        self.last_posterior = posterior
         return posterior
 
 
