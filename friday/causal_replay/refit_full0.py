@@ -36,14 +36,16 @@ def checkpoint(model, stem, person, family, seed, fit):
 
 
 def replay_member(family, seed, smoke):
-    api, stream, code_sha = refit_api()
+    gpu_pins = json.loads((HERE / "refit_gpu.json").read_text())
+    stem = f"{family}_s{seed}"
+    gpu_name = gpu_pins[stem]
+    api, stream, code_sha = refit_api(gpu_name)
     reference_base = archived(family, seed, "base")
     reference_ft = archived(family, seed, "r15c250") if smoke else None
     reference_target = api.chain_labels("all_loso") if smoke else None
     with np.load(ROOT / "runs/shuffle_perms.npz", allow_pickle=False) as bank:
         delivery = bank["full|0|all_loso"]
     arrays = {name: np.full((ROWS, 3), np.nan) for name in ("base", *TARGETS)}
-    stem = f"{family}_s{seed}"
     people = PEOPLE[:1] if smoke else PEOPLE
     states, history_max = {}, 0.0
     for person in people:
@@ -91,7 +93,8 @@ def replay_member(family, seed, smoke):
         np.savez_compressed(handle, index=ids, delivery=delivery[np.isin(delivery, ids)], **arrays)
     receipt = dict(member=family, seed=seed, smoke=smoke, order="full0", rows=len(ids), fit_states=states,
                    archived_frozen_max_abs=history_max, paired_refit_delta=delta, output_sha256=file_sha(out),
-                   actor_sha256=code_sha, targets=TARGETS, held_labels_opened=False)
+                   actor_sha256=code_sha, targets=TARGETS, gpu=torch.cuda.get_device_name(),
+                   held_labels_opened=False)
     with out.with_suffix(".json").open("x") as handle:
         json.dump(receipt, handle, sort_keys=True, indent=2, allow_nan=False)
         handle.write("\n")

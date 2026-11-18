@@ -51,10 +51,10 @@ def changed(actual, reference):
                 changed=int(np.count_nonzero(actual.argmax(1) != reference.argmax(1))))
 
 
-def refit_api():
-    if not torch.cuda.is_available() or "A100" not in torch.cuda.get_device_name():
-        raise ValueError("historical test requires A100")
-    torch.set_num_threads(4)
+def refit_api(device_name="A100"):
+    if not torch.cuda.is_available() or device_name not in torch.cuda.get_device_name():
+        raise ValueError(f"historical test requires {device_name}")
+    torch.set_num_threads(int(os.environ.get("SLURM_CPUS_PER_TASK", "4")))
     os.environ.update(NI26_WS=str(ROOT), SCHEME="full", PSEED="0", KIND="v51b", ARMS="s15,r15",
                       CAPS="250", DRAW="0", CHAIN_NPZ=str(ROOT / "runs/labels/chain_v51b_full0.npz"),
                       RELAB_NPZ=str(ROOT / "runs/labels/relab_v51b_full0.npz"))
