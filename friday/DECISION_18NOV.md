@@ -21,7 +21,7 @@ At 15:51 CET on 18 November, Codabench sealed v5.1b entry 1050185 scored **0.819
 
 An entry score of 0.824 would place #16 in this snapshot. Scores of 0.826–0.829 would place #15. These are rank scenarios with fixed competitors. The public development gain has no calibrated conversion to a sealed score.
 
-At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used today and five of seven total. The phase ends Saturday 21 November at 23:59 CET. The shared evaluation queue determines when a sealed result appears. [Codabench submissions](https://www.codabench.org/competitions/17982/#/submissions-tab) · [Track 2 submission guide](https://www.codabench.org/competitions/17982/participate.md)
+At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used today and five of seven total. The phase ends Saturday 21 November at 23:59 CET. An organizer reported a large Codabench queue at 16:46 CET. The queue and worker run could put the result after 18:00 CET even with an afternoon upload. [Codabench submissions](https://www.codabench.org/competitions/17982/#/submissions-tab) · [Track 2 Discord](https://discord.com/channels/1405198616934481961/1547897829253451877)
 
 ## Accuracy evidence
 
@@ -44,19 +44,20 @@ At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used 
 | D1, external rescue ceiling over cap250 | A label-aware oracle across four alternatives corrected 98 of 2,200 stock misses for +2.285 pp [80% +1.911,+2.659] on two pinned orders. This measures where the alternatives disagree when stock is wrong. A deployable selector would have to identify those cases from EEG. [Paired Scherer analysis](transfer/d1_result.md) |
 | D2, early count plus spectral kernel, FULL-SYSTEM DEV | +0.213 pp [80% +0.097,+0.323] versus cap250 and −0.004 pp [−0.045,+0.038] versus the kernel alone. The negative interaction was −0.067 pp [−0.128,−0.014]. [Historical factorial comparison](wave_factorial/result-18nov.md) |
 | F-C7, learned branch selection, exact FULL-SYSTEM EXTERNAL | −0.053 pp [80% −0.228,+0.132] versus cap250 and the source-permuted arm. The preregistered F-C6 causal comparator gained +0.208 pp [+0.023,+0.394] on the same nine previously examined Scherer participants and two orders. [Exact external evidence](cap250-c7-result.md) |
+| F-C8, fixed causal branch selection, exact FULL-SYSTEM EXTERNAL | −0.020 pp [80% −0.205,+0.146] versus cap250 on two fresh orders for the same nine Scherer people. The two order effects were −0.093 and +0.053 pp. [Order replication](cap250-c8-result.md) |
 
 [Exact archive selection evidence](../../neural-interfaces-2026/evidence/next_wave_16nov/lunch_recommendation_18nov.md) · [Returning spectral kernel](../../neural-interfaces-2026/evidence/next_wave_16nov/kernel457.md) · [Waveform evidence](wave/results-18nov.md) · [F6–F9 paired results](wave/results-f6-f9-18nov.md) · [External receipts](../../neural-interfaces-2026/evidence/next_wave_16nov/EVENING_HANDOFF_18NOV.md)
 
-## Proven A100 runtime
+## Measured A100 runtime and sealed RTX conditions
 
-- Sealed v5.1b had **2,313 seconds** of measured headroom against the 3,600-second limit. On two standardized four-session A100 process pairs, exact v6.6cap250 took **584.05 vs 349.50 seconds** and **211.22 vs 114.61 seconds**. The hidden workload, ratios on sealed streams, and actual cap250 sealed time remain unknown. [Exact process pairs](../../neural-interfaces-2026/evidence/next_wave_16nov/budget414.md)
+- Sealed v5.1b finished in **1,287.04 seconds**. In two standardized four-session Galvani A100 pairs, exact v6.6cap250 took **584.05 vs 349.50 seconds** and **211.22 vs 114.61 seconds**. On 18 November the Track 2 organizer confirmed a switch to a slower RTX before the sealed phase and a longer run limit. A participant reported **4,800 seconds**. The live numerical cap and cap250's sealed RTX runtime remain unverified. [Exact A100 pairs](../../neural-interfaces-2026/evidence/next_wave_16nov/budget414.md) · [Track 2 Discord](https://discord.com/channels/1405198616934481961/1547897829253451877)
 - The native cap250 release reproduced every label and work counter. Its paired solver replay was **1.05% faster** on 2,655 ordinary public windows and **3.23% faster** on 1,178 forced-adaptation windows. Each workload has one pair. [Native release parity](../evidence/next_wave_16nov/native366_worker.md)
 - F-C5 reproduced all **27,336 historical score vectors** bit for bit. It reduced the CPU personalizer time by **17.0% on held-new people** and **79.9% on returning people**. The change has no effect on replay accuracy. Full-worker timing remains unmeasured. [F-C5 evidence](cap250-c5-result.md)
 - Isolated C++ CUDA graph replay for two kernel seeds took **0.169–0.170 ms per EEG window** on P04/P10. The clean worker replay on two external people measured **0.31–0.38 ms per window** for the graph increment and **0.991×/1.001×** with respect to stock for complete session time. Two rotated warm pairs per person had matching stock labels and work counts. The graph is affordable in these workloads. Its accuracy evidence does not justify replacing the staged package. [Isolated timing](../../neural-interfaces-2026/evidence/next_wave_16nov/native458.md) · [Worker receipt](../../neural-interfaces-2026/evidence/next_wave_16nov/EVENING_HANDOFF_18NOV.md)
 
 ## Decision condition
 
-Prefer the untouched staged cap250 ZIP on the current evidence. Ferranti completed the last F11 retry at 16:14:59 CET. Galvani finished all nine F-C7 A100 tasks and the collector by 16:32 CET. Additional hardware could shorten future queues. The measured methods lacked an improvement large enough to support the evening target. Leonardo rejected the current SSH key. See the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
+Prefer the untouched staged cap250 ZIP on the current evidence. Ferranti completed the last F11 retry at 16:14:59 CET. Galvani finished F-C7 by 16:32 and F-C8 by 16:50 CET. The measured methods lacked an improvement large enough to support the evening target. Leonardo rejected the current SSH key. See the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
 
 | Checkpoint (CET) | Expected evidence |
 | --- | --- |
@@ -64,6 +65,6 @@ Prefer the untouched staged cap250 ZIP on the current evidence. Ferranti complet
 | Wednesday 16:07, completed | D2 early count plus spectral retrieval matched the kernel alone. |
 | Wednesday 16:19, completed | Both F11 seeds scored. Causal sensor scaling lowered the full-system score on held-new PROTEUS people. |
 | Wednesday 16:32, completed | F-C7 exact Scherer transfer. The learned selector did not improve cap250. |
-| Wednesday 16:55, target | Exact repeat of the fixed causal rule on two additional orders for the same nine Scherer participants. |
-| Wednesday 18:00, planned checkpoint | Cap250 remains the selection. A new official score requires upload authorization and a completed Codabench job. |
+| Wednesday 16:50, completed | F-C8 exact repeat of the fixed causal rule scored within the noise band on two additional orders. |
+| Wednesday 18:00, decision completed early | Cap250 is the selection. A new official score requires upload authorization and a completed Codabench job. The organizer reported a large queue. |
 | Friday 20 November, 18:00, planned | Final candidate and alternate. Use held-person and independent external evidence to break ties inside development noise. |
