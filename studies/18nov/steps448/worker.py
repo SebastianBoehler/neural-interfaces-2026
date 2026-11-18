@@ -10,7 +10,7 @@ import replay
 from data import permutation
 from benchmark_utils.streaming import fresh_model
 
-ARMS = ('stock', 'half', 'zero', 'alternate')
+ARMS = ('stock', 'lower', 'zero', 'alternate')
 
 
 def stream(template, x, rows, arm, seed):
@@ -18,13 +18,13 @@ def stream(template, x, rows, arm, seed):
     start = perf_counter()
     model = fresh_model(template)
     ft = model.ft
-    assert ft.on and ft.n_steps == 20
+    assert ft.on and ft.n_steps == 5 and len(ft.member) == 4
     labels = []
     for row in rows:
         if arm == 'alternate':
-            ft.n_steps = 20 if (ft.refits + seed) % 2 == 0 else 0
+            ft.n_steps = 4 if (ft.refits + seed) % 2 == 0 else 0
         elif arm != 'stock':
-            ft.n_steps = 10 if arm == 'half' else 0
+            ft.n_steps = 2 if arm == 'lower' else 0
         label = model.predict(x[row:row + 1].to('cuda:0'))
         assert label.device.type == 'cpu' and label.dtype == torch.int64 and label.shape == (1,)
         labels.append(int(label[0]))
@@ -67,7 +67,7 @@ def main(index):
                 activity = run['activity']
                 n = activity['ft_refits']
                 assert n == activity['ft_relabels'] and n > 0
-                steps = {'stock': 20*n, 'half': 10*n, 'zero': 0, 'alternate': 20*((n+1-seed)//2)}
+                steps = {'stock': 20*n, 'lower': 8*n, 'zero': 0, 'alternate': 16*((n+1-seed)//2)}
                 assert activity['ft_steps'] == steps[arm]
                 assert set(run['labels']) <= {0, 1, 2}
                 if index >= 0:
