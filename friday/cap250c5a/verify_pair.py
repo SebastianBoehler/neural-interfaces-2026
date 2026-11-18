@@ -24,6 +24,8 @@ def pair(stock, deferred):
     assert a['arm'] == 'stock' and b['arm'] == 'deferred'
     assert all(a[k] == b[k] for k in ('gpu','index','mode'))
     exact = ('rows','labels','terminal','work')
+    assert a['cold_role'] == b['cold_role']
+    assert all(a['cold'][k] == b['cold'][k] for k in exact)
     for role in ROLES:
         x,y = a['records'][role],b['records'][role]
         assert all(x[k] == y[k] for k in exact), role

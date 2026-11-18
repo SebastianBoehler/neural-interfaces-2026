@@ -70,10 +70,10 @@ def stream(template, trial, deferred, count=None):
     stage = model.cp
     stats = instrument(stage, deferred)
     old_step = stage.step
-    terminal = []
+    outputs = []
     def capture(*args):
         output = old_step(*args)
-        terminal.append(hashlib.sha256(output.dtype.str.encode()+output.tobytes()).hexdigest())
+        outputs.append(output.copy())
         return output
     stage.step = capture
     ready = perf_counter()
@@ -88,7 +88,7 @@ def stream(template, trial, deferred, count=None):
     finish = perf_counter()
     assert not any(p.dead for p in (model, stage, model.cf))
     activity = replay.activity(model)
-    assert labels == trial.anchor['labels'][:len(rows)] and len(terminal) == len(rows)
+    assert labels == trial.anchor['labels'][:len(rows)] and len(outputs) == len(rows)
     assert activity['windows'] == len(rows) and activity['errors'] == 0
     if len(rows) == len(trial.anchor['labels']):
         assert activity == trial.anchor['activity']
@@ -102,9 +102,11 @@ def stream(template, trial, deferred, count=None):
     del stage.step
     detach(stage)
     empty(template)
+    terminal = [hashlib.sha256(x.dtype.str.encode()+x.tobytes()).hexdigest() for x in outputs]
     return dict(wall_s=finish-start, restore_s=ready-start, first_s=times[0],
                 p95_s=float(np.quantile(times,.95)), max_s=max(times),
-                rows=rows.tolist(), labels=labels, terminal=terminal, work=work, cov=len(stats['cov']))
+                rows=rows.tolist(), labels=labels, terminal=terminal,
+                values=[x.tolist() for x in outputs], work=work, cov=len(stats['cov']))
 
 
 def main(mode, index, arm, out):
@@ -120,27 +122,29 @@ def main(mode, index, arm, out):
     torch.cuda.synchronize()
     load_s = perf_counter()-loaded
     roles = tuple(series) if index % 2 == 0 else tuple(reversed(series))
-    warm = {}
-    if mode == 'produce':
-        for role in roles:
-            warm[role] = stream(template, series[role], deferred, 17)
+    cold_role = roles[0]
+    cold = stream(template, series[cold_role], deferred, 1)
+    warm = {role: stream(template, series[role], deferred, 17) for role in roles}
     records = {}
     for role in roles:
-        if mode == 'smoke':
-            warm[role] = stream(template, series[role], deferred, 1)
         row = records[role] = stream(template, series[role], deferred)
         assert row['work']['activity']['recognized'] == (10 if role == 'recognized' else -1)
+        exact_prefix = ('rows', 'labels', 'terminal')
+        assert all(warm[role][k] == row[k][:17] for k in exact_prefix)
         if mode == 'smoke':
             again = stream(template, series[role], deferred, 17)
-            assert all(again[k] == row[k][:17] for k in ('rows','labels','terminal'))
-        assert all(warm[role][k] == row[k][:len(warm[role]['labels'])] for k in ('rows','labels','terminal'))
+            assert all(again[k] == row[k][:17] for k in exact_prefix)
         print(role, row['wall_s'], row['cov'], row['work']['activity'], flush=True)
+    assert all(cold[k] == records[cold_role][k][:1] for k in ('rows','labels'))
+    cold_drift = float(np.max(np.abs(np.asarray(cold['values'])-warm[cold_role]['values'][:1])))
+    print('cold-to-warm first score drift',cold_role,cold_drift,flush=True)
+    assert cold_drift <= 2e-4
     assert 'neural-interfaces-2026/.venv/' not in Path('/proc/self/maps').read_text()
     result = dict(mode=mode, index=index, arm=arm, source=sha(Path('source.sha256')),
                   gpu=torch.cuda.get_device_name(), gpu_live_bytes=torch.cuda.max_memory_allocated(),
                   gpu_reserved_bytes=torch.cuda.max_memory_reserved(), load_s=load_s,
                   process_s=perf_counter()-start, rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
-                  records=records, warm=warm)
+                  records=records, warm=warm, cold=cold, cold_role=cold_role, cold_drift=cold_drift)
     path = Path(out)
     path.write_text(json.dumps(result)+'\n')
     path.with_suffix('.sha256').write_text(sha(path)+'\n')

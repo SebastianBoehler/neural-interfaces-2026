@@ -34,6 +34,8 @@ def collect():
                 raw[files[arm].name] = dict(load_s=value['load_s'],proc_s=value['process_s'],
                      rss_kib=value['rss_kib'],gpu_live_bytes=value['gpu_live_bytes'],
                      gpu_reserved_bytes=value['gpu_reserved_bytes'],gpu=value['gpu'],
+                     cold_role=value['cold_role'],cold_wall_s=value['cold']['wall_s'],
+                     cold_drift=value['cold_drift'],
                      streams={r:{k:v for k,v in value['records'][r].items()
                                  if k in ('wall_s','restore_s','first_s','p95_s','max_s','cov')}
                               for r in ROLES})
