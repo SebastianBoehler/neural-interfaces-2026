@@ -1,0 +1,410 @@
+{
+  "382|skew_aux": {
+    "arm": "skew_aux",
+    "seed": 382,
+    "steps": 120,
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "76bb17cabd0d176a1bca31e65977565a9b417a134c83b21a06869e997e17ebe2",
+      "norm": "d9de085a7c55fb5c40dbdc987b2d1f4fbbd0baa8898c030c2df97fc57824e5c5",
+      "head": "84f7635a84b8395b4bb4b4dd4f58209b77d61a99dae0a104416c3f35c108bba4"
+    },
+    "first_grad": {
+      "body": 7.16642951965332,
+      "norm": 0.22698171436786652,
+      "head": 4.508243083953857
+    },
+    "aux_norm": {
+      "body": 0.24566331505775452,
+      "norm": 0.02591976523399353,
+      "head": 0.09909189492464066
+    },
+    "applied_aux_ratio": 0.3499999945362409,
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "daffeff8d007b72d2ba9dc28e59d7e594597835d256a78c05d7ee626c139a6a0",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "source": "6c54cee5877e453678c1350d0ed42ecfdf719393a266a5d08b29769e6340313c",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "partition_tv": 0.6666666666666665,
+    "first_ce_aux": [
+      0.5479603409767151,
+      0.007579897064715624
+    ],
+    "last8_ce_aux": [
+      0.4867787826806307,
+      0.02229107075254433
+    ],
+    "independent_episode_ce_aux": [
+      [
+        0.4453880699972312,
+        0.07198342766302328
+      ],
+      [
+        0.4428915319343408,
+        0.007960585862141064
+      ]
+    ],
+    "checkpoint": "be3dd7dc201921cf29e54ffa34ceb5a14b92461e46febce3036d962a84a54209"
+  },
+  "382|skew_ce": {
+    "arm": "skew_ce",
+    "seed": 382,
+    "steps": 120,
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "58ace57ed0d6b6861f506d74001ef5634e9724d2bf0111836b04e28a31470a73",
+      "norm": "5c130f9a3463b812c49b1cf5df5365ac13023fee904a32465b19e5a4086a9da2",
+      "head": "80e6b1b95ae3eaf9e8de7bf6bcccaae33aeaab7e0cd8714c4683f55f04a697df"
+    },
+    "first_grad": {
+      "body": 6.687466144561768,
+      "norm": 0.16368083655834198,
+      "head": 4.738150596618652
+    },
+    "aux_norm": {
+      "body": 0.24566331505775452,
+      "norm": 0.02591976523399353,
+      "head": 0.09909189492464066
+    },
+    "applied_aux_ratio": 0.0,
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "daffeff8d007b72d2ba9dc28e59d7e594597835d256a78c05d7ee626c139a6a0",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "source": "6c54cee5877e453678c1350d0ed42ecfdf719393a266a5d08b29769e6340313c",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "partition_tv": 0.6666666666666665,
+    "first_ce_aux": [
+      0.5479603409767151,
+      0.007579897064715624
+    ],
+    "last8_ce_aux": [
+      0.46947421692311764,
+      0.08793588887783699
+    ],
+    "independent_episode_ce_aux": [
+      [
+        0.4160722804566224,
+        0.3028512024417675
+      ],
+      [
+        0.40612988111873466,
+        0.03233535448089242
+      ]
+    ],
+    "checkpoint": "41bb60ccf1dc44dbf511e46836d1ad22b8c11b1b62661261453085390bacd652"
+  },
+  "382|random_aux": {
+    "arm": "random_aux",
+    "seed": 382,
+    "steps": 120,
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "23a72f39c6d213bbb9f81200b0d0817035575fc8c6b6044aa324b811c05017b4",
+      "norm": "2ff05ca1f7f197a64a00b56b783faa4495c089e8b29aded9ec06e4eaf4a5589e",
+      "head": "1ad5e402b8e4a7e388ffc810f5104e3998bfa3dc6b93ba45d70ab6b930c6e853"
+    },
+    "first_grad": {
+      "body": 7.397765159606934,
+      "norm": 0.13699202239513397,
+      "head": 4.324455261230469
+    },
+    "aux_norm": {
+      "body": 0.08347322791814804,
+      "norm": 0.00409900676459074,
+      "head": 0.05054328590631485
+    },
+    "applied_aux_ratio": 0.3499999947845936,
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "daffeff8d007b72d2ba9dc28e59d7e594597835d256a78c05d7ee626c139a6a0",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "source": "6c54cee5877e453678c1350d0ed42ecfdf719393a266a5d08b29769e6340313c",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "partition_tv": 0.15138888888888888,
+    "first_ce_aux": [
+      0.5473293662071228,
+      0.0011852323077619076
+    ],
+    "last8_ce_aux": [
+      0.478102158755064,
+      0.00272219603175472
+    ],
+    "independent_episode_ce_aux": [
+      [
+        0.4328683838248253,
+        0.11191977419124062
+      ],
+      [
+        0.42899408129354316,
+        0.012036867501592496
+      ]
+    ],
+    "checkpoint": "fdba7ab4f4273dac75c5168a5313952339cbc98d0c913f1466e368580623d211"
+  },
+  "382|random_ce": {
+    "arm": "random_ce",
+    "seed": 382,
+    "steps": 120,
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "fcef6cd8ebb05400571bca3c5d2d1ab250b23e4fbc68ec5e1b3f0852049132c8",
+      "norm": "5c956192510fc676c1f01ac7162b3005501a08b10489abe065fe881a0e9f4884",
+      "head": "cc9ded4b16198a34927b344de63c6b8da604c66d915c524ac7afd12c48c7ee37"
+    },
+    "first_grad": {
+      "body": 6.694596767425537,
+      "norm": 0.1651231199502945,
+      "head": 4.743928909301758
+    },
+    "aux_norm": {
+      "body": 0.08347322791814804,
+      "norm": 0.00409900676459074,
+      "head": 0.05054328590631485
+    },
+    "applied_aux_ratio": 0.0,
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "daffeff8d007b72d2ba9dc28e59d7e594597835d256a78c05d7ee626c139a6a0",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "source": "6c54cee5877e453678c1350d0ed42ecfdf719393a266a5d08b29769e6340313c",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "partition_tv": 0.15138888888888888,
+    "first_ce_aux": [
+      0.5473293662071228,
+      0.0011852323077619076
+    ],
+    "last8_ce_aux": [
+      0.46396585926413536,
+      0.009264760708902031
+    ],
+    "independent_episode_ce_aux": [
+      [
+        0.4145339584598939,
+        0.39365224619784084
+      ],
+      [
+        0.40163617332776386,
+        0.04192956331826281
+      ]
+    ],
+    "checkpoint": "255e0edf1cbb7a46dcef8d4e3f0cd7a551c54f8805727f5fcb7f3881287d2a1f"
+  },
+  "1382|skew_aux": {
+    "arm": "skew_aux",
+    "seed": 1382,
+    "steps": 120,
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "966a583cda23931ff035b9d90ed596f7894e8fa4f82ea05cac49356750a5c183",
+      "norm": "d48f9c596bc7978f9165514c668d53c1eff20de62615da3e7c13292bf1b5d03b",
+      "head": "eccb3408cdf15621a493d5a4ef1c5337d35cd5a7d8d264fb06290470ba522fb2"
+    },
+    "first_grad": {
+      "body": 4.527184009552002,
+      "norm": 0.10955537855625153,
+      "head": 1.7135258913040161
+    },
+    "aux_norm": {
+      "body": 0.9170172810554504,
+      "norm": 0.043837759643793106,
+      "head": 0.2411443293094635
+    },
+    "applied_aux_ratio": 0.34999999528129894,
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "43026fe6542898364b3daa228a51e4046d0fb7e4208d5ff8ad68c6a6437ec19d",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "source": "6c54cee5877e453678c1350d0ed42ecfdf719393a266a5d08b29769e6340313c",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "partition_tv": 0.6666666666666665,
+    "first_ce_aux": [
+      0.2863898277282715,
+      0.013389593921601772
+    ],
+    "last8_ce_aux": [
+      0.4232708290219307,
+      0.019971518777310848
+    ],
+    "independent_episode_ce_aux": [
+      [
+        0.4352416470646858,
+        0.08077299688860269
+      ],
+      [
+        0.43238185967008275,
+        0.008950519162074974
+      ]
+    ],
+    "checkpoint": "6cd8118bb1e1b832306f37b978e121c7fbf4f32dad11512337fa53756c62b521"
+  },
+  "1382|skew_ce": {
+    "arm": "skew_ce",
+    "seed": 1382,
+    "steps": 120,
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "8d17abcf72bb4f2d0c75a2119ffe351a081379ce3c74ecc5beba8fbe758c1873",
+      "norm": "ea8a012fcd48a0b6d796499b412ec9e4c91cdf1a761695f4145ccd28104acbd8",
+      "head": "0913164244e9b714abb393992faf4be3be238020f25b60da36e4366c201673ab"
+    },
+    "first_grad": {
+      "body": 4.389802932739258,
+      "norm": 0.09760045260190964,
+      "head": 1.6543569564819336
+    },
+    "aux_norm": {
+      "body": 0.9170172810554504,
+      "norm": 0.043837759643793106,
+      "head": 0.2411443293094635
+    },
+    "applied_aux_ratio": 0.0,
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "43026fe6542898364b3daa228a51e4046d0fb7e4208d5ff8ad68c6a6437ec19d",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "source": "6c54cee5877e453678c1350d0ed42ecfdf719393a266a5d08b29769e6340313c",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "partition_tv": 0.6666666666666665,
+    "first_ce_aux": [
+      0.2863898277282715,
+      0.013389593921601772
+    ],
+    "last8_ce_aux": [
+      0.3975517190992832,
+      0.09018678218126297
+    ],
+    "independent_episode_ce_aux": [
+      [
+        0.4112153810759385,
+        0.3254161844961345
+      ],
+      [
+        0.40040525669852894,
+        0.03420202814595541
+      ]
+    ],
+    "checkpoint": "872d895b460c3e3ac723f68bbb91e8d18accad09d69ba5a9c332993d8b0d5919"
+  },
+  "1382|random_aux": {
+    "arm": "random_aux",
+    "seed": 1382,
+    "steps": 120,
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "3cac690afb9a405ba24a56d7032974b85f1373edab770e44ad8d5bd000d7d751",
+      "norm": "45aaf6fcb718d5a65cb69223bc5014e22d24cc9b2f6ec4c5076543d131db7b3d",
+      "head": "421cc0fed970d2398d7a46e1cf17a1b4302b35cda90a59167d763ec533beb073"
+    },
+    "first_grad": {
+      "body": 4.728856563568115,
+      "norm": 0.09668740630149841,
+      "head": 1.5369784832000732
+    },
+    "aux_norm": {
+      "body": 2.645664691925049,
+      "norm": 0.08264349400997162,
+      "head": 1.0092144012451172
+    },
+    "applied_aux_ratio": 0.3499999947845936,
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "43026fe6542898364b3daa228a51e4046d0fb7e4208d5ff8ad68c6a6437ec19d",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "source": "6c54cee5877e453678c1350d0ed42ecfdf719393a266a5d08b29769e6340313c",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "partition_tv": 0.1534722222222222,
+    "first_ce_aux": [
+      0.28734922409057617,
+      0.022914430126547813
+    ],
+    "last8_ce_aux": [
+      0.4108872786164284,
+      0.006129746812803205
+    ],
+    "independent_episode_ce_aux": [
+      [
+        0.43171504015723866,
+        0.10945208748065245
+      ],
+      [
+        0.4278663545846939,
+        0.011726977570409266
+      ]
+    ],
+    "checkpoint": "4ecf4100628297a6f82f66a090a9bf06ec5fa3d75f358dbfb8f37f980929c80d"
+  },
+  "1382|random_ce": {
+    "arm": "random_ce",
+    "seed": 1382,
+    "steps": 120,
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "f6c4c9a879a621cde5f0945e8add565894037fed7a795454a96b313458c8a661",
+      "norm": "bbfd348167e6b3114ffe2f5d4869c730beed0e3376b8263fba2f0f23f2acb3d4",
+      "head": "15df91c396b0ad5615632c162d9245afd3e1301ba6566e266e30520d0088e685"
+    },
+    "first_grad": {
+      "body": 4.425917148590088,
+      "norm": 0.09713015705347061,
+      "head": 1.659791111946106
+    },
+    "aux_norm": {
+      "body": 2.645664691925049,
+      "norm": 0.08264349400997162,
+      "head": 1.0092144012451172
+    },
+    "applied_aux_ratio": 0.0,
+    "frozen_sha": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "batches": "43026fe6542898364b3daa228a51e4046d0fb7e4208d5ff8ad68c6a6437ec19d",
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "source": "6c54cee5877e453678c1350d0ed42ecfdf719393a266a5d08b29769e6340313c",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "partition_tv": 0.1534722222222222,
+    "first_ce_aux": [
+      0.28734922409057617,
+      0.022914430126547813
+    ],
+    "last8_ce_aux": [
+      0.391377042979002,
+      0.021216814639046788
+    ],
+    "independent_episode_ce_aux": [
+      [
+        0.4104748436560233,
+        0.38562292997570086
+      ],
+      [
+        0.3976939171552658,
+        0.040448816853313474
+      ]
+    ],
+    "checkpoint": "166da18a10812ec66e963b284b94ec82eb29f458ea83effee9db85f44b60ea27"
+  }
+}
