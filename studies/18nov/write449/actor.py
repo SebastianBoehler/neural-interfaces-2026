@@ -32,7 +32,7 @@ def parity(actual, archive, atol=1e-6):
 
 
 @torch.no_grad()
-def run(person):
+def run(person, edit=variants, keep_deltas=False):
     src = json.loads(Path('source.json').read_text())
     assert src['bundle']==BUNDLE and src['rows']==ROWS and tuple(src['people'])==joint.FIT_PEOPLE
     assert src['source']=='05fb9fc4136b0d96c0e71ddd811f362a2c8ef0efe910c6f3455f21f024dcc1da'
@@ -52,7 +52,7 @@ def run(person):
     pop.spatial_conv[1].k = None
     donor_p = pop(donor_x).softmax(1)
     perms = joint.permutations(len(people))
-    bank, diagnostics = {}, {}
+    bank, diagnostics, deltas = {}, {}, {}
     with np.load('prototypes.npz') as templates:
         for seed, (root, digest) in ARCH.items():
             joint.pin(root/'before_labels.json',digest)
@@ -72,7 +72,7 @@ def run(person):
             _, probe = encode(torch.from_numpy(runtime._aligned(rows[:8],True)))
             torch.testing.assert_close(probe,torch.from_numpy(templates[f'probe{seed}']),atol=5e-5,rtol=1e-5)
             _, donor_items = encode(donor_x)
-            donor_variants, donor_size = variants(donor_items,donor_p,proto)
+            donor_variants, donor_size = edit(donor_items,donor_p,proto)
             with np.load(root/(person+'.npz')) as arch:
                 assert np.array_equal(arch['index'],test)
                 for order in joint.ORDERS:
@@ -91,7 +91,7 @@ def run(person):
                         bank[f'{seed}|{name}|{order}']=probs.argmax(1).numpy()[undo].astype(np.int8)
                     bank[f'{seed}|frozen|{order}']=arch['frozen|'+order].argmax(1).astype(np.int8)
                     z, items = encode(x)
-                    own, size = variants(items,posterior,proto)
+                    own, size = edit(items,posterior,proto)
                     ids=np.searchsorted(donor,perms[order][np.isin(perms[order],donor)])
                     assert len(ids)==len(donor)
                     outputs={}
@@ -116,6 +116,10 @@ def run(person):
                             diff=(outputs[kind,mode]-outputs['unchanged',mode]).abs()
                             assert diff[1:].max()>1e-5
                             scale[kind+'_'+mode]=float(diff.mean())
+                    if keep_deltas:
+                        for k,m in [('semantic','real'),('wrong','real'),('semantic','donor')]:
+                            delta=outputs[k,m]-outputs['unchanged',m]
+                            deltas[f'{seed}|{k}_{m}|{order}']=delta.numpy()[undo]
                     diagnostics[f'{seed}|{order}']=dict(write_relative=size,donor_relative=donor_size,
                                                           logit_mean_abs=scale)
     path=Path(person+'.npz')
@@ -123,6 +127,10 @@ def run(person):
     rec=dict(held=person,train=ROWS,test=joint.digest(test),output=joint.sha(path),
              source=joint.sha(Path('actor.sha256')),prototypes=PROTO_SHA, activity=diagnostics,
              held_labels_opened=False)
+    if keep_deltas:
+        delta_path=Path(person+'_delta.npz')
+        np.savez_compressed(delta_path,index=test,**deltas)
+        rec['delta']=joint.sha(delta_path)
     Path(person+'.json').write_text(json.dumps(rec,indent=2))
 
 

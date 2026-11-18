@@ -15,7 +15,7 @@ def centers(writes, labels):
 
 
 @torch.no_grad()
-def main(smoke):
+def main(smoke, edit=variants):
     d, people, rows, runtime=prior.source()
     assert joint.digest(rows)==ROWS and set(people[rows])==set(joint.FIT_PEOPLE)
     prior.owners(rows)
@@ -52,7 +52,7 @@ def main(smoke):
             for i,s in enumerate(selected):
                 use=sessions==s
                 proto=full if fit=='full' else signals[torch.arange(len(selected))!=i].mean(0)
-                writes,_=variants(items[use],posterior[use],proto)
+                writes,_=edit(items[use],posterior[use],proto)
                 axis=proto/proto.norm()
                 for kind,w in writes.items():
                     effect=centers(w,y[use])
