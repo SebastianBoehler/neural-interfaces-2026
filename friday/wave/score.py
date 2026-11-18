@@ -41,8 +41,12 @@ COMPARATORS = {
     "raw_masked": ("raw_supervised", "chronological"),
     "raw_supervised": ("chronological",),
     "raw_style_full": ("raw_style_diagonal", "raw_supervised"),
+    "raw_norm_learned": ("raw_norm_fixed",),
+    "raw_norm_fixed": ("raw_supervised",),
 }
-RAW_KINDS = ("raw_supervised", "raw_masked", *STYLE_KINDS)
+NORM_KINDS = ("raw_norm_learned", "raw_norm_fixed")
+SPLIT_FIRST_KINDS = (*STYLE_KINDS, *NORM_KINDS)
+RAW_KINDS = ("raw_supervised", "raw_masked", *SPLIT_FIRST_KINDS)
 KINDS = tuple(sorted(set(COMPARATORS) | {r for arms in COMPARATORS.values() for r in arms}))
 ARMS = ("stock", *(f"wave_{h}" for h in HISTORY), *(f"full_{h}" for h in HISTORY))
 
@@ -104,6 +108,13 @@ def check_actor(path, kind, seed, person, actor_pin, people, full, lineage):
     payload = torch.load(path, weights_only=True, map_location="cpu")
     check(payload["kind"] == kind and payload["held"] == person, f"wrong saved actor: {path}")
     provenance = {"synthetic_updates": expected["synthetic_updates"]} if kind in STYLE_KINDS else {}
+    if kind in NORM_KINDS:
+        log_count = payload["model"]["log_count"]
+        check(log_count.shape == (32,) and log_count.isfinite().all(), f"invalid learned prior: {path}")
+        changed = bool(torch.any(log_count != 0))
+        check(changed == (kind == "raw_norm_learned"), f"fixed or inactive normalization prior: {path}")
+        count = 20 * log_count.clamp(-2, 2).exp()
+        provenance["source_count_range"] = [float(count.min()), float(count.max())]
     return {"receipt": sha(proof), "checkpoint": expected["checkpoint"], **lineage, **provenance}
 
 
@@ -195,7 +206,7 @@ def summarize(bank, pairs, meta, interval, metric, ref_kinds=(), evaluate_motor=
 
 
 def comparator(kind, ref, seed):
-    if kind in STYLE_KINDS and ref == "raw_supervised":
+    if kind in SPLIT_FIRST_KINDS and ref == "raw_supervised":
         return f7_bank(WORK, seed, PEOPLE, committed)
     if kind not in (*MOTOR_KINDS, *RAW_KINDS) or ref != "chronological":
         return committed(f"{ref}_{seed}")
@@ -231,7 +242,7 @@ def compare(kind, seed, meta, ages, interval, metric, reference=None):
                           (genuine, f"{ref}_{genuine}")])
     result = summarize(candidate, pairs, meta, interval, metric, ref_kinds,
                        evaluate_motor=kind in MOTOR_KINDS, ages=ages if kind in RAW_KINDS else None,
-                       split_first=kind in STYLE_KINDS)
+                       split_first=kind in SPLIT_FIRST_KINDS)
     result["parent_decision_sha256"] = proofs
     suffix = f"_vs_{reference}" if reference else ""
     Path(f"comparison_{kind}_{seed}{suffix}.json").write_text(json.dumps(result, indent=2) + "\n")
@@ -272,7 +283,7 @@ def main():
     saved, _ = committed(stem)
     result = summarize(saved, pairs, meta, interval, metric,
                        evaluate_motor=args.kind in MOTOR_KINDS, ages=ages if args.kind in RAW_KINDS else None,
-                       split_first=args.kind in STYLE_KINDS)
+                       split_first=args.kind in SPLIT_FIRST_KINDS)
     Path(f"{stem}_result.json").write_text(json.dumps({**proof, **result}, indent=2) + "\n")
     print(json.dumps({arm: row["pp"] for arm, row in result["absolute"].items()}))
 
