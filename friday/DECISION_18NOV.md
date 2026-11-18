@@ -31,6 +31,7 @@ An entry score of 0.824 would place #15 in this snapshot. Scores of 0.826–0.82
 | F1–F4, FULL-SYSTEM DEV, ten held-new PROTEUS people | Every tested insertion was below 76.1039% cap250. Best seed point estimate −0.347 pp. Genuine history sometimes improved a weak model enough to beat its own blank control. |
 | F5 learned correction vs exact staged cap250, FULL-SYSTEM EXTERNAL | −3.284 pp [−4.160,−2.338] and −3.975 pp [−5.033,−2.873], nine Scherer people and two orders. |
 | F-C1/F-C2, FULL-SYSTEM DEV | Count prior scale −0.110 pp new, −0.098 returning. Shape-normalized CSP fit −0.004 pp new. All three intervals cross zero. |
+| F-C3/F-C4, exact FULL-SYSTEM EXTERNAL | Stable-pseudo-label weighting −0.185 pp [80% −0.463,+0.116]. Balanced pseudo-class loss +0.119 pp [−0.162,+0.417]. Both contrasts remain undecided. |
 
 [Exact archive selection evidence](../../neural-interfaces-2026/evidence/next_wave_16nov/lunch_recommendation_18nov.md) · [Returning spectral kernel](../../neural-interfaces-2026/evidence/next_wave_16nov/kernel457.md) · [Waveform evidence](wave/results-18nov.md) · [External receipts](../../neural-interfaces-2026/evidence/next_wave_16nov/EVENING_HANDOFF_18NOV.md)
 
@@ -42,4 +43,4 @@ An entry score of 0.824 would place #15 in this snapshot. Scores of 0.826–0.82
 
 ## Decision condition
 
-Prefer the untouched staged cap250 ZIP on the current evidence. Preserve v5.1b as the sealed alternate. F5 lost on the independent Scherer sessions. F6 tests PhysioNet sensorimotor transfer. F7 and F8 optimize a single compact raw-waveform decoder for unseen people. F-C3/F-C4 test active optimizer behavior in the exact cap250 worker. Their results govern any experiment that advances. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
+Prefer the untouched staged cap250 ZIP on the current evidence. Preserve v5.1b as the sealed alternate. F5 lost on the independent Scherer sessions. F6 tests PhysioNet sensorimotor transfer. F7 and F8 optimize a single compact raw-waveform decoder for unseen people. F-C3 and F-C4 completed with uncertain external effects. F6–F9 remain in the research queue. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
