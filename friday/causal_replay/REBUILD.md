@@ -28,6 +28,8 @@ The §430 shadow regenerated from the historical mixer inputs differs from the o
 
 The historical FBLight P01/seed 0 anchor passed on A100 `3130981` at 20:39:35 CET. All 190 fitted baseline and 190 r15c250 labels match their own archive. Maximum posterior errors were 2.71e−7 and 1.22e−6. Refit changes 32 labels versus frozen. Receipt `refit_full0_smoke_v1/fbl_seed0_p01_full0_receipt.json` SHA-256 `a6495cb74a9a96246301cb5e4c336d0bc145b91fb95963f813ffbf3d0eb258cf`.
 
+The matched FBLight target replay `3131050` passed at 20:43:09 CET. Both refit branches preserved the first 20 frozen windows and matched their independent 80-window prefix decisions. Corrected targets moved one held decision and the maximum posterior difference was 0.03676. The label-blind bank SHA-256 is `656dff53350470c5037e651382e65d7408bbdb419a8bd007f5cd011dd2b84181` under `refit_full0_paired_v1`.
+
 ## Returning-person inputs
 
 Use the original `seen_session` folds. Source rows for each fold include that person's first visit and exclude both of that person's later visits. P04 has 2,278 source and 377 held rows. P10 has 2,270 source and 385 held rows. The archived five trainable-FIR FBCNet seeds and first six Shallow EA seeds independently reproduced their returning `B2_pool` slot means exactly. Including Shallow seeds 6 and 7 changes the archived slot by up to 0.183115.

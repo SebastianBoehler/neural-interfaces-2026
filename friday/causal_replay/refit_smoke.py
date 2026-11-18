@@ -24,16 +24,16 @@ def file_sha(path):
         return hashlib.file_digest(handle, "sha256").hexdigest()
 
 
-def source_data():
+def source_data(held=HELD):
     path = ROOT / "data/proteus_windows.npz"
     with np.load(path, allow_pickle=False) as store:
         data = {name: store[name] for name in store.files if name != "y"}
     subject = data["subject"]
     if data["X"].shape != (2655, 41, 480) or data["X"].dtype != np.float32:
         raise ValueError("unexpected official waveform input")
-    fit = np.flatnonzero(subject != HELD)
-    test = np.flatnonzero(subject == HELD)
-    if len(fit) != 2465 or len(test) != 190 or set(data["session"][test]) != {"1"}:
+    fit = np.flatnonzero(subject != held)
+    test = np.flatnonzero(subject == held)
+    if not len(test) or len(set(subject[fit])) != 9:
         raise ValueError("archival smoke fold differs")
     data["y"] = np.full(len(subject), -1, dtype=np.int64)
     data["y"][fit] = read_training_labels(path, fit, len(subject))
@@ -51,7 +51,7 @@ def changed(actual, reference):
                 changed=int(np.count_nonzero(actual.argmax(1) != reference.argmax(1))))
 
 
-def prepare():
+def refit_api():
     if not torch.cuda.is_available() or "A100" not in torch.cuda.get_device_name():
         raise ValueError("historical test requires A100")
     torch.set_num_threads(4)
@@ -60,8 +60,14 @@ def prepare():
                       RELAB_NPZ=str(ROOT / "runs/labels/relab_v51b_full0.npz"))
     source = ROOT / "studies/14nov/ftrelabel/ftrel.py"
     scope = runpy.run_path(str(source))
-    t5, stream = scope["T5"], scope["stream"]
+    return scope["T5"], scope["stream"], file_sha(source)
+
+
+def prepare():
+    t5, stream, source_sha = refit_api()
     data, fit, test = source_data()
+    if len(fit) != 2465 or len(test) != 190 or set(data["session"][test]) != {"1"}:
+        raise ValueError("archival smoke fold differs")
     with np.load(ROOT / "runs/shuffle_perms.npz", allow_pickle=False) as ranked:
         order = ranked["full|0|all_loso"]
     rows = order[data["subject"][order] == HELD]
@@ -83,7 +89,7 @@ def prepare():
             np.testing.assert_array_equal(archive["index"], np.arange(len(data["subject"])))
             expected[name] = archive["proba"][rows]
     report = dict(gpu=torch.cuda.get_device_name(), torch=str(torch.__version__), held=HELD,
-                  held_labels_opened=False, source_sha=file_sha(source), fit_rows=int(len(fit)),
+                  held_labels_opened=False, source_sha=source_sha, fit_rows=int(len(fit)),
                   order_rows=int(len(rows)), frozen=changed(frozen, expected["base"]))
     print(json.dumps(report, sort_keys=True), flush=True)
     if report["frozen"]["changed"] or report["frozen"]["max_abs"] > TOL:
