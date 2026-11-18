@@ -63,3 +63,9 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F6–F9 all completed. Raw supervised F7 reached Galvani paired scores at 15:02:50 CET, 4.95 and 4.42 pp above F3 as whole decoders. All terminal insertions remained below stock. F9 fixed normalization reached 48.07% and 48.59%. It beat matched blank and donor on both seeds. [Paired F6–F9 results](wave/results-f6-f9-18nov.md)
 - F10 isolates the F9 normalization update at the cap250 terminal. Galvani real smoke 3127918 and afterok paired jobs 3127919/20 accepted. F11 raw sensor scaling and F-C5 exact lazy covariance registered, actor smoke and dispatch in preparation.
 - The updated figures include all completed seed pairs through F9. Both preserved ZIPs and the public EEG input passed hash verification. The release selection remains staged cap250 with sealed v5.1b as alternate.
+
+## Wednesday 18 November, 15:29 CET
+
+- F10 P04 real smoke 3127918 passed exact F9 logits and archived decisions, active isolated reads and first-window stock zero. Seed scorers 3127919/20 released.
+- F11 Ferranti real smoke 510567 and afterok 20-fit arrays 510568/69 accepted. Galvani preflight 3127923 completed; held smoke 3127924 and scorers 3127925/26 depend on actor evidence. Matching actor manifest `501909d4e1623d13bb62e9f780df7d23db34f39003df3a6eba42bf2b04a12fed`.
+- F-C5 Galvani matched CPU smoke 3127921 started with exact stock/selection/no-op guards.
