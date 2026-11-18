@@ -126,6 +126,8 @@ def fit(kind, seed, held, smoke, data_path, order_path, device, gpu_family="H100
     torch.set_num_threads(1)
     torch.manual_seed(seed)
     torch.backends.cuda.matmul.allow_tf32 = False
+    if kind in BAND_KINDS and gpu_family == "A100":
+        torch.backends.cudnn.allow_tf32 = False
     x, people, streams, interfaces, _ = read_inputs(data_path, order_path)
     src = np.flatnonzero(people != held)
     train_people = np.unique(people[src]).tolist()
@@ -141,6 +143,7 @@ def fit(kind, seed, held, smoke, data_path, order_path, device, gpu_family="H100
     schedule = None
     if kind in BAND_KINDS:
         provenance = initial_receipt(model, kind)
+        provenance["cudnn_tf32"] = torch.backends.cudnn.allow_tf32
         schedule = hashlib.sha256()
     source_eeg = torch.from_numpy(x[src]).to(device)
     steps = 4 if smoke else 600

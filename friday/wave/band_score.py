@@ -63,8 +63,11 @@ def checked_actor(ref, path, kind, seed, person, actor, people, streams, initial
     check(sorted(receipt["train_people"]) == sorted(set(ref.PEOPLE) - {person})
           and receipt["train_rows"] == hashlib.sha256(source_rows.tobytes()).hexdigest(),
           f"held-person source roster or row identity changed: {path}")
+    if gpu_family == "A100":
+        check(receipt.get("cudnn_tf32") is False, f"A100 convolution was not full FP32: {path}")
     standard = {"receipt": sha(proof_path), "checkpoint": expected["checkpoint"],
-                "gpu": receipt["gpu"], "torch": receipt["torch"]}
+                "gpu": receipt["gpu"], "torch": receipt["torch"],
+                "cudnn_tf32": receipt.get("cudnn_tf32")}
     for key in ("initial_fir", "initial_other", "parameters"):
         check(receipt[key] == initial[key], f"wrong independently recreated initialization: {key}/{path}")
     np.testing.assert_allclose(receipt["fir_norm"], initial["fir_norm"], atol=1e-6, rtol=0)
