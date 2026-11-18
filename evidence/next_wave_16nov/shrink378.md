@@ -32,3 +32,21 @@ After observing 1, 8, 32 or 90 windows, each estimator predicted the variance of
 | Original 20-window prior RV | 0.28018 |
 
 K reduced error by 36.87% versus RV (80% paired people/order interval +28.97%, +43.42%) and 2.17% versus rotated P (+0.10%, +4.33%). Both predictions held. G outperformed K at every tested prefix length; K's mean squared error was 8.85% higher than G's (+5.16%, +12.86%). The large effect comes from using a shorter typical prior. Correct feature assignment gives a smaller benefit relative to rotation, and the simple shared prior performs better still on this dispersion diagnostic. These are scale-prediction errors, not classification scores. [Diagnostic](../../studies/18nov/shrink378/mechanism.py) · [Paired report](shrink378_variance_result.json)
+
+## Held classification and the complete consumer
+
+The per-feature estimate improved standalone mean accuracy by 0.423 pp versus the original 20-window prior. It lost 0.155 pp against a rotated assignment of the same weights. Both paired 80% intervals span zero. On B2_pool, the registered primary full system, both comparisons were near zero.
+
+| Contrast (pp) | Standalone decoder | Full B2_pool | Full six-base mean |
+| --- | ---: | ---: | ---: |
+| K − RV | +0.423 [−0.121, +1.066] | −0.017 [−0.150, +0.145] | −0.052 [−0.125, +0.029] |
+| K − rotated P | −0.155 [−0.440, +0.201] | +0.008 [−0.077, +0.096] | +0.044 [+0.003, +0.082] |
+| K − shared G | −0.003 [−0.323, +0.289] | −0.023 [−0.130, +0.089] | +0.059 [−0.004, +0.115] |
+| Shared G − RV | +0.427 [−0.004, +0.985] | +0.007 [−0.113, +0.143] | −0.111 [−0.184, −0.012] |
+| RV − static RF | +4.089 [+2.340, +6.455] | −0.058 [−0.162, +0.073] | −0.069 [−0.133, −0.003] |
+
+The full B2_pool control scored 76.2793%, static RF 76.2908%, fixed RV 76.2325%, shared G 76.2390%, per-feature K 76.2160% and rotated P 76.2079%. K changed the control by −0.0634 pp [−0.3134,+0.2405]. The K−RV effects were −0.2965/−0.0646 pp for P04/P10 under new-person routing. Their K−P effects were −0.1327/+0.0813 pp.
+
+The six-base mean favors the correct feature assignment over a rotation by 0.044 pp. Its comparison with fixed RV remains negative and uncertain. The two registered primary comparisons missed their predicted gains and both intervals cross zero. The classification benefit of channel-specific weights remains undecided. The sizable gain in predicting future variance did not identify an improvement over the current full decoder.
+
+All ten held people, two source-excluded seeds, and eight delivery orders completed. The 56 complete consumer jobs (3123106/3123107) consumed 21.545 CPU core-hours. The 3123108 scorer finished in 38 seconds, after replay OK, all 336 base/order/arm outputs and historical endpoint decisions passed. Inference used new-person routing throughout. [Complete person/order intervals and contrasts](shrink378_result.json)
