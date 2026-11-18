@@ -15,6 +15,10 @@ runs are pre-registered; the full records are PREDICTIONS_11NOV.md and PREDICTIO
 
 The dedicated [whole waveform decoder](../evidence/next_wave_16nov/wave379.md) scored 41.69% with learned memory, versus 44.12% with a matched static decoder and 76.28% with the full frozen stack. A separately matched [multiscale decoder](../evidence/next_wave_16nov/scale380.md) scored 44.74% versus 44.84% for learned waveform filters. These are ten-person public development results. [Recent methods and protocol comparison](../evidence/next_wave_16nov/recent_methods_18nov.md).
 
+The [A6-initialized joint decoder](../evidence/next_wave_16nov/joint382.md) answered a different question on four held people. With the original filterbank fixed, training the spatial convolution, session normalization and classifier together gave 59.705% on Galvani and 58.125% with a second seed on Ferranti. True session history helped by 5.892 and 5.293 points versus blank history. Original explicit A6 scored 60.785%, and the full frozen system scored 81.216% on the same people. The native C++/CUDA implementation and these experimental PyTorch CUDA fits have separate validation records.
+
+The [lunch recommendation](../evidence/next_wave_16nov/lunch_recommendation_18nov.md) records exact package hashes and submission conditions. On nine external Scherer people the exact candidate gained 0.493 pp over v5.1b on the first two orders and 0.040 pp on two fresh orders. Both paired intervals include zero. The [whole-worker pruning experiment](../evidence/next_wave_16nov/qualification408.md) saved about 2.4% on two paired A100 runs. The staged ZIP retains its original implementation.
+
 ### Current campaign: 17 November 2026, late CET
 
 The user authorizes ongoing implementation, broader experiments and justified follow-ups on Galvani.
