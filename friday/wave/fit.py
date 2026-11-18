@@ -11,12 +11,18 @@ from torch.nn import functional as F
 
 from source_labels import read_training_labels
 from waveform import Decoder
+from temporal import KINDS as TEMPORAL_KINDS, SourceJitter, TemporalDecoder
 
 
 DATA_SHA = "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
 ORDER_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
 ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 PEOPLE = tuple(f"P{i:02}" for i in range(1, 11))
+KINDS = ("prototype", "centered", *TEMPORAL_KINDS)
+
+
+def make_decoder(kind):
+    return TemporalDecoder(kind) if kind in TEMPORAL_KINDS else Decoder(kind)
 
 
 def sha(path):
@@ -95,17 +101,20 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
     weights = torch.from_numpy(source_weights(labels, src, streams, interfaces)[src]).to(device)
     y = torch.from_numpy(labels[src]).to(device)
     sessions = [np.flatnonzero(streams[src] == s) for s in np.unique(streams[src])]
-    model = Decoder(kind).to(device)
+    model = make_decoder(kind).to(device)
     source_eeg = torch.from_numpy(x[src]).to(device)
+    steps = 4 if smoke else 600
+    jitter = SourceJitter(kind, seed, steps) if kind in TEMPORAL_KINDS[2:] else None
     with torch.no_grad():
-        spectrum = model.spectrum(source_eeg)
+        spectrum = model.spectrum(source_eeg) if jitter is None else None
     optimizer = torch.optim.AdamW(model.parameters(), lr=.001, weight_decay=.001)
     initial = {name: value.detach().clone() for name, value in model.named_parameters()}
     rng = np.random.default_rng(seed)
-    steps = 4 if smoke else 600
     for update in range(steps):
         rows = rng.choice(sessions[rng.integers(len(sessions))], size=96, replace=False)
-        z = model.encode(spectrum[rows])
+        batch = (spectrum[rows] if jitter is None else
+                 model.spectrum(jitter(source_eeg[rows], update)))
+        z = model.encode(batch)
         static = model.static(z)
         logits = model.sequence(z, static, model.writes(z, static))
         train_y = y[rows]
@@ -125,7 +134,7 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
         raise ValueError("inactive or nonfinite fit")
     model.eval()
     check_behavior(model, source_eeg[sessions[0][:24]])
-    donor_stream = sorted(set(streams[src]))[0]
+    donor_stream = str(sorted(set(streams[src]))[0])
     prefix = "smoke_" if smoke else ""
     path = Path(f"{prefix}{kind}_{seed}_{held}.pt")
     if path.exists():
@@ -147,7 +156,7 @@ def score_checkpoint(path, x, people, streams, perms, device="cpu"):
     held, donor = payload["held"], payload["donor_stream"]
     if held not in PEOPLE or donor.split("|")[0] == held or donor not in streams:
         raise ValueError("invalid checkpoint fold or donor")
-    model = Decoder(payload["kind"]).to(device).eval()
+    model = make_decoder(payload["kind"]).to(device).eval()
     model.load_state_dict(payload["model"])
     idx = np.flatnonzero(people == held)
     donor_idx = np.flatnonzero(streams == donor)
@@ -179,7 +188,7 @@ def score_checkpoint(path, x, people, streams, perms, device="cpu"):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("kind", choices=("prototype", "centered"))
+    parser.add_argument("kind", choices=KINDS)
     parser.add_argument("seed", type=int, choices=(460, 1460))
     parser.add_argument("held", choices=PEOPLE)
     parser.add_argument("--smoke", action="store_true")

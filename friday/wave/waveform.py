@@ -39,11 +39,13 @@ class Decoder(nn.Module):
     def spectrum(self, x):
         return torch.fft.rfft(x * self.taper)[..., 4:180].contiguous()
 
-    def encode(self, spectrum):
+    def project_power(self, spectrum):
         spatial = F.normalize(self.spatial, dim=-1).to(spectrum.dtype)
         signals = torch.cat((spectrum, spatial @ spectrum), dim=1)
-        power = signals.real.square() + signals.imag.square()
-        bands = (power @ self.band_weights).clamp_min(1e-6).log()
+        return signals.real.square() + signals.imag.square()
+
+    def encode(self, spectrum):
+        bands = (self.project_power(spectrum) @ self.band_weights).clamp_min(1e-6).log()
         relative = bands - bands.mean(dim=-1, keepdim=True)
         return self.encoder(torch.cat([bands, relative], dim=-1).flatten(1))
 
