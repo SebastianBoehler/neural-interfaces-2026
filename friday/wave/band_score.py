@@ -51,16 +51,28 @@ def controls():
     return friday_wave_score
 
 
-def checked_actor(ref, path, kind, seed, person, actor, people, streams, initial, smoke):
-    standard = ref.check_actor(path, kind, seed, person, actor, people, not smoke, {})
-    receipt = json.loads(path.with_suffix(".json").read_text())
+def checked_actor(ref, path, kind, seed, person, actor, people, streams, initial, smoke, gpu_family):
+    proof_path = path.with_suffix(".json")
+    receipt = json.loads(proof_path.read_text())
+    expected = dict(kind=kind, seed=seed, held=person, actor=actor, data=ref.DATA_SHA,
+                    orders=ref.PERMS_SHA, checkpoint=sha(path), steps=4 if smoke else 600,
+                    device="cuda", held_labels_opened=False)
+    check(all(receipt.get(key) == value for key, value in expected.items())
+          and gpu_family in receipt["gpu"], f"wrong actor source or GPU family: {path}")
+    source_rows = np.flatnonzero(people != person).astype("<i8")
+    check(sorted(receipt["train_people"]) == sorted(set(ref.PEOPLE) - {person})
+          and receipt["train_rows"] == hashlib.sha256(source_rows.tobytes()).hexdigest(),
+          f"held-person source roster or row identity changed: {path}")
+    standard = {"receipt": sha(proof_path), "checkpoint": expected["checkpoint"],
+                "gpu": receipt["gpu"], "torch": receipt["torch"]}
     for key in ("initial_fir", "initial_other", "parameters"):
         check(receipt[key] == initial[key], f"wrong independently recreated initialization: {key}/{path}")
     np.testing.assert_allclose(receipt["fir_norm"], initial["fir_norm"], atol=1e-6, rtol=0)
     np.testing.assert_allclose(receipt["in_band"], initial["in_band"], atol=1e-6, rtol=0)
     payload = torch.load(path, map_location="cpu", weights_only=True)
     donor = min(set(streams[people != person]))
-    check(payload["donor_stream"] == donor, f"changed held donor: {path}")
+    check(payload["kind"] == kind and payload["held"] == person and payload["donor_stream"] == donor,
+          f"wrong actor kind, fold, or donor: {path}")
     fitted = payload["model"]["stem.temporal.weight"]
     digest = hashlib.sha256(tensor_bytes(fitted)).hexdigest()
     check(receipt["fitted_fir"] == digest and receipt["initial_fir"] != digest,
@@ -84,7 +96,7 @@ def decisions(ref, values, rows, ages):
     return {arm: values[arm].argmax(-1).astype(np.uint8) for arm in ARMS}
 
 
-def run(mode, seed):
+def run(mode, seed, gpu_family):
     torch.set_num_threads(1)
     f9 = controls()
     owner, interval, metric = f9.upstream()
@@ -121,7 +133,8 @@ def run(mode, seed):
             name = NAMES[kind]
             prefix = "smoke_" if smoke else ""
             path = Path("checkpoints") / f"{prefix}{kind}_{seed}_{person}.pt"
-            fold[name] = checked_actor(f9, path, kind, seed, person, actor, people, streams, expected[kind], smoke)
+            fold[name] = checked_actor(f9, path, kind, seed, person, actor, people, streams,
+                                       expected[kind], smoke, gpu_family)
             held = score_checkpoint(path, x, people, streams, perms, device="cpu")
             for arm, answer in decisions(f9, held, rows, ages).items():
                 for i, order in enumerate(f9.ORDERS):
@@ -139,6 +152,8 @@ def run(mode, seed):
                 np.testing.assert_array_equal(labels, fixed[f"{key}|stock"])
                 bank[f"{key}|f7"] = f7[f"{key}|wave_genuine"]
                 bank[f"{key}|f9"] = fixed[f"{key}|wave_genuine"]
+    check(len({entry["torch"] for fold in proofs.values() for entry in fold.values()}) == 1,
+          "paired source actors used different PyTorch releases")
     if smoke:
         print("PASS: paired P01 initialization, fitted FIRs, source episodes, causal replay, ages and first windows")
         return
@@ -146,7 +161,8 @@ def run(mode, seed):
     np.savez_compressed(path, **bank)
     receipt = dict(seed=seed, actor=actor, decisions=sha(path), source=sha(Path("score.sha256")),
                    folds=proofs, stock=owner.REPORT_SHA, f7=f7_proof, f9=f9_proof,
-                   data=f9.DATA_SHA, orders=f9.PERMS_SHA, replay=sha(Path("recording-replay.log")))
+                   data=f9.DATA_SHA, orders=f9.PERMS_SHA, replay=sha(Path("recording-replay.log")),
+                   source_gpu=gpu_family, historical_f7_f9_gpu="H100")
     Path(f"band_{seed}_before_labels.json").write_text(json.dumps(receipt, indent=2) + "\n")
     check(sha(path) == receipt["decisions"], "blind decision bank changed")
     with np.load(path, allow_pickle=False) as saved:
@@ -161,6 +177,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("preflight", "smoke", "score"))
     parser.add_argument("seed", nargs="?", choices=(460, 1460), type=int)
+    parser.add_argument("--gpu-family", choices=("H100", "A100"), default="H100")
     args = parser.parse_args()
     check(args.mode == "preflight" or args.seed is not None, "expected a seed")
-    run(args.mode, args.seed)
+    run(args.mode, args.seed, args.gpu_family)
