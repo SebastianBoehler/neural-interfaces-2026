@@ -37,6 +37,7 @@ At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used 
 | F6–F9, held-new WHOLE and FULL-SYSTEM DEV | Supervised raw waveform gained +4.952/+4.421 pp over F3 in the whole-decoder test. Fixed normalization reached 48.070%/48.591%. All eight raw or transferred model variants trailed cap250 as terminal insertions at both seeds. |
 | F5 learned correction vs exact staged cap250, FULL-SYSTEM EXTERNAL | −3.284 pp [−4.160,−2.338] and −3.975 pp [−5.033,−2.873], nine Scherer people and two orders. |
 | F10 isolated normalization update, FULL-SYSTEM DEV | +0.131 pp [80% −0.036,+0.306] and −0.031 pp [−0.226,+0.167] against stock. The matched-donor contrasts also remained undecided. |
+| F11 sensor scaling, held-new WHOLE and FULL-SYSTEM DEV | The two same-session training seeds scored 46.348% and 46.374% alone, versus 47.097% and 47.277% for F7. Blending them into cap250 lowered full-system accuracy by 3.244 and 3.372 pp, with both paired intervals below zero. |
 | F-C1/F-C2, FULL-SYSTEM DEV | Count prior scale −0.110 pp new, −0.098 returning. Shape-normalized CSP fit −0.004 pp new. All three intervals cross zero. |
 | F-C3/F-C4, exact FULL-SYSTEM EXTERNAL | Stable-pseudo-label weighting −0.185 pp [80% −0.463,+0.116]. Balanced pseudo-class loss +0.119 pp [−0.162,+0.417]. Both contrasts remain undecided. |
 | F-C6, causal branch selection vs cap250, FULL-SYSTEM DEV | +0.037 pp [80% −0.039,+0.109] held-new and −0.018 pp [−0.093,0.000] returning. The weighted result was +0.013 pp. Selection with known labels would add +2.119 pp on that same mix. [Historical arbitration evidence](cap250-c6-result.md) |
@@ -54,12 +55,13 @@ At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used 
 
 ## Decision condition
 
-Prefer the untouched staged cap250 ZIP on the current evidence. F11 waits for one Ferranti training retry before Galvani can complete the second matched score. Ferranti estimated a 16:33 CET start as of 16:07 CET. The additional replay work uses Galvani and stored predictions. Leonardo rejected the current SSH key, while both active clusters remained reachable. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
+Prefer the untouched staged cap250 ZIP on the current evidence. The last F11 Ferranti retry finished at 16:14:59 CET and both Galvani scores are verified. F-C7 fit its branch selector on public PROTEUS at 16:19 CET. Its exact external A100 smoke is pending. Leonardo rejected the current SSH key, while both active clusters remained reachable. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
 
 | Checkpoint (CET) | Expected evidence |
 | --- | --- |
 | Wednesday 16:06, completed | F-C6 causal branch selection scored +0.013 pp over cap250 on the weighted historical mix. |
 | Wednesday 16:07, completed | D2 early count plus spectral retrieval matched the kernel alone. |
-| Wednesday 16:40–16:50, estimated | Both F11 seeds and the raw sensor-scale comparison, subject to the Ferranti retry and artifact transfer. The first complete seed is below cap250. |
+| Wednesday 16:19, completed | Both F11 seeds scored. Causal sensor scaling lowered the full-system score on held-new PROTEUS people. |
+| Wednesday 16:45–17:15, estimated | F-C7 exact Scherer transfer, subject to A100 smoke and allocation. Its source fit is locked. |
 | Wednesday 18:00, planned | Candidate decision with updated plots and live leaderboard. A new sealed score requires upload authorization, a free attempt and a completed Codabench job. |
 | Friday 20 November, 18:00, planned | Final candidate and alternate. Use held-person and independent external evidence to break ties inside development noise. |
