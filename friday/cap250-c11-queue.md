@@ -1,0 +1,7 @@
+# F-C11 · Correct hard targets before neural refits
+
+Preregistered at `23fab3b`, with deterministic control and exact zero checks locked in `490ae36`. Galvani snapshot `ni26_friday_c11_v1_20261118`, source manifest SHA-256 `c02316efa1d7841779e698fd1a6da185c0cb2bfbeb796b8d66f36841836bb373`. The sealed archive remains v6.6cap250, SHA-256 `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`, submission 1058969. [Registration](../docs/LEDGER.md#f-c11--correct-hard-refit-targets-by-agreement-between-two-within-session-eeg-views)
+
+F-C11 changes actual low-confidence optimizer targets. Two disjoint OAS covariance views vote only among earlier hard windows and exclude the target row. The stock live relabel operation remains the source of the original labels and confidence. The added calculation reads exactly the t prior CSP covariance buffers at refit age t. It has no new access to the current raw window, any later window or task labels. The stock, real and rotated arms retain each row's original weight and use the complete downstream Solver.
+
+Real A100 smoke 3129894 has two tasks for Scherer/D and G. The smoke checks actual age and covariance boundaries, exact stock endpoint and original labels/float32 weights across all arms, real geometry activity, equal transition counts under the deterministic rotation, and separate active prefixes. The G task also checks the actual P10 recognition at age 10 and its archived 31-window prefix. The score wave is gated on two successful tasks and the label-blind matched-edit check.
