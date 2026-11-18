@@ -115,12 +115,24 @@ def run(smoke):
     verify_sources()
     import friday_wave_score as f9
 
-    owner, interval, metric = f9.upstream()
-    meta, ages, _, stock = owner.inputs()
+    for relative, digest in f9.PARENTS.items():
+        path = WORK / relative
+        check(sha(path) == digest, f"changed scorer source {path}")
+        sys.path.append(str(path.parent))
+    import stocks456 as owner
+    from fusion_inputs import official
+
+    check(owner.ref.ORDERS == f9.ORDERS and owner.ref.PEOPLE == f9.PEOPLE, "changed cohort or orders")
+    check(sha(f9.DATA) == f9.DATA_SHA and sha(f9.PERMS) == f9.PERMS_SHA, "changed data or order bank")
+    history_source = "ni26_history443_20261118/score.py"
+    history = owner.module(WORK / Path(history_source).parent, "score", f9.PARENTS[history_source])
+    # Alias the interval scorer so the count filter can import its own replay/score.py.
+    interval, metric = history.interval, official()
     early = owner.module(EARLY, "run", "5be6e071b70b130e36434dc0f1e8f90a2ad9ea4f3298eea4da72358a97171a1a")
     early.verify_sources()
     pkg = early.get_count_filter()
     check(pkg.J.TAU == 2.0 and pkg.J.FLOOR == 0.5, "wrong count model")
+    meta, ages, _, stock = owner.inputs()
     kernel = owner.module(KERNEL, "corrections", "528f76f9d69d56e4be714bb0cf6d48bbff665b46dad1f7eeddcd0cb1307e1e07")
     path = MATCH / "kernel_454_decisions.npz"
     check(sha(path) == json.loads(path.with_suffix(".json").read_text())["bank"], "changed kernel reference bank")
