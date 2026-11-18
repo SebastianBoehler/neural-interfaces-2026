@@ -9,3 +9,5 @@ Real A100 smoke 3129894 has two tasks for Scherer/D and G. The smoke checks actu
 Both smoke tasks completed 0:0 at 19:48:35 and 19:49:56 CET on 18 November. The label-blind cross-arm verifier authenticated identical raw targets and float32 weight hashes. It found 50 actual proposed edits across the two visits, with a distinct rotated placement at 16 refits. Archived stock and inner v5 labels, full activity, original recognition and fresh prefixes matched. Both recording-order replays printed `OK`. Smoke manifest `5b9fcecd8719a59fe948e65f31035925ebea39eefa754ce5c0a68a611676ed94`.
 
 Production array 3130025 has 9 exact paired three-arm tasks at concurrency 3. CPU scorer 3130026 waits for every successful allocation and authenticates all predictions and original training targets before opening labels. The model receives one EEG window at a time and resets at every session boundary.
+
+The sealed comparison finished at 20:36:12 CET. Both geometry and rotation followed their registered edit rules. Geometry beat the matched rotation and remained undecided against stock. [Exact results](cap250-c11-result.md)
