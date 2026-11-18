@@ -1,0 +1,55 @@
+{
+  "shared_input_bitwise_per_pass": 120,
+  "labels_exact": true,
+  "stock_cov": 120,
+  "deferred_cov": 79,
+  "matched_activity": {
+    "windows": 120,
+    "recognized": -1,
+    "ft_refits": 10,
+    "ft_steps": 200,
+    "ft_relabels": 10,
+    "ft_capped": 0,
+    "ft_over": 0,
+    "cp_refits": 5,
+    "cp_fused": 30,
+    "errors": 0
+  },
+  "independent_stock": {
+    "stock": {
+      "n": 100,
+      "first": 20
+    },
+    "base": {
+      "n": 100,
+      "first": 20
+    },
+    "filtered": {
+      "n": 100,
+      "first": 20
+    },
+    "window": {
+      "n": 0,
+      "first": null
+    },
+    "ft_count": {
+      "n": 0,
+      "first": null
+    },
+    "ft_tail": {
+      "n": 0,
+      "first": null
+    },
+    "ft_weight": {
+      "n": 0,
+      "first": null
+    }
+  },
+  "max_independent_stock_abs": 1.3614256522131996e-07,
+  "preregistered_attribution": true,
+  "source": "2438330593d18a7617d6aba6ac99d53638ef5103dcd0245ccf7ff07100c81bb4",
+  "inputs": {
+    "stock1": "79ce5ac6005b29227820130e0f74122d99b1779fdde98afc5e502c9592f29b42",
+    "stock2": "3737457108f03893150fb272c4bc500103fa0a54ce70126265c05808ec552567"
+  }
+}
