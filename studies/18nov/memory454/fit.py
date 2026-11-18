@@ -41,9 +41,15 @@ def fit(kind, seed, held, smoke, augmentation=None):
         interfaces = z['interface']
         x = torch.cat([features(torch.from_numpy(part).float().cuda()) for part in np.array_split(z['X'], 20)])
     src, test = np.flatnonzero(people != held), np.flatnonzero(people == held)
-    assert len(set(people[src])) == 9 and len(test) and held not in people[src]
+    all_sources = held == 'all'
+    if all_sources:
+        assert kind == 'kernel' and augmentation is None
+        assert len(np.unique(people)) == 10 and len(src) == len(x) and not len(test)
+    else:
+        assert len(set(people[src])) == 9 and len(test) and held not in people[src]
     scale = x[src].std(0).clamp_min(.05)
-    standardized = (x - x[src].mean(0)) / scale
+    mean = x[src].mean(0)
+    standardized = (x - mean) / scale
     x = standardized.clamp(-8, 8)
     labels = read_training_labels(DATA, src, len(x))
     y = torch.full((len(x),), -1, device='cuda', dtype=torch.long)
@@ -92,6 +98,17 @@ def fit(kind, seed, held, smoke, augmentation=None):
         assert torch.allclose(full, torch.cat(singles), atol=1e-5)
         assert torch.equal(full, model.sequence(a, w)[0])
         assert (full - model.sequence(a, centroid.expand_as(w))[0]).abs().max() > 1e-5
+        if all_sources:
+            if not smoke:
+                path = Path(f'all_{seed}.pt')
+                torch.save(dict(model=model.cpu().state_dict(), mean=mean.cpu(), scale=scale.cpu(),
+                                centroid=centroid.cpu(), donor=writes[sessions[0]].cpu()), path)
+                path.with_suffix('.json').write_text(json.dumps(dict(
+                    seed=seed, steps=400, train_people=np.unique(people).tolist(),
+                    sessions=len(sessions), windows=len(x), data=sha(DATA),
+                    source=sha(Path('source.sha256')), checkpoint=sha(path)), indent=2))
+            print('All-source kernel prefix, reset and active history OK', flush=True)
+            return
         bank = {n:np.full((8, len(test), 3), np.nan, np.float32) for n in ('memory','donor','source')}
         for oi, order in enumerate(ORDERS):
             perm = orders[f'{order[:-1]}|{order[-1]}|all_loso']
