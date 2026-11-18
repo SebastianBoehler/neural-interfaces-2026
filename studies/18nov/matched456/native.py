@@ -6,7 +6,7 @@ import sys
 import tempfile
 
 import numpy as np
-from inputs import NATIVE, STAGES, module, ref
+from stocks456 import NATIVE, STAGES, module, ref
 
 
 def build(meta, ages, stock, smoke):

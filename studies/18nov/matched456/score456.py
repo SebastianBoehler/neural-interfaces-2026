@@ -6,7 +6,7 @@ import sys
 import numpy as np
 from fusion_inputs import official
 from score import interval
-from inputs import inputs, ref, REPORT_SHA
+from stocks456 import inputs, ref, REPORT_SHA
 import native
 import terminal
 

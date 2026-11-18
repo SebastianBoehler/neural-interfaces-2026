@@ -1,7 +1,7 @@
 """Apply already fitted terminal corrections to both stock generations."""
 import json
 import numpy as np
-from inputs import CONSENSUS, MEMORY, log_probability, module, ref
+from stocks456 import CONSENSUS, MEMORY, log_probability, module, ref
 
 
 def consensus_inputs(person, rows, ages, streams):
