@@ -28,8 +28,9 @@ def features(x):
                       for lo, hi in BANDS], dim=1)
 
 
-def fit(kind, seed, held, smoke):
-    assert kind in ('kernel', 'covariance') and 'H100' in torch.cuda.get_device_name()
+def fit(kind, seed, held, smoke, augmentation=None):
+    architecture = 'kernel' if augmentation is not None else kind
+    assert architecture in ('kernel', 'covariance') and 'H100' in torch.cuda.get_device_name()
     assert sha(DATA) == '2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327'
     assert sha(PERM) == '6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f'
     torch.manual_seed(seed)
@@ -41,7 +42,9 @@ def fit(kind, seed, held, smoke):
         x = torch.cat([features(torch.from_numpy(part).float().cuda()) for part in np.array_split(z['X'], 20)])
     src, test = np.flatnonzero(people != held), np.flatnonzero(people == held)
     assert len(set(people[src])) == 9 and len(test) and held not in people[src]
-    x = ((x - x[src].mean(0)) / x[src].std(0).clamp_min(.05)).clamp(-8, 8)
+    scale = x[src].std(0).clamp_min(.05)
+    standardized = (x - x[src].mean(0)) / scale
+    x = standardized.clamp(-8, 8)
     labels = read_training_labels(DATA, src, len(x))
     y = torch.full((len(x),), -1, device='cuda', dtype=torch.long)
     y[src] = torch.from_numpy(labels).cuda()
@@ -57,13 +60,15 @@ def fit(kind, seed, held, smoke):
                 weights[cell] = len(rows) / (6 * len(cell))
     weights = torch.from_numpy(weights).cuda()
     rng = np.random.default_rng(seed)
-    model = SpectralMemory(kind).cuda()
+    model = SpectralMemory(architecture).cuda()
     optimizer = torch.optim.AdamW(model.parameters(), lr=.001, weight_decay=.001)
     for _ in range(4 if smoke else 400):
         rows = rng.choice(sessions[rng.integers(len(sessions))], size=96, replace=False)
         features_batch = model.encoder(x[rows])
         logits, _ = model.sequence(features_batch, model.writes(features_batch))
         loss = (F.cross_entropy(logits, y[rows], reduction='none') * weights[rows]).mean()
+        if augmentation is not None:
+            loss = loss + augmentation(model, kind, standardized[rows], scale, y[rows], weights[rows], logits)
         optimizer.zero_grad()
         loss.backward()
         assert torch.isfinite(loss) and model.key.weight.grad.abs().max() > 0
