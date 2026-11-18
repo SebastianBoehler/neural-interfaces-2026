@@ -1,0 +1,53 @@
+{
+  "people": [
+    "P04",
+    "P10"
+  ],
+  "arms": [
+    "protected",
+    "base",
+    "JS"
+  ],
+  "percent": [
+    [
+      89.6621583781362,
+      89.69576052867384,
+      89.03078797043011
+    ],
+    [
+      95.86045283774429,
+      95.96027922663318,
+      95.76662624460704
+    ]
+  ],
+  "weighted_delta_pp": -0.08658154121864037,
+  "descriptive_ci95": [
+    -0.16493055555555805,
+    0.032027049731181194
+  ],
+  "person_delta_pp": [
+    -0.0336021505376376,
+    -0.09982638888889106
+  ],
+  "remote_result_sha256": "6ae09b9a2c2af91f219c4d3a22e7699ea7d91da69cd0b24b0737190f6f11d107",
+  "source_sha256": "a53b438641567c99103be338fb0c4f7b69a613ed4bc7075bba1aab89194eb72b",
+  "module_sha256": "c77b432c3ac1be0f1838fd72cc366e64f32874f0610dbc1ebd02030bb4ea56b1",
+  "cells": [
+    {"index": 0, "fold": "P04_s23", "order": "within0", "runtime_sha256": "8d0e8e74384183f7c2ce82ae9d877c269282103d4641b635f6520c7ea1a6c9e1", "pre_latch": [60, 10], "post_latch": [129, 178]},
+    {"index": 1, "fold": "P04_s23", "order": "within1", "runtime_sha256": "04f8203e5dfadd62038147c631b7301a7affd884fcbda258108ac6c341db09ff", "pre_latch": [60, 10], "post_latch": [129, 178]},
+    {"index": 2, "fold": "P04_s23", "order": "within2", "runtime_sha256": "0f23af8a76d7a1e4d34f6fb00669b7e8356f7530b31a8db7cfe392c239499fd6", "pre_latch": [60, 10], "post_latch": [129, 178]},
+    {"index": 3, "fold": "P04_s23", "order": "within3", "runtime_sha256": "15c0decb7166a35a3d664d94037a02c2d9ae55b996fc18c51f2286d192138cbd", "pre_latch": [63, 10], "post_latch": [126, 178]},
+    {"index": 4, "fold": "P04_s23", "order": "full0", "runtime_sha256": "cce82641702945c47fa6fb7dba2e22f598ef868b6310df9c6e6fdecbe1d933ef", "pre_latch": [10, 10], "post_latch": [179, 178]},
+    {"index": 5, "fold": "P04_s23", "order": "full1", "runtime_sha256": "e30044aed6c2dafd284a58f8cac02b65a884f6774cdea23a425ad5d75f5a9bf3", "pre_latch": [32, 10], "post_latch": [157, 178]},
+    {"index": 6, "fold": "P04_s23", "order": "runs0", "runtime_sha256": "af93b8ddd4041ec31f950cde8b2d268f004fb1e448aebf1e2afd091760d8103c", "pre_latch": [20, 10], "post_latch": [169, 178]},
+    {"index": 7, "fold": "P04_s23", "order": "runs1", "runtime_sha256": "0114fadd112a042936dae53bf61be936ff2ed81be9cd914411ff406f8fa3b64c", "pre_latch": [10, 10], "post_latch": [179, 178]},
+    {"index": 8, "fold": "P10_s23", "order": "within0", "runtime_sha256": "1a22157fd8471d1e0dfd11a09a29b4a1f3dfd8da987a160337f55cf4bbd22cf2", "pre_latch": [60, 10], "post_latch": [126, 189]},
+    {"index": 9, "fold": "P10_s23", "order": "within1", "runtime_sha256": "877f777f70a30f124be5427fc17713e33b24c43a4615f72e84daa5762c2cb63a", "pre_latch": [60, 10], "post_latch": [126, 189]},
+    {"index": 10, "fold": "P10_s23", "order": "within2", "runtime_sha256": "3da51a59419672a5af23c4a9e0b8df4aec354dadb88bec9aab7c4248194753da", "pre_latch": [60, 11], "post_latch": [126, 188]},
+    {"index": 11, "fold": "P10_s23", "order": "within3", "runtime_sha256": "63ee8bab6ae4018ce0797d777ce49ea42b63dd32ebff99a872580fc5aa7d8420", "pre_latch": [10, 10], "post_latch": [176, 189]},
+    {"index": 12, "fold": "P10_s23", "order": "full0", "runtime_sha256": "2ead44ab3eb454b4554be00fbded66c610d594c1d3d101adff9d08be98e74670", "pre_latch": [28, 10], "post_latch": [158, 189]},
+    {"index": 13, "fold": "P10_s23", "order": "full1", "runtime_sha256": "29704cb7b805eda72b441326abb94a1067b85b1bd008a6582978dd0c5e7e064d", "pre_latch": [10, 10], "post_latch": [176, 189]},
+    {"index": 14, "fold": "P10_s23", "order": "runs0", "runtime_sha256": "43da53f7f6132bff4b01bc5fc2f96074297ca2175d6518bbe5120ad9cbe5cd73", "pre_latch": [10, 10], "post_latch": [176, 189]},
+    {"index": 15, "fold": "P10_s23", "order": "runs1", "runtime_sha256": "c6b5a3e5f630bb5632bf17273536b83f12b8f24e2eee086f98b626c20d4d5511", "pre_latch": [59, 10], "post_latch": [127, 189]}
+  ]
+}

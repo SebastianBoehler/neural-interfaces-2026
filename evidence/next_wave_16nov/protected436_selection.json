@@ -1,0 +1,26 @@
+{
+  "people": [
+    "Scherer2015/A",
+    "Scherer2015/C",
+    "Scherer2015/D",
+    "Scherer2015/E",
+    "Scherer2015/F",
+    "Scherer2015/G",
+    "Scherer2015/H",
+    "Scherer2015/J",
+    "Scherer2015/L"
+  ],
+  "selected_protected": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  "person_held_delta_pp": 0.0,
+  "smallest_eight_person_fixed_delta_pp": -0.7291666666666655
+}
