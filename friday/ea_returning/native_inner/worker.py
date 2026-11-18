@@ -130,8 +130,9 @@ def main(visit, smoke):
     path, fit, names, weights, channels, cases = load(who)
     model = load_model(path, channels, f"native_inner_{who}", "cpu")
     actor_path = Path(type(model).step.__globals__["__file__"]).resolve()
-    if actor_path != (path / "submission.py").resolve() or not np.array_equal(model.w, weights):
-        raise ValueError("wrong actual conditional worker")
+    if actor_path != (path / "submission.py").resolve():
+        raise ValueError("wrong actual conditional worker source")
+    np.testing.assert_array_equal(model.w, weights)
     native_ft_proof(model, who)
     if set(model.ft.member.values()) & {i for g in GROUPS.values() for i in g}:
         raise ValueError("EA input replacement would replace a warm actor")

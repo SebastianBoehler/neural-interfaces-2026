@@ -68,7 +68,8 @@ def bundle_and_fit(who, people, day):
         for key, value in (("tsem_m", fit["m"]), ("tsem_V", fit["low"]), ("route_V_hi", fit["high"])):
             np.testing.assert_array_equal(weights[key], value)
         names = weights["route_names"].tolist()
-        native_w = weights["member_weights"]
+        stored_w = weights["member_weights"].astype(np.float64)
+        native_w = stored_w / stored_w.sum()
         shallow = tuple(i for i in range(65) if f"net{i}_time_w" in weights and weights[f"net{i}_align"] and native_w[i + 1] > 0)
         fbc = tuple(i for i in range(65) if f"net{i}_fbc_n_bands" in weights and f"net{i}_fbl_win" not in weights
                     and weights[f"net{i}_align"] and native_w[i + 1] > 0)
