@@ -1,0 +1,57 @@
+{
+  "source_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+  "seeds": {
+    "382": {
+      "full": {
+        "norm_squared": {
+          "unchanged": 6.968717963007753,
+          "semantic": 5.754450994648603,
+          "wrong": 8.382712911450168
+        },
+        "projection_squared": {
+          "unchanged": 2.4545908902311355,
+          "semantic": 1.1686902298507023,
+          "wrong": 3.632526493068179
+        }
+      },
+      "leave_session_out": {
+        "norm_squared": {
+          "unchanged": 6.968717963007753,
+          "semantic": 6.317507174358601,
+          "wrong": 8.01708996573334
+        },
+        "projection_squared": {
+          "unchanged": 1.1209872760524213,
+          "semantic": 0.5290758554775334,
+          "wrong": 1.8357772330528785
+        }
+      }
+    },
+    "1382": {
+      "full": {
+        "norm_squared": {
+          "unchanged": 6.863160399207475,
+          "semantic": 5.665742281932579,
+          "wrong": 8.260943157003483
+        },
+        "projection_squared": {
+          "unchanged": 2.418507366971652,
+          "semantic": 1.1503834269187778,
+          "wrong": 3.58296565861503
+        }
+      },
+      "leave_session_out": {
+        "norm_squared": {
+          "unchanged": 6.863160399207475,
+          "semantic": 6.221595497545409,
+          "wrong": 7.898740926752337
+        },
+        "projection_squared": {
+          "unchanged": 1.105456780965724,
+          "semantic": 0.5216234234614737,
+          "wrong": 1.8120423651114925
+        }
+      }
+    }
+  }
+}

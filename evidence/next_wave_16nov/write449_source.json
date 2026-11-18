@@ -1,0 +1,25 @@
+{
+  "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+  "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+  "people": [
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P10"
+  ],
+  "source": "05fb9fc4136b0d96c0e71ddd811f362a2c8ef0efe910c6f3455f21f024dcc1da",
+  "checkpoints": {
+    "382": "7cc45204bfed24c345c535c06a296fefaebc1e4af252b4caad599fe035a34d77",
+    "1382": "0185f49dad54dbc8ce8cfc2176fe6666041d829adb883050a1385a1be95b0bcf"
+  },
+  "n": 1898,
+  "sessions": 10,
+  "device": "NVIDIA H100 80GB HBM3",
+  "norms": {
+    "382": 1.223570670845695,
+    "1382": 1.2141913535896145
+  },
+  "output": "1d7108832dd70d5984a394cee66c1592966b7db4b00e52a2f4cb09fc2e7f7fb9"
+}
