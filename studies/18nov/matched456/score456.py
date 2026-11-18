@@ -16,7 +16,7 @@ PAIRS = {'native': [('prior','stock'),('reliable','stock'),('reliable','cyclic')
 
 
 def main(family, smoke):
-    assert family in ('consensus','native','kernel_454','kernel_1454','covariance_454','covariance_1454')
+    assert family in ('consensus','native','kernel_454','kernel_1454','covariance_454','covariance_1454','gain_454','gain_1454')
     meta, ages, old, stock = inputs()
     bank = (native.build(meta,ages,stock,smoke) if family == 'native' else
             terminal.build(family,meta,ages,old,stock,smoke))
@@ -46,7 +46,11 @@ def main(family, smoke):
     absolute = {arm:interval(table,counts)['pp'] for arm,table in scores.items()}
     assert abs(absolute['stock']-76.10391516713594) < 1e-10
     contrasts = {}
-    for a,b in PAIRS.get(family,[('memory','stock'),('memory','donor')]):
+    pairs = PAIRS.get(family,[('memory','stock'),('memory','donor')])
+    if family.startswith('gain_'):
+        pairs = [('coherent_memory',arm) for arm in ('kernel_memory','scattered_memory','coherent_donor','stock')]
+        pairs.extend([(actor+'_memory','stock') for actor in ('kernel','scattered')])
+    for a,b in pairs:
         diff = scores[a]-scores[b]
         changed = sum(np.count_nonzero(bank[p,o,a] != bank[p,o,b]) for p in ref.PEOPLE for o in ref.ORDERS)
         contrasts[a+'-'+b] = dict(**interval(diff,counts), changed=int(changed),

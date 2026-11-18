@@ -18,12 +18,11 @@ def consensus_inputs(person, rows, ages, streams):
     return {arm:.1*v for arm,v in result.items()}
 
 
-def historical_references(family):
+def historical_references(family, folder=MEMORY):
     if family == 'consensus':
         folder = CONSENSUS
         inputs = [(phase+'_decisions.npz', phase+'_before_labels.json','predictions') for phase in ('agreement','residual')]
     else:
-        folder = MEMORY
         inputs = [(family+'_decisions.npz',family+'_decisions.json','decisions')]
     reference = {}
     for npz, receipt, key in inputs:
@@ -38,7 +37,19 @@ def historical_references(family):
 
 
 def build(family, meta, ages, historical, stock, smoke):
-    refs = historical_references(family)
+    if family.startswith('gain_'):
+        seed = family.split('_')[1]
+        combined = {}
+        for actor in ('kernel','coherent','scattered'):
+            arms = build(f'{actor}_{seed}', meta, ages, historical, stock, smoke)
+            for (p,o,a),pred in arms.items():
+                key = (p,o,a if a == 'stock' else actor+'_'+a)
+                if key in combined:
+                    assert np.array_equal(pred,combined[key])
+                combined[key] = pred
+        return combined
+    folder = ref.WORK/'ni26_gain454_20261118' if family.split('_')[0] in ('coherent','scattered') else MEMORY
+    refs = historical_references(family, folder)
     bank = {}
     for person in ref.PEOPLE[:1] if smoke else ref.PEOPLE:
         rows = np.flatnonzero(meta['person'] == person)
@@ -48,7 +59,7 @@ def build(family, meta, ages, historical, stock, smoke):
         else:
             kind, seed = family.split('_')
             owner = module(MEMORY, 'corrections', '528f76f9d69d56e4be714bb0cf6d48bbff665b46dad1f7eeddcd0cb1307e1e07')
-            delta, _ = owner.load(MEMORY, kind, int(seed), person, rows)
+            delta, _ = owner.load(folder, kind, int(seed), person, rows)
         for i,order in enumerate(ref.ORDERS):
             old = log_probability(historical[order][rows], ages[order][rows])
             new = log_probability(stock[order][rows], ages[order][rows])
