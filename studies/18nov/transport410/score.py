@@ -103,6 +103,8 @@ def main():
                         metrics.setdefault(str(c),[]).append(cells[:,c,:].mean(0))
                     avg=cells.mean((0,1))
                     metrics.setdefault('all',[]).append(avg)
+                    first = [hit[:,(ff==f)&(ss=='1')&(yy==c)].mean(1) for f in strat for c in range(3)]
+                    metrics.setdefault('session1',[]).append(np.mean(first,axis=0))
                     if family=='whole' and i<6 and p==SOURCES[i]:
                         np.testing.assert_allclose(avg,sourceold[p][a],atol=1e-10,rtol=0)
                     if i==6:
@@ -115,7 +117,7 @@ def main():
     for family in ('whole','full'):
         rows=rowscores[-1]
         controls=ARMS if family=='whole' else ('Z',)+ARMS
-        for m in ('all','Graz','BrainHero','0','1','2'):
+        for m in ('all','session1','Graz','BrainHero','0','1','2'):
             for b in controls:
                 if b=='X':
                     continue
@@ -124,7 +126,7 @@ def main():
                 v=np.stack([delta(r) for r in rowscores[:-1]])
                 o=delta(rows)
                 stats=contrasts(v,o)
-                if m=='all':
+                if m in ('all','session1'):
                     stats['matched_people'] = dict(zip(DEV+SOURCES,
                         np.r_[mean_order(v[:,:4]).mean(0),mean_order(v[:,4])].tolist()))
                 report[f'{family}/X-{b}/{m}']=stats
