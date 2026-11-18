@@ -1,0 +1,364 @@
+{
+  "source": "5c527f0c095b49b748045960acec56c122585a05390e308ab8f4e03535a64d0a",
+  "decisions": 6096,
+  "orders": [
+    "within0",
+    "within1",
+    "within2",
+    "within3",
+    "full0",
+    "full1",
+    "runs0",
+    "runs1"
+  ],
+  "person_order": [
+    [
+      72.6551299283154,
+      75.4043458781362,
+      71.89068100358423,
+      73.2347670250896,
+      69.81518817204302,
+      70.66588261648745,
+      69.57325268817205,
+      72.1869399641577
+    ],
+    [
+      91.46316366275839,
+      90.66455255164728,
+      93.21842098908529,
+      90.1373343877781,
+      89.30259244502399,
+      89.28117314315418,
+      90.39643802923469,
+      90.3709228871378
+    ]
+  ],
+  "people": [
+    71.47228755973715,
+    90.3488103833642
+  ],
+  "mix": 86.5735058186388,
+  "changed": 0,
+  "records": {
+    "within0": {
+      "output": "e01a24344c2751bcdd9dba6a1bf4fbe8136e1b04b7515f0c05caa26f246d03a3",
+      "source": "5c527f0c095b49b748045960acec56c122585a05390e308ab8f4e03535a64d0a",
+      "sessions": {
+        "Dreyer2026Proteus/P04|2": {
+          "rows": 189,
+          "stop": 60,
+          "refits": 2,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P04|3": {
+          "rows": 188,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|2": {
+          "rows": 186,
+          "stop": 60,
+          "refits": 2,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|3": {
+          "rows": 199,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        }
+      },
+      "conditional_runtime_stops": {
+        "P04_s23|within0": [
+          60,
+          10
+        ],
+        "P10_s23|within0": [
+          60,
+          10
+        ]
+      }
+    },
+    "within1": {
+      "output": "904649c17100f8636de9584bca59d0459d441ac547ad00ba2c5c88fe42e47b28",
+      "source": "5c527f0c095b49b748045960acec56c122585a05390e308ab8f4e03535a64d0a",
+      "sessions": {
+        "Dreyer2026Proteus/P04|2": {
+          "rows": 189,
+          "stop": 60,
+          "refits": 2,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P04|3": {
+          "rows": 188,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|2": {
+          "rows": 186,
+          "stop": 60,
+          "refits": 2,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|3": {
+          "rows": 199,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        }
+      },
+      "conditional_runtime_stops": {
+        "P04_s23|within1": [
+          60,
+          10
+        ],
+        "P10_s23|within1": [
+          60,
+          10
+        ]
+      }
+    },
+    "within2": {
+      "output": "cf70c452051252b594807d1933af71b41b03f579164956f634a03e08e814ef28",
+      "source": "5c527f0c095b49b748045960acec56c122585a05390e308ab8f4e03535a64d0a",
+      "sessions": {
+        "Dreyer2026Proteus/P04|2": {
+          "rows": 189,
+          "stop": 65,
+          "refits": 3,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P04|3": {
+          "rows": 188,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|2": {
+          "rows": 186,
+          "stop": 60,
+          "refits": 2,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|3": {
+          "rows": 199,
+          "stop": 11,
+          "refits": 0,
+          "active": 0
+        }
+      },
+      "conditional_runtime_stops": {
+        "P04_s23|within2": [
+          60,
+          10
+        ],
+        "P10_s23|within2": [
+          60,
+          11
+        ]
+      }
+    },
+    "within3": {
+      "output": "4dcd4fd277a0fec0525d261e9b6257119cf48443fb48c02e099f7bca2f6a2be4",
+      "source": "5c527f0c095b49b748045960acec56c122585a05390e308ab8f4e03535a64d0a",
+      "sessions": {
+        "Dreyer2026Proteus/P04|2": {
+          "rows": 189,
+          "stop": 72,
+          "refits": 3,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P04|3": {
+          "rows": 188,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|2": {
+          "rows": 186,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|3": {
+          "rows": 199,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        }
+      },
+      "conditional_runtime_stops": {
+        "P04_s23|within3": [
+          63,
+          10
+        ],
+        "P10_s23|within3": [
+          10,
+          10
+        ]
+      }
+    },
+    "full0": {
+      "output": "e1f0d8f366265fdb8007ebd38da57e577955a2e5b96b7ea4f807ee87f1c2b6dc",
+      "source": "5c527f0c095b49b748045960acec56c122585a05390e308ab8f4e03535a64d0a",
+      "sessions": {
+        "Dreyer2026Proteus/P04|2": {
+          "rows": 189,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P04|3": {
+          "rows": 188,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|2": {
+          "rows": 186,
+          "stop": 28,
+          "refits": 1,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|3": {
+          "rows": 199,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        }
+      },
+      "conditional_runtime_stops": {
+        "P04_s23|full0": [
+          10,
+          10
+        ],
+        "P10_s23|full0": [
+          28,
+          10
+        ]
+      }
+    },
+    "full1": {
+      "output": "8075f55ec7f49085de63163285beaca001f89b3b75b69f0b2c03bcbb54128db1",
+      "source": "5c527f0c095b49b748045960acec56c122585a05390e308ab8f4e03535a64d0a",
+      "sessions": {
+        "Dreyer2026Proteus/P04|2": {
+          "rows": 189,
+          "stop": 32,
+          "refits": 1,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P04|3": {
+          "rows": 188,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|2": {
+          "rows": 186,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|3": {
+          "rows": 199,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        }
+      },
+      "conditional_runtime_stops": {
+        "P04_s23|full1": [
+          32,
+          10
+        ],
+        "P10_s23|full1": [
+          10,
+          10
+        ]
+      }
+    },
+    "runs0": {
+      "output": "9c6aeb9fcd560873b007a1ad17181f363ab6808e41a1afeb68a4367b11ab650e",
+      "source": "5c527f0c095b49b748045960acec56c122585a05390e308ab8f4e03535a64d0a",
+      "sessions": {
+        "Dreyer2026Proteus/P04|2": {
+          "rows": 189,
+          "stop": 20,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P04|3": {
+          "rows": 188,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|2": {
+          "rows": 186,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|3": {
+          "rows": 199,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        }
+      },
+      "conditional_runtime_stops": {
+        "P04_s23|runs0": [
+          20,
+          10
+        ],
+        "P10_s23|runs0": [
+          10,
+          10
+        ]
+      }
+    },
+    "runs1": {
+      "output": "1f3c2b27205fbc27f3da3a5075263be09b65c8a1795c4c7b255ef2d01c0e933d",
+      "source": "5c527f0c095b49b748045960acec56c122585a05390e308ab8f4e03535a64d0a",
+      "sessions": {
+        "Dreyer2026Proteus/P04|2": {
+          "rows": 189,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P04|3": {
+          "rows": 188,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|2": {
+          "rows": 186,
+          "stop": 59,
+          "refits": 2,
+          "active": 0
+        },
+        "Dreyer2026Proteus/P10|3": {
+          "rows": 199,
+          "stop": 10,
+          "refits": 0,
+          "active": 0
+        }
+      },
+      "conditional_runtime_stops": {
+        "P04_s23|runs1": [
+          10,
+          10
+        ],
+        "P10_s23|runs1": [
+          59,
+          10
+        ]
+      }
+    }
+  }
+}
