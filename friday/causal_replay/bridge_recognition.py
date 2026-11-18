@@ -3,7 +3,7 @@ from pathlib import Path
 
 import numpy as np
 
-from bridge_owner import PROTO, ROOT, STACK, pin, sha
+from bridge_owner import PROTO, ROOT, STACK, sha
 
 REFERENCE = ROOT / "runs/s281_v66_route/full0.json"
 PREFIX = 80
@@ -56,6 +56,7 @@ def recognise(ctx, bridge, archived_route):
         X, subject, visit = (data[k] for k in ("X", "subject", "session"))
     stream = np.char.add(np.char.add(subject, "|"), visit)
     people = np.array([v.rsplit("/", 1)[1] for v in subject])
+    bio_stream = np.char.add(np.char.add(people, "|"), visit)
     if not np.array_equal(p, ctx.Pperm) or not np.array_equal(np.arange(len(X)), bridge["index"]):
         raise ValueError("recognition order differs from the incumbent shadow")
     ctx.S.apply({q: np.arange(ctx.S.N[q]) for q in ctx.S.PR})
@@ -88,7 +89,11 @@ def recognise(ctx, bridge, archived_route):
                 raise ValueError("fold-specific contrast gallery does not exclude the held person")
             with np.load(Path(RL.FE) / f"{PROTO}-{fold}.npz", allow_pickle=False) as z:
                 train = z["idx_tr"]
-            params = fold_params(model, features[train], stream[train], list(names), t0=10, tau=0.26)
+            params = fold_params(model, features[train], bio_stream[train], list(names), t0=10, tau=0.26)
+            if (np.any(params["bio_m"] <= 0) or not np.isfinite(params["bio_gal"]).all()
+                    or np.any(np.linalg.norm(params["bio_gal"], axis=1) == 0)):
+                raise ValueError("Bio gallery has no genuine source signature")
+            opened[fold]["bio_gallery_sessions"] = params["bio_m"].tolist()
             bio = Bio(params)
             for session, (pcs, _, index) in test.items():
                 delivered = p[stream[p] == session]
@@ -96,6 +101,9 @@ def recognise(ctx, bridge, archived_route):
                 n = min(len(delivered), PREFIX)
                 bio.reset_state()
                 full = bio_trace(bio, X, delivered)
+                if (not np.isnan(full[:bio.t0, 2]).all() or not np.isfinite(full[bio.t0:, 2]).all()
+                        or not np.all(full[bio.t0:, 0] >= 0)):
+                    raise ValueError("Bio scores did not activate on real stream prefixes")
                 bio.reset_state()
                 first = bio_trace(bio, X, delivered[:n])
                 other = p[stream[p] != session][:n]
@@ -137,4 +145,5 @@ def recognise(ctx, bridge, archived_route):
     if stats["historical"] != archived_route["bases"][STACK]:
         raise ValueError("live historical route4 ramps differ from the pinned archive")
     return stage, dict(routing=stats, gallery_folds=opened, source_calibration_sha256=sha(REFERENCE),
-                       contrast_prefix_checks=prefix, bio_prefix_checks=count, bio_reset_checks=count)
+                       contrast_prefix_checks=prefix, bio_prefix_checks=count, bio_reset_checks=count,
+                       bio_finite_scores=int(np.isfinite(stage["bio_score"]).sum()))
