@@ -69,3 +69,7 @@ The workstation return monitor logs to .journal/ferranti-382-return.log. Every 5
 01:05 CET. §378 complete. B2_pool K−RV −0.0166 pp [−0.1495,+0.1448], K−rotation +0.0080 [−0.0771,+0.0964]. Six-base K−rotation +0.0442 [+0.0027,+0.0820], K−RV −0.0520 [−0.1248,+0.0286]. Variance prediction gains did not confer an established full-system accuracy gain. All 56 cells and scorer 3123108 passed. [Complete evidence](shrink378.md)
 
 01:07 CET. Both §382 seeds completed and verified. Ferranti admitted the H100 jobs before its estimated start. Its fits returned to Galvani and 3123382 passed replay and scored all held people. J−F −0.206/−1.425 pp for Galvani/Ferranti, J−blank +5.892/+5.293 pp. The transfer monitor finished its purpose. Keep cap250 for the lunch candidate. [Two-seed result](joint382.md)
+
+01:09 CET. §383 tests whether the learned A6 member improves the complete decoder on the same held people. Replay and label-blind smoke 3123391 → two seed replays 3123392 → paired collector 3123393. §384 upstream integration feasibility and independent lunch package qualification are in progress. The active Wednesday candidate remains v6.6cap250.
+
+01:09 CET. §383 registered fixed 5% terminal posterior fusion of §382 J/F/K and session controls after frozen or JS; 10% sensitivity, both seeds, same four held people and eight actual orders. Use real §318 score domains before/after personalization age 90. Galvani 3123391 label-blind full-route smoke → 3123392 paired seed runs → 3123393 collector.
