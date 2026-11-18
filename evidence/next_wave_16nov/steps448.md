@@ -1,5 +1,22 @@
 # External accuracy and cost of cap250's neural optimizer
 
+## Decision
+
+Keep the staged cap250 optimizer at five Adam updates per family (20 total). In the isolated clean-process qualification, two updates per family (eight total) lowered external three-class accuracy by 0.737 percentage points [80% −1.455, 0.000]. The median within-person warm time fell by 6.75%. The registered rule required a lower score bound above −0.30 pp and at least 10% time savings. The longer §448b timing reserve did not trigger.
+
+| Adam updates per scheduled refit | External accuracy | Difference from stock, pp [80%] | HAND / SUB / WORD recall | Warm seconds, summed over 36 streams | Median person time / stock |
+|---|---:|---:|---:|---:|---:|
+| 20, stock | 48.456% | reference | 53.641 / 46.429 / 45.298% | 945.82 | 1.000 |
+| 8, uniform | 47.718% | −0.737 [−1.455, 0.000] | 53.343 / 45.169 / 44.643% | 847.08 | 0.933 |
+| 0, prefix rebuild retained | 48.522% | +0.066 [−0.625, +0.754] | 53.671 / 46.409 / 45.486% | 825.97 | 0.886 |
+| 16 then 0, reversed on order 1 | 48.261% | −0.195 [−0.701, +0.324] | 53.998 / 45.853 / 44.931% | 887.94 | 0.950 |
+
+Uniform eight lost 0.562 and 0.913 pp on the two orders and changed 273/4,260 decisions. The zero-step policy changed 329 decisions, and its interval spans negative and positive effects. Its median time saving of 11.38% missed the 15% prediction. The uniform and alternating policies each used exactly 2,848 updates across 356 refits, matched for every person-day. Uniform minus alternating was −0.542 pp [−1.190, +0.096], and the median paired time ratio was 0.992. Stock used 7,120 updates. Pooling all eight-step seconds before dividing gives 0.896× stock; the preregistered participant-median ratio is 0.933×. Neither is the private worker time. [All contrasts and paired timing](steps448_result.json)
+
+All 4,260 canonical stock labels and all route/work counters reproduced §385. Compared with the eight completed interleaved people, the isolated protocols agreed on all 3,780 stock labels, all zero and alternating labels, and 3,779 of 3,780 eight-step labels. In the nine-person clean-process bank, warm repeats of each person's first stream changed one stock label (G, index 104) and one eight-step label (E, index 72). The score uses the canonical deliveries. The official metric verification covered all eight arm/order comparisons, and the production replay printed OK. Nine paired A100 jobs took 11m14s to 14m10s each. The scorer completed in 1m38s. These are exposed external participants, with neither private accuracy nor private runtime measured.
+
+## Design
+
 The frozen cap250 archive sets five Adam updates per neural family. It refits four families, for 20 updates at each scheduled prefix. Earlier §113/131 public emulations varied steps and refit spacing while selecting the recipe. They preceded the current archive and did not measure its Scherer endpoint. The scorer in §422 tested zero versus stock on a binary word-selectivity contrast, using 60-window Shin2018 recordings. §414 measured two complete packages on the same worker. §448 measures a lower optimizer budget on complete 105- and 120-window, three-class Scherer sessions. [Binary contrast](horizon422.md) · [Whole-package timing](budget414.md)
 
 Every comparison uses the §385 input (1.00 s post-cue crop, original spherical-spline reconstruction), both pinned order seeds (0 and 1), the exact cap250 archive members and the original worker image. Each fresh copy retains the package's prefix relabeling, normalization rebuild, routing and all downstream stages. Gold labels enter only the separate scorer. The private scorer checks the stock endpoint on every delivered window against the previously run archive. Nine people have two days each, totaling 2,130 unique windows, delivered twice per arm. These sessions end before the 250-window cap. [Archive, data and worker digests](lunch_qualification385.md)
@@ -12,7 +29,7 @@ The first smoke (3126029) rejected the incorrect assumption that the native para
 
 ## Stock repeatability
 
-The interleaved design failed its preregistered all-person stock guard. In eight people every stock label matched. For participant F the first day in order 0 failed on two nodes, cn238 (3126075_5) and cn203 (3126105_5). An independent trace (3126134_5) on cn238 found exactly one changed label in that 120-window stream, at zero-based delivery index 104, source row 1216. The cold process returned WORD there, as did §385. The warmed process returned SUB.
+The interleaved design failed its preregistered all-person stock guard. In eight people every stock label matched. For participant G the first day in order 0 failed on two nodes, cn238 (3126075_5) and cn203 (3126105_5). An independent trace (3126134_5) on cn238 found exactly one changed label in that 120-window stream, at zero-based delivery index 104, source row 1216. The cold process returned WORD there, as did §385. The warmed process returned SUB.
 
 Stock-only job 3126184_5 on cn205 then repeated the same session with the official deep-copy/reset before every stream. No experimental optimizer setting was applied. The same decision changed whether the prior stock recording was the same day or another day. The cold WORD-minus-SUB terminal score margin was +0.02436 and the warm margin was −0.00190. Frozen neural member outputs already differed by up to 0.00000373 on the first window, before adaptation. The final first-window score differed by 0.0000000226. All 2,579 inspected tensor, array and scalar fields on the loaded template retained their original values. Loading the package again in the same OS process restored all 120 decisions and all frozen member outputs. The first new difference after reloading appeared at the first refit (1.73e−8 for the fine-tuned member and 1.21e−9 for the terminal score). The loader also creates a fresh Python module. These tests establish numerical repeat sensitivity under official copying. They have not shown transfer of learned weights, subject labels or public scores between sessions. [Stock-only trace and margins](steps448_stock_trace.json)
 

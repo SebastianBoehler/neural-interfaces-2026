@@ -1,4 +1,4 @@
-"""Check the complete F recording twice with the profiling optimizer disabled."""
+"""Check the complete G recording twice with the profiling optimizer disabled."""
 import json
 from pathlib import Path
 
