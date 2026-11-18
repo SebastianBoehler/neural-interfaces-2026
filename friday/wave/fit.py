@@ -18,10 +18,13 @@ DATA_SHA = "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
 ORDER_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
 ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 PEOPLE = tuple(f"P{i:02}" for i in range(1, 11))
-KINDS = ("prototype", "centered", *TEMPORAL_KINDS)
+MOTOR_KINDS = ("motor_transfer", "motor_null")
+KINDS = ("prototype", "centered", *TEMPORAL_KINDS, *MOTOR_KINDS)
 
 
 def make_decoder(kind):
+    if kind in MOTOR_KINDS:
+        kind = "chronological"
     return TemporalDecoder(kind) if kind in TEMPORAL_KINDS else Decoder(kind)
 
 
@@ -50,6 +53,25 @@ def read_inputs(data_path, order_path):
     if any(not np.array_equal(np.sort(perm), np.arange(len(x))) for perm in perms.values()):
         raise ValueError("invalid order permutation")
     return x, people, streams, interfaces, perms
+
+
+def initialize_motor(model, kind, seed):
+    """Apply only the authenticated encoder parameters, never its source task head."""
+    root = Path("pretrain")
+    checkpoint = root / f"{kind}_{seed}_encoder.pt"
+    info = json.loads(checkpoint.with_suffix(".json").read_text())
+    expected = dict(kind=kind, seed=seed, steps=1200, checkpoint=sha(checkpoint),
+                    actor=sha(root / "pretrain.sha256"), inputs=sha(root / "physionet.sha256"),
+                    people=[f"PhysionetMI/{i}" for i in range(1, 31)])
+    if info != expected:
+        raise ValueError("pretrained encoder provenance mismatch")
+    payload = torch.load(checkpoint, map_location="cpu", weights_only=True)
+    if set(payload) != {"spatial", "encoder"}:
+        raise ValueError("unexpected pretrained encoder tensors")
+    with torch.no_grad():
+        model.spatial.copy_(payload["spatial"])
+    model.encoder.load_state_dict(payload["encoder"])
+    return dict(pretrain=expected["checkpoint"], pretrain_source=expected["actor"])
 
 
 def source_weights(labels, src, streams, interfaces):
@@ -102,6 +124,7 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
     y = torch.from_numpy(labels[src]).to(device)
     sessions = [np.flatnonzero(streams[src] == s) for s in np.unique(streams[src])]
     model = make_decoder(kind).to(device)
+    provenance = initialize_motor(model, kind, seed) if kind in MOTOR_KINDS else {}
     source_eeg = torch.from_numpy(x[src]).to(device)
     steps = 4 if smoke else 600
     jitter = SourceJitter(kind, seed, steps) if kind in TEMPORAL_KINDS[2:] else None
@@ -145,7 +168,7 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
                    gpu=torch.cuda.get_device_name() if device == "cuda" else None,
                    torch=torch.__version__, actor=sha(Path("actor.sha256")), checkpoint=sha(path),
                    data=DATA_SHA, orders=ORDER_SHA, held_labels_opened=False,
-                   train_people=train_people, train_rows=source_hash(src))
+                   train_people=train_people, train_rows=source_hash(src), **provenance)
     path.with_suffix(".json").write_text(json.dumps(receipt, indent=2) + "\n")
     print(f"{kind} {seed} {held}: {steps} source updates and causal guards OK", flush=True)
 
