@@ -3,7 +3,7 @@ from pathlib import Path
 
 import numpy as np
 
-from bridge_owner import PROTO, ROOT, STACK, sha
+from bridge_owner import PROTO, ROOT, STACK, sha, stamp
 
 REFERENCE = ROOT / "runs/s281_v66_route/full0.json"
 PREFIX = 80
@@ -48,7 +48,12 @@ def contrast_trace(ctx, pc, shadow, Gn, Q):
     return ramp, who, scores
 
 
-def recognise(ctx, bridge, archived_route, reference=REFERENCE):
+def recording_calibration(ctx):
+    ctx.S.apply({q: np.arange(ctx.S.N[q]) for q in ctx.S.PR})
+    return ctx.A.shadow(ctx.A.mix(STACK, PROTO, ctx.A.FAMS)[0], PROTO)[1]
+
+
+def observe_recognition(ctx, bridge, reference=REFERENCE):
     from bio_gate import Bio, fold_params
 
     p = bridge["delivery"]
@@ -59,8 +64,7 @@ def recognise(ctx, bridge, archived_route, reference=REFERENCE):
     bio_stream = np.char.add(np.char.add(people, "|"), visit)
     if not np.array_equal(p, ctx.Pperm) or not np.array_equal(np.arange(len(X)), bridge["index"]):
         raise ValueError("recognition order differs from the incumbent shadow")
-    ctx.S.apply({q: np.arange(ctx.S.N[q]) for q in ctx.S.PR})
-    OOF = ctx.A.shadow(ctx.A.mix(STACK, PROTO, ctx.A.FAMS)[0], PROTO)[1]
+    OOF = recording_calibration(ctx)
     with np.load(ROOT / "runs/replay_data/bio_model_psd_d64.npz", allow_pickle=False) as z:
         model = dict(z)
     feature_only = Bio.__new__(Bio)
@@ -144,8 +148,14 @@ def recognise(ctx, bridge, archived_route, reference=REFERENCE):
                   if (rows := p[session_id[p] == session]).size and np.any((contrast | bio)[rows])]
         stats[arm] = dict(sessions=count, routed_sessions=len(routed), contrast_windows=int(contrast.sum()),
                           bio_windows=int(bio.sum()), routed=routed)
-    if stats["historical"] != archived_route["bases"][STACK]:
-        raise ValueError("live historical route4 ramps differ from the pinned archive")
     return stage, dict(routing=stats, gallery_folds=opened, source_calibration_sha256=sha(reference),
+                       calibration_posterior_sha256=stamp(OOF),
                        contrast_prefix_checks=prefix, bio_prefix_checks=count, bio_reset_checks=count,
                        bio_finite_scores=int(np.isfinite(stage["bio_score"]).sum()))
+
+
+def recognise(ctx, bridge, archived_route, reference=REFERENCE):
+    values, proof = observe_recognition(ctx, bridge, reference)
+    if proof["routing"]["historical"] != archived_route["bases"][STACK]:
+        raise ValueError("live historical route4 ramps differ from the pinned archive")
+    return values, proof
