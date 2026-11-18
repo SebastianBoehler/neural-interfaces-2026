@@ -42,3 +42,11 @@ Galvani A100 job 3131673 passed at 22:08:25 CET on 18 November 2026. Each seed a
 | Warm A100 forward with host-returned posterior, median ms/window | 2.47 | 2.49 |
 
 The first export, job 3131651, copied a CPU device constant into the FIR graph. The second export, job 3131665, corrected FIR portability. Its CUDA profiling executor changed the same first-window posterior by 3.52e−6 across fresh copies. The accepted actor uses the original FIR equations with movable taps and scopes JIT execution without profiling to the raw actor. The original state, scale, output schema, CPU/A100 posterior tolerance of 2e−5, and exact-decision and restart checks all apply. [F16e independent source and scorer receipts](../../fbc323_distill_external/result-18nov.md)
+
+## Cohort runtime diagnostic
+
+The same immutable A100 artifacts reproduced all **8,520** archived F16e decisions across nine Scherer people, two seeds, two visits and both pinned orders. The strict CPU-oracle posterior tolerance of 2e−5 passed for A, C, E, G and J. It was exceeded at least once for D, F, H and L. Across the whole A100 cohort, maximum posterior error versus the CPU batch oracle was 2.711e−5. The complete strict CPU-stream runs on five participants covered 4,740 decisions and a maximum posterior error of 5.070e−7.
+
+Galvani 3131675 ran the eight additional strict checks. Independent diagnostics 3131687 and 3131688 completed the four cases that exceeded the strict tolerance. On those four people, the original eager A100 batch decoder differed from its CPU batch oracle by at most 4.807e−5. The A100 actor and eager A100 batch agreed on every decision and differed in posterior by at most 4.437e−5. The A100 actor's 31-window prefixes and resets remained exact. The run preserves the strict posterior failures and establishes decision parity for the frozen raw actor. This receipt measures the actor only. Gold labels were unopened.
+
+The combined receipt is `/mnt/lustre/work/gehler/gfh527/ni26_friday_cap250_raw_model_diag_20261118/cohort-receipt.json`, SHA-256 `c0dfc84c694b1cb8490c6c1353b3617e15bf7c168ab91b9c06f19e91e3612d53`.
