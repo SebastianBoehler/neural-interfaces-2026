@@ -42,5 +42,5 @@ for line in Path("jobs.score.tsv").read_text().splitlines():
     subprocess.run(["scontrol", "release", job], check=True)
     print(f"F12 released {job} {mode} seed {seed} with {len(pairs)} verified checkpoint pairs")
 PY
-squeue -j "$(cut -f3 jobs.score.tsv | paste -sd, -)" -o "%i %T %M %R"
+sacct -X -n -j "$(cut -f3 jobs.score.tsv | paste -sd, -)" -o JobID,State,Elapsed,ExitCode
 REMOTE
