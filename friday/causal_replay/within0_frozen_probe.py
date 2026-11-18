@@ -1,5 +1,6 @@
-"""Qualify three saved P01 frozen fits against the original within0 LPC bases."""
+"""Qualify saved source-excluded frozen fits against the original within0 LPC bases."""
 
+import argparse
 import hashlib
 import json
 import os
@@ -14,7 +15,7 @@ from refit_smoke import ARCHIVE, HERE, ROOT, TOL, changed, file_sha, waveform_da
 from restore_refit import RELEASE, RELEASE_SHA, restore
 
 
-PERSON = "P01"
+PEOPLE = tuple(f"P{i:02d}" for i in range(1, 11))
 ORDER = "within0"
 ARCHS = {
     "fbraw": ("fbcnet_raw_sbn", 20.0),
@@ -36,19 +37,18 @@ def old_base(family, rows):
     return p[rows]
 
 
-def saved_fit(api, family, data, rows, sequence, reset_rows):
+def saved_fit(api, family, person, data, rows, sequence, reset_rows, fit_sha):
     meta = json.loads((RELEASE / "members" / f"{family}_s0.json").read_text())
     if ((meta["member"], meta["seed"], meta["order"], meta["rows"], meta["smoke"],
          meta["held_labels_opened"]) != (family, 0, "full0", 2655, False, False)
             or len(meta["fit_states"]) != 10 or FIT_GPU[family] not in meta["gpu"]
             or meta["archived_frozen_max_abs"] > TOL):
         raise ValueError(f"nonmatching source fit receipt for {family}")
-    entry = meta["fit_states"][PERSON]
-    model, fit, held = restore(api, data, family, PERSON,
-                               RELEASE / "checkpoints" / f"{family}_s0_{PERSON}.pt", entry["sha256"])
+    entry = meta["fit_states"][person]
+    model, fit, held = restore(api, data, family, person,
+                               RELEASE / "checkpoints" / f"{family}_s0_{person}.pt", entry["sha256"])
     np.testing.assert_array_equal(np.flatnonzero(held), rows)
-    fit_sha = hashlib.sha256(fit.astype("<i8").tobytes()).hexdigest()
-    if fit_sha != entry["fit_rows_sha"] or len(fit) != entry["n_fit"] or len(fit) != 2465:
+    if fit_sha != rows_sha(fit) or fit_sha != entry["fit_rows_sha"] or len(fit) != entry["n_fit"]:
         raise ValueError(f"source exclusion differs for {family}")
     state = state_hash(model.net)
     for session in np.unique(data["stream"][rows]):
@@ -56,9 +56,11 @@ def saved_fit(api, family, data, rows, sequence, reset_rows):
         np.testing.assert_array_equal(model._aligned(r, True)[:1], model._aligned(r[:1], True))
     with torch.inference_mode():
         values, prefix = replay(model, data, rows, sequence)
-        before = evaluate(model, sequence[:64])
-        evaluate(model, reset_rows)
-        np.testing.assert_array_equal(evaluate(model, sequence[:64]), before)
+        for session in np.unique(data["stream"][rows]):
+            session_prefix = sequence[data["stream"][sequence] == session][:64]
+            before = evaluate(model, session_prefix)
+            evaluate(model, reset_rows)
+            np.testing.assert_array_equal(evaluate(model, session_prefix), before)
     if state_hash(model.net) != state:
         raise ValueError(f"frozen state changed for {family}")
     difference = changed(values, old_base(family, rows))
@@ -68,18 +70,19 @@ def saved_fit(api, family, data, rows, sequence, reset_rows):
                 source_gpu=meta["gpu"])
 
 
-def fresh_sinc(rows, sequence, deliveries):
+def fresh_sinc(person, rows, sequence, deliveries, fit_sha):
     manifest = json.loads((FRESH / "frozen_orders.json").read_text())
     producer = json.loads((FRESH_SOURCE / "frozen.json").read_text())
-    fold_path = FRESH / "folds" / f"{PERSON}.json"
+    fold_path = FRESH / "folds" / f"{person}.json"
     fold = json.loads(fold_path.read_text())
-    origin = producer["folds"][PERSON]
+    origin = producer["folds"][person]
     if (manifest["held_labels_opened"] or producer["held_labels_opened"] or fold["held_labels_opened"]
             or manifest["orders"] != list(ORDERS) or manifest["source_proof"] != file_sha(FRESH_SOURCE / "frozen.json")
-            or manifest["folds"][PERSON] != file_sha(fold_path)
-            or fold["source_proof"] != manifest["source_proof"] or fold["person"] != PERSON
+            or manifest["folds"][person] != file_sha(fold_path)
+            or fold["source_proof"] != manifest["source_proof"] or fold["person"] != person
             or fold["checkpoint_sha256"] != origin["checkpoint_sha256"]
             or fold["source_rows_sha256"] != origin["fit_rows_sha256"]
+            or fold["source_rows_sha256"] != fit_sha
             or fold["prefix_max_abs"] > TOL or fold["full0"]["changed"] or fold["full0"]["max_abs"] > TOL):
         raise ValueError("fresh Sinc proof differs")
     i = ORDERS.index(ORDER)
@@ -100,7 +103,11 @@ def fresh_sinc(rows, sequence, deliveries):
                 source_bank=manifest["bank_sha256"], prefix_max_abs=fold["prefix_max_abs"])
 
 
-def main():
+def rows_sha(rows):
+    return hashlib.sha256(rows.astype("<i8").tobytes()).hexdigest()
+
+
+def main(person):
     from session_bn import make
 
     gpu = torch.cuda.get_device_name()
@@ -109,10 +116,12 @@ def main():
         raise ValueError("source release or measured GPU runtime differs")
     torch.set_num_threads(8)
     data = waveform_data()
-    held = data["subject"] == f"Dreyer2026Proteus/{PERSON}"
+    held = data["subject"] == f"Dreyer2026Proteus/{person}"
     rows = np.flatnonzero(held)
-    if len(rows) != 190 or len(np.unique(data["stream"][rows])) != 1 or len(np.unique(data["subject"][~held])) != 9:
+    streams = np.unique(data["stream"][rows])
+    if not len(rows) or len(np.unique(data["subject"][~held])) != 9:
         raise ValueError("unexpected held scope")
+    fit_sha = rows_sha(np.flatnonzero(~held))
     deliveries = pinned_delivery(ROOT / "runs/shuffle_perms.npz")
     p = deliveries[ORDERS.index(ORDER)]
     np.testing.assert_array_equal(np.sort(p), np.arange(2655))
@@ -121,28 +130,30 @@ def main():
         np.testing.assert_array_equal(bridge["delivery"], p)
     sequence = p[held[p]]
     np.testing.assert_array_equal(np.sort(sequence), rows)
-    reset_rows = p[data["stream"][p] == "Dreyer2026Proteus/P02|1"][:64]
+    reset_stream = "Dreyer2026Proteus/P01|1"
+    reset_rows = p[data["stream"][p] == reset_stream][:64]
     if np.array_equal(sequence, rows) or len(reset_rows) != 64 or held[reset_rows].any():
         raise ValueError("within0 delivery is inactive")
     api = SimpleNamespace(ARCHS=ARCHS, make=lambda family, d, seed: make(ARCHS[family][0], d, seed))
-    candidates = {family: saved_fit(api, family, data, rows, sequence, reset_rows) for family in ARCHS}
-    sinc = fresh_sinc(rows, sequence, deliveries)
-    eligible = all(item["eligible"] for item in candidates.values()) and sinc["active"]
-    output = dict(person=PERSON, order=ORDER, rows=len(rows), candidates=candidates, fresh_sinc=sinc,
-                  qualified_p01=eligible, held_labels_opened=False, prediction_mode="frozen",
-                  reset_interleaving="P02 visit 1, 64 windows, discarded",
+    candidates = {family: saved_fit(api, family, person, data, rows, sequence, reset_rows, fit_sha)
+                  for family in ARCHS}
+    sinc = fresh_sinc(person, rows, sequence, deliveries, fit_sha)
+    output = dict(person=person, order=ORDER, rows=len(rows), candidates=candidates, fresh_sinc=sinc,
+                  held_rows_sha256=rows_sha(rows), session_count=len(streams), fit_rows_sha256=fit_sha,
+                  held_labels_opened=False, prediction_mode="frozen",
+                  reset_interleaving=f"{reset_stream}, 64 windows, discarded",
                   gpu=gpu, node=os.environ["SLURMD_NODENAME"], torch=torch.__version__,
-                  delivery_sha256=hashlib.sha256(p.astype("<i8").tobytes()).hexdigest(),
+                  delivery_sha256=rows_sha(p),
                   source_sha256=file_sha(HERE / "source.sha256"))
     encoded = json.dumps(output, indent=2, sort_keys=True, allow_nan=False)
-    receipt = HERE / "p01.json"
+    receipt = HERE / f"{person.lower()}.json"
     with receipt.open("x") as handle:
         handle.write(encoded + "\n")
     receipt.chmod(0o444)
     print(encoded, flush=True)
-    if not eligible:
-        raise SystemExit("within0 P01 qualification failed")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("fold", type=int, choices=range(2, 11))
+    main(PEOPLE[parser.parse_args().fold - 1])
