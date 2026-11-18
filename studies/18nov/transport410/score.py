@@ -113,10 +113,17 @@ def main():
                 for m,v in metrics.items():
                     data[family,a,m]=np.stack(v)
         rowscores.append(data)
+    levels={}
     report={}
     for family in ('whole','full'):
         rows=rowscores[-1]
         controls=ARMS if family=='whole' else ('Z',)+ARMS
+        for arm in controls:
+            matched = np.stack([r[family,arm,'all'] for r in rowscores[:-1]])
+            src, dev = mean_order(matched[:,4]), mean_order(matched[:,:4])
+            levels[family+'/'+arm] = dict(source_six=float(src.mean()), development_five_train=float(dev.mean()),
+                development_six_train=float(mean_order(rows[family,arm,'all']).mean()),
+                matched_ten=float((src.sum()+dev.mean(axis=0).sum())/10))
         for m in ('all','session1','Graz','BrainHero','0','1','2'):
             for b in controls:
                 if b=='X':
@@ -131,7 +138,7 @@ def main():
                         np.r_[mean_order(v[:,:4]).mean(0),mean_order(v[:,4])].tolist()))
                 report[f'{family}/X-{b}/{m}']=stats
     Path('result.json').write_text(json.dumps(dict(proof=digest('before_labels.json'),seed=410,
-        score_sha256=digest(__file__),results=report),indent=2,allow_nan=False))
+        score_sha256=digest(__file__),levels=levels,results=report),indent=2,allow_nan=False))
 
 
 if __name__=='__main__':
