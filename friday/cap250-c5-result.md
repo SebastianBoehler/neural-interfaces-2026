@@ -7,7 +7,7 @@ The candidate reproduced all 27,336 continuous historical cap250 score vectors b
 | Held new, ten people × eight orders | 21,240 | 21,240 → 17,214 (−18.95%) | 0.8303× [0.8243, 0.8384] |
 | Returning, P04/P10 × eight orders | 6,096 | 787 → 226 (−71.28%) | 0.2012× [0.1536, 0.2520] |
 
-The full-system accuracy difference is exactly 0.000 pp on both historical roles. All selection lists, refit counts, fusions and recognition stops matched. The smoke confirmed 10-to-0 feature calls on an early-recognized session. A held-new prefix matched independently through the first live personalized outputs. The replay preserved all original refits, unlike §369. The largest association with speed was whether recognition arrived before the first refit.
+The full-system accuracy difference is exactly 0.000 pp on both historical roles. All selection lists, refit counts, fusions and recognition stops matched. The smoke confirmed 10-to-0 feature calls on an early-recognized session. A held-new prefix matched independently through the first live personalized outputs. The replay preserved all original refits, unlike §369. Recognition before the first scheduled refit eliminated all covariance calls for that session.
 
 The held-new call reduction fell 1.05 percentage points below the registered 20% advancement bar. Returning call savings and paired stage speed passed their bars. The exact staged A100 worker comparison remains unopened under this rule. The paired CPU times exclude upstream stages. End-to-end worker headroom and sealed timing remain unmeasured for this change.
 
