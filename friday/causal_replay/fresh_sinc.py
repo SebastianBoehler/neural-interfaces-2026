@@ -37,8 +37,12 @@ def fit(data, rows):
         raise ValueError("Sinc source recipe differs")
     model.fit(rows)
     model.set_k(20.)
-    # _order must contain the actual source updates and no held rows.
-    if not np.array_equal(np.sort(model._order), rows) or not model.n_sbn or model.net.training:
+    streams = data["stream"][rows]
+    groups = np.concatenate([np.full(np.count_nonzero(streams == s), i)
+                             for i, s in enumerate(dict.fromkeys(streams))])
+    if (not np.array_equal(groups, model._row_sess)
+            or not np.array_equal(model.C[rows].mean(0), model.G)
+            or not model.n_sbn or model.net.training):
         raise ValueError("Sinc source training scope or eval path differs")
     return model
 

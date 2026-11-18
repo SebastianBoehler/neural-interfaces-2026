@@ -424,6 +424,8 @@ Registered before fresh fits. Sinc P01 again exceeded frozen-posterior tolerance
 
 **D-EAsf pre-fit path correction.** 3131515 stopped in bash before model loading because the input checksum manifest path was relative to the canonical repo. Resolve the manifest through the isolated release path. Retry the same preregistered actor and source masks in a new release. The failed run produced no weights.
 
+**D-EAsf source instrumentation correction.** 3131526 completed source training but stopped because the wrapper requested a newer source actor's recording-order diagnostic attribute. Verify the original actor's actual session groups and exact covariance prior against the selected source rows. Keep held targets unavailable. Preserve the pinned training implementation, waveform, source split, deterministic backend and numerical gates.
+
 ## F16 · Trial-level distillation for zero-feature S1C
 
 Registered 18 November 2026 before source teacher or student work. §345 tested an out-of-fold covariance teacher with a different six-source waveform model and P09 alone. §401 used late EEG as privileged input for a spectral classifier. This contrast uses the exact F15 full-q dropout teacher and S1C zero-q student in the original nine-person source fits. The teacher trained on the same source rows it will predict. Its targets are in-sample, with the entire same-fold held person excluded. Authenticate the F15 teacher's checkpoint, receipt, fit roster and source row digest against its already sealed fold. Freeze the teacher in original q-on, ordinary causal evaluation, with chronological prefix and exact session restart checks. Seal all source logits, canonical rows and session boundaries before any labels are opened for this job.
