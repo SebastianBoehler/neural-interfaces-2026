@@ -5,6 +5,26 @@ from pathlib import Path
 from statistics import mean
 
 
+def audit(arm):
+    records = {}
+    for rep in range(2):
+        run = json.loads(Path(f'{arm}_{rep}.json').read_text())
+        names = ['P10-3', 'Schirrmeister2017/1', 'Schirrmeister2017/2', 'P10-3']
+        if rep == 1:
+            names[1:3] = names[1:3][::-1]
+        assert run['names'] == names and len(run['streams']) == 4
+        for name, record in zip(names, run['streams']):
+            activity = record['activity']
+            returning = name == 'P10-3'
+            if arm == 'cap':
+                assert activity['ft_over'] == 0
+                assert activity['recognized'] == (10 if returning else -1)
+            else:
+                assert (activity['routed'] > 0) == returning
+            assert records.setdefault(name, activity) == activity
+    return records
+
+
 def measurements(arm, rep):
     run = json.loads(Path(f'{arm}_{rep}.json').read_text())
     wall = float(Path(f'{arm}-{rep}.wall').read_text())
@@ -37,6 +57,7 @@ def native_budget(old):
 
 
 def main():
+    activity = {arm: audit(arm) for arm in ('old', 'cap')}
     pairs = []
     for rep in range(2):
         old, cap = [measurements(arm, rep) for arm in ('old', 'cap')]
@@ -44,7 +65,7 @@ def main():
         pairs.append(dict(old=old, cap=cap, delta=delta, scenarios=scenario(delta),
                           incumbent_budget_pairs=native_budget(old)))
     avg = {k: mean(pair['delta'][k] for pair in pairs) for k in pairs[0]['delta']}
-    result = dict(pairs=pairs, mean_delta=avg, mean_scenarios=scenario(avg),
+    result = dict(activity=activity, pairs=pairs, mean_delta=avg, mean_scenarios=scenario(avg),
                   first_active_excess=avg['first_active']-avg['warm_active'])
     Path('result414.json').write_text(json.dumps(result, indent=2)+'\n')
 

@@ -1,0 +1,176 @@
+{
+  "activity": {
+    "old": {
+      "P10-3": {
+        "n": 190,
+        "routed": 180,
+        "degen": 0,
+        "staged": 180,
+        "err": 0,
+        "first": ""
+      },
+      "Schirrmeister2017/1": {
+        "n": 190,
+        "routed": 0,
+        "degen": 0,
+        "staged": 0,
+        "err": 0,
+        "first": ""
+      },
+      "Schirrmeister2017/2": {
+        "n": 190,
+        "routed": 0,
+        "degen": 0,
+        "staged": 0,
+        "err": 0,
+        "first": ""
+      }
+    },
+    "cap": {
+      "P10-3": {
+        "windows": 190,
+        "recognized": 10,
+        "ft_refits": 0,
+        "ft_steps": 0,
+        "ft_relabels": 0,
+        "ft_capped": 0,
+        "ft_over": 0,
+        "cp_refits": 0,
+        "cp_fused": 0,
+        "errors": 0
+      },
+      "Schirrmeister2017/1": {
+        "windows": 190,
+        "recognized": -1,
+        "ft_refits": 17,
+        "ft_steps": 340,
+        "ft_relabels": 17,
+        "ft_capped": 0,
+        "ft_over": 0,
+        "cp_refits": 9,
+        "cp_fused": 100,
+        "errors": 0
+      },
+      "Schirrmeister2017/2": {
+        "windows": 190,
+        "recognized": -1,
+        "ft_refits": 17,
+        "ft_steps": 340,
+        "ft_relabels": 17,
+        "ft_capped": 0,
+        "ft_over": 0,
+        "cp_refits": 9,
+        "cp_fused": 100,
+        "errors": 0
+      }
+    }
+  },
+  "pairs": [
+    {
+      "old": {
+        "wall": 349.5,
+        "residual": 22.902985063381493,
+        "load": 9.225839563645422,
+        "copy": 0.22338820213917643,
+        "first_return": 117.29154944512993,
+        "first_active": 68.78440829226747,
+        "warm_return": 71.8263704222627,
+        "warm_active": 68.6946867769584
+      },
+      "cap": {
+        "wall": 584.05,
+        "residual": 24.855616757832422,
+        "load": 10.736672902014107,
+        "copy": 0.3720041684573516,
+        "first_return": 139.84493055101484,
+        "first_active": 219.18946835584939,
+        "warm_return": 90.23793686321005,
+        "warm_active": 109.92204747209325
+      },
+      "delta": {
+        "wall": 234.54999999999995,
+        "residual": 1.952631694450929,
+        "load": 1.510833338368684,
+        "copy": 0.1486159663181752,
+        "first_return": 22.55338110588491,
+        "first_active": 150.4050600635819,
+        "warm_return": 18.411566440947354,
+        "warm_active": 41.22736069513485
+      },
+      "scenarios": {
+        "warm_pair": 59.6389271360822,
+        "process_premium": 115.27214572783555,
+        "one_process": 36,
+        "two_processes": 34,
+        "fresh_process_each_pair": 13
+      },
+      "incumbent_budget_pairs": {
+        "one_process": 8,
+        "two_processes": 8,
+        "fresh_process_each_pair": 6
+      }
+    },
+    {
+      "old": {
+        "wall": 114.61,
+        "residual": 11.081457128878682,
+        "load": 4.061046976596117,
+        "copy": 0.15717998309992254,
+        "first_return": 40.05947129242122,
+        "first_active": 20.854197156149894,
+        "warm_return": 21.729160227347165,
+        "warm_active": 20.885714195203036
+      },
+      "cap": {
+        "wall": 211.22,
+        "residual": 12.292746807243674,
+        "load": 4.638088353909552,
+        "copy": 0.08156006515491754,
+        "first_return": 47.77553435508162,
+        "first_active": 81.28783080680296,
+        "warm_return": 28.349369052797556,
+        "warm_active": 41.51451897807419
+      },
+      "delta": {
+        "wall": 96.61,
+        "residual": 1.2112896783649916,
+        "load": 0.5770413773134351,
+        "copy": -0.075619917945005,
+        "first_return": 7.716063062660396,
+        "first_active": 60.433633650653064,
+        "warm_return": 6.620208825450391,
+        "warm_active": 20.628804782871157
+      },
+      "scenarios": {
+        "warm_pair": 27.249013608321548,
+        "process_premium": 42.111972783356904,
+        "one_process": 83,
+        "two_processes": 81,
+        "fresh_process_each_pair": 33
+      },
+      "incumbent_budget_pairs": {
+        "one_process": 29,
+        "two_processes": 28,
+        "fresh_process_each_pair": 17
+      }
+    }
+  ],
+  "mean_delta": {
+    "wall": 165.57999999999998,
+    "residual": 1.5819606864079603,
+    "load": 1.0439373578410596,
+    "copy": 0.0364980241865851,
+    "first_return": 15.134722084272653,
+    "first_active": 105.41934685711749,
+    "warm_return": 12.515887633198872,
+    "warm_active": 30.928082739003003
+  },
+  "mean_scenarios": {
+    "warm_pair": 43.443970372201875,
+    "process_premium": 78.69205925559623,
+    "one_process": 51,
+    "two_processes": 49,
+    "fresh_process_each_pair": 18
+  },
+  "first_active_excess": 74.49126411811449
+}
