@@ -21,9 +21,13 @@ At 15:51 CET on 18 November, Codabench sealed v5.1b entry 1050185 scored **0.819
 
 An entry score of 0.824 would place #16 in this snapshot. Scores of 0.826–0.829 would place #15. These are rank scenarios with fixed competitors. The public development gain has no calibrated conversion to a sealed score.
 
-At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used today and five of seven total. The phase ends Saturday 21 November at 23:59 CET. An organizer reported a large Codabench queue at 16:46 CET. The queue and worker run could put the result after 18:00 CET even with an afternoon upload. [Codabench submissions](https://www.codabench.org/competitions/17982/#/submissions-tab) · [Track 2 Discord](https://discord.com/channels/1405198616934481961/1547897829253451877)
+At 17:38 CET, the signed-in Sealed Final Phase showed zero of one attempts used today and five of seven total. The phase ends Saturday 21 November at 23:59 CET. An organizer reported a large Codabench queue at 16:46 CET. The queue and worker run determine when a score appears. [Codabench submissions](https://www.codabench.org/competitions/17982/#/participate-tab) · [Track 2 Discord](https://discord.com/channels/1405198616934481961/1547897829253451877)
+
+Sebastian authorized one penultimate submission by **20:00 CET** on 18 November, targeting the top ten. At 17:39, entry #10 was **0.8350952562**, so a new entry needed to improve on v5.1b by **more than 1.5328 pp** in that snapshot. Target candidate lock is 19:35 CET. The last attempt is reserved for the Friday decision. [Live leaderboard](https://www.codabench.org/api/leaderboards/19997/)
 
 ## Accuracy evidence
+
+The 18 November scoring audit found that two Euclidean-alignment members of the historical shuffled cap250 replay used cached recording-order alignments. The historical full-system development rows below are partial-delivery comparisons. They retain their measured values and have no calibrated translation to the sealed score. The exact staged archive streams its inputs and the exact external package comparisons remain valid on their stated Scherer instrument. [Scoring audit](../../neural-interfaces-2026/evidence/next_wave_16nov/scoring_audit_18nov.md)
 
 | Comparator and instrument | Observed difference |
 | --- | --- |
@@ -68,5 +72,6 @@ Prefer the untouched staged cap250 ZIP on the current evidence. Ferranti complet
 | Wednesday 16:19, completed | Both F11 seeds scored. Causal sensor scaling lowered the full-system score on held-new PROTEUS people. |
 | Wednesday 16:32, completed | F-C7 exact Scherer transfer. The learned selector did not improve cap250. |
 | Wednesday 16:50, completed | F-C8 exact repeat of the fixed causal rule scored within the noise band on two additional orders. |
-| Wednesday 18:00, decision completed early | Cap250 is the selection. A new official score requires upload authorization and a completed Codabench job. The organizer reported a large queue. |
+| Wednesday 19:35, planned | Lock the package selected for today after the last exact validation checks. |
+| Wednesday 20:00, deadline | Submit one penultimate archive to the Sealed Final Phase and record its job ID. Codabench's queue determines the score time. |
 | Friday 20 November, 18:00, planned | Final candidate and alternate. Use held-person and independent external evidence to break ties inside development noise. |
