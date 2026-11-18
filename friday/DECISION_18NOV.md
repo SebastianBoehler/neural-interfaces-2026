@@ -1,4 +1,4 @@
-# Wednesday Track 2 decision brief · working version
+# Wednesday Track 2 decision brief
 
 **Current selection is staged v6.6cap250. The alternate is sealed v5.1b.** Sebastian set an evening target above 0.845 on the sealed ranking metric. The clean waveform variants tested so far trail cap250 on ten held-new public people. The fixed spectral kernel's gains did not reproduce on the independent Scherer cohort. Sebastian chose stronger held-person and external evidence as the tie-break inside the development noise band. Both archives passed SHA and ZIP CRC checks on 18 November. The exact staged cap250 also passed the real-window reset smoke, and the chain replay printed `OK`.
 
@@ -37,12 +37,13 @@ At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used 
 | F6–F9, held-new WHOLE and FULL-SYSTEM DEV | Supervised raw waveform gained +4.952/+4.421 pp over F3 in the whole-decoder test. Fixed normalization reached 48.070%/48.591%. All eight raw or transferred model variants trailed cap250 as terminal insertions at both seeds. |
 | F5 learned correction vs exact staged cap250, FULL-SYSTEM EXTERNAL | −3.284 pp [−4.160,−2.338] and −3.975 pp [−5.033,−2.873], nine Scherer people and two orders. |
 | F10 isolated normalization update, FULL-SYSTEM DEV | +0.131 pp [80% −0.036,+0.306] and −0.031 pp [−0.226,+0.167] against stock. The matched-donor contrasts also remained undecided. |
-| F11 sensor scaling, held-new WHOLE and FULL-SYSTEM DEV | The two same-session training seeds scored 46.348% and 46.374% alone, versus 47.097% and 47.277% for F7. Blending them into cap250 lowered full-system accuracy by 3.244 and 3.372 pp, with both paired intervals below zero. |
+| F11 sensor scaling, held-new WHOLE and FULL-SYSTEM DEV | The two same-session training seeds scored 46.348% and 46.374% alone, versus 47.097% and 47.277% for F7. Blending them into cap250 lowered full-system accuracy by 3.244 and 3.372 pp, with both paired intervals below zero. [F11 results](wave_input/result-18nov.md) |
 | F-C1/F-C2, FULL-SYSTEM DEV | Count prior scale −0.110 pp new, −0.098 returning. Shape-normalized CSP fit −0.004 pp new. All three intervals cross zero. |
 | F-C3/F-C4, exact FULL-SYSTEM EXTERNAL | Stable-pseudo-label weighting −0.185 pp [80% −0.463,+0.116]. Balanced pseudo-class loss +0.119 pp [−0.162,+0.417]. Both contrasts remain undecided. |
 | F-C6, causal branch selection vs cap250, FULL-SYSTEM DEV | +0.037 pp [80% −0.039,+0.109] held-new and −0.018 pp [−0.093,0.000] returning. The weighted result was +0.013 pp. Selection with known labels would add +2.119 pp on that same mix. [Historical arbitration evidence](cap250-c6-result.md) |
 | D1, external rescue ceiling over cap250 | A label-aware oracle across four alternatives corrected 98 of 2,200 stock misses for +2.285 pp [80% +1.911,+2.659] on two pinned orders. This measures where the alternatives disagree when stock is wrong. A deployable selector would have to identify those cases from EEG. [Paired Scherer analysis](transfer/d1_result.md) |
 | D2, early count plus spectral kernel, FULL-SYSTEM DEV | +0.213 pp [80% +0.097,+0.323] versus cap250 and −0.004 pp [−0.045,+0.038] versus the kernel alone. The negative interaction was −0.067 pp [−0.128,−0.014]. [Historical factorial comparison](wave_factorial/result-18nov.md) |
+| F-C7, learned branch selection, exact FULL-SYSTEM EXTERNAL | −0.053 pp [80% −0.228,+0.132] versus cap250 and the source-permuted arm. The preregistered F-C6 causal comparator gained +0.208 pp [+0.023,+0.394] on the same nine previously examined Scherer participants and two orders. [Exact external evidence](cap250-c7-result.md) |
 
 [Exact archive selection evidence](../../neural-interfaces-2026/evidence/next_wave_16nov/lunch_recommendation_18nov.md) · [Returning spectral kernel](../../neural-interfaces-2026/evidence/next_wave_16nov/kernel457.md) · [Waveform evidence](wave/results-18nov.md) · [F6–F9 paired results](wave/results-f6-f9-18nov.md) · [External receipts](../../neural-interfaces-2026/evidence/next_wave_16nov/EVENING_HANDOFF_18NOV.md)
 
@@ -55,13 +56,14 @@ At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used 
 
 ## Decision condition
 
-Prefer the untouched staged cap250 ZIP on the current evidence. The last F11 Ferranti retry finished at 16:14:59 CET and both Galvani scores are verified. F-C7 fit its branch selector on public PROTEUS at 16:19 CET. Its exact external A100 smoke is pending. Leonardo rejected the current SSH key, while both active clusters remained reachable. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
+Prefer the untouched staged cap250 ZIP on the current evidence. Ferranti completed the last F11 retry at 16:14:59 CET. Galvani finished all nine F-C7 A100 tasks and the collector by 16:32 CET. Additional hardware could shorten future queues. The measured methods lacked an improvement large enough to support the evening target. Leonardo rejected the current SSH key. See the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
 
 | Checkpoint (CET) | Expected evidence |
 | --- | --- |
 | Wednesday 16:06, completed | F-C6 causal branch selection scored +0.013 pp over cap250 on the weighted historical mix. |
 | Wednesday 16:07, completed | D2 early count plus spectral retrieval matched the kernel alone. |
 | Wednesday 16:19, completed | Both F11 seeds scored. Causal sensor scaling lowered the full-system score on held-new PROTEUS people. |
-| Wednesday 16:45–17:15, estimated | F-C7 exact Scherer transfer, subject to A100 smoke and allocation. Its source fit is locked. |
-| Wednesday 18:00, planned | Candidate decision with updated plots and live leaderboard. A new sealed score requires upload authorization, a free attempt and a completed Codabench job. |
+| Wednesday 16:32, completed | F-C7 exact Scherer transfer. The learned selector did not improve cap250. |
+| Wednesday 16:55, target | Exact repeat of the fixed causal rule on two additional orders for the same nine Scherer participants. |
+| Wednesday 18:00, planned checkpoint | Cap250 remains the selection. A new official score requires upload authorization and a completed Codabench job. |
 | Friday 20 November, 18:00, planned | Final candidate and alternate. Use held-person and independent external evidence to break ties inside development noise. |
