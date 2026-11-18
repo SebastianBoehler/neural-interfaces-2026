@@ -10,3 +10,5 @@ The active comparison is causal sensor-power scaling trained on same-session his
 The source smoke measured training and control activity. Held decisions and package performance remained pending at this receipt.
 
 At 15:57 CET, 39 qualifying production fits had completed in at most 8 seconds. The remaining genuine P02/seed 460 task, 510568_1, was automatically requeued after a node affinity error before Python. It became eligible at 15:48:46 CET. Its pending wall limit was reduced to two minutes, then to one minute at 16:06 for backfill. The model, H100 pool and fold are the same. Galvani 3127926 completed the authenticated seed 1460 comparison. Score 3127925 remains held for the genuine P02 checkpoint pair.
+
+The automatic retry of 510568_1 completed 0:0 on mlcbm002 at 16:14:59 CET in 9 seconds. The relay delivered all 42 checkpoint pairs, completing the source side. The independent scorer verifies the paired seed 460 receipts before releasing 3127925.
