@@ -1,0 +1,240 @@
+{
+  "382": {
+    "N": {
+      "arm": "N",
+      "seed": 382,
+      "episodes": "b2b1d9f00134439e16f70a51907f73989f30edfbfe73edbbb69c1fbd9171654a",
+      "steps": 120,
+      "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+      "source": "4bf417f9b5dcf1ba94215b7247c80664a6217b16e0e85b72ccbe76d2b066e8ca",
+      "people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "original": {
+        "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+        "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+        "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+      },
+      "after": {
+        "body": "ff7ca2af6ca708ec915e0b66367865d0a4786e1472a179a8b06319c95ebaf93c",
+        "norm": "66cdcbd15362b5ea87b4892fe15e4832db5c85e8f09f7b5b9b037f1e16160f00",
+        "head": "d567c688ac4741875d2cdbefdc843c44ddac1f10cfae7be36301720a3811acfa"
+      },
+      "frozen": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+      "first_grad": {
+        "body": 1.8369357585906982,
+        "norm": 0.07833313941955566,
+        "head": 0.21826499700546265
+      },
+      "conflicts": 63,
+      "max_projection_delta": 0.0,
+      "mean_higher_loss_weight": 0.5347989266117413,
+      "held_labels_opened": false,
+      "device": "NVIDIA H100 80GB HBM3",
+      "weights": "3854e944fd280171a5d89e76f724834ca5f52649fae3d369c32e15746b4d216c"
+    },
+    "H": {
+      "arm": "H",
+      "seed": 382,
+      "episodes": "b2b1d9f00134439e16f70a51907f73989f30edfbfe73edbbb69c1fbd9171654a",
+      "steps": 120,
+      "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+      "source": "4bf417f9b5dcf1ba94215b7247c80664a6217b16e0e85b72ccbe76d2b066e8ca",
+      "people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "original": {
+        "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+        "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+        "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+      },
+      "after": {
+        "body": "24d100525abf198a1d5ed034d16165923f59e919093bb885e76ffeebb8f7b948",
+        "norm": "f62f69ab615b9ea3b78090f8f9dbfbcbafddf322b9873f6d18014a2299c1f5ad",
+        "head": "169c45d06428aa98e7d92ad9363f993acc6caa3156e35411ce5afa405643cfcf"
+      },
+      "frozen": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+      "first_grad": {
+        "body": 1.9314721822738647,
+        "norm": 0.0836397111415863,
+        "head": 0.22997188568115234
+      },
+      "conflicts": 65,
+      "max_projection_delta": 0.0,
+      "mean_higher_loss_weight": 0.5344351251920064,
+      "held_labels_opened": false,
+      "device": "NVIDIA H100 80GB HBM3",
+      "weights": "78700c2344f116464723524d738182e3a96306b1ea9009cfd319ce0e1b5fd714"
+    },
+    "X": {
+      "arm": "X",
+      "seed": 382,
+      "episodes": "b2b1d9f00134439e16f70a51907f73989f30edfbfe73edbbb69c1fbd9171654a",
+      "steps": 120,
+      "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+      "source": "4bf417f9b5dcf1ba94215b7247c80664a6217b16e0e85b72ccbe76d2b066e8ca",
+      "people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "original": {
+        "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+        "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+        "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+      },
+      "after": {
+        "body": "11405d5be2d612152cc88194a1299f693012cf77b47154638dc9b501b0bd6b25",
+        "norm": "3e84b45eef72951e101aee17572055c184190bd36f0b41d56381901ce7ae0cd7",
+        "head": "e094d2a250d6ac0eb6464ccd7998a58a387b14105c1e2060883fb74c3b63bc03"
+      },
+      "frozen": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+      "first_grad": {
+        "body": 1.9314721822738647,
+        "norm": 0.0836397111415863,
+        "head": 0.22997188568115234
+      },
+      "conflicts": 66,
+      "max_projection_delta": 0.6974368691444397,
+      "mean_higher_loss_weight": 0.5346365874012311,
+      "held_labels_opened": false,
+      "device": "NVIDIA H100 80GB HBM3",
+      "weights": "5526c22fbcb7f7e7b8c6b3006313d9819c5a9785755735d4fde1de9bddaf8d11"
+    }
+  },
+  "1382": {
+    "N": {
+      "arm": "N",
+      "seed": 1382,
+      "episodes": "3f9696ba5624f161063e4c7b6cb447b6bfe1694fda01722d6178e2ed3549de94",
+      "steps": 120,
+      "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+      "source": "4bf417f9b5dcf1ba94215b7247c80664a6217b16e0e85b72ccbe76d2b066e8ca",
+      "people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "original": {
+        "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+        "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+        "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+      },
+      "after": {
+        "body": "866125da0485bc19a4f7625281030b8a960cb3d3544c40e7eb0ecbc5800d7fb7",
+        "norm": "18241ed36c0651406efdaef62f727c362adfd7bcbb85b74993ffc653eb006ad6",
+        "head": "2df84f38fa6dcb416a5da761c2c2bb5510505bd46ae8961910082f16c4a76761"
+      },
+      "frozen": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+      "first_grad": {
+        "body": 0.5697318315505981,
+        "norm": 0.0437738262116909,
+        "head": 0.13716182112693787
+      },
+      "conflicts": 55,
+      "max_projection_delta": 0.0,
+      "mean_higher_loss_weight": 0.533853854238987,
+      "held_labels_opened": false,
+      "device": "NVIDIA H100 80GB HBM3",
+      "weights": "bf555eaa04b243d885f2148c37adbe4d50a12a267e07bc02e41fb4662e495a10"
+    },
+    "H": {
+      "arm": "H",
+      "seed": 1382,
+      "episodes": "3f9696ba5624f161063e4c7b6cb447b6bfe1694fda01722d6178e2ed3549de94",
+      "steps": 120,
+      "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+      "source": "4bf417f9b5dcf1ba94215b7247c80664a6217b16e0e85b72ccbe76d2b066e8ca",
+      "people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "original": {
+        "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+        "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+        "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+      },
+      "after": {
+        "body": "9393ccab8612f5bd8ffe3554582225e8f1a2cf4710af650b44265369b1278d77",
+        "norm": "a2ca16522571e714851335019698545abee99e4bb9aad4b4062f801da413cd9d",
+        "head": "90ecdefa8cfcc8e5e87d33d4f8bd5239bcddcc56dd1cfef4da2e1dce3bac65d6"
+      },
+      "frozen": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+      "first_grad": {
+        "body": 0.5772659182548523,
+        "norm": 0.043950535356998444,
+        "head": 0.13884598016738892
+      },
+      "conflicts": 54,
+      "max_projection_delta": 0.0,
+      "mean_higher_loss_weight": 0.5334202845891317,
+      "held_labels_opened": false,
+      "device": "NVIDIA H100 80GB HBM3",
+      "weights": "3d106cfcac26f59cbec4a819c0182df85105206c837ea293e75f1c6644359d87"
+    },
+    "X": {
+      "arm": "X",
+      "seed": 1382,
+      "episodes": "3f9696ba5624f161063e4c7b6cb447b6bfe1694fda01722d6178e2ed3549de94",
+      "steps": 120,
+      "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+      "source": "4bf417f9b5dcf1ba94215b7247c80664a6217b16e0e85b72ccbe76d2b066e8ca",
+      "people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "original": {
+        "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+        "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+        "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+      },
+      "after": {
+        "body": "91eed829d4133ea3a900662f09875d1b4a828f3151978fee05144a697f4f3550",
+        "norm": "ef04aa17b460768bd1e7413bcc8df84fa9b539f65997e5aafd266c6e0c264015",
+        "head": "38adff230773246160e3cd231887a49dc1a5ea6fa40c758020fa683bd7d3c3e8"
+      },
+      "frozen": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+      "first_grad": {
+        "body": 0.7918711304664612,
+        "norm": 0.06844011694192886,
+        "head": 0.19309101998806
+      },
+      "conflicts": 53,
+      "max_projection_delta": 1.3727383613586426,
+      "mean_higher_loss_weight": 0.5338265751798947,
+      "held_labels_opened": false,
+      "device": "NVIDIA H100 80GB HBM3",
+      "weights": "29125cf1507ba8a79420b459ce258946c3233fb32ab05cb7c1acc1026a125911"
+    }
+  }
+}
