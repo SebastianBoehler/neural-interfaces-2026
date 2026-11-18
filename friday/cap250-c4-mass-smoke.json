@@ -1,0 +1,38 @@
+{
+  "stock": {
+    "unequal_refits": 10,
+    "gpu": [
+      "NVIDIA A100-PCIE-40GB"
+    ],
+    "mean_shift_per_class": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mean_dominant_class_shift": 0.0
+  },
+  "primary": {
+    "unequal_refits": 10,
+    "gpu": [
+      "NVIDIA A100-PCIE-40GB"
+    ],
+    "mean_shift_per_class": [
+      -0.03241571684515072,
+      0.018774780066929963,
+      0.013640936778220753
+    ],
+    "mean_dominant_class_shift": -0.033438234642019046
+  },
+  "placebo": {
+    "unequal_refits": 10,
+    "gpu": [
+      "NVIDIA A100-PCIE-40GB"
+    ],
+    "mean_shift_per_class": [
+      0.032977823315503,
+      -0.01830720275795191,
+      -0.014670620557551079
+    ],
+    "mean_dominant_class_shift": 0.03400458987166088
+  }
+}
