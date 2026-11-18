@@ -51,7 +51,9 @@ def run(order, smoke):
     details = {}
     for stream,stop in route.items():
         delivery = perm[meta['stream'][perm] == stream]
-        assert np.array_equal(delivery,detector.C.order_rows(order,stream,detector.PROTO))
+        session_ids=np.unique(detector.C.SES[delivery])
+        assert len(delivery)>0 and len(session_ids)==1
+        assert np.array_equal(delivery,detector.C.order_rows(order,session_ids[0],detector.PROTO))
         cp = cp_type(config)
         # Native p/r/stack only modify class evidence when CP emits its readout.
         def never_read(*_):
@@ -89,7 +91,10 @@ def score():
         for j,p in enumerate(('P04','P10')):
             mask = (meta['subject']=='Dreyer2026Proteus/'+p)&(meta['session'].astype(str)!='1')
             idx = np.flatnonzero(mask)
-            pos = np.searchsorted(rows,idx)
+            inverse=np.full(len(y),-1,int)
+            inverse[rows]=np.arange(len(rows))
+            pos=inverse[idx]
+            assert np.all(pos>=0)
             assert np.array_equal(rows[pos],idx)
             m = metric(y[mask],labels[pos],meta,mask)
             assert m['n_cells']==4
