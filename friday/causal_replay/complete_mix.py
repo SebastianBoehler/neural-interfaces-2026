@@ -17,6 +17,7 @@ def candidate(ctx, archived, replacements, incumbent):
         planned[family] = (ctx.norm(frozen + delta)[p], ctx.norm(frozen)[p],
                            float(np.abs(delta).max()))
     apply, mix, gate = ctx.S.apply, ctx.A.mix, ctx.gm.gate
+    previous_members = ctx.A.EXTRA.copy()
     captured = {}
 
     def apply_slots(orders):
@@ -60,4 +61,6 @@ def candidate(ctx, archived, replacements, incumbent):
         ctx.chain(STACK, "V6Fr", ctx.Pperm)
     finally:
         ctx.S.apply, ctx.A.mix, ctx.gm.gate = apply, mix, gate
+        ctx.A.EXTRA.clear()
+        ctx.A.EXTRA.update(previous_members)
     return ctx.OUTS[f"{STACK}|V6Fr"].astype(np.float64), captured["deltas"]

@@ -8,7 +8,7 @@
 #SBATCH --output=terminal-%j.out
 set -euo pipefail
 BASE=/mnt/lustre/work/gehler/gfh527
-HERE=$BASE/ni26_friday_causal_rebuild_20261118/terminal_full0_v1
+HERE=$BASE/ni26_friday_causal_rebuild_20261118/terminal_full0_v2
 cd "$HERE"
 sha256sum --quiet -c source.sha256
 (
