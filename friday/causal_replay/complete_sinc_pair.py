@@ -7,7 +7,7 @@ import numpy as np
 
 from bridge_mix import install
 from bridge_orders import write_npz, write_receipt
-from bridge_owner import HERE, MEANS, ORDER, PROTO, STACK, corrected, guarded_load, owner, pin, sha
+from bridge_owner import HERE, MEANS, ORDER, PROTO, STACK, corrected, guarded_load, owner, pin, sha, stamp
 from complete_mix import candidate
 from complete_tail import live_tail, load_count, load_personalization
 from complete_zero import FEAT, FAMILIES, HASHES, read, set_aux_three
@@ -18,6 +18,7 @@ PREFIX = MEANS / "terminal_full0_v3/active_prefix.json"
 ZERO_SHA = "9b9dc4070b234a6df2c2d806c7ad5f2ddf2dbd231370fae688369a78b046663c"
 PREFIX_SHA = "d9b53c4f4289de0f784c6754d21b9018e805045668ad9a8e52fbc142d85fb490"
 FIT_TOL = 2e-5
+REFIT_ACTOR_SHA = "a3d227069dd9989bf77b1c1feddb3ce221e75687d354ef17caab0df12b335ca6"
 
 
 def authenticate_upstream(path, digest):
@@ -53,15 +54,21 @@ def pair_refits(root, source_sha, ctx, evidence, status_sha, initial):
     pin(root / "source.sha256", source_sha)
     target_pins = {"historical": evidence["inputs"]["historical"]["sha256"],
                    "causal": evidence["inputs"]["corrected"]["sha256"]}
+    with np.load(FEAT, allow_pickle=False) as z:
+        subjects = z["subject"]
+    fit_hashes = {name.rsplit("/", 1)[1]: stamp(np.flatnonzero(subjects != name).astype("<i8"))
+                  for name in np.unique(subjects)}
     proofs, banks = {}, {arm: {} for arm in ("base", "historical", "causal")}
     for family in FAMILIES:
         key = family, 0
         path = root / "members" / f"{family}_s0.npz"
         receipt = path.with_suffix(".json")
         meta = json.loads(receipt.read_text())
-        if (meta["bridge_sha256"] != evidence["bridge"]["sha256"]
-                or meta["bridge_status_sha256"] != status_sha
-                or meta["targets"] != target_pins or meta["held_labels_opened"]):
+        expected = dict(member=family, seed=0, rows=len(ctx.Pperm), order=ORDER, smoke=False,
+                        held_labels_opened=False, actor_sha256=REFIT_ACTOR_SHA, targets=target_pins,
+                        bridge_sha256=evidence["bridge"]["sha256"], bridge_status_sha256=status_sha)
+        got_fit = {name: item["fit_rows_sha"] for name, item in meta["fit_states"].items()}
+        if any(meta[k] != value for k, value in expected.items()) or got_fit != fit_hashes:
             raise ValueError(f"{family}: the fitted input is not tied to the shared fresh Sinc bridge")
         pin(path, meta["output_sha256"])
         with np.load(path, allow_pickle=False) as z:
