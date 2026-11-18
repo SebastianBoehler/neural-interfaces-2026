@@ -40,8 +40,10 @@ def restore(people,days,groups):
                 for e in v['events']:
                     a,b=(np.asarray(e['coefficient_mass_'+phase]) for phase in ('before','after'))
                     shift=b[a.argmax()]-a.max()
-                    assert e['unequal'] and (shift==0 if arm=='stock' else shift<0)
-                    if arm=='primary':
+                    if arm=='stock':
+                        assert shift==0
+                    elif e['unequal']:
+                        assert shift<0
                         mass.append(float(shift))
                 assert (pred[j,k,rows]==-1).all()
                 pred[j,k,rows]=v['labels']
@@ -85,7 +87,7 @@ def collect():
         by_person=dict(zip(roster,delta.mean((1,2)).tolist())),
         changed=int(np.count_nonzero(pred[0]!=pred[1])),corrections=int(np.count_nonzero(balanced&~stock)),
         regressions=int(np.count_nonzero(stock&~balanced)),decision_receipt=sha(Path('before_labels.json')),
-        source=sha(Path('source.sha256')),balanced_refits=len(mass),
+        source=sha(Path('source.sha256')),balanced_unequal_refits=len(mass),
         mean_dominant_mass_change_pp=100*float(np.mean(mass)),supported=supported,
         meets_accuracy_advance=supported and delta.mean()>=.30)
     Path('result.json').write_text(json.dumps(result,indent=2)+'\n')

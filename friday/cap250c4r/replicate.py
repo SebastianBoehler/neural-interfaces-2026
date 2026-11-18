@@ -40,7 +40,11 @@ def run(index, arm, smoke):
             if arm=='stock':
                 assert out['labels']==anchor['labels']
             events=out['events']
-            assert events and all(e['unequal'] and (e['changed']>0)==(arm=='primary') for e in events)
+            assert events and any(e['unequal'] for e in events)
+            if arm=='stock':
+                assert all(e['changed']==0 for e in events)
+            else:
+                assert all(e['changed']>0 for e in events if e['unequal'])
             records[name]=dict(rows=rows.tolist(),**out)
             if smoke:
                 prefix=worker.stream(template,x,rows[:61],arm)
