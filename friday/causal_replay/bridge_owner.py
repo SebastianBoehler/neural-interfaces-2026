@@ -79,7 +79,7 @@ class LabelFreeArchive(Mapping):
 
 
 @contextmanager
-def guarded_load(pins=PINS, provenance_path=PROVENANCE):
+def guarded_load(pins=PINS, provenance_path=PROVENANCE, archived_refits=()):
     original = np.load
     opened = {}
     for path, expected in pins.items():
@@ -95,7 +95,9 @@ def guarded_load(pins=PINS, provenance_path=PROVENANCE):
 
     def load(file, *args, **kwargs):
         path = Path(file).absolute()
-        if "/runs/labels/" in str(path) or ("ttt18" in path.name and "_r15c250-" in path.name):
+        legacy_refit = "ttt18" in path.name and "_r15c250-" in path.name
+        verified_refit = path in archived_refits and path in expected
+        if "/runs/labels/" in str(path) or (legacy_refit and not verified_refit):
             raise RuntimeError(f"cached dependent output forbidden: {path}")
         if path not in opened:
             opened[path] = sha(path)
@@ -155,6 +157,10 @@ def owner(order=ORDER):
     for name in ("CU6", "CU17"):
         line = next(line for line in text.splitlines() if line.startswith(name + " = "))
         text = replace_once(text, line, f"{name} = {{}}")
+    text = replace_once(text, "CU17 = {}", "CU17 = {}\nFT_BASE = FR17")
+    for seed in ("k", "ks[0]"):
+        text = replace_once(text, f"CU17[a, {seed}] - FR17[a, {seed}]",
+                            f"CU17[a, {seed}] - FT_BASE[a, {seed}]")
     text = replace_once(text, "return SC.person(out, p0)", "return out")
     return start_module("bridge_shufcombo", chain, text)
 
