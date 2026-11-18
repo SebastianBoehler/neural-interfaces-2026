@@ -59,19 +59,32 @@ def live_tail(count, final, raw, windows, delivery, verify_prefix=True):
     personalized = int(np.count_nonzero(np.any(terminal != filtered, axis=1)))
     if not filter_rows or not personalized or not any(w is not None for w in latch.values()):
         raise ValueError("the archived count/CSP stages did not activate")
-    prefix_count = 0
-    if verify_prefix:
-        first, last = count.SESS[0], count.SESS[-1]
-        for session in (first, last, first):
-            with limit_session(count, session):
-                prefix, _ = count_filter(count, raw)
-                rows = count.C.order_rows(ORDER, session, count.PROTO)
-            actor = final.CP.CausalPers(final.CONFIG)
-            scores = np.stack([actor.step(windows[r], raw[r], prefix[r], False) for r in rows])
-            if (len(rows) != PREFIX or not actor.refits or not actor.fused or actor.log["err"]
-                    or not np.array_equal(prefix[rows], filtered[rows]) or not np.array_equal(scores, terminal[rows])):
-                raise ValueError("truncated/interleaved count or CSP prefix differs")
-            prefix_count += 1
+    proof = (active_prefixes(count, final, raw, filtered, terminal, windows, latch) if verify_prefix else {})
     return dict(raw=raw, filtered=filtered, terminal=terminal), dict(
         latch={str(s): t for s, t in latch.items()}, filter_affected_rows=filter_rows,
-        personalization_affected_rows=personalized, exact_interleaved_prefix_checks=prefix_count)
+        personalization_affected_rows=personalized, **proof)
+
+
+
+def active_prefixes(count, final, raw, filtered, terminal, windows, latch):
+    active = [session for session in count.SESS if latch[session] is not None and latch[session] < PREFIX]
+    if not active:
+        raise ValueError("no latched count filter is active inside the tested prefix")
+    first = active[0]
+    second = active[-1] if len(active) > 1 else next(s for s in count.SESS if s != first)
+    count_rows = []
+    for session in (first, second, first):
+        with limit_session(count, session):
+            prefix, _ = count_filter(count, raw)
+            rows = count.C.order_rows(ORDER, session, count.PROTO)
+        actor = final.CP.CausalPers(final.CONFIG)
+        scores = np.stack([actor.step(windows[r], raw[r], prefix[r], False) for r in rows])
+        if (len(rows) != PREFIX or not actor.refits or not actor.fused or actor.log["err"]
+                or not np.array_equal(prefix[rows], filtered[rows]) or not np.array_equal(scores, terminal[rows])):
+            raise ValueError("truncated/interleaved count or CSP prefix differs")
+        affected = int(np.count_nonzero(np.any(prefix[rows] != raw[rows], axis=1)))
+        if session in active and not affected:
+            raise ValueError("a latched count filter had no effect inside the tested prefix")
+        count_rows.append(affected)
+    return dict(exact_interleaved_prefix_checks=len(count_rows), count_affected_prefix_rows=count_rows,
+                prefix_sessions=[str(s) for s in (first, second, first)])
