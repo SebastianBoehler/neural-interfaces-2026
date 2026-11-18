@@ -30,6 +30,13 @@ PARENTS = {
 PEOPLE = tuple(f"P{i:02d}" for i in range(1, 11))
 ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 HISTORY = ("genuine", "donor", "blank")
+COMPARATORS = {
+    "centered": ("prototype",),
+    "chronological": ("symmetric",),
+    "coherent_time": ("scattered_time", "chronological"),
+    "scattered_time": ("chronological",),
+}
+KINDS = tuple(sorted(set(COMPARATORS) | {r for arms in COMPARATORS.values() for r in arms}))
 ARMS = ("stock", *(f"wave_{h}" for h in HISTORY), *(f"full_{h}" for h in HISTORY))
 COUNTS = np.array([2, 2, 2, 6, 2, 2, 2, 2, 2, 6])
 
@@ -164,7 +171,7 @@ def committed(stem):
         return {k: bank[k] for k in bank}
 
 
-def summarize(bank, pairs, meta, interval, metric, compare_history=False):
+def summarize(bank, pairs, meta, interval, metric, ref_kinds=()):
     with np.load(DATA, allow_pickle=False) as data:
         labels = data["y"]
     names = sorted({name for pair in pairs for name in pair})
@@ -187,19 +194,46 @@ def summarize(bank, pairs, meta, interval, metric, compare_history=False):
         contrasts[f"{left}-{right}"] = dict(
             **interval(delta, COUNTS), changed=int(changed),
             orders=dict(zip(ORDERS, np.average(delta, weights=COUNTS, axis=0).tolist())))
-    if compare_history:
-        delta = ((tables["full_genuine"] - tables["full_blank"])
-                 - (tables["prototype_full_genuine"] - tables["prototype_full_blank"]))
-        contrasts["centered-history_minus_prototype-history"] = dict(
-            **interval(delta, COUNTS),
-            orders=dict(zip(ORDERS, np.average(delta, weights=COUNTS, axis=0).tolist())))
+    for ref in ref_kinds:
+        for scope in ("wave", "full"):
+            genuine, blank = f"{scope}_genuine", f"{scope}_blank"
+            delta = ((tables[genuine] - tables[blank])
+                     - (tables[f"{ref}_{genuine}"] - tables[f"{ref}_{blank}"]))
+            contrasts[f"{scope}_history_minus_{ref}_history"] = dict(
+                **interval(delta, COUNTS),
+                orders=dict(zip(ORDERS, np.average(delta, weights=COUNTS, axis=0).tolist())))
     return {"absolute": values, "contrasts": contrasts}
+
+
+def compare(kind, seed, meta, interval, metric):
+    check(kind in COMPARATORS, f"no paired comparator for {kind}")
+    ref_kinds = COMPARATORS[kind]
+    candidate = committed(f"{kind}_{seed}")
+    pairs = [("full_genuine", "stock")]
+    for scope in ("wave", "full"):
+        pairs.append((f"{scope}_genuine", f"{scope}_blank"))
+    for ref in ref_kinds:
+        for key, decisions in committed(f"{ref}_{seed}").items():
+            person, order, arm = key.split("|")
+            if arm == "stock":
+                check(np.array_equal(decisions, candidate[key]), f"unpaired stock: {key}")
+            else:
+                candidate[f"{person}|{order}|{ref}_{arm}"] = decisions
+        for scope in ("wave", "full"):
+            genuine, blank = f"{scope}_genuine", f"{scope}_blank"
+            pairs.extend([(f"{ref}_{genuine}", f"{ref}_{blank}"),
+                          (genuine, f"{ref}_{genuine}")])
+    result = summarize(candidate, pairs, meta, interval, metric, ref_kinds)
+    result["parent_decision_sha256"] = {
+        arm: sha(Path(f"{arm}_{seed}_decisions.npz")) for arm in (kind, *ref_kinds)
+    }
+    Path(f"comparison_{kind}_{seed}.json").write_text(json.dumps(result, indent=2) + "\n")
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("preflight", "smoke", "score", "compare"))
-    parser.add_argument("kind", nargs="?", choices=("prototype", "centered"))
+    parser.add_argument("kind", nargs="?", choices=KINDS)
     parser.add_argument("seed", nargs="?", type=int, choices=(460, 1460))
     args = parser.parse_args()
     owner, interval, metric = upstream()
@@ -210,24 +244,7 @@ def main():
     check(args.kind and args.seed, "kind and seed required")
     stem = f"{args.kind}_{args.seed}"
     if args.mode == "compare":
-        check(args.kind == "centered", "compare requires the centered successor")
-        prototype = committed(f"prototype_{args.seed}")
-        centered = committed(stem)
-        pairs = [("full_genuine", "stock"), ("full_genuine", "full_blank"),
-                 ("prototype_full_genuine", "prototype_full_blank")]
-        for key, decisions in prototype.items():
-            person, order, arm = key.split("|")
-            if arm == "stock":
-                check(np.array_equal(decisions, centered[key]), f"unpaired stock: {key}")
-            else:
-                centered[f"{person}|{order}|prototype_{arm}"] = decisions
-        pairs += [(f"{scope}_genuine", f"prototype_{scope}_genuine")
-                  for scope in ("wave", "full")]
-        result = summarize(centered, pairs, meta, interval, metric, compare_history=True)
-        result["parent_decision_sha256"] = {
-            arm: sha(Path(f"{arm}_{args.seed}_decisions.npz")) for arm in ("prototype", "centered")
-        }
-        Path(f"comparison_{args.seed}.json").write_text(json.dumps(result, indent=2) + "\n")
+        compare(args.kind, args.seed, meta, interval, metric)
         return
     people = PEOPLE[:1] if args.mode == "smoke" else PEOPLE
     bank, actors = make_bank(args.kind, args.seed, people, meta, ages, baseline)
