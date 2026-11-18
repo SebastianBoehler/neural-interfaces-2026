@@ -39,7 +39,9 @@ At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used 
 | F10 isolated normalization update, FULL-SYSTEM DEV | +0.131 pp [80% −0.036,+0.306] and −0.031 pp [−0.226,+0.167] against stock. The matched-donor contrasts also remained undecided. |
 | F-C1/F-C2, FULL-SYSTEM DEV | Count prior scale −0.110 pp new, −0.098 returning. Shape-normalized CSP fit −0.004 pp new. All three intervals cross zero. |
 | F-C3/F-C4, exact FULL-SYSTEM EXTERNAL | Stable-pseudo-label weighting −0.185 pp [80% −0.463,+0.116]. Balanced pseudo-class loss +0.119 pp [−0.162,+0.417]. Both contrasts remain undecided. |
+| F-C6, causal branch selection vs cap250, FULL-SYSTEM DEV | +0.037 pp [80% −0.039,+0.109] held-new and −0.018 pp [−0.093,0.000] returning. The weighted result was +0.013 pp. Selection with known labels would add +2.119 pp on that same mix. [Historical arbitration evidence](cap250-c6-result.md) |
 | D1, external rescue ceiling over cap250 | A label-aware oracle across four alternatives corrected 98 of 2,200 stock misses for +2.285 pp [80% +1.911,+2.659] on two pinned orders. This measures where the alternatives disagree when stock is wrong. A deployable selector would have to identify those cases from EEG. [Paired Scherer analysis](transfer/d1_result.md) |
+| D2, early count plus spectral kernel, FULL-SYSTEM DEV | +0.213 pp [80% +0.097,+0.323] versus cap250 and −0.004 pp [−0.045,+0.038] versus the kernel alone. The negative interaction was −0.067 pp [−0.128,−0.014]. [Historical factorial comparison](wave_factorial/result-18nov.md) |
 
 [Exact archive selection evidence](../../neural-interfaces-2026/evidence/next_wave_16nov/lunch_recommendation_18nov.md) · [Returning spectral kernel](../../neural-interfaces-2026/evidence/next_wave_16nov/kernel457.md) · [Waveform evidence](wave/results-18nov.md) · [F6–F9 paired results](wave/results-f6-f9-18nov.md) · [External receipts](../../neural-interfaces-2026/evidence/next_wave_16nov/EVENING_HANDOFF_18NOV.md)
 
@@ -52,11 +54,12 @@ At 15:51 CET, the signed-in Sealed Final Phase showed zero of one attempts used 
 
 ## Decision condition
 
-Prefer the untouched staged cap250 ZIP on the current evidence. F11 waits for one Ferranti training retry before Galvani can complete the second matched score. Ferranti estimated a 16:17 CET start as of 15:53 CET. The additional replay work uses Galvani and stored predictions. Leonardo rejected the current SSH key, while both active clusters remained reachable. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
+Prefer the untouched staged cap250 ZIP on the current evidence. F11 waits for one Ferranti training retry before Galvani can complete the second matched score. Ferranti estimated a 16:33 CET start as of 16:07 CET. The additional replay work uses Galvani and stored predictions. Leonardo rejected the current SSH key, while both active clusters remained reachable. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
 
 | Checkpoint (CET) | Expected evidence |
 | --- | --- |
-| Wednesday 16:30–16:45, estimated | Both F11 seeds and the raw sensor-scale comparison, subject to the Ferranti retry and artifact transfer. The first complete seed is already below cap250. |
-| Wednesday 17:00–17:15, target | Historical complete-system results for combining the fixed early count update with the spectral kernel and for causal arbitration between cap250 and v5.1b, subject to smoke and queue time. A positive result needs exact worker qualification. |
+| Wednesday 16:06, completed | F-C6 causal branch selection scored +0.013 pp over cap250 on the weighted historical mix. |
+| Wednesday 16:07, completed | D2 early count plus spectral retrieval matched the kernel alone. |
+| Wednesday 16:40–16:50, estimated | Both F11 seeds and the raw sensor-scale comparison, subject to the Ferranti retry and artifact transfer. The first complete seed is below cap250. |
 | Wednesday 18:00, planned | Candidate decision with updated plots and live leaderboard. A new sealed score requires upload authorization, a free attempt and a completed Codabench job. |
 | Friday 20 November, 18:00, planned | Final candidate and alternate. Use held-person and independent external evidence to break ties inside development noise. |
