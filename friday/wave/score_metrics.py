@@ -7,6 +7,7 @@ ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0",
 COUNTS = np.array([2, 2, 2, 6, 2, 2, 2, 2, 2, 6])
 STOCK_SCORE = 76.10391516713594
 PREFIX_GROUPS = ("windows_1_10", "windows_11_40", "windows_41_plus")
+SPLIT_PREFIX_GROUPS = ("window_1", "windows_2_10", *PREFIX_GROUPS[1:])
 
 
 def class_cells(meta, rows, labels, n_cells):
@@ -45,11 +46,12 @@ def summarize(tables, bank, pairs, interval, ref_kinds, eligible=None):
     return result
 
 
-def prefix_sets(ages):
+def prefix_sets(ages, split_first=False):
     ages = np.asarray(ages)
     if ages.ndim != 1 or (ages < 0).any():
         raise ValueError("invalid delivery age for prefix diagnostics")
-    return ((ages < 10), (ages >= 10) & (ages < 40), (ages >= 40))
+    late = ((ages >= 10) & (ages < 40), ages >= 40)
+    return ((ages == 0), (ages > 0) & (ages < 10), *late) if split_first else (ages < 10, *late)
 
 
 def cell_weights(cells, n_rows):
@@ -62,12 +64,14 @@ def cell_weights(cells, n_rows):
     return weights
 
 
-def score_bank(bank, pairs, meta, interval, metric, labels, ref_kinds=(), evaluate_motor=False, ages=None):
+def score_bank(bank, pairs, meta, interval, metric, labels, ref_kinds=(), evaluate_motor=False,
+               ages=None, split_first=False):
     names = sorted({name for pair in pairs for name in pair})
     tables = {name: np.empty((len(PEOPLE), len(ORDERS))) for name in names}
     motor_tables = {name: np.empty_like(table) for name, table in tables.items()} if evaluate_motor else {}
+    groups = SPLIT_PREFIX_GROUPS if split_first else PREFIX_GROUPS
     prefix_tables = {group: {name: np.empty_like(table) for name, table in tables.items()}
-                     for group in PREFIX_GROUPS} if ages is not None else {}
+                     for group in groups} if ages is not None else {}
     motor_eligible = {}
     prefix_eligible = {group: {} for group in prefix_tables}
     for p, person in enumerate(PEOPLE):
@@ -79,7 +83,7 @@ def score_bank(bank, pairs, meta, interval, metric, labels, ref_kinds=(), evalua
             if evaluate_motor:
                 motor_eligible[person, order] = y == 0
             if prefix_tables:
-                for group, subset in zip(PREFIX_GROUPS, prefix_sets(ages[order][rows])):
+                for group, subset in zip(groups, prefix_sets(ages[order][rows], split_first)):
                     prefix_eligible[group][person, order] = subset
             for name in names:
                 pred = bank[f"{person}|{order}|{name}"]

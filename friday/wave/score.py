@@ -10,6 +10,7 @@ import numpy as np
 
 from score_metrics import ORDERS, PEOPLE, score_bank
 from score_motor import MOTOR_KINDS, pretraining, sha
+from style_score_inputs import STYLE_KINDS, f7_bank
 
 
 WORK = Path("/mnt/lustre/work/gehler/gfh527")
@@ -39,8 +40,9 @@ COMPARATORS = {
     "motor_null": ("chronological",),
     "raw_masked": ("raw_supervised", "chronological"),
     "raw_supervised": ("chronological",),
+    "raw_style_full": ("raw_style_diagonal", "raw_supervised"),
 }
-RAW_KINDS = ("raw_supervised", "raw_masked")
+RAW_KINDS = ("raw_supervised", "raw_masked", *STYLE_KINDS)
 KINDS = tuple(sorted(set(COMPARATORS) | {r for arms in COMPARATORS.values() for r in arms}))
 ARMS = ("stock", *(f"wave_{h}" for h in HISTORY), *(f"full_{h}" for h in HISTORY))
 
@@ -83,6 +85,8 @@ def check_actor(path, kind, seed, person, actor_pin, people, full, lineage):
     record = json.loads(proof.read_text())
     expected = dict(kind=kind, seed=seed, held=person, actor=actor_pin, data=DATA_SHA, steps=600 if full else 4,
                     orders=PERMS_SHA, checkpoint=sha(path))
+    if kind in STYLE_KINDS:
+        expected["synthetic_updates"] = expected["steps"] // 2
     check(all(record.get(name) == value for name, value in expected.items()),
           f"checkpoint or training receipt mismatch: {path}")
     check(sorted(record["train_people"]) == sorted(set(PEOPLE) - {person}),
@@ -99,7 +103,8 @@ def check_actor(path, kind, seed, person, actor_pin, people, full, lineage):
     import torch
     payload = torch.load(path, weights_only=True, map_location="cpu")
     check(payload["kind"] == kind and payload["held"] == person, f"wrong saved actor: {path}")
-    return {"receipt": sha(proof), "checkpoint": expected["checkpoint"], **lineage}
+    provenance = {"synthetic_updates": expected["synthetic_updates"]} if kind in STYLE_KINDS else {}
+    return {"receipt": sha(proof), "checkpoint": expected["checkpoint"], **lineage, **provenance}
 
 
 def checked_decisions(values, rows, ages, baseline):
@@ -181,13 +186,17 @@ def committed(stem, root=Path("."), proof_sha=None):
         return {k: bank[k] for k in bank}, proof["decisions"]
 
 
-def summarize(bank, pairs, meta, interval, metric, ref_kinds=(), evaluate_motor=False, ages=None):
+def summarize(bank, pairs, meta, interval, metric, ref_kinds=(), evaluate_motor=False, ages=None,
+              split_first=False):
     with np.load(DATA, allow_pickle=False) as data:
         labels = data["y"]
-    return score_bank(bank, pairs, meta, interval, metric, labels, ref_kinds, evaluate_motor, ages)
+    return score_bank(bank, pairs, meta, interval, metric, labels, ref_kinds, evaluate_motor, ages,
+                      split_first)
 
 
 def comparator(kind, ref, seed):
+    if kind in STYLE_KINDS and ref == "raw_supervised":
+        return f7_bank(WORK, seed, PEOPLE, committed)
     if kind not in (*MOTOR_KINDS, *RAW_KINDS) or ref != "chronological":
         return committed(f"{ref}_{seed}")
     proof = {
@@ -197,9 +206,12 @@ def comparator(kind, ref, seed):
     return committed(f"chronological_{seed}", WORK / "ni26_friday_wave_time_20261118", proof[seed])
 
 
-def compare(kind, seed, meta, ages, interval, metric):
+def compare(kind, seed, meta, ages, interval, metric, reference=None):
     check(kind in COMPARATORS, f"no paired comparator for {kind}")
     ref_kinds = COMPARATORS[kind]
+    if reference is not None:
+        check(reference in ref_kinds, f"unregistered comparator: {reference}")
+        ref_kinds = (reference,)
     candidate, digest = committed(f"{kind}_{seed}")
     proofs = {kind: digest}
     pairs = [("full_genuine", "stock")]
@@ -218,9 +230,11 @@ def compare(kind, seed, meta, ages, interval, metric):
             pairs.extend([(f"{ref}_{genuine}", f"{ref}_{blank}"),
                           (genuine, f"{ref}_{genuine}")])
     result = summarize(candidate, pairs, meta, interval, metric, ref_kinds,
-                       evaluate_motor=kind in MOTOR_KINDS, ages=ages if kind in RAW_KINDS else None)
+                       evaluate_motor=kind in MOTOR_KINDS, ages=ages if kind in RAW_KINDS else None,
+                       split_first=kind in STYLE_KINDS)
     result["parent_decision_sha256"] = proofs
-    Path(f"comparison_{kind}_{seed}.json").write_text(json.dumps(result, indent=2) + "\n")
+    suffix = f"_vs_{reference}" if reference else ""
+    Path(f"comparison_{kind}_{seed}{suffix}.json").write_text(json.dumps(result, indent=2) + "\n")
 
 
 def main():
@@ -228,6 +242,7 @@ def main():
     parser.add_argument("mode", choices=("preflight", "smoke", "score", "compare"))
     parser.add_argument("kind", nargs="?", choices=KINDS)
     parser.add_argument("seed", nargs="?", type=int, choices=(460, 1460))
+    parser.add_argument("reference", nargs="?")
     args = parser.parse_args()
     owner, interval, metric = upstream()
     meta, ages, baseline = stock_reference(owner)
@@ -237,8 +252,9 @@ def main():
     check(args.kind and args.seed, "kind and seed required")
     stem = f"{args.kind}_{args.seed}"
     if args.mode == "compare":
-        compare(args.kind, args.seed, meta, ages, interval, metric)
+        compare(args.kind, args.seed, meta, ages, interval, metric, args.reference)
         return
+    check(args.reference is None, "reference applies only to compare")
     people = PEOPLE[:1] if args.mode == "smoke" else PEOPLE
     bank, actors = make_bank(args.kind, args.seed, people, meta, ages, baseline)
     if args.mode == "smoke":
@@ -255,7 +271,8 @@ def main():
     pairs += [(arm, "stock") for arm in ARMS if arm != "stock"]
     saved, _ = committed(stem)
     result = summarize(saved, pairs, meta, interval, metric,
-                       evaluate_motor=args.kind in MOTOR_KINDS, ages=ages if args.kind in RAW_KINDS else None)
+                       evaluate_motor=args.kind in MOTOR_KINDS, ages=ages if args.kind in RAW_KINDS else None,
+                       split_first=args.kind in STYLE_KINDS)
     Path(f"{stem}_result.json").write_text(json.dumps({**proof, **result}, indent=2) + "\n")
     print(json.dumps({arm: row["pp"] for arm, row in result["absolute"].items()}))
 
