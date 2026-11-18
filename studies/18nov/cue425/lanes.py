@@ -3,8 +3,9 @@ from pathlib import Path
 import hashlib
 import shutil
 import subprocess
+import sys
 
-original = Path('../ni26_cross411b_20261118').resolve()
+original = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path('../ni26_cross411b_20261118').resolve()
 for manifest in ('sources.sha256', 'members.sha256', 'inputs.sha256'):
     subprocess.run(['sha256sum','-c','--status',manifest],cwd=original,check=True)
 for offset in (30,60):

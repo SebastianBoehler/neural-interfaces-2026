@@ -23,6 +23,8 @@ The exact candidate increased a word-versus-subtraction label contrast on 26 ext
 
 Preserving original run blocks on the external Scherer data gave +0.463 pp and shuffling the blocks gave +0.142 pp, versus +0.040 pp under matched full-session shuffling. All three intervals included zero. The possible change in package advantage exceeded the preregistered ±1 pp equivalence margin. [Order-scope comparison](scope416.md)
 
+Moving the Scherer window start from 1.00 to 1.25 seconds after cue onset removed direct overlap with the displayed cue. The package difference changed by +0.017 pp [80% −0.797,+0.813]. At 1.50 seconds v5.1b led by 0.585 pp on those two orders. On the separate Shin2018 word task, aligned eye-signal subtraction changed 22–24% of individual archive decisions. Its effect on cap250’s relative word selectivity remained unresolved. [Cue timing](cue425.md) · [Measured eye-signal intervention](eye426.md)
+
 **Runtime.** On an A100 the 250-window adaptation cap activated naturally on 320- and 813-window external streams. Reversing the order moved a 52–58 s incremental cost to whichever stream first activated fine-tuning. All decisions and work counts repeated. The private session mix and process layout determine how often this cost recurs. The 60-minute sealed limit remains unverified. [Paired worker timing](runtime387.md)
 
 Two clean A100 allocations compared the exact archives on the same four 190-window sessions. Cap250 took 584.05 versus 349.50 seconds on one, and 211.22 versus 114.61 seconds on the other. All 3,040 archived decisions matched. Both standardized workloads fit the historical headroom under the tested process scenarios. The hidden workload and hardware remain unknown. [Exact-archive timing and scenario bounds](budget414.md)

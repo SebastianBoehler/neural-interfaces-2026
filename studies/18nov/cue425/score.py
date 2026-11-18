@@ -1,9 +1,11 @@
 """Paired changes in official cell-mean accuracy across genuine Scherer crop times."""
 from pathlib import Path
 import json
+import sys
 import numpy as np
 
-files = [Path('../ni26_cross411b_20261118/result.json'),Path('offset30/result.json'),Path('offset60/result.json')]
+baseline = Path(sys.argv[1]) if len(sys.argv) > 1 else Path('../ni26_cross411b_20261118/result.json')
+files = [baseline,Path('offset30/result.json'),Path('offset60/result.json')]
 records = [json.loads(p.read_text()) for p in files]
 assert records[0]['people'] == records[1]['people'] == records[2]['people']
 assert records[0]['arms'] == records[1]['arms'] == records[2]['arms']
