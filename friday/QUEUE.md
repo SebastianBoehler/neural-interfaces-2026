@@ -98,3 +98,7 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - Galvani SSH is restored. Ferranti responds and still requires keyboard-interactive authentication. F12 and the current cap250 diagnostic use Galvani.
 - [F12 results](wave/band-result-18nov.md) are complete, with 40 successful source fits and both paired held scores at 17:16 CET. Spectral initialization scored 41.372% and 41.152% as a whole decoder. Its matched random contrasts were +0.176 and −1.847 pp. The standalone figure shows both seeds and per-person changes.
 - Galvani A100 job 3128477 is running the preregistered exact shared-input diagnostic from `5c6e4ac`. The full-worker timing array depends on resolving the score-bit difference in the unrecognized route.
+
+## Wednesday 18 November, 17:24 CET
+
+- [F-C5a attribution diagnostic](cap250-c5a-result.md) completed at 17:23:22 CET. On identical live inputs, terminal score vectors matched bitwise in both passes and covariance calls fell from 120 to 79. The two independent stock workers diverged at neural refit age 20. The current evidence qualifies stage equivalence and leaves independent whole-worker timing unresolved.
