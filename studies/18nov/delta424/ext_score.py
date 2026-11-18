@@ -46,7 +46,10 @@ def main():
     out={}
     for s in SEEDS:
         t=rows[f'T{s}']
-        pairs={a:t[:,0]-rows[a][:,0] for a in (f'S{s}',f'C{s}',f'blank{s}','native','old','cap',f'J{s}',f'K{s}')}
+        pairs={a:t[:,0]-rows[a][:,0] for a in (f'S{s}',f'C{s}',f'blank{s}','native',f'J{s}',f'K{s}')}
+        for a in ('old','cap'):
+            assert rows[a].shape == (26,)
+            pairs[a] = t[:,0]-rows[a]
         pairs['horizon']=t[:,0]-t[:,1]
         out[s]={a:metric.summary(v,draw) for a,v in pairs.items()}
     Path('ext_result.json').write_text(json.dumps(dict(arms={a:v.mean(0).tolist() for a,v in rows.items()},

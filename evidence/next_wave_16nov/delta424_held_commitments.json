@@ -1,0 +1,65 @@
+{
+  "actors": {
+    "P01": {
+      "held": "P01",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "2512c1b6480ee9ce05b7a4b1110bfdf2a6d37a735083c0ec51602d6c3fd47b19",
+      "fits": "a8d19ade60027de0c87a32766143c75811900a49e6fef8fc9ad912f54edf8c0a",
+      "source": "dbb9ea4cb6a3a1a07660186ac60caee690161f50e88221dd5c061e4acba9fe0a",
+      "outputs": "05bffda526dcff016f6058428be57f47580b52d52163f4278699bcd6d6e1ffa5",
+      "checks": {
+        "control": 0.0,
+        "prefix": 2.384185791015625e-06,
+        "one_step": 9.5367431640625e-07
+      },
+      "seconds": 84.47581415530294,
+      "held_labels_opened": false
+    },
+    "P02": {
+      "held": "P02",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "668e756312945d20561dd9219983d309304b0c337dac22b55b52472d0ced11a3",
+      "fits": "a8d19ade60027de0c87a32766143c75811900a49e6fef8fc9ad912f54edf8c0a",
+      "source": "dbb9ea4cb6a3a1a07660186ac60caee690161f50e88221dd5c061e4acba9fe0a",
+      "outputs": "ad15eaf37ee69f3665da1759cc27f571cba67268a1f7b8b29e526ac9b5142627",
+      "checks": {
+        "control": 0.0,
+        "prefix": 2.1457672119140625e-06,
+        "one_step": 9.5367431640625e-07
+      },
+      "seconds": 88.35200178343803,
+      "held_labels_opened": false
+    },
+    "P03": {
+      "held": "P03",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "96fcf70f3f89e4d5db1883134557d04defc5d9dec3eb9fb1d5d33f84bf7e1898",
+      "fits": "a8d19ade60027de0c87a32766143c75811900a49e6fef8fc9ad912f54edf8c0a",
+      "source": "dbb9ea4cb6a3a1a07660186ac60caee690161f50e88221dd5c061e4acba9fe0a",
+      "outputs": "197557bd871868ee030cd7e98d2b2c190de0c950311ebe50e5764383f5a1deea",
+      "checks": {
+        "control": 0.0,
+        "prefix": 1.430511474609375e-06,
+        "one_step": 9.5367431640625e-07
+      },
+      "seconds": 88.80110027827322,
+      "held_labels_opened": false
+    },
+    "P09": {
+      "held": "P09",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "3404d36b360fbf18d99370c6d94b603e9bea42022addcb516dd05cbea2d77a5c",
+      "fits": "a8d19ade60027de0c87a32766143c75811900a49e6fef8fc9ad912f54edf8c0a",
+      "source": "dbb9ea4cb6a3a1a07660186ac60caee690161f50e88221dd5c061e4acba9fe0a",
+      "outputs": "cc45a107601241fc96e1da7a155ae9d5ce7f2d38dbe2f49d37e647167d4a23a5",
+      "checks": {
+        "control": 0.0,
+        "prefix": 1.5497207641601562e-06,
+        "one_step": 9.5367431640625e-07
+      },
+      "seconds": 88.15811901632696,
+      "held_labels_opened": false
+    }
+  },
+  "held_labels_opened": false
+}

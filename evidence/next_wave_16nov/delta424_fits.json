@@ -1,0 +1,170 @@
+{
+  "T_382": {
+    "arm": "T",
+    "seed": 382,
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "device": "NVIDIA H100 80GB HBM3",
+    "steps": 120,
+    "episodes": "a4e54bed9461de0e759557cd6b35b1f7ca0bbae9f159071ae103df1278ddb9f3",
+    "gradient": {
+      "body": "ac95cdb7d647cf4dadf5b84a3edb112efe3845d28ff499282247f9c7064c3d50",
+      "norm": "b740e578dcb09364e53dbef4c06f40f97b320dfeed68a62d5229f88ffd86bb79",
+      "head": "e02c37d297bbdb62b6425a1f527dfb7ebe9a7095f095a7e8c25d9878c1479334"
+    },
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "8e0f4244c718a6ae6dc32fe52de947083095ab90d57004d26189294a4b2db986",
+      "norm": "8634f88f4675a04b472657cc510f2d6b5d3b528c0d2794c1405f7f38ffcb9db1",
+      "head": "26c342398aa231aa8643ef5f93870e48e3dd299f0225d1df4ec0a7abb890dd49"
+    },
+    "fixed": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "source": "305a51f747dd2a5753ddee6d7bc92eeaf0e8bc1e3a72d63c6bae0fd9a8fa92ee",
+    "probe_mse": 0.0041960561999682495,
+    "weights": "2c1b2028f7b6064e4a17d1ef6d4ddfecc1f67dd46e489fbc4ec0fc6027348ce6"
+  },
+  "S_382": {
+    "arm": "S",
+    "seed": 382,
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "device": "NVIDIA H100 80GB HBM3",
+    "steps": 120,
+    "episodes": "a4e54bed9461de0e759557cd6b35b1f7ca0bbae9f159071ae103df1278ddb9f3",
+    "gradient": {
+      "body": "fcba004c94a20da3dedf9230b412bd0cf18997184bd68b5d4478a1bcf9cf78a7",
+      "norm": "56b0377f386e405a1908019e5cb51605fea019a5c439ece0d454c805def48d06",
+      "head": "f0ba350385a9771bd568b809bb34a2d6437b4b1ddca47a6e6101b4208fbf1e73"
+    },
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "b992e6c8b7016f1b989a452eaec6187ef9797fa9264aa3af62f33d0af70e186f",
+      "norm": "c12f61942dbe9bf40faae882f3f6bf6ca02dfc3ba5b8197c485fd12085ef0b71",
+      "head": "e48ddb5009c6cf63d6ea2c6cf50aca07182bd044eacfba691bd29fea77988a12"
+    },
+    "fixed": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "source": "305a51f747dd2a5753ddee6d7bc92eeaf0e8bc1e3a72d63c6bae0fd9a8fa92ee",
+    "probe_mse": 0.004193746596380758,
+    "weights": "c05f5824e1cdc0b7158e0696505262d817be18a5452ebc144e81f6e86a752fd9"
+  },
+  "C_382": {
+    "arm": "C",
+    "seed": 382,
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "device": "NVIDIA H100 80GB HBM3",
+    "steps": 120,
+    "episodes": "a4e54bed9461de0e759557cd6b35b1f7ca0bbae9f159071ae103df1278ddb9f3",
+    "gradient": {
+      "body": "4ed2b74fb746197b4697256c396264f077920804bc817651bf3d2f7069655ea8",
+      "norm": "5384d7f33abc669d241a621ca38dba47c9341ab62b3eab34ffe621e71c6bf276",
+      "head": "e10cd6c93bf877a3917a913c0cc2073219c350d15d8ac39cc1b8054d80459b76"
+    },
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "a4243571c6788a632ab63dd3e73a64bc14c63dbd9492f824cc20f22588e6f8cc",
+      "norm": "c2701f84c6d2cf67cf697b6677e3abc47b70be41848107540e881dc7b5239441",
+      "head": "042edf8719ccc3b7cf98d21dbb662a67887e4a5c60801eb05fd5ed6d877d2e04"
+    },
+    "fixed": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "source": "305a51f747dd2a5753ddee6d7bc92eeaf0e8bc1e3a72d63c6bae0fd9a8fa92ee",
+    "probe_mse": 0.01082905374156932,
+    "weights": "08baf6629373bdf317a0d87e34f0ee6680d70a98e16c2c9a5e107100e98d4edf"
+  },
+  "T_1382": {
+    "arm": "T",
+    "seed": 1382,
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "device": "NVIDIA H100 80GB HBM3",
+    "steps": 120,
+    "episodes": "122d033fe593496d9478c6737a2fe1520a77d13dfa4f63614a32125e9f471b85",
+    "gradient": {
+      "body": "a6099d023617551242068649b3ebb02e7ea26eb5551118518f815c8db8cafe8d",
+      "norm": "b3ac64e068af16874396056f8453399755e2898ea0d153f998c711526164da92",
+      "head": "7236bafcc407e82154dc3594bd4fefb1cdd5ab40f36fa7ab1bfe097ef943694e"
+    },
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "be54696f4645117be4cc6e121bc18d571dcd19902fd9b0ee478d62f7f05ee04d",
+      "norm": "7bf4761e3b01f5847aa0b68b0769e1d2c1b618a8c6f08998f79ddaba258752f8",
+      "head": "22ec55ae702760846e274f504bd4ee112aa50eecf390da11e1b0e8f376998c54"
+    },
+    "fixed": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "source": "305a51f747dd2a5753ddee6d7bc92eeaf0e8bc1e3a72d63c6bae0fd9a8fa92ee",
+    "probe_mse": 0.005829081390099115,
+    "weights": "e59588df102cb1292c6dc8f9573bb3773ca3d743259f7f441d619f5cb2dabb31"
+  },
+  "S_1382": {
+    "arm": "S",
+    "seed": 1382,
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "device": "NVIDIA H100 80GB HBM3",
+    "steps": 120,
+    "episodes": "122d033fe593496d9478c6737a2fe1520a77d13dfa4f63614a32125e9f471b85",
+    "gradient": {
+      "body": "ff2eeabd62560a0439c2be8464c9f2f1b81477d78e1424bdd03eae37f516d952",
+      "norm": "f56df2be6d7af925010af50abc74abedac9b58cab03425887469299d21e75bee",
+      "head": "2536e9bbadae367e201950490a2b800dcabcd562ac12026396f6ccb9d7ba571d"
+    },
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "0b8e38c5b8b4abda2454da3f98cc5f44c1a40a0856da88bf5476eb4542c93fbe",
+      "norm": "178d5da3cb9d1dd3eba8cfaa75045612430627dd57cf8478c7b03f6e35d4dc0f",
+      "head": "36930eae252f9e9c8807fe74794db1aa48ef3f3663bf8d3100e0c4b8d0fcc6a9"
+    },
+    "fixed": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "source": "305a51f747dd2a5753ddee6d7bc92eeaf0e8bc1e3a72d63c6bae0fd9a8fa92ee",
+    "probe_mse": 0.0062424137140624225,
+    "weights": "c211ff536dfe8a8746c4cba3ab12ed3f1d328f7a3d9e12df108eef93ce5ebee0"
+  },
+  "C_1382": {
+    "arm": "C",
+    "seed": 1382,
+    "rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+    "bundle": "06f45ef836fab01845cbb007bb5567dc1c39b4835b1b84b4930fdac1f4d6545f",
+    "device": "NVIDIA H100 80GB HBM3",
+    "steps": 120,
+    "episodes": "122d033fe593496d9478c6737a2fe1520a77d13dfa4f63614a32125e9f471b85",
+    "gradient": {
+      "body": "1a8541d59c1152a9c6e651bd40cde8e9d8150b57f0e2772198b1a06a3346b0b3",
+      "norm": "5dea9b42543fb7e54cb0b645e4ae488bcd3d9751aee9079b5b3f4a50656d1324",
+      "head": "f4357dc8f71c67460fd6c0fbd455e14910ab6c39388e3a8f7525ad122a3c0b4c"
+    },
+    "before": {
+      "body": "6567537b769a25afabe0cf1572598b842012a6bc1131e17afec28564602fd15f",
+      "norm": "f4b7011c20134409c0ddfbc0f8fd5be5b4926230c64961bb3b62c8da78be4359",
+      "head": "3447cdb51bcc7d12b83bec27903a1d188ed913dc03779a15404b0395d405f53c"
+    },
+    "after": {
+      "body": "4cc6be34ecada773544070ca671ebd94d884952f6c2ecaa7d86cb3aaab57d696",
+      "norm": "23ecc24472405c4cd3568fc742476c0756a3977be54d8ae2cbc5bf2498757857",
+      "head": "464cf935aadb09fc5acd3e60ceb8b879ac48ce0610a6e9708d2a2a16c3aa49dd"
+    },
+    "fixed": "25d82fa480a804419a6021d90384f9c2f664296d2b1e80f3c7cdcae556371870",
+    "source": "305a51f747dd2a5753ddee6d7bc92eeaf0e8bc1e3a72d63c6bae0fd9a8fa92ee",
+    "probe_mse": 0.012492789850512054,
+    "weights": "882324e4546278f78f4d9a9c87b7b58fd3b6e75799255d829a75a8430a4ae1ed"
+  }
+}
