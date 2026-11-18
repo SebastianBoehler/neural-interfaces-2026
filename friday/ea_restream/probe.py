@@ -15,6 +15,7 @@ CFG = {
 RAW = {"fbcnet_raw_tf": (2, 5), "shallow_raw": (4, 6)}
 BASES = ("B2_s0", "B2_s1", "B2_s2", "B2_s012", "B2_s345", "B2_pool")
 ANCHORS = (("P10", 0), ("P01", 1))
+ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 TOL = 2e-5
 
 
@@ -41,6 +42,16 @@ def read_inputs(root):
     if not np.array_equal(np.sort(full0), np.arange(len(subject))):
         raise ValueError("invalid full0 delivery")
     return data, full0
+
+
+def deliveries(root, test, n):
+    with np.load(root / "runs/shuffle_perms.npz", allow_pickle=False) as z:
+        orders = {o: z[f"{o[:-1]}|{o[-1]}|all_loso"] for o in ORDERS}
+    for name, rows in orders.items():
+        if not np.array_equal(np.sort(rows), np.arange(n)):
+            raise ValueError(f"invalid delivery {name}")
+        orders[name] = rows[np.isin(rows, test)]
+    return orders
 
 
 def historical(root):
@@ -100,6 +111,30 @@ def tensor_identity(net):
     return h.hexdigest()
 
 
+def replay_order(actor, features, test, fit, rows):
+    stream = actor.d["stream"]
+    sessions = tuple(dict.fromkeys(stream[test]))
+    output = np.full((len(test), 3), np.nan, np.float64)
+    checks = {}
+    for session in sessions:
+        local = rows[stream[rows] == session]
+        checks[session] = first_window(actor, features, test[stream[test] == session], local)
+        delivered = actor.predict_proba_stream(local)
+        prefix = actor.predict_proba_stream(local[:16])
+        other = next((s for s in sessions if s != session), stream[fit[0]])
+        other_rows = rows if other in sessions else fit
+        actor.predict_proba_stream(other_rows[stream[other_rows] == other][:16])
+        reset = actor.predict_proba_stream(local[:16])
+        if (not np.array_equal(prefix, reset) or not np.allclose(delivered[:16], prefix, atol=TOL, rtol=0)
+                or not np.array_equal(delivered[:16].argmax(1), prefix.argmax(1))):
+            raise ValueError(f"causal model prefix or reset check failed for {session}")
+        checks[session]["prefix_posterior_max_abs"] = float(np.abs(delivered[:16] - prefix).max())
+        output[np.searchsorted(test, local)] = delivered
+    if not np.isfinite(output).all() or not np.allclose(output.sum(1), 1, atol=1e-8, rtol=0):
+        raise ValueError("causal replay missed or invalidated a held row")
+    return output, checks
+
+
 def run(root, name, phase, held, seed):
     import braindecode
     import deep
@@ -109,7 +144,10 @@ def run(root, name, phase, held, seed):
     import torch
 
     slot, nseeds, arch, revision = CFG[name]
-    if (held, seed) != ("P01", 0) and (name != "fbcnet_ea_tf" or (held, seed) not in ANCHORS):
+    matrix = phase == "matrix"
+    if matrix and name != "fbcnet_ea_tf":
+        raise ValueError("matrix reconstruction is restricted to trainable-FIR FBCNet with EA")
+    if not matrix and (held, seed) != ("P01", 0) and (name != "fbcnet_ea_tf" or (held, seed) not in ANCHORS):
         raise ValueError("unregistered archival reconstruction")
     tag = f"{name}_{held}_seed{seed}"
     for module in (deep, features, protocol, run_cv):
@@ -124,7 +162,7 @@ def run(root, name, phase, held, seed):
     rows = full0[te[full0]]
     stream = data["stream"]
     sessions = tuple(dict.fromkeys(stream[test]))
-    if len(sessions) != (3 if held == "P10" else 1) or not np.array_equal(np.sort(rows), test):
+    if len(sessions) != (3 if held in ("P04", "P10") else 1) or not np.array_equal(np.sort(rows), test):
         raise ValueError("unexpected held sessions or permutation")
     run_cv.SEED[0] = seed
     actor = run_cv.CONFIGS[name](data)
@@ -138,8 +176,7 @@ def run(root, name, phase, held, seed):
         raise ValueError("source-only prior differs from historical row-local covariance")
     checks = {session: first_window(actor, features, test[stream[test] == session], rows[stream[rows] == session])
               for session in sessions}
-    if ((held == "P01" and rows[0] != 94) or
-            not any(check["rec_lookup_max_abs"] > 1e-3 for check in checks.values())):
+    if held == "P01" and (rows[0] != 94 or not any(check["rec_lookup_max_abs"] > 1e-3 for check in checks.values())):
         raise ValueError("first-window probe did not expose a recording-order lookup difference")
     receipt = dict(fold=f, seed=seed, cfg=name, slot=slot, pooled_seeds=list(range(nseeds)), source=revision,
                    source_manifest=digest(HERE / "source.sha256"), archive_manifest=digest(HERE / "archive.sha256"),
@@ -158,13 +195,23 @@ def run(root, name, phase, held, seed):
 
     if not torch.cuda.is_available() or "A100" not in torch.cuda.get_device_name():
         raise ValueError("the original A100 backend is required for reconstruction")
-    if json.loads(inputs_receipt.read_text()) != receipt:
+    parent, parent_full0, existing_checkpoint = None, None, None
+    if matrix:
+        from archive_anchors import load_anchor, restore
+
+        parent, parent_full0, existing_checkpoint = load_anchor(held, seed, receipt, test, rows)
+    elif json.loads(inputs_receipt.read_text()) != receipt:
         raise ValueError("label-free archive/input proof differs from reconstruction")
-    data["y"] = np.full(len(tr), -1, dtype=np.int64)
-    data["y"][fit] = read_training_labels(root / "data/proteus_windows.npz", fit, len(tr))
-    data["w"] = np.ones(len(tr))
-    actor.fit(fit)
-    if not np.array_equal(actor.G, prior) or (data["y"][test] != -1).any() or actor.net.training:
+    if existing_checkpoint is None:
+        data["y"] = np.full(len(tr), -1, dtype=np.int64)
+        data["y"][fit] = read_training_labels(root / "data/proteus_windows.npz", fit, len(tr))
+        data["w"] = np.ones(len(tr))
+        actor.fit(fit)
+        if (data["y"][test] != -1).any() or set(data["y"][fit]) != {0, 1, 2}:
+            raise ValueError("fit labels differ from the original excluded roster")
+    else:
+        restore(actor, existing_checkpoint, receipt, prior)
+    if not np.array_equal(actor.G, prior) or actor.net.training:
         raise ValueError("source training changed the held exclusion or alignment prior")
     if arch == "fbcnet" and not all(p.requires_grad for p in actor.net.spectral_filtering.parameters()):
         raise ValueError("historical FBCNet trainable FIR restriction missing")
@@ -175,47 +222,50 @@ def run(root, name, phase, held, seed):
         raise ValueError("invalid recording inference")
     label_changes = int(np.count_nonzero(rec.argmax(1) != target.argmax(1)))
     max_abs = float(np.abs(rec - target).max())
-    passed = label_changes == 0 and max_abs <= TOL
+    passed = label_changes == 0 and max_abs <= TOL and (parent is None or frozen == parent["fitted_state_sha"])
     receipt.update(recording_label_changes=label_changes, recording_max_abs=max_abs, parity=passed,
                    fitted_state_sha=frozen, gpu=torch.cuda.get_device_name())
+    if matrix:
+        receipt["fit_mode"] = "reused" if existing_checkpoint else "rehydrated" if parent else "new_reconstruction"
     if not passed:
         write_json(HERE / f"{tag}_recording.json", receipt)
         raise ValueError(f"archived recording mismatch {tag}: {label_changes} changed labels, max {max_abs}")
-    causal = np.full_like(rec, np.nan)
-    for session in sessions:
-        local = rows[stream[rows] == session]
-        delivered = actor.predict_proba_stream(local)
-        prefix = actor.predict_proba_stream(local[:16])
-        other_session = next((s for s in sessions if s != session), stream[fit[0]])
-        other_rows = rows if other_session in sessions else fit
-        other = other_rows[stream[other_rows] == other_session][:16]
-        actor.predict_proba_stream(other)
-        reset = actor.predict_proba_stream(local[:16])
-        if (not np.array_equal(prefix, reset) or not np.allclose(delivered[:16], prefix, atol=TOL, rtol=0)
-                or not np.array_equal(delivered[:16].argmax(1), prefix.argmax(1))):
-            raise ValueError(f"causal model prefix or reset check failed for {session}")
-        checks[session]["prefix_posterior_max_abs"] = float(np.abs(delivered[:16] - prefix).max())
-        causal[np.searchsorted(test, local)] = delivered
-    if tensor_identity(actor.net) != frozen or not np.isfinite(causal).all():
-        raise ValueError("causal replay changed frozen state or missed a recording row")
-    path = HERE / f"{tag}_full0.npz"
+    causal, checks = replay_order(actor, features, test, fit, rows)
+    receipt["first_windows"] = checks
+    if matrix:
+        if parent is not None and not np.array_equal(causal, parent_full0):
+            raise ValueError("previously qualified anchor full0 posteriors changed")
+        all_rows = deliveries(root, test, len(stream))
+        all_proba = {"full0": causal}
+        order_checks = {"full0": checks}
+        for order, delivery in all_rows.items():
+            if order != "full0":
+                all_proba[order], order_checks[order] = replay_order(actor, features, test, fit, delivery)
+        receipt["order_checks"] = order_checks
+        arrays = dict(index=test, orders=np.array(ORDERS), delivery=np.stack([all_rows[o] for o in ORDERS]),
+                      proba=np.stack([all_proba[o] for o in ORDERS]))
+    else:
+        arrays = dict(index=test, delivery=rows, proba=causal)
+    if tensor_identity(actor.net) != frozen:
+        raise ValueError("causal replay changed frozen state")
+    path = HERE / f"{tag}_{'orders' if matrix else 'full0'}.npz"
     with path.open("xb") as handle:
-        np.savez_compressed(handle, index=test, delivery=rows, proba=causal)
+        np.savez_compressed(handle, **arrays)
     checkpoint = HERE / f"{tag}_reconstructed.pt"
     with checkpoint.open("xb") as handle:
         torch.save(dict(state=actor.net.cpu().state_dict(), prior=torch.from_numpy(prior), cfg=name, seed=seed,
                         held=held, source=revision, fit_rows_sha=receipt["fit_rows_sha"]), handle)
     write_json(HERE / f"{tag}_recording.json", dict(receipt, prediction_sha=digest(path),
                                                    reconstructed_checkpoint_sha=digest(checkpoint)))
-    print(f"PASS {tag} recording parity and causal full0 model", flush=True)
+    print(f"PASS {tag} recording parity and causal {'eight orders' if matrix else 'full0'}", flush=True)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("archive", type=Path)
     parser.add_argument("family", choices=CFG)
-    parser.add_argument("phase", choices=("inputs", "reconstruct"))
-    parser.add_argument("--held", choices=("P01", "P10"), default="P01")
-    parser.add_argument("--seed", choices=(0, 1), type=int, default=0)
+    parser.add_argument("phase", choices=("inputs", "reconstruct", "matrix"))
+    parser.add_argument("--held", choices=tuple(f"P{i:02d}" for i in range(1, 11)), default="P01")
+    parser.add_argument("--seed", choices=range(5), type=int, default=0)
     args = parser.parse_args()
     run(args.archive, args.family, args.phase, args.held, args.seed)
