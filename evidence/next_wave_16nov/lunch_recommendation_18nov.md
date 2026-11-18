@@ -13,6 +13,8 @@
 
 For JS versus cap250, the break-even share of new people is about 51.4% under the assumed returning-person mix. At 40%, 57% and 70% new, the projected JS differences are −0.064, +0.031 and +0.104 pp respectively. These are sensitivity calculations from two development estimates. The private mix and both underlying effect sizes are uncertain.
 
+The exact candidate increased a word-versus-subtraction label contrast on 26 external word-generation participants by +5.32 pp [80% +3.46,+7.12]. Resetting the same archives every 20 windows reduced that advantage to +2.18 pp. The paired benefit of the longer history was +3.14 pp [+1.28,+5.00]. The subtraction study yielded +0.52 pp [−0.86,+1.95]. Fixation has no competition label, which limits these measurements to task selectivity. [Task and reset controls](selectivity415.md)
+
 The 05:45 review kept cap250. Signed phase slope and both cross-interface interventions trailed stock on the same four development people. The proposed rebalancing correction also trailed stock on the ten-person comparison by 0.163 pp [80% 0.010, 0.320]. These cohorts overlap earlier development tests. [Phase slope](phase402.md) · [Cross-interface controls](align404.md) · [Rebalancing](rebalance403.md)
 
 **Runtime.** On an A100 the 250-window adaptation cap activated naturally on 320- and 813-window external streams. Reversing the order moved a 52–58 s incremental cost to whichever stream first activated fine-tuning. All decisions and work counts repeated. The private session mix and process layout determine how often this cost recurs. The 60-minute sealed limit remains unverified. [Paired worker timing](runtime387.md)
