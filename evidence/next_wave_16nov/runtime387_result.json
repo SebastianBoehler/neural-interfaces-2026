@@ -1,0 +1,140 @@
+{
+  "P10-3": {
+    "seconds_old_cap": [
+      [
+        23.225351793225855,
+        29.85973092680797
+      ],
+      [
+        23.304365896154195,
+        30.244968102313578
+      ]
+    ],
+    "ratios": [
+      1.2856524711723492,
+      1.297824117467395
+    ],
+    "old_activity": {
+      "n": 199,
+      "routed": 189,
+      "degen": 0,
+      "staged": 189,
+      "err": 0,
+      "first": ""
+    },
+    "cap_activity": {
+      "windows": 199,
+      "recognized": 10,
+      "ft_refits": 0,
+      "ft_steps": 0,
+      "ft_relabels": 0,
+      "ft_capped": 0,
+      "ft_over": 0,
+      "cp_refits": 0,
+      "cp_fused": 0,
+      "errors": 0
+    },
+    "row_sha": "b1d1789f6b55e4aa4adf2e94a8ce85a60597805bbd3fdf34664d4884ae7c9a6f",
+    "cap_live_gib": [
+      0.040410518646240234,
+      0.040410518646240234
+    ],
+    "cap_reserved_gib": [
+      0.048828125,
+      0.048828125
+    ],
+    "labels_changed": 3
+  },
+  "Schirrmeister2017/1": {
+    "seconds_old_cap": [
+      [
+        36.04538685968146,
+        125.89809429179877
+      ],
+      [
+        36.36401474010199,
+        128.175614988897
+      ]
+    ],
+    "ratios": [
+      3.4927657950211097,
+      3.524792735482691
+    ],
+    "old_activity": {
+      "n": 320,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap_activity": {
+      "windows": 320,
+      "recognized": -1,
+      "ft_refits": 24,
+      "ft_steps": 480,
+      "ft_relabels": 24,
+      "ft_capped": 6,
+      "ft_over": 0,
+      "cp_refits": 15,
+      "cp_fused": 230,
+      "errors": 0
+    },
+    "row_sha": "8fbeee62fd8a929b00ac3f22881b45d3af3de0ae3ee81b0199cbbf26e6b79d93",
+    "cap_live_gib": [
+      4.181833267211914,
+      4.181833267211914
+    ],
+    "cap_reserved_gib": [
+      5.54296875,
+      5.54296875
+    ],
+    "labels_changed": 38
+  },
+  "Schirrmeister2017/2": {
+    "seconds_old_cap": [
+      [
+        95.7720374809578,
+        161.7708086478524
+      ],
+      [
+        97.15829144464806,
+        160.84843832813203
+      ]
+    ],
+    "ratios": [
+      1.6891235991509215,
+      1.6555297127653672
+    ],
+    "old_activity": {
+      "n": 813,
+      "routed": 0,
+      "degen": 0,
+      "staged": 0,
+      "err": 0,
+      "first": ""
+    },
+    "cap_activity": {
+      "windows": 813,
+      "recognized": -1,
+      "ft_refits": 24,
+      "ft_steps": 480,
+      "ft_relabels": 24,
+      "ft_capped": 56,
+      "ft_over": 0,
+      "cp_refits": 40,
+      "cp_fused": 723,
+      "errors": 0
+    },
+    "row_sha": "2affaa368a4c9c795181a12befc9be1b4318a1d89aa4db54b3629e47dc10a47e",
+    "cap_live_gib": [
+      4.181833267211914,
+      4.181833267211914
+    ],
+    "cap_reserved_gib": [
+      5.54296875,
+      5.54296875
+    ],
+    "labels_changed": 85
+  }
+}

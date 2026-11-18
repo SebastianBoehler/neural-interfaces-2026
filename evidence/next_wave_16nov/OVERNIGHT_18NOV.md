@@ -86,10 +86,30 @@ The workstation return monitor logs to .journal/ferranti-382-return.log. Every 5
 
 01:34 CET. §385 complete across two days each for nine external Scherer participants. Actual ZIPs v5.1b 47.963%, cap250 48.456%, difference +0.493 pp [80% −0.311,+1.286]. All 36 natural cap250 sessions exercised active fine-tuning; zero stage errors. Keep staged cap250 for lunch. The private score and wall time remain unknown. [Evidence](lunch_qualification385.md)
 
+§387 queued. Actual longest public PROTEUS session P10 day 3 contains 199 windows. Galvani 3123488 → two warm paired A100 comparisons 3123489 → 3123490. Complete 320/813-window external Schirrmeister recordings test natural long-stream activation, CUDA memory and the 250-window cap on the actual archives. Sealed submission remains unuploaded.
+
 02:02 CET. §388 Ferranti 509376 source smoke → 509377 six H100 fits, at most three simultaneous. The earlier §93 examined person-group losses. This study compares gradient projection between different source people against both equal-weight and harder-person-weighted controls, using the learned A6 model. Three arms, two seeds, matching 120 source updates. Native CPU four-person evaluator prepared on Galvani.
+
+02:03 CET. §386 registered and queued across all ten people, eight orders and 14 sessions. Exact-stock smoke 3123492 → matched row-turnover workers 3123493 and covariance-coverage controls 3123494 → 3123495. Each alternative exchanges the same number of historical rows per pseudo-class. Two independent seeds compare persistent and fresh priorities.
 
 02:04 CET. §388 H100 509376/509377 passed all six registered fits. Native CPU2 3123496 → 3123497 → 3123498 has immutable fit digest 4000a367e800f86de3fd7df2cef715e89613d0abb47c835e7cf159467a4e2e72. Independent source schedules 509384/509385 found P04 hardest; H−N P04 CE −0.00618/−0.00584, X−H −0.00039/+0.00162. X projected 66/120 and 53/120 source-person pairs. Held scoring pending.
 
+§386 stock/prefix/recognition smoke passed. §386b was registered before §386 labels and queued with independent seeds 2386/3386, 1/16 and 1/4 exchange doses, paired score averaging and all ten people. Smoke 3123537 → 40 workers 3123538 (≤12 concurrent) → 3123539.
+
 02:07 CET. §388 P09 on cn212 failed historical CPU probability parity before scoring; P01/P02/P03 on cn102 passed. P09 unchanged retry 3123581 running on cn102 → scorer 3123582. Dependency-invalid 3123498 canceled.
 
+02:08 CET. §386 complete. Fresh draws quadrupled selection turnover at matched class quotas. Fresh−stock was −0.064/+0.002 pp across ten people and −0.120/−0.040 across six outside §384. §386b dose and two-head replication is running. [Evidence](turn386.md)
+
+02:10 CET. §386b complete. Independent paired heads also declined at 1/16 and 1/4 exchange (−0.077/−0.028 pp). No lunch candidate from turnover. [Evidence](turn386.md)
+
 02:11 CET. §388 complete. X−H +0.134/−0.087 pp, both paired intervals cross zero. H−N +0.097/−0.148 pp. Hard-source CE improved on both seeds; held transfer changed sign. X 59.911/59.649%, current JS 81.236%. P09 recovered unchanged on cn102, final repaired collector 3123583 passed. [Whole-model evidence](conflict388.md)
+
+§387 exact-archive worker completed. Represented P10 day 3 ratio 1.286×/1.298×. First natural unknown recording (320) triggered the timing flag at 3.493×/3.525×; second (813) took 1.689×/1.656×. Both hit the 250-window cap and matched all labels/work across repeats with zero error. §387b reverses only their order, 3123585 → 3123586 → 3123587. [Worker evidence](runtime387.md)
+
+§387b complete. Reversing unknown-session order moved the 52–58s excess to whichever recording came first. Combined time changed −2.04%; labels/work exactly repeated. Cap250/v5.1b on the second active recording was 1.931× at 320 windows and 1.656–1.689× at 813. Retain cap250 staged and budget the first-active cost per worker process. The private time limit remains unverified. [Timing and hashes](runtime387.md)
+
+02:47 CET. §390 smoke passed; 3123615/16 test confidence-localized random selection and rank-matched geometry on ten people × eight orders. 3123617 checks metrics and 32 natural returning session traces. 3123618 attributes confidence loss and true correctness to swapped training rows. §390b 3123672 tests independent-head agreement and count-filter-confirmed corrections on the sealed endpoints.
+
+02:47 CET. §389 whole raw-EEG vector autoregression and §389b time-local model are queued on Galvani. Input smoke 3123660 → 3123661 feature bank → whole/half source-excluded fold smokes 3123662/3123663 → matched arrays 3123664/3123665 → full scorer 3123666. Two seeds and ten held people, original eight orders; no A6 parameters used.
+
+02:48 CET. The prior Galvani wave finished at 02:23; both cluster account queues were empty at 02:42. The next block splits research questions 2:2. Explore: §389/389b whole-decoder class-specific dynamics, 3123660–66; §391/391b ordinal waveform transitions, 3123667–71. Refine: §390/390b confidence-boundary training-row selection in the full chain, 3123614–18 and 3123672; §392 confirmation of proposed corrections, 3123612/13 complete, no confirmed gain. For the following pair §393 feasibility covers native-channel multi-study task contrasts; §394 is a distinct source-fit preservation test under consideration for Ferranti. Verify Slurm IDs before crediting execution. Existing campaign heartbeat now carries the 50:50 split, both clusters and the instruction to stage reserve work. [Git and solution-space review](search_retrospective_18nov.md)
