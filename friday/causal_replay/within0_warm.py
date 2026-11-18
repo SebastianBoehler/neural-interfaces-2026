@@ -28,10 +28,10 @@ REFIT_NAME = "r15c250"
 PREFIX = 80
 
 
-def actor():
+def actor(device="RTX 2080 Ti"):
     gpu = torch.cuda.get_device_name()
-    if "RTX 2080 Ti" not in gpu or torch.__version__ != "2.14.1+cu126":
-        raise ValueError("requires the original §257 RTX inference geometry")
+    if device not in gpu or torch.__version__ != "2.14.1+cu126":
+        raise ValueError(f"requires the pinned {device} actor geometry")
     if any(os.environ[key] != "8" for key in ("SLURM_CPUS_PER_TASK", "OMP_NUM_THREADS",
                                              "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS")):
         raise ValueError("requires the original eight-thread geometry")
