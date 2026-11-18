@@ -72,3 +72,4 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - F11 Ferranti smoke 510567 completed in 11 s; both authenticated P01 actors reached Galvani. Source matched episode, donor, reference and initialization digests across arms.
 - F-C5 3127921 completed. P01 held-new used 155 versus 190 covariance calls. Two returning samples used 21 versus 70 calls. Terminal scores and selected rows were bitwise equal. Full paired array 3127930 and collector 3127931 accepted.
+- F10 completed both seeds. The isolated update changed cap250 by +0.131 and −0.031 pp with both intervals crossing zero. See verified hashes in the [ledger](../docs/LEDGER.md).

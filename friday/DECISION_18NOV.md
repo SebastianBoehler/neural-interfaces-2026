@@ -1,6 +1,6 @@
 # Wednesday Track 2 decision brief · working version
 
-**Current selection is staged v6.6cap250. The alternate is sealed v5.1b.** The clean waveform variants tested so far trail cap250 on ten held-new public people. The fixed spectral kernel's gains did not reproduce on the independent Scherer cohort. Sebastian chose stronger held-person and external evidence as the tie-break inside the development noise band. At 18:00 CET this brief needs a fresh leaderboard check and the completed F10 and F-C5 evidence if available. Both listed archives passed SHA and ZIP CRC checks on 18 November.
+**Current selection is staged v6.6cap250. The alternate is sealed v5.1b.** The clean waveform variants tested so far trail cap250 on ten held-new public people. The fixed spectral kernel's gains did not reproduce on the independent Scherer cohort. Sebastian chose stronger held-person and external evidence as the tie-break inside the development noise band. At 18:00 CET this brief needs a fresh leaderboard check and completed F-C5 and F11 evidence if available. Both listed archives passed SHA and ZIP CRC checks on 18 November.
 
 ## Sealed score and rank scenario
 
@@ -31,6 +31,7 @@ An entry score of 0.824 would place #16 in this snapshot. Scores of 0.826–0.82
 | F1–F4, FULL-SYSTEM DEV, ten held-new PROTEUS people | Every tested insertion was below 76.1039% cap250. Best seed point estimate −0.347 pp. Genuine history sometimes improved a weak model enough to beat its own blank control. |
 | F6–F9, held-new WHOLE and FULL-SYSTEM DEV | Supervised raw waveform gained +4.952/+4.421 pp over F3 in the whole-decoder test. Fixed normalization reached 48.070%/48.591%. All eight raw or transferred model variants trailed cap250 as terminal insertions at both seeds. |
 | F5 learned correction vs exact staged cap250, FULL-SYSTEM EXTERNAL | −3.284 pp [−4.160,−2.338] and −3.975 pp [−5.033,−2.873], nine Scherer people and two orders. |
+| F10 isolated normalization update, FULL-SYSTEM DEV | +0.131 pp [80% −0.036,+0.306] and −0.031 pp [−0.226,+0.167] against stock. The matched-donor contrasts also remained undecided. |
 | F-C1/F-C2, FULL-SYSTEM DEV | Count prior scale −0.110 pp new, −0.098 returning. Shape-normalized CSP fit −0.004 pp new. All three intervals cross zero. |
 | F-C3/F-C4, exact FULL-SYSTEM EXTERNAL | Stable-pseudo-label weighting −0.185 pp [80% −0.463,+0.116]. Balanced pseudo-class loss +0.119 pp [−0.162,+0.417]. Both contrasts remain undecided. |
 
@@ -44,4 +45,4 @@ An entry score of 0.824 would place #16 in this snapshot. Scores of 0.826–0.82
 
 ## Decision condition
 
-Prefer the untouched staged cap250 ZIP on the current evidence. Preserve v5.1b as the sealed alternate. F5 lost on the independent Scherer sessions. F6 tests PhysioNet sensorimotor transfer. F7 and F8 optimize a single compact raw-waveform decoder for unseen people. F-C3 and F-C4 completed with uncertain external effects. F6–F9 completed. F10 tests whether the isolated causal normalization update transfers into cap250. F-C5 measures exact-preserving covariance work savings. F11 tests raw sensor normalization. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
+Prefer the untouched staged cap250 ZIP on the current evidence. Preserve v5.1b as the sealed alternate. F5 lost on the independent Scherer sessions. F6 tests PhysioNet sensorimotor transfer. F7 and F8 optimize a single compact raw-waveform decoder for unseen people. F-C3 and F-C4 completed with uncertain external effects. F6–F9 completed. F10 completed with undecided effects for the isolated causal normalization update. F-C5 measures exact-preserving covariance work savings. F11 tests raw sensor normalization. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
