@@ -32,18 +32,27 @@ def fit_member(actor,source,train_fir,deep,torch):
     if not train_fir:
         assert not initial
         return {}
-    learned=dict(actor.net.spectral_filtering.named_parameters())
-    assert initial and initial.keys()==learned.keys()
+    bank=actor.net.spectral_filtering
+    assert not bank.method_iir and not bank.forward_filter and bank.n_bands==9
+    learned=dict(bank.named_parameters())
+    numerators={f'fir_list.{i}' for i in range(bank.n_bands)}
+    denominators={f'fir_a_list.{i}' for i in range(bank.n_bands)}
+    assert initial.keys()==learned.keys()==numerators|denominators
     spectral={}
     for key,val in learned.items():
         first=initial[key]
         after=val.detach().cpu()
         assert val.requires_grad and torch.isfinite(after).all()
-        assert val.grad is not None and torch.isfinite(val.grad).all()
+        update=float((first-after).abs().max())
+        if key in numerators:
+            assert val.grad is not None and torch.isfinite(val.grad).all(),key
+            gradient=float(val.grad.abs().max())
+            assert update>0 and gradient>0,key
+        else:
+            assert val.grad is None and update==0,key
+            gradient=None
         spectral[key]=dict(shape=list(after.shape),dtype=str(after.dtype),
-                           max_update=float((first-after).abs().max()),
-                           max_grad=float(val.grad.abs().max()))
-    assert any(v['max_update']>0 and v['max_grad']>0 for v in spectral.values())
+                           max_update=update,max_grad=gradient)
     return spectral
 
 

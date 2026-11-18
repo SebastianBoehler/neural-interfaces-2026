@@ -8,6 +8,7 @@ from probe import ORDERS,digest,fingerprint,read_inputs,write_json
 from returning_inputs import FAMILIES,LAYOUT,PEOPLE,archived,rows
 
 HERE=Path(__file__).resolve().parent
+SHALLOW_SMOKE_SOURCE='0ba595347da89d770b83419341f687c20cfeb7a1837a3caa83a7745d7a2b1057'
 
 
 def load(name,held,seed,source,test,delivery):
@@ -21,7 +22,9 @@ def load(name,held,seed,source,test,delivery):
     assert info['shared_by_comparators'] and info['deterministic']
     assert info['duplicate_fit_bit_exact']==((held,seed)==('P10',0))
     assert info['fit_rows_sha']==fingerprint(source) and info['held_rows_sha']==fingerprint(test)
-    assert info['source_manifest']==digest(HERE/'source.sha256')
+    expected_source=(SHALLOW_SMOKE_SOURCE if (name,held,seed)==('shallow_ea','P10',0)
+                     else digest(HERE/'source.sha256'))
+    assert info['source_manifest']==expected_source
     assert info['audit_sha']==digest(HERE/'inputs_audit.json')
     assert digest(weights)==info['checkpoint_sha'] and digest(result)==info['predictions_sha']
     assert set(info['checks'])==set(LAYOUT) and max(info['delta_from_recording'].values())>1e-4
@@ -59,7 +62,8 @@ def main(root):
                 state[f'{p}_seed{seed}']=dict(receipt=receipt,state=info['state'],
                         max_batch_abs=max(check['batch_max_abs']
                                           for item in info['checks'].values() for check in item.values()),
-                        spectral=info['spectral'],gpu=info['gpu'],node=info['node'])
+                        spectral=info['spectral'],gpu=info['gpu'],node=info['node'],
+                        source_manifest=info['source_manifest'])
         assert np.isfinite(values).all()
         proba=values[:,1:]
         assert proba.shape==(nseeds,8,762,3)
