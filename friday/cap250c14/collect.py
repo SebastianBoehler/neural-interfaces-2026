@@ -88,7 +88,10 @@ def qualified_bank(source):
                     if run["odds"] is not None:
                         assert arm in ("cognitive", "combined")
                         assert run["odds"]["calls"] == len(rows) and run["odds"]["above_001"] > 0
-                        effects[arm].update(run["odds"])
+                        for key in ("calls", "warm_calls", "above_001"):
+                            effects[arm][key] += run["odds"][key]
+                        for key in ("max_pre", "max_warm"):
+                            effects[arm][key] = max(effects[arm][key], run["odds"][key])
                     else:
                         assert arm in ("stock", "directional")
                     if run["history"] is not None:
