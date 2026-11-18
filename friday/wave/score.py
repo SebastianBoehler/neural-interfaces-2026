@@ -8,6 +8,9 @@ import sys
 
 import numpy as np
 
+from score_metrics import ORDERS, PEOPLE, score_bank
+from score_motor import MOTOR_KINDS, pretraining, sha
+
 
 WORK = Path("/mnt/lustre/work/gehler/gfh527")
 BASE = WORK / "ni26_s318_coral_fbl_20261117"
@@ -15,7 +18,6 @@ DATA = BASE / "data/proteus_windows.npz"
 PERMS = BASE / "runs/shuffle_perms.npz"
 DATA_SHA = "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
 PERMS_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
-STOCK_SCORE = 76.10391516713594
 NUMPY_STRING_ACTOR = "58e6e23425f0ee195a62916d130dd406c7a56b75aa77b3b35323846755af8fc2"
 PARENTS = {
     "ni26_match456_v2_20261118/stocks456.py":
@@ -27,23 +29,17 @@ PARENTS = {
     "ni26_fusion383_v1_20261118/fusion_inputs.py":
         "0c49a4266c34841a7996e65591c0b6b89a8dd849868586c364159d5d195259cc",
 }
-PEOPLE = tuple(f"P{i:02d}" for i in range(1, 11))
-ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 HISTORY = ("genuine", "donor", "blank")
 COMPARATORS = {
     "centered": ("prototype",),
     "chronological": ("symmetric",),
     "coherent_time": ("scattered_time", "chronological"),
     "scattered_time": ("chronological",),
+    "motor_transfer": ("motor_null", "chronological"),
+    "motor_null": ("chronological",),
 }
 KINDS = tuple(sorted(set(COMPARATORS) | {r for arms in COMPARATORS.values() for r in arms}))
 ARMS = ("stock", *(f"wave_{h}" for h in HISTORY), *(f"full_{h}" for h in HISTORY))
-COUNTS = np.array([2, 2, 2, 6, 2, 2, 2, 2, 2, 6])
-
-
-def sha(path):
-    with path.open("rb") as stream:
-        return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
 def check(ok, why):
@@ -79,7 +75,7 @@ def stock_reference(owner):
     return meta, ages, result
 
 
-def check_actor(path, kind, seed, person, actor_pin, people, full):
+def check_actor(path, kind, seed, person, actor_pin, people, full, lineage):
     proof = path.with_suffix(".json")
     record = json.loads(proof.read_text())
     expected = dict(kind=kind, seed=seed, held=person, actor=actor_pin, data=DATA_SHA, steps=600 if full else 4,
@@ -94,10 +90,13 @@ def check_actor(path, kind, seed, person, actor_pin, people, full):
     check(record["held_labels_opened"] is False, f"held labels were read: {path}")
     check(record["device"] == "cuda" and "H100" in record["gpu"],
           f"unexpected training hardware: {path}")
+    if lineage:
+        check(all(record.get(k) == lineage[k] for k in ("pretrain", "pretrain_source")),
+              f"wrong pretraining initialization: {path}")
     import torch
     payload = torch.load(path, weights_only=True, map_location="cpu")
     check(payload["kind"] == kind and payload["held"] == person, f"wrong saved actor: {path}")
-    return {"receipt": sha(proof), "checkpoint": expected["checkpoint"]}
+    return {"receipt": sha(proof), "checkpoint": expected["checkpoint"], **lineage}
 
 
 def checked_decisions(values, rows, ages, baseline):
@@ -142,6 +141,7 @@ def make_bank(kind, seed, people_to_score, meta, ages, baseline):
 
     full = set(people_to_score) == set(PEOPLE)
     actor_pin = sha(Path("actor.sha256"))
+    lineage = pretraining(kind, seed) if kind in MOTOR_KINDS else {}
     x, people, streams, interfaces, perms = read_inputs(DATA, PERMS)
     check(np.array_equal(people, meta["person"]), "EEG row owners differ")
     expected_streams = np.char.add(np.char.add(people, "|"), meta["session"])
@@ -153,7 +153,7 @@ def make_bank(kind, seed, people_to_score, meta, ages, baseline):
         prefix = "" if full else "smoke_"
         path = Path("checkpoints") / f"{prefix}{kind}_{seed}_{person}.pt"
         with checkpoint_loader(actor_pin):
-            proof[person] = check_actor(path, kind, seed, person, actor_pin, people, full)
+            proof[person] = check_actor(path, kind, seed, person, actor_pin, people, full, lineage)
             values = score_checkpoint(path, x, people, streams, perms, device="cpu")
         rows = np.flatnonzero(people == person)
         for (order, arm), pred in checked_decisions(values, rows, ages, baseline).items():
@@ -163,57 +163,48 @@ def make_bank(kind, seed, people_to_score, meta, ages, baseline):
     return decisions, proof
 
 
-def committed(stem):
-    decisions = Path(f"{stem}_decisions.npz")
-    proof = json.loads(Path(f"{stem}_before_labels.json").read_text())
+def committed(stem, root=Path("."), proof_sha=None):
+    decisions = root / f"{stem}_decisions.npz"
+    proof_path = root / f"{stem}_before_labels.json"
+    if proof_sha is not None:
+        check(sha(proof_path) == proof_sha, f"changed parent proof: {stem}")
+    proof = json.loads(proof_path.read_text())
+    check(proof["data"] == DATA_SHA and proof["orders"] == PERMS_SHA,
+          f"different row or delivery inventory: {stem}")
     check(sha(decisions) == proof["decisions"], f"changed decision bank: {stem}")
     with np.load(decisions, allow_pickle=False) as bank:
-        return {k: bank[k] for k in bank}
+        check(set(bank.files) == {f"{p}|{o}|{arm}" for p in PEOPLE for o in ORDERS for arm in ARMS},
+              f"incomplete parent decisions: {stem}")
+        return {k: bank[k] for k in bank}, proof["decisions"]
 
 
-def summarize(bank, pairs, meta, interval, metric, ref_kinds=()):
+def summarize(bank, pairs, meta, interval, metric, ref_kinds=(), evaluate_motor=False):
     with np.load(DATA, allow_pickle=False) as data:
         labels = data["y"]
-    names = sorted({name for pair in pairs for name in pair})
-    tables = {name: np.empty((len(PEOPLE), len(ORDERS))) for name in names}
-    for p, person in enumerate(PEOPLE):
-        rows = meta["person"] == person
-        for i, order in enumerate(ORDERS):
-            for name in names:
-                pred = bank[f"{person}|{order}|{name}"]
-                result = metric(labels[rows], pred, meta, rows)
-                check(result["n_cells"] == COUNTS[p], f"unpaired metric cells {person}")
-                tables[name][p, i] = 100 * result["balanced_accuracy_cell_mean"]
-    values = {name: interval(table, COUNTS) for name, table in tables.items()}
-    check(abs(values["stock"]["pp"] - STOCK_SCORE) < 1e-10, "stock metric mismatch")
-    contrasts = {}
-    for left, right in pairs:
-        delta = tables[left] - tables[right]
-        changed = sum(np.count_nonzero(bank[f"{p}|{o}|{left}"] != bank[f"{p}|{o}|{right}"])
-                      for p in PEOPLE for o in ORDERS)
-        contrasts[f"{left}-{right}"] = dict(
-            **interval(delta, COUNTS), changed=int(changed),
-            orders=dict(zip(ORDERS, np.average(delta, weights=COUNTS, axis=0).tolist())))
-    for ref in ref_kinds:
-        for scope in ("wave", "full"):
-            genuine, blank = f"{scope}_genuine", f"{scope}_blank"
-            delta = ((tables[genuine] - tables[blank])
-                     - (tables[f"{ref}_{genuine}"] - tables[f"{ref}_{blank}"]))
-            contrasts[f"{scope}_history_minus_{ref}_history"] = dict(
-                **interval(delta, COUNTS),
-                orders=dict(zip(ORDERS, np.average(delta, weights=COUNTS, axis=0).tolist())))
-    return {"absolute": values, "contrasts": contrasts}
+    return score_bank(bank, pairs, meta, interval, metric, labels, ref_kinds, evaluate_motor)
+
+
+def comparator(kind, ref, seed):
+    if kind not in MOTOR_KINDS or ref != "chronological":
+        return committed(f"{ref}_{seed}")
+    proof = {
+        460: "86561c6d4f93ff77974f21f3130d2824f71c4ea92952ab287a4efb07e31200c2",
+        1460: "fd8238f50dcac10e89e7153938ae1c6f18b7496f66f1c3e8d79c1ef763c67163",
+    }
+    return committed(f"chronological_{seed}", WORK / "ni26_friday_wave_time_20261118", proof[seed])
 
 
 def compare(kind, seed, meta, interval, metric):
     check(kind in COMPARATORS, f"no paired comparator for {kind}")
     ref_kinds = COMPARATORS[kind]
-    candidate = committed(f"{kind}_{seed}")
+    candidate, digest = committed(f"{kind}_{seed}")
+    proofs = {kind: digest}
     pairs = [("full_genuine", "stock")]
     for scope in ("wave", "full"):
         pairs.append((f"{scope}_genuine", f"{scope}_blank"))
     for ref in ref_kinds:
-        for key, decisions in committed(f"{ref}_{seed}").items():
+        bank, proofs[ref] = comparator(kind, ref, seed)
+        for key, decisions in bank.items():
             person, order, arm = key.split("|")
             if arm == "stock":
                 check(np.array_equal(decisions, candidate[key]), f"unpaired stock: {key}")
@@ -223,10 +214,8 @@ def compare(kind, seed, meta, interval, metric):
             genuine, blank = f"{scope}_genuine", f"{scope}_blank"
             pairs.extend([(f"{ref}_{genuine}", f"{ref}_{blank}"),
                           (genuine, f"{ref}_{genuine}")])
-    result = summarize(candidate, pairs, meta, interval, metric, ref_kinds)
-    result["parent_decision_sha256"] = {
-        arm: sha(Path(f"{arm}_{seed}_decisions.npz")) for arm in (kind, *ref_kinds)
-    }
+    result = summarize(candidate, pairs, meta, interval, metric, ref_kinds, kind in MOTOR_KINDS)
+    result["parent_decision_sha256"] = proofs
     Path(f"comparison_{kind}_{seed}.json").write_text(json.dumps(result, indent=2) + "\n")
 
 
@@ -260,7 +249,8 @@ def main():
     pairs = [(f"{scope}_genuine", f"{scope}_{arm}")
              for scope in ("wave", "full") for arm in ("blank", "donor")]
     pairs += [(arm, "stock") for arm in ARMS if arm != "stock"]
-    result = summarize(committed(stem), pairs, meta, interval, metric)
+    saved, _ = committed(stem)
+    result = summarize(saved, pairs, meta, interval, metric, evaluate_motor=args.kind in MOTOR_KINDS)
     Path(f"{stem}_result.json").write_text(json.dumps({**proof, **result}, indent=2) + "\n")
     print(json.dumps({arm: row["pp"] for arm, row in result["absolute"].items()}))
 
