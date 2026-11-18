@@ -17,8 +17,12 @@ TARGETS = {
 def load_target(arm, rows, shape):
     folder = "corrected" if arm == "causal" else arm
     path = BRIDGE / folder / "chain_v51b_full0.npz"
-    if file_sha(path) != TARGETS[arm]:
-        raise ValueError(f"wrong regenerated {arm} target bank")
+    return target_table(path, TARGETS[arm], rows, shape)
+
+
+def target_table(path, expected_sha256, rows, shape):
+    if file_sha(path) != expected_sha256:
+        raise ValueError(f"wrong regenerated target bank {path}")
     with np.load(path, allow_pickle=False) as bank:
         emitted, relab = bank["all_loso"][rows], bank["relab"][rows]
         ages, grid = bank["pos"][rows], bank["tgrid"]
@@ -27,10 +31,10 @@ def load_target(arm, rows, shape):
     valid = (ages[:, None] < grid) & (grid < len(rows))
     np.testing.assert_array_equal(np.isfinite(relab).all(2), valid)
     if not np.isfinite(emitted).all() or not np.allclose(relab[valid].sum(1), 1):
-        raise ValueError(f"invalid {arm} target probabilities")
+        raise ValueError("invalid regenerated target probabilities")
     target = np.column_stack((emitted, relab.reshape(len(rows), -1), ages))
     if target.shape != shape:
-        raise ValueError(f"legacy refit target layout differs for {arm}")
+        raise ValueError("legacy refit target layout differs")
     return target
 
 

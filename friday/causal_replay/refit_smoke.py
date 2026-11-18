@@ -24,23 +24,29 @@ def file_sha(path):
         return hashlib.file_digest(handle, "sha256").hexdigest()
 
 
-def source_data(held=HELD):
+def waveform_data():
     path = ROOT / "data/proteus_windows.npz"
     with np.load(path, allow_pickle=False) as store:
         data = {name: store[name] for name in store.files if name != "y"}
     subject = data["subject"]
     if data["X"].shape != (2655, 41, 480) or data["X"].dtype != np.float32:
         raise ValueError("unexpected official waveform input")
-    fit = np.flatnonzero(subject != held)
-    test = np.flatnonzero(subject == held)
-    if not len(test) or len(set(subject[fit])) != 9:
-        raise ValueError("archival smoke fold differs")
     data["y"] = np.full(len(subject), -1, dtype=np.int64)
-    data["y"][fit] = read_training_labels(path, fit, len(subject))
     data["stream"] = np.char.add(np.char.add(subject, "|"), data["session"])
     data["w"] = np.ones(len(subject))
     data["nolow"] = np.zeros(len(subject), dtype=bool)
     data["tag"] = ""
+    return data
+
+
+def source_data(held=HELD):
+    data = waveform_data()
+    subject = data["subject"]
+    fit = np.flatnonzero(subject != held)
+    test = np.flatnonzero(subject == held)
+    if not len(test) or len(set(subject[fit])) != 9:
+        raise ValueError("archival smoke fold differs")
+    data["y"][fit] = read_training_labels(ROOT / "data/proteus_windows.npz", fit, len(subject))
     return data, fit, test
 
 
