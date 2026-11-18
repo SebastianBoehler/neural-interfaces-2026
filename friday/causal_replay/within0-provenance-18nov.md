@@ -41,3 +41,18 @@ Galvani 3131632 completed on RTX 2080 Ti cn111 in 14 seconds, at 21:58:27 CET. J
 All three restored states passed the fit-row, fixed-state, first-window, prefix and interleaved reset checks. The FBLight posterior stayed inside the 2e−5 threshold despite its A100 fit, refuting the forecast for P01. Fresh Sinc matched its within0 fold output bit for bit and changed the old stream above 1e−8. Prior bridge metadata confirms the recording calibration reference SHA is `3a16eb9ce67d8451164f7038946d9753f317f49db8e96a686d5f16d36603925b`.
 
 The read-only receipt at `within0_frozen_probe_v2/p01.json` has SHA-256 `2424e9fced17bfe20830cb8f0a71a368dc1f6f4a1ec4acc2b470118d40ed1b33`. Source manifest SHA is `264cb49adf604532daa93d1a2e25d4a9c15f78df4e9327c14780752636021ebb`. The comparisons cover P01 frozen emissions. All other folds and legacy r15c250 warm parity remain unverified. Held gold stayed closed and the probe produced no accuracy.
+
+## Ten-fold frozen qualification
+
+The original metadata confirmed all 30 saved seed-0 checkpoints and all ten fresh Sinc source/replay pairs. Every model receipt matched the exclusion of its actual PROTEUS person. The P04 probe covered three sessions and 566 windows. Each of the remaining eight tasks independently authenticated that P04 receipt before emitting a prediction. The original P01 receipt remained an independent input.
+
+| Within0 input | Maximum posterior difference from legacy | Decision changes |
+| --- | ---: | ---: |
+| FB raw restored | 0 | 0/2,655 |
+| FB EA restored | 0 | 0/2,655 |
+| FBLight restored | 1.18784e−6 | 0/2,655 |
+| Fresh Sinc common input | 1.25859e−5 | 0/2,655 |
+
+All restored families passed the archived frozen threshold over the 14 visits. All prefix checks were exact, including the interleaved reset under the original RTX inference geometry. Fresh Sinc matched its same-checkpoint within0 replay for every fold. Its measured legacy difference activates the proposed common input while preserving the separate historical zero. Historical warm refit parity remains unverified.
+
+P04 `3132064` sealed receipt `f8800dd69fe619da92a6fa2612945ea7db69e6243684cac99c299673b74a06e7`. Array `3132093` and collector `3132101` completed at 22:44:14 CET on 18 November. The read-only `within0_frozen_probe_v4/qualification.json` SHA-256 is `43fe6dc888a0cef5fd423976577785b671474be2cfa13668059bbb53839a44eb`. Production source manifest SHA-256 is `c8940bb815b238ce7c4abc757aaa45e7c927a9775d9697746f19a5a8945d4117`. The receipt qualifies frozen inputs and keeps terminal scoring disabled. Held gold stayed closed.
