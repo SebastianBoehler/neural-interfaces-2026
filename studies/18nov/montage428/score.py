@@ -1,5 +1,6 @@
 """Compare matched real package decisions, resampling people, days and orders."""
 from pathlib import Path
+import argparse
 import json
 import numpy as np
 
@@ -8,7 +9,7 @@ def read(path):
     return json.loads(path.read_text())
 
 
-def table(path, y):
+def table(path, y, seeds):
     expected = read(path/'result.json')
     cells = np.empty((9,2,2,2))
     decisions = {}
@@ -19,7 +20,7 @@ def table(path, y):
             for name, r in rec.items():
                 subject, day, seed = name.split('|')
                 assert person == subject
-                day, order = ('1','2').index(day), ('411','1411').index(seed)
+                day, order = ('1','2').index(day), seeds.index(seed)
                 labels = np.array(r['labels'])
                 rows = np.array(r['rows'])
                 vals = y[rows]
@@ -39,10 +40,15 @@ def paired(values):
         values[people,days,orders].mean((1,2,3)), [.1,.9]).tolist())
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--baseline', type=Path, default=Path('../ni26_cross411b_20261118'))
+parser.add_argument('--seeds', nargs=2, default=('411','1411'))
+args = parser.parse_args()
+assert len(set(args.seeds)) == 2
 with np.load('local.npz') as z:
     labels = z['y']
-base, prev = table(Path('../ni26_cross411b_20261118'), labels)
-alt, curr = table(Path('lane'), labels)
+base, prev = table(args.baseline, labels, args.seeds)
+alt, curr = table(Path('lane'), labels, args.seeds)
 changed = {arm:0 for arm in ('old','cap')}
 assert set(prev) == set(curr)
 for key,(rows,pred) in prev.items():
