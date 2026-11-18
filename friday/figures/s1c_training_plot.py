@@ -48,6 +48,16 @@ LAYOUTS = {
             ("bounded_dispersed_minus_hard", "Dispersed electrodes\nvs hard CE"),
             ("bounded_local_minus_dispersed", "Local electrodes\nvs dispersed electrodes"),
         )),
+    "f504fad70c3e8df062e434163fc838d06a999d69df310c694f9f2a7f7fc2ff2b": dict(
+        title="The hierarchical head reduced jittered S1C accuracy",
+        stem="held-s1c-hierarchy-jitter", xlim=(-1.95, 1.78),
+        caption="Bounded inference. Hierarchy plus jitter lost to the exact jitter control at both seeds.",
+        contrasts=(
+            ("bounded_jitter_minus_hard", "Jitter\nvs hard CE"),
+            ("bounded_hierarchy_minus_hard", "Hierarchy\nvs hard CE"),
+            ("bounded_hierarchy_jitter_minus_jitter", "Hierarchy plus jitter\nvs jitter"),
+            ("bounded_interaction", "Factorial\ninteraction"),
+        )),
 }
 
 
