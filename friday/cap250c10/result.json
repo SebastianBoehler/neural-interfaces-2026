@@ -1,0 +1,48 @@
+{
+  "absolute": {
+    "bounded": 48.46230158730159,
+    "stock": 48.716931216931215
+  },
+  "archive": "df4a38dc2e13bdb58d8ad44e914dbb6d2e22d0ee44e74e9e4be4388263073ecd",
+  "by_order": {
+    "411": {
+      "paired80": [
+        -0.7870370370370358,
+        -0.09259259259259088
+      ],
+      "pp": -0.41666666666666585
+    },
+    "1411": {
+      "paired80": [
+        -0.41666666666666746,
+        0.18518518518518728
+      ],
+      "pp": -0.09259259259259325
+    }
+  },
+  "changed": 56,
+  "clipped": 737902,
+  "corrections": 17,
+  "decision_lock": "935d3187705e272b6d728eae8fb3bb130ed025b3cd7d62314a147c185a40142d",
+  "outcome": "undecided",
+  "paired80": [
+    -0.5787037037037028,
+    0.046296296296295836
+  ],
+  "people": {
+    "Scherer2015/A": -0.41666666666666785,
+    "Scherer2015/C": -1.7763568394002505e-15,
+    "Scherer2015/D": 0.0,
+    "Scherer2015/E": 3.552713678800501e-15,
+    "Scherer2015/F": 0.0,
+    "Scherer2015/G": -1.458333333333334,
+    "Scherer2015/H": 0.41666666666666785,
+    "Scherer2015/J": -0.8333333333333339,
+    "Scherer2015/L": 0.0
+  },
+  "pp": -0.25462962962962954,
+  "regressions": 28,
+  "scope": "exact FULL-SYSTEM EXTERNAL",
+  "scorer": "a8f9de6740a4a1991de2f9c7a88ac17f16b04a66d329418642f06dfd7f78a5ee",
+  "source": "e38d039255670500b5c02f971067e580f0d5fcda376b8e4abcdb1ea527d79740"
+}
