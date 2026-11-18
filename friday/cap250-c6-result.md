@@ -1,4 +1,4 @@
-# F-C6 — The two branches disagree often enough. This selector captures little of it.
+# F-C6 results — Causal arbitration between cap250 and v5.1b
 
 Retain exact staged v6.6cap250 for the current decision. Causal arbitration between it and v5.1b gained +0.013 pp on the descriptive 56.6/43.4 held-new and returning mix. The corresponding target calculation requires +1.4133 pp beyond cap250. The tested rule did not advance to the exact worker.
 
@@ -11,7 +11,7 @@ Retain exact staged v6.6cap250 for the current decision. Causal arbitration betw
 
 The causal rule changed 120 new-person decisions (53 corrections and 49 regressions) and eight returning decisions (two corrections and five regressions). It beat the fixed-scale rule on held-new folds. Its held-new gain over stock remains undecided, and the returning interval failed the registered positive-effect rule. No held labels configured either rule.
 
-The separate correct-branch oracle adds +2.119 pp on the assumed mixture. It selects the branch with the known correct label after causal decisions are locked. The target arithmetic needs about two thirds of this archival ceiling, conditional on the historical cap250 gain carrying over one-for-one. The measured selector gained less than 1% of that ceiling. The ceiling does not estimate a deployable gain or sealed score.
+The separate correct-branch oracle adds +2.119 pp on the assumed mixture. It selects the branch with the known correct label after causal decisions are locked. The target arithmetic needs about two thirds of this archival ceiling, conditional on the historical cap250 gain carrying over one-for-one. The measured selector gained less than 1% of that ceiling. The ceiling applies to these historical branches and deliveries. Sealed performance requires a separate measurement.
 
 Galvani smoke 3128057 matched both endpoints, causal prefixes and reset. It stopped at the extra activity check because causal and fixed made the same returning within0 decisions. The pre-score amended smoke 3128084 reproduced the controls and passed activity across authentic returning within0/full0/runs0 probes. Full replay and score 3128087 completed 0:0 in 36 s, with replay OK. All 16 role/order decision banks were hashed before reading labels. Final source manifest `6ec797665c15d8218b758af8f1a53f895afd3d58822f2dc7a00f5258a88f7ced` and blind receipt `3b739445e97383e0926647d7d13861efe74ae71b4773c03e73f714f57d4553b7`. [All orders and people](cap250-c6-result.json) · [Registration and smoke amendment](cap250-c6.md)
 
