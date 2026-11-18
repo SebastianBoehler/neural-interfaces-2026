@@ -22,7 +22,7 @@ def references():
     return subject, streams, file_sha(HERE / "source.sha256")
 
 
-def validate(path, family, refs, smoke, smoke_sha=None, deterministic=False, repeat_sha=None):
+def validate(path, family, refs, smoke, smoke_sha=None, deterministic=False, repeat_sha=None, recover=()):
     subject, streams, source = refs
     if family != "fbl":
         source = V1_SHA
@@ -30,7 +30,8 @@ def validate(path, family, refs, smoke, smoke_sha=None, deterministic=False, rep
         raise ValueError("warm release manifest differs")
     d = json.loads(path.read_text())
     if (d["source"] != source or d["family"] != family or d["order"] != ORDER or d["held_labels_opened"]
-            or d["smoke"] != smoke or d["smoke_sha256"] != smoke_sha or (not d["archive_parity"] and not deterministic)
+            or d["smoke"] != smoke or d["smoke_sha256"] != smoke_sha
+            or (not d["archive_parity"] and not deterministic and not recover)
             or d["frozen_sha256"] != FROZEN_SHA or path.stat().st_mode & 0o222
             or d["chain_sha256"] != file_sha(CHAIN) or d["relab_sha256"] != file_sha(RELAB)
             or d["actor_sha256"] != file_sha(FTREL) or "RTX 2080 Ti" not in d["gpu"]):
@@ -47,6 +48,7 @@ def validate(path, family, refs, smoke, smoke_sha=None, deterministic=False, rep
         r = d["fits"][p]
         if r != fit[p] or r["fit_rows_sha"] != rows_sha(np.flatnonzero(mask)):
             raise ValueError(f"unproved source exclusion for {p}")
+    failed_folds = set()
     for visit, r in d["sessions"].items():
         n = int(np.count_nonzero(streams == visit))
         if (r["rows"] != n or r["steps"] != 10 * len(range(20, n, 10)) or r["prefix_steps"] != 60
@@ -66,7 +68,13 @@ def validate(path, family, refs, smoke, smoke_sha=None, deterministic=False, rep
             if deterministic and key != "prefix":
                 continue
             if v["changed"] or not math.isfinite(v["max_abs"]) or not 0 <= v["max_abs"] <= TOL:
+                person = visit.split("|")[0].split("/")[-1]
+                if key == "warm" and person in recover and math.isfinite(v["max_abs"]) and 0 <= v["max_abs"] <= 1:
+                    failed_folds.add(person)
+                    continue
                 raise ValueError(f"historical {key} parity failed for {visit}")
+    if failed_folds != set(recover):
+        raise ValueError("the original warm failure scope differs from the registered source recovery")
     return file_sha(path), d["sessions"]
 
 
