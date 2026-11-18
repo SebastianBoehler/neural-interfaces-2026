@@ -52,3 +52,9 @@ Registered 18 November 2026 after F1–F4, before F6 fitting. The preceding comp
 - Galvani A100 real smoke and four max-five-minute fits, Ferranti real smokes and two 20-fit arrays at four simultaneous tasks each, Galvani independent per-fold scorer. Authenticate training source, external shards, pretraining and final held-excluded weights. No upload.
 
 [PhysioNet dataset and attribution licence](https://physionet.org/content/eegmmidb/1.0.0/) · [Competition external-data rule](https://github.com/neural-interfaces26/2026-competition/blob/main/codabench/pages/terms.md)
+
+**F-C2 completed.** Galvani 3127102/3127133/3127134 passed pre-fusion, fit selection and stock controls. Held-new fit-only −0.004 pp [80% −0.081,+0.086] versus stock. Shape normalization throughout +0.018 pp [−0.111,+0.185]. Neither result resolves improvement. [Report](../friday/cap250-c2-result.md)
+
+## F-C4 · Rebalance the Adam refit's pseudo-class loss mass
+
+Registered 18 November 2026 before scoring. The [preregistration](../friday/cap250-c4.md) fixes symmetric control weights, unchanged CE mass and optimizer schedule, external comparison, predictions and refutation rule.
