@@ -1,20 +1,20 @@
 """Rebuild matched full0 incumbent state with one shared fresh Sinc frozen seed."""
 import argparse
 import json
+from pathlib import Path
 
 import numpy as np
 
 from bridge_dependents import ARCHIVED_ROUTE_SHA
 from bridge_mix import archived_zero, check_prefixes, install, prove_activation
 from bridge_orders import seal_prefix_inputs, write_npz, write_receipt
-from bridge_owner import BASE, GATE, HERE, ORDER, PROTO, RAW, ROOT, STACK, corrected, guarded_load, owner, pin, sha, stamp
+from bridge_owner import GATE, HERE, ORDER, PROTO, RAW, ROOT, STACK, corrected, guarded_load, owner, pin, sha, stamp
 from bridge_recognition import REFERENCE, observe_recognition, recording_calibration
 from bridge_refit import relabel
 from complete_zero import FEAT, HASHES, ROUTING, no_route
 from member_inputs import PERMUTATION_SHA256
 
 
-BANK = BASE / "ni26_friday_sinc_seed0_fresh_full0_20261118/frozen.npz"
 SEED0 = ("sinc", 0)
 MEMBER = "sc_sinc"
 
@@ -176,7 +176,8 @@ def run(bank, receipt_sha, source_sha):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("bank", type=Path)
     parser.add_argument("bank_receipt_sha")
     parser.add_argument("bank_source_sha")
     args = parser.parse_args()
-    run(BANK, args.bank_receipt_sha, args.bank_source_sha)
+    run(args.bank, args.bank_receipt_sha, args.bank_source_sha)

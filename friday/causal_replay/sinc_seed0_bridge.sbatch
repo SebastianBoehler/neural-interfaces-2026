@@ -8,7 +8,7 @@
 #SBATCH --output=sinc-bridge-%j.out
 set -euo pipefail
 BASE=/mnt/lustre/work/gehler/gfh527
-HERE=$BASE/ni26_friday_causal_rebuild_20261118/sinc_seed0_bridge_v2
+HERE=$BASE/ni26_friday_causal_rebuild_20261118/sinc_seed0_bridge_v3
 cd "$HERE"
 sha256sum --quiet -c source.sha256
 (
