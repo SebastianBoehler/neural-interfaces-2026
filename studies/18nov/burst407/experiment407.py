@@ -72,6 +72,7 @@ def main(mode):
         _, official = owner()
         with np.load(path) as z:
             meta = {k:z[k][train] for k in ('subject','session','interface')}
+        meta['stream'] = stream[train]
         local = [f[train] for f in fields]
         result = {}
         for p in np.unique(people[train]):
