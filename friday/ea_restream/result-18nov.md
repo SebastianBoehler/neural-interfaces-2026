@@ -38,3 +38,16 @@ All input and A100 checks finished by 19:04:44 CET. Galvani 3129231 and 3129232_
 | --- | --- | --- | --- |
 | P10, seed 0 | `61efb8998668bcb49486f46fccd3ef22e26b3eb2ebd4da1eb935cb04e5e4d9b5` | `9ad6f449e0ee115be10749caff2561e29f1f33f4242550d6431d3c57cdf38cf8` | `8e7943dcca5078dab6c042667eb5129a302b8de44b8e8da0e72baae067410f25` |
 | P01, seed 1 | `8fe26e92634521335e9f4ce49896d5e196bac475f33367ea13611e7c95256443` | `ee79a87315c620bb1173f6b75ca4c9eea362ae1b8a1dff105a7bdd58c417486e` | `f22fe30300874903c2adac70e7cc0a42e244270d12fe2b80cb0f18aec07bc0c8` |
+
+## D-EAb complete FBCNet member bank
+
+All 50 folds reproduced all **13,275 archived recording-order posterior vectors bit for bit**. The collector sealed 106,200 probability vectors across five seeds, eight deliveries and 2,655 held rows. All 560 session/order first inputs matched the direct calculation exactly. The largest difference between a full delivery and its first 16 predictions was 1.8764e−6. Every interleaved prefix reset passed.
+
+The matrix reused two authenticated checkpoints, rehydrated P01/seed0 with its exact prior state fingerprint, and reconstructed 47 further held-excluded fits. All three anchors reproduced their previously sealed full0 probabilities bit for bit. Provenance covers the reconstructed weights and observed historical posteriors. Shallow EA is still blocked, so this member bank alone cannot supply a corrected chain comparison.
+
+Galvani 3129279, reused-checkpoint smoke 3129280_9, array 3129281 and collector 3129282 passed. Collection finished at 19:28:44 CET on 18 November. Release `ni26_friday_ea_matrix_20261118`, code `24c156a`, source manifest `a01929b52e7d7ba3ecaa001785c2f3a0811fd6dbb0564fde5070d0418af35713`.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| `matrix_receipt.json` | `865289ab1c87fdc94fa8fd0c3f478a6b042251d584a5c4c7f504c3fbb7278bd6` |
+| `fbcnet_ea_tf_all_loso_orders.npz` | `904920d7e7e9bdbc30aa583a07179400673f07751eebbc8950bf30c8c1c1f2bd` |
