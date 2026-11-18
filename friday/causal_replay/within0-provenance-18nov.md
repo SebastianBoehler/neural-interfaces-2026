@@ -26,3 +26,18 @@ The contrast gallery uses the §430 recording-order B2_pool shadow. `recording_c
 The [probe input manifest](within0_frozen_inputs.sha256) pins the tested bases, previous producer receipts, exact states, source and delivery. If a state cannot reproduce the original base, a future separately registered matched instrument must replace only that family's seed-0 `FR17` source stream in both arms. Apply the common mixture change `(new seed0 − old seed0) / 6` exactly once. Keep the five remaining frozen seeds and the original recording calibration fixed. Regenerate each arm's mixer, recognition, causal shadows, strict-past targets and all four dependent refits using its own verified base. The archived zero is retained separately.
 
 Probe v1 (3131630) stopped on waveform metadata before loading any state or computing posteriors. P01 has one recorded session, so the interleaved reset check uses 64 P02 visit-1 waveforms from the pinned within0 delivery. The probe discards those predictions. Only P01 is compared to archived posteriors. The v2 release preserves the preregistered qualification thresholds.
+
+## P01 frozen probe
+
+Galvani 3131632 completed on RTX 2080 Ti cn111 in 14 seconds, at 21:58:27 CET. Job 3131631 stopped before inference because its assigned cn122 GPU was unavailable. The successful retry reused the exact v2 sources and excluded cn122.
+
+| Input compared with original within0 LPC base | Maximum posterior change | Changed decisions |
+| --- | ---: | ---: |
+| Restored FB raw | 0 | 0/190 |
+| Restored FB EA | 0 | 0/190 |
+| Restored FBLight | 5.13805e−7 | 0/190 |
+| Fresh Sinc | 1.22853e−5 | 0/190 |
+
+All three restored states passed the fit-row, fixed-state, first-window, prefix and interleaved reset checks. The FBLight posterior stayed inside the 2e−5 threshold despite its A100 fit, refuting the forecast for P01. Fresh Sinc matched its within0 fold output bit for bit and changed the old stream above 1e−8. Prior bridge metadata confirms the recording calibration reference SHA is `3a16eb9ce67d8451164f7038946d9753f317f49db8e96a686d5f16d36603925b`.
+
+The read-only receipt at `within0_frozen_probe_v2/p01.json` has SHA-256 `2424e9fced17bfe20830cb8f0a71a368dc1f6f4a1ec4acc2b470118d40ed1b33`. Source manifest SHA is `264cb49adf604532daa93d1a2e25d4a9c15f78df4e9327c14780752636021ebb`. The comparisons cover P01 frozen emissions. All other folds and legacy r15c250 warm parity remain unverified. Held gold stayed closed and the probe produced no accuracy.
