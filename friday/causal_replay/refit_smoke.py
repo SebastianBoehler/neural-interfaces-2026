@@ -51,7 +51,7 @@ def changed(actual, reference):
                 changed=int(np.count_nonzero(actual.argmax(1) != reference.argmax(1))))
 
 
-def main():
+def prepare():
     if not torch.cuda.is_available() or "A100" not in torch.cuda.get_device_name():
         raise ValueError("historical test requires A100")
     torch.set_num_threads(4)
@@ -88,10 +88,15 @@ def main():
     print(json.dumps(report, sort_keys=True), flush=True)
     if report["frozen"]["changed"] or report["frozen"]["max_abs"] > TOL:
         raise ValueError("source fit failed archived frozen parity before refitting")
+    return model, x, rows, target, frozen, expected["r15c250"], stream, report
+
+
+def main():
+    model, x, _, target, frozen, expected, stream, report = prepare()
     replay = stream(model, x, target, 0)
     np.testing.assert_array_equal(replay["base"], frozen)
     np.testing.assert_array_equal(replay["r15c250"][:20], frozen[:20])
-    report["r15c250"] = changed(replay["r15c250"], expected["r15c250"])
+    report["r15c250"] = changed(replay["r15c250"], expected)
     report["refit_activity"] = changed(replay["r15c250"], frozen)
     print(json.dumps(report, sort_keys=True), flush=True)
     if report["r15c250"]["changed"] or report["r15c250"]["max_abs"] > TOL or not report["refit_activity"]["changed"]:

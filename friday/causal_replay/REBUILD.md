@@ -26,6 +26,8 @@ Verified the original `relab_v51b_full0.npz` hash `f4d2e431cd99cb432bfe8d1f53e9b
 
 The §430 shadow regenerated from the historical mixer inputs differs from the older refit producer around its target generation. Their emitted classes differ on 2 of 2,655 windows and their strict-prefix classes differ on 14 of 24,180 refit rows. Establish the old implementation parity on its own older targets. Then apply that implementation independently to both regenerated banks from the same §430 shadow producer.
 
+The historical FBLight P01/seed 0 anchor passed on A100 `3130981` at 20:39:35 CET. All 190 fitted baseline and 190 r15c250 labels match their own archive. Maximum posterior errors were 2.71e−7 and 1.22e−6. Refit changes 32 labels versus frozen. Receipt `refit_full0_smoke_v1/fbl_seed0_p01_full0_receipt.json` SHA-256 `a6495cb74a9a96246301cb5e4c336d0bc145b91fb95963f813ffbf3d0eb258cf`.
+
 ## Returning-person inputs
 
 Use the original `seen_session` folds. Source rows for each fold include that person's first visit and exclude both of that person's later visits. P04 has 2,278 source and 377 held rows. P10 has 2,270 source and 385 held rows. The archived five trainable-FIR FBCNet seeds and first six Shallow EA seeds independently reproduced their returning `B2_pool` slot means exactly. Including Shallow seeds 6 and 7 changes the archived slot by up to 0.183115.
