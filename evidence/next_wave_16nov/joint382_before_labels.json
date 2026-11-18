@@ -1,0 +1,103 @@
+{
+  "actors": {
+    "P01": {
+      "held": "P01",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "2512c1b6480ee9ce05b7a4b1110bfdf2a6d37a735083c0ec51602d6c3fd47b19",
+      "seed": 382,
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "fit_lock": "dcf3b2886b364688fd180d4051f039f452b0e31cf5ac7084ca6203f1908d0571",
+      "actor_source": "303bc785ef54473de32992caa2017fba916711ce748914154ea7c56f523225d2",
+      "outputs_sha256": "29d15ef4728ddb8e6b6b6db920b3f0b62f62ba23e9b8059fa1dca06740208037",
+      "checks": {
+        "baseline": 0.0,
+        "step": 9.5367431640625e-07,
+        "prefix": 2.0265579223632812e-06
+      },
+      "held_labels_opened": false,
+      "seconds": 98.29904170613736
+    },
+    "P02": {
+      "held": "P02",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "668e756312945d20561dd9219983d309304b0c337dac22b55b52472d0ced11a3",
+      "seed": 382,
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "fit_lock": "dcf3b2886b364688fd180d4051f039f452b0e31cf5ac7084ca6203f1908d0571",
+      "actor_source": "303bc785ef54473de32992caa2017fba916711ce748914154ea7c56f523225d2",
+      "outputs_sha256": "d77a74789cf3abd75cb0319dd4869628e5538f911279edb6324355b72cb48d31",
+      "checks": {
+        "baseline": 0.0,
+        "step": 7.152557373046875e-07,
+        "prefix": 1.9073486328125e-06
+      },
+      "held_labels_opened": false,
+      "seconds": 98.66165031399578
+    },
+    "P03": {
+      "held": "P03",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "96fcf70f3f89e4d5db1883134557d04defc5d9dec3eb9fb1d5d33f84bf7e1898",
+      "seed": 382,
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "fit_lock": "dcf3b2886b364688fd180d4051f039f452b0e31cf5ac7084ca6203f1908d0571",
+      "actor_source": "303bc785ef54473de32992caa2017fba916711ce748914154ea7c56f523225d2",
+      "outputs_sha256": "64783ff58e207f9a27a14bf88e7e1eabe6976920d39c74c61545b719c61c9039",
+      "checks": {
+        "baseline": 0.0,
+        "step": 9.5367431640625e-07,
+        "prefix": 1.430511474609375e-06
+      },
+      "held_labels_opened": false,
+      "seconds": 99.27364671137184
+    },
+    "P09": {
+      "held": "P09",
+      "train_rows": "882b5b97ec811d697540f6152be0d02eb49448e9e4c88c3d6c28fcb1433b2f1f",
+      "test_rows": "3404d36b360fbf18d99370c6d94b603e9bea42022addcb516dd05cbea2d77a5c",
+      "seed": 382,
+      "train_people": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P10"
+      ],
+      "fit_lock": "dcf3b2886b364688fd180d4051f039f452b0e31cf5ac7084ca6203f1908d0571",
+      "actor_source": "303bc785ef54473de32992caa2017fba916711ce748914154ea7c56f523225d2",
+      "outputs_sha256": "6c98663771577da37d641c2f473e72c012bb169cb5abeff2b675545b585eaa25",
+      "checks": {
+        "baseline": 0.0,
+        "step": 9.5367431640625e-07,
+        "prefix": 1.430511474609375e-06
+      },
+      "held_labels_opened": false,
+      "seconds": 99.21943560708314
+    }
+  },
+  "fit_lock": "dcf3b2886b364688fd180d4051f039f452b0e31cf5ac7084ca6203f1908d0571",
+  "held_labels_opened": false,
+  "metric_sha": "390fd6bea0ddc9c53e34fdabb094b1a269ff45b07b4a5542a8135b44d5314a2c"
+}
