@@ -12,6 +12,7 @@ case ${1:-wave} in
     norm) release=friday_wave_norm_20261118 ;;
     band) release=friday_wave_band_20261118 ;;
     s1c_train) release=friday_s1c_training_20261118 ;;
+    s1c_skip) release=friday_s1c_skip_20261118 ;;
     *) printf 'Unknown release %s\n' "$1" >&2; exit 2 ;;
 esac
 source_dir="ni26/$release"
