@@ -43,7 +43,7 @@ def main():
                 for j,o in enumerate(joint.ORDERS):
                     v=predictions[p][f'{s}|{a}|{o}']
                     assert np.isin(v,[0,1,2]).all()
-                    r=metric(gold,v,d,mask)
+                    r=metric.score(gold,v,d,mask)
                     assert r['n_cells']==counts[i]
                     vals[s][a][i,j]=100*r['balanced_accuracy_cell_mean']
     out={}

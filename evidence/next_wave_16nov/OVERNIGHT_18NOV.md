@@ -85,3 +85,11 @@ The workstation return monitor logs to .journal/ferranti-382-return.log. Every 5
 01:17 CET. §385 verifies the exact uploaded v5.1b and staged cap250 archives on naturally routed Scherer sessions in the official worker image. Smoke 3123415 → nine people 3123416 → collector 3123417. All 39 cap250 members match the previously measured worker reference. [Qualification](lunch_qualification385.md)
 
 01:34 CET. §385 complete across two days each for nine external Scherer participants. Actual ZIPs v5.1b 47.963%, cap250 48.456%, difference +0.493 pp [80% −0.311,+1.286]. All 36 natural cap250 sessions exercised active fine-tuning; zero stage errors. Keep staged cap250 for lunch. The private score and wall time remain unknown. [Evidence](lunch_qualification385.md)
+
+02:02 CET. §388 Ferranti 509376 source smoke → 509377 six H100 fits, at most three simultaneous. The earlier §93 examined person-group losses. This study compares gradient projection between different source people against both equal-weight and harder-person-weighted controls, using the learned A6 model. Three arms, two seeds, matching 120 source updates. Native CPU four-person evaluator prepared on Galvani.
+
+02:04 CET. §388 H100 509376/509377 passed all six registered fits. Native CPU2 3123496 → 3123497 → 3123498 has immutable fit digest 4000a367e800f86de3fd7df2cef715e89613d0abb47c835e7cf159467a4e2e72. Independent source schedules 509384/509385 found P04 hardest; H−N P04 CE −0.00618/−0.00584, X−H −0.00039/+0.00162. X projected 66/120 and 53/120 source-person pairs. Held scoring pending.
+
+02:07 CET. §388 P09 on cn212 failed historical CPU probability parity before scoring; P01/P02/P03 on cn102 passed. P09 unchanged retry 3123581 running on cn102 → scorer 3123582. Dependency-invalid 3123498 canceled.
+
+02:11 CET. §388 complete. X−H +0.134/−0.087 pp, both paired intervals cross zero. H−N +0.097/−0.148 pp. Hard-source CE improved on both seeds; held transfer changed sign. X 59.911/59.649%, current JS 81.236%. P09 recovered unchanged on cn102, final repaired collector 3123583 passed. [Whole-model evidence](conflict388.md)
