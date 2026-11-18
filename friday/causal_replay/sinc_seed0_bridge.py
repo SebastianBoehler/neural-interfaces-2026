@@ -24,7 +24,8 @@ def load_bank(path, receipt_sha, source_sha, p):
     pin(metadata, receipt_sha)
     record = json.loads(metadata.read_text())
     pin(path.parent / "source.sha256", source_sha)
-    if record["source_sha256"] != source_sha or record["held_labels_opened"] is not False:
+    proof = dict(source_sha256=source_sha, held_labels_opened=False, actor="sinc", seed=0, order=ORDER, rows=len(p))
+    if any(record[key] != value for key, value in proof.items()):
         raise ValueError("Sinc bank provenance differs from the approved source")
     digests = ("receipt_sha256", "checkpoint_sha256", "predictions_sha256", "fit_rows_sha256")
     with np.load(FEAT, allow_pickle=False) as z:
@@ -50,6 +51,15 @@ def load_bank(path, receipt_sha, source_sha, p):
         if (values.shape != (len(p), 3) or not np.isfinite(values).all() or (values < 0).any()
                 or not np.allclose(values.sum(1), 1, rtol=0, atol=1e-10)):
             raise ValueError("fresh Sinc frozen outputs are invalid")
+    for name, fold in record["folds"].items():
+        stem = path.parent / "folds" / name
+        for suffix, key in ((".json", "receipt_sha256"), (".pt", "checkpoint_sha256"), (".npz", "predictions_sha256")):
+            pin(stem.with_suffix(suffix), fold[key])
+        held = subject == f"Dreyer2026Proteus/{name}"
+        with np.load(stem.with_suffix(".npz"), allow_pickle=False) as z:
+            if (not np.array_equal(z["index"], np.flatnonzero(held)) or not np.array_equal(z["delivery"], p[held[p]])
+                    or not np.array_equal(z["full0"], full0[held]) or not np.array_equal(z["recording"], recording[held])):
+                raise ValueError(f"fresh Sinc canonical bank disagrees with its original held fold {name}")
     if np.array_equal(full0, recording):
         raise ValueError("fresh Sinc recording and delivered outputs were reused")
     return full0, dict(bank_sha256=record["bank_sha256"], receipt_sha256=receipt_sha,
