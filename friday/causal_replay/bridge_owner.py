@@ -79,14 +79,14 @@ class LabelFreeArchive(Mapping):
 
 
 @contextmanager
-def guarded_load():
+def guarded_load(pins=PINS, provenance_path=PROVENANCE):
     original = np.load
     opened = {}
-    for path, expected in PINS.items():
+    for path, expected in pins.items():
         pin(path, expected)
     owners = ("runs/", "data/", "studies/", "replay/", "experiments/")
-    provenance = json.loads(PROVENANCE.read_text())["inputs_sha256"]
-    expected = dict(PINS)
+    provenance = json.loads(provenance_path.read_text())["inputs_sha256"]
+    expected = dict(pins)
     for location, digest in provenance.items():
         path = Path(location)
         matches = [i for i, part in enumerate(path.parts) if part + "/" in owners]
@@ -127,11 +127,12 @@ def start_module(name, path, source):
     return module
 
 
-def owner():
-    scope = dict(SCHEME="full", PSEED="0", SCHEMES="full", PERMS="1", STRICT="1", GATE_P0="1",
-                 OCU_DIR="runs/ocushuf/full0", FT_V="r15c250", REC_PFX="ttt7",
+def owner(order=ORDER):
+    scheme, seed = order[:-1], order[-1]
+    scope = dict(SCHEME=scheme, PSEED=seed, SCHEMES=scheme, PERMS=str(int(seed) + 1), STRICT="1", GATE_P0="1",
+                 OCU_DIR=f"runs/ocushuf/{order}", FT_V="r15c250", REC_PFX="ttt7",
                  T6_DIR=str(ROOT / "runs/ttt/probs7"), T17_DIR=str(ROOT / "runs/diag/ttt/probs18"),
-                 FT_TAG="ttt18full0LPC", SAVE_OUT="in_memory_only", PROTO=PROTO, BASES=STACK)
+                 FT_TAG=f"ttt18{order}LPC", SAVE_OUT="in_memory_only", PROTO=PROTO, BASES=STACK)
     forbidden = ("LABEL_OUT", "LABEL_ARM", "HALF", "SYN_T", "OCU_SYN", "OCU_ORACLE", "OCU_TX",
                  "OUTX", "RUNOFF", "NUIS", "OCU_TS", "EM_LAM", "TS_LAM", "BTS", "TSEM_TGT",
                  "CS_NPZ", "CM_NPZ", "RS_DIR", "GE_NPZ", "HB_NPZ", "TS_NPZ", "TS_FILE", "NI26_REPLAY_DATA")
@@ -158,7 +159,7 @@ def owner():
     return start_module("bridge_shufcombo", chain, text)
 
 
-def corrected(inputs):
+def corrected(inputs, order=ORDER):
     from member_inputs import ORDERS, pinned_delivery
 
     delivery = pinned_delivery(ROOT / "runs/shuffle_perms.npz")
@@ -171,7 +172,7 @@ def corrected(inputs):
                     or str(z["bank_sha256"]) != bank_hash or not np.array_equal(z["delivery"], delivery)
                     or not np.array_equal(z["index"], np.arange(len(inputs)))):
                 raise ValueError("causal mean provenance or layout differs")
-            values = z["proba"][ORDERS.index(ORDER)]
+            values = z["proba"][ORDERS.index(order)]
         if (values.shape != (len(inputs), 3) or not np.isfinite(values).all()
                 or not np.allclose(values.sum(1), 1, rtol=0, atol=2e-6)):
             raise ValueError("causal slot probability bank invalid")

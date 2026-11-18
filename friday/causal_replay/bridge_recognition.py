@@ -48,7 +48,7 @@ def contrast_trace(ctx, pc, shadow, Gn, Q):
     return ramp, who, scores
 
 
-def recognise(ctx, bridge, archived_route):
+def recognise(ctx, bridge, archived_route, reference=REFERENCE):
     from bio_gate import Bio, fold_params
 
     p = bridge["delivery"]
@@ -138,12 +138,14 @@ def recognise(ctx, bridge, archived_route):
     for arm in ("historical", "corrected"):
         contrast = stage[f"{arm}|contrast_ramp"] > 0
         bio = stage["bio_ramp"] > 0
-        routed = [{"session": str(s), "first": int(np.flatnonzero((contrast | bio)[p[stream[p] == s]])[0])}
-                  for s in dict.fromkeys(stream[p]) if np.any((contrast | bio)[p[stream[p] == s]])]
+        session_id = bridge["session"]
+        routed = [{"session": int(session), "first": int(np.flatnonzero((contrast | bio)[rows])[0])}
+                  for session in dict.fromkeys(session_id[p])
+                  if (rows := p[session_id[p] == session]).size and np.any((contrast | bio)[rows])]
         stats[arm] = dict(sessions=count, routed_sessions=len(routed), contrast_windows=int(contrast.sum()),
                           bio_windows=int(bio.sum()), routed=routed)
     if stats["historical"] != archived_route["bases"][STACK]:
         raise ValueError("live historical route4 ramps differ from the pinned archive")
-    return stage, dict(routing=stats, gallery_folds=opened, source_calibration_sha256=sha(REFERENCE),
+    return stage, dict(routing=stats, gallery_folds=opened, source_calibration_sha256=sha(reference),
                        contrast_prefix_checks=prefix, bio_prefix_checks=count, bio_reset_checks=count,
                        bio_finite_scores=int(np.isfinite(stage["bio_score"]).sum()))

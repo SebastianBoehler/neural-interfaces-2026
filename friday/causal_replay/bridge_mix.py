@@ -105,9 +105,9 @@ def check_prefixes(ctx, tape):
     return len(by_session) + 1
 
 
-def archived_zero(ctx, tape):
+def archived_zero(ctx, tape, raw_path, gate_path):
     inverse = np.argsort(ctx.Pperm)
-    with np.load(RAW) as raw, np.load(GATE) as gate:
+    with np.load(raw_path) as raw, np.load(gate_path) as gate:
         # The original P0r archive is float32 in recording layout. The gate trace is in delivery layout.
         if (not np.array_equal(tape["shadow"][inverse].astype(np.float32), raw[f"{STACK}|P0r"])
                 or not np.array_equal(tape["rebal"], gate[f"{STACK}|input"])
@@ -139,41 +139,47 @@ def prove_activation(zero, active, slots):
                 mixer_formula_max_abs=error, stages_max_abs=diff)
 
 
-def main():
-    with guarded_load() as opened:
-        ctx = owner()
-        p = ctx.Pperm
-        if not np.array_equal(p, np.load(ROOT / "runs/shuffle_perms.npz")["full|0|all_loso"]):
+def replay(ctx, order, raw_path, gate_path):
+    p = ctx.Pperm
+    with np.load(ROOT / "runs/shuffle_perms.npz", allow_pickle=False) as z:
+        if not np.array_equal(p, z[f"{order[:-1]}|{order[-1]}|all_loso"]):
             raise ValueError("historical path is not the exact pinned order")
-        original = ctx.Z[f"{STACK}|Ps|{PROTO}"].copy()
-        baseline = install(ctx, {})
-        archived_zero(ctx, baseline)
-        slots = {slot: original[slot] for slot in (1, 3)}
-        zero = install(ctx, slots)
-        archived_zero(ctx, zero)
-        for key in ("mix", "rebal", "gate", "em", "shadow"):
-            if not np.array_equal(zero[key], baseline[key]):
-                raise ValueError(f"historical identity bridge changed {key}")
-        if any(not np.array_equal(zero["members"][k], baseline["members"][k]) for k in zero["members"]):
-            raise ValueError("historical identity bridge changed a member")
-        print(f"PASS baseline and archived-slot zero {len(p)} exact", flush=True)
-        active = install(ctx, corrected(p))
-        activation = prove_activation(zero, active, slots)
-        prefix = {tag: check_prefixes(ctx, tape) for tag, tape in (("zero", zero), ("corrected", active))}
-    results = HERE / "bridge_full0.npz"
+    original = ctx.Z[f"{STACK}|Ps|{PROTO}"].copy()
+    baseline = install(ctx, {})
+    archived_zero(ctx, baseline, raw_path, gate_path)
+    slots = {slot: original[slot] for slot in (1, 3)}
+    zero = install(ctx, slots)
+    archived_zero(ctx, zero, raw_path, gate_path)
+    for key in ("mix", "rebal", "gate", "em", "shadow"):
+        if not np.array_equal(zero[key], baseline[key]):
+            raise ValueError(f"historical identity bridge changed {key}")
+    if any(not np.array_equal(zero["members"][k], baseline["members"][k]) for k in zero["members"]):
+        raise ValueError("historical identity bridge changed a member")
+    print(f"PASS baseline and archived-slot zero {order} {len(p)} exact", flush=True)
+    active = install(ctx, corrected(p, order))
+    activation = prove_activation(zero, active, slots)
+    prefix = {tag: check_prefixes(ctx, tape) for tag, tape in (("zero", zero), ("corrected", active))}
     inverse = np.argsort(p)
     payload = dict(index=np.arange(len(p)), delivery=p, session=active["views"]["sess"][inverse],
                    ge=active["views"]["GE"][inverse], pc128=active["views"]["pc128"][inverse])
     for name, tape in (("historical", zero), ("corrected", active)):
         for key in ("mix", "rebal", "gate", "em", "shadow"):
             payload[f"{name}|{key}"] = tape[key][inverse]
+    checks = dict(activation=activation, exact_prefix_checks=prefix, prefix_len=PREFIX)
+    return payload, checks
+
+
+def main():
+    with guarded_load() as opened:
+        payload, checks = replay(owner(), ORDER, RAW, GATE)
+    results = HERE / "bridge_full0.npz"
     with results.open("xb") as handle:
         np.savez_compressed(handle, **payload)
     receipt = dict(order=ORDER, scope="incumbent unrouted P0r shadow", build=sha(HERE / "source.sha256"),
                    output_sha256=sha(results), reference={str(k): v for k, v in PINS.items()},
-                   activation=activation, exact_prefix_checks=prefix, prefix_len=PREFIX,
+                   **checks,
                    held_labels_opened=False, recognition_replayed=False, refit_labels_replayed=False,
-                   scored=False, zero=True, delivery_sha256=stamp(p.astype("<i8")),
+                   scored=False, zero=True, delivery_sha256=stamp(payload["delivery"].astype("<i8")),
                    opened={str(path): h for path, h in sorted(opened.items())})
     with (HERE / "bridge_full0.json").open("x") as fd:
         json.dump(receipt, fd, indent=2, sort_keys=True)
