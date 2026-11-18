@@ -189,3 +189,11 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - **Held-new within0.** All ten folds passed frozen qualification across 2,655 held rows and 14 visits. FB raw and FB with EA matched exactly. FBLight preserved every decision within 1.188e−6. Fresh Sinc matched its own same-state bank. The next comparison must verify the original within0 warm refits before regenerating both arms. [Frozen qualification](causal_replay/within0-provenance-18nov.md)
 - **Returning.** D-EArT authenticated both actual gates, the routed tail and the source-fold priors on 762 later-visit windows. Legacy personal-head and TSEM views differ. A native RouteB reconstruction must prove which coordinates it consumes, and P10 visit 2 still has two missing warm refits. [Returning scope](ea_returning/tail/result-18nov.md)
 - **Waveform.** F17 completed all 60 source fits, 20 held banks and scoring. The dispersive phase effect was undecided against matched rigid jitter at both seeds. The chart shows the comparison using the pinned scorer receipt. [F17 result](fbc323_phase/result-18nov.md) · [Figure source](figures/s1c_training_plot.py)
+
+## Wednesday 18 November, 23:31 CET
+
+| Lane | Scheduler evidence | Dependency |
+|---|---|---|
+| Within0 warm refits | Galvani RTX smoke 3132542 on P01 with the original §257 targets and observed AdamW steps. | Check archived first-20 and warm decisions for FB raw, FB EA and FBLight before the full array. The fresh Sinc bridge has separate provenance. |
+| Returning native RouteB | Galvani 3132550 runs the actual ZIP stage on P04 visit 2. | Match split-view control to the legacy tail and regenerate source-fold native coordinates before the remaining visits. Only P10 visit 2 has the missing upstream warm path. |
+| F18 spatial sensor withholding | Ferranti 511200 is resource-pending. Source array 511201 remains held. The label-blind real precheck matched local and dispersed masks on removed energy and anchor. | Authenticate Ferranti smoke, then Galvani 3132545. Keep both full arrays behind those smokes. Scorer 3132547 depends on all 20 held folds. |
