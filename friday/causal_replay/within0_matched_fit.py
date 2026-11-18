@@ -32,6 +32,15 @@ def fit_inputs(family, proof, p):
         states = json.loads((RELEASE / "members" / f"{family}_s0.json").read_text())["fit_states"]
         paths = {person: (RELEASE / "checkpoints" / f"{family}_s0_{person}.pt",
                            row["sha256"], row["fit_rows_sha"]) for person, row in states.items()}
+        if family == "fbl":
+            root = HERE.parent / "within0_warm_recovery_v1"
+            for person, selected in proof["recovered_fbl"].items():
+                checkpoint = root / f"fbl_s0_{person}.pt"
+                pin(checkpoint.with_suffix(".json"), selected["receipt_sha256"])
+                if (Path(selected["checkpoint"]) != checkpoint
+                        or selected["fit_rows_sha"] != states[person]["fit_rows_sha"]):
+                    raise ValueError("recovered FBLight a different source fold")
+                paths[person] = checkpoint, selected["checkpoint_sha256"], selected["fit_rows_sha"]
         return reference_rows, paths
     bank = proof["bank"]
     pin(ORIGIN / "frozen.json", bank["origin_receipt_sha256"])
@@ -100,7 +109,9 @@ def run(family, warm_sha, smoke):
                 if smoke:
                     cut = v[:80].copy()
                     cut[:, 3:-1].reshape(80, 18, 3)[:, 20 + 10 * np.arange(18) >= 80] = np.nan
-                    prefix, _ = run_stream(stream, model, x[:80], cut)
+                    xp = torch.from_numpy(model._aligned(rows[:80], causal=True)).to(model.dev)
+                    torch.testing.assert_close(xp, x[:80], rtol=0, atol=0)
+                    prefix, _ = run_stream(stream, model, xp, cut)
                     check = changed(prefix[REFIT_NAME], got[REFIT_NAME][:80])
                     if check["changed"] or check["max_abs"] > TOL:
                         raise ValueError(f"noncausal matched {arm} prefix {check}")

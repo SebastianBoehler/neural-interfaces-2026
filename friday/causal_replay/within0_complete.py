@@ -15,7 +15,7 @@ from complete_sinc_pair import pair_refits, verify_incumbent
 from complete_tail import live_tail, load_count, load_personalization
 from complete_zero import ARCHIVE, FEAT, STAGES, read
 from member_inputs import ORDERS, pinned_delivery
-from within0_pair_inputs import BRIDGE_SHA, FAMILIES, ORDER, authenticate
+from within0_pair_inputs import BRIDGE_SHA, CAMP, FAMILIES, ORDER, WARM, authenticate
 
 
 CONTROL = ROOT / "runs/s281_v66_cp/control_within0_B2_pool.npz"
@@ -25,6 +25,8 @@ STOCK = STAGES / "within0.npz"
 TAPES = STAGES / "stages_within0.npz"
 TAPE_PROOF = STAGES / "stages_within0.json"
 ROUTE = ROOT / "runs/s281_v66_route/within0.json"
+ZERO = CAMP / "within0_terminal_v1/zero.json"
+ZERO_SOURCE = "510d4a029b8d87780a32a487e8cf6708b7558b41dc727d028a283f717e478207"
 PINS = {
     CONTROL: "65f0c1c60205bbea67df37701754fa6e3691e0997509dc063a79d19847163556",
     CONTROL_ZERO: "da072fae3f18a3ef104396813fc463a72e9945ed52675e5ef2f9af5847dda931",
@@ -94,10 +96,10 @@ def archive_zero():
 
 
 def qualified_zero(zero_sha):
-    path = HERE / "zero.json"
-    pin(path, zero_sha)
-    zero = json.loads(path.read_text())
-    if (zero["source"] != sha(HERE / "source.sha256") or zero["order"] != ORDER or not zero["exact_archive_zero"]
+    pin(ZERO, zero_sha)
+    pin(ZERO.parent / "source.sha256", ZERO_SOURCE)
+    zero = json.loads(ZERO.read_text())
+    if (zero["source"] != ZERO_SOURCE or zero["order"] != ORDER or not zero["exact_archive_zero"]
             or not zero["three_aux_exact"] or zero["held_labels_opened"] or zero["scored"]
             or zero["prefix"]["exact_interleaved_prefix_checks"] != 3
             or min(zero["prefix"]["count_affected_prefix_rows"]) <= 0):
@@ -140,6 +142,9 @@ def predict(zero_sha, matrix, matrix_sha, warm_sha):
             if (m["warm_qualification_sha256"] != warm_sha or m["source"] != matrix_sha
                     or m["smoke_sha256"] != sha(smoke) or len(m["visits"]) != 14):
                 raise ValueError(f"unverified warm actor smoke gate for {family}")
+            if family == "fbl" and any(m["fit_states"][person]["sha256"] != item["checkpoint_sha256"]
+                                       for person, item in evidence["recovered_fbl"].items()):
+                raise ValueError("the matched FBLight banks omitted a recovered source")
         ctx.FT_BASE = banks["base"]
         three_aux(ctx)
         incumbents, mixes, activity = {}, {}, {}
@@ -204,13 +209,11 @@ if __name__ == "__main__":
     modes.add_parser("zero")
     modes.add_parser("score")
     live = modes.add_parser("predict")
-    live.add_argument("zero_sha")
     live.add_argument("matrix", type=Path)
     live.add_argument("matrix_sha")
-    live.add_argument("warm_sha")
     args = parser.parse_args()
     if args.mode == "predict":
-        predict(args.zero_sha, args.matrix, args.matrix_sha, args.warm_sha)
+        predict(sha(ZERO), args.matrix, args.matrix_sha, sha(WARM))
     elif args.mode == "score":
         score()
     else:
