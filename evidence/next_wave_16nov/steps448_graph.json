@@ -1,0 +1,170 @@
+{
+  "default": {
+    "n_members": 45,
+    "changed": {
+      "34": {
+        "net": "Jit",
+        "max_abs": 2.0310066628503876e-08
+      },
+      "35": {
+        "net": "SharedFIRSJit",
+        "max_abs": 1.1467110616614207e-07
+      },
+      "36": {
+        "net": "SharedFIRSJit",
+        "max_abs": 2.678316104454126e-07
+      },
+      "37": {
+        "net": "SharedFIRSJit",
+        "max_abs": 4.6233417339003324e-07
+      },
+      "38": {
+        "net": "SharedFIRSJit",
+        "max_abs": 9.377212570327309e-08
+      },
+      "39": {
+        "net": "SharedFIRSJit",
+        "max_abs": 4.397306424541725e-07
+      },
+      "40": {
+        "net": "SharedFIRSJit",
+        "max_abs": 8.143112784075868e-07
+      },
+      "41": {
+        "net": "SharedFIRSJit",
+        "max_abs": 2.0912414111506905e-07
+      },
+      "42": {
+        "net": "SharedFIRSJit",
+        "max_abs": 4.835126453661687e-07
+      },
+      "43": {
+        "net": "SharedFIRSJit",
+        "max_abs": 1.2579870811713079e-07
+      },
+      "44": {
+        "net": "SharedFIRSJit",
+        "max_abs": 3.715770920953432e-07
+      },
+      "45": {
+        "net": "SharedFIRSJit",
+        "max_abs": 1.911303444401824e-07
+      },
+      "46": {
+        "net": "SharedFIRSJit",
+        "max_abs": 9.490333238160176e-07
+      },
+      "53": {
+        "net": "SJit",
+        "max_abs": 3.775060286592691e-08
+      },
+      "54": {
+        "net": "SJit",
+        "max_abs": 1.0992132526421727e-07
+      },
+      "55": {
+        "net": "SJit",
+        "max_abs": 9.307329906782513e-09
+      },
+      "56": {
+        "net": "SJit",
+        "max_abs": 1.0213507140033329e-07
+      },
+      "57": {
+        "net": "SJit",
+        "max_abs": 6.18084390335838e-08
+      },
+      "58": {
+        "net": "SJit",
+        "max_abs": 7.733384849162306e-08
+      },
+      "59": {
+        "net": "SharedFIRSJit",
+        "max_abs": 1.2637135615722883e-08
+      },
+      "60": {
+        "net": "SharedFIRSJit",
+        "max_abs": 5.356465349048989e-08
+      },
+      "61": {
+        "net": "SharedFIRSJit",
+        "max_abs": 1.0925377513792967e-07
+      },
+      "62": {
+        "net": "SharedFIRSJit",
+        "max_abs": 6.996252921442903e-08
+      },
+      "63": {
+        "net": "SharedFIRSJit",
+        "max_abs": 4.7048061613264025e-08
+      },
+      "64": {
+        "net": "SharedFIRSJit",
+        "max_abs": 4.299165495824653e-08
+      },
+      "47": {
+        "net": "SharedFIRSJit",
+        "max_abs": 1.3132887562161688e-06
+      },
+      "48": {
+        "net": "SharedFIRSJit",
+        "max_abs": 3.398045437252861e-07
+      },
+      "49": {
+        "net": "SharedFIRSJit",
+        "max_abs": 3.1816352948910165e-06
+      },
+      "50": {
+        "net": "SharedFIRSJit",
+        "max_abs": 3.7307030754107906e-06
+      },
+      "51": {
+        "net": "SharedFIRSJit",
+        "max_abs": 5.392066838583176e-07
+      },
+      "52": {
+        "net": "SharedFIRSJit",
+        "max_abs": 1.5332608838125594e-06
+      }
+    }
+  },
+  "jitoff": {
+    "n_members": 45,
+    "changed": {}
+  },
+  "endpoint": {
+    "canonical_mismatches": [],
+    "first_field_delta": {
+      "out": [
+        20,
+        4.650062501720953e-09
+      ],
+      "pre": [
+        20,
+        4.650062501720953e-09
+      ],
+      "filter": [
+        20,
+        4.650062501720953e-09
+      ],
+      "fine": [
+        20,
+        8.2124462452704e-08
+      ]
+    },
+    "switches": [],
+    "cold_vs_archive": [],
+    "terminal_104": [
+      [
+        -3.108164816094018,
+        -0.7537786208099597,
+        -0.7508585703259719
+      ],
+      [
+        -3.108164793283556,
+        -0.7537786618070973,
+        -0.7508585322653363
+      ]
+    ]
+  }
+}
