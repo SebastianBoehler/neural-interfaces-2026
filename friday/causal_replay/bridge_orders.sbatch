@@ -8,7 +8,7 @@
 #SBATCH --output=orders-%A_%a.out
 set -euo pipefail
 BASE=/mnt/lustre/work/gehler/gfh527
-RUN=$BASE/ni26_friday_causal_rebuild_20261118/orders_v1
+RUN=$BASE/ni26_friday_causal_rebuild_20261118/orders_v2
 cd "$RUN"
 sha256sum --quiet -c source.sha256
 (

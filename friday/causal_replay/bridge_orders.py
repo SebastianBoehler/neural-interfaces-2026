@@ -40,7 +40,7 @@ def write_receipt(path, **data):
     path.chmod(0o444)
 
 
-def legacy_comparison(order, bank, path):
+def legacy_comparison(bank, path):
     with np.load(path, allow_pickle=False) as archive:
         receipt = dict(sha256=sha(path), layout_matches=True)
         for key in ("pos", "tgrid"):
@@ -78,6 +78,7 @@ def run(order, work):
                    terminal_score_allowed=False, source=sha(HERE / "source.sha256"),
                    original_control={str(path): digest for path, digest in pins.items()},
                    original_route=sha(archived_route))
+    labels = None
     try:
         with guarded_load(pins, source) as opened:
             ctx = owner(order)
@@ -97,10 +98,13 @@ def run(order, work):
                 if any((v["refits"], v["past_rows"], v["tsem_active"]) != (240, 24180, 240)
                        for v in refits["arms"].values()):
                     raise ValueError("the registered per-order prefix grid or TSEM activity differs")
-                receipt.update(refits=refits, legacy_comparison=legacy_comparison(order, labels, legacy_relab),
-                               inputs=seal_prefix_inputs(order, work, labels),
-                               status="ready_for_matched_refits", matched_refits_allowed=True)
+                receipt["refits"] = refits
             receipt["opened"] = {str(path): digest for path, digest in sorted(opened.items())}
+        if labels is not None:
+            # The legacy archive is a post-replay comparison only. The live producer cannot open it.
+            receipt.update(inputs=seal_prefix_inputs(order, work, labels),
+                           legacy_comparison=legacy_comparison(labels, legacy_relab),
+                           status="ready_for_matched_refits", matched_refits_allowed=True)
     except (ValueError, RuntimeError, OSError, AssertionError) as error:
         receipt.update(status="guard_failed", matched_refits_allowed=False, error=str(error))
         write_receipt(work / "status.json", **receipt)
