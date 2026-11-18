@@ -30,6 +30,15 @@ LAYOUTS = {
             ("dropout_vs_original_on", "Masking vs original training\nFull features at inference"),
             ("dropout_vs_zero_zero", "Masking vs zero features in training\nZero fixed features at inference"),
         )),
+    "9c2ef83eb850d671950be72024393c43c2b2e9952303d5f5bf0718b618e62916": dict(
+        title="Matched jitter and phase gave similar S1C gains",
+        stem="held-s1c-matched-phase", xlim=(-.85, 1.75),
+        caption="Bounded inference. Both augmentations helped seed 1 over hard CE.",
+        contrasts=(
+            ("bounded_phase_minus_hard", "Dispersive phase\nvs hard CE"),
+            ("bounded_jitter_minus_hard", "Rigid jitter\nvs hard CE"),
+            ("bounded_phase_minus_jitter", "Dispersive phase\nvs rigid jitter"),
+        )),
 }
 
 
