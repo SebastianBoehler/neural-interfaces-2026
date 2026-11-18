@@ -64,11 +64,16 @@ def matrix(root, ctx, source_sha):
     return banks, proofs
 
 
-def seal(zero_path, zero_sha, matrix_dir, matrix_sha):
+def seal(zero_path, zero_sha, prefix_path, prefix_sha, matrix_dir, matrix_sha):
     pin(zero_path, zero_sha)
     zero = json.loads(zero_path.read_text())
     if not zero["exact_archive_zero"] or not zero["three_aux_exact"] or zero["held_labels_opened"]:
         raise ValueError("terminal archive proof is missing")
+    pin(prefix_path, prefix_sha)
+    prefix = json.loads(prefix_path.read_text())
+    if (prefix["zero"] != zero_sha or prefix["held_labels_opened"]
+            or prefix["exact_interleaved_prefix_checks"] != 3 or min(prefix["count_affected_prefix_rows"]) <= 0):
+        raise ValueError("active count and CSP prefix proof is missing")
     for path, expected in HASHES.items():
         pin(path, expected)
     no_route()
@@ -109,7 +114,7 @@ def seal(zero_path, zero_sha, matrix_dir, matrix_sha):
     target.chmod(0o444)
     receipt = HERE / "matched_full0.json"
     with receipt.open("x") as handle:
-        json.dump(dict(order=ORDER, exact_archive_zero=zero_sha, output_sha256=sha(target),
+        json.dump(dict(order=ORDER, exact_archive_zero=zero_sha, active_archive_prefix=prefix_sha, output_sha256=sha(target),
                        held_labels_opened=False, source_sha256=sha(HERE / "source.sha256"),
                        matrix_source_sha256=matrix_sha, matrix=proofs, terminal=checks, slot_refit_deltas=ft,
                        opened={str(path): digest for path, digest in sorted(opened.items())},
@@ -122,7 +127,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("zero", type=Path)
     parser.add_argument("zero_sha")
+    parser.add_argument("active_prefix", type=Path)
+    parser.add_argument("active_prefix_sha")
     parser.add_argument("matrix", type=Path)
     parser.add_argument("matrix_sha")
     args = parser.parse_args()
-    seal(args.zero, args.zero_sha, args.matrix, args.matrix_sha)
+    seal(args.zero, args.zero_sha, args.active_prefix, args.active_prefix_sha, args.matrix, args.matrix_sha)

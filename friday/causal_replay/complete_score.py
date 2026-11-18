@@ -20,7 +20,9 @@ def authenticate(proof_sha):
     receipt = json.loads(proof.read_text())
     if (receipt["order"] != "full0" or receipt["source_sha256"] != sha(HERE / "source.sha256")
             or not receipt["complete"] or receipt["held_labels_opened"] or len(receipt["matrix"]) != 24
-            or any(v["exact_interleaved_prefix_checks"] != 3 for v in receipt["terminal"].values())):
+            or not receipt["active_archive_prefix"]
+            or any(v["exact_interleaved_prefix_checks"] != 3 or min(v["count_affected_prefix_rows"]) <= 0
+                   for v in receipt["terminal"].values())):
         raise ValueError("full-system prediction seal, producer or complete-stage proof differs")
     pin(prediction, receipt["output_sha256"])
     with np.load(prediction, allow_pickle=False) as predicted, np.load(ROOT / "runs/shuffle_perms.npz") as order:
