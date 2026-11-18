@@ -51,7 +51,7 @@ def summary(old, new, weights):
                 delta_by_person=average(delta).tolist(), delta_by_order=np.average(delta, axis=1, weights=weights).tolist())
 
 
-def guarded_matrices():
+def guarded_matrices(observe_order=None):
     if (STORE/"replay.txt").read_text().splitlines()[-1] != "OK":
         raise ValueError("replay/check.py must pass")
     perm = RUN/"shuffle_perms.npz"
@@ -112,6 +112,8 @@ def guarded_matrices():
                 urn=detector.J.filt_joint(prob,cache,"urn")
                 metric.verify_zero(prob,detector.gate(prob,urn,o,dict.fromkeys(lat)))
                 new=detector.gate(prob,urn,o,lat)[rows]
+            if observe_order is not None:
+                observe_order(protocol, o, rows, order, labels, cells, owners, old, new)
             before.append(metric.person_accuracy(old,labels,cells,owners,people))
             after.append(metric.person_accuracy(new,labels,cells,owners,people))
         weights=np.array([len(np.unique(cells[owners==p])) for p in people])
