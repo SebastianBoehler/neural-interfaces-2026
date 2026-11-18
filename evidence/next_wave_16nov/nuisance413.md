@@ -15,7 +15,7 @@ Removing the source-estimated contribution of local 34–45 Hz activity reduced 
 
 **FULL-SYSTEM DEV.** True minus wrong was −0.008 pp [−0.058,+0.043], below the registered +0.05. True minus frozen was −0.101 [−0.276,+0.083]. P04 and P10 changed +0.023 and −0.605 versus frozen. These new-person replays inserted motor probability before the actual count filter and causal personalization. Official cell means weight P04/P10 three times as heavily as other people; the first two columns weight people equally. The selected public people and repeated common panels do not establish a sealed or returning-person result.
 
-**Independent physical test.** The endpoint here is held-epoch duration prediction, in squared error normalized by source outcome variance. Positive numbers mean lower error with the true spectral ratio. All twelve bipolar pairs used measured native electrodes, with 800 motor-imagery epochs from 20 PhysioNet people. These are study-specific associations of EEG statistics. There is no peripheral muscle recording in this test.
+**Independent physical test.** The endpoint here is held-epoch duration prediction, in squared error normalized by source outcome variance. Positive numbers mean lower error with the true spectral ratio. All twelve bipolar pairs used measured native electrodes, with 800 epochs from 20 people in the PhysioNet motor-imagery dataset. These are study-specific associations of EEG statistics. There is no peripheral muscle recording in this test.
 
 | Training → testing | Reduction vs wrong-person ratio [80%] | Reduction vs independently fitted low-band power alone [80%] |
 |---|---:|---:|
