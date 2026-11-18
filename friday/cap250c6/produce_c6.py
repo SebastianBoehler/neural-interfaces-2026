@@ -55,7 +55,9 @@ def produce(role, smoke):
         import package as pkg
         assert pkg.PROTO == protocol and pkg.J.TAU == 2. and pkg.J.FLOOR == .5
 
-    for order in ref.ORDERS[:1] if smoke else ref.ORDERS:
+    probes = ('within0','full0','runs0') if returning else ('within0',)
+    smoke_switches = smoke_differences = 0
+    for order in probes if smoke else ref.ORDERS:
         old, digest = archived_old(order,returning,pins)
         if returning:
             terminal,source,rows = returning_inputs(order,pkg,meta)
@@ -95,13 +97,16 @@ def produce(role, smoke):
         differing = int(np.count_nonzero(decisions['causal'] != decisions['fixed']))
         print(role,order,'causal switches',switched,'causal vs fixed',differing,flush=True)
         if smoke:
-            assert switched > 0 and differing > 0
+            smoke_switches += switched
+            smoke_differences += differing
         else:
             dest=Path(f'{role}_{order}.npz')
             np.savez_compressed(dest,rows=rows,**decisions)
             dest.with_suffix('.json').write_text(json.dumps(dict(role=role,order=order,
                 output=ref.sha(dest),source=ref.sha(Path('source.sha256')),
                 old_sha256=digest,stock=source),indent=2))
+    if smoke:
+        assert smoke_switches > 0 and smoke_differences > 0
 
 
 if __name__ == '__main__':
