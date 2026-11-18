@@ -20,7 +20,7 @@ For each of ten people, the release decision uses only the remaining people's B2
 | Delivery | Fixed JS minus cap250, pp | Held decision minus cap250, pp | Folds choosing JS |
 |---|---:|---:|---:|
 | Equal schemes | +0.041 | +0.032 | 9/10 |
-| Within interface | −0.073 | 0.000 | 0/10 |
+| Within each run | −0.073 | 0.000 | 0/10 |
 | Full session | +0.174 | +0.174 | 10/10 |
 | Run blocks | +0.021 | −0.138 | 6/10 |
 
