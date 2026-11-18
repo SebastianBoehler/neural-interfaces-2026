@@ -1,0 +1,179 @@
+{
+  "people": [
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P09",
+    "P10"
+  ],
+  "released_split": {
+    "P01": "train",
+    "P02": "train",
+    "P03": "train",
+    "P04": "test",
+    "P05": "val",
+    "P06": "train",
+    "P07": "train",
+    "P08": "val",
+    "P09": "test",
+    "P10": "train"
+  },
+  "endpoints_pct": [
+    74.7237188504125,
+    76.10391516713594
+  ],
+  "schemes": [
+    "within",
+    "full",
+    "runs"
+  ],
+  "tasks": [
+    "AcquisitionBH",
+    "OnlineRawBH",
+    "AcquisitionGraz",
+    "OnlineRawGraz"
+  ],
+  "gain_pp": [
+    [
+      -0.14128619518442287,
+      3.1006809466542467,
+      1.7361111111111225,
+      2.886904761904755
+    ],
+    [
+      0.22545310686715206,
+      1.401571978409669,
+      0.1984126984126956,
+      0.17857142857144886
+    ],
+    [
+      1.7800290704050343,
+      1.3389723866504792,
+      0.8928571428571344,
+      1.3690476190476122
+    ]
+  ],
+  "baseline_weight": [
+    [
+      0.058330499731718166,
+      0.10833616693494849,
+      0.0625,
+      0.10416666666666667
+    ],
+    [
+      0.058330499731718166,
+      0.10833616693494849,
+      0.0625,
+      0.10416666666666667
+    ],
+    [
+      0.058330499731718166,
+      0.10833616693494849,
+      0.0625,
+      0.10416666666666667
+    ]
+  ],
+  "distance_to_zero": 0.6536923728136163,
+  "leave_person_out": {
+    "P01": {
+      "scheme": "within",
+      "task": "AcquisitionBH",
+      "evaluated_pp": 0.650557620817851
+    },
+    "P02": {
+      "scheme": "within",
+      "task": "AcquisitionBH",
+      "evaluated_pp": 0.7585335018963331
+    },
+    "P03": {
+      "scheme": "within",
+      "task": "AcquisitionBH",
+      "evaluated_pp": 0.023704171934254534
+    },
+    "P04": {
+      "scheme": "full",
+      "task": "AcquisitionBH",
+      "evaluated_pp": 2.003816793893136
+    },
+    "P05": {
+      "scheme": "within",
+      "task": "AcquisitionBH",
+      "evaluated_pp": -1.5334572490706344
+    },
+    "P06": {
+      "scheme": "within",
+      "task": "AcquisitionBH",
+      "evaluated_pp": 2.421052631578941
+    },
+    "P07": {
+      "scheme": "full",
+      "task": "OnlineRawGraz",
+      "evaluated_pp": 3.3333333333333215
+    },
+    "P08": {
+      "scheme": "within",
+      "task": "AcquisitionBH",
+      "evaluated_pp": 2.2534766118836833
+    },
+    "P09": {
+      "scheme": "within",
+      "task": "AcquisitionBH",
+      "evaluated_pp": 1.4735772357723524
+    },
+    "P10": {
+      "scheme": "full",
+      "task": "AcquisitionGraz",
+      "evaluated_pp": 2.3148148148148113
+    }
+  },
+  "mean_held_gain_pp": 1.3699409466854051,
+  "effects": {
+    "AcquisitionBH": {
+      "pp": 0.6213986606959212,
+      "interval80": [
+        -0.06635048100667527,
+        1.4769157189768336
+      ]
+    },
+    "OnlineRawBH": {
+      "pp": 1.9470751039047984,
+      "interval80": [
+        0.7516097444448611,
+        2.9857500874382987
+      ]
+    },
+    "AcquisitionGraz": {
+      "pp": 0.9424603174603174,
+      "interval80": [
+        0.0771604938271561,
+        1.7939814814814783
+      ]
+    },
+    "OnlineRawGraz": {
+      "pp": 1.4781746031746055,
+      "interval80": [
+        0.7440476190476156,
+        2.2361111111111147
+      ]
+    },
+    "worst_tv20": {
+      "pp": 0.7513984328678782,
+      "interval80": [
+        -0.05011680856750457,
+        1.1270245240372196
+      ]
+    },
+    "worst_any": {
+      "pp": -0.14128619518442287,
+      "interval80": [
+        -1.7558658008658004,
+        -0.10416666666666075
+      ]
+    }
+  }
+}
