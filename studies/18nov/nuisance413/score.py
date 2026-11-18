@@ -78,7 +78,7 @@ def summary(a,weights):
 
 def main():
     require((ROOT/'replay.log').read_text().splitlines()[-1]=='OK','replay')
-    require(digest(PANELS/'score.py')=='9a21e804e2bc82674978a81c2368527451feb9c30730f70532eafd16bb716c9e','old scorer')
+    require(digest(PANELS/'score.py')=='1d8b4bf7e2f4a2cc97d360257ec41eba38b54588225450cbd2575697338c4d7d','old scorer')
     with np.load(DATA/'proteus_windows.npz') as z:
         people=np.array([p.split('/')[-1] for p in z['subject']])
         iface,session=z['interface'],z['session']
