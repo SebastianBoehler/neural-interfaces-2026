@@ -29,6 +29,7 @@ An entry score of 0.824 would place #15 in this snapshot. Scores of 0.826–0.82
 | Spectral kernel vs cap250, FULL-SYSTEM DEV, returning mix | +0.370 pp [−0.124,+0.507] and +0.268 pp [+0.141,+0.367], eight paired orders and only two people. |
 | All-source spectral kernel vs exact cap250, FULL-SYSTEM EXTERNAL | −0.212 pp [−0.625,+0.193] and 0.000 pp [−0.291,+0.288], nine Scherer people and four orders, 8,520 decisions per arm. |
 | F1–F4, FULL-SYSTEM DEV, ten held-new PROTEUS people | Every tested insertion was below 76.1039% cap250. Best seed point estimate −0.347 pp. Genuine history sometimes improved a weak model enough to beat its own blank control. |
+| F5 learned correction vs exact staged cap250, FULL-SYSTEM EXTERNAL | −3.284 pp [−4.160,−2.338] and −3.975 pp [−5.033,−2.873], nine Scherer people and two orders. |
 | F-C1/F-C2, FULL-SYSTEM DEV | Count prior scale −0.110 pp new, −0.098 returning. Shape-normalized CSP fit −0.004 pp new. All three intervals cross zero. |
 
 [Exact archive selection evidence](../../neural-interfaces-2026/evidence/next_wave_16nov/lunch_recommendation_18nov.md) · [Returning spectral kernel](../../neural-interfaces-2026/evidence/next_wave_16nov/kernel457.md) · [Waveform evidence](wave/results-18nov.md) · [External receipts](../../neural-interfaces-2026/evidence/next_wave_16nov/EVENING_HANDOFF_18NOV.md)
@@ -41,4 +42,4 @@ An entry score of 0.824 would place #15 in this snapshot. Scores of 0.826–0.82
 
 ## Decision condition
 
-Prefer the untouched staged cap250 ZIP on the current evidence. Preserve v5.1b as the sealed alternate. F5 learns against historical fit-excluded stock mistakes and runs in independent exact Scherer sessions. F6 transfers independently pre-trained PhysioNet sensorimotor weights into held PROTEUS folds. F-C3/F-C4 test active optimizer behavior in the exact cap250 worker. Their results govern any experiment that advances. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
+Prefer the untouched staged cap250 ZIP on the current evidence. Preserve v5.1b as the sealed alternate. F5 lost on the independent Scherer sessions. F6 tests PhysioNet sensorimotor transfer. F7 and F8 optimize a single compact raw-waveform decoder for unseen people. F-C3/F-C4 test active optimizer behavior in the exact cap250 worker. Their results govern any experiment that advances. See current job dependencies in the [Friday queue](QUEUE.md) and archive identities in the [frozen input manifest](inputs.sha256).
