@@ -9,6 +9,7 @@ import numpy as np
 import torch
 from torch.nn import functional as F
 
+from band_frontend import BandRawDecoder, KINDS as BAND_KINDS, fir_hash, initial_receipt
 from source_labels import read_training_labels
 from waveform import Decoder
 from raw import KINDS as RAW_KINDS, MaskedObjective, RawDecoder
@@ -22,11 +23,13 @@ ORDER_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
 ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 PEOPLE = tuple(f"P{i:02}" for i in range(1, 11))
 MOTOR_KINDS = ("motor_transfer", "motor_null")
-RAW_ACTORS = (*RAW_KINDS, *STYLE_KINDS, *NORM_KINDS)
+RAW_ACTORS = (*RAW_KINDS, *STYLE_KINDS, *NORM_KINDS, *BAND_KINDS)
 KINDS = ("prototype", "centered", *TEMPORAL_KINDS, *MOTOR_KINDS, *RAW_ACTORS)
 
 
 def make_decoder(kind):
+    if kind in BAND_KINDS:
+        return BandRawDecoder(kind)
     if kind in NORM_KINDS:
         return NormalizedRawDecoder(kind)
     if kind in RAW_ACTORS:
@@ -133,6 +136,10 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
     sessions = [np.flatnonzero(streams[src] == s) for s in np.unique(streams[src])]
     model = make_decoder(kind).to(device)
     provenance = initialize_motor(model, kind, seed) if kind in MOTOR_KINDS else {}
+    schedule = None
+    if kind in BAND_KINDS:
+        provenance = initial_receipt(model, kind)
+        schedule = hashlib.sha256()
     source_eeg = torch.from_numpy(x[src]).to(device)
     steps = 4 if smoke else 600
     style = (SourceStyle(source_eeg, sessions, people[src], weights, kind, seed)
@@ -148,6 +155,8 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
     for update in range(steps):
         episode = rng.integers(len(sessions))
         rows = rng.choice(sessions[episode], size=96, replace=False)
+        if schedule is not None:
+            schedule.update(np.asarray(src[rows], dtype="<i8").tobytes())
         batch = (spectrum[rows] if jitter is None else
                  model.prepare(jitter(source_eeg[rows], update)))
         if style is not None and update % 2 == 0:
@@ -164,7 +173,8 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
         if masked is not None:
             auxiliary = masked(model, batch)
             if update == 0:
-                grad = torch.autograd.grad(auxiliary, model.stem.weight, allow_unused=True,
+                stem_weight = model.stem.temporal.weight if kind in BAND_KINDS else model.stem.weight
+                grad = torch.autograd.grad(auxiliary, stem_weight, allow_unused=True,
                                            retain_graph=True)[0]
                 active = grad is not None and grad.isfinite().all() and grad.abs().max() > 0
                 if bool(active) != masked.update_encoder:
@@ -181,6 +191,11 @@ def fit(kind, seed, held, smoke, data_path, order_path, device):
             masked.update(model)
     if not loss.isfinite() or any(torch.equal(initial[n], p) for n, p in model.named_parameters()):
         raise ValueError("inactive or nonfinite fit")
+    if schedule is not None:
+        fitted = fir_hash(model)
+        if fitted == provenance["initial_fir"]:
+            raise ValueError("trainable FIR did not update")
+        provenance.update(episode_rows=schedule.hexdigest(), fitted_fir=fitted)
     if style is not None:
         if style.applied != steps // 2:
             raise ValueError("synthetic episodes did not cover the registered dose")
