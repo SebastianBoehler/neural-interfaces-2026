@@ -244,3 +244,9 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - The two geometry-only maps preserve the 19 measured common sites and reconstruct 22 PROTEUS channels. Map SHA-256 `b4128c37dacfef9ddb38d960b314f21ee98715b57c1120ddb60e98d9a80f4da4`. Ferranti source retry `511320` passed at 01:11:30 CET with exact hard control and the separate KL callback guard. Galvani smoke `3132879` gates source array `511321`; independent production `3132880` and collector `3132881` require the complete blind matrix. [Registration and retry](../docs/LEDGER.md#f21--source-electrode-reconstruction-consistency-for-raw-s1c)
 - Active controller `bash friday/fbc323_reconstruction/run_dependencies.sh 511320 511321 3132879 3132880`. After source release, `bash friday/fbc323_reconstruction/relay.sh 511321 3132880` safely resumes incomplete relays. Immutable source and held release names end in `s1c_reconstruction_v2_20261119`.
+
+## Thursday 19 November, 01:14 CET
+
+- **Returning source coverage.** P10 source-fold Hilbert Core2 fit 3132875 completed with the verified source exclusion and owning recipe. Independent reference retry 3132912 gates real native run 3132914. This source refit addresses one production-derived layer. Rest, Eye, event and calibration scopes remain separate. [Registration](../docs/LEDGER.md)
+- **Returning prototype F-C16.** Authenticated first-visit source feature and fit job 3132877 completed. The registered prototype will be compared with the actual native personal head and a class-count-matched donor head using the same feature extractor and head weight. [Registration](../docs/LEDGER.md)
+- **F21 waveform reconstruction.** Corrected Ferranti source smoke 511320 and independent Galvani 3132879 passed. Ferranti 511321 is training source folds. Galvani held 3132880 and scorer 3132881 are bound to the authenticated relay. [Relay](fbc323_reconstruction/run_dependencies.sh)
