@@ -28,3 +28,22 @@ If either recovery exits at numerical parity, record its actual receipt and leav
 Both original-node recoveries completed the fit and live warm check but failed the 2e−5 historical posterior bound. P08 visit 1 max was 5.71854e−5 and P10 visit 2 max was 1.24284e−4, with zero changed decisions in each. Receipts were `540af924…d0ab` and `3d0bca42…5e23`. Both scopes passed source exclusion, frozen parity and real optimizer checks.
 
 Slurm canceled 3132611 and the dependent matched graph through 3132636 before execution. The warm qualification, terminal decision bank and score files are absent. The exact historical terminal zero remains independent. D-EAwcf uses a separately authenticated shared fresh FBLight input in both arms, with both shadows and every dependent refit regenerated.
+
+## Shared fresh FBLight and Sinc · 19 November 02:08 CET
+
+D-EAwcf uses the same ten authenticated fold-excluded FBLight states and one frozen bank for both EA arms. Its real P01 replay `3133100` completed in 25 seconds. The 190 decisions matched archived frozen decisions. Maximum posterior difference was 5.13805e−7. First aligned window and interleaved reset were exact. The receipt is `fb047f2d…f95f`. The archive zero has a separate pinned receipt and supplies no fresh warm predictions.
+
+| Galvani jobs | Gate and release |
+| --- | --- |
+| `3133101_{2–10} → 3133102` | Remaining saved-state folds and authenticated bank seal in `within0_fresh_fbl_v1`, source `aa97a122…2e13`. |
+| `3133105` | Both live bridges, fixed-calibration routing and real strict-past target aliases in `within0_shared_bridge_v1`, source `5cc3a1ed…f6de`. |
+| `3133134 → 3133135`, `3133136 → 3133137`, `3133138 → 3133139`, `3133140 → 3133141` | Real P01 and ten-fold refits for FB raw, FB EA, FBLight and Sinc. `within0_matched_refit_shared_v1`, source `8ecec990…6db4`. |
+| `3133142 → 3133143` | Matched complete label-blind terminal bank, then its authorized gold collector. `within0_terminal_shared_v1`, source `ad7f6248…3994`. |
+| `3133146`, `3133147` | Independent CPU and no-TF32 A100 frozen portability canaries, with exact P01 and bounded P04 same-state RTX comparisons. `within0_fbl_device_v1`, source `569105cb…e2eb`. |
+
+The latest Slurm estimate moved the remaining RTX frozen tasks to 02:09–02:14 CET at 02:08. The current RTX queue remains active. Every downstream stage uses successful dependencies, and the terminal collector needs the complete signed label-blind predictions file. Aged-out job `3132606` was verified completed with the original exact hash at dispatch. Its original source and proof are independently authenticated again at terminal runtime.
+
+```bash
+ssh mlcloud-galvani 'sacct -X -j 3133100,3133101,3133102,3133105,3133134,3133135,3133136,3133137,3133138,3133139,3133140,3133141,3133142,3133143,3133146,3133147 -o JobID,State,Elapsed,Start,End,NodeList'
+ssh mlcloud-galvani 'cd /mnt/lustre/work/gehler/gfh527/ni26_friday_causal_rebuild_20261118 && cat within0_matched_refit_shared_v1/jobs.tsv && find within0_terminal_shared_v1 -maxdepth 1 -name "matched_within0*" -print'
+```
