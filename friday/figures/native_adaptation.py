@@ -221,6 +221,31 @@ def plot_joint_people(record, out):
     save(fig, out, "held-fbl-multiresolution-people")
 
 
+def plot_fbl_dose(receipts, out):
+    record = locked(receipts / "held-fblight-dose-score.json",
+                    "e8760cf01a09a6a856a73bc22a4096cb3bf5aa64096099a6659390d5306c1dfd")
+    fig, (ax,) = layout("More FBLight weight gave different results by delivery")
+    rows = (
+        ("Live doubled vs cap250", "FBL2_minus_stock"),
+        ("Frozen addition vs cap250", "frozen_minus_stock"),
+        ("Live tripled vs cap250", "FBL3_minus_stock"),
+        ("Live doubled vs frozen addition", "FBL2_minus_frozen"),
+        ("Live tripled vs live doubled", "FBL3_minus_FBL2"),
+    )
+    for order, color, offset in (("within0", BLUE, -.11), ("full0", GOLD, .11)):
+        for row, (_, key) in enumerate(rows):
+            interval(ax, record["orders"][order]["contrasts"][key], row + offset,
+                     color, order if row == 0 else None)
+    ax.set_yticks(range(len(rows)), [name for name, _ in rows])
+    ax.set(xlim=(-.84, 1.18), ylim=(4.55, -.55))
+    ax.set_title("Exact cap250 and three FBLight weighting rules · paired 80% intervals",
+                 loc="left", fontsize=10, color=MUTED)
+    ax.legend(loc="lower right", frameon=False, ncol=2)
+    fig.text(.028, .024, "Full-system dev · same ten held-new participants in both deliveries",
+             fontsize=9, color=MUTED)
+    save(fig, out, "held-fblight-dose")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("receipts", type=Path)
@@ -236,3 +261,4 @@ if __name__ == "__main__":
     plot_fbl_factor(options.receipts, options.output)
     plot_returning_raw(options.receipts, options.output)
     plot_joint_waveform(options.receipts, options.output)
+    plot_fbl_dose(options.receipts, options.output)

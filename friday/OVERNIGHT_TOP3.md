@@ -76,15 +76,15 @@ Adapted FBLight doubling is the strongest repeatable new component on the correc
 | Does actual FBLight doubling help returning people? | Completed at 06:32:49. Equal-cell change −0.130 pp. Prespecified 20/80 returning change −0.208 pp. | Actual |
 | Does a GRU over raw within-window features help beyond matched shuffled token order? | F29 completed at 06:35:19. Native token order beat the matched permutation, while recurrence lost 6.398 and 6.257 pp versus exact hard across the two seeds. | Actual |
 | Does FBLight help on the two fresh Scherer deliveries with exact shared upstream input? | C21s smoke passed. Nine-person RTX replay and separate scorer are scheduled, with the first three people complete. | 06:40–06:55 if three RTX slots hold |
-| Is the FBLight lift driven by warm predictions, and does more weight help? | The 379-window F-C23 smoke passed at 06:31:38. Both complete replays are active. | 06:43–06:50, subject to smoke and CPU availability |
+| Is the FBLight lift driven by warm predictions, and does more weight help? | Completed at 06:38:39. Live doubling versus frozen addition and live tripling versus doubling both remain undecided. | Actual |
 
 **Returning trade-off.** F-C21r completed four later visits from P04 and P10 on the exact conditional returning instrument. P04 was flat and P10 lost one correct Graz decision. FBL2 changed −0.130 pp on equal cells [paired 80% −0.391, +0.260] and −0.208 pp on the fixed 20/80 returning weights [−0.391, 0]. The observed 57% held-new and 43% returning mix gives descriptive point changes of +0.129 and +0.189 pp versus cap250, using within0 or full0 respectively. The instruments reuse people. These points leave comparison uncertainty and external performance open. [Signed returning result](ea_returning/native_fbl2/README.md)
 
-[Signed F28 result](fbc323_relational/result-19nov.md) · [Live queue](QUEUE.md)
+[FBLight dose result](cap250c23/result-19nov.md) · [Signed F28 result](fbc323_relational/result-19nov.md) · [Signed F29 result](fbc323_recurrent/result-19nov.md) · [Live queue](QUEUE.md)
 
 ### What the overnight experiments established
 
-The run produced a deployable implementation of the strongest new public component and found a cost on returning people. The same data also showed why to keep the candidate provisional: the multiresolution combination added about 0.15–0.29 pp over FBLight doubling, with broad paired intervals and a negative interaction point in both deliveries. Keeping the established chain intact supplied exact deployment, adaptation and tail controls for both tests.
+The run produced an executable trial package for the strongest new public component and found a cost on returning people. The same data also showed why to keep the candidate provisional: the multiresolution combination added about 0.15–0.29 pp over FBLight doubling, with broad paired intervals and a negative interaction point in both deliveries. Keeping the established chain intact supplied exact deployment, adaptation and tail controls for both tests.
 
 The whole-waveform lane tested different information pathways. F27 changed sensor interactions, F28 transferred class relationships across fit-excluded people, and F29 learned a finer temporal readout. F28 improved the source relationship objective without a decisive held advantage over the identical-target-marginal sham. F29 showed that temporal order is informative in the learned readout, while the added branch hurt task decisions versus the unmodified hard model. The narrower complete-system contrasts currently have stronger accuracy evidence than these whole-decoder replacements.
 

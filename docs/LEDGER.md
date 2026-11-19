@@ -1033,3 +1033,5 @@ Registered before any selected output or score. The rule emits complete stock th
 ## F30 · Train the raw body through source-person-held support updates
 
 Registered before source fitting. The [F30 protocol](../friday/fbc323_episodic/prereg-19nov.md) fixes class-balanced source support/query roles, exact same-person control, temporary functional update, numerical hypotheses and real smoke rules.
+
+**F-C23 completed at 06:38:39 CET.** FULL-SYSTEM DEV live doubled minus equal frozen addition +0.101/−0.320 pp [paired 80% −0.188 to +0.353 / −0.731 to +0.125]. Live triple minus live doubled −0.084/+0.291 pp [−0.534 to +0.327 / −0.063 to +0.624]. Both remain undecided. Live doubled had positive lower bounds against stock in both, and full0 favored every increased share versus stock. Exact stock, identity and live double reproduced their signed parent banks. [All scores and receipts](../friday/cap250c23/result-19nov.md)
