@@ -59,6 +59,26 @@ def plot_eye(receipts, out):
     save(fig, out, "returning-source-eye")
 
 
+def plot_outer_raw(receipts, out):
+    record = locked(receipts / "held-outer-raw-replacement-score.json",
+                    "1100016fe85b769282b01d7df6bb374e5590f1707ca8375e2aa1e84ba7b4ae30")
+    fig, (ax,) = layout("The raw replacement gained points in both replays")
+    rows = (("Hard-label pupil vs stock", "hard_minus_stock"),
+            ("Jitter pupil vs stock", "jitter_minus_stock"),
+            ("Jitter pupil vs hard-label pupil", "jitter_minus_hard"))
+    for name, color, offset in (("within0", BLUE, -.13), ("full0", GOLD, .13)):
+        for row, (_, key) in enumerate(rows):
+            value = record["orders"][name]["contrasts"][key]
+            interval(ax, value, row + offset, color, name if row == 0 else None)
+    ax.set_yticks(range(len(rows)), [label for label, _ in rows])
+    ax.set(xlim=(-.31, .74), ylim=(2.55, -.55))
+    ax.set_title("Complete cap250 consumer · paired 80% intervals", loc="left", fontsize=10, color=MUTED)
+    ax.legend(loc="lower right", frameon=False, ncol=2)
+    fig.text(.028, .024, "Full-system dev · same 10 held-new participants · one replay per delivery order · stock retained",
+             fontsize=9, color=MUTED)
+    save(fig, out, "held-outer-raw-replacement")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("receipts", type=Path)
@@ -67,3 +87,4 @@ if __name__ == "__main__":
     options.output.mkdir(parents=True, exist_ok=True)
     plot_arbitration(options.receipts, options.output)
     plot_eye(options.receipts, options.output)
+    plot_outer_raw(options.receipts, options.output)
