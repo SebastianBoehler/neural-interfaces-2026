@@ -22,8 +22,8 @@ MEASURED = (
 RETURN = '        model.perm = channel_map(meta.get("ch_names"))\n        return model'
 
 
-def measured_fragments(path, fingerprint, names):
-    raw = subprocess.check_output(["git", "show", f"{MEASURED_REV}:friday/{path}"], cwd=HERE)
+def measured_fragments(path, fingerprint, names, revision=MEASURED_REV):
+    raw = subprocess.check_output(["git", "show", f"{revision}:friday/{path}"], cwd=HERE)
     if hashlib.sha256(raw).hexdigest() != fingerprint:
         raise ValueError(f"measured selector input changed: {path}")
     source = raw.decode("utf-8")
@@ -50,18 +50,25 @@ def selector_source():
     return "\n\n\n".join([imports, *fragments])
 
 
-def revised(raw):
+def revised_with(raw, selector, selector_name):
     if hashlib.sha256(raw).hexdigest() != CODE_HASH:
         raise ValueError("unexpected frozen cap250 code")
     code = raw.decode("utf-8")
     if code.count(SOLVER_MARKER) != 1 or code.count(RETURN) != 1:
         raise ValueError("unexpected frozen Solver entry point")
     wrapper = HERE.joinpath("gate_model.py.inc").read_text().rstrip()
-    body = selector_source() + "\n\n\n" + wrapper
+    if wrapper.count("LiveSelector(model)") != 1:
+        raise ValueError("unexpected selector construction in the entry point")
+    wrapper = wrapper.replace("LiveSelector(model)", f"{selector_name}(model)")
+    body = selector + "\n\n\n" + wrapper
     code = code.replace(SOLVER_MARKER, body + "\n\n\n" + SOLVER_MARKER)
     code = code.replace(RETURN, RETURN.removesuffix("return model") + "return StockProtectedSolverModel(model)")
     compile(code, "submission.py", "exec")
     return code.encode("utf-8")
+
+
+def revised(raw):
+    return revised_with(raw, selector_source(), "LiveSelector")
 
 
 if __name__ == "__main__":

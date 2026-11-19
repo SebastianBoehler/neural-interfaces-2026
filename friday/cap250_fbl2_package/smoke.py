@@ -43,18 +43,18 @@ def load_paths(stock,trial,scratch,device):
     return tuple(paths)
 
 
-def frames(public,external,known,unknown):
+def frames(public,external,known,unknown,external_rows=31):
     stored=json.loads(pinned(known,KNOWN_SHA).read_text())['shared']['recognized']
     assert stored['session']=='P10-3' and stored['activity']['recognized']==10
     other=json.loads(pinned(unknown,UNKNOWN_SHA).read_text())['sessions']['Scherer2015/G|1|0']
     for name,path,rows,who,visit,sha in (
         ('recognized',public,stored['rows'],'Dreyer2026Proteus/P10','3',PUBLIC_SHA),
-        ('unrecognized',external,other['rows'][:31],'Scherer2015/G','1',EXTERNAL_SHA),
+        ('unrecognized',external,other['rows'][:external_rows],'Scherer2015/G','1',EXTERNAL_SHA),
     ):
         with np.load(pinned(path,sha),allow_pickle=False) as z:
             assert set(z['subject'][rows])=={who} and set(z['session'][rows])=={visit}
             x=torch.from_numpy(z['X'][rows].copy())
-        assert x.shape==(31,41,480) and x.dtype==torch.float32
+        assert x.shape==(len(rows),41,480) and x.dtype==torch.float32
         yield name,x
 
 
