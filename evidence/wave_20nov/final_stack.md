@@ -33,3 +33,40 @@ Pick the arm with the highest sealed-weighted mean delta among arms that satisfy
 (c) projected RTX time <= 3,300 s (8 % margin to 3,600 s) with parity and zero-change checks passed.
 If hardcb fails (a) or (c) fall back to the best of hard / cb; if none qualifies, stay with cap250. Intervals crossing zero
 are "undecided", reported, and do not by themselves veto (AGENTS.md; bars are reading aids).
+
+## Results (19 Nov, jobs below; all arms in the full chain, paired 80 % intervals; pp over exact cap250)
+
+Held-new dev, ten reused people (`submissions/final_stack/chain`, release `ni26_final_stack_20261120`; chain jobs 3139080 full0, 3139081
+within0, scorer 3139383; CBraMod bank streamed through the package member code, 3138834/3138835; guards: identity arm equals stock
+bitwise, stock and hard arms equal the F32 parent banks bitwise, member moves mix/rebalance/EM/TSEM):
+
+| arm | full0 | within0 | both orders |
+| --- | ---: | ---: | ---: |
+| hard | +0.331 [+0.214, +0.448] | +0.305 [-0.005, +0.642] | +0.318 [+0.178, +0.469] |
+| cb (1/6 slot) | +0.263 [+0.004, +0.529] | -0.004 [-0.168, +0.207] | +0.130 [0.000, +0.302] |
+| hardcb | +0.514 [+0.336, +0.697] | +0.270 [+0.112, +0.434] | +0.392 [+0.280, +0.519] |
+| interaction hardcb-hard-cb | -0.080 [-0.228, +0.076] | -0.031 [-0.391, +0.275] | -0.055 [-0.205, +0.074] |
+
+CBraMod bank parity (package member vs Lane C2 bank, full0, 10 held people, seeds 0-2): max |diff| 3.1e-6, 5.7e-6, 3.8e-5
+(fp32 weights); fp16-stored weights shipped in the package: 2.3e-4 through the official Solver (P02). Prediction held (hardcb +0.55,
+interaction -0.10, cb within0 +0.2 was optimistic: 0.00).
+
+Returning P04/P10 (Lane A instrument, 8 orders, source-fold packages built with the same StackEnsemble code; hard actors are the
+returning F17/C20 actors that exclude the whole person, CBraMod = returning fits excluding P04/P10 visits 2-3; job 3138858): w20/80
+hard -0.020 [-0.083,+0.044], cb +0.050 [-0.020,+0.118], hardcb +0.011 [-0.072,+0.096]; equal cells -0.100 / +0.032 / -0.067; P04
+hard -0.234. This covers about 13 % of sealed returning windows and its hard actors are not the F32e pair: weak evidence.
+
+NI-V Scherer (RTX 2080 Ti exact packages, hard = F-C25p ZIP, hardcbB = hard + Scherer-free CBraMod B-arm all-public fits trained on
+Leonardo 64883819/20, since arm-C fits saw Scherer): B-new full-session hard -0.065 [-0.26,+0.13], hardcbB -0.058 [-0.28,+0.15];
+B-ret hard -0.023 [-0.20,+0.16], hardcbB +0.107 [-0.10,+0.32]; NI-V sealed-weighted hard -0.047 [-0.18,+0.09], hardcbB +0.015
+[-0.14,+0.17]. Null (cap250 seed 1) is about -0.08, so nothing here is outside noise; no veto (threshold -0.3).
+
+Sealed-weighted (0.57 held-new both orders + 0.43 returning 20/80 P04/P10): hardcb +0.23, hard +0.17, cb +0.10.
+
+Runtime (friday/qualify_package.py, warm-up replay, ref/cand x2): RTX 2080 Ti cap250 165.8 s, stack 208.4 s (ratio 1.257), A100 146.5 vs
+180.0 (1.229); projected sealed 2,554.9 s x ratio = 3,211 s (RTX), 3,140 s (A100): 389 s margin to 3,600 s (10.8 %); the ratio comes
+from a short replay, the sealed per-window share may differ and the RTX PRO 4500 is untested. Public replay score identical to
+cap250 (0.994578853046595) on both devices, files unchanged, causal/reset/prefix/future checks pass, no [v6] errors.
+Package 90.5 MB (self-imposed 90 MB allowance exceeded; qualification ran with NI26_MAX_MB=100).
+
+Selection rule applied: hardcb passes (a) held-new >= 0 in both orders, (b) NI-V >= -0.3, (c) projected 3,211 s <= 3,300 s.
