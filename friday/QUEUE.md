@@ -511,3 +511,11 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - A100-PCIE-40GB source smoke `3135613` passed in 17 seconds at 10:20:12 CET. The native hard checkpoint matched exact F33a bytes. Both active arms used the same 2,528 of 10,112 source appearances. Mean relative raw RMS displacement was 0.494280, maximum paired mismatch 4.63e−9, with bit-exact zero dose and unchanged edges. [Prospective protocol](fbc323_crossfade/prereg-19nov.md)
 - CPU held smoke `3135629` passed at 10:23:09 CET in 44 seconds with all 24 first-window and 48 interleaved-reset checks. Maximum posterior prefix drift 4.41115e−7. Galvani native DAG `3135630` trains 20 folds at cap six, `3135631` replays matching folds after each source element, and `3135632` seals decisions before labels. Release `ni26_friday_s1c_crossfade_a100_20261119/jobs.txt`. Actor `baf7735eb9ca7f225b99ecbf58e6a16a8fea3a13813ae7c2e8434d0fff901510` and scorer `2734eeee0e398a53ffc5900b303255a2ef193df31d2adfb448b59eb1aba67367`.
+
+### Thursday 19 November, 10:31 CET
+
+- The reconstruction selector scored at 10:23:32. Current cue −0.112 pp versus hard and −0.023 pp versus the one-window-lag control. It fixed 11 and broke 16. [F-C31 signed result](cap250c31/README.md)
+- F35x scorer `3135592` completed at 10:27:32. Balance tied matched A100 hard and trailed H100 hard by an uncertain 0.093 pp. Six-order H100 pooling with the same signed actors completed at 10:30:40. Hard gained +0.220 pp [paired 80% +0.018,+0.432] versus stock on the same nine external people. The independent exact ZIP result remains +0.050 pp and the numerical veto persists. [F35x](cap250_balance_external/README.md) · [Six-order reconciliation](cap250_hard_pooled/result-19nov.md#six-order-extension--19-november-103040-cet)
+- F36 scorer `3135632` passed at 10:30:15. Reciprocal cross-trial minus native hard was −0.094/+0.619 pp across seeds. Single-trial matched raw changes had +0.389/+0.444 pp points with both intervals spanning zero. The follow-up checks the same control in the complete system.
+
+- F36 whole decoder collector `3135632` completed at 10:30:15 CET. All 20 matched A100 and CPU folds passed. Bounded cross-trial minus exact hard −0.094/+0.619 pp and minus matched same-trial −0.483/+0.175 pp, both undecided. [Signed result](fbc323_crossfade/result-19nov.md)
