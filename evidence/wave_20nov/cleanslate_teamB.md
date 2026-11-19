@@ -28,3 +28,33 @@ P04/P10 (session 1 in training, sessions 2–3 streamed). Variants scored in the
   else is undecided. A whole-session (non-causal) rerun of the mixture and an own-label nearest-centroid score on the
   end-of-session projections are reported as ceilings (diagnostics only).
 - Smoke: job 3139282 (30 steps, one net, P03/P04 new + P04 ret) passed the code path; no score read.
+
+### R1 result (Thu 19 Nov 23:35 CET; job 3139336, 12 folds, orders 71000/71001; P10 held-new fold landed last, table below is 9 people / 22 cells and is replaced when R2 reports)
+| | enc | bal | em (base) | best registered variant |
+|---|---|---|---|---|
+| held-new | 64.77 | 64.76 | 64.69 | κ 4: 65.08, +0.31 [−0.37, +1.12] vs enc |
+| returning P04/P10 | 73.49 | 74.21 | 74.19 | n_b 96: 74.53, +1.04 [0.00, +2.09] |
+
+Ceilings on end-of-session projections (first order): enc 64.60, whole-session mixture 64.13, **own-label nearest centroid
+(leave one run out) 64.61** (P04 51, P03 55, P01 57). Runtime 45 ms per window (2080 Ti / A100 mix).
+- Predictions: `enc` 62 → 64.8 (inside). `em` − `enc` +2.0 → −0.07 (inside the interval, at its low end). Returning 80 → 74.2
+  (inside, low). Against cap250 73.74: about −9, as predicted.
+- Rule: best variant upper bound +1.12 is above the +1.0 bar by 0.1, so formally **undecided**; I read it as failed in
+  this form and say why: the projection has no own-label headroom on unseen people. With the session's own labels a
+  nearest-centroid rule in it scores what the cross-person classifier scores (64.6 vs 64.6; P04 51 %). The contrastive
+  loss was fitted to nine people to its floor (training loss 1.948, the minimum for 7 positives of 23) and learned those
+  people, not clusterability. No mixture can extract what the space does not hold.
+- What it does not show: that a clusterability embedding cannot exist. A tangent-space logistic regression with own
+  labels reaches 72 % on the same people (audit §3), so person-specific structure is there in generic features.
+
+## R2 · clusterability trained on external people (registered Thu 19 Nov 23:40 CET, before scoring)
+Change: every step adds six groups from an external bank (`extbank.py`, 93,300 windows, 1,055 sessions, 15 public MI /
+mental-task corpora, Scherer excluded so NI-V stays untouched) with the same within-session contrastive loss, class
+labels used only inside their own session (λ_ext 1; no label of another corpus is mapped to a PROTEUS class). 2,000 steps.
+Side runs, same registration: R2b λ_ext 3; R1s (no external data, 600 steps) to see whether fitting to the floor costs `enc`.
+- Mechanism: clusterability is learnable only from many people; 9 → about 500 people should make the projection of an
+  unseen person group by that person's own classes.
+- Predictions (held-new): own-label nearest centroid 66.5 [63, 71] (R1 64.6); `enc` 65.5 [63, 68]; `em` − `enc` +0.5 [−0.5, +2.0].
+- Rule: the learned-projection route stays open only if own-label centroid − `enc_end` is at least +3 pp with a
+  people-80 % lower bound above 0. Otherwise it is set aside for this deadline and the session model moves to generic
+  features (tangent space), where the own-label ceiling is known to be 72.

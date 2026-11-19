@@ -12,6 +12,6 @@ IFS=$'\t' read -r mode held < <(sed -n "$((SLURM_ARRAY_TASK_ID+1))p" "$CS_RUN/jo
 CS_ENV=${CS_ENV_SEMI:-}; CS_ENV=${CS_ENV//;/,}
 apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \
   --env OMP_NUM_THREADS=4,PYTHONDONTWRITEBYTECODE=1,TMPDIR=/work,PYTHONPATH=/cs/harness:/cs${CS_ENV:+,$CS_ENV} \
-  --bind "$CS_REL/cleanslate:/cs:ro,$CS_RUN:/work:rw,$base/neural-interfaces-2026/2026-competition:/official:ro,$base/neural-interfaces-2026/data/proteus_windows.npz:/data/proteus_windows.npz:ro" \
+  --bind "$CS_REL/cleanslate:/cs:ro,$CS_RUN:/work:rw,$base/neural-interfaces-2026/2026-competition:/official:ro,$base/neural-interfaces-2026/data/proteus_windows.npz:/data/proteus_windows.npz:ro,$base/ni26_csB_20261120/insp:/ext:ro" \
   --pwd /work "$base/neural-interfaces-2026/runs/cloud/ni26_worker.sif" \
   python -B /cs/teamB/dev.py --mode "$mode" --held "$held" --orders "${CS_ORDERS//;/,}" --run /work --variants "${CS_VARIANTS:-base}"
