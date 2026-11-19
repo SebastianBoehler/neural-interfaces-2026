@@ -59,6 +59,25 @@ def plot_eye(receipts, out):
     save(fig, out, "returning-source-eye")
 
 
+def plot_eye_calibration(receipts, out):
+    record = locked(receipts / "returning-eye-calibration-score.json",
+                    "54c7b7dfdf3488dce061fdbd526e6237c0e04d4f689e44770789f5c420abcde0")
+    fig, (ax,) = layout("First-visit Eye calibration helped P04 and hurt P10")
+    rows = (("Equal official cells", "official_equal"), ("Returning 20/80 mix", "20_80"),
+            ("P04", "P04"), ("P10", "P10"))
+    for row, (_, key) in enumerate(rows):
+        value = record["contrasts"]["calibration_vs_source"][key]
+        interval(ax, value, row, BLUE if row < 2 else MUTED)
+        ax.annotate(f"{value['pp']:+.2f}", (value["paired80"][1], row), xytext=(9, 0),
+                    textcoords="offset points", va="center", fontsize=9, color=INK)
+    ax.set_yticks(range(len(rows)), [label for label, _ in rows])
+    ax.set(xlim=(-.54, .94), ylim=(3.55, -.55))
+    ax.set_title("Calibrated vs identical source-only Eye · paired 80% intervals", loc="left", fontsize=10, color=MUTED)
+    fig.text(.028, .024, "Conditional full-system dev · four held visits from two reused participants · original gallery calibration",
+             fontsize=9, color=MUTED)
+    save(fig, out, "returning-eye-calibration")
+
+
 def plot_outer_raw(receipts, out):
     record = locked(receipts / "held-outer-raw-replacement-score.json",
                     "1100016fe85b769282b01d7df6bb374e5590f1707ca8375e2aa1e84ba7b4ae30")
@@ -87,4 +106,5 @@ if __name__ == "__main__":
     options.output.mkdir(parents=True, exist_ok=True)
     plot_arbitration(options.receipts, options.output)
     plot_eye(options.receipts, options.output)
+    plot_eye_calibration(options.receipts, options.output)
     plot_outer_raw(options.receipts, options.output)
