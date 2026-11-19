@@ -50,11 +50,16 @@ def prepared(path, channels, who, tag, native):
 
 
 def run(native, template, case, n, arm):
-    held = []
-    tape, _, stats = native.session(template, "causal" if arm != "zero" else "native_zero", case, n,
-                                    observe=lambda m: (held.append(m), lambda trace, t: None)[1])
+    held, fresh = [], native.fresh_model  # the release's session() builds its own copy: capture it to read the counters
+    native.fresh_model = lambda m: held.append(fresh(m)) or held[-1]
+    try:
+        tape, _, stats = native.session(template, "causal" if arm != "zero" else "native_zero", case, n)
+    finally:
+        native.fresh_model = fresh
+    assert len(held) == 1
     route = held[0].routeB
-    stats = dict(stats, dosed=int(route.dosed), routed=int(route.log["routed"]), dose=route.dose, hard=route.hard)
+    stats = dict(stats, dosed=int(getattr(route, "dosed", 0)), routed=int(route.log["routed"]),
+                 dose=getattr(route, "dose", None), hard=getattr(route, "hard", False))
     return tape, stats
 
 
