@@ -25,10 +25,17 @@ export PYTHONPATH=$repo/2026-competition
 export CS_OFFICIAL=$repo/2026-competition/tracks/bci_decoding
 export PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 export MPLCONFIGDIR="$stage/matplotlib-${SLURM_JOB_ID}"
-flags=(--arch "$arch" --assets "$root/assets" --data "$data" --external "$corpora" --external-dir "$root/external")
+flags=(--arch "$arch" --recipe "${TEAM_A_RECIPE:-A1}" --assets "$root/assets" --data "$data" --external "$corpora" --external-dir "$root/external")
+if [[ -n "${TEAM_A_CHECKPOINT:-}" ]]; then
+    flags+=(--checkpoint "$TEAM_A_CHECKPOINT")
+fi
 all=P01,P02,P03,P04,P05,P06,P07,P08,P09,P10
 printf '%s %s %s\n' "$mode" "$arch" "$corpora"
 case "$mode" in
+    recognition)
+        "$python" -B -u "$code/recognition_check.py" --run "$stage" --data "$data" --orders "$orders" \
+            --out "$stage/recognition.json"
+        ;;
     score)
         "$python" -B -u "$harness/score.py" "$stage" --data "$data"
         ;;

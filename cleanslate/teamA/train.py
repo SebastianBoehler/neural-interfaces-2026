@@ -25,6 +25,7 @@ def parse():
     p.add_argument("--arch", choices=tuple(BASE), default=os.environ.get("TEAM_A_ARCH", "reve"))
     p.add_argument("--assets", type=Path, default=os.environ.get("TEAM_A_ASSETS", HERE / "assets"))
     p.add_argument("--checkpoint", type=Path)
+    p.add_argument("--recipe", choices=("A1", "A2"), default="A1")
     p.add_argument("--transfer", type=Path, default=os.environ.get("TEAM_A_TRANSFER"))
     p.add_argument("--external-fit", action="store_true")
     p.add_argument("--seed", type=int, default=0)
@@ -57,10 +58,10 @@ def main():
     corpora = tuple(args.external.split(","))
     if len(set(corpora)) != len(corpora) or set(corpora) - set((*CORE, *EXT)):
         raise ValueError(f"Unknown or repeated corpora: {corpora}")
-    runtime = bundle(args.arch, args.out, args.assets)
-    model, pretrained = initialize(runtime, args.arch, public.names, args.assets, args.checkpoint)
+    runtime = bundle(args.arch, args.out, args.assets, args.recipe)
+    model, pretrained = initialize(runtime, args.arch, public.names, args.assets, args.recipe, args.checkpoint)
     external, digests, transferred = {}, {}, None
-    recipe = "A1"
+    recipe = args.recipe
     if args.transfer:
         payload = torch.load(args.transfer, map_location="cpu", weights_only=True)
         if (payload["arch"], payload["names"], payload["corpora"], payload["recipe"], payload["seed"]) != (
@@ -77,12 +78,12 @@ def main():
             print(name, len(external[name].y), external[name].classes, flush=True)
     steps = (len(corpora) if args.smoke else args.steps) if not args.transfer else 0
     epochs = 0 if args.external_fit else 1 if args.smoke else args.epochs
-    fit(model, external, public, rng, device, args.batch, steps, epochs, transferred, args.smoke)
+    fit(model, external, public, rng, device, args.batch, steps, epochs, transferred, args.smoke, recipe)
     state = {k: v.detach().cpu() for k, v in model.state_dict().items()}
     artifact = dict(arch=args.arch, names=public.names, model=state, corpora=corpora,
                     inputs=digests, recipe=recipe, seed=args.seed, smoke=args.smoke)
     if not args.external_fit:
-        artifact["bank"] = bank(model, public, rng, device, args.batch)
+        artifact["bank"] = bank(model, public, rng, device, args.batch, recipe)
     path = args.out / "weights.pt"
     torch.save(artifact, path)
     meta = dict(arch=args.arch, people=[] if args.external_fit else people, first_session_only=first,

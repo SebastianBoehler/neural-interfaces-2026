@@ -4,11 +4,11 @@ import torch
 from sklearn.linear_model import LogisticRegression
 
 from data import align_trials, prior
-from eeg import center, covariance, fingerprint
+from eeg import center, covariance, fingerprint, spectral_fingerprint
 
 
 @torch.inference_mode()
-def bank(model, data, rng, device, batch):
+def bank(model, data, rng, device, batch, recipe):
     model.eval()
     source = prior(data)
     waves = align_trials(data, source, rng)
@@ -24,7 +24,8 @@ def bank(model, data, rng, device, batch):
     global_bias = model.task.bias[:3].detach().float().cpu() + global_weight @ mean
     global_weight = global_weight / inv_std
     raw = center(data.x)
-    identity = fingerprint(raw, covariance(raw))
+    identify = spectral_fingerprint if recipe == "A2" else fingerprint
+    identity = np.concatenate([identify(x, covariance(x)) for x in np.array_split(raw, 12)])
     gallery, w, b, enrolled = [], [], [], []
     for person in np.unique(data.person):
         idx = (data.person == person) & (data.visit == "1")

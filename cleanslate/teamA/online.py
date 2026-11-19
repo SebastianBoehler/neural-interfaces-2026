@@ -63,13 +63,14 @@ class PrefixAdapter:
 class SessionDecoder:
     """Only immutable fit artifacts are shared by freshly copied sessions."""
 
-    def __init__(self, net, bank, device):
+    def __init__(self, net, bank, device, recipe):
         self.net, self.bank, self.device = net, bank, torch.device(device)
+        self.recipe = recipe
         self.reset_state()
 
     def __deepcopy__(self, memo):
         # The eval-mode encoder and fitted tensors are read-only. Each copy owns all writes.
-        fresh = SessionDecoder(self.net, self.bank, self.device)
+        fresh = SessionDecoder(self.net, self.bank, self.device, self.recipe)
         memo[id(self)] = fresh
         return fresh
 
@@ -86,7 +87,8 @@ class SessionDecoder:
         gallery = self.bank["gallery"]
         if not len(gallery) or self.person is not None:
             return
-        self.identity_sum += fingerprint(raw, cov)
+        identify = spectral_fingerprint if self.recipe == "A2" else fingerprint
+        self.identity_sum += identify(raw, cov)
         if self.age < 12 or self.age % 4:
             return
         difference = (gallery - self.identity_sum / self.age) * self.bank["identity_scale"]
@@ -95,7 +97,8 @@ class SessionDecoder:
         best = int(ranked[0])
         # Include the calibration gallery when looking for a competing identity.
         gap = dist[best] / max(dist[ranked[1]], 1e-6) if len(ranked) > 1 else float("inf")
-        accepted = dist[best] < self.bank["identity_radius"] and gap < 0.80
+        margin = 0.87 if self.recipe == "A2" else 0.80
+        accepted = dist[best] < self.bank["identity_radius"] and gap < margin
         if accepted and self.streak == best and self.bank["enrolled"][best]:
             self.person = best
         self.streak = best if accepted else None
@@ -110,7 +113,12 @@ class SessionDecoder:
         self.covariance_sum += cov
         if self.age % 8 == 1:
             self.alignment = update_transform(self.covariance_sum, self.age, self.bank["covariance"])
+        old_person = self.person
         self._identify(raw, cov)
+        if self.recipe == "A2" and self.person is not None and old_person is None:
+            history = self.adapter.features
+            self.adapter = PrefixAdapter(self.bank["personal_weight"][self.person], self.bank["personal_bias"][self.person])
+            self.adapter.features = history
         wave = torch.from_numpy((self.alignment @ raw)[None]).to(self.device)
         bf16 = self.device.type == "cuda" and torch.cuda.is_bf16_supported()
         with torch.autocast(self.device.type, dtype=torch.bfloat16, enabled=bf16):
@@ -118,7 +126,7 @@ class SessionDecoder:
         f = normalize_features(f, self.bank["feature_mean"], self.bank["feature_inv_std"])
         self.adapter.update(f)
         logits = self.adapter.read(f)
-        if self.person is not None:
+        if self.recipe == "A1" and self.person is not None:
             personal = F.linear(f, self.bank["personal_weight"][self.person], self.bank["personal_bias"][self.person])
             logits = 0.30 * logits + 0.70 * personal
         return logits.argmax(-1)

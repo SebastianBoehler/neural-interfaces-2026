@@ -40,7 +40,21 @@ def check_updates(parameters, start):
             raise RuntimeError(f"End-to-end gradient did not update {name}")
 
 
-def fit(model, external, public, rng, device, batch, steps, epochs, transferred=None, smoke=False):
+def cross_person_loss(features, targets, people):
+    f = F.normalize(features.float())
+    logits = f @ f.T / 0.20
+    diagonal = torch.eye(len(f), dtype=torch.bool, device=f.device)
+    same_task = targets[:, None] == targets
+    different_people = people[:, None] != people
+    positive = same_task & different_people
+    eligible = ~diagonal & (different_people | ~same_task)
+    logits = logits.masked_fill(~eligible, -1e4)
+    lp = logits.log_softmax(-1)
+    count = positive.sum(-1)
+    return -(lp.masked_fill(~positive, 0).sum(-1) / count.clamp_min(1)).sum() / (count > 0).sum().clamp_min(1)
+
+
+def fit(model, external, public, rng, device, batch, steps, epochs, transferred=None, smoke=False, recipe="A1"):
     bf16 = torch.cuda.is_bf16_supported()
     model.to(device).train()
     named = dict(model.encoder.named_parameters())
@@ -50,7 +64,11 @@ def fit(model, external, public, rng, device, batch, steps, epochs, transferred=
         raise RuntimeError(f"Unexpected frozen backbone weights: {frozen}")
     # The never-masked classification path cannot update the fixed pretraining mask token.
     keys = [name for name in named if name not in frozen]
-    start = {key: named[key].detach().float().flatten()[::257].clone() for key in (keys[0], keys[-1])}
+    probes = [keys[0], keys[-1]]
+    if recipe == "A2":
+        named["spectral.proj.weight"] = model.spectral.proj.weight
+        probes.append("spectral.proj.weight")
+    start = {key: named[key].detach().float().flatten()[::257].clone() for key in probes}
 
     if transferred is not None:
         model.load_state_dict(transferred, strict=True)
@@ -105,6 +123,7 @@ def fit(model, external, public, rng, device, batch, steps, epochs, transferred=
         weight_decay=0.04, fused=True,
     )
     steps_per_epoch = 2 if smoke else max(1, len(public.y) // batch)
+    who = torch.tensor(np.unique(public.person, return_inverse=True)[1], device=device)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(opt, epochs * steps_per_epoch, eta_min=8e-6)
     for epoch in range(epochs):
         x = align_trials(public, source, rng)
@@ -115,8 +134,10 @@ def fit(model, external, public, rng, device, batch, steps, epochs, transferred=
             label = torch.as_tensor(public.y[rows], dtype=torch.long, device=device)
             opt.zero_grad(set_to_none=True)
             with torch.autocast("cuda", dtype=torch.bfloat16, enabled=bf16):
-                loss = F.cross_entropy(model.task(model.features(augment(wave, mixes, rng)))[:, :3],
-                                       label, label_smoothing=0.035)
+                features = model.features(augment(wave, mixes, rng))
+                loss = F.cross_entropy(model.task(features)[:, :3], label, label_smoothing=0.035)
+                if recipe == "A2":
+                    loss = loss + 0.12 * cross_person_loss(features, label, who[rows])
             loss.backward()
             nn.utils.clip_grad_norm_(model.parameters(), 2.0, error_if_nonfinite=True)
             opt.step()

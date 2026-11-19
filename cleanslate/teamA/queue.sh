@@ -23,6 +23,30 @@ if [[ "$mode" == smoke ]]; then
     submit "${gpu[@]}" -t 00:16:00 -J "csA-smoke-$arch" "$source" smoke "$arch" "$root" "$stage" "$corpora"
     exit
 fi
+score_after() {
+    local run=$1
+    if (( ${#cpu[@]} )); then
+        submit "${cpu[@]}" -J "csA-score-$arch" -d "afterok:$run" --kill-on-invalid-dep=yes \
+            "$source" score "$arch" "$root" "$stage" "$corpora"
+    else
+        submit -J "csA-score-$arch" -d "afterok:$run" --kill-on-invalid-dep=yes \
+            --export="ALL,CS_REL=$root,CS_RUN=$stage" "$root/cleanslate/harness/score.sbatch"
+    fi
+}
+if [[ "$mode" == extend ]]; then
+    previous="$root/$7"
+    [[ -s "$previous/scores.json" && ! -e "$stage/jobs.tsv" ]]
+    cp "$previous/jobs.tsv" "$stage/jobs.tsv"
+    while IFS='|' read -r role held rest; do
+        test -s "$previous/${role}_${held}/weights.pt"
+        ln -s "$previous/${role}_${held}" "$stage/${role}_${held}"
+    done < <(tr '\t' '|' < "$stage/jobs.tsv")
+    replay=$(submit "${gpu[@]}" -t 00:16:00 -J "csA-extend-$arch" --array=0-11%8 \
+        "$source" replay "$arch" "$root" "$stage" "$corpora" "$orders")
+    score=$(score_after "${replay%%;*}")
+    printf 'replay=%s score=%s\n' "$replay" "$score" | tee "$stage/queue.txt"
+    exit
+fi
 if [[ "$mode" == wave ]]; then
     smoke=$7
     if [[ -e "$stage/jobs.tsv" ]]; then
@@ -43,13 +67,7 @@ if [[ "$mode" == wave ]]; then
         "$source" external "$arch" "$root" "$stage" "$corpora")
     fits=$(submit "${gpu[@]}" -t 01:45:00 -J "csA-fit-$arch" -d "afterok:${external%%;*}" --kill-on-invalid-dep=yes --array=0-11%8 \
         "$source" fold "$arch" "$root" "$stage" "$corpora" "$orders")
-    if (( ${#cpu[@]} )); then
-        score=$(submit "${cpu[@]}" -J "csA-score-$arch" -d "afterok:${fits%%;*}" --kill-on-invalid-dep=yes \
-            "$source" score "$arch" "$root" "$stage" "$corpora")
-    else
-        score=$(submit -J "csA-score-$arch" -d "afterok:${fits%%;*}" --kill-on-invalid-dep=yes \
-            --export="ALL,CS_REL=$root,CS_RUN=$stage" "$root/cleanslate/harness/score.sbatch")
-    fi
+    score=$(score_after "${fits%%;*}")
     printf 'external=%s fits=%s score=%s\n' "$external" "$fits" "$score" | tee "$stage/queue.txt"
     exit
 fi

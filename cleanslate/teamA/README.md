@@ -27,3 +27,7 @@ alignment, feature-normalization state, pseudo-label updates, and recognition st
 The official deep-copy/reset path clears these between visits. The external head and external data stay on the cluster.
 
 [Run registrations and results](../../evidence/wave_20nov/cleanslate_teamA.md)
+
+The A2 research form uses `--arch manas --recipe A2`. Its full external list adds `ds007221g,ds007221lr,netbci`;
+the loader checks all three B6 participant counts before fitting. The train command stores input and checkpoint hashes
+with the package so fold provenance can be checked independently of the Slurm logs.

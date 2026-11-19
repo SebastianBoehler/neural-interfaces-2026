@@ -15,10 +15,12 @@ class Solver(CompetSolver):
         if names != package["names"] or (meta["n_chans"], meta["n_times"], meta["sfreq"]) != (41, 480, 120):
             raise ValueError("Package montage and official EEG tensor disagree")
         dev = torch.device(meta["device"])
-        net = Decoder(package["arch"], names, package["model"].get("positions"))
+        recipe = package["recipe"]
+        decoder = SpectralDecoder if recipe == "A2" else Decoder
+        net = decoder(package["arch"], names, package["model"].get("positions"))
         net.load_state_dict(package["model"], strict=True)
         net.eval().requires_grad_(False).to(dev)
         for name in ("covariance", "gallery", "identity_scale", "enrolled"):
             package["bank"][name] = package["bank"][name].numpy()
         bank = {k: v.to(dev) if torch.is_tensor(v) else v for k, v in package["bank"].items()}
-        return SessionDecoder(net, bank, dev)
+        return SessionDecoder(net, bank, dev, recipe)

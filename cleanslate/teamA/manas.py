@@ -82,11 +82,13 @@ class Manas2(nn.Module):
         super().__init__()
         self.patch_embed, self.pos_enc, self.encoder = PatchEmbed(), PosEnc(), Encoder()
 
-    def forward(self, eeg, positions):
+    def forward(self, eeg, positions, token_bias=None):
         if eeg.ndim != 3 or eeg.shape[-1] < 200 or tuple(positions.shape) != (*eeg.shape[:2], 3):
             raise ValueError("Invalid Pratibha input shape")
         batch, channels, _ = eeg.shape
         tokens = self.patch_embed(eeg)
+        if token_bias is not None:
+            tokens = tokens + token_bias
         patches = tokens.shape[2]
         spatial = positions.unsqueeze(2).expand(-1, -1, patches, -1)
         time = torch.arange(patches, device=eeg.device, dtype=torch.float32).view(1, 1, patches, 1)

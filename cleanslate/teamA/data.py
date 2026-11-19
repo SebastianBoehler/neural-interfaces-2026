@@ -108,6 +108,9 @@ def external_data(corpus, directories, names, rng, excluded=(), smoke=False):
     if not fields:
         raise ValueError(f"{corpus}: empty after selection")
     x, y, people, visits = map(np.concatenate, zip(*fields))
+    expected_people = {"ds007221g": 14, "ds007221lr": 48, "netbci": 19}.get(corpus)
+    if not smoke and expected_people is not None and len(np.unique(people)) != expected_people:
+        raise ValueError(f"{corpus}: incomplete B6 roster, expected {expected_people} people")
     if x.shape[1:] != (41, 480) or not np.isfinite(x).all():
         raise ValueError(f"{corpus}: invalid model tensor")
     return Trials(x, y, people, visits, np.repeat(corpus, len(y)), names, classes), hashes

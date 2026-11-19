@@ -40,3 +40,16 @@ def fingerprint(x, cov):
     logpow = np.log(bands + 1e-5)
     logpow -= logpow.mean(axis=-1, keepdims=True)
     return np.concatenate((corr[..., i, j], logpow.reshape(*x.shape[:-2], -1) * 0.25), axis=-1)
+
+
+def spectral_fingerprint(x, cov):
+    """Band-specific scalp coherence, measured before any adaptive alignment."""
+    spectrum = np.fft.rfft(x * np.hanning(x.shape[-1]), axis=-1).astype(np.complex64)
+    i, j = np.tril_indices(x.shape[-2], -1)
+    features = [fingerprint(x, cov)]
+    for lo, hi in ((12, 28), (28, 48), (48, 80), (80, 132)):
+        features_band = spectrum[..., lo:hi]
+        cross = (features_band @ features_band.swapaxes(-1, -2).conj()).real
+        rms = np.maximum(np.diagonal(cross, axis1=-2, axis2=-1), 1e-4) ** 0.5
+        features.append((cross[..., i, j] / (rms[..., i] * rms[..., j])).astype(np.float32))
+    return np.concatenate(features, axis=-1)

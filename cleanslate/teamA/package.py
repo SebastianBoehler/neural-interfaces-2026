@@ -24,12 +24,14 @@ BASE = {
 POSITION_SHA = "e7fb3cbd81a7f20b8e2714a4c01681d250fb17b8984e1443735ae8e3ced062d5"
 
 
-def bundle(arch, out, assets):
+def bundle(arch, out, assets, recipe):
     out.mkdir(parents=True, exist_ok=False)
     files = ["eeg", "backbone", "online", "solver"]
     if arch == "manas":
         files.insert(1, "manas")
-        shutil.copyfile(assets / "LICENSE", out / "LICENSE.manAS")
+        shutil.copyfile(assets / "LICENSE", out / "LICENSE-MANAS.txt")
+    if recipe == "A2":
+        files.insert(-2, "spectral")
     target = out / "submission.py"
     target.write_text("\n\n".join((HERE / f"{name}.py").read_text() for name in files))
     return load_source(target)
@@ -42,7 +44,7 @@ def load_source(path):
     return module
 
 
-def initialize(runtime, arch, names, assets, checkpoint=None):
+def initialize(runtime, arch, names, assets, recipe, checkpoint=None):
     from safetensors.torch import load_file
 
     subdir, expected = BASE[arch]
@@ -56,7 +58,8 @@ def initialize(runtime, arch, names, assets, checkpoint=None):
             raise ValueError("Incorrect MANAS-2 electrode table digest")
         table = json.loads(pos.read_text())
         positions = torch.tensor([table[n] for n in names], dtype=torch.float32) * 100
-    model = runtime.Decoder(arch, names, positions)
+    decoder = runtime.SpectralDecoder if recipe == "A2" else runtime.Decoder
+    model = decoder(arch, names, positions)
     weights = load_file(path)
     if arch == "reve":
         ignored = {"cls_query_token"} | {k for k in weights if k.startswith("final_layer.")}
