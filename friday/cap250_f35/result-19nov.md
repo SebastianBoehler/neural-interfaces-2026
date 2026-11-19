@@ -51,3 +51,17 @@ The mirror started +0.079 pp ahead of hard at the within0 outer readout and then
 Release `ni26_friday_f35d_held_stages_20261119`. Source SHA-256 `1a1a64c1a11b6837620cb69b17088fe4a93aa481bd9fcdd0ae1a2dfb99fe933b`. Smoke `3135625` signed `11f6e6801df2189fbd89833310aa7eee0e55fa717a3456e8f72d45826301a6de`. Score `3135626` signed `b28739ba578485a13339324a1d32ff66e7f6fba67ec128eac34bca08ba848791`, before-labels `eea3607ecdd17dca121a86dde763023a71ba0459c27435c8ab42df52a23287e2`. The analysis reproduced every original terminal absolute score and contrast. [Figure generator](../figures/gradient_balance_transfer.py)
 
 V2 adds the row-aligned decisions to the pre-label receipt by digest. Its **10:23:57 CET** result reproduced every v1 statistic exactly. Release `ni26_friday_f35d_held_stages_v2_20261119`, source `8e5a82e6d6fdb0b107ff298a7697ee498176d7455142c41287a6c2128c98cecd`, before-labels `931aaea95e42dcb420a0bc1d1a45db0c560e8c570a028d2c98cf3a27a4f394c8`, score `cd3780d6928782f1049e415394771bb3a81fcfd8b80101104d8438edbfb538d6`. Smoke `3135650` and score `3135651` passed.
+
+## Read-only bound on sharing stock CountFilter history
+
+Measured on the same signed F35c corrected held-new banks. The §228c `J-wprior` owner latched all 14 within0 sessions for 2,005 affected rows and sessions 2 and 7 at age 40 on full0 for 308 affected rows. Stock, hard, balance and mirror had identical latch times and affected-row masks. Every routed raw probability was above the urn's `1e-9` floor. The count result on a latched row factors as the normalized product of the strict-past predictive urn mixture and the current raw posterior raised to `tau=2`. Dividing the existing filtered posterior by that likelihood recovers the predictive mixture up to a common scalar. The corrected held-new owner uses source-excluded projections and urn priors. Its rows establish this bound only for that instrument.
+
+For an arm, let `d = log(q_stock/q_own)` be the three-class predictive-mixture log correction, computed from the existing raw and filtered arrays. Replacing the mixture subtracts a new common log normalizer between `min(d)` and `max(d)`. Thus changes in any pair's log odds are bounded by `max(d) - min(d)`. The terminal `1e-6` probability clip cannot widen that bound, as each normalized class log change either shrinks toward zero or is unchanged. The own-history and proposed stock-history paths would each have a private CausalPers owner with the same candidate raw inputs. Its strict-past CSP selection and fitted likelihood depend only on raw posteriors and EEG. The count-filter result enters only the current emitted score. A terminal top-two log margin above the correction range therefore protects that call.
+
+| Arm | Within0 possible movement, of 2,655 | Full0 possible movement, of 2,655 |
+|---|---:|---:|
+| Hard | ≤8 | ≤1 |
+| Balance | ≤4 | ≤2 |
+| Mirror | ≤5 | ≤1 |
+
+The bounds allow `1e-12` numerical slack. Bank hashes matched the F35c receipts above. This check read no task labels and emitted no counterfactual probabilities or decisions. The limited balance opportunity was the reason to skip a new run.
