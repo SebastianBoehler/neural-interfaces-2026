@@ -46,3 +46,9 @@ Reports already queued: `out/report_cap250_vs_v51b.json` (cap250 vs v5.1b with n
   enrol_run.sbatch TAG fa`, then `sbatch collect.sbatch TAG cap250` (reports `false_recognition` per package).
 - Lane E timing (3136813/4) failed separately: `zips/v66_cp1_cap250.zip` was a symlink into another release dir, dangling inside the
   container. Now copied; `build_arms.sbatch` copies, `timing.sbatch` fails on any symlink in zips/.
+- Result 19 Nov (`fa` arm, order full:0, 144 streams per package = 9 packages x 8 other people x 2 visits; Scherer, 22/41 channels
+  interpolated): false recognition cap250 144/144, v5.1b 144/144; every stream is recognised at window 10 and routed ~110 windows,
+  identical to the true-returning streams (ret 144/144). So the recogniser does not discriminate on Scherer (same-montage/interpolation
+  caveat: not yet shown for real new people). Accuracy of a falsely routed stream minus the same stream through the un-enrolled
+  package (`niv/fa_loss.py`): cap250 -1.64 pp mean (58 % of streams worse, range -19.1..+10.8), v5.1b -0.84 pp (50 % worse, -16.2..+14.2).
+  Sign/veto evidence only (limits above).
