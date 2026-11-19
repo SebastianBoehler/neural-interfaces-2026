@@ -18,3 +18,5 @@ The first exact-zero job `3133376` stopped at a missing script dependency. The s
 ssh mlcloud-galvani 'sacct -X -j 3133373,3133374,3133375,3133380,3133395,3133397,3133398,3133399,3133400,3133401,3133402,3133403,3133404,3133405,3133406 -o JobID,State,Elapsed,Start,End,NodeList'
 ssh mlcloud-galvani 'cd /mnt/lustre/work/gehler/gfh527/ni26_friday_causal_rebuild_20261118 && find runs0_matched_terminal_v1 -maxdepth 1 -name "matched_runs0*" -exec sha256sum {} +'
 ```
+
+The corrected independent zero completed at 02:55:07 CET. It reproduced both auxiliary scales and all three genuine interleaved count/CSP prefixes. Receipt `671f4a57cdbd5c0e6b8ae54318aee6a2f6777c8f4bd87603e4d5818ad38d09ab`. The tenfold fresh FBLight bank sealed at 02:57:13 CET, SHA-256 `931973cdb4f7085d181250f0316e33728cdc3602b082eff5e650f1875e4544fa`, receipt `f7cbe478a967be47c1967253c4ebb21ef5146db427380653a2cd03e5e087ae49`.
