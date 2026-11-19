@@ -27,3 +27,20 @@ P +0.10, W +0.05. Sealed-weighted claim = 0.57 x held-new delta (returning count
   B in the same slot point > 0. Anything else **undecided** (instrument +-0.5 across people; P04 and P10 reported, neither decides). Interval crossing zero = direction undecided.
 - Controls to read with it: A vs stock within +-0.4 (Lane H: A -0.15 at 5/6), B vs stock (+0.04), D-B and P/W-B isolate the Shin people from the Lane H trunk.
 - Not covered: fb/fblight families, k other than 20, other MASS, orders other than full0 in the full system, Ajra, late-minus-early, source-label permutation, returning people.
+
+## Result (Thu 19 Nov ~22:35 CET; Leonardo 64882940/41 smoke, 64883272 pretrain x9 (8 min each), 64883273 fits (99 banks per new arm set, all guards passed); Galvani consumers 3138891-3138900, dir `ni26_laneS_20261120`; code `laneS/`, commit see git log; evidence `evidence/wave_20nov/laneS/`)
+A and B are the Lane H banks reused unchanged (stock cross-check 73.739 equals cap250 `c25d`, cap250_checked true in all ten runs). Held-new P01-P10, 3-seed ensemble, full0.
+Standalone BA (full0): A 59.31, B 59.81, P 59.40, W 59.49, D 58.93. Paired people+orders 80 %: D-B **-0.64 [-1.71, +0.22]**, P-B -0.42 [-1.55, +0.39], W-B -0.61 [-1.51, +0.15], D-A -0.13 [-0.97, +0.81].
+
+| Full cap250, paired people-only 80 % | MASS 5/6 | MASS 1/6 |
+|---|---|---|
+| D vs stock (primary) | **-0.190 [-0.326, -0.038]** (P04 -0.54, P10 -0.17) | -0.040 [-0.156, +0.071] |
+| P vs stock | -0.078 [-0.218, +0.033] | -0.229 [-0.349, -0.108] |
+| W vs stock | +0.072 [-0.133, +0.335] | -0.040 [-0.135, +0.074] |
+| D vs B (matched slot) | -0.228 [-0.433, +0.042] | 0.000 [-0.177, +0.134] |
+| P vs B / W vs B | -0.116 [-0.303, +0.109] / +0.034 [-0.227, +0.391] | -0.190 [-0.312, -0.087] / 0.000 [-0.149, +0.150] |
+| controls: A vs stock / B vs stock | -0.151 / +0.038 | 0.000 / -0.040 |
+
+Reading against the rules: D vs stock upper 80 % bound -0.038 <= 0 at MASS 5/6, so **refuted for this form** (correctly mapped Shin 2017 + 2018 in the m7r pretrain block, raw FBCNet SessionBN family, full0, held-new). Standalone D-B is also negative.
+Sealed-weighted claim 0.57 x (-0.19) = -0.11 pp; do not stack. W alone (Shin 2018 WORD) is +0.07 [-0.13, +0.34] at 5/6 and 0 at 1/6: undecided, below the +0.05 planned size; P (Shin 2017 pair) is negative at 1/6. Prediction was too optimistic (+0.15 predicted, -0.19 seen; standalone +0.5 predicted, -0.64 seen).
+Not run: other orders in the full system, returning people, fb/fblight, late-minus-early, permutation and montage controls (not needed once the main contrast is refuted), Ajra.
