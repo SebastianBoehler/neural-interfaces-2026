@@ -121,3 +121,25 @@ changed decisions, and passed reset and 25-window batch-prefix parity. The initi
 jobs were cancelled by Slurm. The signed ZIP is now materialized inside the bind. Galvani
 accepted replacement jobs **3136765** (RTX smoke), **3136766** (array), **3136767** (collector)
 with the same source and ZIP hashes.
+
+**RTX smoke correction, before external scoring.** Job 3136765 reached 120 windows per actor and
+matched work counts, then stopped on independent terminal posterior bytes. This comparison is
+sensitive to the stock-repeat numerical differences seen on RTX in earlier cap250 qualification.
+Emit the signed stock archive byte-for-byte as `off.zip`. In the active arm smoke, bracket D-c by
+independently loaded signed stock/off actors. Require identical stock/off and candidate upstream
+argmax labels and work counts. Require maximum stock repeat terminal drift ≤5e−4 and candidate
+upstream drift ≤max(1e−5, 2× measured stock repeat drift). Require exact same-trajectory D-c
+decisions and reset-prefix labels. The main Scherer comparison uses one raw terminal trajectory
+per exact package stream, so these independent reload differences do not enter the paired scores.
+
+**Leonardo after the network switch.** The corrected local CPU smoke passed, with zero independent
+stock repeat or candidate upstream drift. The disabled ZIP hashes to the signed cap250 archive.
+The active archive is byte-identical to the v2 active archive. Galvani became unreachable while
+the v3 launch was still waiting for the release-directory command, before any Slurm submit.
+Repeat the corrected smoke, paired fresh Scherer orders and collector on Leonardo A100 with the
+same signed stock, D-c package, raw input and NI-V order definitions. This is A100 evidence.
+
+Leonardo accepted smoke **64847774**, eight-order array **64847775** and collector
+**64847776**. Release `$WORK/ni26/runs/ni26_lane_d_prefix_20261119`, source manifest SHA-256
+`e9f914abfbf3077cc91b27dd9a4ec3e720c1fa5728380b8003c4f9ad4e3b66e4`. The smoke was pending
+priority at submission. Galvani's RTX run is recorded as a failed conformance attempt.

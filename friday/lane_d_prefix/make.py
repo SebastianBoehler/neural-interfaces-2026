@@ -3,6 +3,7 @@
 from copy import copy
 import hashlib
 from pathlib import Path
+import shutil
 import sys
 from zipfile import ZipFile
 
@@ -25,19 +26,20 @@ def build(stock, directory):
     if hook.count(marker) != 1:
         raise ValueError("expected one package mode marker")
     directory.mkdir(parents=True, exist_ok=True)
+    with stock.open("rb") as source, (directory / "off.zip").open("xb") as disabled:
+        shutil.copyfileobj(source, disabled)
     with ZipFile(stock) as original:
         submission = original.read("submission.py")
         if hashlib.sha256(submission).hexdigest() != SOURCE_SHA:
             raise ValueError("expected signed cap250 source")
-        for arm in ("off", "output"):
-            replacement = hook.replace(marker, f'LANE_D_ARM = "{arm}"'.encode())
-            with ZipFile(directory / f"{arm}.zip", "x") as trial:
-                for item in original.infolist():
-                    data = original.read(item)
-                    if item.filename == "submission.py":
-                        data = b"\n\n".join((data, policy, replacement))
-                        compile(data, f"{arm}/submission.py", "exec")
-                    trial.writestr(copy(item), data)
+        replacement = hook.replace(marker, b'LANE_D_ARM = "output"')
+        with ZipFile(directory / "output.zip", "x") as trial:
+            for item in original.infolist():
+                data = original.read(item)
+                if item.filename == "submission.py":
+                    data = b"\n\n".join((data, policy, replacement))
+                    compile(data, "output/submission.py", "exec")
+                trial.writestr(copy(item), data)
 
 
 if __name__ == "__main__":

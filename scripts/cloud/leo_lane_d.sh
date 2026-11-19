@@ -1,18 +1,19 @@
 #!/bin/bash
-# Submit Lane D to Leonardo from $WORK/ni26. Stage orders.py in the release and supply a signed stock ZIP.
+# Submit Lane D from $WORK/ni26 with replay sources and orders.py staged inside the release.
 set -euo pipefail
 account=${1:?Leonardo account}
 release=${2:?absolute release path}
 stock=${3:?absolute stock ZIP path}
 root=$PWD
-code=$root/friday/lane_d_prefix
+code=$release
 [[ "$release" = /* && "$stock" = /* && "$root" != *" "* && "$release" != *" "* && "$stock" != *" "* ]]
 test -r "$release/orders.py"
+test -r "$release/source.sha256"
 test -r "$stock"
 test -r "$root/data/scherer2015/windows.npz"
 mkdir -p "$release"/{banks,logs}
 common=(--parsable --account="$account" -p boost_usr_prod --gres=gpu:1 -c 4 --mem=24G -t 00:50:00)
-runtime="set -e; module load python/3.11.7; source '$root/.venv/bin/activate'; export PYTHONPATH='$release:$root/2026-competition' OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+runtime="set -e; cd '$release'; sha256sum --quiet -c source.sha256; module load python/3.11.7; source '$root/.venv/bin/activate'; export PYTHONPATH='$release:$root/2026-competition' OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
 replay="python '$code/worker.py' '$release' '$root/data/scherer2015/windows.npz'"
 submit() { sbatch "${common[@]}" "$@" | cut -d ';' -f1; }
 smoke=$(submit -J ni26-lane-d-smoke -o "$release/logs/smoke-%j.out" \
