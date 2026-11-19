@@ -13,6 +13,7 @@ from model import Member, augment, masked_ce
 from oracle import require, sha
 
 BATCH = 16
+PARITY_ATOL = 2e-5  # batched vs singleton posterior agreement
 
 
 def configure(seed):
@@ -114,9 +115,9 @@ def stage_b(args, arm, seed, held, quick=False, full=False):
     for name, (rows, view) in orders.items():
         tens = torch.from_numpy(view).to(device)
         p = probabilities(model, tens, pos)
-        np.testing.assert_allclose(p[:3], probabilities(model, tens[:3], pos), atol=2e-5, rtol=0)
+        np.testing.assert_allclose(p[:3], probabilities(model, tens[:3], pos), atol=PARITY_ATOL, rtol=0)
         single = np.concatenate([probabilities(model, t[None], pos) for t in tens[:3]])
-        np.testing.assert_allclose(p[:3], single, atol=2e-5, rtol=0)
+        np.testing.assert_allclose(p[:3], single, atol=PARITY_ATOL, rtol=0)
         require(np.isfinite(p).all(), "nonfinite posterior")
         out[name], out[f"{name}_delivery"] = p, rows
     stem = f"reve_{'full_' if full else ''}{arm}_{seed}_{held}{'_canary' if quick else ''}"

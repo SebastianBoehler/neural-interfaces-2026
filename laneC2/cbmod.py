@@ -3,6 +3,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
+from model import checkpoint_tensors  # the venv has no safetensors package
 from oracle import require, sha
 
 BLOB = "a939ace9aa1e229f08391ad8bb2d197b507ae2c519a50addf087f0151b2df5c3"
@@ -24,12 +25,9 @@ class Body(nn.Module):
 class Member(nn.Module):
     def __init__(self, checkpoint):
         super().__init__()
-        from safetensors.torch import load_file
-
         require(sha(checkpoint) == BLOB, "CBraMod checkpoint differs from the pinned §280 blob")
         self.body = Body()
-        weights = {k: v for k, v in load_file(str(checkpoint)).items() if not k.startswith("final_layer.")}
-        load = self.body.net.load_state_dict(weights, strict=False)
+        load = self.body.net.load_state_dict(checkpoint_tensors(checkpoint), strict=False)
         require(not load.unexpected_keys and not load.missing_keys, f"incomplete CBraMod load: {load}")
         self.motor = nn.Linear(EMB, 5)
 

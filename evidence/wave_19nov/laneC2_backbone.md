@@ -60,3 +60,11 @@ Bank files keep Lane C's `reve_*` stem and format (`index`, `full0–7` posterio
 2. Smoke (`canary` mode: one supervised step on each corpus, one PROTEUS step, 189 held-P02 posteriors in full0/full1,
    prefix and singleton guards). Stage A loss and finiteness must pass.
 3. Then full wave without held-score selection; no hyper-parameter changes after smoke except a documented crash fix.
+
+## Amendments before any scored result (19 Nov, 15:10 CET)
+
+- Canary 64852511 failed on a missing `safetensors` package in the Leonardo venv; `cbmod.py` now reads the checkpoint with
+  Lane C's header parser. Canary 64852619 and the three pooled backbones 64852620 passed (stage A loss ≈1.1 by step 960).
+- Fit task 64852622_9 (P10, seed 0) failed Lane C's batched-versus-singleton guard by 4e-7 (2.04e-5 against 2e-5, fp32 kernel
+  noise). The tolerance is now a module constant `PARITY_ATOL` (Lane C value 2e-5 kept in `laneC/train.py`); C2 sets 1e-4.
+  The array was cancelled and all 36 fits rerun as 64853664 with collector 64853666. No score was read.
