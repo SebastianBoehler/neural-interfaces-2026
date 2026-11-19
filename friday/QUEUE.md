@@ -316,3 +316,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F25 independent held smoke `3133882` passed in 46 seconds. Source array `511435` released and started two fits at 04:41:08 CET. Both learned arms had 351,935 trainable parameters, alongside 347,903 for the exact F16 anchor. Warm 32-window H100 forward medians were 1.735 ms hard, 2.119 ms conventional and 2.110 ms multiscale. Estimate full scoring around 04:49–04:54 CET if two H100 slots stay available.
 
 - F25 completed at 04:50:20 CET. All source and held jobs passed. The two bounded preregistered comparisons are undecided across seeds, with positive paired intervals on seed 1. [Results and receipts](fbc323_modulation/result-19nov.md)
+
+### F25c frozen multiresolution substitution on corrected cap250
+
+- Both real pupil smoke runs `3133948_0/1` passed. Pupil array `3133949` independently recomputes all hard, same-capacity conventional and multiresolution bounded posteriors, with exact original hard-probability anchors and held-label separation. Corrected full0 smoke `3133971`, full0 `3133972`, within0 `3133973` and separate scorer `3133974` follow in order. [Registered protocol](cap250_f25/prereg-19nov.md)
+- Immutable Galvani release `ni26_friday_causal_rebuild_20261118/f25c_v1`. Pupil manifest `b15e7155853a7694387deb618a4786f095b6fc26bbe282aec2129ec2ef68dcb5`, consumer manifest `2f928083d9163a9e9530a746eada4438fc134f76b2f5122139c02fb37894caa7`, scoring manifest `094fdadfddbe1c5705e7686c84f00e46bd6c782ceb40c32e715f2bcb0e003301`. This is the corrected historical full-system instrument. The separately running F-C20e native external and returning lanes are independent.
