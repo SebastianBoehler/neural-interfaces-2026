@@ -435,3 +435,10 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F-C26 peer-guided native refit completed 09:08:54 CET. Peer −0.185 pp against exact stock, −0.030 pp against matched sham, paired intervals spanning zero. [Result](cap250c26/result-19nov.md)
 - F-C28 fixed pooling of complete C25d terminals completed 09:12:06 CET and missed qualification versus the early joint. [Result](cap250_fbl_wave_pool/result-19nov.md)
 - Hard-only direct package qualification F-C25p 3135050 and dependent runtime 3135051. Trial ZIP SHA `6a569180d343c038558fe7eccb7903a36e2bdf694af0df3687bff3b17049fbcc`.
+
+### Thursday 19 November, 09:18 CET
+
+- F33 Ferranti source retained its original H100 equivalence rule. Two fits and their matched held folds passed. Later jobs wait for resources. Leonardo rejected the configured key at 08:46 CET.
+- F33a independent A100 replication leaves the H100 run separate. Source smoke 3135069 passed at 09:17:07 CET with exact same-device hard/bare parameters. Durable DAG on Galvani 3135079 held smoke, 3135080 source fits with cap six, 3135081 held folds and 3135082 scorer. The two-seed raw comparison keeps the same people, methods and fit recipe. [F33a registration](fbc323_covariance/a100_whole/prereg-19nov.md)
+- F-C25p trial v1 reached all 120 genuine G decisions and verified its same-input native stages. An untouched cold/warm stock repeat stopped the independent check. Unchanged direct ZIP and separate warm RTX conformance jobs 3135066 precede timing 3135067. The independent threshold is unchanged.
+- F-C22e completed the first four matched external workers. Four more are active. The final participant remains gated by the four-job array cap, with independent score 3135024 dependent on all nine.
