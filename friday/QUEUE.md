@@ -524,3 +524,9 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - Fresh original recording-order `replay/check.py` printed OK. Native CPU P01 pupil smoke `3135705` passed both orders and bitwise F-C22h hard posteriors. Smoke bank `5936859778fe38589bf6e5bd178bc32e92a266f8bb02b5465a91de6a43ab1dcd`. [Preregistered comparison](cap250_f36/prereg-19nov.md)
 - Galvani `3135713` replays all 20 fit-excluded pupil pairs. Corrected full0 native pilot `3135714` gates `3135715/3135716` within0/full0, then independent blind collector `3135717`. Release `ni26_friday_f36c_held_20261119/jobs.txt`. Pupil `577fddd5a31ddc6248e7e8ca4679acb8a948f543f726ee06c071c1693c61db83` and whole `f346e2cb9d1de08a93c631fd46be50aa978cb129ae15ac208dcb4a7979f844a1`.
+### Thursday 19 November, 10:41 CET
+
+- F36c real 379-row corrected pilot `3135714` passed. All twenty fit-excluded pupils reproduce fixed standalone decisions and the same-device A100 hard anchor. Corrected within0/full0 jobs `3135715/16` and independent scorer `3135717` follow. [Exact stack protocol](cap250_f36/prereg-19nov.md)
+- F-C31c paired source-tape smoke `3135703` passed and fourteen fixed sessions are in array `3135711`. Independent reauthentication `3135712` checks the live route and source operands before any conditional training. [Mixer registration](cap250_mix_objective/prereg-19nov.md)
+- F-C25pdet immutable-stock RTX smoke `3135765` and paired fresh-process diagnostic `3135766` compare native default with pre-start deterministic control. No archive change. [Technical scope](cap250_hard_determinism/README.md)
+- F37 true H100 source smoke `511781` passed at 10:40:12. Independent CPU smoke `3135762` gates release of Ferranti array `511782`, Galvani held folds `3135763` and blind scorer `3135764`. Tested a distinct training-only spectral amplitude shift around alpha with the equal-dose beta and exact hard controls. [Run manifest](fbc323_spectral_shift/README.md)
