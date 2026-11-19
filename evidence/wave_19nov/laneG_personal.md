@@ -160,3 +160,12 @@ Not built: arm N (neural personal member), see above.
 2. Full-system: Lane A fold packages with the gS (and stock) fold arrays, 8 orders, dose k in {1, 4} (Galvani, after the VPN).
 3. If a personal-model route is pursued: arm N with a source-fold pretrain (needs Galvani's D-EArN banks), and per-member temperature / regularisation chosen inside the
    training visits only (an own-stage calibration is equivalent to a per-member beta, which Lane A's dose sweep partly covers).
+
+## NI-V full-system score of gS vs cap250 (pre-registered 19 Nov, before any NI-V number exists)
+
+Candidate `runs/laneg/lane_g_gS.zip` (sha256 87539dc0...19ff88) via `score_candidate.sh laneG_gS cap250` (B-new 36 tasks, enrolment, B-ret, zero-routing, collector;
+full-session shuffle seeds 71000-71007 headline). Mechanism: S member regularised by noise augmentation; own stage enters at beta 0.1 x ramp, so it acts only for
+returning people. Prediction: B-new delta ~0 (|d| < 0.2 pp; recognition identical by construction, no returning stage), B-ret delta +0.1 to +0.3 pp (the individual
++0.66 shrinks by the beta 0.1 weight and selection bias), sealed-weighted (0.57 new / 0.43 ret) about +0.1. Refutation rule: returning-arm delta 80 % lower
+bound <= 0 AND sealed-weighted 80 % lower bound <= 0 -> do not upload gS. Veto: any new-arm delta 80 % upper bound < -0.3 or a zero-routing recognition change. Scherer instrument limits
+(22/41 interpolated channels, stock BA ~47 %) apply: sign and veto evidence only. Dev P04/P10 full-system returning replay: no scorer exists (NIV.md: not recomputed); not run.
