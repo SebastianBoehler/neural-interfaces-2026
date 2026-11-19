@@ -68,3 +68,15 @@ Bank files keep Lane C's `reve_*` stem and format (`index`, `full0–7` posterio
 - Fit task 64852622_9 (P10, seed 0) failed Lane C's batched-versus-singleton guard by 4e-7 (2.04e-5 against 2e-5, fp32 kernel
   noise). The tolerance is now a module constant `PARITY_ATOL` (Lane C value 2e-5 kept in `laneC/train.py`); C2 sets 1e-4.
   The array was cancelled and all 36 fits rerun as 64853664 with collector 64853666. No score was read.
+
+## Amendment 2 (19 Nov, 16:50 CET): v1 pooled head collapsed; v2 head
+
+The v1 form (mean over channels and patches, `Linear(200,4)`) completed all 36 fits (64853664) and scored **34.4 %
+held-new, 37.0 % returning** (chance): posteriors were constant at ≈1/3. Frozen-feature spread was 0.003 and no tested
+variant (input scale, fp32, dropout, body lr, a coordinate-aware per-token head) trained within 150–400 steps (diagnostics
+64855209, 64856291, 64856795). This is a head-design failure of the first form, **not evidence about CBraMod**; v1 outputs are kept in
+`bank_v1_pooledhead_chance` and never scored in a mix. v2 is the §280 head form: montage-specific `Linear` on each patch's
+channel-flattened 200-sample tokens (weights shared over patches so 2- and 4-patch corpora fit one head), averaged over
+patches; sensor dropout becomes zeroing. Stage-B-only check (arm A, no external stage, seed 0, job 64857334): P02 0.673 and P10 0.469
+plain balanced recall, posterior max 0.8/0.78 (non-constant). Full wave resubmitted unchanged otherwise (canary 64858170,
+external 64858172, fits 64858177, collector 64858179). Prediction numbers above stand for v2.

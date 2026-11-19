@@ -13,6 +13,7 @@ import train as lane_c  # noqa: E402
 
 lane_c.Member = cbmod.Member
 lane_c.split_optimizer = cbmod.split_optimizer
+lane_c.augment = cbmod.augment
 _save = lane_c.save_json
 
 
