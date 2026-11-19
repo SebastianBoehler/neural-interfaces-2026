@@ -491,3 +491,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F-C22h complete A100 held-new hard improved +0.425/+0.374 pp vs stock on the two corrected orders. Conventional remained below hard within0 and unresolved full0. [Matched held-new replication](fbc323_modulation_a100/result-19nov.md)
 - Original Ferranti F33 and separate A100 F35 completed. F35 whole-raw balance +0.430/+0.924 pp vs hard with wider same-dose mirror uncertainty. F35c corrected complete system and F35e matched all-public CPU exports are active. New F35x external code staged on Galvani for fresh 26411/27411, pending the signed actor lock.
 - F35e sealed at 10:07:45 CET, all source/CPU jobs and independent seal `3135579` passed. Six compact native CPU actors match 576 exact original decisions with 1.1992e−6 maximum posterior difference. All-source hard reproduces exact A100 F25e bytes. [Signed bundle and source audit](fbc323_balance_external/result-19nov.md)
+
+### Thursday 19 November, 10:11 CET
+
+- F35c completed all 20 held folds. Complete-system smoke `3135586` passed at 10:09:03 CET with exact stock, identity and independent hard. Both corrected orders `3135587/88` started at 10:09:24 CET. Blind scorer `3135589` follows both. First results estimated 10:15–10:17 CET.
+- F35x starts with real recognized and unrecognized RTX smoke `3135590`. Nine paired external participants `3135591` and the independent scorer `3135592` follow in order. Fresh delivery orders 26411 and 27411 test the positive standalone balance result in the complete native stack against stock, A100 hard, the matched mirror and the H100 hard reference. [Run manifest](cap250_balance_external/README.md)
