@@ -46,13 +46,15 @@ def main(seed, held, work):
     rows = rows[np.isin(rows, query)]
     np.testing.assert_array_equal(np.sort(rows), query)
     out, meta = dict(index=query, delivery=rows), []
-    for name, people in configs(held):
+    quick = bool(os.environ.get("B5_QUICK"))  # smoke: 1 epoch, first 3 configs
+    for name, people in configs(held)[:3 if quick else None]:
         assert held not in people and len(people) == int(name[1:].split("s")[0])
         train = np.flatnonzero(np.isin(person, people))
         t0 = time.time()
         run_cv.SEED[0] = seed
         net = session_bn.make("fbcnet_raw_sbn", d, seed)
         assert net.init is None and net.epochs == 40, (net.init, net.epochs)  # shipped recipe, no trunk
+        net.epochs = 1 if quick else net.epochs
         net.fit(train)
         net.set_k(20.0)
         net.net.eval()
@@ -65,7 +67,7 @@ def main(seed, held, work):
         out[name] = post
         meta.append(dict(cfg=name, people=people, train_rows=len(train), sec=round(time.time() - t0)))
         print("PASS", name, held, seed, round(time.time() - t0), flush=True)
-    stem = work / f"b5_{seed}_{held}"
+    stem = work / f"b5{'q' if quick else ''}_{seed}_{held}"
     np.savez(f"{stem}.npz", **out)
     json.dump(dict(seed=seed, held=held, cfgs=meta, job=os.environ.get("SLURM_JOB_ID")), open(f"{stem}.json", "w"))
 
