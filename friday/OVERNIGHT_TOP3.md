@@ -64,10 +64,21 @@ The exact podium refresh at 06:10 CET reproduced the 03:40 CET score and rank sn
 
 Adapted FBLight doubling is the strongest repeatable new component on the corrected public instruments. F-C21 gained **+0.3832 pp** within0 and **+0.4882 pp** full0 against exact cap250, with paired 80% lower bounds +0.1205 and +0.1901 pp. The trial amplified the actual post-refit FBLight on 2,375 windows per replay. The separate CC30 joint missed its comparison against FBLight alone. The last sealed gap is **1.7172 pp**. These public gains do not imply a sealed improvement. [F-C21 full-system result](cap250c21/result-19nov.md)
 
-- **External and timing.** Corrected RTX smoke `3134281` passed. Warm whole-worker timing measured 1.014× stock on unrecognized Scherer G and 0.986× on recognized P10. Nine-person Scherer array `3134282` feeds the independent scorer `3134284`. The registered native treatment applies the true outer adapted FBLight weight and the normalized recognized RouteB core share. [F-C21e registration](../docs/LEDGER.md)
+- **External and timing.** Corrected RTX smoke `3134281` passed. Warm whole-worker timing measured 1.014× stock on unrecognized Scherer G and 0.986× on recognized P10. The independent Scherer array `3134282` hit its fixed 5e−5 upstream tolerance on E visit 2. C21s preserves a shared actual upstream pass and independent complete downstream arms. Its real RTX smoke `3134344` gates nine-person array `3134345`. C21d `3134346` checks repeatability between untouched stock sessions on the same E fixture. The registered native treatment applies the true outer adapted FBLight weight and the normalized recognized RouteB core share. [F-C21e registration](../docs/LEDGER.md)
 - **Direct trial.** The rebuilt FBLight ZIP passed CPU bitwise parity and RTX package conformance on both recognized and unrecognized prefixes. All decisions matched the measured hook at a maximum posterior difference of 4.205e−8. [Package receipts](cap250_fbl2_package/README.md)
 - **Returning.** The earlier five-slot raw replacement gained +0.130 pp on official cells and +0.052 pp on the 20/80 mix. Both intervals include zero. FBL2 gets its own exact native returning replay with the original protected targets and fit scope. [Raw replacement result](ea_returning/native_c20/README.md)
 - **Joint complete replay.** F-C22 crosses FBL2 with the fixed F25c multiresolution pupils. A matched conventional-pupil combination and both single parents run alongside stock and zero. Both complete replays and independent scoring passed by 06:21:19 CET. The combination gained +0.538/+0.778 pp over cap250 but remained undecided against FBL2 and the conventional matched joint. [F-C22 results](cap250c22/result-19nov.md)
+
+### Next readouts · 19 November, 06:30 CET
+
+| Question | Status | Estimated CET |
+|---|---|---|
+| Does actual FBLight doubling help returning people? | P04 sealed. The two P10 native visits are running. | 06:32–06:35 |
+| Does a GRU over raw within-window features help beyond matched shuffled token order? | Both real F29 smokes passed. Ferranti source fits and independent held replays are active. F28 transferred source relations but did not separate from its matched sham. | 06:33–06:36 |
+| Does FBLight help on the two fresh Scherer deliveries with exact shared upstream input? | Real C21s smoke and separate untouched stock repeat are active. Nine-person replay follows. | 06:40–06:55 if three RTX slots hold |
+| Is the FBLight lift driven by warm predictions, and does more weight help? | F-C23 real smoke is running. Each complete arm repeats the original consuming stages. | 06:43–06:50, subject to smoke and CPU availability |
+
+[Signed F28 result](fbc323_relational/result-19nov.md) · [Live queue](QUEUE.md)
 
 ## Selection
 

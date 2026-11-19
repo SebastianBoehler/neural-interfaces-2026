@@ -363,3 +363,9 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F29 independent held smoke `3134335` passed in 37 seconds. Ferranti `511581` released with three jobs starting at 06:26 CET. The independent F28 held array is complete and only its separate scorer remains in flight. Neither release writes to the other.
 
 - F28 completed at 06:28:10 CET. All teacher, student and held element jobs passed. Both registered held contrasts remain undecided. [Authenticated result](fbc323_relational/result-19nov.md)
+
+- F-C21p worker `3134307` stopped during archive extraction because its private container volume ran out of space. Immutable v2 `3134334` used the bound project volume and passed at 06:25:59 CET. All 62 decisions matched and the maximum posterior difference was 4.205e−8. [Archive and worker receipts](cap250_fbl2_package/README.md)
+
+### Isolated FBLight weight and warm evidence F-C23
+
+- Galvani real smoke `3134352` gates full0 `3134353`, within0 `3134354`, and independent scorer `3134355`. Exact corrected stock, identity and FBL2 are validated against the signed parent banks. Equal added frozen mass isolates the warm term. The fixed triple dose tests additional live weight. Release `ni26_friday_c23_fbl_dose_v1_20261119`. Source `141f811fc748f1353876eb4c5d90059307f7893a90c55cdfab2f1a835720407c` and scorer `5c7e5f5c32159abfcda34d7b04bf2015a974c738817a52d405faeeb4da3716f3`. [Preregistration](../docs/LEDGER.md#f-c23--separate-the-warm-fblight-contribution-from-added-frozen-weight)
