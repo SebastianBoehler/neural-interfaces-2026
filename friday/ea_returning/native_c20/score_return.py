@@ -12,7 +12,7 @@ from source_labels import read_training_labels
 from verify_return import REPLAY, deliveries, smokes
 
 
-NATIVE_SOURCE = "7b9fc805bc65a9b9f73df20b807f49fb28167fbb25cdcfa31bfad4452f7eaa4e"
+NATIVE_SOURCE = "d396077abb802265b446709b3d236bb5b282811359f9ce1e9b56ce3714a98e62"
 
 
 def authenticate():
