@@ -36,11 +36,16 @@ def inputs():
     return p, producer["fit_states"]
 
 
-def replay_fold(person, smoke):
+def evaluate_fold(person, device="rtx"):
     from session_bn import make
 
-    if "RTX 2080 Ti" not in torch.cuda.get_device_name() or torch.__version__ != "2.14.1+cu126":
-        raise ValueError("expected the qualified native RTX runtime")
+    gpu = torch.cuda.get_device_name() if torch.cuda.is_available() else ""
+    actual = "rtx" if "RTX 2080 Ti" in gpu else "a100" if "A100" in gpu else "other" if gpu else "cpu"
+    if actual != device or torch.__version__ != "2.14.1+cu126":
+        raise ValueError("frozen FBLight device or runtime differs")
+    if device == "a100":
+        torch.backends.cudnn.allow_tf32 = False
+        torch.backends.cuda.matmul.allow_tf32 = False
     if os.environ["SLURM_CPUS_PER_TASK"] != "8":
         raise ValueError("expected eight source threads")
     torch.set_num_threads(8)
@@ -70,6 +75,11 @@ def replay_fold(person, smoke):
     legacy = changed(result, old_base(NAME, rows))
     if legacy["changed"] or legacy["max_abs"] > TOL:
         raise ValueError(f"fresh frozen state no longer matches the qualified within0 reference: {legacy}")
+    return rows, seq, result, prefix, legacy, spec
+
+
+def replay_fold(person, smoke):
+    rows, seq, result, prefix, legacy, spec = evaluate_fold(person)
     path = HERE / "folds" / f"{person}.npz"
     with path.open("xb") as handle:
         np.savez_compressed(handle, index=rows, delivery=seq, proba=result)
@@ -92,13 +102,13 @@ def scope(person):
     return np.flatnonzero(~fits), rows_sha(np.flatnonzero(fits))
 
 
-def load_fold(person, p, state):
-    path = HERE / "folds" / f"{person}.npz"
+def load_fold(person, p, state, *, release=HERE):
+    path = release / "folds" / f"{person}.npz"
     proof = path.with_suffix(".json")
     r = json.loads(proof.read_text())
     rows, fit_sha = scope(person)
     if ((r["person"], r["order"], r["rows"], r["smoke"]) != (person, ORDER, len(rows), person == "P01")
-            or r["source"] != file_sha(HERE / "source.sha256") or r["held_labels_opened"]
+            or r["source"] != file_sha(release / "source.sha256") or r["held_labels_opened"]
             or not r["exact_reset"] or not r["euclidean_first_exact"]
             or r["checkpoint_sha256"] != state["sha256"] or r["fit_rows_sha256"] != fit_sha
             or fit_sha != state["fit_rows_sha"] or not 0 <= r["prefix_max_abs"] <= TOL
