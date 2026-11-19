@@ -1241,3 +1241,7 @@ Registered before any new derived predictions. F32x joint motor supervision chan
 **F33 A100 source canary completed.** Galvani `3134993` passed. The same-device hard state reproduced exactly and the H100 and A100 initial hashes agreed. The final fitted hard hashes differed across devices, so the original H100 byte gate cannot justify combining the two. Aligned and permuted source gradients and normalization checks passed. This run used no held inference. [Source-only receipt scope](../friday/fbc323_covariance/a100/prereg-19nov.md)
 
 **F-C27 completed at 08:50:41 CET.** Protected joint vs stock changed +0.219 within0, +0.112 full0 and +0.076 pp external. The within0 lower bound was positive. The other intervals span zero. All original motor decisions were exactly preserved. The two-branch external oracle gained +0.284 pp [paired 80% +0.139,+0.437], bounding this particular selective use of the raw alternate. [Complete receipts](../friday/cap250_cognitive_output/result-19nov.md)
+
+## F25e · Prepare matched native modulation artifacts from all public PROTEUS
+
+The [F25e source and export protocol](../friday/fbc323_modulation_external/prereg-19nov.md) fixes original F25 operators, all-PROTEUS F16e recipe and a separately matched Galvani A100 group. Require exact same-device hard and source-only CPU streaming qualification. No Scherer exposure or external inference in this lane.
