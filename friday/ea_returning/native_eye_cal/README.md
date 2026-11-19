@@ -16,3 +16,5 @@ The source smoke completed at 04:28:01 CET, all three full fits by 04:29:44 CET,
 ```bash
 ssh mlcloud-galvani 'sacct -X -j 3133808,3133809,3133815,3133834,3133835,3133846,3133847 -o JobID,State,Elapsed,Start,End,NodeList'
 ```
+
+Both genuine native 31-window smokes passed at 04:34:01 and 04:34:51 CET. The gate enabled the P04 calibration on 20 windows from age 10 and the P10 calibration on two windows from age 28. Native model logits and independent blend arithmetic matched exactly. The largest Eye log-evidence changes were 4.229824 and 2.179229. The largest terminal probability changes were 0.0142520 and 0.00075418. Both before-recognition sequences and both interleaved resets were bitwise exact. P10 retained all 20 native warm optimizer steps. Receipts `00d7191362fb6303432eeca2372839f8b7b3b784d5347dd0bab2adb88fa382ef` and `75f7e63faa73c40fa3f5064a48ec676cf9559794280e41f0f9d9b4ff5ed5bda7`. These smokes opened no held labels.
