@@ -16,4 +16,19 @@ The Rest and Eye recipe entry point is `scripts/train_v6_members.py` SHA-256 `71
 
 CPU fit `3132875` completed at 01:12:33 CET on 19 November 2026. It used the same 2,270 source rows as §321. All 192 P10 visit-1 rows were present. All 385 later visit rows were excluded before feature generation. The fit used the selected 35,629-feature Hilbert recipe, complex log-Euclidean priors, a source scaler and multinomial logistic regression. The fit receipt SHA is `b6deadf09c37eb2ef7cbc7dca9c2ea9c79e6e500d69d381135f724379128d763`. The artifact SHA is `d03b8e2b6055a1291fbcea4a6d22bb719f3ead13a7417b4cef11366413f2b7f0`.
 
-The current selected Hilbert code differs in SHA from the original 6 November source. The independent reference reproduced the archived training-era recording-order Core2 posteriors to 4.16e−11, with every decision unchanged. The first reference job `3132878` stopped at an extra 1e−12 different-size batch comparison. The registered retry `3132912` quantified the actual old/new batch-prefix differences as 1.01e−9 and 4.49e−9, both with zero changed decisions. Real worker prefix/reset still requires bitwise equality. The native job is `3132914` in `ni26_friday_returning_core2_native_v2_20261119`. Held gold stays closed. No package artifact was edited.
+The current selected Hilbert code differs in SHA from the original 6 November source. The independent reference reproduced the archived training-era recording-order Core2 posteriors to 4.16e−11, with every decision unchanged. The first reference job `3132878` stopped at an extra 1e−12 different-size batch comparison. The registered retry `3132912` quantified the actual old/new batch-prefix differences as 1.01e−9 and 4.49e−9, both with zero changed decisions. Real worker prefix/reset still requires bitwise equality. The first native job `3132914` stopped on the incorrect stored-weight assertion before candidate execution. The v3 guard uses the actual normalized weight. The source fit, references and planned thresholds stayed fixed.
+
+## Actual native worker smoke
+
+Job `3132925` passed at 01:20:03 CET over the first 31 P10 visit-2 windows. Both original native controls reproduced D-EArN bit for bit. On the published row order, the native source Core2 agreed with the independent fit-matched oracle to 1.18e−8 and reproduced every oracle decision. The changed Core2 reached the native inner mixture at weight 1/15 with maximum arithmetic error 8.14e−17.
+
+| Old production Core2 vs fresh source Core2 | Maximum absolute change |
+| --- | ---: |
+| Core2 posterior | 0.984909 |
+| Native inner mixture | 0.0656606 |
+| Native unrouted shadow | 0.0648086 |
+| Final causal worker posterior | 0.0571829 |
+
+No final decision changed on the 31 rows. Both arms recognized at age 28 and executed all 20 native optimizer steps at age 20. The 17-row native prefix matched bit for bit after interleaving another visit. The actual Rest contribution moved the current outer mixture by up to 0.0386792 relative to its pre-Rest value. All three Eye features reached the live EM stage exactly, and Bio returned 21 finite decisions inside the smoke. The conditional contrast arrays were unchanged and their first active decision remains age 60 in the independently pinned complete visit.
+
+The v3 source manifest is `5929b98f43a1306b3d0491c505ca41215ce0917e2d52df41e36ba27f4b5ad60d`. The read-only native receipt and bank are in `ni26_friday_returning_core2_native_v3_20261119/output`, SHA-256 `598de9092d971a509c848781a32b573e2e76ace02dc6851eea945f1bc6aba754` and `c5a174e4e7af08ad5f9873a98131087c1cc63a965eda7358e2ce136a730b96cb`. This is one conditional representative visit prefix. Held gold and accuracy stayed closed.
