@@ -105,7 +105,9 @@ def smoke(template,eeg,channels,who,orders,anchor):
     recognized=pair(baseline,native)
     assert baseline[0]["labels"]==wanted
     assert native[0]["activity"]["recognized"]==10 and native[0]["route"]["routed"]>0
-    assert native[0]["hook"]["original_share"]==1/16 and native[0]["hook"]["route_share"]==1/17
+    native_share=baseline[0]["hook"]["route_share"]
+    assert native[0]["hook"]["original_share"]==native_share
+    assert abs(native_share-1/16)<=1e-16 and native[0]["hook"]["route_share"]==1/17
     assert native[0]["hook"]["frozen_rows"]==len(p) and not native[0]["hook"]["warm_rows"]
     return dict(cold=cold[0],stock=stock[0],identity=off[0],fbl2=trial[0],identity_proof=identity,
                 protected=active,prefix_error=prefix,recognized=dict(stock=baseline[0],fbl2=native[0],proof=recognized))
