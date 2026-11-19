@@ -21,5 +21,6 @@ export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_TH
 python="$BASE/neural-interfaces-2026/.venv/bin/python"
 case "${1:?terminal mode}" in
     runs0-zero) exec "$python" -B runs0_zero.py ;;
+    runs0-predict|runs0-score) exec "$python" -B runs0_terminal.py "${1#runs0-}" "${@:2}" ;;
     *) exec "$python" -B within0_complete.py "$@" ;;
 esac

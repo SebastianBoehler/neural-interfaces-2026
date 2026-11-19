@@ -97,35 +97,36 @@ def archive_zero(order=ORDER, pins=PINS, rest_seeds=9):
     print(f"PASS {order} archived zero", sha(HERE / "zero.json"), flush=True)
 
 
-def qualified_zero(zero_sha):
-    pin(ZERO, zero_sha)
-    pin(ZERO.parent / "source.sha256", ZERO_SOURCE)
-    zero = json.loads(ZERO.read_text())
-    if (zero["source"] != ZERO_SOURCE or zero["order"] != ORDER or not zero["exact_archive_zero"]
+def qualified_zero(zero_sha, order=ORDER, path=ZERO, source=ZERO_SOURCE):
+    pin(path, zero_sha)
+    pin(path.parent / "source.sha256", source)
+    zero = json.loads(path.read_text())
+    if (path.stat().st_mode & 0o222 or zero["source"] != source or zero["order"] != order or not zero["exact_archive_zero"]
             or not zero["three_aux_exact"] or zero["held_labels_opened"] or zero["scored"]
             or zero["prefix"]["exact_interleaved_prefix_checks"] != 3
             or min(zero["prefix"]["count_affected_prefix_rows"]) <= 0):
-        raise ValueError("within0 terminal zero proof differs")
+        raise ValueError("archived terminal zero proof differs")
 
 
-def predict(zero_sha, matrix, matrix_sha, bridge_sha):
-    qualified_zero(zero_sha)
-    evidence = authenticate(pin, bridge_sha)
-    raw, gate, provenance, expected = pinned_control(ORDER)
-    for path, digest in PINS.items():
+def predict(zero_sha, matrix, matrix_sha, bridge_sha, *, order=ORDER, pins=PINS, zero=ZERO,
+            zero_source=ZERO_SOURCE, rest_seeds=9, verify=authenticate):
+    qualified_zero(zero_sha, order, zero, zero_source)
+    evidence = verify(pin, bridge_sha)
+    raw, gate, provenance, expected = pinned_control(order)
+    for path, digest in pins.items():
         pin(path, digest)
     final = load_personalization()
     with guarded_load(expected, provenance) as opened:
-        ctx = owner(ORDER)
+        ctx = owner(order)
         p = ctx.Pperm
-        np.testing.assert_array_equal(p, input_delivery())
+        np.testing.assert_array_equal(p, input_delivery(order))
         original = ctx.Z[f"{STACK}|Ps|{PROTO}"].copy()
         archived_zero(ctx, install(ctx, {}), raw, gate)
         bank = evidence["bank"]
         path = Path(bank["path"])
         pin(path, bank["bank_sha256"])
         with np.load(path, allow_pickle=False) as z:
-            j = ORDERS.index(ORDER)
+            j = ORDERS.index(order)
             np.testing.assert_array_equal(z["delivery"][j], p)
             np.testing.assert_array_equal(z["index"], np.arange(len(p)))
             ctx.FR17["sinc", 0] = z["proba"][j]
@@ -141,7 +142,7 @@ def predict(zero_sha, matrix, matrix_sha, bridge_sha):
         initial = np.concatenate([p[sessions[p] == s][:20] for s in dict.fromkeys(sessions[p])])
         if len(initial) != 280:
             raise ValueError("invalid matched warmup coverage")
-        banks, proofs = pair_refits(matrix, matrix_sha, ctx, evidence, bridge_sha, initial, ORDER)
+        banks, proofs = pair_refits(matrix, matrix_sha, ctx, evidence, bridge_sha, initial, order)
         for family in FAMILIES:
             m = json.loads((matrix / "members" / f"{family}_s0.json").read_text())
             smoke = matrix / "smoke" / f"{family}_s0.json"
@@ -152,9 +153,9 @@ def predict(zero_sha, matrix, matrix_sha, bridge_sha):
                                        for person, item in evidence["fbl_bank"]["folds"].items()):
                 raise ValueError("the matched FBLight banks differ from the true shared source")
         ctx.FT_BASE = banks["base"]
-        three_aux(ctx)
+        three_aux(ctx, rest_seeds)
         incumbents, mixes, activity = {}, {}, {}
-        for arm, patches in (("historical", {}), ("corrected", corrected(p, ORDER))):
+        for arm, patches in (("historical", {}), ("corrected", corrected(p, order))):
             tape = install(ctx, patches)
             verify_incumbent(ctx, bridge, arm, tape)
             incumbents[arm] = tape["shadow"][np.argsort(p)]
@@ -166,49 +167,49 @@ def predict(zero_sha, matrix, matrix_sha, bridge_sha):
         x = read(FEAT, "X").astype("float64")
         result, proofs_tail = dict(index=np.arange(len(p)), delivery=p), {}
         for arm in incumbents:
-            tape, proofs_tail[arm] = live_tail(count, final, mixes[arm], x, p, order=ORDER)
+            tape, proofs_tail[arm] = live_tail(count, final, mixes[arm], x, p, order=order)
             result[f"{arm}|P0r"] = incumbents[arm].argmax(1)
             result[f"{arm}|P0r_posterior"] = incumbents[arm]
             result[f"{arm}|cap250"] = tape["terminal"].argmax(1)
             result.update({f"{arm}|cap250_{key}": val for key, val in tape.items()})
         if np.array_equal(result["historical|cap250_terminal"], result["corrected|cap250_terminal"]):
             raise ValueError("terminal stage had no matched causal effect")
-    bank = write_npz(HERE / "matched_within0.npz", result)
-    write_receipt(HERE / "matched_within0.json", order=ORDER, complete=True, held_labels_opened=False, scored=False,
+    bank = write_npz(HERE / f"matched_{order}.npz", result)
+    write_receipt(HERE / f"matched_{order}.json", order=order, complete=True, held_labels_opened=False, scored=False,
                   output=bank, matches_upstream=True, bridge=bridge_sha, legacy_fb_controls=evidence["legacy_fb_controls"], archive_zero=zero_sha,
                   matrix_source=matrix_sha, source=sha(HERE / "source.sha256"), refits=proofs,
                   terminal=proofs_tail, active_seed0_deltas=activity)
 
 
-def score():
-    path = HERE / "matched_within0.json"
+def score(*, order=ORDER, zero=ZERO, zero_source=ZERO_SOURCE, bridge=BRIDGE, verify=authenticate):
+    path = HERE / f"matched_{order}.json"
     receipt = json.loads(path.read_text())
-    if (not receipt["complete"] or receipt["order"] != ORDER or receipt["held_labels_opened"] or receipt["scored"]
-            or receipt["bridge"] != sha(BRIDGE) or receipt["source"] != sha(HERE / "source.sha256")
+    if (not receipt["complete"] or receipt["order"] != order or receipt["held_labels_opened"] or receipt["scored"]
+            or receipt["bridge"] != sha(bridge) or receipt["source"] != sha(HERE / "source.sha256")
             or not receipt["matches_upstream"] or set(receipt["refits"]) != set(FAMILIES)
             or set(receipt["terminal"]) != {"historical", "corrected"}
             or any(t["exact_interleaved_prefix_checks"] != 3 or min(t["count_affected_prefix_rows"]) <= 0
                    for t in receipt["terminal"].values())):
         raise ValueError("unqualified sealed decisions")
-    qualified_zero(receipt["archive_zero"])
-    evidence = authenticate(pin, receipt["bridge"])
+    qualified_zero(receipt["archive_zero"], order, zero, zero_source)
+    evidence = verify(pin, receipt["bridge"])
     if receipt["legacy_fb_controls"] != evidence["legacy_fb_controls"]:
         raise ValueError("sealed legacy FB control proofs differ")
-    bank = HERE / "matched_within0.npz"
+    bank = HERE / f"matched_{order}.npz"
     if bank != Path(receipt["output"]["path"]) or any(p.stat().st_mode & 0o222 for p in (bank, path)):
         raise ValueError("unsealed prediction bank")
     pin(bank, receipt["output"]["sha256"])
     with np.load(bank, allow_pickle=False) as z:
         np.testing.assert_array_equal(z["index"], np.arange(2655))
-        np.testing.assert_array_equal(z["delivery"], input_delivery())
+        np.testing.assert_array_equal(z["delivery"], input_delivery(order))
         columns = np.column_stack([z[k] for k in KEYS])
         if columns.shape != (2655, 4) or not np.isin(columns, (0, 1, 2)).all():
             raise ValueError("invalid sealed held-new decisions")
         for j, key in enumerate(KEYS):
             suffix = "_terminal" if key.endswith("cap250") else "_posterior"
             np.testing.assert_array_equal(z[key + suffix].argmax(1), columns[:, j])
-    score_columns(columns, sha(path), HERE / "matched_within0_score.json",
-                  "FULL-SYSTEM DEV, held-new within0, shared fresh Sinc and FBLight seed 0", order=ORDER)
+    score_columns(columns, sha(path), HERE / f"matched_{order}_score.json",
+                  f"FULL-SYSTEM DEV, held-new {order}, shared fresh Sinc and FBLight seed 0", order=order)
 
 
 if __name__ == "__main__":
