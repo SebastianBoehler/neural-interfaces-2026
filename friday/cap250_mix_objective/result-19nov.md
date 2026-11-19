@@ -45,3 +45,9 @@ The technical arm supplied **2,375** real warm rows, **240** original optimizer 
 ## F-C31d optimizer smoke
 
 Galvani `3135760` passed at 10:48:52 CET. Hard and zero-dose conditional reproduced both actual fitted states, optimizer and RNG exactly. Same-scale nominal and matched context changed the first genuine source episode gradients by 4.46884e−4. The nominal control used 93.41% cross-session contexts. Both genuine pupils updated the spatial body, the discarded feature coordinates retained zero gradients, and population normalization moments stayed frozen. Maximum prefix discrepancy was 2.65241e−6 and peak reserved VRAM 5.096 GB. The smoke receipt is `cfbbb69d067a6076b03ab418fd908a5fddc7d245b8fdefcad694721404498b5e`.
+
+## Complete source fitting and CPU parity
+
+All three source-only continuations in `3135761` completed by 10:50:46 CET. Both original seeds used 112 identical scheduled updates per arm. Independent source export `3135774/75/76` verified all 576 original bounded CPU reference decisions for the six actors, exact prefixes and interleaved resets, and maximum posterior discrepancy 1.41835e−6. No Scherer data or results entered the continuation or the export.
+
+The complete CPU actor manifest is `755a0916899d49255f6624acdb13369ffadfadcf3b07bf28c221a310bd45abb2`. The native external worker bound it at `1590e5951bcad72aeb7adca5c6795587bc1a32afe1123bdc8654a0c3d3fa3981`. The two fresh external order digests, before prediction, are 29411 `ffda5a7994a53a751fc31780f220ec3b7d932f070b41d133c20e8088a3b9a7ca` and 30411 `6243e91c0f6be85205d38759fbcce70f9e0e7054618a2adf205c2f1e1e64285f`.
