@@ -24,10 +24,12 @@ def main(package, data):
     def run(m, rows):
         return [int(m.predict(x[i:i + 1].cuda())[0]) for i in rows]
 
+    frozen = {name: value.detach().clone() for name, value in template.net.state_dict().items()}
     left, right = copy.deepcopy(template), copy.deepcopy(template)
     expected_a, expected_b = run(left, a), run(right, b)
     assert left.age == right.age == 40 and template.age == 0
-    torch.testing.assert_close(left.net.task.weight, template.net.task.weight)
+    for name, value in template.net.state_dict().items():
+        torch.testing.assert_close(value, frozen[name], rtol=0, atol=0, msg=f"Shared weight changed: {name}")
     assert left.adapter.delta.abs().max().item() > 0
     assert not np.array_equal(left.covariance_sum, right.covariance_sum)
     left.reset_state()
