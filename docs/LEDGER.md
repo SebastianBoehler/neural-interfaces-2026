@@ -853,3 +853,7 @@ Registered before inference on the corrected consumers. §292A added six REVE-di
 - Forecast jitter minus stock **+0.25 pp** within0 and **+0.20 pp** full0, jitter minus hard **+0.15 pp** each, hard minus stock **+0.05 pp** each. Paired upper ≤0 refutes that positive endpoint. An interval spanning zero stays undecided. Require positive paired lower bounds over both stock and hard in both fixed deliveries before considering an exact worker test. Shared people and inherited base auxiliaries limit scope. No sealed conversion, chosen mass, candidate package or upload.
 
 **F24 source timeout disposition before held scoring.** Ferranti `511413_16` reached Slurm TIMEOUT during teardown at 04:33:58 CET. The actor completed all four 40-epoch fits for seed 1/P07, closed all eight checkpoint/receipt files by 04:33:57 CET, and printed its successful end-of-fit marker. Each content hash matches its receipt. Preserve the timeout status and use the completed payload only if the original independent held actor also verifies exact source scope, fit work, both parent checkpoint bytes, and all causal held guards. The remaining 19 source elements completed 0:0. No refit or score had started for P07 at registration.
+
+## F25 · Learn cross-band energy modulation at several durations
+
+Registered 19 November before fitting. The [F25 protocol](../friday/fbc323_modulation/prereg-19nov.md) fixes the learned cross-band gate, parameter-matched temporal control, exact F16 anchor and scope, numerical forecasts and compute limits.
