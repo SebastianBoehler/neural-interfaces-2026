@@ -47,3 +47,7 @@ The latest Slurm estimate moved the remaining RTX frozen tasks to 02:09–02:14 
 ssh mlcloud-galvani 'sacct -X -j 3133100,3133101,3133102,3133105,3133134,3133135,3133136,3133137,3133138,3133139,3133140,3133141,3133142,3133143,3133146,3133147 -o JobID,State,Elapsed,Start,End,NodeList'
 ssh mlcloud-galvani 'cd /mnt/lustre/work/gehler/gfh527/ni26_friday_causal_rebuild_20261118 && cat within0_matched_refit_shared_v1/jobs.tsv && find within0_terminal_shared_v1 -maxdepth 1 -name "matched_within0*" -print'
 ```
+
+The tenfold common FBLight bank sealed under job `3133102`. Bank SHA-256 `42e741c0…4922`, receipt `ebdd7658…d082`. The live bridge `3133105` sealed both native upstream aliases with no recognized sessions, all 240 true strict-prefix TSEM refits active per arm and maximum target movement 0.308393. Its receipt is `5874a02f…109b`.
+
+Both optional device canaries passed on 756 windows. CPU had a direct P01 bound of 4.0480e−7 and a P04 triangle bound of 2.3554e−6. No-TF32 A100 had bounds 6.3610e−8 and 2.3757e−6. Both retained zero decision flips and exact first-window/reset checks. Read-only receipts `ce3a2c56…2619` and `8b9fab3c…83a4`. The full RTX bank already completed, so no device migration was made.
