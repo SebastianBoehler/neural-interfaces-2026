@@ -12,7 +12,7 @@ repo=/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026
 work=${SLURM_SUBMIT_DIR:?}
 cd "$work"
 sha256sum --check --status source.sha256
-stock="$repo/runs/sealed/final_zips/v66_cp1_cap250.zip"
+stock="$work/v66_cp1_cap250.zip"
 [[ -s $stock ]]
 apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \
     --env OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,PYTHONDONTWRITEBYTECODE=1,PYTHONPATH=/official \
