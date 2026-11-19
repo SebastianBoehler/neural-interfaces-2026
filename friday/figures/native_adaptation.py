@@ -212,8 +212,8 @@ def plot_joint_people(record, out):
         ax.annotate(subject, (x, y), xytext=(dx, dy), textcoords="offset points",
                     ha="right" if dx < 0 else "left", fontsize=8.5, color=INK)
     ax.axhline(0, color=MUTED, linestyle="--", linewidth=.85, zorder=1)
-    ax.set(xlim=(-1.25, 1.26), ylim=(-.75, 1.24), ylabel="Full-session delivery gain (pp)")
-    fig.supxlabel("Within-session delivery gain (pp)", fontsize=10, y=.076)
+    ax.set(xlim=(-1.25, 1.26), ylim=(-.75, 1.24), ylabel="full0 gain (pp)")
+    fig.supxlabel("within0 gain (pp)", fontsize=10, y=.076)
     ax.set_title("FBLight + multiresolution pupil vs FBLight doubling alone", loc="left",
                  fontsize=10, color=MUTED)
     fig.text(.028, .024, "Full-system dev · same ten held-new people · each point averages one person's official cells",
