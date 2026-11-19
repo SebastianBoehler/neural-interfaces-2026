@@ -26,9 +26,10 @@ for name, mod in mods.items():
         m = mod.Member(ckpt[name], init).cuda().train()
         require(not any(p.requires_grad for p in m.body.parameters()) and not m.body.training, "body not frozen/eval")
         n_body = sum(p.numel() for p in m.body.parameters())
+        m.eval()  # dropout off for the equivalence checks
         pos = m.positions(names, "cuda")
         with torch.inference_mode():
-            tok = m.tokens(x[:4], pos)
+            tok, where = m.tokens(x[:4], pos)
             f32, _ = m(x, pos)
             single = torch.cat([m(x[i:i + 1], pos)[0] for i in range(4)])
             with torch.autocast("cuda", dtype=torch.bfloat16):

@@ -148,7 +148,7 @@ class Member(HeadMember):
             require(not load.missing_keys and not load.unexpected_keys, f"incomplete NeuroRVQ load: {load}")
         else:
             body.random_init()  # same architecture, same seed discipline as the fit; the control for "pretraining adds nothing"
-        super().__init__(body, 4 * DIM)
+        super().__init__(body, 4 * DIM, nn.Embedding(len(CHANNELS), 128))
         self.init = init
 
     def positions(self, names, device):
@@ -158,4 +158,4 @@ class Member(HeadMember):
 
     def tokens(self, x, pos):
         x = F.interpolate(x.float(), size=round(x.shape[-1] * 200 / 120), mode="linear", align_corners=False)
-        return self.body(zscore(x), pos[0])
+        return self.body(zscore(x), pos[0]), pos[0].repeat_interleave(x.shape[-1] // PATCH)

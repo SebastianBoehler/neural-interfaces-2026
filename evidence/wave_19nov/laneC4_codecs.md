@@ -61,3 +61,32 @@ Lane C-sized wave (36 fits), scored standalone and in the mixer exactly like the
 
 1. `smoke_c4.py`: strict load and hash pins, frozen body, shapes, batch vs singleton (5e-4) and bf16 vs fp32, pretrained vs random difference, timing, and NeuroRVQ copy vs braindecode's own class on the same
    weights (best effort; reported if it cannot run). 2. One-step canary per model through Lane C's trainer (prefix and singleton guards). Code: `laneC4/`, launcher `scripts/cloud/leo_lane_c4.sh`.
+
+## Form 1 result and the form-2 change (19 Nov, ~19:45 CET; written after form-1 held scores were seen, said plainly)
+
+Form 1 (LayerNorm + one-query attention pooling, `bank_*_f1`, jobs 64873633-64873644): every arm is near chance. Held-new / returning BA, mean of 8 orders: BrainCodes-random 36.05 / 36.12,
+NeuroRVQ-pretrained 35.34 / 34.03, NeuroRVQ-random 37.97 / 39.67 (chance 33.3; predictions 46-49 were far too high). BrainCodes-pretrained did not seal: 3 of 36 fits (tasks 4, 9, 16) failed the
+batched-vs-singleton parity guard (1.2e-3 against 5e-4; a discrete codec code flipping at a near-tie), the other 33 and the stage-A fits passed. Stage-A and stage-B training losses sit at about ln 3 = 1.10 (stage A 1.08-1.14
+flat over 960 steps, stage B final 1.02-1.4): the head cannot fit even its training rows, so this is a head/input-form failure, not evidence about the backbones (card rule, standalone < 45 % with a flat loss).
+The rule allowed one documented fix before held scores and none after; I go past it because all four arms were uninformative (the held scores cannot rank the forms, and the cause is visible in the training loss),
+and I keep form 1 reported as is. Nothing in form 2 is selected on held scores.
+
+Form 2 (one change, the same for all four arms): the pooled form discards per-electrode lateralisation, so each token now gets its electrode position (BrainCodes: MLP over the 3-D coordinate; NeuroRVQ: learned
+embedding of its vocabulary slot) added to a 128-wide projection of the LayerNorm'd token, then eight-query attention pooling (concatenated, dropout 0.1) feeds the task and motor linears. Body frozen as before;
+everything else (pipeline, augmentation, schedules, seeds, orders) unchanged. Parity guard 5e-4 for NeuroRVQ, 3e-3 for BrainCodes (the near-tie flip above; a guard, not a result). Gate: arm-A P02/P10 stage-B-only
+fits (`diag`) must show a training loss well below ln 3 (< 0.9) before the wave; their held recall is not used. Predictions for form 2 (the first-form predictions stay recorded above as missed): standalone held-new
+**BrainCodes 45 % [38, 52]**, **NeuroRVQ 45 % [38, 52]**, random-init controls **42 % [36, 48]**, pretrained minus random **+3 pp [-2, +7]**; in-mixer deltas as registered above
+(the standalone level, not the slot dose, is what changed). If form 2 stays below 42 % with a trainable loss, no further form: the lever is closed for this slot as a frozen-probe, not for fine-tuning.
+
+## Form 3 (19 Nov, ~20:00 CET, before any form-2 or form-3 held score; the form-2 gate was a training loss and it failed for NeuroRVQ)
+
+Form 2's arm-A P02/P10 stage-B-only fits (jobs 64874939 BrainCodes, 64874945 NeuroRVQ; only the training loss was read): BrainCodes 0.91-1.17 on single minibatches, NeuroRVQ flat at 1.10 (running mean 1.0966 at
+3,625 steps; the gate was < 0.9). Two causes were identified from the code and the diagnostics, not from held scores: (1) per-token LayerNorm leaves the frozen NeuroRVQ tokens (std 0.0065, dominated by shared
+position/patch content, layer scale 1e-5) with almost no row-specific variance relative to the head's learning rate; (2) Lane C's causal EA whitening decorrelates the electrodes, which a frozen encoder reads by position.
+Changes, applied to all arms alike: the token LayerNorm becomes a feature-wise BatchNorm (running statistics, eval at test), and the input is run in two forms, **raw** (no covariance alignment, the window only demeaned
+then z-scored in the model; nothing crosses windows, so it is causal by construction) and **aligned** (Lane C's EA, as in C2/C3). Diagnostics of form 3 (running training loss at about 3,000 steps, arm A, P02/P10): BrainCodes raw 0.86/0.90,
+aligned 0.93/0.95; NeuroRVQ raw 0.91/0.94, aligned 0.98/0.96. All trainable (form 1 and 2: 1.10 flat) and raw lower in both models; my < 0.9 gate was met by one of eight, I read it as "trainable, no longer ln 3"
+and go past it plainly. **Primary arm = raw** (chosen on training loss and mechanism, declared here before any form-3 held score); aligned is run for all four pretrained/random cells and reported; no arm is selected on its held score
+(selecting the better of two inputs in the mixer would be a forking-path bias and is reported as such). Eight waves (2 models x {pretrained, random} x {raw, aligned}), `bank_*_f3_*`; parity guard 3e-3 BrainCodes / 5e-4 NeuroRVQ.
+Predictions (form 3, held-new standalone, 8-order mean; slots unchanged): BrainCodes raw **44 % [38, 51]**, aligned 42 %; NeuroRVQ raw 44 % [38, 51], aligned 42 %; random controls 2 pp lower; in-mixer deltas as registered
+(+0.1 [-0.7, +0.8] pretrained, 0.0 [-0.7, +0.7] random). Forms 1 and 2 stay in the record as misses (form-1 predictions 46-49 vs 34-38 measured).

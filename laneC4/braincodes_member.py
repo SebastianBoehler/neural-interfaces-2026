@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 import torch
+from torch import nn
 from torch.nn import functional as F
 
 from common import HeadMember
@@ -61,7 +62,7 @@ class Member(HeadMember):
                               n_blocks=a["n_blocks"], n_layers_time=a["n_layers_time"], n_layers_chan=a["n_layers_chan"],
                               dropout=a["dropout"], init_from_codebooks=a["init_from_codebooks"],
                               backbone_width=a["backbone_width"], pool_factors=tuple(a["pool_factors"]))
-        super().__init__(body, body.D)
+        super().__init__(body, body.D, nn.Sequential(nn.Linear(3, 128), nn.GELU(), nn.Linear(128, 128)))
         self.init = init
 
     def positions(self, names, device):
@@ -74,4 +75,5 @@ class Member(HeadMember):
             x = (x - x.mean(-1, keepdim=True)) / x.std(-1, keepdim=True).clamp_min(1e-6)  # BrainCodesModel.tokenize
             codes = self.body.tokenizer.tokenize(x)
         self.body.set_coords(pos[0])
-        return self.body(codes, already_tokenized=True)["bottleneck"].flatten(1, 2)
+        grid = self.body(codes, already_tokenized=True)["bottleneck"]  # [B, C, T_b, 128]
+        return grid.flatten(1, 2), pos[0].repeat_interleave(grid.shape[2], 0)
