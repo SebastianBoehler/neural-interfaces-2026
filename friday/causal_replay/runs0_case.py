@@ -1,7 +1,9 @@
 """Pinned independent archives for the exact held-new runs0 replay."""
 
-from bridge_owner import MEANS, ROOT
-from complete_zero import FEAT, STAGES
+from bridge_owner import BASE, MEANS, ROOT
+
+FEAT = ROOT / "data/proteus_windows.npz"
+STAGES = BASE / "ni26_match456_stages_20261118"
 
 ORDER = "runs0"
 ROUTE = ROOT / "runs/s281_v66_route/runs0.json"
@@ -23,5 +25,7 @@ PINS = {
 
 FBL = MEANS / "runs0_fbl_v1"
 FBL_SOURCE = "a433c3fdde4dd31c6da60722479e5903c936161dc3eb63dd87473dbafc7ca528"
-ZERO = MEANS / "runs0_zero_v1/zero.json"
-ZERO_SOURCE = "87aa4dc5a4c432c50167a51086c0d54f3559a8ad4d7e4beb4b944517ce24f1d0"
+ZERO = MEANS / "runs0_zero_v2/zero.json"
+ZERO_SOURCE = "8069f188a0ec27099b08385f1ca88814e546892ad5cc87a2d4d7fa37600dcc3c"
+BRIDGE = MEANS / "runs0_shared_bridge_v1/status.json"
+BRIDGE_SOURCE = "a52f2835f9a41e381672980f09bece87eea09c25cc95d1e27dd8e1d431898d41"

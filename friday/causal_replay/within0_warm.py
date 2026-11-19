@@ -28,7 +28,7 @@ REFIT_NAME = "r15c250"
 PREFIX = 80
 
 
-def actor(device="RTX 2080 Ti"):
+def actor(device="RTX 2080 Ti", order=ORDER, read_legacy=True):
     gpu = torch.cuda.get_device_name()
     if device not in gpu or torch.__version__ != "2.14.1+cu126":
         raise ValueError(f"requires the pinned {device} actor geometry")
@@ -36,17 +36,19 @@ def actor(device="RTX 2080 Ti"):
                                              "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS")):
         raise ValueError("requires the original eight-thread geometry")
     torch.set_num_threads(8)
-    os.environ.update(NI26_WS=str(ROOT), SCHEME="within", PSEED="0", KIND="v51b", ARMS="s15,r15",
-                      CAPS="100,150,250", DRAW="0", CHAIN_NPZ=str(CHAIN), RELAB_NPZ=str(RELAB))
+    chain = ROOT / f"runs/labels/chain_v51b_{order}.npz"
+    relab = ROOT / f"runs/labels/relab_v51b_{order}.npz"
+    os.environ.update(NI26_WS=str(ROOT), SCHEME=order[:-1], PSEED=order[-1], KIND="v51b", ARMS="s15,r15",
+                      CAPS="100,150,250", DRAW="0", CHAIN_NPZ=str(chain), RELAB_NPZ=str(relab))
     scope = runpy.run_path(str(FTREL))
     api, owner, stream = (scope[k] for k in ("T5", "T7", "stream"))
     names = {"s15", "r15", "r15c100", "r15c150", REFIT_NAME}
     if ((scope["DRAW"], scope["ARMS"], scope["CAPS"], scope["CHECK"]) != (0, ["s15", "r15"], [100, 150, 250], False)
-            or owner.TAG != "ttt18within0LPC" or owner.run.__globals__["stream"] is not stream
+            or owner.TAG != f"ttt18{order}LPC" or owner.run.__globals__["stream"] is not stream
             or set(owner.VARS) != names or api.ORDER != ["fbraw", "fbl", "sinc", "fb"]
             or tuple(owner.VARS[REFIT_NAME]) != (5, 10, 1e-3, "all", 1., "hard", True, 1, True, 20)):
         raise ValueError("the loaded actor recipe differs from the §257 invocation")
-    return api, stream, api.chain_labels("all_loso")
+    return api, stream, api.chain_labels("all_loso") if read_legacy else None
 
 
 def reference(family):

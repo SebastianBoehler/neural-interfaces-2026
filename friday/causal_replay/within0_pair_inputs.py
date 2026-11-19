@@ -21,7 +21,7 @@ ORDER = "within0"
 ACTOR_SHA = "a3d227069dd9989bf77b1c1feddb3ce221e75687d354ef17caab0df12b335ca6"
 
 
-def authenticate(pin, bridge_sha):
+def authenticate(pin, bridge_sha, *, order=ORDER, bridge=BRIDGE, source_sha=BRIDGE_SOURCE):
     pin(LEGACY / "source.sha256", LEGACY_SOURCE)
     for name in ("fbraw", "fb"):
         first = f"smoke/{name}.json"
@@ -42,15 +42,16 @@ def authenticate(pin, bridge_sha):
             seen.update(proof["sessions"])
         if len(seen) != 14:
             raise ValueError("historical FB control misses a real visit")
-    pin(BRIDGE, bridge_sha)
-    pin(BRIDGE.parent / "source.sha256", BRIDGE_SOURCE)
-    proof = json.loads(BRIDGE.read_text())
-    if (proof["order"] != ORDER or proof["held_labels_opened"] or not proof["targets_sealed"]
-            or proof["source_sha256"] != BRIDGE_SOURCE or proof["status"] != "shared_fbl_sinc_targets_sealed"
+    pin(bridge, bridge_sha)
+    pin(bridge.parent / "source.sha256", source_sha)
+    proof = json.loads(bridge.read_text())
+    if (proof["order"] != order or proof["held_labels_opened"] or not proof["targets_sealed"]
+            or proof["source_sha256"] != source_sha or proof["status"] != "shared_fbl_sinc_targets_sealed"
             or not proof["exact_historical_zero"] or proof["recognition"]["bio_finite_scores"] != 2515
-            or proof["fbl_bank"]["legacy_warm_parity"]
+            or proof["fbl_bank"]["legacy_warm_parity"] or proof["bank"]["order"] != order
+            or set(proof["inputs"]) != {"historical", "corrected"}
             or any(v["routed_sessions"] or v["sessions"] != 14 for v in proof["recognition"]["routing"].values())):
-        raise ValueError("within0 fresh shared upstream set differs")
+        raise ValueError("fresh shared upstream set differs")
     pin(Path(proof["bridge"]["path"]), proof["bridge"]["sha256"])
     for bank in (proof["bank"], proof["fbl_bank"]):
         pin(Path(bank["path"]), bank["bank_sha256"])
