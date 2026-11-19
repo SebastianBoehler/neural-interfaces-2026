@@ -12,6 +12,8 @@ The native intervention imports the same C20e mix6 adapter. The real NetBank cal
 
 First actor array `3133975` stopped before loading P10 seed 1 because two digits were omitted in its literal digest. The original receipt and actual checkpoint matched. Both v2 pupils qualified by 05:22:10 CET. First native array `3133982` stopped before held inference because its external worker filename took precedence over the returning observer. V2 uses the pinned returning observer and imports the original external adapter separately.
 
+Both real prefixes passed by 05:27:24 CET. P04 and P10 max raw-family posterior movement was 0.18442 and 0.47718. Max terminal movement was 0.00904 and 0.02337. Archive stock, no-change identity and independent 17-window reset checks were exact. P10 retained all 20 native optimizer steps and eight warm predictions, at ages 20–27. The 62 smoke calls yielded the same decisions. The frozen actor still changed the probabilities on both people.
+
 ```bash
 ssh mlcloud-galvani 'sacct -X -j 3133978,3133989,3133990,3134000,3134001 -o JobID,State,Elapsed,Start,End,NodeList'
 ```
