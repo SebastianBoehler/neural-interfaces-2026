@@ -79,7 +79,7 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - The [Wednesday decision brief](DECISION_18NOV.md) is complete and published on the campaign branch. Staged v6.6cap250 is the selection and sealed v5.1b is the alternate. Both archive SHA-256 values matched on a fresh check.
 - Galvani scoring completed for [D2](wave_factorial/result-18nov.md) at 16:07, [F11](wave_input/result-18nov.md) at 16:19, [F-C7](cap250-c7-result.md) at 16:32 and [F-C8](cap250-c8-result.md) at 16:49. Each collector exited 0:0. The refreshed waveform figures include both authenticated F11 seeds.
 - F-C8 found −0.020 pp for causal arbitration on new delivery orders for the same Scherer people. The effect remains undecided and did not meet the registered rule for release qualification.
-- Track 2 organizers reported a slower RTX sealed worker, an increased evaluation limit and a large queue. The 4,800-second figure was reported by a participant. Galvani A100 timing remains a development measurement. [Runtime provenance](../OFFICIAL_CONTRACT.md)
+- Superseded (19 Nov, upstream main 8447e181): sealed worker is one RTX PRO 4500 with a 3,600 s budget; the 4,800 s figure was a participant report and is wrong. Galvani A100 timing remains a development measurement. [Runtime provenance](../OFFICIAL_CONTRACT.md)
 - Ferranti and Galvani were idle at this handoff. F12 trainable spectral initialization and exact whole-worker qualification of the score-preserving F-C5 optimization are in preparation.
 
 ## Wednesday 18 November, 17:01 CET
@@ -113,7 +113,7 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - One sealed upload is authorized by 20:00 CET. Target candidate lock is 19:35 CET. At 17:38, today's attempt was available and two attempts remained overall. The 17:39 top-ten cutoff was 0.8350952562. [Decision brief](DECISION_18NOV.md)
 - [F13](fbc323/result-18nov.md) matched the original S1C archive on all 42,480 decisions. Bounded normalization gained +0.668 and +0.708 pp on held-new whole-model scores, with intervals crossing zero. F-C10 tests transfer to the six exact cap250 FBCNet members. Galvani zero qualification 3128700 precedes any changed worker.
 - F-C9 exact smoke 3128678 passed at 17:47 CET. A100 array 3128702 and collector 3128703 score a causal reliability gate within complete cap250 on Scherer.
-- D-RTX smoke 3128675 started the two frozen ZIPs on an RTX 2080 Ti worker and verified reset and active cap250 refits. Paired workers 3128676 and collector 3128677 continue. The development GPU tests hardware sensitivity. The official RTX model and its timing remain unverified.
+- D-RTX smoke 3128675 started the two frozen ZIPs on an RTX 2080 Ti worker and verified reset and active cap250 refits. Paired workers 3128676 and collector 3128677 continue. The development GPU tests hardware sensitivity. The sealed card is an RTX PRO 4500 (19 Nov).
 
 ## Wednesday 18 November, 18:45 CET
 

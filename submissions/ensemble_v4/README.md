@@ -13,4 +13,4 @@ to the fast package at every stage on all 2,655 public windows (`scripts/check_c
 - Checks: `scripts/check_bio_gate.py`; replays identical on A100 and in the worker image, files unchanged; paired
   timing 1.01x the fast package (ABBA 3088401); independent review without blocking findings (runs/bio1/review_v4.md).
 - Supersedes the first build (threshold 0.25, code `cd593655…`, ZIP `94185c2f…`, deleted).
-- Evidence and limits: docs/PREDICTIONS_11NOV.md §11 and §14.
+- Evidence and limits: docs/PREDICTIONS_11NOV.md (deleted 19 Nov; see git history) §11 and §14.

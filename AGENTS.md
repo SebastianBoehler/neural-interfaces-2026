@@ -3,7 +3,8 @@
 This project targets Track 2 BCI decoding in Neural Interfaces 2026.
 
 - Read docs/STATE.md first (current state), then docs/LEDGER.md (what is closed) and OFFICIAL_CONTRACT.md.
-- docs/archive/ is history; where it contradicts docs/STATE.md, the state file wins.
+- docs/STATE.md wins over any dated record. Old dated records live in git history, not in the tree.
+- For rules, read upstream 2026-competition main, not the pinned submodule (pin is for code only).
 - Pre-register every run in docs/LEDGER.md (mechanism, numeric prediction, refutation rule) before scoring it.
 - Check ideas against the ledger index first. Score a part in the full current system under shuffled delivery, never
   alone; score a whole alternative system whole. The chain is the current system, not a boundary of the search.
@@ -21,8 +22,8 @@ This project targets Track 2 BCI decoding in Neural Interfaces 2026.
   direction: record "undecided". Bars are reading aids, not gates (user, 13 Nov): push and stack small consistent
   positives. Do not close on P10 or P04 alone; report both, neither decides. A new member or core is not closed until
   it was scored with the stages and routing using it.
-- Intervals resample people as well as orders. Weight dev like the sealed set (about 57 % new people; returning
-  people about 0.2 P04 + 0.8 P10) next to J, and prefer the people-nested number for anything that was chosen.
+- Intervals resample people as well as orders. Dev weighting like the sealed set (about 57 % new people; returning
+  people about 0.2 P04 + 0.8 P10) is an UNVERIFIED assumption (cohort details are private; pending evidence/audit_20nov); report it next to J, labelled as such, and prefer the people-nested number for anything that was chosen.
 - Keep compute busy (user, 12 Nov): submit questions as parallel waves, queue the next wave before the current one
   ends, and smoke-test every new script first. Compare run times warm and paired.
 - Remove dead code, stale statements and narrowing assumptions as you go; git history is the archive. Before

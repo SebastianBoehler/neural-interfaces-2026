@@ -1,5 +1,7 @@
 # Map: what the rules allow against what we tested (13 Nov 2026)
 
+> **Rules as of 19 Nov 2026** (upstream main 8447e181, see OFFICIAL_CONTRACT.md): sealed budget 3,600 s on one RTX PRO 4500; only the best eligible sealed score counts (Force_Best); the 57 % new / 43 % returning split is an unverified assumption (cohort details are private). Rule statements below are the 13 Nov snapshot.
+
 This is the 13 November snapshot. Use the [current solution-space review](../evidence/next_wave_16nov/solution_space_review_17nov.md)
 for the latest search decisions and rules. The recorded 21.5-minute sealed runtime
 belongs to v5.1b. Later packages have their own timing evidence.

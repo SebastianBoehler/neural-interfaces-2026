@@ -1,6 +1,6 @@
 # Study scripts of the night of 11–12 Nov
 
-One script per pre-registered section of [docs/PREDICTIONS_12NOV.md](../../docs/PREDICTIONS_12NOV.md). Local scripts
+One script per pre-registered section of docs/PREDICTIONS_12NOV.md (deleted 19 Nov; see git history). Local scripts
 run through `scripts/run_capped.sh` (one job at a time); the Galvani ones carry the cluster's work-directory path.
 Logs are `runs/<name>_12nov.log` locally and `runs/diag/{virt,netaug,ocunet,ttt}/` on Galvani (not tracked).
 

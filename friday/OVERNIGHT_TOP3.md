@@ -1,5 +1,7 @@
 # Overnight Track 2 campaign
 
+> **Rules as of 19 Nov 2026** (upstream 2026-competition main 8447e181; see ../OFFICIAL_CONTRACT.md): runtime budget 3,600 s on one RTX PRO 4500; ranking uses only the best eligible sealed score (Force_Best); parity gates, the 3,060 s projection margin and the 90 MB package size are our own rules, not official ones. Statements below that say otherwise are historical.
+
 Sebastian set an eligible sealed top-three finish as the final submission target. At 06:10 CET on 19 November, the public Codabench results put cap250 at **#16 by participant** after retaining each participant’s best entry. Grouping organizations gives **#15 by team before audit**. The sealed cap250 score remains **0.8298729992**. Third place stood at **0.8470450897**, a gap of **1.7172 percentage points**. The live table at 10:24 CET displayed cap250 at #16 and the same third-place submission 1059261 at 0.847. The public phase deadline showed 21 November at 23:59 CET. The last attempt requires Sebastian’s explicit upload authorization. [Exact Codabench scores](https://www.codabench.org/api/leaderboards/19997/) · [Team ranking and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring) · [Cap250 receipt](DECISION_18NOV.md#official-penultimate-receipt)
 
 ## Overnight comparisons

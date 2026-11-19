@@ -1,12 +1,14 @@
 # Sealed-phase upload plan and log
 
+> **Rules as of 19 Nov 2026** (upstream main 8447e181, see OFFICIAL_CONTRACT.md), correcting the dated text below: 7 uploads per team and track, at most 1 per day, Failed runs count against neither; **6 used, 1 left**; deadline Sat 21 Nov 23:59 CET (22:59 UTC), no AoE; only the team's best eligible sealed score counts (Force_Best; the 'last five' rule is gone); sealed budget 3,600 s on one RTX PRO 4500 (the 4,800 s reading is wrong). The 90 MB package size is self-imposed (no official per-ZIP limit).
+
 > **Current facts (11 Nov 2026, 22:30 UTC).** Sealed phase 30483 closes 21 Nov 2026, 22:59 UTC. Allowance: 7 uploads
 > per team, 1 per UTC day; **4 used, 3 left**. Best: submission 1048575, `cand_v41_bio`, 0.8161546323 (see "11 Nov,
 > 18:31 UTC" below). A failed run uses no quota; a manually cancelled one does. The sections "Facts", "Arms" and
 > "Sequence" below are the plan of 3 Nov and are history: the quota of 5, the arms and the planned order no longer
 > apply, and `cand_m7r4` was never uploaded. "Before each upload" and the log are current.
 
-Supersedes the upload sequence in docs/archive/SEALED_PLAN.md (R19e / R15 order of 30 Oct). Every upload needs
+Supersedes the upload sequence in docs/archive/SEALED_PLAN.md (deleted 19 Nov; see git history) (R19e / R15 order of 30 Oct). Every upload needs
 the user's explicit authorisation for that upload, after a live check of phase and quota.
 
 ## Facts (live Codabench API, 3 Nov 21:53Z)
@@ -15,7 +17,7 @@ the user's explicit authorisation for that upload, after a live check of phase a
   21 Nov), status "Next", **1 upload per day, 5 in total**, 0 submissions.
 - Task 36592 "BCI decoding", created 5 Oct. The task's programs are not visible to participants (the
   API returns 404), so we cannot confirm the binding before the first run.
-- Rules (docs/archive/REVIEW_2NOV.md): a failed run uses no quota, a cancelled run does. Force_Best keeps
+- Rules (docs/archive/REVIEW_2NOV.md (deleted 19 Nov; see git history)): a failed run uses no quota, a cancelled run does. Force_Best keeps
   the best sealed score, and logs are hidden. The daily reset is probably UTC midnight (unverified).
 - Our leaderboard entry is our best upload, so **whichever arm scores best is the one audited**. Each
   arm must have a rebuild recipe before it goes up.
@@ -26,7 +28,7 @@ the user's explicit authorisation for that upload, after a live check of phase a
 |---|---|---|---|---|---|---|---|
 | cand_nxif | `sealed_cand_nxif.zip` `0a562e62…` | +2.91 | +3.18 | +2.63 | +0.99 | code: yes (1024447); EEGNeX / IFNet layers replica only | committed, validated, incl. all-A100 |
 | cand_nxif_emx | `sealed_cand_nxif_emx.zip` `98d39600…` | +2.85 | +3.92 | +1.77 | +1.34 | as cand_nxif | cand_nxif recipe + `set_params.py` |
-| cand_m7r4 | `sealed_cand_m7r4.zip` `060850ee…` | +2.33 | +2.59 | +2.08 | — | sinc / fbcnet TorchScript ran (1026185) | docs/archive/AUDIT_M7R4.md, validated 4 Nov (754 / 755, 99.81 %) |
+| cand_m7r4 | `sealed_cand_m7r4.zip` `060850ee…` | +2.33 | +2.59 | +2.08 | — | sinc / fbcnet TorchScript ran (1026185) | docs/archive/AUDIT_M7R4.md (deleted 19 Nov; see git history), validated 4 Nov (754 / 755, 99.81 %) |
 | R19e (jit_g) | `sealed_r19e_jit_g.zip` `011e56bc…` | 0 | 0 | 0 | 0 | **this exact ZIP** (1024447) | R19e fresh-clone audit (30 Oct) |
 
 Deltas are dev sel = mean(ds, dla) over R19e on pretraining seeds 0–11, never tuned on P04 / P09 or
@@ -86,7 +88,7 @@ its replica.
 |---|---|---|---|---|---|---|
 | 1 | 5 Nov (UTC) | cand_nxif (`0a562e62…`) | 1034698 | Finished (v4-sealed: the TorchScript teacher loads) | **0.7794596196** (rank 9 of 46 at 07:54 CET; top 0.83) | 834.7 s |
 
-**6 Nov: new arms (plan in docs/REVIEW_5NOV.md §5d/§6).** Live check 11:25 UTC: phase 30483 "Current", 1 of 5
+**6 Nov: new arms (plan in docs/REVIEW_5NOV.md (deleted 19 Nov; see git history) §5d/§6).** Live check 11:25 UTC: phase 30483 "Current", 1 of 5
 used, 0 today; board top seohee / timothewt 0.825, 3rd 0.816, us 21st.
 
 | Arm | ZIP (SHA-256) | Dev J vs packaged REC | Replays (A100 / worker replica) | Sealed runtime est. | Audit recipe |
@@ -155,7 +157,7 @@ Expectation was about 0.827 central (0.822–0.835). The realised +0.43 points i
 Live board 7 Nov ~19:10 UTC: 0.838, 0.825, 0.825, **us 0.824 (4th)**, 0.823. **New baseline: route3geb.** 2 uploads
 left. Staged candidates: routing v3 and routing v3 + EB (builds in progress), tsem256, route v1.
 
-7 Nov evening cleanup (docs/archive/STATE_7NOV.md): `submissions/ensemble/submission.py` is now the lean file `dacee85a…`. It
+7 Nov evening cleanup (docs/archive/STATE_7NOV.md (deleted 19 Nov; see git history)): `submissions/ensemble/submission.py` is now the lean file `dacee85a…`. It
 reproduces the three uploaded packages byte for byte. The staged packages that were never uploaded (route v1, route3,
 route3eb, tsem256) keep their ZIPs in `runs/upload/`. Their code is commit `c4d600d` (docs/AUDIT_SBN.md, top note).
 
@@ -384,13 +386,13 @@ the Galvani replays of v5.1, 91.9 s. Not yet done: A100 replay and paired timing
 v5.1b plus each public person's fine-tuned SessionBN traces (pfh60, ledger §96, §102). They replace the 30 SessionBN
 members in the routed tail's mix on routed windows and are warmed on the session's buffered inputs. The gate and the
 shadow tail are unchanged. Code `submissions/ensemble_v52/submission.py` (SHA-256 5e59900f…), builder
-`scripts/build_v52.py`, checker `scripts/check_v52.py`, notes `docs/V52_BUILD.md`. Package `runs/sealed/cand_v52_pnets`
+`scripts/build_v52.py`, checker `scripts/check_v52.py`, notes `docs/V52_BUILD.md (deleted 19 Nov; see git history)`. Package `runs/sealed/cand_v52_pnets`
 (333 files, weights.npz 0b237577…; ZIP 643365016775…, 85,471,739 bytes). Checks: `check_v52.py` **passed** (equal to
 v5.1b before the first routed window and on the shadow everywhere; 2,515/2,515 routed windows swapped; personal
 posteriors equal the traces on the stream to 5.4e-5; gates-off and person-switch passes passed). Official replay on the
 Mac CPU: 0.9946208557 (in-sample), files unchanged, 117.3 s against v5.1b's 86.4 s in a paired run (1.36×; about 27 min
 sealed at worst). Deviation: the raw-FBCNet and SincShallow personal traces (12 of 30) are fine-tuned from retrained
-twins of the shipped nets (mean |Δp| ≤ 0.011), see `docs/V52_BUILD.md`. Not done: A100 or worker-image replay. Upload only
+twins of the shipped nets (mean |Δp| ≤ 0.011), see `docs/V52_BUILD.md (deleted 19 Nov; see git history)`. Not done: A100 or worker-image replay. Upload only
 if the v5.1b upload meets §63 (v5.1b − v4.1 ≥ +0.4), and only with the user's go-ahead after a live phase and quota
 check.
 

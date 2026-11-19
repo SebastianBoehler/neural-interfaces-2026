@@ -1,8 +1,10 @@
 # Track 2 PROTEUS linear baseline contract
 
-Checked 2026-10-14 against competition revision
-`a66bc23d1a0e686b895c093a642b45c74970758b` and NeuroAI tag `v0.4.0`.
-This records the official implementation; it does not claim a completed run.
+Code (baseline, split, streaming, metric) was checked 2026-10-14 against the pinned revision
+`a66bc23d1a0e686b895c093a642b45c74970758b` and NeuroAI tag `v0.4.0`; those files are unchanged upstream.
+**Rules** (runtime, quota, ranking, deadline) come from upstream `main` @ `8447e181` (19 Nov 13:10 UTC), not from the pin:
+the pinned rule pages are stale. See "Rules as of 19 Nov" below. This file records the official implementation; it does
+not claim a completed run.
 
 ## Baseline and split
 
@@ -36,7 +38,7 @@ This records the official implementation; it does not claim a completed run.
 - One stream is one participant/session. The pinned public code delivers runs
   by BIDS run number and windows in recording time, but the sealed backend does
   NOT: since the rescoring of 10 Nov the delivery order is fixed and is not
-  recording order (organisers, 13 Nov; verbatim in docs/STATE.md section 2). The
+  recording order (organisers, 13 Nov; see docs/STATE.md). The
   scope of the shuffle (whole session, per interface, per run) is not stated.
   Graz and BrainHero can share session state.
 - The evaluator deep-copies the loaded model at each session boundary and
@@ -68,13 +70,29 @@ This records the official implementation; it does not claim a completed run.
 - The sealed evaluator runs `predict` without an offline `fit` or dataset
   download. Label-free adaptation, including gradient updates inside `predict`,
   may use the current session's delivered EEG. [Scientific FAQ](https://raw.githubusercontent.com/neural-interfaces26/2026-competition/main/codabench/pages/scientific_faq_bci.md#streaming-and-adaptation)
-- The pinned competition YAML lists a 3,600-second limit. In Track 2 Discord on
-  18 November at 07:50 CET, organizer Arnault H. Caillet confirmed that the
-  sealed phase moved to a slower RTX worker and the limit was raised. Another
-  participant reported 4,800 seconds. The live numerical limit remains
-  unverified, and the public rules still list the general 60-minute A100 limit.
-  Organizer Bruno Aristimunha reported a large queue at 16:46 CET. Queue wait
-  and execution time both affect when a score appears. [Track 2 Discord](https://discord.com/channels/1405198616934481961/1547897829253451877) · [Public rules](https://neural-interfaces26.github.io/rules.html)
+
+## Rules as of 19 Nov 2026
+
+Source: upstream 2026-competition `main` @ `8447e181` (`codabench/pages/terms.md`, `timeline.md`, `scientific_faq_bci.md`,
+`competition_bci.yaml`) and [rules.html](https://neural-interfaces26.github.io/rules.html); audit in
+`evidence/audit_20nov/assumptions_rules_opus.md`.
+
+- **Runtime**: configured sealed budget 3,600 s (60 min, Tracks 02-04) on one NVIDIA RTX PRO 4500 (Blackwell). Longer
+  runs time out. The worker task timeout of 80 min does not extend the budget. The earlier Discord reading of a raised
+  limit (4,800 s) is superseded. Queue wait is separate and was long on 18 Nov.
+- **Ranking**: only the team's best eligible sealed score counts (`Force_Best`). The "best of last five" rule is gone.
+- **Quota**: 7 per team per track (shared by team members), at most 1 per day. Failed runs count against neither limit;
+  finished runs and runs cancelled by us count; queued or running runs reserve a slot. State on 19 Nov: 6 used, 1 left.
+- **Deadline**: Saturday 21 Nov 2026 23:59 CET (22:59 UTC). "Anywhere on Earth" no longer applies.
+- **Cohort**: size, identities, session allocation and evaluation order are private. The earlier "ten new participants"
+  text was withdrawn; any new/returning weighting is an unverified assumption.
+- **Delivery and causality**: the order is fixed, identical for all submissions and not chronological. `predict` may use
+  the current and previously delivered windows only; one label per window, emitted at once and final.
+- **Environment**: the REVE position bank is baked into the worker image (no need to ship it). No per-ZIP size limit
+  (15 GB profile storage, check free space before upload).
+- **Audit**: top 3 only, reproducibility rerun of the training pipeline; write-up due when the sealed phase closes.
+- **Self-imposed, not official**: 3,060 s projection margin (0.85 x 3,600), 90 MB package size, parity as upload gate.
+- Organiser clarification (Discord, 20 Oct, second-hand): a C++ pipeline imported through Python is allowed.
 
 ## Official commands from the competition checkout
 
