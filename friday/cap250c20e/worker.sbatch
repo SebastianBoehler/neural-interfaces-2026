@@ -15,6 +15,7 @@ pair=$base/ni26_friday_frozen_rtx_20261118
 other=$base/ni26_friday_frozen_rtx_nine_20261118
 actors=$base/ni26_friday_cap250_raw_model_v3_20261118
 known=$base/ni26_native366_exact_ea_normal_v1_20261117/reference_normal.json
+rtx_known=$base/ni26_friday_c5r_rtx_v1_20261119/smoke.json
 work=${SLURM_SUBMIT_DIR:?}
 cd "$work"
 sha256sum --check --status source.sha256
@@ -32,5 +33,5 @@ else
 fi
 apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \
   --env OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,MPLCONFIGDIR=/tmp,PYTHONDONTWRITEBYTECODE=1,PYTHONPATH=/prior \
-  --bind "$work:/work:rw,$prior:/prior:ro,$prior/cap:/package:ro,$actors:/actors:ro,$pair:/rtx_pair:ro,$other:/rtx_other:ro,$known:/known.json:ro,$repo/2026-competition:/official:ro,$repo/data/scherer2015/windows.npz:/external.npz:ro,$repo/data/proteus_windows.npz:/input.npz:ro" \
+  --bind "$work:/work:rw,$prior:/prior:ro,$prior/cap:/package:ro,$actors:/actors:ro,$pair:/rtx_pair:ro,$other:/rtx_other:ro,$known:/known.json:ro,$rtx_known:/known_rtx.json:ro,$repo/2026-competition:/official:ro,$repo/data/scherer2015/windows.npz:/external.npz:ro,$repo/data/proteus_windows.npz:/input.npz:ro" \
   --pwd /work "$repo/runs/cloud/ni26_worker.sif" python -B worker.py "$mode" "$id"

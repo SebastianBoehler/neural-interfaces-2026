@@ -126,7 +126,11 @@ def validate(template,actors,eeg,rows,other,anchor,channels):
     assert public_channels==channels
     known=dict(public)["P10-3"][:31]
     recorded=json.loads(Path("/known.json").read_text())["streams"]["first"]["P10-3"]
-    assert known.tolist()==recorded["rows"][:31]
+    audited=json.loads(Path("/known_rtx.json").read_text())
+    assert audited["shared_pass"] and not audited["task_labels_opened"]
+    recognized_rows=audited["shared"]["recognized"]
+    assert recognized_rows["session"]=="P10-3" and known.tolist()==recognized_rows["rows"]
+    assert recognized_rows["activity"]["recognized"]==10
     original=stream(template,actors,x,known,"stock")
     proposed=stream(template,actors,x,known,"hard")
     assert original[0]["labels"]==recorded["labels"][:31] and original[0]["activity"]["recognized"]==10
