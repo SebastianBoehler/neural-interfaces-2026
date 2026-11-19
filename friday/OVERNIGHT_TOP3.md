@@ -82,6 +82,12 @@ Adapted FBLight doubling is the strongest repeatable new component on the correc
 
 [FBLight dose result](cap250c23/result-19nov.md) · [Signed F28 result](fbc323_relational/result-19nov.md) · [Signed F29 result](fbc323_recurrent/result-19nov.md) · [Live queue](QUEUE.md)
 
+### Protect the recognized route · 06:40 CET
+
+F-C21g emits the exact stock trajectory through the first 20 windows and after authentic recognition. It emits the separate FBL2 trajectory at age 20 or later while recognition has yet to fire. Both downstream trajectories evolve from the first window. The fixed rule kept **+0.383 pp** within0 [paired 80% +0.111, +0.702] and **+0.453 pp** full0 [+0.132, +0.844] versus cap250. It retained 100% and 92.8% of the respective FBL2 gains. All four conditional returning visits matched stock decisions exactly. These are authenticated selections from complete terminal banks. A live implementation, paired latency, and external readout are in progress. [F-C21g result](cap250c21_gate/result-19nov.md)
+
+The follow-up F30 uses supervised source-only episodes to ask whether a small support update transfers across people during training. The temporary head is discarded before native inference. The real H100 smoke proved equal source exposure and disjoint roles, then checked the ephemeral update against an independent derivative. The independent held smoke gates the full H100 array and blind scorer. [F30 registration](fbc323_episodic/prereg-19nov.md) · [Live queue](QUEUE.md)
+
 ### What the overnight experiments established
 
 The run produced an executable trial package for the strongest new public component and found a cost on returning people. The same data also showed why to keep the candidate provisional: the multiresolution combination added about 0.15–0.29 pp over FBLight doubling, with broad paired intervals and a negative interaction point in both deliveries. Keeping the established chain intact supplied exact deployment, adaptation and tail controls for both tests.
