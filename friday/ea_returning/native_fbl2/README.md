@@ -6,13 +6,15 @@ The shared FBL2 hook uses all six real FBLight posteriors and the live seed-0 wa
 
 | Galvani job | Scope |
 | --- | --- |
-| `3134265` | Genuine P04/P10 31-window native prefixes. |
-| `3134266` | Four complete visits after both native proofs pass. |
-| `3134267` | Independent authentication and read-only seal of all 762 label-blind predictions. |
-| `3134268` | Official metric after the complete blind seal. |
+| `3134271` | Genuine P04/P10 31-window native prefixes. |
+| `3134272` | Four complete visits after both native proofs pass. |
+| `3134273` | Independent authentication and read-only seal of all 762 label-blind predictions. |
+| `3134274` | Official metric after the complete blind seal. |
 
-Native `ni26_friday_return_fbl2_native_v1_20261119` source `a68f0eb780f99abf42a142db6ba273f610b85faf63b00ee7199d74a8450f8996`. Score `ni26_friday_return_fbl2_score_v1_20261119` source `b553f1382487367241cbbecf59e106cea734c5b9d02e5ba2500ac170e699e4dd`. Shared hook SHA-256 `736a1dbafce94058df803570ca49eb7cbdf55a2b03f5867305ab0c8e35474ea2`.
+Native `ni26_friday_return_fbl2_native_v2_20261119` source `cae74104dce81e0635fd915ef17dc09539ee7125621e06a8b0533c73a4db9ee6`. Score `ni26_friday_return_fbl2_score_v2_20261119` source `6a625e6fb55ee8f4e4774f7cb4133917b1537f3c30c4c6f7378224ffa9b25203`. Shared hook SHA-256 `736a1dbafce94058df803570ca49eb7cbdf55a2b03f5867305ab0c8e35474ea2`.
+
+Initial smoke `3134265` stopped on stock before treatment. The archived caller provides a deep-copied trace, so the v1 observer compared two different arrays by object identity. V2 checks object identity on the original live trace and exact values on the archived copy. All registered numeric and path tests still apply.
 
 ```bash
-ssh mlcloud-galvani 'sacct -X -j 3134265,3134266,3134267,3134268 -o JobID,State,Elapsed,Start,End,NodeList'
+ssh mlcloud-galvani 'sacct -X -j 3134271,3134272,3134273,3134274 -o JobID,State,Elapsed,Start,End,NodeList'
 ```
