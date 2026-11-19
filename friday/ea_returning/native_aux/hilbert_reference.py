@@ -43,15 +43,21 @@ def main():
     if error > 1e-6 or not np.array_equal(prior.argmax(1), reference.argmax(1)):
         raise ValueError(f"updated Hilbert harness did not reproduce historical selected path: {error}")
     a, b = [causal(raw[:31], channels, p) for p in (old, new)]
-    for p, vals in ((old, a), (new, b)):
+    prefixes = {}
+    for k, p, vals in (("old", old, a), ("new", new, b)):
         prefix = causal(raw[:17], channels, p)
-        if float(np.abs(prefix - vals[:17]).max()) > 1e-12:
-            raise ValueError("reference is not a strict test prefix")
+        checked = vals[:17]
+        drift = float(np.abs(prefix - checked).max())
+        changed = int(np.count_nonzero(prefix.argmax(1) != checked.argmax(1)))
+        prefixes[k] = dict(max_abs=drift, changed=changed)
+        if drift > 1e-6 or changed:
+            raise ValueError(f"batch harness strict prefix differs for {k}: {prefixes[k]}")
     path = Path("reference.npz")
     with path.open("xb") as handle:
         np.savez_compressed(handle, rows=rows, old=a, new=b)
     path.chmod(0o444)
     proof = dict(fit=fit, core_bank=bank, old_owning_path_max_abs=error, origin=PILOT_SHA, held_labels_opened=False,
+                 independent_prefixes=prefixes,
                  source=sha("ref_source.sha256"), output=sha(path))
     meta = path.with_suffix(".json")
     with meta.open("x") as handle:
