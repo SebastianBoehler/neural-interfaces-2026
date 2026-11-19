@@ -33,3 +33,15 @@ Forced warm tangent rank was two on 167/170 rows. Ages 30, 36 and 47 clipped two
 | `ni26_friday_c31e_external_v1_20261119` | Actor proof `3135787`, live RTX smoke `3135788`, paired external `3135789`, independent pre-label seal and score `3135790` | Code `46a2e5dcd5d107214ae7cfa7eeaefdf1fb7e6d9756273ec9e42712bb8cff1063`. Scoring `19cdb4e485e1d70b5253b7ac9b77154749dca17c3f644ba33366a46a6c709b6b`. |
 
 The P01 protected observer reproduced both earlier classes, exact same-input stages and the live-path work on the same rows. Smoke receipt `0b9c5ff0f3d8693a09ea4378a0031f93e3b4171e04e08ea714644fd39914d1c0`. Every downstream release is guarded by the upstream job result and exact fit, tape or CPU parity proof. The original public recognition veto remains.
+
+## F-C31c complete native source tape
+
+All 2,655 full0 source rows and fourteen independent sessions were sealed by `3135712`. Every natural session recognized at age 10 and ran zero model and CSP refits. The controlled threshold suppression kept the ordinary native unrecognized path active. The actual network member bank, pre-route mix, shadow, tangent, core, eye and Rest matched bitwise across the paired executions in every session. Their recognition-dependent upstream and final classes changed on 48 and 17 rows, respectively.
+
+The technical arm supplied **2,375** real warm rows, **240** original optimizer refits and **4,800** steps. It ran **126** CSP refits and **1,395** fusions. All 7,965 label-agnostic class probes were gradient-active in each arm, and 2,349 of 2,375 forced-warm rows had two independent tangent directions. The weighted per-session median second singular value was 0.01511. The tape leaves all true classes closed. The independent native work receipt matched the same fit and warm logic on 36 naturally unrecognized Scherer sessions. The public sessions span 186–199 rows, and the archived Scherer sessions span 105–120. The comparison verifies operative native control paths with different recognition histories and populations.
+
+- Signed tape receipt `55a50304794c66d547eeb6ffbbe6303fa4d3f1935dfe8f31b16fe98261d572ed`. Tape NPZ `53217bee45676466ce3518d687bb6e460931eb8860684c63662b9dfc26204d8a`. Archived Scherer metadata seal `36fa4e8a8d630e0e79781452dc91850837eb1d4984a0c5cac8d435dca19c301a`.
+
+## F-C31d optimizer smoke
+
+Galvani `3135760` passed at 10:48:52 CET. Hard and zero-dose conditional reproduced both actual fitted states, optimizer and RNG exactly. Same-scale nominal and matched context changed the first genuine source episode gradients by 4.46884e−4. The nominal control used 93.41% cross-session contexts. Both genuine pupils updated the spatial body, the discarded feature coordinates retained zero gradients, and population normalization moments stayed frozen. Maximum prefix discrepancy was 2.65241e−6 and peak reserved VRAM 5.096 GB. The smoke receipt is `cfbbb69d067a6076b03ab418fd908a5fddc7d245b8fdefcad694721404498b5e`.
