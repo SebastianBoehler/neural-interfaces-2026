@@ -484,3 +484,9 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - A100 source smoke `3135554` passed at 10:04:13 CET in 19 seconds. All 172 updates reproduced the exact independently fitted F25e hard and no-dose state. The frozen source head-imbalance reduction was 62.53%. [Registered source and CPU scope](fbc323_balance_external/prereg-19nov.md)
 - Independent source-only CPU smoke `3135576` gates final A100 seeds `3135577`, per-seed CPU exports `3135578` and signed seal `3135579`. Galvani release `ni26_friday_s1c_balance_external_a100_20261119/jobs.txt`. Actor `35f846402a40dcc100ba05cec5539110542cb833c1367bf5f32d87567d822248`, exporter `4af04d73ec4a55a4897933b25571d667f717bdbddc2b73bea9d6b445db4fea35`. Estimated 10:07–10:10 CET.
+
+### Thursday 19 November, 10:04 CET
+
+- F-C25q independent exact archive and both real stock repeats scored at 10:04:11. Hard +0.050 pp [−0.370,+0.456]. It remains the lead experimental alternate. [Whole exact archive](cap250_hard_exact/README.md)
+- F-C22h complete A100 held-new hard improved +0.425/+0.374 pp vs stock on the two corrected orders. Conventional remained below hard within0 and unresolved full0. [Matched held-new replication](fbc323_modulation_a100/result-19nov.md)
+- Original Ferranti F33 and separate A100 F35 completed. F35 whole-raw balance +0.430/+0.924 pp vs hard with wider same-dose mirror uncertainty. F35c corrected complete system and F35e matched all-public CPU exports are active. New F35x external code staged on Galvani for fresh 26411/27411, pending the signed actor lock.
