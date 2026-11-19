@@ -285,6 +285,6 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 ## Thursday 19 November, 02:54 CET
 
-- **Shared-source runs0.** P01 frozen smoke 3133373 passed. Nine-fold 3133374 and seal 3133375 gate the live route and target job 3133380. Independent exact zero 3133395 uses the owning 9 Eye / 3 Rest inventory. Within0 used 9 Eye / 9 Rest. Matched warm branches 3133397–3133404 gate the terminal bank 3133405 and separate scorer 3133406. [Registration](../docs/LEDGER.md)
+- **Shared-source runs0.** P01 frozen smoke 3133373 passed. Nine-fold 3133374 and seal 3133375 gate the live route and target job 3133380. Independent exact zero 3133395 uses the owning 9 Eye / 3 Rest archived inventory. The within0 archived zero used 9/9. Both matched comparisons use 3 Eye / 3 Rest. Matched warm branches 3133397–3133404 gate the terminal bank 3133405 and separate scorer 3133406. [Registration](../docs/LEDGER.md)
 - **Within0 stage necessity F-C18.** The real P01 smoke reproduced exact cap250 and proved the two stage bypasses and strict-past control. CPU job 3133393 runs the complete four-arm factorial, with the locked independent score in 3133394. [Registration](../docs/LEDGER.md)
 - **Raw lag plus jitter F23.** Ferranti 511387 and independent held smoke 3133377 passed. All three exact parent states replayed. Source 511388 is released, with its first H100 slot estimated at 04:42 CET at this check. Held 3133378 and scorer 3133379 stay behind the authenticated relay. [Relay](fbc323_lag_jitter/run_dependencies.sh)
