@@ -95,6 +95,15 @@ LAYOUTS = {
             ("bounded_joint_minus_lag", "Joint model\nvs 50 ms lag"),
             ("bounded_interaction", "Factorial\ninteraction"),
         )),
+    "2f3748d9c72f94b72c95906eeca2fa582f12222c3e6767b8367607807acbbceb": dict(
+        title="Cross-person calibration reduced held accuracy on both seeds",
+        stem="held-s1c-calibration-context", xlim=(-2.22, .61),
+        caption="Bounded inference. Source disagreement fell 91% and 85% relative to jitter.",
+        contrasts=(
+            ("bounded_cross_minus_jitter", "Cross-person context\nvs jitter"),
+            ("bounded_cross_minus_within", "Cross-person context\nvs within-session"),
+            ("bounded_within_minus_jitter", "Within-session context\nvs jitter"),
+        )),
 }
 
 
