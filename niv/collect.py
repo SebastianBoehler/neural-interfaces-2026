@@ -95,7 +95,7 @@ def main():
                            within=stats.null_summary(na["cell"], n2["cell"], schemes=stats.SECONDARY),
                            decisions_full=stats.changed(na["pred"][0], n2["pred"][0], y))
     draws_new = [(boot_draws(na["cell"], nb["cell"], 0, 31), 9)]
-    if a.cohort_a:
+    if a.cohort_a and (a.a, a.b) == ("cap250", "v51b"):  # cohort A replays exist only for this contrast
         z = np.load(a.cohort_a)
         res["cohort_A"] = {}
         for si, scheme in enumerate(z["scheme"]):
@@ -105,7 +105,7 @@ def main():
             res["cohort_A"][str(scheme)] = dict(abs_cap250=float(np.nanmean(ca.mean(3))), abs_incumbent=float(np.nanmean(cb.mean(3))),
                                                 pp=float(t.mean()), i80=stats.interval(b, .8), i95=stats.interval(b, .95), n_orders=1,
                                                 by_person=t[0].tolist())
-            if scheme == "full" and a.a.startswith("cap250"):
+            if scheme == "full":
                 draws_new.append((b, 10))
     ra, rb = cohort_b_ret(a.out, a.a, a.data), cohort_b_ret(a.out, a.b, a.data)
     if ra is not None and rb is not None and np.isfinite(ra["cell"]).any() and np.isfinite(rb["cell"]).any():
