@@ -19,14 +19,16 @@ from lopo_b4 import FAM  # noqa: E402
 
 d = protocol.load(())
 x = torch.from_numpy(np.asarray(d["X"][:1], dtype=np.float32))
+dev = torch.device("cuda")
 res = dict(gpu=torch.cuda.get_device_name(), torch=torch.__version__, input=list(x.shape))
 for fam, (cfg, k, _) in FAM.items():
     run_cv.SEED[0] = 0
     net = session_bn.make(cfg, d, 0)
+    net.epochs, net.init = 1, None  # architecture only: no trunk file needed for timing
+    net.fit(np.arange(0, len(d['y']), 4))  # builds the net and swaps in SessionBN; the weights are irrelevant for timing
     sn = session_bn.to_stream(net.net, k)
-    dev = torch.device("cuda")
-    ts = torch.jit.trace(sn, x, check_trace=False).to(dev).eval()
     xd = x.to(dev)
+    ts = torch.jit.trace(sn.to(dev).eval(), xd, check_trace=False)
     with torch.no_grad():
         for _ in range(100):
             ts(xd)

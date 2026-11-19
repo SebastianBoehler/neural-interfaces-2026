@@ -14,7 +14,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "laneC"))
 from oracle import ORDER_SHA, metadata, metric_weights, require, sha  # noqa: E402
 
-FAMS = {"raw": 12, "eafbc": 12, "fblight": 12, "sinc": 4}
+FAMS = {"raw": 12, "eafbc": 12, "fblight": 12, "sinc": 6}
 ALL = tuple(f"P{i:02}" for i in range(1, 11))
 ORDERS = [f"full{i}" for i in range(8)]
 
@@ -69,14 +69,14 @@ def banks(root, work):
                 curve[K] = dict(mean=float(np.mean(v)), sd_over_subsets=float(np.std(v)))
             rep[fam] = dict(seeds=seeds, ba_per_seed_mean_over_orders=per.mean(1).round(3).tolist(),
                             sd_seed_ba=float(per.mean(1).std(ddof=1)), sd_seed_ba_within_order_mean=float(per.std(0, ddof=1).mean()), curve=curve)
-            if fam == "raw":
-                for K in (3, 6, 12):
-                    if len(seeds) >= K:
-                        e = dict(index=sb[0]["index"])
-                        for o in ORDERS:
-                            e[o + "_members"] = np.stack([sb[s][o] for s in range(K)]); e[o] = e[o + "_members"].mean(0); e[o + "_delivery"] = sb[0][o + "_delivery"]
-                        np.savez(work / f"ensemble_R{K}_held_new.npz", **e)
-                        rep[fam][f"R{K}_sha"] = sha(work / f"ensemble_R{K}_held_new.npz")
+            tag = "R" if fam == "raw" else fam  # raw keeps the R3/R6/R12 names used by the first replays
+            for K in (3, 6, 12):
+                if len(seeds) >= K:
+                    e = dict(index=sb[0]["index"])
+                    for o in ORDERS:
+                        e[o + "_members"] = np.stack([sb[s][o] for s in range(K)]); e[o] = e[o + "_members"].mean(0); e[o + "_delivery"] = sb[0][o + "_delivery"]
+                    np.savez(work / f"ensemble_{tag}{K}_held_new.npz", **e)
+                    rep[fam][f"E{K}_sha"] = sha(work / f"ensemble_{tag}{K}_held_new.npz")
     (work / "laneB4_standalone.json").write_text(json.dumps(rep, indent=2) + "\n")
     print(json.dumps({f: {k: v for k, v in r.items() if k != "curve"} | {"curve": {K: round(c["mean"], 3) for K, c in r["curve"].items()}} for f, r in rep.items()}, indent=1))
 

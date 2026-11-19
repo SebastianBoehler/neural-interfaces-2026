@@ -61,7 +61,7 @@ def run(fam, seed, held, work):
                 r = rows[d["stream"][rows] == st]
                 pr = net.predict_proba_stream(r)
                 assert np.isfinite(pr).all() and (pr >= 0).all()
-                np.testing.assert_allclose(pr[:3], net.predict_proba_stream(r[:3]), atol=1e-4, rtol=0)  # causal prefix
+                np.testing.assert_allclose(pr[:3], net.predict_proba_stream(r[:3]), atol=5e-4 if fam == "fblight" else 1e-4, rtol=0)  # causal prefix (FBLight float noise 1.2e-4 batch vs one-window; a leak would be >1e-2)
                 post[np.searchsorted(query, r)] = pr
             out[o], out[o + "_delivery"] = post, rows
     stem = work / f"b4_{fam}_{seed}_{held}"
