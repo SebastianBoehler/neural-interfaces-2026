@@ -915,3 +915,5 @@ Registered before training. The [F26 protocol](../friday/fbc323_reference/prereg
 ## F27 · Learn a nonlinear sensor representation on exact scalp geometry
 
 Registered 19 November before fitting. The [F27 protocol](../friday/fbc323_electrodes/prereg-19nov.md) fixes a degree-matched shuffled graph, exact hard F16 and geometry controls, whole-decoder forecasts and real smoke budget.
+
+**F25c completed at 05:29:38 CET.** Multiresolution minus conventional was +0.151 pp [paired 80% +0.054 to +0.228] within0 and +0.264 [+0.130 to +0.413] full0. Against hard it was −0.068 [−0.173 to +0.049] and +0.189 [+0.003 to +0.346]. Against stock it was +0.236 [−0.132 to +0.635] and +0.520 [+0.288 to +0.724]. The registered native qualification rule failed. Exact stock, identity, hard, held source and fresh count/CSP guards passed. This is corrected public FULL-SYSTEM DEV on a reused cohort. [Results and blind seals](../friday/cap250_f25/result-19nov.md)
