@@ -328,3 +328,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - Galvani real held smoke `3134002` started at 05:25:06 CET. Ferranti source array `511456` waits for both smokes, with held replays `3134003` and collector `3134004` behind authenticated dependencies. Actor `b93711fe591771ffdd51dff50f4b07a7a21d3e1500635ebdfaecfabde818c2d2`, scorer `fdc72508bb8439512b015698da05e5c8d435fd14310ccfddfb87a57a3b80a023`. The controller is `bash friday/fbc323_reference/run_dependencies.sh 511455 511456 3134002 3134003`. [Preregistered test](fbc323_reference/prereg-19nov.md)
 
 - F25c completed at 05:29:38 CET. Multiresolution beat matched conventional at equal mass in both corrected deliveries. Its stock and hard comparisons did not satisfy the two-order native gate. [Signed full-system results](cap250_f25/result-19nov.md)
+
+### Overnight nonlinear electrode representation F27
+
+- Ferranti real H100 source smoke `511476` passed in 18 seconds. Source array `511477` waits for Galvani `3134042` independent held smoke, then held folds `3134043` and collector `3134044`. The independent relay is `bash friday/fbc323_electrodes/run_dependencies.sh 511476 511477 3134042 3134043`. Both source and held waves are capped at four concurrent folds. [F27 protocol and thresholds](fbc323_electrodes/prereg-19nov.md)
+- Inspected H100 32-window times were 1.825 ms hard, 2.403 ms physical and 2.388 ms scrambled with 0.856 GB peak reserved. All 1,476 coefficients activated under both topologies. F16 hard bytes match exactly. Release names end in `s1c_electrodes_20261119`. Source actor and held scorer manifests `4629f3dfa3b0d4d443de6599b7b2812e6e76cb0a479a60a0a15220c2cfae1332` and `dc0645c6d9c8f51245899943bef712c72f616fbcb2110b224100751a0aef9f10`.
