@@ -11,7 +11,7 @@ from plot import BLUE, INK, MUTED, TEAL, save
 HELD = "23859db5ca29af650a9e0bda6bf86971a214c02b98fb7f4a54374faeec6519d6"
 HELD_A100 = "01cef60a3838299076d23d761e67cd2e00724c4996062ed6e1fb81a761805dae"
 RETURNING = "811d15ace58f38726d91692c7729ab26c177054868d700677203fc6a28a511d4"
-EXTERNAL = "9102f588e0f60772ab02d004e51bd686ad69c66ed0f8f641175ca926b9df25cf"
+EXTERNAL = "53e4a3b5b0d08a44b16e9beb94b764aab769da1f7701f494ba21449783c8aba0"
 G = "c94bfff42f87d4ddd3832d00fb433f7243544eeca44bc7ebc753469a99ede861"
 P10 = "ae050c0e7de043a43d5948c01201d96add7e8c0a1e6c89ba00f8f225c44582e3"
 
@@ -26,7 +26,7 @@ def plot(folder, direct_sha):
         ("Held-new · within0", held["within0"]["contrasts"]["hard_minus_stock"]),
         ("Held-new · full0", held["full0"]["contrasts"]["hard_minus_stock"]),
         ("Returning · P04/P10 at 20/80", returning),
-        ("External · shared inputs", dict(pp=pool["pooled_pp"],paired80=pool["paired80"])),
+        ("External · six shared-input orders", dict(pp=pool["pooled_pp"],paired80=pool["paired80"])),
         ("External · exact ZIPs", direct),
     )
     fig, (accuracy,runtime)=plt.subplots(1,2,figsize=(12,4.8),layout="constrained",

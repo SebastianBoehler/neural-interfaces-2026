@@ -52,6 +52,12 @@ Release `ni26_friday_f35d_held_stages_20261119`. Source SHA-256 `1a1a64c1a11b683
 
 V2 adds the row-aligned decisions to the pre-label receipt by digest. Its **10:23:57 CET** result reproduced every v1 statistic exactly. Release `ni26_friday_f35d_held_stages_v2_20261119`, source `8e5a82e6d6fdb0b107ff298a7697ee498176d7455142c41287a6c2128c98cecd`, before-labels `931aaea95e42dcb420a0bc1d1a45db0c560e8c570a028d2c98cf3a27a4f394c8`, score `cd3780d6928782f1049e415394771bb3a81fcfd8b80101104d8438edbfb538d6`. Smoke `3135650` and score `3135651` passed.
 
+### CountFilter history opportunity
+
+The corrected §228c CountFilter latched on 2,005 within0 rows across 14 sessions and 308 full0 rows across two sessions. Its exponent is 2 and its class floor is 1e−9. Candidate CSP uses the candidate's own earlier raw probabilities for fitting. Sharing a stock history only changes the current count prediction within these fixed trajectories. On latched rows, divide the original filtered probabilities by the current outer likelihood to obtain the relative prior. The range of the three log prior corrections bounds the maximum change in terminal log-odds. Normalization and the existing CSP floor do not expand it.
+
+The existing top-two terminal margins put a label-free upper bound of **four within0 and two full0 changes** for balance from switching to stock count history. Hard has at most eight and one, and mirror has at most five and one. This uses the pinned existing F35c trajectories and the corrected held-new CountFilter thresholds. It emits no new counterfactual classes and opens no labels. The limited opportunity does not justify running a complete new CountFilter-history variant on these actors.
+
 ## Read-only bound on sharing stock CountFilter history
 
 Measured on the same signed F35c corrected held-new banks. The §228c `J-wprior` owner latched all 14 within0 sessions for 2,005 affected rows and sessions 2 and 7 at age 40 on full0 for 308 affected rows. Stock, hard, balance and mirror had identical latch times and affected-row masks. Every routed raw probability was above the urn's `1e-9` floor. The count result on a latched row factors as the normalized product of the strict-past predictive urn mixture and the current raw posterior raised to `tau=2`. Dividing the existing filtered posterior by that likelihood recovers the predictive mixture up to a common scalar. The corrected held-new owner uses source-excluded projections and urn priors. Its rows establish this bound only for that instrument.
