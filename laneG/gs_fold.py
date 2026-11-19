@@ -38,7 +38,7 @@ def main(out):
     D = K.public()
     for who in ("P04", "P10"):
         src = BUNDLE / f"{who}_s23" / "base"
-        with TemporaryDirectory() as tmp:
+        with TemporaryDirectory(dir="/work") as tmp:
             zp = Path(tmp) / "p.zip"
             with zipfile.ZipFile(zp, "w") as zf:
                 for n in ("weights.npz", "submission.py"):

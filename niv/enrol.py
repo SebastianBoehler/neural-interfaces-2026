@@ -72,7 +72,21 @@ def own_arrays(X, y):
                 own_t_c=lr.intercept_, own_c_W=m.C.coef_, own_c_c=m.C.intercept_, own_s_W=m.S.coef_, own_s_c=m.S.intercept_)
 
 
-def person_rows(directory, z, X, y):
+def gs_member(directory, z, X, y):
+    """Lane G gS: own_s_W/c of this person from the g4 fit (noise-augmented replicas, causal statistics) on the enrolled visit only."""
+    import sys
+    sys.path.insert(0, str(ROOT / "laneG"))
+    import common as K  # laneG
+    import fit as F
+    spec = importlib.util.spec_from_file_location("niv_gs_pkg", Path(directory) / "submission.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    D = dict(X=np.asarray(X, np.float32), y=np.asarray(y).astype(int), person=np.array(["N"] * len(y)), visit=np.ones(len(y), int))
+    a = F.fit(mod, z, K.OwnFeat(z), D, "N", (1,), "g4")
+    return {k: a[k] for k in ("own_s_W", "own_s_c")}
+
+
+def person_rows(directory, z, X, y, own_s="stock"):
     ns = {"np": np, "CLIP": 4.0}
     _functions(ROOT / "replay/rlib2.py", ("rstats", "rz", "contrast", "onehot"), ns)
     y = np.asarray(y).astype(int)
@@ -96,15 +110,20 @@ def person_rows(directory, z, X, y):
     sig = np.mean([feat(x) for x in X], 0)
     rows["bio_gal"] = (((sig - z["bio_mu"]) / z["bio_sd"]) @ z["bio_V"])[None]
     rows["bio_m"] = np.array([1])
-    rows.update({k: v[None] for k, v in own_arrays(X, y).items()})
+    own = own_arrays(X, y)
+    if own_s == "g4":  # opt-in (NIV_OWN_S=g4); default "stock" is the recipe of every earlier NI-V arm
+        own.update(gs_member(directory, z, X, y))
+    elif own_s != "stock":
+        raise ValueError(f"own_s {own_s!r}: expected stock or g4")
+    rows.update({k: v[None] for k, v in own.items()})
     return rows
 
 
-def enrol(zip_in, zip_out, X, y, name):
+def enrol(zip_in, zip_out, X, y, name, own_s="stock"):
     with TemporaryDirectory() as tmp, zipfile.ZipFile(zip_in) as zi:
         zi.extractall(tmp)
         z = dict(np.load(Path(tmp) / "weights.npz", allow_pickle=False))
-        rows = person_rows(tmp, z, X, y)
+        rows = person_rows(tmp, z, X, y, own_s)
     n0 = len(z["route_names"])
     for k, v in rows.items():
         if k == "route_names":

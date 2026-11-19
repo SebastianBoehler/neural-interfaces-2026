@@ -193,3 +193,14 @@ Prediction: weighted (0.2 P04 + 0.8 P10) gain +0.2 pp, equal-cell +0.2, P04 +0.3
 product gain shrinks, and P10 recognition is late, age 28); full-order primary within 0.1 of the all-order mean. 80 % interval about +-0.5.
 Refutation rule: weighted gain with 80 % lower bound (orders resampled within person, 4000 draws) <= 0 -> do not upload gS (people+orders nested
 interval of 2 people reported, descriptive). An interval straddling 0 with positive mean is "undecided", not closed (AGENTS).
+
+### Result (19 Nov, jobs fold fit 3137977, smoke 3138098, array 3138099 (32/32), collector 3138100; `summary.json` in the release)
+
+Sanity: zero arm == authenticated native zero (asserted on all 32 tasks); ctl (cap250 vs cap250 through the same path) minus stock = exactly 0.0 BA and bitwise-equal tapes;
+gates, mix, recognition identical; gS changed scores on routed windows (no silent no-op) and flipped 21 window decisions in total over 32 cells.
+gS minus stock (pp, 8 orders, visit-1-only g4 S row): P04 **-0.13** [80 % orders -0.36, +0.10], P10 **+0.03** [-0.03, +0.10], weighted 0.2/0.8 **-0.0004** [-0.07, +0.07],
+equal-cell -0.05 [people+orders nested -0.20, +0.07]; full0/full1 weighted -0.02; 5/8 orders non-negative. Prediction was +0.2 weighted: missed (effect is ~0, not a
+shrunk positive). Rule: weighted 80 % lower bound -0.07 <= 0 -> **do not upload gS**. Reading: the S member enters at beta 0.1 x ramp, 21 decisions in ~3000
+windows; the individual-model +0.66 does not carry to the full system (selection bias plus beta 0.1). Not "closed" as a direction (instrument: 2 people, one training
+visit), but gS has no measurable full-system value. NI-V arm `niv/enrol.py` option `own_s="g4"` (env `NIV_OWN_S=g4` in build_enrolled.py; default stock unchanged) is
+written but its cluster smoke (3138139) was cancelled unrun, and the Scherer returning arm was not run: untested code.
