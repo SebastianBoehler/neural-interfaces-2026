@@ -169,3 +169,27 @@ returning people. Prediction: B-new delta ~0 (|d| < 0.2 pp; recognition identica
 +0.66 shrinks by the beta 0.1 weight and selection bias), sealed-weighted (0.57 new / 0.43 ret) about +0.1. Refutation rule: returning-arm delta 80 % lower
 bound <= 0 AND sealed-weighted 80 % lower bound <= 0 -> do not upload gS. Veto: any new-arm delta 80 % upper bound < -0.3 or a zero-routing recognition change. Scherer instrument limits
 (22/41 interpolated channels, stock BA ~47 %) apply: sign and veto evidence only. Dev P04/P10 full-system returning replay: no scorer exists (NIV.md: not recomputed); not run.
+
+## Result: NI-V score of gS vs cap250 is null BY CONSTRUCTION (silent no-op, 19 Nov); gS is NOT tested there
+
+`niv/enrol.py` (`person_rows` -> `own_arrays`) rebuilds `own_s_W/own_s_c` (all `own_*`) for every enrolled Scherer person and appends them
+as new rows; gS only replaced rows of the ten PUBLIC people, which a Scherer person never routes to as the own stage (a returning Scherer
+person is enrolled as row 11+). The NI-V delta gS minus cap250 is therefore exactly 0.00 (`ni26_niv_v1_20261119/out/report_laneG_gS_vs_cap250.json`,
+jobs 3137801-3137805). That is no evidence for or against gS; the NI-V pre-registration above did not apply. gS acts only for the 10 public
+people (P04, P10 are the only ones with held visits), so the next section scores it there.
+
+## Full-system returning score of gS (pre-registered 19 Nov, before any number; Lane A instrument)
+
+Instrument: Lane A's returning replay (`laneG/gs_worker.py` on `laneA/dose_worker.py` machinery, release
+`/mnt/lustre/work/gehler/gfh527/ni26_laneG_gs_returning_20261119`): fold packages P04_s23/P10_s23 (visit 1 enrolled, visits 2, 3 held), causal EA
+members, real refits, count filter, 8 orders (within0-3, full0-1, runs0-1; full0/full1 = full-shuffle primary), cells P04|2, P04|3, P10|2, P10|3.
+gS arm = stock fold package with ONLY the held person's `own_s_W/c` row replaced by the g4 fit on VISIT 1 ONLY (the production gS used all
+visits and would leak the held ones; it is not what is scored here). Arms: stock, ctl (stock row rewritten through the same code path),
+gS. Gain = gS minus stock per (order, cell). Limits: two people, one training visit (production gS sees three for P04/P10), gS was selected on
+the same individual-model dev (selection bias remains; the held visits and the g4 recipe are the same instrument family).
+Sanity (fail loudly): zero arm == authenticated native zero; ctl == stock bitwise on every tape and exactly 0.0 BA; gates, mix and recognition tapes
+identical; gS must change scores and at least some decisions on routed windows.
+Prediction: weighted (0.2 P04 + 0.8 P10) gain +0.2 pp, equal-cell +0.2, P04 +0.3, P10 +0.1 (the own stage enters at beta 0.1 x ramp; the +0.66 individual
+product gain shrinks, and P10 recognition is late, age 28); full-order primary within 0.1 of the all-order mean. 80 % interval about +-0.5.
+Refutation rule: weighted gain with 80 % lower bound (orders resampled within person, 4000 draws) <= 0 -> do not upload gS (people+orders nested
+interval of 2 people reported, descriptive). An interval straddling 0 with positive mean is "undecided", not closed (AGENTS).
