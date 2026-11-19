@@ -1324,3 +1324,5 @@ Registered before new predictions. Few noisy pseudo-labeled rows determine each 
 ## F34 · Higher-capacity causal envelope morphology
 
 The [F34 protocol](../friday/fbc323_envelope/prereg-19nov.md) fixes the parallel supervised analytic-envelope and matched real-power branches, full F33a A100 hard reference, label separation, phase and capacity controls, budgets and paired held decisions before fitting.
+
+**F-C22e completed at 09:27:24 CET.** Exact combined multiresolution vs stock −0.017 pp [paired 80% −0.370,+0.324], vs FBL2 +0.093 [−0.179,+0.364], vs matched conventional combination −0.026 [−0.192,+0.139]. All three primary points miss external qualification. A descriptive conventional-only point was +0.354 pp versus stock. The CPU waveform group uses independent A100 source fits and authentic RTX native tails. [External factorial](../friday/cap250c22_external/result-19nov.md)
