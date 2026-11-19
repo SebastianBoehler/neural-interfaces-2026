@@ -1392,3 +1392,14 @@ Registered 19 November 2026 before alternate predictions. F-C25q supplied two in
 ## F36 · Same-session reciprocal raw waveform crossfade
 
 The [preregistered F36 design](../friday/fbc323_crossfade/prereg-19nov.md) records the older actual Wave 8 segment-reconstruction path and matches useful smooth source trial mixing against active same-trial time transfer at exact per-window raw displacement. The original native inference, source roster, batches and blinded held metric remain fixed.
+
+## F35d · Trace the observed balance effect through the complete held stack
+
+Retrospective, registered after viewing the F35 standalone and complete terminal scores and before opening the intermediate scores. Use the original fit-excluded F35c native trajectories on within0 and full0. For each of the two fixed deliveries, measure the official cell metric after actual outer routing, after CountFilter and after CSP fusion. Reauthenticate both exact stock and hard trajectories at every stage, verify identity and pin the complete terminal measurements. Seal each stage's row-aligned class decisions before opening labels for this analysis. Use the original paired people draws to estimate differences in paired effects between stages. Primary contrast is balance minus A100 hard. Mirror minus hard and balance minus mirror use the same banks as fixed controls. No fresh fitting, gate, parameter selection or alternate qualification.
+
+Prediction in percentage points for outer raw balance minus hard: +0.10 within0 [−0.29,+0.49] and +0.25 full0 [−0.10,+0.60]. Expect terminal minus outer raw contrast −0.37 within0 [−0.72,−0.02] and −0.10 full0 [−0.40,+0.20]. The specific attenuation hypothesis is weakened if outer raw within0 is already ≤−0.20 pp or if the paired interval for terminal minus outer raw includes zero. Decompose CountFilter and CSP contributions descriptively. This reuses selected people and derives stage readouts from complete live executions. A stage delta attributes where class decisions change, with earlier trajectory effects carried through each stage.
+
+
+## F-C31a · Capture the actual source contribution at the native 5/6 mixer
+
+The [prospective diagnostic](../friday/cap250_mix_objective/prereg-19nov.md) fixes exact cap250, one full0 PROTEUS source delivery, native mix6/current-window and private terminal replay checks, row-wise candidate controls and numerical gradient criteria. The source capture preserves production exposure and remains distinct from a nested held-new instrument.
