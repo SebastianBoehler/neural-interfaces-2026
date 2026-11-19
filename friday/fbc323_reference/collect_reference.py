@@ -4,7 +4,7 @@ import json
 import numpy as np
 
 from anchors import DATA_SHA, ORIGIN_SHA, PEOPLE, sha
-from held import ACTOR, F16, paired
+from held_reference import ACTOR, F16, paired
 from reference_map import ARMS, HERE, KINDS, MODES
 from replay_f13 import DATA, ORDER_SHA, ORDERS, ROOT, origin_report
 from source_targets import TOL

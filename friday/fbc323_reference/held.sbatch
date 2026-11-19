@@ -24,12 +24,12 @@ printf '%s\n' '7ed98f96ba6b05165a1bc035a20af0d7dc516b9b1d61c82533abcc85ecbf2372 
 export PYTHONPATH="$origin:$origin/experiments:$origin/studies/14nov/newmember:$f14:$f16:$f17"
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 CUDA_VISIBLE_DEVICES=''
 case "${1:?expected smoke, matrix or collect}" in
-    smoke) "$PY" -B held.py P01 0 --smoke ;;
+    smoke) "$PY" -B held_reference.py P01 0 --smoke ;;
     matrix)
         id=${SLURM_ARRAY_TASK_ID:?}
         printf -v held 'P%02d' "$((id%10+1))"
-        "$PY" -B held.py "$held" "$((id/10))"
+        "$PY" -B held_reference.py "$held" "$((id/10))"
         ;;
-    collect) "$PY" -B collect.py ;;
+    collect) "$PY" -B collect_reference.py ;;
     *) exit 2 ;;
 esac
