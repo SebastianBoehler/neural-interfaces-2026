@@ -27,3 +27,20 @@ def task_labels(name, names, y):
     assert y.min() >= 0 and y.max() < len(names), f"{name}: y outside the {len(names)} named classes"
     lut = np.array([TASK.get(c, -1) for c in names])
     return lut[y]
+
+
+# Own-head corpora (lane B6): labels stay corpus-local (one head per corpus, pretrain.py), so the map is name -> local index.
+# Every raw event name must be one of the corpus's classes; anything else raises. ``classes`` in the npz is the
+# name list in local index order and is asserted equal to OWN_HEAD[corpus] by the pretrain wrapper.
+OWN_HEAD = {"ds007221g": ["feet", "left_hand", "rest", "right_hand"],   # Graz group: hand / feet / rest
+            "ds007221lr": ["left_hand", "right_hand"],                  # Hybrid + Hybrid-online people, Graz-paradigm condition only (no flicker / video)
+            "netbci": ["rest", "right_hand"]}
+
+
+def own_head_labels(name, events):
+    """Raw event names (iterable of str) -> local indices; any name outside OWN_HEAD[name] raises."""
+    classes = OWN_HEAD[name]
+    ev = [str(e) for e in events]
+    unknown = sorted(set(ev) - set(classes))
+    assert not unknown, f"{name}: unmapped event name(s) {unknown}; classes are {classes}"
+    return np.array([classes.index(e) for e in ev], int)

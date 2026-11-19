@@ -49,6 +49,13 @@ class ClassMapTest(unittest.TestCase):
                 class_map.class_names("shin2018", {"classes": np.array(["S16", "S32"])})
             self.assertIn("classes", z.files)
 
+    def test_own_head_map(self):
+        self.assertEqual(class_map.own_head_labels("ds007221lr", ["right_hand", "left_hand"]).tolist(), [1, 0])
+        y = class_map.own_head_labels("ds007221g", ["rest", "feet", "left_hand", "right_hand"])
+        self.assertEqual(y.tolist(), [2, 0, 1, 3])
+        with self.assertRaises(AssertionError):
+            class_map.own_head_labels("netbci", ["right_hand", "mystery"])
+
 
 if __name__ == "__main__":
     unittest.main()
