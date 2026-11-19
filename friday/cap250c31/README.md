@@ -15,3 +15,17 @@ Primary forecasts, FULL-SYSTEM EXTERNAL DEV selection on existing complete traje
 Galvani `3135612` passed in 13 seconds. Both exact CPU actors reproduced the signed G fixture bitwise on all 120 nominal windows. Their seven mutable history tensors matched the independent unprobed copy at every age, and the repeated 17-row prefix matched after a different visit. The local view moved actor probabilities by up to 0.676005. Smoke SHA-256 `079b4841041ec832e48277c67ffa8668d6e5622f5e5a0caa519ebb513582231c`.
 
 Release `ni26_friday_c31_reconstruction_probe_v1_20261119`. Nine person probes `3135615` ship immutable actor banks. Independent scorer `3135616` depends on all nine. Source manifest `8ced06aaa80be31a783cec2b3d269c5048cfe07e570ecd0ff5c201dd177a50b3`. Scorer manifest `67247984f34e6cedaae2416529ca4b3497a838245e137e84d896d3b8d5db4f40`.
+
+## Full-system external result · 19 November 2026, 10:23:32 CET
+
+Current-window reconstruction sensitivity did not improve selection between the exact completed hard and stock systems. It lost to hard on both deliveries and refuted the positive contrast against the one-window-lag sham. This retrospective instrument reused Scherer people and orders but tested a new fixed cue without fitting to them. The result leaves the exact hard and stock trajectories as the reference comparisons.
+
+| Contrast | Pooled pp [paired 80%] | Order 22411 / 23411, pp |
+|---|---:|---:|
+| Current probe − exact hard | −0.112 [−0.370, +0.146] | −0.132 / −0.093 |
+| Current probe − lagged sham | −0.023 [−0.069, 0.000] | −0.046 / 0.000 |
+| Current probe − exact stock | −0.063 [−0.324, +0.192] | −0.126 / 0.000 |
+| Gold among current flags − hard | +0.261 [+0.116, +0.433] | +0.238 / +0.284 |
+| Gold among all disagreements − hard | +0.701 [+0.420, +1.019] | +0.655 / +0.747 |
+
+The current cue switched 32 of 74 eligible calls, fixing 11 and breaking 16. The sham switched 34, fixing 12 and breaking 16. One age-zero disagreement was protected. The local waveform view changed 2,005 hard pupil-mean decisions over 4,260 windows, with maximum absolute per-pupil probability change 0.870390. The parent stock repeats and inactive hard arm stayed exact. All nine worker jobs passed in 26–35 seconds each. Scorer `3135616` checked all official cells and finished in six seconds. Before-label decision seal `4336cc1589335ea67bc1352bac6b8279e65c3211b0eb0d0f1da8d082cfa42a44`. Score SHA-256 `44c37a2e14e9ae7e72b995c7daac7fbd0d089bc025316c6a0b11aae6c49add03`.
