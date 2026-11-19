@@ -33,7 +33,7 @@ def revised(source):
     return code.encode("utf-8")
 
 
-def assemble(frozen, output):
+def assemble(frozen, output, patch=revised):
     if digest(frozen) != ZIP_HASH:
         raise ValueError("frozen cap250 ZIP digest differs")
     if frozen.resolve() == output.resolve() or output.exists():
@@ -50,7 +50,7 @@ def assemble(frozen, output):
             for entry in original.infolist():
                 content = original.read(entry.filename)
                 if entry.filename == "submission.py":
-                    content = revised(content)
+                    content = patch(content)
                 pending.writestr(copy(entry), content)
         with ZipFile(temporary) as verified:
             if verified.namelist() != names or verified.testzip() is not None:
