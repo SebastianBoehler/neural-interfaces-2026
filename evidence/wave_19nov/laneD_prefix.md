@@ -143,3 +143,9 @@ Leonardo accepted smoke **64847774**, eight-order array **64847775** and collect
 **64847776**. Release `$WORK/ni26/runs/ni26_lane_d_prefix_20261119`, source manifest SHA-256
 `e9f914abfbf3077cc91b27dd9a4ec3e720c1fa5728380b8003c4f9ad4e3b66e4`. The smoke was pending
 priority at submission. Galvani's RTX run is recorded as a failed conformance attempt.
+
+Leonardo smoke 64847774 stopped at import because the training environment lacked Benchopt.
+The retry uses the existing official `.venv312` replay environment. Jobs **64848178** (smoke),
+**64848179** (array) and **64848180** (collector) use release
+`$WORK/ni26/runs/ni26_lane_d_prefix_v2_20261119` and manifest
+`c43891e6e88006a9c59d74adec82b3d43ac4b005bbc2087fabbb7b653d9df000`.
