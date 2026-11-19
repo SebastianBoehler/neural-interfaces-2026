@@ -34,6 +34,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import class_map
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "2026-competition/tracks/bci_decoding"))
@@ -84,9 +85,13 @@ def load(external=()):
         name, *opts = token.split("~")
         with np.load(ROOT / "data" / name / "windows.npz") as f:
             assert (f["ch_names"] == d["ch_names"]).all()
-            n = len(f["y"])
-            ext = {k: f[k] if k in f.files else np.full(n, "external")
+            ext = {k: f[k] if k in f.files else np.full(len(f["y"]), "external")
                    for k in d if k not in ("ch_names", "w", "nolow")}
+            ext["y"] = class_map.task_labels(name, class_map.class_names(name, f), f["y"])
+        keep = ext["y"] >= 0  # rest / baseline rows are no task class: dropped here, never relabelled
+        ext = {k: v[keep] for k, v in ext.items()}
+        n = int(keep.sum())
+        assert n, f"{name}: no task-class rows"
         ext["w"] = np.full(n, float(next((o[1:] for o in opts if o[0] == "w"), 1)))
         ext["nolow"] = np.full(n, "m" in opts)
         if "n" in opts:
