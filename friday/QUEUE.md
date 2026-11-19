@@ -516,14 +516,13 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - The reconstruction selector scored at 10:23:32. Current cue −0.112 pp versus hard and −0.023 pp versus the one-window-lag control. It fixed 11 and broke 16. [F-C31 signed result](cap250c31/README.md)
 - F35x scorer `3135592` completed at 10:27:32. Balance tied matched A100 hard and trailed H100 hard by an uncertain 0.093 pp. Six-order H100 pooling with the same signed actors completed at 10:30:40. Hard gained +0.220 pp [paired 80% +0.018,+0.432] versus stock on the same nine external people. The independent exact ZIP result remains +0.050 pp and the numerical veto persists. [F35x](cap250_balance_external/README.md) · [Six-order reconciliation](cap250_hard_pooled/result-19nov.md#six-order-extension--19-november-103040-cet)
-- F36 scorer `3135632` passed at 10:30:15. Reciprocal cross-trial minus native hard was −0.094/+0.619 pp across seeds. Single-trial matched raw changes had +0.389/+0.444 pp points with both intervals spanning zero. The follow-up checks the same control in the complete system.
-
-- F36 whole decoder collector `3135632` completed at 10:30:15 CET. All 20 matched A100 and CPU folds passed. Bounded cross-trial minus exact hard −0.094/+0.619 pp and minus matched same-trial −0.483/+0.175 pp, both undecided. [Signed result](fbc323_crossfade/result-19nov.md)
+- F36 whole decoder collector `3135632` completed at 10:30:15 CET. All 20 matched A100 and CPU folds passed. Bounded cross-trial minus exact hard was −0.094/+0.619 pp and minus matched same-trial was −0.483/+0.175 pp, both undecided. Same-trial gained +0.389/+0.444 pp with both intervals spanning zero. [Signed result](fbc323_crossfade/result-19nov.md)
 
 ### F36c corrected cap250 with both F36 pupils
 
 - Fresh original recording-order `replay/check.py` printed OK. Native CPU P01 pupil smoke `3135705` passed both orders and bitwise F-C22h hard posteriors. Smoke bank `5936859778fe38589bf6e5bd178bc32e92a266f8bb02b5465a91de6a43ab1dcd`. [Preregistered comparison](cap250_f36/prereg-19nov.md)
 - Galvani `3135713` replays all 20 fit-excluded pupil pairs. Corrected full0 native pilot `3135714` gates `3135715/3135716` within0/full0, then independent blind collector `3135717`. Release `ni26_friday_f36c_held_20261119/jobs.txt`. Pupil `577fddd5a31ddc6248e7e8ca4679acb8a948f543f726ee06c071c1693c61db83` and whole `f346e2cb9d1de08a93c631fd46be50aa978cb129ae15ac208dcb4a7979f844a1`.
+
 ### Thursday 19 November, 10:41 CET
 
 - F36c real 379-row corrected pilot `3135714` passed. All twenty fit-excluded pupils reproduce fixed standalone decisions and the same-device A100 hard anchor. Corrected within0/full0 jobs `3135715/16` and independent scorer `3135717` follow. [Exact stack protocol](cap250_f36/prereg-19nov.md)
@@ -538,3 +537,20 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F-C31c has 11 of 14 source captures complete. The source-tape seal `3135712` gates A100 fit smoke `3135760` and three matched source-only continuations `3135761`. The separate CPU export and exact native RTX smoke gate external array `3135789` and blind collector `3135790` on fresh delivery seeds 29411/30411. Earliest score estimate **11:10–11:20 CET**, conditional on the source proof, fit, export and RTX capacity. [Conditional objective](cap250_mix_objective/fit-design-19nov.md)
 
 - F36c completed at 10:46:58 CET. Native pilot `3135714` passed, both corrected orders `3135715/3135716` reproduced complete stock/identity/hard, and blind collector `3135717` passed. Same-trial −0.233/−0.121 pp vs exact hard within0/full0. Cross-trial −0.124/−0.498 pp vs hard. [Signed result](cap250_f36/result-19nov.md)
+
+### Thursday 19 November, 10:57 CET
+
+- F37 completed all Ferranti and independent CPU work. Bounded beta-control effects vs exact hard were +0.554/+1.086 pp, with positive paired lower bounds at both seeds. Alpha's prespecified effects stayed undecided. F37c pupil smoke `3135869` gates the new whole H100 hard/alpha/beta comparison with cap250. The separate F37e source-only exact all-public fit smoke `511803` gates `511804`. [F37 signed source test](fbc323_spectral_shift/result-19nov.md) · [F37e](fbc323_spectral_shift/all-source-19nov.md)
+- F-C31c sealed all 2,655 rows, all 14 visits and seven exact protected components. F-C31d three continuations and six native CPU exports passed. First external smoke `3135788` stopped before actor load because the copied observer read the wrong receipt fields. Observer-only V2 preserves the signed actors and original guard values. Genuine RTX smoke `3135866` gates nine matched workers `3135867` and scorer `3135868`. Estimated first external result **11:12–11:16 CET** after smoke and allocation.
+- F-C25pdet V3 smoke `3135860` passed. The full paired process diagnostic `3135861` passed the default arm's original signed classes and private stages. This default G repeat stayed below 5e−5. It leaves the prior independent veto in place. Deterministic control remains active.
+
+### F37c corrected cap250 spectral subcomparison
+
+- Fresh recording-order `replay/check.py` matched all six bases. CPU P01 pupil smoke `3135869` passed at 10:58:12 CET, authenticating exact hard arrays against both H100 F-C20 and F32c. Receipt `9255e2d920afcdd1146c80125a561701831b0759290e6c22a15fb3193173c255`. [Registered scope](cap250_f37/prereg-19nov.md)
+- Twenty independent pupil units `3135870` gate corrected native pilot `3135871`, then within0/full0 jobs `3135872/3135873` and blind collector `3135874`. Galvani release `ni26_friday_f37c_held_20261119/jobs.txt`. Pupil `a083c7e18c83b00a8279ca0b3d5157afeec9a03c9513d4564b6b0457fbc5a021` and whole `3bbd8f8e4b6c0b2e38b9b31f6fde5ccf2f6e89a69c6b8822e220dc2ad87f7c62`. Both spectral arms use frozen 5/6 mass and the original H100 native hard control.
+
+### Thursday 19 November, 11:00 CET
+
+- F37e both all-source H100 elements passed, and Galvani reauthenticated all six files. F37c's first pupil smoke passed, with the full corrected result estimated **11:08–11:13 CET**. [All-source fit receipt](fbc323_spectral_shift/all-source-19nov.md) · [F37c](cap250_f37/prereg-19nov.md)
+- F-C31e genuine RTX retry smoke `3135866` passed at 10:58:43. The first four matched external participants began at 10:58:58. The completed-bank collector `3135868` follows all nine. Estimated **11:13–11:16 CET** subject to RTX allocation. [Conditional objective](cap250_mix_objective/fit-design-19nov.md)
+- The paired RTX determinism diagnostic `3135861` completed at 10:57:19. The controlled launch repeated all captured posteriors bitwise. The default launch also passed the original bound. Prior independent archive veto and the exact ZIP evidence stand. [Signed technical result](cap250_hard_determinism/README.md)
