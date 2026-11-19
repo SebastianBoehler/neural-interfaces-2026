@@ -41,3 +41,20 @@ lateralised spatial pattern the net needs). V1 is flat (undecided standalone).
 Prediction standalone vs V0: V2w -0.3 [-2.0,+1.3], V3w -0.2 [-2.0,+1.5] (a rotation that small mostly equals the shipped rot05; expected near zero). Same rules as above.
 Full system will be run for every arm that is not catastrophic standalone (V1, V2w, V3w); V2/V2s/V3 are closed at their registered dose by the standalone -14 to -16 pp
 (no full-system run: a member that loses 14 pp cannot raise a 73.7 % system; stated, not measured).
+
+## Result part 2 (20 Nov ~00:50 CET; Leonardo 64884827 fits V2w/V3w; Galvani 3138902-05, 3138973-76 full0 consumer, dir `ni26_laneV_20261120`; `laneV/paired_v.py`)
+Standalone mean of 8 orders, minus V0: V2w -2.42 [-3.27, -1.70]; V3w -3.03 [-4.33, -1.98] (V1 -0.09 [-0.97, +0.68]). Even the weak chunk-level rotation/shift hurts.
+Full cap250 full0, paired people-only 80 % (V0 itself reproduces Lane H B exactly: +0.038 at 5/6, -0.040 at 1/6; stock 73.74):
+
+| arm | vs cap250, MASS 5/6 | vs cap250, MASS 1/6 | minus V0, 5/6 | minus V0, 1/6 |
+|---|---|---|---|---|
+| V1 | -0.234 [-0.566, +0.102] | -0.114 [-0.191, -0.043] | -0.272 [-0.629, +0.104] | -0.074 [-0.220, +0.060] |
+| V2w | -0.048 [-0.438, +0.361] | -0.005 [-0.122, +0.156] | -0.086 [-0.438, +0.325] | +0.035 [-0.090, +0.171] |
+| V3w | +0.139 [-0.179, +0.422] | +0.033 [-0.086, +0.182] | +0.101 [-0.185, +0.420] | +0.073 [-0.078, +0.226] |
+
+Reading against the rules: nothing is **supported** (no lower bound > 0, standalone V2w/V3w minus V0 < 0). **Refuted by the rule** only where both masses have upper <= 0: none
+strictly (V1 5/6 upper +0.10); V1 is the closest (negative at both). V2/V2s/V3 (registered doses) and V2w/V3w are standalone losses of 2-17 pp; the small full-system
+V3w +0.10 is inside the instrument noise and unsupported by the standalone sign, so **undecided, no build**. Mixup (V1) is neutral standalone and slightly negative in the system.
+Forecast check: standalone predictions missed by 2-15 pp (too optimistic, sign wrong for all spatial transforms); full-system predictions (+0.02 to +0.05) were inside their intervals for V1/V2w/V3w.
+Not covered: dose between V2w and V0 (rot 0.02-0.03), time/frequency-domain virtual subjects, fb/fblight/Sinc families, returning people, all-public deployment fits.
+Reading: random spatial transforms of the EA-whitened space destroy the lateralised pattern; cross-person same-class mixup adds no coverage. Synthetic people did not substitute for the +2.3-3.8 pp real-people slope.
