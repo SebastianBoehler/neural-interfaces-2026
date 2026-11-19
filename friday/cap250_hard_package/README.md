@@ -27,3 +27,21 @@ The v1 G smoke passed all 120 hard decisions, the exact signed pupil oracle and 
 The v1 source manifest is `71df5c17bf6fedf05fa4e3bfabc5f7c29d9350d1aa5e4c944c134753c41781a3`. The G diagnostic release `ni26_friday_c25p_hard_diagnosis_v1_20261119` uses source manifest `012cb9f01cb88baa0cbfdbc311bf3470c4107d5759fc35006cf926d3ae3d8ce2`. It exercised 100 warmed raw rows, 200 protected optimizer steps and 30 CSP fusions. Warm stock A/A FBLight reached 5.88716e−5 at age 106. The independent stock/direct warm FB comparison reached 0.00102144 at age 116. The exact same-input G calculation and both reset checks passed. The independent G posterior comparison remains vetoed at 5e−5.
 
 F-C25pt measures warm runtime of the same frozen archives with the P10 and G receipts pinned. This test keeps the independent G posterior findings and requires the actual signed CPU vectors, emitted decisions and full work on each timed session. [Preregistered runtime scope](../../docs/LEDGER.md#f-c25pt--scope-limited-direct-zip-runtime-on-two-authenticated-fixtures)
+
+## F-C25pt warm RTX result
+
+Both profiles met the original limits of 1.12× mean and 1.15× worst paired elapsed. Each measured pass used the official Solver and a fresh session. All signed classes and native work matched. Each individual CPU vector matched the original signed oracle bitwise on every hard row. The G run executed its 200 optimizer steps and 30 CSP fusions. P10 recognized at age 10. Independent G posterior repeatability still exceeds 5e−5.
+
+| Fixture | Stock elapsed | Trial elapsed | Mean ratio | Worst pair | Completed 19 Nov CET |
+| --- | ---: | ---: | ---: | ---: | --- |
+| G unrecognized | 30.050 / 30.045 s | 31.754 / 31.849 s | 1.05837× | 1.06004× | 09:34:23 |
+| P10 visit 3 recognized | 4.721 / 4.752 s | 5.181 / 5.146 s | 1.09009× | 1.09729× | 09:31:23 |
+
+| Fixture and archive | Restore per pass | First window per pass | Window p95 per pass | Peak GPU reserved |
+| --- | ---: | ---: | ---: | ---: |
+| G stock | 95.8–96.2 ms | 176.6–177.9 ms | 710.4–720.5 ms | 2,602 MiB |
+| G trial | 89.0–94.1 ms | 218.1–219.7 ms | 722.9–726.4 ms | 2,594 MiB |
+| P10 stock | 85.1–96.1 ms | 150.2–156.1 ms | 153.6–153.8 ms | 100 MiB |
+| P10 trial | 90.1–90.7 ms | 195.4–196.3 ms | 165.1–166.6 ms | 100 MiB |
+
+Immutable Galvani release `ni26_friday_c25pt_hard_runtime_v2_20261119` source `d1d4a39ff7aa2aab295fffb7c122d3fbab8abdcf0263d6ec02640250039b3776`. Job `3135142_0` G receipt `c94bfff42f87d4ddd3832d00fb433f7243544eeca44bc7ebc753469a99ede861`. Job `3135142_1` P10 receipt `ae050c0e7de043a43d5948c01201d96add7e8c0a1e6c89ba00f8f225c44582e3`. The earlier runtime harness `3135136` failed receipt preflight because it expected a newer diagnostic field in the older strict P10 receipt. The corrected harness verifies the distinct original schemas and exact hashes. No package bytes or checks changed.
