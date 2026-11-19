@@ -125,19 +125,23 @@ def smoke(stock,trial,cases,index,diagnostic=False):
                 independent_diagnostic_only=diagnostic)
 
 
-def timed_run(template,windows,changed):
+def timed_run(template,windows,changed,expected=None):
     torch.cuda.synchronize()
     torch.cuda.reset_peak_memory_stats()
     tick=perf_counter()
     model=fresh_model(template)
     calls=0
+    pupils=[]
     if changed:
         original=model.hard_probability
 
         def call(raw):
             nonlocal calls
             calls+=1
-            return original(raw)
+            pair=original(raw)
+            if expected is not None:
+                pupils.append(pair)
+            return pair
         model.hard_probability=call
     restored=perf_counter()
     labels,times=[],[]
@@ -152,8 +156,11 @@ def timed_run(template,windows,changed):
     elapsed=perf_counter()-tick
     if any(s.dead for s in (model,model.cf,model.cp)) or model.ft.over or calls!=(len(windows) if changed else 0):
         raise ValueError("timed archive failed or skipped a real CPU actor call")
+    if expected is not None:
+        np.testing.assert_array_equal(np.stack(pupils),expected)
     return dict(seconds=elapsed,restore_s=restored-tick,first_s=times[0],p95_s=float(np.percentile(times,95)),
-                peak_reserved=torch.cuda.max_memory_reserved(),calls=calls,labels=labels,work=replay.activity(model))
+                peak_reserved=torch.cuda.max_memory_reserved(),calls=calls,labels=labels,work=replay.activity(model),
+                exact_cpu_pupils=expected is not None)
 
 
 def timing(stock,trial,cases,index):

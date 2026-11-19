@@ -45,14 +45,16 @@ verify "$probe" b0bc9a635389c4102107dabb9ceb7f13fc4f3a3d9f5ec2b3477160c0d267cc37
 grep -Fx OK "$prior/replay-proof.txt"
 grep -Fx OK "$pair/replay.log"
 mode=${1:?}
+program=(qualify.py "$mode")
 case "$mode" in
     smoke) index=${SLURM_ARRAY_TASK_ID:?};;
     diagnosis) index=0;;
     timing) test -f smoke_0.json && test -f smoke_1.json; index=${SLURM_ARRAY_TASK_ID:?};;
+    runtime_only) program=(runtime_only.py); index=${SLURM_ARRAY_TASK_ID:?};;
     *) exit 2;;
 esac
 mkdir -p "$work/.mpl-cache"
 apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \
   --env OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,MPLCONFIGDIR=/work/.mpl-cache,PYTHONDONTWRITEBYTECODE=1,PYTHONPATH=/f32x:/native:/shared:/v4:/prior:/drift:/probe/friday/cap250_gate_package:/official,TMPDIR=/work \
   --bind "$work:/work:rw,$stock:/stock.zip:ro,$native:/native:ro,$shared:/shared:ro,$owner:/v4:ro,$prior:/prior:ro,$f32:/f32x:ro,$drift:/drift:ro,$probe:/probe:ro,$pair:/rtx_pair:ro,$other:/rtx_other:ro,$known:/known.json:ro,$rtx_known:/known_rtx.json:ro,$repo/2026-competition:/official:ro,$repo/data/scherer2015/windows.npz:/external.npz:ro,$repo/data/proteus_windows.npz:/input.npz:ro" \
-  --pwd /work "$repo/runs/cloud/ni26_worker.sif" python -B qualify.py "$mode" "$index" /stock.zip /work/v66_cap250_hard_trial.zip
+  --pwd /work "$repo/runs/cloud/ni26_worker.sif" python -B "${program[@]}" "$index" /stock.zip /work/v66_cap250_hard_trial.zip
