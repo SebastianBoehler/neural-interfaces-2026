@@ -15,3 +15,13 @@ Rules for every lane (shared checkout on main, several agents work in parallel):
   another agent); until then use the corrected Friday scorer and say which.
 - Report gains labelled FULL-SYSTEM DEV / INDIVIDUAL-MODEL with cohort. Don't close a direction on one weak form.
 - Final report in at most 15 lines: job ids, what ran, numbers, next decisive step.
+
+## Network switch (user, 19 Nov afternoon)
+Soon the user turns eduVPN OFF to use Leonardo. Then Galvani (and likely Ferranti) are unreachable from this Mac:
+already-submitted Slurm jobs keep running, but you cannot submit, monitor or copy results until VPN is back.
+So: get all Galvani/Ferranti submissions in NOW, with collectors running on the cluster (dependency jobs), writing
+results to the cluster work dir. Prepare Leonardo variants of your next steps (see scripts/cloud/leo_*.sh and
+memory notes in docs on Leonardo accounts; use compute nodes via Slurm, never the login node).
+When your Galvani/Ferranti jobs (incl. on-cluster collectors) are submitted, append one line to
+evidence/wave_19nov/QUEUED.md: `<lane> | <cluster> | <job ids> | <expected finish CET> | ready for VPN-off: yes/no`.
+The coordinator tells the user to switch to Leonardo only when every lane says yes.
