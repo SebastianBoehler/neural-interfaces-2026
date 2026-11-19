@@ -355,3 +355,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - Built experimental archive `35bd2d46e129f5c29eef98ace428c92aa95693453507bf4d5fff4436c1ad688e` from exact frozen cap250. The CPU smoke matched all 62 predictions, protected and terminal posteriors, recognition and optimizer work bitwise. No gold was opened.
 - Galvani RTX smoke `3134307` runs the actual archive on the two recognized and unrecognized fixtures. Immutable release `ni26_friday_c21p_package_v1_20261119`, input/source manifest `f0114de7bf6f9a8bb2588799b546a896bc52301d2cfad1e8100aa158bec82da8`. [Registered scope](../docs/LEDGER.md#f-c21p--check-the-executable-fblight-trial-zip-on-the-linux-rtx-worker)
+
+### F29 recurrent waveform feature readout
+
+- Ferranti real P01 smoke `511580` ran after all F28 source students and passed in 11 seconds. Exact F16 hard, caller RNG and zero-residual identity passed. Both learned arms use 432,911 trainable parameters. H100 32-window medians 1.754 ms hard, 1.913 ms chronological and 1.906 ms scrambled. The chronological residual and order-only movement were 0.1023/0.0470. Both true latent prefix errors were zero. [Registered design](fbc323_recurrent/prereg-19nov.md)
+- Held smoke `3134335` gates source full array `511581`, matched Galvani `3134336` and collector `3134337`. Sources/held capped at four. Release names end in `s1c_recurrent_20261119`. Actor SHA-256 `51461fb9084c99c0ac3f607debf21babeaac2667c88135173555e21df4b143ee`, scorer `7f56f8906706c4e7990dad120d003b7518ae7f8d0612327cab7511ce9cc6ef04`. Relay `bash friday/fbc323_recurrent/run_dependencies.sh 511580 511581 3134335 3134336`.
