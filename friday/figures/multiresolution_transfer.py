@@ -32,6 +32,34 @@ def plot(folder, out):
     fig.text(.028,.024,"Paired 80% intervals · 10 held-new people, H100 source fits · 9 reused Scherer people, A100 source fits",
              fontsize=8.5,color=MUTED)
     save(fig,out,"multiresolution-transfer")
+    plot_selection(folder,out)
+
+
+def plot_selection(folder,out):
+    data = locked(folder/"audit.json",
+                  "3c1645151cadd5a093e75420a7888e5aaffd0d2b16b9950ac41500a7a8ad7ec3")["all_vs_stock"]
+    names = {
+        "hard": "Hard waveform",
+        "multi": "Multiresolution waveform",
+        "single": "Conventional waveform",
+        "fbl2": "Doubled FBLight",
+        "fbl2_hard": "FBLight + hard",
+        "fbl2_multi": "FBLight + multiresolution",
+        "fbl2_single": "FBLight + conventional",
+    }
+    fig, (ax,) = layout("Conventional waveform led the external table",width=10.5)
+    for y,(key,_) in enumerate(names.items()):
+        result=data[key]
+        lo,hi=result["simultaneous80"]
+        ax.hlines(y,lo,hi,color="#a8b6c4",linewidth=3,label="Simultaneous 80%" if y==0 else None)
+        interval(ax,result,y,BLUE,"Pairwise 80%" if y==0 else None)
+    ax.set_yticks(range(len(names)),list(names.values()))
+    ax.set(xlim=(-.75,.96),ylim=(6.53,-.53))
+    ax.axhline(2.5,color="#d7e1e9",lw=1)
+    ax.legend(loc="lower right",bbox_to_anchor=(1,1),ncol=2,frameon=False,fontsize=9)
+    fig.text(.028,.024,"Retrospective full-system results · 9 reused Scherer people · 2 deliveries",
+             fontsize=8.5,color=MUTED)
+    save(fig,out,"external-waveform-selection")
 
 
 if __name__=="__main__":

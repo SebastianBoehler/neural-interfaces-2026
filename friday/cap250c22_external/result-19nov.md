@@ -29,3 +29,9 @@ The genuine P10/G smoke verified the unchanged stock anchor, real recognized Rou
 | Smoke 3135022 | `34ccc352d4e5949850132f9867cbfe89ba448e3d91bcaaaec25a126c9434a75f` |
 | Blind seal 3135023/24 | `59efb4863bc6e9e93d075b4ddb492be641f9ed7fd4ac5f97c4ce0137ec68bea4` |
 | Score 3135024 | `90880bdbc01f62e3264edd2b8c87e7f3ec3e4f873b53bb22bacbec5c16a29958` |
+
+## Retrospective selection audit · 09:34:16 CET
+
+Conventional alone gained **+0.354 pp** against stock, with paired 80% [+0.023,+0.691] and simultaneous 80% [−0.154,+0.861] across seven alternatives. Its two order points were +0.093 and +0.615 pp. The matched hard CPU control was lower by 0.235 pp [−0.046,+0.486], with order points 0.000 and +0.470. Conventional versus hard changed motor, subtraction and word recall by +0.417, +0.496 and −0.208 pp. No alternative's simultaneous interval excludes zero. The larger nominal conventional point supports targeted replication and leaves the alternate undecided.
+
+Galvani 3135176 reauthenticated all eight original prediction arms before scoring. Audit seal `7df427e51e7ca02b64d7ca55e4fbea3f1b3c3602ca3a5b8702a75933092e47c4`, score `3c1645151cadd5a093e75420a7888e5aaffd0d2b16b9950ac41500a7a8ad7ec3`, source `d34f42468b83715a22f290ba2fd9fd7d8bb04fb8b04950917296aa4f9f4bce81`. [Figure generator](../figures/multiresolution_transfer.py)
