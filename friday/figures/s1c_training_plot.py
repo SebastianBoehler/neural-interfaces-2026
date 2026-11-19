@@ -122,6 +122,15 @@ LAYOUTS = {
             ("bounded_car_minus_sham", "Common-average reference\nvs artificial direction"),
             ("bounded_sham_minus_hard", "Artificial direction\nvs hard CE"),
         )),
+    "5eb8c7e938a1b14a90562253b5aaa1b867c0e79ddcbb5f61439b49d210698e54": dict(
+        title="Physical sensor neighbors changed sign across seeds",
+        stem="held-s1c-electrode-neighbors", xlim=(-1.07, .97),
+        caption="Bounded inference. Both learned graphs preserved each electrode’s directed degree.",
+        contrasts=(
+            ("bounded_physical_minus_hard", "Physical neighbors\nvs hard CE"),
+            ("bounded_physical_minus_scrambled", "Physical neighbors\nvs scrambled"),
+            ("bounded_scrambled_minus_hard", "Scrambled neighbors\nvs hard CE"),
+        )),
 }
 
 

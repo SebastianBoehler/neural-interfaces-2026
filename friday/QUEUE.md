@@ -336,3 +336,5 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - F26 completed at 05:33:58 CET. Both authentic smokes, all twenty source and held folds, and collector `3134004` passed. All registered bounded endpoints remain undecided. [F26 score and receipts](fbc323_reference/result-19nov.md)
 - The independent Galvani hold `3134042` passed in 1m16. Ferranti `511477` released, with two tasks starting at 05:34:58 CET. The full source wall requests remain unchanged. If two H100 slots hold, the estimated score is 05:48–05:52 CET.
+
+- F27 completed at 05:48:55 CET. Every source and held job passed, and both registered contrasts remained undecided. [Signed results](fbc323_electrodes/result-19nov.md)
