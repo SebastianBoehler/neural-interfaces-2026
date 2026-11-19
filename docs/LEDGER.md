@@ -911,3 +911,7 @@ Registered before training. The [F26 protocol](../friday/fbc323_reference/prereg
 **F-C20r source digest correction.** The initial actor array authenticated both P04 seeds and P10 seed 0. P10 seed 1 stopped at its checkpoint digest before deserialization. Its literal omitted two characters. The locked source receipt and independent archive both pin the same actual 64-character digest. The new immutable export uses that exact digest and repeats the original signed F17 and returning oracle guards without altering fit, data or tolerance.
 
 **F-C20r native import correction.** Both first native prefix jobs stopped during initialization. The external C20e worker filename shadowed the pinned returning observer's worker filename. The corrected module path selects the exact returning observer and still authenticates the original C20e adapter, static settings and waveform actors. Neither initial job opened held labels or emitted held probabilities. The comparators, runtime/tolerance, target scopes and outcomes stay preregistered.
+
+## F27 · Learn a nonlinear sensor representation on exact scalp geometry
+
+Registered 19 November before fitting. The [F27 protocol](../friday/fbc323_electrodes/prereg-19nov.md) fixes a degree-matched shuffled graph, exact hard F16 and geometry controls, whole-decoder forecasts and real smoke budget.
