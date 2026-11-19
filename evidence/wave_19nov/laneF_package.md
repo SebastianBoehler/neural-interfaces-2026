@@ -1,5 +1,8 @@
 # Lane F · Final package: facts and one-command qualification
 
+> **Correction 19 Nov (upstream rules 8447e181):** the sealed budget is 3,600 s on one RTX PRO 4500 (the raised-limit / 4,800 s reading is superseded), and only the team's best sealed score counts (the "best of last five" rule is gone). See OFFICIAL_CONTRACT.md.
+
+
 19 November 2026. No upload, no Codabench action. Tool: `friday/qualify_package.py` (236 lines).
 
 ## 1. Facts

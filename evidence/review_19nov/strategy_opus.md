@@ -1,5 +1,8 @@
 # Red-team strategy review (Opus 5.5) · Thursday 19 Nov 2026
 
+> **Correction 19 Nov (upstream rules 8447e181):** the sealed budget is 3,600 s on one RTX PRO 4500 (the raised-limit / 4,800 s reading is superseded), and only the team's best sealed score counts (the "best of last five" rule is gone). See OFFICIAL_CONTRACT.md.
+
+
 Scope: read-only review of main after the Friday merge (`a7db5818`). No job, no commit, no upload. Labels: **F** = fact
 (measured; file:line given), **I** = inference, **P** = proposal. Line numbers refer to this checkout.
 
