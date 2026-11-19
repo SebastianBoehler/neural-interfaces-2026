@@ -53,7 +53,7 @@ def inputs(order):
 
 def main(order):
     start=perf_counter()
-    source=sha("source.sha256")
+    source=sha(Path("source.sha256"))
     smoke=json.loads(Path("smoke.json").read_text())
     assert smoke["source"]==source and smoke["passed"] and not smoke["held_labels_opened"]
     sessions,x,stock,delivery=inputs(order)
@@ -90,7 +90,7 @@ def main(order):
     blob=write_npz(Path(f"public_{order}.npz").resolve(),dict(index=np.arange(2655),delivery=delivery,
                    scores=out,raw=stock[0],count=stock[1]))
     path=Path(f"public_{order}.json").resolve()
-    write_receipt(path,passed=True,source=source,public_source=sha("public.sha256"),held_labels_opened=False,
+    write_receipt(path,passed=True,source=source,public_source=sha(Path("public.sha256")),held_labels_opened=False,
                   scope=order,stock_bitwise=True,identity_bitwise=True,prefix=[31,105],archived=PINS[order],
                   warm_steps=9600,no_recognition=True,bank=blob,raw=stamp(stock[0]),count=stamp(stock[1]),
                   work=report,match_proofs=work,seconds=perf_counter()-start)

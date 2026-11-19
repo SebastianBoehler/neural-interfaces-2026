@@ -18,7 +18,7 @@ def bank(order):
     path=Path(f"public_{order}.json")
     receipt=json.loads(path.read_text())
     assert receipt["passed"] and not receipt["held_labels_opened"] and receipt["scope"]==order
-    assert receipt["source"]==sha("source.sha256") and receipt["public_source"]==sha("public.sha256")
+    assert receipt["source"]==sha(Path("source.sha256")) and receipt["public_source"]==sha(Path("public.sha256"))
     assert receipt["stock_bitwise"] and receipt["identity_bitwise"] and receipt["no_recognition"]
     assert receipt["prefix"]==[31,105] and receipt["warm_steps"]==9600 and len(receipt["match_proofs"])==14
     assert receipt["archived"]==list(PINS[order])
@@ -73,7 +73,7 @@ def analyze(pred,y,groups,people,metric):
 def main():
     pins={order:bank(order) for order in PINS}
     locked=Path("public_before_labels.json").resolve()
-    write_receipt(locked,source=sha("public.sha256"),held_labels_opened=False,
+    write_receipt(locked,source=sha(Path("public.sha256")),held_labels_opened=False,
                   orders={order:dict(worker=worker,bank=blob,labels=stamp(pred)) for order,(pred,worker,blob) in pins.items()})
     pin(FEAT,HASHES[FEAT]); pin(METRIC,METRIC_HASH)
     metric=start_module("f24_metric",METRIC,METRIC.read_text())
