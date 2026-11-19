@@ -290,3 +290,5 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - **Raw lag plus jitter F23.** Ferranti 511387 and independent held smoke 3133377 passed. All three exact parent states replayed. Source 511388 is released, with its first H100 slot estimated at 04:42 CET at this check. Held 3133378 and scorer 3133379 stay behind the authenticated relay. [Relay](fbc323_lag_jitter/run_dependencies.sh)
 - Runs0 exact zero 3133395 passed all original and matched-anchor inventories, plus three interleaved count/CSP prefixes. The shared-bank and live-target graph remains gated.
 - F-C18's first complete job reproduced its stage/work checks and stopped before sealing on the P0r output key. Corrected immutable chain 3133409 → 3133410 → 3133411 uses the same four arms and scoring rule.
+
+- F23 completed at 03:27:01 CET. Slurm backfilled the H100 jobs before the first estimate. All source, held and scoring jobs passed. All three preregistered effects remain undecided. [Results and receipts](fbc323_lag_jitter/result-19nov.md)

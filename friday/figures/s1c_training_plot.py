@@ -85,6 +85,16 @@ LAYOUTS = {
             ("bounded_scrambled_minus_hard", "Scrambled pairs\nvs hard CE"),
             ("bounded_lag_minus_scrambled", "50 ms lag\nvs scrambled pairs"),
         )),
+    "363de60158d284da9979286fba1b08f04d8a247d4a9f18c1b19f3163e2ffff49": dict(
+        title="Lag plus jitter tracked the original jitter decoder",
+        stem="held-s1c-lag-jitter", xlim=(-1.39, 1.70),
+        caption="Bounded inference. All three trained parent states and their decisions matched exactly.",
+        contrasts=(
+            ("bounded_joint_minus_hard", "Joint model\nvs hard CE"),
+            ("bounded_joint_minus_jitter", "Joint model\nvs jitter"),
+            ("bounded_joint_minus_lag", "Joint model\nvs 50 ms lag"),
+            ("bounded_interaction", "Factorial\ninteraction"),
+        )),
 }
 
 
