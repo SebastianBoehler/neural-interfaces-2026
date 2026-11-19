@@ -1362,3 +1362,7 @@ The [F35 protocol](../friday/fbc323_gradient_balance/prereg-19nov.md) fixes the 
 ## F35c · Test head contribution balance and mirror in corrected cap250
 
 The [prospective protocol](../friday/cap250_f35/prereg-19nov.md) fixes signed original fit-excluded F35 hard, balance and mirror states, exact same-device F-C22h hard and stock checks, corrected 5/6 slot and actual warm delta, and the two reference deliveries and causal inference before outcomes. A gain over mirror and hard on both pinned orders determines the mechanism conclusion.
+
+**F33 H100 completed at 09:58:56 CET.** Aligned minus exact hard −1.259/+0.643 pp and aligned minus permuted −0.247/+0.705 pp, both undecided across seeds. Both device experiments agree on the sign by seed and were each compared to their own native fitted hard. [H100 signed result](../friday/fbc323_covariance/result-19nov.md)
+
+**F35 completed at 09:59:56 CET.** Bounded balance minus exact hard +0.430/+0.924 pp and balance minus mirrored +0.292/+0.099 pp. Both primary contrasts remain undecided. Actual matched relative head imbalance was 59.31%/58.93% lower, while mirrored also improved over hard. All original source and held guards passed with label-blind sealing. [F35 signed standalone result](../friday/fbc323_gradient_balance/result-19nov.md)
