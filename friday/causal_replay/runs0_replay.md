@@ -35,3 +35,5 @@ D-EAfcf was separately preregistered in `e39ee782`. The condition is an authenti
 | `3133436` | Both actual label-blind bridges and strict targets, `full0_common_bridge_v1`, source `7fd26b26…b3b4`. |
 | `3133437→38`, `3133439→40`, `3133441→42`, `3133443→44` | Genuine per-family P01 warm smoke then tenfold matched production in `full0_common_matched_fit_v1`, source `62f43627…bebb`. |
 | `3133445 → 3133446` | Complete predictions then authorized independent score in `full0_common_terminal_v1`, source `74527664…335a`. |
+
+The A100 canary completed at 03:08:48 CET. It matched its own first window, 80-window prefix and cross-session reset exactly, but changed 3 of 190 archived FB raw decisions and differed by up to 0.0479626 in posterior probability. Receipt `28e2494c34189c00e058643096b9a0e362afdc29c1828f823ccd99035a8a619b`. This is a numerical source-anchor refutation of this exact runs0 instrument. The existing runs0 bridge and unaffected family results remain label blind. The qualified trigger advanced the separate full0 branch.
