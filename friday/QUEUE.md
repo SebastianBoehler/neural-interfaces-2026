@@ -252,7 +252,7 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - **F21 waveform reconstruction.** Corrected Ferranti source smoke 511320 and independent Galvani 3132879 passed. Ferranti 511321 is training source folds. Galvani held 3132880 and scorer 3132881 are bound to the authenticated relay. [Relay](fbc323_reconstruction/run_dependencies.sh)
 - F21 completed at 01:22:43 CET on 19 November. Both held-new contrasts remain undecided. The source-only reconstruction disagreement decreased by 14.94% and 14.65% versus alternating CE. [Final results and receipts](fbc323_reconstruction/result-19nov.md)
 
-## Thursday 19 November, 01:54 CET
+## Thursday 19 November, 01:56 CET
 
 - **F21 and F-C16 completed.** F21 reduced source reconstruction disagreement by about 15% on both seeds. All held-new accuracy intervals crossed zero. F-C16's conditional first-visit head gained +1.588 pp on P04 and lost −0.521 pp on P10 versus the native head. Its prespecified weighted effect was −0.099 pp. [F21 results](fbc323_reconstruction/result-19nov.md) · [F-C16 results](cap250c16/result-19nov.md) · [F-C16 plot source](figures/returning_head.py)
 - **Held-new within0.** Both original-node RTX FBLight recoveries reproduced the archived labels and exceeded the 2e−5 warm posterior tolerance on the same visits as before. The recovery-dependent scoring chain canceled before reading held labels. The successor uses both fresh Sinc and common fit-excluded FBLight source states, and must regenerate warm targets and refits in both arms. [Historical queue and gate](causal_replay/within0-overnight-queue.md)
