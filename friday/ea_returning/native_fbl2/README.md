@@ -35,3 +35,5 @@ All 762 decisions across four visits and eight official cells passed the archive
 All six changed decisions were on Graz. P04 recovered two correct calls and lost two, and one wrong decision changed to another wrong decision. P10 lost one correct call on visit 3. P10 visit 2 retained the native warm activity and had identical decisions. The equal-cell returning effect remains undecided. The preregistered positive 20/80 endpoint is refuted within this conditional comparison. On held-new people, F-C21 reported +0.383 pp within0 and +0.488 pp full0. [Held-new F-C21 results](../../cap250c21/result-19nov.md)
 
 Blind seal SHA-256 `53cfa9628a6bdc210b4fbaf1456c5309a1d51e373856e3d57b61232184c28cf0`. Separate score SHA-256 `e1837c2f59a6f58333e4ed336e213b07e4a77c238e54d5ede50202324d935847`.
+
+The [paired person and visit figure source](../../figures/fbl2_returning.py) authenticates the separate score SHA before plotting.
