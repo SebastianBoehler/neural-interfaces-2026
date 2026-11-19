@@ -991,3 +991,5 @@ Registered before the RTX package run. Build the exact cap250 ZIP into a new nam
 ## F29 · Learn a recurrent readout over fine waveform tokens
 
 Registered before fitting. The [F29 protocol](../friday/fbc323_recurrent/prereg-19nov.md) fixes the native pooled control, genuine and interior-permuted recurrent token sequences and source/held guard thresholds.
+
+**F-C21p worker storage correction before inference.** RTX job 3134307 stopped while extracting the frozen ZIP because the container's private /tmp had insufficient space. The immutable retry places temporary extraction under the bound project filesystem. Frozen and trial archive bytes, both fixtures, the checker and numeric criteria stay fixed.
