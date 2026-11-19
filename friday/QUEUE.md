@@ -423,3 +423,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - F-C25d real 379-window held smoke 3134878 passed at 08:44:17 CET with seven independent tails, genuine count latch and exact signed parents. Receipt `fed00492602618b59afb5d82e9d0f1d6e25f37c0477ed71674f259f9db1abaf0`.
 - F-C27 scored the fixed motor-preserving cognitive output on closed F32c/F32x banks. Held 3134999 and external 3135000 both passed by 08:50:41 CET. [Scoped effects and signed receipts](cap250_cognitive_output/result-19nov.md)
+
+### F25e all-public-source modulation exports
+
+- Galvani A100 source smoke `3135003` passed in 22 seconds at 08:56:50 CET. The independently fitted native hard checkpoint matched the wrapped A100 hard bytes. Its H100 counterpart has a different trained state and preprocessing scale differed by one float32 ULP. All 2,655 official public rows and 172 smoke updates matched. Warm hard/single/multi medians 2.991/3.576/3.574 ms, peak reserved 0.847 GB. [Protocol](fbc323_modulation_external/prereg-19nov.md)
+- Original worker-image CPU smoke `3135008` gates final matched A100 source array `3135009`, CPU export array `3135010` and independent seal `3135011`. Release `ni26_friday_s1c_modulation_external_a100_20261119`. Actor `b9d64a585b6f75a806a0d27c8b04fd32d41c8baf565a46ac07e7835e2c673e4b`, exporter `65583a897b96f5ac9ae76a7aac260aadd1f257086412828fe6b9049a5f8ce0ae`. Estimated 09:02–09:08 CET if the same A100 node remains available. Source/export only, with no Scherer exposure.
