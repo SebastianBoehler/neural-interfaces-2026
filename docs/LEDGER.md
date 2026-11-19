@@ -6,6 +6,8 @@ Before scoring, record the mechanism, comparator, cohort, shuffled order and see
 
 **Wave Lane C · diverse REVE member and error-recovery oracle.** [Preregistration and run record](../evidence/wave_19nov/laneC_member.md).
 
+**Wave Lane E · capacity arms (Eye/Rest 6+6, FT replicas 8, extra neural terms, per-session guard).** [Preregistration and run record](../evidence/wave_19nov/laneE_capacity.md).
+
 The original campaign's ledger is frozen at `git show cb3e05a:docs/LEDGER.md`. Search it for prior measurements when a specific mechanism requires comparison. This checkout opens with no new registered experiment.
 
 - [Wave 19 Nov Lane D](../evidence/wave_19nov/laneD_prefix.md) records the registered Gaussian ceiling, source-only purity diagnostic and causal output balancing.
