@@ -55,15 +55,27 @@ def gradient(packed,weights,rest):
     m = max(float(v.abs().max()) for v in mass)
     if m > TOL:
         raise ValueError("candidate gradient changed total native probability mass")
-    norms = []
+    norms, jacobian = [], []
     for k in range(3):
         aa,bb = torch.autograd.grad(-p[:,k].log().sum(),(a,b),retain_graph=k<2)
         if not torch.equal(aa,bb) or not aa.isfinite().all():
             raise ValueError("two equal-mass pupils differ in their class-wise gradient")
         norms.append(aa.norm(dim=1).numpy())
+        jacobian.append(aa.numpy())
     d = np.stack(norms,axis=1)
     enabled = int(np.count_nonzero(d>0))
     if enabled < .95*d.size:
         raise ValueError("actual pre-RouteB gradient is inactive on over 5% of source cases")
+    sigma = np.linalg.svd(np.stack(jacobian,axis=1),compute_uv=False)
+
+    def tangent(rows):
+        second = sigma[rows,1]
+        if not len(second):
+            return None
+        return dict(rows=len(second),rank2=int(np.count_nonzero(second>1e-9)),
+                    min_sigma2=float(second.min()),median_sigma2=float(np.median(second)),
+                    max_sigma2=float(second.max()))
+
     return dict(cases=int(d.size),active=enabled,min=float(d.min()),median=float(np.median(d)),
-                max=float(d.max()),max_mass_gradient=m,mean_seed_gradients_exact=True)
+                max=float(d.max()),max_mass_gradient=m,mean_seed_gradients_exact=True,
+                cold_tangent=tangent(~active.numpy()),warm_tangent=tangent(active.numpy()))

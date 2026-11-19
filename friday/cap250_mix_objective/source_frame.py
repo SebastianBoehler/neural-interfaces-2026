@@ -11,6 +11,7 @@ import numpy as np
 import torch
 
 import replay
+from adapter import Adapter
 from benchmark_utils.streaming import fresh_model
 from mirror import Outer
 from mixture import IDS, TOL, candidate, gradient, stock_mix
@@ -108,16 +109,25 @@ def private(template,events):
     return np.stack([p[k] for k in ("raw","count","terminal")],axis=1),tail
 
 
-def stream(template,x,rows):
+def stream(template,x,rows,suppressed=False):
     model = fresh_model(template)
     if model.cp.t or model.cf.t or model.v5hist:
         raise ValueError("source session inherited adaptive state")
+    gates = (model.route.identity,model.route.contrast)
+    original_threshold = [g.tau for g in gates]
+    assert all(0 <= t < 1e6 for t in original_threshold)
+    if suppressed:
+        for gate in gates:
+            gate.tau = 1e6
+    monitor = Adapter(model,"stock",())
     tap = SourceTap(model)
-    labels = []
+    labels, upstream, recognition = [], [], []
     for r in rows:
         p = model.predict(x[int(r):int(r)+1].to("cuda:0"))
         assert p.shape == (1,) and p.device.type == "cpu" and p.dtype == torch.int64
         labels.append(int(p[0]))
+        upstream.append(int(model.trace["out_v5"].argmax()))
+        recognition.append(bool(model.recB))
     work = replay.activity(model)
     assert work["windows"] == len(rows) == len(tap.events) == len(tap.operands) == len(tap.stages)
     assert work["errors"] == work["ft_over"] == 0 and tap.pending is None
@@ -138,9 +148,13 @@ def stream(template,x,rows):
     proof = gradient(a,tap.weights,tap.rest)
     move = max(float(np.abs(a[k]-a["stock_mix"]).max()) for k in ("probe48","probe52"))
     info = dict(work=work, gradient=proof, movement=move, warm_rows=int(a["active"].sum()),
-                all_stages_zero_exact=True,prefix_exact=True,x_sha=stamp(x[rows].numpy()))
+                all_stages_zero_exact=True,prefix_exact=True,x_sha=stamp(x[rows].numpy()),
+                input_threshold=original_threshold,active_threshold=[g.tau for g in gates],
+                actual_refit_ages=[r["age"] for r in monitor.refits],
+                refit_receipt=hashlib.sha256(json.dumps(monitor.refits,sort_keys=True).encode()).hexdigest())
     return dict(a, rows=rows, age=np.arange(len(rows)), weights=tap.weights, rest=np.array(tap.rest),
-                stages=stages, stock_class=np.array(labels)), info, tap.events[:17]
+                stages=stages, stock_class=np.array(labels), upstream_class=np.array(upstream),
+                recognized=np.array(recognition)), info, tap.events[:17]
 
 
 def write(path,fields,metadata):
