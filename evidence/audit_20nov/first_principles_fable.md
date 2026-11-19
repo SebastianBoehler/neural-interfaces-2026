@@ -158,3 +158,48 @@ held person. Mechanism: if new-person error is coverage, accuracy still rises st
   more same-task people or a working pretrained member, not to stages. Random subsets add variance at k < 9.
 
 Smoke jobs (2 folds, 3 epochs, code path only): 3138367 (T-A), 3138368 (T-B); the first pair 3138365/6 stopped at a tensor-layout error before any score. Full job ids and results are appended below.
+
+## 6. Results of T-A and T-B (19 Nov, 21:40 CET)
+
+Full jobs 3138369_0/1 (T-A, 9 and 8 min) and 3138370_0/1 (T-B, 25 min each), all COMPLETED on the pinned script. Outputs
+`trans_s{0,1}.json` (+ `.npz` decisions) and `curve_s{0,1}.json` in the release directory. Held-new, 28 cells, full0.
+
+| T-A arm, minus source net | Seed 0 (source 56.28) | Seed 1 (source 54.09) | Predicted |
+|---|---|---|---|
+| Source + own labels ×10, leave one run out | +4.37 [+2.34, +5.87] | +5.84 [+3.34, +8.26] | +10 [+4, +16] |
+| Own-label probe | +3.28 [+1.34, +4.95] | +6.71 [+3.61, +9.61] | +6 [0, +14] |
+| Whole-session balanced Hungarian | +0.51 [−0.53, +1.39] | +1.91 [−0.08, +3.80] | n/g |
+| **Whole-session LDA self-training (primary)** | **+1.02 [−0.76, +2.64]** | **+3.61 [+0.36, +6.64]** | +1.0 [−1, +3] |
+| Whole-session T3A | −1.44 [−3.46, +0.46] | −0.40 [−2.69, +1.79] | +0.5 |
+| Causal prefix LDA self-training | −0.90 [−2.79, +0.92] | +2.10 [−0.36, +4.44] | +0.5 [−1, +2] |
+| Causal prefix T3A | −0.76 [−2.40, +0.84] | +0.40 [−1.40, +2.05] | +0.5 |
+
+**T-A reading by the registered rule: undecided, and void on seed 0** (label gain +4.37 is under the +5 floor). Neither "open"
+(lower bound above +1.5 on both seeds) nor "capped" (upper bound below +1.5 on both) holds. Forecasts: source level and the
+primary arm inside their intervals on seed 0, the primary arm above its interval on seed 1; the label gain came in at half the
+forecast. What it does show: on a frozen small embedding a linear head fitted to about 160 of the session's own labels buys
+only +4 to +6 pp, and unsupervised whole-session self-training reaches 23 % and 62 % of that. The +25 pp that a labelled
+session is worth in the stack therefore does not come from a linear readjustment of a frozen embedding; it comes from members
+trained on the person. A label-free stage acting on frozen features has a ceiling of a few points even with labels, which fits
+the bank result of section 2. The causal form of the only positive arm is not distinguishable from zero. R2 stays as "nearly
+inert, cause not settled"; this test does not justify building a full-system form before Friday.
+
+| T-B, source people | k = 3 | 5 | 7 | 9 | Gain 7 → 9 | Gain 5 → 9 |
+|---|---|---|---|---|---|---|
+| Seed 0 | 45.04 | 50.13 | 51.87 | 54.13 | **+2.25 [+1.49, +3.27]** | +4.00 [+2.65, +5.41] |
+| Seed 1 | 45.15 | 50.81 | 51.88 | 55.66 | **+3.77 [+2.33, +4.84]** | +4.85 [+3.34, +6.01] |
+| Predicted | 46 | 51 | 55 | 58 | +1.8 [+0.3, +3.5] | +4.5 [+2, +8] |
+
+**T-B reading by the registered rule: "still steep", supported on both seeds** (lower bounds +1.49 and +2.33 against the +0.5
+bar). Two more source people are worth +2.3 to +3.8 pp on this net, about +6 to +10 pp per doubling at k = 9, with no sign of
+flattening between 5 → 7 and 7 → 9. Levels came in 2 to 4 pp under forecast, the slope at or above it (seed 1 above the
+interval). Limits: one small net, standalone, random subsets at k < 9 (two per person), one delivery order, and the ten public
+people are reused as both source and held. It is a slope on a 55 % model, not a forecast for the 74 % stack, where earlier
+standalone gains realised at about 0.1.
+
+**Conclusion for the audit.** R1 is the reason with direct support: new-person accuracy is limited by how many people the
+source model has seen, and it is still rising at nine. R3 explains why the search felt flat. R2 is real as an observation and
+unresolved as to cause. Hypothesis 3 as posed is refuted: no simpler design and no reading of the contract opens a shortcut.
+The one design change with a measured ceiling above 1 pp is more same-task people in the source members, either labelled
+external people trained into the members themselves (Lane H's pooled base found +0.04 in one form, with the fine-tune
+overwriting the trunk) or a pretrained member that works standalone, which ours at 55 % do not.
