@@ -25,5 +25,6 @@ case "${1:?smoke, fold or collect}" in
         exec "$python" -B within0_fresh_fbl.py fold "${SLURM_ARRAY_TASK_ID:?}" --order "$order"
         ;;
     collect) exec "$python" -B within0_fresh_fbl.py collect --order "$order" ;;
+    full0-bank) exec "$python" -B full0_frozen_bank.py ;;
     *) exit 2 ;;
 esac
