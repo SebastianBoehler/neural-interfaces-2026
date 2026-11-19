@@ -32,6 +32,14 @@ D1 found a +2.285 pp label-aware rescue ceiling in its fixed external banks. The
 
 Leonardo rejected the current key on the configured entry point. Galvani fits are running and the registered Ferranti jobs are queued. The position snapshot and all follow-up deadlines use CET. [Job details](QUEUE.md) · [F24 protocol](fbc323_calibration/prereg-19nov.md)
 
+## Results and follow-ups · 19 November, 04:29 CET
+
+- **CSP disagreement.** F-C19 changed full-system held-new accuracy by −0.152 pp within0 and +0.033 pp full0 against exact stock. The intervals refuted a gain within0 and spanned zero full0. The retrospective eligible choices with gold labels gained +1.208 and +1.792 pp. The live rule recovered 11 and 16 errors and introduced 15 on both replays. The external qualification condition failed. [Full results](cap250c19/result-19nov.md)
+- **Returning Eye.** Replacing only the Eye fit lost 3.139 pp on eight official cells from P04 and P10 in conditional native full0. All 24 changed decisions were losses. The package retained original Eye and gallery calibration in both arms. The follow-up fits personalized heads on first-visit embeddings from a common source encoder that excludes both returning people. [Eye results](ea_returning/native_eye/README.md)
+- **Raw context robustness.** F24 v1 stopped before fitting because its guard counted frozen filters as trainable. Both real v2 smokes passed. Ferranti `511413` began at 04:26:37 CET and relays verified folds to Galvani `3133806` and scorer `3133807`. [Queue and source locks](QUEUE.md#overnight-source-calibration-robustness-f24)
+- **RTX runtime.** F-C5r is testing whether deferred covariance reduces cap250 worker time. RTX 2080 Ti smoke `3133816` checks both variants on identical live inputs. If it passes, jobs `3133817` compare separate fresh instances using alternating warm orders and measure stock-to-stock drift. [Preregistration](../docs/LEDGER.md#f-c5r--same-input-personalizer-parity-and-paired-rtx-worker-timing)
+- **Figures.** `friday/figures/native_adaptation.py` verifies the signed receipts before plotting the returning Eye losses and the label-aware ceiling alongside the live CSP rule.
+
 ## Selection
 
 Keep the two frozen ZIPs and their receipts. Compare a candidate against the strongest eligible reference on full-system official-metric held-new, returning and external instruments. Record the source exclusions, class and cohort effects, delivery robustness and paired uncertainty. Favor stronger held-person and external evidence inside development noise. Check the actual package on an RTX proxy and record the training configuration and exact archive provenance for the organizer's top-three reproducibility audit. Development scores have no calibrated conversion to sealed rank. Report the final candidate and alternate by Friday 18:00 CET. [Official scoring and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring)
