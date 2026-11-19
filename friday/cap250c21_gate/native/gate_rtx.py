@@ -22,12 +22,12 @@ from worker import authentic_stock
 from benchmark_utils.streaming import fresh_model
 
 
-def live(template, eeg, rows, audit=False):
+def live(template, eeg, rows, audit=False, selector=LiveSelector):
     torch.cuda.synchronize()
     torch.cuda.reset_peak_memory_stats()
     start = perf_counter()
     model = fresh_model(template)
-    live_path = LiveSelector(model, audit)
+    live_path = selector(model, audit)
     restored = perf_counter()
     y, dt = [], []
     for row in rows:

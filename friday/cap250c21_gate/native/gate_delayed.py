@@ -18,11 +18,11 @@ PIN = "cae74104dce81e0635fd915ef17dc09539ee7125621e06a8b0533c73a4db9ee6"
 SMOKE = "35e2888b0563efd0ff2c77e34955eb4b8e078f8815ba0577a1276878ee1c1359"
 
 
-def run(model, case, rows):
+def run(model, case, rows, selector=LiveSelector):
     live = []
 
     def observe(current):
-        gate = LiveSelector(current, audit=True)
+        gate = selector(current, audit=True)
         current.predict = gate.predict
         live.append(gate)
 

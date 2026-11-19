@@ -11,6 +11,8 @@ from mirror import Outer
 
 
 class LiveSelector:
+    retire_on_recognition = False
+
     def __init__(self, model, audit=False):
         if model.v5hist or model.cp.t or model.dead:
             raise ValueError("live selection requires a fresh native session")
@@ -37,7 +39,7 @@ class LiveSelector:
         p = self.native_mix(mix, members, warm)
         if self.pending is not None or not members:
             raise ValueError("invalid native stock mixer invocation")
-        q = self.hook.project(p, members, warm)
+        q = None if self.retire_on_recognition and self.model.recB else self.hook.project(p, members, warm)
         self.pending = (p, q, members, warm)
         return p
 
@@ -72,7 +74,10 @@ class LiveSelector:
         if seen and not self.recognized:
             self.recognition_age = self.age
         self.recognized = seen
-        self.outer.step(event, "hard")
+        if not (self.retire_on_recognition and seen):
+            self.outer.step(event, "hard")
+        elif event[3] is not None:
+            raise ValueError("retired branch was mixed after recognition")
         self.protect = self.age < 20 or seen
         self.probability = stock if self.protect else self.outer.terminal[-1]
         self.eligible += int(not self.protect)
@@ -85,13 +90,23 @@ class LiveSelector:
         return y if self.protect else torch.tensor([int(self.probability.argmax())], dtype=torch.long)
 
     def summary(self):
-        if (self.outer.cp.t != self.age or self.hook.calls != self.age or len(self.outer.terminal) != self.age
-                or self.outer.cp.stopped != self.model.cp.stopped or self.model.log6["rec"] != self.recognition_age):
-            raise ValueError("complete stock or alternate native activity differs")
+        retired = self.retire_on_recognition and self.recognized
+        n = self.recognition_age if retired else self.age
+        stop = None if retired else self.model.cp.stopped
+        if (self.outer.cp.t != n or self.hook.calls != n or len(self.outer.terminal) != n
+                or self.outer.cp.stopped != stop or self.model.log6["rec"] != self.recognition_age):
+            raise ValueError("stock or alternate native activity differs from the sticky recognition scope")
         return dict(rows=self.age, recognized=self.recognition_age, eligible=self.eligible,
+                    alternate_rows=n, retired_at=self.recognition_age if retired else None,
                     alternate_refits=self.outer.cp.refits, alternate_fused=self.outer.cp.fused,
                     alternate_fit_ages=self.outer.fit, hook=self.hook.summary(), native_stop=self.model.cp.stopped)
 
     def stages(self):
-        alternate = np.stack((self.outer.raw, self.outer.count, self.outer.terminal), axis=1)
+        alternate = np.stack((self.outer.raw, self.outer.count, self.outer.terminal), axis=1).reshape(-1,3,3)
         return np.asarray(self.stock_stage), alternate, np.asarray(self.selected)
+
+
+class RetiringSelector(LiveSelector):
+    """Stop the alternate downstream clock on the actual sticky recognition frame."""
+
+    retire_on_recognition = True
