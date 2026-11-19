@@ -496,3 +496,18 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - F35c completed all 20 held folds. Complete-system smoke `3135586` passed at 10:09:03 CET with exact stock, identity and independent hard. Both corrected orders `3135587/88` started at 10:09:24 CET. Blind scorer `3135589` follows both. First results estimated 10:15–10:17 CET.
 - F35x starts with real recognized and unrecognized RTX smoke `3135590`. Nine paired external participants `3135591` and the independent scorer `3135592` follow in order. Fresh delivery orders 26411 and 27411 test the positive standalone balance result in the complete native stack against stock, A100 hard, the matched mirror and the H100 hard reference. [Run manifest](cap250_balance_external/README.md)
+
+### Thursday 19 November, 10:17 CET
+
+- F35c blind scorer `3135589` passed at 10:15:17. Balance versus exact A100 hard −0.272 pp within0 and +0.146 pp full0. The full-system comparison missed the registered advancement rule. [Signed held-new result](cap250_f35/result-19nov.md)
+- F35x RTX smoke `3135590` passed at 10:11:14. Two external participants finished and four are active at the 10:16 check. The collector opens held labels only after all nine pass. [Native external manifest](cap250_balance_external/README.md)
+
+### Thursday 19 November, 10:22 CET
+
+- F35d real full0 bank smoke `3135625` and independent stage scorer `3135626` passed. CountFilter and CSP together shifted balance minus hard by −0.229 pp [paired 80% −0.341,−0.082] within0 and −0.002 pp full0. Every original terminal result reproduced. [Stage result](cap250_f35/result-19nov.md#where-the-standalone-effect-changed)
+- F-C31 real source smoke `3135612` passed and nine bounded CPU probes `3135615` are running at cap three. Blind scorer `3135616` follows. The test uses a local sensor reconstruction against an age-matched control and the exact independent stock/hard archive decisions. [Registration](../docs/LEDGER.md#f-c31--probe-reconstruction-sensitivity-on-exact-hardstock-disagreements)
+
+### F36 same-session reciprocal raw waveform crossfade
+
+- A100-PCIE-40GB source smoke `3135613` passed in 17 seconds at 10:20:12 CET. The native hard checkpoint matched exact F33a bytes. Both active arms used the same 2,528 of 10,112 source appearances. Mean relative raw RMS displacement was 0.494280, maximum paired mismatch 4.63e−9, with bit-exact zero dose and unchanged edges. [Prospective protocol](fbc323_crossfade/prereg-19nov.md)
+- CPU held smoke `3135629` passed at 10:23:09 CET in 44 seconds with all 24 first-window and 48 interleaved-reset checks. Maximum posterior prefix drift 4.41115e−7. Galvani native DAG `3135630` trains 20 folds at cap six, `3135631` replays matching folds after each source element, and `3135632` seals decisions before labels. Release `ni26_friday_s1c_crossfade_a100_20261119/jobs.txt`. Actor `baf7735eb9ca7f225b99ecbf58e6a16a8fea3a13813ae7c2e8434d0fff901510` and scorer `2734eeee0e398a53ffc5900b303255a2ef193df31d2adfb448b59eb1aba67367`.

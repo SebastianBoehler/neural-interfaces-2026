@@ -34,3 +34,20 @@ The 379-window P01 and count-latched peer smoke matched stock, native identity a
 | Within0 bank | `dfa9c36d441de73f5fd13cd48bc91ad4c44e4990d31659be7eb8f905706f796a` |
 | Blind lock | `76a70542f4891c44b7920e3e1adf8366bd4f175303e42d638db8dde3fe0607da` |
 | Paired score | `8fb06208095e6ea43598440884a67bb3ae9a71241a827111235dd2c9d5e20430` |
+
+## Where the standalone effect changed
+
+F35d completed at **10:21:27 CET**. Balance already trailed matched hard in the outer within0 readout by 0.042 pp. CountFilter and CSP fusion deepened the loss. Their combined effect on the balance-minus-hard contrast was **−0.229 pp [paired 80% −0.341,−0.082]**. The separate filter and CSP intervals each include zero. On full0, their combined effect was −0.002 pp and the small pre-filter gain persisted.
+
+| Balance minus hard | Within0, pp [paired 80%] | Full0, pp [paired 80%] |
+| --- | ---: | ---: |
+| Native routed outer distribution | −0.042 [−0.142,+0.035] | +0.148 [−0.003,+0.261] |
+| After CountFilter | −0.115 [−0.223,−0.038] | +0.111 [−0.049,+0.224] |
+| After CSP fusion | −0.272 [−0.408,−0.115] | +0.146 [−0.043,+0.331] |
+| After the tail minus before the tail | −0.229 [−0.341,−0.082] | −0.002 [−0.180,+0.211] |
+
+The mirror started +0.079 pp ahead of hard at the within0 outer readout and then fell by 0.345 pp at CountFilter [paired 80% −0.573,−0.137]. Balance started weaker than mirror there and recovered that gap at CountFilter. These stage readouts are taken from the original independently evolved full trajectories. They show where the class changes appeared. A causal intervention on one stage would also change its downstream inputs and requires a separate run.
+
+Release `ni26_friday_f35d_held_stages_20261119`. Source SHA-256 `1a1a64c1a11b6837620cb69b17088fe4a93aa481bd9fcdd0ae1a2dfb99fe933b`. Smoke `3135625` signed `11f6e6801df2189fbd89833310aa7eee0e55fa717a3456e8f72d45826301a6de`. Score `3135626` signed `b28739ba578485a13339324a1d32ff66e7f6fba67ec128eac34bca08ba848791`, before-labels `eea3607ecdd17dca121a86dde763023a71ba0459c27435c8ab42df52a23287e2`. The analysis reproduced every original terminal absolute score and contrast. [Figure generator](../figures/gradient_balance_transfer.py)
+
+V2 adds the row-aligned decisions to the pre-label receipt by digest. Its **10:23:57 CET** result reproduced every v1 statistic exactly. Release `ni26_friday_f35d_held_stages_v2_20261119`, source `8e5a82e6d6fdb0b107ff298a7697ee498176d7455142c41287a6c2128c98cecd`, before-labels `931aaea95e42dcb420a0bc1d1a45db0c560e8c570a028d2c98cf3a27a4f394c8`, score `cd3780d6928782f1049e415394771bb3a81fcfd8b80101104d8438edbfb538d6`. Smoke `3135650` and score `3135651` passed.
