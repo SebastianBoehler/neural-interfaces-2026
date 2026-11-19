@@ -12,6 +12,8 @@ Sebastian set an eligible sealed top-three finish as the final submission target
 
 F21 reduced disagreement between source reconstructions by 14.94% and 14.65%. Its accuracy on unchanged held recordings remained undecided. F-C16's first-visit head gained 1.588 pp on P04 and lost 0.521 pp on P10. The prespecified returning weighting gave −0.099 pp versus the native head on that conditional replay. Cap250 remains the submission reference. [F21 results](fbc323_reconstruction/result-19nov.md) · [F-C16 results](cap250c16/result-19nov.md)
 
+D-EAwcf completed the shared-source held-new within0 comparison. Corrected cap250 reached 78.324% against 75.779% for P0r, a paired +2.546 pp [80% +1.641, +3.406] on ten reused fit-excluded people and one order. The alignment correction changed the advantage by −0.374 pp [−0.714, +0.050]. The separate full0 comparison used a different common-source setup. F-C17's exact A100 two-history alignment changed −0.069 pp against both cap250 and the exposure-matched control on two fresh orders for the same nine external participants. No variant replaced the sealed reference. [Within0 result](causal_replay/within0-overnight-queue.md) · [F-C17 result](cap250c17/result-19nov.md)
+
 D1 found a +2.285 pp label-aware rescue ceiling in its fixed external banks. The oracle selected correct answers with labels and incurred zero regressions. F-C13 fixed 24 errors and introduced 22, illustrating the difference between an available rescue and a reliable decision. Combining components requires testing their measured interaction. [D1](transfer/d1_result.md) · [F-C13](cap250_raw_swap/result-18nov.md)
 
 ## Selection

@@ -76,6 +76,15 @@ LAYOUTS = {
             ("bounded_consistent_minus_hard", "Reconstruction consistency\nvs clean CE"),
             ("bounded_consistent_minus_alternating", "Reconstruction consistency\nvs alternating CE"),
         )),
+    "ef8d307bb460f65886bcd03de70ffdf31ec8a6dffc525d0b5152c918c8596931": dict(
+        title="The 50 ms lag improved one raw S1C seed",
+        stem="held-s1c-within-block-lag", xlim=(-.85, 1.17),
+        caption="Bounded inference. Scrambled pairs used the same shape and number of parameters.",
+        contrasts=(
+            ("bounded_lag_minus_hard", "50 ms lag\nvs hard CE"),
+            ("bounded_scrambled_minus_hard", "Scrambled pairs\nvs hard CE"),
+            ("bounded_lag_minus_scrambled", "50 ms lag\nvs scrambled pairs"),
+        )),
 }
 
 
