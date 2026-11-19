@@ -43,3 +43,11 @@ Leonardo rejected the current key on the configured entry point. Galvani fits ar
 ## Selection
 
 Keep the two frozen ZIPs and their receipts. Compare a candidate against the strongest eligible reference on full-system official-metric held-new, returning and external instruments. Record the source exclusions, class and cohort effects, delivery robustness and paired uncertainty. Favor stronger held-person and external evidence inside development noise. Check the actual package on an RTX proxy and record the training configuration and exact archive provenance for the organizer's top-three reproducibility audit. Development scores have no calibrated conversion to sealed rank. Report the final candidate and alternate by Friday 18:00 CET. [Official scoring and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring)
+
+### Cap250 package record for the reproducibility audit
+
+The frozen ZIP has 39 entries and passes its CRC check. The submitted `submission.py` matches tracked `submissions/lean_v66/submission.py` byte for byte (`37c666a8…fb69f`), and the submitted `weights.npz` has SHA-256 `7cf13696…688a2`. The competition submodule is pinned at `a66bc23d1a0e686b895c093a642b45c74970758b`.
+
+- **Packaged training and adaptation settings.** Three Eye weights, three Rest weights, and six seeds in each of the four adapting families. The four warm members are indices 47, 35, 53 and 59. They take five steps at learning rate 0.001 every ten windows from age 20 and stop refitting after age 250. The package uses the v5.1b pseudo-label path with relabeling, routed mode 1, the count filter, and TSEM prior strength 20.
+- **Personalization.** Common spatial patterns first fit at age 20 and refit every 20. Fusion begins at 90, ramps over 120 windows and caps at 0.10. The fitter selects the top half of earlier windows per class by confidence.
+- **Rebuild boundary.** The tracked bundler and builder assemble the exact traced assets and numeric calibration files. The documented worker replays qualify the existing ZIP. Rebuilding all fitted assets from acquisition data and a single checked training configuration is still open. [Bundle builder](../../neural-interfaces-2026/lean/tools/build6.py) · [Frozen inventory](../../neural-interfaces-2026/evidence/next_wave_16nov/js321_v66_inventory.json) · [Frozen archive identities](inputs.sha256)
