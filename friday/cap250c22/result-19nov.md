@@ -17,7 +17,7 @@ The combination gained **+0.538 pp** within0 and **+0.778 pp** full0 against exa
 | Joint vs FBL2 + conventional | +0.0743 [−0.0897, +0.2660] | −0.0003 [−0.2228, +0.1647] |
 | Interaction | −0.0819 [−0.4123, +0.2146] | −0.2307 [−0.4910, −0.0260] |
 
-The interaction subtracts both individual gains from the joint gain. The full0 interaction indicates that summing the individual gains overstates the measured joint gain. The joint improved five participants in each delivery compared with FBL2 and regressed two within0 and three full0. P09 improved in both. The two deliveries reuse the same people. Intervals resample people 4,000 times over 28 official cells per delivery. Deployment and external performance remain unmeasured.
+The interaction subtracts both individual gains from the joint gain. The full0 interaction indicates that summing the individual gains overstates the measured joint gain. The joint improved five participants in each delivery compared with FBL2 and regressed two within0 and three full0. P02, P04 and P09 improved in both. P05 and P10 reversed direction. The two deliveries reuse the same people. Intervals resample people 4,000 times over 28 official cells per delivery. Deployment and external performance remain unmeasured.
 
 ## Replay identity
 

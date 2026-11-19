@@ -194,6 +194,31 @@ def plot_joint_waveform(receipts, out):
     fig.text(.028, .024, "Full-system dev · 10 held-new participants used in both delivery orders",
              fontsize=9, color=MUTED)
     save(fig, out, "held-fbl-multiresolution-cross")
+    plot_joint_people(record, out)
+
+
+def plot_joint_people(record, out):
+    fig, (ax,) = layout("Three participants improved in both delivery orders", width=10)
+    within, full = (record["orders"][name]["people_pct"] for name in ("within0", "full0"))
+    assert within.keys() == full.keys()
+    offsets = {"P02": (-7, 8), "P04": (7, -13), "P09": (7, -14), "P10": (-7, -14),
+               "P03": (-8, 8), "P05": (7, -13), "P08": (7, 7), "P06": (-7, -14)}
+    for person, votes in within.items():
+        subject = person.rsplit("/", 1)[1]
+        x = votes["joint"] - votes["FBL2"]
+        y = full[person]["joint"] - full[person]["FBL2"]
+        ax.scatter(x, y, s=29, color=BLUE if x > 0 and y > 0 else MUTED, zorder=3)
+        dx, dy = offsets.get(subject, (6, 8))
+        ax.annotate(subject, (x, y), xytext=(dx, dy), textcoords="offset points",
+                    ha="right" if dx < 0 else "left", fontsize=8.5, color=INK)
+    ax.axhline(0, color=MUTED, linestyle="--", linewidth=.85, zorder=1)
+    ax.set(xlim=(-1.25, 1.26), ylim=(-.75, 1.24), ylabel="Full-session delivery gain (pp)")
+    fig.supxlabel("Within-session delivery gain (pp)", fontsize=10, y=.076)
+    ax.set_title("FBLight + multiresolution pupil vs FBLight doubling alone", loc="left",
+                 fontsize=10, color=MUTED)
+    fig.text(.028, .024, "Full-system dev · same ten held-new people · each point averages one person's official cells",
+             fontsize=8.7, color=MUTED)
+    save(fig, out, "held-fbl-multiresolution-people")
 
 
 if __name__ == "__main__":
