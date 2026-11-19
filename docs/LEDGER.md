@@ -1431,6 +1431,9 @@ The [source-tape protocol](../friday/cap250_mix_objective/full-tape-prereg-19nov
 ## F36c · Test the source crossfade methods through corrected cap250
 
 The [preregistered comparison](../friday/cap250_f36/prereg-19nov.md) fixes signed A100 F36 hard, same-trial and cross-trial contributors at the exact F35c native 5/6 raw slot, with corrected within0/full0 and separately authenticated stock, native identity and F-C22h same-device hard. Same-trial minus hard prior +0.13/+0.16 pp, cross-trial minus hard +0.07/+0.09, cross-trial minus same-trial −0.06/−0.07. Require both independently sealed orders, official paired people intervals, causal reset and full downstream work.
+
+**F36c completed at 10:46:58 CET.** FULL-SYSTEM DEV same-trial minus exact hard −0.233/−0.121 pp within0/full0 with both paired upper bounds below zero. Cross-trial minus exact hard −0.124/−0.498, and minus same-trial +0.109/−0.377 pp. Full0 cross-trial specificity was refuted. Both methods missed the registered conditions. Matched stock and exact A100 hard agreed bitwise at all stages. [Signed result](../friday/cap250_f36/result-19nov.md)
+
 ## F37 · Training-only local spectral amplitude displacement
 
 The [prospective F37 design](../friday/fbc323_spectral_shift/prereg-19nov.md) compares a mild fixed alpha-region amplitude shift with a severity-matched beta-region shift and exact hard. Relative sensor phase and inference code stay fixed. It registers the original-fit/H100 data path, observed-input controls and fresh prediction in official metric units before fitting.
