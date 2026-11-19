@@ -393,3 +393,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 ### Optimized stock-protected archive
 
 - Direct F-C21gpack CPU check matched all 151 classes and every tracked posterior exactly, including 30 real CSP fusions on unrecognized G. Clean RTX ZIP smoke `3134547` and combined native conformance `3134548/3134549` with dependent timing `3134550` are separate. [Archive receipts](cap250_gate_package/README.md)
+
+### F32 concurrent external motor supervision
+
+- Real Ferranti H100 source smoke `511647` passed in 11 seconds. Native hard reproduced F16 checkpoint bytes, and literal detach reproduced the same native state. Both private heads learned on the matched licensed PhysioNet batches, with final source CE 1.59924 detached and 1.53538 joint. The external path left native SessionBN state and affine gradients isolated. [Registered design and corpus terms](fbc323_motor_joint/prereg-19nov.md)
+- Independent Galvani held smoke `3134551` gates Ferranti source `511648`. Galvani held array `3134552` consumes checkpoint pairs only after each source fold completes. Collector `3134553` uses both native inference modes and seals predictions before opening PROTEUS held labels. Both arrays cap at four. Actor `f8d074e6867ebfda82383c164c257d64f154b251b0ccdbcb5153b297e7917723` and scorer `49458dc244ca5d0583ab09aa4b84bca50ecce59f1d34777fb46d80d9e57e9762`. The live controller is `bash friday/fbc323_motor_joint/run_dependencies.sh 511647 511648 3134551 3134552`. Add `resume` after source release to restart checkpoint relay.
