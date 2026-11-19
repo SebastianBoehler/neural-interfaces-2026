@@ -30,3 +30,25 @@ The registered runtime condition required both means ≤1.12× and worst ratios 
 | `smoke.json` | `3134423` | `d61af7d446602d8c643b4e2bf8ddde7041ae59028d6bf63a8d45d4141f3d31fc` |
 | `timing_0.json` | `3134424_0` | `81e6252bc0c43c1712ddb7acf14a369452ea45f179d9f5ba581936e8b51d1f2b` |
 | `timing_1.json` | `3134424_1` | `02365ba24ad8cf2dc87f996d99b3e33a994f522755ad8b810830b184c54e22f5` |
+
+## F-C21gt · Stop the alternate branch when recognition becomes permanent
+
+`RetiringSelector` keeps every alternate state through the frame before the live sticky recognition latch. On the recognition frame it stops both the extra FBLight mix and the alternate tail. The original stock Solver continues, and each new session starts with the full alternate again. The source class is in [live_gate.py](live_gate.py), SHA-256 `6af1cb7229dae99834e15a1564b931d9f8610503722a510b10d245119dea3b12`. [Registered test](../../../docs/LEDGER.md#f-c21gt--retire-the-alternate-tail-on-sticky-native-recognition)
+
+The actual conditional P10 visit-2 replay stopped after 28 alternate states, selected only ages 20–27, preserved the original 20 warm steps and matched every full-dual and archived output bitwise. RTX P10 visit 3 advanced the alternate through age 9, retired on age 10 and emitted 31 exact stock decisions. RTX G never recognized. It retained all 120 alternate states, 100 eligible and 100 warm outputs, and five alternate native CSP refits with 30 fusions. Every selected vector matched the complete same-input dual reference. All first-20 and same-input prefix checks were bitwise. The separate G fresh repeat preserved exact decisions and had at most 2.098e−8 output movement versus 7.539e−8 measured within independent stock.
+
+| Warm paired fixture | Exact stock (s) | Retired selector (s) | Retired / stock mean | Worst pairing | Verdict |
+| --- | --- | --- | ---: | ---: | --- |
+| Scherer G visit 1, 120 rows | 26.503 / 26.541 | 31.353 / 31.300 | 1.18115× | 1.18299× | Missed both thresholds |
+| PROTEUS P10 visit 3, 31 rows | 4.705 / 4.692 | 5.091 / 5.063 | 1.08055× | 1.08215× | Passed both thresholds |
+
+The symmetric P10 block also measured full dual at 5.803 / 5.650 seconds. The retired path was 11.34% faster than full dual. G stayed above the original limits because recognition never fires on that fixture. The combined timing requirement still failed. Both fixture results concern the exact RTX proxy only.
+
+Immutable release `ni26_friday_c21gt_retired_v1_20261119`, source SHA-256 `714add28327fb564cf2bb7b00b7f5420b58402d15ab74a95fc9b9ca5668de96c`. The final timing block completed at 07:06:39 CET on 19 November.
+
+| Receipt | Galvani job | SHA-256 |
+| --- | --- | --- |
+| `delayed.json` | `3134440` | `168cbdbac953b708cbe1b0e898cb260cc6280490ac29bcfe42e3293d36ad9671` |
+| `smoke.json` | `3134441` | `cb019632465844fba246682c6041daa19f78d65b1be0a49d7b88a908eb22188d` |
+| `timing_0.json` | `3134442_0` | `26ba7ffb14871ae1e91a745bf0ba84590ecf4995b63536ebf738436a782cafec` |
+| `timing_1.json` | `3134442_1` | `307c0d71fac55d8f0f2aada057abe1843f6d3ff5ee00246324b27bedcc5ea3aa` |
