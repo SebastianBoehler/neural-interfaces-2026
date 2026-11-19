@@ -530,3 +530,11 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F-C31c paired source-tape smoke `3135703` passed and fourteen fixed sessions are in array `3135711`. Independent reauthentication `3135712` checks the live route and source operands before any conditional training. [Mixer registration](cap250_mix_objective/prereg-19nov.md)
 - F-C25pdet immutable-stock RTX smoke `3135765` and paired fresh-process diagnostic `3135766` compare native default with pre-start deterministic control. No archive change. [Technical scope](cap250_hard_determinism/README.md)
 - F37 true H100 source smoke `511781` passed at 10:40:12. Independent CPU smoke `3135762` gates release of Ferranti array `511782`, Galvani held folds `3135763` and blind scorer `3135764`. Tested a distinct training-only spectral amplitude shift around alpha with the equal-dose beta and exact hard controls. [Run manifest](fbc323_spectral_shift/README.md)
+
+### Thursday 19 November, 10:45 CET
+
+- F37 independent CPU held smoke passed at 10:41:41. Ferranti began its first two H100 source folds. Eight source elements passed by 10:44. CPU held folds release as their exact source pairs finish. [Run manifest](fbc323_spectral_shift/README.md)
+- F-C25pdet smoke V1 hit a refit-count observer error after matching the original signed decisions. V2 expects the real age-20 and age-30 events. Paired launch-mode smoke `3135772` passed and the identical full diagnostic `3135773` follows. [Native RTX diagnostic](cap250_hard_determinism/README.md)
+- F-C31c has 11 of 14 source captures complete. The source-tape seal `3135712` gates A100 fit smoke `3135760` and three matched source-only continuations `3135761`. The separate CPU export and exact native RTX smoke gate external array `3135789` and blind collector `3135790` on fresh delivery seeds 29411/30411. Earliest score estimate **11:10–11:20 CET**, conditional on the source proof, fit, export and RTX capacity. [Conditional objective](cap250_mix_objective/fit-design-19nov.md)
+
+- F36c completed at 10:46:58 CET. Native pilot `3135714` passed, both corrected orders `3135715/3135716` reproduced complete stock/identity/hard, and blind collector `3135717` passed. Same-trial −0.233/−0.121 pp vs exact hard within0/full0. Cross-trial −0.124/−0.498 pp vs hard. [Signed result](cap250_f36/result-19nov.md)
