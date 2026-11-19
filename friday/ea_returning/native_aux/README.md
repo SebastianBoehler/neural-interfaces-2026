@@ -1,0 +1,19 @@
+# D-EArH · Returning production exposure audit and source Core2
+
+The §321 conditional package retains production-derived layers on P04 and P10. The P10 Hilbert Core2 is the first replacement because it has the largest direct mixture weight among the retained auxiliaries and its selected feature recipe and trained production arrays are available.
+
+| Component | Artifact and active path | Exclusion status |
+| --- | --- | --- |
+| Hilbert Core2 | All 13 array values equal the original 6 November export and current production. The actual native inner mixture gives its three-class output weight 1/8. | The owning run `3061033` trained on all 2,655 windows. D-EArH fits its `car_fb7_hfs2_t0.1_le_k2`, C=3 configuration on the exact P10 source rows. |
+| Rest | All three native `rest_s{0,1,2}.pt` files are identical to production. Their live common task posterior enters the outer mixture at mass 1/16. | The original producer fits three four-class Shallow SessionBN nets using all public task windows and the precue Graz windows. Its code and row-aligned precue artifact are available for a separate fold fit. |
+| Eye | All three `eye_s{0,1,2}.pt` files are identical to production. Their three log-posteriors enter each actual RouteB EM feature row. | Original no-mix ocular ResNet, three seeds, 60 epochs and all public windows. Its source and export code are available. |
+| Recognition calibration | D-EArN uses fit-specific true class contrast and Bio galleries. The old out-of-fold posterior cache supplies the contrast bias direction; the Bio metric retains production `sd,V,B,W,S`. P10 visit 2 yielded 126 finite contrast decisions starting at age 60 and 176 Bio decisions starting at 10. | The older cache was built before the outer P10 exclusion. Authenticating a new calibration requires out-of-fold predictions nested inside the outer source fold. The old cache and Bio metric stay conditional here. |
+| Event/classical priors | All 18 `em_*` arrays in both native folds match production, and the native EM/Aux path still consumes the resulting features. | These arrays and the other production priors stay fixed for the Core2 comparison. |
+
+The Rest and Eye recipe entry point is `scripts/train_v6_members.py` SHA-256 `71d108d17d37807aa81aaacb78988cdb5b5d6835b62f11f4088999b317573393`. The precue data digest is `7f807b61b29b5b1cd828b43839037e5f0b74b04d3215649b820667c502900438`. The P10 gallery receipt SHA is `f5c8804a876a6f49f9580dce4b941e12f39d20c278d9678ee3b133a8b2051873`. It explicitly binds the old cache `df5798dacb87a0bd1ea4ea6a883983dbcecd2ba37c759736d3ad1bcd979dadcf`. Source exclusion is verified only for components that have their own authenticated row and training receipts.
+
+## Source fit and independent reference
+
+CPU fit `3132875` completed at 01:12:33 CET on 19 November 2026. It used the same 2,270 source rows as §321. All 192 P10 visit-1 rows were present. All 385 later visit rows were excluded before feature generation. The fit used the selected 35,629-feature Hilbert recipe, complex log-Euclidean priors, a source scaler and multinomial logistic regression. The fit receipt SHA is `b6deadf09c37eb2ef7cbc7dca9c2ea9c79e6e500d69d381135f724379128d763`. The artifact SHA is `d03b8e2b6055a1291fbcea4a6d22bb719f3ead13a7417b4cef11366413f2b7f0`.
+
+The current selected Hilbert code differs in SHA from the original 6 November source. The independent reference reproduced the archived training-era recording-order Core2 posteriors to 4.16e−11, with every decision unchanged. The first reference job `3132878` stopped at an extra 1e−12 different-size batch comparison. The registered retry `3132912` quantified the actual old/new batch-prefix differences as 1.01e−9 and 4.49e−9, both with zero changed decisions. Real worker prefix/reset still requires bitwise equality. The native job is `3132914` in `ni26_friday_returning_core2_native_v2_20261119`. Held gold stays closed. No package artifact was edited.
