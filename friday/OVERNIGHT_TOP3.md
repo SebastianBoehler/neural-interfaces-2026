@@ -1,6 +1,6 @@
 # Overnight Track 2 campaign
 
-Sebastian set an eligible sealed top-three finish as the final submission target. At 06:10 CET on 19 November, the public Codabench results put cap250 at **#16 by participant** after retaining each participant’s best entry. Grouping organizations gives **#15 by team before audit**. The sealed cap250 score remains **0.8298729992**. Third place stood at **0.8470450897**, a gap of **1.7172 percentage points**. The live table at 08:41 CET still displayed cap250 at #16 and the same third-place submission 1059261. The last attempt requires Sebastian’s explicit upload authorization. [Exact Codabench scores](https://www.codabench.org/api/leaderboards/19997/) · [Team ranking and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring) · [Cap250 receipt](DECISION_18NOV.md#official-penultimate-receipt)
+Sebastian set an eligible sealed top-three finish as the final submission target. At 06:10 CET on 19 November, the public Codabench results put cap250 at **#16 by participant** after retaining each participant’s best entry. Grouping organizations gives **#15 by team before audit**. The sealed cap250 score remains **0.8298729992**. Third place stood at **0.8470450897**, a gap of **1.7172 percentage points**. The live table at 09:34 CET still displayed cap250 at #16 and the same third-place submission 1059261. The last attempt requires Sebastian’s explicit upload authorization. [Exact Codabench scores](https://www.codabench.org/api/leaderboards/19997/) · [Team ranking and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring) · [Cap250 receipt](DECISION_18NOV.md#official-penultimate-receipt)
 
 ## Overnight comparisons
 
@@ -117,6 +117,12 @@ The whole-waveform lane tested different information pathways. F27 changed senso
 - Hard waveform alone gained +0.203 pp [paired 80% −0.023,+0.425] across four same-actor external orders. All order points were positive and the same nine people recur. Direct hard-only package qualification is active. [Pooled transfer](cap250_hard_pooled/result-19nov.md)
 - Holding stock motor decisions exact gave +0.219/+0.112 pp on held-new replays and +0.076 pp on Scherer. Its external label-aware ceiling was +0.284 pp. [Cognitive choice](cap250_cognitive_output/result-19nov.md)
 - A separated same-input audit reproduced the shipped optimized FBLight archive on all 151 frames. Independent reset vectors still differed by 4.00819e−8 on P10 and 3.28240e−8 on G, with the same first decisions. Untouched G repeat showed smaller warm drift. Both original archive vetoes remain. [RTX diagnosis](cap250_gate_drift/README.md)
+
+### Thursday readout · 19 November, 09:39 CET
+
+- The matched A100-source multiresolution combination was −0.017 pp versus stock on Scherer. Conventional waveform alone led at +0.354 pp and its simultaneous interval across seven alternatives spans zero. [External factorial and selection audit](cap250c22_external/result-19nov.md)
+- F33a independently matched its own A100 hard controls. Its standalone signed spatial covariance effect versus hard was −0.870/+0.088 pp across seeds. The original Ferranti H100 wave is distinct. The next waveform test uses a learned analytic envelope with an equal-capacity real-power control. [A100 scope](fbc323_covariance/a100_whole/prereg-19nov.md)
+- The unchanged direct hard-only ZIP passed scope-specific clean RTX fixture timing. It remains the lead experimental alternate on the combined held-new and external evidence. The G independent posterior veto still applies. A separate direct class-accuracy wave compares the original submitted-interface ZIPs over two fresh orders with two untouched stock runs each. [Signed timing](cap250_hard_package/README.md#f-c25pt-warm-rtx-result)
 
 ## Selection
 

@@ -456,3 +456,11 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - A100 source v1 `3135174` failed before held predictions because float32 analytic tokens moved 2.861e−6 under the fixed rotation. Matched float64 spectral/power v2 `3135190` passed in 18 seconds. Analytic phase drift 3.553e−15, real-power motion about 1.71, and peak CUDA reservation 1.087 GB. Warm hard/analytic/real-power forward medians 3.893/4.340/4.342 ms. Hard reproduced exact F33a artifact bytes. [Protocol](fbc323_envelope/prereg-19nov.md) · [Precision repair](fbc323_envelope/precision-19nov.md)
 - Galvani CPU held smoke `3135208` gates six-at-a-time A100 source `3135209`, matching causal CPU folds `3135210` and blind scorer `3135211`. Same Slurm `launch_dependents.sh` as F33a, with durable remote `jobs.txt`. V2 release `ni26_friday_s1c_envelope_a100_v2_20261119`, actor `56ca60c2d190b3b51005f09cd53d66243af92ba2a319e58544594d0e9a94e60c`, scorer `899e0abb8c25227f8d0dbbb2061b53e49b8d9c5880da423ef119efb760fb6db5`.
+
+### Thursday 19 November, 09:39 CET
+
+- C22e 3135024 completed at 09:27:24. Selection audit 3135176 completed at 09:34:16. [Paired and simultaneous intervals](cap250c22_external/result-19nov.md)
+- F33a A100 held score finished at 09:28:18. F34 real CPU held smoke 3135208 passed and A100 3135209 with held fold 3135210 and scorer 3135211 are active. Ferranti H100 F33 continues separately.
+- Hard-only package v3 two-fixture timing 3135142 passed. Exact hard archive decision-level exterior smoke 3135151 passed at 09:35:53. Fresh orders 22411/23411, RTX array 3135152 cap four and blind scorer 3135153. Release `ni26_friday_c25q_exact_v2_20261119`. Worker `6c48a0cfc125bf1e4b8fe08f674959123948e19b9f1b364d560958b6b81b81e8`, scorer `88cfb37db1c63596c262dbcda3a389b2c7bc552570b077712b869f9389126588`. First smoke stopped in worker boot before inference. The new release corrected the worker entry point.
+- F-C25pc forced-unrecognized long-stream RTX technical stress 3135353. Independent comparison uses the same package bytes. Release `ni26_friday_c25pc_postcap_v1_20261119`, source `ba670fcc40d10308700d9deae8f692e129a59abffc0f889364712c0099008989`.
+- F-C29 source and RTX native P10/G passed. Fresh Scherer array 3135169 and scorer 3135205 run alongside F-C29d corrected full-system held arms 3135202/03 and blind scorer 3135204.
