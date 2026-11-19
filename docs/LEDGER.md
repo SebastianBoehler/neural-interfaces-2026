@@ -3233,3 +3233,5 @@ people; false recognition <= 1 of 144 streams per system; a Scherer enrolment do
 0 to +3 pp. Refutation: recognition of <= 3 of 9 means the gallery does not transfer across montage (the arm then
 degrades to a gate-only check and the returning dose cannot be decided on it).
 - Lane H (19 Nov): pooled-corpus trunk for the raw-FBCNet SBN family (3 arms, held-new LOPO, full0 in cap250): B +0.04 vs stock [-0.15,+0.17], C +0.11 [-0.09,+0.32], standalone B-A +0.51 [-0.39,+1.72], C-A -1.84; undecided/not supported, no package. evidence/wave_19nov/laneH_pooled_base.md
+
+**Lane I (19 Nov) SessionBN moment shrinkage, raw family.** S1 age-only prior count (nested tau) and S2 risk-weighted moments vs k20 in the cap250 chain, full0 held-new MASS 5/6: S1-S0 -0.052 [-0.18,+0.07], S2-S0 +0.034 [-0.12,+0.16]; returning P04/P10 S1 k5 -0.091 [-0.14,-0.05]; undecided/no build. [Card](../evidence/wave_19nov/laneI_bnshrink.md)

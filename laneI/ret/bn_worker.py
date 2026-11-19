@@ -30,11 +30,16 @@ def native_worker():
     return module
 
 
-def prepared(path, channels, who, tag, native):
+def prepared(path, channels, who, tag, native, patched=False):
     model = load_model(path, channels, tag, "cpu")
     if Path(type(model).step.__globals__["__file__"]).resolve() != (path / "submission.py").resolve():
         raise ValueError("wrong package module")
-    I.native_ft_proof(model, who)
+    if patched:  # the pinned D-EArW blob proof (P10) is a hash of the unmodified trace: here the blob must be the package's patched file
+        name = model.ft.files["fbraw"]
+        if model.ft.blobs["fbraw"] != (Path(path) / name).read_bytes() or model.ft.member["fbraw"] != 47:
+            raise ValueError("fine-tuned raw member is not the package's patched trace")
+    else:
+        I.native_ft_proof(model, who)
     model.js_bank = None
     with np.load(I.BASE / "neural-interfaces-2026/data/proteus_windows.npz", allow_pickle=False) as data:
         own = (data["subject"] == f"Dreyer2026Proteus/{who}") & (data["session"] == "1")
@@ -76,7 +81,7 @@ def main(order, visit, smoke):
     np.testing.assert_array_equal(tapes["zero"]["labels"], case["labels"][:n])
     tapes["stock"], stats["stock"] = run(native, orig, case, n, "stock")
     for arm in ARMS:
-        model = prepared(Path("/work/pkg") / f"{who}_{arm}", channels, who, f"{arm}_{who}", native)
+        model = prepared(Path("/work/pkg") / f"{who}_{arm}", channels, who, f"{arm}_{who}", native, patched=True)
         tapes[arm], stats[arm] = run(native, model, case, n, arm)
     base = tapes["stock"]
     if not all(np.array_equal(tapes["k20"][k_], base[k_]) for k_ in base):
