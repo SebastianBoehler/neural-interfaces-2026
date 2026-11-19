@@ -13,3 +13,18 @@ Before the complete comparison, the staged worker runs both launch modes on the 
 Smoke `3135765` reproduced the first 31 signed G decisions and exact native mirror under the default launch. The smoke observer then expected 20 optimizer steps. The pinned ZIP specifies four families, five steps each, and refits at ages 20 and 30 in this prefix. That gives 40 steps and one CSP refit, as the original log showed. The v2 observer checks the actual stored schedule and 40 expected steps, retains the exact prefix, and leaves all complete-run predictions and tolerances unchanged. The unreleased dependent job `3135766` was canceled. No independent repeat comparison occurred in v1.
 
 V2 smoke `3135772` passed both real launch modes with all 31 decisions and 40 neural optimizer steps. Complete `3135773` reached the default reset check after the signed G and P10 work. It stopped when the test deep-copied the measured active object, which still had F-C25p's stock route observer attached. That wrapper closes over the original route instance. The copied object's own `RouteB.last` therefore lacked `stage` when called after reset. V3 starts the exact existing F-C25p reset pattern from a fresh uninstrumented Solver model, plays the same 17 windows, then tests active-copy and reuse after the P10 interleave. It asserts those uninstrumented decisions and keeps all actual repeat observers and strict guards. V2 wrote no mode receipt. This correction changes the reset witness source and preserves predictions, controls and tolerances.
+
+## Result · 19 November 2026, 10:57:19 CET
+
+The controlled RTX process repeated all captured G and P10 posterior arrays bitwise. The default G repeat also passed `5e-5`. Its terminal peak was `1.25957e-5` at age 116 and its largest observed protected difference was `3.36866e-5` in the warm FBLight posterior at age 87. The first nonzero terminal and FBLight differences appeared at age 20, when the first neural refit executes. The causal-rescue rule required a default breach and did not pass. The earlier independent RTX veto remains in its original scope.
+
+| Fixture and launch | Terminal A/A max | Peak over protected arrays and final | Warm capture times |
+|---|---:|---:|---:|
+| G default | 1.25957e-5 | 3.36866e-5 | 27.073 / 26.932 s |
+| G controlled | 0 | 0 | 27.806 / 27.601 s |
+| P10 default | 0 | 0 | 4.633 / 4.599 s |
+| P10 controlled | 0 | 0 | 4.703 / 4.641 s |
+
+Both modes reproduced all signed decisions, the G archive work with 200 optimizer steps and 30 CSP fusions, and P10's age-10 recognition with zero refits. Every per-pass same-input tail matched bitwise. All reused and active-copy G reset prefixes matched their own full-run prefixes bitwise in both modes. Mean controlled/default observer wall ratios were 1.026× G and 1.012× P10. Peak reserved GPU memory increased 44 MiB in both fixtures. These are two technical captures on one RTX allocation with a fixed default-first process order. They do not measure release runtime or cross-mode vector equality.
+
+Release `ni26_friday_c25pdet_rtx_v3_20261119`, source manifest `3c6a2b8f64ef538a1eab56b91aa2c4bab8dab125525fc0c30271ca52add58e38`. Both-mode smoke `3135860` passed. Complete comparison `3135861` finished in 5m52s. Default receipt `f4cfef9dff5ea485ae61fafa096a8895a4b79e2a65b450b0d96e988cdc7860eb`. Controlled receipt `0ffbd69a4fd306669931a9b6c466b7d926bb3800a965899bf727ae99c6cf831c`. The existing stock and trial archives retain their exact bytes. This comparison used no competition gold.
