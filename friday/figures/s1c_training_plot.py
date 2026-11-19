@@ -131,6 +131,15 @@ LAYOUTS = {
             ("bounded_physical_minus_scrambled", "Physical neighbors\nvs scrambled"),
             ("bounded_scrambled_minus_hard", "Scrambled neighbors\nvs hard CE"),
         )),
+    "62f73d696cbbdbf59594a676d322e27d66a570533e35e910fb223589ecc277cd": dict(
+        title="Teacher relation gains varied across seeds",
+        stem="held-s1c-cross-fitted-relations", xlim=(-.87, 1.33),
+        caption="Bounded inference. Each teacher excluded both people in the source pair.",
+        contrasts=(
+            ("bounded_literal_minus_hard", "Literal relations\nvs hard CE"),
+            ("bounded_literal_minus_deranged", "Literal relations\nvs deranged targets"),
+            ("bounded_deranged_minus_hard", "Deranged targets\nvs hard CE"),
+        )),
 }
 
 
