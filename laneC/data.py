@@ -83,7 +83,7 @@ def public(root, held, full=False):
     return trained, labels, train, query, queries, names, prior
 
 
-def scherer_rows(root, archive):
+def verify_scherer(root, archive):
     source = root / "runs/diag/external_semantics351/scherer_rows.tsv.gz"
     with gzip.open(source, "rt") as f:
         rows = list(csv.DictReader(f, delimiter="\t"))
@@ -92,8 +92,9 @@ def scherer_rows(root, archive):
     np.testing.assert_array_equal(["Scherer2015/" + r["person"] for r in rows], archive["subject"])
     np.testing.assert_array_equal([r["session"] for r in rows], archive["session"])
     raw = np.array([int(r["raw_class"]) for r in rows])
-    require(set(raw) == {1, 2, 4, 5}, "Scherer raw task schema changed")
-    return raw != 5
+    require(set(raw) == {1, 2, 4}, "Scherer must contain only WORD, SUB and HAND")
+    expected = np.select([raw == 4, raw == 2, raw == 1], [0, 1, 2], default=-1)
+    np.testing.assert_array_equal(expected, archive["y"])
 
 
 def external_source(root, corpus, canary=False):
@@ -111,8 +112,15 @@ def external_source(root, corpus, canary=False):
     for path in files:
         pins[str(path.relative_to(root))] = sha(path)
         with np.load(path, allow_pickle=False) as z:
+            encoded_tasks, encoded_subtypes = task_map, subtype_map
             if expected is not None:
-                require(tuple(z["classes"]) == expected, f"{corpus} source labels changed")
+                names = tuple(z["classes"])
+                require(len(names) == len(expected) and set(names) == set(expected),
+                        f"{corpus} source label names changed: {names}")
+                indexes = [expected.index(name) for name in names]
+                encoded_tasks = np.asarray(task_map)[indexes]
+                if subtype_map is not None:
+                    encoded_subtypes = np.asarray(subtype_map)[indexes]
             y, person, visit = z["y"], z["subject"], z["session"]
             stream = np.char.add(np.char.add(person, "|"), visit)
             available = [c for c in z["ch_names"] if c not in z["interpolated"]]
@@ -120,7 +128,7 @@ def external_source(root, corpus, canary=False):
             col = [z["ch_names"].tolist().index(c) for c in available]
             eligible = np.ones(len(y), bool)
             if corpus == "scherer2015":
-                eligible = scherer_rows(root, z)
+                verify_scherer(root, z)
             if corpus == "shin2018":
                 eligible = z["win"] == 0
             selected = []
@@ -133,8 +141,8 @@ def external_source(root, corpus, canary=False):
             # Domain-specific referencing: restrict to true electrodes and align each source visit.
             x = align(x, stream[rr], rng.permutation(len(rr)))
             waves.append(x)
-            labels.append(np.asarray(task_map)[y[rr]])
-            subtypes.append(np.asarray(subtype_map)[y[rr]] if subtype_map is not None else np.full(len(rr), -1))
+            labels.append(np.asarray(encoded_tasks)[y[rr]])
+            subtypes.append(np.asarray(encoded_subtypes)[y[rr]] if encoded_subtypes is not None else np.full(len(rr), -1))
             domains.extend(person[rr])
     require(len(montages) == 1, f"inconsistent native montage for {corpus}")
     return np.concatenate(waves), np.concatenate(labels), np.concatenate(subtypes), list(montages.pop()), sorted(set(domains)), pins
