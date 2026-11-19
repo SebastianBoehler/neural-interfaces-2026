@@ -112,7 +112,11 @@ def run(mode, smoke):
             _, observed, _, _ = measured(model, g[0][:31])
             np.testing.assert_array_equal(observed["labels"], g[3][:31])
             assert native_zero(model, observed)
-            assert observed["work"]["ft_steps"] == 20 and observed["work"]["cp_refits"] == 1
+            fit = model.ft
+            assert (fit.t0, fit.every, fit.n_steps, len(fit.member)) == (20, 10, 5, 4)
+            expected_refits = len(range(fit.t0, 31, fit.every))
+            assert observed["work"]["ft_refits"] == expected_refits == 2
+            assert observed["work"]["ft_steps"] == 40 and observed["work"]["cp_refits"] == 1
             assert observed["work"]["recognized"] == -1 and observed["work"]["errors"] == 0
             path = Path(f"{mode}_smoke.json")
             with path.open("x") as handle:
