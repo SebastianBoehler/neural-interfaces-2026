@@ -22,3 +22,9 @@ ssh mlcloud-galvani 'cd /mnt/lustre/work/gehler/gfh527/ni26_friday_causal_rebuil
 ```
 
 If either recovery exits at numerical parity, record its actual receipt and leave the legacy branch closed. A later fresh-FBLight comparison must share its genuinely replayed frozen seed-0 input in both arms and regenerate both incumbent shadows, recognition, strict targets and every refit. The sealed result, if any, measures the reused held-new people under within0 delivery. Returning and sealed leaderboard decisions require their own evidence.
+
+## Exact-node recovery outcome · 19 November 01:55 CET
+
+Both original-node recoveries completed the fit and live warm check but failed the 2e−5 historical posterior bound. P08 visit 1 max was 5.71854e−5 and P10 visit 2 max was 1.24284e−4, with zero changed decisions in each. Receipts were `540af924…d0ab` and `3d0bca42…5e23`. Both scopes passed source exclusion, frozen parity and real optimizer checks.
+
+Slurm canceled 3132611 and the dependent matched graph through 3132636 before execution. The warm qualification, terminal decision bank and score files are absent. The exact historical terminal zero remains independent. D-EAwcf uses a separately authenticated shared fresh FBLight input in both arms, with both shadows and every dependent refit regenerated.
