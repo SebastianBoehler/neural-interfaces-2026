@@ -1,0 +1,9 @@
+# F-C21cap post-cap FBLight witness
+
+Galvani `3134285` passed at **06:19:47 CET on 19 November** after 2m44s. The run loaded the exact pinned cap250 archive in the Linux Torch 2.14.1+cu130 container on RTX 2080 Ti. It delivered the same 378 authentic public EEG rows as the archived §360 stress. Each recognition threshold was set to 1e6 on a fresh model copy, and the historical stress harness ran with TorchScript graph optimizations disabled. This label-blind stress tests the cap transition on concatenated public windows.
+
+- The live worker made 24 real refits with 480 optimizer steps and 24 relabels. It skipped the next 12 scheduled refits at ages 260 through 370 and hit no wall-clock cap. It made 18 actual CSP refits and fused 288 outputs. All activity counters matched the archived A100 stress and all 378 emissions succeeded.
+- The worker used the actual warm FBLight family on 358 rows. All 118 rows from age 260 through 377 kept the adapted family with the optimizer step count at 480 and the waveform histories capped at 250. The maximum warm versus frozen-only family posterior difference after the cap was 0.828274. The native RouteB input moved on every post-cap row, by up to 0.045454. Separately computed mix arithmetic agreed within 1.12e−16.
+- Reports for natural recognized and unrecognized visits are in the separate F-C21e and F-C21r lanes. These forced-unrecognized public windows provide no accuracy or natural end-to-end timing endpoint.
+
+Receipt `ni26_friday_c21cap_v1_20261119/cap_witness.json` SHA-256 `d594ae0c049e8a9ff48b31e102c7efca19eef4e0b57b508f939221cb144a43ef`. Source manifest `27a45d1811fc1e707f81ff9789a1346b973013f416d02feff2be9e8f5cf35a64`. Canonical delivery hash `c5b80556953e87b39a223e78e578eb666364fd0906c5b9741268a40eac39f0c7`. Prior archived stress receipt `815138d6536adb999fdfdf37dfc243f66b3718b82bf8198ccd7cc04a1f1c53b5`.
