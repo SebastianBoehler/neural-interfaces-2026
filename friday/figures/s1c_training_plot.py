@@ -140,6 +140,15 @@ LAYOUTS = {
             ("bounded_literal_minus_deranged", "Literal relations\nvs deranged targets"),
             ("bounded_deranged_minus_hard", "Deranged targets\nvs hard CE"),
         )),
+    "285a0b6426557c39cdf16f1211a6b151c14587ed0c8382bfbef8afeaf4938979": dict(
+        title="Both recurrent readouts fell below the plain decoder",
+        stem="held-s1c-recurrent-readout", xlim=(-12.4, 5.2),
+        caption="Bounded inference. Preserving token order improved the recurrent readout.",
+        contrasts=(
+            ("bounded_chronological_minus_hard", "Chronological readout\nvs hard CE"),
+            ("bounded_chronological_minus_scrambled", "Chronological readout\nvs scrambled readout"),
+            ("bounded_scrambled_minus_hard", "Scrambled readout\nvs hard CE"),
+        )),
 }
 
 
