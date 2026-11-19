@@ -8,5 +8,5 @@ mkdir -p logs work work_smoke
 if [ "$mode" = smoke ]; then
   sbatch --parsable $g -t 00:25:00 -J ni26-v-smoke -o logs/v-smoke-%j.out --wrap "$common; export LANEH_WORK=$root/work_smoke LANEH_QUICK=1; for a in V0 V1 V2 V2s V3; do python -u laneV/lopo_v.py \$a 0 P02; done"
 else
-  sbatch --parsable $g -t 01:00:00 --array=0-14 -J ni26-v-fit -o logs/v-fit-%A_%a.out --wrap "$common; a=(V0 V1 V2 V2s V3); python -u laneV/lopo_v.py \${a[\$((SLURM_ARRAY_TASK_ID/3))]} \$((SLURM_ARRAY_TASK_ID%3))"
+  sbatch --parsable $g -t 01:00:00 --array=${ARR:-0-14} -J ni26-v-fit -o logs/v-fit-%A_%a.out --wrap "$common; a=(V0 V1 V2 V2s V3 V2w V3w); python -u laneV/lopo_v.py \${a[\$((SLURM_ARRAY_TASK_ID/3))]} \$((SLURM_ARRAY_TASK_ID%3))"
 fi

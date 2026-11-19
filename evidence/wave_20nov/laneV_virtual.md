@@ -31,3 +31,13 @@ V2s +0.04 [-0.35,+0.40], V3 +0.05 [-0.35,+0.45]. Arm minus cap250 = V0-minus-cap
 - Otherwise **undecided** (instrument +-0.5 across people; neither P04 nor P10 decides; sealed claim = 0.57 x held-new delta).
 - A candidate would need a package export from all-public fits (not done here) and joins the stack only via the final-stack rules.
 - Not covered: other doses, other families (fb, fblight, Sinc), returning people, orders other than full0 in the full system.
+
+## Result part 1 (20 Nov ~00:15 CET; Leonardo fit array 64884082, collector 64884654; all guards passed, V0 reproduces Lane H arm B: 59.80)
+Standalone held-new, mean of 8 orders, arm minus V0 (people+orders 80 %): V1 -0.09 [-0.97, +0.68]; V2 -14.2 [-16.5, -12.1]; V2s -16.5 [-19.6, -13.9];
+V3 -14.7 [-16.8, -12.6]. Predictions (+0.2 / +0.5 / +0.4 / +0.5) missed for V2/V2s/V3 by ~15 pp: the registered dose was far too strong
+(A ~ N(0, 0.15^2) per entry on 41 channels is a large rotation; the shipped 0.05 is per window and a different scale; random 41-dim rotation scrambles the
+lateralised spatial pattern the net needs). V1 is flat (undecided standalone).
+## Added form after seeing V2 (registered before scoring it; not a rescue of V2): doses V2w / V3w = rot 0.05, gain 0.05, shift 0.15 (V3w = V1 + V2w).
+Prediction standalone vs V0: V2w -0.3 [-2.0,+1.3], V3w -0.2 [-2.0,+1.5] (a rotation that small mostly equals the shipped rot05; expected near zero). Same rules as above.
+Full system will be run for every arm that is not catastrophic standalone (V1, V2w, V3w); V2/V2s/V3 are closed at their registered dose by the standalone -14 to -16 pp
+(no full-system run: a member that loses 14 pp cannot raise a 73.7 % system; stated, not measured).

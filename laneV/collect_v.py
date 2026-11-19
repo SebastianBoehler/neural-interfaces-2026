@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "laneH"))
 import collect as C  # noqa: E402
 from oracle import metadata, require, sha  # noqa: E402
 
-ARMS = ("V0", "V1", "V2", "V2s", "V3")
+ARMS = ("V0", "V1", "V2", "V2s", "V3", "V2w", "V3w")
 
 
 def main():

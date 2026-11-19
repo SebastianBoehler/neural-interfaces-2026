@@ -14,7 +14,8 @@ import torch
 ROW = {"AF": 5, "F": 4, "FC": 3, "C": 2, "CP": 1, "TP": 1, "P": 0, "PO": -1}
 ARMS = {  # arm -> (mix, virt dose: (rot, gain, shift) or None)
     "V0": (False, None), "V1": (True, None), "V2": (False, (0.15, 0.10, 0.35)),
-    "V2s": (False, (0.30, 0.20, 0.70)), "V3": (True, (0.15, 0.10, 0.35))}
+    "V2s": (False, (0.30, 0.20, 0.70)), "V3": (True, (0.15, 0.10, 0.35)),
+    "V2w": (False, (0.05, 0.05, 0.15)), "V3w": (True, (0.05, 0.05, 0.15))}
 
 
 def grid(names):
