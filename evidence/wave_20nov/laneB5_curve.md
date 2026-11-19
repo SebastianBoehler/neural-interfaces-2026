@@ -28,3 +28,23 @@ Extrapolation (log-linear fit on standalone, saturating power law as lower case)
 - Extrapolation range reports both fits (log-linear = optimistic, saturating power law with a free asymptote and exponent bounded in [0.2, 2] = conservative); the extrapolation is
   outside the measured N and says nothing about people of a different kind (lane V).
 - Not covered: fb / fblight families, other orders, returning people, MASS other than 5/6, nets trained on external task data.
+
+## Result (Fri 20 Nov ~01:30 CET; smoke 3138650, fits 3138654 (30 tasks, 750 fits, ~5 min each), full0 replays 3138787-3138807 (21 banks, ~4 min each); numbers `laneB5_curve.json`)
+Zero-change checks passed: N9 standalone 59.31 = Lane H arm A exactly; N9 full system 73.59 = stock 73.74 minus 0.15 (the A control), `--cap250` stock check True.
+BA (held-new, 3-seed ensemble, subsets averaged), N = 5/6/7/8/9:
+| | 5 | 6 | 7 | 8 | 9 |
+|---|---|---|---|---|---|
+| standalone | 54.71 | 56.26 | 57.01 | 58.24 | 59.31 |
+| full system (5/6 raw-family swap) | 73.98 | 73.91 | 73.73 | 73.69 | 73.59 |
+Per person (people-resampled 80 %, cell-weighted):
+| | standalone | full system |
+|---|---|---|
+| slope 7 -> 9 per person | +1.15 [+0.79, +1.57] | **-0.07 [-0.14, -0.00]** |
+| gain 5 -> 9 | +4.60 [+3.36, +5.88] | -0.39 [-0.61, -0.18] |
+| +5 people, log-linear / sat. power | +3.36 [+2.46, +4.28] / +3.03 [+1.86, +3.73] | -0.30 [-0.44, -0.16] / 0.00 |
+| +10 people | +5.68 [+4.16, +7.25] / +4.97 [+2.87, +6.11] | -0.51 [-0.75, -0.27] / 0.00 |
+| +20 people | +8.90 [+6.51, +11.35] / +7.47 [+3.94, +9.17] | -0.81 [-1.17, -0.43] / 0.00 |
+Predictions: standalone levels within about 0.5 at N = 5 to 9 (54.7 vs 54.5, 56.3 vs 56.0, 57.0 vs 57.3, 58.2 vs 58.4); slope 7 -> 9 +1.15 vs +1.0 predicted, inside. Full system: predicted rise +0.15 per person; **it fell instead** (sign wrong, outside the interval).
+Reading by the rules: coverage lever through this family in the full system is **negligible** (+10 people upper bound -0.27 log-linear, 0.00 saturating, both < +0.5). Standalone steepness did not carry (about 0 or slightly negative transfer).
+Why is not settled: a weaker, less confident N = 5 member is not worse inside the chain (its errors are more complementary or its posteriors are better calibrated for the mix/EM stages); a stronger standalone net replaces that diversity. Untested here, so no claim. The negative slope is small (-0.07 per person, a bound at 0 on the high side) and inside the instrument's +-0.5 across people, so read it as "no gain", not as "more people hurt".
+Not covered: fb / fblight families and the other members (the other 1/6 of each slot and all non-FBCNet members were fixed at 9 people), full0 only, MASS 5/6 only, returning people. For lane V: the effective N it must emulate for this family is irrelevant to the full-system score (flat 73.6 to 74.0 over N = 5 to 9); only standalone-level targets care about N.
