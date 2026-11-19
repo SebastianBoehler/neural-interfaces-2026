@@ -175,6 +175,27 @@ def plot_returning_raw(receipts, out):
     save(fig, out, "returning-outer-raw")
 
 
+def plot_joint_waveform(receipts, out):
+    record = locked(receipts / "held-fbl-multiresolution-cross-score.json",
+                    "309c3f6d368b4b1034e963233d54df61cb372b62b1b07f289cd95e1df26e63c0")
+    fig, (ax,) = layout("The combined model improved on cap250 in both deliveries")
+    rows = (("Exact cap250", "joint_minus_stock"), ("FBLight doubling alone", "joint_minus_FBL2"),
+            ("Multiresolution pupil alone", "joint_minus_multi"),
+            ("FBLight + conventional pupil", "joint_minus_single_joint"))
+    for order, color, offset in (("within0", BLUE, -.11), ("full0", GOLD, .11)):
+        for row, (_, key) in enumerate(rows):
+            interval(ax, record["orders"][order]["contrasts"][key], row + offset,
+                     color, order if row == 0 else None)
+    ax.set_yticks(range(len(rows)), [name for name, _ in rows])
+    ax.set(xlim=(-.32, 1.08), ylim=(3.55, -.55))
+    ax.set_title("FBLight doubling + multiresolution pupil vs each reference · paired 80% intervals",
+                 loc="left", fontsize=10, color=MUTED)
+    ax.legend(loc="upper right", frameon=False, ncol=2, bbox_to_anchor=(1, .78))
+    fig.text(.028, .024, "Full-system dev · 10 held-new participants used in both delivery orders",
+             fontsize=9, color=MUTED)
+    save(fig, out, "held-fbl-multiresolution-cross")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("receipts", type=Path)
@@ -189,3 +210,4 @@ if __name__ == "__main__":
     plot_external_raw(options.receipts, options.output)
     plot_fbl_factor(options.receipts, options.output)
     plot_returning_raw(options.receipts, options.output)
+    plot_joint_waveform(options.receipts, options.output)
