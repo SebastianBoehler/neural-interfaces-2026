@@ -37,3 +37,18 @@ D-EAfcf was separately preregistered in `e39ee782`. The condition is an authenti
 | `3133445 → 3133446` | Complete predictions then authorized independent score in `full0_common_terminal_v1`, source `74527664…335a`. |
 
 The A100 canary completed at 03:08:48 CET. It matched its own first window, 80-window prefix and cross-session reset exactly, but changed 3 of 190 archived FB raw decisions and differed by up to 0.0479626 in posterior probability. Receipt `28e2494c34189c00e058643096b9a0e362afdc29c1828f823ccd99035a8a619b`. This is a numerical source-anchor refutation of this exact runs0 instrument. The existing runs0 bridge and unaffected family results remain label blind. The qualified trigger advanced the separate full0 branch.
+
+## Common-source full0 completed · 19 November 03:18 CET
+
+FULL-SYSTEM DEV on ten reused held-new people and 28 official cells under full0. Both arms share the exact ten fresh FBLight and Sinc checkpoints used in within0. The earlier Sinc-only full0 result has its own source configuration.
+
+| EA input | P0r | Complete cap250 | Difference and paired 80% interval |
+| --- | ---: | ---: | ---: |
+| Historical EA convention | 73.52197% | 73.88826% | +0.36628 pp [−0.16345, +0.92142] |
+| Corrected causal EA | 73.07157% | 73.73898% | +0.66741 pp [+0.03259, +1.54885] |
+
+The EA correction increased the cap250 advantage by +0.30112 pp [+0.00353, +0.73121], opposite the predicted point direction. Both positive lower bounds barely clear zero. The direct cap250 point fell by 0.14928 pp, because corrected P0r lost more than corrected cap250. This one-order contrast describes the reused cohort. It provides neither a pure delivery-order effect nor returning, external or sealed evidence.
+
+The independent full0 P01 RTX reload matched its recorded same-state posterior to 3.97e−8 and all 190 decisions. The bank sealed at 03:09:16 CET, digest `42b26dc8…3578`. The new common-source bridge sealed at 03:10:23 CET, receipt `daa47551…d277`. Both arms ran 240 genuine strict-past TSEM targets and zero routed sessions. All four fresh warm producers passed. The independently fixed terminal stages changed 308 count-filter rows and 1,395 personalized rows per arm. Each arm passed three exact interleaved 120-window count/CSP prefixes with 80 active count rows per prefix. The largest fixed-source posterior difference was 7.52e−8.
+
+Blind terminal job `3133445` sealed at 03:17:56 CET. The separate official scorer `3133446` finished at 03:18:06 CET. Read-only blind receipt `3e96c32dd86984df589e4414e7e039410b9df8e11521b92bce5670d27961510b`, bank `d99fab293f89a9059af7ab35488a22aa3a88f151887339ffaa652efb415ce6a8` and score `41a10bc6725cc572d80b06e416696d7aa1bc84fb6e3fb746e96527c9d6230033`.
