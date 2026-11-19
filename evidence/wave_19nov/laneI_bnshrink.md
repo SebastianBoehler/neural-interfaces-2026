@@ -1,6 +1,6 @@
 # Lane I · Selective shrinkage of SessionBN moments (rank 4 of research_codex.md)
 
-Registered Thursday 19 Nov 2026 ~19:45 CET, before any shrinkage posterior was scored. Read first: `experiments/session_bn.py`,
+Registered Thursday 19 Nov 2026 ~19:15 CET, before any shrinkage posterior was scored. Read first: `experiments/session_bn.py`,
 the cap250 traces (`StreamBN` in `sbn_*_s*.pt`), `laneH/{lopo,collect,full_replay}.py`, §378 (`evidence/next_wave_16nov/shrink378.md`).
 
 ## What the current module is (audited, not assumed)
