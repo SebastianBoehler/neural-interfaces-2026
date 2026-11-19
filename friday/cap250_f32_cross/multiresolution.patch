@@ -1,0 +1,238 @@
+--- a/fixture.py
++++ b/fixture.py
+@@ -8,14 +8,14 @@
+ from scope import external, known
+ from settings import stamp
+ 
+-SEEDS = (16411, 17411)
+-ARMS = ("stock", "hard", "joint", "fbl2", "fbl2_hard", "fbl2_joint")
+-EXPORTS = ("hard", "detached", "joint")
++SEEDS = (20411, 21411)
++ARMS = ("stock", "hard", "single", "multi", "fbl2", "fbl2_hard", "fbl2_single", "fbl2_multi")
++EXPORTS = ("hard", "single", "multi")
+ DATA_SHA = "a6188799753276451235678d08e92fd79162a95ec8099dbbb85e2ed9e2701e91"
+ ORDERS = {
+     0: "63ef8f828ff49cfa2b2a9152571b5a496810d1d7834b2f38e2be1c345307c5d0",
+-    16411: "00005e37a05345ad9e176cbec56554e68413dd07132eace3319b654f0d746384",
+-    17411: "3c5e2df2d1919d72822bf76e52102d9960487f50db85e951faa25a0fabd5b656",
++    20411: "87703ab04fa77275590409f29e75fd1eb5f18f46b9e8cb6ae9b0d3b46a87bc19",
++    21411: "7f121e452dab3bbfad531dc2a2c0658df97a3fe9d6734bcafaf25df481dacb80",
+ }
+ 
+ 
+@@ -55,7 +55,7 @@
+ 
+ def actor_lock(path):
+     lock = json.loads(Path(path).read_text())
+-    if lock["f32e_source_only"] is not True or set(lock["actors"]) != set(EXPORTS):
++    if lock["f25e_source_only"] is not True or set(lock["actors"]) != set(EXPORTS):
+         raise ValueError("actor lock must contain all three exact all-public-source exports")
+     if any(len(lock["actors"][kind]) != 2 for kind in EXPORTS):
+         raise ValueError("original fixed seed pair missing")
+--- a/pupil_cache.py
++++ b/pupil_cache.py
+@@ -1,4 +1,4 @@
+-"""Generate opaque all-source hard, detached and joint CPU pupil banks."""
++"""Generate opaque all-source hard, single-scale and multi-scale CPU pupil banks."""
+ import argparse
+ import copy
+ import json
+@@ -25,7 +25,7 @@
+     bank = np.asarray(data).reshape(len(rows), len(EXPORTS), 2, 3)
+     assert np.isfinite(bank).all() and (bank >= 0).all()
+     np.testing.assert_allclose(bank.sum(-1), 1., rtol=0, atol=1e-12)
+-    np.testing.assert_array_equal(bank[:, 0], bank[:, 1])
++    assert np.abs(bank[:, 1]-bank[:, 2]).max() > 1e-6
+     return bank
+ 
+ 
+@@ -52,7 +52,7 @@
+         result[key+"|rows"] = rows
+         result[key+"|x"] = np.array(stamp(eeg[rows].numpy()))
+     meta = dict(source=sha("source.sha256"), mode=mode, index=index, who=who, actors=sha("actors.json"),
+-                keys=keys, exact_detach=True, reset_prefix=True, held_labels_opened=False)
++                keys=keys, matched_scale_active=True, reset_prefix=True, held_labels_opened=False)
+     path = Path(f"pupils_{mode}_{index}.npz")
+     with path.open("xb") as file:
+         np.savez_compressed(file, metadata=json.dumps(meta, sort_keys=True), **result)
+--- a/native_run.py
++++ b/native_run.py
+@@ -1,4 +1,4 @@
+-"""Cross actual FBLight doubling with two fixed substitutions in native outer tails."""
++"""Cross actual FBLight doubling with three fixed substitutions in native outer tails."""
+ import argparse
+ from copy import deepcopy
+ import json
+@@ -24,13 +24,13 @@
+     """Use F-C20s native attachment and arithmetic for both fixed pupil pairs."""
+ 
+     def __init__(self, model, pupils):
+-        self.pairs = (pupils[:, 0], pupils[:, 2])
++        self.pairs = tuple(pupils[:, i] for i in range(3))
+         self.tape, self.current = [], None
+         fields = ("routed", "r15", "v6r", "ft", "w", "w_rest", "route", "mix6")
+         shared = {name: getattr(model, name) for name in fields}
+         self.boosts = tuple(
+             FBL2Hook(SimpleNamespace(routeB=deepcopy(model.routeB), **shared), "fbl2")
+-            for _ in ARMS[3:]
++            for _ in ARMS[4:]
+         )
+         self.boost_motion, self.live_family = [], []
+         super().__init__(model, self.pairs[0])
+@@ -73,7 +73,7 @@
+ def mirror(template, events, arm):
+     ref = Outer(template)
+     index = ARMS.index(arm)
+-    if index >= 3:
++    if index >= 4:
+         ref.route.a = BOOST_SHARE
+     probe = RouteProbe(SimpleNamespace(routeB=ref.route))
+     for x, u, recognized, core, extra, gc, gi, mixes in events:
+@@ -110,7 +110,7 @@
+     assert activity["windows"] == len(rows) == len(tap.tape) and not model.ft.over and not activity["errors"]
+     assert activity["ft_steps"] == 20*activity["ft_refits"]
+     assert len(protected.refits) == activity["ft_refits"] and protected.trace
+-    assert np.asarray(tap.warm).reshape(-1, 2).sum(0).tolist() == [model.log6["ft"]]*2
++    assert np.asarray(tap.warm).reshape(-1, 3).sum(0).tolist() == [model.log6["ft"]]*3
+     before = protected.summary()
+     zero, observer, stock_route = mirror(template, tap.tape, "stock")
+     np.testing.assert_array_equal(zero, stock)
+@@ -137,7 +137,7 @@
+                all(s[k] == hook_work[0][k] for k in ("warm_rows", "frozen_rows", "calls", "moved",
+                                                       "route_share", "fbl_warm_delta")) for s in hook_work)
+     assert hook_work[0]["warm_rows"] == model.log6["ft"] and hook_work[0]["moved"] == len(rows)
+-    motion = np.column_stack((np.asarray(tap.movement).reshape(len(rows), 2), tap.boost_motion))
++    motion = np.column_stack((np.asarray(tap.movement).reshape(len(rows), 3), tap.boost_motion))
+     assert np.isfinite(motion).all() and min(motion.max(0)) > 1e-6
+     return dict(rows=rows.tolist(), **labels, activity=activity, stop=model.cp.stopped, native_zero_exact=True,
+                 exact_private_prefix=smoke, stages=stages, owner=before,
+@@ -151,14 +151,14 @@
+     with np.load(path, allow_pickle=False) as z:
+         meta = json.loads(str(z["metadata"]))
+         assert meta == dict(source=sha("source.sha256"), mode=mode, index=index, who=who, actors=sha("actors.json"),
+-                            keys=list(choices), exact_detach=True, reset_prefix=True, held_labels_opened=False)
++                            keys=list(choices), matched_scale_active=True, reset_prefix=True, held_labels_opened=False)
+         for key, (x, rows) in choices.items():
+             np.testing.assert_array_equal(z[key+"|rows"], rows)
+             assert str(z[key+"|x"]) == stamp(x[rows].numpy())
+             post = z[key+"|p"]
+             assert post.shape == (len(rows), 3, 2, 3) and np.isfinite(post).all() and (post >= 0).all()
+             np.testing.assert_allclose(post.sum(-1), 1., rtol=0, atol=1e-12)
+-            np.testing.assert_array_equal(post[:, 0], post[:, 1])
++            assert np.abs(post[:, 1]-post[:, 2]).max() > 1e-6
+             output[key] = post
+     return output
+ 
+@@ -189,7 +189,7 @@
+             assert record["stop"] is None and record["activity"]["recognized"] == -1
+             assert record["warm"] > 0 and all(r["fusions"] > 0 for r in record["stages"].values())
+         results[key] = record
+-        print("PASS F-C25 actual native", key, record["maximum_mix"], flush=True)
++        print("PASS F-C22e actual native", key, record["maximum_mix"], flush=True)
+     assert package.cp.t == 0 and not package.v5hist
+     name = Path("smoke.json" if mode == "smoke" else f"person_{index}.json")
+     with name.open("x") as file:
+@@ -199,7 +199,7 @@
+                   file, sort_keys=True, allow_nan=False)
+         file.write("\n")
+     name.chmod(0o444)
+-    print("PASS F-C25 worker", mode, index, sha(name), flush=True)
++    print("PASS F-C22e worker", mode, index, sha(name), flush=True)
+ 
+ 
+ if __name__ == "__main__":
+--- a/score_f32x.py
++++ b/score_f32x.py
+@@ -58,7 +58,7 @@
+                 assert stats["owner"]["refit_ages"] == list(range(20,len(rows),10))
+                 assert min(stats["maximum_mix"].values()) > 1e-6 and stats["warm"] > 0
+                 assert set(stats["stages"]) == set(ARMS[1:])
+-                assert len(stats["hooks"]) == 3
++                assert len(stats["hooks"]) == 4
+                 assert all(h["warm_rows"] == stats["warm"] and h["moved"] == len(rows) for h in stats["hooks"])
+                 for arm, stage in stats["stages"].items():
+                     correct_share = BOOST_SHARE if arm.startswith("fbl2") else CAP_SHARE
+@@ -112,31 +112,33 @@
+         verdict = "supported" if bounds[0] > 0 and min(orders.values()) > 0 else "refuted" if bounds[1] <= 0 else "undecided"
+         return dict(pp=float(delta.mean()), paired80=bounds, order_pp=orders, verdict=verdict)
+ 
+-    stock, hard, joint, fbl2, combo, combo_joint = cells
++    stock, hard, single, multi, fbl2, joint_hard, joint_single, joint_multi = cells
+     oracle = bank.copy()
+-    oracle[1] = np.where(bank[0] == y, bank[0], np.where(bank[1] == y, bank[1], bank[3]))
++    oracle[1] = np.where(bank[0] == y, bank[0], np.where(bank[3] == y, bank[3], bank[4]))
+     oracle_cells, _ = official_cells(oracle, y, subject, visit,
+                                      dict(stream=streams, interface=interface), people)
+-    primary = combo-stock
+-    outcomes = dict(combo_minus_stock=contrast(primary), combo_minus_fbl2=contrast(combo-fbl2),
+-                    combo_minus_hard=contrast(combo-hard), hard_minus_stock=contrast(hard-stock),
+-                    fbl2_minus_stock=contrast(fbl2-stock), motor_objective_with_fbl2=contrast(combo_joint-combo),
+-                    motor_objective_without_fbl2=contrast(joint-hard),
+-                    interaction=contrast(primary-(fbl2-stock)-(hard-stock)),
++    primary = joint_multi-stock
++    outcomes = dict(combo_minus_stock=contrast(primary), combo_minus_fbl2=contrast(joint_multi-fbl2),
++                    combo_minus_hard_combo=contrast(joint_multi-joint_hard),
++                    combo_minus_conventional_combo=contrast(joint_multi-joint_single),
++                    multi_minus_single=contrast(multi-single), multi_combo_minus_multi=contrast(joint_multi-multi),
++                    fbl2_minus_stock=contrast(fbl2-stock),
++                    fbl2_scale_interaction=contrast((joint_multi-joint_single)-(multi-single)),
++                    interaction=contrast(primary-(fbl2-stock)-(multi-stock)),
+                     parent_oracle=contrast(oracle_cells[1]-stock))
+     correct = bank == y
+     missed = ~correct[0]
+-    tally = dict(hard_only=int(np.count_nonzero(missed & correct[1] & ~correct[3])),
+-                 fbl2_only=int(np.count_nonzero(missed & ~correct[1] & correct[3])),
+-                 both=int(np.count_nonzero(missed & correct[1] & correct[3])))
++    tally = dict(multi_only=int(np.count_nonzero(missed & correct[3] & ~correct[4])),
++                 fbl2_only=int(np.count_nonzero(missed & ~correct[3] & correct[4])),
++                 both=int(np.count_nonzero(missed & correct[3] & correct[4])))
+     payload = dict(scope="FULL-SYSTEM EXTERNAL conditional on identical live native RTX upstream",
+                    before_labels=lock, absolute_pct=dict(zip(ARMS, cells.mean(axis=(1,2,3)).tolist(), strict=True)),
+-                   contrasts=outcomes, combo_changes=changes(bank[[0,4]], y, np.ones(ROWS, bool)),
++                   contrasts=outcomes, combo_changes=changes(bank[[0,7]], y, np.ones(ROWS, bool)),
+                    person_pp=dict(zip(people, primary.mean((1,2)).tolist(), strict=True)),
+-                   class_pp=(classes[4]-classes[0]).mean((0,1,2)).tolist(), parent_rescues=tally,
++                   class_pp=(classes[7]-classes[0]).mean((0,1,2)).tolist(), parent_rescues=tally,
+                    active=summaries)
+     digest = seal(Path("result.json"), payload)
+-    print("PASS F-C25 official full-system score", digest, outcomes, flush=True)
++    print("PASS F-C22e official full-system score", digest, outcomes, flush=True)
+ 
+ 
+ if __name__ == "__main__":
+--- a/worker.sbatch
++++ b/worker.sbatch
+@@ -4,16 +4,16 @@
+ #SBATCH --gres=gpu:rtx2080ti:1
+ #SBATCH --cpus-per-task=2
+ #SBATCH --mem=12G
+-#SBATCH --time=00:18:00
+-#SBATCH --job-name=ni26-c25
+-#SBATCH --output=c25-%A_%a.out
++#SBATCH --time=00:20:00
++#SBATCH --job-name=ni26-c22e
++#SBATCH --output=c22e-%A_%a.out
+ set -euo pipefail
+ base=/mnt/lustre/work/gehler/gfh527
+ repo=$base/neural-interfaces-2026
+ prior=$base/ni26_cross411b_20261118
+ pair=$base/ni26_friday_frozen_rtx_20261118
+ other=$base/ni26_friday_frozen_rtx_nine_20261118
+-release=$base/ni26_friday_s1c_motor_external_cpu_20261119
++release=$base/ni26_friday_s1c_modulation_external_a100_20261119
+ actors=$release/exports
+ native=$base/ni26_friday_c21e_native_v2_20261119
+ shared=$base/ni26_friday_c20s_native_v1_20261119
+--- a/score.sbatch
++++ b/score.sbatch
+@@ -4,8 +4,8 @@
+ #SBATCH --cpus-per-task=2
+ #SBATCH --mem=6G
+ #SBATCH --time=00:04:00
+-#SBATCH --job-name=ni26-c25-score
+-#SBATCH --output=c25-score-%j.out
++#SBATCH --job-name=ni26-c22e-score
++#SBATCH --output=c22e-score-%j.out
+ set -euo pipefail
+ base=/mnt/lustre/work/gehler/gfh527
+ repo=$base/neural-interfaces-2026
