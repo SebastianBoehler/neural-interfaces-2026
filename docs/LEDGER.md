@@ -1443,3 +1443,7 @@ Registered before predictions. On the same authentic F-C25p G visit 1 120-window
 ### F-C31d · Continue the paired native waveform pupils through their actual source mixture
 
 The [training protocol](../friday/cap250_mix_objective/fit-prereg-19nov.md) locks the exact F32e initialization, three fixed source-only controls, zero-dose proof, 112 paired episode updates and device/runtime criteria before fitting. Require the independently sealed F-C31c source tape and matched native operational metadata for any fit.
+
+### F-C31e · Native conditional objective on two reserved external deliveries
+
+The [external and CPU export protocol](../friday/cap250_mix_objective/external-prereg-19nov.md) fixes stock, previous hard, matched hard continuation, nominal and conditional comparisons. Only a sealed authentic source tape, exact source optimizer controls and both CPU actor exports can release predictions on 29411 and 30411.
