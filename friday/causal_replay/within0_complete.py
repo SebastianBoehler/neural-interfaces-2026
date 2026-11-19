@@ -43,18 +43,19 @@ def input_delivery(order=ORDER):
     return pinned_delivery(ROOT / "runs/shuffle_perms.npz")[ORDERS.index(order)]
 
 
-def three_aux(ctx):
-    for attr, files, prefix in (("OCU", ctx.OCS, "oc_nomix"), ("RESTR", ctx.RSS, "rest4_sh_r1")):
-        if [Path(path).name for path in files] != [f"{prefix}-all_loso-s{s}.npz" for s in range(9)]:
-            raise ValueError(f"unexpected within0 §281 {attr} inventory")
+def three_aux(ctx, rest_seeds=9):
+    specs = (("OCU", ctx.OCS, "oc_nomix", 9), ("RESTR", ctx.RSS, "rest4_sh_r1", rest_seeds))
+    for attr, files, prefix, size in specs:
+        if [Path(path).name for path in files] != [f"{prefix}-all_loso-s{s}.npz" for s in range(size)]:
+            raise ValueError(f"unexpected §281 {attr} inventory")
         mean = np.mean([ctx.ld(path) for path in files[:3]], 0)
         value = np.log(np.clip(mean, 1e-3, 1)) if attr == "OCU" else mean
-        if np.array_equal(getattr(ctx, attr), value):
-            raise ValueError(f"the registered three-seed {attr} switch is inactive")
+        if np.array_equal(getattr(ctx, attr), value) != (size == 3):
+            raise ValueError(f"three-seed {attr} switch does not match the owning archive")
         setattr(ctx, attr, value)
 
 
-def archive_zero(order=ORDER, pins=PINS):
+def archive_zero(order=ORDER, pins=PINS, rest_seeds=9):
     for path, digest in pins.items():
         pin(path, digest)
     if REPLAY.read_text().splitlines()[-1] != "OK":
@@ -76,7 +77,7 @@ def archive_zero(order=ORDER, pins=PINS):
         archived_zero(ctx, incoming, raw, gate)
         original_cap, a9 = candidate(ctx, original, {}, incoming)
         np.testing.assert_array_equal(original_cap, read(raw, f"{STACK}|V6Fr"))
-        three_aux(ctx)
+        three_aux(ctx, rest_seeds)
         auxiliary_cap, a3 = candidate(ctx, original, {}, incoming)
         if a3 != a9 or np.array_equal(original_cap, auxiliary_cap):
             raise ValueError("auxiliary switch is inactive or changed archived refit deltas")
@@ -91,7 +92,7 @@ def archive_zero(order=ORDER, pins=PINS):
             np.testing.assert_array_equal(val, read(STAGES / f"stages_{order}.npz", key))
         np.testing.assert_array_equal(three["terminal"], read(STAGES / f"{order}.npz", "scores"))
     write_receipt(HERE / "zero.json", order=order, exact_archive_zero=True, three_aux_exact=True,
-                  held_labels_opened=False, scored=False, prefix=checks, deltas=a3,
+                  held_labels_opened=False, scored=False, prefix=checks, deltas=a3, original_aux_seeds=[9, rest_seeds],
                   source=sha(HERE / "source.sha256"), inputs={str(path): v for path, v in sorted(opened.items())})
     print(f"PASS {order} archived zero", sha(HERE / "zero.json"), flush=True)
 

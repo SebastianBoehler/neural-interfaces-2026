@@ -5,4 +5,4 @@ from within0_complete import archive_zero
 
 
 if __name__ == "__main__":
-    archive_zero(ORDER, PINS)
+    archive_zero(ORDER, PINS, rest_seeds=3)
