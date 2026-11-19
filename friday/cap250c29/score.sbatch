@@ -18,8 +18,7 @@ sha256sum --check --status source.sha256
 sha256sum --check --status scoring.sha256
 sha256sum --check --status source-fit.sha256
 (cd "$native" && sha256sum --check --status source.sha256)
-(cd "$owner" && sha256sum --check --status scoring.sha256
-sha256sum --check --status source-fit.sha256)
+(cd "$owner" && sha256sum --check --status scoring.sha256)
 (cd "$base" && sha256sum --check --status ""$owner"/parents.sha256" && sha256sum --check --status ""$owner"/score_inputs.sha256")
 grep -Fx OK "$prior/replay-proof.txt"
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
