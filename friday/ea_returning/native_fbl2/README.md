@@ -15,8 +15,23 @@ Native `ni26_friday_return_fbl2_native_v2_20261119` source `cae74104dce81e0635fd
 
 Initial smoke `3134265` stopped on stock before treatment. The archived caller provides a deep-copied trace, so the v1 observer compared two different arrays by object identity. V2 checks object identity on the original live trace and exact values on the archived copy. All registered numeric and path tests still apply.
 
-Both genuine 31-window smokes passed by 06:15:47 CET. P04 and P10 max outer mix movement was 0.022224 and 0.024867. Max terminal movement was 0.059409 and 0.024278. The recognized head-adjusted mix moved 0.004749 and 0.000147 from the original 1/16 share on 20 and two positive-ramp rows. P10 kept the actual 20 optimizer steps and eight warm emissions at ages 20–27. Its adapted family moved 0.163686, shifting the added contribution by 0.009629 versus a frozen-only addition. Both smoke decision vectors were identical. P04’s 17-window and P10’s 29-window independent prefixes were exact. Smoke receipt SHA-256 values are `ab939dc57c26c98bc87f991c8cb7c65e040610088ffdf54f3bf7e2152e17d5f1` and `35e2888b0563efd0ff2c77e34955eb4b8e078f8815ba0577a1276878ee1c1359`.
+Both genuine 31-window smokes passed by 06:15:33 CET. P04 and P10 max outer mix movement was 0.022224 and 0.024867. Max terminal movement was 0.059409 and 0.024278. The recognized head-adjusted mix moved 0.004749 and 0.000147 from the original 1/16 share on 20 and two positive-ramp rows. P10 kept the actual 20 optimizer steps and eight warm emissions at ages 20–27. Its adapted family moved 0.163686, shifting the added contribution by 0.009629 versus a frozen-only addition. Both smoke decision vectors were identical. P04’s 17-window and P10’s 29-window independent prefixes were exact. Smoke receipt SHA-256 values are `ab939dc57c26c98bc87f991c8cb7c65e040610088ffdf54f3bf7e2152e17d5f1` and `35e2888b0563efd0ff2c77e34955eb4b8e078f8815ba0577a1276878ee1c1359`.
 
 ```bash
 ssh mlcloud-galvani 'sacct -X -j 3134271,3134272,3134273,3134274 -o JobID,State,Elapsed,Start,End,NodeList'
 ```
+
+## Conditional returning result
+
+All 762 decisions across four visits and eight official cells passed the archived control, weight-1 identity, protected upstream, warm and reset checks. Slurm `3134273` sealed the predictions at 06:32:38 CET. The separate scorer `3134274` completed at 06:32:49 CET on 19 November. Intervals use 4,000 paired people-and-visit resamples.
+
+| Scope | Stock balanced accuracy | FBLight weight 2 | Change (pp) | Paired 80% (pp) |
+| --- | ---: | ---: | ---: | ---: |
+| Equal official cells | 89.977% | 89.847% | −0.130 | [−0.391, +0.260] |
+| P04/P10 weighted 20/80 | 92.705% | 92.497% | −0.208 | [−0.391, 0.000] |
+| P04 | 85.429% | 85.429% | 0.000 | [−0.260, +0.260] |
+| P10 | 94.525% | 94.264% | −0.260 | [−0.391, −0.130] |
+
+All six changed decisions were on Graz. P04 recovered two correct calls and lost two, and one wrong decision changed to another wrong decision. P10 lost one correct call on visit 3. P10 visit 2 retained the native warm activity and had identical decisions. The equal-cell returning effect remains undecided. The preregistered positive 20/80 endpoint is refuted within this conditional comparison. On held-new people, F-C21 reported +0.383 pp within0 and +0.488 pp full0. [Held-new F-C21 results](../../cap250c21/result-19nov.md)
+
+Blind seal SHA-256 `53cfa9628a6bdc210b4fbaf1456c5309a1d51e373856e3d57b61232184c28cf0`. Separate score SHA-256 `e1837c2f59a6f58333e4ed336e213b07e4a77c238e54d5ede50202324d935847`.
