@@ -376,5 +376,5 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 ### F30 source-person episodic head transfer
 
-- Ferranti `511601` passed the real source smoke in 10 seconds. It verified 140 disjoint and class-balanced episodes, equal support/query exposure, active gradients on both sides, exact independent autograd kernel and byte-exact F16 hard. Independent held smoke `3134377` gates Ferranti `511602`, matched Galvani `3134378` and collector `3134379`. [Protocol and numeric forecasts](fbc323_episodic/prereg-19nov.md)
+- Ferranti `511601` passed the real source smoke in 10 seconds. It verified 140 disjoint and class-balanced episodes, equal support/query exposure, active gradients on both sides, independent autograd agreement within 1.8e−7 and byte-exact F16 hard. Independent held smoke `3134377` gates Ferranti `511602`, matched Galvani `3134378` and collector `3134379`. [Protocol and numeric forecasts](fbc323_episodic/prereg-19nov.md)
 - Actor SHA-256 `d32d01f71b9eef27c383973238f02810486fd5b2988155e9d16039d3dfeb043a`. Scorer SHA-256 `bfb0f91a49bb951acd432b5936c367564d27efd7d8ff22bc44f5bf29ed8e4d7f`. Releases end in `s1c_episodic_20261119`. Controller `bash friday/fbc323_episodic/run_dependencies.sh 511601 511602 3134377 3134378`. This training-only episode never enters held inference.
