@@ -113,3 +113,11 @@ and the other jobs were dependency-pending. Release `ni26_lane_d_prefix_v2_20261
 `72ffcd487ba87ef8f7bdf73213905af97a3de3b9371b1ab6ff7af6269086d660`. The copied Python source
 retains the original bytes as a prefix, and every package asset matches stock bitwise.
 The Leonardo variant is `scripts/cloud/leo_lane_d.sh`.
+
+**Smoke and resubmission.** The local real Scherer 44-window CPU smoke passed bitwise stock/off
+terminal scores, labels, member votes and counters. D-c matched the upstream scores and counters,
+changed decisions, and passed reset and 25-window batch-prefix parity. The initial Galvani smoke
+3136727 could not dereference the stock ZIP symlink outside the container bind. Both dependent
+jobs were cancelled by Slurm. The signed ZIP is now materialized inside the bind. Galvani
+accepted replacement jobs **3136765** (RTX smoke), **3136766** (array), **3136767** (collector)
+with the same source and ZIP hashes.
