@@ -167,6 +167,16 @@ LAYOUTS = {
             ("bounded_ordered_minus_sham", "True order\nvs shuffled labels"),
             ("bounded_sham_minus_hard", "Shuffled labels\nvs hard CE"),
         )),
+    "1b9dd9d99b655d1dd5f1fff3655995d26593e6373bab6729fb64107b46daf5df": dict(
+        title="Motor supervision improved ordinary raw EEG decoding",
+        stem="held-s1c-motor-supervision", xlim=(-1.0, 3.0),
+        caption="The detached control matched hard CE exactly. Both primary bounded endpoints remain undecided.",
+        xlabel="Paired change versus detached control (percentage points)",
+        contrasts=(
+            ("ordinary_joint_minus_detached", "Ordinary inference\nBalanced accuracy"),
+            ("bounded_joint_minus_detached", "Bounded inference\nBalanced accuracy"),
+            ("bounded_joint_minus_detached:motor", "Bounded inference\nMotor imagery recall"),
+        )),
 }
 
 
@@ -185,17 +195,20 @@ def draw(receipt, out):
     ax.set_title("Ten held-out PROTEUS participants · eight delivery orders",
                  loc="left", fontsize=10, color=MUTED, pad=10)
     for seed, color, marker, offset in (("0", BLUE, "o", -.12), ("1", GOLD, "D", .12)):
-        results = data["seeds"][seed]["paired"]
+        results = data["seeds"][seed]
         for i, (key, _) in enumerate(contrasts):
-            mean = results[key]["mean"]
-            lo, hi = results[key]["interval"]
+            metric, _, name = key.partition(":")
+            pair = results["class_paired"][metric][name] if name else results["paired"][metric]
+            mean = pair["mean"]
+            lo, hi = pair["interval"]
             ax.errorbar(mean, i + offset, xerr=[[mean - lo], [hi - mean]],
                         color=color, fmt=marker, ms=6, capsize=3, lw=1.65,
                         label=f"Seed {seed}" if i == 0 else None)
     ax.axvline(0, lw=1, ls="--", color=MUTED)
     ax.set_yticks(range(len(contrasts)), [label for _, label in contrasts])
     ax.set_ylim(len(contrasts) - .45, -.55)
-    ax.set(xlim=layout["xlim"], xlabel="Paired change in standalone balanced accuracy (percentage points)")
+    xlabel = layout.get("xlabel", "Paired change in standalone balanced accuracy (percentage points)")
+    ax.set(xlim=layout["xlim"], xlabel=xlabel)
     ax.grid(axis="x", color="#e1e7ee")
     ax.set_axisbelow(True)
     ax.spines[["top", "right"]].set_visible(False)
