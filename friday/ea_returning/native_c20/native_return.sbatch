@@ -40,6 +40,6 @@ esac
 out=$work/$mode/$slot
 mkdir "$out"
 apptainer exec --cleanenv --containall --no-home --no-mount hostfs \
-  --env "OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,PYTHONDONTWRITEBYTECODE=1,MPLCONFIGDIR=/tmp/mpl,NI26_WS=$repo,PYTHONPATH=$adapter:$cross:$original:$observer:$inner:$prior:$repo/2026-competition:$repo/2026-competition/tracks/bci_decoding" \
+  --env "OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,PYTHONDONTWRITEBYTECODE=1,MPLCONFIGDIR=/tmp/mpl,NI26_WS=$repo,PYTHONPATH=$original:$observer:$inner:$prior:$adapter:$cross:$repo/2026-competition:$repo/2026-competition/tracks/bci_decoding" \
   --bind "$base:$base:ro,$base:/assets:ro,$work:/work:ro,$out:/out:rw" \
   --pwd /out "$repo/runs/cloud/ni26_worker.sif" python -B /work/native_return.py "$slot" "${options[@]}"

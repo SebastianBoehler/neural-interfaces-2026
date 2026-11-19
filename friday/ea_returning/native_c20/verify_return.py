@@ -12,7 +12,7 @@ from reference_eye import GALLERY, VISIT_PINS, reference
 from verify_native import deliveries
 
 
-REPLAY = BASE / "ni26_friday_return_c20_native_v1_20261119"
+REPLAY = BASE / "ni26_friday_return_c20_native_v2_20261119"
 ADAPTER = "278462cc967095ecd9ecca0f03f066716c3717b18858c5c121271e458c609974"
 FLAGS = ("entire_target_excluded", "exact_archive_zero", "native_identity_exact", "protected_upstream_exact",
          "actual_outer_consumption", "exact_prefix_reset")
