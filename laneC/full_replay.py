@@ -8,18 +8,25 @@ import numpy as np
 from oracle import metadata, metric_weights, require, sha
 
 
-def replay(bank, digest, public):
+def replay(banks, public):
     # Import the original Friday producers from their pinned PYTHONPATH.
     import outer
     from worker import run_tail
 
-    require(sha(bank) == digest, "D1 ensemble bank hash changed")
-    with np.load(bank, allow_pickle=False) as inputs:
-        rows, delivery, member = (inputs[k] for k in ("index", "full0_delivery", "full0"))
-        np.testing.assert_array_equal(rows, np.arange(2655))
-        require(member.shape == (len(rows), 3) and np.isfinite(member).all() and (member >= 0).all(),
-                "Invalid D1 member predictions")
-        np.testing.assert_allclose(member.sum(1), 1, atol=2e-6, rtol=0)
+    members = []
+    for bank, digest in banks:
+        require(sha(bank) == digest, "D1 ensemble bank hash changed")
+        with np.load(bank, allow_pickle=False) as inputs:
+            rows, delivery, one = (inputs[k] for k in ("index", "full0_delivery", "full0"))
+            np.testing.assert_array_equal(rows, np.arange(2655))
+            require(one.shape == (len(rows), 3) and np.isfinite(one).all() and (one >= 0).all(),
+                    "Invalid D1 member predictions")
+            np.testing.assert_allclose(one.sum(1), 1, atol=2e-6, rtol=0)
+            if members:
+                np.testing.assert_array_equal(delivery, first)
+            first = delivery
+            members.append(one)
+    member = np.mean(members, axis=0)  # several banks share one 1/6 slot as their mean
 
     owner = outer.full_parent
     original, mass = owner.candidate, outer.MASS
@@ -86,13 +93,18 @@ def paired(d, predictions):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("bank", type=Path)
-    p.add_argument("sha256")
     p.add_argument("public", type=Path)
     p.add_argument("output", type=Path)
+    p.add_argument("--bank", action="append", required=True, help="path:sha256 of an ensemble bank (repeatable)")
+    p.add_argument("--cap250", type=Path, help="Friday full0.npz; stock terminal argmax must equal ours")
     a = p.parse_args()
-    d, predictions, traces = replay(a.bank, a.sha256, a.public)
-    result = paired(d, predictions) | {"trace": traces, "bank_sha": a.sha256, "order": "full0"}
+    banks = [(Path(b.rsplit(":", 1)[0]), b.rsplit(":", 1)[1]) for b in a.bank]
+    d, predictions, traces = replay(banks, a.public)
+    if a.cap250:
+        with np.load(a.cap250, allow_pickle=False) as z:
+            np.testing.assert_array_equal(predictions["stock"], z["stock|terminal"].argmax(1))
+    result = paired(d, predictions) | {"trace": traces, "banks": a.bank, "order": "full0",
+                                       "cap250_checked": bool(a.cap250)}
     a.output.write_text(json.dumps(result, indent=2) + "\n")
 
 
