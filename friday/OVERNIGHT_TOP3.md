@@ -22,6 +22,16 @@ D1 found a +2.285 pp label-aware rescue ceiling in its fixed external banks. The
 - **Live adaptive stages.** In corrected within0, fine-tuning added +0.894 pp with common spatial patterns (CSP) active. CSP added +0.454 pp with fine-tuning active. Both paired lower bounds were positive. Removing both cost 1.646 pp versus stock. Fine-tuning moved P04 and P10 in opposite directions. Keep both stages in the stock reference and test any new use of them on a different instrument. [Factorial and stage work](cap250c18/result-19nov.md)
 - **Figures.** `friday/figures/adaptation.py` verifies the three score receipts before plotting the two held-new comparisons and the participant-level stage effects. It writes PNG and PDF into the requested output directory.
 
+## Next experiment wave · 19 November, 03:45 CET
+
+| Question | Execution | What a result can change |
+|---|---|---|
+| F-C19. Can each branch's spatial model identify when the stock fine-tuned branch should defer to the frozen one? | Real Galvani P01 `full0` smoke `3133786`. It gates the full comparison with a fixed blend and a previous-window control. | A result above both controls on held participants justifies actual package transfer. The separate label-aware ceiling bounds the opportunity in these branches. |
+| D-EArE. How much do the production Eye traces influence returning predictions when the later visits were absent from the Eye fit? | Galvani smokes `3133765`, six-fit array `3133766`, native smokes `3133784`, four complete visits `3133785`. | Tests conditional fit provenance for P04 and P10 separately. The two folds retain their own first visits. The upstream calibration still has historical exposure. |
+| F24. Does agreement across normalization contexts improve the current raw waveform model? | Galvani source-only canary `3133783` passed. Ferranti `511409` is waiting for H100, with a first Slurm estimate of 04:58 CET. The source array `511410` and held replays `3133772–3133774` follow authenticated smokes. | Measures the whole raw decoder on unseen people. Any gain would need a separate test inside cap250 for the Friday decision. |
+
+Leonardo rejected the current key on the configured entry point. Ferranti and Galvani are authorized and running the registered job graphs. The position snapshot and all follow-up deadlines use CET. [Job details](QUEUE.md) · [F24 protocol](fbc323_calibration/prereg-19nov.md)
+
 ## Selection
 
 Keep the two frozen ZIPs and their receipts. Compare a candidate against the strongest eligible reference on full-system official-metric held-new, returning and external instruments. Record the source exclusions, class and cohort effects, delivery robustness and paired uncertainty. Favor stronger held-person and external evidence inside development noise. Check the actual package on an RTX proxy and record the training configuration and exact archive provenance for the organizer's top-three reproducibility audit. Development scores have no calibrated conversion to sealed rank. Report the final candidate and alternate by Friday 18:00 CET. [Official scoring and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring)
