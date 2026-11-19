@@ -94,7 +94,7 @@ def main():
     ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--wd", type=float, default=1e-2)
     ap.add_argument("--ls", type=float, default=0.1)
-    ap.add_argument("--rot", type=float, default=0.3)
+    ap.add_argument("--rot", type=float, default=0.0)
     ap.add_argument("--aug", type=int, default=1)
     ap.add_argument("--shrink", type=float, default=S.DEFAULT_TTT["shrink"])
     ap.add_argument("--data", default=str(ROOT / "data/proteus_windows.npz"))

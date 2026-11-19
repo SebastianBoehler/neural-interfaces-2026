@@ -26,7 +26,7 @@ except ImportError:  # training / harness outside benchopt
 C_, T_, K_ = 41, 480, 3
 DEFAULT_TTT = dict(shrink=0.05, bn="prefix", bn_k=8.0, steps=0, n0=16, every=4, dense_until=48, batch=64, lr=1e-4,
                    params="all", tau=0.0, lam_pl=1.0, lam_im=0.3, anchor=1e-2, temp=1.0, balance=0, bal_from=16,
-                   rot=0.1, max_n=1024)
+                   rot=0.0, max_n=1024)
 
 
 # ----------------------------------------------------------------------------------------------------------- nets

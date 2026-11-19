@@ -32,6 +32,20 @@ case "$mode" in
     score)
         "$python" -B -u "$harness/score.py" "$stage" --data "$data"
         ;;
+    niv_stream)
+        external="$stage/niv/scherer.npz"
+        held=$("$python" -c 'import numpy as np, sys; z=np.load(sys.argv[1]); print(sorted(set(z["subject"]))[int(sys.argv[2])].split("/")[-1])' \
+            "$external" "$SLURM_ARRAY_TASK_ID")
+        "$python" -B -u "$harness/stream.py" --data "$external" --pkg "$stage/production" --held "$held" \
+            --orders "$orders" --out "$stage/niv/pred_new_$held.npz"
+        ;;
+    niv_score)
+        "$python" -B -u "$harness/score.py" "$stage/niv" --data "$stage/niv/scherer.npz"
+        ;;
+    niv_prepare)
+        mkdir -p "$stage/niv"
+        "$python" -B -u "$code/prepare_niv.py" "${TEAM_A_SCHERER:-$repo/data/scherer2015/windows.npz}" "$stage/niv/scherer.npz"
+        ;;
     smoke)
         "$python" -B -u "$code/train.py" "${flags[@]}" --people "$all" --first-session-only P04,P10 --batch 6 --smoke --out "$stage/smoke"
         "$python" -B -u "$code/check.py" "$stage/smoke" "$data"

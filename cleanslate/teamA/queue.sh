@@ -53,5 +53,22 @@ if [[ "$mode" == wave ]]; then
     printf 'external=%s fits=%s score=%s\n' "$external" "$fits" "$score" | tee "$stage/queue.txt"
     exit
 fi
+if [[ "$mode" == niv ]]; then
+    smoke=$7
+    [[ ",$corpora," != *,scherer2015,* ]] || { echo "NI-V pretraining excludes Scherer" >&2; exit 2; }
+    ext=$(submit "${gpu[@]}" -J "csA-nivext-$arch" -d "afterok:$smoke" --kill-on-invalid-dep=yes \
+        "$source" external "$arch" "$root" "$stage" "$corpora")
+    train=$(submit "${gpu[@]}" -J "csA-nivfit-$arch" -d "afterok:${ext%%;*}" --kill-on-invalid-dep=yes \
+        "$source" production "$arch" "$root" "$stage" "$corpora")
+    prep=$(submit "${gpu[@]}" -J "csA-nivprep-$arch" -t 00:04:00 \
+        "$source" niv_prepare "$arch" "$root" "$stage" "$corpora")
+    run=$(submit "${gpu[@]}" -J "csA-niv-$arch" -t 00:15:00 --array=0-8%6 \
+        -d "afterok:${train%%;*}:${prep%%;*}" --kill-on-invalid-dep=yes \
+        "$source" niv_stream "$arch" "$root" "$stage" "$corpora" "$orders")
+    score=$(submit "${gpu[@]}" -J "csA-nivscore-$arch" -t 00:04:00 -d "afterok:${run%%;*}" --kill-on-invalid-dep=yes \
+        "$source" niv_score "$arch" "$root" "$stage" "$corpora")
+    printf 'external=%s fit=%s prep=%s replay=%s score=%s\n' "$ext" "$train" "$prep" "$run" "$score" | tee "$stage/queue.txt"
+    exit
+fi
 echo "Invalid queue mode $mode" >&2
 exit 2

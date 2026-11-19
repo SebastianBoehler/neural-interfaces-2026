@@ -89,3 +89,10 @@ AdamW/OneCycle, balanced CE) + causal adaptive BatchNorm (eval statistics = (20 
 that component off (same rosters, orders) into tag `abl_CS_REF_EA0_o...`; `python cleanslate/harness/ablate.py report RUN_FULL RUN_ABL`
 prints full minus ablated (positive = the component helps) with the same people+orders intervals. The component is always measured
 inside the whole system. Other teams expose their own switches the same way.
+
+**Smoke and reference numbers (19 Nov, orders 71000/71001, 12 folds each, RTX 2080 Ti; runs under `$REL/runs/`)**: cap250 c25d-full0 reference
+73.74 % held-new (28 cells). Clean reference 44.26 / 45.47 % held-new, returning 45.80 / 44.73 %; example 41.92 / 42.85 held-new, 44.05 / 46.21
+returning. Reference minus example: held-new +4.15 pp [80 % +2.21, +6.11], returning +0.13 [-2.18, +2.44] (P04/P10 only), sealed-weighted
++2.43 [+0.85, +4.01]. Ablation path checked (EA off on P01: 49.4 vs 56.5 %, `config.json` shows `ea 0`). Reference is deliberately plain
+(about 30 pp below cap250 held-new): it screens components, it is not a competitor. Operational: `galvani-cn122` gives CUDA_ERROR_UNKNOWN
+(excluded by default, `--exclude`); `run_lopo.py --tag T --resume` re-runs only folds without predictions.
