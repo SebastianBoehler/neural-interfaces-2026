@@ -1,0 +1,561 @@
+{
+  "screen_full0": {
+    "REVE": {
+      "phi": 0.25422157037542703,
+      "repaired_confident_share_pct": 27.157105531620882,
+      "unrestricted_repair_share_pct": 34.050240953206334,
+      "confident_regression_pp": 20.581757220871292,
+      "member_ba": 55.233044181706795
+    },
+    "CBraMod": {
+      "phi": 0.22787906213983442,
+      "repaired_confident_share_pct": 25.04733486593735,
+      "unrestricted_repair_share_pct": 33.671758095091775,
+      "confident_regression_pp": 21.482469192719726,
+      "member_ba": 52.73584848752256
+    },
+    "union_confident_repair_share_pct": 37.053985518264085,
+    "cap250_ba": 73.73897960185187
+  },
+  "cells": {
+    "REVE|full0_exact": {
+      "orders": [
+        "full0"
+      ],
+      "members": [
+        "REVE"
+      ],
+      "held_new": {
+        "delta_pp": -0.41882680491551433,
+        "p80": [
+          -0.977,
+          0.0
+        ],
+        "by_person": {
+          "P01": 0.0,
+          "P02": 0.0,
+          "P03": 0.0,
+          "P04": 0.0,
+          "P05": -5.8635752688172005,
+          "P06": 0.0,
+          "P07": 0.0,
+          "P08": 0.0,
+          "P09": 0.0,
+          "P10": 0.0
+        },
+        "lopo_weights": [
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.1
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          }
+        ]
+      },
+      "returning": {
+        "delta_pp": 0.4001359535286098,
+        "p80": [
+          -0.951,
+          1.682
+        ],
+        "weight": {
+          "REVE": 0.1
+        },
+        "P04": -0.25985663082437904,
+        "P10": 0.565134099616857
+      },
+      "sealed_weighted": {
+        "delta_pp": -0.06667281878454093,
+        "p80": [
+          -0.75,
+          0.544
+        ]
+      },
+      "hindsight_best_weight": {
+        "REVE": 0.0
+      },
+      "hindsight_new_delta_pp": 0.0
+    },
+    "REVE|orders0-7_descriptive": {
+      "orders": [
+        "full0",
+        "full1",
+        "full2",
+        "full3",
+        "full4",
+        "full5",
+        "full6",
+        "full7"
+      ],
+      "members": [
+        "REVE"
+      ],
+      "held_new": {
+        "delta_pp": -0.39902553763440857,
+        "p80": [
+          -1.018,
+          0.0
+        ],
+        "by_person": {
+          "P01": 0.0,
+          "P02": 0.0,
+          "P03": 0.0,
+          "P04": 0.0,
+          "P05": -5.58635752688172,
+          "P06": 0.0,
+          "P07": 0.0,
+          "P08": 0.0,
+          "P09": 0.0,
+          "P10": 0.0
+        },
+        "lopo_weights": [
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.1
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          },
+          {
+            "REVE": 0.0
+          }
+        ]
+      },
+      "returning": {
+        "delta_pp": 0.0,
+        "p80": [
+          0.0,
+          0.0
+        ],
+        "weight": {
+          "REVE": 0.0
+        },
+        "P04": 0.0,
+        "P10": 0.0
+      },
+      "sealed_weighted": {
+        "delta_pp": -0.22744455645161285,
+        "p80": [
+          -0.58,
+          0.0
+        ]
+      },
+      "hindsight_best_weight": {
+        "REVE": 0.0
+      },
+      "hindsight_new_delta_pp": 0.0
+    },
+    "CBraMod|full0_exact": {
+      "orders": [
+        "full0"
+      ],
+      "members": [
+        "CBraMod"
+      ],
+      "held_new": {
+        "delta_pp": 0.0,
+        "p80": [
+          0.0,
+          0.0
+        ],
+        "by_person": {
+          "P01": 0.0,
+          "P02": 0.0,
+          "P03": 0.0,
+          "P04": 0.0,
+          "P05": 0.0,
+          "P06": 0.0,
+          "P07": 0.0,
+          "P08": 0.0,
+          "P09": 0.0,
+          "P10": 0.0
+        },
+        "lopo_weights": [
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          }
+        ]
+      },
+      "returning": {
+        "delta_pp": 0.0,
+        "p80": [
+          0.0,
+          0.0
+        ],
+        "weight": {
+          "CBraMod": 0.0
+        },
+        "P04": 0.0,
+        "P10": 0.0
+      },
+      "sealed_weighted": {
+        "delta_pp": 0.0,
+        "p80": [
+          0.0,
+          0.0
+        ]
+      },
+      "hindsight_best_weight": {
+        "CBraMod": 0.0
+      },
+      "hindsight_new_delta_pp": 0.0
+    },
+    "CBraMod|orders0-7_descriptive": {
+      "orders": [
+        "full0",
+        "full1",
+        "full2",
+        "full3",
+        "full4",
+        "full5",
+        "full6",
+        "full7"
+      ],
+      "members": [
+        "CBraMod"
+      ],
+      "held_new": {
+        "delta_pp": 0.0,
+        "p80": [
+          0.0,
+          0.0
+        ],
+        "by_person": {
+          "P01": 0.0,
+          "P02": 0.0,
+          "P03": 0.0,
+          "P04": 0.0,
+          "P05": 0.0,
+          "P06": 0.0,
+          "P07": 0.0,
+          "P08": 0.0,
+          "P09": 0.0,
+          "P10": 0.0
+        },
+        "lopo_weights": [
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          },
+          {
+            "CBraMod": 0.0
+          }
+        ]
+      },
+      "returning": {
+        "delta_pp": 0.0,
+        "p80": [
+          0.0,
+          0.0
+        ],
+        "weight": {
+          "CBraMod": 0.0
+        },
+        "P04": 0.0,
+        "P10": 0.0
+      },
+      "sealed_weighted": {
+        "delta_pp": 0.0,
+        "p80": [
+          0.0,
+          0.0
+        ]
+      },
+      "hindsight_best_weight": {
+        "CBraMod": 0.0
+      },
+      "hindsight_new_delta_pp": 0.0
+    },
+    "REVE+CBraMod|full0_exact": {
+      "orders": [
+        "full0"
+      ],
+      "members": [
+        "REVE",
+        "CBraMod"
+      ],
+      "held_new": {
+        "delta_pp": -0.41882680491551433,
+        "p80": [
+          -0.977,
+          0.0
+        ],
+        "by_person": {
+          "P01": 0.0,
+          "P02": 0.0,
+          "P03": 0.0,
+          "P04": 0.0,
+          "P05": -5.8635752688172005,
+          "P06": 0.0,
+          "P07": 0.0,
+          "P08": 0.0,
+          "P09": 0.0,
+          "P10": 0.0
+        },
+        "lopo_weights": [
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.1,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          }
+        ]
+      },
+      "returning": {
+        "delta_pp": 0.4001359535286098,
+        "p80": [
+          -0.951,
+          1.682
+        ],
+        "weight": {
+          "REVE": 0.1,
+          "CBraMod": 0.0
+        },
+        "P04": -0.25985663082437904,
+        "P10": 0.565134099616857
+      },
+      "sealed_weighted": {
+        "delta_pp": -0.06667281878454093,
+        "p80": [
+          -0.75,
+          0.544
+        ]
+      },
+      "hindsight_best_weight": {
+        "REVE": 0.0,
+        "CBraMod": 0.0
+      },
+      "hindsight_new_delta_pp": 0.0
+    },
+    "REVE+CBraMod|orders0-7_descriptive": {
+      "orders": [
+        "full0",
+        "full1",
+        "full2",
+        "full3",
+        "full4",
+        "full5",
+        "full6",
+        "full7"
+      ],
+      "members": [
+        "REVE",
+        "CBraMod"
+      ],
+      "held_new": {
+        "delta_pp": -0.39902553763440857,
+        "p80": [
+          -1.018,
+          0.0
+        ],
+        "by_person": {
+          "P01": 0.0,
+          "P02": 0.0,
+          "P03": 0.0,
+          "P04": 0.0,
+          "P05": -5.58635752688172,
+          "P06": 0.0,
+          "P07": 0.0,
+          "P08": 0.0,
+          "P09": 0.0,
+          "P10": 0.0
+        },
+        "lopo_weights": [
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.1,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          },
+          {
+            "REVE": 0.0,
+            "CBraMod": 0.0
+          }
+        ]
+      },
+      "returning": {
+        "delta_pp": 0.0,
+        "p80": [
+          0.0,
+          0.0
+        ],
+        "weight": {
+          "REVE": 0.0,
+          "CBraMod": 0.0
+        },
+        "P04": 0.0,
+        "P10": 0.0
+      },
+      "sealed_weighted": {
+        "delta_pp": -0.22744455645161285,
+        "p80": [
+          -0.58,
+          0.0
+        ]
+      },
+      "hindsight_best_weight": {
+        "REVE": 0.0,
+        "CBraMod": 0.0
+      },
+      "hindsight_new_delta_pp": 0.0
+    }
+  }
+}
