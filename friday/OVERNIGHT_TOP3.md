@@ -88,6 +88,11 @@ F-C21g emits the exact stock trajectory through the first 20 windows and after a
 
 The follow-up F30 uses supervised source-only episodes to ask whether a small support update transfers across people during training. The temporary head is discarded before native inference. The real H100 smoke proved equal source exposure and disjoint roles, then checked the ephemeral update against an independent derivative. The independent held smoke gates the full H100 array and blind scorer. [F30 registration](fbc323_episodic/prereg-19nov.md) · [Live queue](QUEUE.md)
 
+### Live handoff · 06:50 CET
+
+- The live stock-protected rule passed the authentic P10 visit-2 delayed recognition fixture on CPU. It selected exactly eight eligible windows at ages 20–27 and emitted stock on age 28 itself. RTX v1 matched both downstream arms on shared live inputs but failed its independent prefix bitwise guard at a stock-posterior difference of 5.164e−9. Preregistered v2 separately tests same-input exactness and independent repeatability against a stock repeat. Galvani jobs `3134422` and `3134423` gate paired timing `3134424`. [Live registration](../docs/LEDGER.md)
+- All twenty F30 source jobs completed on Ferranti. The independent Galvani held jobs and collector `3134379` are finishing. The next waveform experiment tests a distinct label-free training objective, subject to its own preregistration and smoke.
+
 ### What the overnight experiments established
 
 The run produced an executable trial package for the strongest new public component and found a cost on returning people. The same data also showed why to keep the candidate provisional: the multiresolution combination added about 0.15–0.29 pp over FBLight doubling, with broad paired intervals and a negative interaction point in both deliveries. Keeping the established chain intact supplied exact deployment, adaptation and tail controls for both tests.
