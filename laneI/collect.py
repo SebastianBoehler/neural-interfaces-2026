@@ -8,9 +8,15 @@ from pathlib import Path
 import numpy as np
 
 ROOT0 = Path(__file__).resolve().parents[1]
-sys.path[:0] = [str(ROOT0 / "laneC"), str(ROOT0 / "laneH")]
+import importlib.util  # noqa: E402
+
+sys.path[:0] = [str(ROOT0 / "laneC")]
 from oracle import ORDER_SHA, metadata, require, sha  # noqa: E402
-from collect import ba, interval, person_delta  # noqa: E402  (laneH/collect.py)
+
+_spec = importlib.util.spec_from_file_location("laneh_collect", ROOT0 / "laneH/collect.py")  # same file name as this one
+_h = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_h)
+ba, interval, person_delta = _h.ba, _h.interval, _h.person_delta
 
 SEEDS = (0, 1, 2)
 ALL = tuple(f"P{i:02}" for i in range(1, 11))
@@ -44,7 +50,7 @@ def main():
                     np.testing.assert_array_equal(z["index"], q)
                     ref = perms[f"full|{o[-1]}|all_loso"]
                     np.testing.assert_array_equal(z[o + "_delivery"], ref[np.isin(ref, q)])
-                    mem[si, z[o + "_delivery"]] = z[f"{a}|{o}"]
+                    mem[si, q] = z[f"{a}|{o}"]  # posteriors are stored in index (query) order
             want[o], want[o + "_delivery"] = mem.mean(0), perms[f"full|{o[-1]}|all_loso"]
         bank[a] = want
     # nested LOPO tau: person P's tau maximises mean standalone BA over the other nine people (orders averaged)
