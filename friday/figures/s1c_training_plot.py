@@ -67,6 +67,15 @@ LAYOUTS = {
             ("bounded_within_minus_hard", "Same-session\nvs hard CE"),
             ("bounded_cross_minus_within", "Cross-person\nvs same-session"),
         )),
+    "fe563b10da46916df384e1e823a2dc418eb60b187bcc780ccf6617f42efd7d76": dict(
+        title="Reconstruction training effects varied across seeds",
+        stem="held-s1c-reconstruction-consistency", xlim=(-1.65, 1.33),
+        caption="Bounded inference. The held recordings retained the original electrodes.",
+        contrasts=(
+            ("bounded_alternating_minus_hard", "Alternating reconstructions\nvs clean CE"),
+            ("bounded_consistent_minus_hard", "Reconstruction consistency\nvs clean CE"),
+            ("bounded_consistent_minus_alternating", "Reconstruction consistency\nvs alternating CE"),
+        )),
 }
 
 
