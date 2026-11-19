@@ -3232,3 +3232,4 @@ through each enrolled package and counts recognitions. Prediction: B-ret cap250 
 people; false recognition <= 1 of 144 streams per system; a Scherer enrolment dose effect (enrolled minus base) of
 0 to +3 pp. Refutation: recognition of <= 3 of 9 means the gallery does not transfer across montage (the arm then
 degrades to a gate-only check and the returning dose cannot be decided on it).
+- Lane H (19 Nov): pooled-corpus trunk for the raw-FBCNet SBN family (3 arms, held-new LOPO, full0 in cap250): B +0.04 vs stock [-0.15,+0.17], C +0.11 [-0.09,+0.32], standalone B-A +0.51 [-0.39,+1.72], C-A -1.84; undecided/not supported, no package. evidence/wave_19nov/laneH_pooled_base.md

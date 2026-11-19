@@ -41,3 +41,27 @@ Returning people: not scored (all-public fit exists only for deployment); stated
 - If supported by Fri ~13:00 CET: candidate ZIP = copy of cap250 package with the five fbcnet_raw seeds exported from the
   all-public pooled fits, `friday/qualify_package.py` runtime projection, NI-V B-new/A scoring before any upload claim.
 - Not covered by any outcome: fb / fblight SBN families, k other than 20, more pooled corpora, MASS other than 5/6 and 1/6.
+
+## Result (19 Nov ~20:00 CET; Leonardo 64870503 pretrain, 64870509 arm A, 64870510 arms B/C, 99 banks, all guards passed; Galvani 3137961-66 full0 consumer, dir `ni26_laneH_20261119`; files `laneH/`)
+Smoke (64870002-04) passed first; each hp7/hp9 pretrain took ~8 min, each fit ~12 s. Held-new P01-P10, 3-seed ensemble, FULL-SYSTEM DEV cap250 stock 73.74 (cross-check equals c25d `stock|terminal`; zero arm bitwise equal).
+
+| | standalone BA full0 / 8-order mean | B-A / C-A standalone, paired people+orders 80 % |
+|---|---|---|
+| A public-only | 59.31 / 59.29 | |
+| B m7 pooled trunk | 59.81 / 59.80 | +0.51 [-0.39, +1.72] |
+| C + Scherer + Shin 2018, unified block | 58.21 / 57.45 | -1.84 [-3.23, -0.44] (C-B -2.35 [-3.81, -1.11]) |
+
+| Full cap250, full0, paired people-only 80 % | MASS 5/6 (raw family swap) | MASS 1/6 (laneC form) |
+|---|---|---|
+| A control vs stock | -0.151 [-0.37, +0.07] | 0.000 [-0.09, +0.06] |
+| B vs stock | +0.038 [-0.15, +0.17] | -0.040 [-0.15, +0.09] |
+| C vs stock | +0.108 [-0.09, +0.32] | -0.117 [-0.24, +0.05] |
+| B vs A | +0.19 [-0.10, +0.45] | -0.04 [-0.14, +0.11] |
+| C vs A | +0.26 [+0.06, +0.45] | -0.12 [-0.27, +0.10] |
+
+Reading against the rules above: B is **undecided** (lower bound of B-A < 0, upper 0.45 > 0.3; standalone +0.5). C meets the lower-bound
+clause only because the A control loses 0.15 itself; C vs stock is +0.11 [-0.09, +0.32] and standalone C-A is -1.84 with the interval below 0, so the
+"standalone B-A point > 0" clause fails: **not supported**. Sealed-weighted claim for B: 0.57 x 0.04 = about +0.02 pp, nothing to build.
+Both predictions were too optimistic standalone (B-A +1.5 predicted, +0.5 seen); full-system prediction for pooled vs stock (+0.15) was met in sign only for B/C at 5/6.
+Not run: orders other than full0 in the full system, returning people, fb / fblight families, other k. No candidate ZIP built.
+Why standalone gain stays small: the SessionBN fine-tune (40 epochs on public PROTEUS) overwrites most of the trunk; the unified 4-way head with Scherer's 22 interpolated channels hurts standalone.
