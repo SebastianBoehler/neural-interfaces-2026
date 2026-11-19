@@ -8,7 +8,7 @@ from eye_scope import DATA, DATA_SHA, ORDER_SHA, pin, rows_sha, sha
 from pupil_source import ACTORS, PINS
 
 
-SOURCE = "a34186a258adc647489472bf3b624fdc551c57943ff8551a0d8da3f51bee7ebe"
+SOURCE = "6a5f2ee2ef6f2fd8fbfcfcd536384892843a3535d6cb63433b3276cbc16be8d2"
 TOL = 2e-5
 
 
