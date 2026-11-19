@@ -41,3 +41,22 @@ The label-aware ceiling chooses either parent's correct decision only when stock
 | Full0 decision bank | `20215af3adb6f325e2c5a57b00c7dbfada2bade670579c084a6b16119ce0607c` |
 | Blind seal | `082f66359da762e29d3a72583ded36ba50cfb4d4742ce2cb16c69036274f9822` |
 | Official-metric score | `23859db5ca29af650a9e0bda6bf86971a214c02b98fb7f4a54374faeec6519d6` |
+
+## Native external result
+
+19 November, 08:59:07 CET. **FULL-SYSTEM EXTERNAL DEV** on nine reused Scherer people, both visits and two fresh delivery orders. Hard alone was the best arm at 48.552% versus 48.244% stock. The combined hard and FBLight treatment scored 47.973%. Both orders favored hard alone over the combination. Neither combined treatment advances for packaging on this instrument.
+
+| Full-system contrast | Pooled pp [paired 80%] | Order 16411 / 17411, pp |
+| --- | ---: | ---: |
+| Hard waveform vs stock | +0.308 [+0.036,+0.579] | +0.159 / +0.456 |
+| FBLight vs stock | −0.222 [−0.618,+0.198] | −0.152 / −0.291 |
+| Hard + FBLight vs stock | −0.271 [−0.757,+0.235] | −0.384 / −0.159 |
+| Hard + FBLight vs hard | −0.579 [−1.114,−0.003] | −0.542 / −0.615 |
+| Hard + FBLight vs FBLight | −0.050 [−0.327,+0.231] | −0.231 / +0.132 |
+| Interaction beyond parent gains | −0.357 [−0.675,−0.046] | −0.390 / −0.324 |
+| Motor training vs hard with FBLight | +0.122 [−0.103,+0.347] | +0.370 / −0.126 |
+| Label-aware ceiling of the two parents | +1.614 [+1.349,+1.888] | +1.733 / +1.495 |
+
+Both parents found distinct errors. Each rescued 30 stock misses the other parent missed. They shared nine further rescues. The actual combination rescued 43 and lost 54. Its mean recall declined in all three classes. These results favor evaluating the hard-only direction across devices, delivery and runtime. The earlier paired same-live Scherer hard-only comparison had a slightly negative point, −0.063 pp, and uncertainty across orders and people remains material. [Earlier exact external comparison](../cap250c20e_shared/result-19nov.md)
+
+All six arms used the two fixed common-source CPU pupils and the same authentic live RTX owner. Each kept its own real outer refits. All nine sealed banks verified the stock anchor, actor identities, protected refits, exact stock replay and complete delivery before labels. The official-metric scorer reused the original 18-cell rule. The result provides evidence for the CPU actor path. The external pre-label seal is `b30b58762ab5edf7694d8238de72f1f023aa137e5ac66fdbae0adbad087623f3`, and the paired score is `c07b1aec312b40787d62986aca561417f10ada4dbc4c2e43258f2946bb4cdf6f`. [Figure generator](../figures/fbl_waveform_factorial.py)
