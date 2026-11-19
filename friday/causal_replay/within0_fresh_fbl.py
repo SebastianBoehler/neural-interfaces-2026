@@ -22,21 +22,21 @@ QUAL_SHA = "43fe6dc888a0cef5fd423976577785b671474be2cfa13668059bbb53839a44eb"
 ARCHS = {NAME: ("fblight_ea_rot05_sbn", 5.)}
 
 
-def inputs():
+def inputs(order=ORDER):
     if file_sha(RELEASE / "source.sha256") != RELEASE_SHA or file_sha(QUAL) != QUAL_SHA:
         raise ValueError("fresh FBLight and original frozen qualification differ")
     archive = json.loads(QUAL.read_text())
-    p = pinned_delivery(ROOT / "runs/shuffle_perms.npz")[ORDERS.index(ORDER)]
-    if archive["delivery_sha256"] != rows_sha(p) or not archive["families"][NAME]["eligible"] or archive["held_labels_opened"]:
+    delivery = pinned_delivery(ROOT / "runs/shuffle_perms.npz")
+    if archive["delivery_sha256"] != rows_sha(delivery[ORDERS.index(ORDER)]) or not archive["families"][NAME]["eligible"] or archive["held_labels_opened"]:
         raise ValueError("historical frozen conditioning differs")
     producer = json.loads((RELEASE / "members/fbl_s0.json").read_text())
     if (producer["held_labels_opened"] or producer["order"] != "full0" or producer["member"] != NAME
             or set(producer["fit_states"]) != set(PEOPLE)):
         raise ValueError("fresh source state provenance differs")
-    return p, producer["fit_states"]
+    return delivery[ORDERS.index(order)], producer["fit_states"]
 
 
-def evaluate_fold(person, device="rtx"):
+def evaluate_fold(person, device="rtx", order=ORDER):
     from session_bn import make
 
     gpu = torch.cuda.get_device_name() if torch.cuda.is_available() else ""
@@ -49,7 +49,7 @@ def evaluate_fold(person, device="rtx"):
     if os.environ["SLURM_CPUS_PER_TASK"] != "8":
         raise ValueError("expected eight source threads")
     torch.set_num_threads(8)
-    p, states = inputs()
+    p, states = inputs(order)
     d = waveform_data()
     api = SimpleNamespace(ARCHS=ARCHS, make=lambda family, data, seed: make(ARCHS[family][0], data, seed))
     spec = states[person]
@@ -58,6 +58,8 @@ def evaluate_fold(person, device="rtx"):
         raise ValueError("fresh FBLight source excludes the wrong rows")
     rows, seq = np.flatnonzero(held), p[held[p]]
     np.testing.assert_array_equal(np.sort(seq), rows)
+    if np.array_equal(seq, rows):
+        raise ValueError("frozen replay did not see the actual shuffled delivery")
     state = state_hash(model.net)
     partner = "P02" if person == "P01" else "P01"
     distract = p[d["stream"][p] == f"Dreyer2026Proteus/{partner}|1"][:64]
@@ -72,19 +74,19 @@ def evaluate_fold(person, device="rtx"):
     result, prefix = replay(model, d, rows, seq)
     if state_hash(model.net) != state:
         raise ValueError("frozen replay mutated the state")
-    legacy = changed(result, old_base(NAME, rows))
+    legacy = changed(result, old_base(NAME, rows, order))
     if legacy["changed"] or legacy["max_abs"] > TOL:
         raise ValueError(f"fresh frozen state no longer matches the qualified within0 reference: {legacy}")
     return rows, seq, result, prefix, legacy, spec
 
 
-def replay_fold(person, smoke):
-    rows, seq, result, prefix, legacy, spec = evaluate_fold(person)
+def replay_fold(person, smoke, order=ORDER):
+    rows, seq, result, prefix, legacy, spec = evaluate_fold(person, order=order)
     path = HERE / "folds" / f"{person}.npz"
     with path.open("xb") as handle:
         np.savez_compressed(handle, index=rows, delivery=seq, proba=result)
     path.chmod(0o444)
-    receipt = dict(person=person, order=ORDER, rows=len(rows), smoke=smoke, prefix_max_abs=prefix, legacy=legacy,
+    receipt = dict(person=person, order=order, rows=len(rows), smoke=smoke, prefix_max_abs=prefix, legacy=legacy,
                    source=file_sha(HERE / "source.sha256"), checkpoint_sha256=spec["sha256"],
                    fit_rows_sha256=spec["fit_rows_sha"], held_labels_opened=False, exact_reset=True,
                    output=file_sha(path), euclidean_first_exact=True)
@@ -102,12 +104,12 @@ def scope(person):
     return np.flatnonzero(~fits), rows_sha(np.flatnonzero(fits))
 
 
-def load_fold(person, p, state, *, release=HERE):
+def load_fold(person, p, state, *, release=HERE, order=ORDER):
     path = release / "folds" / f"{person}.npz"
     proof = path.with_suffix(".json")
     r = json.loads(proof.read_text())
     rows, fit_sha = scope(person)
-    if ((r["person"], r["order"], r["rows"], r["smoke"]) != (person, ORDER, len(rows), person == "P01")
+    if ((r["person"], r["order"], r["rows"], r["smoke"]) != (person, order, len(rows), person == "P01")
             or r["source"] != file_sha(release / "source.sha256") or r["held_labels_opened"]
             or not r["exact_reset"] or not r["euclidean_first_exact"]
             or r["checkpoint_sha256"] != state["sha256"] or r["fit_rows_sha256"] != fit_sha
@@ -122,20 +124,20 @@ def load_fold(person, p, state, *, release=HERE):
     return rows, values, dict(receipt=file_sha(proof), checkpoint_sha256=state["sha256"], fit_rows_sha256=fit_sha)
 
 
-def collect():
-    p, states = inputs()
+def collect(order=ORDER):
+    p, states = inputs(order)
     values, folds = np.full((len(p), 3), np.nan), {}
     for person, spec in states.items():
-        rows, vals, folds[person] = load_fold(person, p, spec)
+        rows, vals, folds[person] = load_fold(person, p, spec, order=order)
         values[rows] = vals
-    effect = changed(values, old_base(NAME, np.arange(len(p))))
+    effect = changed(values, old_base(NAME, np.arange(len(p)), order))
     if effect["max_abs"] <= 1e-8 or not np.allclose(values.sum(1), 1, atol=1e-10, rtol=0):
         raise ValueError("common fresh FBLight stream is inactive or incomplete")
     path = HERE / "frozen.npz"
     with path.open("xb") as handle:
         np.savez_compressed(handle, index=np.arange(len(p)), delivery=p, proba=values)
     path.chmod(0o444)
-    receipt = dict(source=file_sha(HERE / "source.sha256"), order=ORDER, rows=len(p), bank=file_sha(path),
+    receipt = dict(source=file_sha(HERE / "source.sha256"), order=order, rows=len(p), bank=file_sha(path),
                    held_labels_opened=False, legacy_warm_parity=False, legacy_frozen_comparison=effect, folds=folds)
     out = HERE / "frozen.json"
     with out.open("x") as handle:
@@ -149,11 +151,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("fold", "check", "collect"))
     parser.add_argument("id", type=int, nargs="?", choices=range(1, 11))
+    parser.add_argument("--order", choices=(ORDER, "runs0"), default=ORDER)
     args = parser.parse_args()
     if args.mode == "fold":
-        replay_fold(PEOPLE[args.id - 1], args.id == 1)
+        replay_fold(PEOPLE[args.id - 1], args.id == 1, args.order)
     elif args.mode == "check":
-        delivery, states = inputs()
-        print(load_fold("P01", delivery, states["P01"])[2]["receipt"], flush=True)
+        delivery, states = inputs(args.order)
+        print(load_fold("P01", delivery, states["P01"], order=args.order)[2]["receipt"], flush=True)
     else:
-        collect()
+        collect(args.order)

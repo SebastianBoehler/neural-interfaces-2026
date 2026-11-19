@@ -27,8 +27,8 @@ FRESH = ROOT.parent / "ni26_friday_sinc_seed0_fresh_orders_20261118"
 FRESH_SOURCE = ROOT.parent / "ni26_friday_sinc_seed0_fresh_full0_v3_20261118"
 
 
-def old_base(family, rows):
-    suffix = f"ttt18{ORDER}LPC_{family}_base-all_loso-s0.npz"
+def old_base(family, rows, order=ORDER):
+    suffix = f"ttt18{order}LPC_{family}_base-all_loso-s0.npz"
     with np.load(ARCHIVE / suffix, allow_pickle=False) as bank:
         np.testing.assert_array_equal(bank["index"], np.arange(2655))
         p = bank["proba"]

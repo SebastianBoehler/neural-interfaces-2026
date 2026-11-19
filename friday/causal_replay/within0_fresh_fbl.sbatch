@@ -17,12 +17,13 @@ sha256sum --quiet -c source.sha256
 export OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="$repo/experiments:$repo/2026-competition:$repo/2026-competition/tracks/bci_decoding"
 python="$repo/.venv/bin/python"
+order=${2:-within0}
 case "${1:?smoke, fold or collect}" in
-    smoke) exec "$python" -B within0_fresh_fbl.py fold 1 ;;
+    smoke) exec "$python" -B within0_fresh_fbl.py fold 1 --order "$order" ;;
     fold)
-        "$python" -B within0_fresh_fbl.py check
-        exec "$python" -B within0_fresh_fbl.py fold "${SLURM_ARRAY_TASK_ID:?}"
+        "$python" -B within0_fresh_fbl.py check --order "$order"
+        exec "$python" -B within0_fresh_fbl.py fold "${SLURM_ARRAY_TASK_ID:?}" --order "$order"
         ;;
-    collect) exec "$python" -B within0_fresh_fbl.py collect ;;
+    collect) exec "$python" -B within0_fresh_fbl.py collect --order "$order" ;;
     *) exit 2 ;;
 esac

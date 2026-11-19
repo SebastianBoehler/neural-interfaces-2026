@@ -39,8 +39,8 @@ PINS = {
 }
 
 
-def input_delivery():
-    return pinned_delivery(ROOT / "runs/shuffle_perms.npz")[ORDERS.index(ORDER)]
+def input_delivery(order=ORDER):
+    return pinned_delivery(ROOT / "runs/shuffle_perms.npz")[ORDERS.index(order)]
 
 
 def three_aux(ctx):
@@ -54,22 +54,22 @@ def three_aux(ctx):
         setattr(ctx, attr, value)
 
 
-def archive_zero():
-    for path, digest in PINS.items():
+def archive_zero(order=ORDER, pins=PINS):
+    for path, digest in pins.items():
         pin(path, digest)
     if REPLAY.read_text().splitlines()[-1] != "OK":
         raise ValueError("recording-order replay reference is missing")
-    raw, gate, provenance, expected = pinned_control(ORDER)
-    route = json.loads(ROUTE.read_text())
-    if route["archive_sha256"] != expected[raw] or route["bases"][STACK]["routed_sessions"]:
-        raise ValueError("archived within0 recognition differs")
+    raw, gate, provenance, expected = pinned_control(order)
+    route = json.loads((ROOT / f"runs/s281_v66_route/{order}.json").read_text())
+    if route["order"] != order or route["archive_sha256"] != expected[raw] or route["bases"][STACK]["routed_sessions"]:
+        raise ValueError("archived recognition differs")
     final = load_personalization()
-    refs = {(f, s): ARCHIVE / f"ttt18within0LPC_{f}_r15c250-all_loso-s{s}.npz"
+    refs = {(f, s): ARCHIVE / f"ttt18{order}LPC_{f}_r15c250-all_loso-s{s}.npz"
             for f in FAMILIES for s in range(6)}
     with guarded_load(expected, provenance, archived_refits=refs.values()) as opened:
-        ctx = owner(ORDER)
+        ctx = owner(order)
         p = ctx.Pperm
-        np.testing.assert_array_equal(p, input_delivery())
+        np.testing.assert_array_equal(p, input_delivery(order))
         original = ctx.Z[f"{STACK}|Ps|{PROTO}"].copy()
         ctx.CU17 = {key: ctx.ld(path) for key, path in refs.items()}
         incoming = install(ctx, {})
@@ -82,17 +82,18 @@ def archive_zero():
             raise ValueError("auxiliary switch is inactive or changed archived refit deltas")
         count = load_count(ctx)
         x = read(FEAT, "X").astype("float64")
-        nine, _ = live_tail(count, final, original_cap, x, p, verify_prefix=False, order=ORDER)
-        for path in (CONTROL, CONTROL_ZERO):
+        nine, _ = live_tail(count, final, original_cap, x, p, verify_prefix=False, order=order)
+        for arm in ("control", "zero318"):
+            path = ROOT / f"runs/s281_v66_cp/{arm}_{order}_B2_pool.npz"
             np.testing.assert_array_equal(nine["terminal"], read(path, "scores"))
-        three, checks = live_tail(count, final, auxiliary_cap, x, p, order=ORDER)
+        three, checks = live_tail(count, final, auxiliary_cap, x, p, order=order)
         for key, val in three.items():
-            np.testing.assert_array_equal(val, read(TAPES, key))
-        np.testing.assert_array_equal(three["terminal"], read(STOCK, "scores"))
-    write_receipt(HERE / "zero.json", order=ORDER, exact_archive_zero=True, three_aux_exact=True,
+            np.testing.assert_array_equal(val, read(STAGES / f"stages_{order}.npz", key))
+        np.testing.assert_array_equal(three["terminal"], read(STAGES / f"{order}.npz", "scores"))
+    write_receipt(HERE / "zero.json", order=order, exact_archive_zero=True, three_aux_exact=True,
                   held_labels_opened=False, scored=False, prefix=checks, deltas=a3,
                   source=sha(HERE / "source.sha256"), inputs={str(path): v for path, v in sorted(opened.items())})
-    print("PASS within0 archived zero", sha(HERE / "zero.json"), flush=True)
+    print(f"PASS {order} archived zero", sha(HERE / "zero.json"), flush=True)
 
 
 def qualified_zero(zero_sha):
