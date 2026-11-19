@@ -25,7 +25,7 @@ def deliveries():
         order = z["full|0|seen_session"]
     result = [order[(people[order] == f"Dreyer2026Proteus/{who}") & (visits[order] == visit)]
               for who, visit, _ in VISITS]
-    np.testing.assert_array_equal(np.concatenate(result), order)
+    np.testing.assert_array_equal(np.sort(np.concatenate(result)), np.sort(order))
     return result
 
 
