@@ -519,3 +519,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F36 scorer `3135632` passed at 10:30:15. Reciprocal cross-trial minus native hard was −0.094/+0.619 pp across seeds. Single-trial matched raw changes had +0.389/+0.444 pp points with both intervals spanning zero. The follow-up checks the same control in the complete system.
 
 - F36 whole decoder collector `3135632` completed at 10:30:15 CET. All 20 matched A100 and CPU folds passed. Bounded cross-trial minus exact hard −0.094/+0.619 pp and minus matched same-trial −0.483/+0.175 pp, both undecided. [Signed result](fbc323_crossfade/result-19nov.md)
+
+### F36c corrected cap250 with both F36 pupils
+
+- Fresh original recording-order `replay/check.py` printed OK. Native CPU P01 pupil smoke `3135705` passed both orders and bitwise F-C22h hard posteriors. Smoke bank `5936859778fe38589bf6e5bd178bc32e92a266f8bb02b5465a91de6a43ab1dcd`. [Preregistered comparison](cap250_f36/prereg-19nov.md)
+- Galvani `3135713` replays all 20 fit-excluded pupil pairs. Corrected full0 native pilot `3135714` gates `3135715/3135716` within0/full0, then independent blind collector `3135717`. Release `ni26_friday_f36c_held_20261119/jobs.txt`. Pupil `577fddd5a31ddc6248e7e8ca4679acb8a948f543f726ee06c071c1693c61db83` and whole `f346e2cb9d1de08a93c631fd46be50aa978cb129ae15ac208dcb4a7979f844a1`.
