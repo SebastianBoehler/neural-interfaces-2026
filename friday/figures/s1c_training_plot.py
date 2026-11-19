@@ -58,6 +58,15 @@ LAYOUTS = {
             ("bounded_hierarchy_jitter_minus_jitter", "Hierarchy plus jitter\nvs jitter"),
             ("bounded_interaction", "Factorial\ninteraction"),
         )),
+    "64678ecd1cb61b6869e4d54940b49581531e8dfe04162c661e4c687431094790": dict(
+        title="Cross-person interpolation changed sign across seeds",
+        stem="held-s1c-donor-interpolation", xlim=(-1.42, 1.30),
+        caption="Bounded inference. Both interpolation arms used the same 489,600 donor appearances.",
+        contrasts=(
+            ("bounded_cross_minus_hard", "Cross-person\nvs hard CE"),
+            ("bounded_within_minus_hard", "Same-session\nvs hard CE"),
+            ("bounded_cross_minus_within", "Cross-person\nvs same-session"),
+        )),
 }
 
 

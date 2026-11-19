@@ -1,4 +1,4 @@
-"""Plot signed cap250 factorial effects on the actual balanced accuracy metric."""
+"""Plot signed cap250 comparisons on the actual balanced accuracy metric."""
 import argparse
 import hashlib
 import json
@@ -9,23 +9,37 @@ import matplotlib.pyplot as plt
 from plot import BLUE, GOLD, INK, MUTED, save
 
 
-RESULT_SHA = "f6aa0b53a02a249ac9cb85c79cb8ad613622039f1d2e6d7828d1baf9a509b641"
+FACTORIAL_SHA = "f6aa0b53a02a249ac9cb85c79cb8ad613622039f1d2e6d7828d1baf9a509b641"
+REBALANCE_SHA = "e79d2a804a0ca75891d19feca03902146ed1ea271a72e1147e99a70040c060cd"
 
 
 def draw(receipt, out):
     raw = receipt.read_bytes()
-    if hashlib.sha256(raw).hexdigest() != RESULT_SHA:
-        raise ValueError("the score receipt differs from the signed factorial")
+    digest = hashlib.sha256(raw).hexdigest()
+    if digest not in (FACTORIAL_SHA, REBALANCE_SHA):
+        raise ValueError("the score receipt differs from the signed comparisons")
     data = json.loads(raw)
-    contrasts = [
-        ("Directional alignment", data["main"]["directional"]),
-        ("Cognitive waveform odds", data["main"]["cognitive"]),
-        ("Both changes", data["main"]["combined"]),
-        ("Factorial interaction", data["interaction"]),
-    ]
+    if digest == FACTORIAL_SHA:
+        title = "The cap250 combination varied across deliveries"
+        stem = "cap250-alignment-cognitive-factorial"
+        contrasts = [
+            ("Directional alignment", data["main"]["directional"]),
+            ("Cognitive waveform odds", data["main"]["cognitive"]),
+            ("Both changes", data["main"]["combined"]),
+            ("Factorial interaction", data["interaction"]),
+        ]
+    else:
+        title = "The robust rebalancer fell below both controls"
+        stem = "cap250-robust-rebalance"
+        values = data["contrasts"]
+        contrasts = [
+            ("Scalar vs stock", values["scalar_vs_stock"]),
+            ("Robust vs stock", values["robust_vs_stock"]),
+            ("Robust vs scalar", values["robust_vs_scalar"]),
+        ]
     fig, (total, order) = plt.subplots(1, 2, figsize=(11, 4.4), sharey=True, layout="constrained")
     fig.get_layout_engine().set(rect=(.02, .12, .96, .86))
-    fig.suptitle("The cap250 combination varied across deliveries", x=.025, ha="left",
+    fig.suptitle(title, x=.025, ha="left",
                  fontsize=20, weight="bold", color=INK)
     total.set_title("Overall effect with paired 80% interval", loc="left", fontsize=10, color=MUTED)
     order.set_title("Effect by delivery order", loc="left", fontsize=10, color=MUTED)
@@ -33,7 +47,7 @@ def draw(receipt, out):
         pp = row["pp"]
         low, high = row["paired80"]
         total.errorbar(pp, i, xerr=[[pp-low], [high-pp]], color=INK, fmt="o", ms=6, capsize=3)
-        for label, color, offset in (("2411", BLUE, -.105), ("3411", GOLD, .105)):
+        for label, color, offset in zip(sorted(row["order_pp"]), (BLUE, GOLD), (-.105, .105), strict=True):
             order.scatter(row["order_pp"][label], i+offset, color=color,
                           label=f"Order {label}" if i == 0 else None)
     for ax in (total, order):
@@ -50,7 +64,7 @@ def draw(receipt, out):
     fig.text(.025, .026, "Full system on Scherer EEG · 9 reused participants · 2 visits · 2 new delivery orders",
              color=MUTED, fontsize=9)
     out.mkdir(parents=True, exist_ok=True)
-    save(fig, out, "cap250-alignment-cognitive-factorial")
+    save(fig, out, stem)
 
 
 if __name__ == "__main__":
