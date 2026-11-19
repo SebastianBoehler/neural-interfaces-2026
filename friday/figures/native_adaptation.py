@@ -98,6 +98,26 @@ def plot_outer_raw(receipts, out):
     save(fig, out, "held-outer-raw-replacement")
 
 
+def plot_multiresolution_stack(receipts, out):
+    record = locked(receipts / "held-multiresolution-stack-score.json",
+                    "05fc761a1988e05ae56e7166d8b018456d84dee9a169358c88b9f636f708ee43")
+    fig, (ax,) = layout("Multiresolution beat the matched conventional gates")
+    rows = (("Multiresolution vs conventional", "multi_minus_single"),
+            ("Multiresolution vs hard-label pupil", "multi_minus_hard"),
+            ("Multiresolution vs stock", "multi_minus_stock"))
+    for name, color, offset in (("within0", BLUE, -.13), ("full0", GOLD, .13)):
+        for row, (_, key) in enumerate(rows):
+            interval(ax, record["orders"][name]["contrasts"][key], row + offset,
+                     color, name if row == 0 else None)
+    ax.set_yticks(range(len(rows)), [label for label, _ in rows])
+    ax.set(xlim=(-.28, .80), ylim=(2.56, -.55))
+    ax.set_title("Complete cap250 consumer · paired 80% intervals", loc="left", fontsize=10, color=MUTED)
+    ax.legend(loc="upper right", frameon=False, ncol=2)
+    fig.text(.028, .024, "Full-system dev · same 10 held-new participants · one replay per configuration · stock retained",
+             fontsize=9, color=MUTED)
+    save(fig, out, "held-multiresolution-stack")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("receipts", type=Path)
@@ -108,3 +128,4 @@ if __name__ == "__main__":
     plot_eye(options.receipts, options.output)
     plot_eye_calibration(options.receipts, options.output)
     plot_outer_raw(options.receipts, options.output)
+    plot_multiresolution_stack(options.receipts, options.output)
