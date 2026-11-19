@@ -1029,3 +1029,7 @@ Registered before any selected output or score. The rule emits complete stock th
 - Verify exact complete stock at every rejected row, exact FBL2 at every accepted row, no feedback, no fallback, per-session prefix/reset and independent scoring after complete read-only seals. The policy requires two evolving downstream paths and retains inherited production/gallery exposures. A retrospective conditional-bank test has no package, timing, fresh external or sealed accuracy claim. No upload.
 
 **F29 completed at 06:35:19 CET.** Bounded chronological minus exact hard was −6.398/−6.257 pp [paired 80% −7.599 to −5.347 / −7.541 to −5.009], refuting the complete waveform gain. Chronological minus scrambled was +3.086/+2.870 pp [+1.904 to +4.458 / +1.717 to +4.186], supporting order-specific information within this recurrent architecture. Exact coarse/no-op origin, all learned gradients and held guards passed. [Results and checks](../friday/fbc323_recurrent/result-19nov.md)
+
+## F30 · Train the raw body through source-person-held support updates
+
+Registered before source fitting. The [F30 protocol](../friday/fbc323_episodic/prereg-19nov.md) fixes class-balanced source support/query roles, exact same-person control, temporary functional update, numerical hypotheses and real smoke rules.
