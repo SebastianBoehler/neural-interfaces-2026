@@ -172,8 +172,9 @@ class TTTModel:
                 m.reset_running_stats()
                 m.momentum = None
                 m.train()
-            with torch.no_grad():
-                net(A)
+            with torch.no_grad():  # momentum None: running stats = average over chunks (memory bound on 11 GB cards)
+                for i in range(0, n, 128):
+                    net(A[i:i + 128])
             for m, b in zip(bns, [m for m in base.modules() if isinstance(m, nn.BatchNorm2d)]):
                 w = n / (n + k)
                 m.running_mean.mul_(w).add_((1 - w) * b.running_mean)

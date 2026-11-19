@@ -25,13 +25,19 @@ import submission as S  # noqa: E402
 ROOT = HERE.parents[1]
 
 
-def load(people, data):
+def load(people, data, extra=()):
+    """Training rows of PEOPLE; each extra cue-offset export (same rows, other start) is its own alignment stream."""
     d = np.load(data)
     person = np.array([s.rsplit("/", 1)[-1] for s in d["subject"]])
     keep = np.isin(person, people)
     assert set(person[keep]) == set(people), f"missing people {set(people) - set(person[keep])}"
     stream = np.char.add(np.char.add(person[keep], "|"), d["session"][keep])
-    return d["X"][keep].astype(np.float32), d["y"][keep].astype(np.int64), stream
+    Xs, ys, ss = [d["X"][keep].astype(np.float32)], [d["y"][keep]], [stream]
+    for e in extra:
+        z = np.load(Path(data).with_name(f"proteus_windows_{e}.npz"))
+        assert (z["y"] == d["y"]).all() and (z["subject"] == d["subject"]).all() and (z["session"] == d["session"]).all()
+        Xs.append(z["X"][keep].astype(np.float32)), ys.append(z["y"][keep]), ss.append(np.char.add(stream, f"|{e}"))
+    return np.concatenate(Xs), np.concatenate(ys).astype(np.int64), np.concatenate(ss)
 
 
 class Aligner:
@@ -98,10 +104,11 @@ def main():
     ap.add_argument("--aug", type=int, default=1)
     ap.add_argument("--shrink", type=float, default=S.DEFAULT_TTT["shrink"])
     ap.add_argument("--data", default=str(ROOT / "data/proteus_windows.npz"))
+    ap.add_argument("--extra", default="", help="comma list of cue-offset exports, e.g. start0.5,start2")
     args = ap.parse_args()
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     people = sorted(args.people.split(","))
-    X, y, stream = load(people, args.data)
+    X, y, stream = load(people, args.data, [e for e in args.extra.split(",") if e])
     al = Aligner(X, stream, dev, args.shrink)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)

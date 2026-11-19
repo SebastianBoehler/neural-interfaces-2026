@@ -40,3 +40,10 @@ Rules: adaptation quality = A2* − A1 on the same base, per order, people-80 % 
 > 0 on both orders, refuted if the upper bound < 0 on both, else undecided (bars are reading aids, ±0.5 instrument
 noise). The starting network is judged by A1. No closure from C1: a negative A2 opens other TTT forms (anchor,
 lr, steps, teacher), since the angle's ceiling is not measured by one form.
+
+## C1x · E6 trained with extra cue-offset crops (registered with C1, before scoring)
+Same members, 30 epochs, training rows ×5: the official window (start 1 s) plus the exports starting 0.5, 2, 3, 4 s
+after the cue (same trials, same labels; each offset is its own alignment stream). Test input unchanged (start 1 s).
+Prediction: A1(C1x) − A1(C1) +1.5 [−0.5, +3.5] (more crops ≈ more within-person variety, not more people). Same
+reading rule as C1 (people-80 % interval on both orders). Jobs: Galvani 3139558 (C1), 3139559 (C1x); smoke 3139488
+passed (2 epochs, code path only; A2 ≈ 62 ms/window on a 2080 Ti including Python overhead).
