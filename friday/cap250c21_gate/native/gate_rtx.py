@@ -79,6 +79,35 @@ def equal_prefix(full, short, n):
         np.testing.assert_array_equal(x[:n], y)
 
 
+def g_prefix(template, cold, full, short, repeated_stock):
+    n = 31
+    full_stock, full_alt, full_choice = full.stages()
+    short_stock, short_alt, short_choice = short.stages()
+    for x, y in ((full_stock, short_stock), (full_alt, short_alt), (full_choice, short_choice)):
+        np.testing.assert_array_equal(x[:20], y[:20])
+        np.testing.assert_array_equal(x[:n].argmax(-1), y.argmax(-1))
+    if short.recognition_age != -1 or short.eligible != 11 or short.outer.fit != [20]:
+        raise ValueError("fresh natural G prefix has different eligibility or tail work")
+    repeated = repeated_stock[1]["stage"]
+    np.testing.assert_array_equal(cold[1]["stage"][:n].argmax(-1), repeated.argmax(-1))
+    repeat = float(np.abs(cold[1]["stage"][:n] - repeated).max())
+    drift = [float(np.abs(x[:n] - y).max()) for x, y in
+             ((full_stock, short_stock), (full_alt, short_alt), (full_choice, short_choice))]
+    if repeat > 2e-7 or max(drift) > min(2e-7, max(2e-8, 2*repeat)):
+        raise ValueError(f"fresh native G warm prefix too far from stock repeat: {(repeat, drift)}")
+    # Reconstruct a completely independent prefix using exactly the live full-session inputs.
+    tape = full.events[:n]
+    source = fresh_model(template)
+    original = private(Outer(source), tape, [e[2] for e in tape])
+    hook = FBL2Hook(source, "fbl2")
+    candidate = private(Outer(source), tape, [hook.project(e[2], e[-2], e[-1]) for e in tape])
+    np.testing.assert_array_equal(original, full_stock[:n])
+    np.testing.assert_array_equal(candidate, full_alt[:n])
+    np.testing.assert_array_equal(np.concatenate((original[:20,2], candidate[20:,2])), full_choice[:n])
+    return dict(stock_repeat_max=repeat, fresh_stage_max=drift, first20_exact=True,
+                fresh_labels_exact=True, same_input_prefix_bitwise=True)
+
+
 def check(template, eeg, who, orders, channels, anchor):
     rows = orders[0][who+"|1"]
     cold = stream(template, eeg, rows, "stock")
@@ -94,9 +123,10 @@ def check(template, eeg, who, orders, channels, anchor):
     if v["alternate"]["recognized"] != 10 or v["route"]["routed"] <= 0:
         raise ValueError("fixture did not exercise true native recognition")
     live(template, eeg, orders[0][who+"|2"][:17])
-    equal_prefix(g[1], live(template, eeg, rows[:31], audit=True)[1], 31)
+    repeated = stream(template, eeg, rows[:31], "stock")
+    prefix = g_prefix(template, cold, g[1], live(template, eeg, rows[:31], audit=True)[1], repeated)
     equal_prefix(known_run[1], live(template, px, r[:17], audit=True)[1], 17)
-    return dict(unrecognized=p, known=v, exact_interleaved_prefix=True)
+    return dict(unrecognized=p, known=v, unrecognized_prefix=prefix, known_interleaved_prefix_exact=True)
 
 
 def timed(template, eeg, who, orders, channels, index):
