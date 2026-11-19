@@ -1004,3 +1004,5 @@ Registered before the RTX package run. Build the exact cap250 ZIP into a new nam
 Registered before fitting. The [F29 protocol](../friday/fbc323_recurrent/prereg-19nov.md) fixes the native pooled control, genuine and interior-permuted recurrent token sequences and source/held guard thresholds.
 
 **F-C21p worker storage correction before inference.** RTX job 3134307 stopped while extracting the frozen ZIP because the container's private /tmp had insufficient space. The immutable retry places temporary extraction under the bound project filesystem. Frozen and trial archive bytes, both fixtures, the checker and numeric criteria stay fixed.
+
+**F-C21p passed at 06:25:59 CET.** Job 3134334 matched every decision in both real prefixes and every expected route, reset and optimizer counter. Across the five captured vector streams the maximum paired independent error was 4.205e−8. CPU had zero error. The executable trial ZIP rebuilt byte-for-byte, retained all 38 assets and opened no gold. [Direct archive conformance and receipts](../friday/cap250_fbl2_package/README.md)
