@@ -49,6 +49,17 @@ Leonardo rejected the current key on the configured entry point. Galvani fits ar
 - **Raw reference coordinates.** F26 tests the physical common-average reference against a norm-matched artificial direction and byte-exact raw control. All source and held checks passed. Whole-decoder CAR versus raw changed −0.351 and +0.673 pp across seeds, and CAR versus matched artificial geometry changed +0.292 and +0.381 pp. Both paired comparisons remain undecided. [F26 result](fbc323_reference/result-19nov.md)
 - **Figures.** F-C20 improved mostly mental-subtraction calls within0 and motor imagery and word generation full0. P07 and P10 effects reversed sign across the two configurations. The separate per-person and task heatmaps show these differences. Each comparison uses its exact reference, and the setups differ in addition to delivery. [Figure source](figures/raw_transfer_groups.py)
 
+### External and returning decision check · 05:40 CET
+
+The conditional Scherer comparison finished at 05:37:50 CET. The hard-label replacement scored 48.1614% versus exact stock at 48.2242%, a change of **−0.0628 pp** [paired 80% −0.3075, +0.1852]. It rescued 32 decisions and regressed 35. Both native outer branches used the same live upstream stream. These two new delivery orders reuse nine external people. The separate independent-worker test remains blocked by numerical repeatability. This result leaves stock ahead for the current selection. [External result and receipts](cap250c20e_shared/result-19nov.md)
+
+| Remaining readout | Status at this check | Estimated CET |
+|---|---|---|
+| Native returning F-C20r | Both P04 visits sealed. Remaining P10 visits use entirely person-excluded hard waveform actors and retain the original production nuisance components. | Around 05:45, subject to completion and blind seal |
+| F27 raw electrode topology | Both authentic smokes passed. H100 source fits and independent held replays are active. The artificial graph preserves each sensor's in- and out-degree. | 05:48–05:52 if two H100 allocations remain available |
+
+The latest exact podium snapshot remains the 03:40 CET check above. The later public endpoint returned a non-JSON response. Stock retains the best observed sealed score. [Live queue](QUEUE.md)
+
 ## Selection
 
 Keep the two frozen ZIPs and their receipts. Compare a candidate against the strongest eligible reference on full-system official-metric held-new, returning and external instruments. Record the source exclusions, class and cohort effects, delivery robustness and paired uncertainty. Favor stronger held-person and external evidence inside development noise. Check the actual package on an RTX proxy and record the training configuration and exact archive provenance for the organizer's top-three reproducibility audit. Development scores have no calibrated conversion to sealed rank. Report the final candidate and alternate by Friday 18:00 CET. [Official scoring and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring)
