@@ -17,7 +17,7 @@ IFS=$'\t' read -r mode held people first sessions < <(sed -n "$((t+1))p" "$CS_RU
 out=$CS_RUN/${mode}_${held}; mkdir -p "$out"
 sha256sum "$base/neural-interfaces-2026/data/proteus_windows.npz" | cut -c1-16 > "$out/data.sha16"
 run() { apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \
-  --env OMP_NUM_THREADS=4,PYTHONDONTWRITEBYTECODE=1,TMPDIR=/work,PYTHONPATH=/cs/harness:/cs:/official/tracks/bci_decoding${CS_ENV:+,$CS_ENV} \
+  --env OMP_NUM_THREADS=4,PYTHONDONTWRITEBYTECODE=1,TMPDIR=/work,MPLCONFIGDIR=/work/.mpl,PYTHONPATH=/cs/harness:/cs:/official/tracks/bci_decoding${CS_ENV:+,$CS_ENV} \
   --bind "$CS_REL/cleanslate:/cs:ro,$CS_RUN:/work:rw,$base/neural-interfaces-2026/2026-competition:/official:ro,$base/neural-interfaces-2026/data/proteus_windows.npz:/data/proteus_windows.npz:ro" \
   --pwd /work "$base/neural-interfaces-2026/runs/cloud/ni26_worker.sif" "$@"; }
 if [ ! -e "$out/pkg/.trained" ]; then

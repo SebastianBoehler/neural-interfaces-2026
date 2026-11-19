@@ -1,0 +1,8 @@
+#!/bin/bash
+# ssh to Galvani through the shared control master, retrying while the master has no free session slot.
+for i in $(seq 1 30); do
+  out=$(ssh -o BatchMode=yes mlcloud-galvani "$@" 2> >(grep -v -e "post-quantum" -e "store now" -e "openssh.com/pq" >&2)); rc=$?
+  if [ $rc -ne 255 ]; then printf '%s\n' "$out"; exit $rc; fi
+  sleep 10
+done
+echo "gssh: no session after 30 tries" >&2; exit 255
