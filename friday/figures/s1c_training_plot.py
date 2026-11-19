@@ -158,6 +158,15 @@ LAYOUTS = {
             ("bounded_cross_minus_within", "Cross-person support\nvs within-person"),
             ("bounded_within_minus_hard", "Within-person support\nvs hard CE"),
         )),
+    "d4f491be1e192e5c5a01fcf1d0a20b74aa90d5f0707e1bc21e6d21a525adf3e0": dict(
+        title="Learning waveform order gave mixed held gains",
+        stem="held-s1c-order-pretext", xlim=(-1.49, 1.24),
+        caption="Bounded inference. The order head was used during training only.",
+        contrasts=(
+            ("bounded_ordered_minus_hard", "True order\nvs hard CE"),
+            ("bounded_ordered_minus_sham", "True order\nvs shuffled labels"),
+            ("bounded_sham_minus_hard", "Shuffled labels\nvs hard CE"),
+        )),
 }
 
 
