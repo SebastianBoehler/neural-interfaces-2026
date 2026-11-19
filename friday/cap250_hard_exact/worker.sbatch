@@ -48,7 +48,7 @@ verify "$probe" b0bc9a635389c4102107dabb9ceb7f13fc4f3a3d9f5ec2b3477160c0d267cc37
 grep -Fx OK "$prior/replay-proof.txt"
 grep -Fx OK "$pair/replay.log"
 mode=${1:?}
-program=(qualify.py "$mode")
+program=(exact.py "$mode")
 case "$mode" in
     smoke) index=5;;
     produce) test -s smoke.json; index=${SLURM_ARRAY_TASK_ID:?};;
