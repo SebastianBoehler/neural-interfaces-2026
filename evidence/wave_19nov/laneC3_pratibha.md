@@ -42,3 +42,26 @@ stage-B-only trainability check). Optimiser lrs 1e-4 body / 1e-3 head, stage A 9
 ## Gates before the wave
 
 1. `smoke_pratibha.py` (strict load, cm positions, shapes, bf16 vs fp32), 2. Lane C canary (one supervised step on each corpus, one PROTEUS step, 189 held-P02 posteriors, prefix and singleton guards), 3. arm-A P02 and P10 trainability check (non-constant posteriors only; its balanced recall is not used to tune).
+
+## Result (19 Nov ~19:30 CET) · INDIVIDUAL-MODEL and in-mixer 1/6 slot
+
+Jobs (Leonardo, AIFAC_P02_1675, release `/leonardo_work/AIFAC_P02_1675/ni26_lane_c3_20261119`): smoke 64870288 (strict load, cm positions, bf16 vs fp32 0.0016), canary 64870289, arm-A P02/P10 trainability 64870290 (stage-B loss 0.002-0.007, non-constant; not used to tune), external 64870540 (3 pooled-C backbones), 36 fits 64870541 (no parity-guard failures), collector 64870543. Banks: `ensemble_C_held_new.npz` SHA `a17ea9fe...`, `ensemble_C_returning.npz` `e3be4037...`, `full_standalone.json` `bfb98226...`. Smoke gates passed; nothing was re-run or tuned after the wave. Galvani in-mixer replays 3137967 (Pratibha) and 3137968 (Pratibha+CBraMod mean slot), `laneC3_member/result_*.json`; guards: zero arm equal to stock bitwise (raw and tail), laneC arm differs at mix/rebalance/EM/TSEM, stock terminal argmax equal to c25d `full0.npz`.
+
+| | Pratibha-C (3-seed pooled) | REVE-C | CBraMod-C | prediction |
+| --- | ---: | ---: | ---: | --- |
+| held-new BA, mean of 8 orders | **55.97** (55.5-56.3) | 55.22 | 52.76 | 53 [47, 58]: inside, above the guess |
+| returning cells BA | **62.83** (62.2-63.2) | 62.08 | 52.30 | 58 [48, 66]: inside |
+| single seeds, full0 | 55.2 / 54.9 / 54.1 | 50.4 / 49.9 / 54.1 | | |
+| error phi vs REVE (full0, held-new) | 0.635 | | | |
+| REVE misses repaired by Pratibha | 21.3 % (15.5 % at max-posterior >= 0.60) | | | |
+
+In the cap250 1/6 slot (held-new full0, cap250 73.74; people-only paired 80 %, one order only):
+
+| Slot member (standalone) | held-new BA | delta pp [80 %] | fixed / regressed rows |
+| --- | ---: | ---: | ---: |
+| Pratibha-C (56.33) | 73.74 | **-0.003 [-0.233, +0.266]** | 16 / 16 |
+| Pratibha-C + CBraMod-C mean (55.95) | 73.99 | **+0.256 [-0.007, +0.584]** | 16 / 9 |
+| (Lane C) REVE-C / CBraMod-C | 73.96 / 74.00 | +0.216 [-0.096, +0.615] / +0.263 [+0.001, +0.527] | |
+
+Reading by the pre-registered rules: the Pratibha slot's upper bound +0.27 is below +0.5, so for packaging this member in the 1/6 slot the refutation holds (and the step-change bound +1.00 is far above the interval). The mean slot with CBraMod is a small positive, +0.26 with upper +0.58, the same as CBraMod alone; undecided inside the dev noise (+-0.5), not a gain beyond what CBraMod gave. Standalone Pratibha is the best of the three backbones (+0.7 over REVE, +3.2 over CBraMod) and returning +0.75 over REVE, i.e. the prior "<= REVE" was too low, but it is more correlated with REVE (phi 0.63) and adds nothing inside the mixer. P01 +0.5, P06 +1.6, P08 -1.0, P04 -0.5, P10 0.0 for Pratibha alone. Not tested: other doses, returning inside the mixer, orders 1-7, A100/RTX timing and the package size (93 M parameters, 371 MB fp32 per seed, above the 90 MB self-rule).
+Caveats: first-form head and per-window z-score input; our torch-only copy of the encoder was verified by strict key/shape loading, not output equality with the official class (transformers not installable on the cluster).
