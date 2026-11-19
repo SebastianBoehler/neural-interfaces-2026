@@ -14,8 +14,8 @@ from returning_pair_guard import zero
 from worker import same_prefix, session
 
 
-REF = BASE / "ni26_friday_returning_core2_reference_v1_20261119"
-REF_SOURCE = "1feb8f8ab23d78822c8ac1b2fb7467f6fd77fb55f3bf5790c7a339efff5a9b0d"
+REF = BASE / "ni26_friday_returning_core2_reference_v2_20261119"
+REF_SOURCE = "55ca2a8f703e79d09f5ee40fa16e3adc6e42796b3745ccc23aae08d30114c1b9"
 GALLERY = BASE / "ni26_js321_20261117_returning_galleries2/P10_s23"
 FULL_NATIVE = PILOT.parent / "visit2"
 GALLERY_SHA = "f5c8804a876a6f49f9580dce4b941e12f39d20c278d9678ee3b133a8b2051873"
@@ -72,7 +72,9 @@ def references(case, fit, artifact):
     pin(REF / "ref_source.sha256", REF_SOURCE)
     rec = json.loads(p.read_text())
     expected = dict(fit=fit, core_bank=artifact, origin=PILOT_SHA, source=REF_SOURCE, held_labels_opened=False)
-    if any(rec[k] != v for k, v in expected.items()) or rec["old_owning_path_max_abs"] > 1e-6:
+    if (any(rec[k] != v for k, v in expected.items()) or rec["old_owning_path_max_abs"] > 1e-6
+            or set(rec["independent_prefixes"]) != {"old", "new"}
+            or any(p["changed"] or not 0 <= p["max_abs"] <= 1e-6 for p in rec["independent_prefixes"].values())):
         raise ValueError("independent Hilbert reference does not qualify")
     path = REF / "reference.npz"
     pin(path, rec["output"])
