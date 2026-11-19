@@ -5,6 +5,8 @@ import hashlib
 import json
 from pathlib import Path
 
+import numpy as np
+
 from adaptation import interval, layout
 from plot import BLUE, GOLD, INK, MUTED, save
 
@@ -118,6 +120,23 @@ def plot_multiresolution_stack(receipts, out):
     save(fig, out, "held-multiresolution-stack")
 
 
+def plot_external_raw(receipts, out):
+    record = locked(receipts / "external-outer-raw-same-input-score.json",
+                    "6f3b1379eab3ae567e77601ca6744a34637b7f4e66024f49b8025347a226f211")
+    fig, (ax,) = layout("The raw replacement had a near-zero external effect")
+    effect, people = record["contrast"], record["people_pp"]
+    interval(ax, effect, 0, BLUE)
+    for row, (seed, p) in enumerate(sorted(effect["orders_pp"].items()), 1):
+        ax.scatter(p, row, color=GOLD, s=40)
+    ax.scatter(list(people.values()), 3 + np.linspace(-.12, .12, len(people)), color=MUTED, s=30)
+    ax.set_yticks(range(4), ["Overall · paired 80%", "Delivery 8411", "Delivery 9411", "Individual participants"])
+    ax.set(xlim=(-.91, .73), ylim=(3.59, -.57))
+    ax.set_title("Hard-label raw replacement vs exact stock · Scherer", loc="left", fontsize=10, color=MUTED)
+    fig.text(.028, .024, "Conditional full-system external · nine reused participants · both outer branches received identical native upstream state",
+             fontsize=8.8, color=MUTED)
+    save(fig, out, "external-outer-raw-same-input")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("receipts", type=Path)
@@ -129,3 +148,4 @@ if __name__ == "__main__":
     plot_eye_calibration(options.receipts, options.output)
     plot_outer_raw(options.receipts, options.output)
     plot_multiresolution_stack(options.receipts, options.output)
+    plot_external_raw(options.receipts, options.output)
