@@ -16,7 +16,6 @@ from member_inputs import PERMUTATION_SHA256
 
 
 SEED0 = ("sinc", 0)
-MEMBER = "sc_sinc"
 
 
 def load_bank(path, receipt_sha, source_sha, p):
@@ -66,47 +65,58 @@ def load_bank(path, receipt_sha, source_sha, p):
                        source_sha256=source_sha, recording_sha256=stamp(recording), folds=record["folds"])
 
 
-def change_sinc(ctx, archived, frozen, old, anchored_rec):
-    before = archived + np.mean([old["sinc", seed] - anchored_rec["sinc", seed] for seed in range(6)], 0)
-    next_base = dict(old)
-    next_base[SEED0] = frozen
-    after = archived + np.mean([next_base["sinc", seed] - anchored_rec["sinc", seed] for seed in range(6)], 0)
-    formula = float(np.abs((after - before) - ((frozen - old[SEED0]) / 6)).max())
+def change_frozen(ctx, archived, frozen, old, anchored_rec, family, minimum):
+    key = family, 0
+    before = archived + np.mean([old[family, seed] - anchored_rec[family, seed] for seed in range(6)], 0)
+    next_base = dict(ctx.FR17)
+    next_base[key] = frozen
+    after = archived + np.mean([next_base[family, seed] - anchored_rec[family, seed] for seed in range(6)], 0)
+    formula = float(np.abs((after - before) - ((frozen - old[key]) / 6)).max())
     if formula > 1e-14:
-        raise ValueError("fresh Sinc delta did not have exactly one-sixth weight")
-    if float(np.abs(after - before).max()) <= 1e-8:
-        raise ValueError("fresh Sinc did not change the frozen mixture")
+        raise ValueError(f"fresh {family} delta did not have exactly one-sixth weight")
+    if float(np.abs(after - before).max()) <= minimum:
+        raise ValueError(f"fresh {family} did not change the frozen mixture")
     ctx.FR17 = next_base
     return ctx.norm(before)[ctx.Pperm], ctx.norm(after)[ctx.Pperm], formula
 
 
-def fresh_controls(ctx, archived, frozen, zero, order=ORDER):
+def fresh_controls(ctx, archived, frozen, zero, order=ORDER, fbl=None):
     old = ctx.FR17.copy()
     anchored_rec = ctx.FR6.copy()
-    slot = ctx.SLOT["sinc"]
-    if slot != 7 or ctx.BS[STACK] != list(range(6)) or ctx.ALLSEED:
-        raise ValueError("historical Sinc slot, seed count or active-refit policy changed")
-    original, want, error = change_sinc(ctx, archived[slot], frozen, old, anchored_rec)
-    if not np.array_equal(zero["members"][MEMBER], original):
-        raise ValueError("independent Sinc formula does not reproduce the archived mixer member")
+    if ctx.SLOT["sinc"] != 7 or ctx.SLOT["fbl"] != 8 or ctx.BS[STACK] != list(range(6)) or ctx.ALLSEED:
+        raise ValueError("historical slots, seed count or active-refit policy changed")
+    inputs = {"sinc": (frozen, 1e-8)}
+    if fbl is not None:
+        inputs["fbl"] = (fbl, 1e-10)
+    activation, expected = {}, {}
+    for family, (values, minimum) in inputs.items():
+        name = f"sc_{family}"
+        original, want, error = change_frozen(ctx, archived[ctx.SLOT[family]], values, old, anchored_rec, family, minimum)
+        if not np.array_equal(zero["members"][name], original):
+            raise ValueError(f"independent {family} formula does not reproduce archived mixer member")
+        expected[name] = want
+        activation[f"{family}_formula_max_abs"] = error
+        activation[f"{family}_slot_delta_max_abs"] = float(np.abs(want - original).max())
     patches = corrected(ctx.Pperm, order)
     arms = {"historical": install(ctx, {}), "corrected": install(ctx, patches)}
     for arm, tape in arms.items():
-        if not np.array_equal(tape["members"][MEMBER], want):
-            raise ValueError(f"fresh Sinc replacement missed the live {arm} mixer")
+        if any(not np.array_equal(tape["members"][name], want) for name, want in expected.items()):
+            raise ValueError(f"fresh common source replacement missed the live {arm} mixer")
     if any(not np.array_equal(arms["historical"]["members"][key], value)
-           for key, value in zero["members"].items() if key != MEMBER):
+           for key, value in zero["members"].items() if key not in expected):
         raise ValueError("fresh historical arm changed an unregistered live member")
-    if any(ctx.FR17[key] is not v for key, v in old.items() if key != SEED0):
+    replaced = {(family, 0) for family in inputs}
+    if any(ctx.FR17[key] is not v for key, v in old.items() if key not in replaced):
         raise ValueError("an unrelated archived frozen member was substituted")
     if any(ctx.FR6[key] is not v for key, v in anchored_rec.items()):
         raise ValueError("archived recording anchor was modified")
     changed = float(np.abs(arms["historical"]["shadow"] - zero["shadow"]).max())
     if changed <= 1e-8:
-        raise ValueError("fresh common Sinc did not reach the live incumbent shadow")
-    return arms, dict(sinc_formula_max_abs=error, sinc_slot_delta_max_abs=float(np.abs(want - original).max()),
-                      common_sinc_shadow_max_abs=changed, ea_activation=prove_activation(
-                          arms["historical"], arms["corrected"], patches))
+        raise ValueError("fresh common inputs did not reach the live incumbent shadow")
+    key = "common_sinc_shadow_max_abs" if fbl is None else "common_sources_shadow_max_abs"
+    activation[key] = changed
+    activation["ea_activation"] = prove_activation(arms["historical"], arms["corrected"], patches)
+    return arms, activation
 
 
 def pack(p, arms):

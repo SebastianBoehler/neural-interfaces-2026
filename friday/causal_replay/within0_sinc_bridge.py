@@ -1,4 +1,4 @@
-"""Seal matched within0 shadow targets with one common fresh Sinc seed."""
+"""Seal matched within0 shadow targets with common fresh Sinc and FBLight."""
 
 import json
 
@@ -18,6 +18,10 @@ OLD = MEANS / "orders_v2/within0/status.json"
 FROZEN = MEANS / "within0_frozen_probe_v4/qualification.json"
 FRESH = BASE / "ni26_friday_sinc_seed0_fresh_orders_20261118"
 ORIGIN = BASE / "ni26_friday_sinc_seed0_fresh_full0_v3_20261118"
+FBL = MEANS / "within0_fresh_fbl_v1"
+FBL_SOURCE = "aa97a1228d220747684efdb1e1d4446a8673a6208063d03458c0532cd90d2e13"
+FBL_OWNER = MEANS / "refit_full0_matrix_v2/members/fbl_s0.json"
+FBL_OWNER_SHA = "e5882379eded46837578867ef30fe3ac922aef5292835ab9010a69bdf9c7cbc3"
 OLD_SHA = "63353ba2bb3e123e624000370e967bee193f7ebfb94dcffe6688d21e93efc881"
 FROZEN_SHA = "43fe6dc888a0cef5fd423976577785b671474be2cfa13668059bbb53839a44eb"
 FRESH_RECEIPT = "d9eba90ceb18735cc9e2287cacdf21e15b7cca0a9d8f71821ec5db5bf92d5177"
@@ -68,6 +72,8 @@ def run():
                            (FRESH / "frozen_orders.json", FRESH_RECEIPT),
                            (FRESH / "source.sha256", FRESH_SOURCE), (ORIGIN / "frozen.json", ORIGIN_RECEIPT)):
         pin(path, expected)
+    pin(FBL / "source.sha256", FBL_SOURCE)
+    pin(FBL_OWNER, FBL_OWNER_SHA)
     old = json.loads(OLD.read_text())
     raw, gate, provenance, pins = pinned_control(ORDER)
     route = json.loads(ROUTE.read_text())
@@ -89,7 +95,8 @@ def run():
         if any(not np.array_equal(original[k], zero[k]) for k in ("mix", "rebal", "gate", "em", "shadow")):
             raise ValueError("explicit unchanged-EA zero differs from the archive")
         fresh, bank = load_common(p, deliveries)
-        arms, activity = fresh_controls(ctx, archived, fresh, zero, ORDER)
+        fbl, fbl_bank = load_fbl(p)
+        arms, activity = fresh_controls(ctx, archived, fresh, zero, ORDER, fbl=fbl)
         prefix = {arm: check_prefixes(ctx, tape) for arm, tape in {"zero": zero, **arms}.items()}
         bridge = pack(p, arms)
         route_values, recognition = observe_recognition(ctx, bridge, ROUTE)
@@ -98,7 +105,7 @@ def run():
                 or recognition["contrast_prefix_checks"] != 28):
             raise ValueError("nonmatching live Bio, contrast or fixed recording calibration")
         staged = dict(order=ORDER, exact_historical_zero=True, prior_zero_sha256=OLD_SHA,
-                      source_sha256=sha(HERE / "source.sha256"), bank=bank, activation=activity,
+                      source_sha256=sha(HERE / "source.sha256"), bank=bank, fbl_bank=fbl_bank, activation=activity,
                       exact_incumbent_prefix_checks=prefix, recognition=recognition,
                       held_labels_opened=False, scored=False, targets_sealed=False,
                       matched_refits_allowed=False, terminal_score_allowed=False)
@@ -112,10 +119,39 @@ def run():
                    for v in refits["arms"].values()):
                 raise ValueError("within0 refit schedule differs")
             staged.update(refits=refits, inputs=seal_prefix_inputs(ORDER, HERE, labels), targets_sealed=True,
-                          status="matched_targets_sealed_pending_warm_qualification")
+                          status="shared_fbl_sinc_targets_sealed")
         staged["opened"] = {str(path): digest for path, digest in sorted(opened.items())}
     write_receipt(HERE / "status.json", **staged)
     print(staged["status"], flush=True)
+
+
+def load_fbl(p):
+    proof, path = FBL / "frozen.json", FBL / "frozen.npz"
+    meta = json.loads(proof.read_text())
+    fixed = dict(source=FBL_SOURCE, order=ORDER, rows=len(p), held_labels_opened=False, legacy_warm_parity=False)
+    if any(meta[k] != v for k, v in fixed.items()) or any(a.stat().st_mode & 0o222 for a in (proof, path)):
+        raise ValueError("shared fresh FBLight receipt or scope differs")
+    pin(path, meta["bank"])
+    with np.load(ROOT / "data/proteus_windows.npz", allow_pickle=False) as z:
+        people = z["subject"]
+    expected = json.loads(FBL_OWNER.read_text())["fit_states"]
+    if set(expected) != set(meta["folds"]) or len(expected) != 10:
+        raise ValueError("missing all ten shared fresh FBLight source folds")
+    for person, f in meta["folds"].items():
+        fit = np.flatnonzero(people != f"Dreyer2026Proteus/{person}").astype("<i8")
+        if f["fit_rows_sha256"] != expected[person]["fit_rows_sha"] or f["fit_rows_sha256"] != stamp(fit):
+            raise ValueError(f"shared FBLight source exclusion changed for {person}")
+        if f["checkpoint_sha256"] != expected[person]["sha256"]:
+            raise ValueError(f"shared FBLight source state changed for {person}")
+        pin(FBL / "folds" / f"{person}.json", f["receipt"])
+    with np.load(path, allow_pickle=False) as z:
+        np.testing.assert_array_equal(z["index"], np.arange(len(p)))
+        np.testing.assert_array_equal(z["delivery"], p)
+        values = z["proba"]
+    if values.shape != (len(p), 3) or not np.isfinite(values).all() or not np.allclose(values.sum(1), 1, atol=1e-10):
+        raise ValueError("invalid same-state FBLight probabilities")
+    return values, dict(path=str(path), bank_sha256=meta["bank"], folds=meta["folds"], source=FBL_SOURCE,
+                        receipt_sha256=sha(proof), legacy_warm_parity=False)
 
 
 if __name__ == "__main__":
