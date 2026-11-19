@@ -93,7 +93,7 @@ def resets(trial,peer,windows,q,ref):
     return result
 
 
-def smoke(stock,trial,cases,index):
+def smoke(stock,trial,cases,index,diagnostic=False):
     gx,_,_,gy,_,prior=cases[ARM_ORDER[0]]
     _,cold,_,_=measured(stock,gx)
     np.testing.assert_array_equal(cold["labels"],gy)
@@ -110,8 +110,9 @@ def smoke(stock,trial,cases,index):
     current=changed[1]
     np.testing.assert_array_equal(current["labels"],hard)
     native=proof(stock,current,changed[3])
-    aa=protect(a,b)
-    drift=protect(b,changed)
+    limit=None if diagnostic else TOL
+    aa=protect(a,b,limit)
+    drift=protect(b,changed,limit)
     if native["warm_rows"]!=(100 if index==0 else 0) or current["work"]["recognized"]!=(-1 if index==0 else 10):
         raise ValueError("the original warmed raw seed or true recognized route went inactive")
     peer=cases[ARM_ORDER[1-index]][0][:1]
@@ -120,7 +121,8 @@ def smoke(stock,trial,cases,index):
         cold_delta={k:float(np.abs(v-a[1]["protected"][k]).max()) for k,v in cold["protected"].items()}
     return dict(fixture=key,rows=rows.tolist(),stock=baseline.tolist(),hard=hard.tolist(),stock_work=b[1]["work"],
                 hard_work=current["work"],native=native,protected_aa=aa,protected_independent=drift,
-                cold_g_exact_archive=True,cold_to_warm_reported=cold_delta,resets=resets(trial,peer,x,q,current))
+                cold_g_exact_archive=True,cold_to_warm_reported=cold_delta,resets=resets(trial,peer,x,q,current),
+                independent_diagnostic_only=diagnostic)
 
 
 def timed_run(template,windows,changed):
@@ -185,7 +187,12 @@ def main(args):
     cases,channels,original=fixtures()
     with TemporaryDirectory() as root:
         a,b=load(args.stock,args.trial,Path(root),channels)
-        result=smoke(a,b,cases,args.index) if args.mode=="smoke" else timing(a,b,cases,args.index)
+        if args.mode=="diagnosis":
+            result=smoke(a,b,cases,0,diagnostic=True)
+        elif args.mode=="smoke":
+            result=smoke(a,b,cases,args.index)
+        else:
+            result=timing(a,b,cases,args.index)
     p=Path(f"{args.mode}_{args.index}.json")
     with p.open("x") as f:
         json.dump(dict(source=sha("source.sha256"),archive=sha(args.trial),stock=STOCK,actors=LOCK,
@@ -198,7 +205,7 @@ def main(args):
 
 if __name__=="__main__":
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("mode",choices=("smoke","timing"))
+    p.add_argument("mode",choices=("smoke","timing","diagnosis"))
     p.add_argument("index",type=int,choices=(0,1))
     p.add_argument("stock",type=Path)
     p.add_argument("trial",type=Path)

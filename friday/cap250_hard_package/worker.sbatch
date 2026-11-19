@@ -47,6 +47,7 @@ grep -Fx OK "$pair/replay.log"
 mode=${1:?}
 case "$mode" in
     smoke) index=${SLURM_ARRAY_TASK_ID:?};;
+    diagnosis) index=0;;
     timing) test -f smoke_0.json && test -f smoke_1.json; index=${SLURM_ARRAY_TASK_ID:?};;
     *) exit 2;;
 esac

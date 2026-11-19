@@ -110,10 +110,14 @@ def protect(stock, trial, tolerance=5e-5):
     fields = prior["work"].keys()-{"cp_refits","cp_fused"}
     if any(prior["work"][k]!=candidate["work"][k] for k in fields):
         raise ValueError("protected native recognition/refit work changed")
+    prior_weight_max=gate_score_max=0.
     for a,b in zip(stock[2],trial[2],strict=True):
         if any(a[k]!=b[k] for k in ("age","raw","labels","steps")):
             raise ValueError("optimizer consumed different strict-prior rows or labels")
-        np.testing.assert_allclose(a["weights"],b["weights"],rtol=0,atol=tolerance)
+        d=float(np.abs(np.asarray(a["weights"])-b["weights"]).max())
+        prior_weight_max=max(prior_weight_max,d)
+        if tolerance is not None and d>tolerance:
+            raise ValueError("independent prior confidence changed beyond the fixed bound")
     for old,new in zip(prior["events"],candidate["events"],strict=True):
         if not np.array_equal(old[0],new[0]) or old[7] != new[7]:
             raise ValueError("actual delivered frame or recognition state differs")
@@ -123,13 +127,20 @@ def protect(stock, trial, tolerance=5e-5):
             if a is not None:
                 if a[0]!=b[0] or a[2]!=b[2]:
                     raise ValueError("native recognition route or ramp changed")
-                np.testing.assert_allclose(a[1],b[1],atol=tolerance,rtol=0)
+                d=abs(float(a[1])-float(b[1]))
+                gate_score_max=max(gate_score_max,d)
+                if tolerance is not None and d>tolerance:
+                    raise ValueError("independent native gate score changed beyond the fixed bound")
     drift={}
     for k,a in prior["protected"].items():
         if k not in ("outer","raw","count","terminal"):
             b=candidate["protected"][k]
-            np.testing.assert_allclose(a,b,rtol=0,atol=tolerance)
+            if tolerance is not None:
+                np.testing.assert_allclose(a,b,rtol=0,atol=tolerance,err_msg=k)
             if k in ("inner","shadow","v5"):
                 np.testing.assert_array_equal(a.argmax(1),b.argmax(1))
-            drift[k]=float(np.abs(a-b).max())
-    return drift
+            delta=np.abs(a-b).reshape(len(a),-1).max(1)
+            active=np.flatnonzero(delta)
+            drift[k]=dict(max=float(delta.max()),age=int(delta.argmax()) if len(active) else None,
+                          first=int(active[0]) if len(active) else None,age106=float(delta[106]) if len(a)>106 else None)
+    return dict(stages=drift,prior_weight_max=prior_weight_max,gate_score_max=gate_score_max)
