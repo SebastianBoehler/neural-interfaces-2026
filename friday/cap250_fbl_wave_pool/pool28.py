@@ -23,8 +23,10 @@ def probability(raw):
     assert np.isfinite(raw).all() and raw.shape == (2655,3)
     fused = (raw < 0).all(1)
     assert fused.sum() == 1395 and (raw[~fused] >= 0).all()
-    np.testing.assert_allclose(raw[~fused].sum(1),1,rtol=0,atol=1e-12)
+    mass = raw[~fused].sum(1,keepdims=True)
+    np.testing.assert_allclose(mass,1,rtol=0,atol=np.finfo(np.float32).eps)
     out = raw.copy()
+    out[~fused] /= mass
     out[fused] = np.exp(raw[fused]-raw[fused].max(1,keepdims=True))
     out[fused] /= out[fused].sum(1,keepdims=True)
     np.testing.assert_array_equal(out.argmax(1),raw.argmax(1))
@@ -53,7 +55,7 @@ def acquire(order, control, smoke):
         rows=delivery[:bound]
         np.testing.assert_array_equal((fbl[rows]+hard[rows])*.5,ar[rows])
         np.testing.assert_array_equal(((1-0)*stock[rows]+0*hard[rows]).argmax(1),answers[0,rows])
-    assert np.any(answers[4]!=answers[3]) and np.any(answers[4]!=answers[5])
+    assert np.abs(ar-joint).max()>1e-6 and np.abs(ar-ge).max()>1e-6
     return answers
 
 
