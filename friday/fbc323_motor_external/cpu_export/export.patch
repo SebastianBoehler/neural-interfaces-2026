@@ -1,0 +1,31 @@
+--- a/export.sbatch
++++ b/export.sbatch
+@@ -3,2 +3 @@
+-#SBATCH -p 2080-galvani
+-#SBATCH --gres=gpu:rtx2080ti:1
++#SBATCH -p cpu-galvani,2080-preemptable-galvani
+@@ -8 +7 @@
+-#SBATCH -J ni26-f32e-export
++#SBATCH -J ni26-f32e-cpu
+@@ -38 +37 @@
+-apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \
++apptainer exec --cleanenv --containall --no-home --no-mount hostfs \
+--- a/export_checks.py
++++ b/export_checks.py
+@@ -59 +59 @@
+-    frames=[torch.from_numpy(data).unsqueeze(1).cuda().contiguous() for data in sample]
++    frames=[torch.from_numpy(data).unsqueeze(1).contiguous() for data in sample]
+--- a/export_native.py
++++ b/export_native.py
+@@ -69,3 +69,3 @@
+-    device=torch.cuda.get_device_name()
+-    if str(torch.__version__)!="2.14.1+cu130" or "RTX 2080 Ti" not in device:
+-        raise ValueError("requires the pinned native RTX worker")
++    device="cpu"
++    if str(torch.__version__)!="2.14.1+cu130":
++        raise ValueError("requires the pinned native worker image")
+@@ -94,2 +94,2 @@
+-        gpu=torch.jit.load(str(partial),map_location="cuda:0").eval()
+-        proof=check(gpu,sample,ref)
++        cpu=torch.jit.load(str(partial),map_location=device).eval()
++        proof=check(cpu,sample,ref)

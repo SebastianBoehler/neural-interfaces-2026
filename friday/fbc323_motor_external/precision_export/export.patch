@@ -1,0 +1,26 @@
+--- a/export.sbatch
++++ b/export.sbatch
+@@ -17 +16,0 @@
+-stream=$base/ni26_friday_return_c20_actors_v2_20261119
+@@ -28,2 +26,0 @@
+-printf '%s\n' '394419b7f24e7c17528618914aab8ad10f475de3c949c1f406ee053fecd95c91  incremental_model.py' | \
+-    (cd "$stream" && sha256sum --quiet -c -)
+@@ -36 +33 @@
+-pypath=$origin:$origin/experiments:$f14:$f16:$work/anchors_f16e:$f32:$stream
++pypath=$origin:$origin/experiments:$f14:$f16:$work/anchors_f16e:$f32
+@@ -40 +37 @@
+-    --bind "$mounts,$stream/incremental_model.py:$stream/incremental_model.py:ro" \
++    --bind "$mounts" \
+--- a/incremental_model.py
++++ b/incremental_model.py
+@@ -84,0 +85 @@
++        voltage = window.double()
+@@ -86 +87 @@
+-            coefficients = taps.unsqueeze(0).repeat(41, 1).unsqueeze(0)
++            coefficients = taps.double().unsqueeze(0).repeat(41, 1).unsqueeze(0)
+@@ -88 +89 @@
+-            freq = torch.fft.rfft(window, n=size) * torch.fft.rfft(coefficients, n=size)
++            freq = torch.fft.rfft(voltage, n=size) * torch.fft.rfft(coefficients, n=size)
+@@ -92 +93 @@
+-        return torch.cat(bands, dim=1)
++        return torch.cat(bands, dim=1).to(dtype=window.dtype)
