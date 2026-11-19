@@ -28,10 +28,16 @@ def receipt(template, trial, eeg, rows, expected, age, eligible):
     counts = output["alternate"]
     if counts["shared_calls"] != shares or counts["verified_covariances"] != shares:
         raise ValueError("exact stock covariance reuse count differs")
-    for a, b in zip(gate.model.cp.C[:shares], gate.outer.cp.C, strict=True):
-        np.testing.assert_array_equal(a, b)
-        if np.shares_memory(a, b):
-            raise ValueError("alternate covariance aliases stock")
+    stock, alternate = gate.model.cp, gate.outer.cp
+    if len(alternate.C) != shares:
+        raise ValueError("alternate covariance retention differs from the live sharing count")
+    if age < 0:
+        for a, b in zip(stock.C, alternate.C, strict=True):
+            np.testing.assert_array_equal(a, b)
+            if np.shares_memory(a, b):
+                raise ValueError("alternate covariance aliases stock")
+    elif stock.C or stock.P or stock.model is not None:
+        raise ValueError("the original stock recognizer must clear its native CSP history")
     return output
 
 

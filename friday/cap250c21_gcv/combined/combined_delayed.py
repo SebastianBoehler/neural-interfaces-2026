@@ -33,10 +33,9 @@ def main():
     np.testing.assert_array_equal(old, stock)
     np.testing.assert_array_equal(alt, old_alt[:28])
     np.testing.assert_array_equal(selected, wanted)
-    for a, b in zip(combined.model.cp.C[:28], combined.outer.cp.C, strict=True):
-        np.testing.assert_array_equal(a, b)
-        if np.shares_memory(a, b):
-            raise ValueError("alternate state aliases the stock delayed covariance bank")
+    stock_cp, alternate_cp = combined.model.cp, combined.outer.cp
+    if stock_cp.C or stock_cp.P or stock_cp.model is not None or len(alternate_cp.C) != 28:
+        raise ValueError("original stock flush or alternate pre-recognition covariance retention changed")
     with np.load(anchor, allow_pickle=False) as z:
         np.testing.assert_array_equal(z["rows"], case["rows"][:31])
         np.testing.assert_array_equal(z["stock_scores"], stock[:,2])
