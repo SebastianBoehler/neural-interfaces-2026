@@ -65,8 +65,11 @@ def play(model, fixture, warm):
     return record, dict(seconds=runtime, peak_cuda_reserved_bytes=peak, warm=warm, archive_exact=True)
 
 
-def prefix(template, active, ref, x, peer):
+def prefix(template, ref, x, peer):
     rows = 17
+    active = fresh_model(template)
+    direct = np.array([int(active.predict(window[None])[0]) for window in x[:rows]])
+    np.testing.assert_array_equal(direct, ref["labels"][:rows])
     checks = {}
     for tag, model in (("active_copy", fresh_model(active)), ("reused", active)):
         model.reset_state()
@@ -136,7 +139,7 @@ def run(mode, smoke):
         assert witness["work"]["recognized"] == -1 and witness["work"]["ft_steps"] == 200
         assert witness["work"]["cp_fused"] == 30
         assert known["work"]["recognized"] == 10 and known["work"]["ft_steps"] == 0
-        reset = prefix(model, left[0], left[1], g[0], p10[0])
+        reset = prefix(model, left[1], g[0], p10[0])
     path = Path(f"{mode}.json")
     with path.open("x") as handle:
         json.dump(dict(mode=mode, source=sha("source.sha256"), stock=STOCK, image=IMAGE, flags=flags,
