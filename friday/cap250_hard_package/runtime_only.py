@@ -30,9 +30,10 @@ def pinned(cases):
         actual = pin["result"]
         _, rows, _, stock, hard, signed = cases[name]
         native, resets = actual["native"], actual["resets"]
+        expected_diagnostic = True if index == 0 else None
         if (pin["source"] != source or pin["archive"] != ARCHIVE or pin["stock"] != STOCK
                 or pin["actors"] != LOCK or pin["held_labels_opened"]
-                or actual["fixture"] != name or actual["independent_diagnostic_only"] != (index == 0)
+                or actual["fixture"] != name or actual.get("independent_diagnostic_only") is not expected_diagnostic
                 or not actual["cold_g_exact_archive"] or actual["rows"] != rows.tolist()
                 or actual["stock"] != stock.tolist() or actual["hard"] != hard.tolist()
                 or actual["stock_work"] != signed["activity"] or native["calls"] != len(rows)
