@@ -40,7 +40,10 @@ def run(stock_zip,trial_zip):
         active=proof(stock,changed[1],changed[3])
         model,view,refits,probe=changed
         assert model.ft.steps==480 and model.ft.capped==12 and model.ft.over==0
-        assert all(len(k)==250 for k in model.ft.X.values()) and len(model.ft.lab)==250
+        for fresh in (original[0],model):
+            assert all(len(k)==250 for k in fresh.ft.X.values())
+            assert len(fresh.ft.lab)==len(fresh.ft.wt)==378
+        assert model.ft.lab==original[0].ft.lab
         assert [r["age"] for r in refits]==list(range(20,251,10))
         assert active["calls"]==378 and active["warm_rows"]==358 and active["csp_fusions"]==288
         assert all("fbraw" in row[2] for row in probe.inputs[260:])
