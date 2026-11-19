@@ -80,3 +80,28 @@ channel-flattened 200-sample tokens (weights shared over patches so 2- and 4-pat
 patches; sensor dropout becomes zeroing. Stage-B-only check (arm A, no external stage, seed 0, job 64857334): P02 0.673 and P10 0.469
 plain balanced recall, posterior max 0.8/0.78 (non-constant). Full wave resubmitted unchanged otherwise (canary 64858170,
 external 64858172, fits 64858177, collector 64858179). Prediction numbers above stand for v2.
+
+## Result (v2, 19 Nov ~18:00 CET) · INDIVIDUAL-MODEL, ten-person held-new + returning cells, eight full orders, Leonardo banks
+
+Jobs: canary 64858170, pooled-C backbones 64858172, fits 64858177 (+ 6 parity-guard reruns 64859960), collector 64859961.
+Bank `/leonardo_work/AIFAC_P02_1675/ni26_lane_c2_20261119/bank` (ensemble_C_held_new.npz SHA `ee59ed60…`, ensemble_C_returning.npz
+SHA `4d27d61e…`, full_standalone.json SHA `65eefa90…`, 36 PROTEUS checkpoints incl. 3 all-public). Comparison:
+[laneC2_compare.json](laneC2_compare.json) from `laneC2/compare.py` against Lane C's REVE-C ensemble (same rows, same eight delivery orders).
+
+| | CBraMod-C (3-seed pooled) | REVE-C (Lane C) | prediction (CBraMod) |
+| --- | ---: | ---: | --- |
+| held-new BA, mean of 8 orders | **52.76** (52.2–53.3) | 55.22 (55.0–55.7) | 52.0 [48, 56]: inside |
+| single seeds, full0 | 51.4 / 51.9 / 52.3 | 49.9 / 50.4 / 54.1 | |
+| returning cells BA | **52.30** | 62.08 | 57 [50, 64]: inside, lower half |
+| CBraMod − REVE held-new | −2.46 pp | | −3.0 [−7, +1]: inside |
+| binary error φ vs REVE (full0, held-new) | 0.517 (members 0.49–0.51) | | ≈0.55: as predicted |
+| label-only union BA (REVE ∪ CBraMod) | 66.0 (held-new) / 69.9 (returning) | | oracle, not a mix |
+| share of REVE-C misses CBraMod gets right | 24.0 % (15.7 % at max-posterior ≥0.60); regressions at ≥0.60: 8.5 % of rows | | |
+
+Reading by the card's rules: CBraMod−REVE is −2.5 pp, so not "exchangeable" (needs ≥ −1) and CBraMod-C is above 48 % with a
+sizeable unique-repair mass, so the form is **not closed**; the decisive step is the corrected-cap250 full-system replay
+with each of REVE-C and CBraMod-C (and both) in the 1/6 slot on Galvani. Error correlation with cap250 and unique repair
+over cap250 ∪ REVE (`laneC/oracle.py`, which needs the Friday camp stock not present on Leonardo) are **not yet computed**.
+Pooled stage A did not help the returning cells here (52.3 vs REVE 62.1): the all-public/returning gain REVE shows is not
+reproduced by CBraMod's smaller encoder. Caveats: head (v2) and amplitude constant were first-form choices; v1 collapsed;
+no hyper-parameter was selected on held scores.
