@@ -25,7 +25,7 @@ PINS = {
 
 FBL = MEANS / "runs0_fbl_v1"
 FBL_SOURCE = "a433c3fdde4dd31c6da60722479e5903c936161dc3eb63dd87473dbafc7ca528"
-ZERO = MEANS / "runs0_zero_v2/zero.json"
-ZERO_SOURCE = "8069f188a0ec27099b08385f1ca88814e546892ad5cc87a2d4d7fa37600dcc3c"
+ZERO = MEANS / "runs0_zero_v4/zero.json"
+ZERO_SOURCE = "973c312d8ab7fb3733dc376fa5b8d137b4ef8ddf0ee89e31319f3fddd175c360"
 BRIDGE = MEANS / "runs0_shared_bridge_v1/status.json"
 BRIDGE_SOURCE = "a52f2835f9a41e381672980f09bece87eea09c25cc95d1e27dd8e1d431898d41"
