@@ -16,6 +16,12 @@ D-EAwcf completed the shared-source held-new within0 comparison. Corrected cap25
 
 D1 found a +2.285 pp label-aware rescue ceiling in its fixed external banks. The oracle selected correct answers with labels and incurred zero regressions. F-C13 fixed 24 errors and introduced 22, illustrating the difference between an available rescue and a reliable decision. Combining components requires testing their measured interaction. [D1](transfer/d1_result.md) · [F-C13](cap250_raw_swap/result-18nov.md)
 
+## Evidence at 03:36 CET
+
+- **Corrected alignment.** Common-source full0 retained a +0.667 pp cap250 advantage over P0r [paired 80% +0.033, +1.549] at 73.739% versus 73.072%. P0r and cap250 both scored lower under corrected alignment, with P0r losing more. Within0 and full0 have different auxiliary anchors and run separately. Runs0 stopped before scoring after an authentic FB raw source anchor missed three P01 decisions on A100. [Receipts](causal_replay/runs0_replay.md)
+- **Live adaptive stages.** In corrected within0, fine-tuning added +0.894 pp with common spatial patterns (CSP) active. CSP added +0.454 pp with fine-tuning active. Both paired lower bounds were positive. Removing both cost 1.646 pp versus stock. Fine-tuning moved P04 and P10 in opposite directions. Keep both stages in the stock reference and test any new use of them on a different instrument. [Factorial and stage work](cap250c18/result-19nov.md)
+- **Figures.** `friday/figures/adaptation.py` verifies the three score receipts before plotting the two held-new comparisons and the participant-level stage effects. It writes PNG and PDF into the requested output directory.
+
 ## Selection
 
 Keep the two frozen ZIPs and their receipts. Compare a candidate against the strongest eligible reference on full-system official-metric held-new, returning and external instruments. Record the source exclusions, class and cohort effects, delivery robustness and paired uncertainty. Favor stronger held-person and external evidence inside development noise. Check the actual package on an RTX proxy and record the training configuration and exact archive provenance for the organizer's top-three reproducibility audit. Development scores have no calibrated conversion to sealed rank. Report the final candidate and alternate by Friday 18:00 CET. [Official scoring and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring)
