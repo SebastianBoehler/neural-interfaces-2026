@@ -1320,3 +1320,7 @@ Registered before new predictions. Few noisy pseudo-labeled rows determine each 
 **F33a completed at 09:28:18 CET.** Bounded aligned versus exact A100 hard −0.870/+0.088 pp and aligned versus permuted −0.188/+0.257 pp. Both preregistered contrasts remain undecided across seeds. Cognitive mean recall improved +1.228/+1.334 pp versus permuted, with both intervals crossing zero. All bare and hard checkpoint bytes and 84,960 decisions matched within A100. Every trained hard fingerprint differed across GPUs. No A100-to-H100 pooling. [Signed whole-decoder result](../friday/fbc323_covariance/a100_whole/result-19nov.md)
 
 **F-C25q worker entry correction before inference.** Galvani 3135138 authenticated the immutable inputs and stopped because its command still named the parent diagnostic `qualify.py`, which is imported from the read-only parent mount. The retry invokes the new `exact.py` entry point, keeps all parent imports and proofs, and preserves both fitted archives, fresh seeds and scoring. Neither the original smoke nor its blocked successors emitted predictions.
+
+## F34 · Higher-capacity causal envelope morphology
+
+The [F34 protocol](../friday/fbc323_envelope/prereg-19nov.md) fixes the parallel supervised analytic-envelope and matched real-power branches, full F33a A100 hard reference, label separation, phase and capacity controls, budgets and paired held decisions before fitting.
