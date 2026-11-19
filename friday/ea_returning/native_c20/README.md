@@ -17,3 +17,20 @@ Both real prefixes passed by 05:27:24 CET. P04 and P10 max raw-family posterior 
 ```bash
 ssh mlcloud-galvani 'sacct -X -j 3133978,3133989,3133990,3134000,3134001 -o JobID,State,Elapsed,Start,End,NodeList'
 ```
+
+## Conditional returning result
+
+The four visits and eight official cells covered 762 decisions. The separate scorer completed at 05:45:07 CET on 19 November. Intervals resample paired people and visits at 80%.
+
+| Scope | Stock balanced accuracy | Hard replacement | Change (pp) | Paired 80% (pp) |
+| --- | ---: | ---: | ---: | ---: |
+| Equal official cells | 89.977% | 90.107% | +0.130 | [−0.260, +0.391] |
+| P04/P10 weighted 20/80 | 92.705% | 92.758% | +0.052 | [−0.260, +0.391] |
+| P04 | 85.429% | 85.689% | +0.260 | [+0.130, +0.391] |
+| P10 | 94.525% | 94.525% | 0.000 | [−0.260, +0.260] |
+
+Two correct calls were recovered and one was lost. The three decision changes were all on Graz. P04 gained one on visit 2. P10 gained one on visit 2 and lost one on visit 3. Whole-visit recognition ages were 10, 10, 28 and 10. P10 visit 2 had all eight expected warm rows and the original 20 optimizer steps. Maximum terminal posterior movement ranged from 0.02608 to 0.05922 across visits. Each stock and no-change identity trajectory matched the archived or live control bitwise. The recording-order replay guard also printed `OK` locally.
+
+Both returning aggregate intervals cross zero. The returning result remains undecided. Held-new full0 measured +0.331 pp and within0 +0.305 pp in their separate F-C20 instruments. This returning result retains the original gallery and production nuisance-model exposure described above.
+
+Blind seal `matched_c20r.json` SHA-256 `6cd0ef2bea2662941b2ebe27c739056edc2e14f1e21addbb230e559b231f7fd1`. Separate metric `matched_c20r_score.json` SHA-256 `811d15ace58f38726d91692c7729ab26c177054868d700677203fc6a28a511d4`. Both are in `ni26_friday_return_c20_score_v2_20261119`.
