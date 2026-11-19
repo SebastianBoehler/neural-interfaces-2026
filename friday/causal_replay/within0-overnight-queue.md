@@ -51,3 +51,16 @@ ssh mlcloud-galvani 'cd /mnt/lustre/work/gehler/gfh527/ni26_friday_causal_rebuil
 The tenfold common FBLight bank sealed under job `3133102`. Bank SHA-256 `42e741c0…4922`, receipt `ebdd7658…d082`. The live bridge `3133105` sealed both native upstream aliases with no recognized sessions, all 240 true strict-prefix TSEM refits active per arm and maximum target movement 0.308393. Its receipt is `5874a02f…109b`.
 
 Both optional device canaries passed on 756 windows. CPU had a direct P01 bound of 4.0480e−7 and a P04 triangle bound of 2.3554e−6. No-TF32 A100 had bounds 6.3610e−8 and 2.3757e−6. Both retained zero decision flips and exact first-window/reset checks. Read-only receipts `ce3a2c56…2619` and `8b9fab3c…83a4`. The full RTX bank already completed, so no device migration was made.
+
+## Complete D-EAwcf result · 19 November 02:24 CET
+
+FULL-SYSTEM DEV on the ten reused held-new participants and 28 official cells under within0 delivery. Historical EA here denotes the recording-aligned EA inputs in the shared fresh Sinc and FBLight instrument. The exact archived zero is an independent control.
+
+| EA input | P0r | Complete cap250 | Difference and paired 80% interval |
+| --- | ---: | ---: | ---: |
+| Historical EA in the matched instrument | 75.55666% | 78.47635% | +2.91969 pp [2.12892, 3.59524] |
+| Corrected causal EA | 75.77850% | 78.32415% | +2.54565 pp [1.64078, 3.40634] |
+
+Corrected minus historical change in the cap250 advantage was −0.37404 pp [−0.71384, +0.04974], so its direction remains undecided. The direct cap250 point change was −0.15220 pp. Both conditions support a positive cap250 advantage in this order. The interval resamples people over 4,000 draws and describes a single delivery order.
+
+All four fresh refit banks matched their frozen inputs bitwise and performed genuine adaptation in both conditions. The label-blind terminal proof records 2,005 rows affected by count, 1,395 by CSP personalization, and three exact interleaved prefixes per arm. Job `3133142` sealed the complete predictions at 02:24:21 CET. Separate gold job `3133143` completed at 02:24:36 CET. The read-only blind receipt, prediction bank and score SHA-256 values are `8dc7da81083bf117a38a17ac4f9a1333929f27b7c41c3cbd87193a4ca22390ae`, `e7d1ec712824f33d8e8237844e9f87d6509e608170beb294316a9f9bb571d59d` and `e4cd0a0e95a2202f872d4287db23dc977bee9f2faf6305f86dd75ce10609d297`. The frozen competition package kept its separate evidence.
