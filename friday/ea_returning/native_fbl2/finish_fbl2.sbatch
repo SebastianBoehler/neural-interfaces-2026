@@ -9,7 +9,7 @@
 set -euo pipefail
 base=/mnt/lustre/work/gehler/gfh527
 repo=$base/neural-interfaces-2026
-replay=$base/ni26_friday_return_fbl2_native_v1_20261119
+replay=$base/ni26_friday_return_fbl2_native_v2_20261119
 work=${SLURM_SUBMIT_DIR:?}
 source=${2:?native source digest}
 cd "$work"

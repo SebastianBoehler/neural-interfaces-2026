@@ -60,7 +60,8 @@ class ObserveFBLight:
         return self.tail_call(x, u, p, extra)
 
     def inspect(self, trace, t):
-        v = trace["v6"]
+        v = self.hook.model.trace["v6"]
+        np.testing.assert_array_equal(v["mix6"], trace["v6"]["mix6"])
         self.hook.check(v)
         n = self.hook
         if self.consumed is not v["mix6"] or n.calls != t + 1:

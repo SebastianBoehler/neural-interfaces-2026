@@ -11,7 +11,7 @@ from reference_eye import GALLERY, VISIT_PINS, reference
 from verify_native import deliveries
 
 
-REPLAY = BASE / "ni26_friday_return_fbl2_native_v1_20261119"
+REPLAY = BASE / "ni26_friday_return_fbl2_native_v2_20261119"
 HOOK = "736a1dbafce94058df803570ca49eb7cbdf55a2b03f5867305ab0c8e35474ea2"
 FLAGS = ("exact_archive_zero", "exact_native_identity", "protected_upstream_exact",
          "active_route_consumption", "exact_prefix_reset")

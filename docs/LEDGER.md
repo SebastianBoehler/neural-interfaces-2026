@@ -965,3 +965,5 @@ Registered before any native predictions. F-C21 adapted-FBLight-only gained +0.3
 ## F28 · Transfer same-task waveform relations from teachers blind to both people
 
 Registered before teacher fitting. The [F28 protocol](../friday/fbc323_relational/prereg-19nov.md) specifies six-person multiresolution teachers, mutually excluded cross-person pairs, exactly matched relation-target sham, source/held smoke and separation, numeric forecasts and compute.
+
+**F-C21r observer correction before treatment.** Both v1 smokes stopped on the first archived stock frame. The pinned package guard's `frame` returns a deep copy of `model.trace`, so its copied mix cannot have live RouteB object identity. The corrected observer checks original live `model.trace` at the same call site and also verifies identical mix bytes to the snapshot. None of the stock, identity, native arithmetic, warm, prefix or score criteria changed. No treatment prediction bank or held labels were emitted by v1.
