@@ -15,3 +15,12 @@ The real fit smokes passed at 03:41:21 CET for P04 and 03:43:10 CET for P10 on 1
 ```bash
 ssh mlcloud-galvani 'sacct -X -j 3133765,3133766,3133784,3133785,3133787,3133788 -o JobID,State,Elapsed,Start,End,NodeList'
 ```
+
+All six full source fits completed by 03:46:28 CET, with 2,160 real updates per fit. The native prefix jobs completed by 03:48:59 CET. They retained both exact original native baselines, the exact seven ocular traces, matching first-17 resets, fixed recognition ages, and original warm activity. Only the Eye evidence changed before the real consuming outer path.
+
+| Native prefix | Eye log evidence max change | Terminal posterior max change | Decisions changed | Recognition age and warm steps |
+| --- | ---: | ---: | ---: | --- |
+| P04 visit 2, 31 rows | 6.907754 | 0.0741342 | 1 | 10 and 0 |
+| P10 visit 2, 31 rows | 6.905282 | 0.0185562 | 0 | 28 and 20 |
+
+Native smoke receipts `d2e8c1cc2dc20ca26ea0b7f71b135add256cc9274760b1d9b346f1b152ed2bd7` and `62e65e3a0f550eea12cd824833fc053bd64a26d7df957c54abc0f08b77b5012c`. All decision counts above precede scoring.
