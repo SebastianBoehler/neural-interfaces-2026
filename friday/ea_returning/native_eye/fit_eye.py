@@ -26,12 +26,12 @@ def source_only(who):
     return dict(X=x, ch_names=channels, stream=stream, y=y)
 
 
-def prefix_checks(who, data, trace):
+def prefix_checks(who, data, trace, n_own):
     ocular = runpy.run_path(str(OCUNET))["traces"]
     source = data["stream"]
     own = np.flatnonzero(source == f"Dreyer2026Proteus/{who}|1")
     other = np.flatnonzero(source != source[own[0]])[:17]
-    if len(own) != FOLDS[who][3] or len(other) != 17 or len(set(source[other])) != 1:
+    if len(own) != n_own or len(other) != 17 or len(set(source[other])) != 1:
         raise ValueError("source ocular prefix uses the wrong session rows")
 
     def features(rows):
@@ -54,17 +54,10 @@ def prefix_checks(who, data, trace):
                 exported_batch_single_max_abs=err, source_visits=len(set(source)))
 
 
-def run(who, seed, smoke):
-    if ("A100" not in torch.cuda.get_device_name() or torch.__version__ != "2.14.1+cu126"
-            or os.environ["SLURM_CPUS_PER_TASK"] != "4"):
-        raise ValueError("requires the registered authentic A100 fit runtime")
-    torch.set_num_threads(4)
-    started = monotonic()
-    d = source_only(who)
+def fit_actual(d, seed, smoke, path, batches):
     owner = runpy.run_path(str(PRODUCER))["eye"]
     source_api = owner.__globals__["protocol"]
     saved = source_api.load
-    path = Path("smoke" if smoke else "fits") / who
     owner.__globals__["OUT"] = path
     target = path / f"eye_s{seed}.pt"
     if target.exists():
@@ -92,11 +85,24 @@ def run(who, seed, smoke):
         source_api.load = saved
         hook.remove()
     epochs = 1 if smoke else 60
-    if (loads != 1 or steps != 36 * epochs or not callable(owner)
+    if (loads != 1 or steps != batches * epochs or not callable(owner)
             or (actual["member"], actual["seed"], actual["file"], actual["epochs"]) != ("eye", seed, target.name, epochs)
             or not 0 <= actual["trace_vs_eager"] < 1e-5):
         raise ValueError("production Eye source scopes, actual updates or export parity differ")
-    checks = prefix_checks(who, d, target)
+    return target, actual, steps, loads
+
+
+def run(who, seed, smoke):
+    if ("A100" not in torch.cuda.get_device_name() or torch.__version__ != "2.14.1+cu126"
+            or os.environ["SLURM_CPUS_PER_TASK"] != "4"):
+        raise ValueError("requires the registered authentic A100 fit runtime")
+    torch.set_num_threads(4)
+    started = monotonic()
+    d = source_only(who)
+    path = Path("smoke" if smoke else "fits") / who
+    target, actual, steps, loads = fit_actual(d, seed, smoke, path, 36)
+    epochs = actual["epochs"]
+    checks = prefix_checks(who, d, target, FOLDS[who][3])
     target.chmod(0o444)
     _, n, n_held, n_own, view, fit_sha, hold_sha = FOLDS[who]
     proof = dict(fold=who, member="eye", seed=seed, smoke=smoke, epochs=epochs, updates=steps,
