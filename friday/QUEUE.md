@@ -450,3 +450,4 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - At 09:20 CET, F-C22e had seven complete external participants with the last two running. Its collector remains dependency-gated. F33a held smoke passed at 09:19:35 CET with all first, interleaved reset and bare/hard checks. Six source folds then started.
 - Hard-only v2 recognized P10 passed. Same-live G checks and known hard decisions passed; independent warmed untreated stock A/A exceeded 5e−5, reaching 8.29270e−5. Both original tolerances and the failed jobs stand. The dependent paired timings were canceled.
+- F33a completed 09:28:18 CET. The CPU gate passed in 59 s. All 20 A100/20 CPU elements and blind scorer `3135082` passed. Both registered bounded contrasts remained undecided. The independent bare control reproduced all 84,960 hard decisions. [Signed result](fbc323_covariance/a100_whole/result-19nov.md)
