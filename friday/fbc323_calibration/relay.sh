@@ -6,7 +6,7 @@ held_job=${2:?Galvani held array ID}
 [[ $source_job =~ ^[0-9]+$ && $held_job =~ ^[0-9]+$ ]]
 ferranti=mlcloud-ferranti
 galvani=mlcloud-galvani
-target=/mnt/lustre/work/gehler/gfh527/ni26_friday_s1c_calibration_20261119
+target=/mnt/lustre/work/gehler/gfh527/ni26_friday_s1c_calibration_v2_20261119
 ssh_opts=(-o BatchMode=yes -o ConnectTimeout=6)
 finished=$(ssh "${ssh_opts[@]}" "$ferranti" "sacct -nX -P -j $source_job -o JobID,State,ExitCode")
 seen=$(ssh "${ssh_opts[@]}" "$galvani" "cd '$target/checkpoints' && find . -maxdepth 1 -name 'release_$held_job-*' -print")
@@ -26,7 +26,7 @@ done <<< "$finished"
 if (( ${#ids[@]} == 0 )); then
     exit 0
 fi
-ssh "${ssh_opts[@]}" "$ferranti" "cd ~/ni26/friday_s1c_calibration_20261119 && tar -cf - ${files[*]}" |
+ssh "${ssh_opts[@]}" "$ferranti" "cd ~/ni26/friday_s1c_calibration_v2_20261119 && tar -cf - ${files[*]}" |
     ssh "${ssh_opts[@]}" "$galvani" "cd '$target/checkpoints' && tar -xf -"
 ssh "${ssh_opts[@]}" "$galvani" "set -e; cd '$target/checkpoints'; for i in ${ids[*]}; do
     scontrol release ${held_job}_\$i

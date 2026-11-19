@@ -64,8 +64,10 @@ def run(held, seed, smoke):
     for kind in KINDS:
         model = model322.Factor("session", False, "cuda")
         normalizer(model)
-        if fingerprint(model) != fixed["initial"] or sum(p.numel() for p in model.parameters()) != 347903:
-            raise ValueError("native zero-feature S1C source initial state differs")
+        initial = fingerprint(model)
+        parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        if initial != fixed["initial"] or parameters != fixed["parameters"]:
+            raise ValueError(f"native S1C initial fingerprint {initial} or trainable count {parameters} differs")
         native = model.forward
         feed = None if kind == "hard" else Feed(jitter, batches, masks)
         if feed is not None:
@@ -97,6 +99,8 @@ def run(held, seed, smoke):
         publish(output, model, dict(fixed, **(fields | stats), **guards, **diagnostic, device=device, state=state))
         if kind in refs and sha(output) != refs[kind]["checkpoint"]:
             raise ValueError(f"{kind} did not reproduce the exact parent checkpoint bytes")
+    print(f"H100 peak allocated {torch.cuda.max_memory_allocated()} bytes and peak reserved "
+          f"{torch.cuda.max_memory_reserved()} bytes", flush=True)
     print(f"PASS F24 paired source {tag}", flush=True)
 
 

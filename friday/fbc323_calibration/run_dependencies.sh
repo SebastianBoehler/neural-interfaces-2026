@@ -9,7 +9,7 @@ for id in "$source_smoke" "$source_matrix" "$held_smoke" "$held_matrix"; do
     [[ $id =~ ^[0-9]+$ ]]
 done
 home_script=$(cd "$(dirname "$0")" && pwd -P)
-target=/mnt/lustre/work/gehler/gfh527/ni26_friday_s1c_calibration_20261119
+target=/mnt/lustre/work/gehler/gfh527/ni26_friday_s1c_calibration_v2_20261119
 opts=(-o BatchMode=yes -o ConnectTimeout=6)
 deadline=$((SECONDS + 21600))
 
@@ -37,7 +37,7 @@ wait_smoke() {
 wait_smoke mlcloud-ferranti "$source_smoke"
 case "${5:-start}" in
     start)
-        ssh "${opts[@]}" mlcloud-ferranti "cd ~/ni26/friday_s1c_calibration_20261119 &&
+        ssh "${opts[@]}" mlcloud-ferranti "cd ~/ni26/friday_s1c_calibration_v2_20261119 &&
             grep -q 'PASS F24 paired source smoke_0_P01' fit-$source_smoke*.out &&
             tar -cf - ./*smoke*.pt ./*smoke*.json" |
             ssh "${opts[@]}" mlcloud-galvani "cd '$target/checkpoints' && tar -xf -"

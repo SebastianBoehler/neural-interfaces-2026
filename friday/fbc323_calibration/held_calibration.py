@@ -13,7 +13,7 @@ from held_distill import replay
 from replay_f13 import ORDER_SHA, ORDERS, origin_report, raw_inputs
 
 
-ACTOR = "5c991bc11ffc3f92c09a4f2ca1cfa7b73199d5366c8dc45432ebb85830006b31"
+ACTOR = "107d380fe6cb5e55532c3194986d7f0a5eb0705f48666fc8383fbedabfbaa3d2"
 
 
 def paired(held, seed, smoke, subject, visit):
