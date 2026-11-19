@@ -77,16 +77,21 @@ def run(held, seed, smoke):
             fit = train(model, x, y, mu, sd, weights, batches, codes, views, strength, seed)
         hook.remove()
         state = encoder312.fingerprint(model)
-        if (fit["steps"] != ref["steps"] or len(skip_grads) != ref["steps"] or torch.stack(skip_grads).sum().item() or
+        # The independent first-batch KL probe also fires the classifier hook.
+        probe_calls = int(kind != "hard")
+        q_activity = torch.stack(skip_grads).sum().item()
+        if (fit["steps"] != ref["steps"] or len(skip_grads) != ref["steps"] + probe_calls or q_activity or
                 state == ref["initial"] or state in states or kind == "hard" and state != ref["state"] or
                 fit["view_counts"] != ([0, 0] if kind == "hard" else [seen // 8] * 2)):
-            raise ValueError("source consistency strength, actual view exposures or F16 hard state differs")
+            raise ValueError(f"{kind} source control differed: {fit['steps']} steps, {len(skip_grads)} head hook calls "
+                             f"including {probe_calls} probe, q gradient entries {q_activity}, "
+                             f"{fit['view_counts']} view counts, state={state}")
         divergence = source_js(model, stream, views, picked)
         if encoder312.fingerprint(model) != state:
             raise ValueError("unmixed source observation changed fitted weights")
         states.add(state)
         publish(HERE / f"{kind}_{tag}.pt", model, dict(fixed, kind=kind, state=state, strength=strength,
-                q_gradients_nonzero=0, source_js=divergence, **fit))
+                q_gradients_nonzero=0, q_gradient_probe_calls=probe_calls, source_js=divergence, **fit))
     print(f"PASS F21 paired source {tag}, {seen // 8} primary views per map and arm", flush=True)
 
 
