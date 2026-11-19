@@ -1,5 +1,6 @@
 """Pin the original production traces and independent returning decision tapes."""
 
+import hashlib
 import json
 import zipfile
 
@@ -28,8 +29,6 @@ GALLERY = {
 
 
 def original_traces(who, root):
-    import hashlib
-
     if root != BUNDLE / f"{who}_s23/base":
         raise ValueError("expected original §321 returning base")
     with np.load(root / "weights.npz", allow_pickle=False) as z:
@@ -56,7 +55,7 @@ def reference(slot):
     rec = json.loads(receipt.read_text())
     who, day, n = VISITS[slot]
     if (rec["output"] != digest or rec["n"] != n or rec["visit"] != f"{who}|{day}"
-            or rec["held_labels_opened"] or rec["accuracy_computed"]):
+            or not rec["no_gold"] or not rec["native_zero_exact"] or not rec["prefix_reset_exact"]):
         raise ValueError("independent exact D-EArN reference scope differs")
     return path, expected
 
