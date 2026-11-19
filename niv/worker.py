@@ -1,11 +1,12 @@
 """NI-V worker: stream the visits of ONE Scherer person through an exact package ZIP, one window at a time.
 
-python worker.py ZIP OUT.npz PERSON_INDEX ARMS
+python worker.py ZIP OUT.npz PERSONS ARMS   (PERSONS: comma list of person indices; env NIV_VISITS="1,2" or "2")
 ARMS = comma list of scheme:seedindex (e.g. full:0,within:3). Every (arm, visit) runs on a fresh copy of the loaded
 Solver model (official fresh_model), so nothing crosses visits. Labels only; no task label is read here.
 Runs inside runs/cloud/ni26_worker.sif with /official, /external.npz, /rows.tsv.gz and /package bound.
 """
 import importlib.util
+import os
 import sys
 import time
 import zipfile
@@ -48,8 +49,8 @@ def main(zip_path, out, person, arms):
         x = torch.from_numpy(z["X"])
         subject, session, channels = z["subject"], z["session"], z["ch_names"].tolist()
     run = orders.runs_from_manifest("/rows.tsv.gz", subject, session)
-    who = sorted(set(subject))[int(person)]
-    visits = [f"{who}|1", f"{who}|2"]
+    names = sorted(set(subject))
+    visits = [f"{names[int(p)]}|{v}" for p in str(person).split(",") for v in os.environ.get("NIV_VISITS", "1,2").split(",")]
     result = {}
     with TemporaryDirectory() as tmp:
         with zipfile.ZipFile(zip_path) as zf:
@@ -57,7 +58,7 @@ def main(zip_path, out, person, arms):
         template = load(Path(tmp), channels)
         for arm in arms.split(","):
             scheme, k = arm.split(":")
-            seed = orders.SEEDS[int(k)]
+            seed = int(k[1:]) if k.startswith("s") else orders.SEEDS[int(k)]  # "s22411": explicit seed (parity checks)
             plan = orders.plans(subject, session, run, scheme, seed)
             for v in visits:
                 rows = plan[v]

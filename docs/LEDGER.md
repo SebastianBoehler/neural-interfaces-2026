@@ -3210,3 +3210,15 @@ about 47 %). Null (cap250 seed 1 minus seed 0): |pooled delta| <= 0.25 pp, 80 % 
 person-bootstrap 80 % half-width on B-new exceeds 0.8 pp; it is declared to reproduce the sealed direction only if the
 cap250-v5.1b pooled B-new delta is > 0 under both schemes and the A-cohort corrected delta is > 0. Magnitude is not
 claimed from B. No upload, no package edit; bars are reading aids, a result inside the noise is "undecided".
+
+**NI-V amendment (19 Nov ~14:30 CET, before any label was opened; design_fable.md).** The HEADLINE arm is the full-session
+shuffle on freshly drawn orders (seeds 71000-71007; none run-contiguous); within-run shuffle (same seeds) is reported
+only as a secondary arm, and every pooled number in the report is full-session unless labelled. The historical dev
+orders full0/within0 used as cohort A are labelled by their scheme (within0 is run-contiguous: secondary). Returning
+arm (B-ret) registered: per Scherer person k, SRC with visit 1 of k enrolled (niv/enrol.py; self-check against the
+stored rows of P01: bio, own-space and TSEM prior bit-identical, contrast gallery cos 0.997, head cos 0.996), visit 2
+streamed under 8 full + 8 within orders; zero-routing check streams the 8 other people (both visits, order full:0)
+through each enrolled package and counts recognitions. Prediction: B-ret cap250 recognises visit 2 for >= 6 of 9
+people; false recognition <= 1 of 144 streams per system; a Scherer enrolment dose effect (enrolled minus base) of
+0 to +3 pp. Refutation: recognition of <= 3 of 9 means the gallery does not transfer across montage (the arm then
+degrades to a gate-only check and the returning dose cannot be decided on it).

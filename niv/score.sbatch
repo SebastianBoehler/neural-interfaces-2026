@@ -18,6 +18,7 @@ cd "$work"; mkdir -p out/$tag logs
 sha256sum --quiet -c inputs.sha256
 t=${SLURM_ARRAY_TASK_ID:-0}; person=$((t/4)); chunk=$((t%4))
 if [ "$mode" = smoke ]; then arms="full:0"; person=5; out=out/$tag/smoke.npz
+elif [ "$mode" = parity ]; then arms="full:s22411"; person=5; out=out/$tag/parity.npz
 else arms="full:$((2*chunk)),full:$((2*chunk+1)),within:$((2*chunk)),within:$((2*chunk+1))"; out=out/$tag/p${person}_c${chunk}.npz; fi
 [ -e "$out" ] && { echo "exists $out"; exit 1; }
 apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \
