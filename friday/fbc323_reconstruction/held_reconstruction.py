@@ -13,7 +13,7 @@ from reconstruction import ARMS, CONSISTENCY, HERE, KINDS, MAP, MODES, geometry,
 from replay_f13 import DATA, ORDER_SHA, ORDERS, origin_report, raw_inputs
 
 
-ACTOR = "d27ddf2cb5b0e7e381f434004832211d6263211526a47b2b33d9423c0cc3bf46"
+ACTOR = "7db88bb4f87dc57e96b7def1b71bc34b9123b68d95c694ffa2598ec6431a4469"
 F16 = HERE.parent / "ni26_friday_s1c_distill_20261118"
 
 
@@ -38,7 +38,7 @@ def paired(held, seed, smoke, subject, visit):
         path = HERE / "checkpoints" / f"{kind}_{tag}.pt"
         meta = json.loads(path.with_suffix(".json").read_text())
         required = dict(fixed, kind=kind, checkpoint=sha(path), strength=CONSISTENCY if kind == "consistent" else 0.,
-                        view_counts=[0, 0] if kind == "hard" else [total // 8] * 2)
+                        view_counts=[0, 0] if kind == "hard" else [total // 8] * 2, q_gradient_probe_calls=int(kind != "hard"))
         if (any(meta[key] != v for key, v in required.items()) or "H100" not in meta["device"] or
                 not np.isfinite(meta["source_js"]) or meta["source_js"] < 0 or
                 not np.isfinite(meta["reconstructed_change"]) or meta["reconstructed_change"] <= 1e-4 or
