@@ -1,0 +1,251 @@
+--- a/parents22.py
++++ b/parents22.py
+@@ -5,20 +5,20 @@
+ CAMP = BASE / 'ni26_friday_causal_rebuild_20261118'
+ C20 = CAMP / 'fc20_outer_v1'
+ C21 = BASE / 'ni26_friday_c21_corrected_v2_20261119'
+-F25 = CAMP / 'f25c_v1'
+-PUPIL_SOURCE = 'b15e7155853a7694387deb618a4786f095b6fc26bbe282aec2129ec2ef68dcb5'
++F32 = CAMP / 'f32c_v2'
++PUPIL_SOURCE = '4a7f749f7074665c046bac45e4d8eb70b88dd3dad7b68f2153ede473076706a6'
+ PINS = {
+     'within0': {
+         'fbl_proof': 'c41f6df763d86dee454db348560fce1943620f6ed3a3a1ef8824d4c54ac38472',
+         'fbl_array': '109a572de0f062a62ddf69d80f847d5a107e33236b45f34d7984af303df6df45',
+-        'raw_proof': '9ed2daccdce0729d867f7af915ab50840e2a43340b6de9831f4e85485412aab1',
+-        'raw_array': '3da8bcc957b446a9dfa7b4d0c1c7a5ccf18b6feedc205f4d18dcd986460e3d79',
++        'raw_proof': '148c94b68d27d51fb9bdc2eed7d181678a01781ad6fc529a14023b2cd9a92e35',
++        'raw_array': 'd76d3e24ab4ebba093b5721ac6c1fb70e91e9abce374ca149863cb5c64e00696',
+     },
+     'full0': {
+         'fbl_proof': '442ba868279c332e550bc4cffbd29f372c1e1afdf7fb8d6e86fe1a548fd6f331',
+         'fbl_array': '5b9da9b5ba865c4b0b6bcdd2251536a472884d561bda85cfb4e624358f3f5650',
+-        'raw_proof': '9d2986fe5645cad5b45bec00380f43095ae221ed92e1b88664308a67e45fc4ec',
+-        'raw_array': '3e30eece73b68b94d33d57b9378bbcae4f3fcb295b2ee56b2ba7a415e68400bf',
++        'raw_proof': '6b8bc99731014ca663a72ce331cae7cbea12c6f4c9d2688e40da1f3e9743be49',
++        'raw_array': 'd690054a00d0e017ff1f7fc458e3568365b5bc7660df9e794f72662984327890',
+     },
+ }
+-ARMS = ('stock', 'identity', 'FBL2', 'multi', 'joint', 'single_joint')
++ARMS = ('stock', 'identity', 'FBL2', 'hard', 'motor', 'joint', 'joint_motor')
+--- a/cross22.py
++++ b/cross22.py
+@@ -53,21 +53,22 @@
+         stock, deltas = base(ctx,archive,patches,incumbent)
+         all_raw['stock'] = stock
+         active = np.ones(len(stock),dtype=bool)
+-        for name,values in (('identity',None),('multi',pupils['multi'])):
++        for name,values in (('identity',None),('hard',pupils['hard']),('motor',pupils['joint'])):
+             raw, used, trace = replace(base,ctx,archive,patches,incumbent,values,active)
+             assert used==deltas
+             all_raw[name],traces[name]=raw,trace
+         np.testing.assert_array_equal(all_raw['identity'],stock)
+-        for name,values in (('FBL2',None),('joint',pupils['multi']),('single_joint',pupils['single'])):
++        for name,values in (('FBL2',None),('joint',pupils['hard']),('joint_motor',pupils['joint'])):
+             with doubling(ctx,archive) as boost:
+                 raw, used, trace = replace(base,ctx,archive,patches,incumbent,values,active)
+                 assert used==deltas and boost.get('mix')==trace['mix']
+             all_raw[name],traces[name]=raw,dict(trace,boost=boost)
+-        assert traces['joint']['slot_movement']==traces['multi']['slot_movement'] > .01
++        assert traces['joint']['slot_movement']==traces['hard']['slot_movement'] > .01
++        assert traces['joint_motor']['slot_movement']==traces['motor']['slot_movement'] > .01
+         assert all(traces[arm]['boost']['adapted']==traces['FBL2']['boost']['adapted']
+-                   for arm in ('joint','single_joint'))
++                   for arm in ('joint','joint_motor'))
+         assert all(traces[arm][key]!=traces['FBL2'][key]
+-                   for arm in ('joint','single_joint') for key in ('mix','rebalance','em','tsem'))
++                   for arm in ('joint','joint_motor') for key in ('mix','rebalance','em','tsem'))
+         return stock,deltas
+ 
+     owner.candidate=visit
+--- a/matrix22.py
++++ b/matrix22.py
+@@ -10,7 +10,7 @@
+ from bridge_owner import pin, sha, start_module, stamp
+ from complete_zero import FEAT, HASHES
+ from cross22 import run_arms
+-from parents22 import ARMS, C20, C21, F25, PINS, PUPIL_SOURCE
++from parents22 import ARMS, C20, C21, F32, PINS, PUPIL_SOURCE
+ 
+ WORK = Path(__file__).resolve().parent
+ 
+@@ -21,12 +21,16 @@
+ 
+ def parents(order):
+     paths, proofs = {}, {}
+-    for label,root in (('fbl',C21),('raw',F25)):
++    for label,root in (('fbl',C21),('raw',F32)):
+         path, bank = root/f'{order}.json',root/f'{order}.npz'
+         pin(path,PINS[order][f'{label}_proof'])
+         pin(bank,PINS[order][f'{label}_array'])
+         info = json.loads(path.read_text())
+-        assert info['stock_bitwise'] and info['native_identity'] and info['shadow_fixed']
++        if label=='fbl':
++            assert info['stock_bitwise'] and info['native_identity'] and info['shadow_fixed']
++        else:
++            assert info['exact_stock'] and info['exact_identity'] and info['equal_hard_detach']
++            assert info['pupil_source']==PUPIL_SOURCE and info['warm_steps']==9600
+         assert info['passed'] and info['order']==order and info['rows']==2655 and info['sessions']==14
+         assert not info['held_labels_opened'] and info['output']['sha256']==sha(bank)
+         paths[label],proofs[label] = bank,info
+@@ -46,7 +50,8 @@
+             np.testing.assert_array_equal(fbl[f'stock|{key}'][selected],stock)
+             np.testing.assert_array_equal(raw[f'stock|{key}'][selected],stock)
+             np.testing.assert_array_equal(fbl[f'FBL2|{key}'][selected],stages['FBL2'][key][selected])
+-            np.testing.assert_array_equal(raw[f'multi|{key}'][selected],stages['multi'][key][selected])
++            np.testing.assert_array_equal(raw[f'hard|{key}'][selected],stages['hard'][key][selected])
++            np.testing.assert_array_equal(raw[f'joint|{key}'][selected],stages['motor'][key][selected])
+ 
+ 
+ def run(order,smoke):
+@@ -61,7 +66,7 @@
+         person=np.asarray([p.rsplit('/',1)[-1] for p in z['subject']]); visits=z['session']
+     assert len(set(person))==10 and len(person)==2655
+     _,receipts=parents(order)
+-    pupil_input=helper('c22_f25_inputs',F25/'consumer.py').source_array
++    pupil_input=helper('c25_f32_inputs',F32/'consume32.py').inputs
+     run_tail=helper('c22_parent_tail',C20/'worker.py').run_tail
+     pupils,own_pins=pupil_input(order,person,PUPIL_SOURCE)
+     assert own_pins==receipts['raw']['folds'] and len(own_pins)==20
+@@ -88,9 +93,9 @@
+             assert work[arm]['count_effect']>0 and work[arm]['csp_refits']>0
+             if not smoke:
+                 assert (work[arm]['csp_refits'],work[arm]['csp_fusions'])==(126,1395)
+-            print('PASS F-C22 real count/CSP',order,arm,work[arm]['csp_refits'],flush=True)
++            print('PASS F-C25d real count/CSP',order,arm,work[arm]['csp_refits'],flush=True)
+         validate_parent_paths(order,ctx['delivery'],stages,delivered)
+-        for name,parent in (('joint','FBL2'),('joint','multi'),('single_joint','FBL2'),('joint','single_joint')):
++        for name,parent in (('joint','FBL2'),('joint','hard'),('joint_motor','FBL2'),('joint','joint_motor')):
+             assert np.abs(stages[name]['terminal'][delivered]-stages[parent]['terminal'][delivered]).max()>1e-4
+             assert any(work[name]['csp'][str(s)]['target_sha']!=work[parent]['csp'][str(s)]['target_sha'] for s in selected)
+         for key in stages['stock']:
+@@ -105,7 +110,7 @@
+             proof['output']=write_npz(WORK/f'{order}.npz',arrays)
+         path=WORK/('smoke.json' if smoke else f'{order}.json')
+         write_receipt(path,**proof)
+-    print('PASS F-C22',order,proof['scope'],sha(path),flush=True)
++    print('PASS F-C25d',order,proof['scope'],sha(path),flush=True)
+ 
+ 
+ if __name__=='__main__':
+--- a/score22.py
++++ b/score22.py
+@@ -25,7 +25,7 @@
+     assert proof['output']['path']==str(bank) and not (receipt.stat().st_mode|bank.stat().st_mode)&0o222
+     most=pinned_delivery(ROOT/'runs/shuffle_perms.npz')[ORDERS.index(order)]
+     assert proof['delivery']==stamp(most)
+-    for name in ('FBL2','joint','single_joint'):
++    for name in ('FBL2','joint','joint_motor'):
+         boost=proof['mix'][name]['boost']
+         assert boost['share']==1/17 and boost['warm_rows']==2375
+         assert boost['adapted']==proof['mix']['FBL2']['boost']['adapted']
+@@ -44,10 +44,14 @@
+ 
+ 
+ def assess(guesses,truth,subjects,groups,metric):
++    stock_y,fbl_y,hard_y,*_=guesses
++    oracle=np.where(stock_y==truth,stock_y,np.where(fbl_y==truth,fbl_y,hard_y))
++    all_guesses=np.concatenate((guesses,oracle[None]),axis=0)
++    names=(*LIVE,'parent_oracle')
+     sums,counts,people=[],[],{}
+     for who in sorted(set(subjects)):
+         m=subjects==who
+-        cells=np.column_stack([metric.group_scores(metric.balanced_accuracy,truth[m],z[m],groups[m]) for z in guesses])
++        cells=np.column_stack([metric.group_scores(metric.balanced_accuracy,truth[m],z[m],groups[m]) for z in all_guesses])
+         sums.append(cells.sum(0)); counts.append(len(cells))
+         people[who]=100*cells.mean(0)
+     sums,counts=np.asarray(sums),np.asarray(counts)
+@@ -55,17 +59,24 @@
+     draw=np.random.default_rng(460).integers(0,10,(4000,10))
+     point=100*sums.sum(0)/counts.sum()
+     boot=100*sums[draw].sum(1)/counts[draw].sum(1)[:,None]
+-    stock,fbl,multi,joint,conventional=np.eye(5)
+-    comparisons=dict(FBL2_minus_stock=fbl-stock,multi_minus_stock=multi-stock,
+-                     joint_minus_stock=joint-stock,joint_minus_FBL2=joint-fbl,joint_minus_multi=joint-multi,
+-                     joint_minus_single_joint=joint-conventional,interaction=joint-fbl-multi+stock)
++    stock,fbl,hard,motor,joint,joint_motor,oracle_basis=np.eye(len(names))
++    comparisons=dict(FBL2_minus_stock=fbl-stock,hard_minus_stock=hard-stock,
++                     joint_minus_stock=joint-stock,joint_minus_FBL2=joint-fbl,joint_minus_hard=joint-hard,
++                     motor_objective_without_FBL2=motor-hard,motor_objective_with_FBL2=joint_motor-joint,
++                     parent_oracle=oracle_basis-stock,interaction=joint-fbl-hard+stock)
+     effects={}
+     for key,coeff in comparisons.items():
+         lo,hi=np.percentile(boot@coeff,(10,90)).tolist()
+         effects[key]=dict(pp=float(point@coeff),paired80=[lo,hi],
+                           verdict='positive' if lo>0 else 'refuted' if hi<=0 else 'undecided')
+-    return dict(absolute_pct=dict(zip(LIVE,point.tolist(),strict=True)),contrasts=effects,
+-                people_pct={p:dict(zip(LIVE,s.tolist(),strict=True)) for p,s in people.items()})
++    new=guesses[LIVE.index('joint')]
++    class_counts={}
++    for label in range(3):
++        choose=truth==label
++        class_counts[str(label)]=dict(rescues=int((choose&(new==truth)&(stock_y!=truth)).sum()),
++                                      regressions=int((choose&(new!=truth)&(stock_y==truth)).sum()))
++    return dict(class_counts=class_counts,absolute_pct=dict(zip(names,point.tolist(),strict=True)),contrasts=effects,
++                people_pct={p:dict(zip(names,s.tolist(),strict=True)) for p,s in people.items()})
+ 
+ 
+ def main():
+@@ -77,7 +88,7 @@
+     blind=WORK/'before_labels.json'
+     write_receipt(blind,held_labels_opened=False,matched=anchors,source=sha(WORK/'source.sha256'))
+     pin(METRIC,METRIC_HASH); pin(FEAT,HASHES[FEAT])
+-    metric=start_module('c22_official_metric',METRIC,METRIC.read_text())
++    metric=start_module('c25d_official_metric',METRIC,METRIC.read_text())
+     with np.load(FEAT,allow_pickle=False) as z:
+         y,subjects,sessions,interface=(z[k] for k in ('y','subject','session','interface'))
+     groups=np.stack((subjects,sessions,interface),axis=1)
+@@ -86,7 +97,7 @@
+     write_receipt(path,scope='FULL-SYSTEM DEV ten reused held-new participants',orders=values,
+                   before_labels=sha(blind),scorer=sha(WORK/'scoring.sha256'),
+                   paired80=dict(seed=460,draws=4000,official_cells=28))
+-    print('PASS F-C22 score',sha(path),{o:r['contrasts'] for o,r in values.items()},flush=True)
++    print('PASS F-C25d score',sha(path),{o:r['contrasts'] for o,r in values.items()},flush=True)
+ 
+ 
+ if __name__=='__main__':
+--- a/worker.sbatch
++++ b/worker.sbatch
+@@ -4,8 +4,8 @@
+ #SBATCH --cpus-per-task=2
+ #SBATCH --mem=12G
+ #SBATCH --time=00:14:00
+-#SBATCH --job-name=ni26-c22
+-#SBATCH --output=c22-%j.out
++#SBATCH --job-name=ni26-c25d
++#SBATCH --output=c25d-%j.out
+ set -euo pipefail
+ base=/mnt/lustre/work/gehler/gfh527
+ camp=$base/ni26_friday_causal_rebuild_20261118
+@@ -14,7 +14,7 @@
+ c18=$camp/fc18_necessity_v2
+ c19=$camp/fc19_csp_gate_v2
+ c20=$camp/fc20_outer_v1
+-f25=$camp/f25c_v1
++f32=$camp/f32c_v2
+ work=${SLURM_SUBMIT_DIR:?}
+ cd "$work"
+ sha256sum --check --status source.sha256
+@@ -40,9 +40,11 @@
+ verify "$c19" 0154ffdc8358f6a7f7865f855f70203400cda95ca5b7924478f57467a1fc8cd7
+ (cd "$c20" && echo '1319f8c515cba34eb9c7347c7b94a584ae2f33b3225c01ecfb623c9f60506f5b  consumer.sha256' | sha256sum --check --status
+  sha256sum --check --status consumer.sha256)
+-(cd "$f25" && echo '2f928083d9163a9e9530a746eada4438fc134f76b2f5122139c02fb37894caa7  consumer.sha256' | sha256sum --check --status -
++(cd "$f32" && echo '38c145d54b757d9d1feee6408b32c0ed0bb7c2bf1c5d71611b86ee27ce84d518  consumer.sha256' | sha256sum --check --status -
+  sha256sum --check --status consumer.sha256
+- echo 'b15e7155853a7694387deb618a4786f095b6fc26bbe282aec2129ec2ef68dcb5  source.sha256' | sha256sum --check --status -)
++ echo '4a7f749f7074665c046bac45e4d8eb70b88dd3dad7b68f2153ede473076706a6  pupil.sha256' | sha256sum --check --status -
++ sha256sum --check --status pupil.sha256)
++grep -Fx OK "$base/ni26_cross411b_20261118/replay-proof.txt" 
+ (
+     cd "$root"
+     sha256sum --check --status "$parent/owner.sha256"
+@@ -50,7 +52,7 @@
+     sha256sum --check --status "$parent/complete_terminal_inputs.sha256"
+ )
+ export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+-export PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$work:$c20:$parent:$c18:$c19:$f25"
++export PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$work:$c20:$parent:$c18:$c19:$f32"
+ if [[ $mode == score ]]; then
+     sha256sum --check --status scoring.sha256
+     exec "$repo/.venv/bin/python" -B score22.py
