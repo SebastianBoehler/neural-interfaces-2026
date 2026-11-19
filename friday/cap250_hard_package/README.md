@@ -9,6 +9,8 @@ The trial is a deterministic rebuild from exact cap250 and the two pinned F32e C
 | Exact F32x actor lock | `0292022abd39067cefebd0e3a0bd8f1834a04bfc67d7d41081cfe6abaae8ebd2` |
 | F32e CPU seed 0 | `ec33684850e902479f3bf28e472a9ea590e64fa759b0b03704daf7aff1ea4018` |
 | F32e CPU seed 1 | `ed83b6b5b2a2765f82afa4a2fcb3f2c526d24a32e8b789b527268bde67b5401e` |
-| Trial source and manifests | `71df5c17bf6fedf05fa4e3bfabc5f7c29d9350d1aa5e4c944c134753c41781a3` |
+| Trial source and manifests | `69abae0f51fa89f6dd420dad8b863d70ba530638288575e34f7c7a5fb2706489` |
 
-Immutable Galvani release `ni26_friday_c25p_hard_trial_v1_20261119`, archive `v66_cap250_hard_trial.zip`. `3135050` exercises the recognized and unrecognized paths through the exact GPU Solver. `3135051` warms and times both paired profiles only after the smoke. The signed F32x and F-C25 raw hard-score fixtures matched bitwise across both original CPU hosts before the new direct tests. This run involves archive conformance and speed. It opens no task labels.
+Immutable Galvani release `ni26_friday_c25p_hard_trial_v2_20261119`, archive `v66_cap250_hard_trial.zip`. `3135066` exercises the recognized and unrecognized paths through the exact GPU Solver. `3135067` warms and times both paired profiles only after the smoke. The signed F32x and F-C25 raw hard-score fixtures matched bitwise across both original CPU hosts before the new direct tests. This run involves archive conformance and speed. It opens no task labels.
+
+The v1 G smoke passed all 120 hard decisions, the exact signed pupil oracle and its same-input tail reconstruction. Its final independent comparison included the cold stock repeat, which differed from warmed stock by 0.00102144. The failure and canceled timing remain. V2 separates the authenticated cold stock observation and compares two genuinely warmed runs before live independent hard parity. Each fixture has its own real test. The trial ZIP bytes and all stated warm tolerances are identical to v1.
