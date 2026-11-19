@@ -20,3 +20,18 @@ ssh mlcloud-galvani 'cd /mnt/lustre/work/gehler/gfh527/ni26_friday_causal_rebuil
 ```
 
 The corrected independent zero completed at 02:55:07 CET. It reproduced both auxiliary scales and all three genuine interleaved count/CSP prefixes. Receipt `671f4a57cdbd5c0e6b8ae54318aee6a2f6777c8f4bd87603e4d5818ad38d09ab`. The tenfold fresh FBLight bank sealed at 02:57:13 CET, SHA-256 `931973cdb4f7085d181250f0316e33728cdc3602b082eff5e650f1875e4544fa`, receipt `f7cbe478a967be47c1967253c4ebb21ef5146db427380653a2cd03e5e087ae49`.
+
+The runs0 bridge `3133380` completed at 02:58:27 CET and sealed both target aliases, SHA-256 `8d34da1eaae413616b89f77a736be7953de890b5bbb07d6bb5d3810c05d527d9`. It found zero routed sessions and 240 genuine TSEM steps per arm. The P01 FB raw warm smoke stopped on its exact frozen-anchor bound. FB and FBLight smokes and their ten-fold production succeeded. Slurm canceled FB raw production, terminal and gold because the real prerequisite failed. No partial candidate was scored.
+
+The original §257 runs0 FB raw source job `3103247_0` used A100 cn218 and eight threads. The common restored FB raw checkpoint came from the RTX source qualified on full0 and within0. A single same-state A100 P01 frozen canary `3133434` checks whether it can meet the original runs0 anchor on the hardware family. Its source `fbaf837d…50a3` fixes the current fit and the held data scope. P01 archive disagreements or maximum posterior difference above 2e−5 refute this shared-state runs0 instrument.
+
+## Conditional common-source full0
+
+D-EAfcf was separately preregistered in `e39ee782`. The condition is an authenticated numeric runs0 canary failure. A scheduler or loader error without the refutation receipt cannot satisfy the bank guard. Full0 uses the same exact ten FBLight and Sinc checkpoints and its own independent complete archived zero `9b9dc407…663c`. It authenticates the preserved actual full0 FBLight frozen fit bank and independently repeats the real P01 frozen prefix and reset. It rebuilds all matched shadows, routes, aliases, warm actors and terminal outputs. The old Sinc-only full0 score has separate scope.
+
+| Galvani jobs | Immutable release or gate |
+| --- | --- |
+| `3133434 → 3133435` | A100 runs0 same-state canary must write a numerical refutation before RTX full0 P01 and complete authenticated frozen bank in `full0_common_fbl_v1`, source `71495c09…144c`. |
+| `3133436` | Both actual label-blind bridges and strict targets, `full0_common_bridge_v1`, source `7fd26b26…b3b4`. |
+| `3133437→38`, `3133439→40`, `3133441→42`, `3133443→44` | Genuine per-family P01 warm smoke then tenfold matched production in `full0_common_matched_fit_v1`, source `62f43627…bebb`. |
+| `3133445 → 3133446` | Complete predictions then authorized independent score in `full0_common_terminal_v1`, source `74527664…335a`. |
