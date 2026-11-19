@@ -381,3 +381,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F30 independent held smoke `3134377` passed in 33 seconds. Ferranti `511602` released and started its first job at 06:41:36 CET. With one H100 the estimated complete score is around 06:55–07:00 CET. The full source allocation budget remains in force.
 
 - F30 completed at 06:52:39 CET. All source and held fits passed. Both registered whole-model contrasts remain undecided. [Signed results](fbc323_episodic/result-19nov.md)
+
+### F31 interior waveform order pretext
+
+- Real H100 smoke `511623` passed in ten seconds. Native FIR radius 99 samples, direct real-boundary extension drift 1.252e−6 and gain/offset descriptor drift 2.981e−8. The matched heads used 20,224 opposing orientation examples. Fixed real source chronological/label-sham losses were 0.68561/0.69313 and direction accuracy 58.85/51.56%. The preregistered source threshold passed. [Protocol and predictions](fbc323_order/prereg-19nov.md)
+- Galvani real held smoke `3134427` gates Ferranti paired source `511624`, independent held `3134428` and collector `3134429`. The actor `832bf16a1af007cadef7742a2ee3bb08cd27c51a9dccf4ebd9a691f6be38e24d` emits only native inference parameters. Scorer `12d8348244e7769d2e80e8e07158952185ad242e3037d63addf4d78cec368d8a`. Releases end in `s1c_order_20261119`. Controller `bash friday/fbc323_order/run_dependencies.sh 511623 511624 3134427 3134428`.
