@@ -6,6 +6,8 @@ Before scoring, record the mechanism, comparator, cohort, shuffled order and see
 
 The original campaign's ledger is frozen at `git show cb3e05a:docs/LEDGER.md`. Search it for prior measurements when a specific mechanism requires comparison. This checkout opens with no new registered experiment.
 
+- [Wave 19 Nov Lane D](../evidence/wave_19nov/laneD_prefix.md) records the registered Gaussian ceiling, source-only purity diagnostic and causal output balancing.
+
 ## F1 / F2 · Whole waveform decoder with session prototypes
 
 Registered 18 November 2026 before any held score. In both arms, train an entire fast decoder from the official EEG tensor. The encoder learns spatial projections of the complex Fourier coefficients, then reads eight bands of log power and relative power. Mixing sensors before computing power preserves signed cross-channel relationships. A static head supplies soft pseudo-classes. At inference only already delivered EEG updates class-specific embedding sums, pseudo-counts and a shared session context. Shrink all context toward zero at the start of a session. Unlike the spectral kernel in §454, the decoder stores a fixed-size summary and learns its signal representation and readout jointly. The waveform studies §439/441 tested gain augmentation with a different memory, and §449 centered A6 writes after fitting. F2 tests subtracting the static head's expected class embedding from the shared context write during end-to-end learning. That change tests whether earlier trials indicate session style after removing predicted task composition. The prototype writes remain identical in form. Both arms train the same auxiliary class templates and have the same optimizer, episodes and seeds.
