@@ -24,7 +24,7 @@ def gate(g):
     return (-1, 0., 0.) if g is None else tuple(float(x) for x in g)
 
 
-def session(template, name, case, n):
+def session(template, name, case, n, observe=None):
     torch.manual_seed(3211701)
     model = fresh_model(template)
     immutable = zero(model)["immutable_sha256"]
@@ -32,6 +32,7 @@ def session(template, name, case, n):
     instrument(model)
     model.nets = ReplaceEA(model.nets, case["ea"].get(name))
     refit = ObserveRefit(model)
+    inspect = observe(model) if observe is not None else None
     tape = {k: [] for k in ("scores", "labels", "mix", "shadow", "u", "core", "contrast", "identity", "latch",
                             "out_v5", "outer", "unpatched_ea")}
     for t, row in enumerate(case["x"][:n]):
@@ -45,6 +46,8 @@ def session(template, name, case, n):
                 or any(not np.array_equal(mem[i], p) for i, p in model.nets.after.items())):
             raise ValueError("native EA intervention is missing from the actual weighted chain")
         refit.emission(trace)
+        if inspect is not None:
+            inspect(trace, t)
         for k, v in dict(scores=q, labels=decision, mix=trace["mix"], shadow=trace["shadow"],
                          u=trace["u"], core=trace["core1"], contrast=gate(trace["contrast"]),
                          identity=gate(trace["identity"]), latch=model.recB, out_v5=trace["out_v5"],
