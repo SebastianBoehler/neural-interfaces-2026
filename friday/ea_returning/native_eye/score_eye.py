@@ -55,7 +55,7 @@ def official():
 
 
 def read_cells(rows, pred, seq, labels, interfaces, metric):
-    sessions, cells, cached = {}, np.empty((2, 2, 2)), {}
+    sessions, cells, cached = {}, np.empty((2, 2, pred.shape[1])), {}
     j = 0
     for slot, ((who, day, count), r) in enumerate(zip(VISITS, seq, strict=True)):
         stop = j + count
@@ -66,7 +66,7 @@ def read_cells(rows, pred, seq, labels, interfaces, metric):
             mask = group == name
             if set(y[mask]) != {0, 1, 2}:
                 raise ValueError("unexpected official returning class coverage")
-            local[name] = [100 * metric(y[mask], part[mask, k]) for k in range(2)]
+            local[name] = [100 * metric(y[mask], part[mask, k]) for k in range(pred.shape[1])]
         if len(local) != 2:
             raise ValueError("unexpected held interface coverage")
         cells[slot // 2, slot % 2] = np.mean(list(local.values()), axis=0)
