@@ -31,6 +31,6 @@ else
     id=${SLURM_ARRAY_TASK_ID:?}
 fi
 apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \
-  --env OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,PYTHONDONTWRITEBYTECODE=1,PYTHONPATH=/prior \
+  --env OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,MPLCONFIGDIR=/tmp,PYTHONDONTWRITEBYTECODE=1,PYTHONPATH=/prior \
   --bind "$work:/work:rw,$prior:/prior:ro,$prior/cap:/package:ro,$actors:/actors:ro,$pair:/rtx_pair:ro,$other:/rtx_other:ro,$known:/known.json:ro,$repo/2026-competition:/official:ro,$repo/data/scherer2015/windows.npz:/external.npz:ro,$repo/data/proteus_windows.npz:/input.npz:ro" \
   --pwd /work "$repo/runs/cloud/ni26_worker.sif" python -B worker.py "$mode" "$id"

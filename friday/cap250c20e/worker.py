@@ -72,6 +72,8 @@ def same_upstream(r,q):
     test,t=q
     protection=("windows","recognized","ft_refits","ft_steps","ft_relabels","ft_capped","ft_over","errors")
     assert all(stock["activity"][k]==test["activity"][k] for k in protection)
+    component_max=np.abs(s["upstream"]-t["upstream"]).max(axis=(0,2))
+    print("C20e upstream max by stage",component_max.tolist(),flush=True)
     delta=close(s["upstream"],t["upstream"])
     assert len(s["loss"])==len(t["loss"])
     largest=0.
@@ -101,6 +103,8 @@ def cpu_pupils(eeg, rows, n):
 
 
 def validate(template,actors,eeg,rows,other,anchor,channels):
+    cold=stream(template,actors,eeg,rows,"stock")
+    authentic_stock(cold,anchor)
     stock=stream(template,actors,eeg,rows,"stock")
     authentic_stock(stock,anchor)
     identity=stream(template,actors,eeg,rows,"identity")
@@ -128,7 +132,7 @@ def validate(template,actors,eeg,rows,other,anchor,channels):
     assert original[0]["labels"]==recorded["labels"][:31] and original[0]["activity"]["recognized"]==10
     recognized=same_upstream(original,proposed)
     return dict(passed=True,rows=rows.tolist(),identity=identity[0],stock=stock[0],hard=hard[0],protection=match,
-                control=control,recognized=dict(stock=original[0],hard=proposed[0],proof=recognized,rows=known.tolist()),
+                cold=cold[0],control=control,recognized=dict(stock=original[0],hard=proposed[0],proof=recognized,rows=known.tolist()),
                 prefix_terminal_error=prefix_error,cpu_pupil_error=cpu_error)
 
 
