@@ -14,7 +14,7 @@ from paired_refit_smoke import target_table
 from refit_smoke import HERE, ROOT, TOL, changed, file_sha, waveform_data
 from restore_refit import RELEASE, restore
 from within0_frozen_probe import PEOPLE, rows_sha
-from within0_pair_inputs import ACTOR_SHA, BRIDGE_SHA, FAMILIES, ORDER, authenticate
+from within0_pair_inputs import ACTOR_SHA, FAMILIES, ORDER, authenticate
 from within0_warm import FTREL, REFIT_NAME, actor, reference, run_stream
 
 
@@ -33,14 +33,14 @@ def fit_inputs(family, proof, p):
         paths = {person: (RELEASE / "checkpoints" / f"{family}_s0_{person}.pt",
                            row["sha256"], row["fit_rows_sha"]) for person, row in states.items()}
         if family == "fbl":
-            root = HERE.parent / "within0_warm_recovery_v1"
-            for person, selected in proof["recovered_fbl"].items():
-                checkpoint = root / f"fbl_s0_{person}.pt"
-                pin(checkpoint.with_suffix(".json"), selected["receipt_sha256"])
-                if (Path(selected["checkpoint"]) != checkpoint
-                        or selected["fit_rows_sha"] != states[person]["fit_rows_sha"]):
-                    raise ValueError("recovered FBLight a different source fold")
-                paths[person] = checkpoint, selected["checkpoint_sha256"], selected["fit_rows_sha"]
+            bank = proof["fbl_bank"]
+            with np.load(bank["path"], allow_pickle=False) as frozen:
+                np.testing.assert_array_equal(frozen["index"], np.arange(len(p)))
+                np.testing.assert_array_equal(frozen["delivery"], p)
+                reference_rows = frozen["proba"]
+            for person, entry in bank["folds"].items():
+                if (entry["fit_rows_sha256"], entry["checkpoint_sha256"]) != (paths[person][2], paths[person][1]):
+                    raise ValueError("FBLight frozen bank source differs from the actual fitted states")
         return reference_rows, paths
     bank = proof["bank"]
     pin(ORIGIN / "frozen.json", bank["origin_receipt_sha256"])
@@ -61,8 +61,8 @@ def fit_inputs(family, proof, p):
     return base, paths
 
 
-def run(family, warm_sha, smoke):
-    proof = authenticate(pin, warm_sha)
+def run(family, bridge_sha, smoke):
+    proof = authenticate(pin, bridge_sha)
     if family == "sinc":
         if os.environ.get("CUBLAS_WORKSPACE_CONFIG") != ":4096:8":
             raise ValueError("fresh Sinc requires its deterministic workspace")
@@ -132,8 +132,8 @@ def run(family, warm_sha, smoke):
     path.chmod(0o444)
     receipt = dict(member=family, seed=0, smoke=smoke, order=ORDER, rows=len(ids), held_labels_opened=False,
                    actor_sha256=ACTOR_SHA, source=source_sha, targets={a: v["sha256"] for a, v in inputs.items()},
-                   warm_qualification_sha256=warm_sha, bridge_sha256=proof["bridge"]["sha256"],
-                   bridge_status_sha256=BRIDGE_SHA, fit_states=fits, visits=per_visit, paired_refit_delta=delta,
+                   legacy_fb_controls=proof["legacy_fb_controls"], bridge_sha256=proof["bridge"]["sha256"],
+                   bridge_status_sha256=bridge_sha, fit_states=fits, visits=per_visit, paired_refit_delta=delta,
                    output_sha256=file_sha(path), smoke_sha256=os.environ.get("NI26_WITHIN0_PAIR_SMOKE"))
     with path.with_suffix(".json").open("x") as handle:
         json.dump(receipt, handle, indent=2, sort_keys=True, allow_nan=False)
@@ -142,8 +142,8 @@ def run(family, warm_sha, smoke):
     print("PASS matched", family, file_sha(path.with_suffix(".json")), flush=True)
 
 
-def check_smoke(family, warm_sha):
-    proof = authenticate(pin, warm_sha)
+def check_smoke(family, bridge_sha):
+    proof = authenticate(pin, bridge_sha)
     path = HERE / "smoke" / f"{family}_s0.npz"
     receipt = path.with_suffix(".json")
     got = json.loads(receipt.read_text())
@@ -151,8 +151,8 @@ def check_smoke(family, warm_sha):
                     actor_sha256=ACTOR_SHA, source=file_sha(HERE / "source.sha256"),
                     targets={"historical": proof["inputs"]["historical"]["sha256"],
                              "causal": proof["inputs"]["corrected"]["sha256"]},
-                    warm_qualification_sha256=warm_sha, bridge_sha256=proof["bridge"]["sha256"],
-                    bridge_status_sha256=BRIDGE_SHA)
+                    legacy_fb_controls=proof["legacy_fb_controls"], bridge_sha256=proof["bridge"]["sha256"],
+                    bridge_status_sha256=bridge_sha)
     if (any(got[k] != v for k, v in expected.items()) or got["paired_refit_delta"]["max_abs"] <= 1e-4
             or set(got["fit_states"]) != {"P01"} or set(got["visits"]) != {"Dreyer2026Proteus/P01|1"}
             or path.stat().st_mode & 0o222 or receipt.stat().st_mode & 0o222):
@@ -170,11 +170,11 @@ def check_smoke(family, warm_sha):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("family", choices=FAMILIES)
-    parser.add_argument("warm_sha")
+    parser.add_argument("bridge_sha")
     parser.add_argument("--smoke", action="store_true")
     parser.add_argument("--verify-smoke", action="store_true")
     args = parser.parse_args()
     if args.verify_smoke:
-        print(check_smoke(args.family, args.warm_sha), flush=True)
+        print(check_smoke(args.family, args.bridge_sha), flush=True)
     else:
-        run(args.family, args.warm_sha, args.smoke)
+        run(args.family, args.bridge_sha, args.smoke)
