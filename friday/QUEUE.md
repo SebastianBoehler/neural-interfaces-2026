@@ -479,3 +479,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F25a all 20 source/held folds completed with exact independent same-device hard and real pupil checks. F-C22h actual count-latched smoke 3135428 passed. Two corrected full paths 3135429/30 and independent scorer 3135431 are active.
 - Ferranti F33 recovered all missing fits and completed the original H100 matrix. Galvani collector `3134877` passed at 09:58:56 CET. Both registered endpoints remain undecided. [H100 signed result](fbc323_covariance/result-19nov.md)
 - F35 completed at 09:59:56 CET. All fits and CPU holds passed. Whole-accuracy points improved with balance and mirror, with the two preregistered bounded contrasts undecided. [Signed result](fbc323_gradient_balance/result-19nov.md)
+
+### F35e all-source native balance exports
+
+- A100 source smoke `3135554` passed at 10:04:13 CET in 19 seconds. All 172 updates reproduced the exact independently fitted F25e hard and no-dose state. The frozen source head-imbalance reduction was 62.53%. [Registered source and CPU scope](fbc323_balance_external/prereg-19nov.md)
+- Independent source-only CPU smoke `3135576` gates final A100 seeds `3135577`, per-seed CPU exports `3135578` and signed seal `3135579`. Galvani release `ni26_friday_s1c_balance_external_a100_20261119/jobs.txt`. Actor `35f846402a40dcc100ba05cec5539110542cb833c1367bf5f32d87567d822248`, exporter `4af04d73ec4a55a4897933b25571d667f717bdbddc2b73bea9d6b445db4fea35`. Estimated 10:07–10:10 CET.
