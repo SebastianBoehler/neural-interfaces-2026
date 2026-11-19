@@ -83,7 +83,7 @@ def load_common(p, deliveries, order=ORDER):
 
 
 def run(order=ORDER, prior=OLD, prior_sha=OLD_SHA, route_path=ROUTE, route_sha=ROUTE_SHA,
-        fbl_release=FBL, fbl_source=FBL_SOURCE):
+        fbl_release=FBL, fbl_source=FBL_SOURCE, *, prior_is_terminal=False):
     for path, expected in ((prior, prior_sha), (FROZEN, FROZEN_SHA), (route_path, route_sha),
                            (FRESH / "frozen_orders.json", FRESH_RECEIPT),
                            (FRESH / "source.sha256", FRESH_SOURCE), (ORIGIN / "frozen.json", ORIGIN_RECEIPT)):
@@ -93,10 +93,13 @@ def run(order=ORDER, prior=OLD, prior_sha=OLD_SHA, route_path=ROUTE, route_sha=R
     old = json.loads(prior.read_text())
     raw, gate, provenance, pins = pinned_control(order)
     route = json.loads(route_path.read_text())
-    if (old["order"] != order or old["held_labels_opened"] or not old["exact_historical_zero"]
-            or old["source_calibration_sha256"] != route_sha or route["archive_sha256"] != pins[raw]
+    if prior_is_terminal:
+        old_exact = old["exact_archive_zero"] and old["three_aux_exact"] and not old["scored"]
+    else:
+        old_exact = old["exact_historical_zero"] and old["source_calibration_sha256"] == route_sha
+    if (old["order"] != order or old["held_labels_opened"] or not old_exact or route["archive_sha256"] != pins[raw]
             or route["order"] != order or route["bases"][STACK]["routed_sessions"]):
-        raise ValueError("within0 historical zero or fixed calibration differs")
+        raise ValueError("historical zero or fixed calibration differs")
     with guarded_load(pins, provenance) as opened:
         ctx = owner(order)
         p = ctx.Pperm

@@ -167,7 +167,7 @@ def check_smoke(family, bridge_sha, *, order=ORDER, verify=authenticate):
     return file_sha(receipt)
 
 
-if __name__ == "__main__":
+def main(order=ORDER, verify=authenticate):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("family", choices=FAMILIES)
     parser.add_argument("bridge_sha")
@@ -175,6 +175,10 @@ if __name__ == "__main__":
     parser.add_argument("--verify-smoke", action="store_true")
     args = parser.parse_args()
     if args.verify_smoke:
-        print(check_smoke(args.family, args.bridge_sha), flush=True)
+        print(check_smoke(args.family, args.bridge_sha, order=order, verify=verify), flush=True)
     else:
-        run(args.family, args.bridge_sha, args.smoke)
+        run(args.family, args.bridge_sha, args.smoke, order=order, verify=verify)
+
+
+if __name__ == "__main__":
+    main()

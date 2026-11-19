@@ -109,8 +109,8 @@ def qualified_zero(zero_sha, order=ORDER, path=ZERO, source=ZERO_SOURCE):
 
 
 def predict(zero_sha, matrix, matrix_sha, bridge_sha, *, order=ORDER, pins=PINS, zero=ZERO,
-            zero_source=ZERO_SOURCE, rest_seeds=9, verify=authenticate):
-    qualified_zero(zero_sha, order, zero, zero_source)
+            zero_source=ZERO_SOURCE, rest_seeds=9, verify=authenticate, verify_zero=qualified_zero):
+    verify_zero(zero_sha, order, zero, zero_source)
     evidence = verify(pin, bridge_sha)
     raw, gate, provenance, expected = pinned_control(order)
     for path, digest in pins.items():
@@ -181,7 +181,8 @@ def predict(zero_sha, matrix, matrix_sha, bridge_sha, *, order=ORDER, pins=PINS,
                   terminal=proofs_tail, active_seed0_deltas=activity)
 
 
-def score(*, order=ORDER, zero=ZERO, zero_source=ZERO_SOURCE, bridge=BRIDGE, verify=authenticate):
+def score(*, order=ORDER, zero=ZERO, zero_source=ZERO_SOURCE, bridge=BRIDGE,
+          verify=authenticate, verify_zero=qualified_zero):
     path = HERE / f"matched_{order}.json"
     receipt = json.loads(path.read_text())
     if (not receipt["complete"] or receipt["order"] != order or receipt["held_labels_opened"] or receipt["scored"]
@@ -191,7 +192,7 @@ def score(*, order=ORDER, zero=ZERO, zero_source=ZERO_SOURCE, bridge=BRIDGE, ver
             or any(t["exact_interleaved_prefix_checks"] != 3 or min(t["count_affected_prefix_rows"]) <= 0
                    for t in receipt["terminal"].values())):
         raise ValueError("unqualified sealed decisions")
-    qualified_zero(receipt["archive_zero"], order, zero, zero_source)
+    verify_zero(receipt["archive_zero"], order, zero, zero_source)
     evidence = verify(pin, receipt["bridge"])
     if receipt["legacy_fb_controls"] != evidence["legacy_fb_controls"]:
         raise ValueError("sealed legacy FB control proofs differ")

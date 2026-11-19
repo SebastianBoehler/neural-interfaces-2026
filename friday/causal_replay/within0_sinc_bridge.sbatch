@@ -21,5 +21,6 @@ python="$BASE/neural-interfaces-2026/.venv/bin/python"
 case "${1:-within0}" in
     within0) exec "$python" -B within0_sinc_bridge.py ;;
     runs0) exec "$python" -B runs0_bridge.py ;;
+    full0) exec "$python" -B full0_common_bridge.py ;;
     *) exit 2 ;;
 esac
