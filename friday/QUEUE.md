@@ -389,3 +389,7 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F31 independent held smoke `3134427` passed in 35 seconds. Source `511624` released and began two fits at 06:57:37 CET. Current estimated complete held scoring is 07:06–07:10 CET if two H100 slots stay available. No source wall limits changed.
 
 - F31 completed through immutable scorer-only Galvani recovery `3134521` at 07:09:01 CET. Initial collector `3134429` sealed all held decisions before opening labels, then stopped during JSON serialization. The retry restored the original scheme weighting and verified the same signed source and predictions. Both registered held endpoints remain undecided. [Signed result and recovery](fbc323_order/result-19nov.md)
+
+### Optimized stock-protected archive
+
+- Direct F-C21gpack CPU check matched all 151 classes and every tracked posterior exactly, including 30 real CSP fusions on unrecognized G. Clean RTX ZIP smoke `3134547` and combined native conformance `3134548/3134549` with dependent timing `3134550` are separate. [Archive receipts](cap250_gate_package/README.md)

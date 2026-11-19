@@ -18,3 +18,9 @@ python friday/cap250_gate_package/build_gate.py \
 | CPU receipt with interleaved peer | `8358ee83c53c0e12c50d5b99161678f78520f06096069e35ca5eee9d29d37eb4` |
 
 [Measured source](../cap250c21_gate/native/README.md) · [Cross-cohort accuracy](../cap250c21s/result-19nov.md)
+
+## Optimized archive
+
+The covariance-sharing, stock-protected archive rebuilt byte-for-byte with SHA-256 `cf4a8deee46a25e59c2bb664bb0761254a6368467ac3eee5dff6c0bb572e447f`. Its exact CPU run matched all 151 decisions and every checked complete stock, selected and pre-retirement alternate vector across P10 and G. It shared 10/120 covariances, performed 0/200 original optimizer steps, exercised five alternate CSP refits and 30 active fusions on G, and passed the interleaved reset tests. Receipt `541bd2d59bae64cc63258d8d7df380728a2ee4bc1c3d6a35267d03e62e5a2f92`.
+
+Clean RTX direct archive worker `3134547` uses the unchanged ZIP. Its locked source and input manifest is `f9ef151c8934f6721b650cde5050ec0c99f1709696f1d1df385c57bd9ad990b7`. Combined native smoke `3134548/3134549` and warm timing `3134550` are separate. The optimized archive is an experimental candidate under qualification.
