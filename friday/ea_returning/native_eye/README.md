@@ -24,3 +24,18 @@ All six full source fits completed by 03:46:28 CET, with 2,160 real updates per 
 | P10 visit 2, 31 rows | 6.905282 | 0.0185562 | 0 | 28 and 20 |
 
 Native smoke receipts `d2e8c1cc2dc20ca26ea0b7f71b135add256cc9274760b1d9b346f1b152ed2bd7` and `62e65e3a0f550eea12cd824833fc053bd64a26d7df957c54abc0f08b77b5012c`. All decision counts above precede scoring.
+
+## Complete returning result · 19 November 04:02 CET
+
+FULL-SYSTEM DEV, conditional native returning full0, 762 windows and eight official cells.
+
+| Scope | Production Eye | Source-fold Eye | Source-fold minus production and paired 80% interval |
+| --- | ---: | ---: | ---: |
+| P04 | 85.42899% | 81.76635% | −3.66263 pp [−4.70430, −2.62097] |
+| P10 | 94.52459% | 91.90880% | −2.61579 pp [−2.63692, −2.59466] |
+| Equal official cells | 89.97679% | 86.83758% | −3.13921 pp [−4.20201, −2.09754] |
+| Returning 20/80 | 92.70547% | 89.88031% | −2.82516 pp [−3.66263, −2.57353] |
+
+The registered drop-in replacement lost accuracy on all eight cells. All 24 changed decisions were losses, with 14 on P04 and 10 on P10. The native feature path, all original decisions, routing, strict-past refits, and untouched probabilities passed the exact checks. The held score uses two reused people and deliberately retains the old Eye and gallery calibration, and remaining production layers. The experiment cannot attribute the full loss to training exposure alone. A recalibrated Eye system was outside this comparison.
+
+Galvani `3133787` sealed all four visits at 04:02:15 CET. The separate gold job `3133788` finished at 04:02:36 CET. Read-only blind receipt `72a61b58fed3c646188c2ea418607627baf2dff64635d16456deb266efff594a`, prediction bank `772ac809a05421670026fcc48e249d13475fa7c21da554046fa07a7adb754d7b`, score `63a44211d7e8b45780970c8e7e1b79f9eddcb4f991b01c05149a09bcb528168c`.
