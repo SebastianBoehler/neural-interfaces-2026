@@ -155,3 +155,16 @@ were exact on 120 windows, including ten Adam refits and 30 CSP fusions. Maximum
 stock-repeat drift was 2.82433e−5 and candidate upstream drift was 3.15341e−5. The 25-row reset
 and batch prefix and the complete same-trajectory D-c emission check passed. The off archive
 matches the signed stock archive byte-for-byte.
+
+**Scherer FULL-SYSTEM EXTERNAL, completed.** Leonardo jobs **64848178/64848179/64848180**
+finished successfully, including all 72 person-order shards. Across nine people, 18 cells and
+eight fresh full-session orders, D-c scored **48.184% vs 48.366%**, **−0.183 pp**
+(people/order 80% −0.427,+0.065 and 95% −0.559,+0.226). It fixed 281 decisions and regressed
+310. Order deltas were +0.026, −0.152, −0.390, +0.284, −0.774, +0.073, −0.291 and −0.238 pp.
+The on-cluster and Mac readback result files matched byte-for-byte, SHA-256
+`6cfc8f66abceaf8f9963226307c98d8cd4aa2bc6203077f9f91cd894c8900d30`. The blind shard manifest
+SHA-256 is `09b86d3d913aa469a233cbd0e0ebe834b166aa98eda9b4e20bee88d523c572f0`.
+D-c did not reproduce the full0 gain on Scherer. Its external direction remains undecided
+under the registered interval rule. Keep D-a/D-b stopped under the preregistered full0 gate.
+An authenticated independent teacher is the next test of refit value. No corrected fresh
+held-new full orders or RTX conformance result were available for this lane.
