@@ -1,4 +1,4 @@
-"""Generate opaque all-source hard, detached and joint RTX pupil banks."""
+"""Generate opaque all-source hard, detached and joint CPU pupil banks."""
 import argparse
 import copy
 import json
@@ -18,7 +18,7 @@ def session(templates, eeg, rows):
     with torch.jit.optimized_execution(False):
         assert all(a.reset().item() == 0 for a in poses)
         for row in rows:
-            x = eeg[int(row):int(row)+1].to("cuda:0").contiguous()
+            x = eeg[int(row):int(row)+1].contiguous()
             y = [p(x) for p in poses]
             assert all(q.shape == (1, 3) and q.dtype == torch.float64 for q in y)
             data.append(np.stack(tuple(q.cpu().numpy()[0] for q in y)))
@@ -32,12 +32,13 @@ def session(templates, eeg, rows):
 def run(mode, index):
     assert torch.__version__ == "2.14.1+cu130" and "RTX 2080 Ti" in torch.cuda.get_device_name()
     lock = actor_lock("actors.json")
+    assert lock["device"] == "cpu" and len(lock["export_receipts"]) == 2
     templates = []
     for kind in EXPORTS:
         for seed, pinned in enumerate(lock["actors"][kind]):
             path = Path("/actors") / kind / f"raw_s1c_s{seed}.pt"
             assert sha(path) == pinned
-            templates.append(torch.jit.load(str(path), map_location="cuda:0").eval())
+            templates.append(torch.jit.load(str(path), map_location="cpu").eval())
     choices, _, _, who, _ = chosen(mode, index)
     result = {}
     keys = list(choices)
