@@ -108,7 +108,8 @@ def main(order, smoke):
             return set(people[ix]) == {"Dreyer2026Proteus/P01"} and set(visits[ix]) == {"1"}
 
         p01 = next(s for s in whole if is_p01(s))
-        other = next(s for s in whole if s != p01)
+        latched = count.latch(order)
+        other = next(s for s in whole if s != p01 and latched[s] is not None and latched[s] < 120)
         proof_sessions = (p01, other, p01)
         selection = (p01, other) if smoke else whole
         rows, stages, choices, work = observe(ctx, selection)
