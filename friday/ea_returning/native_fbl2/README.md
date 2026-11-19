@@ -15,6 +15,8 @@ Native `ni26_friday_return_fbl2_native_v2_20261119` source `cae74104dce81e0635fd
 
 Initial smoke `3134265` stopped on stock before treatment. The archived caller provides a deep-copied trace, so the v1 observer compared two different arrays by object identity. V2 checks object identity on the original live trace and exact values on the archived copy. All registered numeric and path tests still apply.
 
+Both genuine 31-window smokes passed by 06:15:47 CET. P04 and P10 max outer mix movement was 0.022224 and 0.024867. Max terminal movement was 0.059409 and 0.024278. The recognized head-adjusted mix moved 0.004749 and 0.000147 from the original 1/16 share on 20 and two positive-ramp rows. P10 kept the actual 20 optimizer steps and eight warm emissions at ages 20–27. Its adapted family moved 0.163686, shifting the added contribution by 0.009629 versus a frozen-only addition. Both smoke decision vectors were identical. P04’s 17-window and P10’s 29-window independent prefixes were exact. Smoke receipt SHA-256 values are `ab939dc57c26c98bc87f991c8cb7c65e040610088ffdf54f3bf7e2152e17d5f1` and `35e2888b0563efd0ff2c77e34955eb4b8e078f8815ba0577a1276878ee1c1359`.
+
 ```bash
 ssh mlcloud-galvani 'sacct -X -j 3134271,3134272,3134273,3134274 -o JobID,State,Elapsed,Start,End,NodeList'
 ```
