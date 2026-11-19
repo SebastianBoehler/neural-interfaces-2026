@@ -20,3 +20,8 @@ PINS = {
     ROUTE: ROUTE_SHA,
     FEAT: FEATURE,
 }
+
+FBL = MEANS / "runs0_fbl_v1"
+FBL_SOURCE = "a433c3fdde4dd31c6da60722479e5903c936161dc3eb63dd87473dbafc7ca528"
+ZERO = MEANS / "runs0_zero_v1/zero.json"
+ZERO_SOURCE = "87aa4dc5a4c432c50167a51086c0d54f3559a8ad4d7e4beb4b944517ce24f1d0"

@@ -17,4 +17,9 @@ sha256sum --quiet -c source.sha256
     sha256sum --quiet -c "$HERE/recognition.sha256"
 )
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
-exec "$BASE/neural-interfaces-2026/.venv/bin/python" -B within0_sinc_bridge.py
+python="$BASE/neural-interfaces-2026/.venv/bin/python"
+case "${1:-within0}" in
+    within0) exec "$python" -B within0_sinc_bridge.py ;;
+    runs0) exec "$python" -B runs0_bridge.py ;;
+    *) exit 2 ;;
+esac
