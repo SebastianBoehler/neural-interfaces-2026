@@ -121,12 +121,18 @@ def stream(template,x,rows,suppressed=False):
             gate.tau = 1e6
     monitor = Adapter(model,"stock",())
     tap = SourceTap(model)
-    labels, upstream, recognition = [], [], []
+    labels, upstream, recognition, protected = [], [], [], []
     for r in rows:
         p = model.predict(x[int(r):int(r)+1].to("cuda:0"))
         assert p.shape == (1,) and p.device.type == "cpu" and p.dtype == torch.int64
         labels.append(int(p[0]))
-        upstream.append(int(model.trace["out_v5"].argmax()))
+        t = model.trace
+        v = t["v6"]
+        np.testing.assert_array_equal(v["mix6"],tap.operands[-1][0])
+        protected.append(dict(mix=t["mix"].copy(),shadow=t["shadow"].copy(),core=t["core1"].copy(),
+                              tangent=t["u"].copy(),eye=np.array(v["extra"]),rest=np.array(v["rest"]),
+                              members=np.stack([v["members"][k] for k in sorted(v["members"])])))
+        upstream.append(int(t["out_v5"].argmax()))
         recognition.append(bool(model.recB))
     work = replay.activity(model)
     assert work["windows"] == len(rows) == len(tap.events) == len(tap.operands) == len(tap.stages)
@@ -152,7 +158,8 @@ def stream(template,x,rows,suppressed=False):
                 input_threshold=original_threshold,active_threshold=[g.tau for g in gates],
                 actual_refit_ages=[r["age"] for r in monitor.refits],
                 refit_receipt=hashlib.sha256(json.dumps(monitor.refits,sort_keys=True).encode()).hexdigest())
-    return dict(a, rows=rows, age=np.arange(len(rows)), weights=tap.weights, rest=np.array(tap.rest),
+    frozen_inputs = {f"protected_{k}":np.stack([r[k] for r in protected]) for k in protected[0]}
+    return dict(a, **frozen_inputs, rows=rows, age=np.arange(len(rows)), weights=tap.weights, rest=np.array(tap.rest),
                 stages=stages, stock_class=np.array(labels), upstream_class=np.array(upstream),
                 recognized=np.array(recognition)), info, tap.events[:17]
 
