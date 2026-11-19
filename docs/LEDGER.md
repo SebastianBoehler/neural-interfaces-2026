@@ -1245,3 +1245,5 @@ Registered before any new derived predictions. F32x joint motor supervision chan
 ## F25e · Prepare matched native modulation artifacts from all public PROTEUS
 
 The [F25e source and export protocol](../friday/fbc323_modulation_external/prereg-19nov.md) fixes original F25 operators, all-PROTEUS F16e recipe and a separately matched Galvani A100 group. Require exact same-device hard and source-only CPU streaming qualification. No Scherer exposure or external inference in this lane.
+
+**F-C25d completed at 08:54:40 CET.** Hard waveform plus FBLight gained +0.574/+0.553 pp against exact stock, and +0.190/+0.065 pp against FBLight alone with paired intervals crossing zero. Full0 interaction −0.266 pp [paired 80% −0.620,−0.008]. The label-aware two-parent ceiling was +1.440/+2.247 pp. All bitwise parent, strict-past and sealed scoring checks passed. [Held-new receipts](../friday/cap250_f32_cross/README.md#corrected-held-new-result)
