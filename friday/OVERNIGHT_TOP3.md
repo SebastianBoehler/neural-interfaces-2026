@@ -26,11 +26,11 @@ D1 found a +2.285 pp label-aware rescue ceiling in its fixed external banks. The
 
 | Question | Execution | What a result can change |
 |---|---|---|
-| F-C19. Can each branch's spatial model identify when the stock fine-tuned branch should defer to the frozen one? | Real Galvani P01 `full0` smoke `3133786`. It gates the full comparison with a fixed blend and a previous-window control. | A result above both controls on held participants justifies actual package transfer. The separate label-aware ceiling bounds the opportunity in these branches. |
-| D-EArE. How much do the production Eye traces influence returning predictions when the later visits were absent from the Eye fit? | Galvani smokes `3133765`, six-fit array `3133766`, native smokes `3133784`, four complete visits `3133785`. | Tests conditional fit provenance for P04 and P10 separately. The two folds retain their own first visits. The upstream calibration still has historical exposure. |
+| F-C19. Can each branch's spatial model identify when the stock fine-tuned branch should defer to the frozen one? | Real Galvani P01 `full0` smoke `3133786`. It gates the full comparison with a fixed blend and a previous-window control. | Positive paired bounds over stock and the previous-window control can justify a new exact-worker test. The separate label-aware ceiling bounds the opportunity in these branches. |
+| D-EArE. How much do the production Eye traces influence returning predictions when the later visits were absent from the Eye fit? | Galvani smokes `3133765`, six-fit array `3133766`, native smokes `3133784`, four complete visits `3133785`, blind seal `3133787`, separate scorer `3133788`. | Tests conditional fit provenance for P04 and P10 separately. The two folds retain their own first visits. The upstream calibration still has historical exposure. |
 | F24. Does agreement across normalization contexts improve the current raw waveform model? | Galvani source-only canary `3133783` passed. Ferranti `511409` is waiting for H100, with a first Slurm estimate of 04:58 CET. The source array `511410` and held replays `3133772–3133774` follow authenticated smokes. | Measures the whole raw decoder on unseen people. Any gain would need a separate test inside cap250 for the Friday decision. |
 
-Leonardo rejected the current key on the configured entry point. Ferranti and Galvani are authorized and running the registered job graphs. The position snapshot and all follow-up deadlines use CET. [Job details](QUEUE.md) · [F24 protocol](fbc323_calibration/prereg-19nov.md)
+Leonardo rejected the current key on the configured entry point. Galvani fits are running and the registered Ferranti jobs are queued. The position snapshot and all follow-up deadlines use CET. [Job details](QUEUE.md) · [F24 protocol](fbc323_calibration/prereg-19nov.md)
 
 ## Selection
 
