@@ -11,3 +11,5 @@ The real one-epoch smoke `3133159` completed 54 AdamW updates. Actual fitted arc
 | `3133169` | Native 31-window P10 visit-2 label-blind comparison in `ni26_friday_return_rest_native_v1_20261119`, source `5bfbfc5f…5b2b`. The native job authenticates the three fit receipts and common prior before comparing. |
 
 The native smoke compares one slot replacement in the conditional causal-EA worker on the same real full0 delivery. The remaining production-derived layers include Eye, Core2, other classical layers, event priors and historical gallery calibration. This smoke supplies activation and exact causal checks without a held score.
+
+Native job `3133169` passed package initialization and stopped before either held prefix. The original archived worker supplies the exact answer tape but predates the optional observer argument. The retry uses the pinned observer-capable worker that passed D-EArH. It retains the exact D-EArN posterior anchors, trained fits and registered checks.
