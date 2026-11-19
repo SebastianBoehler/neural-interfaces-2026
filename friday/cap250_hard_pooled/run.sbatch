@@ -14,6 +14,7 @@ mode=${1:?}
 case "$mode" in
   old) release=$base/ni26_friday_f32x_external_cpu_v2_20261119 ;;
   new) release=$base/ni26_friday_c25_external_v1_20261119 ;;
+  balance) release=$base/ni26_friday_f35x_external_v1_20261119 ;;
   score) release=$base/ni26_friday_c25_external_v1_20261119 ;;
   *) exit 2 ;;
 esac

@@ -1401,6 +1401,12 @@ Prediction in percentage points for outer raw balance minus hard: +0.10 within0 
 
 **F35d receipt correction.** V1 completed on the exact original banks and wrote their proof hashes and per-stage decision-change counts before opening gold. It omitted the prespecified hashes of the derived row-aligned class tables. V2 seals each table as a little-endian int64 matrix digest before rescoring the same banks. This is a receipt correction after the v1 readout, with no changes in decisions, score method or conditions.
 
+**F35x completed at 10:27:32 CET.** On two fresh Scherer deliveries balance tied matched A100 hard, +0.000 pp [paired 80% −0.146,+0.155]. It changed +0.162 pp vs stock and −0.093 pp vs both mirror and fixed H100 hard, all undecided. Fixed H100 hard vs stock +0.255 [−0.046,+0.579]. All native and independent seal checks passed. No promotion. [Signed full-system external result](../friday/cap250_balance_external/README.md#full-system-rtx-external-result--19-november-102732-cet)
+
+## F-C20p2 · Add the exact same hard CPU reference from F35x
+
+Retrospective repeatability analysis after the three assay means were known, before reauthenticating pooled per-person scores. Append F35x's two fixed H100 hard vs exact-stock arms to the existing four shared-input native RTX orders. Require identical two hard actor SHA-256 values and the same source export receipts across the three banks. Reassemble untouched stock and matching hard choices from existing before-label seals using each original scorer. Capture all 18 official cells in each order. Estimate the known equal-order point of +0.220 pp with a new paired people/visit/order 80% interval and leave-one-person sensitivity. Unsupported if the newly pooled interval includes zero or any order differs from its signed point. Exact direct-archive independent executions and the earlier separately qualified hard runs are separate instruments. No new inference, fitting, promotion or upload.
+
 
 ## F-C31a · Capture the actual source contribution at the native 5/6 mixer
 
