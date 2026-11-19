@@ -18,3 +18,20 @@ ssh mlcloud-galvani 'sacct -X -j 3133808,3133809,3133815,3133834,3133835,3133846
 ```
 
 Both genuine native 31-window smokes passed at 04:34:01 and 04:34:51 CET. The gate enabled the P04 calibration on 20 windows from age 10 and the P10 calibration on two windows from age 28. Native model logits and independent blend arithmetic matched exactly. The largest Eye log-evidence changes were 4.229824 and 2.179229. The largest terminal probability changes were 0.0142520 and 0.00075418. Both before-recognition sequences and both interleaved resets were bitwise exact. P10 retained all 20 native warm optimizer steps. Receipts `00d7191362fb6303432eeca2372839f8b7b3b784d5347dd0bab2adb88fa382ef` and `75f7e63faa73c40fa3f5064a48ec676cf9559794280e41f0f9d9b4ff5ed5bda7`. These smokes opened no held labels.
+
+## Complete returning result · 19 November 04:51 CET
+
+FULL-SYSTEM DEV on both later visits of two reused returning participants. Each value below uses the same source-only 1,512-row Eye ensemble for both columns.
+
+| Scope | Source-only Eye | Calibrated Eye | Calibrated minus source-only and paired 80% interval |
+| --- | ---: | ---: | ---: |
+| P04 | 80.43011% | 80.95094% | +0.52083 pp [+0.26042, +0.78125] |
+| P10 | 91.90880% | 91.63998% | −0.26882 pp [−0.40323, −0.13441] |
+| Equal official cells | 86.16945% | 86.29546% | +0.12601 pp [−0.26882, +0.52083] |
+| Returning 20/80 | 89.61306% | 89.50218% | −0.11089 pp [−0.40323, +0.26042] |
+
+Calibration rescued two P04 decisions and lost one P10 decision. Both aggregate paired intervals cross zero. Calibration reached 702 of 762 rows through the real native route, the unchanged recognition identities selected both heads correctly, and all four visits passed exact before-recognition, optimizer, inner and outer mixture, and session-prefix checks.
+
+The calibrated variant trailed the original production Eye by 3.68133 pp on equal cells [−4.73964, −2.72907] and by 3.20329 pp under 20/80 [−4.42857, −2.72907]. The original Eye's training included these held visits. The comparison isolates the calibrated versus unchanged source-only actor, while the production comparison measures different Eye training exposure and fitted weights. All arms retain the original outer EM and historical gallery calibration plus the other production-derived layers.
+
+Job `3133846` sealed all complete predictions at 04:51:37 CET, before separate metric job `3133847` completed at 04:51:49 CET. The read-only blind receipt, prediction bank and score hashes are `a576694f35447b5c0e37639673e582b740ba34b806246ff3daf808d2029bc3e7`, `fbf7b5f52cf32327def9a8aaee9a02465e9bad224ea2cc1c10b2d1f9b2cc61fa`, and `54c7b7dfdf3488dce061fdbd526e6237c0e04d4f689e44770789f5c420abcde0`.
