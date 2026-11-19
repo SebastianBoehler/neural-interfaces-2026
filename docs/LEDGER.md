@@ -1399,6 +1399,8 @@ Retrospective, registered after viewing the F35 standalone and complete terminal
 
 Prediction in percentage points for outer raw balance minus hard: +0.10 within0 [−0.29,+0.49] and +0.25 full0 [−0.10,+0.60]. Expect terminal minus outer raw contrast −0.37 within0 [−0.72,−0.02] and −0.10 full0 [−0.40,+0.20]. The specific attenuation hypothesis is weakened if outer raw within0 is already ≤−0.20 pp or if the paired interval for terminal minus outer raw includes zero. Decompose CountFilter and CSP contributions descriptively. This reuses selected people and derives stage readouts from complete live executions. A stage delta attributes where class decisions change, with earlier trajectory effects carried through each stage.
 
+**F35d receipt correction.** V1 completed on the exact original banks and wrote their proof hashes and per-stage decision-change counts before opening gold. It omitted the prespecified hashes of the derived row-aligned class tables. V2 seals each table as a little-endian int64 matrix digest before rescoring the same banks. This is a receipt correction after the v1 readout, with no changes in decisions, score method or conditions.
+
 
 ## F-C31a · Capture the actual source contribution at the native 5/6 mixer
 

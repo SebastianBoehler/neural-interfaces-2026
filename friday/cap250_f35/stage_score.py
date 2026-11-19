@@ -1,6 +1,7 @@
 """Read the raw, count-filtered and CSP scores from the signed F35c paths."""
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -63,6 +64,9 @@ def main():
     blind = output / ("smoke.json" if args.smoke else "before-labels.json")
     write_receipt(blind, source=sha(Path(__file__)), parent=BLIND,
                   proofs={order: proof for order, (_, proof) in staged.items()},
+                  decisions={order: {stage: hashlib.sha256(a.astype("<i8").tobytes()).hexdigest()
+                                     for stage, a in decisions.items()}
+                             for order, (decisions, _) in staged.items()},
                   changes={order: {stage: (a[:, 2:] != a[:, [1]]).sum(0).tolist()
                                    for stage, a in decisions.items()}
                            for order, (decisions, _) in staged.items()},
