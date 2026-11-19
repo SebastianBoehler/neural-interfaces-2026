@@ -1,4 +1,7 @@
 """One REVE-Base encoder with a masked task head and motor-subtype supervision."""
+import json
+import struct
+
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -8,16 +11,30 @@ from oracle import require, sha
 BLOB = "8ecc650619598748286c2457f81f5c6bd12e8bb59db44f7b02af1955c44de8fe"
 
 
+def checkpoint_tensors(path):
+    # The pinned §280 REVE export contains float32 tensors exclusively.
+    with path.open("rb") as fd:
+        header_size, = struct.unpack("<Q", fd.read(8))
+        header = json.loads(fd.read(header_size))
+        data = memoryview(fd.read())
+    tensors = {}
+    for name, descriptor in header.items():
+        if name == "__metadata__" or name.startswith("final_layer."):
+            continue
+        require(descriptor["dtype"] == "F32", f"unsupported checkpoint tensor type: {name}")
+        start, stop = descriptor["data_offsets"]
+        tensors[name] = torch.frombuffer(bytearray(data[start:stop]), dtype=torch.float32).reshape(descriptor["shape"])
+    return tensors
+
+
 class Member(nn.Module):
     def __init__(self, checkpoint):
         super().__init__()
         from braindecode.models import REVE
-        from safetensors.torch import load_file
 
         require(sha(checkpoint) == BLOB, "REVE base checkpoint differs from §280")
         self.body = REVE(n_outputs=4, n_chans=41, n_times=800, sfreq=200, attention_pooling=True)
-        tensors = {k: v for k, v in load_file(str(checkpoint)).items() if not k.startswith("final_layer.")}
-        load = self.body.load_state_dict(tensors, strict=False)
+        load = self.body.load_state_dict(checkpoint_tensors(checkpoint), strict=False)
         require(not load.unexpected_keys and all(k.startswith("final_layer.") for k in load.missing_keys),
                 f"incomplete REVE load: {load}")
         self.motor = nn.Linear(self.body.embed_dim, 5)

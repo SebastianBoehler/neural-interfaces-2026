@@ -1,13 +1,13 @@
 """Source-locked training rows and causal input alignment for the D1 REVE experiment."""
-import csv
-import gzip
-
 import numpy as np
 
 from oracle import DATA_SHA, ORDER_SHA, require, sha
 
 PEOPLE = ("P02", "P05", "P08", "P10")
 ALL = tuple(f"P{i:02}" for i in range(1, 11))
+FULL_ARMS = "BC"
+FULL_SEEDS = 3
+FULL_ROLES = (*ALL, "returning", "all")
 TRAIN_ORDERS = ("full0", "full1")
 FULL_ORDERS = tuple(f"full{i}" for i in range(8))
 EXTERNAL = {
@@ -83,18 +83,8 @@ def public(root, held, full=False):
     return trained, labels, train, query, queries, names, prior
 
 
-def verify_scherer(root, archive):
-    source = root / "runs/diag/external_semantics351/scherer_rows.tsv.gz"
-    with gzip.open(source, "rt") as f:
-        rows = list(csv.DictReader(f, delimiter="\t"))
-    np.testing.assert_array_equal([int(r["row"]) for r in rows], np.arange(len(archive["y"])))
-    np.testing.assert_array_equal([int(r["export_class"]) for r in rows], archive["y"])
-    np.testing.assert_array_equal(["Scherer2015/" + r["person"] for r in rows], archive["subject"])
-    np.testing.assert_array_equal([r["session"] for r in rows], archive["session"])
-    raw = np.array([int(r["raw_class"]) for r in rows])
-    require(set(raw) == {1, 2, 4}, "Scherer must contain only WORD, SUB and HAND")
-    expected = np.select([raw == 4, raw == 2, raw == 1], [0, 1, 2], default=-1)
-    np.testing.assert_array_equal(expected, archive["y"])
+# The Galvani §351 manifest verified all original raw-to-export labels: HAND 0, SUB 1, WORD 2.
+SCHERER_EXPORT = "a6188799753276451235678d08e92fd79162a95ec8099dbbb85e2ed9e2701e91"
 
 
 def external_source(root, corpus, canary=False):
@@ -110,7 +100,10 @@ def external_source(root, corpus, canary=False):
     waves, labels, subtypes, domains, pins = [], [], [], [], {}
     montages = set()
     for path in files:
-        pins[str(path.relative_to(root))] = sha(path)
+        digest = sha(path)
+        pins[str(path.relative_to(root))] = digest
+        if corpus == "scherer2015":
+            require(digest == SCHERER_EXPORT, "Scherer export must match the verified HAND/SUB/WORD bank")
         with np.load(path, allow_pickle=False) as z:
             encoded_tasks, encoded_subtypes = task_map, subtype_map
             if expected is not None:
@@ -127,8 +120,6 @@ def external_source(root, corpus, canary=False):
             montages.add(tuple(available))
             col = [z["ch_names"].tolist().index(c) for c in available]
             eligible = np.ones(len(y), bool)
-            if corpus == "scherer2015":
-                verify_scherer(root, z)
             if corpus == "shin2018":
                 eligible = z["win"] == 0
             selected = []

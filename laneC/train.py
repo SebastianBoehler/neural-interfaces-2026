@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from data import ALL, EXTERNAL, PEOPLE, external_source, public
+from data import EXTERNAL, FULL_ARMS, FULL_ROLES, FULL_SEEDS, PEOPLE, external_source, public
 from model import Member, augment, masked_ce
 from oracle import require, sha
 
@@ -149,7 +149,8 @@ def main():
         arm, seed = "BC"[args.task // 2], args.task % 2
         stage_a(args, arm, seed, False)
     elif args.mode == "external-full":
-        stage_a(args, "B", args.task, False)
+        arm, seed = divmod(args.task, FULL_SEEDS)
+        stage_a(args, FULL_ARMS[arm], seed, False)
     elif args.mode == "proteus":
         if args.task == 24:
             stage_b(args, "B", 0, "returning")
@@ -158,8 +159,9 @@ def main():
             seed, person = divmod(i, 4)
             stage_b(args, "ABC"[arm], seed, PEOPLE[person])
     else:
-        seed, i = divmod(args.task, 12)
-        stage_b(args, "B", seed, (*ALL, "returning", "all")[i], full=True)
+        task, person = divmod(args.task, len(FULL_ROLES))
+        arm, seed = divmod(task, FULL_SEEDS)
+        stage_b(args, FULL_ARMS[arm], seed, FULL_ROLES[person], full=True)
     print("elapsed_s", round(time.perf_counter() - start, 2), flush=True)
 
 
