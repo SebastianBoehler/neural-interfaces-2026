@@ -1,5 +1,6 @@
 """Seal F31 blind held decisions and report the original whole-decoder metric."""
 import json
+from pathlib import Path
 
 import numpy as np
 
@@ -10,6 +11,8 @@ from replay_f13 import DATA, ORDER_SHA, ORDERS, ROOT, origin_report
 from source_targets import TOL
 
 
+OUTPUT = Path(__file__).resolve().parent
+BLIND_V1 = "a40d5e40ec256384aad788d6926e56e4183a048c93995918e81c37e09aa05b22"
 F16_RESULT = "e91c377bd9560d7c02f01adc9ccaa5e82b87d347927c19e17fd1d217780a803e"
 COMPARISONS = (("ordered", "hard"), ("ordered", "sham"), ("sham", "hard"))
 
@@ -54,12 +57,25 @@ def lock_decisions(subject, visit, person, streams):
     if (values < 0).any() or not clips:
         raise ValueError("full held matrix or bounded work missing")
     lock = HERE / "before_labels.sha256"
-    with lock.open("x") as out:
-        out.writelines(sorted(manifest))
+    signed = "".join(sorted(manifest))
+    if OUTPUT == HERE:
+        with lock.open("x") as out:
+            out.write(signed)
+    elif sha(lock) != BLIND_V1 or lock.read_text() != signed:
+        raise ValueError("reconstructed F31 decisions differ from the original blind seal")
     return values, sha(lock), dict(first=windows, resets=resets, active_clips=clips, prefix_max_abs=prefix)
 
 
-def statistics(values, person, streams, dataset):
+def order_schemes():
+    groups = [np.flatnonzero([order.startswith(s) for order in ORDERS])
+              for s in ("within", "full", "runs")]
+    if [len(g) for g in groups] != [4, 2, 2] or not np.array_equal(
+            np.sort(np.concatenate(groups)), np.arange(len(ORDERS))):
+        raise ValueError("pinned order groups are incomplete or overlap")
+    return groups
+
+
+def statistics(values, person, streams, dataset, by_scheme):
     import protocol
     import score_s_v66p
 
@@ -69,7 +85,6 @@ def statistics(values, person, streams, dataset):
     labels = dataset["y"]
     cells = np.char.add(np.char.add(streams, "|"), dataset["interface"])
     counts = np.asarray([len(np.unique(cells[person == p])) for p in PEOPLE])
-    by_scheme = [np.flatnonzero([o.startswith(s) for o in ORDERS]) for s in ("sham", "full", "runs")]
     ref = F16 / "whole_results.json"
     if sha(ref) != F16_RESULT:
         raise ValueError("F16 hard control results differ")
@@ -83,6 +98,8 @@ def statistics(values, person, streams, dataset):
                 "balanced_accuracy_cell_mean"] for p in decision])
             np.testing.assert_allclose(np.average(across[a], weights=counts, axis=1), official, atol=1e-10, rtol=0)
             accuracy[a] = float(np.mean([official[g].mean() for g in by_scheme]))
+            if not np.isfinite(accuracy[a]):
+                raise ValueError(f"nonfinite official summary for {a}")
         for mode in MODES:
             key = f"hard_{mode}"
             if abs(accuracy[key] - original[str(seed)]["absolute"][key]) > 1e-10:
@@ -105,6 +122,7 @@ def statistics(values, person, streams, dataset):
 def run():
     import protocol
 
+    by_scheme = order_schemes()
     origin_report()
     with np.load(DATA, allow_pickle=False) as z:
         subject, visit = z["subject"], z["session"]
@@ -124,13 +142,15 @@ def run():
             folds[held]={k:{field:m[field] for field in keys} for k,(_,m) in checked.items() if k!="hard"}
         means={k:{f:float(np.mean([v[k][f] for v in folds.values()])) for f in keys} for k in ("ordered","sham")}
         diagnostic[str(seed)] = dict(folds=folds, means=means)
-    scores, outcome = statistics(values, person, streams, d)
-    path = HERE / "whole_results.json"
+    scores, outcome = statistics(values, person, streams, d, by_scheme)
+    decision_scorer = sha(HERE / "score.sha256")
+    scorer = decision_scorer if OUTPUT == HERE else sha(OUTPUT / "recovery.sha256")
+    result = dict(scope="held-new WHOLE DEV", actor=ACTOR, scorer=scorer, decision_scorer=decision_scorer,
+                  before_labels=seal, f16=F16_RESULT, guards=guards, source_order=diagnostic, seeds=scores, outcome=outcome)
+    rendered = json.dumps(result, sort_keys=True, indent=2, allow_nan=False)
+    path = OUTPUT / "whole_results.json"
     with path.open("x") as out:
-        json.dump(dict(scope="held-new WHOLE DEV", actor=ACTOR, scorer=sha(HERE / "score.sha256"),
-                       before_labels=seal, f16=F16_RESULT, guards=guards, source_order=diagnostic, seeds=scores, outcome=outcome),
-                  out, sort_keys=True, indent=2, allow_nan=False)
-        out.write("\n")
+        out.write(rendered + "\n")
     print(f"PASS F31 whole score {sha(path)}", flush=True)
 
 
