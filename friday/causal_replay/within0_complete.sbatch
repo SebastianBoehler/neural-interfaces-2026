@@ -18,4 +18,8 @@ sha256sum --quiet -c source.sha256
     sha256sum --quiet -c "$HERE/complete_terminal_inputs.sha256"
 )
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
-exec "$BASE/neural-interfaces-2026/.venv/bin/python" -B within0_complete.py "$@"
+python="$BASE/neural-interfaces-2026/.venv/bin/python"
+case "${1:?terminal mode}" in
+    runs0-zero) exec "$python" -B runs0_zero.py ;;
+    *) exec "$python" -B within0_complete.py "$@" ;;
+esac
