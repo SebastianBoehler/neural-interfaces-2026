@@ -1061,3 +1061,5 @@ Registered after F-C21g's complete banked result and before live predictions. Dr
 ## F31 · Learn label-free order on interior waveform patches
 
 Registered before fitting. The [F31 protocol](../friday/fbc323_order/prereg-19nov.md) pins genuine and sham arrow-of-time supervision, native source and unchanged held readout, explicit boundary and gain controls, and numerical predictions.
+
+**F30 completed at 06:52:39 CET.** Bounded cross minus exact hard was −0.202/+0.555 pp [paired 80% −0.783 to +0.377 / +0.072 to +1.008]. Cross minus within was +0.094/−0.080 pp [−0.273 to +0.493 / −0.469 to +0.314]. Both endpoints remain undecided across seeds. Source query loss was 0.9%/1.9% higher under cross training. Exact hard, shared source exposure and label-blind causal held guards passed. [Signed results](../friday/fbc323_episodic/result-19nov.md)

@@ -149,6 +149,15 @@ LAYOUTS = {
             ("bounded_chronological_minus_scrambled", "Chronological readout\nvs scrambled readout"),
             ("bounded_scrambled_minus_hard", "Scrambled readout\nvs hard CE"),
         )),
+    "892022a7c6cd5dae4e8888ea596dbbce4dbf6dbf636c7cea5629fcaa93fe847f": dict(
+        title="Cross-person support did not consistently improve S1C",
+        stem="held-s1c-episodic-support", xlim=(-.99, 1.22),
+        caption="Bounded inference. Both temporary-head controls saw exactly the same source rows.",
+        contrasts=(
+            ("bounded_cross_minus_hard", "Cross-person support\nvs hard CE"),
+            ("bounded_cross_minus_within", "Cross-person support\nvs within-person"),
+            ("bounded_within_minus_hard", "Within-person support\nvs hard CE"),
+        )),
 }
 
 
