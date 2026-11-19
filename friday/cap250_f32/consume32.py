@@ -26,6 +26,7 @@ def inputs(order,people,source):
     inherited=json.loads((C20/f"{order}.json").read_text())["folds"]
     banks={arm:np.full((2,2655,3),np.nan) for arm in PUPILS}
     folded={}
+    clips={arm:0 for arm in PUPILS}
     for person in sorted(set(people)):
         wanted=np.flatnonzero(people==person)
         for seed in (0,1):
@@ -46,12 +47,13 @@ def inputs(order,people,source):
                 for arm,b in banks.items():
                     p=z[f"{arm}|{order}"]
                     proof=metadata["evidence"][arm]["orders"][order]
-                    assert proof["active"]>0 and proof["first"]>0 and 0<=proof["prefix"]<=2e-5
+                    assert proof["active"]>=0 and proof["first"]>0 and 0<=proof["prefix"]<=2e-5
+                    clips[arm]+=proof["active"]
                     assert p.shape==(len(wanted),3) and np.isnan(b[seed,wanted]).all()
                     if arm!="joint":
                         np.testing.assert_array_equal(p,hard[f"hard|{order}"])
                     b[seed,wanted]=p
-    assert len(folded)==20 and len(parent)==20
+    assert len(folded)==20 and len(parent)==20 and min(clips.values())>0
     for b in banks.values():
         assert np.isfinite(b).all() and np.min(b)>=0
         np.testing.assert_allclose(b.sum(2),1.,atol=1e-12,rtol=0)

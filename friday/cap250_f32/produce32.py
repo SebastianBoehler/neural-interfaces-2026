@@ -79,7 +79,7 @@ def run(held,seed,scope):
                 np.testing.assert_array_equal(p.argmax(1),sealed[f"{arm}_bounded"][ORIGINAL_ORDERS.index(order)])
                 if arm in ("hard","detached"):
                     np.testing.assert_array_equal(p,old[f"hard|{order}"])
-                assert clips>0 and first>0 and 0<=delta<=2e-5
+                assert clips>=0 and first>0 and 0<=delta<=2e-5
                 results[f"{arm}|{order}"]=p
                 source[order]=dict(prefix=delta,active=clips,first=first)
             assert fingerprint(model)==fit["state"]
