@@ -177,6 +177,15 @@ LAYOUTS = {
             ("bounded_joint_minus_detached", "Bounded inference\nBalanced accuracy"),
             ("bounded_joint_minus_detached:motor", "Bounded inference\nMotor imagery recall"),
         )),
+    "6090173a9a8690e1467ee703c6d0752dc1e59e982bdef8ed24cae9792f834858": dict(
+        title="Both larger waveform branches reduced held accuracy",
+        stem="held-s1c-envelope-morphology", xlim=(-12.3, 2.2),
+        caption="Bounded inference. Both added branches use 47,496 parameters and the same A100 source folds.",
+        contrasts=(
+            ("bounded_analytic_minus_hard", "Analytic envelope\nvs hard CE"),
+            ("bounded_real_power_minus_hard", "Real power\nvs hard CE"),
+            ("bounded_analytic_minus_real_power", "Analytic envelope\nvs matched real power"),
+        )),
 }
 
 
