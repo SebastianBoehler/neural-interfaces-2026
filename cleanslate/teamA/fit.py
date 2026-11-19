@@ -14,10 +14,10 @@ def sample_weights(data):
 
 
 def augment(x, mixes, rng):
-    if rng.random() < 0.8:
+    if rng.random() < 0.5:
         # One coherent virtual subject applies to all members of this batch.
         transform = mixes[rng.integers(len(mixes))]
-        x = x + rng.uniform(0.05, 0.24) * (transform @ x - x)
+        x = x + rng.uniform(0.03, 0.09) * (transform @ x - x)
     x = x * torch.empty((len(x), 1, 1), device=x.device).uniform_(0.75, 1.3)
     keep = (torch.rand((len(x), x.shape[1], 1), device=x.device) > 0.03).to(x.dtype)
     offset = int(rng.integers(-22, 23))
@@ -44,11 +44,13 @@ def fit(model, external, public, rng, device, batch, steps, epochs, transferred=
     bf16 = torch.cuda.is_bf16_supported()
     model.to(device).train()
     named = dict(model.encoder.named_parameters())
-    keys = list(named)
+    frozen = {name for name, param in named.items() if not param.requires_grad}
+    expected = {"patch_embedding.mask_encoding"} if model.arch == "cbramod" else set()
+    if frozen != expected:
+        raise RuntimeError(f"Unexpected frozen backbone weights: {frozen}")
+    # The never-masked classification path cannot update the fixed pretraining mask token.
+    keys = [name for name in named if name not in frozen]
     start = {key: named[key].detach().float().flatten()[::257].clone() for key in (keys[0], keys[-1])}
-    for param in model.encoder.parameters():
-        if not param.requires_grad:
-            raise RuntimeError("Every backbone parameter must be trainable")
 
     if transferred is not None:
         model.load_state_dict(transferred, strict=True)
