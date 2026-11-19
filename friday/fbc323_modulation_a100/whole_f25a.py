@@ -1,6 +1,7 @@
 """Consume independent A100 pupils in the original corrected cap250 native tails."""
 import argparse
 import json
+from itertools import combinations
 from pathlib import Path
 from time import perf_counter
 
@@ -10,7 +11,7 @@ from bridge_orders import write_npz, write_receipt
 from bridge_owner import pin, sha
 from complete_zero import FEAT, HASHES
 from outer_f25 import arms
-from pins import ARMS, C20, C20_ARRAYS, C20_RECEIPTS, ORDERS, PUPIL_ARMS
+from pins import C20, C20_ARRAYS, C20_RECEIPTS, ORDERS, PUPIL_ARMS
 from worker import run_tail
 
 
@@ -21,7 +22,8 @@ F25_ACTOR = "589b9a212cafdb0367f9f34bb840db5ff95c98ccfeea3bf77e268aa3ddb2e95c"
 ORDERS_SHA = "6046bf5b2231d29d28bbfcf88ea7665d4aaa506c5787bd836ebec6a5b945430f"
 
 
-def read_pupils(order, people, visit, pupil_sha, actor_sha):
+def read_pupils(order, people, visit, source):
+    pupil_sha, actor_sha = source["pupil"], source["actor"]
     pin(F33A / "before_labels.sha256", F33A_BLIND)
     independent = dict(line.split()[::-1] for line in (F33A / "before_labels.sha256").read_text().splitlines())
     frames, checks = {}, {}
@@ -69,29 +71,32 @@ def read_pupils(order, people, visit, pupil_sha, actor_sha):
     for values in bank.values():
         assert np.isfinite(values).all() and (values >= 0).all()
         np.testing.assert_allclose(values.sum(2), 1., rtol=0, atol=1e-12)
-    if any(np.array_equal(bank[a],bank[b]) for a,b in (("single","hard"),("multi","hard"),("single","multi"))):
+    if any(np.array_equal(bank[a],bank[b]) for a,b in combinations(PUPIL_ARMS,2)):
         raise ValueError("distinct trained pupil families produced a duplicate complete posterior bank")
     return dict(identity=None, **{arm:p.mean(0) for arm,p in bank.items()}), frames, checks, clips
 
 
-def run(order, smoke, manifests):
+def run(order, smoke, manifests, *, workspace=WORK, reader=read_pupils, arm_names=PUPIL_ARMS, hard_reference=None):
     started = perf_counter()
-    src = {name:sha(WORK / f"{name}.sha256") for name in manifests}
+    arm_to_native = dict(zip(arm_names, PUPIL_ARMS, strict=True))
+    paths_in_order = ("stock", "identity", *arm_names)
+    src = {name:sha(workspace / f"{name}.sha256") for name in manifests}
     if not smoke:
-        witness = json.loads((WORK / "whole-smoke.json").read_text())
+        witness = json.loads((workspace / "whole-smoke.json").read_text())
         assert witness["passed"] and witness["source"] == src and not witness["held_labels_opened"]
     pin(FEAT, HASHES[FEAT])
     with np.load(FEAT, allow_pickle=False) as data:
         people = np.array([name.split("/")[-1] for name in data["subject"]])
         visits = data["session"]
     assert len(people) == 2655 and len(set(people)) == 10
-    pupils, folds, checks, clips = read_pupils(order, people, visits, src["pupil"], src["actor"])
+    pupils, folds, checks, clips = reader(order, people, visits, src)
+    native_inputs = dict(identity=None, **{arm_to_native[k]:pupils[k] for k in arm_names})
     if not smoke:
         assert witness["folds"] == folds and witness["fit_receipts"] == checks
     active = people == "P01" if smoke else np.ones(len(people), dtype=bool)
     pin(C20 / f"{order}.json", C20_RECEIPTS[order])
     pin(C20 / f"{order}.npz", C20_ARRAYS[order])
-    with arms(order, pupils, active) as ctx, np.load(C20 / f"{order}.npz", allow_pickle=False) as prior:
+    with arms(order, native_inputs, active) as ctx, np.load(C20 / f"{order}.npz", allow_pickle=False) as prior:
         count = ctx["count"]
         sessions = tuple(count.SESS)
         rows = {s:count.C.order_rows(order,s,count.PROTO) for s in sessions}
@@ -106,39 +111,45 @@ def run(order, smoke, manifests):
         if not smoke:
             np.testing.assert_array_equal(index,ctx["delivery"])
         paths, work = {}, {}
-        for key in ARMS:
-            paths[key], work[key] = run_tail(ctx,order,ctx["raw"][key],selected,prefixes)
+        for key in paths_in_order:
+            native = arm_to_native.get(key,key)
+            paths[key], work[key] = run_tail(ctx,order,ctx["raw"][native],selected,prefixes)
+        if hard_reference is not None:
+            hard_reference(order, paths, rows[p01] if smoke else index)
         for stage, stock in paths["stock"].items():
             np.testing.assert_array_equal(stock[index],ctx["reference"][stage][index])
             np.testing.assert_array_equal(stock[index],prior["stock|"+stage][index])
             np.testing.assert_array_equal(stock[index],paths["identity"][stage][index])
             if smoke:
-                for name in PUPIL_ARMS:
+                for name in arm_names:
                     np.testing.assert_array_equal(stock[rows[peer]],paths[name][stage][rows[peer]])
         assert all(v["count_effect"] > 0 for v in work.values())
         if not smoke:
             assert all((v["csp_refits"],v["csp_fusions"]) == (126,1395) for v in work.values())
         movement = {}
-        for name in PUPIL_ARMS:
+        for name in arm_names:
             movement[name] = float(np.abs(paths[name]["terminal"][index] - paths["stock"]["terminal"][index]).max())
             assert movement[name] > 1e-4
             assert any(work[name]["csp"][str(s)]["target_sha"] != work["stock"]["csp"][str(s)]["target_sha"]
                        for s in selected)
         assert all(np.abs(paths[a]["terminal"][index] - paths[b]["terminal"][index]).max() > 1e-4
-                   for a,b in (("single","hard"),("multi","hard"),("single","multi")))
+                   for a,b in combinations(arm_names,2))
         report = dict(passed=True, scope="smoke" if smoke else "complete", order=order, source=src, parent=ctx["parent"],
                       archive_zero=ctx["zero"], rows=len(index), sessions=len(selected), work=work,
                       folds=folds, fit_receipts=checks, bounded_clips=clips, held_labels_opened=False,
                       prefixes=list(map(str,prefixes)), stock_bitwise=True, native_identity=True,
                       actual_warm_delta=True, original_shadow=True, new_csp_targets=True,
-                      outer=ctx["proof"], movement=movement, seconds=perf_counter()-started)
+                      outer={k:ctx["proof"][arm_to_native.get(k,k)] for k in ("identity", *arm_names)},
+                      movement=movement, seconds=perf_counter()-started)
+        if hard_reference is not None:
+            report["hard_reference_bitwise"] = True
         if not smoke:
             bank = dict(index=np.arange(len(index)), delivery=index,
-                        **{f"{arm}|{k}":v for arm in ARMS for k,v in paths[arm].items()})
-            report["output"] = write_npz(WORK / f"{order}.npz",bank)
-        destination = WORK / ("whole-smoke.json" if smoke else f"{order}.json")
+                        **{f"{arm}|{k}":v for arm in paths_in_order for k,v in paths[arm].items()})
+            report["output"] = write_npz(workspace / f"{order}.npz",bank)
+        destination = workspace / ("whole-smoke.json" if smoke else f"{order}.json")
         write_receipt(destination,**report)
-    print("PASS F-C22h", order, report["scope"], sha(destination), movement, flush=True)
+    print("PASS corrected cap250", workspace.name, order, report["scope"], sha(destination), movement, flush=True)
 
 
 if __name__ == "__main__":
