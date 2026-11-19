@@ -292,3 +292,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F-C18's first complete job reproduced its stage/work checks and stopped before sealing on the P0r output key. Corrected immutable chain 3133409 → 3133410 → 3133411 uses the same four arms and scoring rule.
 
 - F23 completed at 03:27:01 CET. Slurm backfilled the H100 jobs before the first estimate. All source, held and scoring jobs passed. All three preregistered effects remain undecided. [Results and receipts](fbc323_lag_jitter/result-19nov.md)
+
+### Overnight source calibration robustness F24
+
+- Ferranti real P01 smoke `511409` and held production array `511410`. Galvani independent held smoke `3133772`, 20-fold replay `3133773`, collector `3133774`. The source array releases only after both real smokes. Initial Slurm estimate for the smoke was 04:58:35 CET. Its pending wall request is two minutes, with the full exact H100 source array unchanged. Estimate roughly 6–20 minutes after authentic source array start, depending on how many H100 slots open. [Registered F24 protocol](fbc323_calibration/prereg-19nov.md)
+- Source actor SHA-256 `5c991bc11ffc3f92c09a4f2ca1cfa7b73199d5366c8dc45432ebb85830006b31`. Scorer SHA-256 `fa0ef9c9d8910eca5bcd3e097428bbb092d3a6ee125dd620ec28fa6e5d5b68f9`. Immutable release names end in `s1c_calibration_20261119`. Controller `bash friday/fbc323_calibration/run_dependencies.sh 511409 511410 3133772 3133773`. After source release, the same command with `resume` safely resumes incomplete relays.
