@@ -308,3 +308,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F-C5r timing array completed by 04:36:49 CET. Independent numerical parity passed. Deferred covariance lowered unrecognized whole-worker wall time 1.80% and 0.64%, with p95 higher in both runs. [Result](cap250c5r/result-19nov.md)
 
 - F24 completed at 04:36:40 CET. All held folds and the collector passed. The 19 normal source jobs plus the authenticated completed seed-1 P07 payload from the Slurm TIMEOUT task supplied all 80 source fits. [Results, exact controls and timeout disposition](fbc323_calibration/result-19nov.md)
+
+### Overnight multiresolution waveform modulation F25
+
+- Ferranti P01 smoke `511434` passed on H100 in 11 seconds, with 0.856 GB CUDA peak reserved. Source array `511435` waits for Galvani real held smoke `3133882`, followed by independent matched folds `3133883` and collector `3133884`. [Registered F25 protocol](fbc323_modulation/prereg-19nov.md)
+- Source actor SHA-256 `589b9a212cafdb0367f9f34bb840db5ff95c98ccfeea3bf77e268aa3ddb2e95c`. Held scorer SHA-256 `939a96514d432cedebf24a0c4500927f71401ed76117adc73fc76604453a779c`. Controller `bash friday/fbc323_modulation/run_dependencies.sh 511434 511435 3133882 3133883`. After source release, the same command with `resume` continues the checkpoint relay into the immutable `s1c_modulation_20261119` release.
