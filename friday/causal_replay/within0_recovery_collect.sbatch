@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH --account=gehler
+#SBATCH --partition=cpu-galvani,2080-preemptable-galvani
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=4G
+#SBATCH --time=00:02:00
+#SBATCH --job-name=ni26-within0-r-seal
+#SBATCH --output=warm-recovery-seal-%j.out
+set -euo pipefail
+BASE=/mnt/lustre/work/gehler/gfh527
+HERE=${SLURM_SUBMIT_DIR:?}
+cd "$HERE"
+sha256sum --quiet -c source.sha256
+(cd "$BASE" && sha256sum --quiet -c "$HERE/within0_warm_inputs.sha256")
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
+exec "$BASE/neural-interfaces-2026/.venv/bin/python" -B within0_recovery_collect.py "$@"

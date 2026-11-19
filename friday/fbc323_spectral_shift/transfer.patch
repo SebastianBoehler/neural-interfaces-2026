@@ -1,0 +1,114 @@
+--- a/phase_source.py
++++ b/phase_source.py
+@@ -11 +11 @@
+-KINDS = ("hard", "jitter", "phase")
++KINDS = ("hard", "beta", "alpha")
+--- a/produce_phase.py
++++ b/produce_phase.py
+@@ -9 +9,2 @@
+-from perturb import Feed, perturb, random_tape
++from perturb import Feed, random_tape
++from spectral_shift import perturb
+@@ -54 +55 @@
+-    jitter, phase, guards = perturb(x, directions, signs, sampled)
++    beta, alpha, guards = perturb(x, directions, signs, sampled)
+@@ -68 +69 @@
+-    for kind, alternate in zip(KINDS, (None, jitter, phase), strict=True):
++    for kind, alternate in zip(KINDS, (None, beta, alpha), strict=True):
+@@ -94 +95,2 @@
+-        publish(HERE / f"{kind}_{tag}.pt", model, dict(info, kind=kind, state=state, q_gradients_nonzero=0,
++        target = HERE / f"{kind}_{tag}.pt"
++        publish(target, model, dict(info, kind=kind, state=state, q_gradients_nonzero=0,
+@@ -96 +98,3 @@
+-    print(f"PASS F17 paired source {tag}, {replaced}/{total} matched rows, max severity error {guards['severity_delta']:.3g}", flush=True)
++        if kind == "hard" and sha(target) != ref["checkpoint"]:
++            raise ValueError("matched H100 hard checkpoint differs")
++    print(f"PASS F37 paired source {tag}, {replaced}/{total} matched rows, max severity error {guards['severity_delta']:.3g}", flush=True)
+--- a/held_phase.py
++++ b/held_phase.py
+@@ -1 +1 @@
+-"""Qualify and replay F17 on the original raw-only held F16 entry point."""
++"""Qualify and replay F37 on the original raw-only held F16 entry point."""
+@@ -16 +16 @@
+-ACTOR = "7ed98f96ba6b05165a1bc035a20af0d7dc516b9b1d61c82533abcc85ecbf2372"
++ACTOR = sha(HERE / "actor.sha256")
+@@ -22 +22 @@
+-        raise ValueError("F17 or baked F16 blind source lock differs")
++        raise ValueError("F37 or baked F16 blind source lock differs")
+@@ -39,4 +39,4 @@
+-                meta["checked_rows"] < 8 or min(meta["jitter_severity"], meta["phase_severity"]) <= 0 or
+-                not 0 < meta["max_phase_angle"] <= np.pi or not 0 <= meta["severity_delta"] <= SEVERITY_TOL or
+-                not 0 <= max(meta["spectrum_error"], meta["endpoint_error"]) <= 2e-6 or
+-                abs(meta["phase_severity"] - meta["jitter_severity"]) > SEVERITY_TOL or
++                meta["checked_rows"] < 8 or min(meta["beta_severity"], meta["alpha_severity"]) <= 0 or
++                not 0 <= meta["severity_delta"] <= SEVERITY_TOL or
++                not 0 <= meta["spectrum_error"] <= 2e-6 or
++                abs(meta["alpha_severity"] - meta["beta_severity"]) > SEVERITY_TOL or
+@@ -76 +76 @@
+-                raise ValueError("F17 hard decisions differ from sealed F16")
++                raise ValueError("F37 hard decisions differ from sealed F16")
+@@ -83 +83 @@
+-    print(f"PASS F17 held {held} seed {seed}", flush=True)
++    print(f"PASS F37 held {held} seed {seed}", flush=True)
+--- a/collect_phase.py
++++ b/collect_phase.py
+@@ -1 +1 @@
+-"""Seal F17 blind held decisions and report the original whole-decoder metric."""
++"""Seal F37 blind held decisions and report the original whole-decoder metric."""
+@@ -14 +14 @@
+-COMPARISONS = (("phase", "hard"), ("phase", "jitter"), ("jitter", "hard"))
++COMPARISONS = (("alpha", "hard"), ("alpha", "beta"), ("beta", "hard"))
+@@ -39 +39 @@
+-                    raise ValueError("blind F17 rows, original hard control or provenance differs")
++                    raise ValueError("blind F37 rows, original hard control or provenance differs")
+@@ -98,2 +98,2 @@
+-    for control in ("hard", "jitter"):
+-        k = f"bounded_phase_minus_{control}"
++    for control in ("hard", "beta"):
++        k = f"bounded_alpha_minus_{control}"
+@@ -124 +124 @@
+-    print(f"PASS F17 whole score {sha(path)}", flush=True)
++    print(f"PASS F37 whole score {sha(path)}", flush=True)
+--- a/fit.sbatch
++++ b/fit.sbatch
+@@ -7,2 +7,2 @@
+-#SBATCH -t 4
+-#SBATCH -J ni26-f17
++#SBATCH -t 6
++#SBATCH -J ni26-f37
+@@ -13,0 +14 @@
++f17=$(cd ../friday_s1c_phase_20261118 && pwd -P)
+@@ -14,0 +16 @@
++printf '%s\n' '7ed98f96ba6b05165a1bc035a20af0d7dc516b9b1d61c82533abcc85ecbf2372  actor.sha256' | (cd "$f17" && sha256sum --quiet -c - && sha256sum --quiet -c actor.sha256)
+@@ -18 +20 @@
+-export PYTHONPATH="$f14:$f14/original:$f14/original/experiments:$f16"
++export PYTHONPATH="$f14:$f14/original:$f14/original/experiments:$f16:$f17"
+--- a/held.sbatch
++++ b/held.sbatch
+@@ -7 +7 @@
+-#SBATCH -J ni26-f17-held
++#SBATCH -J ni26-f37-held
+@@ -13,0 +14 @@
++f17=$base/ni26_friday_s1c_phase_20261118
+@@ -17,0 +19 @@
++printf '%s\n' '7ed98f96ba6b05165a1bc035a20af0d7dc516b9b1d61c82533abcc85ecbf2372  actor.sha256' | (cd "$f17" && sha256sum --quiet -c - && sha256sum --quiet -c actor.sha256)
+@@ -22 +24 @@
+-export PYTHONPATH="$origin:$origin/experiments:$origin/studies/14nov/newmember:$f14:$f16"
++export PYTHONPATH="$origin:$origin/experiments:$origin/studies/14nov/newmember:$f14:$f16:$f17"
+--- a/relay.sh
++++ b/relay.sh
+@@ -2 +2 @@
+-# Relay authenticated finished F17 folds and release the corresponding held elements.
++# Relay authenticated finished F37 folds and release the corresponding held elements.
+@@ -9 +9 @@
+-target=/mnt/lustre/work/gehler/gfh527/ni26_friday_s1c_phase_20261118
++target=/mnt/lustre/work/gehler/gfh527/ni26_friday_s1c_spectral_shift_20261119
+@@ -21 +21 @@
+-    for arm in hard jitter phase; do
++    for arm in hard beta alpha; do
+@@ -29 +29 @@
+-ssh "${ssh_opts[@]}" "$ferranti" "cd ~/ni26/friday_s1c_phase_20261118 && tar -cf - ${files[*]}" |
++ssh "${ssh_opts[@]}" "$ferranti" "cd ~/ni26/friday_s1c_spectral_shift_20261119 && tar -cf - ${files[*]}" |
+@@ -35 +35 @@
+-printf 'Released F17 held folds %s\n' "${ids[*]}"
++printf 'Released F37 held folds %s\n' "${ids[*]}"

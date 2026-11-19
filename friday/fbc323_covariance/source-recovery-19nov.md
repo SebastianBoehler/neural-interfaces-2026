@@ -1,0 +1,3 @@
+# F33 source-canary isolation
+
+Ferranti v1 `511679` stopped at the original hard-state comparison after the zero head probe, with no published checkpoints or held decisions. The original Factor constructor installs a fresh SessionBN after its initial eval call. The v1 probe forwarded through that newly inserted layer while it was still training. Historical F29 used a separate eval copy. V2 explicitly sets the entire source model to eval before the canary and verifies native state before and after the original forward. The unchanged original optimizer resets training mode and seed. The original hard checkpoint must still match byte for byte. Science, arms, folds, budgets, and held guards are unchanged.

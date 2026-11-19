@@ -1,0 +1,263 @@
+--- a/fixture.py
++++ b/fixture.py
+@@ -8,14 +8,14 @@
+ from scope import external, known
+ from settings import stamp
+ 
+-SEEDS = (14411, 15411)
+-ARMS = ("stock", "hard", "joint")
++SEEDS = (16411, 17411)
++ARMS = ("stock", "hard", "joint", "fbl2", "fbl2_hard", "fbl2_joint")
+ EXPORTS = ("hard", "detached", "joint")
+ DATA_SHA = "a6188799753276451235678d08e92fd79162a95ec8099dbbb85e2ed9e2701e91"
+ ORDERS = {
+     0: "63ef8f828ff49cfa2b2a9152571b5a496810d1d7834b2f38e2be1c345307c5d0",
+-    14411: "2a4bd8fc50262c014d245966290daafe3663727f729924255f7042220604863e",
+-    15411: "3d6d7243eafc6a0c0cd8b0d4cfcd4000f6830b97f7a09f1be7980c0da8287699",
++    16411: "00005e37a05345ad9e176cbec56554e68413dd07132eace3319b654f0d746384",
++    17411: "3c5e2df2d1919d72822bf76e52102d9960487f50db85e951faa25a0fabd5b656",
+ }
+ 
+ 
+--- a/native_run.py
++++ b/native_run.py
+@@ -1,9 +1,10 @@
+-"""Consume the original fixed-mass waveform substitution in two live matched tails."""
++"""Cross actual FBLight doubling with two fixed substitutions in native outer tails."""
+ import argparse
+ from copy import deepcopy
+ import json
+ from pathlib import Path
+ from time import perf_counter
++from types import SimpleNamespace
+ 
+ import numpy as np
+ import torch
+@@ -12,6 +13,8 @@
+ from adapter import Adapter
+ from benchmark_utils.streaming import fresh_model
+ from fixture import ARMS, chosen
++from fbl2 import FBL2Hook, BOOST_SHARE
++from route_probe import RouteProbe
+ from mirror import Outer, Tap
+ from settings import sha, stamp
+ from worker import authentic_stock, stream
+@@ -23,6 +26,13 @@
+     def __init__(self, model, pupils):
+         self.pairs = (pupils[:, 0], pupils[:, 2])
+         self.tape, self.current = [], None
++        fields = ("routed", "r15", "v6r", "ft", "w", "w_rest", "route", "mix6")
++        shared = {name: getattr(model, name) for name in fields}
++        self.boosts = tuple(
++            FBL2Hook(SimpleNamespace(routeB=deepcopy(model.routeB), **shared), "fbl2")
++            for _ in ARMS[3:]
++        )
++        self.boost_motion, self.live_family = [], []
+         super().__init__(model, self.pairs[0])
+ 
+     def mixing(self, mix, members, warm):
+@@ -39,25 +49,36 @@
+                 np.testing.assert_array_equal(origin, stock)
+             self.raw_frame = None
+             trials.append(alternative)
+-        self.current = (stock, *trials)
++        bases = (stock, *trials)
++        boosted = []
++        for value, hook in zip(bases, self.boosts, strict=True):
++            changed = hook.project(value, members, warm)
++            np.testing.assert_allclose(changed, (16*value + hook.last_fbl)/17, rtol=0, atol=3e-16)
++            np.testing.assert_array_equal(hook.last_fbl, self.boosts[0].last_fbl)
++            boosted.append(changed)
++        self.live_family.append(self.boosts[0].last_fbl.copy())
++        self.boost_motion.append([float(np.abs(a-b).max()) for a,b in zip(boosted,bases,strict=True)])
++        self.current = (*bases, *boosted)
+         return stock
+ 
+     def stepping(self, x, u, mix, core, extra, gc, gi):
+-        stock, hard, joint = self.current
++        stock, *alternates = self.current
+         assert mix is stock and self.raw_frame is None
+         self.current = None
+         self.consumed.append(None)
+-        self.tape.append(deepcopy((x, u, stock, hard, joint, core, extra, gc, gi, self.model.recB)))
++        self.tape.append(deepcopy((x, u, self.model.recB, core, extra, gc, gi, (stock, *alternates))))
+         return self.route(x, u, mix, core, extra, gc, gi)
+ 
+ 
+ def mirror(template, events, arm):
+     ref = Outer(template)
+-    index = dict(stock=2, hard=3, joint=4)[arm]
+-    for event in events:
+-        x, u, p, _, _, core, extra, gc, gi, recognized = event
+-        ref.step((x, u, p, event[index], core, extra, gc, gi, recognized), "hard")
+-    return np.stack((ref.raw, ref.count, ref.terminal), axis=1), ref
++    index = ARMS.index(arm)
++    if index >= 3:
++        ref.route.a = BOOST_SHARE
++    probe = RouteProbe(SimpleNamespace(routeB=ref.route))
++    for x, u, recognized, core, extra, gc, gi, mixes in events:
++        ref.step((x, u, mixes[0], mixes[index], core, extra, gc, gi, recognized), "hard")
++    return np.stack((ref.raw, ref.count, ref.terminal), axis=1), ref, probe.summary()
+ 
+ 
+ def one_session(template, eeg, rows, pupils, smoke):
+@@ -91,7 +112,7 @@
+     assert len(protected.refits) == activity["ft_refits"] and protected.trace
+     assert np.asarray(tap.warm).reshape(-1, 2).sum(0).tolist() == [model.log6["ft"]]*2
+     before = protected.summary()
+-    zero, observer = mirror(template, tap.tape, "stock")
++    zero, observer, stock_route = mirror(template, tap.tape, "stock")
+     np.testing.assert_array_equal(zero, stock)
+     assert observer.cp.stopped == model.cp.stopped
+     assert (observer.cp.refits, observer.cp.fused) == (model.cp.refits, model.cp.fused)
+@@ -99,22 +120,29 @@
+     labels = {"stock": y}
+     stages = {}
+     for arm in ARMS[1:]:
+-        candidate, path = mirror(template, tap.tape, arm)
++        candidate, path, route = mirror(template, tap.tape, arm)
+         assert path.cp.stopped == model.cp.stopped
+         if smoke:
+             prefix = min(31, len(rows)-1)
+-            short, _ = mirror(template, tap.tape[:prefix], arm)
++            short, _, _ = mirror(template, tap.tape[:prefix], arm)
+             np.testing.assert_array_equal(short, candidate[:prefix])
+         labels[arm] = candidate[:, 2].argmax(1).tolist()
+-        stages[arm] = dict(fit_ages=path.fit, fusions=path.cp.fused,
++        assert route["gates"] == stock_route["gates"]
++        stages[arm] = dict(fit_ages=path.fit, fusions=path.cp.fused, routed=route["routed"],
++                           share=path.route.a, route_error=route["max_tail_mix_error"],
+                            terminal_change=float(np.abs(candidate[:, 2]-stock[:, 2]).max()))
+     assert protected.summary() == before
+-    motion = np.asarray(tap.movement).reshape(len(rows), 2)
++    hook_work = [hook.summary() for hook in tap.boosts]
++    assert all(s == hook_work[0] or
++               all(s[k] == hook_work[0][k] for k in ("warm_rows", "frozen_rows", "calls", "moved",
++                                                      "route_share", "fbl_warm_delta")) for s in hook_work)
++    assert hook_work[0]["warm_rows"] == model.log6["ft"] and hook_work[0]["moved"] == len(rows)
++    motion = np.column_stack((np.asarray(tap.movement).reshape(len(rows), 2), tap.boost_motion))
+     assert np.isfinite(motion).all() and min(motion.max(0)) > 1e-6
+     return dict(rows=rows.tolist(), **labels, activity=activity, stop=model.cp.stopped, native_zero_exact=True,
+                 exact_private_prefix=smoke, stages=stages, owner=before,
+                 warm=int(model.log6["ft"]), maximum_mix=dict(zip(ARMS[1:], motion.max(0).tolist(), strict=True)),
+-                seconds=perf_counter()-start)
++                hooks=hook_work, fbl_family=stamp(np.asarray(tap.live_family)), seconds=perf_counter()-start)
+ 
+ 
+ def pupil_bank(path, mode, index, choices, who):
+@@ -156,11 +184,12 @@
+         if key == "P10-3":
+             assert record["stop"] == 10 and record["activity"]["recognized"] == 10
+             assert record["warm"] == 0 and record["activity"]["ft_steps"] == 0
++            assert all(a["routed"] == 21 for a in record["stages"].values())
+         else:
+             assert record["stop"] is None and record["activity"]["recognized"] == -1
+             assert record["warm"] > 0 and all(r["fusions"] > 0 for r in record["stages"].values())
+         results[key] = record
+-        print("PASS F32x actual native", key, record["maximum_mix"], flush=True)
++        print("PASS F-C25 actual native", key, record["maximum_mix"], flush=True)
+     assert package.cp.t == 0 and not package.v5hist
+     name = Path("smoke.json" if mode == "smoke" else f"person_{index}.json")
+     with name.open("x") as file:
+@@ -170,7 +199,7 @@
+                   file, sort_keys=True, allow_nan=False)
+         file.write("\n")
+     name.chmod(0o444)
+-    print("PASS F32x worker", mode, index, sha(name), flush=True)
++    print("PASS F-C25 worker", mode, index, sha(name), flush=True)
+ 
+ 
+ if __name__ == "__main__":
+--- a/score_f32x.py
++++ b/score_f32x.py
+@@ -4,6 +4,8 @@
+ 
+ import numpy as np
+ 
++from fbl2 import BOOST_SHARE, CAP_SHARE
++
+ from fixture import ARMS, DATA_SHA, SEEDS, schedule
+ from protocol import score
+ from score import DATA, anchor_path, changes, seal
+@@ -56,7 +58,12 @@
+                 assert stats["owner"]["refit_ages"] == list(range(20,len(rows),10))
+                 assert min(stats["maximum_mix"].values()) > 1e-6 and stats["warm"] > 0
+                 assert set(stats["stages"]) == set(ARMS[1:])
+-                for stage in stats["stages"].values():
++                assert len(stats["hooks"]) == 3
++                assert all(h["warm_rows"] == stats["warm"] and h["moved"] == len(rows) for h in stats["hooks"])
++                for arm, stage in stats["stages"].items():
++                    correct_share = BOOST_SHARE if arm.startswith("fbl2") else CAP_SHARE
++                    assert abs(stage["share"] - correct_share) <= 1e-16
++                    assert not stage["routed"] and stage["route_error"] <= 2e-14
+                     assert stage["fit_ages"] == list(range(20,len(rows),20)) and stage["fusions"] > 0
+                 for a, arm in enumerate(ARMS):
+                     guess = stats[arm]
+@@ -105,17 +112,31 @@
+         verdict = "supported" if bounds[0] > 0 and min(orders.values()) > 0 else "refuted" if bounds[1] <= 0 else "undecided"
+         return dict(pp=float(delta.mean()), paired80=bounds, order_pp=orders, verdict=verdict)
+ 
+-    outcomes = dict(joint_minus_stock=contrast(cells[2]-cells[0]), joint_minus_hard=contrast(cells[2]-cells[1]),
+-                    joint_minus_hard_motor=contrast(classes[2,...,0]-classes[1,...,0]),
+-                    hard_minus_stock=contrast(cells[1]-cells[0]))
++    stock, hard, joint, fbl2, combo, combo_joint = cells
++    oracle = bank.copy()
++    oracle[1] = np.where(bank[0] == y, bank[0], np.where(bank[1] == y, bank[1], bank[3]))
++    oracle_cells, _ = official_cells(oracle, y, subject, visit,
++                                     dict(stream=streams, interface=interface), people)
++    primary = combo-stock
++    outcomes = dict(combo_minus_stock=contrast(primary), combo_minus_fbl2=contrast(combo-fbl2),
++                    combo_minus_hard=contrast(combo-hard), hard_minus_stock=contrast(hard-stock),
++                    fbl2_minus_stock=contrast(fbl2-stock), motor_objective_with_fbl2=contrast(combo_joint-combo),
++                    motor_objective_without_fbl2=contrast(joint-hard),
++                    interaction=contrast(primary-(fbl2-stock)-(hard-stock)),
++                    parent_oracle=contrast(oracle_cells[1]-stock))
++    correct = bank == y
++    missed = ~correct[0]
++    tally = dict(hard_only=int(np.count_nonzero(missed & correct[1] & ~correct[3])),
++                 fbl2_only=int(np.count_nonzero(missed & ~correct[1] & correct[3])),
++                 both=int(np.count_nonzero(missed & correct[1] & correct[3])))
+     payload = dict(scope="FULL-SYSTEM EXTERNAL conditional on identical live native RTX upstream",
+                    before_labels=lock, absolute_pct=dict(zip(ARMS, cells.mean(axis=(1,2,3)).tolist(), strict=True)),
+-                   contrasts=outcomes, joint_vs_stock=changes(bank[[0,2]], y, np.ones(ROWS, bool)),
+-                   joint_vs_hard=changes(bank[[1,2]], y, np.ones(ROWS, bool)),
+-                   person_pp=dict(zip(people, (cells[2]-cells[1]).mean((1,2)).tolist(), strict=True)),
+-                   class_pp=(classes[2]-classes[1]).mean((0,1,2)).tolist(), active=summaries)
++                   contrasts=outcomes, combo_changes=changes(bank[[0,4]], y, np.ones(ROWS, bool)),
++                   person_pp=dict(zip(people, primary.mean((1,2)).tolist(), strict=True)),
++                   class_pp=(classes[4]-classes[0]).mean((0,1,2)).tolist(), parent_rescues=tally,
++                   active=summaries)
+     digest = seal(Path("result.json"), payload)
+-    print("PASS F32x official full-system score", digest, outcomes, flush=True)
++    print("PASS F-C25 official full-system score", digest, outcomes, flush=True)
+ 
+ 
+ if __name__ == "__main__":
+--- a/worker.sbatch
++++ b/worker.sbatch
+@@ -4,9 +4,9 @@
+ #SBATCH --gres=gpu:rtx2080ti:1
+ #SBATCH --cpus-per-task=2
+ #SBATCH --mem=12G
+-#SBATCH --time=00:13:00
+-#SBATCH --job-name=ni26-f32x
+-#SBATCH --output=f32x-%A_%a.out
++#SBATCH --time=00:18:00
++#SBATCH --job-name=ni26-c25
++#SBATCH --output=c25-%A_%a.out
+ set -euo pipefail
+ base=/mnt/lustre/work/gehler/gfh527
+ repo=$base/neural-interfaces-2026
+--- a/score.sbatch
++++ b/score.sbatch
+@@ -4,8 +4,8 @@
+ #SBATCH --cpus-per-task=2
+ #SBATCH --mem=6G
+ #SBATCH --time=00:04:00
+-#SBATCH --job-name=ni26-f32x-score
+-#SBATCH --output=f32x-score-%j.out
++#SBATCH --job-name=ni26-c25-score
++#SBATCH --output=c25-score-%j.out
+ set -euo pipefail
+ base=/mnt/lustre/work/gehler/gfh527
+ repo=$base/neural-interfaces-2026

@@ -67,8 +67,14 @@ This records the official implementation; it does not claim a completed run.
   [in the Track 2 Discord channel](https://discord.com/channels/1405198616934481961/1547897829253451877/1562024877135896619).
 - The sealed evaluator runs `predict` without an offline `fit` or dataset
   download. Label-free adaptation, including gradient updates inside `predict`,
-  may use the current session's delivered EEG. The competition YAML sets a
-  3,600-second evaluation limit. [Scientific FAQ](https://raw.githubusercontent.com/neural-interfaces26/2026-competition/main/codabench/pages/scientific_faq_bci.md#streaming-and-adaptation)
+  may use the current session's delivered EEG. [Scientific FAQ](https://raw.githubusercontent.com/neural-interfaces26/2026-competition/main/codabench/pages/scientific_faq_bci.md#streaming-and-adaptation)
+- The pinned competition YAML lists a 3,600-second limit. In Track 2 Discord on
+  18 November at 07:50 CET, organizer Arnault H. Caillet confirmed that the
+  sealed phase moved to a slower RTX worker and the limit was raised. Another
+  participant reported 4,800 seconds. The live numerical limit remains
+  unverified, and the public rules still list the general 60-minute A100 limit.
+  Organizer Bruno Aristimunha reported a large queue at 16:46 CET. Queue wait
+  and execution time both affect when a score appears. [Track 2 Discord](https://discord.com/channels/1405198616934481961/1547897829253451877) · [Public rules](https://neural-interfaces26.github.io/rules.html)
 
 ## Official commands from the competition checkout
 

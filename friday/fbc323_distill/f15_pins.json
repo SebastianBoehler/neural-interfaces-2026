@@ -1,0 +1,207 @@
+{
+  "dropout_0_P01": {
+    "checkpoint": "9b0de213c4505571fa0ee25f20ebed085c055effdd4b09bd0fdce92b9191fd20",
+    "receipt": "3c6d2b0f3e62a6fc47c0ae63b278cdbf304a67b97880d3255c4f7f9510f12443",
+    "state": "a2c5e20e0c37e86c551ea3e4232b22bc8bbae3c12631a8562a5e3d0f56c29929"
+  },
+  "dropout_0_P02": {
+    "checkpoint": "da70a4a892925d4c8fbb5d24cb080bfb7fc18c88ff252a7e5968adef54000151",
+    "receipt": "bc07e708da7bd4da71814e92ab9c408d35f0311c4bedcf927602881212bb28df",
+    "state": "5da478e1ef1249bb05417dbd2cb3ac58104961356cd02849b361261c11683121"
+  },
+  "dropout_0_P03": {
+    "checkpoint": "792bb8e5fd4c558e3cf06f0e9972e52d217c8b7d511ee7ff9593435d627f0d59",
+    "receipt": "38974bb13a17915ab6444d9c67536fa9e89574dabe7e3f746e35e49133213b8a",
+    "state": "264dee0206dc01f9b9fec742f0340b7bb49e5700d23a0f953dc40966ace4deea"
+  },
+  "dropout_0_P04": {
+    "checkpoint": "19e910c9435fc3ee643f5e95715a150b51d037702d12ceb3dc5b616d9f8e1865",
+    "receipt": "da10ce9d6908f45c62280aceb00b86637346db4cb6dabbe9195c741fd9406728",
+    "state": "d5d70027f69bc4e0cd49bea938cd6d3b7ed81b7ba0dc53bb1991d43e6942cf5b"
+  },
+  "dropout_0_P05": {
+    "checkpoint": "97dcabb19b42b7801fa25b8137733c9665ffd5ec651ba8da19dd0e43184be39b",
+    "receipt": "d8b5af795e0221d209960e914bfa4dba078947bc04ce116d1cd961561935c15d",
+    "state": "e24d840a1937c4ca8573228baf676299034a72b998219f548117a9bfd3578455"
+  },
+  "dropout_0_P06": {
+    "checkpoint": "4be8e1e1f844b9478e73688ceff09cdd366254dd2f46ebaa799de942c43fca29",
+    "receipt": "03d7a656d4721b28a9fbe4d33387d7e12bd27daf76185401ac96291d3724e1e0",
+    "state": "f85c5f738cb4135cac72c73fd3cde1249596cd9f5b150cf1caea880d2fcadef0"
+  },
+  "dropout_0_P07": {
+    "checkpoint": "5cdfe6d1bb4a93ab886f4d58274c5dc97345078765b7061a56b80cbd8a99d92d",
+    "receipt": "ba08d0d415110f42a7c5f95c06d0df6eec1c27e327f6bb49f06a01e36fbdf7cf",
+    "state": "0e16f366c42e66cdb0cbc3fd508c60a29f7f24b8d68e8a9bdc64d70f015f2600"
+  },
+  "dropout_0_P08": {
+    "checkpoint": "e9cc6797f5ffaef16065c236a4a36946760335a69a88f4f95c426f4f5294a944",
+    "receipt": "c114349eb11859f4986cfd145d6513df7023eb311e72596f22781b5ff1601085",
+    "state": "2b48e69db8ee4bc3e9f34e9c3c1ee2c7fc58d978edf3d445fe93aa06bb2de8b4"
+  },
+  "dropout_0_P09": {
+    "checkpoint": "6f7720fd423fb3f68f5d8c05858f84bf46dfb492401a1f93cdf774f36f93e710",
+    "receipt": "f658b54bad17d09a21dd5305819262e55cedef2b666f59448b3da9db1bf07c9a",
+    "state": "5eeb588403e235e3400961f1dde46582204ee13b1f791d587ec9a6002d3e7a02"
+  },
+  "dropout_0_P10": {
+    "checkpoint": "0f1203ae84dbdc24922b6109afb56dff224a2b050cf4425fa60acf223c2d6b0f",
+    "receipt": "31f85a94b768184cf620e90003fef18a3e86d006dc6b935494dfdb7140c7a070",
+    "state": "909a20f6129b133c61dbe5d31278d4d85ae2cd46160f3b9d26466682fd6d423a"
+  },
+  "dropout_1_P01": {
+    "checkpoint": "cb85f25276f12f48154e97cc5c74678f7a2eacf78ec30539382b52ad562a7fb2",
+    "receipt": "505265b11a292f860c973a5f70ad0fa6e51411a6e159671ae65f2955f0e44dc1",
+    "state": "c30da06a24da6cee55fbb100091a9e2968a7eb7cde323d8fed234f80b945476a"
+  },
+  "dropout_1_P02": {
+    "checkpoint": "559ab80d4dc80243a9d65164106cd603df2ca40d0d6ee9eb7df62f26f6b20cb0",
+    "receipt": "7d130211b286472d479d8a9fa0a68a47369cc5561c63759b0b333e10396df9a7",
+    "state": "2be116b3f3cb69b0b52b0887d2fcd684fb5306ba8891b578b7da25ae2eacfef9"
+  },
+  "dropout_1_P03": {
+    "checkpoint": "a9b06e619d625d1ac3184b076cd05b3b3012b2708b8a65f2f7ab9fbd762081e4",
+    "receipt": "f183bc8c0b509016783cfb834095954ab03f6d17f0f9c532ce8883e4eefd0b1d",
+    "state": "8290385e9ea6737d486a039312d325332f3790d34f3f10b1510d0cb5ecf54892"
+  },
+  "dropout_1_P04": {
+    "checkpoint": "bdc86189eed2451a377127a85ca6a2a198419e81bb804a3effa72d27a657fc0b",
+    "receipt": "0a94c052ba1bab45b525184b94403872670b5d96bda7806df7627c6a7c4f9995",
+    "state": "2a95c897ca919ef0d0758df40e285bcd3dbac2b97e1a5776376f05fad995616f"
+  },
+  "dropout_1_P05": {
+    "checkpoint": "f95219222458d2bc8dfdea6c3f0063c51d6eeba7f6317fe77d29cbfadf5886aa",
+    "receipt": "8cf9128dd2fc71abdcfa0ae3ae28879d14140f597cd5431fb172090ad49ce3cf",
+    "state": "d5b9612da1b05e0f79edeccd5eadbc41e5cdb55aea3e26a789c17cb2a7c1dd02"
+  },
+  "dropout_1_P06": {
+    "checkpoint": "c746a48a373d97a1026ab2dc564a3f88a75a12d7fefe09e48f4d0818171b08ef",
+    "receipt": "3843a716ba834355bdf934ad4b70860ff8b4b31cbf38ad03611bc13419a87c25",
+    "state": "086040018ae5853280257f55d0f74526741f46eed64e8e6c4e3360a92a9dad36"
+  },
+  "dropout_1_P07": {
+    "checkpoint": "1498fbd8ce1733e39faa841b36e8f7963aa47018d618ef23353b67402a56e562",
+    "receipt": "62a405b35071d115b4912374090eb98cf5a871f187d12973c3ecf20f8dbc04de",
+    "state": "578c27be971072f1060810b24477cdc2923102efbcdde880e4d855a6dd27573a"
+  },
+  "dropout_1_P08": {
+    "checkpoint": "d4fc7cb5a007b22f877cab5a66fa86907eeb47b21a6476d111e5a1f629e7dd90",
+    "receipt": "b12932b8b4fa50734f4833d3d10dbcfa63ede8dae772c38a056a9f4c8ec4291a",
+    "state": "340212031c45efd71cc2e04fb3f0f3f2d5ebb75061cb07af5c65bb51ad7cfab3"
+  },
+  "dropout_1_P09": {
+    "checkpoint": "3f9ad78f26d4fd58c5ec526065ebc166ef64e349da50894ebec093090c5078d0",
+    "receipt": "4ccdb2200e67463d5390ab9b0026dffe3dbb04043ad589ad363b84137faff365",
+    "state": "887ed9421423d75f21705d16b88f513d27ecf577387b488f8e151143242a0325"
+  },
+  "dropout_1_P10": {
+    "checkpoint": "a2edf30ae6f7091c791d74c30425fbd2d96d229bf776ec5272c6f55edb3d4d33",
+    "receipt": "11f52c246bf3ee89827bacb45785d2c74f928a6b46103a7fa49e82845af8de04",
+    "state": "fc62875b79f946841ac91d88f92d9b47a24e03ee8dad6eb85b1dadc07f6e27dc"
+  },
+  "smoke_zero_0_P01": {
+    "checkpoint": "4e26dcba52ce49747080933a204b80ab06fedfd333780912ad73d9f78cab9139",
+    "receipt": "496406c2c6ac6a50b819287f4b462402a8189eec47303602eeb3e4b6c90a44fa",
+    "state": "89667420a1c8f413a706c88de89e9a6fc7620727a1ffe4410d93d20d739d3185"
+  },
+  "zero_0_P01": {
+    "checkpoint": "5514698cdad11bba7bf55e3af37169ab120a4e7cf0d34fa6fd2863cee43b7079",
+    "receipt": "7b2b5029287b4b85516e32b6a4583c379114942a7bcfd7b433b58af3f65d1dd9",
+    "state": "ae33e31614ceeac3abc57494fab63d1bda962b2fd439a9b75cab7f923781bbbb"
+  },
+  "zero_0_P02": {
+    "checkpoint": "ebe230a898156aee63e808695ff26f9826ab16951d1e3d0ef99c87dfdb734876",
+    "receipt": "6f409bb88385a74573411ebdbdfe62bbf2948425a907c71576625f5c00093f99",
+    "state": "2c68de7ffbea30bea93fa91fc081916fa5f868997316373bd50a826d57c5f0e5"
+  },
+  "zero_0_P03": {
+    "checkpoint": "886c78e2fd1dee3f0997d3f86b04b85b0162c17a050c3d4d2cd4499110f035bb",
+    "receipt": "afc775891bf1139b5e19968f7ca10bddbce25b682f20bf54bf5c7a2a89e5c291",
+    "state": "9c9c31bcdb57aa4ff467fb63c364e1ba4e3ae8b1c94cc8a5efc449dbbc5934e5"
+  },
+  "zero_0_P04": {
+    "checkpoint": "0361f60782170d3fe581aab5fdb17b26ebd58bd4a2140a2c11b4be3691db69d9",
+    "receipt": "28e1164c9fc0a3f5ec57d7091e3de857d197315f45146e97f2d5d3f740b46000",
+    "state": "6609e0f728be49ea72c3294358da0160599843da79adcc2d2ae9a48669c01946"
+  },
+  "zero_0_P05": {
+    "checkpoint": "1c8260c8df73a67b62960c932d66785a27d93aef81477b28aab45668ba01ef65",
+    "receipt": "c199b04e33f0dc4a26911d85db0ffaf2c3797e4fe6bb93e924a7641cdaa1637f",
+    "state": "61452053284e77cd8404032ef9ba68fc6217a7f167b52622216281e06c22de93"
+  },
+  "zero_0_P06": {
+    "checkpoint": "076fd4290cb753305328e989ea8a4e31a48e525314bd18225674e65bef0fb1c2",
+    "receipt": "c606bf7b85370ce9f6ae21f6029c117da736f06fae524bda97ad850c2bd499b0",
+    "state": "3d862e43395f47c1595bd232a635eaac3c28cb345e28c1af3f0dafdd01026605"
+  },
+  "zero_0_P07": {
+    "checkpoint": "b3ff1e05637069ad03ad4d3b7212e7e0e51ce51c979be276fa2f9e1d39774724",
+    "receipt": "9bde6ee0981241bad00cebf91198134342546e035f9b7557828d0acfab1f4640",
+    "state": "4552fab04f70eeaa15937524c6d5c525f6a9018133431ef95e0caf4b1dfe4edf"
+  },
+  "zero_0_P08": {
+    "checkpoint": "41608ae0e05148d630dd321a433af60a8eb372e2aa9a45f9db73cf8f78a83d7b",
+    "receipt": "f2498073413c69f721aeaeabbb09375259159d7df05975af5025d81ad85e5988",
+    "state": "65c5501bb772c25fd46cef9912a237d95b4221b46dbca33aa8c297dd6ab6116b"
+  },
+  "zero_0_P09": {
+    "checkpoint": "d53b8702fa81f725bdd2fb3101c8969a6d05a41e88b75b18d2f6e92b021807d0",
+    "receipt": "48b8ff5b1dfda5b3689e7f043103baa2d958caeb42d061afd0887d5d7c0881da",
+    "state": "3dfb1dba73416dadc5b17beb37ed382f130ad0407cf0c7d3d93ce64b48354136"
+  },
+  "zero_0_P10": {
+    "checkpoint": "035fc324da0e1009cd8a321194e1b6b177b373a007d190ed04d1fd3818cf8500",
+    "receipt": "6da2a66fc30b8339df4a120f51e8cfbfdbec6425043930c5814ced8abd40e446",
+    "state": "92b404cf55f7539c4ba40b67ab2cfb0ff788ffe29d3d6b3e5cd29fc218d434a4"
+  },
+  "zero_1_P01": {
+    "checkpoint": "6806671e0bb84f5a1fc1ad626973f1d956e708a681243ea8e0b5d54dc9d6f205",
+    "receipt": "aa1610bfcdbbe1cb1c4bcb54f5c9a08279cc64b6eb4d53dde16a80affc33dc0d",
+    "state": "c713dbe15276644dcff69cf9f2eab42f0c8e2a9d8e477d77cb4147b73938a246"
+  },
+  "zero_1_P02": {
+    "checkpoint": "cce0a38916e154271d8f22901b216a9e1fc2eed9f02bcb07d82728ece7363d66",
+    "receipt": "b911b53a3693182c509019d583579200a2acea1676788e4065ccc52ddf390acb",
+    "state": "7c9b668a3d48a1bd5fbbcb9fc62325d55cc2d08e757d04edb96aa97068acafc2"
+  },
+  "zero_1_P03": {
+    "checkpoint": "3ef712a3aab1235f35a98331fa46d4bd7d896e5b07064cf32def41fa5cbb07aa",
+    "receipt": "12b310afa83689a99b8ac98bc565bd536fb16abe7dcfeadeb07dee719ac93cc1",
+    "state": "ec56fb38fcac9a4f969681a1da2ce57ee6736ab387f52fb6a509061637463930"
+  },
+  "zero_1_P04": {
+    "checkpoint": "16d6d84b695893e11fa7981119cfa425f4e8d40708945570ccccb8ea9d76a9d4",
+    "receipt": "99dd8d12890cb830fd9c7bd3228886fe34d60378ed1a5bbe9c61f4837b454f1b",
+    "state": "870888d788c98cab877355745183f57a1556a9130c51ae40b5f171b1641f6102"
+  },
+  "zero_1_P05": {
+    "checkpoint": "65c0c89e8b180760cf9d163cce11cd0b7d307f51434b968411b59e7ec097fbdb",
+    "receipt": "f3f2946716069c1be6dbcd147f5b1fafa25baa7320bd15ca0b6009049a51e21e",
+    "state": "e62fbd452fd13822dc064a6037f91d3038654c003e95beae7b089c7a9f64b801"
+  },
+  "zero_1_P06": {
+    "checkpoint": "c6d9ed7c927e78ad21b81bdc7bcafb1f3a830e69edb4796f892a762c8792f56d",
+    "receipt": "3903d133f6dd3102bd92ff04167b115db4de0e90bc31e94fd87f08f142f046c8",
+    "state": "e586668725c0b324e78727aeac489308b348abc84e96f2f1b6adef1490c87d37"
+  },
+  "zero_1_P07": {
+    "checkpoint": "d44b75c73a75dfd393df8d02b317b711f7caa21a1f950b86d8344450f327c9e9",
+    "receipt": "1ca7f21c0782eacfc89f32451baac556b081c10b589787ed4663b2753a6a2129",
+    "state": "d3e83b4c27e7eff8963a7f99a9c9a18d1b8d5ba305745ce83677b0916b7debfb"
+  },
+  "zero_1_P08": {
+    "checkpoint": "3941fc345fa912b7ca9708bb3833f5b39cab8bff64a600920f408bd49d511c5c",
+    "receipt": "a5b77b7fdbbdf0ea695c850d5a7d71d758c6a25187ffbe5b3d72bdfe46d796d9",
+    "state": "3d6c57968ee7b70f01ce13e8acba7fc1ab4ad603d2995896912aae825c4a8eeb"
+  },
+  "zero_1_P09": {
+    "checkpoint": "a88865ae2c84035765337cfe6a308c950891536ecb122c551d89eb6971d2b51b",
+    "receipt": "0823b8c16c7578ca3942c6dd5f415ea07f3e557dcdeb37ef405ab4aea0555f73",
+    "state": "1330913246be4d70f108fd064d475f847c3d696e6d622902769694df5bc7739e"
+  },
+  "zero_1_P10": {
+    "checkpoint": "144dacdbd7cb762091f21f866facc71acafd3700939380eed04a9749d17e5d1f",
+    "receipt": "b7eda0c329d15d33e6c279719f84f12da2e99190e500feae34df37b6625f8e81",
+    "state": "40ef86a4bb31213aed2e505096106d1be3ecc9a72cc001a0feef4fb132fa5f35"
+  }
+}

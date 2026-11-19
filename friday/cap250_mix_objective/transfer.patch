@@ -1,0 +1,94 @@
+--- a/fixture.py
++++ b/fixture.py
+@@ -8,14 +8,14 @@
+ from scope import external, known
+ from settings import stamp
+ 
+-SEEDS = (26411, 27411)
+-EXPORTS = ("hard", "balance", "mirrored", "hard_h100")
++SEEDS = (29411, 30411)
++EXPORTS = ("hard", "matched", "nominal", "hard_h100")
+ ARMS = ("stock", *EXPORTS)
+ DATA_SHA = "a6188799753276451235678d08e92fd79162a95ec8099dbbb85e2ed9e2701e91"
+ ORDERS = {
+     0: "63ef8f828ff49cfa2b2a9152571b5a496810d1d7834b2f38e2be1c345307c5d0",
+-    26411: "5068094eedfac37b795e3b52db65a3220ec2716a0d9be9d2fd7292352850a87a",
+-    27411: "0d3006e3c434d8a898343a173a38c158eb689271f6ceba535af3524a1e320577",
++    29411: "ffda5a7994a53a751fc31780f220ec3b7d932f070b41d133c20e8088a3b9a7ca",
++    30411: "6243e91c0f6be85205d38759fbcce70f9e0e7054618a2adf205c2f1e1e64285f",
+ }
+ 
+ 
+@@ -55,7 +55,7 @@
+ 
+ def actor_lock(path):
+     lock = json.loads(Path(path).read_text())
+-    if lock["f35e_source_only"] is not True or set(lock["actors"]) != set(EXPORTS):
++    if lock["c31e_source_only"] is not True or lock["held_labels_opened"] or set(lock["actors"]) != set(EXPORTS):
+         raise ValueError("actor lock must contain all four scoped all-public-source export groups")
+     if any(len(lock["actors"][kind]) != 2 for kind in EXPORTS):
+         raise ValueError("original fixed seed pair missing")
+--- a/worker.sbatch
++++ b/worker.sbatch
+@@ -5,15 +5,15 @@
+ #SBATCH --cpus-per-task=2
+ #SBATCH --mem=12G
+ #SBATCH --time=00:18:00
+-#SBATCH --job-name=ni26-f35x
+-#SBATCH --output=f35x-%A_%a.out
++#SBATCH --job-name=ni26-c31e
++#SBATCH --output=c31e-%A_%a.out
+ set -euo pipefail
+ base=/mnt/lustre/work/gehler/gfh527
+ repo=$base/neural-interfaces-2026
+ prior=$base/ni26_cross411b_20261118
+ pair=$base/ni26_friday_frozen_rtx_20261118
+ other=$base/ni26_friday_frozen_rtx_nine_20261118
+-release=$base/ni26_friday_s1c_balance_external_a100_20261119
++release=$base/ni26_friday_c31d_source_fit_v1_20261119
+ h100=$base/ni26_friday_s1c_motor_external_cpu_20261119/exports
+ actors=$release/exports
+ native=$base/ni26_friday_c21e_native_v2_20261119
+--- a/score_f32x.py
++++ b/score_f32x.py
+@@ -105,19 +105,19 @@
+         verdict = "supported" if bounds[0] > 0 and min(orders.values()) > 0 else "refuted" if bounds[1] <= 0 else "undecided"
+         return dict(pp=float(delta.mean()), paired80=bounds, order_pp=orders, verdict=verdict)
+ 
+-    stock,hard,balance,mirrored,hard_h100=cells
+-    outcomes = dict(balance_minus_stock=contrast(balance-stock),balance_minus_hard=contrast(balance-hard),
+-                    balance_minus_mirrored=contrast(balance-mirrored),balance_minus_h100=contrast(balance-hard_h100),
+-                    mirrored_minus_hard=contrast(mirrored-hard),hard_minus_stock=contrast(hard-stock),
++    stock,hard,matched,nominal,hard_h100=cells
++    outcomes = dict(matched_minus_stock=contrast(matched-stock),matched_minus_hard=contrast(matched-hard),
++                    matched_minus_nominal=contrast(matched-nominal),matched_minus_h100=contrast(matched-hard_h100),
++                    nominal_minus_hard=contrast(nominal-hard),hard_minus_stock=contrast(hard-stock),
+                     h100_hard_minus_stock=contrast(hard_h100-stock))
+     payload = dict(scope="FULL-SYSTEM EXTERNAL conditional on identical live native RTX upstream",
+                    before_labels=lock, absolute_pct=dict(zip(ARMS,cells.mean((1,2,3)).tolist(),strict=True)),
+-                   contrasts=outcomes,balance_vs_stock=changes(bank[[0,2]],y,np.ones(ROWS,bool)),
+-                   balance_vs_hard=changes(bank[[1,2]],y,np.ones(ROWS,bool)),
+-                   person_pp=dict(zip(people,(balance-hard).mean((1,2)).tolist(),strict=True)),
++                   contrasts=outcomes,matched_vs_stock=changes(bank[[0,2]],y,np.ones(ROWS,bool)),
++                   matched_vs_hard=changes(bank[[1,2]],y,np.ones(ROWS,bool)),
++                   person_pp=dict(zip(people,(matched-hard).mean((1,2)).tolist(),strict=True)),
+                    class_pp=(classes[2]-classes[1]).mean((0,1,2)).tolist(),active=summaries)
+     digest = seal(Path("result.json"), payload)
+-    print("PASS F35x official full-system score", digest, outcomes, flush=True)
++    print("PASS F-C31e official full-system score", digest, outcomes, flush=True)
+ 
+ 
+ if __name__ == "__main__":
+--- a/score.sbatch
++++ b/score.sbatch
+@@ -4,8 +4,8 @@
+ #SBATCH --cpus-per-task=2
+ #SBATCH --mem=6G
+ #SBATCH --time=00:04:00
+-#SBATCH --job-name=ni26-f35x-score
+-#SBATCH --output=f35x-score-%j.out
++#SBATCH --job-name=ni26-c31e-score
++#SBATCH --output=c31e-score-%j.out
+ set -euo pipefail
+ base=/mnt/lustre/work/gehler/gfh527
+ repo=$base/neural-interfaces-2026

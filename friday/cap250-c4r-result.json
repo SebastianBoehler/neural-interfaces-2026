@@ -1,0 +1,35 @@
+{
+  "absolute": {
+    "stock": 48.716931216931215,
+    "balanced": 48.425925925925924
+  },
+  "pp": -0.2910052910052896,
+  "paired80": [
+    -0.8101851851851871,
+    0.19841269841270107
+  ],
+  "by_order": {
+    "411": -0.5026455026455012,
+    "1411": -0.0793650793650779
+  },
+  "by_person": {
+    "Scherer2015/A": 0.20833333333333393,
+    "Scherer2015/C": -0.2083333333333357,
+    "Scherer2015/D": 0.0,
+    "Scherer2015/E": -0.3869047619047574,
+    "Scherer2015/F": -0.4166666666666661,
+    "Scherer2015/G": -2.5,
+    "Scherer2015/H": 1.1011904761904798,
+    "Scherer2015/J": -0.4166666666666696,
+    "Scherer2015/L": 8.881784197001252e-15
+  },
+  "changed": 116,
+  "corrections": 38,
+  "regressions": 51,
+  "decision_receipt": "d9878801f5d8fd7194c4f605c03d7feb7796eee1b364bbd9cc3ef1669f4b927b",
+  "source": "6ba982b777e7dc9e0c33ab04bee3e01081129eb540f6f197d45619d9c51a108c",
+  "balanced_unequal_refits": 356,
+  "mean_dominant_mass_change_pp": -3.1680801676070485,
+  "supported": false,
+  "meets_accuracy_advance": false
+}
