@@ -9,6 +9,7 @@
 set -euo pipefail
 base=/mnt/lustre/work/gehler/gfh527; repo=$base/neural-interfaces-2026; work=${SLURM_SUBMIT_DIR:?}
 cd "$work"; mkdir -p out
+[ -z "$(find zips -type l)" ] || { echo "symlink in zips/ dangles in the container; use cp"; exit 1; }
 sha256sum --quiet -c zips.sha256
 gpu=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -1 | tr -d ' ')
 apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \

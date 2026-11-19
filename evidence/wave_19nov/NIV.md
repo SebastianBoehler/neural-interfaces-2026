@@ -36,3 +36,13 @@ Reports already queued: `out/report_cap250_vs_v51b.json` (cap250 vs v5.1b with n
   hard-wired to full0/within0 and their legacy anchors. Not built today. P04/P10 returning is not recomputed (existing repo numbers only).
 - No further external 3-task cohort has data and pipeline in the repo (Shin2017B/Shin2018/Ajra lack WORD; interpolated montage).
 - Enrolled-package gallery is built on the live causal view, not the stored offline cache (cos 0.997 on P01).
+
+## Zero-routing / false-recognition arm (`enrol_run.sbatch ... fa`): usage and 19 Nov fix
+- Bug: the `fa` tasks (visits "1,2") died in 1 s with the apptainer help text: `--env ...,NIV_VISITS=1,2` is split on the comma, so
+  `2` was read as a malformed key=value (ret tasks use visits "2" and were unaffected). Fix: `export APPTAINERENV_NIV_VISITS=$visits`
+  and an explicit non-empty check of persons/visits/arms. Same class of bug for any env value containing a comma.
+- Any candidate: `bash score_candidate.sh CAND cap250` already submits enrolment, `ret` and `fa` arrays and the collector. Manual rerun for an
+  existing tag (enrolled zips `zips/enrolled/TAG_k0..8.zip` present): `sbatch --array=0-8 --exclude=galvani-cn122,galvani-cn116
+  enrol_run.sbatch TAG fa`, then `sbatch collect.sbatch TAG cap250` (reports `false_recognition` per package).
+- Lane E timing (3136813/4) failed separately: `zips/v66_cp1_cap250.zip` was a symlink into another release dir, dangling inside the
+  container. Now copied; `build_arms.sbatch` copies, `timing.sbatch` fails on any symlink in zips/.

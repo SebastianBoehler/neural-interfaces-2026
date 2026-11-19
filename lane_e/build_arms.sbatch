@@ -17,5 +17,5 @@ stock=$R/zips/v66_cp1_cap250.zip
 $PY -I code/lane_e/make_arms.py $stock members zips --guard 150
 $PY -I code/lane_e/make_arms.py $stock members zips --guard 2 --arms Ed --suffix _g2
 for a in E0 Ea Eb Ec Ed; do cp zips/$a.zip $R/zips/laneE_$a.zip; (cd $R && sha256sum zips/laneE_$a.zip >> inputs.sha256); done
-ln -sf $stock zips/v66_cp1_cap250.zip
+cp --remove-destination "$stock" zips/v66_cp1_cap250.zip  # a symlink dangles inside the container (timing 3136813/4 died on it)
 sha256sum zips/*.zip > zips.sha256; cat zips.sha256

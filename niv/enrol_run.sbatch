@@ -18,7 +18,10 @@ k=${SLURM_ARRAY_TASK_ID:?}; tag=${mode}_${sys}_k$k; mkdir -p out/$tag
 if [ "$mode" = ret ]; then persons=$k; visits=2; arms=$(python3 -c "print(','.join(f'{s}:{i}' for s in ('full','within') for i in range(8)))")
 else persons=$(python3 -c "print(','.join(str(j) for j in range(9) if j!=$k))"); visits=1,2; arms=full:0; fi
 out=out/$tag/p${k}_c0.npz; [ -e "$out" ] && { echo "exists $out"; exit 1; }
+# NIV_VISITS may contain a comma ("1,2"); apptainer --env splits on commas, so pass it via APPTAINERENV_ (bug of 19 Nov: fa tasks died on --env)
+[ -n "${persons:-}" ] && [ -n "${visits:-}" ] && [ -n "${arms:-}" ] || { echo "empty persons/visits/arms"; exit 1; }
+export APPTAINERENV_NIV_VISITS=$visits
 apptainer exec --nv --cleanenv --containall --no-home --no-mount hostfs \
-  --env OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,PYTHONDONTWRITEBYTECODE=1,TMPDIR=/work,NIV_VISITS=$visits \
+  --env OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,PYTHONDONTWRITEBYTECODE=1,TMPDIR=/work \
   --bind "$work:/work:rw,$repo/2026-competition:/official:ro,$repo/data/scherer2015/windows.npz:/external.npz:ro,$work/scherer_rows.tsv.gz:/rows.tsv.gz:ro,$work/zips/enrolled/${sys}_k$k.zip:/pkg.zip:ro" \
   --pwd /work "$repo/runs/cloud/ni26_worker.sif" python -B niv/worker.py /pkg.zip "/work/$out" "$persons" "$arms"
