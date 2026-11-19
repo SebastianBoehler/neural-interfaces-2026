@@ -22,3 +22,14 @@ Galvani `3135683` completed at 10:30:50 CET. It used the same 190 P01 full0 wind
 Forced warm tangent rank was two on 167/170 rows. Ages 30, 36 and 47 clipped two classes at the tested candidate. All class-wise gradients remained finite and active, both pupils received the same derivatives, and the largest total-mass gradient was 6.66e−18. The paired pre-RouteB mixer diverged at age 20, with maximum 0.11157. Six upstream decision classes changed after age 37. Terminal classes tied on these fit-exposed rows. This verifies controlled operational geometry. Natural external score and representativeness remain outside the result.
 
 - Source manifest `958dcc9270171e655c5638009ecb64e0788997acc8b7d7d4e627b51013f0e1d3`. Signed geometry NPZ `c4330eea7b3803fdc3e5825e6d1bb7349a67c9d0450a6d119f13ba87e6ef0864`. Original technical threshold receipt `95a1fc3d4bf3f0ddd2491f90b6181f945f3446b093c9814f65cc387deaacfe4a`.
+
+## Guarded source fitting and external dependencies
+
+| Release | Galvani work | Authenticated manifest |
+| --- | --- | --- |
+| `ni26_friday_c31c_source_mix_v1_20261119` | Protected P01 smoke `3135703`, paired capture `3135711`, full tape and archived-work seal `3135712` | Source `03bbd2e27e0b493f02c63099c0f0d1d57a8c802b65f78203f7f04a8461f16136`. Seal `73c4378ab5dafcd9a3319fb9538203a9eee7903aebb6593e02bd07234933d180`. |
+| `ni26_friday_c31d_source_fit_v1_20261119` | A100 optimizer smoke `3135760`, fixed three-arm source continuation `3135761` | Fit `86bbcfe56554cdb6474c58a00dc9db49efc699145acadcc52e19c3edfd33fa12`. |
+| Same continuation release | Source-only CPU export smoke `3135774`, original both seed exports `3135775`, seal `3135776` | CPU export `f92335a8afa377997f319502b546e37ff5a33cc030b2a2453c62fcee38067b9b`. |
+| `ni26_friday_c31e_external_v1_20261119` | Actor proof `3135787`, live RTX smoke `3135788`, paired external `3135789`, independent pre-label seal and score `3135790` | Code `46a2e5dcd5d107214ae7cfa7eeaefdf1fb7e6d9756273ec9e42712bb8cff1063`. Scoring `19cdb4e485e1d70b5253b7ac9b77154749dca17c3f644ba33366a46a6c709b6b`. |
+
+The P01 protected observer reproduced both earlier classes, exact same-input stages and the live-path work on the same rows. Smoke receipt `0b9c5ff0f3d8693a09ea4378a0031f93e3b4171e04e08ea714644fd39914d1c0`. Every downstream release is guarded by the upstream job result and exact fit, tape or CPU parity proof. The original public recognition veto remains.
