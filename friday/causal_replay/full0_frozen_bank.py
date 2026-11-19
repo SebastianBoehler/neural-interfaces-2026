@@ -4,7 +4,7 @@ import json
 
 import numpy as np
 
-from refit_smoke import HERE, ROOT, TOL, changed, file_sha
+from refit_smoke import HERE, TOL, changed, file_sha
 from restore_refit import RELEASE, RELEASE_SHA
 from within0_fresh_fbl import evaluate_fold, inputs, scope
 from within0_frozen_probe import old_base
@@ -12,6 +12,8 @@ from within0_frozen_probe import old_base
 
 ORDER = "full0"
 OWNER = "e5882379eded46837578867ef30fe3ac922aef5292835ab9010a69bdf9c7cbc3"
+CANARY = HERE.parent / "runs0_fbraw_canary_v1"
+CANARY_SOURCE = "fbaf837d844616cb659af43a35dfc8ea45df8d87646118f71d0c9cf14c6450a3"
 
 
 def seal(path, contents):
@@ -23,6 +25,13 @@ def seal(path, contents):
 
 
 def main():
+    path = CANARY / "fbraw_canary.json"
+    proof = json.loads(path.read_text())
+    if (file_sha(CANARY / "canary_source.sha256") != CANARY_SOURCE or proof["source"] != CANARY_SOURCE
+            or proof["eligible"] or proof["held_labels_opened"] or path.stat().st_mode & 0o222
+            or (proof["order"], proof["person"], proof["rows"]) != ("runs0", "P01", 190)
+            or not proof["exact_reset"] or not (proof["anchor"]["changed"] or proof["anchor"]["max_abs"] > TOL)):
+        raise ValueError("no eligible numeric runs0 refutation for the conditional full0 test")
     p, states = inputs(ORDER)
     prior = RELEASE / "members/fbl_s0.json"
     if file_sha(prior) != OWNER or file_sha(RELEASE / "source.sha256") != RELEASE_SHA:
@@ -63,7 +72,8 @@ def main():
         np.savez_compressed(handle, index=np.arange(len(p)), delivery=p, proba=values)
     path.chmod(0o444)
     proof = dict(source=source, order=ORDER, rows=len(p), bank=file_sha(path), owner=OWNER,
-                 held_labels_opened=False, legacy_warm_parity=False, legacy_frozen_comparison=effect, folds=folds)
+                 held_labels_opened=False, legacy_warm_parity=False, legacy_frozen_comparison=effect, folds=folds,
+                 runs0_canary=file_sha(CANARY / "fbraw_canary.json"))
     print("PASS full0 authenticated frozen bank", seal(HERE / "frozen.json", proof), flush=True)
 
 
