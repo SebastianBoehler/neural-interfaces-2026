@@ -80,3 +80,71 @@ A nested 80% upper endpoint ≤0 refutes improvement. A lower endpoint >0 suppor
 covers representation, routing and B6 supervision together. It cannot attribute a gain to one component. Select using
 the official held-new cell mean with returning and NI-V reported alongside. Compare against the archived cap250 bank
 and use the exact production package for runtime timing.
+
+### A1 MANAS and A2 dispatch
+
+MANAS A1 scored **59.23% held-new** (59.14%, 59.32%) and **69.84% returning** (70.43%, 69.26%) in
+Leonardo 64886270/64886271. The base pipeline is still short of cap250. Unlike REVE/CBraMod A1, this
+fit also includes the ds007221 Graz and NETBCI exports. Keep the roster difference when comparing encoders.
+
+A2 smoke 64887439 passed real-data gradient, prefix/reset, immutable weight and interleaved-session checks.
+A2 external job 64887573 verified 14 ds007221 Graz, 48 ds007221 LR and 19 NETBCI people. It loaded 3,584,
+6,144 and 2,432 sampled rows from those corpora. Eight-order fit/replay array 64887574 and collector 64887575.
+Scherer-excluded A2 NI-V jobs 64887576, 64887578–64887581.
+
+### Matched B6 control · registered before scoring
+
+Run MANAS A1 again with A2's exact complete B6 roster, retaining the A1 temporal and routing path. Compare all
+eight orders against A2 on held-new, returning and NI-V. Before scoring, predict B6 A1 minus first MANAS A1
++0.5 pp [−2,+3] held-new and +0.3 pp [−3,+4] returning. Predict A2 minus B6 A1 +4.5 pp [−2,+11] held-new,
++7.7 pp [−5,+20] returning and +2 pp [−6,+10] NI-V. Nonpositive nested 80% upper bound refutes improvement;
+positive lower bound supports it. Choose the complete B6 package with the strongest official held-new cell mean.
+The initial A1 runs are screens with different coverage; the two B6 packages control the corpus list.
+
+CBraMod A1 reached **50.38% held-new** and **57.72% returning** in 3139398/3139399. The person-equal
+deltas against archived cap250 were −24.34 pp [−28.00, −20.52] and −35.04 pp [−44.15, −25.97].
+The shared official scorer verified all 28 held-new and 8 returning cells per order. Historical v3
+`replay/check.py` printed OK on Galvani 3139584. The v3 guard covers recording order; Team A separately
+checks the exported model, reset, and shuffled delivery.
+
+A2 production 64887783 fit all ten public people plus the 12-corpus roster. ZIP SHA-256
+`a292f815bf4153ab5d7fc5b54bd4424965b583c548d5a8d78cab4173dffee78f`.
+Leonardo 64887784 timed this package on one A100-SXM-64GB, PyTorch 2.14.1+cu126. Total 223.52 s
+including load and a 48-window warm-up, with 20,083 timed calls in 106 sessions, 410 MiB peak CUDA reserved.
+The timing input repeats public sessions (76 recognized). This is an A100 development measurement.
+Matched B6 A1 smoke 64887772 passed. External/fit/score 64887773–64887775, Scherer-excluded NI-V
+64887777–64887782, release 64888133 and runtime 64888134. Recognition and zero-change checks 64888137/64888138.
+
+### Eight-order selection
+
+| System | Held-new official cell BA | Returning official cell BA | NI-V new cell BA |
+|---|---:|---:|---:|
+| MANAS A1, initial roster | 59.23% (2 orders) | 69.84% (2 orders) | 41.67% |
+| MANAS A1, complete B6 roster | **58.79%** | **69.31%** | 42.10% |
+| MANAS A2, complete B6 roster | 57.28% | 69.30% | 42.59% |
+
+The complete B6 A1 fit is the selected system by the preregistered held-new cell metric. Configure it as
+the default training path. A2's cell delta against the matched B6 A1 is −1.51 pp held-new and −0.01 pp returning.
+A2's contrasts to archived cap250 are −17.23 pp [−20.31, −14.04] held-new and −23.47 pp [−33.53, −13.48]
+returning (nested 80% intervals, equal people). Most of the P04 deficit remains. In the exact A2 replay,
+the open-set route rejected both P04 visits on both checked orders.
+
+Selected production release 64888133 completed on all ten PROTEUS people. Archive SHA-256
+`4bd61c969408980e00eff3ac501ed53bef593eb0e3be04d0e20a4216ebd0fb87`.
+Leonardo 64888134 measured 213.27 s on A100-SXM-64GB for the 20,083-call timing workload with load and warm-up.
+This repeats public sessions and includes 83 recognized sessions.
+
+Against archived cap250, the selected fit's official cell differences are **−14.95 pp held-new** and
+**−23.46 pp returning**. Equal-person contrasts and nested 80% intervals are −15.25 pp [−17.84, −12.60]
+and −23.46 pp [−33.04, −13.94]. The reference is paired by person. Its delivery orders differ.
+Selected returning visit averages are P04 56.73% and P10 81.89%. The unverified sealed composition proxy is
+−18.70 pp [−23.06, −14.36] with equal returning people, or −16.35 pp with the 20/80 P04/P10 proxy.
+
+The matched A2 minus A1 nested contrast is −1.98 pp [−2.94, −1.03] held-new and −0.01 pp [−0.54, +0.57]
+returning. The held-new improvement is refuted for this form. The returning direction is undecided.
+NI-V is +0.49 pp by official cell mean. Both NI-V fits omit all Scherer training data.
+
+The selected A1's exact repeat reproduced every held decision and pinned row order in the first two orders
+(64888138). The EEG route accepted P10 at arrival 60 in one of eight returning replays and rejected all
+28 held-new replays. Seven returning replays used the general classifier throughout. This weak
+cross-visit recognition limits the returning score despite a trained personal head.

@@ -9,12 +9,13 @@ On a Slurm CUDA allocation with the competition checkout on `PYTHONPATH`:
 
 ```sh
 python cleanslate/teamA/train.py --people P01,P02,P03,P04,P05,P06,P07,P08,P09,P10 \
-    --data /path/to/proteus_windows.npz --out /path/to/package
+    --data /path/to/proteus_windows.npz --external-dir /path/to/external \
+    --assets /path/to/pinned-manas-2 --out /path/to/package
 ```
 
-The default recipe uses REVE-base, the seven Lane H corpora, Shin 2018 and Scherer. The required files must already
-be staged. Pass `--external-dir` for a separate export root. Use `--external` with the preregistered corpus list when
-including the B6 exports. A checkpoint override must match the pinned SHA-256.
+The default recipe uses MANAS-2 A1 with the seven Lane H corpora, Shin 2018, Scherer, ds007221 Graz,
+ds007221 LR and NETBCI. Stage the required files before calling the build. Pass `--external-dir` for a separate
+export root. A checkpoint override must match the pinned SHA-256.
 The MANAS-2 build also requires `positions.json` and `LICENSE` from its pinned revision in `--assets`.
 
 Use `--first-session-only P04` when holding that person's later visits out. To share only the external fit across

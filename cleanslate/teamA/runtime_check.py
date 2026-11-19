@@ -38,21 +38,26 @@ def main():
             if label.shape != (1,) or label.dtype != torch.long or int(label) not in (0, 1, 2):
                 raise RuntimeError("Invalid official prediction")
 
+    start_warmup = time.perf_counter()
     warm = copy.deepcopy(template)
     deliver(warm, sessions[0], 48)
     del warm
+    warmup = time.perf_counter() - start_warmup
     durations = []
+    recognized_sessions = 0
     torch.cuda.reset_peak_memory_stats()
     for i, n in enumerate(lengths):
         start = time.perf_counter()
         current = copy.deepcopy(template)
         deliver(current, sessions[i % len(sessions)], n)
         durations.append(time.perf_counter() - start)
+        recognized_sessions += current.person is not None
         del current
     torch.cuda.synchronize()
     result = dict(
         gpu=torch.cuda.get_device_name(), torch=torch.__version__, sessions=len(lengths),
-        windows=int(lengths.sum()), load_s=load, prediction_s=sum(durations), total_s=load + sum(durations),
+        windows=int(lengths.sum()), load_s=load, warmup_s=warmup, prediction_s=sum(durations),
+        total_s=load + warmup + sum(durations), recognized_sessions=recognized_sessions,
         session_p95_s=float(np.percentile(durations, 95)), peak_reserved_mib=torch.cuda.max_memory_reserved() / 2**20,
     )
     args.out.write_text(json.dumps(result, indent=2) + "\n")

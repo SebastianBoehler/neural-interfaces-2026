@@ -16,9 +16,6 @@ base=/mnt/lustre/work/gehler/gfh527
 repo=${TEAM_A_REPO:-$base/neural-interfaces-2026}
 data=${TEAM_A_DATA:-$repo/data/proteus_windows.npz}
 python=${TEAM_A_PYTHON:-$repo/.venv/bin/python}
-if [[ -n "${TEAM_A_PYTHON_MODULE:-}" ]]; then
-    module load "$TEAM_A_PYTHON_MODULE"
-fi
 code=$root/cleanslate/teamA
 harness=$root/cleanslate/harness
 export PYTHONPATH=$repo/2026-competition
@@ -71,9 +68,15 @@ case "$mode" in
         "$python" -B -u "$harness/stream.py" --data "$data" --pkg "$out" --held "$held" --sessions "$sessions" \
             --orders "$orders" --out "$stage/pred_${role}_${held}.npz"
         ;;
-    production)
+    production|release)
         "$python" -B -u "$code/train.py" "${flags[@]}" --people "$all" --transfer "$stage/external/weights.pt" \
             --out "$stage/production"
+        if [[ "$mode" == release ]]; then
+            "$python" -B -u "$code/archive.py" "$stage/production" "$stage/teamA-$arch.zip"
+        fi
+        ;;
+    runtime)
+        "$python" -B -u "$code/runtime_check.py" --pkg "$stage/production" --data "$data" --out "$stage/runtime.json"
         ;;
     *)
         printf 'Invalid stage %s\n' "$mode" >&2

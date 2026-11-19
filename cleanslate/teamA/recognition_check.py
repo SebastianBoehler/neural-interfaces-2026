@@ -32,18 +32,21 @@ def main():
         names_by_index = sorted(people.split(","))
         template = load_solver(pkg, names, "cuda")
         wanted = {f"{held}|{s}" for s in (np.unique(visit[who == held]) if sessions == "all" else sessions.split(","))}
-        for order in map(int, a.orders.split(",")):
-            for session, rows in plans(stream, order, sorted(wanted)).items():
-                model = copy.deepcopy(template)
-                recognition = None
-                for age, i in enumerate(rows, 1):
-                    model.predict(x[i:i + 1].cuda())
-                    if model.person is not None:
-                        recognition = dict(person=names_by_index[model.person], age=age)
-                        break
-                record = dict(role=role, session=session, order=order, recognition=recognition)
-                report.append(record)
-                print(record, flush=True)
+        with np.load(a.run / f"pred_{role}_{held}.npz", allow_pickle=False) as expected:
+            for order in map(int, a.orders.split(",")):
+                for session, rows in plans(stream, order, sorted(wanted)).items():
+                    model = copy.deepcopy(template)
+                    recognition, predictions = None, []
+                    for age, i in enumerate(rows, 1):
+                        predictions.append(int(model.predict(x[i:i + 1].cuda())[0]))
+                        if model.person is not None and recognition is None:
+                            recognition = dict(person=names_by_index[model.person], age=age)
+                    visit_id = session.split("|")[1]
+                    np.testing.assert_array_equal(rows, expected[f"rows_{order}_{visit_id}"])
+                    np.testing.assert_array_equal(predictions, expected[f"labels_{order}_{visit_id}"])
+                    record = dict(role=role, session=session, order=order, recognition=recognition)
+                    report.append(record)
+                    print(record, flush=True)
     a.out.write_text(json.dumps(report, indent=2) + "\n")
 
 
