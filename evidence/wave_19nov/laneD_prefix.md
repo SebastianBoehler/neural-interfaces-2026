@@ -149,3 +149,9 @@ The retry uses the existing official `.venv312` replay environment. Jobs **64848
 **64848179** (array) and **64848180** (collector) use release
 `$WORK/ni26/runs/ni26_lane_d_prefix_v2_20261119` and manifest
 `c43891e6e88006a9c59d74adec82b3d43ac4b005bbc2087fabbb7b653d9df000`.
+
+Leonardo A100 smoke **64848178** passed in 5:09. Stock/off and D-c upstream labels and work
+were exact on 120 windows, including ten Adam refits and 30 CSP fusions. Maximum raw terminal
+stock-repeat drift was 2.82433e−5 and candidate upstream drift was 3.15341e−5. The 25-row reset
+and batch prefix and the complete same-trajectory D-c emission check passed. The off archive
+matches the signed stock archive byte-for-byte.
