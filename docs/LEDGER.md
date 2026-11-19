@@ -905,3 +905,5 @@ Registered as a separate mechanism test after the independent C20e GPU-bound com
 ## F26 · Physical common-average reference in the raw S1C decoder
 
 Registered before training. The [F26 protocol](../friday/fbc323_reference/prereg-19nov.md) locks the CAR map, norm-matched artificial direction, exact hard parent, common-mode probe, whole-decoder metric and numeric decisions. No source cue or cross-session state is added.
+
+**F-C20r source digest correction.** The initial actor array authenticated both P04 seeds and P10 seed 0. P10 seed 1 stopped at its checkpoint digest before deserialization. Its literal omitted two characters. The locked source receipt and independent archive both pin the same actual 64-character digest. The new immutable export uses that exact digest and repeats the original signed F17 and returning oracle guards without altering fit, data or tolerance.

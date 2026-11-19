@@ -8,7 +8,7 @@ from eye_scope import BASE, DATA_SHA, ORDER_SHA, pin, rows_sha, sha
 
 
 F17 = BASE / "ni26_friday_s1c_phase_20261118"
-ACTORS = BASE / "ni26_friday_return_c20_actors_v1_20261119"
+ACTORS = BASE / "ni26_friday_return_c20_actors_v2_20261119"
 ACTOR = "7ed98f96ba6b05165a1bc035a20af0d7dc516b9b1d61c82533abcc85ecbf2372"
 BLIND = "77a25afbba7061dde2c781f3e8fb810b49d653aa57d09dcbc4b5abc0bb2abb37"
 PINS = {
@@ -21,7 +21,7 @@ PINS = {
     ("P10", 0): ("e47e32891f707c958524afbea0392701f001e605f8a7f9e06cedccdff2a92690",
                  "3a59c623f426e470eacf2b0aff2267a10231d7aec6d17268a6e29bf9ccedc7cb",
                  "712a8cf62605606498994e8660bb20dbae7afd1e20952445ba2838645221efb9"),
-    ("P10", 1): ("463e935ed43914d86a0ab53cc21800660f552dc8436693a2e2bcc67f3a430b",
+    ("P10", 1): ("463e935ed43914d86a0ab53cc21800660f552dc8436693a2e2b2bcc67f3a430b",
                  "ace372342b963191f101541b278a878847a71ff95e1f439598954fd0c193b9e1",
                  "18839c98f93d3899e98c907bd410e7265de10de7b65dfb1e03b9a90932aac1fb"),
 }
