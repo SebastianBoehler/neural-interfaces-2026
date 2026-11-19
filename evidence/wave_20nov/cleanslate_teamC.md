@@ -47,3 +47,12 @@ after the cue (same trials, same labels; each offset is its own alignment stream
 Prediction: A1(C1x) − A1(C1) +1.5 [−0.5, +3.5] (more crops ≈ more within-person variety, not more people). Same
 reading rule as C1 (people-80 % interval on both orders). Jobs: Galvani 3139558 (C1), 3139559 (C1x); smoke 3139488
 passed (2 epochs, code path only; A2 ≈ 62 ms/window on a 2080 Ti including Python overhead).
+
+## C2 · heavier TTT forms on the C1 packages (registered 20 Nov ~23:30, after seeing C1 partial logs of P07/P09 only)
+Seen before registering: P07/P09 order-0 accuracies (A1 73.0/68.8, A2 78.3/76.7, A2h 81.5/77.3). No cell-mean score yet.
+Eval-only (`galvani.sh eval C1`, sub `c2`), orders 0,1, all ten people, against A2h (8 steps, lr 3e-4):
+A3a 16 steps · A3b lr 1e-3 · A3c no anchor · A3d no information maximisation · A3e confidence ≥ 0.5 on the balanced
+target · A3f update every 2nd window and dense to 64. Prediction: A3a − A2h +0.5 [−1, +2]; A3b −0.5 [−3, +1.5] (drift);
+A3c 0 [−1, +1]; A3d −0.5 [−2, +1]; A3e +0.3 [−1, +1.5]; A3f +0.3 [−0.5, +1]. Same reading rule (both orders).
+Runtime is part of the result: a form is only usable if its 2080 Ti ms/window ≤ 179 (the 2080 Ti is slower than the
+RTX PRO 4500, so this is conservative for the sealed card).

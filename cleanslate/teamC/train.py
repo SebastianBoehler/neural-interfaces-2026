@@ -25,11 +25,11 @@ import submission as S  # noqa: E402
 ROOT = HERE.parents[1]
 
 
-def load(people, data, extra=()):
+def load(people, data, extra=(), exclude=()):
     """Training rows of PEOPLE; each extra cue-offset export (same rows, other start) is its own alignment stream."""
     d = np.load(data)
     person = np.array([s.rsplit("/", 1)[-1] for s in d["subject"]])
-    keep = np.isin(person, people)
+    keep = np.isin(person, people) & ~np.isin(np.char.add(np.char.add(person, "|"), d["session"]), list(exclude))
     assert set(person[keep]) == set(people), f"missing people {set(people) - set(person[keep])}"
     stream = np.char.add(np.char.add(person[keep], "|"), d["session"][keep])
     Xs, ys, ss = [d["X"][keep].astype(np.float32)], [d["y"][keep]], [stream]
@@ -104,11 +104,13 @@ def main():
     ap.add_argument("--aug", type=int, default=1)
     ap.add_argument("--shrink", type=float, default=S.DEFAULT_TTT["shrink"])
     ap.add_argument("--data", default=str(ROOT / "data/proteus_windows.npz"))
+    ap.add_argument("--exclude", default="", help="streams left out of training, e.g. P04|2,P04|3 (returning dev)")
     ap.add_argument("--extra", default="", help="comma list of cue-offset exports, e.g. start0.5,start2")
     args = ap.parse_args()
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     people = sorted(args.people.split(","))
-    X, y, stream = load(people, args.data, [e for e in args.extra.split(",") if e])
+    X, y, stream = load(people, args.data, [e for e in args.extra.split(",") if e],
+                       [e for e in args.exclude.split(",") if e])
     al = Aligner(X, stream, dev, args.shrink)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -123,7 +125,7 @@ def main():
     ttt = {**S.DEFAULT_TTT, "shrink": args.shrink}
     torch.save(dict(members=members, ttt=ttt, people=people, args=vars(args)), out / "weights.pt")
     shutil.copy(HERE / "submission.py", out / "submission.py")
-    json.dump(dict(people=people, args=vars(args), members=log, rows=len(y)), open(out / "train.json", "w"), indent=1)
+    json.dump(dict(people=people, streams=sorted({s.split("|")[0] + "|" + s.split("|")[1] for s in stream}), args=vars(args), members=log, rows=len(y)), open(out / "train.json", "w"), indent=1)
 
 
 if __name__ == "__main__":

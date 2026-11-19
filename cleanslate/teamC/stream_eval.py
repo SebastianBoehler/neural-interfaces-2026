@@ -30,6 +30,13 @@ VARIANTS = {
     "A2b": dict(bn="prefix", steps=4, balance=1),
     "A2h": dict(bn="prefix", steps=8, lr=3e-4, balance=0),  # heavier TTT
     "A2n": dict(bn="prefix", steps=4, params="bn+fc", lr=1e-3, balance=0),  # BN affine + head only
+    # C2: heavier TTT around A2h (8 steps, lr 3e-4)
+    "A3a": dict(bn="prefix", steps=16, lr=3e-4),
+    "A3b": dict(bn="prefix", steps=8, lr=1e-3),
+    "A3c": dict(bn="prefix", steps=8, lr=3e-4, anchor=0.0),
+    "A3d": dict(bn="prefix", steps=8, lr=3e-4, lam_im=0.0),
+    "A3e": dict(bn="prefix", steps=8, lr=3e-4, tau=0.5),
+    "A3f": dict(bn="prefix", steps=8, lr=3e-4, every=2, dense_until=64),
 }
 
 
@@ -40,6 +47,13 @@ def load_model(pkg, dev, cfg):
     return submission.load_package(pkg, dev, cfg)
 
 
+def p_seen(perms, k, query):
+    """Returning dev order: the seen_session permutation of order k, restricted to the streamed rows."""
+    with np.load(perms) as p:
+        rows = p[f"full|{k}|seen_session"]
+    return rows[np.isin(rows, query)]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pkg", required=True)
@@ -47,6 +61,7 @@ def main():
     ap.add_argument("--orders", default="0")
     ap.add_argument("--variants", default="A0,A1,A2")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--sessions", default="", help="returning dev: only these sessions of HELD (must be untrained)")
     ap.add_argument("--data", default=str(ROOT / "data/proteus_windows.npz"))
     ap.add_argument("--perms", default=str(ROOT / "runs/shuffle_perms.npz"))
     args = ap.parse_args()
@@ -54,15 +69,19 @@ def main():
     assert hashlib.sha256(Path(args.perms).read_bytes()).hexdigest() == ORDER_SHA, "order archive changed"
     d = np.load(args.data)
     person = np.array([s.rsplit("/", 1)[-1] for s in d["subject"]])
-    trained = json.load(open(Path(args.pkg) / "train.json"))["people"]
-    assert args.held not in trained, "held person in the package's training people"
+    tj = json.load(open(Path(args.pkg) / "train.json"))
     stream = np.char.add(np.char.add(person, "|"), d["session"])
     query = np.flatnonzero(person == args.held)
+    if args.sessions:
+        query = query[np.isin(d["session"][query], args.sessions.split(","))]
+        assert not set(stream[query]) & set(tj["streams"]), "a streamed session was trained on"
+    else:
+        assert args.held not in tj["people"], "held person in the package's training people"
     out, meta = {}, []
     for k in map(int, args.orders.split(",")):
         with np.load(args.perms) as p:
             rows = p[f"full|{k}|all_loso"]
-        rows = rows[np.isin(rows, query)]
+        rows = rows[np.isin(rows, query)] if not args.sessions else p_seen(args.perms, k, query)
         assert np.array_equal(np.sort(rows), query)
         out[f"rows|{k}"] = rows
         for v in args.variants.split(","):
