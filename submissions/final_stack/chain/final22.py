@@ -1,6 +1,6 @@
 """Final-stack arms (stock, hard, cb, hardcb) in the corrected Friday chain: raw-slot replacement, then the real count/CSP tail.
 
-usage: final22.py ORDER (smoke|complete) CB_PUPIL.npz   (ORDER full0 or within0; CB_PUPIL from cb_bank.py means)
+usage: final22.py ORDER (smoke|complete) "cbbank_ORDER_s*.npz"   (ORDER full0 or within0; the three cb_bank.py seed streams, mean = the pupil)
 Runs under the c25d worker environment (PYTHONPATH as in worker.sbatch); a copy of matrix22/cross22 with the FBL2/joint arms
 removed, the CBraMod pupil added, and MASS set per arm: hard 5/6, cb 1/6, hardcb 5/6 with proposal 0.8*hard + 0.2*cb."""
 import argparse
@@ -80,9 +80,15 @@ def run(order, smoke, cb_path):
     _, receipts = parents(order)
     pupils, own_pins = helper("c25_f32_inputs", F32 / "consume32.py").inputs(order, person, PUPIL_SOURCE)
     run_tail = helper("c22_parent_tail", C20 / "worker.py").run_tail
-    with np.load(cb_path, allow_pickle=False) as z:
-        cb = z["post"]
-        cb_delivery = z["delivery"]
+    seeds = sorted(Path(cb_path).parent.glob(Path(cb_path).name))  # e.g. cbbank_full0_s*.npz: the three seed streams
+    assert len(seeds) == 3, f"expected three CBraMod seed banks, got {seeds}"
+    posts = []
+    for f in seeds:
+        with np.load(f, allow_pickle=False) as z:
+            assert str(z["order"]) == order
+            posts.append(z["post"])
+            cb_delivery = z["delivery"]
+    cb = np.mean(posts, axis=0)
     assert cb.shape == (2655, 3) and np.isfinite(cb).all() and (cb >= 0).all()
     np.testing.assert_allclose(cb.sum(1), 1.0, atol=1e-6, rtol=0)
     pupils = dict(hard=pupils["hard"], cb=cb)
@@ -118,7 +124,7 @@ def run(order, smoke, cb_path):
                 np.testing.assert_array_equal(hard_bank[f"hard|{key}"][delivered], stages["hard"][key][delivered])
         for key in stages["stock"]:
             np.testing.assert_array_equal(stages["stock"][key][delivered], ctx["reference"][key][delivered])
-        proof = dict(passed=True, scope="smoke" if smoke else "complete", order=order, source=source, cb_pupil=sha(cb_path),
+        proof = dict(passed=True, scope="smoke" if smoke else "complete", order=order, source=source, cb_pupil=[sha(f) for f in seeds],
                      delivery=stamp(ctx["delivery"]), rows=len(delivered), sessions=len(selected), parent=ctx["parent"],
                      zero=ctx["zero"], pupils=own_pins, work=work, mix=ctx["traces"], held_labels_opened=False,
                      strict_prefix=True, seconds=perf_counter() - begin)

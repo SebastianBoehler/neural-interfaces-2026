@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=gehler
-#SBATCH --partition=cpu-galvani
+#SBATCH --partition=cpu-galvani,2080-preemptable-galvani
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=12G
 #SBATCH --time=00:50:00

@@ -14,7 +14,8 @@ from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-sys.path.insert(0, str(ROOT / "friday/cap250_hard_package"))
+HARD_DIR = Path(os.environ.get("STACK_HARD_DIR", ROOT / "friday/cap250_hard_package"))  # build_hard.py + hard_model.py.inc
+sys.path.insert(0, str(HARD_DIR))
 from build_hard import CODE, FACTORY, MARKER, STOCK  # noqa: E402
 
 STOCK_ZIP = ROOT / "runs/sealed/final_zips/v66_cp1_cap250.zip"
@@ -27,17 +28,19 @@ def sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
-def revised(original, variant, cb_files):
+def revised(original, variant, cb_files, hard_files=None):
     if sha(original) != CODE:
         raise ValueError("cap250 source bytes differ")
     src = original.decode("utf-8")
     if src.count(MARKER) != 1 or src.count(FACTORY) != 1:
         raise ValueError("expected one official Solver factory")
-    hard = (ROOT / "friday/cap250_hard_package/hard_model.py.inc").read_text().rstrip()
+    hard = (HARD_DIR / "hard_model.py.inc").read_text().rstrip()
     cb = (HERE / "cb_member.py.inc").read_text().rstrip()
     stack = (HERE / "stack_model.py.inc").read_text().rstrip().replace("__CB_FILES__", repr(tuple(cb_files)))
     if variant == "cb":  # no hard actors: the (unused) hard class keeps no pinned files
-        stack = stack.replace("    CB_MIX = 0.2", "    CB_MIX = 0.2\n    HARD_FILES = ()")
+        hard_files = ()
+    if hard_files is not None:  # per-fold hard actors (returning instrument) or none
+        stack = stack.replace("    CB_MIX = 0.2", f"    CB_MIX = 0.2\n    HARD_FILES = {tuple(hard_files)!r}")
     src = src.replace(MARKER, f"{hard}\n\n\n{cb}\n\n\n{stack}\n\n\n{MARKER}")
     src = src.replace(FACTORY, FACTORY.replace("Ensemble6", "StackEnsemble"))
     compile(src, "submission.py", "exec")
