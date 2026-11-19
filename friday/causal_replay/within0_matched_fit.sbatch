@@ -17,6 +17,7 @@ family=${1:?family}
 case "${3:-within0}" in
     within0) entry=within0_matched_fit.py; release=within0_shared_bridge_v1; inputs=within0_warm_inputs.sha256 ;;
     runs0) entry=runs0_pair.py; release=runs0_shared_bridge_v1; inputs=runs0_warm_inputs.sha256 ;;
+    full0) entry=full0_common_fit.py; release=full0_common_bridge_v1; inputs=full0_common_inputs.sha256 ;;
     *) exit 2 ;;
 esac
 (cd "$BASE" && sha256sum --quiet -c "$HERE/$inputs")

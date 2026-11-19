@@ -14,6 +14,7 @@ ZERO_SOURCE = "fdc3f46b965354ad9180c63ff132c3ee680c7a3521bd272d3c692db9a027b2ac"
 ROUTE = ROOT / "runs/s281_v66_route/full0.json"
 ROUTE_SHA = "befe52d9c2491c15fbc613eb62ed45186969de69ee5b1cffe63906d834a600d7"
 BRIDGE = MEANS / "full0_common_bridge_v1/status.json"
+BRIDGE_SOURCE = "7fd26b266b422a688a0c692814bad3320ccdd1b68575a6400050cd7a7b7cb3b4"
 PINS = {
     ROOT / "runs/s281_v66_cp/control_full0_B2_pool.npz": "087b14f54b65496de07e728549d71501d0f4fdfd711794e10b41bec5f044fa7f",
     ROOT / "runs/s281_v66_cp/zero318_full0_B2_pool.npz": "d0a8fddef6e6f50c0b232c9760ba116e04a3a12ea60024964caafce07c83d4b0",
