@@ -8,13 +8,15 @@ from time import perf_counter
 import numpy as np
 
 from bridge_orders import write_npz, write_receipt
-from bridge_owner import sha, stamp
+from bridge_owner import MEANS, sha, stamp, start_module
 from cc30 import contents
 from complete_zero import FEAT
 from factor import TREATMENTS, variants
-from worker import run_tail
+
 
 WORK=Path(__file__).resolve().parent
+TAIL=MEANS/"fc20_outer_v1/worker.py"
+run_tail=start_module("fc20_locked_tail",TAIL,TAIL.read_text()).run_tail
 ARMS=("stock",*TREATMENTS)
 
 
