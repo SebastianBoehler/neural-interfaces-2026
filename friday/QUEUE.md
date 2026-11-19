@@ -465,3 +465,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - F-C25pc forced-unrecognized long-stream RTX technical stress 3135353. Independent comparison uses the same package bytes. Release `ni26_friday_c25pc_postcap_v1_20261119`, source `ba670fcc40d10308700d9deae8f692e129a59abffc0f889364712c0099008989`.
 - F-C29 source and RTX native P10/G passed. Fresh Scherer array 3135169 and scorer 3135205 run alongside F-C29d corrected full-system held arms 3135202/03 and blind scorer 3135204.
 - F34 signed at 09:44:53 CET. All twenty A100 fits/CPU held jobs and scorer `3135211` passed. Aligned envelope gain against exact hard was refuted in both seeds. Both learned parallel branches lost sharply in held transfer. [Signed F34 result](fbc323_envelope/result-19nov.md)
+
+### F35 training-only source-person contribution balance
+
+- A100 source smoke `3135480` passed at 09:51:56 CET in 17 seconds. Exact hard bytes and zero-transfer optimizer matched F33a. Source used all 160 original updates, including 140 paired-person groups. Analytical head-gradient agreement 2.384e−7. Frozen anchor imbalance fell 65.21%. On actual branch trajectories, relative imbalance went 0.231→0.105 for balance and 0.227→0.357 for the equal mirror. [Registered scope](fbc323_gradient_balance/prereg-19nov.md)
+- Independent CPU held smoke `3135486` gates Galvani A100 source `3135487` and matched CPU held `3135488`. Scorer `3135489` reauthenticates the source tape and seals all decisions before labels. Native Slurm DAG in release `ni26_friday_s1c_balance_a100_20261119/jobs.txt`. Actor `b153df05e923c0b40795adaed413d8d024087e49e4b2be51445d81b6180db42e` and scorer `eaa05cb8ee29a01106c56cf5c17fd457ce607ab7426468f7e1e2046a7c7be6a4`.
