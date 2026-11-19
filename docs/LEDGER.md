@@ -3184,3 +3184,29 @@ All four regression checks now pass, including preserved inference-only cache re
 Recent standalone waveform actors bypass this cache. No completed campaign score was identified as
 affected by these training bugs. No frozen ZIP, remote source snapshot or official submodule changed.
 **F-C25pdet completed at 10:57:19 CET.** On the immutable stock RTX G fixture, fresh-process default A/A terminal peaked at `1.260e-5` and the largest protected difference at `3.369e-5` in warm FBLight. The controlled A/A was bitwise across all captured arrays. Default stayed inside `5e-5`, so the comparison missed the preregistered attribution criterion. Both modes kept signed decisions, original G/P10 work and exact private tails. All reset prefixes were bitwise. Controlled/default observer time 1.026× G and 1.012× P10. Smoke 3135860 and complete 3135861 passed after the documented observer corrections. No ZIP qualification, tolerance change or deployment. [Signed protocol and result](../friday/cap250_hard_determinism/README.md)
+
+## NI-V · Validation instrument v1 (registered 19 Nov 2026 ~14:00 CET, before any NI-V label was opened)
+
+Purpose: one instrument every candidate is scored on until the Friday 18:00 decision (reviews of 19 Nov:
+`evidence/review_19nov/{strategy_claude,strategy_opus,bugs_codex}.md`). Every member is re-streamed in delivery order
+by construction on the exact-package arms (the real `Solver.predict`, one window per call, fresh copy per visit), so the
+historical STRICT exemption (cached transformer/shallow EA slots) cannot occur there. Code `niv/`; release
+`ni26_niv_v1_20261119` on Galvani; collector `niv/collect.py`. Worker label-blind; labels are opened only by the collector.
+
+**Arms.** (B-new) the 9 Scherer people, both visits, no enrolment, exact ZIPs on RTX 2080 Ti; schemes `full` (full-session
+shuffle) and `within` (shuffle inside each real acquisition run, run order kept), 8 pinned orders each (seeds 71000-71007).
+(B-ret) per Scherer person, visit 1 enrolled into the package (gallery, personal head, own-space, TSEM prior) and visit 2
+streamed under both schemes; plus zero-routing check (no recognition of the 8 other Scherer people and of visit 1 of the
+enrolled person's non-matching peers). (A) 10 held public PROTEUS people: the corrected re-streamed replays already on
+file (full0, within0; friday/causal_replay), extended to more orders only as far as the chain can be repeated (decided and
+stated in `niv/README.md`). Null: cap250 with only `v6_ft_seed` 0 -> 1 (`niv/make_null_zip.py`), same orders.
+
+**Predictions (B-new, cap250 minus v5.1b, person-equal cell mean).** Pooled over both schemes +0.3 pp (80 % range
+-0.4..+1.0); earlier external readings were +0.04..+0.49 (4-order +0.27) and the sealed delta was +1.01, so the instrument
+is expected to carry the sign but under-state the magnitude (Scherer montage has 22 of 41 channels interpolated, stock BA
+about 47 %). Null (cap250 seed 1 minus seed 0): |pooled delta| <= 0.25 pp, 80 % person-and-order bootstrap half-width
+0.3-0.6 pp, so the minimal detectable delta on B-new alone is about 0.7-1.2 pp.
+**Refutation.** NI-V is declared uninformative for small candidates if the null pooled |delta| > 0.5 pp or the null
+person-bootstrap 80 % half-width on B-new exceeds 0.8 pp; it is declared to reproduce the sealed direction only if the
+cap250-v5.1b pooled B-new delta is > 0 under both schemes and the A-cohort corrected delta is > 0. Magnitude is not
+claimed from B. No upload, no package edit; bars are reading aids, a result inside the noise is "undecided".
