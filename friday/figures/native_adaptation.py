@@ -137,6 +137,44 @@ def plot_external_raw(receipts, out):
     save(fig, out, "external-outer-raw-same-input")
 
 
+def plot_fbl_factor(receipts, out):
+    record = locked(receipts / "held-fbl-doubling-factorial-score.json",
+                    "cfd9584c29d3e9175228f6f92c633a09d63f91e20d88c6ae722c3e726a58f939")
+    fig, (ax,) = layout("Doubling adapted FBLight improved both held-new replays")
+    rows = (("Adapted FBLight double vs stock", "FBL2_minus_stock"),
+            ("CC30 replacement vs stock", "SS_minus_stock"),
+            ("Both changes vs stock", "JS_minus_stock"),
+            ("Both changes vs FBLight double", "JS_minus_FBL2"))
+    for name, color, offset in (("within0", BLUE, -.13), ("full0", GOLD, .13)):
+        for row, (_, key) in enumerate(rows):
+            interval(ax, record["orders"][name]["contrasts"][key], row + offset,
+                     color, name if row == 0 else None)
+    ax.set_yticks(range(len(rows)), [label for label, _ in rows])
+    ax.set(xlim=(-.49, 1.11), ylim=(3.59, -.55))
+    ax.set_title("Complete updated cap250 replay · paired 80% intervals", loc="left", fontsize=10, color=MUTED)
+    ax.legend(loc="lower right", frameon=False, ncol=2)
+    fig.text(.028, .024, "Full-system dev · same 10 held-new participants · both comparators retain live refit and personalization",
+             fontsize=9, color=MUTED)
+    save(fig, out, "held-fbl-doubling-factorial")
+
+
+def plot_returning_raw(receipts, out):
+    record = locked(receipts / "returning-outer-raw-score.json",
+                    "811d15ace58f38726d91692c7729ab26c177054868d700677203fc6a28a511d4")
+    fig, (ax,) = layout("The raw replacement changed three returning decisions")
+    rows = (("Equal official cells", "official_equal"), ("Returning 20/80 mix", "20_80"),
+            ("P04", "P04"), ("P10", "P10"))
+    for row, (_, key) in enumerate(rows):
+        value = record["pairings"][key]
+        interval(ax, value, row, BLUE if row < 2 else MUTED)
+    ax.set_yticks(range(len(rows)), [label for label, _ in rows])
+    ax.set(xlim=(-.57, .62), ylim=(3.55, -.55))
+    ax.set_title("Hard-label raw replacement vs exact native stock · paired 80% intervals", loc="left", fontsize=10, color=MUTED)
+    fig.text(.028, .024, "Conditional full-system dev · four later visits of two participants · original gallery and production auxiliaries retained",
+             fontsize=8.8, color=MUTED)
+    save(fig, out, "returning-outer-raw")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("receipts", type=Path)
@@ -149,3 +187,5 @@ if __name__ == "__main__":
     plot_outer_raw(options.receipts, options.output)
     plot_multiresolution_stack(options.receipts, options.output)
     plot_external_raw(options.receipts, options.output)
+    plot_fbl_factor(options.receipts, options.output)
+    plot_returning_raw(options.receipts, options.output)

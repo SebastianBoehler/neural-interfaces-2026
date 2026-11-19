@@ -338,3 +338,7 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 - The independent Galvani hold `3134042` passed in 1m16. Ferranti `511477` released, with two tasks starting at 05:34:58 CET. The full source wall requests remain unchanged. If two H100 slots hold, the estimated score is 05:48–05:52 CET.
 
 - F27 completed at 05:48:55 CET. Every source and held job passed, and both registered contrasts remained undecided. [Signed results](fbc323_electrodes/result-19nov.md)
+
+### Adapted FBLight and multiresolution cross F-C22
+
+- Galvani complete-system smoke `3134261` gates full0 `3134262`, within0 `3134263` and separate score `3134264`. It reuses the signed FBL2 and multiresolution probability banks and checks both parents bitwise before opening labels. The release is `ni26_friday_c22_cross_v1_20261119`, source `90e2a71bb75538a8598f61785df18722ec02861f6fd9f562fac4a43c931e9a3c`, scorer lock `18c37643313077fd0d34d162bca15d575e76a164401d136475fd5eeb943d7d91`. [Protocol](../docs/LEDGER.md#f-c22--cross-adapted-fblight-doubling-with-multiresolution-raw-substitution)

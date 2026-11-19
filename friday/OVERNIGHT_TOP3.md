@@ -1,6 +1,6 @@
 # Overnight Track 2 campaign
 
-Sebastian set an eligible sealed top-three finish as the final submission target. At 03:40 CET on 19 November, the public Codabench results put cap250 at **#16 by participant** after retaining each participant’s best entry. Grouping organizations gives **#15 by team before audit**. The sealed cap250 score remains **0.8298729992**. Third place rose to **0.8470450897**, a gap of **1.7172 percentage points**. The last attempt requires Sebastian’s explicit upload authorization. [Exact Codabench scores](https://www.codabench.org/api/leaderboards/19997/) · [Team ranking and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring) · [Cap250 receipt](DECISION_18NOV.md#official-penultimate-receipt)
+Sebastian set an eligible sealed top-three finish as the final submission target. At 06:10 CET on 19 November, the public Codabench results put cap250 at **#16 by participant** after retaining each participant’s best entry. Grouping organizations gives **#15 by team before audit**. The sealed cap250 score remains **0.8298729992**. Third place stood at **0.8470450897**, a gap of **1.7172 percentage points**. The last attempt requires Sebastian’s explicit upload authorization. [Exact Codabench scores](https://www.codabench.org/api/leaderboards/19997/) · [Team ranking and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring) · [Cap250 receipt](DECISION_18NOV.md#official-penultimate-receipt)
 
 ## Overnight comparisons
 
@@ -58,7 +58,15 @@ The conditional Scherer comparison finished at 05:37:50 CET. The hard-label repl
 | Native returning F-C20r | Both P04 visits sealed. Remaining P10 visits use entirely person-excluded hard waveform actors and retain the original production nuisance components. | Around 05:45, subject to completion and blind seal |
 | F27 raw electrode topology | Both authentic smokes passed. H100 source fits and independent held replays are active. The artificial graph preserves each sensor's in- and out-degree. | 05:48–05:52 if two H100 allocations remain available |
 
-The latest exact podium snapshot remains the 03:40 CET check above. The later public endpoint returned a non-JSON response. Stock retains the best observed sealed score. [Live queue](QUEUE.md)
+The exact podium refresh at 06:10 CET reproduced the 03:40 CET score and rank snapshot. Stock retains the best observed sealed score. [Live queue](QUEUE.md)
+
+### Candidate qualification · 06:10 CET
+
+Adapted FBLight doubling is the strongest repeatable new component on the corrected public instruments. F-C21 gained **+0.3832 pp** within0 and **+0.4882 pp** full0 against exact cap250, with paired 80% lower bounds +0.1205 and +0.1901 pp. The trial amplified the actual post-refit FBLight on 2,375 windows per replay. The separate CC30 joint missed its comparison against FBLight alone. The last sealed gap is **1.7172 pp**. These public gains do not imply a sealed improvement. [F-C21 full-system result](cap250c21/result-19nov.md)
+
+- **External and timing.** RTX smoke `3134258` gates nine-person Scherer array `3134259` and warmed worker timing `3134260`. The registered native treatment applies the true outer adapted FBLight weight and the normalized recognized RouteB core share. [F-C21e registration](../docs/LEDGER.md)
+- **Returning.** The earlier five-slot raw replacement gained +0.130 pp on official cells and +0.052 pp on the 20/80 mix. Both intervals include zero. FBL2 gets its own exact native returning replay with the original protected targets and fit scope. [Raw replacement result](ea_returning/native_c20/README.md)
+- **Joint complete replay.** F-C22 crosses FBL2 with the fixed F25c multiresolution pupils. A matched conventional-pupil combination and both single parents run alongside stock and zero. Galvani smoke `3134261` gates complete replays `3134262/3134263` and independent scorer `3134264`. [F-C22 registration](../docs/LEDGER.md#f-c22--cross-adapted-fblight-doubling-with-multiresolution-raw-substitution)
 
 ## Selection
 
