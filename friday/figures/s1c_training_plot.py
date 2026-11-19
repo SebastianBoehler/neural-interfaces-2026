@@ -113,6 +113,15 @@ LAYOUTS = {
             ("bounded_multi_minus_single", "Multiresolution gate\nvs conventional gate"),
             ("bounded_single_minus_hard", "Conventional gate\nvs hard CE"),
         )),
+    "bed4bf0abc95f1c75613c40b6caefab545e4d1f1e14c96ca598d5caf5a3fc3eb": dict(
+        title="Common-average referencing changed sign across seeds",
+        stem="held-s1c-reference-geometry", xlim=(-2.28, 2.72),
+        caption="Bounded inference. Both reference variants matched output energy per window.",
+        contrasts=(
+            ("bounded_car_minus_hard", "Common-average reference\nvs hard CE"),
+            ("bounded_car_minus_sham", "Common-average reference\nvs artificial direction"),
+            ("bounded_sham_minus_hard", "Artificial direction\nvs hard CE"),
+        )),
 }
 
 
