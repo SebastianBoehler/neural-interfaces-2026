@@ -1283,3 +1283,7 @@ Register before deriving new predictions. F-C25d/C25 showed negative interaction
 **F-C28 observer correction before gold.** Job 3135053 authenticated one full source bank and stopped on a row-sum guard. Native pre-fusion rows include normalized float32 posteriors carried in float64, with observed sum error 4.47035e−8. Permit one float32 epsilon in this raw row-sum guard and explicitly normalize each pre-fusion row as registered. Preserve the 1,395 true log-score rows, every native argmax and all probability and same-input zero checks. Require distinct arithmetic and geometric opinions at probability scale. A legitimate tied aggregate decision bank remains scoreable. Neither bank was sealed for scoring and no gold was opened.
 
 **F-C28 completed at 09:12:06 CET.** Arithmetic pooling still beat cap250 +0.353/+0.444 pp with positive paired bounds. It trailed FBLight alone by 0.030/0.044 pp and the early joint by 0.221/0.109 pp. The latter within0 contrast was refuted. No external continuation on fixed pooling. [Complete result](../friday/cap250_fbl_wave_pool/result-19nov.md)
+
+## F33a · Independent matched A100 replication of signed cofluctuation
+
+The [F33a protocol](../friday/fbc323_covariance/a100_whole/prereg-19nov.md) freezes the same intervention, source splits, seeds, score and numerical rules before fitting. The bare A100 control must match the A100 hard checkpoint and independent replay. H100 archives contribute signed recipe metadata only. Keep independent A100 and Ferranti proof and result banks, with the original queue unchanged.
