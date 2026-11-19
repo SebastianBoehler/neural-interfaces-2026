@@ -1,0 +1,14 @@
+{
+ "source_zip_sha256": "9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed",
+ "out_zip_sha256": "87539dc0e35e0a526291533c4ea5ea5c887adc2f18c4dddb09f79e279f19ff88",
+ "mode": "gS",
+ "replaced": [
+  "own_s_W",
+  "own_s_c"
+ ],
+ "submission_py_unchanged": true,
+ "personal_stage_ms_per_window": {
+  "stock": 7.14465416240273,
+  "new": 7.2143760495237075
+ }
+}
