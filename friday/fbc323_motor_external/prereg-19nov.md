@@ -1,0 +1,15 @@
+# F32e · Export all-source motor-supervised S1C
+
+Registered 19 November 2026 before source fitting. F32's ordinary whole decoder improved on the two held-PROTEUS seeds. Both bounded primary endpoints remained undecided. The held-PROTEUS experiment fixes the objective and the population for this export. The downstream evaluator will register its own comparison before reading any external labels. [F32 protocol and license](../fbc323_motor_joint/prereg-19nov.md) · [F32 results](../fbc323_motor_joint/result-19nov.md)
+
+## Training and source boundary
+
+Use the exact 2,655 public PROTEUS waveform windows and labels from all ten subjects. Use the original F16e all-public-source window order, seed 0 or 1, original 40 epochs, SessionBN grouping, source scale, class weights and optimizer. The exact hard state and bytes must be reproducible from the sealed F16e hard checkpoint on each seed. Use the same private motor loss and source-only tape as F32, with P00 reserved to generate the all-source schedule. Both external arms use 40 balanced genuine PhysioNet rows from the original 30 subjects in each native update, the unchanged 0.25 loss weight, separate normalization and optimizer, and identical initial private heads. Detached must yield exact native state identity to hard. Joint must reach the shared spatial projection and leave each actual native normalization update isolated from the external loss. All three use the unchanged native raw architecture with zero fixed-feature gradient.
+
+The Scherer cohort is entirely outside preparation, training and export probes. The exporter checks only raw public PROTEUS windows, without reading their labels. No Scherer path, data or labels enter this release. No change to the existing F32 releases or official package is required.
+
+## Smoke, forecast and failure rule
+
+Ferranti H100 seed-0 four-epoch smoke checks byte identity to F16e smoke hard, exact detached native weights, finite active private/spatial gradients, masked gradients, real tail-consistency and all 172 scheduled updates. Expect hard and detached to be precisely equal, with true joint spatial gradient above 1e−8 and native moments untouched. Fail the source on mismatch. Run an independent real GPU export smoke in the pinned worker image before releasing both final training seeds. Each final seed uses exactly 1,720 updates.
+
+Publish one plain checkpoint and one self-contained bounded TorchScript actor per arm and seed. TorchScript accepts contiguous float32 [1,41,480] voltage windows, emits normalized float64 [1,3] in official order and resets every state tensor to zero. Require exact ordinary raw-head/zero-feature parity, independent original bounded CPU batch oracle with every tested decision equal, maximum posterior deviation ≤2e−5 and exact first-window, truncated prefix and foreign-session reset identity. Include the exact frozen model and input hashes. Publish native tensors only, leaving private head and optimizer behind. This is an export qualification, without external balanced-accuracy or leaderboard claims.
