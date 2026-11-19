@@ -342,3 +342,8 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 ### Adapted FBLight and multiresolution cross F-C22
 
 - Galvani complete-system smoke `3134261` gates full0 `3134262`, within0 `3134263` and separate score `3134264`. It reuses the signed FBL2 and multiresolution probability banks and checks both parents bitwise before opening labels. The release is `ni26_friday_c22_cross_v1_20261119`, source `90e2a71bb75538a8598f61785df18722ec02861f6fd9f562fac4a43c931e9a3c`, scorer lock `18c37643313077fd0d34d162bca15d575e76a164401d136475fd5eeb943d7d91`. [Protocol](../docs/LEDGER.md#f-c22--cross-adapted-fblight-doubling-with-multiresolution-raw-substitution)
+
+### F28 teacher-excluded waveform relations
+
+- Ferranti `511498` passed all three genuine P01 nested teacher fits in 24 seconds. Source student smoke `511500` passed in ten seconds with 1,271 same-task source pairs. Real independent Galvani smoke `3134277` gates source teacher array `511499`, which in turn gates source students `511501`. Held array `3134278` and collector `3134279` only consume the authenticated teacher receipts and frozen native student checkpoints. Both source waves cap at four and are sequential. [Registered protocol](fbc323_relational/prereg-19nov.md)
+- Teacher actor SHA-256 `467fd886eb03bc1b27ea28e42b199c89eb9d314630f584adf71b6e2db232354f`, student actor `8ab663afcf72b5a8e6668e379f1e00fda27effe983beafba48cf84e2373298c3`, held scorer `a001fba2661127171cac167fd2475f0b67d72864eb2b80a749c92284d9981a56`. Releases end in `s1c_relational_20261119`. Controller `bash friday/fbc323_relational/run_dependencies.sh 511500 511499 511501 3134277 3134278`. After teacher release the same command with `resume` continues incomplete student relays.
