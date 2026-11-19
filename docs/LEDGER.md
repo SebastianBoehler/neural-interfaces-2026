@@ -857,3 +857,5 @@ Registered before inference on the corrected consumers. §292A added six REVE-di
 ## F25 · Learn cross-band energy modulation at several durations
 
 Registered 19 November before fitting. The [F25 protocol](../friday/fbc323_modulation/prereg-19nov.md) fixes the learned cross-band gate, parameter-matched temporal control, exact F16 anchor and scope, numerical forecasts and compute limits.
+
+**F-C5r completed at 04:36:49 CET.** Both RTX 2080 Ti timing blocks preserved independent labels and stage work. Shared inputs gave bitwise equality across 302 terminal vectors across the two orders. The unrecognized complete-worker ratios were 0.9820× and 0.9936×. The stage ratios were 0.7159× and 0.6847×. Per-window p95 ratios were 1.1248× and 1.1775×. Actual covariance calls fell 120→85 and 120→81. Stock-to-treatment score drift was below stock-to-stock drift in both timing blocks. Order 1 missed the preregistered 1% threshold, so the practical runtime benefit remains undecided. No task labels, new package, or official runtime claim. [RTX timings and sealed receipts](../friday/cap250c5r/result-19nov.md)
