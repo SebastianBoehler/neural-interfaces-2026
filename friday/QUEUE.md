@@ -432,3 +432,6 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 
 - F-C25 held-new scorer 3134881 completed at 08:54:40 CET. External scorer 3134866 completed at 08:59:07 CET. Hard-only won externally. Its four-order pooled result finished at 09:06:40 CET. [Factorial](cap250_f32_cross/README.md) · [Pooled hard-only](cap250_hard_pooled/result-19nov.md)
 - F-C22e verified the sealed six-actor A100 source bundle and source-only CPU streaming proof. Galvani 3135022 smoke passed at 09:06:59 CET, followed by nine eight-arm matched external jobs 3135023 and independent scorer 3135024. Fresh delivery seeds 20411/21411. Worker manifest `5ab684af163168f53d617c66778091bee19def82983f2c4bf407c7e713a8fc5b`, scorer manifest `bf7c82f002ce267c595ffdf29eb762be58baae3ea09a3f8a54af1441ac8fd4f7`.
+- F-C26 peer-guided native refit completed 09:08:54 CET. Peer −0.185 pp against exact stock, −0.030 pp against matched sham, paired intervals spanning zero. [Result](cap250c26/result-19nov.md)
+- F-C28 fixed pooling of complete C25d terminals completed 09:12:06 CET and missed qualification versus the early joint. [Result](cap250_fbl_wave_pool/result-19nov.md)
+- Hard-only direct package qualification F-C25p 3135050 and dependent runtime 3135051. Trial ZIP SHA `6a569180d343c038558fe7eccb7903a36e2bdf694af0df3687bff3b17049fbcc`.
