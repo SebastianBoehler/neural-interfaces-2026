@@ -1,6 +1,6 @@
 # Overnight Track 2 campaign
 
-Sebastian set an eligible sealed top-three finish as the final submission target. At 23:40 CET on 18 November, Codabench displayed cap250 at #15 and third place at 0.847. The best sealed cap250 score is 0.8298729992. The displayed podium gap is roughly **1.7 percentage points**. The leaderboard can move. The last attempt requires Sebastian's explicit upload authorization. [Sealed board](https://www.codabench.org/competitions/17982/#/results-tab) · [Cap250 receipt](DECISION_18NOV.md#official-penultimate-receipt)
+Sebastian set an eligible sealed top-three finish as the final submission target. At 03:40 CET on 19 November, the public Codabench results put cap250 at **#16 by participant** after retaining each participant’s best entry. Grouping organizations gives **#15 by team before audit**. The sealed cap250 score remains **0.8298729992**. Third place rose to **0.8470450897**, a gap of **1.7172 percentage points**. The last attempt requires Sebastian’s explicit upload authorization. [Exact Codabench scores](https://www.codabench.org/api/leaderboards/19997/) · [Team ranking and audit](https://neural-interfaces26.github.io/leaderboard.html#scoring) · [Cap250 receipt](DECISION_18NOV.md#official-penultimate-receipt)
 
 ## Overnight comparisons
 
