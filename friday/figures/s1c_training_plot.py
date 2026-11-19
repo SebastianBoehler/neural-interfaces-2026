@@ -104,6 +104,15 @@ LAYOUTS = {
             ("bounded_cross_minus_within", "Cross-person context\nvs within-session"),
             ("bounded_within_minus_jitter", "Within-session context\nvs jitter"),
         )),
+    "64d2182825146f30486781e7a847407556a6acb32cdec55e08ecfc35182d52af": dict(
+        title="Multiresolution EEG gating improved one seed",
+        stem="held-s1c-multiresolution", xlim=(-1.08, 1.98),
+        caption="Bounded inference. Both temporal gates add 4,032 trainable parameters.",
+        contrasts=(
+            ("bounded_multi_minus_hard", "Multiresolution gate\nvs hard CE"),
+            ("bounded_multi_minus_single", "Multiresolution gate\nvs conventional gate"),
+            ("bounded_single_minus_hard", "Conventional gate\nvs hard CE"),
+        )),
 }
 
 
