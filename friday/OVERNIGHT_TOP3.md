@@ -73,10 +73,12 @@ Adapted FBLight doubling is the strongest repeatable new component on the correc
 
 | Question | Status | Estimated CET |
 |---|---|---|
-| Does actual FBLight doubling help returning people? | P04 sealed. The two P10 native visits are running. | 06:32–06:35 |
+| Does actual FBLight doubling help returning people? | Completed at 06:32:49. Equal-cell change −0.130 pp. Prespecified 20/80 returning change −0.208 pp. | Actual |
 | Does a GRU over raw within-window features help beyond matched shuffled token order? | Both real F29 smokes passed. Ferranti source fits and independent held replays are active. F28 transferred source relations but did not separate from its matched sham. | 06:33–06:36 |
 | Does FBLight help on the two fresh Scherer deliveries with exact shared upstream input? | Real C21s smoke and separate untouched stock repeat are active. Nine-person replay follows. | 06:40–06:55 if three RTX slots hold |
-| Is the FBLight lift driven by warm predictions, and does more weight help? | F-C23 real smoke is running. Each complete arm repeats the original consuming stages. | 06:43–06:50, subject to smoke and CPU availability |
+| Is the FBLight lift driven by warm predictions, and does more weight help? | The 379-window F-C23 smoke passed at 06:31:38. Both complete replays are active. | 06:43–06:50, subject to smoke and CPU availability |
+
+**Returning trade-off.** F-C21r completed four later visits from P04 and P10 on the exact conditional returning instrument. P04 was flat and P10 lost one correct Graz decision. FBL2 changed −0.130 pp on equal cells [paired 80% −0.391, +0.260] and −0.208 pp on the fixed 20/80 returning weights [−0.391, 0]. The observed 57% held-new and 43% returning mix gives descriptive point changes of +0.129 and +0.189 pp versus cap250, using within0 or full0 respectively. The instruments reuse people. These points leave comparison uncertainty and external performance open.
 
 [Signed F28 result](fbc323_relational/result-19nov.md) · [Live queue](QUEUE.md)
 

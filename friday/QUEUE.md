@@ -369,3 +369,5 @@ Both original frozen archives and their SHA-256 manifest are preserved. Friday l
 ### Isolated FBLight weight and warm evidence F-C23
 
 - Galvani real smoke `3134352` gates full0 `3134353`, within0 `3134354`, and independent scorer `3134355`. Exact corrected stock, identity and FBL2 are validated against the signed parent banks. Equal added frozen mass isolates the warm term. The fixed triple dose tests additional live weight. Release `ni26_friday_c23_fbl_dose_v1_20261119`. Source `141f811fc748f1353876eb4c5d90059307f7893a90c55cdfab2f1a835720407c` and scorer `5c7e5f5c32159abfcda34d7b04bf2015a974c738817a52d405faeeb4da3716f3`. [Preregistration](../docs/LEDGER.md#f-c23--separate-the-warm-fblight-contribution-from-added-frozen-weight)
+
+- F-C23 smoke passed at 06:31:38 CET on 379 real windows. Stock, identity and FBL2 matched their signed parents. All fixed arms took 18 CSP refits and the equal frozen and live contributions both reached RouteB. Signed smoke `0b40d2a362050748cb4c165ad7d4ebce4ef2e286a474c3555287b66ccab06bcd`. Both complete orders released.
