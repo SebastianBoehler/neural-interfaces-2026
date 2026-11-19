@@ -160,6 +160,6 @@ def rebuilt():
             np.testing.assert_array_equal(on, matched["corrected|cap250_raw"])
             reference = {k: matched[f"corrected|cap250_{k}"] for k in ("raw","filtered","terminal")}
         yield dict(raw={True:on, False:off}, count=count, final=final, windows=windows,
-                   delivery=p, reference=reference, p0=p0, ft_work=work, visits=by_visit,
+                   delivery=p, reference=reference, p0r=p0, ft_work=work, visits=by_visit,
                    first_20_exact=len(initial), off_zero_exact=True, raw_delta=movement,
                    session=sessions, archive_zero=ZERO, parent=PARENT_RECEIPT)
