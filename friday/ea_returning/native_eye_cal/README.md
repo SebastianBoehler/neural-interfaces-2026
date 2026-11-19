@@ -1,0 +1,18 @@
+# D-EArEc · Recognition-gated Eye calibration
+
+The base Eye ensemble uses the three original Eye nomix training recipes on 1,512 raw windows from eight public source people. Both P04 and P10 were jointly excluded from the Eye ensemble's training arrays, labels and running ocular statistics. Each balanced multinomial head then used only its own 189 or 192 first-visit calibration windows, all unseen by the base Eye ensemble. The head uses the actual frozen 128-dimensional embedding from each of three seeds and fixed L2 C=0.10. The verified logits were reproduced exactly on both first visits.
+
+Both fresh arms mount the same three TorchScripts in the original Eye actor. The control forwards its observed evidence directly. The calibrated variant uses the actual native RouteB winning recognition identity and ramp. It forwards the same evidence exactly while the route has no eligible winner. When an enrolled identity wins, the variant blends the source posterior and the corresponding immutable personal head with calibration mass 0.5 times the native ramp. The result enters the real RouteB SessionEM Eye columns. The prefix verifies that neither the inner identity gate nor the native warm targets, updates, emissions, Rest output or outer probability mixture changes. The archived native production-Eye comparator retains its old training exposure.
+
+| Galvani jobs | Artifact |
+| --- | --- |
+| `3133808 → 3133809` | Real A100 smoke and three original 60-epoch fits, release `ni26_friday_return_eye_cal_fit_v1_20261119`, source `5cd02b4a…4343`. |
+| `3133815` | Two independently fitted source-only personal heads, release `ni26_friday_return_eye_cal_head_v1_20261119`, source `779d882d…833c`, receipt `b42dfef0…3b6c`. |
+| `3133834 → 3133835` | Two native 31-window smokes then four whole held visits, release `ni26_friday_return_eye_cal_native_v1_20261119`, source `29238af7…9891`. |
+| `3133846 → 3133847` | Separate blind seal and official score, release `ni26_friday_return_eye_cal_score_v1_20261119`, source `410e2135…6113`. |
+
+The source smoke completed at 04:28:01 CET, all three full fits by 04:29:44 CET, and both independent heads by 04:30:25 CET on 19 November. The primary score compares calibrated and unchanged source-only Eye on the exact same three source models and held full0 orders. The original production-Eye score is a separately exposed reference. Rest, Core2, fixed classical/event priors and old Eye and gallery calibration remain in this instrument.
+
+```bash
+ssh mlcloud-galvani 'sacct -X -j 3133808,3133809,3133815,3133834,3133835,3133846,3133847 -o JobID,State,Elapsed,Start,End,NodeList'
+```
