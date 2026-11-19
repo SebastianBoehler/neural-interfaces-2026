@@ -46,8 +46,8 @@ grep -Fx OK "$prior/replay-proof.txt"
 grep -Fx OK "$pair/replay.log"
 mode=${1:?}
 case "$mode" in
-    smoke) index=0;;
-    timing) test -f smoke.json; index=${SLURM_ARRAY_TASK_ID:?};;
+    smoke) index=${SLURM_ARRAY_TASK_ID:?};;
+    timing) test -f smoke_0.json && test -f smoke_1.json; index=${SLURM_ARRAY_TASK_ID:?};;
     *) exit 2;;
 esac
 mkdir -p "$work/.mpl-cache"

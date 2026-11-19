@@ -93,28 +93,34 @@ def resets(trial,peer,windows,q,ref):
     return result
 
 
-def smoke(stock,trial,cases):
-    results={}
-    for i,key in enumerate(ARM_ORDER):
-        x,rows,q,baseline,hard,signed=cases[key]
-        a,b=measured(stock,x),measured(stock,x)
-        for base in (a,b):
-            np.testing.assert_array_equal(base[1]["labels"],baseline)
-            if base[1]["work"]!=signed["activity"]:
-                raise ValueError("original archived RTX stock work differs")
-        changed=measured(trial,x,q)
-        current=changed[1]
-        np.testing.assert_array_equal(current["labels"],hard)
-        native=proof(stock,current,changed[3])
-        aa=protect(a,b)
-        drift=protect(b,changed)
-        if native["warm_rows"]!=(100 if i==0 else 0) or current["work"]["recognized"]!=(-1 if i==0 else 10):
-            raise ValueError("the original warmed raw seed or true recognized route went inactive")
-        peer=cases[ARM_ORDER[1-i]][0][:1]
-        results[key]=dict(rows=rows.tolist(),stock=baseline.tolist(),hard=hard.tolist(),stock_work=b[1]["work"],
-                          hard_work=current["work"],native=native,protected_aa=aa,protected_independent=drift,
-                          resets=resets(trial,peer,x,q,current))
-    return results
+def smoke(stock,trial,cases,index):
+    gx,_,_,gy,_,prior=cases[ARM_ORDER[0]]
+    _,cold,_,_=measured(stock,gx)
+    np.testing.assert_array_equal(cold["labels"],gy)
+    if cold["work"]!=prior["activity"]:
+        raise ValueError("original archived cold RTX stock work differs")
+    key=ARM_ORDER[index]
+    x,rows,q,baseline,hard,signed=cases[key]
+    a,b=measured(stock,x),measured(stock,x)
+    for base in (a,b):
+        np.testing.assert_array_equal(base[1]["labels"],baseline)
+        if base[1]["work"]!=signed["activity"]:
+            raise ValueError("original archived warmed RTX stock work differs")
+    changed=measured(trial,x,q)
+    current=changed[1]
+    np.testing.assert_array_equal(current["labels"],hard)
+    native=proof(stock,current,changed[3])
+    aa=protect(a,b)
+    drift=protect(b,changed)
+    if native["warm_rows"]!=(100 if index==0 else 0) or current["work"]["recognized"]!=(-1 if index==0 else 10):
+        raise ValueError("the original warmed raw seed or true recognized route went inactive")
+    peer=cases[ARM_ORDER[1-index]][0][:1]
+    cold_delta={}
+    if index==0:
+        cold_delta={k:float(np.abs(v-a[1]["protected"][k]).max()) for k,v in cold["protected"].items()}
+    return dict(fixture=key,rows=rows.tolist(),stock=baseline.tolist(),hard=hard.tolist(),stock_work=b[1]["work"],
+                hard_work=current["work"],native=native,protected_aa=aa,protected_independent=drift,
+                cold_g_exact_archive=True,cold_to_warm_reported=cold_delta,resets=resets(trial,peer,x,q,current))
 
 
 def timed_run(template,windows,changed):
@@ -149,12 +155,14 @@ def timed_run(template,windows,changed):
 
 
 def timing(stock,trial,cases,index):
-    pin=json.loads(Path("smoke.json").read_text())
-    if pin["source"]!=sha("source.sha256") or pin["archive"]!=Path("archive.sha256").read_text().split()[0] or pin["held_labels_opened"]:
-        raise ValueError("prior genuine recognized and unrecognized archive smoke is required")
+    pins=[json.loads(Path(f"smoke_{i}.json").read_text()) for i in (0,1)]
+    for name,pin in zip(ARM_ORDER,pins,strict=True):
+        if (pin["source"]!=sha("source.sha256") or pin["archive"]!=Path("archive.sha256").read_text().split()[0]
+                or pin["held_labels_opened"] or pin["result"]["fixture"]!=name):
+            raise ValueError("both genuine recognized and unrecognized archive smokes are required")
     name=ARM_ORDER[index]
     x=cases[name][0]
-    check=pin["result"][name]
+    check=pins[index]["result"]
     timed_run(stock,x,False)
     timed_run(trial,x,True)
     order=("stock","hard","hard","stock") if index==0 else ("hard","stock","stock","hard")
@@ -177,8 +185,8 @@ def main(args):
     cases,channels,original=fixtures()
     with TemporaryDirectory() as root:
         a,b=load(args.stock,args.trial,Path(root),channels)
-        result=smoke(a,b,cases) if args.mode=="smoke" else timing(a,b,cases,args.index)
-    p=Path("smoke.json" if args.mode=="smoke" else f"timing_{args.index}.json")
+        result=smoke(a,b,cases,args.index) if args.mode=="smoke" else timing(a,b,cases,args.index)
+    p=Path(f"{args.mode}_{args.index}.json")
     with p.open("x") as f:
         json.dump(dict(source=sha("source.sha256"),archive=sha(args.trial),stock=STOCK,actors=LOCK,
                        original_external_cold=original,result=result,held_labels_opened=False),
