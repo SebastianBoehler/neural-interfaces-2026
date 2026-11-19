@@ -37,8 +37,8 @@ class Audit:
 
     def frame(self, trace, t):
         m, v = self.model, trace["v6"]
-        if len(self.p) != t + 1 or m.core2.n != t + 1 or not m.core2.hilbert or abs(m.w[-1] - .125) > 1e-15:
-            raise ValueError("the live Hilbert slot is missing or weighted incorrectly")
+        if len(self.p) != t + 1 or m.core2.n != t + 1 or not m.core2.hilbert or abs(m.w[-1] - 1 / 15) > 1e-15:
+            raise ValueError(f"unexpected Hilbert runtime scope at age {t}: calls={len(self.p)}, weight={m.w[-1]}")
         if t == 0 and abs(m.w_rest - .0625) > 1e-15:
             raise ValueError("native Rest weight changed")
         eye, rest = v["extra"], v["rest"]
@@ -177,6 +177,7 @@ def main():
                  fit_sha256=fit_sha, fit_artifact=artifact_sha, ref_sha256=ref_sha, basis=fit["fit_sha"],
                  source=sha(Path(__file__).resolve().parent / "source.sha256"), windows=31, route_names=names,
                  native_baselines_exact=True, exact_interleaved_prefix=True, errors=measurements, mixture_residue=mix_residue,
+                 native_core2_weight=float(weights[-1]),
                  retained_rest_effect=max(old_observer.rest_effect), retained_eye_exact=True, fixed_gallery=GALLERY_SHA,
                  contrast_finite=int((old[0]["contrast"][:, 0] >= 0).sum()),
                  archived_first_contrast_age=int(contrast[0]), archived_contrast_count=len(contrast),

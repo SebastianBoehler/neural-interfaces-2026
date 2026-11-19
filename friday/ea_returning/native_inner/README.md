@@ -4,7 +4,7 @@
 
 The worker uses the actual §321 CPU `base` package for the selected `P04_s23` or `P10_s23` fold. The native TangentCore, PCA256, personal head, TSEM prior and own-space arrays match the authenticated D-EArU source fit. The primary P10 case includes 2,270 fit rows and 192 own visit-1 rows and holds 385 later-visit rows. Its live raw and Sinc FineTune blobs match D-EArW.
 
-The two matched arms use the same D-EAr source fits. The recording arm feeds each group's recording-order mean to the native aligned TF-FBCNet pair and the five native aligned Shallow members. The causal arm feeds their causal full0 means. The model's original normalized weights give those groups total masses 1/16 and 1/8. The five TF and six Shallow source seeds are averaged before entering their differently sized native groups. The other members and their weights stay fixed.
+The two matched arms use the same D-EAr source fits. The recording arm feeds each group's recording-order mean to the native aligned TF-FBCNet pair and the five native aligned Shallow members. The causal arm feeds their causal full0 means. The model divides stored member weights by 1.875, giving the two groups total masses 1/30 and 1/15. The five TF and six Shallow source seeds are averaged before entering their differently sized native groups. The other members and their weights stay fixed.
 
 The matched package retains §321 production rest, eye, the second TangentCore and other classical weights, global and event priors, and historical out-of-fold gallery calibration exposure. These results establish conditional worker behavior. The independent `returning_pair_cpu1` native zero supplies the terminal comparison. The D-EAr0 legacy zero and D-EArW's older conditional targets establish separate checks.
 
