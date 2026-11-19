@@ -1,0 +1,98 @@
+{
+ "braincodes_pretrained_f3_aligned": {
+  "held_new": {
+   "mean_ba": 41.35,
+   "min": 40.87,
+   "max": 42.38
+  },
+  "returning": {
+   "mean_ba": 44.68,
+   "min": 43.33,
+   "max": 45.9
+  }
+ },
+ "braincodes_pretrained_f3_raw": {
+  "held_new": {
+   "mean_ba": 39.14,
+   "min": 39.14,
+   "max": 39.14
+  },
+  "returning": {
+   "mean_ba": 45.9,
+   "min": 45.9,
+   "max": 45.9
+  }
+ },
+ "braincodes_random_f3_aligned": {
+  "held_new": {
+   "mean_ba": 37.64,
+   "min": 36.9,
+   "max": 37.97
+  },
+  "returning": {
+   "mean_ba": 37.4,
+   "min": 36.75,
+   "max": 38.05
+  }
+ },
+ "braincodes_random_f3_raw": {
+  "held_new": {
+   "mean_ba": 39.44,
+   "min": 39.44,
+   "max": 39.44
+  },
+  "returning": {
+   "mean_ba": 39.07,
+   "min": 39.07,
+   "max": 39.07
+  }
+ },
+ "neurorvq_pretrained_f3_aligned": {
+  "held_new": {
+   "mean_ba": 38.65,
+   "min": 38.03,
+   "max": 39.33
+  },
+  "returning": {
+   "mean_ba": 41.81,
+   "min": 41.04,
+   "max": 42.81
+  }
+ },
+ "neurorvq_pretrained_f3_raw": {
+  "held_new": {
+   "mean_ba": 42.14,
+   "min": 42.14,
+   "max": 42.14
+  },
+  "returning": {
+   "mean_ba": 43.16,
+   "min": 43.16,
+   "max": 43.16
+  }
+ },
+ "neurorvq_random_f3_aligned": {
+  "held_new": {
+   "mean_ba": 41.07,
+   "min": 40.67,
+   "max": 42.28
+  },
+  "returning": {
+   "mean_ba": 43.62,
+   "min": 42.67,
+   "max": 44.77
+  }
+ },
+ "neurorvq_random_f3_raw": {
+  "held_new": {
+   "mean_ba": 40.29,
+   "min": 40.29,
+   "max": 40.29
+  },
+  "returning": {
+   "mean_ba": 44.68,
+   "min": 44.68,
+   "max": 44.68
+  }
+ }
+}

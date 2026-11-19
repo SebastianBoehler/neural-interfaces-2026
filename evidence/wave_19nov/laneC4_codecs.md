@@ -90,3 +90,43 @@ and go past it plainly. **Primary arm = raw** (chosen on training loss and mecha
 (selecting the better of two inputs in the mixer would be a forking-path bias and is reported as such). Eight waves (2 models x {pretrained, random} x {raw, aligned}), `bank_*_f3_*`; parity guard 3e-3 BrainCodes / 5e-4 NeuroRVQ.
 Predictions (form 3, held-new standalone, 8-order mean; slots unchanged): BrainCodes raw **44 % [38, 51]**, aligned 42 %; NeuroRVQ raw 44 % [38, 51], aligned 42 %; random controls 2 pp lower; in-mixer deltas as registered
 (+0.1 [-0.7, +0.8] pretrained, 0.0 [-0.7, +0.7] random). Forms 1 and 2 stay in the record as misses (form-1 predictions 46-49 vs 34-38 measured).
+
+## Result (19 Nov ~20:40 CET) · form 3, frozen encoders, standalone and in the cap250 1/6 slot
+
+Jobs (Leonardo, AIFAC_P02_1675, release `/leonardo_work/AIFAC_P02_1675/ni26_lane_c4_20261119`): form 1 external/fit/collector 64873633-64873644 (BrainCodes-pretrained unsealed: 3 parity failures); form-2 diag 64874939/64874945 and
+form-3 diag 64875818-64875821, smoke 64875816 (strict hash-pinned loads, frozen body, batch vs single 2e-7, NeuroRVQ copy vs braindecode's own class on the same weights: **max abs difference 0.0**, 1.3 / 2.9 ms per window
+NeuroRVQ / BrainCodes on A100 batch 32); form-3 waves: raw 64876187-64876199 (external, fit, collector for BrainCodes pre/random, NeuroRVQ pre/random), aligned 64876200-64876212; no failed fit. In-mixer (Galvani,
+`ni26_laneC4_member_v1_20261119`, banks `ni26_fm_banks_20261119/c4`, jobs 3138349-3138363; all guards passed: zero arm equal to stock bitwise, laneC arm differs at mix/rebalance/EM/TSEM, stock terminal argmax equals c25d `full0.npz`).
+Compact numbers: `evidence/wave_19nov/laneC4/{standalone_f3,inmixer_full0}.json`. Raw input has no delivery-order dependence, so its eight orders are identical (one number).
+
+Standalone, 3-seed pooled, held-new / returning BA (8-order mean; chance 33.3):
+
+| Encoder | raw input | aligned input | pretrained minus random (raw / aligned) |
+| --- | ---: | ---: | ---: |
+| BrainCodes pretrained | 39.14 / 45.90 | 41.35 / 44.68 | -0.30 / +3.71 held-new |
+| BrainCodes random-init backbone (codec kept) | 39.44 / 39.07 | 37.64 / 37.40 | |
+| NeuroRVQ pretrained | 42.14 / 43.16 | 38.65 / 41.81 | +1.85 / -2.42 held-new |
+| NeuroRVQ random-init | 40.29 / 44.68 | 41.07 / 43.62 | |
+
+Against the comparators: Pratibha-C 55.97 / 62.83, REVE-C 55.22 / 62.08, CBraMod-C 52.76 / 52.30. Frozen probes sit 13-17 pp below the fine-tuned members and the random-init controls are within about +-2 pp of the pretrained cells:
+no consistent pretraining signal (signs flip between input forms). Form-3 predictions (raw 44 [38, 51], aligned 42; random 2 pp lower): inside the intervals, random controls were not lower. Form-1 predictions (46-49) missed by 10+ pp.
+
+In the cap250 1/6 slot (held-new full0, stock 73.74; people-only paired 80 %, one order; delta pp [80 %]; fixed / regressed rows):
+
+| Slot member | alone | mean slot with CBraMod-C |
+| --- | ---: | ---: |
+| BrainCodes raw | -0.195 [-0.452, +0.101]; 9/14 | +0.108 [-0.157, +0.404]; 16/13 |
+| BrainCodes aligned | -0.157 [-0.387, +0.071]; 12/16 | +0.149 [-0.039, +0.347]; 16/12 |
+| NeuroRVQ raw | -0.081 [-0.309, +0.188]; 9/11 | -0.188 [-0.492, +0.174]; 7/12 |
+| NeuroRVQ aligned | -0.229 [-0.489, +0.083]; 7/13 | -0.041 [-0.355, +0.323]; 10/11 |
+| BrainCodes random raw / aligned | -0.161 [-0.371, +0.099] / -0.038 [-0.234, +0.184] | raw -0.037 [-0.297, +0.281] |
+| NeuroRVQ random raw / aligned | -0.193 [-0.453, +0.104] / -0.041 [-0.295, +0.256] | raw -0.076 [-0.332, +0.266] |
+| BrainCodes + NeuroRVQ raw (both pretrained) + CBraMod | | -0.001 [-0.216, +0.262]; 8/8 |
+
+Reading by the registered rules: every in-mixer 80 % upper bound is **at most +0.40 (< +0.5)** alone and as mean slot with CBraMod, for both models, both inputs and the controls: the packaging rule holds, **no packaging for BrainCodes or
+NeuroRVQ as frozen-probe slot members**. No mean slot beats CBraMod alone (+0.263 [0.001, 0.527]) or Pratibha+CBraMod (+0.256); the best, BrainCodes aligned + CBraMod +0.149, is below both and its lift over the random-control slot (-0.037) is
+inside noise (+0.19 on a bound that is not a gain). Registered predictions +0.1 [-0.7, +0.8] pretrained: inside, sign negative alone in all four cells. Counts of the in-mixer instrument (the 80 % intervals resample the ten people only, one order) read undecided
+for the +-0.5 dev noise only where an interval crosses zero; here none reaches +0.5. Five of the four-model FM in-mixer tests earlier gave -0.003 to +0.26; this adds eight more cells between -0.23 and +0.15.
+Scope of the closure: frozen-encoder probes with the form-3 head on Lane C's inputs. Not closed: fine-tuning the BrainCodes (1.9 M trainable) or NeuroRVQ (5.9 M) encoders in the Lane C3 form (both are small enough to package and run, and
+BrainCodes' published fine-tuned PhysioNet MI figure is the claim that was not tested here), channel-time flatten heads, other taps, aligned-vs-raw with a fine-tuned body. Silent no-ops checked: raw-input patch asserted active (`data.align is raw_align`), step-loss wrapper asserted, receipts carry model, init, input,
+head form and frozen flag and the collector refuses others; the first-form BrainCodes-pretrained bank never sealed and is not used. Rights: NeuroRVQ is CC BY-NC 4.0 (a rights question for any packaging); BrainCodes and BioCodec are MIT.
