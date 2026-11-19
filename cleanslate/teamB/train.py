@@ -57,7 +57,7 @@ class Bank:
         xb = torch.cat([sub.bandpass(self.X[i:i + 256], mask) for i in range(0, len(X), 256)]).double()
         self.cov = xb @ xb.transpose(1, 2) / sub.T
         self.y = torch.from_numpy(y).to(dev)
-        self.people = sorted(set(person))
+        self.people = sorted(str(p) for p in set(person))
         self.sess = {p: sorted(set(session_key[person == p])) for p in self.people}
         self.rows = {s: torch.from_numpy(np.flatnonzero(session_key == s)).to(dev) for s in set(session_key)}
         self.cls = {s: [r[self.y[r] == c] for c in range(3)] for s, r in self.rows.items()}
@@ -143,6 +143,30 @@ def train_net(kind, seed, bank, dev, steps=STEPS, ext=None):
     return {k_: v.detach().cpu() for k_, v in net.eval().state_dict().items()}, ce, sc
 
 
+def tune_expert(kind, state, seed, bank, person, dev, steps):
+    """Person expert: the generic encoder fine-tuned on one person's permitted sessions (BatchNorm statistics frozen)."""
+    torch.manual_seed(seed)
+    g = torch.Generator().manual_seed(seed)
+    net = sub.Net(kind).to(dev)
+    net.load_state_dict(state)
+    net.train()
+    for m in net.modules():
+        if isinstance(m, torch.nn.modules.batchnorm._BatchNorm):
+            m.eval()
+    opt = torch.optim.AdamW(net.parameters(), 5e-4, weight_decay=1e-2)
+    one = Bank.__new__(Bank)
+    one.__dict__.update(bank.__dict__, people=[person])
+    for _ in range(steps):
+        x, y = one.batch(g)
+        logits, q = net.heads(sub.sfn(net.feats(x).view(G, 3 * PER, -1), sub.DEFAULTS["sfn_k"]))
+        loss = F.cross_entropy(logits.flatten(0, 1), y.flatten(), label_smoothing=0.1) + LAM * supcon(q, y)
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+    assert math.isfinite(loss.item()), "expert diverged"
+    return {k_: v.detach().cpu() for k_, v in net.eval().state_dict().items()}
+
+
 def fit(people, first_only, out, data=None, seed=0):
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     spec = os.environ.get("CSB_NETS", "shallow:3,slow:3,fbc:3")
@@ -162,9 +186,17 @@ def fit(people, first_only, out, data=None, seed=0):
             state, ce, sc = train_net(kind, 1000 * seed + 17 * len(nets) + j, bank, dev, ext=ext)
             nets.append((kind, state))
             print(f"[teamB] {kind}#{j} ce {ce:.3f} supcon {sc:.3f} {time.time() - t0:.0f}s", flush=True)
+    experts, xsteps = {}, int(os.environ.get("CSB_EXPERT_STEPS", 0))
+    if xsteps:  # one expert per family (its first seed) for every training person
+        first = {kind: state for kind, state in reversed(nets)}
+        t0 = time.time()
+        for pi, p in enumerate(bank.people):
+            experts[p] = [(kind, tune_expert(kind, state, 7000 * seed + 31 * pi + j, bank, p, dev, xsteps))
+                          for j, (kind, state) in enumerate(first.items())]
+        print(f"[teamB] {len(experts)} person experts x {len(first)} nets, {xsteps} steps, {time.time() - t0:.0f}s", flush=True)
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
-    torch.save(dict(nets=nets, cfg={}, people=list(people), first_only=list(first_only), spec=spec, steps=STEPS,
+    torch.save(dict(nets=nets, experts=experts, cfg={}, people=list(people), first_only=list(first_only), spec=spec, steps=STEPS,
                     lam=LAM, ext=EXT, lam_ext=LAM_EXT), out / "weights.pt")
     shutil.copy(HERE / "submission.py", out / "submission.py")
 

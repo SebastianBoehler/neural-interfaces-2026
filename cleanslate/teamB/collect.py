@@ -36,7 +36,7 @@ def main():
         mode = f.stem.split("_")[1]
         with np.load(f) as z:
             for k in z.files:
-                m = re.fullmatch(r"(\w+@[^_]+)_(\d+)_(\w+)", k)
+                m = re.fullmatch(r"([a-z]+@.+)_(\d+)_([^_]+)", k)
                 if not m:
                     continue
                 arm, order, ses = m.groups()

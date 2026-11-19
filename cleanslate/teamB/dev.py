@@ -22,7 +22,7 @@ import train as TR  # noqa: E402
 
 
 def parse_variant(v):
-    return {} if v == "base" else {k: float(x) if k != "final" else x for k, x in (kv.split("=") for kv in v.split(","))}
+    return {} if v == "base" else {k: float(x) if k != "final" else x for k, x in (kv.split("=") for kv in v.replace("+", ",").split(","))}
 
 
 def main():
@@ -62,6 +62,8 @@ def main():
                     res[f"{arm}@{variant}_{seed}_{ses}"] = np.array(lab, np.int8)
                 if vi == 0:
                     res[f"secs_{seed}_{ses}"] = secs
+                    for n, who, z, scores in m.gate_log:
+                        res[f"gate_{seed}_{ses}_{n}"] = np.array([float(who[1:]), z] + scores)
                 if vi == 0 and oi == 0:
                     P, U, r = m.last
                     res[f"Pend_{seed}_{ses}"] = P.cpu().numpy().astype(np.float32)

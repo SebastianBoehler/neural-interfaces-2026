@@ -12,5 +12,5 @@ rows=""; for m in ${modes//,/ }; do for p in ${people//,/ }; do
   if [ "$m" = new ] || [ "$p" = P04 ] || [ "$p" = P10 ]; then rows+="$m\t$p\n"; fi; done; done
 n=$(printf "$rows" | wc -l | tr -d ' ')
 "$here/teamB/gssh" "printf '$rows' > $rel/run/jobs.tsv && cd $rel/run && sbatch --parsable --array=0-$((n-1)) \
-  --partition=a100-galvani,a100-preemptable-galvani,2080-galvani,2080-preemptable-galvani --gres=gpu:1 --time=04:00:00 $* \
+  --partition=a100-galvani,a100-preemptable-galvani,2080-galvani,2080-preemptable-galvani --gres=gpu:1 --time=04:00:00 --exclude=galvani-cn122 $* \
   --export=ALL,CS_REL=$rel,CS_RUN=$rel/run,CS_ORDERS='${orders//,/;}',CS_VARIANTS='$variants',CS_ENV_SEMI='$env' $rel/cleanslate/teamB/dev.sbatch"

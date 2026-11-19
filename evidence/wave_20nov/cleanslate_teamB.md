@@ -58,3 +58,21 @@ Side runs, same registration: R2b λ_ext 3; R1s (no external data, 600 steps) to
 - Rule: the learned-projection route stays open only if own-label centroid − `enc_end` is at least +3 pp with a
   people-80 % lower bound above 0. Otherwise it is set aside for this deadline and the session model moves to generic
   features (tangent space), where the own-label ceiling is known to be 72.
+
+R1 complete (10 people, 28 cells, 2 orders): `enc` 65.34, `bal` 65.34, `em` 65.61 (+0.26 [−0.49, +1.01]); own-label centroid 66.18
+against `enc_end` 65.38. Reading unchanged. Side run R1s (600 steps) had 8 of 10 folds when read: no visible change per person.
+
+## R3 · generic-feature session model and person experts (registered Fri 20 Nov 00:35 CET, before scoring)
+Same encoders as R1 (no external bank), two additions, each its own arm so its gain is read apart:
+- `lp`: leave-one-out kernel-ridge label propagation of the balanced ensemble posterior over the prefix's tangent-space
+  vectors (9 bands, causal alignment; nothing learned). Mechanism: the session's own geometry in generic features holds
+  person-specific class structure (own-label ceiling 72 % in the audit); LOO keeps a window from confirming itself.
+  Variants β 3/6/12 and λ 0.3/1/3. Prediction held-new `lp` − `exp`: **+1.0 [−0.5, +2.5]** at β 6; returning +0.5 [−1, +2].
+- `exp`: per public person, one encoder per family fine-tuned 150 steps on that person; at prefix 16/32/64/128 the expert
+  with the highest information-maximisation score is mixed in (weight 0.5) if its z-score against the other experts
+  exceeds 2.5. Variant gate 0 = always mix the top expert (ceiling of the gate, and a "nearest person" arm for new people).
+  Predictions: returning `exp` − `enc` with the gate always open +4 [0, +9]; the true person is top in at least 3 of 4
+  returning sessions at prefix 64; at z > 2.5 the gate opens on at most 2 of 14 held-new sessions.
+- Rules: `lp` supported if the people-80 % lower bound of `lp` − `exp` is above 0 at β 6 on held-new, refuted if the upper
+  bound is below +0.5 for every variant. Experts: usable only if the true person is top in all four returning sessions by
+  prefix 64 and open-gate `exp` − `enc` is positive on both P04 and P10; otherwise the returning path needs another signal.
