@@ -1427,3 +1427,7 @@ Registered before the new smoke. Run the same real P01 visit 1 source windows an
 ### F-C31c · Seal the full fixed forced source tape before any fitting
 
 The [source-tape protocol](../friday/cap250_mix_objective/full-tape-prereg-19nov.md) fixes all fourteen paired natural and forced sessions, exact native and protected path controls, authentic optimizer work, gradient thresholds and fixed Scherer validation boundaries before new captures. It retains the original natural-warm veto and the conditional status of the forced tape.
+
+## F36c · Test the source crossfade methods through corrected cap250
+
+The [preregistered comparison](../friday/cap250_f36/prereg-19nov.md) fixes signed A100 F36 hard, same-trial and cross-trial contributors at the exact F35c native 5/6 raw slot, with corrected within0/full0 and separately authenticated stock, native identity and F-C22h same-device hard. Same-trial minus hard prior +0.13/+0.16 pp, cross-trial minus hard +0.07/+0.09, cross-trial minus same-trial −0.06/−0.07. Require both independently sealed orders, official paired people intervals, causal reset and full downstream work.
