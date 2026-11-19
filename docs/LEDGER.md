@@ -1431,3 +1431,15 @@ The [source-tape protocol](../friday/cap250_mix_objective/full-tape-prereg-19nov
 ## F36c · Test the source crossfade methods through corrected cap250
 
 The [preregistered comparison](../friday/cap250_f36/prereg-19nov.md) fixes signed A100 F36 hard, same-trial and cross-trial contributors at the exact F35c native 5/6 raw slot, with corrected within0/full0 and separately authenticated stock, native identity and F-C22h same-device hard. Same-trial minus hard prior +0.13/+0.16 pp, cross-trial minus hard +0.07/+0.09, cross-trial minus same-trial −0.06/−0.07. Require both independently sealed orders, official paired people intervals, causal reset and full downstream work.
+## F37 · Training-only local spectral amplitude displacement
+
+The [prospective F37 design](../friday/fbc323_spectral_shift/prereg-19nov.md) compares a mild fixed alpha-region amplitude shift with a severity-matched beta-region shift and exact hard. Relative sensor phase and inference code stay fixed. It registers the original-fit/H100 data path, observed-input controls and fresh prediction in official metric units before fitting.
+
+
+### F-C25pdet · Split immutable stock RTX warm repeat by launch mode
+
+Registered before predictions. On the same authentic F-C25p G visit 1 120-window and recognized P10 visit 3 31-window streams, run unchanged stock default and strict §321 pre-launch deterministic executors in fresh processes on the same pinned RTX 2080 Ti/SIF. In each take an authenticated G cold anchor then native warm A/A, P10 A/A and G 17-row cross-session prefix. Preserve same-input native mirrors, signed decisions, work, state and original `5e-5` independent limit. Forecast G default terminal max `8e-5` [prior range `3e-5` to `2e-4`], deterministic ≤`1e-8` and mean observer wall ratio 1.08× [0.98,1.20]. A reproduced default breach, controlled pass and ≥5× reduction support technical attribution. A controlled guard failure refutes this launch mode. Without a default breach this comparison cannot establish rescue. Worker-only setting, no gold, new fit, package rewrite or deployment. [Technical protocol](../friday/cap250_hard_determinism/README.md)
+
+### F-C31d · Continue the paired native waveform pupils through their actual source mixture
+
+The [training protocol](../friday/cap250_mix_objective/fit-prereg-19nov.md) locks the exact F32e initialization, three fixed source-only controls, zero-dose proof, 112 paired episode updates and device/runtime criteria before fitting. Require the independently sealed F-C31c source tape and matched native operational metadata for any fit.
