@@ -1438,6 +1438,8 @@ The [preregistered comparison](../friday/cap250_f36/prereg-19nov.md) fixes signe
 
 The [prospective F37 design](../friday/fbc323_spectral_shift/prereg-19nov.md) compares a mild fixed alpha-region amplitude shift with a severity-matched beta-region shift and exact hard. Relative sensor phase and inference code stay fixed. It registers the original-fit/H100 data path, observed-input controls and fresh prediction in official metric units before fitting.
 
+**F37 completed at 10:50:42 CET.** Bounded alpha versus exact hard +0.118/+0.827 pp and versus beta −0.436/−0.259 pp, both registered contrasts undecided. The active same-dose beta control gained **+0.554/+1.086 pp** against exact hard, paired 80% [+.119,+.923]/[+.594,+1.633]. Both ordinary beta control lower bounds were positive. All 20 H100 and 20 CPU jobs passed, with exact checkpoint, archived hard, first/reset and prefix checks. The alpha gate remains unmet. The repeatable beta point and paired lower bounds warrant a separately registered complete-system comparison of the original control. [Signed whole-decoder result](../friday/fbc323_spectral_shift/result-19nov.md)
+
 
 ### F-C25pdet · Split immutable stock RTX warm repeat by launch mode
 

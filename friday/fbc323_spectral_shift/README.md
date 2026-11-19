@@ -15,3 +15,7 @@ The transfer patch applies to the original F17 source, held and relay entry poin
 Ferranti release `~/ni26/friday_s1c_spectral_shift_20261119`. Galvani release `ni26_friday_s1c_spectral_shift_20261119`. Actor `0575236e532b5858a28c0e510d8fda3030cc5f4584648aa657642347e6f833bd`, scorer `70deb2a3c25e1a2a569afd435aea726e9722ad5e442440dfa00fb7e79a90e13d`.
 
 Source smoke passed at **10:40:12 CET** in 13 seconds. The real hard checkpoint matched original F16 bytes. Both active arms changed exactly 2,528 of 10,112 original row appearances. Mean normalized squared waveform displacement was 0.000874817, maximum row-wise difference 5.9062e−10 and maximum sampled spectral error 1.3648e−7. The controller transfers the exact source smoke files and holds the full source array until the separate CPU smoke passes.
+
+Independent CPU smoke passed at **10:41:41 CET** in 38 seconds. All 24 first windows and 48 interleaved resets were exact. Maximum truncated-prefix posterior difference was 6.360e−7. The controller released production on Ferranti, with two original H100 slots available at 10:42 CET. Completed source folds release their matched Galvani held folds individually.
+
+All twenty source and CPU held elements passed. The blind official collector returned at **10:50:42 CET**. [Signed result](result-19nov.md)
