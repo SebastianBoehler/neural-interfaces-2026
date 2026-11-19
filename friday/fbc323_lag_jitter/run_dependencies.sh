@@ -11,7 +11,7 @@ done
 home_script=$(cd "$(dirname "$0")" && pwd -P)
 target=/mnt/lustre/work/gehler/gfh527/ni26_friday_s1c_lag_jitter_20261119
 opts=(-o BatchMode=yes -o ConnectTimeout=6)
-deadline=$((SECONDS + 7200))
+deadline=$((SECONDS + 21600))
 
 state() {
     ssh "${opts[@]}" "$1" "sacct -nX -P -j $2 -o JobID,State,ExitCode"
@@ -35,19 +35,31 @@ wait_smoke() {
 }
 
 wait_smoke mlcloud-ferranti "$source_smoke"
-ssh "${opts[@]}" mlcloud-ferranti "cd ~/ni26/friday_s1c_lag_jitter_20261119 &&
-    grep -q 'PASS F23 paired source smoke_0_P01' fit-$source_smoke*.out &&
-    tar -cf - ./*smoke*.pt ./*smoke*.json" |
-    ssh "${opts[@]}" mlcloud-galvani "cd '$target/checkpoints' && tar -xf -"
-ssh "${opts[@]}" mlcloud-galvani "scontrol release $held_smoke"
-printf 'Released F23 held smoke %s after source completion.\n' "$held_smoke"
+case "${5:-start}" in
+    start)
+        ssh "${opts[@]}" mlcloud-ferranti "cd ~/ni26/friday_s1c_lag_jitter_20261119 &&
+            grep -q 'PASS F23 paired source smoke_0_P01' fit-$source_smoke*.out &&
+            tar -cf - ./*smoke*.pt ./*smoke*.json" |
+            ssh "${opts[@]}" mlcloud-galvani "cd '$target/checkpoints' && tar -xf -"
+        ssh "${opts[@]}" mlcloud-galvani "scontrol release $held_smoke"
+        printf 'Released F23 held smoke %s after source completion.\n' "$held_smoke"
+        ;;
+    resume)
+        [[ "$(state mlcloud-galvani "$held_smoke")" == "$held_smoke|COMPLETED|0:0" ]]
+        ;;
+    *) exit 2 ;;
+esac
 wait_smoke mlcloud-galvani "$held_smoke"
 ssh "${opts[@]}" mlcloud-galvani "cd '$target' && grep -q 'PASS F23 held P01 seed 0' held-$held_smoke*.out"
-ssh "${opts[@]}" mlcloud-ferranti "scontrol release $source_matrix"
-printf 'Released F23 source array %s after independent held smoke.\n' "$source_matrix"
+if [[ "${5:-start}" == start ]]; then
+    ssh "${opts[@]}" mlcloud-ferranti "scontrol release $source_matrix"
+    printf 'Released F23 source array %s after independent held smoke.\n' "$source_matrix"
+else
+    printf 'Resuming F23 checkpoint relay for released source array %s.\n' "$source_matrix"
+fi
 
 while (( SECONDS < deadline )); do
-    bash "$home_script/relay.sh" "$source_matrix" "$held_matrix"
+    bash "$home_script/relay.sh" "$source_matrix" "$held_matrix" || { sleep 30; continue; }
     jobs=$(state mlcloud-ferranti "$source_matrix") || { sleep 30; continue; }
     complete=$(awk -F'|' '$2=="COMPLETED" && $3=="0:0" {n++} END {print n+0}' <<< "$jobs")
     if [[ "$complete" -eq 20 ]]; then
