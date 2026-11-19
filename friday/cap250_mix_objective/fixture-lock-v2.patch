@@ -1,0 +1,12 @@
+--- a/fixture.py
++++ b/fixture.py
+@@ -59,4 +59,8 @@
+         raise ValueError("actor lock must contain all four scoped all-public-source export groups")
+     if any(len(lock["actors"][kind]) != 2 for kind in EXPORTS):
+         raise ValueError("original fixed seed pair missing")
+-    return lock
++    receipts = lock["bindings"]
++    if set(receipts) != {"s0.json", "s1.json"} or any(
++            len(pin) != 64 or any(c not in "0123456789abcdef" for c in pin) for pin in receipts.values()):
++        raise ValueError("independent CPU export receipt hashes differ")
++    return dict(lock, device="cpu", export_receipts=receipts)
