@@ -6,8 +6,10 @@ The release pins F-C21gcv source SHA-256 `40ce7409bfc3f86ba53729b7e84c3b2ae9dd99
 
 | Galvani job | Scope |
 | --- | --- |
-| `3134542` | Conditional native P10 visit 2, late age-28 recognition, source-archive parity and reset. |
-| `3134543` | Real RTX Scherer G and RTX P10 visit 3 full-dual comparisons on identical live inputs. |
-| `3134544` | Warm paired RTX timing after both exact conformance jobs. |
+| `3134548` | Conditional native P10 visit 2, late age-28 recognition, source-archive parity and reset. |
+| `3134549` | Real RTX Scherer G and RTX P10 visit 3 full-dual comparisons on identical live inputs. |
+| `3134550` | Warm paired RTX timing after both exact conformance jobs. |
 
-Immutable release `ni26_friday_c21gct_combined_v1_20261119`, source SHA-256 `c4f53502883ecd4cf2c4976f613a5962a84f160bd55a0308844ba47f57a847af`.
+Immutable release `ni26_friday_c21gct_combined_v2_20261119`, source SHA-256 `5c09a99069580b4ac894f4dbae7f5b4fea8349b0cef2bd380a289bbe861b49a6`.
+
+The first release stopped on an observer assertion. Original stock CausalPers clears its covariance and target arrays at recognition, while the retired alternate retains its completed prefix. The corrected observer checks exact covariance values and ownership on each live share. It also checks the native stock flush on recognized sessions and the two retained whole covariance banks on unrecognized G. Both runtime parent modules and the selector subclass stayed byte-identical. V1 timing `3134544` was canceled.
