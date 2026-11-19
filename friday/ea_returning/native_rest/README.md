@@ -13,3 +13,7 @@ The real one-epoch smoke `3133159` completed 54 AdamW updates. Actual fitted arc
 The native smoke compares one slot replacement in the conditional causal-EA worker on the same real full0 delivery. The remaining production-derived layers include Eye, Core2, other classical layers, event priors and historical gallery calibration. This smoke supplies activation and exact causal checks without a held score.
 
 Native job `3133169` passed package initialization and stopped before either held prefix. The original archived worker supplies the exact answer tape but predates the optional observer argument. The retry uses the pinned observer-capable worker that passed D-EArH. It retains the exact D-EArN posterior anchors, trained fits and registered checks.
+
+Native retry `3133179` completed 19 November at 02:18:27 CET. The original stock and causal-EA references were exact on all 31 decisions and posteriors. Each fresh seed made 2,160 updates, with the same bitwise prior across seeds. The largest probability changes were 0.788216 in Rest, 0.0492635 in the native outer mixture, and 0.0533421 at the terminal output. The outer formula residual was 1.11e−16. The decision vectors agreed on all 31 windows. Both arms recognized at age 28, ran 20 real warm steps and passed the exact interleaved 17-window check.
+
+Release `ni26_friday_return_rest_native_v2_20261119` source `325dec1f…f702`, receipt `155365cc…dd38`, bank `c81b24c9…e4b5`. This result qualifies native Rest replacement only in the conditional P10 prefix. No held labels were opened.
