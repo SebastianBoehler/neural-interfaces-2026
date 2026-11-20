@@ -23,3 +23,5 @@
 - RT-1 · 21 Nov 00:00 CET: all H1–H5 checks and all nine kappa40 NI-V confirmations completed. [Results and intervals](redteam_handoffs.md)
 
 - Lane TB update 21 Nov 00:05 CET · 64991339 passed all pinned labels and same-call mixer identity. Its unchanged hardcb_safe control had max posterior Δ 0.021349 and zero label changes, so GPU cross-run posterior drift is logged. New smoke 64992565 → streams 64992566 with a baseline repeat on 71120 → collector 64992567 → conditional ZIP and CPU zero 64992568.
+
+- Final R1a · 21 Nov 00:09 CET, registered in `b23f5aff`. Leonardo Slurm run `cap250/runs/final-r1a-21nov`, source `7aa4a05d`. Hard smoke 64992707 → A100 cap250 qualification 64992708, recognised replay/timing 64992709, CPU held-new and fault injection 64992739. Hardcb smoke 64992710 → qualification 64992711, recognised replay/timing 64992712, CPU held-new and fault injection 64992751. CPU checks use the Booster allocation after the CPU partition rejected the account. Galvani batch SSH denied authentication. Results due 09:00 CET. [Evidence](final_r1a.md)
