@@ -57,3 +57,10 @@ Question registered now: which a0 member family carries the TTT gain (and which 
 Prediction: gain A2 - A1: shallow +1.5 [-1, +4]; eegnet +1.5 [-1, +4]; fbnet +1 [-2, +4] (team C's own FBNet shares their FIR-initialised filter bank); every one of the three above the braindecode nets' gain.
 If the three gain and the braindecode nets lose, the working explanation is the parametrisation (max-norm / constrained layers, log-variance heads), not test-time training itself; this will be stated as an explanation, not a result.
 Next whole-ensemble question (after these): do the braindecode members help a0 inside the ensemble under TTT? Union packages by `merge.py` (a0 + c1, a0 + d_ifnet), variants A0, A1, A2, A2l, reported against a0 on the same people/orders.
+
+## Addendum 3 · registered ~09:25 CET (m_a0c1 and m_a0ifnet scored-in-progress, not looked at; m_sf, m_sfc, m_sfi submitted, not looked at)
+Seen before this: e_shallow / e_eegnet / e_fbnet single-family bases (A1 61.9 / 49.2 / 58.9; A2 gain +0.8 / 0.0 / +1.6; A2l gain +2.2 / 0.0 / +0.8). EEGNet (team C's own definition) is near chance alone (49.2), so a0 may carry a
+dead member; MANAS late fusion (member e, form added post hoc): a0 A2 + 0.25 MANAS 66.35 vs A2 64.95 (paired +1.39 [+0.23, +2.52]; weight grid 0.1-0.4 chosen after seeing it, plateau 0.1-0.25, w=0.5 loses; MANAS alone 58.68 on these orders, team A 58.79 on orders 71000-7).
+Ensembles by union of existing members (no retraining), TTT teacher = the whole union (all members updated by A2): m_a0c1 = a0 + c1, m_a0ifnet = a0 + d_ifnet, m_sf = e_shallow + e_fbnet (no EEGNet), m_sfc = m_sf + c1, m_sfi = m_sf + d_ifnet. Variants A0, A1, A2, A2l.
+Predictions vs a0 on the same variant (paired people 80 %): m_a0c1 A2 -0.5 [-2, +1]; m_a0ifnet A2 0 [-1.5, +1.5]; m_sf A1 +0.5 [-1.5, +2.5], A2 +1.0 [-1, +3]; m_sfc A2 +0.5 [-1.5, +2.5]; m_sfi A2 +0.5 [-1.5, +2.5].
+Reading rule as above (lower bound > 0 supported, upper < 0 refuted, else undecided). Selection among these ensembles is selection on the 10 dev people and is reported as such.
