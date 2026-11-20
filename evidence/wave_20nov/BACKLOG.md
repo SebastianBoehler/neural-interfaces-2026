@@ -20,7 +20,7 @@ subjects (Ferranti H100).
 
 | # | Item | Cluster | Decision value | Status |
 |---|---|---|---|---|
-| B7 | Second CBraMod/hard seed set and lite5 seeds for lane P's best joint arm (ds_all / ds_l5) in the chain, both orders: is its +0.86 seed-robust? | Galvani | final upload | open |
+| B7 | Second CBraMod/hard seed set and lite5 seeds for lane P's best joint arm (ds_all / ds_l5) in the chain, both orders: is its +0.86 seed-robust? | Galvani | final upload | RUNNING (registered laneB7_seeds.md, Fri 13:10 CET) |
 | B8 | Once the cap250 fold waves run: add ds_all (and R4/R1 winners if any) as extra fold variants in the same DAG | Leonardo | real-package check of the upload | open (after fold waves start) |
 | B9 | NI-V B-new and B-ret on 8 orders for every new packaged candidate from P2, R4, R1 (Scherer-free CBraMod) | Galvani | external veto for the upload | open (after each package exists) |
 | B10 | Returning-person stress set: simulate one-session people from P04/P10 sessions and from NETBCI cross-day data, score stock vs R4 arms | Leonardo | sizes the 43 % returning lever | open |
