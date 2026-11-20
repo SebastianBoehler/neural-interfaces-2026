@@ -21,6 +21,7 @@ from sklearn.linear_model import LogisticRegression
 
 ROOT = Path(__file__).resolve().parents[1]
 KEYS = ("route_gal", "route_ps1_W", "route_ps1_c", "route_names", "bio_gal", "bio_m", "v6_tpri")
+D3 = ("d3_mu", "d3_var", "d3_n")  # lane D3 (opt-in, d3=True): enrolment moments of the first 12 view PCs, NaN rows for people without them
 
 
 def stdz(X):  # replay/rlib3.stdz
@@ -86,7 +87,19 @@ def gs_member(directory, z, X, y):
     return {k: a[k] for k in ("own_s_W", "own_s_c")}
 
 
-def person_rows(directory, z, X, y, own_s="stock"):
+def d3_rows(U, y, k=12):
+    """Lane D3 frozen moments of one enrolled person: class means, within-class variances (raw view coordinates u[:12], the coordinate system
+    the query side uses) and class counts. A class with < 2 windows takes the pooled variance."""
+    y = np.asarray(y).astype(int)
+    A = U[:, :k]
+    n = np.array([(y == c).sum() for c in range(3)], float)
+    mu = np.stack([A[y == c].mean(0) for c in range(3)])
+    pooled = sum(((A[y == c] - mu[c]) ** 2).sum(0) for c in range(3)) / max(n.sum() - 3, 1)
+    var = np.stack([A[y == c].var(0, ddof=1) if n[c] > 1 else pooled for c in range(3)])
+    return dict(d3_mu=mu[None], d3_var=var[None], d3_n=n[None])
+
+
+def person_rows(directory, z, X, y, own_s="stock", d3=False):
     ns = {"np": np, "CLIP": 4.0}
     _functions(ROOT / "replay/rlib2.py", ("rstats", "rz", "contrast", "onehot"), ns)
     y = np.asarray(y).astype(int)
@@ -97,6 +110,8 @@ def person_rows(directory, z, X, y, own_s="stock"):
     rows["route_ps1_W"], rows["route_ps1_c"] = head.coef_[None], head.intercept_[None]
     class_means = lambda A: np.stack([A[y == k].mean(0) for k in range(3)])
     rows["v6_tpri"] = class_means(stdz(U[:, :128]))[None]
+    if d3:
+        rows.update(d3_rows(U, y))
     win = np.hanning(120)
 
     def feat(x):  # IdentityGate.feat
@@ -119,12 +134,15 @@ def person_rows(directory, z, X, y, own_s="stock"):
     return rows
 
 
-def enrol(zip_in, zip_out, X, y, name, own_s="stock"):
+def enrol(zip_in, zip_out, X, y, name, own_s="stock", d3=False):
     with TemporaryDirectory() as tmp, zipfile.ZipFile(zip_in) as zi:
         zi.extractall(tmp)
         z = dict(np.load(Path(tmp) / "weights.npz", allow_pickle=False))
-        rows = person_rows(tmp, z, X, y, own_s)
+        rows = person_rows(tmp, z, X, y, own_s, d3)
     n0 = len(z["route_names"])
+    if d3 and "d3_mu" not in z:  # public people carry no moments: the drift correction stays off when a gate routes to them
+        for k, shape in zip(D3, ((3, 12), (3, 12), (3,))):
+            z[k] = np.full((n0, *shape), np.nan)
     for k, v in rows.items():
         if k == "route_names":
             z[k] = np.concatenate([z[k], np.array([name], dtype=z[k].dtype if z[k].dtype.kind == "U" else str)])

@@ -24,7 +24,7 @@ def main(src, out_dir, tag):
         rows = np.flatnonzero((subject == who) & (session == "1"))
         rows = rows[np.lexsort((onset[rows], run[rows]))]
         assert len(rows) in (105, 120) and set(y[rows]) == {0, 1, 2}
-        n = enrol.enrol(src, f"{out_dir}/{tag}_k{k}.zip", X[rows], y[rows], f"S{who[-1]}", os.environ.get("NIV_OWN_S", "stock"))
+        n = enrol.enrol(src, f"{out_dir}/{tag}_k{k}.zip", X[rows], y[rows], f"S{who[-1]}", os.environ.get("NIV_OWN_S", "stock"), os.environ.get("NIV_D3") == "1")  # NIV_D3=1: lane D3 moments
         print("enrolled", who, "->", n, "people", flush=True)
 
 
