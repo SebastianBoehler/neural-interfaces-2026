@@ -103,6 +103,8 @@ def main(args):
                 if args.smoke:
                     a, j = gate.route(names, projection[:50])
                     assert (a, j) == ((at, name) if 0 <= at < 50 else (-1, ""))
+                    from timing import timing
+                    timing(train_expert(pkg, key), x, names, gate, args.out / "warm.json")
                     print("WAVEFORM SMOKE OK", path.stem, tag, at, name, flush=True)
                     return
                 for k, v in dict(rows=rows, stock=stock, new=base, heldnew=get("heldnew"), zero=base,
