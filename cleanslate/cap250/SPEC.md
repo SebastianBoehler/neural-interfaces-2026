@@ -129,7 +129,8 @@ PROTEUS head and is ineligible as an external initializer.
   inside an existing Slurm job, which can fit sequentially as an explicit entry mode. Use
   the graph for parallel training and avoid waiting in an allocated GPU job.
 - First smoke reduced jobs and package loading, then fresh all-ten stock training plus
-  public decision equality with the sealed ZIP. Exact archive reassembly can isolate an
+  public decision equality with the sealed ZIP in recording order and the first requested
+  full-shuffle order. Exact archive reassembly can isolate an
   assembler mismatch. Fresh neural training has documented GPU nondeterminism; compare
   and report all decisions and scores, including mismatches. An archive-only equality
   result cannot stand in for a fresh-train comparison.

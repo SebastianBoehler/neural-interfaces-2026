@@ -129,7 +129,8 @@ class Plan:
                 decisions = [
                     self.add(f"{name}.{label}.parity.{person}", f"{HERE}/verify.py",
                              ["--pkg", str(package), "--sealed", str(sealed), "--data", str(self.data),
-                              "--person", person, "--report-only", "--out", str(reports / f"{person}.json")],
+                              "--person", person, "--shuffle", orders.split(",")[0], "--report-only",
+                              "--out", str(reports / f"{person}.json")],
                              Family(1, 25), [assemble])
                     for person in PEOPLE
                 ]

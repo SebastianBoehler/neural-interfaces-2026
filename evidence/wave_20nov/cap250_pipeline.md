@@ -76,7 +76,7 @@ Compare the stock assembly from authenticated archived parts against ZIP
 `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`. Expect zero
 changed public decisions in recording order and a pinned full-session shuffle. Any change
 refutes zero-change package parity. A separate all-ten **fresh fit** must meet the same
-decision gate in recording order. Record changed decisions, per-visit counts and score
+decision gate in recording order and pinned full shuffle 71000. Record changed decisions, per-visit counts and score
 if it misses. Published retraining work documents GPU-dependent nondeterminism, so a
 reproduction using archived parts alone cannot establish fresh parity.
 
@@ -100,9 +100,16 @@ participants with newly fit rosters. [Preregistration format](CLEANSLATE.md)
 | Historical v3 replay guard | Galvani 3141269 | Completed, printed OK |
 | Archived parts assembled with the new builder | Galvani 3141310 | All 1,047 arrays exactly equal and all 38 other payloads byte-identical |
 | Hard full seed 0, all ten | Galvani 3141312 | Passed in 40 s |
-| Leonardo hold/release and individual array-task dependency | 64930908 → 64930920 | Submitted and released, outputs pending |
+| Source-only external initializer check | Galvani 3141372 | Verified all 30 m7r files and the spectral model. The m7r metadata names the seven external corpora and no PROTEUS adaptation. The spectral model has 224 people and 673 visits. |
+| Galvani array-task dependency | 3141373 → 3141374 | Both array tasks passed and the dependent job completed |
+| Leonardo hold/release and individual array-task dependency | 64930908 → 64930920 | The SIF uses CUDA 13. The booster host driver exposed CUDA 12.2, so both tasks failed fast and the dependent job canceled |
+| Leonardo native CUDA and dependency retry | 64931727 → 64931728 | Released in the project venv |
+| Native archived Solver decision comparison | 64932077 → 64932082 → 64932085 | Queued as a ten-person replay array and dependent aggregate |
 
 The first archive build on Galvani lacked the staged ZIP. The second isolated
 one-ULP rounding in 34 mixer weights. The third used the preserved exact constants
-from the historical arrays. The full official decision comparison is independent
-of array/payload parity. [Rebuild code](../../cleanslate/cap250/archive_check.py)
+from the historical arrays. Its following monolithic stream timed out at 20 minutes
+(3141311), so the Leonardo retry splits work by participant. The full official decision
+comparison is independent of array/payload parity. The SIF reassembly also passed on
+Leonardo (64931863). Its replay successors were canceled after the driver failure was
+identified and replaced by the native archive graph. [Rebuild code](../../cleanslate/cap250/archive_check.py)
