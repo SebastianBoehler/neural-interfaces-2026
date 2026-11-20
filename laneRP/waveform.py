@@ -122,7 +122,11 @@ class WaveExpert:
         for m, p in self.members:
             zero(m)
             with torch.jit.optimized_execution(False):
-                y = m(aligned(x, p))[:, :3].softmax(1).cpu().numpy()
+                # Fix the convolution batch shape to the official B=1 entry point. Batched
+                # convolutions can pick a different kernel for otherwise identical prefixes.
+                frames = aligned(x, p).split(1)
+                logits = torch.cat([m(frame)[:, :3] for frame in frames])
+                y = logits.softmax(1).cpu().numpy()
             zero(m)
             all_probs.append(y)
         probs = np.stack(all_probs, axis=1)

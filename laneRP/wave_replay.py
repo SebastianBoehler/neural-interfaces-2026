@@ -48,6 +48,8 @@ def main(args):
     paths = [p for p in paths if not p.name.startswith("pred_pop")]
     assert len(paths) == 249, len(paths)
     torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    torch.backends.cudnn.deterministic = True
     args.out.mkdir(exist_ok=True)
     for path in paths:
         mode, corpus, person, *pair = path.stem.split("_")
