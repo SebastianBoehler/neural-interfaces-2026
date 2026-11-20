@@ -13,3 +13,5 @@
 - RT-1 · dispatched 20 Nov 22:58–23:00 CET for the Sat 08:30 CET handoff. Leonardo H1/R0z and H5 first (64988017–64988060), then full R0z, H2 donor swap, H3 visit 1, and hardcb_safe reference (64988092–64988102). H4 reused Lane RP 64986260. Registered before scoring at `050198b1`. Slurm run `cap250/runs/redteam-21nov`; exact IDs and dependencies in its `jobs.tsv`. [Handoff](redteam_handoffs.md)
 
 - Lane TB jobs · Leonardo `cap250/runs/laneTB-21nov`. Real-data fit smoke 64988026 completed. Fit array 64988029, P01 live smoke 64988278, score streams 64988281, collector 64988283, conditional ZIP and CPU blend-zero job 64988385. Scoring waits on the live smoke.
+
+- RT-1 · 20 Nov 23:26 CET: kappa40 cleared its PROTEUS comparison. Registered Scherer NI-V B-ret confirmation (`9ff53b5a`), submitted Leonardo smoke 64989686 and dependent array 64989695 (nine people). [Handoff](redteam_handoffs.md)
