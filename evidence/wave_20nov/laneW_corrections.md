@@ -1,4 +1,4 @@
-# Lane W · widening the post-mixer correction family (registered Fri 20 Nov 2026 ~19:45 CET, before any arm was scored; only the member-name dump smoke ran)
+# Lane W · widening the post-mixer correction family (registered Fri 20 Nov 2026 ~18:40 CET (`date -u` 17:40), before any arm was scored; only the member-name dump smoke ran)
 
 Why: lane Z (gains survive only where the mix is wrong, later stages pass them) and lane P/B7 (per-session-reset dispersion correction on `hcF_l5` = ds_all, +0.47 vs hardcb, +0.72 pooled over seeds) say the post-mixer correction is the one mechanism seen to pass the mixer. Lane P used ONE stand-in
 member (N9 raw FBCNet seed 0, segments from its linear head). Here the correction's feature source is widened. Instrument: lane P chain (`laneW/chain`, copy of `laneP/chain`, release `ni26_laneW_20261120` on Galvani; the pinned chain replay exists only there),

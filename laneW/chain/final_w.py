@@ -119,8 +119,6 @@ def run_arms(order, pupils):
                     for f in FAMS:
                         ctx.CU17[f, 0] = bank[f]
                 outer_mod.MASS = FULL_MASS
-                if arm:
-                    mem["l5"] = corrw.dump_members(ctx, archive, outer_mod, PROTO, STACK)
                 with doubling(ctx, archive) as boost:
                     raw[name], used, traces[name] = replace(base, ctx, archive, patches, incumbent, 0.8 * pupils["hard"] + 0.2 * pupils["cb"], active)
                 assert arm or used == deltas, name  # FT-swapped arms move the deltas by design (as ftlite5)
@@ -130,7 +128,7 @@ def run_arms(order, pupils):
                     ctx.CU17[f, 0] = saved[f]
                 outer_mod.MASS = FULL_MASS
             assert not np.array_equal(raw[name], raw["hardcb"]), name
-        mem["stock"] = corrw.dump_members(ctx, archive, outer_mod, PROTO, STACK)
+        mem["stock"] = corrw.dump_members(ctx, stock, STACK, PROTO)
         np.testing.assert_array_equal(raw["identity"], stock)
         assert traces["identity"]["slot_movement"] == 0
         for name in ARMS:
