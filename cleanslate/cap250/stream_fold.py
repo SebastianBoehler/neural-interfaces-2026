@@ -31,7 +31,7 @@ def stream(args):
         pending = Path(stage) / "predictions.npz"
         cmd = [sys.executable, "-B", str(ROOT / "cleanslate/harness/stream.py"), "--pkg", str(args.pkg),
                "--held", args.held, "--sessions", args.sessions, "--orders", args.orders,
-               "--data", str(args.data), "--out", str(pending)]
+               "--data", str(args.data), "--device", "cuda:0", "--out", str(pending)]
         result = subprocess.run(cmd, stderr=subprocess.PIPE, text=True)
         sys.stderr.write(result.stderr)
         result.check_returncode()

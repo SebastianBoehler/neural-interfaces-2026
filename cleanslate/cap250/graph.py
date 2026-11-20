@@ -127,7 +127,7 @@ class Plan:
             if mode == "all":
                 streams[name] = self.add(f"{name}.{label}.parity", f"{HERE}/verify.py",
                                          ["--pkg", str(package), "--sealed", str(sealed), "--data", str(self.data),
-                                          "--out", str(package.parent / "parity.json")], Family(1, 25), [assemble])
+                                          "--out", str(package.parent / "parity.json")], Family(1, 45), [assemble])
             else:
                 streams[name] = self.add(f"{name}.{label}.stream", f"{HERE}/stream_fold.py",
                                          ["--pkg", str(package), "--held", held, "--sessions", sessions,

@@ -23,7 +23,9 @@ SEALED = "9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed"
 
 
 def labels(pkg, data, orders):
-    device = "cuda:0" if torch.cuda.is_available() else "cpu"
+    if not torch.cuda.is_available():
+        raise RuntimeError("public cap250 parity requires a CUDA Slurm allocation")
+    device = "cuda:0"
     model = load_solver(pkg, data["ch_names"], device)
     x = torch.from_numpy(data["X"])
     streams = tuple(dict.fromkeys(data["stream"]))
@@ -38,6 +40,9 @@ def labels(pkg, data, orders):
         if len(error_counts) != len(streams) or any(int(n) != 0 for n in error_counts):
             raise RuntimeError(f"missing v6 status or error on order {seed}: {errors.getvalue()}")
         results[seed] = trial
+        elapsed = sum(row[2] for row in trial.values())
+        print(f"{pkg}: order {seed if seed is not None else 'recording'}, {len(trial)} visits, {elapsed:.1f}s",
+              flush=True)
     return results
 
 

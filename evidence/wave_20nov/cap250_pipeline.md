@@ -37,9 +37,13 @@ including CUDA portability and export checks. The original three-arm F14 triples
 At 10:10 CET on 20 November, both Slurm hosts answered. Galvani A100 nodes were mostly
 mixed or allocated and the account's MaxSubmit was 2,500. Leonardo reported both
 AIFAC allocations active and about 5,737 / 4,672 local accounting hours until their
-respective monthly balances. The user requested both sites in parallel. Actual queue
-starts are unreserved. At the user's 36-lane planning assumption, 80–185 GPU-h is
-2.2–5.2 aggregate GPU-lane hours at full utilization. The 21 h 50 min to Saturday 08:00 CET
+respective monthly balances. The later check at about 10:43 CET found 36 running and 148 pending on Galvani. The
+coordinator directed the graph to Leonardo first, with Galvani as overflow. Leonardo
+`lrd_all_serial` runs on login08/13. Both kinds of workers therefore use `boost_usr_prod`,
+with a GPU reservation even for CPU-only fit steps on Leonardo. The table measures
+GPU-use estimates and excludes those CPU-phase reservations. Actual start times remain
+unreserved. At the user's 36-lane planning assumption, 80–185 GPU-h is 2.2–5.2 hours
+at full utilization. The 21 h 50 min to Saturday 08:00 CET
 is **compute-feasible, delivery unconfirmed**. Source parity, builder integration,
 nested geometry completion, input staging and queue limits sit on the critical path.
 Implementation is authorized regardless of that verdict.
@@ -84,3 +88,21 @@ stock is +0.4 pp held-new (80% forecast −0.4 to +1.2) and +0.0 pp returning
 improvement. Report individual orders, P04/P10 and the unverified 57/43 cohort mix
 separately. Performance evidence from this experiment concerns reused public
 participants with newly fit rosters. [Preregistration format](CLEANSLATE.md)
+
+
+## Slurm execution record
+
+| Check | Job | Outcome |
+| --- | --- | --- |
+| Hard reduced seed 0, P01/P02/P03 | Galvani 3141176 | Passed in 18 s, real CUDA fit and bounded CPU trace prefix/reset checks |
+| CountFilter, all ten | Galvani 3141177 | Passed in 16 s; max archive deviations W 3.8e−8, scale 3.5e−9, thresholds 1.2e−9 on first implementation |
+| Tangent/PC basis, three source people | Galvani 3141178 | Passed in 50 s |
+| Historical v3 replay guard | Galvani 3141269 | Completed, printed OK |
+| Archived parts assembled with the new builder | Galvani 3141310 | All 1,047 arrays exactly equal and all 38 other payloads byte-identical |
+| Hard full seed 0, all ten | Galvani 3141312 | Passed in 40 s |
+| Leonardo hold/release and individual array-task dependency | 64930908 → 64930920 | Submitted and released, outputs pending |
+
+The first archive build on Galvani lacked the staged ZIP. The second isolated
+one-ULP rounding in 34 mixer weights. The third used the preserved exact constants
+from the historical arrays. The full official decision comparison is independent
+of array/payload parity. [Rebuild code](../../cleanslate/cap250/archive_check.py)

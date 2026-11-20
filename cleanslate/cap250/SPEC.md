@@ -133,3 +133,29 @@ PROTEUS head and is ineligible as an external initializer.
   assembler mismatch. Fresh neural training has documented GPU nondeterminism; compare
   and report all decisions and scores, including mismatches. An archive-only equality
   result cannot stand in for a fresh-train comparison.
+
+## Leonardo launch
+
+Stage committed code and the pinned official track under
+`$WORK/ni26/cap250/releases/<revision>`. Place source data, external trunk checkpoints,
+the identity model and the pinned hard recipe under `$WORK/ni26/cap250/assets`.
+Keep the rest export accessible from `RELEASE/data` for the family trainer and
+set `CAP250_CB_CHECKPOINT` for CBraMod. The compute nodes read these files locally.
+
+```bash
+module load python/3.11.7
+root="$WORK/ni26/cap250"
+release="$root/releases/$revision"
+assets="$root/assets"
+export CAP250_CB_CHECKPOINT="$assets/runs/cb_stage_a/cbramod.safetensors"
+python -B "$release/cleanslate/cap250/graph.py" --release "$release" \
+  --assets "$assets" --revision "$revision" --run "$root/runs/$tag" \
+  --variants stock,hardcb --orders 71000,71001,71002,71003 --submit
+```
+
+The default Leonardo target uses AIFAC_P02_1636, `boost_usr_prod` A100s and the
+existing worker SIF. Set `--account AIFAC_P02_1675` for that allocation.
+The graph submits all prerequisites, writes `jobs.jsonl`, then releases the submitted
+Slurm jobs. Use `--site galvani` with the Galvani image and asset paths for overflow.
+Use the graph to run the normal parallel package builds. `train.py` also accepts the
+same roster directly in a compute allocation with the full staged release and assets.
