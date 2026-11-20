@@ -111,7 +111,10 @@ def main():
         result["arms"][arm] = dict(new=new, returning=ret, changed=changed, proxy=proxy,
                                    j=0.5 * (new["mean"] + ret["mean"]), j_ci80=interval(0.5 * (ndraw + rdraw)))
     positives = [a for a in ARMS[1:] if result["arms"][a]["new"]["mean"] > 0]
-    result["package_arm"] = max(positives, key=lambda a: result["arms"][a]["proxy"]) if positives else None
+    feasible = [a for a in positives
+                if result["timing"][a[:-2]]["projection_s"] +
+                max(0, result["timing"][a[:-2]]["load_delta_s"]) < 3600]
+    result["package_arm"] = max(feasible or positives, key=lambda a: result["arms"][a]["proxy"], default=None)
     with args.out.open("x") as f:
         json.dump(result, f, indent=2)
         f.write("\n")
