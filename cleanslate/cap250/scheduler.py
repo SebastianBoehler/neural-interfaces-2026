@@ -20,6 +20,7 @@ class Slurm:
         self.cpu, self.gpu, self.gres = args.cpu_partition, args.gpu_partition, args.gres
         self.cpu_reserves_gpu = getattr(args, "site", "galvani") == "leonardo" and self.cpu.startswith("boost_")
         self.base_ids = []
+        self.gate = getattr(args, "afterok", None)
         if args.exclude:
             self.regular.append(f"--exclude={args.exclude}")
         rev = args.revision or subprocess.check_output(["git", "rev-parse", "HEAD"], text=True, cwd=self.root).strip()
@@ -36,6 +37,8 @@ class Slurm:
                  f"--partition={self.gpu if resources.gpu else self.cpu}"]
         if resources.gpu or self.cpu_reserves_gpu:
             flags.append(f"--gres={self.gres}")
+        if not deps and self.gate:
+            deps = (str(self.gate),)
         if deps:
             flags.append("--dependency=afterok:" + ":".join(deps))
         command = [*self.regular, *flags, *tail]

@@ -43,7 +43,9 @@ def native_recipe():
 def fit(args):
     import braindecode
     if not torch.cuda.is_available() or braindecode.__version__ != "1.8.1":
-        raise RuntimeError("hard fit requires Slurm CUDA and Braindecode 1.8.1")
+        raise RuntimeError(f"hard fit requires Slurm CUDA and Braindecode 1.8.1 "
+                           f"(CUDA available: {torch.cuda.is_available()}, "
+                           f"torch: {torch.__version__}, braindecode: {braindecode.__version__})")
     torch.set_num_threads(2)
     encoder, recipe, norm_class, export = native_recipe()
     data = load_source(args.people, args.first_session_only, args.data)

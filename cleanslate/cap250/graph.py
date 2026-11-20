@@ -198,6 +198,7 @@ def main():
     parser.add_argument("--sealed", type=Path)
     parser.add_argument("--smoke", action="store_true", help="reduced family fits; scores and archive comparison disabled")
     parser.add_argument("--submit", action="store_true", help="default only prints the graph")
+    parser.add_argument("--afterok", type=int, help="same-cluster job that must pass before this graph starts")
     parser.add_argument("--site", choices=SITES, default="leonardo")
     parser.add_argument("--account")
     parser.add_argument("--cpu-partition")
@@ -216,7 +217,7 @@ def main():
     args.assets = (args.assets or (Path(work) / "ni26" if work else args.release)).resolve()
     args.data = (args.data or args.assets / "data/proteus_windows.npz").resolve()
     if args.submit and args.image is None and args.python is None and args.site == "leonardo" and work:
-        args.image = Path(work) / "ni26/runs/cloud/ni26_worker.sif"
+        args.python = Path(work) / "ni26/.venv/bin/python"
     if args.submit:
         runner = args.image or args.python
         if runner is not None and not runner.is_file():
@@ -226,6 +227,8 @@ def main():
     if (not all(order.isdecimal() for order in order_ids) or len(set(order_ids)) != len(order_ids)
             or set(people) - set(PEOPLE) or len(set(people)) != len(people)):
         parser.error("invalid or repeated person/order")
+    if args.afterok is not None and args.afterok <= 0:
+        parser.error("--afterok requires a positive Slurm job ID")
     if args.submit and ((args.image is None) == (args.python is None) or not args.data.is_file()):
         parser.error("submission requires an existing data file and exactly one of --image or --python")
     if args.all_ten and (args.smoke or args.sealed is None):
