@@ -58,9 +58,61 @@ def arm_table(job):
             for frac in (0.1, 0.2):
                 for a in ALPHAS:
                     out[f"{s}|{target}_{mode}{int(frac*100)}_a{a}"] = dict(system=s, inj=(target, mode, frac, a))
+    elif job == "lev_w":  # slot share of the raw family slot (weight 1 in the stock mixer)
+        for s in systems:
+            out[f"{s}|base"] = dict(system=s)
+            for f in (2.0, 4.0, 8.0):
+                out[f"{s}|w{int(f)}"] = dict(system=s, wmul={SLOT: f})
+    elif job == "lev_learn":  # nested leave-one-person-out mixer weights (weights_ORDER.npz from fit_weights.py)
+        for s in systems:
+            out[f"{s}|base"] = dict(system=s)
+            for v in LEARN_VARIANTS:
+                out[f"{s}|learn_{v}"] = dict(system=s, wvar=v)
+    elif job.startswith("lev_x"):  # extra levers appended after the diagnosis (see arm_extra)
+        out = arm_extra(job)
     else:
         raise SystemExit(f"unknown job {job}")
     return out
+
+
+LEARN_VARIANTS = ("ll50", "ll100", "acc50", "acc100")
+
+
+def arm_extra(job):
+    out = {}
+    if job == "lev_x1":  # pooling rule at the mixer: weighted geometric (product of experts) and a 50/50 arithmetic-geometric blend, stock weights
+        for s in ("stock", "hardcb"):
+            out[f"{s}|base"] = dict(system=s)
+            for kind in ("geo", "half"):
+                out[f"{s}|pool_{kind}"] = dict(system=s, pool=kind)
+        return out
+    raise SystemExit(f"{job}: not defined")
+
+
+def make_pool_fn(kind):
+    def mix_fn(members, items, perm):
+        w = np.array([w for _, w in items])
+        P = np.stack([members[k] for k, _ in items])  # k x n x 3
+        arith = np.tensordot(w, P, 1) / w.sum()
+        g = np.exp(np.tensordot(w, np.log(np.maximum(P, 1e-9)), 1) / w.sum())
+        g = g / g.sum(1, keepdims=True)
+        return g if kind == "geo" else 0.5 * arith + 0.5 * g
+    return mix_fn
+
+
+def make_mix_fn(order, system, variant, person):
+    with np.load(WORK / f"weights_{order}.npz", allow_pickle=False) as z:
+        keys, W = [str(k) for k in z[f"{system}|{variant}|keys"]], z[f"{system}|{variant}|W"]  # W: 10 people (sorted) x keys
+    names = sorted(set(person))
+    row_w = W[[names.index(q) for q in person]]  # recording layout
+
+    def mix_fn(members, items, perm):
+        got = [str(k) for k, _ in items]
+        assert got == keys, (got, keys)
+        w = row_w[perm]  # delivery layout
+        acc = sum(w[:, i:i + 1] * members[k] for i, (k, _) in enumerate(items))
+        return acc / w.sum(1, keepdims=True)
+    return mix_fn
 
 
 def inj_masks(y, stock_terminal, n):
@@ -68,7 +120,7 @@ def inj_masks(y, stock_terminal, n):
     u, v = rng.random(n), rng.random(n)
     wrong = np.flatnonzero(stock_terminal.argmax(1) != y)
     order_w = wrong[np.argsort(v[wrong])]
-    return u, order_w
+    return u, order_w, n
 
 
 def make_mask(mode, frac, u, order_w, n):
@@ -245,8 +297,13 @@ def run(order, smoke, cb_path, job):
     pup_hc = 0.8 * pupils["hard"] + 0.2 * cb
     arms = arm_table(job)
     if smoke:
-        keep = [k for k in arms if k.endswith("|base") or "no_ft" in k or "no_csp" in k or "a0.3" in k]
-        arms = {k: arms[k] for k in keep[:5]}
+        keep = [k for k in arms if k.endswith("|base") or "no_ft" in k or "no_csp" in k or "a0.3" in k or "a1.0" in k or "w2" in k or "learn_ll50" in k]
+        arms = {k: arms[k] for k in keep[:2] + keep[-3:]}
+    for name, spec in arms.items():
+        if "wvar" in spec:
+            spec["mix_fn"] = make_mix_fn(order, spec["system"], spec["wvar"], person)
+        if "pool" in spec:
+            spec["mix_fn"] = make_pool_fn(spec["pool"])
     out, times = {}, {}
     holder = {}
 
