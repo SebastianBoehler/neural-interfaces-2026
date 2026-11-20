@@ -35,3 +35,25 @@ Reason for the small prior: the fine-tune overwrites most of the trunk, and the 
   Anything else **undecided** (instrument +-0.5 across people; P04 / P10 reported, neither decides). M, G, N are reported on the same rules as isolating arms, not as selections.
 - Controls: A vs stock within +-0.4 (Lane H: -0.15 at 5/6), B vs stock reproduces +0.04.
 - Not covered: fb / fblight families, k other than 20, MASS other than 5/6 and 1/6, orders other than full0 in the full system, SSMVEP-MI / flicker / video conditions, other window offsets, returning people.
+
+## Result (Fri 20 Nov 2026; Leonardo staging 64884xxx-64886974, pretrain 64887597, fits 64887599, collect 64916397; Galvani full0 consumer 3140348-53, 3140356-57, dir `ni26_laneB6_20261120`; files `evidence/wave_20nov/laneB6/`)
+Staged: ds007221g 14 people / 6800 windows; ds007221lr 48 people / 7679 (Hybrid sub-37..73 and Hybrid-online sub-74..84, Graz condition); netbci 19 people / 14429; 81 people in all. Smoke (1-epoch pretrain + one fold) passed first.
+Hybrid-online `events.tsv` lists each marker twice (80 rows for 40 trials); the exporter first failed loudly on the trial count, then collapses exact adjacent duplicates and still raises on anything else.
+All guards passed (trunk keys, per-corpus class lists, banks complete, orders pinned). Stock/zero equality held for every arm.
+
+| Standalone held-new BA (full0), 3 seeds | A 59.31 | B 59.81 | G 60.27 | N 60.08 | M 60.32 | **X 60.06** |
+|---|---|---|---|---|---|---|
+| vs B, people+orders 80 % | | | +0.49 [-0.15, +1.08] | +0.19 [-0.48, +0.80] | +0.16 [-0.49, +0.83] | **+0.28 [-0.40, +0.92]** |
+
+| Full cap250, full0, paired people-only 80 % (P04 / P10 delta alone) | MASS 5/6 | MASS 1/6 |
+|---|---|---|
+| **X vs stock** | **+0.228 [+0.095, +0.373]** (P04 +0.01, P10 +0.34) | -0.077 [-0.180, +0.055] |
+| X vs B | +0.190 [-0.004, +0.445] (P04 -0.35, P10 +0.16) | -0.037 [-0.149, +0.074] |
+| M / G / N vs stock | +0.077 / -0.079 / -0.039 | -0.077 / -0.001 / +0.036 |
+| controls: A vs stock, B vs stock | -0.151 [-0.368, +0.074], +0.038 | 0.000, -0.040 |
+
+Reading against the rules above: **supported at MASS 5/6, full0** (X vs stock lower bound +0.095 > 0; standalone X-B +0.28 > 0; X vs B +0.19 > 0). Not refuted. Controls hold (A -0.15 within +-0.4; B +0.04 reproduces Lane H).
+Reading aids, stated plainly: one order (full0) and one seed set; MASS 1/6 is slightly negative (undecided); people-only interval, instrument +-0.5 across people; the standalone intervals all cross zero; P04 under X-B is -0.35 and P10 +0.16, neither decides.
+The gain does not appear in the single-corpus arms (G, N, M are at or below B in the system), so it comes from the full 81-person mix or is noise; M-to-X (+0.15 [0.00, +0.34]) is the only step that isolates the 48 Hybrid people.
+Sealed-weighted claim = 0.57 x 0.228 = about +0.13 pp (returning people not scored, counted 0). Predictions: standalone X-B +0.3 (seen +0.28); full-system X vs stock +0.05 (seen +0.23, optimistic side for the data).
+Not run: other orders in the full system, more seeds, returning people, fb / fblight families, SSMVEP-MI / flicker / video conditions, other window offsets, a candidate ZIP.

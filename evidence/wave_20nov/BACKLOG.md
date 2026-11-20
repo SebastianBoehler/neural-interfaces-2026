@@ -14,4 +14,4 @@ subjects (Ferranti H100).
 | B3 | Lane V + lane S combined in one trunk | Ferranti | final upload if ready by Sat 12:00 | open (after V and S) |
 | B4 | More seeds for the families whose seed variance is largest, inside the 3,600 s budget on the RTX PRO 4500 | Leonardo | small, variance only | RUNNING (lane B4, Ferranti preferred) |
 | B5 | Full-system learning curve over the number of training people (5–9), to size the coverage lever | Ferranti | post-deadline direction | **DONE** 20 Nov (Galvani, not Ferranti): standalone +1.15 pp/person (7 to 9), full system -0.07 [-0.14, 0.00], negligible; laneB5_curve.md |
-| B6 | Trunk pretraining on the 84-person ds007221 MI corpus (41/41 electrodes, CC0) and NETBCI, scored like lane H | Leonardo | post-deadline direction; Sat if positive | RUNNING (lane B6) |
+| B6 | Trunk pretraining on the 84-person ds007221 MI corpus (41/41 electrodes, CC0) and NETBCI, scored like lane H | Leonardo | post-deadline direction; Sat if positive | DONE (lane B6, `evidence/wave_20nov/laneB6_mi84.md`): X vs stock +0.23 [+0.10, +0.37] pp at 5/6, 1/6 -0.08; supported by its rule, one order only |

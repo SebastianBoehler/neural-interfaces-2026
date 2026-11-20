@@ -1,0 +1,931 @@
+{
+  "ba": {
+    "stock": 73.73897960185185,
+    "zero": 73.73897960185185,
+    "laneC": 73.77490190087899,
+    "standalone": 60.084691018602456
+  },
+  "delta_pp": 0.035922299027137734,
+  "paired_people_80": [
+    -0.042162698412698416,
+    0.13011499402628435
+  ],
+  "fixed": 4,
+  "regressed": 3,
+  "people": {
+    "Dreyer2026Proteus/P01": {
+      "delta_pp": 0.0,
+      "cells": 2
+    },
+    "Dreyer2026Proteus/P02": {
+      "delta_pp": 0.0,
+      "cells": 2
+    },
+    "Dreyer2026Proteus/P03": {
+      "delta_pp": 0.0,
+      "cells": 2
+    },
+    "Dreyer2026Proteus/P04": {
+      "delta_pp": 0.0,
+      "cells": 6
+    },
+    "Dreyer2026Proteus/P05": {
+      "delta_pp": 0.5376344086021506,
+      "cells": 2
+    },
+    "Dreyer2026Proteus/P06": {
+      "delta_pp": 0.5208333333333333,
+      "cells": 2
+    },
+    "Dreyer2026Proteus/P07": {
+      "delta_pp": 0.0,
+      "cells": 2
+    },
+    "Dreyer2026Proteus/P08": {
+      "delta_pp": -0.5208333333333333,
+      "cells": 2
+    },
+    "Dreyer2026Proteus/P09": {
+      "delta_pp": 0.0,
+      "cells": 2
+    },
+    "Dreyer2026Proteus/P10": {
+      "delta_pp": -0.01157407407407407,
+      "cells": 6
+    }
+  },
+  "trace": {
+    "zero": {
+      "mix": "629009343b306de86aad390da2efbda45cc98cb5334223fb42b4073b120291bc",
+      "rebalance": "ef3e0fa7499a9a4069424cefcacd98a3a19123cd04109f7b0d392e9f339e9f96",
+      "em": "ba054f8d3c0af445b6864c7e04f898ef8172ca9902e864d4f15e3890145170ac",
+      "tsem": "d95cf8785c19eeb35dcd6e7cfca44677396da5f4c8dab3b2c6832eb65c7adf6c",
+      "slot_movement": 0.0,
+      "clipped": 274,
+      "shadow": "5698d430b098f73773bc54f25cad3189ae0c1858b4a58d65e51ccef2cef3f06e",
+      "gate": "545bf95f93875fb60eb564f32cb158ffd6e2fdee5420ef190083c7ad7f94c9d4",
+      "refit_states": {
+        "('fbraw', 0)": "9a747a3b6cd105cbc2b693594de8c8ca83f6a01959d0d7998d732a7d9ff58fa3",
+        "('fb', 0)": "d11f29106c2dcbcd1e9994f9e9e6a59cfdd14f052651060de1555f1d85cb6a9f",
+        "('sinc', 0)": "280d9c2f3335f80d4e8c3cbdf751957b4c5d31a1a3a57457546445d6f1aeb263",
+        "('fbl', 0)": "1f56ecb00db76f27e57c250b4b23a281921fa5055375f9b80429fbd8cb129ef7"
+      }
+    },
+    "laneC": {
+      "mix": "8d5835757f2be6865cd885ee3c9cadd6cd8f5ffb85b851e7faf81f32677d628a",
+      "rebalance": "5593358f17d59d4f4bbd61d9ad8c83287bb564e79cb1c0006b3319e076a09e73",
+      "em": "24e1ca1a052fa334583da8c01753e3d830b3ca691a5b3c0954d17f4854c6de8e",
+      "tsem": "3c0a3835009bcf7ae123c09d4f664dc2209208cbfdcdccb06f586a0ec6a9f9b6",
+      "slot_movement": 0.05130358363565164,
+      "clipped": 279,
+      "shadow": "5698d430b098f73773bc54f25cad3189ae0c1858b4a58d65e51ccef2cef3f06e",
+      "gate": "545bf95f93875fb60eb564f32cb158ffd6e2fdee5420ef190083c7ad7f94c9d4",
+      "refit_states": {
+        "('fbraw', 0)": "9a747a3b6cd105cbc2b693594de8c8ca83f6a01959d0d7998d732a7d9ff58fa3",
+        "('fb', 0)": "d11f29106c2dcbcd1e9994f9e9e6a59cfdd14f052651060de1555f1d85cb6a9f",
+        "('sinc', 0)": "280d9c2f3335f80d4e8c3cbdf751957b4c5d31a1a3a57457546445d6f1aeb263",
+        "('fbl', 0)": "1f56ecb00db76f27e57c250b4b23a281921fa5055375f9b80429fbd8cb129ef7"
+      }
+    },
+    "stock_tail": {
+      "count_latch": {
+        "0": null,
+        "1": null,
+        "2": 40,
+        "3": null,
+        "4": null,
+        "5": null,
+        "6": null,
+        "7": 40,
+        "8": null,
+        "9": null,
+        "10": null,
+        "11": null,
+        "12": null,
+        "13": null
+      },
+      "count_effect": 308,
+      "count_s": 6.491850827820599,
+      "csp_s": 50.76213467866182,
+      "csp": {
+        "0": {
+          "feats": 190,
+          "refits": 9,
+          "fusions": 100,
+          "single_class": 0,
+          "target_sha": "518eee0ebc74f48f157e72893c10c0a439ed03fa5604fbd9da0c1e3481849617",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "1": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "ce5687560b2489c753265e0d9ea436878cc5d76970b5d57edbecab678382b3f1",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "2": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "dfdded3997559dec8179d0be7f26bae4943baf9f137c8df306866265c8900165",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "3": {
+          "feats": 187,
+          "refits": 9,
+          "fusions": 97,
+          "single_class": 0,
+          "target_sha": "edb63cade196d16e793ae0be3e720e6ab5d1897a109449f2eeb18da8a63c388c",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "4": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "43d4f95c2e4a5cc5d11e918ea509284df288a8e757d03e0b8b74a03f688c91a9",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "5": {
+          "feats": 192,
+          "refits": 9,
+          "fusions": 102,
+          "single_class": 0,
+          "target_sha": "a8e386a7452b4f38d4ac7f018218fc43790124f68bb86da94af06c2168428ef5",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "6": {
+          "feats": 186,
+          "refits": 9,
+          "fusions": 96,
+          "single_class": 0,
+          "target_sha": "c7f65eb36279678e95e520fc0351ca8623d2f9637771cad0ac994341fb164b9d",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "7": {
+          "feats": 199,
+          "refits": 9,
+          "fusions": 109,
+          "single_class": 0,
+          "target_sha": "588258612229e11c5a8af0d9ad009bb9f5624de5e2b7fa80dd2b41befbacf8a4",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "8": {
+          "feats": 190,
+          "refits": 9,
+          "fusions": 100,
+          "single_class": 0,
+          "target_sha": "9b9a18825d90c8abf07c87ea41e38e8065fea13346168b83e39246eaa82e0cdc",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "9": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "57b09d09c7f2000760f29609f52e9a772d3ef46878fa5d562ec59b70afbcf40f",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "10": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "935f58230b65419380226ca20cde707e6cbc5ce43f14efdc2885bf72999d344e",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "11": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "1ccb3903873f167008c7791e00dc115d6d1e7185e28d11583ab90231b567fcf0",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "12": {
+          "feats": 188,
+          "refits": 9,
+          "fusions": 98,
+          "single_class": 0,
+          "target_sha": "1d32548e08b9d86d64d3b9146f1c090248259dac7e968f735343f1d8d692b9ef",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "13": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "64cd7bf4fba1d40bae7303a7dec39618df8913b53acb1d552023a7e113fa8c45",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        }
+      },
+      "csp_refits": 126,
+      "csp_fusions": 1395,
+      "input_sha": "c264bdfd561095cb99021ac8416e05b34416a4fc7737800c72990a14fb7c8584"
+    },
+    "zero_tail": {
+      "count_latch": {
+        "0": null,
+        "1": null,
+        "2": 40,
+        "3": null,
+        "4": null,
+        "5": null,
+        "6": null,
+        "7": 40,
+        "8": null,
+        "9": null,
+        "10": null,
+        "11": null,
+        "12": null,
+        "13": null
+      },
+      "count_effect": 308,
+      "count_s": 6.173167174682021,
+      "csp_s": 45.706770960241556,
+      "csp": {
+        "0": {
+          "feats": 190,
+          "refits": 9,
+          "fusions": 100,
+          "single_class": 0,
+          "target_sha": "518eee0ebc74f48f157e72893c10c0a439ed03fa5604fbd9da0c1e3481849617",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "1": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "ce5687560b2489c753265e0d9ea436878cc5d76970b5d57edbecab678382b3f1",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "2": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "dfdded3997559dec8179d0be7f26bae4943baf9f137c8df306866265c8900165",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "3": {
+          "feats": 187,
+          "refits": 9,
+          "fusions": 97,
+          "single_class": 0,
+          "target_sha": "edb63cade196d16e793ae0be3e720e6ab5d1897a109449f2eeb18da8a63c388c",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "4": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "43d4f95c2e4a5cc5d11e918ea509284df288a8e757d03e0b8b74a03f688c91a9",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "5": {
+          "feats": 192,
+          "refits": 9,
+          "fusions": 102,
+          "single_class": 0,
+          "target_sha": "a8e386a7452b4f38d4ac7f018218fc43790124f68bb86da94af06c2168428ef5",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "6": {
+          "feats": 186,
+          "refits": 9,
+          "fusions": 96,
+          "single_class": 0,
+          "target_sha": "c7f65eb36279678e95e520fc0351ca8623d2f9637771cad0ac994341fb164b9d",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "7": {
+          "feats": 199,
+          "refits": 9,
+          "fusions": 109,
+          "single_class": 0,
+          "target_sha": "588258612229e11c5a8af0d9ad009bb9f5624de5e2b7fa80dd2b41befbacf8a4",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "8": {
+          "feats": 190,
+          "refits": 9,
+          "fusions": 100,
+          "single_class": 0,
+          "target_sha": "9b9a18825d90c8abf07c87ea41e38e8065fea13346168b83e39246eaa82e0cdc",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "9": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "57b09d09c7f2000760f29609f52e9a772d3ef46878fa5d562ec59b70afbcf40f",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "10": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "935f58230b65419380226ca20cde707e6cbc5ce43f14efdc2885bf72999d344e",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "11": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "1ccb3903873f167008c7791e00dc115d6d1e7185e28d11583ab90231b567fcf0",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "12": {
+          "feats": 188,
+          "refits": 9,
+          "fusions": 98,
+          "single_class": 0,
+          "target_sha": "1d32548e08b9d86d64d3b9146f1c090248259dac7e968f735343f1d8d692b9ef",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "13": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "64cd7bf4fba1d40bae7303a7dec39618df8913b53acb1d552023a7e113fa8c45",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        }
+      },
+      "csp_refits": 126,
+      "csp_fusions": 1395,
+      "input_sha": "c264bdfd561095cb99021ac8416e05b34416a4fc7737800c72990a14fb7c8584"
+    },
+    "laneC_tail": {
+      "count_latch": {
+        "0": null,
+        "1": null,
+        "2": 40,
+        "3": null,
+        "4": null,
+        "5": null,
+        "6": null,
+        "7": 40,
+        "8": null,
+        "9": null,
+        "10": null,
+        "11": null,
+        "12": null,
+        "13": null
+      },
+      "count_effect": 308,
+      "count_s": 6.181931100785732,
+      "csp_s": 45.88931548781693,
+      "csp": {
+        "0": {
+          "feats": 190,
+          "refits": 9,
+          "fusions": 100,
+          "single_class": 0,
+          "target_sha": "b930d71eeddab95cc9c147dc0531f11aab1e80cc17a9d7fd986015b2f3f4d867",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "1": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "d071a01f7afb27fca71bc890b3d4185ec96703f7406ae83083ad2e950f46eb22",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "2": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "11b1fd71ef4b9e9d09eea72493b4642f7fb238eb157117e16202f3f75161a575",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "3": {
+          "feats": 187,
+          "refits": 9,
+          "fusions": 97,
+          "single_class": 0,
+          "target_sha": "cb1033b0b36d5b883c5c7382f7fba6d710f36df50223c13a3e9322ad8f7a13f8",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "4": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "97ebb0a0ba22e296daefcfbcd6b19c828990dbc4dad73cf46f7baf4e5280131a",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "5": {
+          "feats": 192,
+          "refits": 9,
+          "fusions": 102,
+          "single_class": 0,
+          "target_sha": "a275a87b6510a0e3476c6f19d38307da859ab321bbc07835a94b70b60dbc4f5d",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "6": {
+          "feats": 186,
+          "refits": 9,
+          "fusions": 96,
+          "single_class": 0,
+          "target_sha": "62b24c5e8cf033a19ba6bfece27db21a0f69796f8ecfba99985b69ae1e139e1a",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "7": {
+          "feats": 199,
+          "refits": 9,
+          "fusions": 109,
+          "single_class": 0,
+          "target_sha": "a7699c2bd9743195e299bf0d194088c884b3f7fd2a5e4267bcb31f726ed9033e",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "8": {
+          "feats": 190,
+          "refits": 9,
+          "fusions": 100,
+          "single_class": 0,
+          "target_sha": "4ad9bb9e5dee784a36948911a55a67d0108f44d967148ffbc694b8285099f9bf",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "9": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "73ea6c9a4b725d51d74b822eab473a1e741230e14f45ababbc180b54266feb7c",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "10": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "0a65b5302bbc0b6a74c2d2789803de4d2f251b1e7ffcc393ce183ede46711e89",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "11": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "eb9cb80fb944a4d4c4470754d2174e41d4785555b31d93ce7c4754ef48ce1bc9",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "12": {
+          "feats": 188,
+          "refits": 9,
+          "fusions": 98,
+          "single_class": 0,
+          "target_sha": "097216bf0749ac6bc0a00a9ebdeba3507eadeea865132827771e9c7813fcfe05",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        },
+        "13": {
+          "feats": 189,
+          "refits": 9,
+          "fusions": 99,
+          "single_class": 0,
+          "target_sha": "726f54346186d5edee8c4d36c8ac909a48f32149fccca4ead73ba915c622bc82",
+          "refit_ages": [
+            20,
+            40,
+            60,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180
+          ]
+        }
+      },
+      "csp_refits": 126,
+      "csp_fusions": 1395,
+      "input_sha": "2c01053102e51279f552d4085fa45e59f9d7a80bd6d7238e1572c98b1103f516"
+    }
+  },
+  "banks": [
+    "/mnt/lustre/work/gehler/gfh527/ni26_laneB6_20261120/ensemble_N_held_new.npz:fd1f3f135d1d48221da8a7051fa101f59bea31f8501299482bd3ef4153bd40d5"
+  ],
+  "order": "full0",
+  "mass": 0.1666667,
+  "cap250_checked": true
+}
