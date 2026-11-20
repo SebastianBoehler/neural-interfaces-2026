@@ -71,3 +71,4 @@ Release `/leonardo_work/AIFAC_P02_1636/ni26_teamC_20261120` (`leo.sh`). Held-new
 Predictions: A1(C3e) − A1(C1) +0.7 [−0.5, +2]; A1(C3s) − A1(C3e) +1.5 [−1, +4]; A2 − A1 on either base +1.5 [−1, +4].
 Reading rule as C1 (people-80 % interval, both orders). A C3s package can no longer be scored on NI-V Scherer; the
 NI-V run uses the C3e recipe (Scherer excluded) and says so.
+Jobs: C3e Galvani 3140401 (E9, PROTEUS only); C3s Leonardo 64917408 (afterok smoke 64917399).

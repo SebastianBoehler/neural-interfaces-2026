@@ -6,7 +6,7 @@
 set -euo pipefail
 root=$PWD; mode=${1:?}; acc=AIFAC_P02_1636
 common="set -e; module load python/3.11.7; unset PYTHONPATH; source /leonardo_work/AIFAC_P02_1636/ni26/.venv/bin/activate; export OMP_NUM_THREADS=4 PYTHONWARNINGS=ignore PYTHONDONTWRITEBYTECODE=1; cd $root; P=\$(printf 'P%02d' \$((SLURM_ARRAY_TASK_ID+1))); O=\$(python -c \"print(','.join(f'P{i:02}' for i in range(1,11) if f'P{i:02}'!='\$P'))\")"
-g="--account=$acc -p boost_usr_prod --gres=gpu:1 -c 8 --mem=40G"
+g="--account=$acc -p boost_usr_prod --gres=gpu:1 -c 8 --mem=40G ${DEP:+--dependency=afterok:$DEP}"
 mkdir -p logs work
 case $mode in
 smoke)
