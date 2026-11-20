@@ -85,9 +85,18 @@ def fold_fixture(folder, production, fold, mode):
     (folder / "submission.py").write_text(before + anchor + "\n    def reset_state" + after)
 
 
-def replay(template, windows):
+def replay(template, windows, scores=None):
     start = perf_counter()
     model = fresh_model(template)
+    if scores is not None:
+        step = model.cp.step
+
+        def trace(*args):
+            posterior = step(*args)
+            scores.append(np.array(posterior, copy=True))
+            return posterior
+
+        model.cp.step = trace
     labels, late = [], []
     for age, x in enumerate(windows):
         previous = model.ft.refits
@@ -98,20 +107,33 @@ def replay(template, windows):
         rec = model.log6["rec"]
         if rec >= 0 and age > rec and model.ft.refits != previous:
             late.append(age)
+    if scores is not None:
+        del model.cp.step
     if model.dead or model.log6["err"] or model.routeB.log["err"] or model.cp.nfail:
         raise RuntimeError("degraded Solver")
     return np.array(labels), rec, late, perf_counter() - start
 
 
-def compare(models, windows, expected_late):
-    before, after = [replay(model, windows) for model in models]
+def compare(models, windows, expected_late, trace_scores=False):
+    scores = ([], []) if trace_scores else (None, None)
+    before, after = [replay(model, windows, trace) for model, trace in zip(models, scores)]
     if before[1] != after[1] or before[2] or after[2] != expected_late:
         raise ValueError(f"unexpected recognition/adaptation: {before[1:3]} -> {after[1:3]}")
     changed = np.flatnonzero(before[0] != after[0])
     if len(changed) and (not expected_late or changed[0] < expected_late[0]):
         raise ValueError("labels changed before the R1a refit")
-    return after[0], dict(windows=len(windows), recognition=after[1], late_refits=after[2],
-                          changed=len(changed), baseline_s=before[3], r1a_s=after[3])
+    info = dict(windows=len(windows), recognition=after[1], late_refits=after[2],
+                changed=len(changed), baseline_s=before[3], r1a_s=after[3])
+    if trace_scores:
+        drift = np.max(np.abs(np.asarray(scores[0]) - np.asarray(scores[1])), axis=1)
+        split = expected_late[0] if expected_late else len(windows)
+        if drift.shape != (len(windows),) or not np.isfinite(drift).all() or drift[:split].max() > 2e-6:
+            raise ValueError("terminal scores drift before R1a can act")
+        if expected_late and drift[split:].max() <= 2e-6:
+            raise ValueError("R1a refit had no effect on terminal scores")
+        info["score_windows_changed"] = int(np.count_nonzero(drift > 2e-6))
+        info["max_score_change"] = float(drift.max())
+    return after[0], info
 
 
 def load_templates(stack, zips, mode, channels, device, fold=None):
@@ -150,7 +172,7 @@ def run(a):
             selected = rows("P01", "1")
             if a.smoke:
                 selected = selected[:8]
-            _, info = compare(models, x[selected].to(a.device), [])
+            _, info = compare(models, x[selected].to(a.device), [], a.scores)
             if info["recognition"] >= 0 or info["changed"] or len(selected) != (8 if a.smoke else 190):
                 raise ValueError(f"held-new/smoke zero-change gate failed: {info}")
             results["P01/1"] = info
@@ -163,7 +185,7 @@ def run(a):
                         key = f"{seed}_{visit}"
                         selected = rows(person, visit)
                         np.testing.assert_array_equal(tape[f"rows_{key}"], selected)
-                        labels, info = compare(models, x[selected].to(a.device), [100])
+                        labels, info = compare(models, x[selected].to(a.device), [100], a.scores)
                         info["clean_tape_mismatches"] = int(np.count_nonzero(labels != tape[f"labels_{key}"]))
                         results[f"{person}/{visit}"] = info
             results["mean_delta_s"] = float(np.mean([r["r1a_s"] - r["baseline_s"] for r in results.values()]))
@@ -180,5 +202,6 @@ if __name__ == "__main__":
     p.add_argument("--device", choices=("cuda:0", "cpu"), required=True)
     p.add_argument("--fold", type=Path)
     p.add_argument("--smoke", action="store_true")
+    p.add_argument("--scores", action="store_true", help="Check the terminal posterior before argmax")
     p.add_argument("--tapes", type=Path)
     run(p.parse_args())
