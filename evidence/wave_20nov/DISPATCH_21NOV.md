@@ -15,3 +15,5 @@
 - Lane TB jobs · Leonardo `cap250/runs/laneTB-21nov`. Real-data fit smoke 64988026 completed. Fit array 64988029, P01 live smoke 64988278, score streams 64988281, collector 64988283, conditional ZIP and CPU blend-zero job 64988385. Scoring waits on the live smoke.
 
 - RT-1 · 20 Nov 23:26 CET: kappa40 cleared its PROTEUS comparison. Registered Scherer NI-V B-ret confirmation (`9ff53b5a`), submitted Leonardo smoke 64989686 and dependent array 64989695 (nine people). [Handoff](redteam_handoffs.md)
+
+- Lane TB retry · all 12 fits completed. Live smoke 64988278 matched pinned labels, then failed bitwise posteriors at the first GPU fine-tuning update (max 4.034e-7). No fresh orders scored. Revised smoke 64990355 → streams 64990356 → collector 64990357 → conditional ZIP/CPU zero 64990358, all afterok.
