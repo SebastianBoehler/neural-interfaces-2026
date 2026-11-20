@@ -1,7 +1,8 @@
 """Lane FT-B6s stage C: stock fold packages with the six Sinc traces and their package arrays replaced by a re-fitted family.
 usage: ftb_pack.py STOCK_PKG_RUN PARTS_DIR DEST_RUN ARM   STOCK_PKG_RUN holds stock/<fold>/pkg; PARTS_DIR holds <fold>/s<seed>/{trace,weights.npz}.
 Hardlinks everything except the six Sinc traces and weights.npz. Fails loudly unless every replaced key exists with the same dtype and shape,
-no key outside net53..58_{align,k,G,scale,shrink,sjit_file} changes, and the trace names are unchanged."""
+no key outside net53..58_{align,k,G,scale,shrink,sjit_file} changes, the trace names are unchanged and every new trace differs from the stock one
+(the arrays are source-row statistics and are expected to be identical for the same scope: that identity also confirms the fit scope)."""
 import os
 import sys
 from pathlib import Path
@@ -36,10 +37,15 @@ for f in folds:
                 assert z[key].dtype == arrays[key].dtype and z[key].shape == arrays[key].shape, (key, z[key].dtype, arrays[key].dtype)
                 new[key] = z[key]
             assert str(z[f"net{53 + s}_sjit_file"]) == name
-    np.savez(out / "weights.npz", **new)
-    with np.load(out / "weights.npz", allow_pickle=False) as z:
-        changed = sorted(k for k in arrays if z[k].tobytes() != arrays[k].tobytes())
-    assert changed and all(k.startswith(tuple(f"net{53 + s}_" for s in range(6))) for k in changed), changed
+    changed = sorted(k for k in arrays if new[k].tobytes() != arrays[k].tobytes())
+    assert all(k.startswith(tuple(f"net{53 + s}_" for s in range(6))) for k in changed), changed
+    if changed:
+        np.savez(out / "weights.npz", **new)
+    else:  # align/k/G/scale come from the source rows and scale rule only: identical for the same scope, whatever the trunk
+        os.link(src / "stock" / f / "pkg" / "weights.npz", out / "weights.npz")
+    for s in range(6):  # the traces themselves must differ from the stock ones (else the swap is a silent no-op)
+        name = f"{PREFIX}_s{s}.pt"
+        assert (out / name).read_bytes() != (src / "stock" / f / "pkg" / name).read_bytes(), (f, name, "trace identical to stock")
     assert set(os.listdir(out)) == set(os.listdir(src / "stock" / f / "pkg"))
-    print(arm, f, "replaced", len(changed), "arrays", flush=True)
+    print(arm, f, "replaced 6 traces,", len(changed), "package arrays differ", flush=True)
 print("packed", arm)
