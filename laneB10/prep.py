@@ -21,6 +21,6 @@ for k, s in enumerate(names):
     ses = sorted(set(p["session"].astype(str)))
     assert len(ses) == 4, (s, ses)
     day = np.array([ses.index(v) + 1 for v in p["session"].astype(str)])
-    np.savez(out / f"p{k}.npz", X=p["X"].astype(np.float32), y=p["y"].astype(np.int8), day=day, run=p["run"].astype(np.int64),
+    np.savez(out / f"p{k}.npz", X=p["X"].astype(np.float32), y=p["y"].astype(np.int8), day=day, run=np.array([int("".join(c for c in str(r) if c.isdigit())) for r in p["run"]], np.int64),
              onset=p["onset"].astype(np.float64), name=np.array(s), sessions=np.array(ses), ch_names=ch)
     print(k, s, ses, np.bincount(day)[1:].tolist(), np.bincount(p["y"]).tolist(), flush=True)

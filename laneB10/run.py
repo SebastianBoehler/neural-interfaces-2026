@@ -75,6 +75,7 @@ def main(base, ext, k, out, new=False):
                     raise RuntimeError(f"stream failed {arm} day {d}: err {err}")
                 tag = f"{scheme}|{seed}|{d}"
                 result[tag + "|rows"] = rows.astype(np.int64)
+                result[tag + "|y"] = y[rows]  # scoring only; never read by the stream above
                 result[tag + "|labels"] = np.array(labels, np.int8)
                 result[tag + "|meta"] = np.array([rec, routed, err, round(time.perf_counter() - t0, 2)], np.float64)
                 print("PASS", tag, "rec", rec, "routed", routed, "s", round(time.perf_counter() - t0, 1), flush=True)

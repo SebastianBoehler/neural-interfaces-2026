@@ -4,7 +4,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH -c 8
 #SBATCH --mem=60G
-#SBATCH -t 01:30:00
+#SBATCH -t 03:00:00
 #SBATCH -J b10-run
 # usage (release root): sbatch --array=0-189 laneB10/run.sbatch ; task = variant*19 + person. Orders and days via B10_ORDERS / B10_DAYS (smoke overrides).
 set -euo pipefail

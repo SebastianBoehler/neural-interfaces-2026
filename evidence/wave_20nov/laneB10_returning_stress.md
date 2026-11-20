@@ -1,4 +1,4 @@
-# Lane B10 · returning-person stress set (registered Fri 20 Nov 2026 ~15:30 CET, before any B10 stream was scored)
+# Lane B10 · returning-person stress set (registered Fri 20 Nov 2026 ~15:15 CET, before any B10 stream was scored)
 
 Why: ~87 % of the returning sealed cells (~38 % of all cells) are eight people with ONE public session, each ~5 later sealed sessions
 (`evidence/audit_20nov/sealed_composition.md`, medium-low confidence). P04/P10 (Lane A / R4) have two later visits each and sit at 90-97 %. No instrument
@@ -26,3 +26,6 @@ Stated limits (none hidden):
 ## Rules (fixed now)
 Per arm vs hardcbB (paired per person, people-resampled 80 %, pooled over days and orders, enrolled streams): SUPPORTED if lower bound > 0; REFUTED if upper bound < 0; else UNDECIDED. For enrolled vs `_new`:
 "harmful" if upper bound < 0. Bars are reading aids: with 19 people the interval is wide; per person/day deltas and the recognition table are the primary output. Sealed weight is not applied (a foreign lab is a stress, not a weight).
+
+## Run log
+Smoke 64953081 (hardcbB k0 and R1 k0, 1 order, day 2) passed: enrolment 11 people, recognised at window 10, routed 169/179; 68 s (hardcbB) and 114 s (R1) per stream. Full array 64953470 (190 tasks = 10 variants x 19 people, 8 orders x 3 days each, 3 h limit, Fri 15:17 CET). Scorer `laneB10/score.py` (local).
