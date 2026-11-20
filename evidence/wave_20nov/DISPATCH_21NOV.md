@@ -17,3 +17,5 @@
 - RT-1 · 20 Nov 23:26 CET: kappa40 cleared its PROTEUS comparison. Registered Scherer NI-V B-ret confirmation (`9ff53b5a`), submitted Leonardo smoke 64989686 and dependent array 64989695 (nine people). [Handoff](redteam_handoffs.md)
 
 - Lane TB retry · all 12 fits completed. Live smoke 64988278 matched pinned labels, then failed bitwise posteriors at the first GPU fine-tuning update (max 4.034e-7). No fresh orders scored. Revised smoke 64990355 → streams 64990356 → collector 64990357 → conditional ZIP/CPU zero 64990358, all afterok.
+
+- Lane TB second retry · A100 repeated hardcb_safe pre-FT posteriors differed by 3.291e-9 (identical pinned labels). The zero arm now checks bitwise identity inside each live mixer call and retains the 2e-6 cross-run bound plus exact labels. New chain 64991339 (smoke) → 64991340 (streams) → 64991341 (collect) → 64991342 (conditional ZIP and CPU zero).
