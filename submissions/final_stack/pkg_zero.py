@@ -1,8 +1,9 @@
-"""Zero-change check: the stack package with CBraMod mixed at weight 0 (no hard actors) must reproduce stock cap250 exactly.
+"""Zero-change check: the stack package with CBraMod at weight 0 and the hard actors switched off (works for the cb and the hardcb zip) must reproduce stock cap250 exactly.
 
 usage: pkg_zero.py STACK_ZIP(cb variant) ROOT PERSON...   Streams the person's visit-1 and visit-2 sessions (first 200 windows
 of each in recording order, fresh copy per session) through stock and stack; compares the v6 step posteriors and labels."""
 import importlib.util
+import os
 import sys
 import zipfile
 from pathlib import Path
@@ -15,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "2026-competition/tracks/bci_decoding"))
 from benchmark_utils.streaming import fresh_model  # noqa: E402
 
+WINDOWS = int(os.environ.get("PKG_ZERO_WINDOWS", 200))
 STOCK = ROOT / "runs/sealed/final_zips/v66_cp1_cap250.zip"
 
 
@@ -38,9 +40,13 @@ def main(zip_path, root, people):
     with np.load(Path(root) / "data/proteus_windows.npz", allow_pickle=False) as z:
         x = torch.from_numpy(z["X"]); channels = z["ch_names"].tolist(); session = z["session"]
         subject = np.array([s.rsplit("/", 1)[-1] for s in z["subject"]])
-    sessions = [np.flatnonzero((subject == p) & (session == s))[:200] for p in people for s in np.unique(session[subject == p])[:2]]
+    sessions = [np.flatnonzero((subject == p) & (session == s))[:WINDOWS] for p in people for s in np.unique(session[subject == p])[:2]]
+    def zero_out(m):  # CBraMod weight 0 and no hard actors: the raw slot is the five original members again
+        m.StackEnsemble.CB_MIX = 0.0
+        m.StackEnsemble.HARD_FILES = ()
+
     ref_p, ref_l = stream(STOCK, lambda m: None, x, channels, sessions)
-    new_p, new_l = stream(zip_path, lambda m: setattr(m.StackEnsemble, "CB_MIX", 0.0), x, channels, sessions)
+    new_p, new_l = stream(zip_path, zero_out, x, channels, sessions)
     diff = float(np.abs(ref_p - new_p).max())
     print(f"ZERO-CHANGE stock vs stack(CB_MIX=0): windows {len(ref_l)} max|step posterior diff| {diff:.3e} labels equal {bool((ref_l == new_l).all())}")
     assert (ref_l == new_l).all() and diff < 1e-9, "stack at zero weight is not stock"

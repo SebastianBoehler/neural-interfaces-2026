@@ -18,6 +18,9 @@ import torch
 ARMS = {
     "light": dict(steps=5, lam_im=0.3, batch=0, anchor=0.0, views="stock", balance=True),
     "heavy": dict(steps=20, lam_im=0.3, batch=64, anchor=1e-2, views="pw", balance=True),
+    # fitting forms registered Fri 20 Nov ~09:40 (evidence/wave_20nov/laneT_ttt_cap250.md): heavy objective at about stock step cost
+    "lite5": dict(steps=5, lam_im=0.3, batch=64, anchor=1e-2, views="pw", balance=True),
+    "sparse20": dict(steps=20, lam_im=0.3, batch=64, anchor=1e-2, views="pw", balance=True, every=40),
     "light_nobal": dict(steps=5, lam_im=0.3, batch=0, anchor=0.0, views="stock", balance=False),
 }
 EVERY, T0, CAP, LR, LAM_KL = 10, 20, 250, 1e-3, 1.0
@@ -60,11 +63,13 @@ def make_run_stream(arm):
         torch.manual_seed(0)
         gen = torch.Generator(device=dev).manual_seed(0)
         net2, steps, theta0 = None, 0, None
-        for t in range(T0, n, EVERY):
+        every = cfg.get("every", EVERY)  # the relabelled-target grid stays 10 wide: index (t - T0) // EVERY is exact for 40 too
+        assert every % EVERY == 0
+        for t in range(T0, n, every):
             if t >= CAP:  # first refit at or after the cap: keep the last net from here on (ftrel's r15c250)
                 with torch.no_grad():
-                    for tt in range(t, n, EVERY):
-                        hh = min(n, tt + EVERY)
+                    for tt in range(t, n, every):
+                        hh = min(n, tt + every)
                         out[tt:hh] = torch.softmax(net2(x[:hh])[:, :3].double(), 1).cpu().numpy()[tt:hh]
                 break
             P = R[:t, (t - T0) // EVERY]
@@ -99,7 +104,7 @@ def make_run_stream(arm):
                 loss.backward()
                 opt.step()
                 steps += 1
-            hi = min(n, t + EVERY)
+            hi = min(n, t + every)
             with torch.no_grad():
                 out[t:hi] = torch.softmax(net2(x[:hi])[:, :3].double(), 1).cpu().numpy()[t:hi]
         return dict(base=base, r15=out.copy(), r15c250=out), steps
