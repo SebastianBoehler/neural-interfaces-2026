@@ -1,6 +1,7 @@
 """Fit a CBraMod-C slot member: external stage A reused, 25-epoch source stage B (laneC/train.py::stage_b), export_blob half."""
 
 import argparse
+import json
 import os
 from pathlib import Path
 import sys
@@ -32,6 +33,12 @@ def fit(args):
     with TemporaryDirectory(prefix="cb-", dir=args.out.parent) as tmp:
         work = Path(tmp)
         suffix = "_canary" if smoke else ""
+        receipt_path = stage_a_dir() / f"external_C_{args.seed}.json"
+        receipt = json.loads(receipt_path.read_text())
+        if (receipt.get("backbone"), receipt.get("checkpoint_sha")) != (
+            "cbramod", train_cbramod.cbmod.BLOB
+        ):
+            raise ValueError(f"{receipt_path}: expected CBraMod stage A with the pinned initializer")
         for kind in (".pt", ".json"):
             src = stage_a_dir() / f"external_C_{args.seed}{kind}"
             if not src.is_file():

@@ -142,7 +142,9 @@ to stage committed code and the pinned official track under
 `$WORK/ni26/cap250/releases/<revision>`. Place source data, external trunk checkpoints,
 the identity model and the pinned hard recipe under `$WORK/ni26/cap250/assets`.
 Keep the rest export accessible from `RELEASE/data` for the family trainer and
-set `CAP250_CB_CHECKPOINT` for CBraMod. The compute nodes read these files locally.
+set `CAP250_CB_CHECKPOINT` and `CAP250_CB_STAGEA` for CBraMod. The stage-A directory
+must contain the Lane C2 CBraMod receipts and weights for seeds 0–2. The compute
+nodes read these files locally.
 
 ```bash
 module load python/3.11.7
@@ -150,6 +152,7 @@ root="$WORK/ni26/cap250"
 release="$root/releases/$revision"
 assets="$root/assets"
 export CAP250_CB_CHECKPOINT="$assets/runs/cb_stage_a/cbramod.safetensors"
+export CAP250_CB_STAGEA="$WORK/ni26_aux_20261120/runs/cb_stage_a"
 python -B "$release/cleanslate/cap250/graph.py" --release "$release" \
   --assets "$assets" --revision "$revision" --run "$root/runs/$tag" \
   --variants stock,hardcb --orders 71000,71001,71002,71003 \
