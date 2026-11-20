@@ -70,3 +70,13 @@ cap250 (0.994578853046595) on both devices, files unchanged, causal/reset/prefix
 Package 90.5 MB (self-imposed 90 MB allowance exceeded; qualification ran with NI26_MAX_MB=100).
 
 Selection rule applied: hardcb passes (a) held-new >= 0 in both orders, (b) NI-V >= -0.3, (c) projected 3,211 s <= 3,300 s.
+
+## Review fix · dead-session crash (20 Nov ~23:00 CET)
+Bug: after any v6-chain error, step62 returns v5.1b's output without mix6, so `HardWaveEnsemble.step` raised "the actual
+outer mixer did not consume the current waveform" outside step62's try and ended the whole run (stock cap250 survives
+the same injected error). Repro: one injected `eye.step` error at window 4 of P01/1 -> CRASH (hardcb), survives (stock).
+Fix: guard skipped when `self.dead`; `submissions/final_stack/patch_dead.py` derives
+`runs/sealed/final_zips/final_stack_hardcb_safe.zip` sha 8a868f22…80f7 (only submission.py differs). Checks: injected
+error now falls back and the session continues; no-error labels identical to hardcb on P01/1 (190) and P04/2 (189)
+windows, CPU. Not yet rerun: RTX/A100 qualification (code path unchanged when no error occurs). Upload hardcb_safe, not hardcb.
+Same guard lives in every hard* trial ZIP (tttlite5, tttsparse20, …): patch those with the same script before use.

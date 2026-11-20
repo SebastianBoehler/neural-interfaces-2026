@@ -54,7 +54,9 @@ class HardWaveEnsemble(Ensemble6):
         self.hard_window = x
         try:
             result = super().step(x)
-            if self.hard_window is not None:
+            # a dead session (an earlier v6 error) returns v5.1b's output without the mixer: that is the intended
+            # fallback, not a missed waveform, and must not end the run
+            if self.hard_window is not None and not self.dead:
                 raise ValueError("the actual outer mixer did not consume the current waveform")
             return result
         finally:
