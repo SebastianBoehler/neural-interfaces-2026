@@ -169,7 +169,7 @@ def assemble(people, first, data, parts, out, variant, *, require_receipts=True)
         install_variants(stage, optional, variant)
         if require_receipts:
             sys.path[:0] = [str(ROOT / "cleanslate/harness"),
-                            str(ROOT / "2026-competition/tracks/bci_decoding")]
+                            str(ROOT / "2026-competition/tracks/bci_decoding"), str(ROOT / "2026-competition")]
             from stream import load_solver
             load_solver(stage, channels, "cpu")
         manifest = "".join(f"{file_digest(p)}  {p.name}\n" for p in sorted(stage.iterdir()))

@@ -17,7 +17,7 @@ git archive "$rev" cleanslate/cap250 cleanslate/harness experiments scripts lean
   submissions/lean_v66 submissions/final_stack friday/cap250_hard_package \
   friday/cap250_raw_swap/model laneT laneC laneC2 studies/11nov/rest4 studies/12nov |
   ssh -o BatchMode=yes "$host" "tar xf - -C '$pending'"
-git -C 2026-competition archive "$official" tracks/bci_decoding |
+git -C 2026-competition archive "$official" benchmark_utils tracks/bci_decoding |
   ssh -o BatchMode=yes "$host" "mkdir '$pending/2026-competition' && tar xf - -C '$pending/2026-competition'"
 ssh -o BatchMode=yes "$host" "mkdir '$pending/data' &&
   ln '$base/assets/data/proteus_windows_start-4.5.npz' '$pending/data/proteus_windows_start-4.5.npz' &&

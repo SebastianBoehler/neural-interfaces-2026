@@ -15,7 +15,7 @@ import torch
 
 from source import ROOT, default_data, file_digest
 
-sys.path[:0] = [str(ROOT / "cleanslate/harness"), str(ROOT / "2026-competition/tracks/bci_decoding")]
+sys.path[:0] = [str(ROOT / "cleanslate/harness"), str(ROOT / "2026-competition/tracks/bci_decoding"), str(ROOT / "2026-competition")]
 import data as harness
 from stream import load_solver, stream_sessions
 
