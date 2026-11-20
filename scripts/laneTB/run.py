@@ -119,16 +119,28 @@ def smoke(args, data, signals, pkgs):
                        data, signals, rows[:68], model.TEAM_B_MEMBERS, DEVICE)
         timing["timings"][arm]["encoder_ms"] = [time_encoder(model.team_b, signals, rows, DEVICE)
                                                for _ in range(2)]
-    guarded = {}
+    guarded, repeated = {}, {}
     for round_index, order in enumerate([list(models), list(reversed(models))]):
         for arm in order:
             labels, taps, meta = stream_session(models[arm], signals, rows, DEVICE, capture=True)
             timing["timings"][arm]["runs"].append(meta)
             if arm in {"safe", "base"}:
                 np.testing.assert_array_equal(labels, expected)
-            if round_index == 0:
-                guarded[arm] = (labels, taps)
-    np.testing.assert_array_equal(guarded["base"][1], guarded["safe"][1])
+            (guarded if round_index == 0 else repeated)[arm] = (labels, taps)
+    assert models["base"].team_b is None and models["base"].TEAM_B_MIX == 0
+    # GPU fine-tuning can introduce small run-to-run posterior drift.
+    drift = {}
+    for before, after, key in [
+        (guarded["safe"], repeated["safe"], "safe_repeat"),
+        (guarded["base"], repeated["base"], "zero_repeat"),
+        (guarded["safe"], guarded["base"], "safe_vs_zero"),
+    ]:
+        np.testing.assert_array_equal(before[0], after[0])
+        np.testing.assert_array_equal(before[1][:20], after[1][:20])
+        drift[key] = float(np.max(np.abs(before[1] - after[1])))
+        np.testing.assert_allclose(before[1], after[1], rtol=0, atol=2e-6)
+    timing["zero_posterior_drift"] = drift
+    print(f"Maximum absolute GPU posterior differences: {drift}", flush=True)
     for arm in ARMS.keys() - {"base"}:
         if np.array_equal(guarded[arm][1][:, :3], guarded["safe"][1][:, :3]):
             raise ValueError(f"blend {arm} did not reach the live mixer")
