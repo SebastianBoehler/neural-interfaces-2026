@@ -168,3 +168,33 @@ decisions in each order. A match demonstrates that repeat-to-repeat Eye fitting 
 to account for the observed decision. Report the other repeats and any new changed rows.
 If the match occurs, accept fresh stock as the paired fold reference under the permitted
 GPU nondeterminism exception. Otherwise keep production gated while the cause is unresolved.
+
+The Eye check passed at 13:09:34 CET. The 12 fits in 64940890 used the original
+fresh-fit source revision `985eae55` and the same CUDA environment. All 40 streams in
+64940925 completed. Collector 64940926 found recording differences vs archive of
+`[0, 0, 0, 0]` and shuffle 71000 differences of `[0, 0, 0, 1]`. All four repeats
+restored the P02 decision. Repeat 4 changed one other shuffle decision. This isolates
+the original change to Eye fit variability with the rest of the package fixed.
+
+Production uses **fresh stock as the paired reference**. The new dependency is Eye
+collector 64940926. The archived-parts equality check passed and remains required.
+The original strict fresh-fit equality check remains a miss. The runs use independent
+fold fits for both arms, with each fold's stock components shared across arms. The
+Eye repeats serve as a diagnostic and supply no production weights.
+
+### Production launch
+
+Run `production-20261120-32a94ab7`, staged revision `32a94ab7`, account
+`AIFAC_P02_1636`. Launcher 64940927 queued dispatcher 64941008, which completed
+at 13:10:22 CET and released wave 1. The first worker array is 64941867, and the
+last stream job in wave 1 is 64941918. All 940 wave-1 tasks were recorded across
+42 base job IDs. `jobs.jsonl` records every task ID, and `dispatch.jsonl` records
+each dispatcher and its `afterok` parents. Wave 2 dispatcher 64941919 is queued
+behind all 42 wave-1 jobs. Waves 3 and 4 get their IDs from the preceding dispatcher.
+
+The 3,713-task plan uses wave sizes 940/940/940/893 under Leonardo's 1,000-task
+per-user limit. Both packages are assembled and streamed for each of the ten held-new
+folds and the two returning folds, with P04 or P10 enrolled through visit 1 only.
+Each stream uses orders 71000–71003. Both official score jobs are in wave 4 behind
+their streams. Estimated finish is 17:00–20:00 CET on 20 November at similar queue
+throughput to the full all-ten run. Slurm has not reserved that finish window.
