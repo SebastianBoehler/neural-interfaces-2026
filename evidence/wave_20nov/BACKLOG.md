@@ -9,7 +9,7 @@ subjects (Ferranti H100).
 
 | # | Item | Cluster | Decision value | Status |
 |---|---|---|---|---|
-| B1 | Final-stack arms on two more full-shuffle orders and extra seeds, plus NI-V new and B-ret, to narrow the final choice | Galvani | final upload choice | open (after final stack) |
+| B1 | Final-stack arms on two more full-shuffle orders and extra seeds, plus NI-V new and B-ret, to narrow the final choice | Galvani | final upload choice | PARTIAL 20 Nov (`laneB1_final_choice.md`): seed spread ok, lite5 +0.07 / sparse20 -0.23 vs final stack (undecided, not adopted), X undecided, unrecognised timing 3,100-3,290 s; returning and zero-change jobs pending |
 | B2 | Virtual subjects on the other neural families (EA FBC, FBLight, Sinc, teacher heads) if lane V standalone is positive | Ferranti / Leonardo | final upload if ready by Sat 12:00 | open (after lane V) |
 | B3 | Lane V + lane S combined in one trunk | Ferranti | final upload if ready by Sat 12:00 | open (after V and S) |
 | B4 | More seeds for the families whose seed variance is largest, inside the 3,600 s budget on the RTX PRO 4500 | Leonardo | small, variance only | RUNNING (lane B4, Ferranti preferred) |
