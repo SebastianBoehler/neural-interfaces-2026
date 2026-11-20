@@ -1,6 +1,6 @@
 # RT-1 · clean returning-fold handoff
 
-**H1–H5 complete on PROTEUS.** R1a was the only keep-adapting arm to clear the clean returning sign rule. It is a candidate for runtime qualification. Kappa40 was the only data-only dose to clear the rule. Its NI-V B-ret confirmation is queued.
+**H1–H5 and the NI-V confirmation completed by 00:00 CET on Saturday 21 November.** R1a was the only keep-adapting arm to clear the clean returning sign rule. It is a candidate for runtime qualification. Kappa40 alone cleared the data-only sign rule and remains undecided after NI-V.
 
 ## Instrument and checks
 
@@ -66,7 +66,7 @@ Order columns below follow seeds 71000 through 71003 and use the primary referen
 
 The R0z smoke matched 377/377 labels. Full R0z and hardcb_safe each matched hardcb on all 3,048 labels. R1a made one post-recognition refit at window 100 in each of 16 stream-orders. R5 made zero late refits and fused on 96–109 late windows per stream-order. R2 and R4 made 16–18 late refits and fused on 96–109 late windows each. R4 loaded `TTTFineTune`; the other keep arms loaded `FineTune`. The traced streams checked the real Solver after each prediction and rejected degraded paths.
 
-**R1a** clears the P04 > 0 and P10 ≥ −0.3 pp rule. NETBCI was +0.36 pp and ds007221g was +0.24 pp BA2 (14 people). Scherer full B-ret was −0.12 pp [−0.28, +0.04]. The original ~3,372 s projection used the earlier hardcb estimate. Adding the paired +3.3 to +3.5 s per recognised session to the newer hardware-specific baselines gives about 3,511–3,652 s at 46 recognised sessions. The 3,600 s budget remains unresolved on the RTX PRO 4500. R5, R2 and R4 miss the clean sign rule, with a negative equal-cell interval for each. None hit the registered P04 ≤ −0.3 pp on every order. [Paired timing and Scherer](laneR4_keepadapt.md) · [NETBCI](laneB10_returning_stress.md) · [ds007221g design](laneR4b_dose.md) · [Updated runtime](final_stack.md#review-fix-2--additive-runtime-and-load-time-self-test-20-nov-sat-0000-0100-cet)
+**R1a** clears the P04 > 0 and P10 ≥ −0.3 pp rule. NETBCI was +0.36 pp and ds007221g was +0.24 pp BA2 (14 people). Scherer full B-ret was −0.12 pp [−0.28, +0.04] in Lane R4, and −0.05 pp [−0.12, +0.03] on the 16 Leonardo full shuffles (71008–71023, people and orders resampled). The original ~3,372 s projection used the earlier hardcb estimate. Adding the paired +3.3 to +3.5 s per recognised session to the newer hardware-specific baselines gives about 3,511–3,652 s at 46 recognised sessions. The 3,600 s budget remains unresolved on the RTX PRO 4500. R5, R2 and R4 miss the clean sign rule, with a negative equal-cell interval for each. None hit the registered P04 ≤ −0.3 pp on every order. [Paired timing and Scherer](laneR4_keepadapt.md) · [NETBCI](laneB10_returning_stress.md) · [ds007221g design](laneR4b_dose.md) · [Updated runtime](final_stack.md#review-fix-2--additive-runtime-and-load-time-self-test-20-nov-sat-0000-0100-cet)
 
 ## H2 · paired donor swap
 
@@ -82,9 +82,16 @@ Lane RP jobs 64985932 (zero-change smoke) and 64986260 (full) held source weight
 
 ## H5 · data-only dose
 
-All five variants reproduced 190/190 P01 labels with zero recognition and changed labels on routed returning windows. G12 missed −0.3 pp on P04 on every order. Beta02 and beta04 gained on P04 and lost more than 1 pp on P10. Kappa40 alone cleared the point-estimate rule. Its effect on P04 remains uncertain and its unverified 20/80 effect is −0.03 pp.
+All five variants reproduced 190/190 P01 labels with zero recognition and changed labels on routed returning windows. G12 lost at least 0.3 pp on P04 on every order. Beta02 and beta04 gained on P04 and lost more than 1 pp on P10. Kappa40 alone cleared the point-estimate rule. Its effect on P04 remains uncertain and its unverified 20/80 effect is −0.03 pp.
 
-Kappa40 NI-V B-ret confirmation was registered before running (`9ff53b5a`). Smoke 64989686, full array 64989695, nine enrolled Scherer people with 16 paired full shuffles and 16 within-run shuffles. Packaging remains pending confirmation.
+Kappa40 NI-V B-ret confirmation was registered before running (`9ff53b5a`). Smoke 64989686 paired all 120 windows and changed one label. Array 64989695 completed 9/9 people, with 16 full shuffles and 16 within-run shuffles on visit 2. The comparator was Scherer-free hardcbB enrolled on the same visit 1. All delivery rows matched, every stream was recognised, and the solver logged zero v6 errors.
+
+| NI-V delivery | Kappa40 Δ vs hardcbB [paired 80%] | Changed labels |
+|---|---:|---:|
+| Full-session shuffle (primary) | +0.22 [−0.04, +0.50] | 352 / 16,800 |
+| Within-run shuffle | +0.15 [−0.10, +0.41] | 347 / 16,800 |
+
+The primary interval crosses zero, so kappa40 remains **undecided for packaging** under the pre-registered rule. Scherer data SHA-256 starts `a61887997532`. The scoring command is `python scripts/redteam/niv_dose.py score data/scherer2015/windows.npz NI_V_REFERENCE_DIR CANDIDATE_TAPE_DIR`.
 
 ## Reproduction
 
