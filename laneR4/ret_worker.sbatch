@@ -25,7 +25,7 @@ for day in 2 3; do
   if [ "${1:-}" = smoke ]; then opts=(--smoke); out="$out.smoke"; fi
   rm -rf "$out"; mkdir "$out"
   apptainer exec --cleanenv --containall --no-home --no-mount hostfs \
-    --env "RET_ARMS=$arms,OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,PYTHONDONTWRITEBYTECODE=1,MPLCONFIGDIR=/tmp/mpl,PYTHONPATH=/work:$prior:$inner:$repo/2026-competition:$repo/2026-competition/tracks/bci_decoding" \
+    --env "RET_ARMS=$arms,RET_N=${RET_N:-},OMP_NUM_THREADS=1,OPENBLAS_NUM_THREADS=1,MKL_NUM_THREADS=1,PYTHONDONTWRITEBYTECODE=1,MPLCONFIGDIR=/tmp/mpl,PYTHONPATH=/work:$prior:$inner:$repo/2026-competition:$repo/2026-competition/tracks/bci_decoding" \
     --bind "$base:$base:ro,$base:/assets:ro,$work:/work:ro,$out:/out:rw" \
     --pwd /out "$repo/runs/cloud/ni26_worker.sif" python -B /work/ret_worker.py "$order" "$visit" "${opts[@]}" || fail=1
 done

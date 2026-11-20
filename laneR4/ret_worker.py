@@ -36,7 +36,7 @@ def main(order, visit, smoke):
     native = native_worker()
     orig = prepared(path, channels, who, f"orig_{who}", native)
     case = cases[day]
-    n = 31 if smoke else len(case["rows"])
+    n = int(os.environ.get("RET_N") or 0) or (31 if smoke else len(case["rows"]))  # RET_N: longer smoke
     tapes, stats = {}, {}
     tapes["zero"], stats["zero"] = run(native, orig, case, n, "zero")
     np.testing.assert_array_equal(tapes["zero"]["scores"], case["score"][:n])
@@ -72,7 +72,7 @@ def main(order, visit, smoke):
             raise ValueError("R5: FT refit after recognition (FT must stay retired)")
         if arm == "R1a" and any(a != 100 for a in late):
             raise ValueError(f"R1a: refit ages after recognition {late}, expected only 100")
-        if rec >= 0 and rec + 10 <= min(n - 1, 250) and not (arm == "R1a" and n <= 100):  # a refit grid point lies after recognition and before the cap
+        if rec >= 0 and rec + 10 <= min(n - 1, 250) and not (arm == "R1a" and n <= 100) and not (arm == "R5" and n < 120):  # CSP fuses from window 90  # a refit grid point lies after recognition and before the cap
             if not late and arm != "R5" and not arm.startswith("R2q"):
                 raise ValueError(f"{arm}: recognised at {rec} but no refit after it: silent no-op")
             if s["change_vs_hardcb"] <= 1e-9:
