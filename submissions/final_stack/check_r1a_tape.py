@@ -42,13 +42,19 @@ def run(a):
     exact, matched = [], []
     people = ("P04",) if a.smoke else ("P04", "P10")
     visits = ("2",) if a.smoke else ("2", "3")
-    orders = (71000,) if a.smoke else range(71000, 71004)
+    orders = () if a.remaining_original else tuple(range(71000, 71004))
+    historic_orders = (("within2", "within3", "runs0", "runs1") if a.remaining_original
+                       else ("full0", "full1", "within0", "within1"))
+    if a.smoke:
+        orders = orders[:1]
+        historic_orders = historic_orders[:1]
     with ExitStack() as stack:
         _, final = load_templates(stack, a.zips, a.mode, channels, "cuda:0")
         for person in people:
             with ExitStack() as fold_stack:
-                fold = a.fold_root / f"ret_{person}/pkg"
-                _, fixture = load_templates(fold_stack, a.zips, a.mode, channels, "cuda:0", fold)
+                if orders:
+                    fold = a.fold_root / f"ret_{person}/pkg"
+                    _, fixture = load_templates(fold_stack, a.zips, a.mode, channels, "cuda:0", fold)
                 for visit in visits:
                     session = f"Dreyer2026Proteus/{person}|{visit}"
                     for order in orders:
@@ -58,7 +64,7 @@ def run(a):
                         tag = f"H1/{person}/{visit}/{order}"
                         matched.append(replay_tape(fixture, windows, rows, labels, tag, a.smoke))
                         exact.append(replay_tape(final, windows, rows, labels, tag, a.smoke))
-                    for order in (("full0",) if a.smoke else ("full0", "full1", "within0", "within1")):
+                    for order in historic_orders:
                         tag = f"{order}_{person}_{visit}"
                         path = a.historic_tapes / f"{tag}/{tag}.npz"
                         rows, labels = read_tape(path, "rows", "R1a|labels", sessions, session, a.smoke)
@@ -72,4 +78,5 @@ if __name__ == "__main__":
     for name in ("zips", "data", "out", "fold_root", "clean_tapes", "historic_tapes"):
         p.add_argument(name, type=Path)
     p.add_argument("--smoke", action="store_true")
+    p.add_argument("--remaining-original", action="store_true")
     run(p.parse_args())
