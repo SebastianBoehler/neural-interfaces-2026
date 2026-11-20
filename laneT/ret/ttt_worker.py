@@ -8,6 +8,7 @@ whole person, CBraMod fits exclude the P04/P10 visits 2-3). Checks that fail lou
 age identical in all arms; every member arm moves the scores; v6 error counters zero. No task label is read here."""
 import argparse
 import json
+import os
 from pathlib import Path
 
 import numpy as np
@@ -17,11 +18,12 @@ import inputs as I
 from dose_worker import SAME as _SAME, native_worker, prepared, run  # Lane A helpers (same release import path)
 from lane_inputs import ORDERS, load
 
-ARMS = ("hardcb", "ftlight", "ftheavy")  # lane T: final stack and its two FT-stage variants
+ARMS = tuple(os.environ.get("RET_ARMS", "hardcb+ftlight+ftheavy").split("+"))  # lane T: final stack (first) and FT-stage variants
 SAME = tuple(k for k in _SAME if k not in ("mix", "outer"))  # v5 chain tapes; the v6 mix6 legitimately differs
 
 
 def main(order, visit, smoke):
+    assert ARMS[0] == "hardcb"
     if torch.__version__ != "2.14.1+cu130" or torch.cuda.is_initialized():
         raise ValueError("requires the original clean SIF CPU runtime")
     torch.set_num_threads(1)

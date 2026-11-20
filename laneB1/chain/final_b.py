@@ -1,8 +1,8 @@
 """B1 chain: the final stack (hardcb) and arms around it in the corrected Friday chain (raw-slot replacement, then the real count/CSP tail).
 
-usage: B1_SET=T|S|X final_b.py ORDER (smoke|complete) "cbbank_ORDER_s*.npz"
+usage: B1_SET=T5|T20|S|X final_b.py ORDER (smoke|complete) "cbbank_ORDER_s*.npz"
 Arm sets (always stock, identity, hard, hardcb as guards/controls):
-  T  lane T fitting forms: ftctl (unmodified FT stream = zero-change), ftlite5, ftsparse20 (banks from laneT/fit.sbatch)
+  T5 / T20  lane T fitting forms, one job each: ftctl (unmodified FT stream = zero-change) and ftlite5 | ftsparse20 (banks from laneT/fit.sbatch)
   S  seed spread: hardcb with a single CBraMod seed s0/s1/s2 in the 0.2 share (instead of their mean)
   X  B6 arm X raw family (3-seed ensemble bank ensemble_X_held_new.npz, full0 only): hcX = 0.4 hard + 0.4 X + 0.2 cb (X shares the
      raw slot with the hard pair, primary), hXc = 0.8 hard + 0.2 X (X replaces CBraMod), and hcX with each single X seed
@@ -25,7 +25,7 @@ from parents22 import C20, F32, PUPIL_SOURCE
 
 WORK = Path(__file__).resolve().parent
 SET = os.environ["B1_SET"]
-EXTRA = {"T": ("ftctl", "ftlite5", "ftsparse20"), "S": ("hcb_s0", "hcb_s1", "hcb_s2"),
+EXTRA = {"T5": ("ftctl", "ftlite5"), "T20": ("ftctl", "ftsparse20"), "S": ("hcb_s0", "hcb_s1", "hcb_s2"),
          "X": ("hcX", "hXc", "hcX_s0", "hcX_s1", "hcX_s2")}
 ARMS = ("stock", "identity", "hard", "hardcb") + EXTRA[SET]
 FT_ARMS = {"ftctl": "ctl", "ftlite5": "lite5", "ftsparse20": "sparse20"}

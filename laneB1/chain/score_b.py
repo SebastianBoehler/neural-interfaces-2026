@@ -14,8 +14,7 @@ LIVE = tuple(a for a in ARMS if a != "identity")
 ORDERS = ("full0",) if SET == "X" else ("full0", "within0")
 CONTRASTS = {f"{a}_minus_final": (a, "hardcb") for a in LIVE if a != "hardcb"}
 CONTRASTS.update({f"{a}_minus_cap250": (a, "stock") for a in LIVE if a != "stock"})
-if SET == "T":
-    CONTRASTS.update({"ftlite5_minus_ctl": ("ftlite5", "ftctl"), "ftsparse20_minus_ctl": ("ftsparse20", "ftctl")})
+CONTRASTS.update({f"{a}_minus_ctl": (a, "ftctl") for a in LIVE if a in ("ftlite5", "ftsparse20")})
 
 
 def load(order):

@@ -13,7 +13,7 @@ src=$base/ni26_final_stack_ret_20261120/pkg_stack
 cd "${SLURM_SUBMIT_DIR:?}"; mkdir -p pkg_ttt logs
 for who in P04 P10; do
   [ -d pkg_ttt/${who}_hardcb ] || cp -rL $src/${who}_hardcb pkg_ttt/${who}_hardcb
-  for f in light heavy; do
+  for f in ${RET_FORMS:-light heavy}; do
     [ -d pkg_ttt/${who}_ft$f ] || $base/neural-interfaces-2026/.venv/bin/python -B ../laneT/build_ttt.py $f pkg_ttt/${who}_ft$f $src/${who}_hardcb
   done
 done

@@ -6,7 +6,7 @@
 #SBATCH --time=02:00:00
 #SBATCH --job-name=ni26-b1-chain
 #SBATCH --output=b1-%x-%j.out
-# usage (cd to the B1 chain dir): B1_SET=T|S|X sbatch --export=ALL worker.sbatch ORDER smoke|complete "cbbank_ORDER_s*.npz" | worker.sbatch score
+# usage (cd to the B1 chain dir): B1_SET=T5|T20|S|X sbatch --export=ALL worker.sbatch ORDER smoke|complete "cbbank_ORDER_s*.npz" | worker.sbatch score
 # helper modules (parents22, matrix22, cross22, final22) come from the final-stack release, hash-checked below
 set -euo pipefail
 base=/mnt/lustre/work/gehler/gfh527
@@ -20,7 +20,7 @@ f32=$camp/f32c_v2
 work=${SLURM_SUBMIT_DIR:?}
 fs=$base/ni26_final_stack_20261120
 export LANET_BANKS=${LANET_BANKS:-$base/ni26_laneT_20261120/laneT/arms}
-: "${B1_SET:?set B1_SET=T|S|X}"; export B1_SET
+: "${B1_SET:?set B1_SET=T5|T20|S|X}"; export B1_SET
 cd "$work"
 sha256sum --check --status source.sha256
 (cd "$fs" && sha256sum --check --status source.sha256)
