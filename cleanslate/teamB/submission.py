@@ -155,6 +155,24 @@ def tangent(xs, bank):
     return torch.cat(out)
 
 
+class TSM(nn.Module):
+    """Tangent-space family: per-band linear reduction of the aligned covariance's matrix logarithm."""
+
+    def __init__(self, k=24):
+        super().__init__()
+        self.register_buffer("mask", torch.stack([fmask(lo, hi) for lo, hi in BANDS]))
+        self.red = nn.Parameter(torch.randn(len(BANDS), C * (C + 1) // 2, k) * 0.03)
+        self.dim = len(BANDS) * k
+
+    def forward(self, x):
+        with torch.no_grad():
+            v = tangent(x, self.mask).view(len(x), len(BANDS), -1)
+        return torch.einsum("bnd,ndk->bnk", v, self.red).flatten(1)
+
+
+BODIES["tsm"] = lambda: TSM()
+
+
 def propagate(P, V, cfg):
     """Leave-one-out kernel-ridge label propagation of the soft labels P (n,3) over tangent vectors V (n,D)."""
     n = P.shape[0]

@@ -9,7 +9,7 @@ python -I scripts/export_mi84.py {graz,hybrid,netbci} --subjects 1-3 [--max-runs
 Preprocessing is export_external.preprocess (notch at 50/60 Hz harmonics, 0.1-75 Hz at native rate, 120 Hz, microvolts) and to_proteus
 (our 41-channel order, spherical splines for missing), exactly as export_moabb.py; one 4 s window START s after every marker
 (rule of export_moabb, start = max(0, min(1, task length - 4)): 0 s for ds007221, 1 s for NETBCI; see mi84_erd.py). Labels: explicit name -> local index map in experiments/class_map.OWN_HEAD (unmapped names raise). Checks per recording:
-events.tsv value<->name pairing stays constant, trial count equals the recordings.tsv count, window fits the recording."""
+events.tsv value<->name pairing stays constant (Hybrid-online lists each marker twice: exact adjacent duplicates are collapsed, anything else raises), trial count equals the recordings.tsv count, window fits the recording."""
 import argparse
 import csv
 import io
@@ -84,6 +84,11 @@ def window_run(group, base, stem, ext, want, start, targets):
     files = [fetch(f"{base}/{stem}{suf}", RAW / ("ds007221" if base == OPEN else "netbci") / f"{stem}{suf}")
              for suf in (("_eeg.eeg", "_eeg.vhdr", "_eeg.vmrk") if ext == ".vhdr" else ("_eeg.edf",)) + ("_events.tsv",)]
     ev = read_tsv(files[-1])
+    uniq = list(dict.fromkeys((e["onset"], e["trial_type"], e["value"]) for e in ev))
+    assert len(ev) in (len(uniq), 2 * len(uniq)), f"{stem}: events neither unique nor exactly duplicated"
+    if len(uniq) < len(ev):  # Hybrid-online files list every marker twice (same onset, name and value)
+        assert all(ev[2 * i] == ev[2 * i + 1] for i in range(len(uniq))), f"{stem}: duplicated events are not adjacent exact copies"
+        ev = ev[::2]
     names = [e["trial_type"] for e in ev]
     pairs = {(e["trial_type"], e["value"]) for e in ev}
     assert len({v for _, v in pairs}) == len(pairs) == len({n for n, _ in pairs}), f"{stem}: name/value pairing ambiguous {pairs}"
