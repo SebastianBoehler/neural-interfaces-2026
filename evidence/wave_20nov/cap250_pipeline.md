@@ -128,7 +128,18 @@ The nine-person production-recipe smoke passed for every SessionBN family and se
 Measured SessionBN time is 0.31–0.35 GPU-hours per fold.
 [SessionBN build card](cap250_build_sbn.md)
 
-The full all-ten package reports differences on 2,655 windows in both registered orders.
-The strict zero-decision gate remains in the Slurm graph. Production uses a common set
-of fresh stock family fits for stock and hardcb within each fold, paired on the same
-held people, visits and delivered rows.
+Leonardo 64933623 evaluated 2,655 windows per order. Recording order had zero changes
+(99.618216% balanced accuracy for both packages). Shuffle 71000 changed one decision
+in P02 visit 1 (99.362599% archive, 99.322917% fresh). The job produced its full report
+and exited at the strict equality check. The ten replay workers completed successfully.
+
+Before swapping families, register the attribution check. Run both orders with the
+original ZIP, reconstructed archive, fresh package, each archived family restored
+individually in the fresh package, and the fresh raw SessionBN family in the archive.
+Expect zero reconstruction changes, reproduction of the original changed row, and
+one restored decision from raw SessionBN alone. Expect the archive with only fresh
+raw SessionBN to match fresh decisions on both orders. Any failure of these checks,
+or rescue of the original decision by another family, refutes raw-only attribution.
+A successful attribution lets the fold experiment use fresh stock as its paired
+reference. Both arms share stock fits within each fold. The archived-parts gate stays
+strict, and the original fresh-versus-archive result remains a parity miss.
