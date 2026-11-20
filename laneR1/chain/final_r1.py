@@ -14,7 +14,6 @@ from time import perf_counter
 import numpy as np
 
 import outer as outer_mod
-from cross22 import doubling
 from bridge_orders import write_npz, write_receipt
 from bridge_owner import pin, sha, start_module, stamp
 from complete_zero import FEAT, HASHES
@@ -56,7 +55,7 @@ def specs_for(job, order):
     else:
         raise SystemExit(job)
     if order != "full0":
-        arms = [a for a in arms if not a.get("add")]  # extra banks exist for the full orders only
+        arms = [a for a in arms if not (a.get("add") or a.get("Wadd"))]  # extra banks exist for the full orders only
     names = [a["name"] for a in arms]
     assert len(set(names)) == len(names) and "stock" not in names
     return arms
@@ -98,35 +97,44 @@ def seg_rows(order, person):
     return out
 
 
-def make_mix(ctx, spec, person, extras, taps):
+def make_mix(ctx, spec, person, extras, taps, actual):
+    """Mixer with FBL2 built in (live sc_fbl member counted twice, the F-C21 doubling) and the arm's multipliers / extra members."""
     perm = ctx.Pperm
     pdel = person[perm]
     real = ctx.A.mix
+    skey = {}
 
     def mix(bn, proto, families, extra):
-        out = real(bn, proto, families, extra)
-        items = [(str(k), float(w)) for f in families for k, w in ctx.A.FAM[f]] + [(str(k), float(w)) for k, w in extra]
-        assert tuple(k for k, _ in items) == KEYS, [k for k, _ in items]
+        assert len(dict(extra)) == len(extra) and list(extra).count(("sc_fbl", 1.0)) == 1
+        doubled = [(k, w * 2 if k == "sc_fbl" else w) for k, w in extra]
+        out = real(bn, proto, families, doubled)  # real mixer on the FBL2 weights (stock = F-C21 doubling mix)
+        assert out[1] == 1 / 17, out[1]
+        items = [(k, float(w)) for f in families for k, w in ctx.A.FAM[f]] + [(k, float(w)) for k, w in doubled]
+        assert tuple(str(k) for k, _ in items) == KEYS, [k for k, _ in items]
         members = ctx.A.members(bn, proto)
+        np.testing.assert_array_equal(members["sc_fbl"], actual)
         w0 = np.array([w for _, w in items])
         cols = [members[k] for k, _ in items]
         plain = sum(w * c for w, c in zip(w0, cols)) / w0.sum()
         taps["mixdiff"] = max(taps.get("mixdiff", 0.0), float(np.abs(plain - out[0]).max()))
         assert taps["mixdiff"] < 1e-12, taps["mixdiff"]
         if spec.get("dump"):
-            taps["members"] = {k: members[k][np.argsort(perm)].astype(np.float32) for k, _ in items}
-        mult, add, wp = spec.get("mult", {}), spec.get("add", {}), spec.get("W", {})
-        if not (mult or add or wp):
+            taps["members"] = {str(k): members[k][np.argsort(perm)].astype(np.float32) for k, _ in items}
+        mult, add, wp, wa = spec.get("mult", {}), spec.get("add", {}), spec.get("W", {}), spec.get("Wadd", {})
+        if not (mult or add or wp or wa):
             return out
-        assert set(mult) <= set(KEYS) and set(add) <= set(extras), (mult, add)
+        names = sorted(set(add) | {e for v in wa.values() for e in v})
+        assert set(mult) <= set(KEYS) and set(names) <= set(extras), (mult, names)
         n = len(pdel)
         W = np.tile(w0, (n, 1)) * np.array([mult.get(k, 1.0) for k in KEYS])
-        if wp:
-            for p in set(pdel):
-                m = pdel == p
-                W[m] *= np.array([wp[p].get(k, 1.0) for k in KEYS])
-        mats = cols + [extras[e][0][perm] for e in add]
-        W = np.concatenate([W, np.tile([add[e] for e in add], (n, 1))], 1) if add else W
+        for p in (set(pdel) if wp else ()):
+            W[pdel == p] *= np.array([wp[p].get(k, 1.0) for k in KEYS])
+        mats = cols + [extras[e][0][perm] for e in names]
+        if names:
+            A = np.tile([add.get(e, 0.0) for e in names], (n, 1))
+            for p in (set(pdel) if wa else ()):
+                A[pdel == p] = [wa[p].get(e, 0.0) for e in names]
+            W = np.concatenate([W, A], 1)
         acc = sum(W[:, i:i + 1] * c for i, c in enumerate(mats)) / W.sum(1, keepdims=True)
         assert np.allclose(acc.sum(1), 1, atol=1e-9) and np.isfinite(acc).all()
         return acc, out[1]
@@ -153,10 +161,13 @@ def build_raws(order, pupils, specs, person, extras):
                 for f in FAMS:
                     ctx.CU17[f, 0] = bank[f]
                 outer_mod.MASS = FULL_MASS
-                ctx.A.mix = make_mix(ctx, spec, person, extras, taps)
-                with doubling(ctx, archive) as boost:
-                    raw[spec["name"]], _, tr = replace(base, ctx, archive, patches, incumbent, pup, active)
-                assert boost["share"] == 1 / 17 and boost["warm_rows"] == 2375, (spec["name"], boost)
+                slot = ctx.SLOT["fbl"]  # as cross22.doubling: the live FBLight member that the doubling counts twice
+                frozen = archive[slot] + np.mean([ctx.FR17["fbl", s_] - ctx.FR6["fbl", s_] for s_ in range(6)], axis=0)
+                warm = ctx.CU17["fbl", 0] - ctx.FT_BASE["fbl", 0]
+                actual = ctx.norm(frozen + warm)[ctx.Pperm]
+                assert int(np.count_nonzero(np.any(actual != ctx.norm(frozen)[ctx.Pperm], axis=1))) == 2375
+                ctx.A.mix = make_mix(ctx, spec, person, extras, taps, actual)
+                raw[spec["name"]], _, tr = replace(base, ctx, archive, patches, incumbent, pup, active)
             finally:
                 ctx.A.mix = old_mix
                 for f in FAMS:
@@ -209,7 +220,7 @@ def run(order, smoke, job):
             posts.append(z["post"]); cb_delivery = z["delivery"]
     pupils = dict(hard=pupils["hard"], cb=np.mean(posts, axis=0))
     specs = specs_for(job, order)
-    if smoke:
+    if smoke and len(specs) > 4:
         specs = [a for a in specs if a["name"] == "base"] + [a for a in specs if a.get("mult") or a.get("add")][:1]
     extras = extra_banks(order)
     for tag, (_, d) in extras.items():

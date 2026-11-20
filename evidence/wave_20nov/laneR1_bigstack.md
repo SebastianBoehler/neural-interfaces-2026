@@ -21,3 +21,7 @@ Guards: base arm must equal lane P ds_all terminal bitwise (both orders); stock 
 - Single coordinate moves: median |delta| 0.15, largest positive +0.4; extras (reve/prat/cbx/xfam): each between -0.3 and +0.3 vs ds_all in full0 (members 53-56 % BA, one-person gains P01/P06).
 - Rule: a form is "positive" if nested both-order mean vs ds_all >= +0.3 with the people+orders 80 % lower bound > 0 (then the packaging spec is given); in between "undecided" (AGENTS.md); nothing closed on P10/P04.
 Not covered: returning P04/P10, NI-V, recognition and own-space routes (unrouted for held-new in this replay), orders 1-7 (no FT streams), stand-in dispersion member.
+
+## Run log
+Harness fixes before any scoring (smoke 3142177 base, 3142205 mult/add/W/Wadd arms, all guards passed; mixdiff 0.0): the F-C21 `doubling` wrapper asserts a linear relation to the stock weights, so FBL2 is built into the R1 mixer (sc_fbl counted twice, asserts share 1/17 and warm_rows 2375). Rebuilt linear mixer equals the real mix exactly.
+Wave 1: Galvani 3142238-3142241 (full0, 4 parts), 3142242-3142245 (within0), scorer 3142246 (afterok), `ni26_laneR1_20261120/chain/cells.json`. Analysis `laneR1/analyse_r1.py`.
