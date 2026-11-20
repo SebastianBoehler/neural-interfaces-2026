@@ -25,6 +25,6 @@ unset CSB_EXT CSB_EXPERT_STEPS
 export CSB_LAM=0.5 CSB_LAM_EXT=1
 mkdir -p "$out"
 test ! -e "$out/weights.pt"
-bash "$CAP250_RELEASE/cleanslate/cap250/slurm.sh" cleanslate/teamB/train.py \
+bash "$CAP250_RELEASE/cleanslate/cap250/slurm.sh" "$TB_CODE/cleanslate/teamB/train.py" \
   --people "$people" --first-session-only "$first" --out "$out" --data "$CAP250_DATA" --seed 0
 sha256sum "$out/weights.pt" "$out/submission.py" | tee "$out/sha256"
