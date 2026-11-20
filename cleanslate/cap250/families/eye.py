@@ -1,6 +1,7 @@
 """Fit the v6 eye net (studies/12nov/ocunet.py arm nomix, 60 epochs) on the permitted PROTEUS rows."""
 
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
