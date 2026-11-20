@@ -26,3 +26,10 @@ Rule: a form is "positive" if the both-order nested-honest gain vs the system ba
 (appended below as jobs run)
 
 Smoke 3144243 (bases, bitwise vs lane P: hardcb and ds_all) and 3144361 (one move per constant, per-person form) passed; smoke 3144453 reruns with the no-op guard on stage moves. Wave 1 (grid, 4 parts x 2 orders): Galvani 3144454-3144461 (afterok smoke 3144453), scorer afterok (see below). Chain passes are about 10 s each; the queue is the shared account's 36-job limit.
+
+## Wave 1 result (Fri 20 Nov ~20:50 CET; jobs 3144454-61 (grid, 4 parts x 2 orders), scorer 3144462; smoke 3144453 passed all guards, only the receipt write collided with the earlier smoke file; cells `laneS2/data/cells_w1.json`, table `laneS2/data/report_w1.txt`)
+Base arms equal lane P hardcb and ds_all bitwise in every job; every move changed the output. Single moves vs the system's own base (both-order mean; people 80 %): the shipped constants are close to a local optimum.
+- ds_all: only csp.q=0.7 is positive, +0.21 [+0.07,+0.36] (full0 +0.31, within0 +0.11; people+orders [-0.00,+0.44]); csp.cap 0.05 +0.04, csp.k 40 0.00, tsem.nmin 10 0.00. Every rebalance, SessionEM and TSEM move is negative (-0.05..-0.67), most with an upper bound near 0; count off -0.35, CSP off -0.25.
+- hardcb: tsem.bts=8 +0.19 [+0.06,+0.32] (full0 +0.11, within0 +0.27), tsem.n0=30 +0.15 [-0.03,+0.33] (+0.29/0.00), tsem.m0=10 +0.08, tsem.lam=0.22 +0.07, rebal.alpha=1.0 +0.02, csp.k=10 +0.02; all other moves <= 0 (rebal W 60 -0.29, rebal k 2 -0.43, em.lam .7 -0.37, count off -0.26, CSP off -0.50).
+- Prediction 1 (longer rebalance memory positive under full shuffle) refuted: W=60 is -0.20 on full0, k=10 -0.15, alpha 1.3 -0.08; nothing reached +0.4. Count off is 0.00 (hardcb) / +0.03 (ds_all) on full0 and -0.53/-0.64 on within0, as in lane Z. hardcb and ds_all disagree on which TSEM moves help (bts 8: hardcb +0.19, ds_all -0.15), i.e. the winners are system-specific and inside noise.
+Wave 2 (nested + un-nested forms, 80 arms per order, selection rule as registered): 3144564-79, scorer 3144580 (afterok).
