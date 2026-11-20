@@ -38,3 +38,7 @@ it now also clears HARD_FILES and takes `PKG_ZERO_WINDOWS`.) Prediction: PASS.
 the corrected public result (`out/held.json`, 3136661) is final and no card waits on the external half (audit_20nov names it as a possible re-stage, not queued).
 3137806 (`wrap`, cpu, priority) -> 3137807/3137808 (ni26-laneE-time, A100 / RTX): Lane E capacity timing; lane E is refuted/undecided on Scherer and its timing question is superseded by
 `laneT/time_ft.py`. Nothing waits on them.
+
+Returning P04/P10 (real fold packages, 8 orders x 4 cells, jobs 3140813-16): ftlite5 minus final stack w20/80 -0.087 [-0.162, -0.020] (order-only interval, two people), P04 -0.034, P10 -0.101, equal cells -0.067; FT runs in few cells (recognition retires it), so tiny.
+Not yet landed at this commit: sparse20 returning (array 3140818, collector 3140819, pending in queue), the 200-window zero-change jobs 3140617 (P01) / 3140618 (P04) (only the 30-window smoke passed, max diff 0).
+NI-V for lite5 / sparse20 packages is left to Lane N (separate agent). Neither T form clears the adoption bar (both-order >= +0.2), so no package change is proposed.
