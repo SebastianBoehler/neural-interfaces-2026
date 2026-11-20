@@ -25,6 +25,17 @@ import submission as S  # noqa: E402
 ROOT = HERE.parents[1]
 
 
+def load_ext(names, root):
+    """External people already exported in PROTEUS label space (y 0..2, 41 channels, 120 Hz), e.g. scherer2015."""
+    Xs, ys, ss = [], [], []
+    for nm in names:
+        z = np.load(root / nm / "windows.npz")
+        assert z["X"].shape[1:] == (41, 480) and set(np.unique(z["y"])) == {0, 1, 2}, nm
+        Xs.append(z["X"].astype(np.float32)), ys.append(z["y"])
+        ss.append(np.char.add(np.char.add(z["subject"].astype(str), "|"), z["session"].astype(str)))
+    return Xs, ys, ss
+
+
 def load(people, data, extra=(), exclude=()):
     """Training rows of PEOPLE; each extra cue-offset export (same rows, other start) is its own alignment stream."""
     d = np.load(data)
@@ -105,12 +116,17 @@ def main():
     ap.add_argument("--shrink", type=float, default=S.DEFAULT_TTT["shrink"])
     ap.add_argument("--data", default=str(ROOT / "data/proteus_windows.npz"))
     ap.add_argument("--exclude", default="", help="streams left out of training, e.g. P04|2,P04|3 (returning dev)")
+    ap.add_argument("--ext", default="", help="external corpora as extra training people, e.g. scherer2015")
     ap.add_argument("--extra", default="", help="comma list of cue-offset exports, e.g. start0.5,start2")
     args = ap.parse_args()
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     people = sorted(args.people.split(","))
     X, y, stream = load(people, args.data, [e for e in args.extra.split(",") if e],
                        [e for e in args.exclude.split(",") if e])
+    if args.ext:
+        ex, ey, es = load_ext([e for e in args.ext.split(",") if e], Path(args.data).parent)
+        X, y, stream = np.concatenate([X, *ex]), np.concatenate([y, *ey]).astype(np.int64), np.concatenate([stream, *es])
+        print("ext", args.ext, "rows", sum(len(v) for v in ey), "streams", len(set(np.concatenate(es))), flush=True)
     al = Aligner(X, stream, dev, args.shrink)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)

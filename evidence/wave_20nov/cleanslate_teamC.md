@@ -56,3 +56,18 @@ target · A3f update every 2nd window and dense to 64. Prediction: A3a − A2h +
 A3c 0 [−1, +1]; A3d −0.5 [−2, +1]; A3e +0.3 [−1, +1.5]; A3f +0.3 [−0.5, +1]. Same reading rule (both orders).
 Runtime is part of the result: a form is only usable if its 2080 Ti ms/window ≤ 179 (the 2080 Ti is slower than the
 RTX PRO 4500, so this is conservative for the sealed card).
+
+## Resume 20 Nov 07:40 (previous agent lost to a network outage)
+Galvani node cn122 failed CUDA init: C1 folds P01-P06, P08 and C1x P04, P06 never ran; C2 ran only where a C1 package
+existed. Resubmitted with `--exclude=galvani-cn122` (galvani.sh `EXCL`, `DEP`): C1 3140324, C1x 3140325, C1 returning
+3140326 (P04/P10 sessions 2-3, trained on all but those), C2 3140327 (P09) + 3140328 (afterok C1). Seen before C3 was
+registered: C1x on 8 people (A1 63.1, A2 63.6, both orders) and C1 on P07/P09/P10 (P10: A2h −6 vs A1).
+
+## C3 · base push on Leonardo (registered 20 Nov ~08:30, before any C3 output)
+Release `/leonardo_work/AIFAC_P02_1636/ni26_teamC_20261120` (`leo.sh`). Held-new, orders 0,1, variants A0,A1,A2,A2n.
+- C3e: E9 = shallow/eegnet/fbnet × seeds 0,1,2, 60 epochs, PROTEUS only (seed lever).
+- C3s: E9 + Scherer 2015 (`--ext scherer2015`: 2,130 windows, 2 visits per person, already in PROTEUS label space,
+  22 of 41 channels spline-interpolated) as extra training people (B5: more people is the largest measured base lever).
+Predictions: A1(C3e) − A1(C1) +0.7 [−0.5, +2]; A1(C3s) − A1(C3e) +1.5 [−1, +4]; A2 − A1 on either base +1.5 [−1, +4].
+Reading rule as C1 (people-80 % interval, both orders). A C3s package can no longer be scored on NI-V Scherer; the
+NI-V run uses the C3e recipe (Scherer excluded) and says so.

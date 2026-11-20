@@ -7,7 +7,7 @@
 set -euo pipefail
 root=$PWD; mode=${1:?}
 common="set -e; export PATH=/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/.venv/bin:\$PATH; export OMP_NUM_THREADS=4 PYTHONWARNINGS=ignore PYTHONDONTWRITEBYTECODE=1; cd $root; P=\$(printf 'P%02d' \$((SLURM_ARRAY_TASK_ID+1))); O=\$(python -c \"print(','.join(f'P{i:02}' for i in range(1,11) if f'P{i:02}'!='\$P'))\")"
-g="--account=gehler -p ${PART:-a100-galvani,a100-preemptable-galvani,a100-fat-galvani,2080-galvani,2080-preemptable-galvani} --gres=gpu:1 -c 8 --mem=40G"
+g="--account=gehler -p ${PART:-a100-galvani,a100-preemptable-galvani,a100-fat-galvani,2080-galvani,2080-preemptable-galvani} --gres=gpu:1 -c 8 --mem=40G --exclude=${EXCL:-galvani-cn122} ${DEP:+--dependency=afterok:$DEP}"
 mkdir -p logs work
 case $mode in
 smoke)
