@@ -147,7 +147,8 @@ def run_arms(order, pupils):
                 outer_mod.MASS = FULL_MASS
                 with doubling(ctx, archive) as boost:
                     raw[name], used, traces[name] = replace(base, ctx, archive, patches, incumbent, 0.8 * pupils["hard"] + 0.2 * pupils["cb"], active)
-                assert used == deltas and boost.get("mix") == traces[name]["mix"] and boost["share"] == 1 / 17
+                assert arm or used == deltas, name  # FT-swapped arms move the deltas by design (as ftlite5)
+                assert boost["share"] == 1 / 17 and boost["warm_rows"] == 2375, (name, boost.get("share"), boost.get("warm_rows"))  # the doubled mix fired; trace mix is post-MASS so it is not compared
             finally:
                 for f in FAMS:
                     ctx.CU17[f, 0] = saved[f]

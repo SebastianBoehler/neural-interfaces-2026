@@ -47,3 +47,26 @@ runtime <= 3,300 s (paired warm ratio x 2,555 s, B1 timing; replay-based 3,211 s
 with an unresolved veto (NI-V B-new/B-ret upper bound < 0 or Scherer-free worst person < -1 pp). A combination that needs a component without a package (the segment correction needs a
 packaged raw member exporting segment contributions) is ranked but flagged NOT PACKAGEABLE TONIGHT; the upload recommendation is the best packageable arm. Ties within 0.03 pp go to
 fewer components. Interaction is reported next to each joint number; a negative interaction lowers S (joint, not sum, is used).
+
+## 5. Result (Fri 20 Nov ~12:45 CET; Galvani `ni26_laneP_20261120/chain/score_P.json`, receipts full0 6c8a19bc..., within0 1dddf10b...; code `laneP/chain` at the hash in `source.sha256`)
+Ten reused held-new people, orders full0 + within0, paired people-resampled 80 % intervals, 10,000 draws. Absolute BA both orders: stock 76.03, hardcb 76.42, ds_all 76.89. Controls pass:
+ftctl equals hardcb bitwise (0.000 diff), wp/dp reproduce lane K full0 (74.48 / 74.59), hard +0.318 and hardcb +0.392 vs cap250 reproduce the 19 Nov receipt. Stand-in limit stands: the segment member is the N9 raw FBCNet seed 0, not a package member.
+
+Ranked by S (rule of section 4: S = 0.5 x [0.57 dnew + 0.43 dret]; dnew = both-order mean vs cap250; dret = sum of measured returning effects of the components, unmeasured = 0: hardcb +0.011, lite5 -0.040, FBL2 -0.208):
+| rank | arm | vs cap250 [80 %] both (full0 / within0) | vs final stack [80 %] both (full0 / within0) | S | flags |
+|---|---|---|---|---:|---|
+| 1 | ds_all (hardcb+lite5+FBL2+disp) | +0.861 [+0.35,+1.34] (+1.150 / +0.572) | +0.469 [-0.005,+0.91] (+0.635 / +0.302) | 0.194 | FBL2 external veto (hard+FBL2 -0.579); three-way interaction +0.39 [-0.25,+0.84] (full0 +0.22, within0 +0.56) is unexplained superadditivity, likely partly noise |
+| 2 | ds_l5 (hardcb+lite5+disp) | +0.526 [+0.09,+0.94] (+0.901 / +0.151) | +0.134 [-0.27,+0.51] (+0.387 / -0.119) | 0.144 | eligible; interaction ds_l5 - ftlite5 +0.060 [-0.42,+0.45] |
+| 3 | ftlite5 | +0.466 [+0.06,+0.92] (+0.701 / +0.231) | +0.074 [-0.29,+0.48] (+0.187 / -0.039) | 0.127 | |
+| 4 | hardcb (final stack) | +0.392 [+0.28,+0.52] (+0.514 / +0.270) | 0 | 0.114 | |
+| 5 | hcF_l5 | +0.568 [+0.20,+0.94] (+1.019 / +0.118) | +0.176 [-0.19,+0.52] (+0.504 / -0.152) | 0.111 | FBL2 veto |
+| 6 | ds (hardcb+disp) | +0.352 [+0.10,+0.57] (+0.700 / +0.004) | -0.040 [-0.24,+0.13] (+0.185 / -0.266) | 0.103 | |
+| 7 | ws_l5 | +0.361 [+0.02,+0.70] | -0.031 [-0.35,+0.28] | 0.097 | |
+| 8 | hard | +0.318 [+0.18,+0.47] | -0.074 | 0.086 | |
+| 9 | hcF | +0.436 [+0.18,+0.80] (+0.554 / +0.318) | +0.044 [-0.18,+0.37] | 0.082 | FBL2 veto |
+| 10 | ws | +0.223 [0.00,+0.48] | -0.169 [-0.40,+0.09] | 0.066 | |
+Control forms (person history, crosses sessions, not packageable): dp +0.371 vs cap250 (-0.021 vs final), wp +0.317.
+
+Registered forecasts against measured (vs hardcb, both orders): P2 ws +0.10 -> -0.169 (missed by -0.27); P3 ds +0.15 -> -0.040 (-0.19); P4 ds_l5 +0.20 -> +0.134 (-0.07, inside); P5 ds_all +0.30 -> +0.469 (+0.17, inside the +-0.7 band); P4 interaction 0.00 -> +0.06; P5 three-way -0.05 -> +0.39 (outside, upper). hcF +0.20 -> +0.044.
+
+Reading (stated plainly): the per-session-reset correction alone does not beat the final stack (ds -0.04, ws -0.17; positive in full0, negative in within0), unlike lane K's person-history form (the history there crossed sessions). The gain of ds_l5 over the final stack is mostly lite5 (+0.074) plus a +0.06 correction term, inside noise. ds_all is the only arm with an upper-end result; it comes from a large positive interaction with FBL2, which has an external negative and a returning -0.2 at 20/80. All arms except ds_all have vs-final intervals containing 0: undecided, not closed. Upload rule (section 4): ds_all ranks first but is ineligible while the FBL2 veto is open; best eligible arm by S is ds_l5. Neither is NOT-PACKAGEABLE any more once a package member supplies the segments: lane P2 (`laneP2_package.md`) packages ds_l5 and ds_all with a real member.
