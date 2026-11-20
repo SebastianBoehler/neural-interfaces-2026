@@ -15,7 +15,7 @@ uncommitted at run time (receipt revision strings "uncommitted-working-tree"/"fu
 - Reduced smoke, nine people P02-P10, seed 0, four families: 64930881 (86 s), 4/4 PASS, receipts + diagnostics written.
 - All-ten, seeds 0-5 per family: 64931053 (fbc_ea) 64931057 (raw) 64931060 (sinc) 64931063 (fbl).
 - Nine-person fold P02-P10, full recipe, seeds 0-5: 64931054, 64931058, 64931061, 64931064; all PASS (receipts in `out/fold9`).
-- Parity vs archive `runs/sealed/cand_v51b_own`: 64931081, 64931083, 64931086, 64931089. Fit-vs-checkpoint diagnostics 64931991, 64932xxx (diag2).
+- Parity vs archive `runs/sealed/cand_v51b_own`: 64931081, 64931083, 64931086, 64931089. Fit-vs-checkpoint diagnostics 64931991.
 
 ## Parity (all-ten fresh fit vs archived members, first 4 sessions = 755 windows, streamed with state reset)
 | Family | G, scale, align, k, shrink, sjit_file | trace probabilities vs archive |
@@ -28,7 +28,7 @@ uncommitted at run time (receipt revision strings "uncommitted-working-tree"/"fu
 The raw mismatch is not a nondeterminism effect. Diagnostic 64931991: two fresh all-ten fits of `fbcnet_raw_sbn` s0 are
 bitwise equal to each other and to the stored `runs/sbn/fbcnet_raw_sbn-s0.pt` (Leonardo, slurm_job 64286447, A100), with the
 same G/scale. Diagnostic (diag2): the archived `sbn_fbcnet_raw_k20_s{0,1,2}.pt` differ from that checkpoint in exactly 8 of 26
-float parameters, all in `spatial_conv` (0.0 bias diff up to 0.11, conv weight up to 0.15, BN up to 0.07); all others agree.
+float parameters, all in `spatial_conv` (bias diff up to 0.11, conv weight up to 0.15, BN up to 0.07); all others agree.
 So the archived raw traces come from a different training state than the checkpoint cache on Leonardo (open: Galvani cache
 diag job 3141490 pending in cpu-galvani; provenance of the 13 Nov "twin" retrain is the likely cause, review 13 Nov). The family
 is bitwise faithful to the cached checkpoint but NOT shown to reproduce the archived raw trace; no claim of raw parity.
