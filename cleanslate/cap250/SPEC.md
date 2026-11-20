@@ -137,7 +137,8 @@ PROTEUS head and is ineligible as an external initializer.
 
 ## Leonardo launch
 
-Stage committed code and the pinned official track under
+From the Git checkout, run `bash cleanslate/cap250/stage_leonardo.sh <revision>`
+to stage committed code and the pinned official track under
 `$WORK/ni26/cap250/releases/<revision>`. Place source data, external trunk checkpoints,
 the identity model and the pinned hard recipe under `$WORK/ni26/cap250/assets`.
 Keep the rest export accessible from `RELEASE/data` for the family trainer and
