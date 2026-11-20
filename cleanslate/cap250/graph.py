@@ -108,7 +108,7 @@ class Plan:
         self.manifests[manifest] = json.dumps(banks, indent=2) + "\n"
         return manifest, streams
 
-    def fold(self, mode, held, people, first, sessions, orders, sealed):
+    def fold(self, mode, held, people, first, sessions, orders, sealed, smoke):
         label = f"{mode}_{held}"
         parts = self.run / "parts" / label
         manifest_path, calibration = self.route(label, people, first)
@@ -137,17 +137,18 @@ class Plan:
                                          ["--input", str(reports), "--out", str(package.parent / "parity.json")],
                                          Family(1, 10, False, cpus=2, memory="8G"), decisions)
             else:
+                output = f"{'smoke' if smoke else 'pred'}_{label}.npz"
                 streams[name] = self.add(f"{name}.{label}.stream", f"{HERE}/stream_fold.py",
                                          ["--pkg", str(package), "--held", held, "--sessions", sessions,
                                           "--orders", orders, "--data", str(self.data), "--out",
-                                          str(self.run / name / f"pred_{label}.npz")],
+                                          str(self.run / name / output)],
                                          Family(1, 30), [assemble])
         return streams
 
     def build(self, folds, orders, sealed, smoke):
         streams = {name: [] for name in self.variants}
         for fold in folds:
-            for name, job in self.fold(*fold, orders, sealed).items():
+            for name, job in self.fold(*fold, orders, sealed, smoke).items():
                 streams[name].append(job)
         if folds[0][0] == "all" or smoke:
             return

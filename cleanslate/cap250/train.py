@@ -17,6 +17,8 @@ from worker import fit
 def train(people, first, data, out):
     if not os.environ.get("SLURM_JOB_ID"):
         raise RuntimeError("train.py runs inside a Slurm allocation. Use graph.py --submit for the parallel DAG.")
+    if os.environ.get("CAP250_SMOKE") == "1":
+        raise ValueError("use graph.py --smoke for reduced fits kept out of the scoring harness")
     if out.exists():
         raise FileExistsError(out)
     validate_scope(people, first)
