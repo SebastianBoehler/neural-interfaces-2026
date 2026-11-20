@@ -3317,3 +3317,20 @@ RP waveform numerical repair, no waveform score opened. Smoke 64986661 stopped o
 - Smoke result (Sat 21 Nov ~01:10 CET, before any wave was scored; jobs 64987128 H1, 64987133 H2, 64987137 T0, 64987149 S; P01, order 71000, 190 windows): S changed 5 labels vs stored stock, H1 5 vs stored hardcb, H2 4 vs stored hardcb, H2 vs H1 3; T0 (H2 code, flag 0) 0 changed vs stored hardcb. Zero-change fails for the flipped arms as required; the teacher patch is inert at flag 0. Waves: orders 71000–71023, six chunks of four, all three arms, run dir `laneFT-labels`.
 
 **Revisit result (Fri 20 Nov ~23:55 CET).** No arm meets the bar. Best: 0.25 × (Team C TTT + Team B enc) blended into cap250's mix, +0.73 [80 % −0.38, +1.74], and Team B enc at 0.25, +0.36 [−0.67, +1.32]; both undecided-positive and selected from 12 arms. As the sole mixer input the best source trails cap250 by −3.72 [−7.15, −0.27]. The stages transfer to a non-adapted source (Team B +5.4/+6.9 against cap250's +4.7/+8.4), so Team B lost on member quality. They conflict with TTT outputs (Team C +0.6/+2.9; P10 −26). Hypothesis H is not supported. Returning not measured. [Card](../evidence/wave_20nov/revisit_opus.md#result-scored-fri-20-nov-2355-cet-terminal-ba-minus-cap250-pp-pooled-full0within0-paired-80--resampling-people-and-orders)
+
+## RT-1 · returning levers on the clean in-lab instrument (red team, 20 Nov)
+
+Mechanism: the Lane A returning packages
+carry label-leaked members, which forces a negative sign on any lever that shifts weight to adaptation or to the
+personal head; on fold-clean packages the sign should follow the foreign-lab instruments. Instrument: real fold
+packages of `production-20261120-32a94ab7`, P04 and P10, visit 1 enrolled, visits 2–3, orders 71000–71003, real
+Solver, paired per row order against the stored reference. Predictions, pp over the reference (80 % intervals):
+R5 P04 +0.5 [−0.8, +2.0], P10 +0.1 [−0.6, +0.8]; R1a P04 +0.4 [−1.0, +2.0], P10 0.0 [−0.7, +0.7]; R2 P04 +1.5
+[−1.0, +4.5], P10 +0.2 [−1.0, +1.5]; R4 P04 +2.5 [−1.0, +6.0], P10 +0.3 [−1.0, +1.8]; g6 P04 +1.0 [−1.5, +3.5], P10
+0.0 [−1.0, +1.0]; leak_all − stock P04 +14 [+8, +20], P10 +5 [+2, +8]; in-sample visit 1 ≥ 95 %; noroute − stock
+P04 −4 [−10, +2], P10 −1 [−3, +1]. Refutation: for a lever, P04 ≤ −0.3 on all four orders refutes the sign reversal
+for that lever; for the leak, P04 below +5 pp refutes the attribution. Two people and four orders: intervals are over
+orders per person and descriptive; P04 and P10 are reported separately and neither decides alone. Sealed weighting
+(returning about 43 %, unverified) is shown next to the result, not applied.
+
+RT-1 supplement (before scoring): g12 P04 +0.5 [−2.0, +3.0], P10 0.0 [−1.0, +1.0]; beta02 P04 +0.5 [−1.5, +2.5], P10 0.0 [−1.0, +1.0]; beta04 P04 +0.5 [−2.0, +3.0], P10 0.0 [−1.0, +1.0]; kappa40 P04 +0.5 [−1.5, +2.5], P10 0.0 [−1.0, +1.0]. Same directional rules as g6. hardcb_safe is an additional paired comparator on the same orders, predicted identical to hardcb on error-free streams. A label mismatch refutes parity. Use the registered Lane RP H4 control if available. In addition to per-person order intervals, report the equal-cell paired 80 % interval resampling people and then orders within people (20,000 draws, seed 20261121).
