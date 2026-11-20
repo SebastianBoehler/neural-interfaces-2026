@@ -80,3 +80,14 @@ Fix: guard skipped when `self.dead`; `submissions/final_stack/patch_dead.py` der
 error now falls back and the session continues; no-error labels identical to hardcb on P01/1 (190) and P04/2 (189)
 windows, CPU. Not yet rerun: RTX/A100 qualification (code path unchanged when no error occurs). Upload hardcb_safe, not hardcb.
 Same guard lives in every hard* trial ZIP (tttlite5, tttsparse20, …): patch those with the same script before use.
+
+## Qualification of final_stack_hardcb_safe.zip (21 Nov, friday/qualify_package.py, NI26_MAX_MB=100, ref cap250)
+sha 8a868f22…80f7 (94.9 MB, 44 members). Local (Mac CPU): sha/CRC/layout OK, files unchanged, public replay 0.994578853046595
+(= cap250 = hardcb), reset/prefix/future-perturbation/labels checks pass. Cluster (Galvani worker SIF, ref/cand x2; first two
+jobs 3144783/3144784 died in 1-5 s on a dangling ref.zip symlink, resubmitted with a real copy): A100 job 3144789, RTX 2080 Ti
+job 3144790. Public score identical to cap250 and hardcb in all 8 replays, files unchanged, all 24+8+8 [v6] lines `errors 0`.
+Runtime (min of 2): A100 ref 129.1 s, cand 160.8 s, ratio 1.2455 (hardcb 1.229, +1.3 %), projected 3,182 s; RTX 2080 Ti ref
+137.2 s, cand 168.1 s, ratio 1.2252 (hardcb 1.257, -2.5 %: faster, absolute times differ from the hardcb run because the nodes
+differ), projected 3,130 s. Margin to 3,600 s: 418-470 s. The script's QUALIFY line reads FAIL only because of two self-imposed
+checks: projection <= 3,060 s (0.85 x 3,600; hardcb's 3,211 s misses it equally) and a repeat-score comparison that includes
+the `duration` field (scores themselves are identical). RTX PRO 4500 still untested.
