@@ -76,14 +76,14 @@ def main(test, zip_path, ref_path, root, people):
         assert (ref_l == new_l).all() and d < 1e-9
     else:
         new_p, new_l, rec, logs, bounds = stream(zip_path, lambda m: None, x, channels, sessions, tap_disp=True)
-        bounds.append(len(rec)); worst = 0.0; changed = 0
+        bounds.append(len(rec)); worst = 0.0; changed = 0; moved = 0.0
         for s, (a, b) in enumerate(zip(bounds[:-1], bounds[1:])):
             p = np.stack([r[0] for r in rec[a:b]]); seg = np.stack([r[1] for r in rec[a:b]]); out = np.stack([r[2] for r in rec[a:b]])
             ref, act = segcorr.correct(p, p.argmax(1), segcorr.features(seg, "disp"))
             assert np.array_equal(act, [r[3] for r in rec[a:b]])
-            worst = max(worst, float(np.abs(ref - out).max())); changed += int((out.argmax(1) != p.argmax(1)).sum())
-        print(f"DISP sessions {len(sessions)} windows {len(new_l)} streaming-vs-batch max|diff| {worst:.2e} logs {logs} changed {changed}")
-        assert worst < 1e-12 and all(l["skipped"] == 0 and l["active"] > 0 and l["n"] == len(sessions[i]) for i, l in enumerate(logs)) and changed > 0
+            worst = max(worst, float(np.abs(ref - out).max())); moved = max(moved, float(np.abs(out - p).max())); changed += int((out.argmax(1) != p.argmax(1)).sum())
+        print(f"DISP sessions {len(sessions)} windows {len(new_l)} streaming-vs-batch max|diff| {worst:.2e} logs {logs} changed {changed} max|corrected-uncorrected| {moved:.2e}")
+        assert worst < 1e-12 and all(l["skipped"] == 0 and l["active"] > 0 and l["n"] == len(sessions[i]) for i, l in enumerate(logs)) and moved > 1e-6
     print("PASS", test)
 
 

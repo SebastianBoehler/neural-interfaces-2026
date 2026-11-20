@@ -14,11 +14,11 @@ HERE = Path(__file__).resolve().parent
 OLD_RET = "        return torch.softmax(self.m.final_layer(self.m.flatten_layer(h)).double(), 1)\n"
 NEW_RET = '''        f = self.m.flatten_layer(h)
         out = self.m.final_layer(f)
-        if self.seg_on:  # lane P2: segment logit contributions of the head (n x seg x class, one window), float64
-            lin = [m for m in self.m.final_layer.modules() if m.original_name == "Linear"][-1]
-            W, b = lin.weight.detach().double().cpu().view(3, -1, 4), lin.bias.detach().double().cpu().numpy()
-            seg = torch.einsum("nfs,kfs->nsk", f.detach().double().cpu().view(1, -1, 4), W)[0].numpy()
-            self.seg = seg if np.abs(seg.sum(0) + b - out.detach().double().cpu().numpy()[0]).max() < 1e-3 else None
+        if self.seg_on:  # lane P2: segment logit contributions of the head (4 x 3), by linearity: the head applied to f masked to one segment, minus its bias
+            mask = (torch.arange(f.shape[1], device=f.device) % 4)[None, :] == torch.arange(4, device=f.device)[:, None]
+            o = self.m.final_layer(torch.cat([f * mask, torch.zeros_like(f)])).detach().double().cpu().numpy()
+            seg = o[:4] - o[4]
+            self.seg = seg if np.abs(seg.sum(0) + o[4] - out.detach().double().cpu().numpy()[0]).max() < 1e-3 else None
         return torch.softmax(out.double(), 1)
 '''
 CLS = '    """SessionBN FBCNet / FBLightConvNet trace run from a filter-bank output shared within its input group."""\n'

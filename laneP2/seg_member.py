@@ -85,6 +85,7 @@ def main(held, out, pkg_source):
         buffers = [b for n, b in member.m.named_buffers() if n.rsplit(".", 1)[-1] in STATE]
         assert buffers and all(float(b.abs().sum()) == 0 for b in buffers), "trace not stateful with zero state"
         member.seg_on = True
+        torch.set_grad_enabled(False)  # the package runs its members under no_grad
         bias = None
         for tag in orders:
             parts = {k: v for k, v in work.items() if k[0] == tag}
@@ -96,8 +97,7 @@ def main(held, out, pkg_source):
                     assert member.seg is not None, "segment hook did not recover the logits"
                     post.append(p); seg.append(member.seg); member.seg = None
                 rows.append(r); eager.append(pe)
-            lin = [m for m in member.m.final_layer.modules() if m.original_name == "Linear"][-1]
-            bias = lin.bias.detach().double().cpu().numpy()
+            bias = member.m.final_layer.bias.detach().double().cpu().numpy()
             r, post, seg, eager = np.concatenate(rows), np.stack(post), np.stack(seg), np.concatenate(eager)
             diff = float(np.abs(post - eager).max())
             assert diff < 1e-4, (tag, diff)
