@@ -33,11 +33,12 @@ def entropy(p):
 
 def temper(p, target):
     """Power-scale posteriors p**t (renormalised) so the mean entropy equals target (bisection on t)."""
-    lo, hi = 0.05, 1.0
+    lo, hi = 0.2, 5.0
     for _ in range(60):
         t = (lo + hi) / 2
         q = p ** t; q /= q.sum(1, keepdims=True)
-        lo, hi = (t, hi) if entropy(q) < target else (lo, t)
+        lo, hi = (lo, t) if entropy(q) < target else (t, hi)  # entropy falls as t grows
+    assert abs(entropy(q) - target) < 1e-3, (entropy(q), target)
     return q
 
 
