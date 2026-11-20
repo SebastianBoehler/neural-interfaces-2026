@@ -21,3 +21,5 @@
 - Lane TB second retry · A100 repeated hardcb_safe pre-FT posteriors differed by 3.291e-9 (identical pinned labels). The zero arm now checks bitwise identity inside each live mixer call and retains the 2e-6 cross-run bound plus exact labels. New chain 64991339 (smoke) → 64991340 (streams) → 64991341 (collect) → 64991342 (conditional ZIP and CPU zero).
 
 - RT-1 · 21 Nov 00:00 CET: all H1–H5 checks and all nine kappa40 NI-V confirmations completed. [Results and intervals](redteam_handoffs.md)
+
+- Lane TB update 21 Nov 00:05 CET · 64991339 passed all pinned labels and same-call mixer identity. Its unchanged hardcb_safe control had max posterior Δ 0.021349 and zero label changes, so GPU cross-run posterior drift is logged. New smoke 64992565 → streams 64992566 with a baseline repeat on 71120 → collector 64992567 → conditional ZIP and CPU zero 64992568.
