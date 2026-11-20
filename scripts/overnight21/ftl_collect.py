@@ -70,12 +70,28 @@ lines.append(f"FT chunks complete for all arms: {[c for c in sorted(d.name for d
 summary = {}
 
 
-def boot(M, mode):  # M orders x people
+def cell_weights():
+    """cells per held-new person (official cells: participant x session x interface weigh equally), from a scored FT run."""
+    for d in sorted(ft.glob("o*")):
+        f = d / ARMS[0] / "cells.npz"
+        if f.exists():
+            with np.load(f, allow_pickle=False) as z:
+                m = (z["mode"] == "new") & (z["order"] == z["order"][0])
+                return np.array([int((z["person"][m] == p).sum()) for p in PEOPLE], float)
+    raise FileNotFoundError("no cells.npz in the FT run")
+
+
+W = cell_weights()
+assert (W > 0).all()
+
+
+def boot(M, mode):  # M orders x people; people carry their cell counts, so the mean over orders equals the official cell mean
     n, m = M.shape
-    if mode == "people":
-        v = [M[:, rng.integers(0, m, m)].mean() for _ in range(10000)]
-    else:
-        v = [M[rng.integers(0, n, n)][:, rng.integers(0, m, m)].mean() for _ in range(10000)]
+    v = []
+    for _ in range(10000):
+        pi = rng.integers(0, m, m)
+        oi = rng.integers(0, n, n) if mode == "nested" else slice(None)
+        v.append(np.average(M[oi][:, pi], axis=1, weights=W[pi]).mean())
     return np.percentile(v, [10, 90])
 
 
@@ -94,6 +110,7 @@ def contrast(name, a_arm, ref_arm_prod, ref_arm_ov):
     if not rows:
         lines.extend(["", f"## {name}: no complete order yet"]); return
     D = np.array([r[1] for r in rows]); cell = np.array([r[2] for r in rows])
+    assert np.allclose(np.average(D, axis=1, weights=W), cell, atol=1e-6), "cell-weighted person means disagree with the official cell mean"
     tot = {p: sum(r[3][p][0] for r in rows) for p in PEOPLE}; den = {p: sum(r[3][p][1] for r in rows) for p in PEOPLE}
     zero_all = [p for p in PEOPLE if tot[p] == 0]
     R = np.array([[r[5]["P04"], r[5]["P10"]] for r in rows if r[5]])
@@ -101,7 +118,7 @@ def contrast(name, a_arm, ref_arm_prod, ref_arm_ov):
     lines.extend(["", f"## {name}: {a_arm} minus {ref_arm_prod}" + ("" if B6S else " (flag 1 vs 0)"), "",
               f"- {len(rows)} orders ({rows[0][0]}..{rows[-1][0]}). New people cell mean **{cell.mean():+.3f}**; people-only paired 80 % [{ps[0]:+.2f}, {ps[1]:+.2f}]; "
               f"people-nested 80 % [{po[0]:+.2f}, {po[1]:+.2f}]; positive in {int((cell > 0).sum())}/{len(cell)} orders; per-order: " + ", ".join(f"{c:+.2f}" for c in cell),
-              "- per person (mean over orders): " + ", ".join(f"{p} {D[:, j].mean():+.2f}" for j, p in enumerate(PEOPLE)),
+              "- per person (mean over orders; cells per person " + "/".join(str(int(w)) for w in W) + "): " + ", ".join(f"{p} {D[:, j].mean():+.2f}" for j, p in enumerate(PEOPLE)),
               "- changed decisions per new-person fold, all orders pooled: " + ", ".join(f"{p} {100 * tot[p] / den[p]:.2f} %" for p in PEOPLE)])
     if zero_all:
         lines.append(f"- **FAIL: no changed decision in folds {zero_all} (arm not reaching the code path)**")
@@ -125,7 +142,7 @@ if not B6S and res["H1"] and res["H2"]:
     D = D2[:n] - D1[:n]
     ps, po = boot(D, "people"), boot(D, "nested")
     lines += ["", "## H2 minus H1 (teacher with the hardcb mix vs the stock-mix teacher, both flipped)", "",
-              f"- {n} orders: mean {D.mean():+.3f}; people-only 80 % [{ps[0]:+.2f}, {ps[1]:+.2f}]; people-nested [{po[0]:+.2f}, {po[1]:+.2f}]"]
+              f"- {n} orders: mean {np.average(D, axis=1, weights=W).mean():+.3f}; people-only 80 % [{ps[0]:+.2f}, {ps[1]:+.2f}]; people-nested [{po[0]:+.2f}, {po[1]:+.2f}]"]
 out.write_text("\n".join(lines) + "\n")
 print("\n".join(lines))
 (out.with_suffix(".json")).write_text(json.dumps(summary, indent=1))
