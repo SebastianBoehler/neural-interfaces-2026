@@ -14,7 +14,7 @@ OB = np.random.default_rng(462).integers(0, 2, (10000, 2))
 def load(path):
     d = json.load(open(path))["by_person"]
     people = sorted(d["full0"])
-    arms = sorted(a for a in d["full0"]["P01"] if a != "cells")
+    arms = sorted(a for a in d["full0"][people[0]] if a != "cells")
     ba = np.array([[[d[o][p][a] for p in people] for a in arms] for o in ORD])  # order x arm x person
     cells = np.array([d["full0"][p]["cells"] for p in people], float)
     return arms, people, ba, cells
