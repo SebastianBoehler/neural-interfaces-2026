@@ -123,3 +123,12 @@ T4 validation (coordinator, laneT4_valid.md): Scherer NI-V A2 − A1 −0.15 [�
 ## C5v2 (registered ~13:05, before scoring; eval-only on the C5 packages, orders 0,1, held-new + returning)
 Per-channel band log-variance (3 × 41 = 123 features) instead of tangent space, β 0.2: A5d (on A2), A5e (A5d with L2 0.1),
 A5f (on A1). Prediction: A5d − A2 +0.3 [−0.5, +1.0]; A5e − A2 +0.3 [−0.5, +1.0]; A5f − A1 +0.3 [−0.5, +1.0].
+
+## C5v2 result (Leonardo 64924663; vs A2/A1 of the C5 pass on the same packages, separate pass)
+A5d − A2 +0.54 [+0.03, +1.10] (o0 +0.48 [0.11, 0.88], o1 +0.61 [−0.12, 1.39]); **A5e − A2 +0.65 [+0.19, +1.12]** (o0 +0.81
+[0.30, 1.33], o1 +0.49 [−0.06, 1.04]); A5f − A1 +0.38 [+0.05, +0.73]. All three inside the predicted range; by the both-orders
+rule **undecided, consistently positive** (o1 lower bounds −0.06 to −0.23). Not yet with an in-pass control.
+
+## C5v3 (registered ~13:45 before scoring): A2, A5e, A5g (β 0.3, L2 0.1), A5h (β 0.2, L2 1.0) in one pass, orders 0–3,
+held-new (C5 packages) and returning (C5ret package). Prediction A5e − A2 +0.5 [0, +1] on 4 orders; A5g +0.4 [−0.5, +1.2];
+A5h +0.3 [−0.3, +0.9]. Supported if the people-80 % lower bound pooled over 4 orders is > 0 and ≥ 3 of 4 orders have point > 0.
