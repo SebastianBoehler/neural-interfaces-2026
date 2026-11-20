@@ -91,3 +91,43 @@ Runtime (min of 2): A100 ref 129.1 s, cand 160.8 s, ratio 1.2455 (hardcb 1.229, 
 differ), projected 3,130 s. Margin to 3,600 s: 418-470 s. The script's QUALIFY line reads FAIL only because of two self-imposed
 checks: projection <= 3,060 s (0.85 x 3,600; hardcb's 3,211 s misses it equally) and a repeat-score comparison that includes
 the `duration` field (scores themselves are identical). RTX PRO 4500 still untested.
+
+## Review fix 2 · additive runtime and load-time self-test (20 Nov, Sat 00:00-01:00 CET)
+Review of `final_stack_hardcb_safe.zip`: (A) the 3,211 s projection scaled sealed time by the replay ratio (1.257), but CBraMod + hard
+cost is additive per window (replay 755 windows, +33.5 s A100 / +42.6 s 2080 Ti; sealed 20,083 windows); (B) a failing CBraMod or hard
+actor at predict time sends every session dead and the run ends as plain v5.1b (~0.82), spending the last upload, while a Failed run
+costs no quota; (C) `CBraMod(...)` relies on braindecode defaults (SIF: braindecode 1.8.1, torch 2.14.1+cu130).
+
+Fix: `submissions/final_stack/patch_selftest.py MODE IN.zip IN_SHA OUT.zip`. At the end of `StackEnsemble.__init__` (hardcb) or
+`HardWaveEnsemble.__init__` (hard) it runs two fixed deterministic 41x480 float32 windows (integer-hash noise + channel sines, no RNG
+stream; noise only, then weak sines, so CBraMod window 1 is unsaturated: 0.38/0.18/0.43) through `CBMember.prob` (hardcb only) and
+`hard_probability` on the real device, compares with posteriors computed at patch time on CPU from the same package (atol 1e-3), raises
+`RuntimeError` on any error or mismatch, then restores state (`cb.reset()`, `hard_actors = None`). Only submission.py differs.
+
+| ZIP | SHA-256 | from |
+|---|---|---|
+| `final_stack_hardcb_safe_st.zip` | `47faa27b25f6fc1fcbcc1c74f2be4b8b2aeb2a1e02c6c957d342eb6c91b9c2ec` | hardcb_safe `8a868f22…80f7` |
+| `final_stack_hard_safe_st.zip` | `239c86bd18d0a7e9d0216dda1fb95d9b918bf6e933c0383322446aed37a83c1e` | hard trial `6a569180…fbcc` → patch_dead (`b7f54a3a…30cf`, scratch) |
+
+Checks (Mac CPU): labels identical to the unpatched ZIP on P01/1 (190) and P04/2 (189) for both (hardcb_safe vs _st; hard trial vs hard_safe_st),
+dead False, errors 0. `submissions/final_stack/selftest_inject.py`: clean load OK; `CBMember.prob` raising, `CBMember.prob` returning rolled
+(wrong, normalised) posteriors, `hard_probability` raising and rolled all make `load_model` fail with the self-test message (hardcb and hard).
+The self-test passed on the A100 and the 2080 Ti in the worker SIF (the load succeeded).
+
+Timing, worker SIF on Galvani (`selftest_timing.py`; all 2,655 public windows, 14 sessions, 100 untimed warm-up windows, state reset
+at each session start, hard actor reload included; jobs 3144985 A100-PCIE-40GB, 3144986 RTX 2080 Ti):
+
+| device | CBMember.prob ms | hard_probability ms | cb+hard ms | projected hardcb = 2,555 + 20,083 x ms | projected hard-only |
+|---|---:|---:|---:|---:|---:|
+| A100 | 27.78 (p95 28.5) | 11.80 (p95 11.7) | 39.58 | **3,350 s** | 2,792 s (11.80 ms) |
+| 2080 Ti | 32.75 (p95 35.1) | 14.30 (p95 17.4) | 47.05 | **3,500 s** | 2,842 s (14.30 ms) |
+
+Both rows add to the Mac CPU smoke (CB 89 ms + hard 7 ms; end-to-end stack-minus-cap250 97 ms/window on 400 windows, so the end-to-end
+delta matches the sum of the parts). Load times (warm, st minus plain): hardcb +0.07 s (A100), +0.12 s (2080 Ti); hard +0.25 s / +0.26 s;
+first (cold) st load +2.6 s / +1.4 s because CUDA initialisation moves from the first window into load. Reference cap250 sealed time
+(2,555 s) comes from a different machine, so the projection ignores the RTX PRO 4500 (untested; its speed relative to the 2080 Ti is unknown).
+Margin to 3,600 s: hardcb 250 s (A100) / 100 s (2080 Ti); hard 760-810 s. The earlier 3,211 s figure was too low by 140-290 s.
+Not done: the paired end-to-end GPU cross-check (jobs 3145003/3145004, cap250 vs hardcb_safe_st on three sessions) finished on Galvani but
+its JSON could not be fetched: the ssh control master expired and re-login needs the user's 2FA. Files: `selftest_20nov/timing_{a100,rtx}.json`
+on Galvani (`/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/`). Risk: a GPU posterior drift above 1e-3 on the RTX PRO 4500 would
+fail the load, which costs no quota but burns the day's attempt.
