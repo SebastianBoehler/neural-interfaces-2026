@@ -24,12 +24,15 @@ class Slurm:
         if args.exclude:
             self.regular.append(f"--exclude={args.exclude}")
         rev = args.revision or subprocess.check_output(["git", "rev-parse", "HEAD"], text=True, cwd=self.root).strip()
-        self.env = {**os.environ, "CAP250_RELEASE": str(self.root), "CAP250_RUN": str(self.run),
+        inherited = {key: value for key, value in os.environ.items()
+                     if not key.startswith(("SLURM_JOB_", "SLURM_ARRAY_", "SLURM_STEP_", "SBATCH_"))
+                     and key not in {"SLURM_JOB_ID", "CUDA_VISIBLE_DEVICES"}}
+        self.env = {**inherited, "CAP250_RELEASE": str(self.root), "CAP250_RUN": str(self.run),
                     "CAP250_ASSETS": str(args.assets), "CAP250_DATA": str(args.data), "CAP250_REV": rev,
                     "CAP250_PYTHON": str(args.python or ""), "CAP250_IMAGE": str(args.image or ""),
                     "CAP250_SMOKE": str(int(args.smoke)), "CAP250_SITE": getattr(args, "site", "galvani")}
-        (self.run / "logs").mkdir()
-        (self.run / "arrays").mkdir()
+        (self.run / "logs").mkdir(exist_ok=True)
+        (self.run / "arrays").mkdir(exist_ok=True)
 
     def sbatch(self, name, resources, deps, tail):
         flags = [f"--job-name={name}", f"--cpus-per-task={resources.cpus}",
@@ -71,8 +74,9 @@ class Slurm:
         self.ids.update(jobs)
         print(f"{job_id} {name} ({len(jobs)} job{'s' if len(jobs) != 1 else ''})", flush=True)
 
-    def submit(self, nodes):
+    def submit(self, nodes, *, batch=None, before_release=None):
         pending = {node.key: node for node in nodes}
+        prefix = f"cap250-w{batch:02d}" if batch is not None else "cap250"
         index = 0
         while pending:
             groups = {}
@@ -86,7 +90,7 @@ class Slurm:
                 for offset in range(0, len(nodes_in_group), 1000):
                     group = nodes_in_group[offset:offset + 1000]
                     index += 1
-                    name = f"cap250-{index:03d}-{group[0].program.rsplit('/', 1)[-1].removesuffix('.py')}"
+                    name = f"{prefix}-{index:03d}-{group[0].program.rsplit('/', 1)[-1].removesuffix('.py')}"
                     try:
                         self.submit_group(name, group)
                     except subprocess.CalledProcessError as error:
@@ -94,6 +98,11 @@ class Slurm:
                                            f"Submitted jobs remain held and are recorded in {self.state}") from error
                     for node in group:
                         del pending[node.key]
+        if before_release is not None:
+            before_release(tuple(self.base_ids))
+        self.release()
+
+    def release(self):
         for i in range(0, len(self.base_ids), 100):
             subprocess.run(["scontrol", "release", ",".join(self.base_ids[i:i + 100])],
                            env=self.env, check=True)

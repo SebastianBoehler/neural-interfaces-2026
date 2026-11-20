@@ -182,7 +182,11 @@ def submit(plan, args):
     if missing:
         raise FileNotFoundError("release is missing " + ", ".join(missing))
     plan.write()
-    Slurm(args).submit(plan.nodes.values())
+    if args.wave_size:
+        from waves import queue
+        queue(args)
+    else:
+        Slurm(args).submit(plan.nodes.values())
 
 
 def main():
@@ -201,6 +205,7 @@ def main():
     parser.add_argument("--smoke", action="store_true", help="reduced family fits; scores and archive comparison disabled")
     parser.add_argument("--submit", action="store_true", help="default only prints the graph")
     parser.add_argument("--afterok", type=int, help="same-cluster job that must pass before this graph starts")
+    parser.add_argument("--wave-size", type=int, help="prequeue a dispatcher for a graph larger than the Slurm job quota")
     parser.add_argument("--site", choices=SITES, default="leonardo")
     parser.add_argument("--account")
     parser.add_argument("--cpu-partition")
@@ -231,6 +236,8 @@ def main():
         parser.error("invalid or repeated person/order")
     if args.afterok is not None and args.afterok <= 0:
         parser.error("--afterok requires a positive Slurm job ID")
+    if args.wave_size is not None and args.wave_size <= 0:
+        parser.error("--wave-size requires a positive task count")
     if args.submit and ((args.image is None) == (args.python is None) or not args.data.is_file()):
         parser.error("submission requires an existing data file and exactly one of --image or --python")
     if args.all_ten and (args.smoke or args.sealed is None):
