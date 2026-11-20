@@ -68,12 +68,16 @@ def main(order, visit, smoke):
         s["refits_after_recognition"] = len(late)
         if rec < 0 and s["change_vs_hardcb"] != 0.0:
             raise ValueError(f"{arm}: unrecognised session changed")
-        if rec >= 0 and rec + 10 <= min(n - 1, 250):  # a refit grid point lies after recognition and before the cap
-            if not late and not arm.startswith("R2q"):
+        if arm == "R5" and late:
+            raise ValueError("R5: FT refit after recognition (FT must stay retired)")
+        if arm == "R1a" and any(a != 100 for a in late):
+            raise ValueError(f"R1a: refit ages after recognition {late}, expected only 100")
+        if rec >= 0 and rec + 10 <= min(n - 1, 250) and not (arm == "R1a" and n <= 100):  # a refit grid point lies after recognition and before the cap
+            if not late and arm != "R5" and not arm.startswith("R2q"):
                 raise ValueError(f"{arm}: recognised at {rec} but no refit after it: silent no-op")
             if s["change_vs_hardcb"] <= 1e-9:
                 raise ValueError(f"{arm}: keep arm did not move the scores vs hardcb: silent no-op")
-        if arm != "R1" and rec >= 0 and s["cp_stopped"] is not None:
+        if arm not in ("R1", "R1a") and rec >= 0 and s["cp_stopped"] is not None:
             raise ValueError(f"{arm}: CSP still retired at {s['cp_stopped']}")
     payload = dict(rows=case["rows"][:n])
     for arm, t in tapes.items():

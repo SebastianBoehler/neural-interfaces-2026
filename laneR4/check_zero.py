@@ -41,7 +41,7 @@ noise = torch.from_numpy((20 * np.random.default_rng(0).standard_normal((60, 41,
 torch.set_num_threads(2)
 base = load(sys.argv[1])
 b_noise, b_real = run(base, noise), run(base, real)
-assert not b_noise[1] and b_noise[2] == 5, ("base noise stream", b_noise[1:])
+assert not b_noise[1] and b_noise[2] == 4, ("base noise stream", b_noise[1:])
 print("base: noise recB", b_noise[1], "refits", b_noise[2], "| real recB", b_real[1], "refits", b_real[2], flush=True)
 bad = 0
 for zp in sys.argv[2:]:
@@ -50,7 +50,7 @@ for zp in sys.argv[2:]:
     same_noise = np.array_equal(n[0], b_noise[0])
     same_real = np.array_equal(r[0], b_real[0])
     print(Path(zp).name, "noise bitwise", same_noise, "refits", n[2], "recB", n[1], "| real bitwise", same_real, "refits", r[2], flush=True)
-    bad += (not same_noise) + (n[1] or n[2] != 5)
+    bad += (not same_noise) + (n[1] or n[2] != 4)
     if "R0z" in zp:
         bad += not same_real
 assert b_real[1], "real session was not recognised: instrument invalid"

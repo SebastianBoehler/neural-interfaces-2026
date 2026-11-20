@@ -6,9 +6,11 @@ ARMS (evidence/wave_20nov/laneR4_keepadapt.md):
   R0z  all switches off (zero-change control: must equal the source package bit for bit)
   R1   FT stays active after recognition (stock objective, labels = v5.1b's routed output, as the stored relabel at recognition)
   R2   R1 + CSP stays active (its history and P are not cleared at recognition)
-  R3   R2 with the lite5 TTT objective (laneT/ttt_ft.py.inc, form lite5)
+  R3   R2 with the lite5 TTT objective (laneT/ttt_ft.py.inc, form lite5) for refits AFTER recognition only (stock FT objective before it)
   R4   R3 + personal head in the FT pseudo-label: label = (1 - lam r) out_v5 + lam r h, lam 0.5, r the routed ramp, h the routed person's head
-  R2s / R2q  R2 with post-recognition refits only every 2nd / 4th grid point (fewer refits, runtime fit)
+  R2s / R2q  R2 with post-recognition refits only every 2nd / 4th grid point (fewer refits; measured cost still far above the runtime bound)
+  R5   CSP stays active, FT retired as stock (runtime fit: CSP costs about +3 s per recognised session)
+  R1a  FT after recognition = ONE refit at age 100 (stock objective); no FT forward before it (runtime fit)
 Every anchor must occur exactly once (silent no-ops fail loudly)."""
 import hashlib
 import sys
@@ -17,9 +19,11 @@ from pathlib import Path
 from zipfile import ZipFile
 
 HERE = Path(__file__).resolve().parent
-ARMS = {  # keep_ft, keep_csp, ttt form, head lambda, late stride
-    "R0z": (0, 0, None, 0.0, 1), "R1": (1, 0, None, 0.0, 1), "R2": (1, 1, None, 0.0, 1), "R3": (1, 1, "lite5", 0.0, 1),
-    "R4": (1, 1, "lite5", 0.5, 1), "R2s": (1, 1, None, 0.0, 2), "R2q": (1, 1, None, 0.0, 4)}
+ARMS = {  # keep_ft, keep_csp, ttt form, head lambda, late stride, late ages (None: every grid point)
+    "R0z": (0, 0, None, 0.0, 1, None), "R1": (1, 0, None, 0.0, 1, None), "R2": (1, 1, None, 0.0, 1, None),
+    "R3": (1, 1, "lite5", 0.0, 1, None), "R4": (1, 1, "lite5", 0.5, 1, None),
+    "R2s": (1, 1, None, 0.0, 2, None), "R2q": (1, 1, None, 0.0, 4, None),
+    "R5": (0, 1, None, 0.0, 1, None), "R1a": (1, 0, None, 0.0, 1, (100,))}
 
 
 def once(s, old, new):
@@ -28,15 +32,21 @@ def once(s, old, new):
 
 
 def patch(src: bytes, arm: str) -> bytes:
-    keep_ft, keep_csp, form, lam, stride = ARMS[arm]
+    keep_ft, keep_csp, form, lam, stride, ages = ARMS[arm]
     s = src.decode("utf-8")
     if form:
         sys.path.insert(0, str(HERE.parent / "laneT"))
         import build_ttt
         s = build_ttt.patch(src, form).decode("utf-8")
-    s = once(s, "class FineTune:", f"KEEP_FT, KEEP_CSP, HEAD_LAMBDA, LATE_STRIDE = {keep_ft}, {keep_csp}, {lam}, {stride}  # lane R4\n\n\nclass FineTune:")
+        # the TTT objective applies to refits after recognition only: before it the stock FT, so unrecognised sessions stay bitwise unchanged
+        s = once(s, '    def refit(self, t, relab_fn=None):\n        """the base refit (relabelling',
+                 '    def refit(self, t, relab_fn=None):\n        if not self.late:\n            return FineTune.refit(self, t, relab_fn)\n        """the base refit (relabelling')
+        s = once(s, '    def _refit(self, t, lab, wt):\n        P = self._cap.get("P")',
+                 '    def _refit(self, t, lab, wt):\n        if not self.late:\n            return FineTune._refit(self, t, lab, wt)\n        P = self._cap.get("P")')
+    s = once(s, "class FineTune:", f"KEEP_FT, KEEP_CSP, HEAD_LAMBDA, LATE_STRIDE, LATE_AGES = {keep_ft}, {keep_csp}, {lam}, {stride}, {ages}  # lane R4\n\n\nclass FineTune:")
     s = once(s, "self.refits, self.steps, self.dtheta = 0, 0, 0.0", "self.refits, self.steps, self.dtheta = 0, 0, 0.0\n        self.late = False  # lane R4: set by the ensemble once the session is recognised")
-    s = once(s, "if (t - self.t0) % self.every == 0:", "if (t - self.t0) % self.every == 0 and (not self.late or ((t - self.t0) // self.every) % LATE_STRIDE == 0):")
+    s = once(s, "if (t - self.t0) % self.every == 0:", "if (t - self.t0) % self.every == 0 and (not self.late or (((t - self.t0) // self.every) % LATE_STRIDE == 0 and (LATE_AGES is None or t in LATE_AGES))):")
+    s = once(s, "        if t >= self.t0:\n            if (t - self.t0) % self.every == 0", "        if t >= self.t0 and not (self.late and LATE_AGES is not None and self.refits == 0 and t not in LATE_AGES):  # lane R4 R1a: no FT forward before its one refit\n            if (t - self.t0) % self.every == 0")
     s = once(s, "self.recB if self.routed else not self.active).argmax()", "False if KEEP_CSP else (self.recB if self.routed else not self.active)).argmax()")
     s = once(s, "        self.last = dict(contrast=contrast, identity=identity, stage=stage)",
              "        self.head = (h, r) if r > 0 else None  # lane R4: the routed person's head posterior of this window\n"
