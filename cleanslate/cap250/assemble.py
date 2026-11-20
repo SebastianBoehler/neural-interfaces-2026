@@ -74,10 +74,11 @@ def base_arrays(channels):
         return np.array([channels.index(name) for name in names], np.int64)
 
     # Effective exported values after the normalized R19e build and subsequent slot changes.
-    below = np.nextafter
-    weights = ([.125] + [below(below(.025, 0.), 0.)] * 10 + [0.] * 10 +
-               [below(.03125, 0.)] * 4 + [0.] * 10 + [below(.625, 0.)] +
-               [below(.125, 0.) / 6] * 30 + [.125])
+    shallow, learned_fir, teacher, session_bn = (
+        .024999999999999994, .031249999999999993, .6249999999999999, .02083333333333333
+    )
+    weights = ([.125] + [shallow] * 10 + [0.] * 10 + [learned_fir] * 4 + [0.] * 10 +
+               [teacher] + [session_bn] * 30 + [.125])
     return dict(n_nets=np.int64(65), member_weights=np.array(weights),
                 rb_alpha=np.float64(1.15), rb_k=np.float64(5), rb_w=np.int64(30),
                 em_hl=indices(em.FRONT_L), em_hr=indices(em.FRONT_R), em_vt=indices(em.VERT_TOP),

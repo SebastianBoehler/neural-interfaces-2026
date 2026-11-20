@@ -73,7 +73,8 @@ python cleanslate/cap250/train.py --people P01,P02,... --out PKG
 - GPU families use CUDA inside Slurm. CPU families can use a CPU Slurm job. Each fresh job runs
   the original full training recipe by default; a source-only reduced smoke may use
   `CAP250_SMOKE=1`. Reduced artifacts may exercise assembly and must never enter parity or
-  held scores. The graph writes a receipt per successful family job with source row digest,
+  held scores. A family needs an authenticated receipt when assembled, so stage direct fits via
+  `worker.py` when assembling them outside the graph. The graph receipt records the source row digest,
   variant, git revision, scheduler ID, runtime and emitted file digests.
 - Every NPZ uses NumPy arrays with no object dtype. Except named exceptions below, fitted
   members write `weights.npz` with **the actual keys used by cap250**, already prefixed
@@ -114,11 +115,17 @@ PROTEUS head and is ineligible as an external initializer.
   Stock defaults to `0/0/stock`; hardcb is `1/1/stock`. Hard alone replaces 5/6 of the outer
   raw slot; CB alone replaces 1/6; both use 0.8 hard + 0.2 CB at 5/6. Use the existing native
   package source fragments. Never edit frozen submission files.
+- `geometry` consumes `CAP250_ROUTE_OOF`, the graph-written JSON manifest of per-person
+  nested B2 posterior files. The outer fit cannot reuse historical B2 predictions because
+  their training rosters can include the outer held person. Each nested scope fits the
+  active B2 member set, two cores and PCA. Shared jobs require identical source rosters and
+  session restrictions. B2 basis jobs use `worker.py --base-only`.
 - `graph.py` emits one Slurm job per family×seed, then package assembly `afterok` on every
   required fit, official harness streams `afterok` on their package, and score `afterok` on
   all requested streams. Keep each fold DAG on one cluster. Stage and compare results across
   sites without cross-cluster Slurm dependencies. The score consumes the harness `jobs.tsv`
-  and `pred_<mode>_<person>.npz` schema. The standard harness entrypoint uses `train.py`
+  and `pred_<mode>_<person>.npz` schema. Run `gather.py` on the returned shard directories
+  to validate and score complete four-order results. The standard harness entrypoint uses `train.py`
   inside an existing Slurm job, which can fit sequentially as an explicit entry mode. Use
   the graph for parallel training and avoid waiting in an allocated GPU job.
 - First smoke reduced jobs and package loading, then fresh all-ten stock training plus
