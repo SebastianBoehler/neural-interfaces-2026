@@ -1,4 +1,4 @@
-# Lane R4b · how strongly to keep adapting for returning people: dose arms and a confidence-gated form (registered Fri 20 Nov 2026 ~21:00 CET, before any R4b arm was scored)
+# Lane R4b · how strongly to keep adapting for returning people: dose arms and a confidence-gated form (registered Fri 20 Nov 2026 ~20:40 CET, before any R4b arm was scored)
 
 Motivation: R4 (keep FT, CSP, lite5 TTT, head in the label after recognition) is +3.68 pp on NETBCI (far from ceiling, stock 68.6) and negative on P04/P10 (90-97 %). The coordinator's criteria
 (`evidence/council_20nov/research2_sonnet.md` rank 1) are adopted as registered rules below next to my own. Code `laneR4b/` (builder `build_dose.py` imports `laneR4/build_keep.py`, untouched; `run.py` = B10 run with enrol/stream pairs and a per-window proxy log).
@@ -25,3 +25,7 @@ Phase 1 runs `Gconf_off` (stock path, proxies logged) and `Gconf_on` on NETBCI a
 ## Rules (fixed now; bars are reading aids, P04 and P10 reported separately, neither decides)
 Coordinator rule per proxy: Spearman >= 0.5 AND gated NETBCI >= +1.5 pp (80 % lower bound reported) AND P04 and P10 each >= -0.1 pp -> SUPPORTED, build into a full-chain run; Spearman < 0.3 -> closed for that proxy only; otherwise UNDECIDED.
 Mine: a gated form is called "non-negative on P04/P10" if both point deltas >= -0.1; "keeps most of the far-from-ceiling gain" if its NETBCI gain >= 0.5 x R4's gain on the same orders. ds007221g reported alongside, not a gate. Sealed weighting (0.43 x ... UNVERIFIED) is not applied; no weight is assumed.
+
+## Run log
+Smoke 64979123 / 64979126 (NETBCI k0 full:72000 days 2-4, ds007221g k0 both directions): `Gconf_off` labels equal the B10 hardcbB labels and `Gconf_on` the B10 R4 labels bit for bit on all three days (0 of ~180 windows differ); proxy log length = stream length; gate open share 1.0 (on), 0.056 (off: only the pre-recognition windows). NETBCI proxies at k0: conf about 0.55 post-recognition (stored tapes: P04 0.75, P10 0.91).
+Wave 1 (Fri 20 Nov 20:42 CET): NETBCI array 64979597 (Gconf_off, Gconf_on, R4n, R4s2, R4s4, R4t2, R4h1; 133 tasks, 4 orders), ds007221g array 64979598 (hardcbB, R1a, R2, R5, R3, Gconf_off, Gconf_on, R4n, R4s2, R4s4, R4t2, R4h1; 168 tasks, 8 orders).
