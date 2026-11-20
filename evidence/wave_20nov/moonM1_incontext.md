@@ -25,3 +25,32 @@ Leonardo release `/leonardo_work/AIFAC_P02_1675/ni26_m1_20261120`. Team C traine
 - Encoder smoke `64916659` tested the P01 outer roster and P01/P02 nested roster. External smoke `64916945` staged the two real ds007221g deliveries with the expected own-head label map. Both passed.
 - Full encoder array `64917233`. External staging array `64917235` passed all ten corpora. Corpus-person counts in the registered order were 109, 52, 54, 87, 14, 29, 29, 14, 48, 19 (455 corpus-person entries total).
 - Paired solver smoke `64917236` trained the attention model and failed on the package path before prediction. Slurm cancelled the dependent collector `64917237`. Corrected the path and retried with `64917400` and dependent collector `64917402`.
+- Corrected paired solver smoke `64917400` and collector smoke `64917402` passed. The encoder array completed all 55 fits. Held-new array `64917544` completed all ten folds. Collector `64917545` completed at 08:17:30 CET on 20 November 2026. All jobs ran on Leonardo A100s.
+- M1 source `05d3e4e1`. All arms shared the same per-fold encoder checkpoints and delivery rows. The collector verified 50 prediction files (ten people × five arms), and all ten folds passed the first-window, zero-context, prefix and reset checks. Raw receipts and predictions are under `full/` in the release directory. `full/report.json` SHA-256 `d70b165546d5a48f2979642771b8bea227618670d6178b010babdf06e8d772bb`.
+
+## Held-new result
+
+Official balanced accuracy (%) over 28 equally weighted person/session/interface cells per order. Timing includes session copying and synchronized one-window predictions after a warm-up. Intervals resample people, then orders within resampled people (10,000 paired draws).
+
+| Arm | 71000 BA | 71001 BA | Mean BA | 80% interval | 95% interval | A100 ms/window |
+|---|---:|---:|---:|---|---|---:|
+| M1 · true context | 62.10 | 61.44 | **61.77** | [57.75, 67.24] | [55.78, 69.74] | 4.78 |
+| M1 · blank (exact C1 A0 labels) | 59.23 | 59.64 | **59.44** | [54.83, 65.53] | [52.53, 68.23] | 3.70 |
+| C1 A0 · source BN | 59.23 | 59.64 | **59.44** | [54.83, 65.53] | [52.53, 68.23] | 3.00 |
+| C1 A1 · prefix BN | 62.56 | 63.30 | **62.93** | [58.19, 69.45] | [55.95, 72.71] | 7.39 |
+| C1 A2h · prefix BN + gradient TTT | 61.02 | 62.02 | **61.52** | [56.50, 68.99] | [54.26, 72.81] | 104.53 |
+
+| Paired contrast | Δ pp | 80% interval | 95% interval |
+|---|---:|---|---|
+| M1 context − blank | +2.34 | [0.78, 3.82] | [0.10, 4.72] |
+| M1 context − C1 A2h | +0.25 | [-3.00, 2.91] | [-4.61, 4.25] |
+| C1 A2h − C1 A1 | -1.41 | [-3.85, 1.40] | [-5.14, 2.74] |
+
+| Held person | Blank BA | M1 context BA | C1 A1 BA | C1 A2h BA |
+|---|---:|---:|---:|---:|
+| P04 | 43.19 | 47.99 | 47.16 | 47.12 |
+| P10 | 57.20 | 58.18 | 57.61 | 49.64 |
+| P07 | 61.73 | 64.47 | 70.02 | 70.03 |
+| P09 | 58.76 | 71.83 | 72.25 | 69.07 |
+
+The +2.34 pp point gain passed the +2 pp decision threshold and both paired intervals have positive lower bounds. The 80% interval spans +2 pp, so the size of the gain relative to that threshold remains uncertain. The paired M1–A2h interval spans zero. M1 was 21.9× faster than A2h on these A100 runs. A1 had the highest BA and was 1.16 pp above M1. The ten public people and two shuffle orders limit generalization.
