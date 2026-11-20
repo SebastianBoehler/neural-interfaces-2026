@@ -18,6 +18,6 @@ for who in P04 P10; do
   rm -rf pkg_ttt/${who}_*
   cp -rL $src/${who}_hardcb pkg_ttt/${who}_hardcb
   $PY -B $base/ni26_laneT_20261120/laneT/build_ttt.py lite5 pkg_ttt/${who}_ftlite5 $src/${who}_hardcb
-  for f in ds_l5 ds_all; do $PY -B $rel/laneP2/build_p2.py $f pkg_ttt/${who}_ft$f pkg_ttt/${who}_ftlite5; done
+  for f in ds_l5 ds_all dsu_l5 dsu_all; do $PY -B $rel/laneP2/build_p2.py $f pkg_ttt/${who}_ft$f pkg_ttt/${who}_ftlite5; done
 done
 ls pkg_ttt; sha256sum pkg_ttt/*/submission.py

@@ -9,7 +9,7 @@ import numpy as np
 
 ORDERS = ("within0", "within1", "within2", "within3", "full0", "full1", "runs0", "runs1")
 CELLS = ("P04|2", "P04|3", "P10|2", "P10|3")
-ARMS = ("zero", "stock") + tuple(os.environ.get("RET_ARMS", "hardcb+ftlite5+ftds_l5+ftds_all").split("+"))
+ARMS = ("zero", "stock") + tuple(os.environ.get("RET_ARMS", "hardcb+ftlite5+ftds_l5+ftds_all+ftdsu_l5+ftdsu_all").split("+"))
 DATA = Path("/mnt/lustre/work/gehler/gfh527/ni26_aux431_20261118/data/proteus_windows.npz")
 
 

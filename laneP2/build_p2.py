@@ -1,6 +1,6 @@
 """Lane P2: build the dispersion-corrected packages from a final-stack package that already carries lite5 (laneT/build_ttt.py lite5).
 
-usage: build_p2.py FORM OUT SRC   FORM ds_l5 (lite5 + dispersion) | ds_all (lite5 + FBL2 + dispersion); OUT .zip (SRC zip) or a directory (SRC dir:
+usage: build_p2.py FORM OUT SRC   FORM ds_l5 (lite5 + dispersion) | ds_all (lite5 + FBL2 + dispersion) | dsu_l5, dsu_all (same, correction only on unrecognised sessions); OUT .zip (SRC zip) or a directory (SRC dir:
 returning fold packages). Only submission.py is rewritten (SharedFIRSJit.proba exports the segment contributions, DispEnsemble is the factory);
 every other file is copied byte for byte. Nothing is switched off by default: the zero-change check mutates DISP_ON / FBL2_ON at runtime."""
 import hashlib
@@ -26,11 +26,11 @@ FACTORY = 'model = StackEnsemble(z,'
 
 
 def patch(src: bytes, form: str) -> bytes:
-    assert form in ("ds_l5", "ds_all")
+    assert form in ("ds_l5", "ds_all", "dsu_l5", "dsu_all")
     s = src.decode("utf-8")
     assert s.count(OLD_RET) == 1 and s.count(CLS) == 1 and s.count(FACTORY) == 1 and s.count("class Solver(CompetSolver):") == 1
     assert os.environ.get("BUILD_P2_ANY_FT") or s.count("TTTFineTune(z, self.w, dev, root)") == 1, "the source package must carry lite5 (build_ttt.py lite5 first)"
-    inc = (HERE / "disp.py.inc").read_text().rstrip().replace("FBL2_ON = False", f"FBL2_ON = {form == 'ds_all'}")
+    inc = (HERE / "disp.py.inc").read_text().rstrip().replace("FBL2_ON = False", f"FBL2_ON = {form.endswith('all')}").replace("UNREC_ONLY = False", f"UNREC_ONLY = {form.startswith('dsu')}")
     s = s.replace(OLD_RET, NEW_RET).replace(CLS, CLS + "    seg_on, seg = False, None\n\n")
     s = s.replace("class Solver(CompetSolver):", inc + "\n\n\nclass Solver(CompetSolver):", 1).replace(FACTORY, "model = DispEnsemble(z,")
     compile(s, "submission.py", "exec")

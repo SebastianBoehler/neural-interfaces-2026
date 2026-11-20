@@ -66,6 +66,16 @@ def main(test, zip_path, ref_path, root, people):
         new_p, new_l, _, logs, _ = stream(zip_path, off, x, channels, sessions)
         print(f"ZERO windows {len(ref_l)} max|diff| {np.abs(ref_p - new_p).max():.3e} bitwise {np.array_equal(ref_p, new_p)} labels equal {bool((ref_l == new_l).all())} disp logs {logs}")
         assert np.array_equal(ref_p, new_p) and (ref_l == new_l).all() and all(l.get("n", 0) == 0 for l in logs)
+    elif test == "gate":  # dsu zip on recognised sessions: equals the lite5 zip bitwise, [disp] gated > 0; UNREC_ONLY switched off equals the ungated ds zip (env P2_UNGATED) bitwise
+        ref_p, ref_l, *_ = stream(ref_path, lambda m: None, x, channels, sessions)
+        new_p, new_l, _, logs, _ = stream(zip_path, lambda m: None, x, channels, sessions)
+        print(f"GATE windows {len(ref_l)} max|diff| {np.abs(ref_p - new_p).max():.3e} bitwise {np.array_equal(ref_p, new_p)} labels equal {bool((ref_l == new_l).all())} logs {logs}")
+        assert np.array_equal(ref_p, new_p) and (ref_l == new_l).all() and all(l["gated"] > 0 for l in logs)
+        off = lambda m: setattr(m.DispEnsemble, "UNREC_ONLY", False)
+        a_p, a_l, *_ = stream(zip_path, off, x, channels, sessions)
+        u_p, u_l, *_ = stream(os.environ["P2_UNGATED"], lambda m: None, x, channels, sessions)
+        print(f"GATE-OFF equals ungated zip: bitwise {np.array_equal(a_p, u_p)} labels equal {bool((a_l == u_l).all())}")
+        assert np.array_equal(a_p, u_p) and (a_l == u_l).all()
     elif test == "fbl2":
         def zero(m):
             m.StackEnsemble.CB_MIX = 0.0; m.StackEnsemble.HARD_FILES = (); m.DispEnsemble.DISP_ON = False; m.DispEnsemble.FBL2_ON = True

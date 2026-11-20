@@ -37,6 +37,7 @@ class DispEnsemble(StackEnsemble):
 
     DISP_ON = True
     FBL2_ON = False
+    UNREC_ONLY = False  # dsu forms: the correction acts only while the session is not recognised (recB False after the window's own step)
     SEG_MEMBER = 47
     SEG_FILE = "sbn_fbcnet_raw_k20_s0.pt"
 
@@ -69,8 +70,8 @@ class DispEnsemble(StackEnsemble):
         super().reset_state()
         log = getattr(self, "disp_log", None)
         if log and log["n"]:
-            print(f"[disp] windows {log['n']} active {log['active']} changed {log['changed']} skipped {log['skipped']}", file=sys.stderr, flush=True)
-        self.disp_log = dict(n=0, active=0, skipped=0, changed=0)
+            print(f"[disp] windows {log['n']} active {log['active']} changed {log['changed']} skipped {log['skipped']} gated {log['gated']}", file=sys.stderr, flush=True)
+        self.disp_log = dict(n=0, active=0, skipped=0, changed=0, gated=0)
         if getattr(self, "disp", None) is not None:
             self.disp.reset()
 
@@ -94,6 +95,9 @@ class DispEnsemble(StackEnsemble):
         seg, net.seg = net.seg, None  # one segment export per window: a window whose member forward did not run is skipped, never reused
         if seg is None or not np.isfinite(seg).all() or not np.isfinite(p).all():
             log["skipped"] += 1
+            return p
+        if self.UNREC_ONLY and self.recB:
+            log["gated"] += 1
             return p
         out, active = self.disp.step(p, seg)
         log["active"] += int(active)
