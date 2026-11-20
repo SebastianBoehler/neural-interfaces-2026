@@ -21,9 +21,12 @@ The tape checks use the frozen H1 A100 tapes on the clean folds (seeds 71000–7
 |---|---|---|
 | Exact ZIP A100 smoke and self-test load | 64992707 passed | 64992710 passed |
 | Held-new P01/1 CPU and self-test fault injection | 64993648 retry running | 64993649 retry running |
-| Exact ZIP returning effect and timings | 64992709 running | 64992712 running |
+| Exact ZIP returning effect and timings | 64992709 completed, 0/762 labels changed | 64992712 completed, 0/762 labels changed |
+| Terminal score movement | 64994099 → 64994100 | 64994101 → 64994102 |
 | Frozen tape label comparison | 64992918 passed → 64992919 running | 64992932 passed → 64992934 running |
 | Official A100 cap250 comparison | 64992708 running | 64992711 running |
+
+Both exact ZIPs recognised all four visits at age 10 and executed a single late refit at age 100. This was on P04/2, P04/3, P10/2 and P10/3 at seed 71000. Paired timings warm both models on P04/2 before measurement. The new A100 mean increments were **3.07 s** for hard (range 3.00–3.21 s) and **3.18 s** for hardcb (2.88–3.48 s).
 
 ## Additive sealed-time projection
 
@@ -35,5 +38,7 @@ Use 2,555 s cap250 sealed time + 20,083 windows × measured hard/hardcb cost + 4
 | hard + R1a | RTX 2080 Ti | 14.3 ms | 3.3 s | 2,994.0 s | +606.0 s |
 | hardcb + R1a | A100 | 39.6 ms | 3.5 s | 3,511.3 s | +88.7 s |
 | hardcb + R1a | RTX 2080 Ti | 47.1 ms | 3.3 s | 3,652.7 s | −52.7 s |
+
+With the new exact-ZIP A100 measurements, the additive estimates are **2,933.2 s** for hard (margin **666.8 s**) and **3,496.6 s** for hardcb (margin **103.4 s**). The historical 2080 Ti timings remain the only basis for that GPU proxy.
 
 Galvani rejected noninteractive SSH. A100 qualification uses Leonardo's native Python environment. No Codabench upload was performed.
