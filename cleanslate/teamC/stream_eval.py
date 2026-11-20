@@ -47,6 +47,9 @@ VARIANTS = {
     "A5": dict(bn="prefix", steps=4, ts_beta=0.3),
     "A5b": dict(bn="prefix", steps=4, ts_beta=0.5),
     "A5c": dict(bn="prefix", steps=0, ts_beta=0.3),
+    "A5d": dict(bn="prefix", steps=4, ts_beta=0.2, ts_feat="logvar"),
+    "A5e": dict(bn="prefix", steps=4, ts_beta=0.2, ts_feat="logvar", ts_l2=1e-1),
+    "A5f": dict(bn="prefix", steps=0, ts_beta=0.2, ts_feat="logvar"),
 }
 
 

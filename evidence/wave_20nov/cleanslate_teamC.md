@@ -111,3 +111,15 @@ normalised p_ens^(1−β) · p_lr^β. Variants: A5 β 0.3, A5b β 0.5, A5c β 0.
 Leonardo (also a cross-cluster replicate of C1 A1/A2), orders 0,1.
 Prediction: A5 − A2 +1.0 [−0.5, +2.5]; A5b − A2 +0.5 [−1.5, +2.5]; A5c − A1 +1.5 [0, +3]. Replicate: |A2(Leo) − A2(C1)| < 1.
 Rule as C1. Runtime must stay ≤ 179 ms/window on the timing card.
+
+## C5 result (Leonardo 64922136 held-new, 64922150 returning; orders 0,1)
+Held-new A1 63.12, A2 64.96, A5 64.21, A5b 61.24, A5c 62.21. A5 − A2 −0.33 [−1.19, +0.49] **undecided** (predicted +1.0);
+A5b − A2 −3.67 [−4.70, −2.65] **refuted**; A5c − A1 −0.92 [−1.45, −0.38] (o0 −0.20 [−1.02, 0.59], o1 −1.63) undecided.
+Returning A2 70.13; A5 − A2 −0.99, A5c − A2 −4.30. Replicate: A2(Leo) − A2(C1) −0.53 [−1.29, +0.23], A1 +0.40; TTT gain
+on the replicate +2.04 [+0.91, +3.18]. Reading: 2,583 tangent features fitted on ≤190 own pseudo-labels echo the ensemble
+and overfit; the direction is not closed (one form).
+T4 validation (coordinator, laneT4_valid.md): Scherer NI-V A2 − A1 −0.15 [−0.93, +0.62]; heavy forms refuted by drift.
+
+## C5v2 (registered ~13:05, before scoring; eval-only on the C5 packages, orders 0,1, held-new + returning)
+Per-channel band log-variance (3 × 41 = 123 features) instead of tangent space, β 0.2: A5d (on A2), A5e (A5d with L2 0.1),
+A5f (on A1). Prediction: A5d − A2 +0.3 [−0.5, +1.0]; A5e − A2 +0.3 [−0.5, +1.0]; A5f − A1 +0.3 [−0.5, +1.0].

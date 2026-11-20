@@ -26,7 +26,7 @@ except ImportError:  # training / harness outside benchopt
 C_, T_, K_ = 41, 480, 3
 DEFAULT_TTT = dict(shrink=0.05, bn="prefix", bn_k=8.0, steps=0, n0=16, every=4, dense_until=48, batch=64, lr=1e-4,
                    params="all", tau=0.0, lam_pl=1.0, lam_im=0.3, anchor=1e-2, temp=1.0, balance=0, bal_from=16,
-                   rot=0.0, max_n=1024, ts_beta=0.0, ts_from=32, ts_l2=1e-2, ts_steps=30, ts_lr=0.05)
+                   rot=0.0, max_n=1024, ts_beta=0.0, ts_from=32, ts_l2=1e-2, ts_steps=30, ts_lr=0.05, ts_feat="tangent")
 
 
 # ----------------------------------------------------------------------------------------------------------- nets
@@ -162,7 +162,8 @@ class TTTModel:
         self.g.manual_seed(1234)
         self.opts = None
         self.last = None
-        self.F = torch.zeros(c["max_n"], 3 * C_ * (C_ + 1) // 2, device=dev) if c["ts_beta"] else None
+        nf = 3 * C_ * (C_ + 1) // 2 if c["ts_feat"] == "tangent" else 3 * C_
+        self.F = torch.zeros(c["max_n"], nf, device=dev) if c["ts_beta"] else None
         self.lr = None  # prefix tangent-space LR (W, b, Adam state), rebuilt per session
 
     # -- helpers
@@ -225,6 +226,9 @@ class TTTModel:
         """(C, T) aligned window -> log-covariance upper triangles in three bands (tangent space at identity)."""
         z = F.conv1d(a[:, None], self.bank[:, None], padding=30)  # (C, 3, T)
         z = z.permute(1, 0, 2)
+        if self.cfg["ts_feat"] == "logvar":
+            return (z * z).mean(-1).clamp_min(1e-10).log().reshape(-1)
+        assert self.cfg["ts_feat"] == "tangent", self.cfg["ts_feat"]
         C = z @ z.transpose(1, 2) / T_
         C = C + 1e-3 * torch.diagonal(C, dim1=1, dim2=2).mean(-1)[:, None, None] * torch.eye(C_, device=a.device)
         w, V = torch.linalg.eigh(C)
