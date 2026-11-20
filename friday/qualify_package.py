@@ -2,6 +2,7 @@
 
   python friday/qualify_package.py local   CAND OUT [--expect-sha H] [--expect-score S] [--skip-replay]
   python friday/qualify_package.py cluster OUT [--ref-zip Z] [--submit]   # worker-image replays, A100 + RTX 2080 Ti
+  python friday/qualify_package.py pair CAND OUT --ref-zip Z --expect-sha H  # Leonardo A100 Slurm
   python friday/qualify_package.py report  OUT [--fetch]                  # timing projection + PASS/FAIL line
 
 CAND is a package folder (submission.py + data files, flat) or a finished ZIP. A folder is zipped
@@ -14,7 +15,7 @@ OUT/cluster results and projects the sealed time as SEALED_REF_S * cand_wall / r
 (min over the repeats). The ratio is the only transferable number: the sealed worker, session count and
 RTX model are unverified (evidence/wave_19nov/laneF_package.md). The last line is PASS, FAIL or PENDING.
 """
-import argparse, hashlib, json, os, subprocess, sys, tempfile, zipfile
+import argparse, hashlib, json, os, re, subprocess, sys, tempfile, zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -69,14 +70,50 @@ def inspect(z):
             "manifest_sha256": sha(json.dumps(files, sort_keys=True).encode())}
 
 
-def replay(z, out, device="cpu"):
-    r = out / "replay_cpu"
+def replay(z, out, device="cpu", name=None):
+    r = out / (name or f"replay_{device}")
     subprocess.run([sys.executable, str(ROOT / "scripts/replay_package.py"), str(z), str(r), device],
                    cwd=ROOT, check=True, stdout=subprocess.DEVNULL,
                    env={**os.environ, "BENCHOPT_DATA_HOME": str(ROOT / "data"), "PATH": f"{Path(sys.executable).parent}:{os.environ['PATH']}"})  # finds benchopt
     j = json.loads((r / "replay.json").read_text())
     return {"score": j["scores"], "files_unchanged": j["files_unchanged"], "wall_s": j["ingestion_wall_seconds"],
             "zip_sha256": j["zip_sha256"]}
+
+
+def cmd_pair(a):
+    """Qualify two warm-up replays per arm on the A100 allocated by Slurm."""
+    import torch
+
+    if not os.environ.get("SLURM_JOB_ID") or "A100" not in torch.cuda.get_device_name(0):
+        raise RuntimeError("expected a Slurm A100 allocation")
+    inputs = {"ref": (a.ref_zip, REF_SHA), "cand": (a.cand, a.expect_sha)}
+    for arm, (archive, expected) in inputs.items():
+        manifest = inspect(archive)
+        if manifest["sha256"] != expected or manifest["crc_bad_member"] or manifest["layout_problems"]:
+            raise ValueError(f"{arm}: archive identity, CRC or layout failed")
+    a.out.mkdir(parents=True, exist_ok=False)
+    walls = {"ref": [], "cand": []}
+    for index, arm in enumerate(("ref", "cand", "ref", "cand"), 1):
+        name = f"a100_{index}_{arm}"
+        result = replay(inputs[arm][0], a.out, "cuda", name)
+        log = (a.out / name / "ingestion.log").read_text()
+        errors = [int(n) for n in re.findall(r"\[v6\].* errors (\d+)", log)]
+        if not errors or any(errors) or not result["files_unchanged"]:
+            raise RuntimeError(f"{name}: missing or degraded v6 stream")
+        walls[arm].append({**result, "v6_streams": len(errors)})
+        print(name, result["wall_s"], result["score"], flush=True)
+
+    def score(replay_result):
+        return {k: v for k, v in replay_result["score"].items() if k != "duration"}
+
+    stable = all(score(first) == score(second) for first, second in walls.values())
+    reference = score(walls["ref"][0])["balanced_accuracy_cell_mean"]
+    candidate = score(walls["cand"][0])["balanced_accuracy_cell_mean"]
+    passed = stable and abs(reference - REF_SCORE) < TOL and abs(candidate - reference) <= .005
+    report = {"gpu": torch.cuda.get_device_name(0), "job": os.environ["SLURM_JOB_ID"], "runs": walls,
+              "repeat_scores_equal": stable, "replay_pass": passed}
+    (a.out / "pair.json").write_text(json.dumps(report, indent=2) + "\n")
+    return 0 if passed else 1
 
 
 def causal_checks(z, n=45, k=30):
@@ -229,10 +266,13 @@ def main():
     l.add_argument("--expect-sha"); l.add_argument("--expect-score", type=float); l.add_argument("--skip-replay", action="store_true")
     c = s.add_parser("cluster")
     c.add_argument("out", type=Path); c.add_argument("--ref-zip", type=Path, default=REF_ZIP); c.add_argument("--submit", action="store_true")
+    q = s.add_parser("pair")
+    q.add_argument("cand", type=Path); q.add_argument("out", type=Path)
+    q.add_argument("--ref-zip", type=Path, required=True); q.add_argument("--expect-sha", required=True)
     r = s.add_parser("report")
     r.add_argument("out", type=Path); r.add_argument("--fetch", action="store_true")
     a = p.parse_args()
-    sys.exit({"local": cmd_local, "cluster": cmd_cluster, "report": cmd_report}[a.cmd](a))
+    sys.exit({"local": cmd_local, "cluster": cmd_cluster, "pair": cmd_pair, "report": cmd_report}[a.cmd](a))
 
 
 if __name__ == "__main__":
