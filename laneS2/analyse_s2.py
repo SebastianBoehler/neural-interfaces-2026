@@ -85,6 +85,47 @@ def wave2(cells, outdir, parts=8):
         print(o, len(plan[o]), "wave-2 arms in", parts, "files")
 
 
+def wave3(cells, outdir, top=4):
+    """candidate whole-config arms: all subsets (size 2..top) of the top positive single moves per system (both-order mean delta > 0, different constants)."""
+    import itertools
+    c = parse(cells); ones = np.ones(10, bool)
+    plan = []
+    for sysm in SYSTEMS:
+        d = {}
+        for a in c["full0"]:
+            m = re.fullmatch(re.escape(sysm) + r"\|(\w+)\.(\w+)=(.+)", a)
+            if m and a in c["within0"]:
+                d[(m.group(1), m.group(2), float(m.group(3)))] = np.mean([ba(c, o, a, ones) - ba(c, o, f"{sysm}|base", ones) for o in ORDERS])
+        pos = sorted((k for k, v in d.items() if v > 0), key=lambda k: -d[k])[:top]
+        print(sysm, "top positive moves", [(k, round(d[k], 2)) for k in pos])
+        for r in range(2, len(pos) + 1):
+            for sub in itertools.combinations(pos, r):
+                if len({(k[0], k[1]) for k in sub}) < r:
+                    continue
+                st = {}
+                for (a_, b_, v) in sub:
+                    st.setdefault(a_, {})[b_] = int(v) if (a_, b_) in INTS else (int(v) if b_ == "on" else v)
+                plan.append(dict(name="combo_" + "+".join(f"{a_}.{b_}={v}" for a_, b_, v in sub), sys=sysm, set=st))
+    outdir = Path(outdir); outdir.mkdir(exist_ok=True)
+    (outdir / "arms_w3.json").write_text(json.dumps(plan))
+    print(len(plan), "wave-3 arms")
+
+
+def pick(c, system, o, src, pool):
+    """nested whole-arm selection: held-out j takes the pool arm with the best mean train delta (people != j, orders per src) if > 0 else base; returns (pp vs base for order o, chosen arms)."""
+    srco = {"self": (o,), "other": tuple(x for x in ORDERS if x != o), "both": ORDERS}[src]
+    n = c[o][f"{system}|base"][1]; tot = 0.0; chosen = []
+    for j in range(10):
+        train = np.arange(10) != j
+        best, arm = 0.0, f"{system}|base"
+        for a in pool:
+            d = np.mean([ba(c, x, a, train) - ba(c, x, f"{system}|base", train) for x in srco])
+            if d > best:
+                best, arm = d, a
+        tot += c[o][arm][0][j] - c[o][f"{system}|base"][0][j]; chosen.append(arm.split("|")[1])
+    return 100 * tot / n.sum(), chosen
+
+
 def contrast(c, a, b, orders, draw):
     sa = np.mean([c[o][a][0] for o in orders], axis=0); sb = np.mean([c[o][b][0] for o in orders], axis=0)
     n = c[orders[0]][a][1]
@@ -124,5 +165,18 @@ def report(cells):
                   f"{person_delta(c, a, base, 'P04'):+.2f} {person_delta(c, a, base, 'P10'):+.2f} | {tail}")
 
 
+def report_pick(cells):
+    c = parse(cells)
+    for sysm in SYSTEMS:
+        pool = sorted(k for k in c["full0"] if k.startswith(sysm + "|") and not k.split("|")[1].startswith(("nest", "oracle", "base")) and k in c["within0"])
+        for src in ("self", "other", "both"):
+            r = {o: pick(c, sysm, o, src, pool) for o in ORDERS}
+            print(f"{sysm} nested pick over {len(pool)} whole-config arms, selection {src}: full0 {r['full0'][0]:+.2f} within0 {r['within0'][0]:+.2f} mean {np.mean([r[o][0] for o in ORDERS]):+.2f}; "
+                  f"chosen (full0) {sorted(set(r['full0'][1]))}")
+        ones = np.ones(10, bool)
+        best = max(pool, key=lambda a: np.mean([ba(c, o, a, ones) - ba(c, o, f"{sysm}|base", ones) for o in ORDERS]))
+        print(f"{sysm} un-nested best single arm {best}: {np.mean([ba(c, o, best, ones) - ba(c, o, f'{sysm}|base', ones) for o in ORDERS]):+.2f}")
+
+
 if __name__ == "__main__":
-    wave2(sys.argv[2], sys.argv[3]) if sys.argv[1] == "wave2" else report(sys.argv[2])
+    {"wave2": lambda: wave2(sys.argv[2], sys.argv[3]), "wave3": lambda: wave3(sys.argv[2], sys.argv[3]), "pick": lambda: report_pick(sys.argv[2])}.get(sys.argv[1], lambda: report(sys.argv[2]))()
