@@ -1,20 +1,29 @@
-# Handover · Fri 20 Nov ~12:30 CET (Mac going offline)
+# Handover · Fri 20 Nov ~15:20 CET (Mac offline ~3 h)
 
-Cluster jobs keep running; local agents and the hourly keeper stop while the Mac is offline. On return: re-check
-ssh (Galvani 2FA, Leonardo `step ssh login`; cert expires 22:39), read the results below, restart agents as needed.
+Cluster jobs keep running; local agents and the hourly keeper stop while the Mac is offline. On return: check ssh
+(Galvani 2FA; Leonardo `step ssh login`, cert expires 22:39; Leonardo SSH sometimes times out under eduVPN — retry),
+read results below, restart agents.
 
-## Results that land unattended (collectors chained with afterok)
-- Lane P (stack combinations, Galvani `ni26_laneP_20261120`): full0 3141462, within0 3141463 → score 3141464. Card `laneP_stack.md`.
-- Lane N (finalists on NI-V, 8 orders, Galvani `ni26_niv_v1_20261119/out`): summary 3141005 → `out/laneN_summary.{json,md}`. Card `laneN_niv_final.md`.
-- Lane O (8-order proxy, Galvani `ni26_laneO_20261120`): smoke 3140866 → array 3140891 → scorer 3140892 → `score_o.{json,md}`. Card `laneO_orders.md`.
-- Lane B1 leftovers: zero-change 3140617/3140618; sparse20 returning 3140818 → 3140819. Card `laneB1_final_choice.md`.
+## Running / queued unattended (collectors chained afterok)
+- Galvani (~36 running, ~70 pending): R4 keep-adaptation returning arrays (ni26-R4-ret, -niv, -cp), lane P2 returning
+  collect (ni26-laneP2-retcollect), NI-V collectors (ni26-niv-collect/-ret/-enrol), B1 sparse20 returning (ret-sparse20).
+- Leonardo: R4 NI-V (r4-niv, ~53 running), B10 one-session returning stress (b10-run), cap250 fold waves
+  (wave 1 had 6 failed `cap250-w01-014-worker`; a fix agent was started 15:20 to re-chain waves 2–4 — check the
+  card `cap250_pipeline.md` for whether it finished before the Mac went offline).
 
-## Needs an agent to continue (stops while offline)
-- cap250 fold pipeline (Codex lead; SPEC `cleanslate/cap250/SPEC.md`, card `cap250_pipeline.md`): families built except SessionBN
-  (builder still running); parity chain on Leonardo 64932077 → 64932082 → 64932085. Next: assemble, fresh all-ten parity, launch folds.
-- Team C (clean slate, `cleanslate_teamC.md`): ~6 pp below cap250; not an upload candidate.
+## Results already in (20 Nov)
+- Lane P best joint arm ds_all (hardcb + lite5 + FBL2 + dispersion correction, per-session reset): +0.86 pp vs cap250;
+  B7 seed-robust pooled +0.72 [+0.11, +1.26] (13/13 sets positive); vs final stack +0.38 [−0.11, +0.81].
+- Lane Z: the absorber is mixer dilution + redundancy; later stages pass gains. R1: mixer re-weighting doesn't help.
+- Lane N (NI-V 8 orders): finalists ≈ cap250 on Scherer; light/heavy TTT −0.3 to −0.5 on within orders.
+- Final stack runtime ~3,130–3,150 s projected (paired timing).
 
-## Decision state
-Upload candidate: final stack hardcb (`runs/sealed/final_zips/final_stack_hardcb.zip`, sha 958fd3f3…), +0.39 pp held-new dev,
-~+0.2 sealed, ~3,130–3,150 s projected. Replace only if lane P/N/O show a better joint arm that fits 3,600 s.
-Upload Sat ~11:00–14:00 with the user's explicit go-ahead; ask organisers whether a timeout counts as Failed.
+## Waiting for an agent (stops while offline)
+- P2: packaging ds_all with a real member (not the stand-in), with/without FBL2; checks chained — read laneP2_package.md.
+- R4: keep FT/CSP/TTT after recognition — results land in laneR4_keepadapt.md / Galvani release.
+- B10: laneB10_returning_stress.md.
+
+## Decision Sat ~10:00
+Fallback: final stack hardcb (sha 958fd3f3…). Upgrade to a packaged ds_all (or R4 form) only if its package passes
+zero-change, NI-V shows no external harm (watch FBL2), returning not worse, and runtime projects ≤ 3,450 s.
+Upload Sat ~11:00–14:00 with the user's explicit go-ahead.
