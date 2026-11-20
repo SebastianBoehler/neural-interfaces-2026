@@ -1,0 +1,6 @@
+guard present in unpatched: False (count 0)
+guard present in patched: True (count 1)
+ZERO-CHANGE windows 379 labels equal True max|step diff| 0.000e+00
+unpatched with injected error: crash: ValueError('the actual outer mixer did not consume the current waveform')
+patched with injected error: finished 12 windows; labels before the error equal clean: True
+PASS
