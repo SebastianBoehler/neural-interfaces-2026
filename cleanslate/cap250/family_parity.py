@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 import shutil
+from tempfile import TemporaryDirectory
 from zipfile import ZipFile
 
 import numpy as np
@@ -11,7 +12,8 @@ import numpy as np
 from archive_check import rebuild
 from assemble import ALIGN, FIXED, load_arrays
 from components import FAMILIES, ORDINARY, SBN, Variant, assets
-from source import PEOPLE, file_digest
+from receipts import read_receipt
+from source import PEOPLE, file_digest, row_digest, source_rows
 from verify import SEALED, harness, labels
 
 ORDERS = (None, 71000)
@@ -81,14 +83,73 @@ def variants():
     return ("archive", "reassembled", "fresh", "raw-only", *(f"restore-{name}" for name in FAMILIES_STOCK))
 
 
-def replay(run, data_path, task):
+def replay(run, data, task):
     variant, person = [(variant, person) for variant in variants() for person in PEOPLE][task]
+    replay_package(run / variant, data, person, run / f"{variant}-{person}.npz")
+
+
+def replay_package(package, data_path, person, out):
     data = harness.load(data_path)
-    predictions = labels(run / variant, data, ORDERS, person)
-    np.savez(run / f"{variant}-{person}.npz", **{
+    predictions = labels(package, data, ORDERS, person)
+    np.savez(out, **{
         f"{order}|{visit}|{field}": value
         for order, sessions in predictions.items() for visit, (rows, decisions, _) in sessions.items()
         for field, value in (("rows", rows), ("labels", decisions))})
+
+
+def replay_eye(run, reference, data, task):
+    repeat, query = divmod(task, len(PEOPLE))
+    person = PEOPLE[query]
+    rows = row_digest(source_rows(PEOPLE, (), data))
+    data_hash = file_digest(data)
+    fresh = reference / "fresh"
+    _, eye_files = payload("eye", ())
+    with TemporaryDirectory(dir=run) as tmp:
+        package = Path(tmp)
+        for path in fresh.iterdir():
+            if path.name not in eye_files:
+                (package / path.name).hardlink_to(path)
+        for seed in range(FAMILIES["eye"].seeds):
+            part = run / "parts" / str(repeat) / f"s{seed}"
+            read_receipt(part, "eye", seed, rows, data_hash)
+            (name,) = assets("eye", seed)
+            (package / name).hardlink_to(part / name)
+        replay_package(package, data, person, run / f"eye-{repeat}-{person}.npz")
+
+
+def check_eye(run, reference, repeats):
+    baseline = json.loads((reference / "attribution.json").read_text())
+    expected = {"None": 0, "71000": 1}
+    for order, count in expected.items():
+        report = baseline[order]
+        if (report["fresh"]["vs_archive"] != count
+                or any(report[tag]["vs_archive"] for tag in ("reassembled", "raw-only", "restore-eye"))
+                or any(report[f"restore-{family}"]["vs_fresh"] for family in FAMILIES_STOCK if family != "eye")):
+            raise ValueError(f"initial comparison does not isolate the changed decision to Eye: {order}")
+    results = []
+    for repeat in range(repeats):
+        counts = {order: {"vs_archive": 0, "vs_fresh": 0, "new_rows": 0} for order in expected}
+        for person in PEOPLE:
+            archive, fresh, eye = (load_arrays(path) for path in (
+                reference / f"archive-{person}.npz", reference / f"fresh-{person}.npz",
+                run / f"eye-{repeat}-{person}.npz"))
+            if eye.keys() != archive.keys():
+                raise ValueError(f"Eye replay coverage changed: {person}")
+            for key, result in eye.items():
+                if key.endswith("|rows"):
+                    if not np.array_equal(result, archive[key]):
+                        raise ValueError(f"Eye replay delivery changed: {key}")
+                    continue
+                stats = counts[key.split("|", 1)[0]]
+                old, new = archive[key], fresh[key]
+                stats["vs_archive"] += int((old != result).sum())
+                stats["vs_fresh"] += int((new != result).sum())
+                stats["new_rows"] += int(((old == new) & (new != result)).sum())
+        results.append(counts)
+    (run / "eye_repeats.json").write_text(json.dumps(results, indent=2) + "\n")
+    print(json.dumps(results), flush=True)
+    if not any(all(stats["vs_archive"] == 0 for stats in counts.values()) for counts in results):
+        raise ValueError("independent Eye fits did not isolate the observed change to run-to-run variation")
 
 
 def compare(run, original):
@@ -131,14 +192,17 @@ def compare(run, original):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    for name, arguments in {"prepare": ("run", "fresh", "sealed", "data"),
-                            "replay": ("run", "data"), "compare": ("run", "original")}.items():
-        command = commands.add_parser(name)
+    for handler, arguments in ((prepare, ("run", "fresh", "sealed", "data")), (replay, ("run", "data")),
+                               (compare, ("run", "original")), (replay_eye, ("run", "reference", "data")),
+                               (check_eye, ("run", "reference"))):
+        command = commands.add_parser(handler.__name__)
+        command.set_defaults(handler=handler)
         for argument in arguments:
             command.add_argument(argument, type=Path)
-        if name == "replay":
+        if handler in (replay, replay_eye):
             command.add_argument("task", type=int)
+        if handler == check_eye:
+            command.add_argument("repeats", type=int)
     kwargs = vars(parser.parse_args())
-    if kwargs["command"] == "replay":
-        kwargs["data_path"] = kwargs.pop("data")
-    globals()[kwargs.pop("command")](**kwargs)
+    kwargs.pop("command")
+    kwargs.pop("handler")(**kwargs)

@@ -143,3 +143,28 @@ or rescue of the original decision by another family, refutes raw-only attributi
 A successful attribution lets the fold experiment use fresh stock as its paired
 reference. Both arms share stock fits within each fold. The archived-parts gate stays
 strict, and the original fresh-versus-archive result remains a parity miss.
+
+### Family attribution and Eye repeat check
+
+All 230 replays finished in Leonardo array 64939174. Archive reconstruction had zero
+changes in both orders. The comparisons used 2,655 decisions per order in the full Solver.
+
+| Change to the package | Recording decisions changed vs fresh | Shuffle 71000 decisions changed vs fresh |
+| --- | ---: | ---: |
+| Restore archived Eye only | 0 | 1, restores the original P02 visit 1 decision |
+| Restore each of the other 18 families individually, including raw SessionBN | 0 each | 0 each |
+| Insert fresh raw SessionBN into the archive | 0 vs archive | 0 vs archive |
+
+Job 64939175 rejected raw-only attribution and Slurm canceled dispatcher 64939305 before
+it submitted any fold tasks. Eye is the sole family whose restoration affects the observed
+decision. Its builder documented GPU-dependent differences in its trained posteriors. The
+historical and fold trainers use the same architecture, seeds, training loop and optimizer.
+
+Before fitting Eye again, register four independent repeats of the same all-ten Eye fit
+(three seeds, identical code, data and Leonardo CUDA environment). Replace only the Eye
+traces in the fresh package and stream both orders for every public visit again. Predict
+that at least one repeat restores the P02 decision and matches the archive on all 2,655
+decisions in each order. A match demonstrates that repeat-to-repeat Eye fitting is enough
+to account for the observed decision. Report the other repeats and any new changed rows.
+If the match occurs, accept fresh stock as the paired fold reference under the permitted
+GPU nondeterminism exception. Otherwise keep production gated while the cause is unresolved.

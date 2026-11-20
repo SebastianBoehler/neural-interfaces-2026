@@ -152,14 +152,16 @@ assets="$root/assets"
 export CAP250_CB_CHECKPOINT="$assets/runs/cb_stage_a/cbramod.safetensors"
 python -B "$release/cleanslate/cap250/graph.py" --release "$release" \
   --assets "$assets" --revision "$revision" --run "$root/runs/$tag" \
-  --variants stock,hardcb --orders 71000,71001,71002,71003 --submit
+  --variants stock,hardcb --orders 71000,71001,71002,71003 \
+  --wave-size 940 --afterok "$acceptance_job" --submit
 ```
 
 The default Leonardo target uses AIFAC_P02_1636, `boost_usr_prod` A100s and the
 existing `$WORK/ni26/.venv312` (CUDA 12.6 and Benchopt 1.10.0). Set `--account AIFAC_P02_1675` for that allocation.
-The graph submits all prerequisites, writes `jobs.jsonl`, then releases the submitted
-Slurm jobs. Pass the all-ten acceptance collector's same-cluster Slurm ID as
-`--afterok` when pre-queuing production. Use `--site galvani` with the Galvani image
-and asset paths for overflow.
+Set `acceptance_job` to the same-cluster collector for the registered acceptance
+check. Leonardo `boost_usr_prod` allows 1,000 submitted tasks per user. At 940 tasks
+per wave the complete plan uses four waves. Each dispatcher writes `jobs.jsonl`
+before releasing its wave, and the next dispatcher requires all its jobs to succeed.
+Use `--site galvani` with the Galvani image and asset paths for overflow.
 Use the graph to run the normal parallel package builds. `train.py` also accepts the
 same roster directly in a compute allocation with the full staged release and assets.
