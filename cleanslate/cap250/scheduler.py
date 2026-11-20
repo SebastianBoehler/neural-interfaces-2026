@@ -78,21 +78,22 @@ class Slurm:
             groups = {}
             for node in pending.values():
                 if set(node.deps) <= self.ids.keys():
-                    family_seed = tuple(node.args[1:4]) if node.program.endswith("/worker.py") else ()
-                    signature = (node.program, node.resources, node.deps, family_seed)
+                    signature = (node.program, node.resources, node.deps)
                     groups.setdefault(signature, []).append(node)
             if not groups:
                 raise ValueError("cap250 DAG has an unsatisfied dependency")
-            for group in groups.values():
-                index += 1
-                name = f"cap250-{index:03d}-{group[0].program.rsplit('/', 1)[-1].removesuffix('.py')}"
-                try:
-                    self.submit_group(name, group)
-                except subprocess.CalledProcessError as error:
-                    raise RuntimeError(f"sbatch failed for {group[0].key}: {error.stderr.strip()}. "
-                                       f"Submitted jobs remain held and are recorded in {self.state}") from error
-                for node in group:
-                    del pending[node.key]
+            for nodes_in_group in groups.values():
+                for offset in range(0, len(nodes_in_group), 1000):
+                    group = nodes_in_group[offset:offset + 1000]
+                    index += 1
+                    name = f"cap250-{index:03d}-{group[0].program.rsplit('/', 1)[-1].removesuffix('.py')}"
+                    try:
+                        self.submit_group(name, group)
+                    except subprocess.CalledProcessError as error:
+                        raise RuntimeError(f"sbatch failed for {group[0].key}: {error.stderr.strip()}. "
+                                           f"Submitted jobs remain held and are recorded in {self.state}") from error
+                    for node in group:
+                        del pending[node.key]
         for i in range(0, len(self.base_ids), 100):
             subprocess.run(["scontrol", "release", ",".join(self.base_ids[i:i + 100])],
                            env=self.env, check=True)
