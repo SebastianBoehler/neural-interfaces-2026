@@ -219,7 +219,7 @@ def main():
     args.assets = (args.assets or (Path(work) / "ni26" if work else args.release)).resolve()
     args.data = (args.data or args.assets / "data/proteus_windows.npz").resolve()
     if args.submit and args.image is None and args.python is None and args.site == "leonardo" and work:
-        args.python = Path(work) / "ni26/.venv/bin/python"
+        args.python = Path(work) / "ni26/.venv312/bin/python"
     if args.submit:
         runner = args.image or args.python
         if runner is not None and not runner.is_file():

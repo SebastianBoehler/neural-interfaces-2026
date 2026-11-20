@@ -103,8 +103,10 @@ participants with newly fit rosters. [Preregistration format](CLEANSLATE.md)
 | Source-only external initializer check | Galvani 3141372 | Verified all 30 m7r files and the spectral model. The m7r metadata names the seven external corpora and no PROTEUS adaptation. The spectral model has 224 people and 673 visits. |
 | Galvani array-task dependency | 3141373 → 3141374 | Both array tasks passed and the dependent job completed |
 | Leonardo hold/release and individual array-task dependency | 64930908 → 64930920 | The SIF uses CUDA 13. The booster host driver exposed CUDA 12.2, so both tasks failed fast and the dependent job canceled |
-| Leonardo native CUDA and dependency retry | 64931727 → 64931728 | Released in the project venv |
-| Native archived Solver decision comparison | 64932077 → 64932082 → 64932085 | Queued as a ten-person replay array and dependent aggregate |
+| Leonardo native CUDA and dependency retry | 64931727 → 64931728 | Both A100 hard fits passed in 2m46s; task-dependent CountFilter passed in 21s |
+| B2 simulator path on real tensors and archive weights | Galvani 3141445 | Passed 31-window stream and 16-window prefix check, with no scoring |
+| Native archived Solver decision comparison | 64932077 → 64932082 → 64932085 | Reassembly passed; replay exposed a release missing the official benchmark utilities |
+| Official utilities staged, replay retry | 64932707 → 64932711 | Native Python 3.11 environment lacked Benchopt. Existing Python 3.12 environment contains Benchopt 1.10.0, Braindecode 1.8.1 and Torch 2.14.1+cu126. |
 
 The first archive build on Galvani lacked the staged ZIP. The second isolated
 one-ULP rounding in 34 mixer weights. The third used the preserved exact constants

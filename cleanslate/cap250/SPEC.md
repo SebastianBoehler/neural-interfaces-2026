@@ -156,7 +156,7 @@ python -B "$release/cleanslate/cap250/graph.py" --release "$release" \
 ```
 
 The default Leonardo target uses AIFAC_P02_1636, `boost_usr_prod` A100s and the
-existing `$WORK/ni26/.venv`. Set `--account AIFAC_P02_1675` for that allocation.
+existing `$WORK/ni26/.venv312` (CUDA 12.6 and Benchopt 1.10.0). Set `--account AIFAC_P02_1675` for that allocation.
 The graph submits all prerequisites, writes `jobs.jsonl`, then releases the submitted
 Slurm jobs. Pass the all-ten acceptance collector's same-cluster Slurm ID as
 `--afterok` when pre-queuing production. Use `--site galvani` with the Galvani image
