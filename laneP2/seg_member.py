@@ -1,16 +1,18 @@
 """Lane P2: segment contributions of the REAL package member, leave-one-person-out.
 
-usage: seg_member.py HELD OUT PKG_ZIP_SUBMISSION   (run as ROOT/laneP2/seg_member.py from a release dir that carries experiments/, 2026-competition/, data/)
+usage: seg_member.py HELD OUT PKG_ZIP_OR_SUBMISSION_PY   (run as ROOT/laneP2/seg_member.py from a release dir that carries experiments/, 2026-competition/, data/)
 The member is the cap250 raw FBCNet SessionBN seed 0 (package net 47, sbn_fbcnet_raw_k20_s0.pt): same recipe as laneP/seg_export.py (fbcnet_raw_sbn, seed 0,
 N9 = all people but HELD, k 20), but here the fit is exported as a stateful TorchScript trace (copy of cleanslate/cap250/families/_sbn.py export) and the held
 person's two pinned orders are streamed window by window through the PACKAGE class `SharedFIRSJit` (code of PKG_SUBMISSION, with its segment hook), reset at
 every session. Checks, all hard asserts: package posterior vs eager SessionBN < 1e-4; hook segments + bias recover the logits (the hook returns None otherwise);
 the trace is stateful with zero state. Writes OUT/seg_{full0|within0}_0_{HELD}.npz (rows, post = package posterior, seg n x 4 x 3, bias, delivery, post_eager)."""
 import hashlib
+import os
 import importlib.util
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from zipfile import ZipFile
 
 import numpy as np
 import torch
@@ -55,6 +57,8 @@ def main(held, out, pkg_source):
     run_cv.SEED[0] = 0
     net = session_bn.make("fbcnet_raw_sbn", d, 0)
     assert net.init is None and net.epochs == 40
+    if os.environ.get("LANEP2_SMOKE") == "1":  # plumbing smoke: 2 epochs, results not used
+        net.epochs = 2
     net.fit(train)
     net.set_k(20.0)
     net.net.eval()
@@ -69,9 +73,13 @@ def main(held, out, pkg_source):
     first = work[next(iter(work))][2]
     traced = device_free_trace(to_stream(net.net, 20.0), torch.from_numpy(first[:4]))
     reset_stream(traced)
-    spec = importlib.util.spec_from_file_location("p2_pkg", pkg_source)
-    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
     with TemporaryDirectory() as tmp:
+        if pkg_source.endswith(".zip"):  # the package's own submission.py
+            (Path(tmp) / "pkg").mkdir()
+            (Path(tmp) / "pkg/submission.py").write_bytes(ZipFile(pkg_source).read("submission.py"))
+            pkg_source = str(Path(tmp) / "pkg/submission.py")
+        spec = importlib.util.spec_from_file_location("p2_pkg", pkg_source)
+        mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
         traced.save(str(Path(tmp) / NAME))
         member = mod.SharedFIRSJit({"sjit_file": np.array(NAME)}, "cpu", tmp)
         buffers = [b for n, b in member.m.named_buffers() if n.rsplit(".", 1)[-1] in STATE]

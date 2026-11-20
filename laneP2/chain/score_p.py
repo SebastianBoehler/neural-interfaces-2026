@@ -1,4 +1,4 @@
-"""Lane P (copy of laneB1 score_b.py over all arms of final_p): official balanced accuracy of the final stack (hardcb) and the arms of one B1 set on the ten reused held-new people (cells equal), paired people bootstrap.
+"""Lane P2 (copy of laneP score_b.py over all arms of final_p): official balanced accuracy of the final stack (hardcb) and the arms of one B1 set on the ten reused held-new people (cells equal), paired people bootstrap.
 Runs in the c25d worker environment after final_b.py wrote ORDER_SET.npz (B1_SET as there). Contrasts: every live arm minus hardcb (final stack) and minus stock (cap250)."""
 import json
 
@@ -15,11 +15,9 @@ ORDERS = ("full0", "within0")
 CONTRASTS = {f"{a}_minus_final": (a, "hardcb") for a in LIVE if a != "hardcb"}
 CONTRASTS.update({f"{a}_minus_cap250": (a, "stock") for a in LIVE if a != "stock"})
 CONTRASTS.update({f"{a}_minus_ctl": (a, "ftctl") for a in LIVE if a in ("ftlite5",)})
-CONTRASTS.update({"ws_minus_wp": ("ws", "wp"), "ds_minus_dp": ("ds", "dp"), "ds_minus_ws": ("ds", "ws"), "ws_l5_minus_ftlite5": ("ws_l5", "ftlite5"),
-                  "ds_l5_minus_ftlite5": ("ds_l5", "ftlite5"), "hcF_l5_minus_ftlite5": ("hcF_l5", "ftlite5"), "hcF_l5_minus_hcF": ("hcF_l5", "hcF"),
-                  "ds_all_minus_hcF_l5": ("ds_all", "hcF_l5"), "ds_all_minus_ds_l5": ("ds_all", "ds_l5"), "ds_l5_minus_ws_l5": ("ds_l5", "ws_l5"),
-                  # interaction = joint - (lite5 alone) - (correction alone), all vs hardcb
-                  })
+CONTRASTS.update({f"{a}_minus_{a}_stk": (a, f"{a}_stk") for a in ("ds", "ds_l5", "ds_all")})  # pseudo-label form: packaged (self) minus stock labels
+CONTRASTS.update({"ds_l5_minus_ftlite5": ("ds_l5", "ftlite5"), "ds_all_minus_hcF_l5": ("ds_all", "hcF_l5"), "ds_all_minus_ds_l5": ("ds_all", "ds_l5"),
+                  "hcF_l5_minus_ftlite5": ("hcF_l5", "ftlite5"), "hcF_l5_minus_hcF": ("hcF_l5", "hcF"), "ds_minus_ctl": ("ds", "ftctl")})
 
 
 def load(order):
@@ -66,7 +64,7 @@ def main():
         for key, (a, b) in CONTRASTS.items():
             d = boot[:, unit[a]] - boot[:, unit[b]]
             eff[key] = dict(pp=float(point[unit[a]] - point[unit[b]]), paired80=np.percentile(d, (10, 90)).tolist())
-        for c in ("ws", "ds"):  # interaction = joint - lite5 alone - correction alone (all vs hardcb), same bootstrap draws
+        for c in ("ds",):  # interaction = joint - lite5 alone - correction alone (all vs hardcb), same bootstrap draws
             j, l, k, h = (unit[x] for x in (f"{c}_l5", "ftlite5", c, "hardcb"))
             d = boot[:, j] - boot[:, l] - boot[:, k] + boot[:, h]
             eff[f"interaction_{c}"] = dict(pp=float(point[j] - point[l] - point[k] + point[h]), paired80=np.percentile(d, (10, 90)).tolist())

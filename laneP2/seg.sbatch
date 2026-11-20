@@ -7,7 +7,7 @@
 #SBATCH --time=00:40:00
 #SBATCH --job-name=ni26-laneP2-seg
 #SBATCH --output=logs/seg-%A_%a.out
-# usage (release dir): sbatch --array=0-9 laneP2/seg.sbatch PKG_SUBMISSION_PY   task i = held person P(i+1)
+# usage (release dir): sbatch --array=0-9 laneP2/seg.sbatch PKG_ZIP   task i = held person P(i+1)
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:?}"; mkdir -p seg logs
 held=$(printf "P%02d" $((SLURM_ARRAY_TASK_ID + 1)))

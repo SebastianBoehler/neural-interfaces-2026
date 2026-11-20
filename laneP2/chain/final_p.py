@@ -1,4 +1,4 @@
-"""Lane P chain (copy of laneB1/chain final_b.py; arm set P): B1 chain: the final stack (hardcb) and arms around it in the corrected Friday chain (raw-slot replacement, then the real count/CSP tail).
+"""Lane P2 chain (copy of laneP/chain with real-member segments and packaged pseudo-labels; was: Lane P chain, copy of laneB1/chain final_b.py; arm set P): B1 chain: the final stack (hardcb) and arms around it in the corrected Friday chain (raw-slot replacement, then the real count/CSP tail).
 
 usage: final_p.py ORDER (smoke|complete) "cbbank_ORDER_s*.npz"
 Arm sets (always stock, identity, hard, hardcb as guards/controls):
@@ -34,8 +34,8 @@ X_BANK = Path(os.environ.get("B1_XBANK", "/mnt/lustre/work/gehler/gfh527/ni26_la
 FAMS = ("fbraw", "fb", "sinc", "fbl")
 BANKS = Path(os.environ["LANET_BANKS"])  # arms/ORDER_ARM/members/FAMILY_s0.npz from laneT/fit.sbatch
 FULL_MASS = 5 / 6
-SEG = Path(os.environ["LANEP_SEG"])  # seg_{order}_{seed}_{P}.npz from laneP/seg_export.py (member seed 0, N9)
-CORR = ("ws", "ds", "wp", "dp", "ws_l5", "ds_l5", "ds_all")  # segcorr on hardcb (sess = history resets each session; p = person history, laneK control) and on ftlite5
+SEG = Path(os.environ["LANEP_SEG"])  # seg_{order}_{seed}_{P}.npz from laneP/seg_export.py (real package member, LOPO, laneP2/seg_member.py)
+CORR = ("ds", "ds_l5", "ds_all", "ds_stk", "ds_l5_stk", "ds_all_stk")  # dispersion correction, per-session history; plain = packaged form (pseudo-labels = argmax of the arm's own uncorrected raw), _stk = stock-raw labels (lane P form)
 ALL = ARMS + CORR
 
 
@@ -48,22 +48,22 @@ def seg_rows(order, person):
 
 
 def correct_arms(order, ctx, rows, person, seg):
-    """Add CORR arms to ctx['raw'] (plain dict). Pseudo-labels = frozen stock raw argmax; densities see only earlier windows of the same session
-    (sess) or of the same person (p, laneK form, crosses sessions: control only)."""
+    """Add CORR arms to ctx['raw'] (plain dict). Densities see only earlier windows of the same session; real-member segments (laneP2/seg_member.py)."""
     import segcorr
     raw = ctx["raw"]
-    labels = raw["stock"].argmax(1)
     deliv = ctx["delivery"]
     for p in sorted(set(person)):  # the seg stream order is the chain's delivery order
-        np.testing.assert_array_equal(np.load(SEG / f"seg_{order}_0_{p}.npz")["delivery"], deliv[person[deliv] == p])
-    groups = {"s": list(rows.values()), "p": [deliv[person[deliv] == p] for p in sorted(set(person))]}
-    spec = {"ws": ("hardcb", "whole", "s"), "ds": ("hardcb", "disp", "s"), "wp": ("hardcb", "whole", "p"), "dp": ("hardcb", "disp", "p"),
-            "ws_l5": ("ftlite5", "whole", "s"), "ds_l5": ("ftlite5", "disp", "s"), "ds_all": ("hcF_l5", "disp", "s")}
+        z = np.load(SEG / f"seg_{order}_0_{p}.npz")
+        np.testing.assert_array_equal(z["delivery"], deliv[person[deliv] == p])
+        assert float(np.abs(z["post"] - z["post_eager"]).max()) < 1e-4, p  # package class vs eager member
+    spec = {"ds": "hardcb", "ds_l5": "ftlite5", "ds_all": "hcF_l5"}
     info = {}
-    for name, (base, kind, g) in spec.items():
+    for name in CORR:
+        base = spec[name.removesuffix("_stk")]
+        labels = raw["stock"].argmax(1) if name.endswith("_stk") else raw[base].argmax(1)
         out, act = raw[base].copy(), 0
-        for ix in groups[g]:
-            o, a = segcorr.correct(raw[base][ix], labels[ix], segcorr.features(seg[ix], kind))
+        for ix in rows.values():
+            o, a = segcorr.correct(raw[base][ix], labels[ix], segcorr.features(seg[ix], "disp"))
             out[ix] = o; act += int(a.sum())
         raw[name] = out
         info[name] = dict(active=act, changed=int((out.argmax(1) != raw[base].argmax(1)).sum()))

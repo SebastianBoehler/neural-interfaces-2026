@@ -4,8 +4,8 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=14G
 #SBATCH --time=02:00:00
-#SBATCH --job-name=ni26-laneP-chain
-#SBATCH --output=laneP-%x-%j.out
+#SBATCH --job-name=ni26-laneP2-chain
+#SBATCH --output=laneP2-%x-%j.out
 # usage (cd to the lane P chain dir): sbatch worker.sbatch ORDER smoke|complete "cbbank_ORDER_s*.npz" | worker.sbatch score
 # helper modules (parents22, matrix22, cross22, final22) come from the final-stack release, hash-checked below
 set -euo pipefail
@@ -20,7 +20,7 @@ f32=$camp/f32c_v2
 work=${SLURM_SUBMIT_DIR:?}
 fs=$base/ni26_final_stack_20261120
 export LANET_BANKS=${LANET_BANKS:-$base/ni26_laneT_20261120/laneT/arms}
-export LANEP_SEG=${LANEP_SEG:-$base/ni26_laneB5_20261120/laneP/seg}
+export LANEP_SEG=${LANEP_SEG:-$(cd "$work/../.." && pwd)/seg}
 cd "$work"
 sha256sum --check --status source.sha256
 (cd "$fs" && sha256sum --check --status source.sha256)
