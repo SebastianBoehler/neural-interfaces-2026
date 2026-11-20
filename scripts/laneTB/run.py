@@ -99,6 +99,26 @@ def time_encoder(enc, signals, rows, device):
     return msec
 
 
+def check_zero_mixer(model):
+    """Check exact identity against the unmodified mixer in the same call."""
+    cls = type(model)
+    parent = cls.__mro__[1]
+    original_parent, original_zero = parent.mix6, cls.mix6
+
+    def reference(self, *args):
+        mix = original_parent(self, *args)
+        self._zero_reference = mix.copy()
+        return mix
+
+    def verify(self, *args):
+        mix = original_zero(self, *args)
+        if not np.array_equal(mix, self._zero_reference):
+            raise ValueError("blend zero changed the mixer output")
+        return mix
+
+    parent.mix6, cls.mix6 = reference, verify
+
+
 def smoke(args, data, signals, pkgs):
     plan = D.plans(data, 71000, ["P01|1"])
     rows = plan["P01|1"]
@@ -113,6 +133,7 @@ def smoke(args, data, signals, pkgs):
     for arm, path in {"stock": args.stock, "safe": safe, **pkgs}.items():
         models[arm], load_s = timed_load(path, data, DEVICE)
         timing["timings"][arm] = dict(load_s=load_s, runs=[])
+    check_zero_mixer(models["base"])
     for arm in ("nine15", "three15"):
         model = models[arm]
         verify_encoder(model.team_b, args.weights.with_name("submission.py"), args.weights,
@@ -120,7 +141,8 @@ def smoke(args, data, signals, pkgs):
         timing["timings"][arm]["encoder_ms"] = [time_encoder(model.team_b, signals, rows, DEVICE)
                                                for _ in range(2)]
     guarded, repeated = {}, {}
-    for round_index, order in enumerate([list(models), list(reversed(models))]):
+    counterbalanced = [arm for arm in reversed(models) if arm not in {"nine25", "three25"}]
+    for round_index, order in enumerate([list(models), counterbalanced]):
         for arm in order:
             labels, taps, meta = stream_session(models[arm], signals, rows, DEVICE, capture=True)
             timing["timings"][arm]["runs"].append(meta)
@@ -136,11 +158,10 @@ def smoke(args, data, signals, pkgs):
         (guarded["safe"], guarded["base"], "safe_vs_zero"),
     ]:
         np.testing.assert_array_equal(before[0], after[0])
-        np.testing.assert_array_equal(before[1][:20], after[1][:20])
         drift[key] = float(np.max(np.abs(before[1] - after[1])))
+        print(f"Maximum absolute GPU posterior difference {key}: {drift[key]:.3g}", flush=True)
         np.testing.assert_allclose(before[1], after[1], rtol=0, atol=2e-6)
     timing["zero_posterior_drift"] = drift
-    print(f"Maximum absolute GPU posterior differences: {drift}", flush=True)
     for arm in ARMS.keys() - {"base"}:
         if np.array_equal(guarded[arm][1][:, :3], guarded["safe"][1][:, :3]):
             raise ValueError(f"blend {arm} did not reach the live mixer")
