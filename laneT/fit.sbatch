@@ -21,7 +21,7 @@ esac
 dir=$HERE/arms/${order}_${arm}
 if [[ ! -d $dir ]]; then
     mkdir -p "$dir.tmp$$"
-    (cd "$src" && cp *.py *.sha256 "$dir.tmp$$/")
+    (cd "$src" && cp *.py *.sha256 *.sbatch "$dir.tmp$$/")
     cp "$HERE/ttt_core.py" "$HERE/fit_entry.py" "$dir.tmp$$/"
     mkdir -p "$dir.tmp$$/members" "$dir.tmp$$/smoke"
     mv "$dir.tmp$$" "$dir" 2>/dev/null || rm -rf "$dir.tmp$$"

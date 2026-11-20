@@ -14,5 +14,11 @@ if order == "full0":
     from full0_common_case import BRIDGE, BRIDGE_SOURCE, ORDER
     from within0_pair_inputs import authenticate
     W.main(ORDER, partial(authenticate, order=ORDER, bridge=BRIDGE, source_sha=BRIDGE_SOURCE))
-else:
-    W.main()
+else:  # the within0 release has no main(): same command line, run(family, bridge_sha, smoke)
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("family", choices=W.FAMILIES)
+    ap.add_argument("bridge_sha")
+    ap.add_argument("--smoke", action="store_true")
+    a = ap.parse_args()
+    W.run(a.family, a.bridge_sha, a.smoke)
