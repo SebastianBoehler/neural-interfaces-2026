@@ -115,3 +115,20 @@ from the historical arrays. Its following monolithic stream timed out at 20 minu
 comparison is independent of array/payload parity. The SIF reassembly also passed on
 Leonardo (64931863). Its replay successors were canceled after the driver failure was
 identified and replaced by the native archive graph. [Rebuild code](../../cleanslate/cap250/archive_check.py)
+
+## Known fresh-fit difference
+
+Leonardo SessionBN all-ten reproduction found that EA FBC and FBLight agree with the
+archive within 5e−4 with zero flips over the probe. Sinc changed 1 of 4,530 single-member
+decisions, consistent with GPU nondeterminism. Fresh raw FBC fits reproduced the cached
+seed-0 state exactly. The archived raw traces differed in 8 of 26 parameters in the
+spatial block and changed 17–24 of 755 probe decisions per seed. The archived training
+state may be the 13 November twin retrain. Galvani 3141490 is checking that attribution.
+The nine-person production-recipe smoke passed for every SessionBN family and seed.
+Measured SessionBN time is 0.31–0.35 GPU-hours per fold.
+[SessionBN build card](cap250_build_sbn.md)
+
+The full all-ten package reports differences on 2,655 windows in both registered orders.
+The strict zero-decision gate remains in the Slurm graph. Production uses a common set
+of fresh stock family fits for stock and hardcb within each fold, paired on the same
+held people, visits and delivered rows.
