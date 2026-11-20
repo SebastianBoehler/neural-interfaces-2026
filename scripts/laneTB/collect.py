@@ -87,20 +87,25 @@ def by_cohort(cells, mode, people, orders, rng):
                         for i, p in enumerate(people)}), draws
 
 
-def timing_report(smoke):
-    times, n = smoke["timings"], smoke["windows"] - 1
+def timing_report(timing):
+    times, n = timing["timings"], timing["windows"] - 1
+    assert timing["warmup_windows"] == n + 1
     hard_pairs = [(h["warm_s"] - s["warm_s"]) / n for h, s in
                   zip(times["safe"]["runs"], times["stock"]["runs"], strict=True)]
-    out = dict(device=smoke["device"], hardcb_ms=1000 * np.mean(hard_pairs),
-               hardcb_ms_pairs=(1000 * np.array(hard_pairs)).tolist())
+    assert all(np.isfinite(t) and t > 0 for t in hard_pairs), hard_pairs
+    out = dict(device=timing["device"], warm_windows=n, hardcb_ms=1000 * np.mean(hard_pairs),
+               hardcb_ms_pairs=(1000 * np.array(hard_pairs)).tolist(),
+               hardcb_component_ms=timing["hardcb_component_ms"],
+               smoke_posterior_drift=timing["smoke_posterior_drift"])
     for key, full in (("nine", "nine15"), ("three", "three15")):
         encoder = times[full]["encoder_ms"]
-        added_load = times[full]["load_s"] - times["stock"]["load_s"]
+        added_load = np.array(times[full]["load_s"]) - times["stock"]["load_s"]
         first = [(h["setup_s"] - s["setup_s"]) for h, s in
                  zip(times[full]["runs"], times["stock"]["runs"], strict=True)]
         projected = 2555 + 20083 * (np.mean(hard_pairs) + np.mean(encoder) / 1000)
         out[key] = dict(encoder_ms=float(np.mean(encoder)), encoder_ms_pairs=encoder,
-                        projection_s=float(projected), load_delta_s=added_load,
+                        projection_s=float(projected), load_delta_s=float(added_load.mean()),
+                        load_delta_s_pairs=added_load.tolist(),
                         first_window_and_copy_delta_s=first)
     return out
 
@@ -116,7 +121,7 @@ def main():
     rng = np.random.default_rng(20261121)
     orders = rng.integers(len(ORDERS), size=(20_000, len(ORDERS)))
     result = dict(orders=ORDERS, fold_sha256={f"{k[0]}_{k[1]}": v for k, v in receipts.items()}, arms={},
-                  null_71120=null_repeats(args.root, data), timing=timing_report(json.loads((args.root / "smoke/smoke.json").read_text())))
+                  null_71120=null_repeats(args.root, data), timing=timing_report(json.loads((args.root.parent / "timing.json").read_text())))
     result["baseline_new"], _ = by_cohort(base, "new", D.PEOPLE, orders, rng)
     result["baseline_ret"], _ = by_cohort(base, "ret", D.RETURNING, orders, rng)
     for arm in ARMS[1:]:
