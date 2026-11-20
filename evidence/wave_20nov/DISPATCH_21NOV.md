@@ -29,3 +29,5 @@
 - Final R1a tape check · 21 Nov 00:11 CET, source `a9bc7f5e`. Hard smoke 64992918 → full tape 64992919. Hardcb smoke 64992932 → full tape 64992934. Both final archive smokes completed before the full checks. The tape jobs compare the exact ZIP and the fold-scoped solver on verified tape rows. [Evidence](final_r1a.md)
 
 - Lane TB timing recovery · 21 Nov 00:20 CET. Smoke 64992565 completed with exact pinned labels and same-call mixer identity. Stream array 64992566 remains active. The cold-load timing was invalid. Warm A100 timing 64993397 and streams feed collector 64993398, then conditional ZIP/CPU zero 64993399.
+
+- Final R1a CPU retry · 21 Nov 00:26 CET. Both 15-minute jobs (64992739 and 64992751) timed out after the parent had completed P01/1 with 17 stock refits and no recognition. The 45-minute retries 64993648 (hard) and 64993649 (hardcb) started after the timeouts. Both A100 qualification jobs, both recognised replay jobs and both full tape jobs started around 00:27 CET. [Evidence](final_r1a.md)

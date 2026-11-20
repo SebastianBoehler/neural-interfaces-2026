@@ -1,6 +1,6 @@
 # Final R1a archives · 21 November 2026
 
-Both candidates use `laneR4/build_keep.py R1a` against pinned self-test parents. On recognised streams R1a keeps the stock fine-tuning objective and schedules one five-step refit at age 100. CSP retires at recognition. `replay/check.py` printed OK for all six original v3 references. [Registration](../../docs/LEDGER.md#final-r1a-zip-qualification--21-november) · [Lane R4 design](laneR4_keepadapt.md)
+Both candidates use `laneR4/build_keep.py R1a` against pinned self-test parents. On recognised streams R1a keeps the stock fine-tuning objective and schedules one five-step refit at age 100. CSP retires at recognition. If recognition precedes the first stock refit, the R1a code skips fine-tuned forward passes until age 100. If a stock refit already ran, its fine-tuned actors can continue forwarding after recognition. `replay/check.py` printed OK for all six original v3 references. [Registration](../../docs/LEDGER.md#final-r1a-zip-qualification--21-november) · [Lane R4 design](laneR4_keepadapt.md)
 
 | Archive in `runs/sealed/final_zips/` | Bytes | SHA-256 |
 |---|---:|---|
@@ -20,14 +20,14 @@ The tape checks use the frozen H1 A100 tapes on the clean folds (seeds 71000–7
 | Check | hard + R1a | hardcb + R1a |
 |---|---|---|
 | Exact ZIP A100 smoke and self-test load | 64992707 passed | 64992710 passed |
-| Held-new P01/1 CPU and self-test fault injection | 64992739 queued | 64992751 running |
-| Exact ZIP returning effect and timings | 64992709 queued | 64992712 queued |
-| Frozen tape label comparison | 64992918 → 64992919 queued | 64992932 → 64992934 queued |
-| Official A100 cap250 comparison | 64992708 queued | 64992711 queued |
+| Held-new P01/1 CPU and self-test fault injection | 64993648 retry running | 64993649 retry running |
+| Exact ZIP returning effect and timings | 64992709 running | 64992712 running |
+| Frozen tape label comparison | 64992918 passed → 64992919 running | 64992932 passed → 64992934 running |
+| Official A100 cap250 comparison | 64992708 running | 64992711 running |
 
 ## Additive sealed-time projection
 
-Use 2,555 s cap250 sealed time + 20,083 windows × measured hard/hardcb cost + 46 assumed recognised sessions × paired Lane R4 R1a cost. Lane R4 measured +3.5 s per recognised session on A100 and +3.3 s on RTX 2080 Ti using hardcb. For hard, this projection assumes the same fine-tuning cost. The RTX PRO 4500 sealed worker remains unmeasured. [Per-window timing](final_stack.md#review-fix-2--additive-runtime-and-load-time-self-test-20-nov-sat-0000-0100-cet) · [Paired R1a timing](laneR4_keepadapt.md)
+Use 2,555 s cap250 sealed time + 20,083 windows × measured hard/hardcb cost + 46 assumed recognised sessions × paired Lane R4 R1a cost. Lane R4 measured +3.5 s per recognised session on A100 and +3.3 s on RTX 2080 Ti using hardcb with recognition at age 10. Recognition after a stock refit can change the cost because fine-tuned actors may forward before age 100. For hard, this projection assumes the same fine-tuning cost. The RTX PRO 4500 sealed worker remains unmeasured. [Per-window timing](final_stack.md#review-fix-2--additive-runtime-and-load-time-self-test-20-nov-sat-0000-0100-cet) · [Paired R1a timing](laneR4_keepadapt.md)
 
 | Package | GPU proxy | Added window cost | Added session cost | Projected time | Margin to 3,600 s |
 |---|---|---:|---:|---:|---:|
@@ -36,4 +36,4 @@ Use 2,555 s cap250 sealed time + 20,083 windows × measured hard/hardcb cost + 4
 | hardcb + R1a | A100 | 39.6 ms | 3.5 s | 3,511.3 s | +88.7 s |
 | hardcb + R1a | RTX 2080 Ti | 47.1 ms | 3.3 s | 3,652.7 s | −52.7 s |
 
-Galvani rejected noninteractive SSH. A100 qualification uses Leonardo's native Python environment. The deadline for these checks is 09:00 CET. No Codabench upload was performed.
+Galvani rejected noninteractive SSH. A100 qualification uses Leonardo's native Python environment. No Codabench upload was performed.
