@@ -105,6 +105,35 @@ def contrast(c, a, b, orders, draw, extra=None):
     return point, np.percentile(d, (10, 90))
 
 
+def contrast_po(c, a, b, draws=10000):
+    """people AND orders resampled jointly: each draw takes 10 people and, per draw, 2 orders with replacement from (full0, within0)."""
+    rng = np.random.default_rng(461)
+    pp = rng.integers(0, 10, (draws, 10)); oo = rng.integers(0, 2, (draws, 2))
+    n = c["full0"]["stock"][1]
+    d = np.stack([c[o][a][0] - c[o][b][0] for o in ORDERS])  # orders x people (sum of cell BA diffs)
+    val = np.array([100 * d[oo[i]][:, pp[i]].mean(0).sum() / n[pp[i]].sum() for i in range(draws)])
+    return np.percentile(val, (10, 90))
+
+
+def nested_single(c):
+    """cheap nested estimate: held-out person j scored at the single coordinate arm that is best on the other nine (both orders, extras full0 only), if positive."""
+    mv = moves(c, ORDERS)
+    n = c["full0"]["stock"][1]
+    out = {}
+    for o in ORDERS:
+        tot = 0.0
+        for j in range(10):
+            train = np.arange(10) != j
+            best, arm = 0.0, "base"
+            for name, (kind, key, lvl) in mv.items():
+                d = np.mean([ba(c, x, name, train) - ba(c, x, "base", train) for x in (ORDERS if kind == "m" else ("full0",))])
+                if d > best:
+                    best, arm = d, name
+            tot += c[o][arm][0][j] - c[o]["base"][0][j]
+        out[o] = 100 * tot / n.sum()
+    return out
+
+
 def report(cells):
     c = parse(cells)
     draw = np.random.default_rng(460).integers(0, 10, (10000, 10))
@@ -114,14 +143,16 @@ def report(cells):
         if a in ("stock", "hardcb"):
             continue
         r = {}
+        r["po"] = contrast_po(c, a, "ds_all") if a in c["within0"] else None
         for tag, orders in (("both", ORDERS), ("full0", ("full0",)), ("within0", ("within0",))):
             r[tag] = {ref: contrast(c, a, ref, orders, draw) for ref in ("ds_all", "stock")}
         rows.append((a, r))
     rows.sort(key=lambda x: -x[1]["both"]["ds_all"][0])
-    print("arm | vs ds_all both [80%] (full0/within0) | vs cap250 both")
+    print("nested single-move estimate vs base:", nested_single(c))
+    print("arm | vs ds_all both [80% people] (full0/within0) [80% people+orders] | vs cap250 both")
     for a, r in rows:
         f = lambda x: f"{x[0]:+.3f} [{x[1][0]:+.2f},{x[1][1]:+.2f}]"
-        print(f"{a:28s} {f(r['both']['ds_all'])} ({r['full0']['ds_all'][0]:+.2f}/{r['within0']['ds_all'][0]:+.2f}) | {f(r['both']['stock'])}")
+        print(f"{a:28s} {f(r['both']['ds_all'])} ({r['full0']['ds_all'][0]:+.2f}/{r['within0']['ds_all'][0]:+.2f}) [{r['po'][0]:+.2f},{r['po'][1]:+.2f}] | {f(r['both']['stock'])}")
 
 
 if __name__ == "__main__":

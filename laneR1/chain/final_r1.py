@@ -55,7 +55,7 @@ def specs_for(job, order):
     else:
         raise SystemExit(job)
     if order != "full0":
-        arms = [a for a in arms if not (a.get("add") or a.get("Wadd"))]  # extra banks exist for the full orders only
+        arms = [a for a in arms if not (a.get("add") or any(a.get("Wadd", {}).values()))]  # extra banks exist for the full orders only
     names = [a["name"] for a in arms]
     assert len(set(names)) == len(names) and "stock" not in names
     return arms
