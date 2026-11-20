@@ -36,3 +36,11 @@ Dev weighting like the sealed set is not applied here (held-new only, 10 equal p
   a single person-order TTT cell is therefore several pp; ranking needs many person-orders. Deviation from the pre-registered
   design (made before scoring): stage 1 uses TWO orders (71000, 71001) on the 4 people instead of one, since the cost is small.
 - Stage 1 submitted: Leonardo job 64917505 (296 array tasks = 4 people x 74 config chunks, 296 configs x 4 people x 2 orders).
+- Stage 1 done (job 64917505, 296/296 tasks; collect 64919264): 296 configs, P01/P04/P07/P10 x orders 71000,71001, A100 ms/window with warm-up.
+  References on these 4 people: A0 59.61, A1 60.88 (7 ms), A2 64.20 (56 ms), A2h 60.58 (104 ms; same code as team C's A2h, i.e. the "heavier" recipe
+  is not better than A1 here). Leaderboard `laneT2_s1_leaderboard.json`; marginal effects (random design, bootstrap over configs, 80 %):
+  target sink +2.96 [2.5,3.4] / plain +0.91 / hard -3.68 [-4.5,-2.9]; lr 3e-4 +1.47 [1.0,2.0] / 1e-3 +0.44 / 3e-3 -1.89 [-2.7,-1.1];
+  stride 20 +0.77 [0.2,1.4], 5 -0.76; params all -1.41 [-2.2,-0.7], last +0.92, bn +0.44; IM 1.0 +0.70 [0.1,1.3]; steps 4 +0.54, 32 -0.63;
+  aug and anchor within +/-0.2 (undecided -> flat). The config bootstrap ignores person noise (4 people), so intervals are optimistic.
+  Predictions that failed: params all > last > BN (reverse), IM flat (1.0 slightly better), steps>=16 not better (worse), A2h not better than A2.
+  Stage 2 submitted: job 64919524 (top 58 of 292 + A0/A1/A2/A2h = 62 configs, 10 people x 2 orders, 210 tasks).
