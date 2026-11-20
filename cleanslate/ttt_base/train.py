@@ -39,6 +39,10 @@ def generate_submission(out):
     n = src.count("isinstance(m, nn.BatchNorm2d)")
     assert n == 3, n
     src = src.replace("isinstance(m, nn.BatchNorm2d)", "isinstance(m, nn.modules.batchnorm._BatchNorm)")
+    k1, k2 = "rot=0.0, max_n=1024)", "            for net, opt, anc in zip(self.nets, self.opts, self.anchor):\n"
+    assert src.count(k1) == 1 and src.count(k2) == 1
+    src = src.replace(k1, "rot=0.0, max_n=1024, freeze_bd=0)")  # freeze_bd=1: braindecode members get BN refresh but no gradient steps
+    src = src.replace(k2, k2 + '                if c["freeze_bd"] and isinstance(net, BD):\n                    continue\n')
     (out / "submission.py").write_text(src)
     spec = importlib.util.spec_from_file_location("ttt_base_submission", out / "submission.py")
     mod = importlib.util.module_from_spec(spec)

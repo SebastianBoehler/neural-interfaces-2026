@@ -64,3 +64,59 @@ dead member; MANAS late fusion (member e, form added post hoc): a0 A2 + 0.25 MAN
 Ensembles by union of existing members (no retraining), TTT teacher = the whole union (all members updated by A2): m_a0c1 = a0 + c1, m_a0ifnet = a0 + d_ifnet, m_sf = e_shallow + e_fbnet (no EEGNet), m_sfc = m_sf + c1, m_sfi = m_sf + d_ifnet. Variants A0, A1, A2, A2l.
 Predictions vs a0 on the same variant (paired people 80 %): m_a0c1 A2 -0.5 [-2, +1]; m_a0ifnet A2 0 [-1.5, +1.5]; m_sf A1 +0.5 [-1.5, +2.5], A2 +1.0 [-1, +3]; m_sfc A2 +0.5 [-1.5, +2.5]; m_sfi A2 +0.5 [-1.5, +2.5].
 Reading rule as above (lower bound > 0 supported, upper < 0 refuted, else undecided). Selection among these ensembles is selection on the 10 dev people and is reported as such.
+
+## Addendum 4 · registered ~10:00 CET, after the union ensembles were scored (a0+c1 A1 65.47 / A2 66.28; shallow+fbnet A1 63.30 / A2 65.76; +c1 64.81 / 65.45; a0+ifnet 63.48 / 64.68; all with the whole union as TTT teacher and learner)
+Reading so far: braindecode members lift the A1 level of the union (a0+c1 minus a0, A1: +2.33 [+1.09, +3.66]) but their TTT gain is negative or zero alone and drags the union's gain (+0.8 vs a0's +1.8). Hypothesis: freeze them during the
+gradient steps (BN refresh only) and TTT only team C's own members. Implemented as TTT key `freeze_bd` in the generated package code (`train.py`, one patched line in `_steps`; `merge.py` with `REGEN=1` rewrites the code of existing packages, weights unchanged).
+Variants **A2f** (A2 with freeze_bd=1) and **A2lf** (lr 2e-5, freeze_bd=1). Bases: **m_a0c1f** = a0 + c1 (must reproduce A1 65.47 exactly: no-op guard on the regenerated code) and **m_a0fbc** = a0 + c1 + d_fbc64 + d_fbcst8 (15 members, 9 braindecode).
+Predictions: m_a0c1f A2f - m_a0c1 A2: +0.7 [-0.8, +2.2]; A2f - a0 A2: +1.5 [0, +3]; m_a0fbc A1 - m_a0c1 A1: +0.5 [-1, +2]; m_a0fbc A2f - m_a0c1f A2f: +0.3 [-1.2, +1.8]. ms/window: m_a0c1f A2f below m_a0c1 A2 (107 ms) and
+near a0's 63 ms + forward cost. Same reading rule. This is a form chosen after seeing the unfrozen result, so it is reported as selected, not as a clean test.
+
+## Addendum 5 · ~10:15 CET
+Leonardo SSH certificate expired (publickey denied, ~10:05 CET); not renewed by this lane. Leonardo jobs 64926006 (m_a0c1f) and 64926007 (m_a0fbc) of Addendum 4 were queued and cannot be collected until access returns.
+The freeze_bd question is duplicated on Galvani A100 (release `/mnt/lustre/work/gehler/gfh527/ni26_tttbase_20261120`, same code, new training run): a0g (E6, retrained), b0g (scratch FBCNet x3, no trunk: hp7/hbx trunks sit on Leonardo only; c1 vs b1 vs b0 differ by <0.3 at A1),
+m_a0b0g = a0g + b0g with variants A1, A2, A2f, A2lf (jobs 3140867 a0g, 3140868 b0g, 3140869 mix). Predictions as in Addendum 4 with b0g in place of c1: A2f - A2 (same union) +0.7 [-0.8, +2.2]; A2f - a0g A2 +1.5 [0, +3]. Numbers from a retrained a0 differ from a0 (run-to-run); comparisons are within the Galvani set.
+
+## Results (Fri 20 Nov, ~11:45 CET; held-new LOPO P01-P10, orders 0 and 1, official cell mean, 28 cells; people-resampled 80 % in brackets)
+Leonardo A100 (AIFAC_P02_1636): arrays a0 64917099, a1 ..100, b0 ..102, b1 ..103, c1 ..104, d_fbc64 ..105, d_fbcst8 ..106, d_fbwide ..108, d_eegnex ..111, d_ifnet ..125, e_shallow/eegnet/fbnet 64920267-69,
+gentle-form evals 64919255/57, 64920193-211; unions 64922273 (a0+c1), 64922275 (a0+ifnet), 64923292/94/99 (m_sf, m_sfc, m_sfi), 64926006/07 (m_a0c1f, m_a0fbc, REGEN code, A1/A2 reproduced exactly);
+MANAS late-fusion streams 64917392 + 64919690; all-ten-people deployment package 64930202. Galvani A100 replication 3140867-69. Code revision: commit with this file (cleanslate/ttt_base/). ms/window = mean predict() seconds on one A100 (x2.5 = RTX PRO 4500 estimate, budget 179 ms => A100 <= 71 ms).
+
+| base (members) | A0 | A1 no TTT | A2 TTT (team C default) | gain A2-A1 | A2h | A2l / A2bn gain | ms A1 / A2 |
+|---|---|---|---|---|---|---|---|
+| a0 E6 shallow/eegnet/fbnet x2 seeds, 60 ep (control) | 60.3 | 63.1 [58.0, 70.4] | **65.0 [59.9, 72.2]** | +1.8 [+0.9, +2.9] | 62.1 (-1.1) | +1.0 / +0.6 | 9 / 63 |
+| a1 same x4 seeds, 100 ep | 61.1 | 62.7 | 64.1 | +1.4 [+0.4, +2.8] | 62.0 | | 15 / 120 |
+| b0 braindecode FBCNet x3 scratch | 57.6 | 62.1 | 57.4 | -4.7 [-6.6, -2.5] | 53.2 | -0.7 / -0.1 | 20 / 43 |
+| b1 FBCNet from Lane H hp7 trunk | 58.3 | 62.2 | 58.7 | -3.5 | 53.0 | +0.1 / +0.1 | 20 / 43 |
+| c1 FBCNet from B6 hbx trunk (+81 MI people) | 58.8 | 62.4 | 58.9 | -3.5 | 52.1 | +0.2 / +0.1 | 20 / 43 |
+| FBCNet 64 spatial filters / stride 8 | 58.1 / 57.9 | 61.6 / 61.3 | 57.9 / 57.2 | -3.7 / -4.1 | 54.2 / 53.9 | -0.3 / +0.8 ; -0.5 / -0.1 | 21 / 48 |
+| IFNet x3 / EEGNeX x3 / FBNet m=8 x3 | 52.2 / 51.8 / 56.1 | 56.9 / 53.0 / 58.4 | 57.6 / 48.9 / 59.1 | +0.7 / -4.1 / +0.7 | 53.2 / 42.8 / 56.3 | +0.6 ; +0.7 ; +0.9 | 10 / 34 ; 12 / 117 ; 4 / 37 |
+| e_shallow / e_eegnet / e_fbnet x3 each | 58.3 / 48.7 / 55.3 | 61.9 / 49.2 / 58.9 | 62.7 / 49.2 / 60.5 | +0.8 / 0.0 / +1.6 | 59.9 / 45.4 / 57.6 | +2.2 ; 0.0 ; +0.8 | 5 / 38 ; 7 / 40 ; 4 / 28 |
+| m_a0c1 union (a0 + c1, TTT on all 9) | 62.0 | 65.5 | 66.3 [60.9, 74.0] | +0.8 [0.0, +1.9] | | 66.1 (A2l) | 28 / 107 |
+| **m_a0c1f** same, `freeze_bd` (A2f) | | 65.5 | **66.7 [61.4, 74.2]** | +1.3 [+0.7, +1.9] | | 66.1 (A2lf) | 46 / **71** |
+| m_a0fbc (a0 + c1 + fbc64 + fbcst8, A2f) | | 65.3 | 65.7 | +0.4 | | | 71 / 133 |
+| m_sf (shallow + fbnet x3, no EEGNet) | | 63.3 | 65.8 | +2.5 [+1.6, +3.5] | | | 8 / 89 |
+| m_a0ifnet / m_sfc / m_sfi | | 63.5 / 64.8 / n.s. | 64.7 / 65.5 / -0.8 vs a0 | +1.2 / +0.6 / | | | |
+| MANAS B6-A1 (team A) alone, my orders | | 58.7 | | | | | ~11 (team A, A100) |
+| a0 A2 + 0.15-0.25 MANAS posterior | | 64.5 (A1 + 0.25) | 66.3 [60.9, 73.7] | | | | |
+| m_a0c1f A2f + 0.10 MANAS | | | **67.5 [62.3, 74.6]** | | | | |
+
+Paired differences (people-resampled 80 %): a1 - a0 A1 -0.42 [-1.11, +0.42], A2 -0.83 [-1.86, +0.62] (undecided; double the run time); b1 - b0 A1 +0.07 [-0.56, +0.72]; c1 - b1 A1 +0.18 [-0.42, +0.62] (trunks undecided, as Lane H/B6);
+m_a0c1 - a0: A1 +2.33 [+1.09, +3.66], A2 +1.32 [+0.11, +2.84]; **m_a0c1f A2f - a0 A2 +1.78 [+0.36, +3.25]**, A2f - m_a0c1 A2 +0.46 [-0.51, +1.37]; m_sf - a0 A2 +0.81 [-1.31, +2.56]; m_a0ifnet - a0 A2 -0.27 [-1.18, +0.86];
+m_a0fbc A2f - m_a0c1f A2f -1.03 [-1.90, -0.34] (more braindecode members hurt); MANAS fusion: a0 A2 + 0.25 M - a0 A2 +1.39 [+0.23, +2.52]; m_a0c1f A2f + 0.10 M - A2f +0.76 [+0.26, +1.10], - a0 A2 +2.54 [+1.02, +3.93].
+Galvani replication (retrained a0g 62.6 / 64.6, scratch FBCNet b0g 62.1, no trunk): m_a0b0g A1 65.3 (+2.75 [+1.56, +4.09] over a0g), A2 65.5, A2f 65.6 (A2f - A2 +0.06 [-0.95, +0.92]; A2f - a0g A2 +0.99 [-0.19, +2.22]).
+
+Reading against the rules. **"Gains add on top of the base, strongest base wins": refuted as stated.** A1 level does not predict the with-TTT level: the FBCNet/EEGNeX family reaches A1 61-62 but loses 3.5-10 pp under team C's A2/A2h
+(and ~0 under gentler forms), refuting the gain-within-+-1.5 clause for every braindecode base; only team C's own shallow / FBNet nets (and braindecode IFNet at +0.7) gain. The one clause that survives: the best base with TTT is the union that is also best at A1 (m_a0c1: A1 65.5, A2 66.3).
+Predictions that missed by more than their interval: a0 A1 63.1 vs 57 predicted; b/c trunk A1 effects fine (+0.1, +0.2 vs +0.5, +0.3); A2h - A1 +4 predicted, -1.1 seen (team C's two-person look of +8 did not hold over ten people); unions m_a0c1 A2 +1.3 vs -0.5 predicted.
+**A2h (8 steps, lr 3e-4) is worse than A2 on every base here** (a0: 62.1 vs 65.0) and its ms (105) is over budget; A2 is the useful form on the 10 dev people.
+Not tested / limits: orders 0,1 only; returning people not scored; C is a 2-order, 10-person dev measure with selection among about 15 bases and several post-hoc forms (A2l, A2bn, A2f, MANAS weights), so the +1.8 and +2.5 are selected numbers; trunk arms c1/b1 have no Galvani replication (trunks live on Leonardo);
+MANAS enters only as a late posterior mix (the TTT teacher does not see it); EEGNet (team C's own) alone is ~49 % (chance-level next to the 62 of the others) yet a0 minus EEGNet is not better (m_sf - a0 A2 +0.8 [-1.3, +2.6], undecided).
+
+## For team C
+Best TTT-able base under the budget: **m_a0c1f = team C's E6 (shallow/eegnet/fbnet x seeds 0,1, 60 ep) plus three braindecode FBCNet members initialised from the B6 `hbx` trunk (40 ep), with `freeze_bd=1`**
+(braindecode members get the prefix BN refresh and enter the ensemble posterior/teacher, but take no gradient steps; team C's own nets run A2: 4 steps, lr 1e-4): held-new 66.7 [61.4, 74.2] vs 65.0 for E6 + A2, paired +1.78 [+0.36, +3.25]; 71 ms/window on A100 (x2.5 = 178 ms, at the 179 ms line, so no margin).
+Without freeze: 66.3 at 107 ms (over budget). Adding `+ 0.10 x` MANAS posterior (fold packages: Leonardo `/leonardo_work/AIFAC_P02_1675/ni26_cleanslate_A2/b6-a1-manas/new_Pxx`, deployment ZIP in `b6-a1-manas/teamA-manas.zip`): 67.5 [62.3, 74.6], +2.5 over E6 + A2; late fusion needs MANAS posteriors from its Solver (patched one-line tap, `manas_stream.py`).
+Plain E6 + A2 (65.0, 63 ms) stays the fallback; more seeds/epochs (a1) did not help (-0.8, 120 ms).
+Where: code `cleanslate/ttt_base/` (`submission.py` of a package = `ref/submission.py` + `archs.py` + generalised BatchNorm + `freeze_bd`; arch `bd` = braindecode net; copy that file with `weights.pt` to run team C's `stream_eval` variants unchanged; new variants A2f/A2lf/A2l/A2bn in `ref/stream_eval.py`).
+Weights (Leonardo, `/leonardo_work/AIFAC_P02_1636/ni26_tttbase_20261120/`): held-new fold packages `work/m_a0c1f/pkg_P01..P10` (trained on the other nine); **all-ten-people deployment package `work/final10/pkg`** (weights.pt 895 KB, sha256 0bd39c34...; submission.py sha256 a24468da...; hbx trunk inputs `runs/trunks/`, from Lane B6 `ni26_laneB6_20261120/runs/pretrain`, corpora and licences as in the B6 card). Nothing committed; weights stay on the cluster. The all-ten package has not been streamed through the shared harness (no worker-image timing, no reset/interleave guard beyond team C's own `stream_eval` protocol); do that before any upload claim.

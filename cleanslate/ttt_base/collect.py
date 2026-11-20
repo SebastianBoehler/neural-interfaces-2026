@@ -70,11 +70,13 @@ def main():
         Z = {p: np.load(Path(a.work) / tag / f"eval_{p}.npz") for p in PEOPLE}
         row = {}
         for v in a.variants.split(","):
+            if not any(k.startswith(v + "|") for k in Z[PEOPLE[0]].files):
+                continue  # variant not run for this base
             pp, ms = per_person(d, Z, v)
             allc = np.concatenate([pp[p][1] for p in PEOPLE])
             store[(tag, v)] = pp
             row[v] = dict(ba=round(100 * float(allc.mean()), 2), ci=interval(pp).tolist(), ms=round(ms, 1), n_cells=len(allc))
-        for v in (a.variants.split(",") if M else []):
+        for v in ([v for v in a.variants.split(",") if v in row] if M else []):
             for w in map(float, a.w.split(",")):
                 def fl(p, o, z, v=v, w=w):
                     assert np.array_equal(M[p][f"rows|{o}"], z[f"rows|{o}"]), "row order differs"
@@ -84,7 +86,7 @@ def main():
                 store[(tag, f"{v}+M{w}")] = pp
                 row[f"{v}+M{w}"] = dict(ba=round(100 * float(allc.mean()), 2), ci=interval(pp).tolist(), ms=float("nan"), n_cells=len(allc))
         a1 = store[(tag, "A1")] if "A1" in a.variants else None
-        for v in a.variants.split(","):
+        for v in [v for v in a.variants.split(",") if v in row]:
             if a1 is not None and v not in ("A0", "A1"):
                 g, ci = diff(store[(tag, v)], a1)
                 row[v]["gain_vs_A1"], row[v]["gain_ci"] = round(g, 2), ci

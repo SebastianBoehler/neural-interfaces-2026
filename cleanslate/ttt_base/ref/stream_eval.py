@@ -33,6 +33,8 @@ VARIANTS = {
     # ttt_base (registered after b0 collapsed under A2/A2h): gentler forms
     "A2l": dict(bn="prefix", steps=4, lr=2e-5, balance=0),
     "A2bn": dict(bn="prefix", steps=4, params="bn", lr=1e-3, balance=0),
+    "A2f": dict(bn="prefix", steps=4, freeze_bd=1),  # A2 on the team C members only; braindecode members BN-refresh only
+    "A2lf": dict(bn="prefix", steps=4, lr=2e-5, freeze_bd=1),
     # C2: heavier TTT around A2h (8 steps, lr 3e-4)
     "A3a": dict(bn="prefix", steps=16, lr=3e-4),
     "A3b": dict(bn="prefix", steps=8, lr=1e-3),
