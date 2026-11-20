@@ -1,6 +1,7 @@
 """Lane P (copy of laneB1 score_b.py over all arms of final_p): official balanced accuracy of the final stack (hardcb) and the arms of one B1 set on the ten reused held-new people (cells equal), paired people bootstrap.
 Runs in the c25d worker environment after final_b.py wrote ORDER_SET.npz (B1_SET as there). Contrasts: every live arm minus hardcb (final stack) and minus stock (cap250)."""
 import json
+from pathlib import Path
 
 import numpy as np
 
@@ -28,6 +29,9 @@ def load(order):
                         np.testing.assert_array_equal(out[a], z[k].argmax(-1), err_msg=f"{a} differs between job sets")  # shared base arms are deterministic
                     out[a] = z[k].argmax(-1)
         rec[st] = sha(WORK / f"{order}_{SET}{st}.json")
+    with np.load(Path("/mnt/lustre/work/gehler/gfh527/ni26_laneP_20261120/chain") / f"{order}_P.npz", allow_pickle=False) as z:  # zero-change guards vs lane P
+        for mine, theirs in (("stock", "stock"), ("hardcb", "hardcb"), ("hcF_l5", "hcF_l5"), ("hc_s0disp", "ds"), ("da_s0disp", "ds_all")):
+            np.testing.assert_array_equal(out[mine], z[f"{theirs}|terminal"].argmax(-1), err_msg=f"{mine} != lane P {theirs}")
     return out, rec
 
 
