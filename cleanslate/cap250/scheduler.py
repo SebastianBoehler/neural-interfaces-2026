@@ -24,7 +24,7 @@ class Slurm:
         self.env = {**os.environ, "CAP250_RELEASE": str(self.root), "CAP250_RUN": str(self.run),
                     "CAP250_ASSETS": str(args.assets), "CAP250_DATA": str(args.data), "CAP250_REV": rev,
                     "CAP250_PYTHON": str(args.python or ""), "CAP250_IMAGE": str(args.image or ""),
-                    "CAP250_SMOKE": str(int(args.smoke))}
+                    "CAP250_SMOKE": str(int(args.smoke)), "CAP250_SITE": getattr(args, "site", "galvani")}
         (self.run / "logs").mkdir()
         (self.run / "arrays").mkdir()
 

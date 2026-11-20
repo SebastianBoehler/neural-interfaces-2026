@@ -15,6 +15,10 @@ HERE = "cleanslate/cap250"
 HARNESS = "cleanslate/harness"
 PEOPLE = tuple(f"P{i:02d}" for i in range(1, 11))
 RETURNING = ("P04", "P10")
+SITES = {
+    "leonardo": ("AIFAC_P02_1636", "lrd_all_serial", "boost_usr_prod"),
+    "galvani": ("gehler", "cpu-galvani,2080-galvani", "a100-galvani,2080-galvani"),
+}
 
 
 @dataclass(frozen=True)
@@ -186,9 +190,10 @@ def main():
     parser.add_argument("--sealed", type=Path)
     parser.add_argument("--smoke", action="store_true", help="reduced family fits; scores and archive comparison disabled")
     parser.add_argument("--submit", action="store_true", help="default only prints the graph")
-    parser.add_argument("--account", default="gehler")
-    parser.add_argument("--cpu-partition", default="cpu-galvani")
-    parser.add_argument("--gpu-partition", default="a100-galvani,2080-galvani")
+    parser.add_argument("--site", choices=SITES, default="leonardo")
+    parser.add_argument("--account")
+    parser.add_argument("--cpu-partition")
+    parser.add_argument("--gpu-partition")
     parser.add_argument("--gres", default="gpu:1")
     parser.add_argument("--exclude", default="")
     parser.add_argument("--image", type=Path)
@@ -196,8 +201,18 @@ def main():
     parser.add_argument("--revision", default=os.environ.get("CAP250_REV"))
     args = parser.parse_args()
     args.release, args.run = args.release.resolve(), args.run.resolve()
-    args.assets = (args.assets or args.release).resolve()
+    account, cpu, gpu = SITES[args.site]
+    args.account, args.cpu_partition, args.gpu_partition = (
+        args.account or account, args.cpu_partition or cpu, args.gpu_partition or gpu)
+    work = os.environ.get("WORK") if args.site == "leonardo" else None
+    args.assets = (args.assets or (Path(work) / "ni26" if work else args.release)).resolve()
     args.data = (args.data or args.assets / "data/proteus_windows.npz").resolve()
+    if args.submit and args.image is None and args.python is None and args.site == "leonardo" and work:
+        args.image = Path(work) / "ni26/runs/cloud/ni26_worker.sif"
+    if args.submit:
+        runner = args.image or args.python
+        if runner is not None and not runner.is_file():
+            parser.error(f"worker runtime does not exist: {runner}")
     order_ids = args.orders.split(",")
     people = args.people.split(",")
     if (not all(order.isdecimal() for order in order_ids) or len(set(order_ids)) != len(order_ids)
