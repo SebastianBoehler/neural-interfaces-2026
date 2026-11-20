@@ -33,3 +33,5 @@
 - Final R1a CPU retry · 21 Nov 00:26 CET. Both 15-minute jobs (64992739 and 64992751) timed out after the parent had completed P01/1 with 17 stock refits and no recognition. The 45-minute retries 64993648 (hard) and 64993649 (hardcb) started after the timeouts. Both A100 qualification jobs, both recognised replay jobs and both full tape jobs started around 00:27 CET. [Evidence](final_r1a.md)
 
 - Final R1a terminal scores · 21 Nov 00:36 CET, source `d9abd7fb`. Hard smoke 64994099 → terminal-score check 64994100. Hardcb smoke 64994101 → terminal-score check 64994102. The exact ZIPs each refitted in four recognised streams but kept all 762 hard labels. The follow-up traces scores before argmax on the same deliveries to check that the refit reaches the decision. [Evidence](final_r1a.md)
+
+- Final R1a original tape coverage · 21 Nov 00:58 CET, source `160e7ee9`. Hard smoke 64995389 → replay 64995390. Hardcb smoke 64995391 → replay 64995392. The follow-up checks the remaining four original orders after the first 16 direct comparisons yielded no full-stream match. [Evidence](final_r1a.md)
