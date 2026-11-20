@@ -132,3 +132,20 @@ rule **undecided, consistently positive** (o1 lower bounds −0.06 to −0.23). 
 ## C5v3 (registered ~13:45 before scoring): A2, A5e, A5g (β 0.3, L2 0.1), A5h (β 0.2, L2 1.0) in one pass, orders 0–3,
 held-new (C5 packages) and returning (C5ret package). Prediction A5e − A2 +0.5 [0, +1] on 4 orders; A5g +0.4 [−0.5, +1.2];
 A5h +0.3 [−0.3, +0.9]. Supported if the people-80 % lower bound pooled over 4 orders is > 0 and ≥ 3 of 4 orders have point > 0.
+
+## Package, timing, NI-V (20 Nov ~14:30)
+- Leonardo dep2 64924648 on the all-ten package (C1 recipe), finalized A2 and A5: `check_pkg.py` RESET_OK (fresh copy, copy
+  after another session, reset copy: identical labels; base weights and module globals unchanged). Warm timing A100-SXM-64GB:
+  A2 56.9 ms/window (p95 204) → 1,142 s for 20,083 windows; 2080 Ti in the dev runs 94–102 ms → ~2,050 s.
+- NI-V Scherer new (Galvani 3140547, all-ten package, Scherer never trained, orders 71000/71001): A0 33.75, A1 43.58,
+  A2 43.26 (cap250 B-new full 47.9). T4 (8 orders) A2 − A1 −0.15 [−0.93, +0.62].
+
+## C2 / C4 results (Galvani; same packages, A2 reruns bitwise identical so separate passes pair exactly)
+C2 vs A2h: A3a −1.09 [−1.64, −0.52], A3b −2.23, A3c −0.06, **A3d (no IM) +2.20 [0.70, 3.72]**, A3e (τ 0.5) +1.92 [0.87, 2.99],
+A3f −1.26. Heavy forms stay below A2 (A2h is −2.8 vs A2). C4 vs A2 (9 people, P10 fold failed): A4a −0.44, A4b −0.85,
+A4c +0.13, A4d +0.07, **A4e (no IM) −2.38 [−3.30, −1.42]**: information maximisation helps the light form, hurts the heavy one.
+A2 stays the TTT form. Orders 2,3: C1 A2 − A1 +2.70 [+1.22, +4.23], C3e +2.55 [+1.36, +3.73]; C1 A2 64.35, A1 62.44.
+C1 four-order held-new: A1 62.67, A2 64.80.
+
+## C5v3 is also run on Galvani on the C1 packages (Leonardo step certificate expired ~14:20): 3141360 held-new orders 0–3,
+3141361 returning, 3141362 NI-V A2 vs A5e (4 orders). Same registration and rule as C5v3 above.

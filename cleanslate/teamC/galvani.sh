@@ -30,4 +30,8 @@ ret)
   sbatch --parsable $g -t ${T:-02:00:00} --array=0 -J tc-$tag -o logs/$tag-%A_%a.out --wrap "$common; \
     python -u cleanslate/teamC/train.py --people $all --exclude 'P04|2,P04|3,P10|2,P10|3' --out work/$tag/pkg_ret $targs; \
     for h in P04 P10; do python -u cleanslate/teamC/stream_eval.py --pkg work/$tag/pkg_ret --held \$h --sessions 2,3 --orders $ord --variants $var --out work/$tag/eval_\$h.npz; done" ;;
+reteval)  # stream-eval the existing TAG/pkg_ret on P04/P10 sessions 2-3
+  tag=${2:?}; var=${3:?}; ord=${4:?}; sub=${SUB:-ev}
+  sbatch --parsable $g -t ${T:-02:00:00} --array=0 -J tc-$tag-$sub -o logs/$tag-$sub-%A_%a.out --wrap "$common; mkdir -p work/$tag/$sub; \
+    for h in P04 P10; do python -u cleanslate/teamC/stream_eval.py --pkg work/$tag/pkg_ret --held \$h --sessions 2,3 --orders $ord --variants $var --out work/$tag/$sub/eval_\$h.npz; done" ;;
 esac
