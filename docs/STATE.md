@@ -36,6 +36,13 @@ exempts them): treat them as full-system DEV with partial delivery replay, inclu
 Repeated cohorts and new orders are not fresh-person confirmation. [Scoring audit](../evidence/next_wave_16nov/scoring_audit_18nov.md) ·
 [Friday queue](../evidence/next_wave_16nov/FRIDAY_20NOV.md)
 
+**Returning instrument (red team, 20 Nov).** The P04/P10 "visit 1 enrolled" packages used since 17 Nov (§321 bundle;
+Lane A, R4, R4b tapes, D3, and the returning columns above scored through `friday/ea_returning`) keep the uploaded
+package's Hilbert core, rest nets and count filter, which were fitted on the test visits. Their absolute level (90–97 %)
+and the sign of returning levers measured on them are not trustworthy. Clean level from the real fold packages
+(`production-20261120-32a94ab7`): P04 70.2 %, P10 89.2 %; hardcb − stock there −0.07 pp.
+[Red team](../evidence/wave_20nov/redteam_fable.md)
+
 ## Inputs and checks
 - Frozen ZIPs in `runs/sealed/final_zips/`; SHA-256 in [inputs.sha256](../friday/inputs.sha256). Local PROTEUS export: 2,655
   windows, ten people, 14 sessions (NEMAR nm000290 v1.0.0), made by [scripts/export_windows.py](../scripts/export_windows.py);
