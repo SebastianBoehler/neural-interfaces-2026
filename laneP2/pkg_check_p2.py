@@ -66,8 +66,8 @@ def main(test, zip_path, ref_path, root, people):
         new_p, new_l, _, logs, _ = stream(zip_path, off, x, channels, sessions)
         print(f"ZERO windows {len(ref_l)} max|diff| {np.abs(ref_p - new_p).max():.3e} bitwise {np.array_equal(ref_p, new_p)} labels equal {bool((ref_l == new_l).all())} disp logs {logs}")
         assert np.array_equal(ref_p, new_p) and (ref_l == new_l).all() and all(l.get("n", 0) == 0 for l in logs)
-    elif test == "gate":  # dsu zip on recognised sessions: equals the lite5 zip bitwise, [disp] gated > 0; UNREC_ONLY switched off equals the ungated ds zip (env P2_UNGATED) bitwise
-        ref_p, ref_l, *_ = stream(ref_path, lambda m: None, x, channels, sessions)
+    elif test == "gate":  # dsu zip on recognised sessions: equals the ungated zip with DISP_ON False bitwise (REF_ZIP unused), [disp] gated > 0; UNREC_ONLY switched off equals the ungated ds zip (env P2_UNGATED) bitwise
+        ref_p, ref_l, *_ = stream(os.environ["P2_UNGATED"], lambda m: setattr(m.DispEnsemble, "DISP_ON", False), x, channels, sessions)  # ungated zip, correction off (FBL2 as shipped)
         new_p, new_l, _, logs, _ = stream(zip_path, lambda m: None, x, channels, sessions)
         print(f"GATE windows {len(ref_l)} max|diff| {np.abs(ref_p - new_p).max():.3e} bitwise {np.array_equal(ref_p, new_p)} labels equal {bool((ref_l == new_l).all())} logs {logs}")
         assert np.array_equal(ref_p, new_p) and (ref_l == new_l).all() and all(l["gated"] > 0 for l in logs)
