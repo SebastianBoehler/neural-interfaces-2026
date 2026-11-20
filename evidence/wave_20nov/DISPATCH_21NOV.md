@@ -9,3 +9,5 @@
 
 - Lane TB · real production-20261120-32a94ab7 fold packages, orders 71120–71123, Team B R1 encoder blend at 15% and 25%, with a fixed three-member trim. Registered in the ledger before scoring. Leonardo Slurm; Galvani batch SSH rejected authentication, so R1 weights will be refitted if the original artifacts remain inaccessible. Results due Sat 09:00 CET. [Lane card](laneTB_blend.md)
 - 00:30 Reversed per user: Fable A+B dispatched to GPT build thread mcp:da9a9c35-9ca8-4053-b4f2-4f26cc6eb0f8 (clean room repo, results by 07:30, shuffled + chronological delivery). C still not built. 07:53 cron feeds RESULTS.md plus de-blinded main-system data points back to Fable (design only) -> PROPOSALS_2.md; hourly tick dispatches each proposal to GPT.
+
+- RT-1 · dispatched 20 Nov 22:58–23:00 CET for the Sat 08:30 CET handoff. Leonardo H1/R0z and H5 first (64988017–64988060), then full R0z, H2 donor swap, H3 visit 1, and hardcb_safe reference (64988092–64988102). H4 reused Lane RP 64986260. Registered before scoring at `050198b1`. Slurm run `cap250/runs/redteam-21nov`; exact IDs and dependencies in its `jobs.tsv`. [Handoff](redteam_handoffs.md)
