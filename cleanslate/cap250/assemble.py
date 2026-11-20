@@ -11,7 +11,7 @@ from tempfile import TemporaryDirectory
 import numpy as np
 
 from components import ORDINARY, SBN, Variant, assets, expected_files, part_path
-from source import ROOT, add_scope, file_digest, row_digest, source_rows
+from source import ROOT, add_scope, file_digest, row_digest, selection
 from receipts import read_receipt
 
 ALIGN = {"align", "k", "G", "scale", "shrink"}
@@ -128,13 +128,12 @@ def install_variants(stage, optional, variant):
 def assemble(people, first, data, parts, out, variant, *, require_receipts=True):
     if out.exists():
         raise FileExistsError(out)
-    rows = source_rows(people, first, data)
+    with np.load(data, allow_pickle=False) as archive:
+        rows, person, sessions = selection(archive, people, first)
+        channels = archive["ch_names"].tolist()
     scope = row_digest(rows)
     data_hash = file_digest(data)
-    with np.load(data, allow_pickle=False) as archive:
-        channels = archive["ch_names"].tolist()
-        visits = [len(set(archive["session"][rows][np.char.endswith(archive["subject"][rows], "/" + p)]))
-                  for p in people]
+    visits = [len(set(sessions[person == p])) for p in people]
     out.parent.mkdir(parents=True, exist_ok=True)
     with TemporaryDirectory(prefix=".cap250-", dir=out.parent) as tmp:
         base, extras, stage = (Path(tmp) / name for name in ("base", "extras", "package"))

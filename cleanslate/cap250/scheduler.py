@@ -12,7 +12,7 @@ class Slurm:
         self.root = args.release
         self.ids = {}
         self.state = self.run / "jobs.jsonl"
-        self.runner = "cleanslate/cap250/slurm.sh"
+        self.runner = str(self.root / "cleanslate/cap250/slurm.sh")
         self.worker = "cleanslate/cap250/array_worker.py"
         self.regular = ["sbatch", "--parsable", "--kill-on-invalid-dep=yes",
                         f"--account={args.account}", f"--chdir={self.run}",

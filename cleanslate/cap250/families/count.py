@@ -37,9 +37,10 @@ def residual(x, groups):
 
 
 def projection(features, runs):
-    within = residual(features, runs)
-    sw = np.cov(within.T)
-    sb = np.cov((features - within).T)
+    means = {run: features[runs == run].mean(0) for run in np.unique(runs)}
+    by_row = np.stack([means[run] for run in runs])
+    sw = np.cov((features - by_row).T)
+    sb = np.cov(by_row.T)
     sw += np.trace(sw) / len(sw) * np.eye(len(sw))
     eigenvalues, vectors = eigh(sb, sw)
     return vectors[:, np.argsort(eigenvalues)[::-1][:6]]
