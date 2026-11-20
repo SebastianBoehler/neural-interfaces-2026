@@ -29,3 +29,10 @@ convention, unmeasured ratio); usable if x2.5 <= 170 ms, i.e. A100 <= 68 ms. Slo
 Dev weighting like the sealed set is not applied here (held-new only, 10 equal people).
 
 ## Log
+- 20 Nov 07:5x CET: smoke 64916675 (P07, 4 configs) and equivalence check 64917241 passed. Equivalence vs team C stream_eval on their
+  order 0 (window accuracy, P07/P09): A1 73.02/68.78 (team C 73.0/68.8, identical); A2h 78.84/77.25 (team C 81.5/77.3). So the frame
+  matches exactly without gradient TTT; gradient TTT is not bit-reproducible on GPU (P07 A2h differs 2.6 pp for the same code and
+  order) and strongly order-dependent (P07 A2h: 78.8 / 64.5 / 77.3 on orders 0 / 71000 / 71001, A1 73.0 / 71.4 / 69.3). Run-to-run noise of
+  a single person-order TTT cell is therefore several pp; ranking needs many person-orders. Deviation from the pre-registered
+  design (made before scoring): stage 1 uses TWO orders (71000, 71001) on the 4 people instead of one, since the cost is small.
+- Stage 1 submitted: Leonardo job 64917505 (296 array tasks = 4 people x 74 config chunks, 296 configs x 4 people x 2 orders).

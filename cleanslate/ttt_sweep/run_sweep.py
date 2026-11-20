@@ -22,6 +22,13 @@ import ttt_model as M  # noqa: E402
 from cfgs import cid  # noqa: E402
 
 
+def tc_plans(d, k, streams):
+    """Equivalence check only: team C's quick-eval order k (runs/shuffle_perms.npz, order ids < 1000)."""
+    with np.load(HERE.parents[1] / "runs/shuffle_perms.npz") as p:
+        rows = p[f"full|{k}|all_loso"]
+    return {s: rows[d["stream"][rows] == s] for s in streams}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pkg", required=True)
@@ -44,12 +51,17 @@ def main():
     streams = [f"{a.held}|{s}" for s in sorted(set(d["session"][d["person"] == a.held]))]
     _, streaming = D.official()
     res, meta = {}, []
+    w = M.load_package(a.pkg, dev, {"steps": 2, "n0": 1})  # CUDA/cuDNN warm-up so ms/window is not charged the first config
+    for r in range(24):
+        w.predict(x[r:r + 1].to(dev))
+    del w
     for name in names:
         cfg = cfgs[name]
         h = cid(cfg)
         model = M.load_package(a.pkg, dev, cfg)  # unknown cfg keys raise KeyError
         for seed in map(int, a.orders.split(",")):
-            for s, rows in D.plans(d, seed, streams).items():
+            plan = D.plans(d, seed, streams) if seed >= 1000 else tc_plans(d, seed, streams)
+            for s, rows in plan.items():
                 ses = s.split("|")[1]
                 m = streaming.fresh_model(model)
                 lab = []
