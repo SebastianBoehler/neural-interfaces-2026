@@ -125,9 +125,17 @@ class Plan:
                                 Family(1, 20, False, memory="16G"),
                                 [fits[task] for task in variant.fits()], variant.env().items())
             if mode == "all":
-                streams[name] = self.add(f"{name}.{label}.parity", f"{HERE}/verify.py",
-                                         ["--pkg", str(package), "--sealed", str(sealed), "--data", str(self.data),
-                                          "--out", str(package.parent / "parity.json")], Family(1, 45), [assemble])
+                reports = package.parent / "parity"
+                decisions = [
+                    self.add(f"{name}.{label}.parity.{person}", f"{HERE}/verify.py",
+                             ["--pkg", str(package), "--sealed", str(sealed), "--data", str(self.data),
+                              "--person", person, "--report-only", "--out", str(reports / f"{person}.json")],
+                             Family(1, 25), [assemble])
+                    for person in PEOPLE
+                ]
+                streams[name] = self.add(f"{name}.{label}.parity", f"{HERE}/parity_report.py",
+                                         ["--input", str(reports), "--out", str(package.parent / "parity.json")],
+                                         Family(1, 10, False, cpus=2, memory="8G"), decisions)
             else:
                 streams[name] = self.add(f"{name}.{label}.stream", f"{HERE}/stream_fold.py",
                                          ["--pkg", str(package), "--held", held, "--sessions", sessions,
