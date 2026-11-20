@@ -1,6 +1,6 @@
 """Build a Lane T package from the final-stack hardcb package: the same code with FineTune replaced by TTTFineTune.
 
-usage: build_ttt.py FORM OUT_ZIP [SRC_ZIP]   FORM light | heavy; SRC_ZIP defaults to runs/sealed/final_zips/final_stack_hardcb.zip
+usage: build_ttt.py FORM OUT_ZIP [SRC_ZIP]   FORM light | heavy | lite5 | sparse20; SRC_ZIP defaults to runs/sealed/final_zips/final_stack_hardcb.zip
 (unchanged, only submission.py is rewritten; every other member is copied byte for byte). Also: build_ttt.py FORM OUT_DIR SRC_DIR
 for a package directory (returning fold packages)."""
 import hashlib
@@ -15,7 +15,7 @@ OLD = "FineTune(z, self.w, dev, root)"
 
 def patch(src: bytes, form: str) -> bytes:
     s = src.decode("utf-8")
-    assert form in ("light", "heavy") and s.count(OLD) == 1 and s.count("class CountFilter:") == 1
+    assert form in ("light", "heavy", "lite5", "sparse20") and s.count(OLD) == 1 and s.count("class CountFilter:") == 1
     inc = (HERE / "ttt_ft.py.inc").read_text().rstrip().replace('FORM = "light"  #', f'FORM = "{form}"  #')
     s = s.replace("class CountFilter:", inc + "\n\n\nclass CountFilter:", 1).replace(OLD, "TTTFineTune(z, self.w, dev, root)")
     compile(s, "submission.py", "exec")

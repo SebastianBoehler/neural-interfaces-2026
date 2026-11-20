@@ -5,8 +5,16 @@ class TTTFineTune(FineTune):
     (+ ANCHOR * ||theta - theta_source||^2 for the heavy form, with the loss on at most BATCH random prefix windows per step;
     the forward always runs over the whole prefix because StreamBN is causal in window order)."""
     FORM = "light"  # set per package: "light" | "heavy"
-    FORMS = {"light": dict(steps=0, batch=0, anchor=0.0, views="stock"), "heavy": dict(steps=20, batch=64, anchor=1e-2, views="pw")}
+    FORMS = {"light": dict(steps=0, batch=0, anchor=0.0, views="stock"), "heavy": dict(steps=20, batch=64, anchor=1e-2, views="pw"),
+             "lite5": dict(steps=5, batch=64, anchor=1e-2, views="pw"),
+             "sparse20": dict(steps=20, batch=64, anchor=1e-2, views="pw", every=40)}
     IM_LAM = 0.3
+
+    def __init__(self, z, w, dev, root):
+        super().__init__(z, w, dev, root)
+        if self.FORMS[self.FORM].get("every"):  # sparse20: refits at 20, 60, ... (the relabelled-target grid is 10 wide, 40 is a multiple)
+            assert self.FORMS[self.FORM]["every"] % self.every == 0
+            self.every = self.FORMS[self.FORM]["every"]
 
     def reset_state(self):
         super().reset_state()
