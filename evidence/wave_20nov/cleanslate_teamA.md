@@ -148,3 +148,24 @@ The selected A1's exact repeat reproduced every held decision and pinned row ord
 (64888138). The EEG route accepted P10 at arrival 60 in one of eight returning replays and rejected all
 28 held-new replays. Seven returning replays used the general classifier throughout. This weak
 cross-visit recognition limits the returning score despite a trained personal head.
+
+Leonardo gallery diagnostic 64889323 used EEG distances from the exact A1 folds. At every sampled prefix
+of P04 visit 2, P07 was nearest and P04 ranked third or fourth. P04 visit 3 and both P10 visits usually
+ranked the correct person first, but all sampled distances exceeded the 0.57885 acceptance radius.
+P04 visit 3 and P10 visit 3 also exceeded the 0.80 nearest-to-runner-up distance ratio at every sample.
+The missed visits thus include both a fingerprint ranking error and failures of the acceptance criteria.
+
+### Exact-package worker timing
+
+Galvani job 3144923 completed with exit code 0 on `galvani-cn206`. The worker verified the selected ZIP
+SHA-256, extracted it and passed the update, reset, prefix, interleaved-session and single-label smoke checks.
+The exact archive ran 20,083 predictions across 106 sessions in **307.31 s** including the model load
+(1.24 s) and the 48-call warm-up (1.01 s). Prediction time was 305.06 s, session p95 was 2.96 s and peak
+reserved CUDA memory was 410 MiB. Slurm job elapsed was 5 min 27 s, including archive handling and smoke.
+The worker image used PyTorch 2.14.1+cu130 on an A100-PCIE-40GB. The workload repeats public sessions,
+83 of which the model recognized. The 3,600 s budget has ample margin on this A100 workload. RTX PRO 4500
+runtime remains unverified.
+
+The exact archive and original scorer receipts are in the local ignored `cleanslate/teamA/artifacts/` directory.
+Worker receipts remain in Galvani `ni26_cleanslate_A/worker-b6-a1-exact/`. The two eight-order score reports
+are Leonardo collectors 64887775 (PROTEUS) and 64887782 (Scherer-excluded NI-V).
