@@ -96,3 +96,18 @@ Jobs: C3e Galvani 3140401 (E9, PROTEUS only); C3s Leonardo 64917408 (afterok smo
 A4a 2 steps every 2nd window dense to 64 · A4b lr 5e-5 · A4c start at 8 windows · A4d anchor 0.1 · A4e no information max.
 Prediction vs A2: A4a +0.3 [−0.7, +1.3]; A4b −0.5 [−1.5, +0.5]; A4c +0.2 [−0.5, +1]; A4d −0.3 [−1.2, +0.6]; A4e −0.3 [−1.5, +1].
 Same reading rule. Multiple forms on the same ten people = selection; the chosen form is re-scored on orders 2–5.
+
+## C3s result (Leonardo 64917408, 10 people, orders 0,1)
+A1 59.36, A2 62.55, A2n 63.91 (mean of orders). A1 C3s − C3e **−4.28 [−5.66, −2.92]**, A2 −3.29 [−4.61, −1.94]: Scherer
+2015 as extra training people **refuted** (predicted +1.5). TTT gain is larger on the weaker base: A2 − A1 +4.01 [2.55, 5.54].
+Scherer has 9 people (18 visits), not 8 as written in C3.
+
+## C5 · prefix tangent-space self-training fused with A2 (registered ~11:10, before any C5 output)
+Mechanism: cap250's stage gain comes partly from classical features fitted on the session prefix with pseudo-labels (CSP,
+fine-tuning: friday/cap250c18). Here: per window, log-covariance (tangent at identity) of the EA-aligned window in three
+bands (8–13, 13–20, 20–30 Hz, FIR), 3 × 861 features, standardised on the prefix; on the adaptation schedule from n ≥ 32 an
+L2 multinomial LR is refit (warm, Adam) on the prefix with targets = Sinkhorn-balanced ensemble posterior; output =
+normalised p_ens^(1−β) · p_lr^β. Variants: A5 β 0.3, A5b β 0.5, A5c β 0.3 on A1 (no gradient TTT). Same C1 recipe retrained on
+Leonardo (also a cross-cluster replicate of C1 A1/A2), orders 0,1.
+Prediction: A5 − A2 +1.0 [−0.5, +2.5]; A5b − A2 +0.5 [−1.5, +2.5]; A5c − A1 +1.5 [0, +3]. Replicate: |A2(Leo) − A2(C1)| < 1.
+Rule as C1. Runtime must stay ≤ 179 ms/window on the timing card.

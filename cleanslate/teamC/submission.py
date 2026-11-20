@@ -26,7 +26,7 @@ except ImportError:  # training / harness outside benchopt
 C_, T_, K_ = 41, 480, 3
 DEFAULT_TTT = dict(shrink=0.05, bn="prefix", bn_k=8.0, steps=0, n0=16, every=4, dense_until=48, batch=64, lr=1e-4,
                    params="all", tau=0.0, lam_pl=1.0, lam_im=0.3, anchor=1e-2, temp=1.0, balance=0, bal_from=16,
-                   rot=0.0, max_n=1024)
+                   rot=0.0, max_n=1024, ts_beta=0.0, ts_from=32, ts_l2=1e-2, ts_steps=30, ts_lr=0.05)
 
 
 # ----------------------------------------------------------------------------------------------------------- nets
@@ -142,11 +142,12 @@ class TTTModel:
         if unknown:
             raise KeyError(f"unknown TTT keys {sorted(unknown)}")
         self.dev = dev
+        self.bank = _bandpass_bank(((8, 13), (13, 20), (20, 30))).to(dev)
         self.reset_state()
 
     def __deepcopy__(self, memo):  # base nets are shared and never modified; session state is rebuilt
         new = object.__new__(TTTModel)
-        new.base, new.cfg, new.dev = self.base, self.cfg, self.dev
+        new.base, new.cfg, new.dev, new.bank = self.base, self.cfg, self.dev, self.bank
         new.reset_state()
         return new
 
@@ -161,6 +162,8 @@ class TTTModel:
         self.g.manual_seed(1234)
         self.opts = None
         self.last = None
+        self.F = torch.zeros(c["max_n"], 3 * C_ * (C_ + 1) // 2, device=dev) if c["ts_beta"] else None
+        self.lr = None  # prefix tangent-space LR (W, b, Adam state), rebuilt per session
 
     # -- helpers
     def _bn_refresh(self, A):
@@ -218,6 +221,35 @@ class TTTModel:
                 loss.backward()
                 opt.step()
 
+    def _tangent(self, a):
+        """(C, T) aligned window -> log-covariance upper triangles in three bands (tangent space at identity)."""
+        z = F.conv1d(a[:, None], self.bank[:, None], padding=30)  # (C, 3, T)
+        z = z.permute(1, 0, 2)
+        C = z @ z.transpose(1, 2) / T_
+        C = C + 1e-3 * torch.diagonal(C, dim1=1, dim2=2).mean(-1)[:, None, None] * torch.eye(C_, device=a.device)
+        w, V = torch.linalg.eigh(C)
+        L = (V * w.clamp_min(1e-10).log()[:, None, :]) @ V.transpose(1, 2)
+        iu = torch.triu_indices(C_, C_, device=a.device)
+        return L[:, iu[0], iu[1]].reshape(-1)
+
+    def _fit_lr(self, A):
+        c, n = self.cfg, self.n
+        Fp = self.F[:n]
+        mu, sd = Fp.mean(0), Fp.std(0) + 1e-6
+        Z = (Fp - mu) / sd
+        Q = sinkhorn(self.P[:n].clone())
+        if self.lr is None:
+            W = torch.zeros(Z.shape[1], K_, device=self.dev, requires_grad=True)
+            b = torch.zeros(K_, device=self.dev, requires_grad=True)
+            self.lr = [W, b, torch.optim.Adam([W, b], lr=c["ts_lr"])]
+        W, b, opt = self.lr
+        for _ in range(c["ts_steps"]):
+            loss = -(Q * F.log_softmax(Z @ W + b, -1)).sum(1).mean() + c["ts_l2"] * (W * W).sum()
+            opt.zero_grad(set_to_none=True)
+            loss.backward()
+            opt.step()
+        self.lr_norm = (mu, sd)
+
     def _due(self):
         c, n = self.cfg, self.n
         return n >= c["n0"] and (n <= c["dense_until"] or n % c["every"] == 0)
@@ -230,6 +262,8 @@ class TTTModel:
             h = c["max_n"] // 2
             self.X[:h] = self.X[-h:].clone()
             self.P[:h] = self.P[-h:].clone()
+            if self.F is not None:
+                self.F[:h] = self.F[-h:].clone()
             self.n = h
         x64 = x[0].double()
         self.covsum += x64 @ x64.T / T_
@@ -237,13 +271,26 @@ class TTTModel:
         self.n += 1
         W = inv_sqrt(self.covsum / self.n, c["shrink"])
         A = W @ self.X[: self.n]
+        if c["ts_beta"]:
+            with torch.no_grad():
+                self.F[self.n - 1] = self._tangent(A[-1])
         if self._due():
             if c["bn"] == "prefix":
                 self._bn_refresh(A)
             if c["steps"] > 0:
-                self._steps(A)
+                with torch.enable_grad():
+                    self._steps(A)
         p = self._probs(A[-1:])[0]
         self.P[self.n - 1] = p
+        if c["ts_beta"] and self.n >= c["ts_from"]:
+            if self._due() or self.lr is None:
+                with torch.enable_grad():
+                    self._fit_lr(A)
+            mu, sd = self.lr_norm
+            with torch.no_grad():
+                q = F.softmax(((self.F[self.n - 1] - mu) / sd) @ self.lr[0] + self.lr[1], -1)
+                p = p.clamp_min(1e-8) ** (1 - c["ts_beta"]) * q.clamp_min(1e-8) ** c["ts_beta"]
+                p = p / p.sum()
         if c["balance"] and self.n >= c["bal_from"]:
             p = sinkhorn(self.P[: self.n])[-1]
         self.last = p

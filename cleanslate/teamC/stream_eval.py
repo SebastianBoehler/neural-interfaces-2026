@@ -43,6 +43,10 @@ VARIANTS = {
     "A4c": dict(bn="prefix", steps=4, n0=8),
     "A4d": dict(bn="prefix", steps=4, anchor=1e-1),
     "A4e": dict(bn="prefix", steps=4, lam_im=0.0),
+    # C5: prefix tangent-space LR self-trained on the balanced ensemble posterior, fused (beta)
+    "A5": dict(bn="prefix", steps=4, ts_beta=0.3),
+    "A5b": dict(bn="prefix", steps=4, ts_beta=0.5),
+    "A5c": dict(bn="prefix", steps=0, ts_beta=0.3),
 }
 
 
