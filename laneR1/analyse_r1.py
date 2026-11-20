@@ -69,7 +69,7 @@ def select(c, train, orders, shrink):
 
 def wave2(cells, outdir):
     c = parse(cells)
-    people = c["full0"]["base"][2]
+    people = [p.rsplit("/", 1)[-1] for p in c["full0"]["base"][2]]  # the chain keys people as P01..P10
     outdir = Path(outdir); outdir.mkdir(exist_ok=True)
     plan = {o: [] for o in ORDERS}
     single = {}
@@ -81,7 +81,7 @@ def wave2(cells, outdir):
                 for i, p in enumerate(people):
                     train = np.arange(len(people)) != i
                     m, a = select(c, train, orders, shrink)
-                    W[p], Wadd[p] = m, a
+                    W[p], Wadd[p] = m, (a if o == "full0" else {})  # extra banks exist for full0 only
                 plan[o].append(dict(name=f"nest_{src}_s{shrink}", W=W, Wadd=Wadd))
     for o in ORDERS:
         for shrink in (0.5, 1.0):  # un-nested reference: selection on all ten people, both orders
