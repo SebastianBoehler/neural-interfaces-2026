@@ -1,0 +1,6 @@
+ba W 0.449 U 0.480 ratio 0.94  W-U -0.031
+fww_full0 W 0.322 U 0.282 ratio 1.14  W-U 0.040
+bwr_full0 W 0.506 U 0.451 ratio 1.12  W-U 0.056
+fww_within0 W 0.308 U 0.278 ratio 1.11  W-U 0.030
+bwr_within0 W 0.512 U 0.465 ratio 1.10  W-U 0.047
+BA W-U pp -3.08 [-4.53, -1.85]
