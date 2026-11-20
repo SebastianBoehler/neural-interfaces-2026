@@ -37,6 +37,12 @@ VARIANTS = {
     "A3d": dict(bn="prefix", steps=8, lr=3e-4, lam_im=0.0),
     "A3e": dict(bn="prefix", steps=8, lr=3e-4, tau=0.5),
     "A3f": dict(bn="prefix", steps=8, lr=3e-4, every=2, dense_until=64),
+    # C4: lighter / more frequent TTT around A2 (4 steps, lr 1e-4, every 4th window after 48)
+    "A4a": dict(bn="prefix", steps=2, every=2, dense_until=64),
+    "A4b": dict(bn="prefix", steps=4, lr=5e-5),
+    "A4c": dict(bn="prefix", steps=4, n0=8),
+    "A4d": dict(bn="prefix", steps=4, anchor=1e-1),
+    "A4e": dict(bn="prefix", steps=4, lam_im=0.0),
 }
 
 

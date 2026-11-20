@@ -72,3 +72,27 @@ Predictions: A1(C3e) − A1(C1) +0.7 [−0.5, +2]; A1(C3s) − A1(C3e) +1.5 [−
 Reading rule as C1 (people-80 % interval, both orders). A C3s package can no longer be scored on NI-V Scherer; the
 NI-V run uses the C3e recipe (Scherer excluded) and says so.
 Jobs: C3e Galvani 3140401 (E9, PROTEUS only); C3s Leonardo 64917408 (afterok smoke 64917399).
+
+## C1 result (20 Nov ~09:50; all 10 people, orders 0,1; official cell-mean BA; paired = people-resampled 80 %, person = mean of its cells)
+| variant | held-new | − A1 (pooled) | ms/win (2080 Ti) | returning P04/P10 |
+|---|---|---|---|---|
+| A0 | 61.57 | −1.88 [−2.97, −0.80] | 6 | 57.23 |
+| A1 | 62.90 | — | 11 | 66.57 |
+| A1b | 61.77 | −0.45 [−1.22, +0.29] | 11 | 66.57 |
+| **A2** | **65.25** | **+2.97 [+1.62, +4.29]** (o0 +2.82 [1.48, 4.17], o1 +3.12 [1.50, 4.76]) | 94–102 | **69.73** (+3.16 vs A1) |
+| A2b | 64.06 | +2.27 [+0.54, +3.97] | 95 | 69.49 |
+| A2h | 62.01 | +0.16 [−2.16, +2.60] | 178–181 | 67.69 |
+| A2n | 64.38 | +1.61 [−0.05, +3.35] | 94 | 67.90 |
+- Adaptation (A2 − A1): **supported** (lower bound > 0 on both orders); predicted +1.5, measured +3.0. A1 − A0 +1.9
+  (predicted +1.5). A2h, the form that looked best on P07/P09, is no better than A1 over ten people (P10 −6.3, P08 −6.8, P01 −6.4).
+- vs cap250 (order 0, paired cells): A2 −8.56 [−12.36, −4.49]; predicted −12. Returning cap250 archived 92.76: −23 pp.
+- C1x (cue-offset crops, 30 ep): A1 − C1 A1 −3.77 [−5.79, −1.69]: **refuted** (predicted +1.5).
+- C3e (9 nets, 3 seeds): A2 − C1 A2 +0.07 [−0.43, +0.58]; seeds do not lift the base. A2 − A1 on C3e +3.02 [1.88, 4.17].
+  ms/window 141–149 (2080 Ti/A100 mix) vs 94–102 for E6.
+- Identity: a raw log-covariance nearest-session check finds the true person top-1 in 73 % of P04/P10 sessions at 64
+  windows with no distance margin (median 9.3 vs 10.0); team A's gallery accepted 1/8 returning replays. No personal route here.
+
+## C4 · lighter TTT around A2 (registered ~09:55 before scoring; eval-only on C1 packages, orders 0,1, + A2 on orders 2,3)
+A4a 2 steps every 2nd window dense to 64 · A4b lr 5e-5 · A4c start at 8 windows · A4d anchor 0.1 · A4e no information max.
+Prediction vs A2: A4a +0.3 [−0.7, +1.3]; A4b −0.5 [−1.5, +0.5]; A4c +0.2 [−0.5, +1]; A4d −0.3 [−1.2, +0.6]; A4e −0.3 [−1.5, +1].
+Same reading rule. Multiple forms on the same ten people = selection; the chosen form is re-scored on orders 2–5.
