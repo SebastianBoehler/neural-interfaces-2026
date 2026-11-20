@@ -41,6 +41,29 @@ def load_arm(root, arm, data):
     return cells, preds, rows_by_fold
 
 
+def null_repeats(root, data):
+    order = ORDERS[0]
+    contrasts, changed = {"new": [], "ret": []}, {"new": 0, "ret": 0}
+    for mode, person in FOLDS:
+        path = root / f"{mode}_{person}/base/pred_{mode}_{person}.npz"
+        with np.load(path, allow_pickle=False) as part:
+            baseline = np.full(len(data["y"]), -1)
+            repeat = baseline.copy()
+            for key in part.files:
+                if key.startswith(f"rows_{order}_"):
+                    suffix = key.removeprefix("rows_")
+                    rows = part[key]
+                    baseline[rows], repeat[rows] = part[f"labels_{suffix}"], part[f"repeat_{suffix}"]
+            mask = baseline >= 0
+            assert mask.any() and np.isin(repeat[mask], [0, 1, 2]).all()
+            changed[mode] += int(np.count_nonzero(baseline[mask] != repeat[mask]))
+            a = D.cell_table(data, baseline, mask, order, mode)
+            b = D.cell_table(data, repeat, mask, order, mode)
+            contrasts[mode].extend(y["ba"] - x["ba"] for x, y in zip(a, b, strict=True))
+    return {mode: dict(changed=changed[mode], delta_pp=float(np.mean(cells)))
+            for mode, cells in contrasts.items()}
+
+
 def table(cells, mode, people):
     groups = [[sorted(k for k in cells if k[:3] == (mode, order, p)) for p in people] for order in ORDERS]
     counts = np.array([len(k) for k in groups[0]])
@@ -93,7 +116,7 @@ def main():
     rng = np.random.default_rng(20261121)
     orders = rng.integers(len(ORDERS), size=(20_000, len(ORDERS)))
     result = dict(orders=ORDERS, fold_sha256={f"{k[0]}_{k[1]}": v for k, v in receipts.items()}, arms={},
-                  timing=timing_report(json.loads((args.root / "smoke/smoke.json").read_text())))
+                  null_71120=null_repeats(args.root, data), timing=timing_report(json.loads((args.root / "smoke/smoke.json").read_text())))
     result["baseline_new"], _ = by_cohort(base, "new", D.PEOPLE, orders, rng)
     result["baseline_ret"], _ = by_cohort(base, "ret", D.RETURNING, orders, rng)
     for arm in ARMS[1:]:
