@@ -15,10 +15,9 @@ if [[ ${1:-} == smoke ]]; then
   out=$TB_RUN/smoke/tb
   export CSB_STEPS=30 CSB_NETS=shallow:1,slow:1,fbc:1
 else
-  IFS=$'\t' read -r kind held _ first _ < <(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" "$TB_SRC/hardcb/jobs.tsv")
+  IFS=$'\t' read -r kind held people first sessions < <(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" "$TB_SRC/hardcb/jobs.tsv")
   fold=${kind}_${held}
   out=$TB_RUN/tb/$fold
-  people=$(printf '%s\n' P{01..10} | awk -v p="$held" -v k="$kind" '$1!=p || k=="ret"' | paste -sd, -)
   [[ $kind == ret ]] || first=
   export CSB_STEPS=1200 CSB_NETS=shallow:3,slow:3,fbc:3
 fi
