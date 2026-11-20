@@ -198,3 +198,22 @@ folds and the two returning folds, with P04 or P10 enrolled through visit 1 only
 Each stream uses orders 71000–71003. Both official score jobs are in wave 4 behind
 their streams. Estimated finish is 17:00–20:00 CET on 20 November at similar queue
 throughput to the full all-ten run. Slurm has not reserved that finish window.
+
+### Wave 1 recovery · 20 Nov, 15:22 CET
+
+The six CBraMod tasks in 64941883 loaded the Lane C REVE stage-A bank through
+the default asset path and failed strict weight loading. Slurm canceled two
+hardcb assemblies, their streams, and dispatcher 64941919. The other 930
+tasks completed. Recovery uses the Lane C2 CBraMod bank from the earlier
+successful fold fits via `CAP250_CB_STAGEA`. Release `15a63971` also checks the
+backbone and initializer in each stage-A receipt before loading the weights.
+
+Slurm queued retry array **64953889** (six fits), assemblies **64953892** and
+**64953903**, streams **64953910** and **64953911**, and dispatcher
+**64953913** at offset 940. The assemblies require their three matching fits
+by `afterok`. Each stream requires its assembly, and 64953913 requires all
+five base jobs. The saved plan retains the same 12 folds, both arms, all
+orders and both score jobs. Waves 2–4 now run in up to 470-task batches to
+leave room for other Leonardo work. Slurm allocates later dispatcher and score
+IDs as each batch is queued. See the run's `dispatch.jsonl` and `jobs.jsonl`.
+Estimated finish **19:00–22:00 CET on 20 November** if queue throughput holds.
