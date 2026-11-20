@@ -14,10 +14,12 @@ class Slurm:
         self.state = self.run / "jobs.jsonl"
         self.runner = str(self.root / "cleanslate/cap250/slurm.sh")
         self.worker = "cleanslate/cap250/array_worker.py"
-        self.regular = ["sbatch", "--parsable", "--kill-on-invalid-dep=yes",
+        self.regular = ["sbatch", "--parsable", "--hold", "--kill-on-invalid-dep=yes",
                         f"--account={args.account}", f"--chdir={self.run}",
                         f"--output={self.run}/logs/%x-%A_%a.out"]
         self.cpu, self.gpu, self.gres = args.cpu_partition, args.gpu_partition, args.gres
+        self.cpu_reserves_gpu = getattr(args, "site", "galvani") == "leonardo" and self.cpu.startswith("boost_")
+        self.base_ids = []
         if args.exclude:
             self.regular.append(f"--exclude={args.exclude}")
         rev = args.revision or subprocess.check_output(["git", "rev-parse", "HEAD"], text=True, cwd=self.root).strip()
@@ -32,7 +34,7 @@ class Slurm:
         flags = [f"--job-name={name}", f"--cpus-per-task={resources.cpus}",
                  f"--mem={resources.memory}", f"--time={resources.minutes}",
                  f"--partition={self.gpu if resources.gpu else self.cpu}"]
-        if resources.gpu:
+        if resources.gpu or self.cpu_reserves_gpu:
             flags.append(f"--gres={self.gres}")
         if deps:
             flags.append("--dependency=afterok:" + ":".join(deps))
@@ -41,6 +43,7 @@ class Slurm:
         job_id = result.stdout.strip().partition(";")[0]
         if not job_id.isdecimal():
             raise RuntimeError(f"invalid sbatch job ID: {result.stdout!r}\n{result.stderr}")
+        self.base_ids.append(job_id)
         return job_id
 
     def submit_group(self, name, group):
@@ -84,6 +87,10 @@ class Slurm:
                     self.submit_group(name, group)
                 except subprocess.CalledProcessError as error:
                     raise RuntimeError(f"sbatch failed for {group[0].key}: {error.stderr.strip()}. "
-                                       f"Submitted jobs are recorded in {self.state}") from error
+                                       f"Submitted jobs remain held and are recorded in {self.state}") from error
                 for node in group:
                     del pending[node.key]
+        for i in range(0, len(self.base_ids), 100):
+            subprocess.run(["scontrol", "release", ",".join(self.base_ids[i:i + 100])],
+                           env=self.env, check=True)
+        print(f"released {len(self.base_ids)} Slurm jobs after recording all dependencies", flush=True)

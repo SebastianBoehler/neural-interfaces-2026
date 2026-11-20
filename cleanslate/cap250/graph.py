@@ -16,7 +16,7 @@ HARNESS = "cleanslate/harness"
 PEOPLE = tuple(f"P{i:02d}" for i in range(1, 11))
 RETURNING = ("P04", "P10")
 SITES = {
-    "leonardo": ("AIFAC_P02_1636", "lrd_all_serial", "boost_usr_prod"),
+    "leonardo": ("AIFAC_P02_1636", "boost_usr_prod", "boost_usr_prod"),
     "galvani": ("gehler", "cpu-galvani,2080-galvani", "a100-galvani,2080-galvani"),
 }
 

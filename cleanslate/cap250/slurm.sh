@@ -4,7 +4,7 @@ set -euo pipefail
 program=${1:?relative Python program}
 shift
 cd "${CAP250_RELEASE:?}"
-export PYTHONDONTWRITEBYTECODE=1
+export PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1} OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
 export MKL_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
 export NI26_TORCH_THREADS=${SLURM_CPUS_PER_TASK:-1}
@@ -17,7 +17,8 @@ if [[ -n ${CAP250_IMAGE:-} ]]; then
   fi
   options=(--bind "$CAP250_RELEASE,$CAP250_RUN,$CAP250_ASSETS")
   [[ -z ${CAP250_HARD_SOURCE:-} ]] || options+=(--bind "$CAP250_HARD_SOURCE")
-  [[ -z ${CAP250_CB_SOURCE:-} ]] || options+=(--bind "$CAP250_CB_SOURCE")
+  [[ -z ${CAP250_CB_STAGEA:-} ]] || options+=(--bind "$CAP250_CB_STAGEA")
+  [[ -z ${CAP250_CB_CHECKPOINT:-} ]] || options+=(--bind "$(dirname "$CAP250_CB_CHECKPOINT")")
   [[ -z ${CAP250_DATA:-} ]] || options+=(--bind "$(dirname "$CAP250_DATA")")
   [[ -z ${SLURM_JOB_GPUS:-} ]] || options+=(--nv)
   exec "$container" exec "${options[@]}" "$CAP250_IMAGE" python -B "$program" "$@"
