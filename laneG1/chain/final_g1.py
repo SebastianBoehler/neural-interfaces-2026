@@ -37,6 +37,7 @@ SYSTEMS = ("hardcb", "ds_all")
 from consts_g1 import ARMS, DEF  # noqa: E402
 import g1_em  # noqa: E402
 import time as _time  # noqa: E402
+ALIGN = []
 TIMING_KEY = ["", ""]
 TIMING = {}  # (sys, arm) -> seconds spent inside the em stage
 ANCHOR_SECONDS = []
@@ -92,6 +93,9 @@ def stage_fns(gm, pdel, ydel):
         def f(b, proto, g):
             t0 = _time.perf_counter()
             F, sess = gm.L.Z[f"GE|{proto}"], gm.L.Z[f"sess|{proto}"]
+            if p["mode"] is not None:  # label alignment guard: the stage input (rebalanced mix) must agree with the delivered-order labels
+                acc = float((b.argmax(1) == ydel).mean()); ALIGN.append(acc)
+                assert acc > 0.6, ("labels not aligned with the delivered tape", acc)
             out = np.empty_like(b)
             for s in dict.fromkeys(sess):
                 rows = np.flatnonzero(sess == s)
@@ -332,7 +336,7 @@ def run(order, smoke, job):
             print("GUARD", guard, flush=True)
         arrays = dict(index=np.arange(len(delivered)), delivery=delivered)
         arrays.update({f"{k}|terminal": v.astype(np.float32) for k, v in out.items()})
-        meta = dict(timing_em_seconds={f"{k[0]}|{k[1]}": v for k, v in TIMING.items()}, anchor_seconds=ANCHOR_SECONDS, moved_max_abs=moved, source_labels="labels of the nine other people read as source anchors only; held person excluded (asserted)", source=source, order=order, job=job, specs=specs, guard=guard, scope="smoke" if smoke else "complete", rows=len(delivered),
+        meta = dict(label_alignment_acc=ALIGN[:2], timing_em_seconds={f"{k[0]}|{k[1]}": v for k, v in TIMING.items()}, anchor_seconds=ANCHOR_SECONDS, moved_max_abs=moved, source_labels="labels of the nine other people read as source anchors only; held person excluded (asserted)", source=source, order=order, job=job, specs=specs, guard=guard, scope="smoke" if smoke else "complete", rows=len(delivered),
                     seconds=perf_counter() - begin, held_labels_opened=False, delivery=stamp(ctx["delivery"]), parent=ctx["parent"], zero=ctx["zero"])
         tag = "".join(c if c.isalnum() or c in "_-" else "_" for c in (Path(job[5:]).stem if job.startswith("file:") else job))
         if not smoke:
