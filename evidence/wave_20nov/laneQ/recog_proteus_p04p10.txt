@@ -1,0 +1,13 @@
+sessions per person {'P04': [np.str_('1'), np.str_('2'), np.str_('3')], 'P10': [np.str_('1'), np.str_('2'), np.str_('3')], 'P01': [np.str_('1')]}
+impostor streams 64 (8 new people x 8 orders), gallery 10 rows with P04/P10 = visit 1 only
+stock impostor latch rate 0.0
+stock raw .26: thr 0.260 impostor FA 0.000
+   P04 visit 2: TA 1.00 misID 0.00  ages [11, 11, 14, 23, 34, 46, 58, 84]
+   P04 visit 3: TA 1.00 misID 0.00  ages [11, 11, 11, 11, 11, 11, 11, 11]
+   P10 visit 2: TA 1.00 misID 0.00  ages [11, 11, 11, 11, 22, 25, 42, 50]
+   P10 visit 3: TA 1.00 misID 0.00  ages [11, 11, 11, 11, 12, 17, 22, 29]
+S-norm: thr 2.700 impostor FA 0.000
+   P04 visit 2: TA 0.00 misID 0.00  ages []
+   P04 visit 3: TA 0.00 misID 0.00  ages []
+   P10 visit 2: TA 0.00 misID 0.00  ages []
+   P10 visit 3: TA 0.00 misID 0.00  ages []

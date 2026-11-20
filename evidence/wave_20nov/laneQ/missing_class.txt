@@ -1,0 +1,29 @@
+task labels: [0 1 2]
+
+== full0: 28 cells, 2655 windows
+stock  raw       cells with a class <=2 preds: 0/28  min class share 0.156 
+stock  filtered  cells with a class <=2 preds: 0/28  min class share 0.156 
+stock  terminal  cells with a class <=2 preds: 0/28  min class share 0.135 []
+hard   raw       cells with a class <=2 preds: 0/28  min class share 0.156 
+hard   filtered  cells with a class <=2 preds: 0/28  min class share 0.156 
+hard   terminal  cells with a class <=2 preds: 0/28  min class share 0.135 []
+cb     raw       cells with a class <=2 preds: 0/28  min class share 0.167 
+cb     filtered  cells with a class <=2 preds: 0/28  min class share 0.167 
+cb     terminal  cells with a class <=2 preds: 0/28  min class share 0.156 []
+hardcb raw       cells with a class <=2 preds: 0/28  min class share 0.156 
+hardcb filtered  cells with a class <=2 preds: 0/28  min class share 0.156 
+hardcb terminal  cells with a class <=2 preds: 0/28  min class share 0.146 []
+
+== within0: 28 cells, 2655 windows
+stock  raw       cells with a class <=2 preds: 0/28  min class share 0.226 
+stock  filtered  cells with a class <=2 preds: 0/28  min class share 0.237 
+stock  terminal  cells with a class <=2 preds: 0/28  min class share 0.215 []
+hard   raw       cells with a class <=2 preds: 0/28  min class share 0.215 
+hard   filtered  cells with a class <=2 preds: 0/28  min class share 0.237 
+hard   terminal  cells with a class <=2 preds: 0/28  min class share 0.226 []
+cb     raw       cells with a class <=2 preds: 0/28  min class share 0.226 
+cb     filtered  cells with a class <=2 preds: 0/28  min class share 0.247 
+cb     terminal  cells with a class <=2 preds: 0/28  min class share 0.226 []
+hardcb raw       cells with a class <=2 preds: 0/28  min class share 0.215 
+hardcb filtered  cells with a class <=2 preds: 0/28  min class share 0.237 
+hardcb terminal  cells with a class <=2 preds: 0/28  min class share 0.215 []
