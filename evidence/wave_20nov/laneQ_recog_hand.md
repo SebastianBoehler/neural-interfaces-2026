@@ -59,7 +59,7 @@ Registered rule (TA +5 at FA <= stock on NETBCI, ds007221g not lower, P04/P10 ag
 **Refuted for this form (cohort = other-corpus sessions, S/AS-norm, 3-window persistence); no package built.** Not covered: an in-lab cohort
 (only 14 public sessions exist), the contrast gate, an SPRT with calibrated per-person thresholds, a lab-matched calibration of tau.
 Prediction check: stock NETBCI TA .55 predicted, .82 seen (high side), FA <= 3 % predicted, 15 % seen (wrong); ds007221g .80 predicted, 1.00 seen; fix +5 at stock FA (P .35): not met.
-Sealed cost: miss rate (1-TA) is 0 in the only in-lab cross-visit evidence (12/12... 32/32 streams) and 18-22 % on the stress corpora; upper bound
+Sealed cost: miss rate (1-TA) is 0 in the only in-lab cross-visit evidence (32/32 streams) and 18-22 % on the stress corpora; upper bound
 0.377 x 0.2 x (12..40 pp) = 0.9-3.0 pp if EVERY miss lost the routed gain with no contrast-gate rescue, which the in-lab 32/32 and the 100 % ds007221g
 do not support; central estimate about 0 and an unmeasured tail. The fix would not recover it. The over-latch side (new people routed to a wrong head)
 is the stress-corpus risk to watch; the in-lab 0/64 and the zero latches on held-new public LOPO (earlier lanes) say it does not occur on PROTEUS-lab data.
