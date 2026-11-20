@@ -36,7 +36,7 @@ or undecided in the full system. Evidence: evidence/wave_20nov/*.md, evidence/co
    templates hurts (G1).
 4. Returning people: adapting after recognition helps far from the ceiling (NETBCI +3.7) and hurts near it (P04/P10);
    the sealed one-session people are unmeasured; a reliable gate is the open piece (R4b).
-   **Red team, 20 Nov 23:50:** the P04/P10 half of this is unsound. The Lane A / R4 / D3 returning packages carry the
+   **Red team, 20 Nov 22:50:** the P04/P10 half of this is unsound. The Lane A / R4 / D3 returning packages carry the
    uploaded package's Hilbert core, rest nets and count filter, fitted on the test visits. Clean level (real fold
    packages): P04 70 %, P10 89 %, not 90–97 %. Re-score in-lab on the real fold packages: `redteam_fable.md` F1, H1, H5.
 

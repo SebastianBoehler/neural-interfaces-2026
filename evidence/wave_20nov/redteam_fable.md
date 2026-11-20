@@ -1,4 +1,4 @@
-# Red team · fundamental bugs and wrong assumptions (Fable, Fri 20 Nov 2026, 22:25–23:50 CET)
+# Red team · fundamental bugs and wrong assumptions (Fable, Fri 20 Nov 2026, 22:25–22:55 CET)
 
 Scope: strict review, no tuning. I ran local real-data checks and read cluster outputs; **I started no cluster job**
 (scope set by the user). Checks that need cluster runs are specified under "Handoff checks" for an executor.
