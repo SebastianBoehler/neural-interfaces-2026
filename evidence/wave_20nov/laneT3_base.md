@@ -49,3 +49,11 @@ this form); the level predictions above were too low (a0 A1 63.1 vs 57). Questio
 Two gentler forms added to the vendored `ref/stream_eval.py` (labelled ttt_base, not team C's): **A2l** 4 steps lr 2e-5 all params; **A2bn** 4 steps lr 1e-3 BN affine only
 (`params=bn`). Eval-only on the existing packages (b0, b1, c1 and the d bases), orders 0/1. Prediction on FBCNet bases: A2l - A1 -0.5 [-3, +1.5]; A2bn - A1 +0.3 [-2, +2];
 neither beats A1 by a lower bound > 0 (supported only if so, refuted if both upper bounds < 0, else undecided). a0 is evaluated with the same forms as the shallow/EEGNet/FBNet reference.
+
+## Addendum 2 · registered ~08:50 CET after the first full table (a0, b0, b1, c1, d_fbc64, d_fbcst8, d_fbwide, d_eegnex, d_ifnet scored; a1 and MANAS not)
+Seen (A1 / A2 / A2h, mean of orders 0,1): a0 63.1/65.0/62.1; b0 62.1/57.4/53.2; b1 62.2/58.7/53.0; c1 62.4/58.9/52.1; fbc64 61.6/57.9/54.2; fbcst8 61.3/57.2/53.9; fbwide 58.4/59.1/56.3;
+IFNet 56.9/57.6/53.2; EEGNeX 53.0/48.9/42.8. Trunk effect on A1: b1-b0 +0.07 [-0.6, +0.7], c1-b1 +0.18 [-0.4, +0.6] (undecided). The braindecode nets lose 3.5-10 pp under TTT; a0 gains +1.8.
+Question registered now: which a0 member family carries the TTT gain (and which one loses)? Bases e_shallow, e_eegnet, e_fbnet = three seeds of one family each (60 epochs, same recipe), variants A0, A1, A2, A2h, A2l, A2bn.
+Prediction: gain A2 - A1: shallow +1.5 [-1, +4]; eegnet +1.5 [-1, +4]; fbnet +1 [-2, +4] (team C's own FBNet shares their FIR-initialised filter bank); every one of the three above the braindecode nets' gain.
+If the three gain and the braindecode nets lose, the working explanation is the parametrisation (max-norm / constrained layers, log-variance heads), not test-time training itself; this will be stated as an explanation, not a result.
+Next whole-ensemble question (after these): do the braindecode members help a0 inside the ensemble under TTT? Union packages by `merge.py` (a0 + c1, a0 + d_ifnet), variants A0, A1, A2, A2l, reported against a0 on the same people/orders.
