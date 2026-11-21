@@ -9,4 +9,4 @@ Leonardo R1 seed-0 refits used production-20261120-32a94ab7. Four fresh orders 7
 | 3 × 15% | +0.32 [-0.06, +0.65] | +0.93 [+0.50, +1.46] | +1.00 / +0.86 | +0.63 [+0.35, +0.89] | +0.57 |
 | 3 × 25% | +0.43 [-0.16, +0.97] | +1.21 [+0.61, +2.09] | +1.35 / +1.07 | +0.82 [+0.41, +1.23] | +0.73 |
 
-Paired intervals resample people and orders. The 57/43 mix with returning P04/P10 at 20/80 is unverified. Warm A100 adds 33.93 ms/window for hardcb and 7.82/3.54 for nine/three, projecting 3,394/3,308 s before +0.25/+0.34 s load against 3,600 s. The selected 9 × 25% ZIP and CPU zero check are running in Slurm job 64997383.
+Paired intervals resample people and orders. The 57/43 mix with returning P04/P10 at 20/80 is unverified. Warm A100 adds 33.93 ms/window for hardcb and 7.82/3.54 for nine/three, projecting 3,394/3,308 s before +0.25/+0.34 s load against 3,600 s. The 9 × 25% ZIP includes the dead-session guard and passed exact CPU blend-zero mixer, step and labels on 379 windows (64997383). RTX PRO 4500 timing is unmeasured.

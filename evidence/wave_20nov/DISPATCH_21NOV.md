@@ -44,3 +44,5 @@
 - Final R1a · checked by 01:12 CET. All intended jobs reached terminal state. Both 45-minute CPU retries passed, as did both terminal-score and cap250 qualification jobs. The full original-tape comparisons returned 0/32 exact matches for each ZIP. Both solvers reproduced full clean H1 tapes with the matching fold assets. [Final evidence and archive hashes](final_r1a.md)
 
 - Lane TB collector retry · 21 Nov 01:33 CET. All 12 streams and warm timing completed. Collector 64993398 failed to serialize a NumPy changed-label count, so its dependent ZIP job 64993399 was cancelled by Slurm. Atomic JSON fix `ca8947f4`. Collector 64997382 reuses the 60 existing prediction files and feeds conditional ZIP/CPU zero 64997383.
+
+- Lane TB completed · 21 Nov 01:46 CET. Collector 64997382 and conditional ZIP job 64997383 succeeded. Nine25 passed exact CPU blend-zero on 379 windows. [Results and archive receipt](laneTB_blend.md)
