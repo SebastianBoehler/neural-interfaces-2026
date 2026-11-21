@@ -51,3 +51,5 @@
 - Lane TB collector retry · 21 Nov 01:33 CET. All 12 streams and warm timing completed. Collector 64993398 failed to serialize a NumPy changed-label count, so its dependent ZIP job 64993399 was cancelled by Slurm. Atomic JSON fix `ca8947f4`. Collector 64997382 reuses the 60 existing prediction files and feeds conditional ZIP/CPU zero 64997383.
 
 - Lane TB completed · 21 Nov 01:46 CET. Collector 64997382 and conditional ZIP job 64997383 succeeded. Nine25 passed exact CPU blend-zero on 379 windows. [Results and archive receipt](laneTB_blend.md)
+
+- Lane TB-grow · Leonardo `cap250/runs/laneTB-grow-21nov`. Preregistered at `22601c4d`. Seed-1 Team B real-data smoke 65001030 → 12 fold fits 65001034. Team C returning smoke 65001031 → two 60-epoch fold fits 65001036. Both arrays depend on their smoke. Local v3 replay printed OK. Galvani batch SSH denied authentication. [Protocol](../../docs/LEDGER.md#lane-tb-grow--dose-insertion-point-and-independent-sources-registered-21-nov-2026-before-scoring)
