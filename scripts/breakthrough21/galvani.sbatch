@@ -33,6 +33,10 @@ check.run(Namespace(stage=stage, zips=Path(run) / "zips", data=Path("data/proteu
                     out=Path(run) / "out" / f"floor-{stage}-{job}.json", sha=sha))
 ' "${stage#floor-}" "$zip" "$sha" "$run" "$SLURM_JOB_ID" "$lead.zip" "$lead_sha"
         ;;
+    graph-smoke)
+        container "$run/check_base_graph.py" "$run/zips/$zip.zip" "$sha" data/proteus_windows.npz \
+            "$run/out/base-graph-smoke-$SLURM_JOB_ID.json"
+        ;;
     qual-smoke|qual-zero)
         container "$run/qualify_new.py" "${stage#qual-}" "$run/zips/$zip.zip" "$sha" data/proteus_windows.npz \
             "$run/out/$stage-$SLURM_JOB_ID.json"
