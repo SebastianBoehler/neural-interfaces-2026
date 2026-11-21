@@ -31,10 +31,7 @@ cd "$run/src"
 check=submissions/final_stack/check_cb_speed.py
 data=data/proteus_windows.npz
 if [[ $stage == smoke ]]; then
-    for suffix in "" _r1a; do
-        name=final_stack_hardcb_safe_st$suffix
-        "${py[@]}" "$check" smoke "$run/zips" "$data" "$run/smoke$suffix-$SLURM_JOB_ID.json" --name "$name"
-    done
+    "${py[@]}" "$check" smoke "$run/zips" "$data" "$run/smoke-$SLURM_JOB_ID.json"
 elif [[ $stage == bench ]]; then
     "${py[@]}" "$check" bench "$run/zips" "$data" "$run/bench-$SLURM_JOB_ID.json"
 elif [[ $stage == options-smoke || $stage == options ]]; then
@@ -43,12 +40,12 @@ elif [[ $stage == options-smoke || $stage == options ]]; then
     "${py[@]}" submissions/final_stack/cb_speed_options.py "$run/zips" "$data" \
         "$run/$stage-$SLURM_JOB_ID.json" "${flags[@]}"
 elif [[ $stage == terminal ]]; then
-    task=${SLURM_ARRAY_TASK_ID:?expected task 0-7}
-    suffix="" order=recording
-    if ((task / 4)); then suffix=_r1a; fi
-    if ((task / 2 % 2)); then order=71000; fi
+    task=${SLURM_ARRAY_TASK_ID:?expected task 0-3}
+    if ((task > 3)); then exit 2; fi
+    order=recording
+    if ((task / 2)); then order=71000; fi
     "${py[@]}" "$check" terminal "$run/zips" "$data" "$run/terminal-$SLURM_ARRAY_JOB_ID-$task.json" \
-        --name "final_stack_hardcb_safe_st$suffix" --order "$order" --part "$((task % 2))" 2
+        --order "$order" --part "$((task % 2))" 2
 else
     exit 2
 fi

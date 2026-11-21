@@ -1,4 +1,4 @@
-"""Derive the two faster hardcb archives from the pinned self-test ZIPs."""
+"""Derive the faster hardcb archive from the pinned plain self-test ZIP."""
 
 import argparse
 from copy import copy
@@ -8,10 +8,7 @@ from zipfile import ZipFile
 
 HERE = Path(__file__).resolve().parent
 NAME = "final_stack_hardcb_safe_st"
-PARENTS = {
-    NAME: "47faa27b25f6fc1fcbcc1c74f2be4b8b2aeb2a1e02c6c957d342eb6c91b9c2ec",
-    NAME + "_r1a": "82cc75456c486529cbebe9b1b9ddb1621b8478a4ad69e81b6fa11a9a083c4861",
-}
+PARENT_SHA = "47faa27b25f6fc1fcbcc1c74f2be4b8b2aeb2a1e02c6c957d342eb6c91b9c2ec"
 
 
 def digest(path):
@@ -20,7 +17,7 @@ def digest(path):
 
 
 def verify_parent(path):
-    if digest(path) != PARENTS[path.stem]:
+    if digest(path) != PARENT_SHA:
         raise ValueError(f"{path}: unexpected parent SHA-256")
 
 
@@ -65,8 +62,7 @@ def main():
     parser.add_argument("parents", type=Path)
     parser.add_argument("out", type=Path)
     args = parser.parse_args()
-    for name in PARENTS:
-        build(args.parents / f"{name}.zip", args.out / f"{name}_cbgraph.zip")
+    build(args.parents / f"{NAME}.zip", args.out / f"{NAME}_cbgraph.zip")
 
 
 if __name__ == "__main__":

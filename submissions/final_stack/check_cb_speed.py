@@ -1,4 +1,4 @@
-"""Qualify the exact fast CBraMod ZIPs on real PROTEUS windows through the Solver."""
+"""Qualify the fast hardcb ZIP on real PROTEUS windows through the Solver."""
 
 import argparse
 from contextlib import ExitStack
@@ -27,8 +27,8 @@ from stream import load_solver
 DATA_SHA = "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
 
 
-def load_models(stack, zips, name, channels, device):
-    paths = zips / f"{name}.zip", zips / f"{name}_cbgraph.zip"
+def load_models(stack, zips, channels, device):
+    paths = zips / f"{NAME}.zip", zips / f"{NAME}_cbgraph.zip"
     verify_pair(*paths)
     models = []
     for path in paths:
@@ -119,7 +119,7 @@ def run(args):
         raise ValueError(f"unexpected public data coverage: {x.shape}")
     order = plans(sessions, args.order)
     with ExitStack() as stack:
-        models, hashes = load_models(stack, args.zips, args.name, channels, args.device)
+        models, hashes = load_models(stack, args.zips, channels, args.device)
         cuda = args.device != "cpu"
         result = dict(stage=args.stage, order=args.order, zip_sha256=hashes, torch=torch.__version__,
                       braindecode=braindecode.__version__, cuda=torch.version.cuda,
@@ -154,7 +154,6 @@ if __name__ == "__main__":
     p.add_argument("zips", type=Path)
     p.add_argument("data", type=Path)
     p.add_argument("out", type=Path)
-    p.add_argument("--name", choices=(NAME, NAME + "_r1a"), default=NAME + "_r1a")
     p.add_argument("--device", choices=("cpu", "cuda:0"), default="cuda:0")
     p.add_argument("--order", choices=("recording", "71000"), default="71000")
     p.add_argument("--part", nargs=2, type=int, default=(0, 1), metavar=("INDEX", "COUNT"))

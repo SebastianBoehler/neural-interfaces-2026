@@ -9,7 +9,7 @@ from time import perf_counter
 import numpy as np
 import torch
 
-from build_cb_speed import NAME, digest
+from build_cb_speed import digest
 from cb_speed_bench import ATOL, stats, timed
 from check_cb_speed import DATA_SHA, load_models
 
@@ -120,7 +120,7 @@ def main():
     with np.load(args.data, allow_pickle=False) as data:
         channels, windows = data["ch_names"], data["X"]
     with ExitStack() as stack:
-        models, hashes = load_models(stack, args.zips, NAME, channels, "cuda:0")
+        models, hashes = load_models(stack, args.zips, channels, "cuda:0")
         result = options(models[1].cb, windows[:(24 if args.smoke else 160)])
     result.update(zip_sha256=hashes, torch=torch.__version__, gpu=torch.cuda.get_device_name())
     args.out.write_text(json.dumps(result, indent=2) + "\n")
