@@ -7,8 +7,8 @@ import numpy as np
 
 from oracles import freeze
 from returning_diet_report import PARENT_SHA, digest, report
-from quarter_protocol import CANDIDATE_SHA, CHUNK, ORDERS, ROSTER
-from tapes import metadata, read_bank
+from quarter_protocol import CANDIDATE_SHA, CHUNK, ORDERS, ROSTER, SCHEME
+from tapes import metadata, protocol, read_bank
 
 
 def collect(data_path, fixtures, captures, output):
@@ -37,8 +37,11 @@ def collect(data_path, fixtures, captures, output):
         np.testing.assert_array_equal(trial[:prefix], ref[:prefix])
         return rows, dict(half=ref, quarter=trial, rec=np.full(len(rows), age), identity=np.full(len(rows), identity))
 
-    bank = read_bank(metadata(data_path), ORDERS, read)
-    output_doc = dict(orders=ORDERS, parent_sha256=PARENT_SHA, candidate_sha256=CANDIDATE_SHA,
+    data = metadata(data_path)
+    streams = np.unique(data["stream"])
+    plans = {seed: protocol.plans(data, seed, streams, scheme=SCHEME) for seed in ORDERS}
+    bank = read_bank(data, ORDERS, read, deliveries=plans)
+    output_doc = dict(orders=ORDERS, scheme=SCHEME, parent_sha256=PARENT_SHA, candidate_sha256=CANDIDATE_SHA,
                       captures_sha256={p.name: digest(p) for p in sorted(files)},
                       **report(bank, ORDERS, arms=("quarter",), nested_orders=True))
     freeze(output, output_doc)

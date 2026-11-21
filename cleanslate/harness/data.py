@@ -78,9 +78,12 @@ def scheme_of(seed):
     return {72: "within", 73: "runs", 74: "cells"}.get(int(seed) // 1000, "full")
 
 
-def delivery(stream, seed, run=None, onset=None, interface=None):
-    """Permutation p of all rows: p[stream==s] lists the delivery order of session s under this seed."""
-    scheme = scheme_of(seed)
+def delivery(stream, seed, run=None, onset=None, interface=None, *, scheme=None):
+    """Permutation p of all rows with the requested scheme, or the scheme assigned to the seed."""
+    if scheme is None:
+        scheme = scheme_of(seed)
+    if scheme not in SCHEME_ID:
+        raise ValueError(f"unknown delivery scheme: {scheme}")
     if scheme != "full" and (run is None or onset is None or (scheme == "cells" and interface is None)):
         raise ValueError(f"order {seed} is a {scheme!r} order: delivery() needs run, onset and interface (use plans())")
     rng = np.random.default_rng([seed, 0, SCHEME_ID[scheme]])
@@ -102,8 +105,8 @@ def delivery(stream, seed, run=None, onset=None, interface=None):
     return p
 
 
-def plans(d, seed, streams):
-    p = delivery(d["stream"], seed, d.get("run"), d.get("onset"), d.get("interface"))
+def plans(d, seed, streams, *, scheme=None):
+    p = delivery(d["stream"], seed, d.get("run"), d.get("onset"), d.get("interface"), scheme=scheme)
     return {s: p[d["stream"][p] == s] for s in streams}
 
 

@@ -1,6 +1,7 @@
 """Frozen PROTEUS folds and orders for the quarter final check."""
 
 ROSTER = "ba_six"
+SCHEME = "full"
 ORDERS = tuple(range(72000, 72016))
 CHUNK = 2
 FOLDS = (*(f"new_P{i:02d}" for i in range(1, 11)), "ret_P04", "ret_P10")

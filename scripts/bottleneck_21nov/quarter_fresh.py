@@ -11,7 +11,7 @@ from capture import top_gate
 from returning_diet_worker import DATA_SHA, V, diet, fixture_assets, load, modified, open_fold, replay, taped
 from returning_em_worker import sessions
 
-from quarter_protocol import CHUNK, FOLDS, ORDERS, ROSTER
+from quarter_protocol import CHUNK, FOLDS, ORDERS, ROSTER, SCHEME
 
 
 def run(data_path, fixtures, out, task, *, smoke=False):
@@ -31,8 +31,10 @@ def run(data_path, fixtures, out, task, *, smoke=False):
     start = chunk * CHUNK
     orders = ORDERS[start:start + CHUNK]
     payload = {"receipt": np.asarray(json.dumps(receipt, sort_keys=True))}
-    for order in orders[:1] if smoke else orders:
-        for stream, rows in V.D.plans(data, order, streams[:1] if smoke else streams).items():
+    if smoke:
+        orders, streams = orders[:1], streams[:1]
+    for order in orders:
+        for stream, rows in V.D.plans(data, order, streams, scheme=SCHEME).items():
             items = taped(model, signals, rows)
             native = np.asarray([item.label for item in items], dtype=np.int8)
             np.testing.assert_array_equal(replay(model, items, "w25")[0], native)
