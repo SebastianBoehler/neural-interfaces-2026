@@ -21,14 +21,14 @@ def digest(path):
         return file_digest(source, "sha256").hexdigest()
 
 
-def load_bank(work, captures, data, phase):
+def load_bank(work, captures, data, phase, *, arms=ARMS):
     cases = load_cases(work, data, ROSTER, phase)
     files = {}
     for case in cases:
         saved = case.scores[REFERENCE]
         age = int(case.scores["rec"][0])
         if age == -1:
-            case.scores.update({arm: saved for arm in ARMS})
+            case.scores.update({arm: saved for arm in arms})
             continue
         fold, key = f"{case.cohort}_{case.person}", f"{case.order}_{case.visit}"
         path = captures / phase / f"{fold}-{case.order - case.order % 4}.npz"
@@ -41,7 +41,7 @@ def load_bank(work, captures, data, phase):
             raise ValueError(f"unexpected fixture in {path}")
         np.testing.assert_array_equal(tape[f"rows_{key}"], case.rows)
         np.testing.assert_array_equal(tape[f"half_{key}"], saved)
-        for arm in ARMS:
+        for arm in arms:
             pred = tape[f"{arm}_{key}"]
             if pred.shape != saved.shape or pred.dtype != np.int8 or not np.isin(pred, (0, 1, 2)).all():
                 raise ValueError(f"invalid {arm} labels in {path}")

@@ -30,7 +30,9 @@ export CS_OFFICIAL="$qual/2026-competition/tracks/bci_decoding"
 container() { apptainer exec --nv --bind "$work" "$sif" python -B "$@"; }
 case "${1:?}" in
     zero)
-        container "$run/src/scripts/bottleneck_21nov/returning_diet_zero.py" \
+        zero=returning_diet_zero
+        case "$arm" in a|b|c|d) zero=diet_decomposition_zero ;; esac
+        container "$run/src/scripts/bottleneck_21nov/$zero.py" \
             "$parent" "$candidate" "$fixtures" "$data" "$run/out/zero-$SLURM_JOB_ID.json" "$arm" "$sha"
         ;;
     pair)

@@ -8,14 +8,14 @@ from returning_em import patch as patch_em
 from returning_em_zero import check_zero, verify_pair
 
 
-def main():
+def main(*, arms=ARMS, source_patch=patch, setting="weight"):
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("parent", "candidate", "run", "data", "out"):
         parser.add_argument(name, type=Path)
-    parser.add_argument("arm", choices=ARMS)
+    parser.add_argument("arm", choices=arms)
     parser.add_argument("sha")
     a = parser.parse_args()
-    change = partial(patch, weight=ARMS[a.arm])
+    change = partial(source_patch, **{setting: arms[a.arm]})
 
     def fold_sources(source):
         parent = patch_em(source, 0.5)
