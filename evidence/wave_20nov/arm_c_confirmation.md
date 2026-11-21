@@ -1,8 +1,6 @@
 # Arm c final decision · 21 November 2026
 
-**Use the SessionEM-only arm c archive.** The 21:15 CET vote selected it subject to the exact-archive checks. The fresh PROTEUS and Scherer replays supported that decision. The team left Codabench untouched. [Board](../../../ni26-cleanroom/BOARD.md) · [Preregistration](../../docs/LEDGER.md#arm-c-fresh-proteus-confirmation--21-november)
-
-`runs/sealed/final_zips/final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing_recognised_em_half_diet_c.zip`
+**Upload the qualified arm c archive from the repository root.** The 21:15 CET vote selected it subject to the exact-archive checks. The fresh PROTEUS and Scherer replays supported that decision. [submission.zip](../../submission.zip) · [Board](../../../ni26-cleanroom/BOARD.md) · [Preregistration](../../docs/LEDGER.md#arm-c-fresh-proteus-confirmation--21-november)
 
 SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca`. Size 417,253,955 bytes. The 43 ZIP members match em_half in name and order. Content hashes match for every member except `submission.py`. Arm c lowers the recognized SessionEM emission weight from 0.5 to 0.25 after the native fit. The replay and archive both apply normalized `p^0.75 * q^0.25` when SessionEM is active. The native CountFilter and TSEM still run. [Exact archive qualification](diet_decomposition.md#promotion)
 

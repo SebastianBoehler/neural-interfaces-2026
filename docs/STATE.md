@@ -1,4 +1,14 @@
-# Current state (rewritten 19 Nov 2026 after the rules audit)
+# Current state
+
+## Final Track 2 submission
+
+**Upload [submission.zip](../submission.zip) from the repository root.** It contains the qualified arm c decoder with a 0.25 SessionEM weight on recognised streams. The archive is 417,253,955 bytes.
+
+SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca`.
+
+Run `shasum -a 256 submission.zip` from the repository root to verify the file. [Arm c qualification](../evidence/wave_20nov/arm_c_confirmation.md) · [Final sprint decision](../evidence/wave_20nov/arm_c_sprint_21nov.md)
+
+## Track 2 contract
 
 Task: one 41-channel EEG window at 120 Hz in, one of three tasks out, immediately. The model sees the delivered prefix,
 no labels, no person ID and no recording-order guarantee. Cells (participant/session/interface) weigh equally in the
@@ -14,7 +24,7 @@ balanced accuracy. State resets between sessions. Rules, with sources: [OFFICIAL
   `objective.py` plain cell mean; the organiser statement is the newer evidence). Returning share "not negligible", exact
   share private. Returning sessions are from different days. Runtime: 60 min of compute, model loading is extra, plus
   about 20 min Codabench slack; a timeout ends as Failed (no quota).
-- Self-imposed, not official: 3,060 s projection margin, 90 MB package, parity as upload gate.
+- Earlier candidates used a 3,060 s projection target and a 90 MB size target. The final selection uses the arm c qualification linked above.
 - Never upload without the user's explicit authorisation; recheck live quota and phase first.
 
 ## Systems
@@ -24,7 +34,7 @@ balanced accuracy. State resets between sessions. Rules, with sources: [OFFICIAL
 | **v6.6cap250, best sealed** | Submission 1058969, **0.8298729992**, 2,554.9 s, rank about 15-16 of the live table (19 Nov). Dev, corrected full system, shared fresh Sinc seed 0: +0.479 pp [paired 80% -0.222, +1.452] over v5.1b on ten held-new people (one order); within0 +2.546 pp [+1.641, +3.406] over P0r; matched full0 +0.667 pp [+0.033, +1.549]. [Sealed receipt](../friday/DECISION_18NOV.md#official-penultimate-receipt) · [Stage factorial](../friday/cap250c18/result-19nov.md) · [Within0](../friday/causal_replay/within0-overnight-queue.md#complete-d-eawcf-result--19-november-0224-cet) · [Full0](../friday/causal_replay/runs0_replay.md#common-source-full0-completed--19-november-0318-cet) |
 | C++/CUDA worker | Reproduced cap250 labels and work counts on 2,655 ordinary and 1,178 forced-adaptation public windows (one timing pair per workload). Source fitting of the full production ensemble is incomplete. [Worker](../native/worker-parity/README.md) · [Timings](../evidence/next_wave_16nov/native366_worker.md) |
 
-Stock cap250 stays the deployment reference. Alternates, all against exact cap250 (details in the linked cards):
+Exact cap250 is the reference for the historical comparisons below.
 - **FBL2** (doubled FBLight): +0.383 within0, +0.488 full0 held-new; returning -0.130 equal cells / -0.208 at 20/80; Scherer -0.020. [External](../friday/cap250c21s/result-19nov.md) · [Corrected](../friday/cap250c21/result-19nov.md) · [Trial ZIP](../friday/cap250_fbl2_package/README.md)
 - **Stock-protected FBLight**: +0.383 / +0.453 held-new; full runtime missed both RTX bounds, optimized archive missed the independent RTX posterior check. [Timing](../friday/cap250c21_count_view/README.md) · [Gate](../friday/cap250c21_gate/result-19nov.md)
 - **F-C22 (multiresolution + FBL2)**: +0.538 / +0.778 held-new; external -0.017, did not qualify. [External](../friday/cap250c22_external/result-19nov.md) · [Corrected](../friday/cap250c22/result-19nov.md)

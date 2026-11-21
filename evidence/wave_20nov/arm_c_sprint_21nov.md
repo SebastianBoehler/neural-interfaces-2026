@@ -1,6 +1,6 @@
 # Arm c returning-side sprint · 21 November 2026
 
-**22:20 CET · Upload arm c.** All three candidates missed at least one promotion criterion. The on-disk ZIP matches SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca`. Each candidate changed **0/63,720** held-new decisions. [Arm c ZIP](../../runs/sealed/final_zips/final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing_recognised_em_half_diet_c.zip) · [Arm c qualification](arm_c_confirmation.md)
+**22:20 CET · Upload arm c.** All three candidates missed at least one promotion criterion. The on-disk ZIP matches SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca`. Each candidate changed **0/63,720** held-new decisions. [submission.zip](../../submission.zip) · [Arm c qualification](arm_c_confirmation.md)
 
 EM0 set the recognised SessionEM output likelihood weight to zero and retained its history and fit. RB50 halved RouteB Rebalance alpha after recognition. Route150 multiplied the native winner's ramp by 1.5 up to 1.0 after recognition. RB50 and Route150 kept arm c's 0.25 SessionEM weight. All candidates ran with native TSEM, CountFilter, CSP and MANAS after the intervention. [Preregistration](../../docs/LEDGER.md#gpt-sprint--arm-c-returning-side-extensions-21-november-preregistered-at-2147-cet)
 

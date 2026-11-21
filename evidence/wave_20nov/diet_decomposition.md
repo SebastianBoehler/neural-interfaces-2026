@@ -59,7 +59,7 @@ The nine paired Galvani A100/BF16 shards (`3150536`) agreed on all four transfer
 
 Arm c passed all scoring thresholds. The other three arms missed the PROTEUS and Scherer gates.
 
-Built `final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing_recognised_em_half_diet_c.zip` from the signed production parent. SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca`. The builder checked the full member inventory and all payloads. Only `submission.py` differs. Galvani RTX 2080 Ti job `3150612` started at 21:06 CET for held-new parity. Official warm-up pair `3150613` and unprofiled Solver timing `3150614` depend on its success.
+Built arm c from the signed production parent. The qualified archive is staged at [submission.zip](../../submission.zip) with SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca`. The builder checked the full member inventory and all payloads. Only `submission.py` differs. Galvani RTX 2080 Ti job `3150612` started at 21:06 CET for held-new parity. Official warm-up pair `3150613` and unprofiled Solver timing `3150614` depended on its success.
 
 Held-new parity completed at **21:10:59 CET**, with 0/379 label changes and no recognition in either P01 or P02 on order 71800. The largest RouteB or terminal score difference was 5.14e−6. Receipt SHA-256 `2645692adb4e28cd625ef0699d98d765726621179d9cfffcf6bace872e4a4a58`. Both downstream checks started at 21:11 CET.
 

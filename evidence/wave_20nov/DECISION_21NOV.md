@@ -1,4 +1,9 @@
-# Upload decision note · Sat 21 Nov 2026, prepared ~08:55 CET for the 12:37 decision
+# Track 2 upload decision · 21 November 2026
+
+**Final upload** · Use the qualified arm c archive at [submission.zip](../../submission.zip). [SHA-256 and verification](../../docs/STATE.md#final-track-2-submission)
+
+## Earlier decisions · 21 November
+
 Nothing uploaded. Quota 1 left (STATE.md); Failed attempts do not consume it, manual cancellations do. Queue is busy: upload early, evaluation may end after 23:59. Never upload without explicit user authorisation; recheck live quota/phase first.
 
 ## Candidates (all derive from hard_safe_st `239c86bd…3c1e`; deltas are pp vs the hard-only base unless stated)
@@ -112,9 +117,7 @@ All 23 held-new changes were on P10 visit 1 after the native gate falsely recogn
 
 Smoke `65047956` passed v3, 189 pinned em_half labels, exact live half/quarter prefix labels and the fresh full-session smoke. All 96 replays in `65047957` completed. Collector `65047971` failed against a staged statistics helper without nested-order support. Retry `65050170` used helper revision `b037320f` with the same completed shards and wrote `cap250/runs/quarter-final-21nov/report.json` (SHA-256 `6b4dacd0592b0ecf755ea158c25caa0a81e81eb1c26057fa985cbe24ca0ba880`). The staged worker used the original full-session shuffle for these seeds. Local collection using the explicit full-session scheme in `4b28a8fa` revalidated every delivery row and reproduced the cluster report.
 
-**Final recommendation 21:45 CET (board unanimous: GPT, Fable, Opus).** Upload arm c
-`runs/sealed/final_zips/final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing_recognised_em_half_diet_c.zip`,
-SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca` (417,253,955 bytes, re-hashed locally).
+**Final recommendation at 21:45 CET.** The board unanimously selected arm c. The qualified archive is staged at
+[submission.zip](../../submission.zip) with SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca`.
 Fresh orders 72120–72123: returning +0.18 / +0.16 (full / within), 50/50 +0.09 / +0.08, held-new 0/10,620 changed;
-non-negative in 8/8 readings. Worst 2080 Ti projection 3,171.8 s; em_half soak 20,083 windows clean. Fallback em_half
-`833a2872…`. Not uploaded; awaiting the user's go-ahead.
+non-negative in 8/8 readings. The worst 2080 Ti projection was 3,171.8 s. The em_half soak completed 20,083 windows.

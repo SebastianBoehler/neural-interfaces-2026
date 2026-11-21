@@ -1,6 +1,7 @@
 .venv/
 data/
 runs/
+/submission.zip
 __pycache__/
 .DS_Store
 .journal/
