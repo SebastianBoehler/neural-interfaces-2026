@@ -18,3 +18,9 @@ The local and Leonardo v3 guards printed `OK`. A local smoke on two archived fit
 The label-blind B control uses the P01/1 fold on 71800. Its stored count posterior differs from RouteB beginning at window 41, with 100 affected windows also using CSP. Compare the reconstructed B posterior directly with the Last Push tail with CountFilter bypassed. Require exact labels, maximum probability error ≤ 1e−7 and at least one active decision change. No accuracy is computed by this control.
 
 Control 65046842 loaded the older Bottleneck snapshot of Last Push, which lacks the bypass hook. Retry 65047298 uses the explicit Last Push tail staged for the quarter-diet lane. The capture array keeps the original snapshot for stock replay.
+
+Retry 65047298 matched the direct bypass on all 190 labels and changed four decisions versus native. The maximum posterior difference was 2.22e−16.
+
+## Fit freeze
+
+The quarter fold reference scored 74.551% new, 81.513% returning and 78.032% at 50/50. A froze `k=7, w=0.3` from 71800–71807 at +0.034 pp at 50/50. The other settings `(15, 0.3)`, `(7, 0.6)`, and `(15, 0.6)` gave −0.026, −0.114, and −0.141 pp. Fixed B gave +0.010 pp. Fit receipt SHA-256 `73a3e3ed5d683577230d16ca13b5bcfa9bde065d50c517205fee8996356dc0ff`.
