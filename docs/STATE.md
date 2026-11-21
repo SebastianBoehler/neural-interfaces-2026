@@ -9,8 +9,11 @@ balanced accuracy. State resets between sessions. Rules, with sources: [OFFICIAL
 - Sealed budget 3,600 s on one NVIDIA RTX PRO 4500; the 80 min worker timeout does not extend it. 4,800 s is wrong.
 - Only the best eligible sealed score counts (Force_Best). Quota 7 per team, at most 1 per day, Failed counts for
   neither. **6 used, 1 left.** Deadline Sat 21 Nov 23:59 CET (22:59 UTC).
-- Cohort, session allocation and evaluation order are private. **Assumption, unverified:** about 57 % new and 43 %
-  returning people (returning ~0.2 P04 + 0.8 P10), used only to weight dev results; under audit in `evidence/audit_20nov/`.
+- **Organisers on Discord, 21 Nov:** the sealed score is computed for seen (returning) and unseen (new) participants
+  separately, then averaged unweighted, so weight dev results 50/50 new/returning (this differs from the public
+  `objective.py` plain cell mean; the organiser statement is the newer evidence). Returning share "not negligible", exact
+  share private. Returning sessions are from different days. Runtime: 60 min of compute, model loading is extra, plus
+  about 20 min Codabench slack; a timeout ends as Failed (no quota).
 - Self-imposed, not official: 3,060 s projection margin, 90 MB package, parity as upload gate.
 - Never upload without the user's explicit authorisation; recheck live quota and phase first.
 
