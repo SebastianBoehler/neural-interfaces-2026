@@ -68,3 +68,9 @@ Galvani zero job 3148853 started at 17:36:11 CET, ahead of the earlier estimate.
 RTX 2080 Ti zero job 3148853 completed at 17:40:57 CET. It changed 0/379 labels on P01 and P02 held-new folds. Neither stream recognised, and the maximum RouteB/terminal score difference was 4.77e−6. Receipt `zero-3148853.json` SHA-256 `9fc37f4f7e2e8e7dadb3da046813c7809eb246f82d16a64fe5ebb132e2b318ad`.
 
 The official pair started at 17:41:16 CET. The first e2e job stopped before loading any model because the extracted timing-only tree lacked `check_hard_team_b`. The complete staged source passed the import check. Timing retry 3149006 uses the same signed archives and unprofiled workload, from launcher revision `c9914dc7`.
+
+**Quarter archive qualified at 17:52:29 CET.** Galvani 3148854 ran the official public warm-up twice per archive on RTX 2080 Ti. All four replays reached 100.000% cell-balanced accuracy, with four error-free v6 streams per replay, stable predictive scores and unchanged extracted files. The public sessions contributed to the production fit. Receipt `pair-3148854/pair.json` SHA-256 `a054fa3559edf96cc8053391d2c3b9e9d21da124dedb8adf36fcc11221e15458`.
+
+Unprofiled timing 3149006 on RTX 2080 Ti cn102 discarded the first session for warm-up and alternated archive order across six measured sessions (1,131 windows per archive). Cap250 measured 125.32 ms/window, em_half 154.49, and quarter 144.74. Quarter saved 9.74 ms/window relative to em_half. Load times were 2.07, 4.93 and 3.06 s, respectively. The established cap250 additive proxy gives 3,140.6 s for em_half and 2,944.9 s for quarter. The timing and warm-up jobs overlapped on cn102. The sealed RTX PRO 4500 was outside this measurement. Receipt `e2e-3149006.json` SHA-256 `179f93fdc7ad5e185217d86ebc919d08ac8bbb2fc760098cbaa5ca0116d147c5`.
+
+The local ZIP digest was checked again after both jobs finished. No Codabench upload was made.

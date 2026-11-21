@@ -3789,6 +3789,8 @@ Fable's fit-only oracle stopped. Age 5 gave +0.133 pp [−0.065,+0.381] at 50/50
 
 **Held result, 17:33 CET.** The primary zero arm gained +0.281 pp returning [80% −0.130, +0.708] and did not clear +0.30 pp. The quarter arm gained +0.382 pp [+0.137, +0.629] returning, +0.400 pp [+0.235, +0.567] P10 and +0.191 pp [+0.068, +0.315] at 50/50. Both had 0/21,240 held-new label changes and no held-new recognition. Promote only the quarter arm to ZIP qualification. [Receipts](../evidence/wave_20nov/fable_r6_diet.md#held-orders-7180871815)
 
+**Qualification completed, 17:52 CET.** Quarter ZIP `42fb63cf1ae9f54cf48315b00894b3788bc65400e75e06bd208ffe3753c43b07` changed only `submission.py`. Galvani 3148853 passed 0/379 held-new labels. Official pair 3148854 reached 100% BA on all four replays. Corrected unprofiled timing 3149006 measured 144.74 vs 154.49 ms/window against em_half on an RTX 2080 Ti. Cap250-based compute proxy 2,944.9 s. No upload. [Qualification](../evidence/wave_20nov/fable_r6_diet.md#production-qualification)
+
 **Final pilot result · 16:33 CET.** em_half baseline 77.8652% on 71800–71803 and 77.8179% on 71808–71811. Both frozen primaries were identity. Held diagnostics at dose 0.35:
 - **Soft balance** new −0.080 [−0.310,+0.125], returning +0.000 [0,0], 50/50 −0.040 [−0.155,+0.062] pp, 112/0 changed new/returning labels.
 - **Late word consensus** new −0.065 [−0.165,+0.037], returning +0.000 [0,0], 50/50 −0.033 [−0.082,+0.018] pp, 41/0 changed labels. The 41 changes repaired 15 word misses, spoiled 22 correct decisions, and changed four wrong labels to a different wrong label.
