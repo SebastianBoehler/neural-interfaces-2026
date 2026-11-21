@@ -32,6 +32,22 @@ Hard alone scored 73.54% held-new and 79.12% returning on these orders. Full fou
 
 Freeze job 65003091 validated 576 prediction files and wrote `select.json` (SHA-256 `ecb5c265f3fb094c59af7a4b130fa098ebe0a83753480a77e592a9d970818157`). The hard and nine25 P01 smoke matched 380 pinned labels. Each candidate passed the prefix and fresh-state checks. Both returning Team C fits used the registered six-member roster and passed separate live smokes after the initial three-member default was rejected. Those initial tasks stopped before running a Team C arm. The retry completed every missing prediction.
 
-## Confirmation
+## Primary confirmation on orders 71148–71155
 
-The primary and additional blocks are running with the frozen arm.
+**`ba_terminal` improved both cohorts versus hard.** Its incremental gain over nine25 was supported on the two returning people. The held-new increment remained undecided.
+
+| Contrast | Held-new Δ pp [80%] | Returning Δ pp [80%] | P04 / P10 Δ pp | J pp | 57/43* pp |
+|---|---:|---:|---:|---:|---:|
+| nine25 − hard | +0.64 [+0.22, +1.06] | +1.20 [+1.02, +1.37] | +1.16 / +1.24 | +0.92 | +0.89 |
+| ba_terminal − hard | +0.84 [+0.41, +1.26] | +1.62 [+1.25, +2.01] | +1.81 / +1.43 | +1.23 | +1.13 |
+| ba_terminal − nine25 | +0.20 [−0.08, +0.48] | +0.43 [+0.06, +0.80] | +0.65 / +0.20 | +0.31 | +0.24 |
+
+Absolute official cell BA for hard was 73.17% held-new and 79.36% returning. Ba_terminal reached 74.01% and 80.98%. The returning estimates cover P04 and P10 at visits 2–3, with visit 1 enrolled.
+
+Runtime projects to **3,285 s** on the 2,943 s nine25 anchor. On A100-SXM-64GB the two warm P01 pairs added 15.91 and 13.31 ms/window. The projection includes load and first-window overhead. It leaves about 315 s against the 3,600 s limit. Runtime on the official RTX PRO 4500 worker remains unmeasured.
+
+All 48 confirmation tasks and collector 65003093 completed. The collector matched selection SHA and all shared fold receipts, and validated 144 prediction files. `confirm.json` SHA-256 `640885e950f3e91841c1b6951bd64529e1389a608c5cbd135b6e82b437b0bf2d`.
+
+## Additional confirmation on orders 71172–71179
+
+Replay 65003770 was active at the most recent Leonardo readback. The additional result is pending.
