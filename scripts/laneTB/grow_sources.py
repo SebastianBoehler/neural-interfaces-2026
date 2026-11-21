@@ -78,7 +78,7 @@ def module(source, variant, text):
 
 
 def team_c(run, fold, data, variant):
-    pkg = run / "c" / fold if fold.startswith("ret_") else TEAM_C / f"pkg_{fold.split('_')[1]}"
+    pkg = run / "c_e6" / fold if fold.startswith("ret_") else TEAM_C / f"pkg_{fold.split('_')[1]}"
     people, _, streams, n = roster(fold, data)
     training = pkg / "train.json"
     meta = json.loads(training.read_text())

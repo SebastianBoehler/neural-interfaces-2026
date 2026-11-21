@@ -31,13 +31,14 @@ case ${1:?} in
   c-smoke|c)
     [[ $kind == ret && $first == "$held" ]]
     epochs=60
-    target=$run/c/$fold
+    target=$run/c_e6/$fold
     if [[ $1 == c-smoke ]]; then
       epochs=2
-      target=$run/fit-smoke/c
+      target=$run/fit-smoke/c_e6
     fi
     test ! -e "$target/weights.pt"
     bash "$launch" "$code/teamC/train.py" --people "$people" --exclude "$held|2,$held|3" \
+      --members shallow:0,shallow:1,eegnet:0,eegnet:1,fbnet:0,fbnet:1 \
       --out "$target" --epochs "$epochs" --data "$CAP250_DATA"
     sha256sum "$target/weights.pt" "$target/train.json" "$target/submission.py"
     ;;

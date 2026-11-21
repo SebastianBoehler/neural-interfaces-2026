@@ -17,10 +17,15 @@ case "$phase" in
   select-collect|confirm-collect)
     bash "$launcher" "$code/grow_collect.py" "${phase%-collect}" --run "$run" --data "$CAP250_DATA"
     ;;
-  smoke|timing|select|confirm)
+  smoke|returning-smoke|timing|select|select-repair|confirm)
+    extra=()
+    if [[ $phase == select-repair ]]; then
+      phase=select
+      extra=(--resume)
+    fi
     IFS=$'\t' read -r kind who _ < <(sed -n "$(( job % 12 + 1 ))p" "$TB_SRC/hardcb/jobs.tsv")
     bash "$launcher" "$code/grow_run.py" "$phase" --fold "${kind}_${who}" --chunk "$(( job / 12 ))" \
-      --run "$run" --data "$CAP250_DATA"
+      --run "$run" --data "$CAP250_DATA" "${extra[@]}"
     ;;
   *) exit 2 ;;
 esac

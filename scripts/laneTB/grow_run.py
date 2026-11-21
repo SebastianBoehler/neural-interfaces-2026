@@ -165,11 +165,31 @@ def smoke(fixture, signals):
         print("PASS", arm, "same prefix and fresh-state parity", meta, flush=True)
 
 
-def score(fixture, signals, arm_names, orders, out):
+def returning_smoke(fixture, signals):
+    held = fixture.fold.split("_")[1]
+    stream = f"{held}|2"
+    rows = D.plans(fixture.data, 71124, [stream])[stream][:24]
+    for arm in ("bc_a1", "bc_light", "bc_a2", "ba_terminal"):
+        model, _, _ = fixture.load(arm)
+        labels, mixes, meta = play(model, signals, rows, capture=True)
+        prefix, prefix_mixes, _ = play(model, signals, rows[:18], capture=True)
+        np.testing.assert_array_equal(labels[:18], prefix)
+        np.testing.assert_allclose(mixes[:18], prefix_mixes, rtol=0, atol=2e-6)
+        assert meta["move"] > 1e-4
+        print("PASS", fixture.fold, arm, meta, flush=True)
+
+
+def score(fixture, signals, arm_names, orders, out, resume):
     mode, held = fixture.fold.split("_")
     d = fixture.data
     sessions = ["2", "3"] if mode == "ret" else sorted(set(d["session"][d["person"] == held]))
     for arm in arm_names:
+        out_arm = out / fixture.fold / arm
+        target = out_arm / f"pred_{mode}_{held}_{orders[0]}.npz"
+        if resume and target.is_file() and target.with_suffix(".json").is_file():
+            print("Reuse completed replay", fixture.fold, arm, orders[0], flush=True)
+            continue
+        assert not target.exists(), target
         model, load, receipt = fixture.load(arm)
         res = {}
         for order in orders:
@@ -178,10 +198,7 @@ def score(fixture, signals, arm_names, orders, out):
                 labels, _, meta = play(model, signals, rows)
                 res.update({f"rows_{suffix}": rows, f"labels_{suffix}": labels})
                 print(fixture.fold, arm, suffix, len(rows), meta, flush=True)
-        out_arm = out / fixture.fold / arm
         out_arm.mkdir(parents=True, exist_ok=True)
-        target = out_arm / f"pred_{mode}_{held}_{orders[0]}.npz"
-        assert not target.exists(), target
         res.update(source_sha=receipt["source_sha"], weights_sha=receipt["bank_sha"])
         tmp = target.with_suffix(".tmp.npz")
         np.savez_compressed(tmp, **res)
@@ -211,12 +228,14 @@ def timing(fixture, signals, out):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("phase", choices=("smoke", "timing", "select", "confirm"))
+    p.add_argument("phase", choices=("smoke", "returning-smoke", "timing", "select", "confirm"))
     p.add_argument("--run", type=Path, required=True)
     p.add_argument("--data", type=Path, required=True)
     p.add_argument("--fold", required=True)
     p.add_argument("--chunk", type=int, choices=range(4), default=0)
+    p.add_argument("--resume", action="store_true")
     a = p.parse_args()
+    assert not a.resume or (a.phase == "select" and a.fold.startswith("ret_"))
     assert torch.cuda.is_available()
     torch.backends.cudnn.benchmark = False
     d = D.load(a.data)
@@ -226,6 +245,9 @@ def main():
         if a.phase == "smoke":
             assert a.fold == "new_P01"
             smoke(fixture, signals)
+        elif a.phase == "returning-smoke":
+            assert a.fold.startswith("ret_")
+            returning_smoke(fixture, signals)
         elif a.phase == "timing":
             timing(fixture, signals, a.run / "timing.json")
         else:
@@ -235,7 +257,7 @@ def main():
                 assert chosen in ARMS and chosen != "base"
                 arms = tuple(dict.fromkeys(("base", REFERENCE, chosen)))
             orders = SELECT_ORDERS if a.phase == "select" else CONFIRM_ORDERS
-            score(fixture, signals, arms, orders[2 * a.chunk:2 * a.chunk + 2], a.run / a.phase)
+            score(fixture, signals, arms, orders[2 * a.chunk:2 * a.chunk + 2], a.run / a.phase, a.resume)
 
 
 if __name__ == "__main__":
