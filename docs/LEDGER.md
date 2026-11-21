@@ -3606,6 +3606,9 @@ code fixed. The same-day oracle replaces only the target person's enrolment.
   unverified 57/43 population weighting with 20/80 returning mix. Two people are the validation limit.
   If the keep rule passes, stage a weights-only production patch of the signed fused lead, check all
   held-new folds for zero label changes, and run paired end-to-end timing. No Codabench upload.
+- Result (09:31 CET): v3, exact pinned and zero smoke passed. Day gap +1.54 pp [80% +0.19, +2.88]
+  on P04 (+0.19) and P10 (+2.88), both later visits. The +3 pp rule stopped the bet before augmented
+  fitting. [Run record](../evidence/wave_20nov/fable_r4_shiftenrol.md)
 
 ## Fable R4 Bet 1 · mid-stream self-enrolment (registered 21 Nov 09:19 CET, before scoring)
 
