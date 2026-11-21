@@ -8,31 +8,46 @@
 set -euo pipefail
 stage=${1:?missing stage}
 run=${SLURM_SUBMIT_DIR:?}
-source "$WORK/ni26/.venv312/bin/activate"
 export PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 OMP_NUM_THREADS=1
 export PYTHONPATH="$run/src/2026-competition"
+py=(python -B)
+if [[ ${NI26_CB_WORKER:-0} == 1 ]]; then
+    # R535 supports CUDA 13.0 with NVIDIA's process-local compatibility libraries.
+    compat="$run/cuda-compat/usr/local/cuda-13.0/compat"
+    if [[ $stage == smoke ]]; then
+        deb=cuda-compat-13-0_580.196.07-1_amd64.deb
+        (cd "$run"; printf '%s  %s\n' d2d3262512046b23215ff197fe79a6ca0d44299ed0e665275ac05bb28b79e4e3 "$deb" | sha256sum -c)
+        mkdir -p "$run/cuda-compat"
+        ar p "$run/$deb" data.tar.xz | tar -xJf - -C "$run/cuda-compat"
+    fi
+    test -r "$compat/libcuda.so.1"
+    py=(singularity exec --nv --bind "$WORK" "$WORK/ni26/runs/cloud/ni26_worker.sif"
+        env "LD_LIBRARY_PATH=$compat:/.singularity.d/libs" python -B)
+else
+    source "$WORK/ni26/.venv312/bin/activate"
+fi
 cd "$run/src"
 check=submissions/final_stack/check_cb_speed.py
 data=data/proteus_windows.npz
 if [[ $stage == smoke ]]; then
     for suffix in "" _r1a; do
         name=final_stack_hardcb_safe_st$suffix
-        python -B "$check" smoke "$run/zips" "$data" "$run/smoke$suffix.json" --name "$name"
+        "${py[@]}" "$check" smoke "$run/zips" "$data" "$run/smoke$suffix-$SLURM_JOB_ID.json" --name "$name"
     done
 elif [[ $stage == bench ]]; then
-    python -B "$check" bench "$run/zips" "$data" "$run/bench-$SLURM_JOB_ID.json"
+    "${py[@]}" "$check" bench "$run/zips" "$data" "$run/bench-$SLURM_JOB_ID.json"
 elif [[ $stage == options-smoke || $stage == options ]]; then
     flags=()
     if [[ $stage == options-smoke ]]; then flags+=(--smoke); fi
-    python -B submissions/final_stack/cb_speed_options.py "$run/zips" "$data" \
+    "${py[@]}" submissions/final_stack/cb_speed_options.py "$run/zips" "$data" \
         "$run/$stage-$SLURM_JOB_ID.json" "${flags[@]}"
 elif [[ $stage == terminal ]]; then
     task=${SLURM_ARRAY_TASK_ID:?expected task 0-7}
     suffix="" order=recording
     if ((task / 4)); then suffix=_r1a; fi
     if ((task / 2 % 2)); then order=71000; fi
-    python -B "$check" terminal "$run/zips" "$data" "$run/terminal-$SLURM_ARRAY_JOB_ID-$task.json" \
+    "${py[@]}" "$check" terminal "$run/zips" "$data" "$run/terminal-$SLURM_ARRAY_JOB_ID-$task.json" \
         --name "final_stack_hardcb_safe_st$suffix" --order "$order" --part "$((task % 2))" 2
 else
     exit 2
