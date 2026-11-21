@@ -10,3 +10,16 @@ The sealed evaluator fixes the order within each session for every submission. T
 - Direct calls to `delivery()` without acquisition metadata raised `ValueError` at 72000, 73000 and 74000. With real metadata, every stream retained its rows and the three schemes preserved the specified run or interface blocks. Local `python replay/check.py` printed `OK`.
 - Synced the reviewed harness to Last Push and Fable R6 Diet on Leonardo and Galvani. All four copies give SHA-256 `9c057995959fdc9a556c8c79bdf8bb6d9f0baf53074209eed870675b089f8d7d`. The concurrently running quarter confirmation keeps its separate legacy full-shuffle release.
 - Audit release `431eff98`. Leonardo `cap250/runs/fable-r8-scheme-21nov`: Slurm smoke 65049416 → 84-task grid 65049470. Galvani `ni26_fable_r8_scheme_20261121`: smoke 3149306 → 84-task grid 3149309. Each grid depends on its own smoke. Leonardo is the A100 reference. Galvani uses the production FP16 MANAS path on the RTX 2080 Ti.
+
+## CountFilter latch preflight
+
+Galvani CPU smoke 3149318 exercised one real fold. Job 3149319 independently ran the signed hss CountFilter view, lag and thresholds on every registered delivery, using the exact fold assets. It opened no accuracy metric. Receipt SHA-256 `01f51f446ad673c2b288ea54dd2bce095c440f06c6f2eb9aad94f05c3173f423`. The latch window below is the first prediction on which the latch can affect output.
+
+| Order block | Streams | Latch by window 60 | Latch at any window |
+| --- | ---: | ---: | ---: |
+| Within-run fit | 72 | 69 | 72 |
+| Within-run held | 72 | 70 | 72 |
+| Per-interface | 36 | 6 | 27 |
+| Full shuffle | 72 | 7 | 9 |
+
+The 139/144 within-run latches by window 60 release the terminal urn rider. The full-order activation rate is 9/72 (12.5%), above the strict <5% package requirement. Team B and SessionEM weights affect posteriors downstream of the EEG-only detector and cannot fix this rate. The accuracy audit continues.

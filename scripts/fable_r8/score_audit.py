@@ -21,7 +21,7 @@ def plans(data, orders):
     return {order: protocol.plans(data, order, streams) for order in orders}
 
 
-def collect(captures, data_path, blocks):
+def collect(captures, data_path, blocks, *, detector=None, urn=None):
     data = metadata(data_path)
     with np.load(data_path, allow_pickle=False) as raw:
         data.update(run=raw["run"], onset=raw["onset"])
@@ -55,7 +55,11 @@ def collect(captures, data_path, blocks):
                 raise ValueError(f"invalid posterior or latch receipt: {path}/{key}")
             np.testing.assert_array_equal(scores["em_half"][~recognised], scores["ba_six_fp16"][~recognised])
             np.testing.assert_array_equal(scores["quarter"][~recognised], scores["ba_six_fp16"][~recognised])
+            if detector is not None and detector[fold][key] != int(latch):
+                raise ValueError(f"live latch differs from the signed EEG-only detector: {path}/{key}")
             scores["latch"] = np.full(len(rows), int(latch))
+            if urn is not None:
+                scores["quarter_urn"] = urn(fold, rows, terminal, int(latch))
             return rows, scores
 
         cases = read_bank(data, orders, read, deliveries=delivery)
@@ -79,6 +83,11 @@ def collect(captures, data_path, blocks):
             )
         out["quarter_vs_half"] = paired(cases, lambda c: c.scores["quarter"], lambda c: c.scores["em_half"],
                                         orders, nested_orders=True)
+        if urn is not None:
+            out["urn_vs_quarter"] = paired(cases, lambda c: c.scores["quarter_urn"],
+                                            lambda c: c.scores["quarter"], orders, nested_orders=True)
+            out["urn_changed_labels"] = sum(np.count_nonzero(c.scores["quarter_urn"] != c.scores["quarter"])
+                                            for c in cases)
         results[block] = out
 
     def digest(path):
@@ -96,8 +105,10 @@ def main():
     for arg in ("data", "captures", "output"):
         p.add_argument(arg, type=Path)
     p.add_argument("--blocks", nargs="+", choices=tuple(ORDERS), default=tuple(ORDERS))
+    p.add_argument("--detector", type=Path)
     a = p.parse_args()
-    results = collect(a.captures, a.data, a.blocks)
+    detector = json.loads(a.detector.read_text()) if a.detector else None
+    results = collect(a.captures, a.data, a.blocks, detector=detector)
     with a.output.open("x") as f:
         json.dump(results, f, indent=2)
         f.write("\n")

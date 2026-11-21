@@ -21,12 +21,29 @@ def digest(path):
         return file_digest(f, "sha256").hexdigest()
 
 
-def measure(data_path, fixtures, hss, folds):
-    if digest(data_path) != DATA_SHA or digest(hss) != HSS_SHA:
-        raise ValueError("expected signed EEG and hss")
+def signed_hss(hss):
+    if digest(hss) != HSS_SHA:
+        raise ValueError("expected signed hss")
     with ZipFile(hss) as z:
         module = ModuleType("hss_detector")
         exec(compile(z.read("submission.py"), str(hss), "exec"), vars(module))
+    return module
+
+
+def fold_detector(module, fixtures, fold):
+    package = fixtures / "fixtures" / fold
+    receipt = json.loads((package / "receipt.json").read_text())["ba_six"]
+    weights = package / "ba_six" / "weights.npz"
+    if receipt["fold"] != fold or receipt["assets"][weights.name] != digest(weights):
+        raise ValueError(f"changed detector assets for {fold}")
+    with np.load(weights, allow_pickle=False) as z:
+        return module.CountFilter(z)
+
+
+def measure(data_path, fixtures, hss, folds):
+    if digest(data_path) != DATA_SHA:
+        raise ValueError("expected signed EEG")
+    module = signed_hss(hss)
     data = protocol.load(data_path)
     windows = module.to_windows(data["X"], module.channel_map(data["ch_names"]))
     all_orders = {order: protocol.plans(data, order, np.unique(data["stream"]))
@@ -34,13 +51,7 @@ def measure(data_path, fixtures, hss, folds):
     result = {}
     for fold in folds:
         cohort, person = fold.split("_")
-        package = fixtures / "fixtures" / fold
-        receipt = json.loads((package / "receipt.json").read_text())["ba_six"]
-        weights = package / "ba_six" / "weights.npz"
-        if receipt["fold"] != fold or receipt["assets"][weights.name] != digest(weights):
-            raise ValueError(f"changed detector assets for {fold}")
-        with np.load(weights, allow_pickle=False) as z:
-            detector = module.CountFilter(z)
+        detector = fold_detector(module, fixtures, fold)
         streams = [s for s in np.unique(data["stream"]) if s.startswith(person + "|") and
                    (cohort == "new" or s.split("|")[1] in ("2", "3"))]
         views = {r: detector.view(windows[r]) for r in np.flatnonzero(np.isin(data["stream"], streams))}
