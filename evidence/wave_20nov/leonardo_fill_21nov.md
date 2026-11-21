@@ -1,5 +1,7 @@
 # Leonardo Team B · 21 November 2026
 
+**Lane recommendation at 13:56 CET.** Use `final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing.zip`, SHA-256 `890c2beec60344280f21b7206e99378dc71047a90b2e5db0876986b636b40cad`. The fresh fused fold contrast was +0.36 pp at 50/50. The worst of six normal RTX 2080 Ti nodes projected 3,259.2 s. The Scherer returning result remains a flag. The RTX PRO 4500 is unmeasured.
+
 [Preregistration](../../docs/LEDGER.md#leonardo-fill--21-november-registered-before-71400-scoring) · [Dispatch](DISPATCH_21NOV.md)
 
 The organisers confirmed that sealed evaluation averages returning and held-new scores equally. This report uses 50/50. Model loading is outside the 60-minute compute budget, and a timeout ends as Failed. The user’s shipping target is 3,450 s on the worst normal proxy node. [Current rules](../../docs/STATE.md)
@@ -166,4 +168,17 @@ CPU zero 3147755 passed both 379-window checks at 13:41 CET, with Team A disable
 
 The patched archive passes the worst-normal-node timing rule with **190.8 s** to the 3,450 s target. Every measured node counts. Compute projections exclude initial load, use matched cap250 and retain full session startup and capture. Scherer and the supplemental native-BF16 timing were pending at the 13:41 CET snapshot.
 
-The 08:08 CET Leonardo snapshot showed 26 running and 270 pending. This lane had 11 running and 187 pending. Codex heartbeat checks every 50 minutes and will retain the verified queue gaps in this card.
+All 45 paired Scherer tasks and collector 3147785 completed by 13:49 CET. The candidate’s B-ret full-session point remains negative. Its paired 80% interval includes zero. The original full MANAS terminal’s B-ret flag was −0.52 pp [−1.01, −0.02].
+
+| FP16 ba_six vs fused nine25 delivery | B-new pp [80%] | B-ret pp [80%] | 50/50 pp |
+|---|---:|---:|---:|
+| Full-session | +0.09 [−0.41, +0.56] | −0.41 [−1.09, +0.22] | −0.16 [−0.56, +0.24] |
+| Within | −0.01 [−0.34, +0.31] | −0.19 [−0.74, +0.36] | −0.10 |
+
+Worst B-ret person remained −3.85 pp. `niv-results/ba_six_fc_niv_fp16_turing/report.json` SHA-256 `27d99ded4bb74c10236fd98d109572429ecebf44c0748d93f114ee31a8fa4a7d`. The user’s rule retains this as an external flag.
+
+Native BF16 timing 3147847 finished at 13:54 CET on A100-PCIe-40GB cn207. Cap250, signed nine25, original `ba_six` and the FP16-on-Turing archive used 127.65, 152.39, 157.14 and 156.93 ms/window respectively. The archive-to-parent gap was **−0.21 ms/window**, within the registered ±2 ms expectation. Projected compute 3,142.9 s. The A100 parity job separately verified that both use BF16 there.
+
+### Queue receipt
+
+Leonardo had 26 running and 270 pending at 08:08 CET. It dropped below 15 by 09:23 and both own-job queues were empty at the 12:11–12:15 check. The afternoon waves restored the queues. At 13:56 CET Leonardo had 34 running and 152 pending, and Galvani had one running and 20 pending. Galvani job 3147536 was an extra original `ba_six` timing on cn111. The FP16 release decision has six measured normal nodes. The Codex heartbeat is scheduled through the 18:00 CET cutoff.

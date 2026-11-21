@@ -114,3 +114,45 @@ Run `cap250/runs/ni26-afternoon-71900` on AIFAC_P02_1636. Submitted at 12:36 CET
 - 13:22 CET Turing pilot. Actual FP16 MANAS passed the 379-window comparison on cn114 and released seven full identity shards, zero, paired warm-up, six e2e nodes, Scherer NI-V and an A100 unchanged-dtype check. [Dispatch details](leonardo_fill_21nov.md)
 - 13:36 CET confirmation. Fresh fused `ba_six` collector 65023989 completed with 50/50 +0.36 pp [80% +0.17, +0.54]. Turing FP16 label identity and native BF16 identity passed. The official fused-lead pair passed. Turing Scherer arrays 3147783/3147784 feed 3147785. A100 native-BF16 timing is 3147847.
 - 13:41 CET RTX result. FP16 fused `ba_six` passed all six normal nodes, worst 3,259.2 s on cn116, and both CPU zero comparisons. Original fused `ba_six` missed on normal nodes. Only the repeat Scherer report and supplemental A100 timing remained.
+
+## 10. Galvani FP16 decision repeat
+
+Submitted at 13:57 CET from source `682677e0`. Galvani showed 47 active job records and 82 tasks with arrays expanded.
+The local v3 replay printed `OK`. Signed archives and the prior zero receipt were reused. Fold packages for the pack-level
+PROTEUS confirmation were not found at the Galvani run locations checked. [Preregistration](../../docs/LEDGER.md#galvani-fp16-decision-repeat--21-november-registered-before-dispatch)
+
+- **Scherer NI-V 71848–71855.** B-new and B-ret pinned-order and fresh-order smokes 3147901/3147902.
+  B-new 3147904–3147912 cover four two-order tasks per person in three waves of three people. B-ret 3147913 covers
+  nine enrolled people. Collector 3147914 waits for both cohorts and reports paired 50/50 with the primary full-session
+  shuffle. The same people appeared in the first release. These job IDs belong to the disjoint order release.
+- **RTX 2080 Ti two-arm e2e.** Smoke 3147903 (cn111) gates the first repeats. The second repeat on each node depends
+  on its first and becomes eligible at 16:55 CET, targeting completion around 17:30 CET subject to placement.
+
+  | Node | Repeat 1 | Repeat 2 |
+  |---|---:|---:|
+  | cn111 | 3147915 | 3147916 |
+  | cn114 | 3147917 | 3147918 |
+  | cn115 | 3147919 | 3147920 |
+  | cn116 | 3147921 | 3147922 |
+  | cn122 | 3147923 | 3147924 |
+  | cn123 | 3147925 | 3147926 |
+
+- **Collect** on the local machine. Run the NI-V and timing copies when their respective jobs complete.
+
+  ```bash
+  remote=/mnt/lustre/work/gehler/gfh527/ni26_fp16_decision_20261121
+  dest=/tmp/ni26-fp16-decision
+  mkdir -p "$dest"
+  ssh mlcloud-galvani "cd '$remote' && cat jobs.tsv && sacct -X -j \$(cut -f2 jobs.tsv | paste -sd,) -o JobID,State,Elapsed,End,NodeList"
+  scp "mlcloud-galvani:$remote/niv-results/ba_six_fc_niv_fp16_turing/report.json" "$dest/niv-71848.json"
+  jq '{headline, new: .scherer_new.delta.primary_full, returning: .scherer_returning.delta.primary_full, half: .sealed_weighted.combined}' "$dest/niv-71848.json"
+  scp 'mlcloud-galvani:'"$remote"'/out/timing-31479*.json' "$dest/"
+  jq --arg arm final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing '
+    {file: input_filename, cap_ms: .v66_cp1_cap250.ms_per_window,
+     candidate_ms: .[$arm].ms_per_window, projected_s: .[$arm].projected_s, load_s}
+  ' "$dest"/timing-31479*.json | jq -s '
+    if length == 12 then {runs: ., worst_normal: (map(select(.cap_ms <= 190.5)) | max_by(.projected_s))}
+      else error("expected all 12 timing runs") end
+  '
+  ```
+- 13:56 CET lane recommendation. The exact local `final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing.zip` qualifies from this lane, with 50/50 +0.36 pp on fresh fused folds and 3,259.2 s worst normal compute proxy. Turing Scherer collector 3147785 and A100 compute check 3147847 completed. The negative Scherer returning point remains a flag. Both cluster queues were rechecked and the heartbeat continues through 18:00 CET. [Lane decision](leonardo_fill_21nov.md)
