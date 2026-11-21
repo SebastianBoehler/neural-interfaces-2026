@@ -50,3 +50,5 @@ Projection is `2,555 + 20,083 × added_ms / 1,000`. The ZIPs differ only in the 
 Public replay checks package behavior on all-data weights. Fresh fold evidence for hard-only nine15 was +0.77 pp held-new [+0.43, +1.09] and +0.47 pp returning. Nine25 was +0.97 pp [+0.31, +1.54] and +0.59 pp returning, using eight fresh orders and people-nested 80% intervals. [Lane TB-verify](laneTB_verify.md)
 
 All Slurm jobs completed by 03:04:44 CET on 21 November. The ZIPs are staged locally and on Leonardo. No Codabench upload was performed.
+
+RTX 2080 Ti follow-up (21 Nov, Galvani): graphs engage and match eager, but Team B costs about 36 ms per window inside the Solver there, so the 2080 Ti projections are 3,520-3,657 s, not the A100 proxies above. [Confirmation record](final_hard_teamb_confirm.md)

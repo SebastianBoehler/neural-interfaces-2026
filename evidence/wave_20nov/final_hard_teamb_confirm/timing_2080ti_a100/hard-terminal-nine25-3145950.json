@@ -1,0 +1,107 @@
+{
+  "stage": "terminal",
+  "archive_sha256": "6e09953709b2338507deaac1ec5f6afa4a21eef52de7814f7c2ae77f42e86ee9",
+  "torch": "2.14.1+cu130",
+  "gpu": "NVIDIA GeForce RTX 2080 Ti",
+  "order": "71000",
+  "sessions": {
+    "P02|1": {
+      "windows": 189,
+      "changed": [],
+      "eager": {
+        "wall_s": 43.6604021275416,
+        "rec": 10,
+        "refits": 0
+      },
+      "graph": {
+        "wall_s": 36.79922088421881,
+        "rec": 10,
+        "refits": 0
+      }
+    },
+    "P06|1": {
+      "windows": 187,
+      "changed": [],
+      "eager": {
+        "wall_s": 34.6293670181185,
+        "rec": 10,
+        "refits": 0
+      },
+      "graph": {
+        "wall_s": 35.16371380072087,
+        "rec": 10,
+        "refits": 0
+      }
+    },
+    "P10|1": {
+      "windows": 192,
+      "changed": [],
+      "eager": {
+        "wall_s": 34.146692427806556,
+        "rec": 10,
+        "refits": 0
+      },
+      "graph": {
+        "wall_s": 35.20742754917592,
+        "rec": 10,
+        "refits": 0
+      }
+    },
+    "P10|3": {
+      "windows": 199,
+      "changed": [],
+      "eager": {
+        "wall_s": 37.625493810512125,
+        "rec": 10,
+        "refits": 0
+      },
+      "graph": {
+        "wall_s": 36.118272395804524,
+        "rec": 10,
+        "refits": 0
+      }
+    },
+    "P08|1": {
+      "windows": 189,
+      "changed": [],
+      "eager": {
+        "wall_s": 33.5991774443537,
+        "rec": 10,
+        "refits": 0
+      },
+      "graph": {
+        "wall_s": 33.70566657278687,
+        "rec": 10,
+        "refits": 0
+      }
+    },
+    "P04|2": {
+      "windows": 189,
+      "changed": [],
+      "eager": {
+        "wall_s": 33.552038851194084,
+        "rec": 10,
+        "refits": 0
+      },
+      "graph": {
+        "wall_s": 33.733205519616604,
+        "rec": 10,
+        "refits": 0
+      }
+    },
+    "P09|1": {
+      "windows": 189,
+      "changed": [],
+      "eager": {
+        "wall_s": 34.47954673692584,
+        "rec": 10,
+        "refits": 0
+      },
+      "graph": {
+        "wall_s": 36.27703742496669,
+        "rec": 10,
+        "refits": 0
+      }
+    }
+  }
+}

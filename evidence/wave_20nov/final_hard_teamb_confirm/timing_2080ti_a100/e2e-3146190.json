@@ -1,0 +1,55 @@
+{
+ "gpu": "NVIDIA GeForce RTX 2080 Ti",
+ "torch": "2.14.1+cu130",
+ "sessions": [
+  "P03|1",
+  "P07|1",
+  "P10|2",
+  "P05|1",
+  "P04|1",
+  "P04|3"
+ ],
+ "load_s": {
+  "final_stack_hard_safe_st": 2.442145567998523,
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph": 3.29240447099437
+ },
+ "kinds": {
+  "final_stack_hard_safe_st": "HardWaveEnsemble",
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph": "TeamBlendStack"
+ },
+ "final_stack_hard_safe_st": {
+  "ms_per_window": 153.56838498934633,
+  "inside_ms_per_window": {
+   "hard": 13.654070946407092
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   148.16181591010366,
+   150.2325275819564,
+   151.81936806985377,
+   158.377693310429,
+   162.665305899397,
+   150.08194413825007
+  ],
+  "added_vs_ref_ms": 0.0,
+  "projected_s": 2554.9166
+ },
+ "final_stack_hard_safe_st_team_b_nine25_tbgraph": {
+  "ms_per_window": 185.65651393455047,
+  "inside_ms_per_window": {
+   "hard": 13.551553729179444,
+   "team_b": 36.175633325727546
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   180.8622665820328,
+   183.70737192586247,
+   184.01527193000024,
+   188.46840466844458,
+   189.58094174602246,
+   187.27244747873206
+  ],
+  "added_vs_ref_ms": 32.08812894520415,
+  "projected_s": 3199.342493606535
+ }
+}

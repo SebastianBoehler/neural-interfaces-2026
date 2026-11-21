@@ -1,0 +1,60 @@
+{
+  "gpu": "NVIDIA GeForce RTX 2080 Ti",
+  "job": "3145940",
+  "runs": {
+    "ref": [
+      {
+        "score": {
+          "balanced_accuracy_cell_mean": 0.994578853046595,
+          "balanced_accuracy": 0.9947089947089948,
+          "accuracy": 0.9947019867549669,
+          "duration": 132.8098738193512
+        },
+        "files_unchanged": true,
+        "wall_s": 133.0,
+        "zip_sha256": "9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed",
+        "v6_streams": 4
+      },
+      {
+        "score": {
+          "balanced_accuracy_cell_mean": 0.994578853046595,
+          "balanced_accuracy": 0.9947089947089948,
+          "accuracy": 0.9947019867549669,
+          "duration": 127.35410571098328
+        },
+        "files_unchanged": true,
+        "wall_s": 127.4,
+        "zip_sha256": "9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed",
+        "v6_streams": 4
+      }
+    ],
+    "cand": [
+      {
+        "score": {
+          "balanced_accuracy_cell_mean": 0.994578853046595,
+          "balanced_accuracy": 0.9947089947089948,
+          "accuracy": 0.9947019867549669,
+          "duration": 145.85567092895508
+        },
+        "files_unchanged": true,
+        "wall_s": 145.9,
+        "zip_sha256": "6ba4092d1f07e036cfb7e19f306eba993cfdea5b6d9cff779d03c32e847a39f5",
+        "v6_streams": 4
+      },
+      {
+        "score": {
+          "balanced_accuracy_cell_mean": 0.994578853046595,
+          "balanced_accuracy": 0.9947089947089948,
+          "accuracy": 0.9947019867549669,
+          "duration": 146.0527045726776
+        },
+        "files_unchanged": true,
+        "wall_s": 146.1,
+        "zip_sha256": "6ba4092d1f07e036cfb7e19f306eba993cfdea5b6d9cff779d03c32e847a39f5",
+        "v6_streams": 4
+      }
+    ]
+  },
+  "repeat_scores_equal": true,
+  "replay_pass": true
+}

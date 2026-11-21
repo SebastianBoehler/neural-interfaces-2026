@@ -1,0 +1,92 @@
+{
+ "gpu": "NVIDIA GeForce RTX 2080 Ti",
+ "torch": "2.14.1+cu130",
+ "sessions": [
+  "P03|1",
+  "P07|1",
+  "P10|2",
+  "P05|1",
+  "P04|1",
+  "P04|3"
+ ],
+ "load_s": {
+  "cap250": 2.3102722609910415,
+  "final_stack_hard_safe_st": 1.5512655450002057,
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph": 3.404398119004327,
+  "final_stack_hard_safe_st_team_b_nine15_tbgraph": 1.7062188060081098
+ },
+ "kinds": {
+  "cap250": "Ensemble6",
+  "final_stack_hard_safe_st": "HardWaveEnsemble",
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph": "TeamBlendStack",
+  "final_stack_hard_safe_st_team_b_nine15_tbgraph": "TeamBlendStack"
+ },
+ "cap250": {
+  "ms_per_window": 131.070630090175,
+  "inside_ms_per_window": {},
+  "windows": 1131,
+  "per_session_ms": [
+   131.24852704232873,
+   131.7061642486671,
+   134.1748209839176,
+   133.17995532630258,
+   128.1177340793422,
+   128.0185426701482
+  ],
+  "added_vs_ref_ms": 0.0,
+  "projected_s": 2554.9166
+ },
+ "final_stack_hard_safe_st": {
+  "ms_per_window": 151.10811738198632,
+  "inside_ms_per_window": {
+   "hard": 12.89800453284839
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   172.06169161910165,
+   162.73474259258595,
+   143.95125638713913,
+   146.6167699105235,
+   140.86089629101537,
+   140.27619852664003
+  ],
+  "added_vs_ref_ms": 20.037487291811317,
+  "projected_s": 2957.3294572814466
+ },
+ "final_stack_hard_safe_st_team_b_nine25_tbgraph": {
+  "ms_per_window": 182.68276385500133,
+  "inside_ms_per_window": {
+   "hard": 12.80779858628215,
+   "team_b": 36.234020843719925
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   186.1288241852505,
+   197.954097238065,
+   179.1217933655829,
+   177.93670487368027,
+   177.70187815344244,
+   177.19282610639138
+  ],
+  "added_vs_ref_ms": 51.612133764826325,
+  "projected_s": 3591.443082399007
+ },
+ "final_stack_hard_safe_st_team_b_nine15_tbgraph": {
+  "ms_per_window": 179.12581540055092,
+  "inside_ms_per_window": {
+   "hard": 12.668192885663965,
+   "team_b": 36.20817034485905
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   185.6113065343822,
+   177.07978161381405,
+   179.05406047316563,
+   178.28990495794355,
+   177.7168233068469,
+   176.9950253351163
+  ],
+  "added_vs_ref_ms": 48.05518531037592,
+  "projected_s": 3520.0088865882794
+ }
+}

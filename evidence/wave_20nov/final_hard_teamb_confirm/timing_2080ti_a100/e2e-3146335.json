@@ -1,0 +1,72 @@
+{
+ "gpu": "NVIDIA A100-PCIE-40GB",
+ "torch": "2.14.1+cu130",
+ "sessions": [
+  "P03|1",
+  "P07|1",
+  "P10|2",
+  "P05|1",
+  "P04|1",
+  "P04|3"
+ ],
+ "load_s": {
+  "cap250": 3.688013748964295,
+  "final_stack_hardcb_safe_st_cbgraph": 5.710791702033021,
+  "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph": 1.579263631021604
+ },
+ "kinds": {
+  "cap250": "Ensemble6",
+  "final_stack_hardcb_safe_st_cbgraph": "StackEnsemble",
+  "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph": "TeamBlendStack"
+ },
+ "cap250": {
+  "ms_per_window": 147.9084963713065,
+  "inside_ms_per_window": {},
+  "windows": 1131,
+  "per_session_ms": [
+   147.81950107435622,
+   147.68717247591152,
+   147.2127400213472,
+   149.30450365278185,
+   147.81378596286885,
+   147.5931766487539
+  ],
+  "added_vs_ref_ms": 0.0,
+  "projected_s": 2554.9166
+ },
+ "final_stack_hardcb_safe_st_cbgraph": {
+  "ms_per_window": 171.62649764450452,
+  "inside_ms_per_window": {
+   "hard": 12.184117035075666
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   171.32741215308664,
+   170.8216544495718,
+   173.97158136040534,
+   170.8011266469073,
+   172.54725436522335,
+   170.3246594524318
+  ],
+  "added_vs_ref_ms": 23.718001273198013,
+  "projected_s": 3031.2452195696355
+ },
+ "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph": {
+  "ms_per_window": 185.4264320408148,
+  "inside_ms_per_window": {
+   "hard": 12.174185045836715,
+   "team_b": 14.321585487620451
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   187.08474396804357,
+   185.74530456126445,
+   184.54131801607667,
+   186.35364445294007,
+   183.01695865633152,
+   185.79964193099357
+  ],
+  "added_vs_ref_ms": 37.51793566950829,
+  "projected_s": 3308.389302050735
+ }
+}
