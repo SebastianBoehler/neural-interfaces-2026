@@ -90,7 +90,7 @@ def tap(template, signals, rows, fresh, check, device):
     return deliveries
 
 
-def replay(template, deliveries, arm, *, trace_route=False):
+def replay(template, deliveries, arm, *, trace_route=False, before_route=None):
     route, cf, cp = deepcopy((template.routeB, template.cf, template.cp))
     if parameters(route.tail) != STOCK or route.U or cf.t or cp.t or template.v6r:
         raise ValueError(f"unexpected tape starting state: tail={parameters(route.tail)}, "
@@ -100,13 +100,17 @@ def replay(template, deliveries, arm, *, trace_route=False):
     state = SimpleNamespace(dead=False, TEAM_A_MIX=getattr(template, "TEAM_A_MIX", 0.0),
                             _check_probability=getattr(template, "_check_probability", None))
     labels, scores, route_scores = [], [], []
+    count_windows = 0
     for i, item in enumerate(deliveries):
         if i in (0, 40):
             route.tail.rb.alpha, route.tail.rb.k, route.tail.em.nmin = schedule if i == 0 else STOCK
         mixed = (1 - w) * item.base + w * item.team_b
+        run_count = before_route is None or before_route(route, item)
         q = route.stepx(item.x, item.u, mixed, item.core, item.extra, item.contrast, item.identity)
         previous = cp.fused
-        out = cp.step(item.x, q, cf.step(item.x, q), item.recognised)
+        counted = cf.step(item.x, q) if run_count else q
+        count_windows += run_count
+        out = cp.step(item.x, q, counted, item.recognised)
         if terminal is not None:
             state.team_a_p = item.team_a
             out = terminal(state, out, cp.fused != previous)
@@ -119,7 +123,7 @@ def replay(template, deliveries, arm, *, trace_route=False):
         if trace_route:
             route_scores.append(q)
         labels.append(out.argmax())
-    if route.log["err"] or cf.dead or cp.dead or cf.log["err"] or cp.log["err"] or cf.t != len(deliveries):
-        raise ValueError(f"{arm} did not complete with all downstream stages active")
+    if route.log["err"] or cf.dead or cp.dead or cf.log["err"] or cp.log["err"] or cf.t != count_windows:
+        raise ValueError(f"{arm} failed a downstream stage or ran an unexpected number of count updates")
     result = np.asarray(labels, dtype=np.int8), np.stack(scores)
     return (*result, np.stack(route_scores)) if trace_route else result
