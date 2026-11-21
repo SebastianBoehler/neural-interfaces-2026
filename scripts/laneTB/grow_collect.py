@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 import numpy as np
 
 import collect as C
-from grow_sources import ARMS, CONFIRM_ORDERS, REFERENCE, SELECT_ORDERS
+from grow_sources import ARMS, CONFIRM_ORDERS, EXTRA_ORDERS, REFERENCE, SELECT_ORDERS
 from verify import digest
 
 
@@ -91,9 +91,22 @@ def timing(run):
     return output
 
 
+def pooled_confirmation(run, arms, extra, data, selection):
+    original = json.loads((run / "confirm.json").read_text())
+    assert original["selection_sha"] == digest(selection) and original["chosen"] == extra["chosen"]
+    assert original["receipts"] == extra["receipts"] and original["data_sha"] == extra["data_sha"]
+    primary, _ = aggregate(run, "confirm", arms, CONFIRM_ORDERS, data)
+    secondary, _ = aggregate(run, "extra", arms, EXTRA_ORDERS, data)
+    pooled = {arm: primary[arm] | secondary[arm] for arm in arms}
+    C.ORDERS = tuple(CONFIRM_ORDERS) + tuple(EXTRA_ORDERS)
+    arm = extra["chosen"]
+    return dict(orders=list(C.ORDERS), against_base=summarize(pooled[arm], pooled["base"]),
+                against_nine25=summarize(pooled[arm], pooled[REFERENCE]))
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("phase", choices=("select", "confirm"))
+    p.add_argument("phase", choices=("select", "confirm", "extra"))
     p.add_argument("--run", required=True, type=Path)
     p.add_argument("--data", required=True, type=Path)
     a = p.parse_args()
@@ -103,9 +116,10 @@ def main():
         previous = None
     else:
         previous = json.loads(selection.read_text())
-        orders = CONFIRM_ORDERS
+        orders = CONFIRM_ORDERS if a.phase == "confirm" else EXTRA_ORDERS
         arms = tuple(dict.fromkeys(("base", REFERENCE, previous["chosen"])))
-    cells, receipts = aggregate(a.run, a.phase, arms, orders, C.D.load(a.data))
+    data = C.D.load(a.data)
+    cells, receipts = aggregate(a.run, a.phase, arms, orders, data)
     contrasts = {arm: summarize(cells[arm], cells["base"]) for arm in arms if arm != "base"}
     times = timing(a.run)
     result = dict(phase=a.phase, orders=list(orders), against_base=contrasts, timing=times,
@@ -122,6 +136,8 @@ def main():
         assert all(receipts[arm] == previous["receipts"][arm] for arm in arms)
         result["selection_sha"] = digest(selection)
         result["against_nine25"] = summarize(cells[result["chosen"]], cells[REFERENCE])
+        if a.phase == "extra":
+            result["pooled_confirmation"] = pooled_confirmation(a.run, arms, result, data, selection)
     target = a.run / f"{a.phase}.json"
     with TemporaryDirectory(dir=a.run) as directory:
         temp = Path(directory) / target.name

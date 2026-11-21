@@ -9,6 +9,7 @@ from verify import B, D, DEVICE, FOLDS, W, WEIGHTS, audit, digest
 
 SELECT_ORDERS = range(71140, 71148)
 CONFIRM_ORDERS = range(71148, 71156)
+EXTRA_ORDERS = range(71172, 71180)
 REFERENCE = "nine25"
 ARMS = {
     "base": (0.0, 3, "mixer", None),

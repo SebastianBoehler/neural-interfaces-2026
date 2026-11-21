@@ -9,7 +9,7 @@ from zipfile import ZipFile
 import numpy as np
 import torch
 
-from grow_sources import (ARMS, CONFIRM_ORDERS, REFERENCE, SELECT_ORDERS, banks, once,
+from grow_sources import (ARMS, CONFIRM_ORDERS, EXTRA_ORDERS, REFERENCE, SELECT_ORDERS, banks, once,
                           team_a, team_c)
 from run import check_zero_mixer, stream_session, sync, timed_load
 from verify import B, D, DEVICE, FOLDS, HARD_SHA, HARD_ZIP, STORED, W, digest, fold_fixture, revised
@@ -228,7 +228,7 @@ def timing(fixture, signals, out):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("phase", choices=("smoke", "returning-smoke", "timing", "select", "confirm"))
+    p.add_argument("phase", choices=("smoke", "returning-smoke", "timing", "select", "confirm", "extra"))
     p.add_argument("--run", type=Path, required=True)
     p.add_argument("--data", type=Path, required=True)
     p.add_argument("--fold", required=True)
@@ -252,12 +252,17 @@ def main():
             timing(fixture, signals, a.run / "timing.json")
         else:
             arms = tuple(ARMS)
-            if a.phase == "confirm":
+            if a.phase in ("confirm", "extra"):
                 chosen = json.loads((a.run / "select.json").read_text())["chosen"]
                 assert chosen in ARMS and chosen != "base"
                 arms = tuple(dict.fromkeys(("base", REFERENCE, chosen)))
-            orders = SELECT_ORDERS if a.phase == "select" else CONFIRM_ORDERS
-            score(fixture, signals, arms, orders[2 * a.chunk:2 * a.chunk + 2], a.run / a.phase, a.resume)
+            order_bank = {"select": SELECT_ORDERS, "confirm": CONFIRM_ORDERS, "extra": EXTRA_ORDERS}[a.phase]
+            chunks = (a.chunk,)
+            if a.phase == "extra":
+                assert a.chunk < 2
+                chunks = (2 * a.chunk, 2 * a.chunk + 1)
+            for chunk in chunks:
+                score(fixture, signals, arms, order_bank[2 * chunk:2 * chunk + 2], a.run / a.phase, a.resume)
 
 
 if __name__ == "__main__":

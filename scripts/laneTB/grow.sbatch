@@ -14,10 +14,10 @@ job=${SLURM_ARRAY_TASK_ID:-0}
 code=$run/code/scripts/laneTB
 launcher=$CAP250_RELEASE/cleanslate/cap250/slurm.sh
 case "$phase" in
-  select-collect|confirm-collect)
+  select-collect|confirm-collect|extra-collect)
     bash "$launcher" "$code/grow_collect.py" "${phase%-collect}" --run "$run" --data "$CAP250_DATA"
     ;;
-  smoke|returning-smoke|timing|select|select-repair|confirm)
+  smoke|returning-smoke|timing|select|select-repair|confirm|extra)
     extra=()
     if [[ $phase == select-repair ]]; then
       phase=select
