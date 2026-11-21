@@ -33,6 +33,10 @@ check.run(Namespace(stage=stage, zips=Path(run) / "zips", data=Path("data/proteu
                     out=Path(run) / "out" / f"floor-{stage}-{job}.json", sha=sha))
 ' "${stage#floor-}" "$zip" "$sha" "$run" "$SLURM_JOB_ID" "$lead.zip" "$lead_sha"
         ;;
+    qual-smoke|qual-zero)
+        container "$run/qualify_new.py" "${stage#qual-}" "$run/zips/$zip.zip" "$sha" data/proteus_windows.npz \
+            "$run/out/$stage-$SLURM_JOB_ID.json"
+        ;;
     e2e)
         container submissions/final_stack/e2e_timing.py "$run/zips" data/proteus_windows.npz \
             "$run/out/e2e-$SLURM_JOB_ID.json" \
