@@ -134,3 +134,6 @@
 - Fable Round 3 Bet 3 · Leonardo 65011780, frozen choice on all held-out folds, after selection.
 - Fable Round 3 Bet 3 · Leonardo 65011781, paired held-out anchor collector.
 - Leonardo fill · 08:15 CET. All three growth smokes passed. Controller `e8db6272` submitted prep 65011888 and paired A100 timing 65011889. Prep feeds 48 screen tasks 65011890. Both timing and screen feed freeze 65011891. Conditional dispatch 65011892 schedules the held-out comparison only after a timing-eligible choice.
+
+- Fable Round 3 Bet 3 · both smokes passed, 12 banks and all 56 fit/held-out chunks completed. Collector 65011781 finished at 08:44 CET. The frozen n0=8 missed the returning gate.
+- Fable Round 3 Bet 1 · fit collector 65010883 finished at 08:55 CET and froze weight 0.225, start 1, SHA-256 `0db8ea409f4adbae9e1ecd4a887e49cc54e1a08cf92d0d91d0373d0b03b49bed`. The held-out replay began after selection.

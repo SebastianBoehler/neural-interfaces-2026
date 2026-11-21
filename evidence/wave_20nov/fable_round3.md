@@ -32,3 +32,34 @@ All 96 trace parts completed. Screen 65010881 finished at 08:06 CET. Its [receip
 | Held-new, changed | 49.98 | 36.91 | 47.09 |
 | Returning, unchanged | 83.25 | 83.25 | 76.12 |
 | Returning, changed | 52.33 | 35.39 | 48.59 |
+
+## Held-out ceiling and Team B diagnostics on orders 71308–71315
+
+Frozen minus causal was **+2.09 [+1.25, +3.18] pp** held-new and **+1.04 [+0.33, +1.77] pp** returning. Each frozen query starts from the same final session checkpoint and retains the lead's current-window normalization. The intervals resample people and delivery orders.
+
+| Delivery position | Held-new causal % | Held-new frozen % | Held-new gain, pp [80%] | Returning causal % | Returning frozen % | Returning gain, pp [80%] |
+|---|---:|---:|---:|---:|---:|---:|
+| 1–10 | 67.85 | 76.36 | +8.50 [+4.95, +12.57] | 73.65 | 81.48 | +7.83 [+3.72, +11.91] |
+| 11–20 | 70.15 | 77.27 | +7.12 [+4.31, +10.35] | 81.15 | 84.93 | +3.78 [+0.74, +7.26] |
+| 21–40 | 71.54 | 76.08 | +4.54 [+2.57, +7.13] | 81.00 | 83.52 | +2.53 [-0.02, +5.18] |
+| 41+ | 75.67 | 76.66 | +0.99 [+0.34, +1.81] | 80.83 | 81.04 | +0.21 [-0.41, +0.83] |
+
+Held-out 41+ minus 1–20 was +6.67 [+3.80, +9.58] pp held-new and +3.43 [-0.99, +7.53] pp returning. The returning point fell below the fit block's 5 pp release threshold.
+
+Team B alone moved from 65.28% to 64.90% held-new (-0.37 [-0.81, +0.02] pp) and from 72.79% to 73.17% returning (+0.38 [-0.41, +1.13] pp). Local collection reconstructed all 48 held-out trace parts and matched the fit block's fold receipts. SHA-256 `18463bcb7f79406ba599f58863fc4655c924c93dd2310f5e8390417f6930c40d`.
+
+## Bet 3 · enrolled covariance reference
+
+The two anchor smokes passed pinned native zero. The returning smoke applied all three nonzero doses after P04 recognition and preserved every earlier label. Slurm completed 12 reference banks, eight fit chunks, and 48 held-out chunks. The enrolled references use the latest visit that each fold permits.
+
+| Pseudo-count | Returning fit delta, pp [80%] |
+|---:|---:|
+| 4 | −0.13 [−0.34, +0.07] |
+| **8** | **+0.10 [−0.02, +0.23]** |
+| 16 | −0.12 [−0.30, +0.06] |
+
+The frozen dose of 8 gave **+0.005 [0.000, +0.012] pp held-new** and **−0.167 [−0.335, −0.002] pp returning**. P04 was −0.24 pp and P10 −0.09 pp. J was −0.08 pp [−0.16, +0.00]. The unverified 57/43 proxy was −0.05 pp. Returning windows 1–20 changed by −0.46 [−1.23, +0.32] pp. Bet 3 missed the returning gate.
+
+The anchor activated after 11–49 deliveries on all 32 returning streams. It also activated once in 112 held-new streams when the native gate recognized P10 visit 1 as P03 on order 71309. The first eligible prediction follows the recognition delivery. The other 111 held-new streams reproduced the lead exactly.
+
+Fit selection 65011779 completed at 08:32 CET with SHA-256 `ed55c8eee0a060644b7136aa7549e3b2a8cf10693b3ee9c9505694a936736be0`. Held-out collector 65011781 completed at 08:44 CET with SHA-256 `f2c93579fbfae08b4937ff04dac391b64c67f892100fc81c873db57659896803`.
