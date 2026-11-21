@@ -21,6 +21,11 @@ case "${1:?smoke|ocular|encoder|collect}" in
     run_py diagnose.py --data "$CAP250_DATA" --smoke
     run_py live.py --data "$CAP250_DATA" --out "$run/out" --smoke
     ;;
+  tape-smoke)
+    grep -qx OK "$run/v3.log"
+    grep -Fq 'PASS pinned lead and blend-zero on 190 windows, encoder equals live taps'       "$run/logs/smoke-65005599.log"
+    run_py diagnose.py --data "$CAP250_DATA" --smoke
+    ;;
   ocular)
     run_py diagnose.py --data "$CAP250_DATA" --out "$run/ocular.json" --score
     ;;

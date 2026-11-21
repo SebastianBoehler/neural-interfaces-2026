@@ -103,7 +103,14 @@ def check_smoke(data, g):
     assert arbiter(toy_y, toy_g, toy_pred, 0.1)["first_trigger"] is None
     assert arbiter(toy_y, toy_g, toy_pred, -0.6)["first_trigger"] is None
     assert arbiter(toy_y, toy_g, toy_y, None)["oracle"] == PERMS[0]
-    print("PASS data, pinned order and arbiter controls", flush=True)
+    checked = 0
+    for fold in FOLDS:
+        for seed in ORDERS:
+            for stream_key, plan in D.plans(data, seed, streams(data, fold)).items():
+                pinned_pair(fold, seed, stream_key, plan)
+                checked += 1
+    assert checked == 144, checked
+    print(f"PASS all {checked} pinned fold/session/order pairs and arbiter controls", flush=True)
 
 
 def diagnose(data, g, encoder):

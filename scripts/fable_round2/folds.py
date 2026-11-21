@@ -33,12 +33,20 @@ def streams(data, fold):
 
 def pinned(fold, arm, order, stream, rows):
     session = stream.split("|")[1]
-    path = TAPES / fold / arm / f"pred_{fold}_{order}.npz"
-    with np.load(path, allow_pickle=False) as tape:
-        np.testing.assert_array_equal(tape[f"rows_{order}_{session}"], rows)
-        y = tape[f"labels_{order}_{session}"]
-        assert y.shape == rows.shape and np.isin(y, (0, 1, 2)).all()
-        return y, str(tape["weights_sha"]), str(tape["source_sha"])
+    directory = TAPES / fold / arm
+    key = f"{order}_{session}"
+    matches = []
+    for path in sorted(directory.glob(f"pred_{fold}_*.npz")):
+        with np.load(path, allow_pickle=False) as tape:
+            if f"rows_{key}" not in tape:
+                continue
+            np.testing.assert_array_equal(tape[f"rows_{key}"], rows)
+            y = tape[f"labels_{key}"]
+            assert y.shape == rows.shape and np.isin(y, (0, 1, 2)).all()
+            matches.append((y, str(tape["weights_sha"]), str(tape["source_sha"])))
+    if len(matches) != 1:
+        raise ValueError(f"expected one tape for {fold}/{arm}/{key}, found {len(matches)}")
+    return matches[0]
 
 
 def pinned_pair(fold, order, stream, rows):
