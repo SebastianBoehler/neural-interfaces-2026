@@ -90,3 +90,21 @@ Submitted at 12:15 CET. 42 Slurm job IDs (171 tasks including arrays), pre-regis
   jq '{headline, parity_vs_nine25, scherer_new, scherer_returning, sealed_weighted}' /tmp/ni26-refill21/niv/report_hss_n25_fc_vs_hss.json
   ```
 - 12:15 CET resumption. The morning dose retest and second bank wave completed. The user accepts a positive paired lower bound in the target regime and at most a 0.30 pp loss in the other. Report the official 50/50. Galvani `ni26_ba_six_fc_20261121` runs two signed builds, zero/active identity, official pair, six requested RTX nodes and separate Scherer NI-V. Leonardo `leonardo-fill-ba-six-21nov` runs the fused 71800–71815 confirmation. Exact dispatches and receipts are in [leonardo_fill_21nov.md](leonardo_fill_21nov.md).
+
+## 9. Leonardo afternoon confirmation
+
+Run `cap250/runs/ni26-afternoon-71900` on AIFAC_P02_1636. Submitted at 12:36 CET with 2 running and 194 pending tasks in this run. The final fold wave is eligible from 16:25 CET, with collection targeted for about 17:00 CET subject to placement. [Preregistration](../../docs/LEDGER.md#leonardo-afternoon-confirmation--21-november-registered-before-dispatch).
+
+- **Paired A100-SXM E2E.** Three repeats of `e2e_timing.py` under Slurm 65024312 (one GPU and one rank per node, three nodes), after the shortened graph replay smoke 65024311. Each node loads and streams cap250, `final_stack_hard_safe_st_team_b_nine25_tbgraph_fc.zip` (`7017bd5c8a707e7233fe6b1e2df4376c28d49f6613174ec82c0fdbf700bc3f07`), and `final_stack_hard_safe_st_team_b_nine25_ba_terminal_fc.zip` (`1ef25b365c609354f275295f7e36fa9d1d71bbb02c8815ff4362ead078e6b23e`). Timing source snapshot `f309cc4a`.
+- **Real fold confirmation.** Frozen Lane TB-verify code, hard / nine15 / nine25, one full shuffled delivery per order and 12 folds per array. The pinned-order smoke is 65024411. Arrays in order are 65024412/13/14/16 (71900–71903), 65024417/18/19/20 (71904–71907, eligible 13:35), 65024421/22/25/27 (71908–71911, eligible 14:45), and 65024434/36/37/40 (71912–71915, eligible 16:25). Collector 65024442 waits for the last wave and writes the paired 50/50 new/returning report. Returning covers P04 and P10. Local v3 replay printed `OK`. The collector reproduced the prior 71156–71171 reference on real fold outputs. Initial smoke 65024273 rejected an unsupported wrapper argument. Its fold chain was cancelled by Slurm before scoring. The replacement uses the original `verify.sbatch` entry point.
+- **Collect completed results by 17:00 CET.** Check `State`, `End` and timing node allocation before copying. Rank-to-node receipts are in `logs/ni26-719-e2e-65024312_*.out`.
+
+  ```bash
+  remote=/leonardo_work/AIFAC_P02_1636/ni26/cap250/runs/ni26-afternoon-71900
+  ssh cineca-leonardo "cd '$remote' && cat jobs.tsv && sacct -X -j 65024312,65024442 -o JobID,State,End,NodeList"
+  mkdir -p /tmp/ni26-afternoon-71900
+  scp "cineca-leonardo:$remote/out/e2e-65024312-*.json" /tmp/ni26-afternoon-71900/
+  scp "cineca-leonardo:$remote/out/confirmation.json" /tmp/ni26-afternoon-71900/
+  jq 'to_entries[] | select(.value | type == "object" and has("projected_s")) | {arm: .key, warm_ms: .value.ms_per_window, added_ms: .value.added_vs_ref_ms, projected_s: .value.projected_s}' /tmp/ni26-afternoon-71900/e2e-*.json
+  jq '.contrasts | map_values({mean_50_50, ci80_50_50, new: .new.mean, returning: .returning.mean})' /tmp/ni26-afternoon-71900/confirmation.json
+  ```
