@@ -21,7 +21,7 @@ def digest(path):
         return file_digest(f, "sha256").hexdigest()
 
 
-def measure(data_path, fixtures, hss):
+def measure(data_path, fixtures, hss, folds):
     if digest(data_path) != DATA_SHA or digest(hss) != HSS_SHA:
         raise ValueError("expected signed EEG and hss")
     with ZipFile(hss) as z:
@@ -32,7 +32,7 @@ def measure(data_path, fixtures, hss):
     all_orders = {order: protocol.plans(data, order, np.unique(data["stream"]))
                   for orders in ORDERS.values() for order in orders}
     result = {}
-    for fold in FOLDS:
+    for fold in folds:
         cohort, person = fold.split("_")
         package = fixtures / "fixtures" / fold
         receipt = json.loads((package / "receipt.json").read_text())["ba_six"]
@@ -58,8 +58,9 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     for name in ("data", "fixtures", "hss", "output"):
         p.add_argument(name, type=Path)
+    p.add_argument("--fold", choices=FOLDS)
     a = p.parse_args()
-    result = measure(a.data, a.fixtures, a.hss)
+    result = measure(a.data, a.fixtures, a.hss, (a.fold,) if a.fold else FOLDS)
     with a.output.open("x") as f:
         json.dump(result, f, indent=2)
         f.write("\n")
