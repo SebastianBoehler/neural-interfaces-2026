@@ -72,3 +72,5 @@
 - Fable Round 2 · 04:18 CET, retry source `ee9ba37d`. The data channels already match the ZIP order. The encoder-only instrument now passes each native 41 × 480 window directly. Replacement smoke 65005599 → ocular 65005601 and encoder 65005602 → collector 65005603. Original dependent jobs canceled before scoring.
 
 - Fable Round 2 · 04:26 CET, source `5c88c299`. A100 65005599 passed v3, the 190-window lead and blend-zero labels, and encoder-to-live posterior parity. The next jobs stopped at filenames that store two orders per NPZ. Retried with validated in-file order keys and all 144 fold/session/order pairs checked in smoke 65005898 → ocular 65005901 and encoder 65005903 → collector 65005904.
+
+- Fable Round 2 P3 · 04:36 CET, source `d6cf4666`. P1/P2 stopped and P3 advanced at diagnostic collector 65005904. Leonardo live P01/P10 fold smokes 65006180/65006181 → 48 selection chunks 65006182 (71180–71187) → freeze 65006183 → 48 confirmation chunks 65006184 (71188–71195) → report 65006185. All dependencies are `afterok`. [Interim card](fable_round2.md)
