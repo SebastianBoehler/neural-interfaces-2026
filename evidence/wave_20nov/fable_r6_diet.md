@@ -13,8 +13,29 @@
 
 ## Causal fold replay
 
+The zero arm skips the output-tail SessionEM and TSEM from the recognition delivery. The quarter arm keeps both fits and applies a quarter of each stage's log-likelihood correction. Each arm keeps Rebalance, personal RouteB and own-space. Both pass the RouteB posterior directly to native CSP and MANAS after the latch. The upstream recognition and fine-tune inputs come from the live capture.
+
+Each order block has 21,240 held-new and 6,096 returning decisions. The collector checks the 28 held-new and eight returning cells on official class-balanced weights and pairs 20,000 person/order bootstrap draws. The 50/50 new/returning split is the joint score, J. The same people appear in both order blocks. The nine active slices cover the canonical 32 returning streams per block and the sole fit false recognition. The collector uses the canonical unchanged labels on other streams.
+
 Local v3 replay printed `OK` at 16:33 CET. Leonardo run `cap250/runs/fable-r6-diet-21nov` stages `09c150d5`. Smoke 65040561 gates fit array 65040562 (five tasks, at most three concurrent). The remaining four active slices are held for the frozen fit receipt. Canonical recognition manifest SHA-256 `c4bbc41808d296aa4e2ee18151bf9680ed46f465b83462e94a6be632bed3dd3e`.
 
 The exact-source Mac CPU mechanics smoke passed at 16:48 CET on 56 shuffled public P04/1 windows. All arms latched on delivery 11. Before the latch, every terminal vector and decision matched bitwise. CountFilter consumed 56/10/10 windows for em_half/zero/quarter. Each of SessionEM and TSEM consumed 56/10/56, with both quarter-weight fits active. Rebalance, CSP, Team B and MANAS consumed all 56. Maximum post-latch terminal effect was 0.11007 for zero and 0.06816 for quarter. The smoke used all-data production weights and computed no accuracy.
 
 The local staged-source import check exposed a missing `laneR4` dependency. The Leonardo release received that directory from the same commit before solver execution. The pending smoke time limit was reduced to 12 minutes. Slurm started it at 16:48:55 CET.
+
+Leonardo smoke observed at 16:55 CET matched all 189 pinned native and em_half decisions on P04/2 (71800), with recognition at delivery 41. It matched each live patched Solver's labels over the first 84 windows, its RouteB and terminal scores within 2e−5, and its exact truncated-tape output. The check exercised Rebalance, both quarter-weight EM fits, the count bypass, native CSP and MANAS.
+
+### Fit orders 71800–71807
+
+em_half BA 74.561% held-new, 81.168% returning and 77.864% at 50/50. Deltas are in percentage points, with paired 80% intervals in brackets. P04 and P10 intervals resample orders for the named person.
+
+| EM weight | Held-new Δ | Returning Δ | P04 Δ | P10 Δ | 50/50 Δ | 50/50 BA | Changed labels new / ret |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | -0.005 [-0.012, +0.000] | +0.485 [-0.044, +0.991] | +0.049 [-0.451, +0.543] | +0.922 [+0.507, +1.364] | +0.240 [-0.023, +0.494] | 78.104% | 13 / 365 |
+| 0.25 | -0.009 [-0.024, +0.000] | +0.345 [-0.163, +0.813] | -0.035 [-0.591, +0.523] | +0.725 [+0.437, +1.021] | +0.168 [-0.083, +0.397] | 78.032% | 10 / 263 |
+
+On order 71802, P10 visit 1 latched as P03 at delivery 40. The zero and quarter arms changed 13 and 10 decisions on that stream.
+
+Fit receipt SHA-256 `d07119b843f345bf9822324660a5bbce05058bce30af2681b509e46dd001513c`.
+
+All five fit tasks completed at 17:14 CET. The fit receipt was copied and SHA-256 checked on Leonardo before releasing held array 65043064 (four tasks, at most three concurrent).
