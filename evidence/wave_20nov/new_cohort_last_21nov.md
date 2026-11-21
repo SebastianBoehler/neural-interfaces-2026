@@ -16,3 +16,5 @@ The [Bottleneck Review](bottleneck_review_21nov.md) supplies 71800–71803 and 7
 The local and Leonardo v3 guards printed `OK`. A local smoke on two archived fit orders verified regenerated delivery rows, captured native labels, matching fixture receipts, recognition ages, zero controls, 67-window prefixes and active effects before computing accuracy.
 
 The label-blind B control uses the P01/1 fold on 71800. Its stored count posterior differs from RouteB beginning at window 41, with 100 affected windows also using CSP. Compare the reconstructed B posterior directly with the Last Push tail with CountFilter bypassed. Require exact labels, maximum probability error ≤ 1e−7 and at least one active decision change. No accuracy is computed by this control.
+
+Control 65046842 loaded the older Bottleneck snapshot of Last Push, which lacks the bypass hook. Retry 65047298 uses the explicit Last Push tail staged for the quarter-diet lane. The capture array keeps the original snapshot for stock replay.

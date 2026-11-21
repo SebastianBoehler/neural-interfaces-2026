@@ -29,7 +29,8 @@ case "${1:?}" in
         ;;
     count-control)
         worker="$run/control/new_cohort_capture.py"
-        exec bash "$launcher" "$worker" "$CAP250_DATA" "$base/grow" "$out" new_P01 71800 --check-count
+        tail="$all/fable-r6-diet-21nov/src/scripts/last_push/tape.py"
+        exec bash "$launcher" "$worker" "$CAP250_DATA" "$base/grow" "$out" new_P01 71800 --count-tail "$tail"
         ;;
     *) exit 2 ;;
 esac

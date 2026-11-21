@@ -2,6 +2,7 @@
 import argparse
 import json
 from pathlib import Path
+from runpy import run_path
 from tempfile import TemporaryDirectory
 
 import numpy as np
@@ -15,11 +16,12 @@ STARTS = (71804, 71806, 71812, 71814)
 FIELDS = ("hard", "team", "own", "count", "csp", "csp_active", "manas", "terminal", "label", "recognised")
 
 
-def check_count(model, items, captured):
+def check_count(model, items, captured, tail_path):
     active = ~captured["recognised"]
     if not active.all():
         raise ValueError("count-control stream was recognised")
-    labels, scores = replay(model, items, "count_control", before_route=lambda _route, _item: False)
+    replay_count = run_path(str(tail_path))["replay"]
+    labels, scores = replay_count(model, items, "count_control", before_route=lambda _route, _item: False)
     rebuilt = count_terminal(captured, active)
     np.testing.assert_allclose(rebuilt, scores, rtol=0, atol=1e-7)
     np.testing.assert_array_equal(rebuilt.argmax(1), labels)
@@ -37,9 +39,9 @@ def main():
     parser.add_argument("fold")
     parser.add_argument("first", type=int, choices=(*STARTS, 71800))
     parser.add_argument("--smoke", action="store_true")
-    parser.add_argument("--check-count", action="store_true")
+    parser.add_argument("--count-tail", type=Path)
     args = parser.parse_args()
-    if (args.first == 71800) != args.check_count or (args.check_count and args.fold != "new_P01"):
+    if (args.first == 71800) != bool(args.count_tail) or (args.count_tail and args.fold != "new_P01"):
         raise ValueError("the live count control is pinned to new_P01/1 on 71800")
     if not torch.cuda.is_available() or V.digest(args.data) != DATA_SHA:
         raise ValueError("CUDA and the signed PROTEUS export are required")
@@ -55,8 +57,8 @@ def main():
             captured, items = capture(model, signals, rows)
             pin(args.fixtures, args.fold, ROSTER, order, stream, rows, captured["label"], receipt)
             np.testing.assert_array_equal(replay(model, items, "w25")[0], captured["label"])
-            if args.check_count:
-                check_count(model, items, captured)
+            if args.count_tail:
+                check_count(model, items, captured, args.count_tail)
                 return
             if args.smoke:
                 prefix, _ = capture(model, signals, rows[:32])
