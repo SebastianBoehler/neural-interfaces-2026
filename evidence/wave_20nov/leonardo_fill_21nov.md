@@ -182,3 +182,5 @@ Native BF16 timing 3147847 finished at 13:54 CET on A100-PCIe-40GB cn207. Cap250
 ### Queue receipt
 
 Leonardo had 26 running and 270 pending at 08:08 CET. It dropped below 15 by 09:23 and both own-job queues were empty at the 12:11–12:15 check. The afternoon waves restored the queues. At 13:56 CET Leonardo had 34 running and 152 pending, and Galvani had one running and 20 pending. Galvani job 3147536 was an extra original `ba_six` timing on cn111. The FP16 release decision has six measured normal nodes. The Codex heartbeat is scheduled through the 18:00 CET cutoff.
+
+14:01 CET heartbeat. Leonardo had 39 running and 115 pending tasks across the account, with the afternoon fold waves queued for 14:45 and 16:25 CET. The dose, retest, roster and fused confirmation arrays and collectors were complete. Local SHA-256 checks of all four copied receipts matched the card. The 71800–71815 collector retained `ba_six` at +0.3566 pp (50/50). The queue exceeded the 15-task target at this check.

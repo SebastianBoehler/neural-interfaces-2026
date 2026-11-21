@@ -156,3 +156,4 @@ PROTEUS confirmation were not found at the Galvani run locations checked. [Prere
   '
   ```
 - 13:56 CET lane recommendation. The exact local `final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing.zip` qualifies from this lane, with 50/50 +0.36 pp on fresh fused folds and 3,259.2 s worst normal compute proxy. Turing Scherer collector 3147785 and A100 compute check 3147847 completed. The negative Scherer returning point remains a flag. Both cluster queues were rechecked and the heartbeat continues through 18:00 CET. [Lane decision](leonardo_fill_21nov.md)
+- 14:01 CET Leonardo heartbeat. Account snapshot 39 running and 115 pending. Dose, retest, roster and fused confirmation receipts verified. The scheduled afternoon waves cover the next check, with releases eligible at 14:45 and 16:25 CET.
