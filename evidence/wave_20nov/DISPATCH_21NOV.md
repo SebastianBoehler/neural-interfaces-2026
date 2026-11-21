@@ -1,5 +1,7 @@
 # Dispatch log · 21 Nov
 
+- CBraMod speed · 01:20 CET, registered and staged at `4efd052f`. Leonardo `cap250/runs/cb-speed-21nov`: GPU smoke 64996748 → paired member benchmark 64996749 and public label array 64996751 (both `afterok`). Local v3 replay and both exact-archive CPU smokes passed. Galvani batch SSH denied authentication. [Run record](cb_speed.md)
+
 - 00:20 Fable clean room (~/Documents/GitHub/ni26-cleanroom, b801a93): reviewed, approaches A-D deliberately NOT dispatched.
   A (adaptive population decoder, est. N 0.50-0.60) and B (personal experts) are weaker forms of mechanisms cap250 already
   has (cap250 held-new 73.7 % exceeds the clean room's own same-session supervised probe ceiling 0.72); B's ranking test is

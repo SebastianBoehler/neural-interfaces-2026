@@ -6,7 +6,7 @@
 #SBATCH --mem=24G
 #SBATCH --time=00:30:00
 set -euo pipefail
-stage=${1:?smoke, bench, or terminal}
+stage=${1:?missing stage}
 run=${SLURM_SUBMIT_DIR:?}
 source "$WORK/ni26/.venv312/bin/activate"
 export PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
@@ -22,6 +22,11 @@ if [[ $stage == smoke ]]; then
     done
 elif [[ $stage == bench ]]; then
     python -B "$check" bench "$run/zips" "$data" "$run/bench-$SLURM_JOB_ID.json"
+elif [[ $stage == options-smoke || $stage == options ]]; then
+    flags=()
+    if [[ $stage == options-smoke ]]; then flags+=(--smoke); fi
+    python -B submissions/final_stack/cb_speed_options.py "$run/zips" "$data" \
+        "$run/$stage-$SLURM_JOB_ID.json" "${flags[@]}"
 elif [[ $stage == terminal ]]; then
     task=${SLURM_ARRAY_TASK_ID:?expected task 0-7}
     suffix="" order=recording
