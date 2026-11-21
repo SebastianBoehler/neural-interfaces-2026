@@ -15,3 +15,5 @@ Signed reference `final_stack_hard_safe_st_team_b_nine25_tbgraph.zip`, SHA-256 `
 - Source-only smoke 3146356 checked both prospective changes against the scorer on 72 signed-lead windows. Bet 1 at 25% from window 15 and Bet 2 at weights 0.20/0.45 reproduced the scorer's labels, and both disabled controls reproduced the lead labels. The smoke used unpacked source in a temporary directory.
 
 Leonardo access returned at 07:39 CET. Exact input paths were verified and the pinned-fold smokes and dependent waves were submitted under `cap250/runs/fable-round3-21nov` from `f4d3714a`. [Slurm job IDs](DISPATCH_21NOV.md)
+
+At 07:48 CET, Leonardo jobs 65010877 and 65010878 had both completed. Each printed v3 `OK`. They matched the hard-only and nine25 pinned order 71124 labels on P01 visit 1 (190 windows) and P04 visit 2 (189 windows). The fit and held-out trace arrays started after both smokes.

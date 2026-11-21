@@ -120,3 +120,5 @@
 - Fable Round 3 · Leonardo 65010884, test the frozen Bet 1 weight, after fit choices and held-out traces.
 - Fable Round 3 · Leonardo 65010886, held-out collector, after the last array.
 - 07:xx User: upload planned ~20:00 CET; final candidate by 18:30. Leonardo re-authed. Dispatched GPT Leonardo fill (returning/dose settle on 32 orders, Team B bank growth under cost cap, seed robustness) -> leonardo_fill_21nov.md by 17:30; Sonnet Team B Solver overhead on Galvani -> teamb_overhead.md by 10:30. Daytime keeper 09-17 h, decision prep 18:37.
+
+- Fable Round 3 · 08:07 CET. Fit Step 0 and Bet 2/3 screen 65010881 completed, SHA-256 `7ac1472f61bbad6e0fcd76cc383f8b203d24ee950c0df89e6a0cf288f74755c3`. Bet 2 stops and Bet 3 advances. Bet 1 uses rebalance from window 1.
