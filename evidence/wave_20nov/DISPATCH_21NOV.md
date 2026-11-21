@@ -92,3 +92,11 @@
 - 06:5x Fable round 3 (PROPOSALS_3.md, 485dc9c: Step 0 ceiling, Bet 1 Team B rebalance, Bet 2 changed-window weight, Bet 3 conditional) dispatched to GPT-6.2 Sol high on Galvani -> fable_round3.md, due 11:30. Leonardo SSH cert expired 06:45 (needs user re-auth).
 
 - Fable Round 3 · 06:49 CET. Galvani canceled dead array 3140818 and its sole dependent collector 3140819 after checking the full Slurm queue for external dependents. Both report CANCELLED. The signed lead is on Galvani. The coordinator confirmed the exact fold fixtures, banks and pinned tapes are on Leonardo; batch SSH is denied pending certificate renewal.
+
+- Fable Round 3 · 06:54 CET. Galvani A100 smoke 3146349 uses 72 signed-lead public windows and emits no accuracy. Preregistration committed at `2ee7f1da`. Local historical v3 replay reproduced all six reference scores and printed OK.
+
+- Fable Round 3 · 06:55 CET. Galvani smoke 3146349 stopped at import because the staged code omitted `laneR4/build_keep.py`. Staged the dependency and re-dispatched public smoke 3146350. No folds were scored.
+
+- Fable Round 3 · 06:58 CET. Smoke 3146350 passed the native, tapped, cached and active mix paths. The frozen-state check then failed because the routed lead has no `tail6`. The checkpoint now visits only instantiated tails. No folds were scored.
+
+- Fable Round 3 · Galvani public smoke 3146351 completed in 86 s. On 72 real windows it passed reference versus taped lead, full live rebalance, stage taps and frozen queries in both orders. Leonardo's 06:59 CET batch probe still returned `Permission denied`.
