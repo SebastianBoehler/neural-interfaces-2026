@@ -15,7 +15,8 @@ run_py() {
 }
 case "${1:?smoke|ocular|encoder|collect}" in
   smoke)
-    NI26_REPLAY_DATA="$WORK/ni26/runs/replay_data" run_py "$WORK/ni26/replay/check.py" | tee "$run/v3.log"
+    NI26_REPLAY_DATA="$WORK/ni26/runs/replay_data" bash "$CAP250_RELEASE/cleanslate/cap250/slurm.sh" \
+      "$WORK/ni26/replay/check.py" | tee "$run/v3.log"
     grep -qx OK "$run/v3.log"
     run_py diagnose.py --data "$CAP250_DATA" --smoke
     run_py live.py --data "$CAP250_DATA" --out "$run/out" --smoke
