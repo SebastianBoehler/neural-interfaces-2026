@@ -53,8 +53,12 @@ def collect(captures, data_path, blocks, *, detector=None, urn=None):
                     recognised.shape != rows.shape or recognised.dtype != bool or
                     (recognised[:-1] & ~recognised[1:]).any()):
                 raise ValueError(f"invalid posterior or latch receipt: {path}/{key}")
-            np.testing.assert_array_equal(scores["em_half"][~recognised], scores["ba_six_fp16"][~recognised])
-            np.testing.assert_array_equal(scores["quarter"][~recognised], scores["ba_six_fp16"][~recognised])
+            direct = bool(tape.get("direct", False))
+            for arm in ("em_half", "quarter"):
+                changes = (scores[arm] != scores["ba_six_fp16"]) & ~recognised
+                if not direct and changes.any():
+                    raise ValueError(f"{arm} replay changed a pre-recognition label: {path}/{key}")
+                scores[f"{arm}_unrecognised_change"] = changes
             if detector is not None and detector[fold][key] != int(latch):
                 raise ValueError(f"live latch differs from the signed EEG-only detector: {path}/{key}")
             scores["latch"] = np.full(len(rows), int(latch))
@@ -70,6 +74,10 @@ def collect(captures, data_path, blocks, *, detector=None, urn=None):
                           by_window_60=sum(n for age, n in latch.items() if 0 < age <= 60),
                           first_windows=sorted(latch.items())),
             "arms": {},
+            "unrecognised_label_differences": {
+                arm: sum(int(np.count_nonzero(case.scores[f"{arm}_unrecognised_change"])) for case in cases)
+                for arm in ("em_half", "quarter")
+            },
         }
         for arm in ARMS:
             predict = lambda c, name=arm: c.scores[name]

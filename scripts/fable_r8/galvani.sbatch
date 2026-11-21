@@ -19,7 +19,7 @@ export PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NU
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 export PYTHONPATH="$qual/2026-competition:$qual/2026-competition/tracks/bci_decoding"
 export CS_OFFICIAL="$qual/2026-competition/tracks/bci_decoding"
-options=()
-if [[ ${1:?} == smoke ]]; then options=(--smoke); fi
-apptainer exec --nv --bind "$work" "$sif" python -B "$run/src/scripts/fable_r8/audit.py" \
+options=(--direct)
+if [[ ${1:?} == smoke ]]; then options+=(--smoke); fi
+apptainer exec --nv --bind "$work" "$sif" python -B "$run/direct-src/scripts/fable_r8/audit.py" \
     "$qual/data/proteus_windows.npz" "$base" "$hss" "$run/out" "${SLURM_ARRAY_TASK_ID:?}" "${options[@]}"

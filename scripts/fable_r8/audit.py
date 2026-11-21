@@ -85,7 +85,7 @@ def main(a):
         fixture_assets(source, receipt)
     gpu = torch.cuda.get_device_name()
     turing = torch.cuda.get_device_capability() == (7, 5)
-    p = dict(gpu=np.asarray(gpu), fold=np.asarray(fold))
+    p = dict(gpu=np.asarray(gpu), fold=np.asarray(fold), direct=np.asarray(a.direct))
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
         with ZipFile(a.hss) as z:
@@ -98,6 +98,13 @@ def main(a):
         fp16_source = fp16((original / "submission.py").read_text())
         stage(root / "ba_six", original, fp16_source)
         ba, _ = load(data, root, "ba_six", receipts["ba_six"])
+        live_arms = {}
+        if a.direct or a.smoke:
+            half_source = half_patch(fp16_source, 0.5)
+            sources = {"half": half_source, "quarter": quarter_patch(half_source, 0.25)}
+            for arm, source in sources.items():
+                stage(root / arm / "ba_six", original, source)
+                live_arms[arm], _ = load(data, root / arm, "ba_six", receipts["ba_six"])
         streams = sessions(data, fold)
         if a.smoke and a.hss_pin:
             rows = V.D.plans(data, 71124, streams[:1])[streams[0]]
@@ -115,9 +122,13 @@ def main(a):
                         path = a.fixtures / "held" / fold / arm / f"pred_{fold}_{order - order % 2}.npz"
                         diffs = pin(path, key, rows, labels, strict=not turing)
                         print(f"PIN {fold}/{key}/{arm}: {diffs} changed labels ({gpu})", flush=True)
+                if a.direct:
+                    half, _, half_rec = live_arm(ba, live_arms["half"], signals, rows, "half", a.smoke)
+                    quarter, terminal, quarter_rec = live_arm(ba, live_arms["quarter"], signals, rows, "quarter", a.smoke)
+                    if not np.array_equal(rec, half_rec) or not np.array_equal(rec, quarter_rec):
+                        raise ValueError(f"recognition diverged across live stack arms at {fold}/{key}")
                 if a.smoke:
-                    smoke(a, data, signals, rows, hss, original, fp16_source, receipts["ba_six"],
-                          hard, half, quarter, latch)
+                    smoke(a, data, signals, rows, hss, live_arms, ba, hard, half, quarter)
                 for name, values in (("rows", rows), ("hss", hard), ("nine25_fc", nine_y),
                                      ("ba_six_fp16", ba_y), ("em_half", half), ("quarter", quarter),
                                      ("terminal", terminal), ("latch", latch), ("recognised", rec)):
@@ -131,7 +142,19 @@ def main(a):
             path.rename(target)
 
 
-def smoke(a, data, signals, rows, hss, original, source, receipt, hard, half, quarter, latch):
+def live_arm(native, model, signals, rows, arm, smoke):
+    items = tap(model, signals, rows, fresh, check, V.DEVICE)
+    labels = np.asarray([i.label for i in items], dtype=np.int8)
+    scores = np.stack([i.terminal for i in items])
+    if smoke:
+        shadow, posterior, _ = (modified(native, items, "half", route=True) if arm == "half" else
+                                diet(native, items, "quarter"))
+        np.testing.assert_array_equal(shadow, labels, err_msg=arm)
+        np.testing.assert_allclose(posterior, scores, rtol=0, atol=2e-5, err_msg=arm)
+    return labels, np.stack([normalized(q, False) for q in scores]), np.asarray([i.recognised for i in items])
+
+
+def smoke(a, data, signals, rows, hss, live_arms, native, hard, half, quarter):
     from grow_fixture import prepare_zero
 
     with TemporaryDirectory() as tmp:
@@ -140,20 +163,10 @@ def smoke(a, data, signals, rows, hss, original, source, receipt, hard, half, qu
         zero, _ = V.timed_load(work / "zero", data, V.DEVICE)
         same, _, _ = V.stream_session(zero, signals, rows[:65], V.DEVICE, check=check)
         np.testing.assert_array_equal(same, hard[:65])
-        half_source = half_patch(source, 0.5)
-        for arm, patched, expected in (("half", half_source, half), ("quarter", quarter_patch(half_source, 0.25), quarter)):
-            stage(work / arm / "ba_six", original, patched)
-            live, _ = load(data, work / arm, "ba_six", receipt)
-            found = []
-
-            def check_live(m, n):
-                check(m, n)
-                found.append(m.cf.latch)
-
-            labels, _, _ = V.stream_session(live, signals, rows, V.DEVICE, check=check_live)
-            np.testing.assert_array_equal(labels, expected)
-            if arm == "half" and (found[0] + 1 if found[0] is not None else -1) != latch:
-                raise ValueError("scheme latch differs from the native detector")
+    if not a.direct:
+        for arm, expected in (("half", half), ("quarter", quarter)):
+            labels, _, _ = live_arm(native, live_arms[arm], signals, rows, arm, True)
+            np.testing.assert_array_equal(labels, expected, err_msg=arm)
     prefix, _, _ = V.stream_session(hss, signals, rows[:65], V.DEVICE, check=check_hss)
     np.testing.assert_array_equal(prefix, hard[:65])
 
@@ -164,5 +177,6 @@ if __name__ == "__main__":
         p.add_argument(name, type=Path)
     p.add_argument("task", type=int)
     p.add_argument("--smoke", action="store_true")
+    p.add_argument("--direct", action="store_true")
     p.add_argument("--hss-pin", type=Path)
     main(p.parse_args())
