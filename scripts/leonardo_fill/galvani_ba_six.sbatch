@@ -24,18 +24,18 @@ container() { apptainer exec --nv --bind "$work" "$repo/runs/cloud/ni26_worker.s
 cd "$run/src"
 stage=${1:?}
 if [[ $stage == turing-* ]]; then
-    src="$run/turing-source/submissions/final_stack"
+    src="$run/turing-checked-source/submissions/final_stack"
     export PYTHONPATH="$run/src/submissions/final_stack:$PYTHONPATH"
-    turing="${candidate}_fp16"
+    turing="${candidate}_fp16_turing"
     case "$stage" in
         turing-build)
             container "$src/patch_ba_six_fp16.py" "$run/zips/$candidate.zip" "$run/zips/$turing.zip" production \
-                | tee "$run/turing-production.sha"
-            container "$src/patch_ba_six_fp16.py" "$run/zips/$niv.zip" "$run/zips/${niv}_fp16.zip" niv \
-                | tee "$run/turing-niv.sha"
+                | tee "$run/turing-checked-production.sha"
+            container "$src/patch_ba_six_fp16.py" "$run/zips/$niv.zip" "$run/zips/${niv}_fp16_turing.zip" niv \
+                | tee "$run/turing-checked-niv.sha"
             ;;
         turing-smoke|turing-ident)
-            read -r sha _ < "$run/turing-production.sha"
+            read -r sha _ < "$run/turing-checked-production.sha"
             flags=()
             if [[ $stage == turing-ident ]]; then flags=(--part "${SLURM_ARRAY_TASK_ID:?}"); fi
             container "$src/check_ba_six_fp16.py" "$run/zips/$candidate.zip" "$run/zips/$turing.zip" "$sha" \

@@ -13,6 +13,17 @@ from patch_ba_six_fp16 import PARENT_SHA
 C = G.C
 
 
+def observe_precision(model, seen):
+    forward = model.team_a.net.features
+
+    def features(wave):
+        mode = str(torch.get_autocast_dtype("cuda")) if torch.is_autocast_enabled("cuda") else "disabled"
+        seen.add(mode)
+        return forward(wave)
+
+    model.team_a.net.features = features
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("parent", type=Path)
@@ -29,13 +40,15 @@ def main():
     if a.part is not None:
         plan = list(C.plans(data, "71000").items())[a.part::7]
     rows = {}
+    modes = [set(), set()]
     with TemporaryDirectory() as tmp:
         scratch = Path(tmp)
         models = []
-        for z, sha in ((a.parent, PARENT_SHA), (a.candidate, a.sha)):
+        for seen, (z, sha) in zip(modes, ((a.parent, PARENT_SHA), (a.candidate, a.sha)), strict=True):
             module, folder = G.unpack(z.parent, z.name, sha, scratch)
             model = C.load(module, folder, data, device)
             G.clean(model)
+            observe_precision(model, seen)
             models.append(model)
         for i, (name, indices) in enumerate(plan):
             x = torch.from_numpy(data["X"][indices]).to(device)
@@ -49,9 +62,11 @@ def main():
     n = sum(r["windows"] for r in rows.values())
     if a.part is None and n != 379:
         raise ValueError(f"wrong smoke coverage: {n}")
-    passed = all(r["changed"] == 0 and r["work_identical"] for r in rows.values())
+    capability = torch.cuda.get_device_capability()
+    expected = {"torch.float16"} if capability == (7, 5) else modes[0]
+    passed = bool(modes[0]) and modes[1] == expected and all(r["changed"] == 0 and r["work_identical"] for r in rows.values())
     a.out.write_text(json.dumps(dict(sha=a.sha, windows=n, passed=passed,
-                                     capability=torch.cuda.get_device_capability(), sessions=rows),
+                                     capability=capability, precision=[sorted(m) for m in modes], sessions=rows),
                                 indent=1) + "\n")
     if not passed:
         raise SystemExit("The precision change alters active labels or work")

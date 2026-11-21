@@ -12,8 +12,8 @@ FORWARD = '''        bf16 = self.device.type == "cuda" and torch.cuda.is_bf16_su
         with torch.autocast(self.device.type, dtype=torch.bfloat16, enabled=bf16):
 '''
 TURING = '''        cuda = self.device.type == "cuda"
-        bf16 = cuda and torch.cuda.is_bf16_supported()
-        fp16 = cuda and not bf16 and torch.cuda.get_device_capability(self.device) == (7, 5)
+        fp16 = cuda and torch.cuda.get_device_capability(self.device) == (7, 5)
+        bf16 = cuda and not fp16 and torch.cuda.is_bf16_supported()
         dtype = torch.float16 if fp16 else torch.bfloat16
         with torch.autocast(self.device.type, dtype=dtype, enabled=bf16 or fp16):
 '''
