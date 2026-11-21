@@ -88,7 +88,7 @@ def read_tapes(data, root, orders, modes):
                                 hit = fixed == expected if name == "fixed_after100" else candidate == expected
                                 s = slice(lo, hi)
                                 bank[o, p] += [weights[s] @ (lead[s] == expected[s]), weights[s] @ hit[s], weights[s].sum()]
-        if np.any(arrays["whole"][:, :, 2].sum(1) != (28 if mode == "new" else 8)):
+        if not np.allclose(arrays["whole"][:, :, 2].sum(1), 28 if mode == "new" else 8, rtol=0, atol=1e-10):
             raise ValueError(f"incorrect number of official cells for {mode}")
         reports[mode] = {name: stats(bank, people) for name, bank in arrays.items()}
         reports[mode]["activity"] = dict(attempted=attempted.tolist(), accepted=accepted.tolist(),
