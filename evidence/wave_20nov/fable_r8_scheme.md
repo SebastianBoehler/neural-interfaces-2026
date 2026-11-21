@@ -122,3 +122,25 @@ hss balanced accuracy was 73.660% new, 79.375% returning and 76.518% at 50/50.
 | Quarter | +0.503 [+0.141, +0.841] | +2.363 [+1.993, +2.701] | +1.433 [+1.174, +1.676] | +2.216 | +2.510 |
 
 **R8 decision. Retain the signed quarter ZIP `42fb63cf…3b07`.** The held RTX gain of +1.721 pp exceeds the +0.8 pp robustness bar and the +1.433 pp full-shuffle gain. Fable's Step 2 trigger stays closed. The independent latch test also exceeded the conditional package's <5% full-shuffle activation limit. The sealed shuffle scope and sealed accuracy remain private. Codabench was left untouched.
+
+### Supplemental fit and terminal urn
+
+At 20:45 CET, Leonardo had all 84 shards and Galvani had all 60 validation shards. The single remaining RTX fit shard finished by 20:56 CET. All 84 RTX shard hashes are in the complete receipt, SHA-256 `04806641eecd8ff0105c1e826d74972c6b4cbab017c74f21ddc48633c7ccbdad`. Eleven timeouts and three queued multi-visit tasks were recovered as separate orders. Recovery jobs were 3149890, 3149891, 3149926, 3149929, 3149933, 3149945, 3149950, 3149967, 3149977 and 3150127. The stitch test reproduced a completed real shard exactly and the collector checked all repaired rows against the registered deliveries.
+
+For within-run fit 72000–72003, hss balanced accuracy was 77.280% new, 82.486% returning and 79.883% at 50/50.
+
+| Arm | New Δ [80%] | Returning Δ [80%] | 50/50 Δ [80%] | P04 Δ | P10 Δ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| nine25_fc | +0.625 [+0.103, +1.080] | +1.326 [+0.895, +1.895] | +0.976 [+0.630, +1.320] | +1.560 | +1.092 |
+| ba_six FP16 | +0.475 [+0.048, +0.853] | +2.556 [+1.529, +3.614] | +1.515 [+0.952, +2.066] | +3.551 | +1.561 |
+| em_half | +0.475 [+0.048, +0.853] | +2.456 [+1.195, +3.741] | +1.465 [+0.807, +2.117] | +3.676 | +1.236 |
+| Quarter | +0.475 [+0.048, +0.853] | +2.220 [+1.303, +3.149] | +1.347 [+0.855, +1.831] | +3.077 | +1.363 |
+
+RTX terminal urn CPU job 3150594 completed by 21:01 CET. Receipt SHA-256 `81baa5996ef96c7845bbdec0253c8e28e7e0a919a18b6297003c9baa9b5bdd12`. All 48 tape hashes matched the direct grid. The metric calculation reproduced the direct grid within 5.68e−14 pp.
+
+| Block | New Δ [80%] | Returning Δ [80%] | 50/50 Δ [80%] | Changed labels |
+| --- | ---: | ---: | ---: | ---: |
+| Within-run fit | +0.042 [-0.149, +0.242] | +0.295 [+0.094, +0.516] | +0.169 [+0.029, +0.314] | 250 |
+| Within-run held | -0.025 [-0.210, +0.159] | -0.059 [-0.489, +0.266] | -0.042 [-0.272, +0.154] | 232 |
+
+The RTX held rider misses +0.2 pp. The repeated local `python replay/check.py` printed `OK`.

@@ -236,3 +236,5 @@
 
 - 20:38 CET · R8 RTX validation complete on held within-run, per-interface and pinned full. Quarter − hss at 50/50 is +1.721, +2.314 and +1.433 pp respectively. Keep qualified quarter `42fb63cf…3b07`. Both devices clear +0.8 pp held within-run, so the gated branch stays closed. Galvani fit-only recovery 3149977 and 3150127 continues. [Direct RTX evidence](fable_r8_scheme.md#rtx-2080-ti-production-precision-validation)
 - 20:4x Cross-provider board: GPT (xhigh, executor), Fable, Opus threads in ni26-cleanroom discuss via BOARD.md; vote 21:15, validated package by 22:30, upload ~23:00.
+
+- 21:01 CET · R8 complete. The final RTX fit shard completed by 20:56. Both devices have 84 verified shards. RTX fit quarter − hss +1.347 pp at 50/50. Terminal urn 3150594 missed with −0.042 pp held [80% −0.272, +0.154]. The 20:38 decision to retain quarter `42fb63cf…3b07` stands. [Final record](fable_r8_scheme.md#supplemental-fit-and-terminal-urn)
