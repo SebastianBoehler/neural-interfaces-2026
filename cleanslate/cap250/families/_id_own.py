@@ -52,21 +52,23 @@ class Space:
         self.slow = sosfiltfilt(butter(2, 4, btype="low", fs=120, output="sos"), x, axis=-1)[:, :, 7::15].reshape(len(x), -1)
         self.wt = np.where(IU[0] == IU[1], 1.0, np.sqrt(2.0))
 
-    def recentred(self, rows):
+    def recentred(self, rows, reference):
         out, means = [], []
         for c in self.cov:
             cs = c[rows]
-            w = _isqrt(cs.mean(0))[None]
+            mean = c[reference].mean(0)
+            w = _isqrt(mean)[None]
             out.append(w @ cs @ w)
-            means.append(cs.mean(0))
+            means.append(mean)
         return out, means
 
     def tang(self, cw):
         return np.concatenate([_logm(c)[:, IU[0], IU[1]] * self.wt for c in cw], 1)
 
-    def person(self, sessions):
+    def person(self, sessions, references=None):
         """sessions: row arrays of one person -> dict of own_* arrays (without the person axis)."""
-        cw, ms = zip(*[self.recentred(r) for r in sessions])
+        references = sessions if references is None else references
+        cw, ms = zip(*[self.recentred(rows, ref) for rows, ref in zip(sessions, references, strict=True)])
         yt = np.concatenate([self.y[r] for r in sessions])
         prior = [np.mean([m[b] for m in ms], 0) for b in range(len(BANDS))]
         cws = [np.concatenate([c[b] for c in cw]) for b in range(len(BANDS))]
@@ -78,7 +80,8 @@ class Space:
             csp.append(np.concatenate(w, 1))
         feats = np.concatenate([np.log(np.einsum("cf,ncd,df->nf", w, c, w)) for w, c in zip(csp, cws)], 1)
         cls = LDA(solver="lsqr", shrinkage=0.5).fit(feats, yt)
-        slow = np.concatenate([(self.slow[r] - self.slow[r].mean(0)) / (self.slow[r].std(0) + 1e-9) for r in sessions])
+        slow = np.concatenate([(self.slow[r] - self.slow[ref].mean(0)) / (self.slow[ref].std(0) + 1e-9)
+                               for r, ref in zip(sessions, references, strict=True)])
         sl = LDA(solver="lsqr", shrinkage=0.7).fit(slow, yt)
         sc, lr = tangent.steps[0][1], tangent.steps[1][1]
         return dict(prior=np.stack(prior), csp=np.stack(csp), t_mu=sc.mean_, t_sd=sc.scale_, t_W=lr.coef_,
