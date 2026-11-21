@@ -8,6 +8,8 @@
 set -euo pipefail
 stage=${1:?missing stage}
 run=${SLURM_SUBMIT_DIR:?}
+package=()
+if [[ -n ${2:-} ]]; then package=(--team-b "$2"); fi
 export PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 OMP_NUM_THREADS=1
 export PYTHONPATH="$run/src/2026-competition"
@@ -15,7 +17,7 @@ py=(python -B)
 if [[ ${NI26_CB_WORKER:-0} == 1 ]]; then
     # R535 supports CUDA 13.0 with NVIDIA's process-local compatibility libraries.
     compat="$run/cuda-compat/usr/local/cuda-13.0/compat"
-    if [[ $stage == smoke ]]; then
+    if [[ $stage == smoke && ! -r "$compat/libcuda.so.1" ]]; then
         deb=cuda-compat-13-0_580.196.07-1_amd64.deb
         (cd "$run"; printf '%s  %s\n' d2d3262512046b23215ff197fe79a6ca0d44299ed0e665275ac05bb28b79e4e3 "$deb" | sha256sum -c)
         mkdir -p "$run/cuda-compat"
@@ -31,9 +33,9 @@ cd "$run/src"
 check=submissions/final_stack/check_cb_speed.py
 data=data/proteus_windows.npz
 if [[ $stage == smoke ]]; then
-    "${py[@]}" "$check" smoke "$run/zips" "$data" "$run/smoke-$SLURM_JOB_ID.json"
+    "${py[@]}" "$check" smoke "$run/zips" "$data" "$run/smoke-$SLURM_JOB_ID.json" "${package[@]}"
 elif [[ $stage == bench ]]; then
-    "${py[@]}" "$check" bench "$run/zips" "$data" "$run/bench-$SLURM_JOB_ID.json"
+    "${py[@]}" "$check" bench "$run/zips" "$data" "$run/bench-$SLURM_JOB_ID.json" "${package[@]}"
 elif [[ $stage == options-smoke || $stage == options ]]; then
     flags=()
     if [[ $stage == options-smoke ]]; then flags+=(--smoke); fi
@@ -45,7 +47,7 @@ elif [[ $stage == terminal ]]; then
     order=recording
     if ((task / 2)); then order=71000; fi
     "${py[@]}" "$check" terminal "$run/zips" "$data" "$run/terminal-$SLURM_ARRAY_JOB_ID-$task.json" \
-        --order "$order" --part "$((task % 2))" 2
+        --order "$order" --part "$((task % 2))" 2 "${package[@]}"
 else
     exit 2
 fi

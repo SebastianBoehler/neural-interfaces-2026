@@ -16,8 +16,8 @@ def digest(path):
         return file_digest(stream, "sha256").hexdigest()
 
 
-def verify_parent(path):
-    if digest(path) != PARENT_SHA:
+def verify_parent(path, expected_sha):
+    if digest(path) != expected_sha:
         raise ValueError(f"{path}: unexpected parent SHA-256")
 
 
@@ -35,25 +35,25 @@ def patch(source):
     return result
 
 
-def verify_pair(parent, candidate):
-    verify_parent(parent)
+def verify_pair(parent, candidate, *, expected_sha=PARENT_SHA, patch_source=patch):
+    verify_parent(parent, expected_sha)
     with ZipFile(parent) as before, ZipFile(candidate) as after:
         if before.namelist() != after.namelist() or after.testzip() is not None:
             raise ValueError(f"{candidate}: changed ZIP inventory or bad CRC")
         changed = [name for name in before.namelist() if before.read(name) != after.read(name)]
-        if changed != ["submission.py"] or patch(before.read("submission.py").decode()) != after.read("submission.py").decode():
+        if changed != ["submission.py"] or patch_source(before.read("submission.py").decode()) != after.read("submission.py").decode():
             raise ValueError(f"{candidate}: unexpected source or artifact change")
 
 
-def build(parent, candidate):
-    verify_parent(parent)
+def build(parent, candidate, *, expected_sha=PARENT_SHA, patch_source=patch):
+    verify_parent(parent, expected_sha)
     with ZipFile(parent) as before, ZipFile(candidate, "x") as after:
         for entry in before.infolist():
             payload = before.read(entry)
             if entry.filename == "submission.py":
-                payload = patch(payload.decode()).encode()
+                payload = patch_source(payload.decode()).encode()
             after.writestr(copy(entry), payload)
-    verify_pair(parent, candidate)
+    verify_pair(parent, candidate, expected_sha=expected_sha, patch_source=patch_source)
     print(digest(candidate), candidate, flush=True)
 
 
