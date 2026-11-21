@@ -144,3 +144,5 @@
 
 - Breakthrough · 09:13 CET. Leonardo via Galvani SSH jump, run `cap250/runs/breakthrough-21nov`. Spectral P01 real-data LOPO fit smoke 65014028 completed in 23 s. Local v3 replay printed OK. [Preregistration](../../docs/LEDGER.md#breakthrough--21-november-registered-before-scoring) · [Wave](breakthrough_21nov.md)
 - Breakthrough Team A floor · 09:19 CET. Applied the existing Team B fused-convolution patch to the signed 10% Team A graph archive, changing only generated `submission.py`. Galvani `ni26_breakthrough_20261121`: smoke 3146875 → cn116 paired e2e 3146876, 379-window CPU zero 3146877 and official pair 3146878. SHA-256 `1ef25b365c609354f275295f7e36fa9d1d71bbb02c8815ff4362ead078e6b23e`.
+
+- Fable R4 Bet 1 · 09:23 CET. Preregistered at `bc2ca794`. Oracle source `899ae8b5` staged on Leonardo in `cap250/runs/fable-r4-selfenrol-21nov`. Smokes 65014266 (held-new P01) and 65014272 (returning P04) run v3, exact pinned fused-lead labels, zero-change and prefix/reset checks. [Card](fable_r4_selfenrol.md)
