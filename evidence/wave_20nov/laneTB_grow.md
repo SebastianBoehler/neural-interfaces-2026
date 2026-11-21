@@ -2,6 +2,8 @@
 
 Leonardo run `cap250/runs/laneTB-grow-21nov`. [Preregistration](../../docs/LEDGER.md#lane-tb-grow--dose-insertion-point-and-independent-sources-registered-21-nov-2026-before-scoring) · [Slurm dispatch](DISPATCH_21NOV.md)
 
+**`ba_terminal` confirmed a larger returning gain.** Across 16 held-out orders it gained +0.82 pp held-new and +1.50 pp returning versus hard. Against nine25, both blocks supported a returning increment and the pooled increment was +0.36 pp [80% +0.12, +0.60]. The pooled held-new increment was +0.11 pp [−0.14, +0.35]. The A100 runtime projection is 3,285 s.
+
 ## Instrument
 
 Hard-only fold fixtures use `production-20261120-32a94ab7`. The ten held-new folds contribute 28 official cells per order. P04 and P10 contribute 8 returning cells per order, from visits 2–3 with visit 1 enrolled. Every arm uses the live hard Solver, with one EEG window at a time and a fresh copy per session. Local v3 replay printed OK. The PROTEUS export SHA-256 is `2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327`.
@@ -42,7 +44,7 @@ Freeze job 65003091 validated 576 prediction files and wrote `select.json` (SHA-
 | ba_terminal − hard | +0.84 [+0.41, +1.26] | +1.62 [+1.25, +2.01] | +1.81 / +1.43 | +1.23 | +1.13 |
 | ba_terminal − nine25 | +0.20 [−0.08, +0.48] | +0.43 [+0.06, +0.80] | +0.65 / +0.20 | +0.31 | +0.24 |
 
-Absolute official cell BA for hard was 73.17% held-new and 79.36% returning. Ba_terminal reached 74.01% and 80.98%. The returning estimates cover P04 and P10 at visits 2–3, with visit 1 enrolled.
+Absolute official cell BA for hard was 73.17% held-new and 79.36% returning. The selected arm reached 74.01% and 80.98%. The returning estimates cover P04 and P10 at visits 2–3, with visit 1 enrolled.
 
 Runtime projects to **3,285 s** on the 2,943 s nine25 anchor. On A100-SXM-64GB the two warm P01 pairs added 15.91 and 13.31 ms/window. The projection includes load and first-window overhead. It leaves about 315 s against the 3,600 s limit. Runtime on the official RTX PRO 4500 worker remains unmeasured.
 
@@ -50,4 +52,19 @@ All 48 confirmation tasks and collector 65003093 completed. The collector matche
 
 ## Additional confirmation on orders 71172–71179
 
-Replay 65003770 was active at the most recent Leonardo readback. The additional result is pending.
+| Contrast | Held-new Δ pp [80%] | Returning Δ pp [80%] | P04 / P10 Δ pp | J pp | 57/43* pp |
+|---|---:|---:|---:|---:|---:|
+| Extra · ba_terminal − hard | +0.79 [+0.27, +1.23] | +1.37 [+0.93, +1.85] | +1.77 / +0.97 | +1.08 | +0.94 |
+| Extra · ba_terminal − nine25 | +0.02 [−0.28, +0.32] | +0.28 [+0.05, +0.53] | +0.37 / +0.20 | +0.15 | +0.11 |
+| Pooled 16 · ba_terminal − hard | +0.82 [+0.39, +1.20] | +1.50 [+1.15, +1.86] | +1.79 / +1.20 | +1.16 | +1.03 |
+| Pooled 16 · ba_terminal − nine25 | +0.11 [−0.14, +0.35] | +0.36 [+0.12, +0.60] | +0.51 / +0.20 | +0.23 | +0.18 |
+
+The additional block repeated the positive returning increment over nine25. Both P04 and P10 improved in both blocks. The held-new increment stayed undecided. Resampling returning people covers only P04 and P10. Both blocks reuse the same PROTEUS people under new deliveries.
+
+## Other selection arms
+
+At 35%, Team B nine reached the highest selection held-new point estimate (+0.93 pp over hard). The native slot and terminal Team B insertion each gained on both selection cohorts, with J +1.02 and +1.10 pp. Twelve and eighteen Team B members each scored a lower selection J than nine25. All three Team B plus Team C arms scored below nine25 on both selection cohorts. These comparisons use the selection orders.
+
+## Receipts
+
+All 24 extra tasks and collector 65003772 completed by 04:43 CET. The collector validated 144 additional prediction files, the frozen selection SHA and identical fold receipts across both confirmation blocks. `extra.json` SHA-256 `5c76448245286f4d569095da5a537627feefe2b0012bed7ad63774cf964b02af`. `timing.json` SHA-256 `ad4ee47f8a26e9b18fadec50d30cfb51ffd1a073afdc9b0d16fd13d8fdcf0299`. The reports and raw prediction files are under the Leonardo run directory above. Scoring source revisions are recorded in the dispatch log.
