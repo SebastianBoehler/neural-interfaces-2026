@@ -4,11 +4,11 @@
 
 ## Scope and checks
 
-The instrument uses real PROTEUS fold weights from `production-20261120-32a94ab7`. The 28 held-new cells span ten people. The eight returning cells span P04 and P10 on visits 2 and 3, with visit 1 enrolled. P04 and P10 also appear in the held-new instrument with different fit exclusions. Cell means weight true classes equally. Each held-new cell carries 1/56 of the joint score and each returning cell 1/16. The two-person returning instrument limits cohort generalization. [State](../../docs/STATE.md) · [Leakage audit](redteam_fable.md)
+The instrument uses real PROTEUS fold weights from `production-20261120-32a94ab7`. The 28 held-new cells span ten people. The eight returning cells span P04 and P10 on visits 2 and 3, with visit 1 enrolled. P04 and P10 also appear in the held-new instrument with different fit exclusions. Cell means weight true classes equally. Each held-new cell carries 1/56 of the joint score and each returning cell 1/16. Tables use `new` and `ret` for these cohorts. The two-person returning instrument limits cohort generalization. [State](../../docs/STATE.md) · [Leakage audit](redteam_fable.md)
 
 Both label banks from Leonardo `leonardo-fill-ba-six-21nov/grow/held` matched every label and delivery row in the independent `last-push-21nov/{fit,held}` zero arms and the regenerated full-session shuffle. The pinned v3 replay printed `OK`. Shuffled error analysis independently reproduces the +0.3566 pp comparison and its interval. The ba_six A100 fold path uses native BF16. The signed FP16-on-Turing archive follows that path on A100, with a separate 379-window bitwise A100 identity check and a 2,655-window zero-label-change Turing check on the all-data package. [Fold confirmation and precision checks](leonardo_fill_21nov.md)
 
-The current fold tapes retain terminal decisions. Inference-only capture of intermediate scores is authorized on the same frozen fixtures and pinned delivery orders. Galvani smokes 3148143/3148144 check P01 on both stacks before the full capture. [Preregistration](../../docs/LEDGER.md#bottleneck-review--21-november-registered-before-analysis)
+The current fold tapes retain terminal decisions. Inference-only capture of intermediate scores is authorized on the same frozen fixtures and pinned delivery orders. Galvani smokes 3148143/3148144 reproduced the delivery rows but changed 3/190 nine25 labels and 1/190 ba_six labels. The retry uses Leonardo’s original environment. Smokes 65032096/65032104/65032107/65032110 gate the 96 capture tasks in 65032114. [Preregistration](../../docs/LEDGER.md#bottleneck-review--21-november-registered-before-analysis)
 
 ## Error budget
 
@@ -36,28 +36,28 @@ Paired ba_six gain in pp [80% interval], held-new / returning / 50/50: +0.21 [-0
 
 ### Sessions and cells
 
-Each cell shows window count · nine25/ba_six BA% · nine25/ba_six lost 50/50 pp.
+Visit BA averages the two interface cells. Each interface cell shows window count · nine25/ba_six BA% · nine25/ba_six lost 50/50 pp.
 
-| Cohort | Person | Visit | BrainHero | Graz |
-| --- | --- | --- | --- | --- |
-| new | P01 | 1 | 94 · 81.0/82.1 · 0.34/0.32 | 96 · 63.9/65.3 · 0.65/0.62 |
-| new | P02 | 1 | 93 · 87.4/87.0 · 0.22/0.23 | 96 · 86.0/87.4 · 0.25/0.23 |
-| new | P03 | 1 | 93 · 68.4/68.7 · 0.56/0.56 | 96 · 76.1/76.8 · 0.43/0.42 |
-| new | P04 | 1 | 93 · 61.4/60.4 · 0.69/0.71 | 96 · 52.3/52.0 · 0.85/0.86 |
-| new | P04 | 2 | 93 · 51.4/50.5 · 0.87/0.88 | 96 · 49.3/50.8 · 0.90/0.88 |
-| new | P04 | 3 | 92 · 56.0/56.3 · 0.79/0.78 | 96 · 43.9/45.1 · 1.00/0.98 |
-| new | P05 | 1 | 94 · 76.8/76.1 · 0.41/0.43 | 96 · 73.9/72.4 · 0.47/0.49 |
-| new | P06 | 1 | 91 · 80.2/80.4 · 0.35/0.35 | 96 · 86.1/87.0 · 0.25/0.23 |
-| new | P07 | 1 | 93 · 90.4/90.8 · 0.17/0.17 | 96 · 84.6/84.8 · 0.27/0.27 |
-| new | P08 | 1 | 93 · 78.7/79.5 · 0.38/0.37 | 96 · 92.9/93.4 · 0.13/0.12 |
-| new | P09 | 1 | 93 · 79.3/78.8 · 0.37/0.38 | 96 · 81.8/81.2 · 0.33/0.33 |
-| new | P10 | 1 | 96 · 65.9/67.8 · 0.61/0.58 | 96 · 70.7/71.7 · 0.52/0.51 |
-| new | P10 | 2 | 90 · 92.2/91.9 · 0.14/0.15 | 96 · 81.7/80.1 · 0.33/0.35 |
-| new | P10 | 3 | 103 · 86.9/86.6 · 0.23/0.24 | 96 · 80.1/80.5 · 0.36/0.35 |
-| ret | P04 | 2 | 93 · 72.1/72.9 · 1.74/1.69 | 96 · 66.3/67.5 · 2.11/2.03 |
-| ret | P04 | 3 | 92 · 76.1/76.3 · 1.50/1.48 | 96 · 69.9/69.5 · 1.88/1.90 |
-| ret | P10 | 2 | 90 · 94.7/95.6 · 0.33/0.28 | 96 · 81.4/82.2 · 1.16/1.11 |
-| ret | P10 | 3 | 103 · 93.9/94.2 · 0.38/0.36 | 96 · 88.8/88.8 · 0.70/0.70 |
+| Cohort | Person | Visit | Visit BA% | BrainHero | Graz |
+| --- | --- | --- | --- | --- | --- |
+| new | P01 | 1 | 72.4/73.7 | 94 · 81.0/82.1 · 0.34/0.32 | 96 · 63.9/65.3 · 0.65/0.62 |
+| new | P02 | 1 | 86.7/87.2 | 93 · 87.4/87.0 · 0.22/0.23 | 96 · 86.0/87.4 · 0.25/0.23 |
+| new | P03 | 1 | 72.3/72.7 | 93 · 68.4/68.7 · 0.56/0.56 | 96 · 76.1/76.8 · 0.43/0.42 |
+| new | P04 | 1 | 56.9/56.2 | 93 · 61.4/60.4 · 0.69/0.71 | 96 · 52.3/52.0 · 0.85/0.86 |
+| new | P04 | 2 | 50.4/50.7 | 93 · 51.4/50.5 · 0.87/0.88 | 96 · 49.3/50.8 · 0.90/0.88 |
+| new | P04 | 3 | 50.0/50.7 | 92 · 56.0/56.3 · 0.79/0.78 | 96 · 43.9/45.1 · 1.00/0.98 |
+| new | P05 | 1 | 75.4/74.2 | 94 · 76.8/76.1 · 0.41/0.43 | 96 · 73.9/72.4 · 0.47/0.49 |
+| new | P06 | 1 | 83.2/83.7 | 91 · 80.2/80.4 · 0.35/0.35 | 96 · 86.1/87.0 · 0.25/0.23 |
+| new | P07 | 1 | 87.5/87.8 | 93 · 90.4/90.8 · 0.17/0.17 | 96 · 84.6/84.8 · 0.27/0.27 |
+| new | P08 | 1 | 85.8/86.4 | 93 · 78.7/79.5 · 0.38/0.37 | 96 · 92.9/93.4 · 0.13/0.12 |
+| new | P09 | 1 | 80.5/80.0 | 93 · 79.3/78.8 · 0.37/0.38 | 96 · 81.8/81.2 · 0.33/0.33 |
+| new | P10 | 1 | 68.3/69.7 | 96 · 65.9/67.8 · 0.61/0.58 | 96 · 70.7/71.7 · 0.52/0.51 |
+| new | P10 | 2 | 86.9/86.0 | 90 · 92.2/91.9 · 0.14/0.15 | 96 · 81.7/80.1 · 0.33/0.35 |
+| new | P10 | 3 | 83.5/83.6 | 103 · 86.9/86.6 · 0.23/0.24 | 96 · 80.1/80.5 · 0.36/0.35 |
+| ret | P04 | 2 | 69.2/70.2 | 93 · 72.1/72.9 · 1.74/1.69 | 96 · 66.3/67.5 · 2.11/2.03 |
+| ret | P04 | 3 | 73.0/72.9 | 92 · 76.1/76.3 · 1.50/1.48 | 96 · 69.9/69.5 · 1.88/1.90 |
+| ret | P10 | 2 | 88.0/88.9 | 90 · 94.7/95.6 · 0.33/0.28 | 96 · 81.4/82.2 · 1.16/1.11 |
+| ret | P10 | 3 | 91.3/91.5 | 103 · 93.9/94.2 · 0.38/0.36 | 96 · 88.8/88.8 · 0.70/0.70 |
 
 Largest ba_six cell losses in rank order: P04/2 Graz (ret, 2.03 pp), P04/3 Graz (ret, 1.90 pp), P04/2 BrainHero (ret, 1.69 pp), P04/3 BrainHero (ret, 1.48 pp), P10/2 Graz (ret, 1.11 pp).
 

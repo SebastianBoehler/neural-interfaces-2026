@@ -1,6 +1,7 @@
 """Read frozen data metadata and enforce fold, delivery and reference parity."""
 from dataclasses import dataclass
 from functools import cached_property
+from hashlib import file_digest
 from pathlib import Path
 import sys
 
@@ -13,6 +14,7 @@ import data as protocol
 ROSTERS = ("nine25", "ba_six")
 PEOPLE = {"new": tuple(protocol.PEOPLE), "ret": tuple(protocol.RETURNING)}
 POSITIONS = ("1–10", "11–20", "21–40", "41+")
+DATA_SHA = "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
 
 
 @dataclass(frozen=True)
@@ -48,6 +50,9 @@ class Case:
 
 
 def metadata(path):
+    with path.open("rb") as source:
+        if file_digest(source, "sha256").hexdigest() != DATA_SHA:
+            raise ValueError("unexpected PROTEUS export")
     with np.load(path, allow_pickle=False) as tape:
         d = {key: tape[key] for key in ("subject", "session", "interface", "y")}
     d["person"] = np.array([value.rsplit("/", 1)[-1] for value in d["subject"]])

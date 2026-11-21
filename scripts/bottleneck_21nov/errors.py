@@ -71,15 +71,17 @@ def error_summary(cases, orders, interfaces):
     rows = []
     for cohort, person, visit in sorted({k[:3] for k in sizes}):
         summary = []
+        visit_score = "/".join(f"{np.mean([sizes[cohort, person, visit, iface][1][r] for iface in interfaces]):.1f}"
+                               for r in ROSTERS)
         for interface in interfaces:
             n, v = sizes[cohort, person, visit, interface]
             summary.append(f"{sum(n)} · {v[ROSTERS[0]]:.1f}/{v[ROSTERS[1]]:.1f} · "
                            f"{(100 - v[ROSTERS[0]]) / (2*n_cells[cohort]):.2f}/"
                            f"{(100 - v[ROSTERS[1]]) / (2*n_cells[cohort]):.2f}")
-        rows.append((cohort, person, visit, *summary))
+        rows.append((cohort, person, visit, visit_score, *summary))
     output.extend(["### Sessions and cells",
                    "Each cell shows window count · nine25/ba_six BA% · nine25/ba_six lost 50/50 pp.",
-                   table(["Cohort", "Person", "Visit", *interfaces], rows)])
+                   table(["Cohort", "Person", "Visit", "Visit BA%", *interfaces], rows)])
     top = sorted(sizes, key=lambda k: (100 - sizes[k][1]["ba_six"]) / n_cells[k[0]], reverse=True)[:5]
     ranked = [f"{p}/{s} {i} ({c}, {(100 - sizes[(c,p,s,i)][1]['ba_six']) / (2*n_cells[c]):.2f} pp)"
               for c, p, s, i in top]
