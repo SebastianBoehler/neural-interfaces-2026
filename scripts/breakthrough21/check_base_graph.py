@@ -22,7 +22,7 @@ def trace(template, windows, graph=False):
         raise ValueError(f"degraded Solver: {model.log6}")
     if graph:
         bank = model.nets.base_graph
-        if bank.graph is None or bank.replays != len(windows):
+        if bank.graph is None or bank.replays != len(windows) or len(bank.ids) < 24:
             raise ValueError("base CUDA graph did not execute once per window")
         if template.nets.base_graph.graph is not None:
             raise ValueError("base graph escaped its session")
