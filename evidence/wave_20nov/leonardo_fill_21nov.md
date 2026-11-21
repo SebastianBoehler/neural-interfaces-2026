@@ -223,3 +223,11 @@ Leonardo afternoon job 65024312 ran the separately registered A100-SXM compariso
 Leonardo had one running and 49 pending across the account. All 48 lane tasks for 71908–71911 completed with exit 0:0. The lane had a running gap while 48 tasks for 71912–71915 waited for the registered 16:25 CET release. Collector 65024442 still waits for that wave. The running-plus-pending count stayed above 15 at this check.
 
 Galvani had zero running and 20 pending across the account, including all nine outstanding FP16 timings. The first cn116, cn122 and cn123 repeats (3147921/23/25) were pending for resources. Slurm's 15:47 snapshot estimated 02:01 CET on 22 Nov for all three, subject to placement changes. Their second repeats wait on those jobs. The other three second repeats remain eligible from 16:55 CET. No new timing or Scherer receipt appeared. The worst observed normal FP16 projection remains 3,280.7 s. Existing jobs cover the registered checks.
+
+### 16:37 CET queue receipt
+
+Leonardo had one running and 51 pending across the account. The first 12 of 48 tasks in the 71912–71915 wave completed with exit 0:0. The lane had zero running and 37 pending, including collector 65024442. The last orders wait for placement and the account remained above the 15-task target.
+
+Galvani had 17 running and 28 pending across the account. Cn122 timing 3147923 started at 16:30:55 CET, ahead of the earlier estimate. The other two first repeats, cn116 and cn123, still had estimated starts at 02:01 CET on 22 Nov. Jobs 3147916/18/20 remain eligible from 16:55 CET. No additional tests were dispatched.
+
+Cn122 timing 3147923 completed at 16:38:09 CET with exit 0:0. The normal cap250 baseline was 137.48 ms/window. FP16 used 162.13 ms/window over 1,131 warm windows and projects 3,050.0 s. Candidate load was 5.42 s, outside the compute projection. The worst observed normal FP16 result remains 3,280.7 s. Receipt `out/timing-3147923.json` SHA-256 `32f661ff14b9cf63b89e81529e5887399dc16d685fb4ab3b7f30315cc2e09e9c`.
