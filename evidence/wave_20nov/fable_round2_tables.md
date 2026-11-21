@@ -265,3 +265,20 @@ The fixed geometric 25% control (log25) had the highest J. Among schedules, late
 favoured late_ramp six times and higher_floor four times.
 
 Leonardo freeze 65006183. Selection receipt SHA-256 `639e3e7eb249e7908968a96ec1d8cc065016fafc396c3af83d625a8503fcc0ca`.
+
+## P3 · Frozen confirmation on orders 71188–71195
+
+The collector checked 48 paired prediction chunks against the frozen selection SHA and fold receipts.
+Each order has 28 held-new and eight returning official cells. The 80% intervals use 20,000 paired
+draws of people and then orders, weighted by each sampled person's full cell count. The two returning
+people limit population inference. The order blocks reuse people.
+
+| Arm vs arithmetic nine25 | Held-new, pp | Returning, pp | P04 / P10, pp | J, pp | 57/43 proxy, pp |
+|---|---:|---:|---:|---:|---:|
+| late_ramp | +0.09 [-0.06, +0.23] | +0.07 [-0.17, +0.26] | -0.10 / +0.23 | +0.08 [-0.07, +0.20] | +0.12 |
+
+The confirmation upper bounds were below the registered +0.30 pp target in both cohorts. The lead
+scored 74.87% held-new and 79.94% returning on these orders.
+The tested schedule is undecided for small gains and did not qualify for packaging.
+
+Leonardo collector 65006185. Confirmation receipt SHA-256 `07cdf9393d13397e3b1232c62ec86f8154ae21a3638f645454393b1603897be5`.

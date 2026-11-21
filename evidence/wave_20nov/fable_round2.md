@@ -9,4 +9,4 @@ Specs `ni26-cleanroom@6a608db`. [Preregistration](../../docs/LEDGER.md#fable-rou
 - **P1 stopped.** Residual AUC 0.543 held-new (2,019 confused deliveries) and 0.513 returning (464), below 0.60. Correct-pair AUC 0.691 and 0.659.
 - **P2 stopped.** Identity won all 144 session/order oracles. The arbiter would falsely swap P05/1 at t=80 on order 71129.
 - **P3 advances.** Weighted decile spans 2.11/2.97 pp and session spans 4.06/1.84 pp (held-new/returning). First-minus-last decile gain −0.45/−0.87 pp. Both cohorts have positive and negative session gains. [AUC, oracle/T, and decile tables](fable_round2_tables.md)
-- **05:18 CET selection.** Froze late_ramp at (+0.13, +0.20) pp held-new/returning. The fixed geometric 25% control had the highest overall J. Confirmation 65006184 is running.
+- **05:31 CET final.** On held-out orders 71188–71195, late_ramp delivered +0.09 [-0.06, +0.23] pp held-new and +0.07 [-0.17, +0.26] pp returning (paired 80%). P04 -0.10, P10 +0.23. Both missed +0.30 pp. Keep the lead ZIP for this comparison. [Selection and confirmation](fable_round2_tables.md#p3--selection-on-orders-7118071187)

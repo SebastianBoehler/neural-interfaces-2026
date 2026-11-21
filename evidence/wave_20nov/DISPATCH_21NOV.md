@@ -86,3 +86,5 @@
 - Final `ba_terminal` · NI-V collector 3146137 completed with 36 B-new and nine B-ret chunks plus the pinned controls. Its full-order B-ret upper 80% bound was below zero. The first RTX end-to-end job 3146131 projected 4,016.6 s. [Measured results](final_ba_terminal.md)
 - Final `ba_terminal` · active-CSP diagnostics 3146189 (graph first) and 3146192 (eager first) both completed. All 120 pinned labels and MANAS posteriors matched. The first stream in either path had the small upstream mixer drift seen by the extra score check.
 - Final `ba_terminal` · complete 05:26:49 CET. RTX repeat 3146187 on cn114 projected 3,741.3 s versus 4,016.6 s on cn111. The A100 estimate was 3,090.6 s. The RTX proxy missed 3,600 s on both nodes. The staged production SHA is `c50a62913360a7baeab978db19b778749308b171ce1d92c66343d3a8803371c5`. [Final report](final_ba_terminal.md)
+
+- Fable Round 2 · completed 05:31 CET. P3 freeze 65006183 selected late_ramp. All 48 held-out replay chunks completed and collector 65006185 returned confirmed=false. Receipt SHA-256 `07cdf9393d13397e3b1232c62ec86f8154ae21a3638f645454393b1603897be5`. [Final card](fable_round2.md)
