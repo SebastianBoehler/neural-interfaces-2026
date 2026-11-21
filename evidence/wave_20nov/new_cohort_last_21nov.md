@@ -24,3 +24,18 @@ Retry 65047298 matched the direct bypass on all 190 labels and changed four deci
 ## Fit freeze
 
 The quarter fold reference scored 74.551% new, 81.513% returning and 78.032% at 50/50. A froze `k=7, w=0.3` from 71800–71807 at +0.034 pp at 50/50. The other settings `(15, 0.3)`, `(7, 0.6)`, and `(15, 0.6)` gave −0.026, −0.114, and −0.141 pp. Fixed B gave +0.010 pp. Fit receipt SHA-256 `73a3e3ed5d683577230d16ca13b5bcfa9bde065d50c517205fee8996356dc0ff`.
+
+## Held orders 71808–71815
+
+**Keep the signed quarter diet.** Neither arm met the +0.15 pp 50/50 threshold or a positive lower bound. The quarter fold reference scored 74.397% new, 81.981% returning and 78.189% at 50/50, exactly matching the earlier quarter-diet receipt.
+
+| Arm | New Δ pp [80%] | Returning Δ pp [80%] | 50/50 Δ pp [80%] | P04 / P10 Δ pp | New / returning label changes |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| A · Neighbour vote, `k=7, w=0.3` | +0.0008 [−0.279, +0.247] | 0.000 [0, 0] | +0.0004 [−0.140, +0.123] | 0.000 / 0.000 | 763 / 0 |
+| B · Count bypass before recognition | +0.0210 [−0.056, +0.105] | 0.000 [0, 0] | +0.0105 [−0.028, +0.052] | 0.000 / 0.000 | 72 / 0 |
+
+Each split covered 21,240 held-new and 6,096 returning decisions. All 32 held returning streams recognised. Both arms kept every returning label, including 374 decisions before the latch. The historical full bypass gained +0.27 pp on returning in the old ba_six control. Quarter already bypasses CountFilter from the latch onward, and the selective test added +0.021 pp new points. These are paired order comparisons on reused public people.
+
+Slurm smoke 65046279, all 47 array tasks 65046285 and bypass control 65047298 completed. Scorer source `c6dad1fb` and live control fix `2170723d` precede the held result. The fit and held scorers both passed authenticated delivery, zero-control and prefix checks. The held receipt SHA-256 is `593a731d767b21cebe8797e9763045641d67a3345b086a26e5be9f411be3093b`. The 48-file fit and 48-file held capture manifests, each a sorted list of file digests and basenames, hash to `a29938db51cffcade848fc4508a980905fc86516fa86b6e0bc7e757c9307737b` and `564937cdfc1ed92622ffdcfd337254ffabc2d413d56be8bb9abb47f1858d3ae2`.
+
+The promotion rule triggered no derivative ZIP or production qualification.
