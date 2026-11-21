@@ -67,3 +67,21 @@ Held-new parity completed at **21:10:59 CET**, with 0/379 label changes and no r
 - **Unprofiled end-to-end timing**, `3150614`, completed at **21:22:22 CET** on RTX 2080 Ti cn122. One warm-up session was discarded. The six measured sessions supplied 1,131 windows per ZIP. Cap250 / em_half / c measured 138.24 / 166.76 / 167.34 ms/window. The candidate was 0.58 ms/window slower in this paired run. The established cap250 additive proxy projects 3,127.7 s for em_half and **3,139.3 s** for c. The sealed RTX PRO 4500 remains unmeasured. Receipt SHA-256 `b49f67703ffbd808f24f1e3453199688533cc9114329004af4d17f416f58a64a`.
 
 **Arm c qualified at 21:22:53 CET**, before the 22:30 CET cutoff. The local ZIP's SHA-256 was verified again after both jobs completed. No Codabench upload was made.
+
+## Galvani final fill
+
+Registered before dispatch. All scoring and timing ran through Slurm. The unprofiled timing uses the same signed archives, warm-up and six measured sessions as job `3150614`. Nine node-pinned repeats were submitted at 21:26 CET:
+
+| RTX 2080 Ti node | Slurm job |
+| --- | ---: |
+| cn102 (preemptable) | 3150646 |
+| cn111 | 3150640 |
+| cn114 | 3150641 |
+| cn115 | 3150642 |
+| cn116 | 3150638 |
+| cn117 | 3150643 |
+| cn121 | 3150644 |
+| cn122 | 3150639 |
+| cn123 | 3150645 |
+
+Scherer NI-V B-ret uses a pinned 71840 A100/BF16 smoke (`3150647`) followed by nine paired shards (`3150648`) for orders 71872–71879. The collector computes cell-balanced accuracy and 80% intervals over people and orders.

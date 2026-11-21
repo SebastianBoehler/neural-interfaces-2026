@@ -22,6 +22,11 @@ out=niv-results
 if [[ $mode == smoke-* ]]; then out=niv-smoke; fi
 if [[ $mode == tape-* ]]; then out="niv-$mode"; fi
 if [[ $mode == tape-*-a100 ]]; then mode=${mode%-a100}; precision=(--paired-a100); fi
+if [[ -n ${3:-} ]]; then
+    [[ $mode == tape-score && $3 =~ ^[0-9]+$ ]]
+    out="$out-$3"
+    precision+=(--first "$3")
+fi
 bind="$work,$setup/src/2026-competition:/official:ro,$repo/data/scherer2015/windows.npz:/external.npz:ro,$setup/niv-rows.tsv.gz:/rows.tsv.gz:ro"
 if [[ $mode != smoke-new ]]; then
     name="hss_n25_k$task.zip"

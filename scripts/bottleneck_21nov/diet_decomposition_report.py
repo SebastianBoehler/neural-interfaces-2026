@@ -32,7 +32,7 @@ def nested(delta):
     return np.r_[delta.mean(), np.quantile(draw, (0.1, 0.9))]
 
 
-def scherer(data, baseline, captures, *, paired_a100=False):
+def scherer(data, baseline, captures, *, paired_a100=False, first=None):
     from niv import collect as niv
     from quarter_niv import FIRST
 
@@ -41,11 +41,13 @@ def scherer(data, baseline, captures, *, paired_a100=False):
         assert all(not (v["recognised"] or v["changed"]) for v in counts.values()), file
     new = niv.cohort_b_new(baseline, "lead", data)
     assert np.isfinite(new["cell"]).sum() == 288 and (new["rec"][np.isfinite(new["rec"])] == -1).all()
-    base_dir, base_tag = (captures / "half", "trial") if paired_a100 else (baseline, "lead")
+    paired = paired_a100 or first is not None
+    base_dir, base_tag = (captures / "half", "trial") if paired else (baseline, "lead")
     base = niv.cohort_b_ret(base_dir, base_tag, data)
     if base is None or np.isfinite(base["cell"]).sum() != 144:
         raise ValueError("incomplete Scherer em_half replay")
-    result = dict(orders=list(range(FIRST, FIRST + 8)), baseline=niv.absolute(base["cell"]), arms={})
+    first = FIRST if first is None else first
+    result = dict(orders=list(range(first, first + 8)), baseline=niv.absolute(base["cell"]), arms={})
     result["gpu"] = "A100" if paired_a100 else "RTX 2080 Ti"
     for arm in ARMS:
         arm_dir = captures / arm
@@ -73,6 +75,9 @@ def scherer(data, baseline, captures, *, paired_a100=False):
             passes_scherer=bool(all(v[0] >= -0.20 for v in returning.values())),
             captures_sha256={str(f.relative_to(arm_dir)): digest(f) for f in files},
         )
+    if paired:
+        result["baseline_sha256"] = {str(f.relative_to(base_dir)): digest(f)
+                                     for f in sorted(base_dir.glob("ret_trial_k*/p*_c*.npz"))}
     return result
 
 
@@ -82,11 +87,14 @@ def main():
     for name in ("data", "baseline", "captures", "out"):
         parser.add_argument(name, type=Path)
     parser.add_argument("--paired-a100", action="store_true")
+    parser.add_argument("--first", type=int, help="first order in a fresh paired Scherer release")
     args = parser.parse_args()
     if args.instrument == "proteus":
         result = proteus(args.data, args.baseline, args.captures)
     else:
-        result = scherer(args.data, args.baseline, args.captures, paired_a100=args.paired_a100)
+        result = scherer(args.data, args.baseline, args.captures, paired_a100=args.paired_a100, first=args.first)
+        if args.first is not None and set(result["arms"]) != {"c"}:
+            raise ValueError("fresh release requires nine paired c shards")
     args.out.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
 
 

@@ -55,9 +55,12 @@ def score(args):
         names, visits, channels = data["subject"], data["session"], data["ch_names"].tolist()
     runs = worker.orders.runs_from_manifest("/rows.tsv.gz", names, visits)
     stream = f"{sorted(set(names))[args.task]}|2"
-    plans = [(s, i, (PIN if smoke else FIRST) + i) for s in (("full",) if smoke else ("full", "within"))
+    fresh = args.first is not None
+    first = PIN if smoke else args.first if fresh else FIRST
+    selected = ("c",) if fresh else tuple(ARMS)
+    plans = [(s, i, first + i) for s in (("full",) if smoke else ("full", "within"))
              for i in (range(1) if smoke else range(8))]
-    base, arms = {}, {arm: {} for arm in ARMS}
+    base, arms = {}, {arm: {} for arm in selected}
     with TemporaryDirectory() as tmp:
         package = Path(tmp)
         with ZipFile(CANDIDATE) as parent, ZipFile(overlay) as enrolled:
@@ -84,7 +87,7 @@ def score(args):
             for actual, field in ((half, "label"), (terminal, "terminal"), (route, "route_out")):
                 np.testing.assert_array_equal(actual, np.asarray([getattr(i, field) for i in items]), err_msg=tag)
             outputs = {"half": half}
-            for arm in ARMS:
+            for arm in selected:
                 labels, _, _ = intervene(template, items, arm)
                 np.testing.assert_array_equal(labels[:rec], half[:rec], err_msg=f"{arm} {tag}")
                 outputs[arm] = labels
@@ -105,7 +108,10 @@ def score(args):
         folder = Path(tmp)
         control = folder / "half.npz"
         np.savez(control, **base)
-        if a100:
+        if fresh:
+            # Fresh orders have no archived labels. The per-stream Solver identity above is the control.
+            pass
+        elif a100:
             with np.load(lead, allow_pickle=False) as pinned:
                 if pinned.files != list(base):
                     raise ValueError("A100 stream keys differ from the Turing reference")
@@ -124,7 +130,7 @@ def score(args):
                 if any(v["changed"] for v in validate_pair(direct, path).values()):
                     raise ValueError(f"{arm}: causal tail differs from the live Solver")
             print(f"PASS {arm} {args.mode} person {person}: {validate_pair(control, path)}", flush=True)
-        for arm in (("half", *ARMS) if a100 else ARMS):
+        for arm in (("half", *selected) if a100 or fresh else selected):
             out = args.root / arm / f"ret_trial_k{person}" / filename
             out.parent.mkdir(parents=True, exist_ok=True)
             if out.exists():
@@ -138,9 +144,13 @@ def main():
     parser.add_argument("task", type=int)
     parser.add_argument("enrolled_sha")
     parser.add_argument("--paired-a100", action="store_true")
+    parser.add_argument("--first", type=int, help="first fresh order for a paired em_half and c release")
     for name in ("baseline", "pinned", "root"):
         parser.add_argument(name, type=Path)
-    score(parser.parse_args())
+    args = parser.parse_args()
+    if args.first is not None and (args.mode != "tape-score" or args.first < FIRST + 8):
+        parser.error("--first requires tape-score and an order after the pinned release")
+    score(args)
 
 
 if __name__ == "__main__":
