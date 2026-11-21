@@ -32,7 +32,7 @@ def nested(delta):
     return np.r_[delta.mean(), np.quantile(draw, (0.1, 0.9))]
 
 
-def scherer(data, baseline, captures):
+def scherer(data, baseline, captures, *, paired_a100=False):
     from niv import collect as niv
     from quarter_niv import FIRST
 
@@ -41,20 +41,26 @@ def scherer(data, baseline, captures):
         assert all(not (v["recognised"] or v["changed"]) for v in counts.values()), file
     new = niv.cohort_b_new(baseline, "lead", data)
     assert np.isfinite(new["cell"]).sum() == 288 and (new["rec"][np.isfinite(new["rec"])] == -1).all()
-    base = niv.cohort_b_ret(baseline, "lead", data)
-    assert base is not None and np.isfinite(base["cell"]).sum() == 144
+    base_dir, base_tag = (captures / "half", "trial") if paired_a100 else (baseline, "lead")
+    base = niv.cohort_b_ret(base_dir, base_tag, data)
+    if base is None or np.isfinite(base["cell"]).sum() != 144:
+        raise ValueError("incomplete Scherer em_half replay")
     result = dict(orders=list(range(FIRST, FIRST + 8)), baseline=niv.absolute(base["cell"]), arms={})
+    result["gpu"] = "A100" if paired_a100 else "RTX 2080 Ti"
     for arm in ARMS:
         arm_dir = captures / arm
         files = sorted(arm_dir.glob("ret_trial_k*/p*_c*.npz"))
         if len(files) != 9:
             continue
+        changed = {"full": 0, "within": 0}
         for f in files:
             person = f.parent.name.removeprefix("ret_trial_")
-            counts = validate_pair(baseline / f"ret_lead_{person}" / f.name, f)
+            counts = validate_pair(base_dir / f"ret_{base_tag}_{person}" / f.name, f)
             assert set(counts) == {"full", "within"} and all(
                 v["streams"] == v["recognised"] == 8 for v in counts.values()
             ), f
+            for scheme in changed:
+                changed[scheme] += counts[scheme]["changed"]
         out = niv.cohort_b_ret(arm_dir, "trial", data)
         assert np.isfinite(out["cell"]).sum() == 144
         delta = niv.stats.person_table(out["cell"]) - niv.stats.person_table(base["cell"])
@@ -63,6 +69,7 @@ def scherer(data, baseline, captures):
             returning={s: v.tolist() for s, v in returning.items()},
             joint={s: (v / 2).tolist() for s, v in returning.items()},
             absolute=niv.absolute(out["cell"]),
+            changed_labels=changed,
             passes_scherer=bool(all(v[0] >= -0.20 for v in returning.values())),
             captures_sha256={str(f.relative_to(arm_dir)): digest(f) for f in files},
         )
@@ -74,9 +81,12 @@ def main():
     parser.add_argument("instrument", choices=("proteus", "scherer"))
     for name in ("data", "baseline", "captures", "out"):
         parser.add_argument(name, type=Path)
+    parser.add_argument("--paired-a100", action="store_true")
     args = parser.parse_args()
-    collect = proteus if args.instrument == "proteus" else scherer
-    result = collect(args.data, args.baseline, args.captures)
+    if args.instrument == "proteus":
+        result = proteus(args.data, args.baseline, args.captures)
+    else:
+        result = scherer(args.data, args.baseline, args.captures, paired_a100=args.paired_a100)
     args.out.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
 
 

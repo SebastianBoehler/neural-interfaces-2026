@@ -2,40 +2,11 @@
 from functools import partial
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from unittest.mock import patch as monkeypatch
-
 import numpy as np
 
-from diet_decomposition_patch import ARMS, QUARTER, patch, quarter_likelihood
 import returning_diet_worker as r6
-from returning_em import returning_em_output
-
-
-def intervene(model, items, arm):
-    count, tsem, em = QUARTER if arm == "all" else ARMS[arm]
-    tail = model.routeB.tail
-    em_step = type(tail.em).step
-    tsem_step = type(tail.tsem).step
-    recognised = False
-
-    def latch(_route, item):
-        nonlocal recognised
-        recognised = item.recognised
-        return not (count and recognised)
-
-    def session_step(owner, x, p):
-        q = em_step(owner, x, p)
-        if not recognised:
-            return q
-        active = owner.state is not None
-        return quarter_likelihood(p, q, active) if em else returning_em_output(p, q, 0.5, active)
-
-    def template_step(owner, u, q, gate):
-        out = tsem_step(owner, u, q, gate)
-        return quarter_likelihood(q, out, owner.state is not None) if tsem and recognised else out
-
-    with monkeypatch.object(type(tail.em), "step", session_step), monkeypatch.object(type(tail.tsem), "step", template_step):
-        return r6.replay(model, items, arm, trace_route=True, before_route=latch)
+from diet_decomposition_patch import ARMS, patch
+from diet_decomposition_tail import intervene
 
 
 def smoke(model, folder, data, signals, rows, items, receipt, age):

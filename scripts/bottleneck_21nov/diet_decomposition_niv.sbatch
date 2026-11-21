@@ -15,10 +15,13 @@ pinned="$work/ni26_em_half_final_20261121/niv-results"
 baseline="$work/ni26_quarter_final_20261121/niv-results"
 mode=${1:?}
 arm=${2:-smoke}
+precision=()
 sha=
 task=${SLURM_ARRAY_TASK_ID:-5}
 out=niv-results
 if [[ $mode == smoke-* ]]; then out=niv-smoke; fi
+if [[ $mode == tape-* ]]; then out="niv-$mode"; fi
+if [[ $mode == tape-*-a100 ]]; then mode=${mode%-a100}; precision=(--paired-a100); fi
 bind="$work,$setup/src/2026-competition:/official:ro,$repo/data/scherer2015/windows.npz:/external.npz:ro,$setup/niv-rows.tsv.gz:/rows.tsv.gz:ro"
 if [[ $mode != smoke-new ]]; then
     name="hss_n25_k$task.zip"
@@ -30,5 +33,11 @@ export APPTAINERENV_CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 export APPTAINERENV_CUDA_VISIBLE_DEVICES=${APPTAINERENV_CUDA_VISIBLE_DEVICES%%,*}
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 PYTHONDONTWRITEBYTECODE=1
+if [[ $mode == tape-* ]]; then
+    mkdir -p "$out"
+    export APPTAINERENV_PYTHONPATH="$PWD/src/scripts/last_push"
+    exec apptainer exec --nv --bind "$bind" "$repo/runs/cloud/ni26_worker.sif" \
+        python -B scripts/bottleneck_21nov/diet_decomposition_niv_tape.py "$mode" "$task" "$sha" "$baseline" "$pinned" "$out" "${precision[@]}"
+fi
 exec apptainer exec --nv --bind "$bind" "$repo/runs/cloud/ni26_worker.sif" \
     python -B scripts/bottleneck_21nov/diet_decomposition_niv.py "$mode" "$task" "$arm" "$sha" "$baseline" "$pinned" "$out"
