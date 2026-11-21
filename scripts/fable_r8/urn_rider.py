@@ -66,7 +66,7 @@ if __name__ == "__main__":
         smoke(urn, a.captures, detector)
     else:
         stats = collect(a.captures, a.data, ("within-fit", "within-held"), detector=detector, urn=urn)
+        encoded = json.dumps(stats, indent=2)
         with a.output.open("x") as f:
-            json.dump(stats, f, indent=2)
-            f.write("\n")
+            f.write(encoded + "\n")
         print(f"Collected {len(stats['shards'])} terminal-urn tapes")

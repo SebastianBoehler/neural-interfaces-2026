@@ -94,7 +94,7 @@ def collect(captures, data_path, blocks, *, detector=None, urn=None):
         if urn is not None:
             out["urn_vs_quarter"] = paired(cases, lambda c: c.scores["quarter_urn"],
                                             lambda c: c.scores["quarter"], orders, nested_orders=True)
-            out["urn_changed_labels"] = sum(np.count_nonzero(c.scores["quarter_urn"] != c.scores["quarter"])
+            out["urn_changed_labels"] = sum(int(np.count_nonzero(c.scores["quarter_urn"] != c.scores["quarter"]))
                                             for c in cases)
         results[block] = out
 
@@ -117,9 +117,9 @@ def main():
     a = p.parse_args()
     detector = json.loads(a.detector.read_text()) if a.detector else None
     results = collect(a.captures, a.data, a.blocks, detector=detector)
+    encoded = json.dumps(results, indent=2)
     with a.output.open("x") as f:
-        json.dump(results, f, indent=2)
-        f.write("\n")
+        f.write(encoded + "\n")
     print(f"{results['device']}: {len(results['shards'])} verified tapes, {a.output}")
 
 
