@@ -53,6 +53,12 @@ All nine RTX 2080 Ti shards in `3150492` completed by 21:05 CET. Each arm paired
 
 The Scherer 50/50 column uses zero B-new effect from the archived no-recognition bank. Each live B-new smoke confirmed the patch preserved labels with recognition absent. The external result suggests TSEM reduction explains most of the quarter diet's transfer loss. CountFilter bypass also costs accuracy within-run. The end-to-end contrasts include downstream interactions.
 
+The nine paired Galvani A100/BF16 shards (`3150536`) agreed on all four transfer rulings. Each returning point differed from its 2080 Ti counterpart by at most 0.039 pp. For c, the A100 returning points were −0.031 [−0.202, +0.136] full-session and +0.270 [+0.093, +0.451] within-run. This checks precision sensitivity on the same participants and orders. Receipt SHA-256 `62ba4ff7d89845f80f898d8a03d139c90cf2daabbfba9f7fefcf1feafec000b4`.
+
 ### Promotion
 
-Arm c passed all scoring thresholds. Start exact production qualification for the SessionEM-only reduction. The other three arms missed the PROTEUS and Scherer gates.
+Arm c passed all scoring thresholds. The other three arms missed the PROTEUS and Scherer gates.
+
+Built `final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing_recognised_em_half_diet_c.zip` from the signed production parent. SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca`. The builder checked the full member inventory and all payloads. Only `submission.py` differs. Galvani RTX 2080 Ti job `3150612` started at 21:06 CET for held-new parity. Official warm-up pair `3150613` and unprofiled Solver timing `3150614` depend on its success.
+
+Held-new parity completed at **21:10:59 CET**, with 0/379 label changes and no recognition in either P01 or P02 on order 71800. The largest RouteB or terminal score difference was 5.14e−6. Receipt SHA-256 `2645692adb4e28cd625ef0699d98d765726621179d9cfffcf6bace872e4a4a58`. Both downstream checks started at 21:11 CET.
