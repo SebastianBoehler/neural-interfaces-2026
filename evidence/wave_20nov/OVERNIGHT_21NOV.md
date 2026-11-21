@@ -46,3 +46,11 @@ Registered in `docs/LEDGER.md` ("Finalists seed robustness and head-to-head"). N
 - Collect: `ssh cineca-leonardo`, then `$CAP250_PYTHON scripts/overnight21/finalists_collect.py RUN --data $CAP250_DATA --verify .../laneTB-verify-21nov/out/hard --json X --part seeds|h2h` (numpy only; fails if a chunk is missing).
 
 Update 06:50 CET: all Section 4 jobs have finished. Timing and Solver end-to-end reruns after the first exclusive attempts failed (the `--exclusive` allocation listed eight GPUs and broke the apptainer `--env` list; fixed with `APPTAINERENV_`) and starved: e2e jobs 3146075/77/177/190/191, A100-PCIe 3146334/35, repeats 3146345-47; NI-V enrolment first failed (symlinked zips not bound; fixed in `enrol.sbatch`, re-run 3146003-05 and ret arrays 3146006-11), B hss_n15 B-new re-run as 3146083. Results: [final_hard_teamb_confirm.md](final_hard_teamb_confirm.md).
+
+## 6. Leonardo fill through 18:00 CET · dose and bank growth
+
+Run `cap250/runs/leonardo-fill-21nov` on account 1636. Preregistration and receipts are in [leonardo_fill_21nov.md](leonardo_fill_21nov.md). The finalists S1/S2 reports were read first. S1 65011278 met the three-seed stability rule. S2 65011279 used only 71200–71215.
+
+- Dose 71400–71431, source `4a3d7872`. Smokes 65011374–65011376 passed v3, exact pinned labels and zero-mixer equality. Dose arrays 65011605/65011606 then collectors 65011607/65011608/65011609 write `dose1.json`, `dose2.json` and `dose.json`.
+- Growth, source `be01260a`. Live smokes 65011663–65011665. Next are nine remaining fixtures, paired A100 timing jobs, screen 71500–71507, then a single frozen choice on 71508–71523 if released. All use actual folds and the full Solver.
+- Queue at 08:08 CET: 26 running, 270 pending across the account. The already-running Fable Round 3 and Galvani runtime work are independent. The Codex heartbeat starts 08:57 CET and checks every 50 minutes. Lane report due by 17:30 CET. Final candidate due by 18:30 CET.
