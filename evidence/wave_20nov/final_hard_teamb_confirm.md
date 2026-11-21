@@ -33,6 +33,17 @@ Tags: `hss` = `final_stack_hard_safe_st`, `hss_n25` / `hss_n15` = the two Team B
 
 - 16-order means of the two releases (point only, intervals are not pooled): nine25 B-new full +0.15, B-ret full −0.06; nine15 B-new full +0.05, B-ret full +0.09. Absolute B-new full: hss 48.43 / 48.10, nine25 48.73 / 48.09, nine15 48.59 / 48.05.
 - Registered rule: veto if the B-new full-session delta is below −0.3 pp or its upper 80 % bound below 0. Neither dose is close (smallest point −0.05, every upper bound > 0). Worst single person (B-new full): nine25 −1.09 / −1.72, nine15 −1.09 / −0.62; (B-ret full) nine25 −2.40 / −1.46, nine15 −1.46 / −1.07. Within-scheme B-new nine25 is −0.48 / −0.44 with the upper bound at −0.02 / +0.14 in the first release: a small out-of-lab negative on the secondary scheme, not on the headline. The prediction (about 0 [−0.4, +0.4] new, −0.1 [−0.7, +0.5] returning) held. Out of lab Team B neither helps nor hurts measurably; the in-lab gain of section 3 does not appear on Scherer.
+**Releases C and D added (21 Nov 09:00 CET, 8 orders each, 71200-71207 / 71016-71023 per the queue; collectors 3146203/04, 3146476/77; E queued at the 300-task cap, not run).** Delta vs `hss`, pp (SE), people-resampled, 9 people:
+
+| Contrast | Release | B-new full | B-new within | B-ret full | B-ret within | sealed-weighted* |
+|---|---|---|---|---|---|---|
+| nine25 | C | +0.13 (0.29) | −0.16 (0.43) | −0.07 (0.55) | −0.22 (0.60) | +0.04 |
+| nine25 | D | +0.13 (0.31) | −0.44 (0.42) | −0.30 (0.57) | −0.15 (0.67) | −0.05 |
+| nine15 | C | +0.34 (0.28) | −0.12 (0.25) | +0.17 (0.39) | +0.12 (0.49) | +0.27 |
+| nine15 | D | +0.21 (0.29) | −0.12 (0.29) | −0.04 (0.35) | +0.24 (0.47) | +0.10 |
+
+Pooled view, A-D (32 orders, equal 8-order weights, point means only; intervals are not pooled and releases share the same 9 people, so no SE is claimed): nine25 B-new full **+0.14** (A +0.30, B −0.01, C +0.13, D +0.13), B-new within −0.38, B-ret full −0.12, weighted +0.03. nine15 B-new full **+0.17** (+0.16, −0.05, +0.34, +0.21), B-new within −0.07, B-ret full +0.08, weighted +0.07. Veto rule (B-new full below −0.3 pp or upper 80 % bound below 0): not triggered in any of the 8 release/dose cells (smallest point −0.05; every upper 80 % bound > 0). Only B-ret full nine25 D (−0.30, SE 0.57) touches −0.3, on a secondary, noisy scheme. Out of lab Team B stays about zero to slightly positive on the full scheme and slightly negative within for nine25 (−0.16 to −0.48 in all four releases). *Sealed-weighted: UNVERIFIED 57/43 new/returning assumption.
+
 - Not run: `hard.zip` vs `hss` identity on NI-V (the registered sanity), the `fa` arm.
 
 ## 3 · Confirmation orders on the real fold packages (Leonardo `laneTB-confirm-21nov`, verified Lane TB-verify code, hard base)
