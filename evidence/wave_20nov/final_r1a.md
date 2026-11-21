@@ -9,22 +9,24 @@ Both candidates use `laneR4/build_keep.py R1a` against pinned self-test parents.
 | `final_stack_hardcb_safe_st.zip` | 94,905,529 | `47faa27b25f6fc1fcbcc1c74f2be4b8b2aeb2a1e02c6c957d342eb6c91b9c2ec` |
 | `final_stack_hardcb_safe_st_r1a.zip` | 94,905,915 | `82cc75456c486529cbebe9b1b9ddb1621b8478a4ad69e81b6fa11a9a083c4861` |
 
-The A100 smokes verified archive CRC, member inventory and the exact builder output. Only `submission.py` differs from each parent. Both ZIPs loaded through the self-test and matched every label on the 8-window P01/1 prefix with zero recognition and zero v6 errors. That prefix is a smoke. The full CPU held-new check uses the clean fold's weights and actor hashes with each archive's solver. The original archive's self-test uses references specific to its fitted actors.
+The A100 smokes verified archive CRC, member inventory and the exact builder output. Only `submission.py` differs from each parent. Both ZIPs loaded through the self-test and matched every label on the 8-window P01/1 prefix with zero recognition and zero v6 errors. That prefix is a smoke. The CPU held-new check uses `production-20261120-32a94ab7/hardcb/new_P01/pkg` weights and actor hashes with each archive's solver. The original archive's self-test uses references specific to its fitted actors.
 
 ## Qualification and tape checks
 
 Leonardo run `/leonardo_work/AIFAC_P02_1636/ni26/cap250/runs/final-r1a-21nov`. Official replay code is pinned at `a66bc23d1a0e686b895c093a642b45c74970758b`. The real-window export is SHA-256 `2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327`. The official warm-up reference is cap250 SHA-256 `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`. [Job IDs](DISPATCH_21NOV.md)
 
-The tape checks use the frozen H1 A100 tapes on the clean folds (seeds 71000–71003) and the original Lane R4 tapes on their own row order. The original tapes use different fitted weights and delivery-aware EA banks for the comparisons. Exact-ZIP and fold-matched results are recorded separately. [H1 receipt](redteam_handoffs.md#h1--keep-adapting-after-recognition) · [Original Lane R4 tapes](laneR4_keepadapt.md)
+The tape checks use the frozen H1 A100 tapes on the clean folds (seeds 71000–71003) and the original Lane R4 tapes on their own row order. The original tapes use different fitted weights and delivery-aware EA banks for the comparisons. The matched returning assets are `overnight-21nov-pkgcmp/hardcb_safe/ret_P04/pkg` and `ret_P10/pkg`. [H1 receipt](redteam_handoffs.md#h1--keep-adapting-after-recognition) · [Original Lane R4 tapes](laneR4_keepadapt.md)
 
 | Check | hard + R1a | hardcb + R1a |
 |---|---|---|
 | Exact ZIP A100 smoke and self-test load | 64992707 passed | 64992710 passed |
-| Held-new P01/1 CPU and self-test fault injection | 64993648, 190/190 equal and injection passed | 64993649, 190/190 equal and injection running |
+| Held-new P01/1 CPU and self-test fault injection | 64993648, 190/190 equal and injection passed | 64993649, 190/190 equal and injection passed |
 | Exact ZIP returning effect and timings | 64992709 completed, 0/762 labels changed | 64992712 completed, 0/762 labels changed |
 | Terminal score movement | 64994100 passed, 360/362 post-refit windows | 64994102 passed, 360/362 post-refit windows |
-| Frozen tape label comparison | 64992919 complete, 64995390 awaiting remaining orders | 64992934 complete, 64995392 awaiting remaining orders |
+| Frozen tape label comparison | 64992919 and 64995390 completed | 64992934 and 64995392 completed |
 | Official A100 cap250 comparison | 64992708 passed | 64992711 passed |
+
+Neither CPU fold recognised P01/1. Both candidate archives loaded cleanly and rejected the injected hard-actor exception and posterior drift. Hardcb also rejected the CBraMod exception and posterior drift.
 
 Both exact ZIPs recognised all four visits at age 10 and executed a single late refit at age 100. This was on P04/2, P04/3, P10/2 and P10/3 at seed 71000. The terminal-score trace bound before age 100 was 2e-6. After the refit, scores crossed that threshold in 360 of 362 windows for each ZIP. The largest absolute change was 0.05574 for hard and 0.05621 for hardcb. Paired timings warm both models on P04/2 before measurement. The new A100 mean increments were **3.07 s** for hard (range 3.00–3.21 s) and **3.18 s** for hardcb (2.88–3.48 s).
 
@@ -32,11 +34,11 @@ Both exact ZIPs recognised all four visits at age 10 and executed a single late 
 
 | Comparison | hard + R1a | hardcb + R1a |
 |---|---:|---:|
-| Exact ZIP against the first 16 original Lane R4 stream-orders | 0/16 exact, 230/3,048 label differences | 0/16 exact, 229/3,048 label differences |
+| Exact ZIP against all 32 original Lane R4 stream-orders | 0/32 exact, 424/6,096 label differences | 0/32 exact, 423/6,096 label differences |
 | Exact ZIP against the 16 clean H1 stream-orders | 0/16 exact, 598/3,048 label differences | 0/16 exact, 597/3,048 label differences |
 | Final solver with matched clean fold assets against H1 | 3/16 exact, 27/3,048 label differences | 16/16 exact, 0/3,048 label differences |
 
-For both solver variants the matched-fold replay reproduced all 199 labels on P10/3 at seed 71001. The hard-only fold also matched P10/2 at seed 71003 and P10/3 at seed 71002. The exact ZIPs use the production fit. On the P04/2 smoke, the direct comparison already differed before recognition and before R1a could affect the score.
+For both solver variants the matched-fold replay reproduced all 199 labels on P10/3 at seed 71001. The hard-only fold also matched P10/2 at seed 71003 and P10/3 at seed 71002. The direct historical tape equality check failed for both exact ZIPs. The closest tape was P10/3 at runs0, with 2/199 mismatches for each ZIP. The exact ZIPs use the production fit. On the P04/2 smoke, the direct comparison already differed before recognition and before R1a could affect the score.
 
 ### Official A100 warm-up replay
 
@@ -46,6 +48,8 @@ For both solver variants the matched-fold replay reproduced all 199 labels on P1
 |---|---:|---:|
 | hard + R1a | 206.0 / 127.5 | 161.4 / 152.1 |
 | hardcb + R1a | 206.6 / 128.7 | 172.9 / 170.1 |
+
+The warm wall-time increments were 24.6 s and 41.4 s. Applying the additive model to 755 windows and four recognised sessions predicts 21.2 s and 42.6 s, respectively.
 
 ## Additive sealed-time projection
 
@@ -60,4 +64,4 @@ Use 2,555 s cap250 sealed time + 20,083 windows × measured hard/hardcb cost + 4
 
 With the new exact-ZIP A100 measurements, the additive estimates are **2,933.2 s** for hard (margin **666.8 s**) and **3,496.6 s** for hardcb (margin **103.4 s**). The historical 2080 Ti timings remain the only basis for that GPU proxy.
 
-Galvani rejected noninteractive SSH. A100 qualification uses Leonardo's native Python environment. No Codabench upload was performed.
+The last result was verified by 01:12 CET on 21 November. Galvani rejected noninteractive SSH, so all cluster checks ran under Leonardo Slurm with its native Python environment. No Codabench upload was performed.

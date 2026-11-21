@@ -35,3 +35,5 @@
 - Final R1a terminal scores · 21 Nov 00:36 CET, source `d9abd7fb`. Hard smoke 64994099 → terminal-score check 64994100. Hardcb smoke 64994101 → terminal-score check 64994102. The exact ZIPs each refitted in four recognised streams but kept all 762 hard labels. The follow-up traces scores before argmax on the same deliveries to check that the refit reaches the decision. [Evidence](final_r1a.md)
 
 - Final R1a original tape coverage · 21 Nov 00:58 CET, source `160e7ee9`. Hard smoke 64995389 → replay 64995390. Hardcb smoke 64995391 → replay 64995392. The follow-up checks the remaining four original orders after the first 16 direct comparisons yielded no full-stream match. [Evidence](final_r1a.md)
+
+- Final R1a · checked by 01:12 CET. All intended jobs reached terminal state. Both 45-minute CPU retries passed, as did both terminal-score and cap250 qualification jobs. The full original-tape comparisons returned 0/32 exact matches for each ZIP. Both solvers reproduced full clean H1 tapes with the matching fold assets. [Final evidence and archive hashes](final_r1a.md)
