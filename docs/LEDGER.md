@@ -3863,3 +3863,25 @@ Prediction: exact Scherer within-run incurs at least 0.5 pp less loss than full 
 **Stock fold level extension · 19:45 CET, before dispatch.** Reconstruct stock cap250 fold packages using only the common family assets from the existing production-32a94ab7 hard fold fixtures and the exact stock ZIP Solver. Use the frozen ZIP member inventory as the allowlist. Verify its source SHA, complete member set and stock fold scope. First replay 71000 on each of the 12 folds on Galvani A100 against the existing stock production tapes. Reproduce every row and label before scoring that fold at within 72000, runs 73000 or per-interface 74000. Report a four-scheme 50/50 level only if all 12 zero checks pass. Predict within − full +3.0 pp [1.0, 5.0] at 50/50 and per-interface − full between −0.5 and +2.0 pp. Refute either by a point outside the corresponding range. This is a level check for cap250 under the scheme definitions, with one seed per scheme. Neither the current-candidate audit nor a new 5.1b fold build is part of this run.
 
 **Sealed scheme result · 19:59 CET.** All six uploaded archives completed the four-order Scherer replay. Within gives the best centred upload score fit (0.635 pp RMS vs 1.053 full, 1.071 runs). Its point fit exceeds the preregistered strength prediction, although the paired full-minus-within error gap interval crosses zero. Within beats full by +0.174 pp over the first three archives, below the +0.5 pp prediction. The PROTEUS per-interface proxy loss is between within and full as predicted. The historical PROTEUS backfit favors full if the whole 10 Nov loss is assigned to order. Adding a common offset removes separation. The cap250 stock fold extension stopped at P01 pinned-label mismatch (7/190). Judgment is full/within/runs/interface 45/35/10/10%. Keep quarter on clean PROTEUS and runtime, with the Scherer returning transfer flag. [Evidence](../evidence/wave_20nov/sealed_scheme_inference.md)
+
+## Fable final push · full-length soak of the exact em_half ZIP (21 November, registered at 20:40 CET before running)
+
+**Mechanism.** Every timing of the ba_six FP16 / em_half family is a short pair (about 1,100–2,700 windows) projected
+onto the 2,555 s cap250 sealed receipt. No run has streamed the sealed length (20,083 windows, sessions with reset,
+recognised returning sessions included) through the signed em_half ZIP `833a2872…a4d`. A failure that only appears at
+length (memory growth, per-session state that grows, a slow path after many recognised sessions) would end the only
+upload as Failed. This run tests completion and time drift; it opens no accuracy metric and changes no package.
+
+**Run.** Leonardo A100, one GPU per node, arms on separate nodes in parallel: em_half twice, cap250 `9c4d5538…` once,
+nine25_fc `7017bd5c…` once. Same 20,083-call workload and order for all arms, built with the existing
+`submissions/final_stack/e2e_timing.py` conventions (shuffled full-session delivery, P04/P10 later visits included so
+recognition latches). Record wall and compute seconds, ms/window per tenth of the run, per-session seconds, peak CUDA
+reserved and peak RSS.
+
+**Prediction.** Both em_half runs finish with no error. Total compute ratio em_half / cap250 between 1.15 and 1.30
+(sealed projection 2,940–3,320 s). Last-tenth ms/window within 10 % of the second tenth. Peak CUDA reserved below 11 GB.
+
+**Refutation and use.** A crash, a drift above 15 %, or a ratio above 1.41 (3,600 / 2,555) is reported to the user at
+once as a reason to reconsider em_half; nine25_fc's result then says whether it is a safe replacement. A ratio in
+1.30–1.41 is reported as reduced margin and does not change the recommendation by itself. A run that is not finished
+by 22:30 CET decides nothing.
