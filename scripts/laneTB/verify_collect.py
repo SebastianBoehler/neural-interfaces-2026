@@ -44,6 +44,8 @@ def merge(parts, out, orders, tb=None):
 def contrast(a, b, orders):
     """Paired a - b on shared cells, people then orders resampled (Lane TB collector code)."""
     assert a.keys() == b.keys()
+    C.ORDERS = tuple(orders)  # table() reads the module-level order list
+    assert {k[1] for k in a} == set(orders)
     delta = {k: a[k] - b[k] for k in a}
     rng = np.random.default_rng(20261121)
     idx = rng.integers(len(orders), size=(20_000, len(orders)))
