@@ -39,3 +39,24 @@ On order 71802, P10 visit 1 latched as P03 at delivery 40. The zero and quarter 
 Fit receipt SHA-256 `d07119b843f345bf9822324660a5bbce05058bce30af2681b509e46dd001513c`.
 
 All five fit tasks completed at 17:14 CET. The fit receipt was copied and SHA-256 checked on Leonardo before releasing held array 65043064 (four tasks, at most three concurrent).
+
+The first three held tasks started at 17:15:48 CET with 14-minute limits. Galvani's `sbatch --test-only` predicted 17:59:57 CET for both a 12-minute RTX 2080 Ti zero check and a 25-minute e2e reservation at the 17:16 check. That estimate tested prospective resource requests. Qualification jobs are conditional on held accuracy.
+
+### Held orders 71808–71815
+
+em_half BA 74.397% held-new, 81.599% returning and 77.998% at 50/50. Deltas are in percentage points, with paired 80% intervals in brackets. P04 and P10 intervals resample orders for the named person.
+
+| EM weight | Held-new Δ | Returning Δ | P04 Δ | P10 Δ | 50/50 Δ | 50/50 BA | Changed labels new / ret |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | +0.000 [+0.000, +0.000] | +0.281 [-0.130, +0.708] | +0.462 [-0.015, +0.963] | +0.099 [-0.297, +0.485] | +0.140 [-0.065, +0.354] | 78.138% | 0 / 376 |
+| 0.25 | +0.000 [+0.000, +0.000] | +0.382 [+0.137, +0.629] | +0.364 [-0.006, +0.758] | +0.400 [+0.235, +0.567] | +0.191 [+0.068, +0.315] | 78.189% | 0 / 260 |
+
+There were no misrecognitions in this block.
+
+Held receipt SHA-256 `143bd873fc9c31ca0852385777478b075108fa4c0d57773c44ce0d2ebfb97fd1`.
+
+All four held tasks in 65043064 completed at 17:31 CET. The primary zero-weight diet misses the 0.30 pp returning threshold by 0.019 pp. The fixed quarter-weight alternative passes both limits. It gains +0.382 pp returning and gains +0.400 pp on P10. Both arms changed 0/21,240 held-new decisions, with identity established by canonical no-recognition receipts on those streams. The two-person returning cohort limits generalization to sealed participants.
+
+## Production qualification
+
+The quarter-weight arm advances to exact ZIP checks.
