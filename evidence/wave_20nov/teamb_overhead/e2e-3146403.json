@@ -1,0 +1,92 @@
+{
+ "gpu": "NVIDIA GeForce RTX 2080 Ti",
+ "torch": "2.14.1+cu130",
+ "sessions": [
+  "P03|1",
+  "P07|1",
+  "P10|2",
+  "P05|1",
+  "P04|1",
+  "P04|3"
+ ],
+ "load_s": {
+  "v66_cp1_cap250": 3.5251378444954753,
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph": 4.081000135280192,
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph_cl": 1.3375274278223515,
+  "final_stack_hardcb_safe_st_cbgraph": 3.8912521712481976
+ },
+ "kinds": {
+  "v66_cp1_cap250": "Ensemble6",
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph": "TeamBlendStack",
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph_cl": "TeamBlendStack",
+  "final_stack_hardcb_safe_st_cbgraph": "StackEnsemble"
+ },
+ "v66_cp1_cap250": {
+  "ms_per_window": 131.02643794744918,
+  "inside_ms_per_window": {},
+  "windows": 1131,
+  "per_session_ms": [
+   133.14073500790136,
+   131.0861191106221,
+   130.29613529622395,
+   130.12307150975653,
+   130.81352874419835,
+   130.6904479019106
+  ],
+  "added_vs_ref_ms": 0.0,
+  "projected_s": 2554.9166
+ },
+ "final_stack_hard_safe_st_team_b_nine25_tbgraph": {
+  "ms_per_window": 181.43246787131676,
+  "inside_ms_per_window": {
+   "hard": 13.070884371500801,
+   "team_b": 36.18408747060203
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   179.29545714071503,
+   180.25862338839386,
+   182.43535748252305,
+   186.76400451283706,
+   180.10162850891157,
+   179.71837662279287
+  ],
+  "added_vs_ref_ms": 50.40602992386758,
+  "projected_s": 3567.2208989610326
+ },
+ "final_stack_hard_safe_st_team_b_nine25_tbgraph_cl": {
+  "ms_per_window": 166.4510308587833,
+  "inside_ms_per_window": {
+   "hard": 13.102117328057238,
+   "team_b": 18.98846900375489
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   176.50272417320775,
+   163.2406477466541,
+   163.52456054520061,
+   163.7324092468541,
+   163.32269659039204,
+   168.3611858220018
+  ],
+  "added_vs_ref_ms": 35.424592911334116,
+  "projected_s": 3266.348699438323
+ },
+ "final_stack_hardcb_safe_st_cbgraph": {
+  "ms_per_window": 156.39789769167425,
+  "inside_ms_per_window": {
+   "hard": 13.111609731702863
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   164.4242356023776,
+   157.2107739017281,
+   159.17276614595966,
+   152.86235870597395,
+   152.07738583050076,
+   152.6829623072309
+  ],
+  "added_vs_ref_ms": 25.371459744225064,
+  "projected_s": 3064.451626043272
+ }
+}
