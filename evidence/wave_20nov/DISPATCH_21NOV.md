@@ -137,3 +137,4 @@
 
 - Fable Round 3 Bet 3 · both smokes passed, 12 banks and all 56 fit/held-out chunks completed. Collector 65011781 finished at 08:44 CET. The frozen n0=8 missed the returning gate.
 - Fable Round 3 Bet 1 · fit collector 65010883 finished at 08:55 CET and froze weight 0.225, start 1, SHA-256 `0db8ea409f4adbae9e1ecd4a887e49cc54e1a08cf92d0d91d0373d0b03b49bed`. The held-out replay began after selection.
+- 09:4x _fc fused-conv lead qualification -> GPT (teamb_overhead.md, 12:15). Breakthrough lane (spend freed ~500 s: Team A+B, bigger independent ensemble, new independent family) -> GPT xhigh, breakthrough_21nov.md, interim 15:00, final 18:30. Fable round 4 (high-ceiling, design only) -> PROPOSALS_4.md; tick dispatches to GPT.

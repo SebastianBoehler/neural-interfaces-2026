@@ -38,6 +38,14 @@ case $mode in
     run submissions/final_stack/check_cb_speed.py $st $R/zips data/proteus_windows.npz $R/out/cb-$st-${1:-none}-$tag.json $flag ;;
   e2e)
     run submissions/final_stack/e2e_timing.py $R/zips data/proteus_windows.npz $R/out/e2e-$tag.json "$@" ${E2E_FLAGS:-} ;;
+  profile)  # profile_team_b_overhead.py ZIP_NAME [flags]: sync-timed Team B sub-steps inside the Solver
+    run submissions/final_stack/profile_team_b_overhead.py $R/zips data/proteus_windows.npz $R/out/prof-$tag.json "$@" ;;
+  convbench)  # bench_team_b_conv.py ZIP_NAME: batch-64 feature forward cost under cudnn settings
+    run submissions/final_stack/bench_team_b_conv.py $R/zips data/proteus_windows.npz $R/out/conv-$tag.json "$@" ;;
+  ident)  # label_identity.py REF NEW [--device cuda|cpu] [--stream-set ...] [--part N --count M]: patched vs signed ZIP labels
+    run submissions/final_stack/label_identity.py $R/zips data/proteus_windows.npz $R/out/ident-$tag.json "$@" ;;
+  fusebench)  # bench_team_b_fused.py ZIP_NAME
+    run submissions/final_stack/bench_team_b_fused.py $R/zips data/proteus_windows.npz $R/out/fuse-$tag.json "$@" ;;
   pair)
     zip=${1:?}; sha=${2:?}
     run friday/qualify_package.py pair $R/zips/$zip $R/out/pair-${zip%.zip}-$tag --ref-zip $R/zips/v66_cp1_cap250.zip --expect-sha $sha ;;
