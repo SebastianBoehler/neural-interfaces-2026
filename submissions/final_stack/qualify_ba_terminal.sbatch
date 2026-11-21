@@ -35,6 +35,22 @@ if [[ $stage == pair ]]; then
         "$run/out/pair-$SLURM_JOB_ID" --ref-zip "$run/zips/v66_cp1_cap250.zip" --expect-sha "$sha"
     exit
 fi
+if [[ $stage == profile ]]; then
+    "${py[@]}" submissions/final_stack/profile_ba_terminal.py "$run/zips" data/proteus_windows.npz \
+        "$run/out/profile-$SLURM_JOB_ID.json" --sha "$sha"
+    exit
+fi
+if [[ $stage == csp-* ]]; then
+    flags=()
+    case $stage in
+        csp-smoke) ;;
+        csp-diagnose) flags=(--diagnose) ;;
+        csp-eager-first) flags=(--diagnose --eager-first) ;;
+        *) exit 2 ;;
+    esac
+    "${py[@]}" submissions/final_stack/check_ba_terminal_csp.py "$run" "$sha" "${flags[@]}"
+    exit
+fi
 flags=()
 if [[ $stage == terminal ]]; then
     task=${SLURM_ARRAY_TASK_ID:?}

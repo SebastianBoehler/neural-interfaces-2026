@@ -1,0 +1,65 @@
+{
+ "gpu": "NVIDIA A100-PCIE-40GB",
+ "torch": "2.14.1+cu130",
+ "braindecode": "1.8.1",
+ "load_s": [
+  [
+   "hardcb_safe",
+   1.784
+  ],
+  [
+   "hardcb_safe_st",
+   3.827
+  ],
+  [
+   "hardcb_safe",
+   1.357
+  ],
+  [
+   "hardcb_safe_st",
+   1.433
+  ],
+  [
+   "hard_safe",
+   1.055
+  ],
+  [
+   "hard_safe_st",
+   1.306
+  ]
+ ],
+ "n_windows": 2655,
+ "n_sessions": 14,
+ "cb": {
+  "n": 2655,
+  "mean_ms": 27.723790540687894,
+  "median_ms": 27.696462348103523,
+  "p95_ms": 27.806805446743965
+ },
+ "hard": {
+  "n": 2655,
+  "mean_ms": 11.786795003083578,
+  "median_ms": 11.621244251728058,
+  "p95_ms": 11.69608375057578
+ },
+ "cb_plus_hard_mean_ms": 39.51058554377147,
+ "e2e": {
+  "sessions": [
+   "Dreyer2026Proteus/P01/1",
+   "Dreyer2026Proteus/P02/1",
+   "Dreyer2026Proteus/P03/1"
+  ],
+  "n": 568,
+  "wall_s": {
+   "cap250": [
+    81.92294113337994,
+    71.53496734052896
+   ],
+   "stack": [
+    103.07423158828169,
+    94.98361605126411
+   ]
+  },
+  "added_ms_per_window": 41.28283223720976
+ }
+}

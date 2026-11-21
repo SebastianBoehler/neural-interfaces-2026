@@ -1,0 +1,65 @@
+{
+ "gpu": "NVIDIA GeForce RTX 2080 Ti",
+ "torch": "2.14.1+cu130",
+ "braindecode": "1.8.1",
+ "load_s": [
+  [
+   "hardcb_safe",
+   1.757
+  ],
+  [
+   "hardcb_safe_st",
+   3.59
+  ],
+  [
+   "hardcb_safe",
+   1.408
+  ],
+  [
+   "hardcb_safe_st",
+   1.505
+  ],
+  [
+   "hard_safe",
+   1.048
+  ],
+  [
+   "hard_safe_st",
+   1.325
+  ]
+ ],
+ "n_windows": 2655,
+ "n_sessions": 14,
+ "cb": {
+  "n": 2655,
+  "mean_ms": 27.600495611263085,
+  "median_ms": 27.59632299421355,
+  "p95_ms": 28.084400497027673
+ },
+ "hard": {
+  "n": 2655,
+  "mean_ms": 13.601485392597912,
+  "median_ms": 13.407911988906562,
+  "p95_ms": 13.971984683303162
+ },
+ "cb_plus_hard_mean_ms": 41.20198100386099,
+ "e2e": {
+  "sessions": [
+   "Dreyer2026Proteus/P01/1",
+   "Dreyer2026Proteus/P02/1",
+   "Dreyer2026Proteus/P03/1"
+  ],
+  "n": 568,
+  "wall_s": {
+   "cap250": [
+    89.86785842801328,
+    78.80852449600934
+   ],
+   "stack": [
+    109.56431141600478,
+    102.48849144898122
+   ]
+  },
+  "added_ms_per_window": 41.69008266368289
+ }
+}

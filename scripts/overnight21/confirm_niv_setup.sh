@@ -19,6 +19,8 @@ for rel in A B; do
     python3 -c "import sys; sys.path.insert(0,'niv'); import orders; assert orders.SEEDS == tuple(range(71008,71016)), orders.SEEDS"
   else
     mkdir -p zips/enrolled
+    # the zips are symlinks into ni26_final_confirm_20261121/zips: enrol.sbatch must bind that directory (it failed with FileNotFoundError otherwise)
+    sed -i "s#--bind \"\$work:/work:rw,#--bind \"\$work:/work:rw,$Z:$Z:ro,#" enrol.sbatch; grep -c "$Z:$Z:ro" enrol.sbatch
   fi
   sha256sum -c inputs.sha256 | grep -vc OK || true
   echo "release $rel ready: $X"

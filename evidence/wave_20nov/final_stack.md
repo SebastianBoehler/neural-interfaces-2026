@@ -131,3 +131,13 @@ Not done: the paired end-to-end GPU cross-check (jobs 3145003/3145004, cap250 vs
 its JSON could not be fetched: the ssh control master expired and re-login needs the user's 2FA. Files: `selftest_20nov/timing_{a100,rtx}.json`
 on Galvani (`/mnt/lustre/work/gehler/gfh527/neural-interfaces-2026/`). Risk: a GPU posterior drift above 1e-3 on the RTX PRO 4500 would
 fail the load, which costs no quota but burns the day's attempt.
+
+## Recovered end-to-end timing JSONs (21 Nov, fetched from Galvani `selftest_20nov/timing_{a100,rtx}.json`; copies in [selftest_timing](selftest_timing/))
+Jobs 3145003 (A100-PCIE-40GB) and 3145004 (RTX 2080 Ti), paired cap250 vs `final_stack_hardcb_safe_st` through the official Solver on P01/1, P02/1, P03/1 (568 windows), two repeats per arm, worker SIF, torch 2.14.1+cu130. These are the paired end-to-end cross-checks that the previous section could not fetch.
+
+| device | cap250 wall, s (repeat 1 / 2) | stack wall, s (repeat 1 / 2) | added ms/window, as written by the job | added ms/window, faster repeats | CBMember + hard actor, all 2,655 windows (cb / hard / sum, ms) |
+|---|---|---|---:|---:|---|
+| A100-PCIE-40GB | 81.9 / 71.5 | 103.1 / 95.0 | 41.28 | 41.4 (95.0 vs 71.5) | 27.72 / 11.79 / 39.51 |
+| RTX 2080 Ti | 89.9 / 78.8 | 109.6 / 102.5 | 41.69 | 41.7 (102.5 vs 78.8) | 27.60 / 13.60 / 41.20 |
+
+The end-to-end delta (41.3 / 41.7 ms) matches the sum of the parts (39.5 / 41.2 ms) within 2 ms on both devices, so the additive projection `2,555 + 20,083 x ms` holds for the plain hardcb stack: 3,384 s (A100) and 3,392 s (2080 Ti) from the end-to-end deltas, against 3,350 / 3,500 s from the parts above. The first cap250 repeat is slower on both devices (cold start). Load times and both `_st` self-tests are as in the table above.
