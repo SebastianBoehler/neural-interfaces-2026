@@ -33,3 +33,53 @@ Galvani `3149306` passed both returning folds. P01 within-run order 72004 change
 By 19:16 CET, all 48 A100 within-run shards were complete. The collector matched the independent EEG-only latch at every delivery and reproduced the official metric independently for all within-run arms and cohorts. Held hss was 77.566% new, 82.426% returning and 79.996% at 50/50. Quarter gained **+1.646 pp [paired 80% +1.245, +2.030]** at 50/50, with +0.946 pp new and +2.347 pp returning. P04 gained +3.012 pp and P10 +1.681 pp. Quarter versus em_half gained +0.444 pp returning [paired 80% +0.219, +0.700].
 
 Galvani CPU batch 3149596 verified the rider on one stored A100 P01 stream. The first collector 3149789 completed the replay but hit a NumPy integer serialization error. The fixed collector 3149794 completed by 19:26 CET. Its receipt SHA-256 is `7b5dcdf50bfb6dd16d69cd1afb0318e409b5aa5bcba7730056ba31aa10b19818`. The terminal urn changed 252 fit and 239 held decisions. Fit gain at 50/50 was +0.110 pp [−0.027, +0.253]. Held gain was +0.036 pp [−0.111, +0.175], with +0.031 pp new and +0.041 pp returning. The A100 rider misses the +0.2 pp threshold.
+
+## Complete Leonardo accuracy grid
+
+All 84 A100 shards completed by 19:28 CET. Shard 65049470_81 finished all streams near its time limit, and its conditional retry was cancelled by Slurm. The A100 runs the signed archive's BF16 MANAS path. Receipt SHA-256 `f84987a00c7cd4707b83a7005f09ca0030270761d17b21d8ad238435ee79c437`. Intervals are paired 80% intervals from 20,000 people-then-orders draws. Deltas are percentage points against hss.
+
+### Within-run fit 72000–72003
+
+hss balanced accuracy was 76.913% new, 82.483% returning and 79.698% at 50/50.
+
+| Arm | New Δ [80%] | Returning Δ [80%] | 50/50 Δ [80%] | P04 Δ | P10 Δ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| nine25_fc | +0.802 [+0.177, +1.344] | +1.294 [+0.881, +1.831] | +1.048 [+0.661, +1.420] | +1.562 | +1.027 |
+| ba_six FP16 archive | +0.700 [+0.177, +1.178] | +2.524 [+1.421, +3.654] | +1.612 [+1.015, +2.197] | +3.553 | +1.496 |
+| em_half | +0.700 [+0.177, +1.178] | +2.357 [+1.065, +3.681] | +1.529 [+0.840, +2.213] | +3.609 | +1.105 |
+| Quarter | +0.700 [+0.177, +1.178] | +2.256 [+1.240, +3.305] | +1.478 [+0.919, +2.024] | +3.214 | +1.297 |
+
+### Within-run held 72004–72007
+
+hss balanced accuracy was 77.566% new, 82.426% returning and 79.996% at 50/50.
+
+| Arm | New Δ [80%] | Returning Δ [80%] | 50/50 Δ [80%] | P04 Δ | P10 Δ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| nine25_fc | +0.614 [+0.036, +1.151] | +1.366 [+0.740, +2.116] | +0.990 [+0.550, +1.432] | +1.958 | +0.774 |
+| ba_six FP16 archive | +0.946 [+0.553, +1.342] | +1.543 [+0.907, +2.224] | +1.244 [+0.874, +1.616] | +2.166 | +0.919 |
+| em_half | +0.946 [+0.553, +1.342] | +1.902 [+1.088, +2.713] | +1.424 [+0.990, +1.854] | +2.679 | +1.126 |
+| Quarter | +0.946 [+0.553, +1.342] | +2.347 [+1.606, +3.031] | +1.646 [+1.245, +2.030] | +3.012 | +1.681 |
+
+### Per-interface 74000–74001
+
+hss balanced accuracy was 74.276% new, 78.451% returning and 76.364% at 50/50.
+
+| Arm | New Δ [80%] | Returning Δ [80%] | 50/50 Δ [80%] | P04 Δ | P10 Δ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| nine25_fc | +0.612 [+0.043, +1.065] | +0.535 [-0.736, +2.015] | +0.573 [-0.076, +1.288] | +0.946 | +0.124 |
+| ba_six FP16 archive | +0.728 [+0.022, +1.257] | +1.792 [+0.304, +3.469] | +1.260 [+0.427, +2.138] | +2.942 | +0.641 |
+| em_half | +0.728 [+0.022, +1.257] | +2.572 [+1.099, +4.121] | +1.650 [+0.891, +2.492] | +3.206 | +1.937 |
+| Quarter | +0.728 [+0.022, +1.257] | +3.617 [+2.810, +4.643] | +2.172 [+1.623, +2.688] | +4.143 | +3.091 |
+
+### Pinned full 71808–71811
+
+hss balanced accuracy was 73.565% new, 79.375% returning and 76.470% at 50/50.
+
+| Arm | New Δ [80%] | Returning Δ [80%] | 50/50 Δ [80%] | P04 Δ | P10 Δ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| nine25_fc | +0.271 [-0.184, +0.745] | +0.599 [-0.081, +1.310] | +0.435 [+0.032, +0.858] | -0.041 | +1.240 |
+| ba_six FP16 archive | +0.692 [+0.257, +1.071] | +1.624 [+1.235, +1.962] | +1.158 [+0.866, +1.421] | +1.540 | +1.708 |
+| em_half | +0.692 [+0.257, +1.071] | +2.004 [+1.648, +2.371] | +1.348 [+1.063, +1.616] | +2.025 | +1.983 |
+| Quarter | +0.692 [+0.257, +1.071] | +2.363 [+1.993, +2.701] | +1.527 [+1.241, +1.787] | +2.216 | +2.510 |
+
+Quarter cleared +0.8 pp at 50/50 on held within-run orders. Its +1.646 pp held gain exceeds +1.527 pp on the pinned full-shuffle orders, satisfying Fable's preregistered refutation rule on A100. The direct Turing grid supplies the production-precision cross-check.
