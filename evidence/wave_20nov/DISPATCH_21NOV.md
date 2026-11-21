@@ -108,3 +108,14 @@
 - Fable Round 3 · Galvani source-only smoke 3146355 checks that the two prospective source changes reproduce the live Bet 1 and tape-based Bet 2 formulas, and verifies their disabled controls. It uses temporary unpacked source on public windows. The exact-fold authentication probe at 07:09 CET still returned `Permission denied`.
 
 - Fable Round 3 · source-only smoke 3146355 resolved the scratch builder name to Lane TB's `package.py` before inference. Renamed the scratch builder and re-dispatched 3146356.
+
+- Fable Round 3 · 07:39 CET, Leonardo batch SSH restored. Staged source `f4d3714a` at `cap250/runs/fable-round3-21nov` and verified the exact Lane TB input paths.
+- Fable Round 3 · Leonardo 65010877, pinned held-new P01 smoke and v3 replay.
+- Fable Round 3 · Leonardo 65010878, pinned returning P04 smoke and v3 replay.
+- Fable Round 3 · Leonardo 65010879, fit trace array on 71300–71307, after both smokes.
+- Fable Round 3 · Leonardo 65010880, held-out trace array on 71308–71315, after both smokes.
+- Fable Round 3 · Leonardo 65010881, fit block Step 0 and the Bet 1/Bet 2 screens, after fit traces.
+- Fable Round 3 · Leonardo 65010882, live Bet 1 weight grid, after the screen.
+- Fable Round 3 · Leonardo 65010883, freeze the fit choices, after the grid.
+- Fable Round 3 · Leonardo 65010884, test the frozen Bet 1 weight, after fit choices and held-out traces.
+- Fable Round 3 · Leonardo 65010886, held-out collector, after the last array.

@@ -13,3 +13,5 @@ Signed reference `final_stack_hard_safe_st_team_b_nine25_tbgraph.zip`, SHA-256 `
 - Public smoke 3146352 completed in 86 s from `cabc1e92`. Bet 2's zero and unit weights reproduced the hard-base and Team B labels exactly.
 - State-only smoke 3146353 completed in 53 s on Galvani. The signed lead processed 100 unrecognized Scherer visit-1 windows with eight fine-tuning refits and four CSP refits. The frozen checkpoint reproduced its labels when the query order was reversed. The worker read waveform tensors and session identifiers for this smoke.
 - Source-only smoke 3146356 checked both prospective changes against the scorer on 72 signed-lead windows. Bet 1 at 25% from window 15 and Bet 2 at weights 0.20/0.45 reproduced the scorer's labels, and both disabled controls reproduced the lead labels. The smoke used unpacked source in a temporary directory.
+
+Leonardo access returned at 07:39 CET. Exact input paths were verified and the pinned-fold smokes and dependent waves were submitted under `cap250/runs/fable-round3-21nov` from `f4d3714a`. [Slurm job IDs](DISPATCH_21NOV.md)
