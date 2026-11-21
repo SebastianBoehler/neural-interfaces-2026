@@ -46,6 +46,9 @@ case $mode in
     run submissions/final_stack/label_identity.py $R/zips data/proteus_windows.npz $R/out/ident-$tag.json "$@" ;;
   fusebench)  # bench_team_b_fused.py ZIP_NAME
     run submissions/final_stack/bench_team_b_fused.py $R/zips data/proteus_windows.npz $R/out/fuse-$tag.json "$@" ;;
+  fc-guards)  # Exact fused archive, SHA-256; exercise both live Team B capture failures.
+    zip=${1:?}; sha=${2:?}
+    run submissions/final_stack/check_tb_fused_conv.py $R/zips/$zip $sha data/proteus_windows.npz $R/out/fc-guards-$tag.json ;;
   pair)
     zip=${1:?}; sha=${2:?}
     run friday/qualify_package.py pair $R/zips/$zip $R/out/pair-${zip%.zip}-$tag --ref-zip $R/zips/v66_cp1_cap250.zip --expect-sha $sha ;;
