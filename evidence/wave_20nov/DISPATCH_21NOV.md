@@ -238,3 +238,4 @@
 - 20:4x Cross-provider board: GPT (xhigh, executor), Fable, Opus threads in ni26-cleanroom discuss via BOARD.md; vote 21:15, validated package by 22:30, upload ~23:00.
 
 - 21:01 CET · R8 complete. The final RTX fit shard completed by 20:56. Both devices have 84 verified shards. RTX fit quarter − hss +1.347 pp at 50/50. Terminal urn 3150594 missed with −0.042 pp held [80% −0.272, +0.154]. The 20:38 decision to retain quarter `42fb63cf…3b07` stands. [Final record](fable_r8_scheme.md#supplemental-fit-and-terminal-urn)
+- 21:2x Board converged (unanimous): ship arm c (SessionEM 0.25 on recognised streams, native TSEM, CountFilter unchanged), ZIP ..._em_half_diet_c.zip cba9b208…, conditional on warm-up, same-node timing <= +1 %, fresh orders 72120-72123; else em_half 833a2872…; cut-off 22:15. GPT executing (zero passed 3150612; warm-up 3150613, timing 3150614).
