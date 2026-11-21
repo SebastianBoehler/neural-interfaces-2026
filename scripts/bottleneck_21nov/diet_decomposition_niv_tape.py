@@ -24,11 +24,13 @@ def check(model, n):
         raise ValueError("degraded NI-V em_half forward capture")
 
 
-def live_a100(worker, package, channels, signals, rows, expected, meta):
+def live_a100(worker, package, channels, signals, rows, expected, meta, *, sources=None):
     source = package / "submission.py"
     original = source.read_text()
-    for arm, settings in ARMS.items():
-        source.write_text(patch(original, settings))
+    if sources is None:
+        sources = {arm: patch(original, settings) for arm, settings in ARMS.items()}
+    for arm, text in sources.items():
+        source.write_text(text)
         model = worker.fresh_model(worker.load(package, channels))
         labels = [int(model.predict(signals[r:r + 1].to("cuda:0"))[0]) for r in rows]
         if worker.recognised(model) != meta or model.dead:
@@ -58,6 +60,9 @@ def score(args):
     fresh = args.first is not None
     first = PIN if smoke else args.first if fresh else FIRST
     selected = ("c",) if fresh else tuple(ARMS)
+    if args.sprint_pin is not None:
+        import arm_c_sprint_policy as sprint
+        selected = ("c", *sprint.ARMS)
     plans = [(s, i, first + i) for s in (("full",) if smoke else ("full", "within"))
              for i in (range(1) if smoke else range(8))]
     base, arms = {}, {arm: {} for arm in selected}
@@ -88,7 +93,11 @@ def score(args):
                 np.testing.assert_array_equal(actual, np.asarray([getattr(i, field) for i in items]), err_msg=tag)
             outputs = {"half": half}
             for arm in selected:
-                labels, _, _ = intervene(template, items, arm)
+                if args.sprint_pin is not None and arm != "c":
+                    labels, _, _ = sprint.checked_replay(template, items, reference, arm)
+                else:
+                    reference = intervene(template, items, arm)
+                    labels = reference[0]
                 np.testing.assert_array_equal(labels[:rec], half[:rec], err_msg=f"{arm} {tag}")
                 outputs[arm] = labels
             seconds = round(perf_counter() - start, 2)
@@ -98,7 +107,11 @@ def score(args):
                 output[tag + "|meta"] = np.array([rec, routed, err, seconds], np.float64)
             print(f"PASS {tag}: {len(rows)} exact em_half route and terminal outputs, {seconds:.1f} s", flush=True)
             if smoke and a100:
-                live_a100(worker, package, channels, signals, rows, outputs, meta["values"])
+                sources = None
+                if args.sprint_pin is not None:
+                    c_source = patch((package / "submission.py").read_text(), ARMS["c"])
+                    sources = {"c": c_source, **{arm: sprint.patch(c_source, arm) for arm in sprint.ARMS}}
+                live_a100(worker, package, channels, signals, rows, outputs, meta["values"], sources=sources)
 
     person = args.task
     filename = f"smoke_{person}.npz" if smoke else f"p{person}_c{person % 4}.npz"
@@ -125,6 +138,10 @@ def score(args):
         for arm, output in arms.items():
             path = folder / f"{arm}.npz"
             np.savez(path, **output)
+            if args.sprint_pin is not None and not smoke and arm == "c":
+                pinned_c = args.sprint_pin / f"ret_trial_k{person}" / filename
+                if any(v["changed"] for v in validate_pair(pinned_c, path).values()):
+                    raise ValueError("Scherer arm c changed pinned A100 labels")
             if smoke and not a100:
                 direct = args.root.parent / "niv-smoke" / arm / f"ret_trial_k{person}" / filename
                 if any(v["changed"] for v in validate_pair(direct, path).values()):
@@ -144,12 +161,15 @@ def main():
     parser.add_argument("task", type=int)
     parser.add_argument("enrolled_sha")
     parser.add_argument("--paired-a100", action="store_true")
+    parser.add_argument("--sprint-pin", type=Path, help="enable the arm c sprint and pin A100 control shards")
     parser.add_argument("--first", type=int, help="first fresh order for a paired em_half and c release")
     for name in ("baseline", "pinned", "root"):
         parser.add_argument(name, type=Path)
     args = parser.parse_args()
     if args.first is not None and (args.mode != "tape-score" or args.first < FIRST + 8):
         parser.error("--first requires tape-score and an order after the pinned release")
+    if args.sprint_pin is not None and (not args.paired_a100 or args.first is not None):
+        parser.error("--sprint-pin requires the paired A100 71864 release")
     score(args)
 
 

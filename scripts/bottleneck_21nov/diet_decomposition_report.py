@@ -32,7 +32,8 @@ def nested(delta):
     return np.r_[delta.mean(), np.quantile(draw, (0.1, 0.9))]
 
 
-def scherer(data, baseline, captures, *, paired_a100=False, first=None):
+def scherer(data, baseline, captures, *, paired_a100=False, first=None, arms=ARMS,
+            reference="half", threshold=-0.20):
     from niv import collect as niv
     from quarter_niv import FIRST
 
@@ -42,14 +43,14 @@ def scherer(data, baseline, captures, *, paired_a100=False, first=None):
     new = niv.cohort_b_new(baseline, "lead", data)
     assert np.isfinite(new["cell"]).sum() == 288 and (new["rec"][np.isfinite(new["rec"])] == -1).all()
     paired = paired_a100 or first is not None
-    base_dir, base_tag = (captures / "half", "trial") if paired else (baseline, "lead")
+    base_dir, base_tag = (captures / reference, "trial") if paired else (baseline, "lead")
     base = niv.cohort_b_ret(base_dir, base_tag, data)
     if base is None or np.isfinite(base["cell"]).sum() != 144:
-        raise ValueError("incomplete Scherer em_half replay")
+        raise ValueError(f"incomplete Scherer {reference} replay")
     first = FIRST if first is None else first
     result = dict(orders=list(range(first, first + 8)), baseline=niv.absolute(base["cell"]), arms={})
     result["gpu"] = "A100" if paired_a100 else "RTX 2080 Ti"
-    for arm in ARMS:
+    for arm in arms:
         arm_dir = captures / arm
         files = sorted(arm_dir.glob("ret_trial_k*/p*_c*.npz"))
         if len(files) != 9:
@@ -72,7 +73,7 @@ def scherer(data, baseline, captures, *, paired_a100=False, first=None):
             joint={s: (v / 2).tolist() for s, v in returning.items()},
             absolute=niv.absolute(out["cell"]),
             changed_labels=changed,
-            passes_scherer=bool(all(v[0] >= -0.20 for v in returning.values())),
+            passes_scherer=bool(all(v[0] >= threshold for v in returning.values())),
             captures_sha256={str(f.relative_to(arm_dir)): digest(f) for f in files},
         )
     if paired:
