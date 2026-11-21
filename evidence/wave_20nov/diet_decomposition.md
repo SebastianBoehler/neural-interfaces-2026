@@ -23,6 +23,19 @@ Reference: signed production `em_half`, SHA-256 `833a28721b0de0fa34f94de0328284c
 
 ## Results
 
-Pending cluster replays. Deltas are percentage points against `em_half`, with paired 80% intervals from 20,000 draws resampling people and then orders independently within each sampled person. As a collector check, the archived quarter result reproduced PROTEUS +0.191 pp at 50/50 and Scherer −0.673 pp full-session / −1.553 pp within-run returning. PROTEUS has two returning people. Scherer has nine and uses a projected channel layout. These are follow-up contrasts on previously used participants and orders.
+Deltas are percentage points against `em_half`, with paired 80% intervals from 20,000 draws resampling people and then orders independently within each sampled person. As a collector check, the archived quarter result reproduced PROTEUS +0.191 pp at 50/50 and Scherer −0.673 pp full-session / −1.553 pp within-run returning. PROTEUS has two returning people. Scherer has nine and uses a projected channel layout. These follow-up contrasts reuse participants and orders.
 
 Promotion requires PROTEUS 50/50 ≥ +0.10 pp with lower bound > 0 and Scherer returning ≥ −0.20 pp in both schemes. Any promoted production ZIP needs its SHA-256, an unchanged archive inventory outside the patch, 379-window held-new zero, an official warm-up pair, and one RTX 2080 Ti end-to-end timing by 22:30 CET.
+
+### PROTEUS held 71808–71815
+
+All four Leonardo shards completed by 20:53 CET. The collector reproduced the 32 recognised returning streams and zero false recognitions. Reference BA was 74.397% held-new, 81.599% returning and 77.998% at 50/50. Each arm changed 0/21,240 held-new labels. Receipt SHA-256 `ff5518ec424f93187bf2a58e8637e49fb6c2629134de10c4ac59b5782f6b9d50`.
+
+| Arm | Returning Δ [80%] | 50/50 Δ [80%] | P04 / P10 Δ | Returning labels changed | PROTEUS gate |
+| --- | ---: | ---: | ---: | ---: | --- |
+| a | +0.002 [−0.081, +0.082] | +0.001 [−0.041, +0.041] | +0.069 / −0.065 | 34 / 6,096 | Miss |
+| b | +0.135 [−0.082, +0.383] | +0.068 [−0.041, +0.191] | +0.258 / +0.013 | 224 / 6,096 | Miss |
+| c | +0.228 [+0.095, +0.363] | +0.114 [+0.047, +0.182] | +0.255 / +0.201 | 75 / 6,096 | Pass |
+| d | +0.170 [−0.099, +0.456] | +0.085 [−0.049, +0.228] | +0.330 / +0.011 | 253 / 6,096 | Miss |
+
+Arm c is the only survivor of the PROTEUS gate. Scherer transfer is pending. Both 2080 Ti direct a overlaps completed. The A100 live smoke reproduced each of the four tape arms on all 120 labels.
