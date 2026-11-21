@@ -243,3 +243,25 @@ Lead = hard + Team B nine25 terminal. Weighted accuracy uses full-session cell/c
 | P04/3 | 72.26 | 58.80 | 72.11 | -0.15 |
 | P10/2 | 88.10 | 83.90 | 87.93 | -0.17 |
 | P10/3 | 90.29 | 84.46 | 91.96 | +1.66 |
+
+## P3 · Selection on orders 71180–71187
+
+All deltas are in percentage points against the live lead, with paired 80% intervals.
+J is the average of the two cohort effects. The 57/43 proxy uses unverified sealed cohort weights.
+
+| Arm | Held-new | Returning | P04 / P10 | J | 57/43 proxy |
+|---|---:|---:|---:|---:|---:|
+| log25 | +0.03 [-0.13, +0.16] | +0.34 [+0.04, +0.64] | +0.06 / +0.62 | +0.18 | +0.23 |
+| **late_ramp** | +0.13 [-0.10, +0.30] | +0.20 [-0.20, +0.57] | -0.13 / +0.53 | +0.16 | +0.24 |
+| higher_floor | -0.29 [-0.69, +0.07] | +0.58 [+0.28, +0.92] | +0.44 / +0.73 | +0.15 | +0.12 |
+| lower_start | -0.08 [-0.34, +0.14] | +0.36 [+0.11, +0.61] | +0.28 / +0.43 | +0.14 | +0.13 |
+| damped | +0.01 [-0.19, +0.17] | +0.19 [+0.07, +0.31] | +0.19 / +0.20 | +0.10 | +0.09 |
+| default | -0.22 [-0.55, +0.03] | +0.24 [-0.01, +0.51] | +0.17 / +0.32 | +0.01 | -0.00 |
+| slower | -0.46 [-0.82, -0.13] | +0.45 [+0.10, +0.81] | +0.30 / +0.60 | -0.00 | -0.03 |
+| less_disagreement | -0.29 [-0.57, -0.07] | +0.22 [+0.04, +0.40] | +0.24 / +0.20 | -0.04 | -0.08 |
+
+The fixed geometric 25% control (log25) had the highest J. Among schedules, late_ramp led with coefficients
+(0.15, 0.24, 30, 0.10) and was frozen for confirmation. Removing one person from the selection summaries
+favoured late_ramp six times and higher_floor four times.
+
+Leonardo freeze 65006183. Selection receipt SHA-256 `639e3e7eb249e7908968a96ec1d8cc065016fafc396c3af83d625a8503fcc0ca`.
