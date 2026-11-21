@@ -13,10 +13,10 @@ BA_SHA = "fc2acf89bc194e7e576dd9fa9b6a6858207d06fe98396a1e4e1f785c04e9a5aa"
 PARENTS = {"nine25": NINE_SHA, "ba_six": BA_SHA}
 WEIGHTS = (0.25, 0.30, 0.35, 0.40, 0.50)
 DOSES = {f"w{round(w * 100)}": w for w in WEIGHTS}
-STOCK = (1.15, 5.0, 10)
+STOCK = (1.15, 5.0, 20)
 EARLY = {
-    "rb_alpha": (0.575, 5.0, 10),
-    "rb_mass": (1.15, 20.0, 10),
+    "rb_alpha": (0.575, 5.0, 20),
+    "rb_mass": (1.15, 20.0, 20),
     "em_delay": (1.15, 5.0, 40),
 }
 ROUTE = "        self.tail.em.extra = np.asarray(extra, dtype=np.float64)\n        self.contrast.next, self.identity.next"

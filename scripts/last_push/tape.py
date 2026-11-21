@@ -93,7 +93,8 @@ def tap(template, signals, rows, fresh, check, device):
 def replay(template, deliveries, arm, *, trace_route=False):
     route, cf, cp = deepcopy((template.routeB, template.cf, template.cp))
     if parameters(route.tail) != STOCK or route.U or cf.t or cp.t or template.v6r:
-        raise ValueError("unexpected initial state or shared upstream dependency")
+        raise ValueError(f"unexpected tape starting state: tail={parameters(route.tail)}, "
+                         f"history={len(route.U)}, count={cf.t}, CSP={cp.t}, v6r={template.v6r}")
     w, schedule = DOSES.get(arm, 0.25), EARLY.get(arm, STOCK)
     terminal = getattr(type(template), "terminal_scores", None)
     state = SimpleNamespace(dead=False, TEAM_A_MIX=getattr(template, "TEAM_A_MIX", 0.0),
