@@ -47,12 +47,14 @@ class GrowStack(TeamBlendStack):
             q = self._grow_posterior(raw)
             c = self._partner_posterior(raw)
             return self._grow_blend(m, 0.5 * (q + c), self.TEAM_B_MIX)
+        if not self.TEAM_B_MIX and self.team_b is not None:
+            m = HardWaveEnsemble.mix6(self, mix, members, p_ft)
+            if self.native_weight:
+                self._grow_prob(m)
+            return m
         if self.TEAM_B_MIX and members:
             self.grow_calls += 1
-        m = super().mix6(mix, members, p_ft)
-        if self.native_weight:
-            self._grow_prob(m)
-        return m
+        return super().mix6(mix, members, p_ft)
 
     def grow_label(self, x, p):
         previous = self.cp.fused

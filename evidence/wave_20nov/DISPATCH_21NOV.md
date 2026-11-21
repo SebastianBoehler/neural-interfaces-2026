@@ -55,3 +55,5 @@
 - Lane TB-grow · Leonardo `cap250/runs/laneTB-grow-21nov`. Preregistered at `22601c4d`. Seed-1 Team B real-data smoke 65001030 → 12 fold fits 65001034. Team C returning smoke 65001031 → two 60-epoch fold fits 65001036. Both arrays depend on their smoke. Local v3 replay printed OK. Galvani batch SSH denied authentication. [Protocol](../../docs/LEDGER.md#lane-tb-grow--dose-insertion-point-and-independent-sources-registered-21-nov-2026-before-scoring)
 
 - Lane TB-grow replay · source `ba604057`. Leonardo live smoke 65001193 → paired A100 timing 65001195 and 48 selection tasks 65001196 → selection freeze 65001197 → 48 single-choice confirmation tasks 65001198 → report collector 65001199. Every arrow is `afterok`; the confirmation array reads the frozen choice and replays its fixed comparators.
+
+- Lane TB-grow hook review · held pending smoke 65001193 before any live replay. The inherited mixer would still call a loaded Team B encoder at zero weight, so native and terminal arms now bypass that hook and check that Team B consumes each window exactly once. Updated source before releasing the smoke. Job IDs are unchanged.

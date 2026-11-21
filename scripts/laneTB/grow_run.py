@@ -112,6 +112,8 @@ def play(template, signals, rows, *, capture=False):
     assert model.routed == 1 and not model.dead and model.log6["err"] == 0 and model.log6["v6"] == len(rows)
     assert not model.cp.dead and not model.cf.dead and model.cp.log["err"] == model.cf.log["err"] == 0
     assert model.grow_calls == (len(rows) if model.team_b is not None else 0)
+    if model.team_b is not None:
+        assert len(model.team_b.windows) == len(rows), "Team B must consume each window exactly once"
     if model.partner_kind == "c":
         assert model.partner.n == len(rows)
         if len(rows) >= model.partner.cfg["n0"]:
