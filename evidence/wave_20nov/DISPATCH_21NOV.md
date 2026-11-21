@@ -2,6 +2,8 @@
 
 - CBraMod speed · 01:20 CET, registered and staged at `4efd052f`. Leonardo `cap250/runs/cb-speed-21nov`: GPU smoke 64996748 → paired member benchmark 64996749 and public label array 64996751 (both `afterok`). Local v3 replay and both exact-archive CPU smokes passed. Galvani batch SSH denied authentication. [Run record](cb_speed.md)
 - CBraMod mechanism and worker probes · 01:22 CET: optional vectorization and whitening smoke 64996905 → comparison 64996906, source `e4cc0584`. Worker-image CUDA probe 64996880. Native GPU smoke 64996748 stopped at an indirect harness import before either archive loaded. The dependent benchmark and label array were canceled by Slurm.
+- CBraMod speed retry · 01:24 CET, source `bd6ebeee`: use the staged harness directly. Native smoke 64996944 → benchmark 64996948 and label array 64996949. The optional comparison uses the same corrected import. Worker-image probe 64996880 confirmed that the cluster driver reports CUDA 12.2 and cannot initialise the CUDA 13.0 wheel.
+- CBraMod worker image retry · 01:28 CET, source `26cd457d`: Slurm binds NVIDIA's CUDA 13.0 compatibility libraries into the existing SIF for the job process. Worker smoke 64997117 → benchmark 64997118 and terminal array 64997119. The ZIPs and SIF are the same bytes as before the retry.
 
 - 00:20 Fable clean room (~/Documents/GitHub/ni26-cleanroom, b801a93): reviewed, approaches A-D deliberately NOT dispatched.
   A (adaptive population decoder, est. N 0.50-0.60) and B (personal experts) are weaker forms of mechanisms cap250 already
@@ -40,3 +42,5 @@
 - Final R1a original tape coverage · 21 Nov 00:58 CET, source `160e7ee9`. Hard smoke 64995389 → replay 64995390. Hardcb smoke 64995391 → replay 64995392. The follow-up checks the remaining four original orders after the first 16 direct comparisons yielded no full-stream match. [Evidence](final_r1a.md)
 
 - Final R1a · checked by 01:12 CET. All intended jobs reached terminal state. Both 45-minute CPU retries passed, as did both terminal-score and cap250 qualification jobs. The full original-tape comparisons returned 0/32 exact matches for each ZIP. Both solvers reproduced full clean H1 tapes with the matching fold assets. [Final evidence and archive hashes](final_r1a.md)
+
+- Lane TB collector retry · 21 Nov 01:33 CET. All 12 streams and warm timing completed. Collector 64993398 failed to serialize a NumPy changed-label count, so its dependent ZIP job 64993399 was cancelled by Slurm. Atomic JSON fix `ca8947f4`. Collector 64997382 reuses the 60 existing prediction files and feeds conditional ZIP/CPU zero 64997383.
