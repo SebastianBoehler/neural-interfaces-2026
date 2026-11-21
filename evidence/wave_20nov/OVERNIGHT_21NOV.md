@@ -68,3 +68,23 @@ Registered in `docs/LEDGER.md` ("Galvani standing queue 21 Nov"). Nothing upload
 - 09:26 CET results. Both dose arrays and all three reports completed. Growth timing/screen completed, froze `ba_six` and released held array 65013453. Its collector 65013454 completed. No growth arm met the registered quality and runtime requirements together. Nine25 remains the lane lead. The returning block sensitivity released the registered 71600–71631 follow-up under `cap250/runs/leonardo-fill-retest-21nov`. [Results](leonardo_fill_21nov.md)
 - 09:32 CET upkeep. Retest smokes 65014371–65014373 passed, arrays 65014554/65014555 and report 65014556 accepted. The report writes `leonardo-fill-retest-21nov/doseall.json`. The second bank wave is staged separately at `leonardo-fill-roster-21nov`, source `30074abb`, with the same smoke and freeze dependency gates.
 - 09:34 CET roster dispatcher. Smokes 65014561/65014571/65014573 feed controller 65014651. It checks the smoke receipts and records the screen sequence under `leonardo-fill-roster-21nov/grow/screen-jobs.tsv`.
+
+## 8. Galvani afternoon refill
+
+Submitted at 12:15 CET. 42 Slurm job IDs (171 tasks including arrays), pre-registered in [LEDGER](../../docs/LEDGER.md#galvani-afternoon-refill--21-november-registered-before-submission). Local v3 replay printed `OK`. Prior paired timing job 3146946 exercised all three signed archives through the same timing script. Release F has its own fresh and pinned-order smoke gate. At submission, timing on cn102/cn116/cn121 and Release F setup were running. A100 first repeats were pending resources. Later repeats become eligible at 14:25 and 16:35 CET after the prior repeat on each node. Target finish ~17:00 CET, subject to Slurm placement.
+
+- **E2E** (cap250 / nine25_fc / nine15_fc in every job). 2080 Ti cn102 3147371–73, cn116 3147374–76, cn121 3147377–79. A100 cn205 3147380–82, cn206 3147383–85, cn218 3147386–88, cn221 3147389–91, cn225 3147392–94, cn226 3147395–97, cn229 3147398–3147400. One GPU per node per repeat. cn102 is preemptable. cn116 adds paired nine15_fc Solver timing.
+- **NI-V Release F** (71032–71039). Setup 3147359. Smokes hss 3147360, nine25 3147361, nine25_fc 3147362 → fresh and pinned-order gate 3147363. B-new / B-ret arrays hss 3147364/65, nine25 3147366/67, nine25_fc 3147368/69 → collector and complete fused/unfused label and row identity 3147370. Arrays cap simultaneous use at 12 GPUs total. No ba_six jobs.
+- **Job receipts:** `ssh mlcloud-galvani 'cat /mnt/lustre/work/gehler/gfh527/ni26_niv_finalF_20261121/jobs.tsv'`. For node and final states, query `sacct -X -j` with the job IDs.
+- **Collect** on the local machine after completion:
+
+  ```bash
+  mkdir -p /tmp/ni26-refill21/{timing,niv}
+  ni26_remote=/mnt/lustre/work/gehler/gfh527
+  for job in $(seq 3147371 3147400); do
+    scp "mlcloud-galvani:$ni26_remote/ni26_final_confirm_20261121/out/e2e-$job.json" /tmp/ni26-refill21/timing/
+  done
+  scp "mlcloud-galvani:$ni26_remote/ni26_niv_finalF_20261121/out/report_hss_n25_fc_vs_hss.json" /tmp/ni26-refill21/niv/
+  scp "mlcloud-galvani:$ni26_remote/ni26_niv_finalF_20261121/logs/refill-niv-3147370.out" /tmp/ni26-refill21/niv/
+  jq '{headline, parity_vs_nine25, scherer_new, scherer_returning, sealed_weighted}' /tmp/ni26-refill21/niv/report_hss_n25_fc_vs_hss.json
+  ```

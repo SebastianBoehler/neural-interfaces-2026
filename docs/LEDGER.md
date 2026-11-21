@@ -3530,6 +3530,13 @@ A passing arm still needs a production-bank receipt, immutable new ZIP builder, 
 
 Same live graph lead, fold packages, audit, timing and paired official-cell rules as the first growth wave. Use 71700–71715 as the screen. Freeze one arm by J among A100-eligible arms with positive points in both cohorts. Confirm the frozen arm on 71716–71731. Retention requires both held-out means ≥+0.20 pp and both 80% lower bounds >0. Compare each person and report the unverified proxy. Held-out delivery orders reuse people. The runtime and sealed-package checks still apply if an arm passes.
 
+**Fused `ba_six` qualification and fresh confirmation (21 Nov ~12:15 CET, before replay).** The user accepts a layer whose target-cohort paired 80% lower bound is positive and whose other-cohort mean loses at most 0.30 pp. The first `ba_six` confirmation qualifies on quality (held-new −0.10, returning +0.70, 50/50 +0.30 pp). Test the fused variant before candidate selection. The official sealed aggregate averages seen and unseen cohorts equally. Use 50/50 throughout. The 60-minute evaluation budget excludes model loading. A timeout becomes Failed.
+
+- Build the six-member graph and 10% terminal MANAS variant from signed fused lead `7017bd5c8a707e7233fe6b1e2df4376c28d49f6613174ec82c0fdbf700bc3f07`. Preserve original actors, exact MANAS weights and constructor references, and produce separate signed production and Scherer-free archives. Predict bitwise CPU zero dose against the six-member control on 379 windows, bitwise full zero against hard alone on those 379 windows, and zero fused/unfused active label changes over those 379 windows. Both graph paths and the active terminal blend must engage. Run the official warm-up pair twice per arm with cap250. Predict repeat stability and score within 0.5 pp of cap250. Any packaging or 379-window identity failure blocks the package.
+- Galvani e2e on at least four distinct RTX 2080 Ti nodes, including cn116, after a live smoke. Pair the exact production ZIP with cap250 and the fused lead. Projection = 2554.9166 s + 20.083 × matched added ms/window, compute only. Cap250 above 190.5 ms/window makes that node abnormal for this decision. Report excluded measurements. Predict worst normal projection 3,350 s. Eligibility requires ≤3,450 s on the worst normal node, with cn116 represented.
+- Exact paired Scherer NI-V, Scherer-free fused `ba_six` and fused nine25, 71840–71847. B-new both visits. B-ret visit 2 with the exact same enrolled visit-1 weights for both arms. Full-session shuffle primary, within secondary. Predict B-new −0.05 and B-ret −0.35 pp. Prior `ba_terminal` B-ret −0.52 [−1.01, −0.02] is an external flag. A repeat lower across the cohort remains a flag under the user’s revised rule.
+- On Leonardo, verify v3 OK, pinned fold lead labels, zero and graph activity before fresh `ba_six` versus nine25 on 71800–71815. Use fused Solver fixtures, full order shuffle and the same fit-excluded people and weights as before. Predict held-new −0.10 [−0.40, +0.20], returning +0.65 [+0.34, +0.97], and 50/50 +0.28 pp. Check the revised quality rule and report this independent-order result separately. Report the historical cohorts and real physical runtime limits.
+
 ## Fable Round 3 · 21 November (registered before scoring)
 
 Fixed design: clean room `485dc9c:PROPOSALS_3.md`. The reference is signed `final_stack_hard_safe_st_team_b_nine25_tbgraph.zip` (SHA-256 `6e09953709b2338507deaac1ec5f6afa4a21eef52de7814f7c2ae77f42e86ee9`). Use the exact `production-20261120-32a94ab7/hardcb` fold assets, `laneTB-21nov/tb` seed-0 banks and pinned Lane TB-verify hard/nine25 tapes from order 71124. Ten held-new people (28 cells), P04/P10 returning visits 2–3 after visit-1 enrollment (8 cells). Whole-session full shuffles: 71300–71307 fit/screen and 71308–71315 held out. No labelled public smoke, no login-node compute, no upload. Before arrays: v3 replay OK, no-change exact and pinned labels/rows and bank hashes; no silent stage, graph or fallback errors. Use equal official cells, paired Lane TB-verify people-then-orders 80% intervals (20,000 draws), report P04/P10, J and the unverified 57/43 proxy (returning 20/80). The two order blocks reuse people.
@@ -3638,3 +3645,24 @@ code fixed. The same-day oracle replaces only the target person's enrolment.
 **Base forward graph, before smoke.** Frozen Shallow/FBC batching preserved labels but the first paired cn116 run added 1.31 ms/window. Capture the existing base member forwards, including their SessionBN updates, without changing kernels or member order. Keep the causal input transforms and fine-tuning buffers outside the graph. Reset each net's session buffers after capture warm-up and before its first actual replay. Require exact graph replay counts and SessionBN n, s1/s2 within 1e-6 relative plus 5e-6 absolute, fresh prefix parity, exact 2,655 shuffled GPU labels and 379-window CPU bitwise identity. Predict 5–15 ms/window saving after session capture and initialization. Advance as a runtime optimization only for a paired cn116 saving of at least 2 ms/window and a passing warm-up replay.
 
 **Base graph retry, before smoke.** 3146990 failed inside the frozen teacher's traced IFNet filter. The integer slice conversion synchronises the CUDA stream during graph capture. Capture eligible Shallow/FBC member forwards and the SessionBN tails whose FIR bank can be computed outside the graph. Keep the frozen teacher and generic TorchScript members eager. Keep the registered parity checks and 2 ms/window threshold. Predict 3–10 ms/window net saving with this split.
+
+## Galvani afternoon refill · 21 November (registered before submission)
+
+Pair signed cap250 (SHA-256 `9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`) with
+hard-only nine25_fc (`7017bd5c8a707e7233fe6b1e2df4376c28d49f6613174ec82c0fdbf700bc3f07`) and nine15_fc
+(`6e6bbbb841db4ff1ea5e83e4bad75a090ab0a30455fa5ca570063b5ba828d1d4`). Use the qualified warmed,
+alternating `e2e_timing.py` streams, three separate allocations per node, including nine15_fc on cn116.
+Predict 2,900–3,250 s for both 2080 Ti arms and 2,900–3,300 s on A100, with the two doses within 100 s on
+the same allocation. An observation outside its band refutes that prediction. Keep any projection ≥3,600 s
+in the timing gate and flag the 3,060 s working margin. Report node, repeats and worst observation. RTX PRO
+4500 is unmeasured. The earlier cn222 failure still counts.
+
+NI-V release F runs both Scherer cohorts on orders 71032–71039 under full and within-run shuffles. Compare
+exact nine25_fc to hss and replay unfused nine25 in parallel for label identity. Reuse release A visit-1
+enrolment bytes for returning, substituting only signed fused source. Require fresh smoke identity and a
+pinned 71024 match to release E before arrays. Predict zero label or delivery-row changes, and full-session
+nine25_fc minus hss about 0 pp (±0.5 pp) for B-new and B-ret, with B-new within-run about −0.4 pp.
+Any identity difference refutes equivalence. Where parity holds, apply the standing Scherer veto to the
+fresh 16-order E+F B-new full-session pool (mean <−0.3 pp or upper people-nested 80% bound <0).
+Single-release differences beyond ±0.5 pp refute the point prediction. Keep the 57/43 proxy labelled
+unverified. No ba_six work or upload. [Queue and collection](../evidence/wave_20nov/OVERNIGHT_21NOV.md#8-galvani-afternoon-refill)
