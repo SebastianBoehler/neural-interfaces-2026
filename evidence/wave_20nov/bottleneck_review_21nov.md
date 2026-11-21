@@ -1,6 +1,6 @@
 # Track 2 bottleneck review · 21 November 2026
 
-**Interim, 14:29 CET.** Across 16 pinned orders, ba_six reaches **77.68%** at 50/50 against **77.32%** for nine25. P04’s four returning cells cost **7.11 pp** of ba_six’s **22.32 pp** error budget. Held-new word generation costs **4.89 pp**, the largest class loss in that cohort. Deliveries 41+ contribute **16.97 pp** of total loss.
+**Final, 16:02 CET.** Across 16 pinned orders, ba_six reaches **77.68%** at 50/50 against **77.32%** for nine25. P04’s four returning cells cost **7.11 pp** of ba_six’s **22.32 pp** error budget. Held-new word generation costs **4.89 pp**, the largest class loss in that cohort. Deliveries 41+ contribute **16.97 pp** of total loss. The ba_six FP16 half-weight SessionEM derivative passes both qualification checks as the prespecified secondary result.
 
 ## Scope and checks
 
@@ -347,3 +347,7 @@ Fit freeze SHA-256 `c7d30a6b413ca0c69214b291b05bcaf5bbb681634fec6d7d6dcfc1457df1
 The frozen bypass missed the positive lower-bound rule on both stacks. The prespecified ba_six half-weight arm met the numerical rule as a secondary result. Its P04 and P10 gains were +0.45 and +0.37 pp. I used the arm-level rule to build the requested half-weight derivative. The paired intervals are unadjusted for the two tested weights, and the order split reuses the same people. [Preregistration and frozen selection](../../docs/LEDGER.md#recognition-gated-sessionem--21-november-registered-before-running)
 
 The ba_six FP16 half-weight archive was built at 15:47 CET. Its SHA-256 is `833a28721b0de0fa34f94de0328284ca9643cbaccc2dd343926f19c254949a4d`. Byte comparison verified that the only changed archive member is `submission.py`, with exactly the deterministic recognition-gated SessionEM patch. [Archive builder](../../scripts/bottleneck_21nov/returning_em.py)
+
+Galvani RTX 2080 Ti zero job 3148277 passed at 15:54 CET. Candidate and parent changed **0/379 labels** on held-new P01 and P02, with no recognition and maximum route or terminal score drift 2.90e−6. Official warm-up job 3148278 passed at 16:00 CET. Both archives scored **100.0000%** on each of their two replays, with four v6 streams per replay, unchanged package files and identical repeat scores. The exact staged archive is `final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing_recognised_em_half.zip`.
+
+Receipts under Galvani `ni26_bottleneck_20261121/out/` are `returning-em-zero-3148277.json` (SHA-256 `04682ccd600ca0c53b5ab81f7c9e2d8473c293cd851d8d409f40553840ab2477`) and `returning-em-pair-3148278/pair.json` (SHA-256 `e579a987dcd80001086c9491ef0261c5eb30e423d6e7744f5c9bc41567bc2563`). The held-out comparison receipt SHA-256 is `1a64d37f93679eb23b8e46de751891b59c7a7227ddd621cde6e99822ca6a8d1d`.
