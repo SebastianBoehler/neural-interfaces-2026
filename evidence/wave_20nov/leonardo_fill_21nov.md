@@ -231,3 +231,28 @@ Leonardo had one running and 51 pending across the account. The first 12 of 48 t
 Galvani had 17 running and 28 pending across the account. Cn122 timing 3147923 started at 16:30:55 CET, ahead of the earlier estimate. The other two first repeats, cn116 and cn123, still had estimated starts at 02:01 CET on 22 Nov. Jobs 3147916/18/20 remain eligible from 16:55 CET. No additional tests were dispatched.
 
 Cn122 timing 3147923 completed at 16:38:09 CET with exit 0:0. The normal cap250 baseline was 137.48 ms/window. FP16 used 162.13 ms/window over 1,131 warm windows and projects 3,050.0 s. Candidate load was 5.42 s, outside the compute projection. The worst observed normal FP16 result remains 3,280.7 s. Receipt `out/timing-3147923.json` SHA-256 `32f661ff14b9cf63b89e81529e5887399dc16d685fb4ab3b7f30315cc2e09e9c`.
+
+### 17:20 CET decision verification
+
+All 48 final-wave Leonardo tasks completed with exit 0:0. Collector 65024442 completed at 17:07:02 CET. The paired 71900–71915 confirmation reused the same real fold packages and people. Receipt `cap250/runs/ni26-afternoon-71900/out/confirmation.json` SHA-256 `67aa81cb04639b73e00af0b1cb28684a7848ea9043361dee5bf00e62d2058239`.
+
+| Contrast, 16 fresh orders | Held-new pp [80%] | Returning pp [80%] | P04 / P10 pp | 50/50 pp [80%] |
+|---|---:|---:|---:|---:|
+| nine25 − hard | +0.75 [+0.33, +1.10] | +1.04 [+0.79, +1.29] | +1.12 / +0.96 | +0.90 [+0.66, +1.09] |
+| nine15 − hard | +0.62 [+0.34, +0.86] | +0.62 [+0.43, +0.82] | +0.58 / +0.66 | +0.62 [+0.44, +0.78] |
+| nine25 − nine15 | +0.13 [−0.07, +0.32] | +0.42 [+0.20, +0.66] | +0.54 / +0.30 | +0.28 [+0.12, +0.43] |
+
+Both doses replicated against hard under the registered +0.30 pp and positive-lower-bound rule. The direct dose comparison supports nine25. The original and retest dose reports and both growth selections matched their recorded SHA-256 values. The first `ba_six` held-out receipt `leonardo-fill-21nov/grow/confirmation.json` hashes to `6dd5b24845c0cfa1e6b89657ce5f950666602aa045d85857bbed9e14f2bb97ec`. The second growth confirmation and the signed-lead fused `ba_six` confirmation also matched their recorded hashes.
+
+Four more unprofiled Galvani repeats completed on the exact FP16 ZIP. Each replayed 1,131 warm windows per arm. Cap250 was normal in all four, and candidate model load of 4.72–5.42 s is outside the projection.
+
+| Node | Job | Cap250 ms/window | FP16 projected s | `out/timing-<job>.json` SHA-256 |
+|---|---:|---:|---:|---|
+| cn111 | 3147916 | 134.79 | 3,245.0 | `aa7a581e5a86a3244045c6055b0135a7271d3e29bca2794e7acd504bb4ab5250` |
+| cn114 | 3147918 | 142.24 | 3,272.3 | `906416ba7457490c9091cc04beac865dd1e4f610629662257223bab0f1efaca8` |
+| cn115 | 3147920 | 123.54 | 3,157.7 | `012ef514905af1695ce1e292e789a586ad44e37a09cbeef4c2ce9044a060542f` |
+| cn122 | 3147924 | 130.55 | 3,203.3 | `d81d91a371578cee5f2e0c85731551b6372e95b95c9535a7e15a5786e049f8b8` |
+
+Eight of 12 repeat receipts are complete. All eight count. The observed FP16 worst remains 3,280.7 s, 169.3 s below the target. The original cn111 timing and both Scherer reports matched their recorded hashes. The local production FP16 ZIP matches `890c2beec60344280f21b7206e99378dc71047a90b2e5db0876986b636b40cad` and remains qualified from this lane. The RTX PRO 4500 remains unmeasured.
+
+Leonardo had three running and one pending across the account, all in another lane. The target was short by 11 tasks at this check. Galvani had zero running and nine pending. Its remaining FP16 jobs are 3147921/22 and 3147925/26. The first repeats on cn116 and cn123 were resource-bound with estimated starts at 02:01 CET on 22 Nov, and each second repeat waits for its first. No new dispatch. The separate fill heartbeat remains active through the cutoff.
