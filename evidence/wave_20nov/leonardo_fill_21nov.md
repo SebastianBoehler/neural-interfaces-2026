@@ -217,3 +217,9 @@ Leonardo afternoon job 65024312 ran the separately registered A100-SXM compariso
 | lrdn3302 | 0 | 116.00 | 2,902.9 | 2,995.3 | `3e1c071676909d3620860bcf882819626d6d0edd19ff248e3268b067f20a41ba` |
 | lrdn3362 | 1 | 114.97 | 2,910.3 | 2,992.2 | `41a5180a71e85b7382387e393b0f211214ee1ec6a2e422454f6a5a8830722a47` |
 | lrdn3385 | 2 | 117.24 | 2,911.2 | 3,004.2 | `5f88a57b49d1a5b0559c2bf7e135519b1954d9c6267f51c843c25bd9a4246348` |
+
+### 15:47 CET queue receipt
+
+Leonardo had one running and 49 pending across the account. All 48 lane tasks for 71908–71911 completed with exit 0:0. The lane had a running gap while 48 tasks for 71912–71915 waited for the registered 16:25 CET release. Collector 65024442 still waits for that wave. The running-plus-pending count stayed above 15 at this check.
+
+Galvani had zero running and 20 pending across the account, including all nine outstanding FP16 timings. The first cn116, cn122 and cn123 repeats (3147921/23/25) were pending for resources. Slurm's 15:47 snapshot estimated 02:01 CET on 22 Nov for all three, subject to placement changes. Their second repeats wait on those jobs. The other three second repeats remain eligible from 16:55 CET. No new timing or Scherer receipt appeared. The worst observed normal FP16 projection remains 3,280.7 s. Existing jobs cover the registered checks.
