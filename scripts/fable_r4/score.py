@@ -83,7 +83,7 @@ def read_tapes(data, root, orders, modes):
                             recognized += bool(rec)
                             active += len(z[f"active_{key}"])
                             window_count += len(rows)
-                            changed += np.count_nonzero(lead != candidate)
+                            changed += int(np.count_nonzero(lead != candidate))
                             bounds = ((0, None), (100, None), (100, None), (0, 40), (40, 70), (70, 100), (100, 140), (140, None))
                             answers = {"fixed_after100": fixed, "ungated_after100": ungated}
                             for (name, bank), (lo, hi) in zip(arrays.items(), bounds, strict=True):
@@ -113,9 +113,9 @@ def main():
     gain = scores["new"]["fixed_after100"]["mean"]
     result = dict(stage=a.stage, orders=orders, scores=scores, provenance=provenance, release_pseudo=gain >= 4.)
     out = a.run / f"{a.stage}.json"
+    body = json.dumps(result, indent=2, allow_nan=False)
     with out.open("x") as f:
-        json.dump(result, f, indent=2, allow_nan=False)
-        f.write("\n")
+        f.write(body + "\n")
     print(json.dumps(dict(scores=scores, receipt_sha=digest(out), release_pseudo=result["release_pseudo"])), flush=True)
 
 
