@@ -68,3 +68,5 @@
 - 04:0x Fable PROPOSALS_2 (cleanroom 6a608db: P1 eye-position view g, P2 class-map arbiter, P3 scheduled hedge) dispatched as one GPT-6.2 Sol task (decisive tests first, then build what passes on hard+TB nine25); card fable_round2.md.
 
 - Fable Round 2 · 04:14 CET, preregistered at `c2b3024e`, diagnostic source `63204ad1`. Leonardo `cap250/runs/fable-round2-21nov`: v3 and pinned lead/zero/encoder smoke 65005366 → ocular diagnostics 65005372 and 12-fold encoder tape array 65005374 → decile collector 65005376. The existing hard/nine25 tapes are orders 71124–71131, with all 16 prospective selection and confirmation orders still blind. [Card](fable_round2.md)
+
+- Fable Round 2 · 04:18 CET, retry source `ee9ba37d`. The data channels already match the ZIP order. The encoder-only instrument now passes each native 41 × 480 window directly. Replacement smoke 65005599 → ocular 65005601 and encoder 65005602 → collector 65005603. Original dependent jobs canceled before scoring.
