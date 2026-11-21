@@ -4,6 +4,7 @@ import argparse
 from contextlib import ExitStack
 import json
 from pathlib import Path
+import sys
 from tempfile import TemporaryDirectory
 from time import perf_counter
 from unittest.mock import patch
@@ -16,7 +17,12 @@ import torch
 
 from build_cb_speed import NAME, digest, verify_pair
 from cb_speed_bench import ATOL, benchmark, check_graph
-from check_r1a import delivery, fresh_model, load_solver
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path[:0] = [str(ROOT / "cleanslate/harness"), str(ROOT / "2026-competition")]
+from benchmark_utils.streaming import fresh_model
+from data import delivery
+from stream import load_solver
 
 DATA_SHA = "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
 
