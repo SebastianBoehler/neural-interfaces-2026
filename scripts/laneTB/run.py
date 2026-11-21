@@ -29,7 +29,7 @@ def sync(device):
         torch.cuda.synchronize(device)
 
 
-def stream_session(template, signals, rows, device, capture=False):
+def stream_session(template, signals, rows, device, capture=False, *, check=None):
     _, official = D.official()
     sync(device)
     start = time.perf_counter()
@@ -52,6 +52,8 @@ def stream_session(template, signals, rows, device, capture=False):
     meta = dict(setup_s=warm_start - start, warm_s=secs, recognition=model.log6["rec"])
     if model.log6["v6"] != len(rows):
         raise ValueError(f"live path missed windows: {model.log6}")
+    if check is not None:
+        check(model, len(rows))
     return np.array(labels, np.int8), np.array(taps), meta
 
 
