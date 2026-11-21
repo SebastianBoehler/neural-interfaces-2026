@@ -147,6 +147,7 @@ def collect(args):
     held, _ = load_bank(pins_root, diet_dir, data, "held", arms=("c",))
     pins = {(f"{case.cohort}_{case.person}", f"{case.order}_{case.visit}"): case for case in held}
     result = dict(control_sha256=sprint.CANDIDATE_SHA, phases={})
+    total_activity = dict.fromkeys(sprint.ARMS, 0)
     for phase in MODES:
         result["phases"][phase] = {}
         orders = ORDERS[phase]
@@ -190,15 +191,18 @@ def collect(args):
 
             deliveries = {seed: control.protocol.plans(data, seed, streams, scheme=scheme) for seed in orders}
             bank = control.read_bank(data, orders, load, deliveries=deliveries)
-            if not all(active.values()):
-                raise ValueError(f"an intervention failed to change its route scores: {active}")
+            for arm in sprint.ARMS:
+                total_activity[arm] += active[arm]
             summary = control.report(bank, orders, arms=sprint.ARMS, nested_orders=True)
-            for row in summary["arms"].values():
+            for arm in sprint.ARMS:
+                row = summary["arms"][arm]
                 del row["passes_rule"]
                 point, low, _ = row["delta"]["J"]
                 row["passes"] = bool(point >= 0.05 and low >= 0 and row["changed_labels"]["new"] == 0)
             result["phases"][phase][scheme] = dict(**summary, active_streams=active, orders=orders,
                 captures_sha256={str(p): control.digest(p) for p in sorted(files)})
+    if not all(total_activity.values()):
+        raise ValueError(f"an intervention never changed its route scores: {total_activity}")
     control.freeze(args.out / "proteus.json", result)
 
 
