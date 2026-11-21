@@ -9,7 +9,7 @@ from zipfile import ZipFile
 import numpy as np
 import torch
 
-from grow_sources import (ARMS, CONFIRM_ORDERS, EXTRA_ORDERS, REFERENCE, SELECT_ORDERS, banks, once,
+from grow_sources import (ARMS, CONFIRM_ORDERS, EXTRA_ORDERS, FINAL_ORDERS, REFERENCE, SELECT_ORDERS, banks, once,
                           team_a, team_c)
 from run import check_zero_mixer, stream_session, sync, timed_load
 from verify import B, D, DEVICE, FOLDS, HARD_SHA, HARD_ZIP, STORED, W, digest, fold_fixture, revised
@@ -228,11 +228,11 @@ def timing(fixture, signals, out):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("phase", choices=("smoke", "returning-smoke", "timing", "select", "confirm", "extra"))
+    p.add_argument("phase", choices=("smoke", "returning-smoke", "timing", "select", "confirm", "extra", "finalists"))
     p.add_argument("--run", type=Path, required=True)
     p.add_argument("--data", type=Path, required=True)
     p.add_argument("--fold", required=True)
-    p.add_argument("--chunk", type=int, choices=range(4), default=0)
+    p.add_argument("--chunk", type=int, choices=range(8), default=0)
     p.add_argument("--resume", action="store_true")
     a = p.parse_args()
     assert not a.resume or (a.phase == "select" and a.fold.startswith("ret_"))
@@ -256,7 +256,11 @@ def main():
                 chosen = json.loads((a.run / "select.json").read_text())["chosen"]
                 assert chosen in ARMS and chosen != "base"
                 arms = tuple(dict.fromkeys(("base", REFERENCE, chosen)))
-            order_bank = {"select": SELECT_ORDERS, "confirm": CONFIRM_ORDERS, "extra": EXTRA_ORDERS}[a.phase]
+            if a.phase == "finalists":  # fixed arms, no frozen selection: hard, hard + nine25, ba_terminal
+                arms = ("base", REFERENCE, "ba_terminal")
+            order_bank = {"select": SELECT_ORDERS, "confirm": CONFIRM_ORDERS, "extra": EXTRA_ORDERS,
+                          "finalists": FINAL_ORDERS}[a.phase]
+            assert a.chunk < 4 or a.phase == "finalists"
             chunks = (a.chunk,)
             if a.phase == "extra":
                 assert a.chunk < 2

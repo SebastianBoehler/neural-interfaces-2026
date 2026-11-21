@@ -17,7 +17,7 @@ case "$phase" in
   select-collect|confirm-collect|extra-collect)
     bash "$launcher" "$code/grow_collect.py" "${phase%-collect}" --run "$run" --data "$CAP250_DATA"
     ;;
-  smoke|returning-smoke|timing|select|select-repair|confirm|extra)
+  smoke|returning-smoke|timing|select|select-repair|confirm|extra|finalists)
     extra=()
     if [[ $phase == select-repair ]]; then
       phase=select

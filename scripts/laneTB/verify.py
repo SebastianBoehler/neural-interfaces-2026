@@ -52,7 +52,7 @@ def revised(original, weight, members, blob, parent):
     return src
 
 
-def stage(base, fold, weights, work):
+def stage(base, fold, weights, work, arms=ARMS):
     """Arm packages: the fold's own assets, one changed submission.py, team_b.pt; base arm = blend 0."""
     src = FOLDS / fold / "pkg"
     if base == "hard":
@@ -66,7 +66,7 @@ def stage(base, fold, weights, work):
         src = fixture
     blobs = {3: B.bank(weights, 3)}
     pkgs = {}
-    for arm in ARMS:
+    for arm in arms:
         weight, members = B.ARMS[arm]
         blob = blobs[members] if weight else b""
         pkg = work / arm
@@ -149,18 +149,23 @@ def main():
     p.add_argument("--data", type=Path, required=True)
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--smoke", action="store_true")
+    p.add_argument("--weights", type=Path, default=WEIGHTS, help="Team B fold bank root (<root>/<fold>/weights.pt)")
+    p.add_argument("--arms", default=",".join(ARMS), help="arms to stage and score (smoke needs base,nine25)")
     args = p.parse_args()
     if not torch.cuda.is_available():
         raise RuntimeError("GPU required")
     data = D.load(args.data)
     signals = torch.from_numpy(data["X"])
-    weights = WEIGHTS / args.fold / "weights.pt"
+    weights = args.weights / args.fold / "weights.pt"
+    arms = tuple(args.arms.split(","))
+    if not set(arms) <= set(ARMS) or (args.smoke and not {"base", "nine25"} <= set(arms)):
+        raise ValueError(f"bad --arms {args.arms}")
     info = audit(data, args.fold, weights)
     (args.out / args.base).mkdir(parents=True, exist_ok=True)
     (args.out / args.base / f"audit_{args.fold}.json").write_text(json.dumps(info, indent=1) + "\n")
     with TemporaryDirectory() as tmp:
-        pkgs = stage(args.base, args.fold, weights, Path(tmp))
-        source_sha = B.sha((pkgs["base"] / "submission.py").read_bytes())
+        pkgs = stage(args.base, args.fold, weights, Path(tmp), arms)
+        source_sha = B.sha(next(iter(pkgs.values())).joinpath("submission.py").read_bytes())
         if args.smoke:
             smoke(args, data, signals, pkgs)
         else:
