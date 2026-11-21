@@ -3894,3 +3894,5 @@ reserved and peak RSS.
 once as a reason to reconsider em_half; nine25_fc's result then says whether it is a safe replacement. A ratio in
 1.30–1.41 is reported as reduced margin and does not change the recommendation by itself. A run that is not finished
 by 22:30 CET decides nothing.
+
+**RTX validation and R8 decision · 20:38 CET.** Direct RTX 2080 Ti replay confirms +1.721 pp [80% +1.324,+2.115] held within-run, +1.433 pp [+1.174,+1.676] pinned full and +2.314 pp [+1.736,+2.859] per-interface at 50/50 for quarter − hss. Held gain is +1.224 pp new, +2.217 pp returning, +2.819 pp P04 and +1.614 pp P10. Fable's refutation rule holds on both devices. The complete Leonardo audit and RTX validation support retaining quarter `42fb63cf…3b07`. The <+0.3 pp Step 2 trigger stays closed. [Evidence](../evidence/wave_20nov/fable_r8_scheme.md#rtx-2080-ti-production-precision-validation)

@@ -83,3 +83,42 @@ hss balanced accuracy was 73.565% new, 79.375% returning and 76.470% at 50/50.
 | Quarter | +0.692 [+0.257, +1.071] | +2.363 [+1.993, +2.701] | +1.527 [+1.241, +1.787] | +2.216 | +2.510 |
 
 Quarter cleared +0.8 pp at 50/50 on held within-run orders. Its +1.646 pp held gain exceeds +1.527 pp on the pinned full-shuffle orders, satisfying Fable's preregistered refutation rule on A100. The direct Turing grid supplies the production-precision cross-check.
+
+## RTX 2080 Ti production-precision validation
+
+The 60 direct held, per-interface and pinned full-shuffle shards completed by 20:38 CET. The live source patches use FP16 MANAS. Independently applying the official metric reproduced every held within-run arm. Zero labels differed between ba_six, em_half and quarter on the unrecognised windows in these three blocks. The signed EEG-only detector matched all live latch ages. Validation receipt SHA-256 `91fc747967f09d1f151b4f2a1f793e0daec10e808daa61b3b404d6ff10eb24f2`.
+
+### Within-run held 72004–72007
+
+hss balanced accuracy was 77.370% new, 82.624% returning and 79.997% at 50/50.
+
+| Arm | New Δ [80%] | Returning Δ [80%] | 50/50 Δ [80%] | P04 Δ | P10 Δ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| nine25_fc | +0.939 [+0.263, +1.614] | +1.232 [+0.705, +1.902] | +1.085 [+0.641, +1.546] | +1.692 | +0.772 |
+| ba_six FP16 | +1.224 [+0.799, +1.660] | +1.411 [+0.804, +1.978] | +1.318 [+0.951, +1.684] | +1.971 | +0.852 |
+| em_half | +1.224 [+0.799, +1.660] | +1.803 [+1.070, +2.576] | +1.514 [+1.100, +1.933] | +2.481 | +1.124 |
+| Quarter | +1.224 [+0.799, +1.660] | +2.217 [+1.512, +2.908] | +1.721 [+1.324, +2.115] | +2.819 | +1.614 |
+
+### Per-interface 74000–74001
+
+hss balanced accuracy was 74.185% new, 78.252% returning and 76.219% at 50/50.
+
+| Arm | New Δ [80%] | Returning Δ [80%] | 50/50 Δ [80%] | P04 Δ | P10 Δ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| nine25_fc | +0.797 [+0.258, +1.243] | +0.737 [-0.467, +2.149] | +0.767 [+0.138, +1.479] | +1.349 | +0.124 |
+| ba_six FP16 | +0.745 [+0.045, +1.293] | +2.128 [+0.652, +3.604] | +1.436 [+0.591, +2.318] | +3.475 | +0.780 |
+| em_half | +0.745 [+0.045, +1.293] | +2.839 [+1.498, +4.255] | +1.792 [+1.046, +2.611] | +3.740 | +1.937 |
+| Quarter | +0.745 [+0.045, +1.293] | +3.884 [+2.991, +4.777] | +2.314 [+1.736, +2.859] | +4.677 | +3.091 |
+
+### Pinned full 71808–71811
+
+hss balanced accuracy was 73.660% new, 79.375% returning and 76.518% at 50/50.
+
+| Arm | New Δ [80%] | Returning Δ [80%] | 50/50 Δ [80%] | P04 Δ | P10 Δ |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| nine25_fc | +0.362 [-0.053, +0.782] | +0.599 [-0.081, +1.310] | +0.481 [+0.086, +0.891] | -0.041 | +1.240 |
+| ba_six FP16 | +0.503 [+0.141, +0.841] | +1.657 [+1.259, +2.020] | +1.080 [+0.816, +1.331] | +1.605 | +1.708 |
+| em_half | +0.503 [+0.141, +0.841] | +2.039 [+1.668, +2.429] | +1.271 [+1.011, +1.525] | +2.025 | +2.052 |
+| Quarter | +0.503 [+0.141, +0.841] | +2.363 [+1.993, +2.701] | +1.433 [+1.174, +1.676] | +2.216 | +2.510 |
+
+**R8 decision. Retain the signed quarter ZIP `42fb63cf…3b07`.** The held RTX gain of +1.721 pp exceeds the +0.8 pp robustness bar and the +1.433 pp full-shuffle gain. Fable's Step 2 trigger stays closed. The independent latch test also exceeded the conditional package's <5% full-shuffle activation limit. The sealed shuffle scope and sealed accuracy remain private. Codabench was left untouched.
