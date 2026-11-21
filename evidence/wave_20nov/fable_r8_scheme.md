@@ -23,3 +23,7 @@ Galvani CPU smoke 3149318 exercised one real fold. Job 3149319 independently ran
 | Full shuffle | 72 | 7 | 9 |
 
 The 139/144 within-run latches by window 60 release the terminal urn rider. The full-order activation rate is 9/72 (12.5%), above the strict <5% package requirement. Team B and SessionEM weights affect posteriors downstream of the EEG-only detector and cannot fix this rate. The accuracy audit continues.
+
+## RTX smoke retry
+
+Galvani `3149306` passed both returning folds. P01 within-run order 72004 changed one of 190 labels when em_half ran separately from native ba_six. The mismatch blocked grid `3149309`. The amended release `adb2e097` runs em_half and quarter live on RTX 2080 Ti and checks each against its own captured upstream inputs. Smoke `3149334` gates grid `3149335`. Terminal urn smoke `3149336` waits for the first within-fit shard, then rider `3149337` waits for the smoke and the complete grid. The original Leonardo release uses the strict same-tape replay.

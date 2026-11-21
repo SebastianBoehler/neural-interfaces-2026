@@ -219,3 +219,5 @@
 - 18:42 CET · Fable R8 preregistered in `b0547f59`. Local v3 OK, seed 71000 byte-identical and all three metadata guards checked. Harness `19ae67ef` verified on `origin/main` and synced to the Last Push and Fable R6 Diet releases on both clusters. The separate quarter-confirmation release keeps its old order mapping. Source `431eff98`: Leonardo 65049416 → 65049470 and Galvani 3149306 → 3149309. [Audit](fable_r8_scheme.md)
 
 - 18:49 CET · R8 CountFilter CPU audit 3149318 → 3149319 completed. Full-shuffle latch 9/72 (12.5%) exceeds the <5% gate. Within-run latch by window 60 is 139/144 (96.5%) and releases the terminal urn rider. Both accuracy grids continue. [Detector evidence](fable_r8_scheme.md#countfilter-latch-preflight)
+
+- 18:55 CET · R8 Galvani: both returning smokes passed. P01/72004 exposed one em_half label mismatch between the native tape and a separate live pass. Exact separate RTX Solver release `adb2e097`: 3149334 → 3149335. Rider 3149336 → 3149337 depends on these tapes. Leonardo grid 65049470 keeps its original smoke dependency. [Retry](fable_r8_scheme.md#rtx-smoke-retry)
