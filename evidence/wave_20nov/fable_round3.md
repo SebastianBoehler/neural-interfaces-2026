@@ -8,7 +8,8 @@ Signed reference `final_stack_hard_safe_st_team_b_nine25_tbgraph.zip`, SHA-256 `
 
 - The local `replay/check.py` reproduced all six v3 reference scores and printed `OK`. The scorer matched the official balanced accuracy for each public test cell to 1e−12 and returned an exact zero on a paired diagnostic.
 - Galvani A100 smoke 3146351 completed in 86 s. It exercised the signed lead on 72 public windows, verified native and cached Team B label parity, tapped pre-EM and terminal scores, applied the live rebalance and verified prefix and frozen query-order parity. The public smoke did not measure accuracy.
-- Exact fold, Team B weight and tape inputs are on Leonardo. Batch SSH still returned `Permission denied` at 06:59 CET. Decisive scoring awaits the pinned-fold smoke.
+- Exact fold, Team B weight and tape inputs are on Leonardo. Batch SSH returned `Permission denied` at 06:59, 07:09 and 07:19 CET. Decisive scoring awaits the pinned-fold smoke.
 - Galvani jobs 3140818 and 3140819 are `CANCELLED`. A full queue scan found the latter was the only child of the former and found no other dependents.
 - Public smoke 3146352 completed in 86 s from `cabc1e92`. Bet 2's zero and unit weights reproduced the hard-base and Team B labels exactly.
 - State-only smoke 3146353 completed in 53 s on Galvani. The signed lead processed 100 unrecognized Scherer visit-1 windows with eight fine-tuning refits and four CSP refits. The frozen checkpoint reproduced its labels when the query order was reversed. The worker read waveform tensors and session identifiers for this smoke.
+- Source-only smoke 3146356 checked both prospective changes against the scorer on 72 signed-lead windows. Bet 1 at 25% from window 15 and Bet 2 at weights 0.20/0.45 reproduced the scorer's labels, and both disabled controls reproduced the lead labels. The smoke used unpacked source in a temporary directory.
