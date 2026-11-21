@@ -67,7 +67,6 @@ def paired(mode, task, base, trial, sha, root, first, receipt):
 def report(root, first):
     import collect as C
 
-    C.bank.orders.SEEDS = tuple(range(first, first + 8))
     data = "/external.npz"
     for role in ("trial", "lead"):
         for rows, expected in ((C.cohort_b_new(root, role, data), 288),
