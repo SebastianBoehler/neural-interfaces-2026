@@ -3691,3 +3691,24 @@ unverified. No ba_six work or upload. [Queue and collection](../evidence/wave_20
 - The registered population covariance prior already ran as full live fused nine25 on 71624–71631 (Leonardo 65014928, report 65014933, source `9bf1dc24`). The registered screen stopped on negative held-new and first-40 effects. Summarize its actual 50/50 interval from the existing receipt. No duplicate run.
 - **Pre-score correction.** Both exact production ZIPs store `em_nmin=20`. The source default of 10 above does not describe these archives. Use baseline 20 and delay to 40, so the intervention skips the native EM updates on deliveries 21–40. The local smoke stopped on the stock-parameter assertion before any variant or outcome was scored. The comparator, schedules for alpha/mass, order split, and numeric predictions are otherwise as registered.
 - **Cold decision clarification, before reading held-out scores.** Report SessionEM delay as the fit-selected primary arm and apply the user's +0.15 pp and positive-lower-bound rule to each of the three prespecified cold contrasts on the held-out block. If another arm clears that rule, run its exact warm timing and identify it as a secondary contrast. This does not open any additional variants or orders.
+
+## Galvani FP16 decision repeat · 21 November (registered before dispatch)
+
+- Scherer NI-V release 71848–71855 uses the signed fused nine25 lead
+  (`7017bd5c8a707e7233fe6b1e2df4376c28d49f6613174ec82c0fdbf700bc3f07`) and Scherer-free
+  `ba_six_fc_niv_fp16_turing` (`0804a2f272d4fb4b6215cfcd7f282f0c813cbe4b4888f3f6b5f38f74964d6160`).
+  B-new streams both visits and B-ret uses the same visit-1 enrollment bytes for both arms before streaming visit 2.
+  Replay 71840 on the pinned smoke person in both cohorts and require identical delivered rows, labels and activity to the
+  first release. Smoke 71848 before releasing the full arrays. Reuse the CPU zero receipt 3147755 and require v3 replay OK.
+  Full-session shuffle is primary and within-run shuffle is secondary. Predict candidate minus lead +0.05 pp
+  [−0.45, +0.55] B-new, −0.35 [−1.00, +0.30] B-ret and −0.15 [−0.57, +0.27] at 50/50. A paired people-and-orders
+  80% interval excluding the predicted point refutes its forecast. Flag either cohort mean below −0.30 pp or upper
+  80% bound below zero. Nine people and 22 interpolated channels limit inference. These orders reuse the same people.
+- Warm unprofiled Solver timing pairs signed cap250 (`9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed`)
+  with production FP16 `ba_six` (`890c2beec60344280f21b7206e99378dc71047a90b2e5db0876986b636b40cad`).
+  Use delivery 71000, the same 1,131 measured windows and a discarded warm-up session. Smoke the pair before release.
+  Run two allocations on each of cn111, cn114, cn115, cn116, cn122 and cn123, with the second after the first and
+  eligible at 16:55 CET. Predict median 3,150 s [2,950, 3,350] and worst normal allocation 3,320 s [3,150, 3,450].
+  A point outside either range refutes its forecast. Report all placements and any cap250 baseline above 190.5 ms/window.
+  Flag any normal-node projection above 3,450 s and any projection at or above 3,600 s. Keep load separate. RTX PRO 4500
+  remains unmeasured. [Queue and collection](../evidence/wave_20nov/OVERNIGHT_21NOV.md#10-galvani-fp16-decision-repeat)
