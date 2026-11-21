@@ -74,6 +74,10 @@ def main(a):
     chunk, index = divmod(a.task, len(FOLDS))
     fold = FOLDS[index]
     order_list = (71808, 72004) if a.smoke else CHUNKS[chunk]
+    if a.part is not None:
+        if a.smoke or not a.direct:
+            raise ValueError("use --part only to resume the direct scheme grid")
+        order_list = (order_list[a.part],)
     existing = folds / fold
     original = existing / "ba_six"
     receipts = json.loads((existing / "receipt.json").read_text())
@@ -178,5 +182,6 @@ if __name__ == "__main__":
     p.add_argument("task", type=int)
     p.add_argument("--smoke", action="store_true")
     p.add_argument("--direct", action="store_true")
+    p.add_argument("--part", choices=(0, 1), type=int)
     p.add_argument("--hss-pin", type=Path)
     main(p.parse_args())
