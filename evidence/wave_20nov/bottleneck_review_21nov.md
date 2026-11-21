@@ -8,7 +8,7 @@ The instrument uses real PROTEUS fold weights from `production-20261120-32a94ab7
 
 Both label banks from Leonardo `leonardo-fill-ba-six-21nov/grow/held` matched every label and delivery row in the independent `last-push-21nov/{fit,held}` zero arms and the regenerated full-session shuffle. The pinned v3 replay printed `OK`. Shuffled error analysis independently reproduces the +0.3566 pp comparison and its interval. The ba_six A100 fold path uses native BF16. The signed FP16-on-Turing archive follows that path on A100, with a separate 379-window bitwise A100 identity check and a 2,655-window zero-label-change Turing check on the all-data package. [Fold confirmation and precision checks](leonardo_fill_21nov.md)
 
-The current fold tapes retain terminal decisions. Inference-only capture of intermediate scores is authorized on the same frozen fixtures and pinned delivery orders. Galvani smokes 3148143/3148144 reproduced the delivery rows but changed 3/190 nine25 labels and 1/190 ba_six labels. The retry uses Leonardo’s original environment. Smokes 65032096/65032104/65032107/65032110 gate the 96 capture tasks in 65032114. [Preregistration](../../docs/LEDGER.md#bottleneck-review--21-november-registered-before-analysis)
+The current fold tapes retain terminal decisions. Galvani container smokes 3148143/3148144 changed 3/190 nine25 labels and 1/190 ba_six labels on P01. Native Galvani smokes 3148202–3148205 repeated those counts on P01 and changed 3/189 and 2/189 labels on returning P04. Leonardo’s original environment passed all four smokes (65032096/65032104/65032107/65032110), covering 1,134 pinned labels, exact same-tape replay and 32-window prefix checks. The 96 capture tasks in 65032114 use the same frozen fit assets and orders 71800–71803 / 71808–71811. [Preregistration](../../docs/LEDGER.md#bottleneck-review--21-november-registered-before-analysis)
 
 ## Error budget
 
@@ -17,7 +17,7 @@ The current fold tapes retain terminal decisions. Inference-only capture of inte
 | nine25 | 74.26 | 80.38 | 77.32 | 12.87 | 9.81 |
 | ba_six | 74.48 | 80.88 | 77.68 | 12.76 | 9.56 |
 
-Paired ba_six gain in pp [80% interval], held-new / returning / 50/50: +0.21 [-0.04, +0.46] · +0.50 [+0.26, +0.74] · +0.36 [+0.17, +0.54].
+Paired ba_six gains in held-new / returning / 50/50 order were +0.21 [-0.04, +0.46] · +0.50 [+0.26, +0.74] · +0.36 [+0.17, +0.54] pp (80% intervals).
 
 ### People
 
@@ -59,7 +59,9 @@ Visit BA averages the two interface cells. Each interface cell shows window coun
 | ret | P10 | 2 | 88.0/88.9 | 90 · 94.7/95.6 · 0.33/0.28 | 96 · 81.4/82.2 · 1.16/1.11 |
 | ret | P10 | 3 | 91.3/91.5 | 103 · 93.9/94.2 · 0.38/0.36 | 96 · 88.8/88.8 · 0.70/0.70 |
 
-Largest ba_six cell losses in rank order: P04/2 Graz (ret, 2.03 pp), P04/3 Graz (ret, 1.90 pp), P04/2 BrainHero (ret, 1.69 pp), P04/3 BrainHero (ret, 1.48 pp), P10/2 Graz (ret, 1.11 pp).
+The five largest ba_six cell losses were P04/2 Graz (ret, 2.03 pp), P04/3 Graz (ret, 1.90 pp), P04/2 BrainHero (ret, 1.69 pp), P04/3 BrainHero (ret, 1.48 pp), and P10/2 Graz (ret, 1.11 pp).
+
+Across the same test visits, the enrolled fold improves ba_six by 20.87 pp for P04 (50.68 → 71.55%) and by 5.41 pp for P10 (84.80 → 90.21%). P04 returning recalls on Graz are 69.53% imagery, 64.75% subtraction and 71.29% word generation. On BrainHero its word recall is 69.56%, and imagery ↔ word accounts for 45.51% of its errors. This comparison changes both fit enrollment and the live routing path.
 
 ### Interface and position
 
@@ -114,6 +116,12 @@ Rows show true-class recall distributions. Columns within each triple are 0 moto
 | 96 | 15 | 4 | 13.19 | 12.95 |
 | 103 | 1 | 1 | 0.62 | 0.60 |
 
+Graz has exactly 32 windows of each class in every cell. BrainHero class prevalence ranges from 31.18% to 34.44%. Most of the deficit lies in cells with 96 windows because they account for 19 of the 36 cells.
+
 ## Existing causal evidence
 
-Fable Round 3’s eight held-out orders measured the nine25 checkpoint oracle at +2.09 pp held-new and +1.04 pp returning (+1.57 pp at 50/50). The held-new advantage fell from +8.50 pp for deliveries 1–10 to +0.99 pp for 41+. The frozen checkpoint used future windows and measures available adaptation information. Last Push’s causal alternatives already tested 40% Team B, early Rebalance and delayed SessionEM. The selected configurations gave −0.09 to +0.07 pp at 50/50 on ba_six, with all intervals spanning zero. [Fable Step 0](fable_round3.md#held-out-ceiling-and-team-b-diagnostics-on-orders-7130871315) · [Last Push](last_push_21nov.md#held-out-result-on-7180871815)
+Fable Round 3’s eight held-out orders measured the nine25 checkpoint oracle at +2.09 pp held-new and +1.04 pp returning, or +1.56 pp [1.00, 2.25] at 50/50. The held-new advantage fell from +8.50 pp for deliveries 1–10 to +0.99 pp for 41+. The frozen checkpoint used future windows and measures available adaptation information. Last Push’s causal alternatives already tested 40% Team B, early Rebalance and delayed SessionEM. The selected configurations gave −0.09 to +0.07 pp at 50/50 on ba_six, with all intervals spanning zero. [Fable Step 0](fable_round3.md#held-out-ceiling-and-team-b-diagnostics-on-orders-7130871315) · [Last Push](last_push_21nov.md#held-out-result-on-7180871815)
+
+## Native stage interim · 15:15 CET
+
+The first two fit orders (71800–71801) have exact captured labels for both stacks and all 36 cells. For ba_six, SessionEM adds +1.64 pp held-new and loses −1.39 pp returning. The returning loss is −2.38 pp on BrainHero. Count filtering loses −0.13/−0.38 pp held-new/returning, and MANAS adds +0.55/+1.09 pp. The perfect-identity intervention adds +2.01 pp on P04 and +0.01 pp on P10. These are two-order diagnostics. The count-filter observation preregistered one additional terminal test before any candidate fit or held-out scoring. [Ledger](../../docs/LEDGER.md#bottleneck-review--21-november-registered-before-analysis)

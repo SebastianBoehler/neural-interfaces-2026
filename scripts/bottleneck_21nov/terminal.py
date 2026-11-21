@@ -8,6 +8,7 @@ from tapes import PEOPLE, joint, paired
 
 MANAS = (0.10, 0.05, 0.15, 0.0, 0.20)
 CSP = (1.0, 0.5, 1.5)
+COUNT = (0.0, 0.5, 1.0)
 
 
 def mix_manas(case, score, weight=0.10):
@@ -18,14 +19,14 @@ def manas(weight):
     return lambda case: mix_manas(case, case.scores["csp"], weight)
 
 
-def csp(multiplier):
+def csp(multiplier, count_bypass=0.0):
     def score(case):
         base = case.scores["count"]
         active = case.scores["csp_active"]
-        q = base.copy()
+        q = (1 - count_bypass) * base + count_bypass * case.scores["own"]
         log_base = np.log(np.clip(base[active], 1e-6, 1))
         relative_evidence = np.log(case.scores["csp"][active]) - log_base
-        logits = log_base + multiplier * relative_evidence
+        logits = np.log(np.clip(q[active], 1e-6, 1)) + multiplier * relative_evidence
         weights = np.exp(logits - logits.max(axis=1, keepdims=True))
         q[active] = weights / weights.sum(axis=1, keepdims=True)
         return mix_manas(case, q)
@@ -37,7 +38,9 @@ def candidate(score):
 
 
 def arms(roster):
-    tests = {"Class 1/2 log odds": (GRID, offset), "CSP evidence multiplier": (CSP, lambda w: candidate(csp(w)))}
+    tests = {"Class 1/2 log odds": (GRID, offset),
+             "CSP evidence multiplier": (CSP, lambda w: candidate(csp(w))),
+             "Count-filter bypass": (COUNT, lambda w: candidate(csp(1.0, count_bypass=w)))}
     if roster == "ba_six":
         tests["MANAS weight"] = (MANAS, lambda w: candidate(manas(w)))
     return tests

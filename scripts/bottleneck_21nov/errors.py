@@ -54,7 +54,7 @@ def error_summary(cases, orders, interfaces):
                      *(f"{(100 - v) / 2:.2f}" for v in vals)))
     output = [table(["Stack", *labels, "50/50 BA", "New lost pp", "Ret. lost pp"], rows)]
     delta = paired(cases, models[1], models[0], orders)
-    output.append("Paired ba_six gain in pp [80% interval], held-new / returning / 50/50: "
+    output.append("Paired ba_six gains in held-new / returning / 50/50 order were "
                   + " · ".join(fmt_ci(delta[c]) for c in ("new", "ret", "J")) + ".")
     if abs(delta["J"][0] - 0.3566) > 0.0001:
         raise ValueError(f"failed to reproduce reference 50/50 delta: {delta}")
@@ -80,12 +80,13 @@ def error_summary(cases, orders, interfaces):
                            f"{(100 - v[ROSTERS[1]]) / (2*n_cells[cohort]):.2f}")
         rows.append((cohort, person, visit, visit_score, *summary))
     output.extend(["### Sessions and cells",
-                   "Each cell shows window count · nine25/ba_six BA% · nine25/ba_six lost 50/50 pp.",
+                   "Visit BA averages the two interface cells. Each interface cell shows window count · "
+                   "nine25/ba_six BA% · nine25/ba_six lost 50/50 pp.",
                    table(["Cohort", "Person", "Visit", "Visit BA%", *interfaces], rows)])
     top = sorted(sizes, key=lambda k: (100 - sizes[k][1]["ba_six"]) / n_cells[k[0]], reverse=True)[:5]
     ranked = [f"{p}/{s} {i} ({c}, {(100 - sizes[(c,p,s,i)][1]['ba_six']) / (2*n_cells[c]):.2f} pp)"
               for c, p, s, i in top]
-    output.append("Largest ba_six cell losses in rank order: " + ", ".join(ranked) + ".")
+    output.append("The five largest ba_six cell losses were " + ", ".join(ranked) + ".")
     rows = []
     for cohort in PEOPLE:
         for label, dims in [*((interface, {"interface": interface}) for interface in interfaces),

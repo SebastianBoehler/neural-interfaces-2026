@@ -26,6 +26,33 @@ def members(case):
     return np.concatenate(groups, axis=1)
 
 
+def member_names(case):
+    scores = case.scores
+    names = ["core1", "core2", "rest"]
+    names.extend(f"raw net {i}" for i in scores["net_ids"][0])
+    names.extend(f"hard actor {i + 1}" for i in range(scores["hard_actors"].shape[1]))
+    names.extend(f"Team B member {i + 1}" for i in range(scores["team_members"].shape[1]))
+    if "manas" in scores:
+        names.append("MANAS")
+    return names
+
+
+def member_report(cases):
+    names = member_names(cases[0])
+    weights, hits = defaultdict(float), defaultdict(lambda: np.zeros(len(names)))
+    for case in cases:
+        if member_names(case) != names:
+            raise ValueError("inconsistent member IDs across captured folds")
+        weights[case.cohort] += case.weights.sum()
+        hits[case.cohort] += case.weights @ (members(case).argmax(2) == case.y[:, None])
+    rows = []
+    for c in PEOPLE:
+        score = 100 * hits[c] / weights[c]
+        best = np.argsort(-score, kind="stable")[:3]
+        rows.append((c, *(f"{names[i]} {score[i]:.2f}%" for i in best)))
+    return table(["Cohort", "Best member", "Second", "Third"], rows)
+
+
 def endpoints(case):
     s = case.scores
     return np.concatenate([np.stack([s[k] for k in ("raw", "hard", "team", "blend", "routed",
@@ -75,13 +102,7 @@ def pooling(cases, interfaces):
     grid = np.mean(list(per_interface.values()), axis=0)
     best = np.unravel_index(np.argmax(grid + (BLEND == 0) * 1e-10), grid.shape)
     endpoint_names = ["raw", "hard", "Team B", "blend", "routed", "Rebalance", "SessionEM", "TSEM",
-                      "own-space", "count", "CSP", "core1", "core2", "rest"]
-    exemplar = cases[0].scores
-    endpoint_names += ([f"raw net {i}" for i in exemplar["net_ids"][0]]
-                       + [f"hard actor {i+1}" for i in range(exemplar["hard_actors"].shape[1])]
-                       + [f"Team B member {i+1}" for i in range(exemplar["team_members"].shape[1])])
-    if "manas" in exemplar:
-        endpoint_names.append("MANAS")
+                      "own-space", "count", "CSP", *member_names(cases[0])]
     reference = grid[0, 0]
     rows = []
 
@@ -158,6 +179,7 @@ def ceiling_report(cases, orders, interfaces):
         d = score(selected, controls[-1][1], "ret") - score(selected, pred(BASELINE), "ret")
         by_person.append(f"{person} {d:+.2f} pp")
     return "\n\n".join([
+        member_report(cases),
         table(["Oracle / diagnostic", "New Δ pp", "Ret. Δ pp", "50/50 Δ pp"], rows),
         table(["Terminal pool", "50/50 Δ pp", "Selected blend"], pooling(cases, interfaces)),
         "Returning forced-recognition deltas are " + " and ".join(by_person) + ".",
