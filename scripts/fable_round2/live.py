@@ -46,7 +46,7 @@ def fold_model(data, fold, work, source_patch=None):
     return model, receipt["weights_sha"], B.sha(source.encode())
 
 
-def stream(template, signals, rows, zero=False, capture=None):
+def stream(template, signals, rows, zero=False, capture=None, inspect=None, finish=None):
     _, official = D.official()
     model = official.fresh_model(template)
     if zero:
@@ -65,8 +65,12 @@ def stream(template, signals, rows, zero=False, capture=None):
         label = model.predict(signals[row:row + 1].to(DEVICE))
         assert label.shape == (1,) and label.dtype == torch.int64 and label.item() in (0, 1, 2)
         labels.append(label.item())
+        if inspect is not None:
+            inspect(model)
     assert not model.dead and model.log6["err"] == 0 and model.log6["v6"] == len(rows), model.log6
     assert not model.cp.dead and not model.cf.dead and model.cp.log["err"] == model.cf.log["err"] == 0
+    if finish is not None:
+        finish(model)
     return np.asarray(labels, dtype=np.int8)
 
 
