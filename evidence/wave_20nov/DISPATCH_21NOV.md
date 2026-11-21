@@ -70,3 +70,5 @@
 - Fable Round 2 · 04:14 CET, preregistered at `c2b3024e`, diagnostic source `63204ad1`. Leonardo `cap250/runs/fable-round2-21nov`: v3 and pinned lead/zero/encoder smoke 65005366 → ocular diagnostics 65005372 and 12-fold encoder tape array 65005374 → decile collector 65005376. The existing hard/nine25 tapes are orders 71124–71131, with all 16 prospective selection and confirmation orders still blind. [Card](fable_round2.md)
 
 - Fable Round 2 · 04:18 CET, retry source `ee9ba37d`. The data channels already match the ZIP order. The encoder-only instrument now passes each native 41 × 480 window directly. Replacement smoke 65005599 → ocular 65005601 and encoder 65005602 → collector 65005603. Original dependent jobs canceled before scoring.
+
+- Fable Round 2 · 04:26 CET, source `5c88c299`. A100 65005599 passed v3, the 190-window lead and blend-zero labels, and encoder-to-live posterior parity. The next jobs stopped at filenames that store two orders per NPZ. Retried with validated in-file order keys and all 144 fold/session/order pairs checked in smoke 65005898 → ocular 65005901 and encoder 65005903 → collector 65005904.
