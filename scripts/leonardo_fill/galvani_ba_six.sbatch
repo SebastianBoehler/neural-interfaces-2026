@@ -23,6 +23,9 @@ export BENCHOPT_DATA_HOME="$run/src/data" PYTHONPATH="$run/src/2026-competition"
 container() { apptainer exec --nv --bind "$work" "$repo/runs/cloud/ni26_worker.sif" python -B "$@"; }
 cd "$run/src"
 stage=${1:?}
+prod_receipt=production.sha
+niv_receipt=niv.sha
+extra_arms=()
 if [[ $stage == turing-* ]]; then
     src="$run/turing-checked-source/submissions/final_stack"
     export PYTHONPATH="$run/src/submissions/final_stack:$PYTHONPATH"
@@ -33,6 +36,7 @@ if [[ $stage == turing-* ]]; then
                 | tee "$run/turing-checked-production.sha"
             container "$src/patch_ba_six_fp16.py" "$run/zips/$niv.zip" "$run/zips/${niv}_fp16_turing.zip" niv \
                 | tee "$run/turing-checked-niv.sha"
+            exit
             ;;
         turing-smoke|turing-ident)
             read -r sha _ < "$run/turing-checked-production.sha"
@@ -40,10 +44,19 @@ if [[ $stage == turing-* ]]; then
             if [[ $stage == turing-ident ]]; then flags=(--part "${SLURM_ARRAY_TASK_ID:?}"); fi
             container "$src/check_ba_six_fp16.py" "$run/zips/$candidate.zip" "$run/zips/$turing.zip" "$sha" \
                 data/proteus_windows.npz "$run/out/$stage-$SLURM_JOB_ID.json" "${flags[@]}"
+            exit
+            ;;
+        turing-zero|turing-unprofiled|turing-pair-lead|turing-niv-*)
+            read -r original_sha _ < "$run/production.sha"
+            extra_arms=("$candidate=$original_sha")
+            candidate=$turing
+            niv=${niv}_fp16_turing
+            prod_receipt=turing-checked-production.sha
+            niv_receipt=turing-checked-niv.sha
+            stage=${stage#turing-}
             ;;
         *) exit 2 ;;
     esac
-    exit
 fi
 if [[ $stage == build ]]; then
     script=submissions/final_stack/patch_ba_six_fc.py
@@ -53,7 +66,7 @@ if [[ $stage == build ]]; then
         "$run/zips/$niv.zip" niv | tee "$run/niv.sha"
     exit
 fi
-read -r sha _ < "$run/production.sha"
+read -r sha _ < "$run/$prod_receipt"
 [[ ${#sha} == 64 ]]
 case "$stage" in
     smoke|zero|identity)
@@ -67,7 +80,8 @@ case "$stage" in
     unprofiled)
         export PYTHONPATH="$run/src/submissions/final_stack:$PYTHONPATH"
         container "$run/unprofiled-source/submissions/final_stack/e2e_timing.py" "$run/zips" data/proteus_windows.npz \
-            "$run/out/e2e-unprofiled-$SLURM_JOB_ID.json" "v66_cp1_cap250=$cap_sha" "$lead=$lead_sha" "$candidate=$sha" --unprofiled
+            "$run/out/e2e-unprofiled-$SLURM_JOB_ID.json" "v66_cp1_cap250=$cap_sha" "$lead=$lead_sha" \
+            "${extra_arms[@]}" "$candidate=$sha" --unprofiled
         ;;
     pair)
         container friday/qualify_package.py pair "$run/zips/$candidate.zip" "$run/out/pair-$SLURM_JOB_ID" \
@@ -84,7 +98,7 @@ q.main()
             --ref-zip "$run/zips/$lead.zip" --expect-sha "$sha"
         ;;
     niv-*)
-        read -r sha _ < "$run/niv.sha"
+        read -r sha _ < "$run/$niv_receipt"
         [[ ${#sha} == 64 ]]
         exec bash "$run/src/scripts/breakthrough21/niv.sbatch" "${stage#niv-}" "$niv" "$sha" 71840
         ;;
