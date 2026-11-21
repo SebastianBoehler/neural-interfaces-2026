@@ -1,5 +1,7 @@
 # Final `ba_terminal` package · 21 November 2026
 
+**Result.** The archive passed fold provenance, zero-dose parity, and eager/graph label parity. Both RTX 2080 Ti projections exceeded 3,600 s, and the Scherer B-ret result triggered the registered flag. Qualification finished by 05:26:49 CET.
+
 `ba_terminal` keeps the exact hard-only Team B nine25 mixer and blends 10% of the B6 MANAS A1 posterior at the final decision, after count filtering and CSP. It softmaxes CSP log scores only when CSP fused the current window. The external and public fit weights stay in their original precision.
 
 | Archive | Bytes | SHA-256 |
@@ -43,6 +45,9 @@ End-to-end timing counterbalanced cap250, hard+nine25, and both MANAS paths on s
 |---|---:|---:|---:|---:|---:|
 | A100 65006726 | 113.08 | +20.56 | +6.09 | 3,235.4 s | **3,090.6 s** |
 | RTX 2080 Ti 3146131, cn111 | 133.04 | +55.51 | +17.18 | 4,121.5 s | **4,016.6 s** |
+| RTX 2080 Ti 3146187, cn114 | 131.45 | +43.03 | +15.96 | 3,900.1 s | **3,741.3 s** |
+
+Both RTX 2080 Ti placements miss the 3,600 s proxy by 141–417 s. Most between-node variation came from the hard+nine25 increment. The MANAS graph adds 15.96–17.18 ms/window over that parent on RTX 2080 Ti. The repeat ran on a second shared node because Slurm forecast the exclusive allocation after the cutoff.
 
 ## Team A provenance
 
