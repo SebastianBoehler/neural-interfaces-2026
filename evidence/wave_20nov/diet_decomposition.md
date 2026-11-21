@@ -68,6 +68,8 @@ Held-new parity completed at **21:10:59 CET**, with 0/379 label changes and no r
 
 **Arm c qualified at 21:22:53 CET**, before the 22:30 CET cutoff. The local ZIP's SHA-256 was verified again after both jobs completed. No Codabench upload was made.
 
+The subsequent [fresh PROTEUS confirmation and final decision](arm_c_confirmation.md) record the 72120–72123 replay, the unchanged em_half repeatability check and the selected archive.
+
 ## Galvani final fill
 
 Registered before dispatch. All scoring and timing ran through Slurm. The unprofiled timing uses the same signed archives, warm-up and six measured sessions as job `3150614`. Nine node-pinned repeats were submitted at 21:26 CET:

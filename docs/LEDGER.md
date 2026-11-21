@@ -35,6 +35,8 @@ Registered at 21:10 CET before dispatch or scoring. Freeze the production `cba9b
 
 Require replay v3 OK and the P10 visit-3 smoke to exercise recognised SessionEM under both schemes. Verify unchanged native control, exact causal prefixes, and exact label parity with the live arm c fold Solver within each scheme. Use 2e−5 tolerance for route and terminal probabilities. The already registered 2080 Ti exact-archive qualification remains the upload gate. A sign reversal here informs the handoff if the fresh report lands by the cutoff. [Run record](../evidence/wave_20nov/diet_decomposition.md)
 
+**Fresh result, 21:41 CET.** All 48 Leonardo tasks and collector `65060168` passed. Arm c gained +0.089 pp [80% −0.001,+0.179] at 50/50 full-session and +0.080 pp [−0.047,+0.197] within-run. Pooled returning +0.169 pp. No false recognitions and 0/21,240 held-new labels changed across both schemes. The exact archive cleared the board's runtime bar (+0.346%), warm-up and 379-window zero. Same-node em_half repeat `3150635` had 0/379 changed labels and 7.70e−6 max posterior drift. The team selected `cba9b208…0bca` for handoff. [Decision and receipts](../evidence/wave_20nov/arm_c_confirmation.md)
+
 ## Final hard-only Team B confirmation · 21 November (registered 03:55 CET, before any timing, NI-V or confirmation score below was read)
 
 Comparators and candidates: the four upload-candidate ZIPs of [final_hard_teamb.md](../evidence/wave_20nov/final_hard_teamb.md) and [cb_speed.md](../evidence/wave_20nov/cb_speed.md), pinned by SHA-256 (Galvani copy `ni26_final_confirm_20261121/zips`). Smokes (Galvani 3145716 hard nine25, 3145717 hardcb nine25 graph) ran before this entry and score nothing.
