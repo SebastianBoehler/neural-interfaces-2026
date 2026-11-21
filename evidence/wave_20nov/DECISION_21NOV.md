@@ -86,6 +86,28 @@ Receipts checked through 17:40 CET. PROTEUS deltas are balanced-accuracy percent
 
 Signed quarter `42fb63cf1ae9f54cf48315b00894b3788bc65400e75e06bd208ffe3753c43b07` vs em_half `833a28721b0de0fa34f94de0328284ca9643cbaccc2dd343926f19c254949a4d`. Both local hashes match. The quarter source matches the registered patch, and its archive member inventory and CRCs differ only for `submission.py`. Local `replay/check.py` printed `OK`. Evidence cutoff 20:05 CET. [Preregistration](../../docs/LEDGER.md#quarter-final-checks--21-november-preregistered-at-1814-cet) · [Qualification](fable_r6_diet.md#production-qualification)
 
-- **Galvani Scherer NI-V.** Orders 71864–71871, nine people, both shuffles, Scherer-free parent and the same visit-1 enrolment overlays for B-ret. Build `3149216` produced the NI-V quarter ZIP `bf8411e27dfeb86cda4f3dae03c08f0ee2a66e1882801fcc4d6479dbb8ab71f1`. Smokes `3149217/18`, B-ret/B-new replays `3149219/20`, cohort collectors `3149221/22` and 50/50 collector `3149223`.
-- **Scherer B-ret completed at 18:34 CET and triggered the registered transfer flag.** Quarter scored 55.29% vs 55.96% for em_half on full-session shuffle, −0.67 pp [80% −1.49, +0.17]. Within-run delta was −1.55 pp [−2.44, −0.69]. All 72 B-ret streams recognised in each scheme. Full-session changed 651/8,400 labels, all from the latch onward. Collector `3149221` wrote `out/report-ret.json` (SHA-256 `51ef2b7de8cde10da038e1a78932795e4fdef1dcbc501b5fbfff11acb25a9762`). B-new and joint results pending.
-- **Leonardo PROTEUS pending.** Fresh orders 72000–72015, P04/P10 visits 2–3 and ten held-new folds. Smoke `65047956`, 96 two-order fold shards `65047957`, collector `65047971`. The collector uses the Fable R6 metric and 20,000 people-nested draws.
+**Galvani Scherer NI-V completed at 18:49 CET.** Eight orders (71864–71871), nine people and identical visit-1 enrolment overlays for B-ret. Scherer-free em_half `376e0f26ac1660e8330df8a0100a74cc82b3f3b0858a7a77433de7149bac823b` and source-only quarter `bf8411e27dfeb86cda4f3dae03c08f0ee2a66e1882801fcc4d6479dbb8ab71f1`. Deltas are quarter minus em_half in balanced-accuracy percentage points, with paired people/order 80% intervals.
+
+| Cohort | Full-session shuffle | Within-run shuffle | Full-session labels changed |
+|---|---:|---:|---:|
+| B-new | 0.00 [0.00, 0.00] | 0.00 [0.00, 0.00] | 0 / 17,040 |
+| B-ret | −0.67 [−1.49, +0.17] | −1.55 [−2.44, −0.69] | 651 / 8,400 |
+| 50/50 | −0.34 [−0.76, +0.07] | −0.78 [−1.22, −0.35] | |
+
+The B-ret full-session point triggered the registered transfer flag (≤−0.50 pp), with quarter at 55.29% and em_half at 55.96%. B-ret recognised in all 72 streams per scheme, and labels matched before recognition. B-new recognised in none of the 144 streams per scheme. The within-run 50/50 interval is half the B-ret interval because B-new had exact identity. Smokes `3149217/18` reproduced the pinned 71840 em_half labels, changed 8/120 B-ret labels from the latch onward and changed 0/240 B-new labels.
+
+Replays `3149219/20` and collectors `3149221/22/23` completed. Receipts under `ni26_quarter_final_20261121/` are `out/report-ret.json` (`51ef2b7de8cde10da038e1a78932795e4fdef1dcbc501b5fbfff11acb25a9762`), `out/report-new.json` (`1016ef7956d786debb09cf4170801138cbfd2a09bda5f5c73879488203acc24a`) and `niv-results/report.json` (`da1d2838f45c2cfd9cc8c38c46d3dd65acc0344f973c2b485bdbe54fd6c6d32a`). Harness commit `566dec75`.
+
+**Leonardo PROTEUS completed at 18:53 CET.** Sixteen fresh full-session orders (72000–72015), P04/P10 visits 2–3 and ten held-new folds. The returning gain replicated on the same people. The held-new identity prediction failed.
+
+| Cohort | em_half BA | Quarter BA | Δ pp [80% interval] | Labels changed |
+|---|---:|---:|---:|---:|
+| Held-new | 74.540% | 74.524% | −0.016 [−0.041, 0.000] | 23 / 42,480 |
+| Returning | 81.681% | 82.070% | +0.389 [+0.156, +0.667] | 484 / 12,192 |
+| 50/50 | 78.111% | 78.297% | +0.186 [+0.070, +0.327] | |
+| P04 returning | | | +0.513 [+0.081, +0.947] | |
+| P10 returning | | | +0.265 [+0.091, +0.437] | |
+
+All 23 held-new changes were on P10 visit 1 after the native gate falsely recognised P03. Orders 72003, 72008 and 72011 latched at deliveries 98, 14 and 108, with 10, 6 and 7 changed labels respectively. The other held-new streams did not recognise. All 64 returning streams recognised correctly. The Fable R6 collector used 20,000 people-nested draws for the cohort intervals and order draws for each named person.
+
+Smoke `65047956` passed v3, 189 pinned em_half labels, exact live half/quarter prefix labels and the fresh full-session smoke. All 96 replays in `65047957` completed. Collector `65047971` failed against a staged statistics helper without nested-order support. Retry `65050170` used helper revision `b037320f` with the same completed shards and wrote `cap250/runs/quarter-final-21nov/report.json` (SHA-256 `6b4dacd0592b0ecf755ea158c25caa0a81e81eb1c26057fa985cbe24ca0ba880`). The staged worker used the original full-session shuffle for these seeds. Local collection using the explicit full-session scheme in `4b28a8fa` revalidated every delivery row and reproduced the cluster report.
