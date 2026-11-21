@@ -104,3 +104,7 @@
 - Fable Round 3 · Galvani public smoke 3146352 used committed source `cabc1e92`. It passed both blend paths on 72 signed-lead windows, including the Bet 2 weights 0/0 and 1/1 against their original stage outputs.
 
 - Fable Round 3 · Galvani state-only smoke 3146353 checks the frozen checkpoint after live fine-tuning and CSP on 100 unrecognized public Scherer windows. Neither public smoke measures accuracy or selects a setting.
+
+- Fable Round 3 · Galvani source-only smoke 3146355 checks that the two prospective source changes reproduce the live Bet 1 and tape-based Bet 2 formulas, and verifies their disabled controls. It uses temporary unpacked source on public windows. The exact-fold authentication probe at 07:09 CET still returned `Permission denied`.
+
+- Fable Round 3 · source-only smoke 3146355 resolved the scratch builder name to Lane TB's `package.py` before inference. Renamed the scratch builder and re-dispatched 3146356.

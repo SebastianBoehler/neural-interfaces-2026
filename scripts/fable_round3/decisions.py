@@ -1,7 +1,9 @@
 """Score Round 3 instruments and freeze both prespecified fit choices."""
 import argparse
 import json
+import os
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
 
@@ -164,10 +166,12 @@ def main():
         assert prev["folds"] == identity
         result = confirm(cases, prev)
     result.update(folds=identity, data_sha=DATA_SHA)
-    with (a.run / f"{a.stage}.json").open("x") as output:
-        json.dump(result, output, indent=2, allow_nan=False)
-        output.write("\n")
-    print(a.stage, digest(a.run / f"{a.stage}.json"), flush=True)
+    target = a.run / f"{a.stage}.json"
+    with TemporaryDirectory(dir=a.run) as scratch:
+        staged = Path(scratch) / target.name
+        staged.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
+        os.link(staged, target)
+    print(a.stage, digest(target), flush=True)
 
 
 if __name__ == "__main__":

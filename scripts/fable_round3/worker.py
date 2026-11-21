@@ -1,6 +1,7 @@
 """Generate blind fold tapes. This worker never computes accuracy."""
 import argparse
 import json
+import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from time import perf_counter
@@ -63,9 +64,11 @@ def pinned_fold(data, fold, weights):
 
 
 def save(path, records):
-    with path.with_suffix(".partial").open("xb") as output:
-        np.savez_compressed(output, **records)
-    path.with_suffix(".partial").rename(path)
+    with TemporaryDirectory(dir=path.parent) as scratch:
+        partial = Path(scratch) / path.name
+        with partial.open("xb") as output:
+            np.savez_compressed(output, **records)
+        os.link(partial, path)
 
 
 def run_trace(model, windows):
