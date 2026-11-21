@@ -85,6 +85,12 @@ Both own-job queues were empty on the 12:11–12:15 CET check. Galvani run `ni26
 
 Galvani build 3147531 completed at 12:21 CET with source `7b845dc0`. Smoke 3147532 gates 379-window CPU zero 3147533, active fused/unfused identity 3147534, and official warm-up pair 3147535. E2E jobs 3147536–3147541 request cn111, cn114, cn116, cn117, cn122 and cn123 respectively. NI-V smokes 3147542/3147543 gate controller 3147545. The Scherer prior for the original Team A terminal is **B-ret −0.52 [−1.01, −0.02] pp**, an external flag under the current decision rule. [Original Scherer result](final_ba_terminal.md)
 
-Leonardo source `e00c77b5`. Fused fold smokes 65023503–65023505 gate 65023506. The controller releases nine prep tasks, then 96 replays under full shuffle on 71800–71815 and the paired 50/50 collector. P01/P04/P10 must pass v3, pinned and zero checks before the array.
+The exact Galvani production ZIP is mirrored in local `runs/sealed/final_zips/` with its SHA verified. The Mac build had different `team_b.pt` serialization bytes and a one-ULP CPU reference difference. All six trained state dictionaries matched bitwise. The Galvani bytes are the candidate for every qualification.
+
+Production smoke passed on 144 windows with zero fused/unfused label changes, both graphs active and the exact MANAS terminal formula. Active identity 3147534 completed on 379 windows. NI-V smokes passed, then controller 3147545 released 36 paired B-new tasks 3147546, nine paired B-ret tasks 3147547 and report 3147548.
+
+Official pair 3147535 completed four replays with stable predictive scores, unchanged package files and no v6 errors. Cap250 was 99.4579% and the candidate 100.0000%. The runner exited 1 because the 0.5421 pp increase exceeds its symmetric 0.5 pp tolerance. Registered a second official pair against the signed fused lead, whose prior official BA is 99.5923%. Job 3147630 uses the same tolerance and official scorer. [Fused lead’s official pair](teamb_overhead.md)
+
+Leonardo source `e00c77b5`. All three fused fold smokes 65023503–65023505 passed v3, exact pinned rows and labels, zero and active graph checks. Controller 65023506 released nine prep tasks 65023987, 96 replays 65023988 on 71800–71815 and paired collector 65023989.
 
 The 08:08 CET Leonardo snapshot showed 26 running and 270 pending. This lane had 11 running and 187 pending. Codex heartbeat checks every 50 minutes and will retain the verified queue gaps in this card.

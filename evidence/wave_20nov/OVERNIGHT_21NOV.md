@@ -108,3 +108,4 @@ Run `cap250/runs/ni26-afternoon-71900` on AIFAC_P02_1636. Submitted at 12:36 CET
   jq 'to_entries[] | select(.value | type == "object" and has("projected_s")) | {arm: .key, warm_ms: .value.ms_per_window, added_ms: .value.added_vs_ref_ms, projected_s: .value.projected_s}' /tmp/ni26-afternoon-71900/e2e-*.json
   jq '.contrasts | map_values({mean_50_50, ci80_50_50, new: .new.mean, returning: .returning.mean})' /tmp/ni26-afternoon-71900/confirmation.json
   ```
+- 12:40 CET afternoon receipts. Galvani paired Scherer arrays 3147546/3147547 and report 3147548. Official cap250 pair 3147535 ran all four replays and missed the symmetric score tolerance at +0.542 pp. Signed fused-lead official pair 3147630 queued. Leonardo prep 65023987, confirmation 65023988 and report 65023989 were released after all three fused-fold smokes.
