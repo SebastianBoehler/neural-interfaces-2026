@@ -8,10 +8,26 @@ import numpy as np
 import torch
 
 from capture import DATA_SHA, V, capture, fixture_assets, load, open_fold, pin, replay, sessions
+from new_cohort_vote import count_terminal
 
 ROSTER = "ba_six"
 STARTS = (71804, 71806, 71812, 71814)
 FIELDS = ("hard", "team", "own", "count", "csp", "csp_active", "manas", "terminal", "label", "recognised")
+
+
+def check_count(model, items, captured):
+    active = ~captured["recognised"]
+    if not active.all():
+        raise ValueError("count-control stream was recognised")
+    labels, scores = replay(model, items, "count_control", before_route=lambda _route, _item: False)
+    rebuilt = count_terminal(captured, active)
+    np.testing.assert_allclose(rebuilt, scores, rtol=0, atol=1e-7)
+    np.testing.assert_array_equal(rebuilt.argmax(1), labels)
+    changed = np.count_nonzero(labels != captured["label"])
+    if not changed:
+        raise ValueError("live count-control path did not change any labels")
+    print(f"PASS reconstructed B matches live Last Push bypass on {len(labels)} windows "
+          f"with {changed} changes and max posterior difference {np.max(np.abs(rebuilt - scores)):.3g}", flush=True)
 
 
 def main():
@@ -19,9 +35,12 @@ def main():
     for name in ("data", "fixtures", "out"):
         parser.add_argument(name, type=Path)
     parser.add_argument("fold")
-    parser.add_argument("first", type=int, choices=STARTS)
+    parser.add_argument("first", type=int, choices=(*STARTS, 71800))
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--check-count", action="store_true")
     args = parser.parse_args()
+    if (args.first == 71800) != args.check_count or (args.check_count and args.fold != "new_P01"):
+        raise ValueError("the live count control is pinned to new_P01/1 on 71800")
     if not torch.cuda.is_available() or V.digest(args.data) != DATA_SHA:
         raise ValueError("CUDA and the signed PROTEUS export are required")
     data = V.D.load(args.data)
@@ -36,6 +55,9 @@ def main():
             captured, items = capture(model, signals, rows)
             pin(args.fixtures, args.fold, ROSTER, order, stream, rows, captured["label"], receipt)
             np.testing.assert_array_equal(replay(model, items, "w25")[0], captured["label"])
+            if args.check_count:
+                check_count(model, items, captured)
+                return
             if args.smoke:
                 prefix, _ = capture(model, signals, rows[:32])
                 for name in FIELDS:

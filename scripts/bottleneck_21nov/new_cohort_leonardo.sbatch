@@ -27,5 +27,9 @@ case "${1:?}" in
         starts=(71804 71806 71812 71814)
         exec bash "$launcher" "$worker" "$CAP250_DATA" "$base/grow" "$out" "${folds[i % 12]}" "${starts[i / 12]}"
         ;;
+    count-control)
+        worker="$run/control/new_cohort_capture.py"
+        exec bash "$launcher" "$worker" "$CAP250_DATA" "$base/grow" "$out" new_P01 71800 --check-count
+        ;;
     *) exit 2 ;;
 esac
