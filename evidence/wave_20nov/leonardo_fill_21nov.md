@@ -28,6 +28,8 @@ Absolute BA by held-new / returning: hard 73.32% / 79.31%, nine15 73.98% / 79.96
 
 At 09:23 CET the queue had five running and one pending. I registered a second disjoint 32-order block (71600–71631) to check the returning order dependence and restore the queue. It uses the same folds, bank and inference path. Source `674930c0`, run `cap250/runs/leonardo-fill-retest-21nov`. The collector will report the new 32 and a pooled 64 with the original orders.
 
+Retest smokes 65014371–65014373 passed all original pinned labels, zero and v3 checks. Leonardo accepted arrays 65014554/65014555 (96 tasks each) and collector 65014556. The 09:32 CET submission snapshot showed 25 running and 225 pending across the account, plus one completing.
+
 ## Bank growth within +8 ms/window on A100
 
 Source `be01260a`. The three arms are `swap25`, `fbc12` and `ba_six`. The first changes three Team B members at fixed count. The second adds three fitted FBC members. The third uses six Team B members and the existing graph-based MANAS A1 terminal path. All four variants assembled from the real P01 banks locally, and the signed lead source reproduced byte-for-byte from its production bank. Growth live smokes 65011663–65011665 passed at 08:15 CET. They matched the lead and zero-control labels on 565 windows each, verified both CUDA graph sizes, and checked the exact MANAS terminal blend and session-local state.
@@ -43,5 +45,9 @@ At 08:15 CET controller `e8db6272` released nine remaining fold fixtures (650118
 Timing used 757 windows per arm across the four paired A100-SXM-64GB sessions. The `ba_six` pair deltas were −0.65, +2.56, +2.77 and +4.27 ms/window. The reference loaded first at both placements and its load time varied, so the negative load deltas are startup-order diagnostics. The decision uses the counterbalanced full-window times, including fresh-session setup. `selection.json` SHA-256 `f1c8cae836f681d9940c5e7eff03afb11f91efc3693556ab652172d7c0503ff0`.
 
 The 96 held-out tasks (65013453) and report 65013454 completed by 09:26 CET. `ba_six` versus nine25 was **−0.10 [−0.39, +0.16] held-new and +0.70 [+0.41, +0.99] returning** across 16 disjoint orders. P04 +0.71, P10 +0.69, J +0.30 [80% +0.09, +0.50], and unverified 57/43 proxy +0.24. The held-new point and lower bound miss the promotion rule. The signed nine25 bank remains the lead from this lane.
+
+## Second bank growth wave
+
+Source `30074abb`, run `cap250/runs/leonardo-fill-roster-21nov`. The screen uses 71700–71715. `triseed25` spreads nine Team B members evenly across three existing fit seeds. `ba_seven` and `ba_eight` retain more of the original Team B bank and keep the same MANAS terminal term. All three assembled from the original trained P01 banks, with fresh signed CPU references. The same +8 ms/window A100 cap and growth retention rules apply. The confirmation orders are 71716–71731.
 
 The 08:08 CET Leonardo snapshot showed **26 running and 270 pending**, including Fable Round 3 and this lane. This lane had 11 running and 187 pending. Codex heartbeat is scheduled every 50 minutes from 08:57 CET in this thread to continue collection and dispatch through 18:00 CET.
