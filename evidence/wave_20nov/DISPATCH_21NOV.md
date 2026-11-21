@@ -125,3 +125,11 @@
 
 - Leonardo fill · 08:08 CET. Finalists S1/S2 collectors 65011278/65011279 ran on the existing tapes. Three-seed robustness passed and S2 was read before dispatch. Dose source `4a3d7872`, checks 65011374–65011376 passed, then 65011605 (71400–71415) and 65011606 (71416–71431), 96 tasks each. Collectors 65011607/08/09 wait for the first, second and both arrays. Slurm had already retired the completed smoke dependencies when the first array submission was rejected. On resubmit, the completed statuses and all three exact pass receipts were verified before dispatch.
 - Leonardo fill · 08:08 CET. Growth source `be01260a`, live smokes 65011663–65011665 for P01/P04/P10 after the v3 and signed-source checks. Screen, timing and held-out arrays depend on the smoke and freeze results. The +8 ms/window A100 cap is lead-relative. [Protocol and receipts](leonardo_fill_21nov.md)
+
+- Fable Round 3 Bet 3 · Leonardo 65011762, returning anchor and prefix/zero smoke. Anchor source `7810db4c`.
+- Fable Round 3 Bet 3 · Leonardo 65011763, held-new source-patch zero smoke.
+- Fable Round 3 Bet 3 · Leonardo 65011777, 12 enrolled-reference banks, after both smokes.
+- Fable Round 3 Bet 3 · Leonardo 65011778, returning fit orders for n0 4/8/16, after bank preparation.
+- Fable Round 3 Bet 3 · Leonardo 65011779, freeze the returning fit choice using collector `6d9ce38e`.
+- Fable Round 3 Bet 3 · Leonardo 65011780, frozen choice on all held-out folds, after selection.
+- Fable Round 3 Bet 3 · Leonardo 65011781, paired held-out anchor collector.

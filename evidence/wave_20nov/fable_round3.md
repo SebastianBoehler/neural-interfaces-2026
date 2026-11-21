@@ -17,3 +17,18 @@ Signed reference `final_stack_hard_safe_st_team_b_nine25_tbgraph.zip`, SHA-256 `
 Leonardo access returned at 07:39 CET. Exact input paths were verified and the pinned-fold smokes and dependent waves were submitted under `cap250/runs/fable-round3-21nov` from `f4d3714a`. [Slurm job IDs](DISPATCH_21NOV.md)
 
 At 07:48 CET, Leonardo jobs 65010877 and 65010878 had both completed. Each printed v3 `OK`. They matched the hard-only and nine25 pinned order 71124 labels on P01 visit 1 (190 windows) and P04 visit 2 (189 windows). The fit and held-out trace arrays started after both smokes.
+
+## Fit screen on orders 71300–71307
+
+All 96 trace parts completed. Screen 65010881 finished at 08:06 CET. Its [receipt](fable_round3_screen.json) has SHA-256 `7ac1472f61bbad6e0fcd76cc383f8b203d24ee950c0df89e6a0cf288f74755c3`.
+
+- Step 0 frozen gain was **+2.32 [+1.38, +3.36] pp** held-new and **+0.98 [+0.34, +1.61] pp** returning. The returning lead gained 6.77 [2.87, 10.24] pp from windows 1–20 to windows 41+. The two preregistered conditions released Bet 3.
+- Bet 1 Team B rebalance improved first-15-window accuracy by +0.07 [−1.64, +1.64] pp held-new and +1.67 [−1.03, +4.36] pp returning. The fit rule kept the rebalance active from window 1. The base settings are alpha 1.15, prior mass 5 and a 30-window history.
+- Bet 2 hard-final accuracy dropped 26.38 [22.52, 29.52] pp held-new and 30.92 [14.46, 55.82] pp returning on changed windows. Team B trailed hard-final there by **−2.88 [−12.89, +3.97] pp** and **−3.74 [−15.59, +27.07] pp**, respectively. The registered stop rule rejected fitting a weight pair. These are conditional accuracy contrasts.
+
+| Cohort and adaptation set | Hard-final % | Hard pre-EM % | Team B % |
+|---|---:|---:|---:|
+| Held-new, unchanged | 76.35 | 76.35 | 67.19 |
+| Held-new, changed | 49.98 | 36.91 | 47.09 |
+| Returning, unchanged | 83.25 | 83.25 | 76.12 |
+| Returning, changed | 52.33 | 35.39 | 48.59 |
