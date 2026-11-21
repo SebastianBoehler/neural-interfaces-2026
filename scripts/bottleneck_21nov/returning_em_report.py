@@ -19,6 +19,11 @@ def predict(arm):
 
 
 def load_cases(work, data, roster, phase):
+    manifest = json.loads((work / "em_archive_manifest.json").read_text())
+    canonical = {(x["fold"], key): age for x in manifest["active"]
+                 if x["roster"] == roster and x["phase"] == phase
+                 for key, age in x["recognition"].items()}
+
     def read(fold, order, key):
         chunk = order - order % 4
         path = work / "returning_em" / phase / f"{roster}-{fold}-{chunk}.npz"
@@ -32,6 +37,8 @@ def load_cases(work, data, roster, phase):
             age, identity = int(tape[f"rec_{key}"]), str(tape[f"identity_{key}"])
             if not (-1 == age and not identity or 1 <= age <= len(rows) and identity.startswith("P")):
                 raise ValueError("invalid recognition receipt")
+            if age != canonical.get((fold, key), -1):
+                raise ValueError(f"native recognition does not match canonical age: {fold}/{key}")
             prefix = age - 1 if age > 0 else len(rows)
             for arm in ARMS:
                 np.testing.assert_array_equal(labels[:prefix], scores[arm][:prefix], err_msg=f"{fold}/{key}/{arm}")
