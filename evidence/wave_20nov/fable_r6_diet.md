@@ -14,3 +14,7 @@
 ## Causal fold replay
 
 Local v3 replay printed `OK` at 16:33 CET. Leonardo run `cap250/runs/fable-r6-diet-21nov` stages `09c150d5`. Smoke 65040561 gates fit array 65040562 (five tasks, at most three concurrent). The remaining four active slices are held for the frozen fit receipt. Canonical recognition manifest SHA-256 `c4bbc41808d296aa4e2ee18151bf9680ed46f465b83462e94a6be632bed3dd3e`.
+
+The exact-source Mac CPU mechanics smoke passed at 16:48 CET on 56 shuffled public P04/1 windows. All arms latched on delivery 11. Before the latch, every terminal vector and decision matched bitwise. CountFilter consumed 56/10/10 windows for em_half/zero/quarter. Each of SessionEM and TSEM consumed 56/10/56, with both quarter-weight fits active. Rebalance, CSP, Team B and MANAS consumed all 56. Maximum post-latch terminal effect was 0.11007 for zero and 0.06816 for quarter. The smoke used all-data production weights and computed no accuracy.
+
+The local staged-source import check exposed a missing `laneR4` dependency. The Leonardo release received that directory from the same commit before solver execution. The pending smoke time limit was reduced to 12 minutes. Slurm started it at 16:48:55 CET.
