@@ -43,9 +43,13 @@ Paired 80 % intervals resample people, then orders, with official cell weights. 
   (lower bound > 0, P04 and P10 both > 0), but the predicted +1.2 came in at +0.61. Order 71122 was −0.39. With two people,
   the returning interval understates person-level uncertainty. Hard is within ±0.3 of hardcb, as predicted.
 
-## 3 · External NI-V Scherer
-Team B is Scherer-free: PROTEUS only, the train-time assert, and `ext ''` in the shipped `team_b.pt`. The hardcbB + nine25 B-new/B-ret run on the Lane R4
-Leonardo NI-V setup is delegated. Its result goes to `laneTB_verify_niv.md`, or is reported as not run.
+## 3 · External NI-V Scherer ([card](laneTB_verify_niv.md), jobs 64998390/64998410/64998411)
+Team B is Scherer-free: PROTEUS only, `ext ''`. Comparison: hardcbB + nine25 vs hardcbB, 9 people, paired 80 %.
+- B-new, full-session: **+0.01 [−0.29, +0.33]**. Within: −0.19 [−0.71, +0.34].
+- B-ret, full: **−0.23 [−0.74, +0.27]**. Within: −0.10 [−0.86, +0.66].
+- No veto: the −0.3 bar was not crossed. The in-lab gain also does not show up out of lab; every interval contains 0. NI-V magnitude is
+  weak evidence (22/41 channels interpolated, base 48.6 %).
+- Blend-zero smoke: 120/120 labels identical. Blend on changed 12/120.
 
 ## 4 · Hard-only base and budget
 Team B gains as much on hard-only as on hardcb (table). Arithmetic from measured A100 parts gives 2,555 + 20,083 × (11.51 ms hard
