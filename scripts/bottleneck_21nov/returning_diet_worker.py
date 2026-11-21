@@ -79,7 +79,7 @@ def smoke(model, folder, data, signals, rows, items, receipt, age):
     print("PASS exact live labels, route/terminal score tolerance, stage activity and exact tape prefixes", flush=True)
 
 
-def run(a, *, arms=ARMS, intervention=diet, smoke_check=smoke):
+def run(a, *, arms=ARMS, intervention=diet, smoke_check=smoke, smoke_key=None):
     if not torch.cuda.is_available() or V.digest(a.data) != DATA_SHA:
         raise ValueError("CUDA and signed PROTEUS data required")
     blocks = json.loads(a.manifest.read_text())["active"]
@@ -89,7 +89,7 @@ def run(a, *, arms=ARMS, intervention=diet, smoke_check=smoke):
     first = min(int(key.split("_")[0]) for key in active)
     first -= first % 4
     if a.smoke:
-        key = min(active)
+        key = smoke_key if smoke_key is not None else min(active)
         active = {key: active[key]}
     data = V.D.load(a.data)
     signals = torch.from_numpy(data["X"])

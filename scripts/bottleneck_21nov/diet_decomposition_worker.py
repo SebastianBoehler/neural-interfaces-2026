@@ -79,4 +79,7 @@ def smoke(model, folder, data, signals, rows, items, receipt, age):
 
 
 if __name__ == "__main__":
-    r6.run(r6.parser().parse_args(), arms=ARMS, intervention=intervene, smoke_check=smoke)
+    parser = r6.parser()
+    parser.add_argument("--smoke-key")
+    args = parser.parse_args()
+    r6.run(args, arms=ARMS, intervention=intervene, smoke_check=smoke, smoke_key=args.smoke_key)
