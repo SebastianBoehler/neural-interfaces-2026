@@ -6,6 +6,7 @@ from zipfile import ZipFile
 
 from dose import DATA_SHA, V
 from grow_sources import team_a_donor
+from patch_ba_six_fc import LEAD as FC_NAME, LEAD_SHA as FC_SHA
 from patch_team_b_bank import COUNTS, MANAS_ARMS, PARENT_SHA, bank_count, bank_for, once, patch_bank, with_manas
 
 LEAD = V.W / "ba-terminal-21nov/zips/final_stack_hard_safe_st_team_b_nine25_tbgraph.zip"
@@ -15,16 +16,25 @@ REFERENCE = "nine25"
 WAVES = {
     "growth": (("nine25", "swap25", "fbc12", "ba_six"), tuple(range(71500, 71508)), tuple(range(71508, 71524))),
     "roster": (("nine25", "triseed25", "ba_seven", "ba_eight"), tuple(range(71700, 71716)), tuple(range(71716, 71732))),
+    "ba-confirm": (("nine25", "ba_six"), (), tuple(range(71800, 71816))),
 }
 
 
-def stage(root, fold, data, data_path, arms):
+def lead_for(root, wave):
+    if wave == "ba-confirm":
+        return root.parent / "zips" / f"{FC_NAME}.zip", FC_SHA
+    return LEAD, PARENT_SHA
+
+
+def stage(root, fold, data, data_path, wave):
+    arms, _, _ = WAVES[wave]
+    lead, lead_sha = lead_for(root, wave)
     packs = root / "fixtures"
     packs.mkdir(parents=True, exist_ok=True)
     out = packs / fold
     if out.exists():
         raise FileExistsError(out)
-    if V.digest(LEAD) != PARENT_SHA or V.digest(data_path) != DATA_SHA:
+    if V.digest(lead) != lead_sha or V.digest(data_path) != DATA_SHA:
         raise ValueError("signed lead or PROTEUS data digest differs")
     sources = (V.WEIGHTS, ALT_WEIGHTS, SEED2_WEIGHTS)[:max(bank_count(arm) for arm in arms)]
     origins = [base / fold / "weights.pt" for base in sources]
@@ -37,7 +47,7 @@ def stage(root, fold, data, data_path, arms):
         scratch = Path(temp)
         target = scratch / fold
         target.mkdir()
-        with ZipFile(LEAD) as z:
+        with ZipFile(lead) as z:
             raw = Path(z.extract("submission.py", scratch))
         hard = scratch / "hard"
         hard.mkdir()
@@ -58,7 +68,7 @@ def stage(root, fold, data, data_path, arms):
                 (pkg / "team_a.pt").symlink_to(donor / "weights.pt")
             (pkg / "submission.py").write_text(text)
             (pkg / "team_b.pt").write_bytes(blob)
-            receipts[arm] = dict(data_sha=DATA_SHA, lead_sha=PARENT_SHA, fold=fold, assets=assets,
+            receipts[arm] = dict(data_sha=DATA_SHA, lead_sha=lead_sha, fold=fold, assets=assets,
                                  banks=audits[:bank_count(arm)],
                                  source_sha=V.B.sha(text.encode()), bank_sha=V.B.sha(blob), members=COUNTS[arm],
                                  partner=partner if arm in MANAS_ARMS else None)
@@ -67,11 +77,11 @@ def stage(root, fold, data, data_path, arms):
     print(f"Prepared {fold}: {', '.join(arms)}", flush=True)
 
 
-def open_fold(root, fold):
+def open_fold(root, fold, wave):
     pkg = root / "fixtures" / fold
     receipts = json.loads((pkg / "receipt.json").read_text())
     for arm, receipt in receipts.items():
-        if (receipt["lead_sha"] != PARENT_SHA or receipt["data_sha"] != DATA_SHA or receipt["fold"] != fold or
+        if (receipt["lead_sha"] != lead_for(root, wave)[1] or receipt["data_sha"] != DATA_SHA or receipt["fold"] != fold or
                 V.digest(pkg / arm / "submission.py") != receipt["source_sha"] or
                 V.digest(pkg / arm / "team_b.pt") != receipt["bank_sha"]):
             raise ValueError(f"{fold} {arm}: staged package differs")

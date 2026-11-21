@@ -48,7 +48,10 @@ def restrict(cells, orders):
 
 
 def contrasts(cells, pairs, orders):
-    return {f"{a} - {b}": V.contrast(cells[a], cells[b], orders) for a, b in pairs}
+    comparisons = {f"{a} - {b}": V.contrast(cells[a], cells[b], orders) for a, b in pairs}
+    for result in comparisons.values():
+        del result["proxy_57_43_unverified"]
+    return comparisons
 
 
 def absolute(cells, orders):
@@ -83,10 +86,15 @@ def dose(root, data, orders):
 
 
 def print_contrasts(results):
-    print("| Contrast | Held-new Δ [80%] | Returning Δ [80%] | P04 / P10 | J | 57/43* | Held-new per order |")
-    print("|---|---|---|---|---|---|---|")
+    print("| Contrast | Held-new Δ [80%] | Returning Δ [80%] | P04 / P10 | 50/50 Δ [80%] |")
+    print("|---|---|---|---|---|")
     for name, result in results.items():
-        print(V.line(name, result))
+        n, r = result["new"], result["returning"]
+        p4, p10 = (r["people"][p]["mean"] for p in ("P04", "P10"))
+        def summary(mean, ci):
+            return f"{mean:+.2f} [{ci[0]:+.2f}, {ci[1]:+.2f}]"
+        print(f"| {name} | {summary(n['mean'], n['ci80'])} | {summary(r['mean'], r['ci80'])} | "
+              f"{p4:+.2f} / {p10:+.2f} | {summary(result['j'], result['j_ci80'])} |")
 
 
 def main():

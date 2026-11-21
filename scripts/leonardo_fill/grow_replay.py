@@ -8,7 +8,7 @@ import numpy as np
 import torch
 
 from dose import DATA_SHA, PIN, V, live_check, replay, sessions
-from grow_fixture import COUNTS, MANAS_ARMS, REFERENCE, WAVES, open_fold, prepare_zero, stage
+from grow_fixture import COUNTS, FC_SHA, MANAS_ARMS, REFERENCE, WAVES, open_fold, prepare_zero, stage
 from run import check_zero_mixer
 from team_b_speed_bench import check_features
 from check_ba_terminal import play as check_terminal_blend
@@ -38,6 +38,10 @@ def load(data, pkg, arm, receipt):
     if (model.TEAM_B_MIX != 0.25 or len(model.team_b.nets) != sum(receipt["members"]) or
             (arm in MANAS_ARMS and (model.TEAM_A_MIX != 0.10 or model.team_a is None))):
         raise ValueError(f"{arm}: incorrect live blend or roster")
+    if receipt["lead_sha"] == FC_SHA:
+        fused = sum(getattr(net.body, "fused", None) is not None for net in model.team_b.nets)
+        if fused != sum(receipt["members"][:2]):
+            raise ValueError(f"{arm}: signed fused Team B path is inactive")
     return model, secs
 
 
@@ -114,7 +118,7 @@ def main():
         raise ValueError("PROTEUS data digest differs")
     data = V.D.load(a.data)
     if a.phase in ("smoke", "prepare"):
-        stage(a.run, a.fold, data, a.data, arms)
+        stage(a.run, a.fold, data, a.data, a.wave)
         if a.phase == "prepare":
             return
     if a.phase == "held":
@@ -122,7 +126,7 @@ def main():
         if decision["chosen"] is None:
             print("No candidate met the screen; no held-out scoring")
             return
-    pkg, receipts = open_fold(a.run, a.fold)
+    pkg, receipts = open_fold(a.run, a.fold, a.wave)
     signals = torch.from_numpy(data["X"])
     if a.phase == "smoke":
         smoke(data, signals, a.fold, pkg, receipts, arms)

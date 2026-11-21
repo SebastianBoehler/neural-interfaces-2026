@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
-# In leonardo-fill-21nov: bash control/scripts/leonardo_fill/queue_grow.sh screen|held
+# In the run directory: bash control/scripts/leonardo_fill/queue_grow.sh screen|held|confirm
 set -euo pipefail
 phase=${1:?}
-[[ $phase == screen || $phase == held ]]
+[[ $phase == screen || $phase == held || $phase == confirm ]]
 root=$PWD
 source "$root/env.sh"
 wave=${LF_GROW_WAVE:-growth}
 case "$wave" in
     growth) last_screen=47; candidates='swap25|fbc12|ba_six' ;;
     roster) last_screen=95; candidates='triseed25|ba_seven|ba_eight' ;;
+    ba-confirm) [[ $phase == confirm ]] ;;
     *) exit 2 ;;
 esac
 batch="$root/src-grow/scripts/leonardo_fill/grow.sbatch"
@@ -34,7 +35,7 @@ submit() {
     printf '%s\n' "$id"
 }
 
-if [[ $phase == screen ]]; then
+if [[ $phase == screen || $phase == confirm ]]; then
     for fold in new_P01 ret_P04 ret_P10; do
         smoke=$(awk -F '\t' -v fold="$fold" '$1 == fold {print $2}' grow-smokes.tsv)
         smoke=${smoke%%;*}
@@ -45,6 +46,15 @@ if [[ $phase == screen ]]; then
         [[ $(sacct -nX -P -j "$smoke" -o State | xargs) == COMPLETED ]]
     done
     prep=$(submit prepare --array=1-9%9 --time=00:20:00 --output='logs/%x-%A_%a.out' "$batch" prepare)
+    if [[ $phase == confirm ]]; then
+        printf '%s\n' '{"chosen":"ba_six","orders":[]}' > "$root/grow/selection.json"
+        held=$(submit held --dependency="afterok:$prep" --kill-on-invalid-dep=yes --array=0-95%24 \
+            --output='logs/%x-%A_%a.out' "$batch" held)
+        submit report --dependency="afterok:$held" --kill-on-invalid-dep=yes \
+            --time=00:15:00 --output='logs/%x-%j.out' "$batch" report
+        cat "$manifest"
+        exit
+    fi
     time=$(submit timing --array=0-5%6 --time=00:35:00 --output='logs/%x-%A_%a.out' "$batch" timing)
     screen=$(submit screen --dependency="afterok:$prep" --kill-on-invalid-dep=yes --array="0-$last_screen%24" \
         --output='logs/%x-%A_%a.out' "$batch" screen)

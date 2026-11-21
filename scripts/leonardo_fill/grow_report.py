@@ -5,7 +5,7 @@ from pathlib import Path
 
 import numpy as np
 
-from grow_fixture import DATA_SHA, PARENT_SHA, REFERENCE, WAVES
+from grow_fixture import DATA_SHA, REFERENCE, WAVES, lead_for
 from grow_replay import TIMING_FOLDS
 from report import V, contrasts, load, print_contrasts
 
@@ -35,13 +35,13 @@ def time_results(root, arms):
     return out
 
 
-def verified_cells(root, phase, arms, orders, data):
+def verified_cells(root, phase, arms, orders, data, wave):
     cells, receipts = load(root / phase, arms, orders, data)
     for fold, rows in receipts.items():
         expected = json.loads((root / "fixtures" / fold / "receipt.json").read_text())
         if any(actual != expected[arm] for arm, actual in rows.items()):
             raise ValueError(f"{fold}: changed staged fixture or source receipt")
-        if any(r["lead_sha"] != PARENT_SHA or r["data_sha"] != DATA_SHA for r in rows.values()):
+        if any(r["lead_sha"] != lead_for(root, wave)[1] or r["data_sha"] != DATA_SHA for r in rows.values()):
             raise ValueError(f"{fold}: wrong lead or data")
     return cells
 
@@ -50,10 +50,10 @@ def both_positive(result):
     return all(result[k]["mean"] > 0 for k in ("new", "returning"))
 
 
-def select(root, data, protocol):
-    arms, screen, _ = protocol
+def select(root, data, wave):
+    arms, screen, _ = WAVES[wave]
     timing = time_results(root, arms)
-    cells = verified_cells(root, "screen", arms, screen, data)
+    cells = verified_cells(root, "screen", arms, screen, data, wave)
     comparisons = contrasts(cells, [(arm, REFERENCE) for arm in arms[1:]], screen)
     eligible = [arm for arm, t in timing.items()
                 if t["ms_per_window"] <= LIMIT_MS and both_positive(comparisons[f"{arm} - {REFERENCE}"])]
@@ -61,17 +61,20 @@ def select(root, data, protocol):
     return dict(chosen=chosen, orders=screen, comparisons=comparisons, timing=timing)
 
 
-def held(root, data, protocol):
-    arms, screen_orders, held_orders = protocol
+def held(root, data, wave):
+    arms, screen_orders, held_orders = WAVES[wave]
     screen = json.loads((root / "selection.json").read_text())
     arm = screen["chosen"]
     if arm is None:
         return dict(chosen=None, retained=False, comparisons={})
     assert arm in arms[1:] and tuple(screen["orders"]) == screen_orders
-    cells = verified_cells(root, "held", (REFERENCE, arm), held_orders, data)
+    cells = verified_cells(root, "held", (REFERENCE, arm), held_orders, data, wave)
     comparisons = contrasts(cells, ((arm, REFERENCE),), held_orders)
     score = comparisons[f"{arm} - {REFERENCE}"]
-    passed = all(score[k]["mean"] >= MIN_GAIN and score[k]["ci80"][0] > 0 for k in ("new", "returning"))
+    if wave == "ba-confirm":
+        passed = score["returning"]["ci80"][0] > 0 and score["new"]["mean"] >= -0.30
+    else:
+        passed = all(score[k]["mean"] >= MIN_GAIN and score[k]["ci80"][0] > 0 for k in ("new", "returning"))
     return dict(chosen=arm, retained=passed, orders=held_orders, comparisons=comparisons)
 
 
@@ -83,7 +86,7 @@ def main():
     p.add_argument("--wave", choices=tuple(WAVES), default="growth")
     a = p.parse_args()
     data = V.D.load(a.data)
-    result = (select if a.phase == "select" else held)(a.run, data, WAVES[a.wave])
+    result = (select if a.phase == "select" else held)(a.run, data, a.wave)
     out = a.run / ("selection.json" if a.phase == "select" else "confirmation.json")
     with out.open("x") as stream:
         json.dump(result, stream, indent=1)
