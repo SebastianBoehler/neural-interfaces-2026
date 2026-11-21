@@ -46,6 +46,14 @@ q.REF_SHA, q.REF_SCORE = sys.argv.pop(1), float(sys.argv.pop(1))
 q.main()
 ' "$sha_parent" "$score" pair "$candidate" "$run/out/pair-$roster-$arm-$SLURM_JOB_ID" \
         --ref-zip "$zips/$parent.zip" --expect-sha "$sha"
+        case "$arm" in
+            rb_alpha|rb_mass|em_delay)
+                ln -sfn "$zips/$parent.zip" "$run/zips/$parent.zip"
+                container submissions/final_stack/e2e_timing.py "$run/zips" data/proteus_windows.npz \
+                    "$run/out/runtime-$roster-$arm-$SLURM_JOB_ID.json" \
+                    "$parent=$sha_parent" "${parent}_${arm}=$sha" --windows cpu --unprofiled
+                ;;
+        esac
         ;;
     *) exit 2 ;;
 esac

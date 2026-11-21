@@ -1,4 +1,5 @@
 """Capture the exact hard mixer inputs and replay every downstream stage."""
+from contextlib import nullcontext
 from copy import deepcopy
 from dataclasses import dataclass
 from types import SimpleNamespace
@@ -71,10 +72,9 @@ def tap(template, signals, rows, fresh, check, device):
         return out
 
     deliveries = []
+    trace_terminal = patch.object(model, "terminal_scores", terminal) if terminal_scores else nullcontext()
     with patch.object(hard, "mix6", hard_mix), patch.object(model.team_b, "posterior", team_b), \
-            patch.object(team_route, "stepx", route), patch.object(model.cp, "step", cp):
-        if terminal_scores is not None:
-            model.terminal_scores = terminal
+            patch.object(team_route, "stepx", route), patch.object(model.cp, "step", cp), trace_terminal:
         for row in rows:
             record.clear()
             y = model.predict(signals[row:row + 1].to(device))
