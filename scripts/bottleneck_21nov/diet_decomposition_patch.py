@@ -2,11 +2,12 @@
 import argparse
 from functools import partial
 from inspect import getsource
+import os
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from returning_diet import PARENT_SHA, quarter_likelihood
 from returning_em import build, once
-from build_cb_speed import digest
 
 ARMS = {
     "a": (True, False, False),
@@ -62,8 +63,12 @@ def main():
     parser.add_argument("candidate", type=Path)
     parser.add_argument("arm", choices=ARMS)
     args = parser.parse_args()
-    build(args.parent, args.candidate, expected_sha=PARENT_SHA, patch_source=partial(patch, settings=ARMS[args.arm]))
-    print(digest(args.candidate), args.candidate, flush=True)
+    if args.candidate.exists():
+        raise FileExistsError(args.candidate)
+    with TemporaryDirectory(dir=args.candidate.parent) as temp:
+        staged = Path(temp) / args.candidate.name
+        build(args.parent, staged, expected_sha=PARENT_SHA, patch_source=partial(patch, settings=ARMS[args.arm]))
+        os.link(staged, args.candidate)
 
 
 if __name__ == "__main__":
