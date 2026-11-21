@@ -23,6 +23,28 @@ export BENCHOPT_DATA_HOME="$run/src/data" PYTHONPATH="$run/src/2026-competition"
 container() { apptainer exec --nv --bind "$work" "$repo/runs/cloud/ni26_worker.sif" python -B "$@"; }
 cd "$run/src"
 stage=${1:?}
+if [[ $stage == turing-* ]]; then
+    src="$run/turing-source/submissions/final_stack"
+    export PYTHONPATH="$run/src/submissions/final_stack:$PYTHONPATH"
+    turing="${candidate}_fp16"
+    case "$stage" in
+        turing-build)
+            container "$src/patch_ba_six_fp16.py" "$run/zips/$candidate.zip" "$run/zips/$turing.zip" production \
+                | tee "$run/turing-production.sha"
+            container "$src/patch_ba_six_fp16.py" "$run/zips/$niv.zip" "$run/zips/${niv}_fp16.zip" niv \
+                | tee "$run/turing-niv.sha"
+            ;;
+        turing-smoke|turing-ident)
+            read -r sha _ < "$run/turing-production.sha"
+            flags=()
+            if [[ $stage == turing-ident ]]; then flags=(--part "${SLURM_ARRAY_TASK_ID:?}"); fi
+            container "$src/check_ba_six_fp16.py" "$run/zips/$candidate.zip" "$run/zips/$turing.zip" "$sha" \
+                data/proteus_windows.npz "$run/out/$stage-$SLURM_JOB_ID.json" "${flags[@]}"
+            ;;
+        *) exit 2 ;;
+    esac
+    exit
+fi
 if [[ $stage == build ]]; then
     script=submissions/final_stack/patch_ba_six_fc.py
     container "$script" "$run/zips/$lead.zip" "$parent/final_stack_hard_safe_st_team_b_nine25_ba_terminal.zip" \
