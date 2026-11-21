@@ -186,3 +186,34 @@ Leonardo had 26 running and 270 pending at 08:08 CET. It dropped below 15 by 09:
 14:01 CET heartbeat. Leonardo had 39 running and 115 pending tasks across the account, with the afternoon fold waves queued for 14:45 and 16:25 CET. The dose, retest, roster and fused confirmation arrays and collectors were complete. Local SHA-256 checks of all four copied receipts matched the card. The 71800–71815 collector retained `ba_six` at +0.3566 pp (50/50). The queue exceeded the 15-task target at this check.
 
 14:07 CET heartbeat. Leonardo reported 11 running and 98 pending tasks after an initial SSH port-22 timeout. Galvani reported 11 running and 67 pending at 14:06 CET. The three Galvani repeat smokes completed. The first FP16 timings were queued on priority, with the second repeats and Scherer collector waiting on dependencies. Original fused `ba_six` timing 3147536 completed at 14:02 CET on RTX 2080 Ti cn111 over 1,131 windows per arm. Cap250 was normal at 140.17 ms/window. Fused nine25 projected 2,955.5 s and original `ba_six` projected 3,289.3 s. The recorded misses on other normal nodes still govern the original archive. Receipt `out/e2e-3147536.json` SHA-256 `46c3670aaa1b4d6fd04ea918a7455802a59615bd70eb2c63cfe1712adcdd9102`.
+
+### 15:00 CET follow-on receipts
+
+At 15:00 CET Leonardo showed 11 running and 134 pending tasks across the account, including 10 running and 54 pending in the 71900–71915 wave. Collector 65024442 was pending and the final four orders remain eligible from 16:25 CET. Galvani showed five running and 22 pending across the account. The three first FP16 repeats on cn116, cn122 and cn123 waited for resources. The six second repeats are eligible from 16:55 CET after their first repeats. Both queues contained active work. [Job IDs](OVERNIGHT_21NOV.md#10-galvani-fp16-decision-repeat)
+
+Galvani Scherer collector 3147914 completed at 14:51:56 CET for fresh orders 71848–71855. The exact FP16 Scherer-free arm is compared with signed fused nine25. The same nine people were used in the first block.
+
+| Delivery | B-new pp [80%] | B-ret pp [80%] | 50/50 pp [80%] |
+|---|---:|---:|---:|
+| Full-session | +0.38 [−0.10, +0.84] | +0.18 [−0.53, +0.88] | +0.28 [−0.14, +0.71] |
+| Within-run | −0.20 [−0.64, +0.23] | −0.38 [−0.97, +0.21] | −0.29 (cohort point mean) |
+
+The full-session returning point was positive, with a worst-person loss of 1.88 pp. Its interval includes zero and the forecast point. The earlier −0.41 pp full-session B-ret flag still applies. The repeat's secondary within-run B-ret point also falls below −0.30 pp. `niv-results/ba_six_fc_niv_fp16_turing/report.json` SHA-256 `00daf05768a706aff99abbb29d566f512175899d154d9fd7b803b7ef083d7e05`. The full-session 50/50 point and interval are from the collector's paired draws.
+
+The first three warm unprofiled Galvani FP16 repeats completed on RTX 2080 Ti. All used 1,131 measured windows per arm. All cap250 baselines were normal under the rule excluding values above 190.5 ms/window. Candidate model load was 5.05–5.53 s and is outside the compute projection.
+
+| Node | Job | Cap250 ms/window | FP16 projected s | `out/timing-<job>.json` SHA-256 |
+|---|---:|---:|---:|---|
+| cn111 | 3147915 | 136.45 | 3,278.8 | `3e4e7c471f56c9b24d0b25703eaabeb0266a00e1b40d9e4a3848c426eeadb449` |
+| cn114 | 3147917 | 149.44 | 3,246.9 | `138d6761adf681cbc497af1e94a4b322b04e320b27b6d19b7d9711910c9db26f` |
+| cn115 | 3147919 | 133.67 | 3,280.7 | `784d4ff6f8ad66db704716bbd7d1ae690923e99e567a4fa4e06c9b30ce5da020` |
+
+The largest screened FP16 projection is now 3,280.7 s, leaving 169.3 s to the 3,450 s target. The shipping recommendation still qualifies. Nine repeat receipts remain pending. [Repeat protocol](OVERNIGHT_21NOV.md#10-galvani-fp16-decision-repeat)
+
+Leonardo afternoon job 65024312 ran the separately registered A100-SXM comparison of fused nine25 and the 10% Team A terminal archive over 1,131 warm windows per arm. The terminal archive's median was 2,995.3 s, below its 3,150–3,600 s forecast band. Its median paired cost over nine25 was +4.60 ms/window, below the forecast of at least +10. Model load is outside both projections. These are A100-SXM receipts for the archives in the afternoon protocol. [Protocol](OVERNIGHT_21NOV.md#9-leonardo-afternoon-confirmation)
+
+| Node | Rank | Cap250 ms/window | Nine25 projected s | 10% Team A terminal projected s | `out/e2e-65024312-<rank>.json` SHA-256 |
+|---|---:|---:|---:|---:|---|
+| lrdn3302 | 0 | 116.00 | 2,902.9 | 2,995.3 | `3e1c071676909d3620860bcf882819626d6d0edd19ff248e3268b067f20a41ba` |
+| lrdn3362 | 1 | 114.97 | 2,910.3 | 2,992.2 | `41a5180a71e85b7382387e393b0f211214ee1ec6a2e422454f6a5a8830722a47` |
+| lrdn3385 | 2 | 117.24 | 2,911.2 | 3,004.2 | `5f88a57b49d1a5b0559c2bf7e135519b1954d9c6267f51c843c25bd9a4246348` |
