@@ -95,8 +95,10 @@ def replay(template, windows, *, raw=None, variant=None, hard=False, capture=Fal
             assert graphs[1].replays > 0 and (len(windows) < 64 or graphs[64].replays > 0)
     if capture:
         del model.routeB.tail.em.step, model.cp.step
-        if not hard:
-            del model.team_b.posterior
+    if not hard and (raw is not None or capture):
+        del model.team_b.posterior
+    if variant is not None:
+        del model.mix6
     result = {"labels": labels}
     if capture:
         for key, taps in (("pre_em", pre_em), ("terminal", terminal)):

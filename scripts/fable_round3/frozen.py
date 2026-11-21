@@ -82,6 +82,10 @@ class Checkpoint:
         assert len(self.model.team_b.windows) == self.model.log6["v6"]
         assert len(self.model.routeB.tail.em.A) == self.model.log6["v6"]
 
+    def close(self):
+        del self.model.route.contrast.step, self.model.route.identity.step
+        del self.model.ft.refit, self.model.cp.refit
+
 
 def refuse_refit(*_):
     # The endpoint fine-tuned parameters are already loaded for an eligible stream.
@@ -90,9 +94,12 @@ def refuse_refit(*_):
 
 def frozen_labels(model, windows, smoke=False):
     checkpoint = Checkpoint(model)
-    result = np.fromiter((checkpoint.label(x) for x in windows), dtype=np.int8, count=len(windows))
-    if smoke:
-        replay = np.fromiter((checkpoint.label(x) for x in reversed(windows)), dtype=np.int8, count=len(windows))
-        np.testing.assert_array_equal(result, replay[::-1])
-        checkpoint.verify()
-    return result
+    try:
+        result = np.fromiter((checkpoint.label(x) for x in windows), dtype=np.int8, count=len(windows))
+        if smoke:
+            replay = np.fromiter((checkpoint.label(x) for x in reversed(windows)), dtype=np.int8, count=len(windows))
+            np.testing.assert_array_equal(result, replay[::-1])
+            checkpoint.verify()
+        return result
+    finally:
+        checkpoint.close()

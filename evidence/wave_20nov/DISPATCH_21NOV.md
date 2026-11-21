@@ -100,3 +100,7 @@
 - Fable Round 3 · 06:58 CET. Smoke 3146350 passed the native, tapped, cached and active mix paths. The frozen-state check then failed because the routed lead has no `tail6`. The checkpoint now visits only instantiated tails. No folds were scored.
 
 - Fable Round 3 · Galvani public smoke 3146351 completed in 86 s. On 72 real windows it passed reference versus taped lead, full live rebalance, stage taps and frozen queries in both orders. Leonardo's 06:59 CET batch probe still returned `Permission denied`.
+
+- Fable Round 3 · Galvani public smoke 3146352 used committed source `cabc1e92`. It passed both blend paths on 72 signed-lead windows, including the Bet 2 weights 0/0 and 1/1 against their original stage outputs.
+
+- Fable Round 3 · Galvani state-only smoke 3146353 checks the frozen checkpoint after live fine-tuning and CSP on 100 unrecognized public Scherer windows. Neither public smoke measures accuracy or selects a setting.
