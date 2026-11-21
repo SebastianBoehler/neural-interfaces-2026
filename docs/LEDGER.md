@@ -3569,3 +3569,28 @@ Spend the fused-convolution runtime savings on independent terminal evidence. Re
 Use full-session shuffles 71600–71607 for a single frozen choice by equal-cohort J among arms with both point estimates positive and J ≥ +0.5 pp. Hold orders 71608–71623 for that choice and the fused lead. The terminal algebra can evaluate several choices in one full live Solver pass only if smoke proves output equivalence to a separate single-arm Solver, disabled parity, pinned delivery/labels, active graphs/experts and unchanged causal prefix behavior. Use official cell weights and paired people-then-orders 80% intervals. Report J, P04/P10, and the unverified 57/43 proxy with returning 20/80. Upper 80% bound ≤0 in either cohort refutes a positive gain there; otherwise below-target results remain uncertain. A large gain requires held-out J ≥+0.8 pp and positive cohort points. New orders reuse the same people.
 
 A qualifying ZIP needs SHA-256, 379-window CPU zero-term identity, official cap250 warm-up replay pair, and paired end-to-end 2080 Ti timing from cn116 with projected wall <3,450 s. Use Scherer-free NI-V B-new and B-ret banks with matching visit-1 enrollment, paired full/within replay and a veto if either full-session mean is ≤−0.50 pp or its upper paired 80% bound is below zero. No score claim on smoke, no login-node compute, no upload. Earlier seed-bank growth had lower selection J, and fixed Team A triggered the Scherer returning veto. Neither is repeated in this wave.
+
+## Fable 4/5 Bet 2 · shift-robust enrolment · 21 November
+
+Registered before scoring. Use only the clean `production-20261120-32a94ab7` folds and their source-only
+nine-member Team B banks. Run the signed fused-conv lead (`7017bd5c…`), with the original 25% Team B
+blend and all stages. Refit only person-indexed enrolment arrays: contrast and spectral galleries,
+PS1, the three own-space heads and their covariance prior, and the personal TSEM prior. Keep the
+fold's population transforms, gallery debias basis, identity visit counts, generic models and runtime
+code fixed. The same-day oracle replaces only the target person's enrolment.
+
+- Pre-check: in each P04/P10 visit 2 and 3, split by task × interface using seed 20261121. Fit on one
+  half and replay its held half in a fresh session, paired against visit-1 enrolment on the same rows.
+  Use full-session shuffle orders 71700–71701 restricted to those rows, equal official cells, and
+  people-then-orders paired 80% intervals. Predict +5 pp [−1, +11]. Stop if the mean gap is < +3 pp.
+- If the gap passes: per enrolment visit keep the originals and eight copies. Draw one fixed cap
+  transform per copy, gain exp(N(0, 0.1²)) independently for each channel and ε uniform [0, 0.3]
+  for I + εN, with N the four closest MNE standard 10–20 electrodes averaged by row. Use
+  20–40 distinct random windows per copy for the alignment reference. Seed 20261121 plus person and
+  visit indices. Refit on visit 1 only. Replay full returning visits 2 and 3 on orders 71710–71713.
+  Predict +0.6 pp [−0.8, +2.0]. Keep if mean > 0 and each person's delta is ≥ −0.5 pp.
+- Require v3 OK, the pinned 71124 replay, exact zero-change and clean routing. Compare plain and
+  augmented artefacts on matched streams. Report each person, the mean, paired interval, and the
+  unverified 57/43 population weighting with 20/80 returning mix. Two people are the validation limit.
+  If the keep rule passes, stage a weights-only production patch of the signed fused lead, check all
+  held-new folds for zero label changes, and run paired end-to-end timing. No Codabench upload.
