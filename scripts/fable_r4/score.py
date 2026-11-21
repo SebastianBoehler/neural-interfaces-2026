@@ -39,7 +39,7 @@ def stats(bank, people):
 def read_tapes(data, root, orders, modes):
     reports, provenance = {}, {}
     for mode, people in modes:
-        arrays = {name: np.zeros((len(orders), len(people), 3)) for name in ("whole", "fixed_after100", "1-40",
+        arrays = {name: np.zeros((len(orders), len(people), 3)) for name in ("whole", "fixed_after100", "ungated_after100", "1-40",
                                                                           "41-70", "71-100", "101-140", "141+")}
         fit_times = []
         accepted = np.zeros(4, dtype=int)
@@ -62,12 +62,13 @@ def read_tapes(data, root, orders, modes):
                             key = f"{order}_{stream.split('|')[1]}"
                             np.testing.assert_array_equal(rows, z[f"rows_{key}"])
                             expected = data["y"][rows]
-                            columns = [z[f"{name}_{key}"] for name in ("lead", "enrolled", "after100")]
+                            columns = [z[f"{name}_{key}"] for name in ("lead", "enrolled", "after100", "ungated100")]
                             if not all(c.shape == rows.shape and np.isin(c, (0, 1, 2)).all() for c in columns):
                                 raise ValueError(f"invalid tape labels in {path}/{key}")
-                            lead, candidate, fixed = columns
+                            lead, candidate, fixed, ungated = columns
                             np.testing.assert_array_equal(lead[:40], candidate[:40])
                             np.testing.assert_array_equal(lead[:100], fixed[:100])
+                            np.testing.assert_array_equal(lead[:100], ungated[:100])
                             weights = cell_weights(expected, data["interface"][rows])
                             errors = {name: z[f"{name}_{key}"] for name in ("loo", "selected", "fit_seconds")}
                             if any(v.shape != (len(CHECKPOINTS),) for v in errors.values()):
@@ -83,9 +84,10 @@ def read_tapes(data, root, orders, modes):
                             active += len(z[f"active_{key}"])
                             window_count += len(rows)
                             changed += np.count_nonzero(lead != candidate)
-                            bounds = ((0, None), (100, None), (0, 40), (40, 70), (70, 100), (100, 140), (140, None))
+                            bounds = ((0, None), (100, None), (100, None), (0, 40), (40, 70), (70, 100), (100, 140), (140, None))
+                            answers = {"fixed_after100": fixed, "ungated_after100": ungated}
                             for (name, bank), (lo, hi) in zip(arrays.items(), bounds, strict=True):
-                                hit = fixed == expected if name == "fixed_after100" else candidate == expected
+                                hit = answers.get(name, candidate) == expected
                                 s = slice(lo, hi)
                                 bank[o, p] += [weights[s] @ (lead[s] == expected[s]), weights[s] @ hit[s], weights[s].sum()]
         if not np.allclose(arrays["whole"][:, :, 2].sum(1), 28 if mode == "new" else 8, rtol=0, atol=1e-10):

@@ -33,18 +33,23 @@ def smoke(data, template, fold, receipt):
     prefix = replay(template, windows[:110], truth)
     np.testing.assert_array_equal(prefix["enrolled"], tested["enrolled"][:110])
     np.testing.assert_array_equal(prefix["after100"], tested["after100"][:110])
+    np.testing.assert_array_equal(prefix["ungated100"], tested["ungated100"][:110])
     np.testing.assert_allclose(prefix["loo"][:3], tested["loo"][:3], rtol=0, atol=0, equal_nan=True)
     print(json.dumps(dict(fold=fold, rows=len(rows), order=order, active=len(tested["active"]),
                           loo=np.nan_to_num(tested["loo"], nan=-1.).tolist(),
+                          diagnostic_changes=int(np.count_nonzero(tested["ungated100"] != tested["lead"])),
                           recognized_at=int(tested["recognition"]), checkpoint_s=np.nan_to_num(tested["fit_seconds"]).tolist(),
                           **{k: v for k, v in receipt.items() if k != "fold"})), flush=True)
     if fold.startswith("new_"):
-        if not len(tested["active"]) or not (tested["loo"] >= .75).any():
-            raise ValueError("oracle smoke did not exercise an accepted fit")
+        if not np.isfinite(tested["loo"]).all() or not np.any(tested["ungated100"] != expected):
+            raise ValueError("oracle did not fit at every checkpoint and exercise the terminal blend")
+        if bool(len(tested["active"])) != bool((tested["loo"] >= .75).any()):
+            raise ValueError("oracle acceptance disagrees with its leave-one-out guard")
     elif not (0 < tested["recognition"] <= 40) or len(tested["active"]):
         raise ValueError("returning smoke did not exercise the inactive recognized path")
     else:
         np.testing.assert_array_equal(tested["enrolled"], expected)
+        np.testing.assert_array_equal(tested["ungated100"], expected)
     if template.team_b.windows or template.routeB.own.cur is not None:
         raise ValueError("template became dirty across copies")
     print("PASS exact pinned, disabled, active/inactive, prefix and session reset", flush=True)

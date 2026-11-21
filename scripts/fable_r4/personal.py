@@ -71,8 +71,7 @@ def personal_fit(pc, slow, valid, labels, confidence):
         heads = fit_heads(a[keep], b[keep], y[keep], w[keep])
         hits.append(log_evidence(heads, (a[i], b[i])).argmax() == y[i])
     agree = float(np.mean(hits))
-    model = (norm, fit_heads(a, b, y, w)) if agree >= .75 else None
-    return model, agree, len(chosen)
+    return (norm, fit_heads(a, b, y, w)), agree, len(chosen)
 
 
 def personal_log(model, pc, slow):

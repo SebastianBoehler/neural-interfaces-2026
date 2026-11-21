@@ -7,3 +7,5 @@ Sources: `cleanslate/cap250/families/geometry.py::fit_personal`, `cleanslate/cap
 ## Oracle dispatch
 
 Source `899ae8b5` builds on the signed fused lead and the real production fold assets. Local `.venv/bin/python replay/check.py` reproduced all six v3 reference scores and printed `OK`. The weighted slow-waveform LDA matched scikit-learn's native 0.7-shrunk LDA at unit weights within (10^{-11}). Leonardo smokes 65014266 and 65014272 began at 09:23 CET. The four fresh orders 71700–71703 are reserved for the oracle.
+
+The returning smoke matched 189 pinned labels and recognized P04 on delivery 12. Held-new P01, P07 and P09 matched their pinned lead labels but passed zero checkpoints at the 75% agreement threshold. P07 and P09 peaked at 63.5% and 58.1%. The preregistered smoke addendum tests the same T=100 head without the agreement guard as an oracle diagnostic. The candidate keeps the guard.
