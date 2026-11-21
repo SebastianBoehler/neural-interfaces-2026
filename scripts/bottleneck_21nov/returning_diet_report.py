@@ -59,9 +59,9 @@ def levels(cases, arm):
     return dict(new=score(cases, read, "new"), ret=score(cases, read, "ret"), J=joint(cases, read))
 
 
-def person_delta(cases, orders, arm, person):
+def person_delta(cases, orders, arm, person, *, reference=REFERENCE):
     eligible = [c for c in cases if c.cohort == "ret" and c.person == person]
-    candidate, parent = predict(arm), predict(REFERENCE)
+    candidate, parent = predict(arm), predict(reference)
     differences = []
     for order in orders:
         block = [c for c in eligible if c.order == order]

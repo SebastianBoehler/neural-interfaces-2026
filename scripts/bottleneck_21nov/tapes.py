@@ -157,7 +157,7 @@ def joint(cases, predict, **filters):
     return np.mean([score(cases, predict, cohort, **filters) for cohort in PEOPLE])
 
 
-def paired(cases, candidate, reference, orders):
+def paired(cases, candidate, reference, orders, *, nested_orders=False):
     rng_o = np.random.default_rng(20261121)
     rng_p = np.random.default_rng(71120)
     index = rng_o.integers(len(orders), size=(20_000, len(orders)))
@@ -174,7 +174,12 @@ def paired(cases, candidate, reference, orders):
         if (counts <= 0).any():
             raise ValueError("paired draw misses a person/order")
         draws_p = rng_p.integers(len(people), size=(len(index), len(people)))
-        draw = values[index[:, :, None], draws_p[:, None, :]].sum((1, 2)) / (len(orders) * counts[0, draws_p].sum(1))
+        if nested_orders:
+            draws_o = rng_o.integers(len(orders), size=(*draws_p.shape, len(orders)))
+            sampled = values[draws_o, draws_p[:, :, None]]
+        else:
+            sampled = values[index[:, :, None], draws_p[:, None, :]]
+        draw = sampled.sum((1, 2)) / (len(orders) * counts[0, draws_p].sum(1))
         out[cohort] = (values.sum() / counts.sum(), *np.quantile(draw, (0.1, 0.9)))
         boot.append(draw)
     out["J"] = ((out["new"][0] + out["ret"][0]) / 2, *np.quantile(np.mean(boot, axis=0), (0.1, 0.9)))
