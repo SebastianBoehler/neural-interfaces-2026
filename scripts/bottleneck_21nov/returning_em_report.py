@@ -45,11 +45,11 @@ def fit(cases):
     values = {arm: joint(cases, predict(arm)) for arm in ARMS}
     best = max(values.values())
     selected = next(arm for arm, value in values.items() if value >= best - 1e-10)
-    return {"selected": selected, "gains_pp": {arm: v - values["native"] for arm, v in values.items()}}
+    return {"selected": selected, "gains_pp": {arm: v - values["native"] for arm, v in values.items()},
+            "misrecognitions": misrecognitions(cases)}
 
 
-def held(cases):
-    results = {}
+def misrecognitions(cases):
     false = []
     for case in cases:
         age, identity = int(case.scores["rec"][0]), int(case.scores["identity"][0])
@@ -57,6 +57,11 @@ def held(cases):
             false.append(dict(cohort=case.cohort, person=case.person, visit=case.visit, order=case.order, age=age,
                               identity=f"P{identity:02d}", changes={arm: int(np.count_nonzero(
                                   case.scores[arm] != case.scores["native"])) for arm in ARMS[1:]}))
+    return false
+
+
+def held(cases):
+    results = {}
     for arm in ARMS:
         result = paired(cases, predict(arm), predict("native"), ORDERS["held"])
         people = {}
@@ -65,7 +70,7 @@ def held(cases):
             people[person] = score(selected, predict(arm), "ret") - score(selected, predict("native"), "ret")
         point, low, _ = result["J"]
         results[arm] = {"delta": result, "returning_people": people, "pass": bool(point >= .15 and low > 0)}
-    return {"arms": results, "misrecognitions": false}
+    return {"arms": results, "misrecognitions": misrecognitions(cases)}
 
 
 def markdown(results):
@@ -83,14 +88,14 @@ def markdown(results):
                          f"{people['P04']:+.2f}/{people['P10']:+.2f}", flag))
         if r["selected"] == "native":
             text.append(f"{roster} froze native weight 1.0.")
-        if r["misrecognitions"]:
-            for f in r["misrecognitions"]:
+        if not r["fit_misrecognitions"] and not r["misrecognitions"]:
+            text.append(f"{roster} had zero misrecognitions on both order blocks.")
+        for phase, events in (("fit", r["fit_misrecognitions"]), ("held-out", r["misrecognitions"])):
+            for f in events:
                 counts = f["changes"]
                 text.append(f"{roster} misrecognised {f['cohort']} {f['person']}/{f['visit']} as {f['identity']} "
-                            f"on order {f['order']} at delivery {f['age']}. "
+                            f"on {phase} order {f['order']} at delivery {f['age']}. "
                             f"Half/bypass changed {counts['half']}/{counts['bypass']} labels.")
-        else:
-            text.append(f"{roster} had zero misrecognitions on held-out orders.")
     head = ["Stack", "EM arm", "Fit J Δ", "New Δ [80%]", "Ret. Δ [80%]", "50/50 Δ [80%]", "P04/P10 Δ", "Role"]
     return "\n\n".join([table(head, rows), *text, f"Fit freeze SHA-256 `{results['fit_sha256']}`."])
 
@@ -120,6 +125,7 @@ def main():
         a = fit_result["rosters"][r]
         stats = held(load_cases(work, data, r, phase))
         rosters[r] = {**stats, "selected": a["selected"], "fit_gains_pp": a["gains_pp"],
+                      "fit_misrecognitions": a["misrecognitions"],
                       "pass": stats["arms"][a["selected"]]["pass"]}
     result = {"orders": ORDERS[phase], "fit_sha256": fit_hash, "rosters": rosters}
     freeze(work / "em-held.json", result)
