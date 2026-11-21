@@ -2,16 +2,7 @@
 
 import numpy as np
 
-COUNT_DOSES = (0.0, 0.5, 1.0)
-BALANCE_DOSES = (0.0, 0.35, 0.70, 1.0)
-
-
-def shrink_count(raw, counted, recognised, strength):
-    if not recognised or strength == 0.0:
-        return counted
-    if strength == 1.0:
-        return raw
-    return (1 - strength) * counted + strength * raw
+DOSES = (0.0, 0.35, 0.70, 1.0)
 
 
 def balance_output(raw, history, recognised, strength):
@@ -32,3 +23,18 @@ def balance_output(raw, history, recognised, strength):
         scale /= scale.max()
     log_scale = np.log(scale)
     return raw * np.exp(strength * np.clip(log_scale - log_scale.mean(), -0.35, 0.35))
+
+
+def word_output(raw, team, manas, age, recognised, strength):
+    if recognised or age < 41 or strength == 0.0:
+        return raw
+    word = 2
+    rival = int(raw.argmax())
+    if rival == word or team.argmax() != word or manas.argmax() != word:
+        return raw
+    team_odds = team[word] / max(team[rival], 1e-12)
+    manas_odds = manas[word] / max(manas[rival], 1e-12)
+    log_odds = np.clip(np.log(min(team_odds, manas_odds)), 0, 1)
+    q = raw.copy()
+    q[word] *= np.exp(strength * log_odds)
+    return q
