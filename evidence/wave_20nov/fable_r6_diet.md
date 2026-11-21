@@ -60,3 +60,7 @@ All four held tasks in 65043064 completed at 17:31 CET. The primary zero-weight 
 ## Production qualification
 
 The quarter-weight arm advances to exact ZIP checks.
+
+The source-only quarter archive `final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing_recognised_em_half_diet_quarter.zip` was built at 17:34 CET. SHA-256 `42fb63cf1ae9f54cf48315b00894b3788bc65400e75e06bd208ffe3753c43b07`. The builder verified the parent digest, member inventory, CRCs and byte equality outside the exact `submission.py` patch. The archive is staged locally under `runs/sealed/final_zips/` and on Galvani under `ni26_fable_r6_diet_20261121/zips/`. [Builder](../../scripts/bottleneck_21nov/returning_diet.py)
+
+Galvani zero job 3148853 started at 17:36:11 CET, ahead of the earlier estimate. Official warm-up pair 3148854 and one unprofiled e2e timing 3148855 depend on its success. The copy and build used source `2c991e32`.
