@@ -3,6 +3,7 @@
 import argparse
 import importlib.util
 import json
+import os
 from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
@@ -201,8 +202,9 @@ def run(args):
         report = dict(stage=args.stage, archive_sha256=args.sha, torch=torch.__version__)
         if device == "cuda:0":
             report["gpu"] = torch.cuda.get_device_name()
-            if "A100" not in report["gpu"]:
-                raise RuntimeError(f"expected A100, got {report['gpu']}")
+            expected = os.environ.get("NI26_EXPECT_GPU", "A100")  # set to "2080 Ti" for the Galvani RTX runs
+            if expected not in report["gpu"]:
+                raise RuntimeError(f"expected {expected}, got {report['gpu']}")
         if args.stage in ("local", "zero"):
             base_zip = args.zips / f"{BASE}.zip"
             verify_parent(base_zip, BASE_SHA)

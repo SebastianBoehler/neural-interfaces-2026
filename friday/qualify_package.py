@@ -81,11 +81,12 @@ def replay(z, out, device="cpu", name=None):
 
 
 def cmd_pair(a):
-    """Qualify two warm-up replays per arm on the A100 allocated by Slurm."""
+    """Qualify two warm-up replays per arm on the GPU allocated by Slurm (A100 unless NI26_QUAL_GPU names another)."""
     import torch
 
-    if not os.environ.get("SLURM_JOB_ID") or "A100" not in torch.cuda.get_device_name(0):
-        raise RuntimeError("expected a Slurm A100 allocation")
+    expected = os.environ.get("NI26_QUAL_GPU", "A100")  # "2080 Ti" for the Galvani RTX pairs
+    if not os.environ.get("SLURM_JOB_ID") or expected not in torch.cuda.get_device_name(0):
+        raise RuntimeError(f"expected a Slurm {expected} allocation")
     inputs = {"ref": (a.ref_zip, REF_SHA), "cand": (a.cand, a.expect_sha)}
     for arm, (archive, expected) in inputs.items():
         manifest = inspect(archive)
@@ -94,7 +95,7 @@ def cmd_pair(a):
     a.out.mkdir(parents=True, exist_ok=False)
     walls = {"ref": [], "cand": []}
     for index, arm in enumerate(("ref", "cand", "ref", "cand"), 1):
-        name = f"a100_{index}_{arm}"
+        name = f"{expected.replace(' ', '').lower()}_{index}_{arm}"
         result = replay(inputs[arm][0], a.out, "cuda", name)
         log = (a.out / name / "ingestion.log").read_text()
         errors = [int(n) for n in re.findall(r"\[v6\].* errors (\d+)", log)]
