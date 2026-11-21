@@ -13,5 +13,10 @@ source "$run/env.sh"
 IFS=$'\t' read -r kind held _ < <(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" "$TB_SRC/hardcb/jobs.tsv")
 w=()
 [[ -z ${4:-} ]] || w=(--weights "$4")
+if [[ $2 == smoke ]]; then  # array task 0 only: base must equal the stored hard tape, nine25 must change labels
+  kind=new; held=P01; sel=(--smoke)
+else
+  sel=(--orders "${2:?}")
+fi
 bash "$CAP250_RELEASE/cleanslate/cap250/slurm.sh" "$run/code/scripts/laneTB/verify.py" --base hard \
-  --fold "${kind}_${held}" --data "$CAP250_DATA" --out "$run/out/${1:?}" --orders "${2:?}" --arms "${3:?}" "${w[@]}"
+  --fold "${kind}_${held}" --data "$CAP250_DATA" --out "$run/out/${1:?}" "${sel[@]}" --arms "${3:?}" "${w[@]}"
