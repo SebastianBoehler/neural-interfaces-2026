@@ -73,7 +73,9 @@ def stream(template, signals, rows, zero=False, capture=None):
 def encoder_stream(template, signals, rows):
     _, official = D.official()
     model = official.fresh_model(template)
-    post = [model.team_b.posterior(signals[row, model.perm]).cpu().numpy() for row in rows]
+    if model.perm is not None or not torch.isfinite(signals[rows]).all():
+        raise ValueError("encoder diagnostic expects the pinned finite tensor in native channel order")
+    post = [model.team_b.posterior(signals[row]).cpu().numpy() for row in rows]
     assert not template.team_b.windows and len(model.team_b.windows) == len(rows)
     assert all(g.graph is not None and not g.failed for g in model.team_b.feature_graphs.values())
     post = np.asarray(post)
