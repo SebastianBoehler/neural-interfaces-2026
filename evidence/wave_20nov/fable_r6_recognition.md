@@ -1,10 +1,34 @@
 # Fable R6 Bet 1 · earlier recognition · 21 November
 
-**16:36 CET interim.** The signed em_half candidate is the reference. The first-principles lane's four-order archive screen gave +0.133 pp at delivery 5. This lane will decide on the full 16-order exact em_half Stage 1 splice. Stage 2 requires at least +0.30 pp.
-[Preregistration](../../docs/LEDGER.md#fable-r6-bet-1--early-soft-recognition-registered-21-november-at-1630-cet-before-the-full-order-experiment) · [Reference archive](bottleneck_review_21nov.md#recognition-gated-sessionem)
+**Stage 1 stopped the bet at 16:53 CET.** The delivery-5 true-identity splice gained **+0.117 pp** at 50/50 [paired 80% −0.049, +0.290], below the prespecified +0.30 pp. Fit and held-out orders gained +0.134 and +0.099 pp respectively. The stop closed the soft-mix fit and package qualification. [Preregistration](../../docs/LEDGER.md#fable-r6-bet-1--early-soft-recognition-registered-21-november-at-1630-cet-before-the-full-order-experiment)
 
-All 64 genuine streams recognised the correct person. P04 latch counts by 1-indexed delivery were 11×25, 13, 15, 17, 18, 31, 38, 41. P10 counts were 11×26, 13, 14, 15, 16, 19, 25. Native misrecognition was 1/224 held-new streams (0.45%), P10 visit 1 as P03 on fit order 71802 at delivery 40. There were 0/112 in the held-out order block.
+## Gain by first substituted delivery
 
-Local v3 replay printed `OK`. Leonardo smoke 65040479 gates prefix array 65040484 (8 tasks, at most 4 concurrent) in the prior identity-passing environment. The exact oracle uses the live full stack and the Last Push causal tail with the base's half-weight SessionEM. The cumulative scores are reconstructed locally from the signed gate, 12 verified fold galleries, and the pinned delivery rows.
+Exact em_half reference `833a28721b0de0fa34f94de0328284ca9643cbaccc2dd343926f19c254949a4d` scored 77.931% at 50/50. Each splice starts at the stated delivery and ends before the native latch. Oracle outputs use true identity and a personal path warmed from delivery 1. Held-new decisions are identical by construction. Intervals resample people and then orders with 20,000 paired draws and official class-balanced cell weights. Fit and held-out orders reuse people. [Base qualification](bottleneck_review_21nov.md#recognition-gated-sessionem) · [Last Push replay](last_push_21nov.md)
 
-**16:37 CET stored-output check.** The eight captured orders give +0.098 pp [80% −0.033, +0.230] at delivery 5 when the splice is truncated at delivery 20, where native and half-weight SessionEM coincide. The full Stage 1 endpoint is pending. The reconstructed score recovers canonical latch timing where identity is the only eligible gate. A global threshold set on fit orders admits 1/112 held-out impostors. A separate threshold for each delivery admits 10/112. The zero-crossing thresholds pooled over all orders use held outcomes to set their limits.
+| Start delivery | 50/50 Δ pp [80%], all 16 orders | Fit / held-out Δ pp | Returning P04 / P10 Δ pp |
+| ---: | ---: | ---: | ---: |
+| 1 | +0.127 [−0.088, +0.353] | +0.153 / +0.101 | +0.667 / −0.159 |
+| 3 | +0.122 [−0.063, +0.316] | +0.135 / +0.110 | +0.599 / −0.110 |
+| 5 | +0.117 [−0.049, +0.290] | +0.134 / +0.099 | +0.547 / −0.081 |
+| 8 | +0.063 [−0.049, +0.181] | +0.076 / +0.049 | +0.332 / −0.081 |
+| 12 | +0.037 [−0.010, +0.095] | +0.050 / +0.024 | +0.166 / −0.017 |
+
+## Native recognition and impostor crossings
+
+All 64 returning streams latched correctly. P04 latched on delivery 11 in 25/32 streams, then at 13, 15, 17, 18, 31, 38 and 41 once each. P10 latched on delivery 11 in 26/32 streams, then at 13, 14, 15, 16, 19 and 25 once each. The median was 11 for both. The signed reference misrecognised 1/224 held-new streams (0.45%), P10 visit 1 as P03 on fit order 71802 at delivery 40. It misrecognised 0/112 in the held-out order block.
+
+The archived capture lacks the cumulative statistic. Replaying the signed IdentityGate on the pinned EEG and verified fold galleries recovered the native first latch timing on all 288 streams. Both diagnostic rules require the same winner above the threshold on three successive deliveries. The pooled thresholds use all orders to achieve zero impostor crossings by construction.
+
+| Pooled threshold | First correct delivery | Correct by 5 | Correct earlier than native | Oracle splice 50/50 Δ pp [80%] | Fit threshold on held-out impostors |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Global, strictly above 0.273074 | 4 | 12/64 | 36/64 | +0.046 [−0.007, +0.099] | 1/112 |
+| Separate threshold per delivery | 3 | 37/64 | 61/64 | +0.075 [−0.032, +0.184] | 10/112 |
+
+Both pooled thresholds eventually crossed on all 64 genuine streams with the correct identity. The fit-only global threshold admitted P10 visit 1 as P03 at delivery 7 on held-out order 71814. The delivery-specific fit rule also admitted only P10 as P03, including three crossings by delivery 5.
+
+## Checks
+
+Local and Leonardo v3 replays printed `OK`. Leonardo smoke 65040479 matched the live half-weight patch and the fresh causal prefix on P04's 41-delivery example. All eight capture tasks in 65040484 completed by 16:51 CET. They matched 836 live native and em_half deliveries against the pinned references across 64 genuine prefixes and captured 772 pre-latch oracle decisions. The overlapping stored oracle decisions matched through delivery 20, before half-weight SessionEM can change emissions. The inactive splice was exact, and a direct pass of the pinned official balanced-accuracy function reproduced all cohort/time points. [Capture](../../scripts/bottleneck_21nov/r6_recognition_capture.py) · [Scorer](../../scripts/bottleneck_21nov/r6_recognition.py) · [Statistic](../../scripts/bottleneck_21nov/r6_recognition_stat.py)
+
+Local result `work/fable_r6_recognition/stage1.json` SHA-256 `00d7b814eab2b0e565949288b7f5b9bf0bf058944e4ad30b240abb135b552f78`.
