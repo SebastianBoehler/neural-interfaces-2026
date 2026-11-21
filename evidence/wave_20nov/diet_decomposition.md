@@ -95,6 +95,11 @@ Times are ms/window across the same 1,131 measured windows per archive. Projecti
 | cn122 | 3150639 | 147.17 | 176.22 | 172.67 | -2.013% | 3,138.3 | 3,067.1 | `02f8c1d0f8d7a619b6b465ecc705f2200e1e6e90bb1a4c3f57813d1921b2bac8` |
 | cn115 | 3150642 | 155.46 | 188.35 | 184.29 | -2.158% | 3,215.4 | 3,133.8 | `8350eb955e220c679813635e80436174deda9657b2009eeda5bb723b229c288a` |
 | cn111 | 3150640 | 153.24 | 183.69 | 180.25 | -1.873% | 3,166.5 | 3,097.4 | `82bcf48f57a2e4963866a8cd88b8c8b9c7e663ad8f7f0b8ea8c2a8fa09dbf087` |
+| cn114 | 3150641 | 158.14 | 187.89 | 188.86 | +0.515% | 3,152.3 | 3,171.8 | `deb0d065d7889182782014ce9608edc4e4ff572ab389663503037e9d08ed7508` |
+
+Across four completed nodes, arm c ranged from −2.158% to +0.515% versus em_half. Three repeats were faster by more than the predicted ±1% band. The largest measured slowdown was below the +1% flag. The largest projected arm c runtime was **3,171.8 s** on cn114, 428.2 s below the 3,600 s compute budget. The largest em_half projection was **3,215.4 s** on cn115. These are paired RTX 2080 Ti projections for the sampled nodes.
+
+The other five nodes had GPUs occupied beyond the cutoff. Slurm estimated 01:55 CET on 22 November for cn102 and 02:01 CET for cn116, cn117, cn121 and cn123. All five pending jobs were cancelled at 21:41:55 CET. No cn116 timing completed.
 
 ### Scherer NI-V B-ret, orders 71872–71879
 
