@@ -8,7 +8,7 @@ import numpy as np
 import torch
 
 from dose import DATA_SHA, PIN, V, live_check, replay, sessions
-from grow_fixture import ARMS, HELD, REFERENCE, SCREEN, open_fold, prepare_zero, stage
+from grow_fixture import COUNTS, MANAS_ARMS, REFERENCE, WAVES, open_fold, prepare_zero, stage
 from run import check_zero_mixer
 from team_b_speed_bench import check_features
 from check_ba_terminal import play as check_terminal_blend
@@ -31,17 +31,17 @@ def check(model, windows):
 def load(data, pkg, arm, receipt):
     model, secs = V.timed_load(pkg / arm, data, V.DEVICE)
     expected = ["TeamBlendStack", "HardWaveEnsemble"]
-    if arm == "ba_six":
+    if arm in MANAS_ARMS:
         expected.insert(0, "TerminalTeamAStack")
     if [c.__name__ for c in type(model).__mro__[:len(expected)]] != expected:
         raise ValueError(f"{arm}: unexpected Solver class")
     if (model.TEAM_B_MIX != 0.25 or len(model.team_b.nets) != sum(receipt["members"]) or
-            (arm == "ba_six" and (model.TEAM_A_MIX != 0.10 or model.team_a is None))):
+            (arm in MANAS_ARMS and (model.TEAM_A_MIX != 0.10 or model.team_a is None))):
         raise ValueError(f"{arm}: incorrect live blend or roster")
     return model, secs
 
 
-def smoke(data, x, fold, pkg, receipts):
+def smoke(data, x, fold, pkg, receipts, arms):
     order = 71124
     stream = sessions(data, fold)[0]
     rows = V.D.plans(data, order, [stream])[stream]
@@ -60,7 +60,7 @@ def smoke(data, x, fold, pkg, receipts):
         labels, _, _ = V.stream_session(zero, x, rows, V.DEVICE, check=check)
         np.testing.assert_array_equal(labels, pinned["base"])
     reference = None
-    for arm in ARMS:
+    for arm in arms:
         model, _ = load(data, pkg, arm, receipts[arm])
         labels, taps, _ = V.stream_session(model, x, rows, V.DEVICE, capture=True, check=check)
         prefix, _, _ = V.stream_session(model, x, rows[:24], V.DEVICE, check=check)
@@ -72,7 +72,7 @@ def smoke(data, x, fold, pkg, receipts):
             reference = taps[:, :3]
         elif np.max(np.abs(reference - taps[:, :3])) <= 1e-4:
             raise ValueError(f"{arm}: the live mixer did not move")
-        if arm == "ba_six":
+        if arm in MANAS_ARMS:
             check_terminal_blend(model, x[rows].to(V.DEVICE), capture=True)
         print(f"{fold} {arm}: {len(rows)} live windows and reset/prefix passed", flush=True)
     print("PASS exact zero and lead labels, changed banks, graph and full terminal path", flush=True)
@@ -105,14 +105,16 @@ def main():
     p.add_argument("--run", type=Path, required=True)
     p.add_argument("--fold", required=True)
     p.add_argument("--chunk", type=int)
-    p.add_argument("--arm", choices=ARMS[1:])
+    p.add_argument("--arm", choices=tuple(COUNTS)[1:])
+    p.add_argument("--wave", choices=tuple(WAVES), default="growth")
     a = p.parse_args()
+    arms, screen, held = WAVES[a.wave]
     assert torch.cuda.is_available()
     if V.digest(a.data) != DATA_SHA:
         raise ValueError("PROTEUS data digest differs")
     data = V.D.load(a.data)
     if a.phase in ("smoke", "prepare"):
-        stage(a.run, a.fold, data, a.data)
+        stage(a.run, a.fold, data, a.data, arms)
         if a.phase == "prepare":
             return
     if a.phase == "held":
@@ -123,12 +125,12 @@ def main():
     pkg, receipts = open_fold(a.run, a.fold)
     signals = torch.from_numpy(data["X"])
     if a.phase == "smoke":
-        smoke(data, signals, a.fold, pkg, receipts)
+        smoke(data, signals, a.fold, pkg, receipts, arms)
     elif a.phase == "timing":
-        assert a.fold in TIMING_FOLDS and a.arm in ARMS[1:]
+        assert a.fold in TIMING_FOLDS and a.arm in arms[1:]
         timing(data, signals, a.fold, pkg, receipts, a.arm, a.run / "timing" / f"{a.fold}-{a.arm}.json")
     else:
-        arms, order_bank = (ARMS, SCREEN) if a.phase == "screen" else ((REFERENCE, decision["chosen"]), HELD)
+        arms, order_bank = (arms, screen) if a.phase == "screen" else ((REFERENCE, decision["chosen"]), held)
         orders = order_bank[2 * a.chunk:2 * a.chunk + 2]
         assert len(orders) == 2
         models = ((arm, load(data, pkg, arm, receipts[arm])[0], receipts[arm]) for arm in arms)

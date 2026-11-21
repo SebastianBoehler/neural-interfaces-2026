@@ -17,7 +17,13 @@ from build_ba_terminal import PARENT_SHA, PRODUCTION_SHA, eager_reference, partn
 from build_hard_team_b import once, reference, verify_parent
 
 FAMILIES = ("shallow", "slow", "fbc")
-COUNTS = {"nine25": (3, 3, 3), "swap25": (3, 3, 3), "fbc12": (3, 3, 6), "ba_six": (2, 2, 2)}
+COUNTS = {"nine25": (3, 3, 3), "swap25": (3, 3, 3), "fbc12": (3, 3, 6), "ba_six": (2, 2, 2),
+          "triseed25": (3, 3, 3), "ba_seven": (2, 2, 3), "ba_eight": (3, 2, 3)}
+MANAS_ARMS = ("ba_six", "ba_seven", "ba_eight")
+
+
+def bank_count(arm):
+    return 3 if arm == "triseed25" else 2 if arm in ("swap25", "fbc12") else 1
 
 
 def roster(counts):
@@ -33,29 +39,28 @@ def load_bank(blob):
     return pack
 
 
-def bank_for(arm, original, extra=None):
+def bank_for(arm, original, extra=None, third=None):
     pack = load_bank(original)
     if arm == "nine25":
         return original
-    if arm in ("swap25", "fbc12"):
-        donor = load_bank(extra)
+    extra_packs = [load_bank(b) for b in (extra, third)[:bank_count(arm) - 1]]
+    for donor in extra_packs:
         if (pack["people"], pack["first_only"]) != (donor["people"], donor["first_only"]):
             raise ValueError("the two Team B banks use different fold rosters")
     nets = []
-    for i in (0, 3, 6):
+    for family, i in enumerate((0, 3, 6)):
         chunk = pack["nets"][i:i + 3]
         if arm == "swap25":
-            kind, incoming = donor["nets"][i]
-            if any(all(torch.equal(v, incoming[k]) for k, v in state.items()) for _, state in chunk):
-                raise ValueError(f"duplicate swap member for {kind}")
-            chunk = chunk[:2] + donor["nets"][i:i + 1]
+            chunk = chunk[:2] + extra_packs[0]["nets"][i:i + 1]
         elif arm == "fbc12" and i == 6:
-            for kind, incoming in donor["nets"][i:i + 3]:
-                if any(all(torch.equal(v, incoming[k]) for k, v in state.items()) for _, state in chunk):
-                    raise ValueError(f"duplicate extra member for {kind}")
-            chunk += donor["nets"][i:i + 3]
-        elif arm == "ba_six":
-            chunk = chunk[:2]
+            chunk += extra_packs[0]["nets"][i:i + 3]
+        elif arm == "triseed25":
+            chunk = chunk[:1] + [bank["nets"][i] for bank in extra_packs]
+        elif arm in MANAS_ARMS:
+            chunk = chunk[:COUNTS[arm][family]]
+        for j, (kind, incoming) in enumerate(chunk):
+            if any(all(torch.equal(v, incoming[k]) for k, v in state.items()) for _, state in chunk[:j]):
+                raise ValueError(f"duplicate selected member for {kind}")
         nets.extend(chunk)
     if tuple(kind for kind, _ in nets) != roster(COUNTS[arm]):
         raise ValueError(f"unexpected selected Team B roster for {arm}")
@@ -94,13 +99,13 @@ def with_manas(source, donor, weights_sha, license_text):
     return patch_manas(source, partner_source(original), license_text, weights_sha, expected, True).decode()
 
 
-def archive(parent, out, arm, extra=None, manas_zip=None):
+def archive(parent, out, arm, extra=None, manas_zip=None, third=None):
     verify_parent(parent, PARENT_SHA)
-    if (arm == "ba_six") != (manas_zip is not None) or (arm != "ba_six") != (extra is not None):
-        raise ValueError("ba_six requires the signed MANAS donor, and the other arms require a seed-1 bank")
+    if (arm in MANAS_ARMS) != (manas_zip is not None) or bank_count(arm) != 1 + (extra is not None) + (third is not None):
+        raise ValueError(f"incomplete donor set for {arm}")
     with ZipFile(parent) as before, TemporaryDirectory(dir=out.parent) as tmp:
         stage = Path(tmp) / out.name
-        blob = bank_for(arm, before.read("team_b.pt"), extra)
+        blob = bank_for(arm, before.read("team_b.pt"), extra, third)
         source = patch_bank(before.read("submission.py").decode(), arm, blob)
         names = before.namelist()
         if manas_zip:
@@ -140,9 +145,11 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("parent", type=Path)
     p.add_argument("out", type=Path)
-    p.add_argument("arm", choices=("swap25", "fbc12", "ba_six"))
+    p.add_argument("arm", choices=tuple(COUNTS)[1:])
     donor = p.add_mutually_exclusive_group(required=True)
     donor.add_argument("--extra", type=Path)
     donor.add_argument("--manas-zip", type=Path)
+    p.add_argument("--third", type=Path)
     a = p.parse_args()
-    archive(a.parent, a.out, a.arm, a.extra.read_bytes() if a.extra else None, a.manas_zip)
+    archive(a.parent, a.out, a.arm, a.extra.read_bytes() if a.extra else None, a.manas_zip,
+            a.third.read_bytes() if a.third else None)

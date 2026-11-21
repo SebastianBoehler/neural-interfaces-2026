@@ -4,6 +4,13 @@ set -euo pipefail
 phase=${1:?}
 [[ $phase == screen || $phase == held ]]
 root=$PWD
+source "$root/env.sh"
+wave=${LF_GROW_WAVE:-growth}
+case "$wave" in
+    growth) last_screen=47; candidates='swap25|fbc12|ba_six' ;;
+    roster) last_screen=95; candidates='triseed25|ba_seven|ba_eight' ;;
+    *) exit 2 ;;
+esac
 batch="$root/src-grow/scripts/leonardo_fill/grow.sbatch"
 control="$root/control/scripts/leonardo_fill/queue_grow.sh"
 manifest="$root/grow/$phase-jobs.tsv"
@@ -39,7 +46,7 @@ if [[ $phase == screen ]]; then
     done
     prep=$(submit prepare --array=1-9%9 --time=00:20:00 --output='logs/%x-%A_%a.out' "$batch" prepare)
     time=$(submit timing --array=0-5%6 --time=00:35:00 --output='logs/%x-%A_%a.out' "$batch" timing)
-    screen=$(submit screen --dependency="afterok:$prep" --kill-on-invalid-dep=yes --array=0-47%24 \
+    screen=$(submit screen --dependency="afterok:$prep" --kill-on-invalid-dep=yes --array="0-$last_screen%24" \
         --output='logs/%x-%A_%a.out' "$batch" screen)
     freeze=$(submit select --dependency="afterok:$screen:$time" --kill-on-invalid-dep=yes \
         --time=00:15:00 --output='logs/%x-%j.out' "$batch" select)
@@ -50,7 +57,7 @@ else
     decision="$root/grow/selection.json"
     wait_for=()
     if ! grep -Eq '^ "chosen": null,$' "$decision"; then
-        grep -Eq '^ "chosen": "(swap25|fbc12|ba_six)",$' "$decision"
+        grep -Eq "^ \"chosen\": \"($candidates)\",$" "$decision"
         array=$(submit held --array=0-95%32 --output='logs/%x-%A_%a.out' "$batch" held)
         wait_for=(--dependency="afterok:$array" --kill-on-invalid-dep=yes)
     fi
