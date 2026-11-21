@@ -1,5 +1,7 @@
 # Fable Round 3 · 21 November 2026
 
+**Completed at 09:10 CET.** Bet 1 missed both held-out thresholds, Bet 2 stopped at its changed-window screen, and Bet 3 missed the returning threshold. All three package gates stayed closed.
+
 [Preregistration](../../docs/LEDGER.md#fable-round-3--21-november-registered-before-scoring) · [Dispatch log](DISPATCH_21NOV.md) · [Scorers](../../scripts/fable_round3/)
 
 Signed reference `final_stack_hard_safe_st_team_b_nine25_tbgraph.zip`, SHA-256 `6e09953709b2338507deaac1ec5f6afa4a21eef52de7814f7c2ae77f42e86ee9`. The protocol uses 28 held-new cells across ten people and eight returning cells across P04/P10. Fit orders 71300–71307 and held-out orders 71308–71315 shuffle the full session. The order blocks reuse the same people.
@@ -63,3 +65,24 @@ The frozen dose of 8 gave **+0.005 [0.000, +0.012] pp held-new** and **−0.167 
 The anchor activated after 11–49 deliveries on all 32 returning streams. It also activated once in 112 held-new streams when the native gate recognized P10 visit 1 as P03 on order 71309. The first eligible prediction follows the recognition delivery. The other 111 held-new streams reproduced the lead exactly.
 
 Fit selection 65011779 completed at 08:32 CET with SHA-256 `ed55c8eee0a060644b7136aa7549e3b2a8cf10693b3ee9c9505694a936736be0`. Held-out collector 65011781 completed at 08:44 CET with SHA-256 `f2c93579fbfae08b4937ff04dac391b64c67f892100fc81c873db57659896803`.
+
+## Bet 1 · causal Team B rebalance before mix6
+
+The 48 fit chunks compared raw geometric pooling and nine rebalance weights with the full live Solver. All chunks replayed native nine25 from the cached Team B posterior and checked every label against the lead trace.
+
+| Fit arm | Held-new, pp [80%] | Returning, pp [80%] | J, pp |
+|---|---:|---:|---:|
+| 20% | -0.25 [-0.58, +0.05] | +0.13 [-0.10, +0.40] | -0.06 |
+| **22.5%** | -0.01 [-0.22, +0.20] | +0.22 [+0.01, +0.46] | +0.10 |
+| 25% | -0.03 [-0.31, +0.19] | +0.10 [-0.09, +0.30] | +0.04 |
+| 27.5% | +0.10 [-0.25, +0.40] | -0.03 [-0.34, +0.24] | +0.03 |
+| 30% | +0.00 [-0.36, +0.30] | -0.08 [-0.39, +0.20] | -0.04 |
+| 32.5% | +0.11 [-0.30, +0.47] | +0.02 [-0.27, +0.28] | +0.06 |
+| 35% | -0.07 [-0.45, +0.28] | +0.07 [-0.13, +0.28] | -0.00 |
+| 37.5% | -0.12 [-0.62, +0.32] | +0.05 [-0.16, +0.26] | -0.04 |
+| 40% | -0.14 [-0.78, +0.41] | +0.03 [-0.15, +0.21] | -0.05 |
+| Raw geometric 25% | -0.06 [-0.21, +0.09] | +0.25 [+0.09, +0.40] | +0.09 |
+
+The frozen 22.5% weight and window-1 start gave **-0.04 [-0.26, +0.15] pp held-new** and **+0.06 [-0.20, +0.31] pp returning**. P04 was +0.05 pp and P10 +0.07 pp. J was +0.01 pp [-0.15, +0.16]. The unverified 57/43 proxy was +0.01 pp. Both regimes missed +0.20 pp.
+
+All 48 held-out chunks and collector 65010886 completed. The consumer independently matched the held-out Step 0 and standalone Team B diagnostics to 5.2e−14 pp across hosts. Selection SHA-256 `0db8ea409f4adbae9e1ecd4a887e49cc54e1a08cf92d0d91d0373d0b03b49bed`. Held-out SHA-256 `17920607466a35db4d5f97fb53c82ab0c5a842b331d199aa0533074032ab15b0`.

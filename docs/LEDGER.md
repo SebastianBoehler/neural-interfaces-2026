@@ -3548,6 +3548,8 @@ NI-V Scherer on the exact Team B ZIPs, fresh orders: release D = 71016-71023, re
 
 **Round 3 Bet 3 held-out result.** Returning fit deltas for n0 4/8/16 were −0.13 / +0.10 / −0.12 pp, selecting 8. Held-out deltas were +0.005 [0.000,+0.012] pp held-new and −0.167 [−0.335,−0.002] pp returning, with P04 −0.24 and P10 −0.09. The candidate misses the +0.20 returning gate. The anchor activated on all 32 returning streams and on one of 112 held-new streams, a false recognition of P10 visit 1 as P03. The fit-block early deficit released the test and the held-out early deficit was smaller (3.43 pp).
 
+**Round 3 complete at 09:10 CET.** Held-out frozen vs causal +2.09 [+1.25,+3.18] pp new and +1.04 [+0.33,+1.77] pp returning. Bet 1 at 22.5% from window 1 gave −0.04 [−0.26,+0.15] / +0.06 [−0.20,+0.31] pp. Both points missed +0.20 pp. Bet 2 stopped at its mechanism screen and Bet 3 missed the returning threshold, so the package gate stayed closed. [Full report](../evidence/wave_20nov/fable_round3.md)
+
 ## Fused-conv archive qualification · 21 November (registered before this qualification wave)
 
 Rebuild the three signed `_fc` archives from their graph parents. Require identical ZIP inventories, valid CRCs, and an exact rebuild with only the embedded Team B encoder changed. On Galvani 2080 Ti and Leonardo A100, run official cap250/candidate replay pairs for nine25 and nine15. Expect four healthy streams per replay, stable repeat scores, unchanged files, and 0.9959229391 for each candidate versus cap250 0.9945788530. Treat any deviation as a qualification failure.
