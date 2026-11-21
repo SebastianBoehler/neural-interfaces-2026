@@ -58,3 +58,5 @@
 - Lane TB-grow replay · source `ba604057`. Leonardo live smoke 65001193 → paired A100 timing 65001195 and 48 selection tasks 65001196 → selection freeze 65001197 → 48 single-choice confirmation tasks 65001198 → report collector 65001199. Every arrow is `afterok`; the confirmation array reads the frozen choice and replays its fixed comparators.
 
 - Lane TB-grow hook review · held pending smoke 65001193 before any live replay. The inherited mixer would still call a loaded Team B encoder at zero weight, so native and terminal arms now bypass that hook and check that Team B consumes each window exactly once. Updated source before releasing the smoke. Job IDs are unchanged.
+
+- Lane TB-grow · all 14 new fits finished and live smoke 65001193 started from `075bc70f`. Slurm time limits for pending timing, selection and confirmation jobs were raised to 2:00, 2:15 and 1:00 hours respectively after measuring P01 smoke throughput. Order sets, dependencies and arms are unchanged.
