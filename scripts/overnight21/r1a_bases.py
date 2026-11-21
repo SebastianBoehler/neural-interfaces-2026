@@ -2,7 +2,7 @@
 
 python r1a_bases.py MODE PERSON FIRST LAST OUT [--smoke] [--heldnew]
 MODE hard|hardcb. Returning mode: fold ret_PERSON (visit 1 enrolled), visits 2-3, full-session orders FIRST..LAST;
-writes OUT/<arm>/pred_ret_PERSON.npz (rows_/labels_ keys as stream_fold.py) for arms MODE and MODE_r1a, plus a json
+writes OUT/<arm>/pred_ret_PERSON_FIRST_LAST.npz (rows_/labels_ keys as stream_fold.py) for arms MODE and MODE_r1a, plus a json
 with recognition age and late-refit ages per stream. Fails loudly unless every stream is recognised and R1a refits
 exactly once (age 100) on the R1a arm and never on the parent. --heldnew: fold new_PERSON, visit 1, requires zero
 recognition and identical labels. Orders 71000-71003 are checked against the stored hardcb / R1a tapes when given.
@@ -74,7 +74,7 @@ def main(a):
     tag = f"{'new' if a.heldnew else 'ret'}_{a.person}"
     for arm in arms:
         (a.out / arm).mkdir(parents=True, exist_ok=True)
-        np.savez(a.out / arm / f"pred_{tag}.npz", **tapes[arm])
+        np.savez(a.out / arm / f"pred_{tag}_{a.first}_{a.last}.npz", **tapes[arm])
     (a.out / f"info_{a.mode}_{tag}_{a.first}_{a.last}.json").write_text(json.dumps(info, indent=1))
     if bad:
         raise SystemExit("FAILED: " + "; ".join(bad))
