@@ -2,12 +2,14 @@
 import argparse
 from functools import partial
 from inspect import getsource
+import os
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
 
-
 from returning_em import build, once
+from build_cb_speed import digest
 
 PARENT_SHA = "833a28721b0de0fa34f94de0328284ca9643cbaccc2dd343926f19c254949a4d"
 ARMS = {"zero": 0.0, "quarter": 0.25}
@@ -67,7 +69,13 @@ def main():
     parser.add_argument("candidate", type=Path)
     parser.add_argument("arm", choices=ARMS)
     args = parser.parse_args()
-    build(args.parent, args.candidate, expected_sha=PARENT_SHA, patch_source=partial(patch, weight=ARMS[args.arm]))
+    if args.candidate.exists():
+        raise FileExistsError(args.candidate)
+    with TemporaryDirectory(dir=args.candidate.parent) as temp:
+        staged = Path(temp) / args.candidate.name
+        build(args.parent, staged, expected_sha=PARENT_SHA, patch_source=partial(patch, weight=ARMS[args.arm]))
+        os.link(staged, args.candidate)
+    print(digest(args.candidate), args.candidate, flush=True)
 
 
 if __name__ == "__main__":

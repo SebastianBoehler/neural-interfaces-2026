@@ -28,13 +28,12 @@ def stage(path, parent, source):
     (folder / "submission.py").write_text(source)
 
 
-def run(a):
+def check_zero(a, verify_archives, fold_sources):
     if V.digest(a.data) != DATA_SHA or V.digest(a.candidate) != a.sha:
         raise ValueError("unexpected data or candidate digest")
     if torch.cuda.get_device_capability(DEVICE) != (7, 5):
         raise ValueError("qualification must exercise the active Turing FP16 path")
-    change = partial(patch, weight=ARMS[a.arm])
-    verify_pair(a.parent, a.candidate, expected_sha=FP16_SHA, patch_source=change)
+    verify_archives()
     data = V.D.load(a.data)
     x = torch.from_numpy(data["X"])
     windows, drift = 0, 0.0
@@ -43,11 +42,11 @@ def run(a):
         receipt = receipts[ROSTER]
         parent = pkg / ROSTER
         fixture_assets(parent, receipt)
-        parent_source = fp16_patch((parent / "submission.py").read_text())
+        parent_source, candidate_source = fold_sources(fp16_patch((parent / "submission.py").read_text()))
         rows = V.D.plans(data, 71800, [stream])[stream]
         taps = []
         with TemporaryDirectory() as tmp:
-            for name, source in (("parent", parent_source), ("candidate", change(parent_source))):
+            for name, source in (("parent", parent_source), ("candidate", candidate_source)):
                 root = Path(tmp) / name
                 stage(root, parent, source)
                 model, _ = load(data, root, ROSTER, receipt)
@@ -68,6 +67,12 @@ def run(a):
         raise ValueError(f"expected 379 windows, got {windows}")
     a.out.write_text(json.dumps(dict(sha256=a.sha, order=71800, windows=windows, label_changes=0,
                                      max_score_delta=drift, gpu=torch.cuda.get_device_name()), indent=2) + "\n")
+
+
+def run(a):
+    change = partial(patch, weight=ARMS[a.arm])
+    check_zero(a, partial(verify_pair, a.parent, a.candidate, expected_sha=FP16_SHA, patch_source=change),
+               lambda source: (source, change(source)))
 
 
 def main():
