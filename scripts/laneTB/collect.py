@@ -1,8 +1,10 @@
 """Collect complete paired Team B fold predictions using the official cell metric."""
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
 
@@ -134,7 +136,8 @@ def main():
         ret, rdraw = by_cohort(delta, "ret", D.RETURNING, orders, pair_rng)
         rp = ret["people"]
         proxy = 0.57 * new["mean"] + 0.43 * (0.2 * rp["P04"]["mean"] + 0.8 * rp["P10"]["mean"])
-        changed = {mode: sum(np.count_nonzero(pred[k] != base_pred[k]) for k in pred if k.startswith(mode + "|"))
+        changed = {mode: int(sum(np.count_nonzero(pred[k] != base_pred[k])
+                                 for k in pred if k.startswith(mode + "|")))
                    for mode in ("new", "ret")}
         result["arms"][arm] = dict(new=new, returning=ret, changed=changed, proxy=proxy,
                                    j=0.5 * (new["mean"] + ret["mean"]), j_ci80=interval(0.5 * (ndraw + rdraw)))
@@ -143,9 +146,10 @@ def main():
                 if result["timing"][a[:-2]]["projection_s"] +
                 max(0, result["timing"][a[:-2]]["load_delta_s"]) < 3600]
     result["package_arm"] = max(feasible or positives, key=lambda a: result["arms"][a]["proxy"], default=None)
-    with args.out.open("x") as f:
-        json.dump(result, f, indent=2)
-        f.write("\n")
+    with TemporaryDirectory(dir=args.out.parent) as directory:
+        staged = Path(directory) / args.out.name
+        staged.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
+        os.link(staged, args.out)
     print(json.dumps({"arms": {a: (v["new"]["mean"], v["new"]["ci80"]) for a, v in result["arms"].items()},
                       "timing": result["timing"], "package_arm": result["package_arm"]}, indent=2))
 
