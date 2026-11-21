@@ -87,8 +87,8 @@ def markdown(results):
         for arm in ARMS[1:]:
             a = r["arms"][arm]
             delta = a["delta"]
-            flag = "frozen · passes" if r["selected"] == arm and a["pass"] else (
-                   "frozen" if r["selected"] == arm else "secondary")
+            role = "frozen" if r["selected"] == arm else "secondary"
+            flag = f"{role} · passes rule" if a["pass"] else role
             people = a["returning_people"]
             rows.append((roster, arm, f"{r['fit_gains_pp'][arm]:+.2f}",
                          *(fmt_ci(delta[c]) for c in ("new", "ret", "J")),

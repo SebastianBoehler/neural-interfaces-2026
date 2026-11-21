@@ -319,8 +319,31 @@ Freeze receipt SHA-256 `a59a2a679f5e44f4ac3cd43a13520510705708e5158c77d430f06077
 
 ## Actionable levers
 
-1. **Gate SessionEM after recognition.** ba_six loses 1.11 pp returning at this step and gains 1.33 pp held-new. The current gate can target the returning loss with the existing models. A 1 pp gain across returning cells would add 0.50 pp at 50/50. This change requires a live causal tail replay. The eight-fit/eight-held replay is running on Leonardo after four exact smokes. [Preregistration](../../docs/LEDGER.md#recognition-gated-sessionem--21-november-registered-before-running)
+1. **Gate SessionEM after recognition.** ba_six loses 1.11 pp returning at this step and gains 1.33 pp held-new. The current gate can target the returning loss with the existing models. A 1 pp gain across returning cells would add 0.50 pp at 50/50. This change requires a live causal tail replay. The prespecified half-weight arm recovered +0.41 pp returning and +0.20 pp at 50/50 on ba_six. The fit-selected bypass missed the interval rule. [Preregistration](../../docs/LEDGER.md#recognition-gated-sessionem--21-november-registered-before-running)
 2. **Improve early P04 personal alignment or recognition ramp.** Immediate true identity buys +1.23 pp on P04 and −0.16 pp on P10 for ba_six, or +0.26 pp [−0.10, +0.66] at 50/50. All 32 returning streams eventually recognise correctly. The opportunity is timely and reliable personal evidence. This needs a causal EEG-derived change and independent returning people.
 3. **Investigate count-filter latching under shuffled delivery.** Full terminal bypass is cheap and was tested above. Its ba_six gain is +0.12 pp with an interval spanning zero. Use the observed changed deliveries to test a more selective latch against fresh people before changing the current stage.
 
 Held-new word generation errors at 41+ cost 3.71 pp. The fixed terminal pool gains +0.46 pp in hindsight on ba_six, and perfect interface knowledge adds +0.08 pp within that pool family. The Scherer FP16 comparison gives −0.41 pp returning [−1.09, +0.22] and remains a transfer flag. [Scherer qualification](leonardo_fill_21nov.md#turing-only-manas-acceleration)
+
+## Recognition-gated SessionEM
+
+This intervention keeps the SessionEM fit and histories and scales its output likelihood from the native recognition delivery onward. The half-weight arm normalises the geometric mean of the current SessionEM input and output. Last Push replays the full causal tail, including TSEM, own-space, count filter, CSP and MANAS. The four Leonardo smokes matched the patched live route and terminal scores within 2e−5 and every patched label on the 84-window prefixes.
+
+Fit orders 71800–71807 selected full bypass on both rosters. Held orders were 71808–71815. Each of the 18 slices with recognition passed exact live pinned-label and gate-age checks. The original 65023988 gate logs prove identity for wholly unrecognised slices. Several live reruns drifted by a label on such slices, so those controls use the canonical pinned labels. The only false recognition occurred on the fit block. All 21,240 held-new decisions per stack were unchanged under both variants.
+
+| Stack | EM arm | Fit J Δ | New Δ [80%] | Ret. Δ [80%] | 50/50 Δ [80%] | P04/P10 Δ | Role |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| nine25 | half | +0.14 | +0.00 [+0.00, +0.00] | +0.26 [+0.05, +0.48] | +0.13 [+0.02, +0.24] | +0.33/+0.20 | secondary |
+| nine25 | bypass | +0.28 | +0.00 [+0.00, +0.00] | +0.46 [-0.08, +1.05] | +0.23 [-0.04, +0.53] | +0.90/+0.02 | frozen |
+| ba_six | half | +0.30 | +0.00 [+0.00, +0.00] | +0.41 [+0.10, +0.74] | +0.20 [+0.05, +0.37] | +0.45/+0.37 | secondary · passes rule |
+| ba_six | bypass | +0.54 | +0.00 [+0.00, +0.00] | +0.55 [-0.04, +1.18] | +0.27 [-0.02, +0.59] | +1.04/+0.06 | frozen |
+
+nine25 misrecognised new P10/1 as P03 on fit order 71802 at delivery 40. Half/bypass changed 5/9 labels.
+
+ba_six misrecognised new P10/1 as P03 on fit order 71802 at delivery 40. Half/bypass changed 4/10 labels.
+
+Fit freeze SHA-256 `c7d30a6b413ca0c69214b291b05bcaf5bbb681634fec6d7d6dcfc1457df1ef87`.
+
+The frozen bypass missed the positive lower-bound rule on both stacks. The prespecified ba_six half-weight arm met the numerical rule as a secondary result. Its P04 and P10 gains were +0.45 and +0.37 pp. I used the arm-level rule to build the requested half-weight derivative. The paired intervals are unadjusted for the two tested weights, and the order split reuses the same people. [Preregistration and frozen selection](../../docs/LEDGER.md#recognition-gated-sessionem--21-november-registered-before-running)
+
+The ba_six FP16 half-weight archive was built at 15:47 CET. Its SHA-256 is `833a28721b0de0fa34f94de0328284ca9643cbaccc2dd343926f19c254949a4d`. Byte comparison verified that the only changed archive member is `submission.py`, with exactly the deterministic recognition-gated SessionEM patch. [Archive builder](../../scripts/bottleneck_21nov/returning_em.py)
