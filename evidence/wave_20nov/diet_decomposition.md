@@ -38,4 +38,21 @@ All four Leonardo shards completed by 20:53 CET. The collector reproduced the 32
 | c | +0.228 [+0.095, +0.363] | +0.114 [+0.047, +0.182] | +0.255 / +0.201 | 75 / 6,096 | Pass |
 | d | +0.170 [−0.099, +0.456] | +0.085 [−0.049, +0.228] | +0.330 / +0.011 | 253 / 6,096 | Miss |
 
-Arm c is the only survivor of the PROTEUS gate. Scherer transfer is pending. Both 2080 Ti direct a overlaps completed. The A100 live smoke reproduced each of the four tape arms on all 120 labels.
+Arm c was the only survivor of the PROTEUS gate. Both returning participants improved.
+
+### Scherer B-ret 71864–71871
+
+All nine RTX 2080 Ti shards in `3150492` completed by 21:05 CET. Each arm paired all 72 recognised B-ret streams and 8,400 windows per scheme. Reference B-ret BA was 55.962% full-session and 58.229% within-run. The shared replay matched all 3,840 decisions on the two independent live a shards and matched every pinned `em_half` label and recognition age on the full grid. Receipt SHA-256 `96d34f44aea80657977b1a3e5ed43026a5265c7128e26e6fb7ac3273d2d02de7`.
+
+| Arm | B-ret full-session Δ [80%] | B-ret within-run Δ [80%] | Full-session 50/50 Δ [80%] | Within-run 50/50 Δ [80%] | Labels changed full / within |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| a | −0.069 [−0.162, +0.012] | −0.608 [−0.977, −0.231] | −0.035 [−0.081, +0.006] | −0.304 [−0.489, −0.116] | 35 / 341 |
+| b | −0.623 [−1.422, +0.179] | −1.202 [−1.893, −0.541] | −0.312 [−0.711, +0.089] | −0.601 [−0.947, −0.270] | 619 / 631 |
+| c | +0.007 [−0.172, +0.182] | +0.271 [+0.086, +0.460] | +0.003 [−0.086, +0.091] | +0.136 [+0.043, +0.230] | 123 / 120 |
+| d | −0.577 [−1.374, +0.230] | −1.576 [−2.341, −0.813] | −0.289 [−0.687, +0.115] | −0.788 [−1.171, −0.407] | 635 / 779 |
+
+The Scherer 50/50 column uses zero B-new effect from the archived no-recognition bank. Each live B-new smoke confirmed the patch preserved labels with recognition absent. The external result suggests TSEM reduction explains most of the quarter diet's transfer loss. CountFilter bypass also costs accuracy within-run. The end-to-end contrasts include downstream interactions.
+
+### Promotion
+
+Arm c passed all scoring thresholds. Start exact production qualification for the SessionEM-only reduction. The other three arms missed the PROTEUS and Scherer gates.
