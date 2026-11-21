@@ -85,3 +85,24 @@ Registered before dispatch. All scoring and timing ran through Slurm. The unprof
 | cn123 | 3150645 |
 
 Scherer NI-V B-ret uses a pinned 71840 A100/BF16 smoke (`3150647`) followed by nine paired shards (`3150648`) for orders 71872–71879. The collector computes cell-balanced accuracy and 80% intervals over people and orders.
+
+### Completed timing repeats
+
+Times are ms/window across the same 1,131 measured windows per archive. Projections are seconds using the paired increase over cap250 and its 2,554.9166 s sealed receipt.
+
+| Node | Job | cap250 | em_half | c | c vs em_half | em_half projection | c projection | Receipt SHA-256 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| cn122 | 3150639 | 147.17 | 176.22 | 172.67 | -2.013% | 3,138.3 | 3,067.1 | `02f8c1d0f8d7a619b6b465ecc705f2200e1e6e90bb1a4c3f57813d1921b2bac8` |
+| cn115 | 3150642 | 155.46 | 188.35 | 184.29 | -2.158% | 3,215.4 | 3,133.8 | `8350eb955e220c679813635e80436174deda9657b2009eeda5bb723b229c288a` |
+| cn111 | 3150640 | 153.24 | 183.69 | 180.25 | -1.873% | 3,166.5 | 3,097.4 | `82bcf48f57a2e4963866a8cd88b8c8b9c7e663ad8f7f0b8ea8c2a8fa09dbf087` |
+
+### Scherer NI-V B-ret, orders 71872–71879
+
+Pinned smoke `3150647` passed on cn231. Live arm c matched all 120 causal replay labels. All nine A100/BF16 shards in `3150648` finished by 21:39:52 CET. The collector paired 72 recognised visit-2 streams and 8,400 windows per scheme. Independent row regeneration matched all 288 arm-stream row lists using manifest SHA-256 `8ea44213…`. Every fresh stream reproduced the em_half Solver's labels, RouteB output and terminal posterior exactly. Pre-latch labels matched between the arms.
+
+| Delivery | em_half BA | Arm c BA | Returning Δ pp [80%] | Labels changed |
+| --- | ---: | ---: | ---: | ---: |
+| Full-session | 56.460% | 56.549% | +0.089 [−0.109, +0.293] | 115 / 8,400 |
+| Within-run | 58.019% | 58.133% | +0.114 [−0.058, +0.289] | 138 / 8,400 |
+
+Both points clear the −0.20 pp transfer flag. Within-run stays positive, below the +0.25 pp prediction, and both intervals cross zero. This release varies delivery order for the same nine participants. Execution sources are in `b531ed20`. Collector receipt SHA-256 `46596e4df5d5bd51e4ed159478623486eb183b910b04b1c6a6806fc05ede153f`.
