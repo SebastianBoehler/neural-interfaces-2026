@@ -30,7 +30,7 @@ case "$stage" in
         exec bash "$launcher" "$src/worker.py" "$stage" "$run" "$CAP250_DATA" "$fold" "$((i / 12))"
         ;;
     collect)
-        exec bash "$launcher" "$src/collect.py" "${2:?block}" "$run" "$CAP250_DATA"
+        exec bash "$launcher" "$src/terminal_collect.py" "${2:?block}" "$run" "$CAP250_DATA"
         ;;
     *) exit 2 ;;
 esac

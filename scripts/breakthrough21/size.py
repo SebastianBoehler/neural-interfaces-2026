@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 import numpy as np
 import torch
 
-from collect import C, cell_weights
+from terminal_collect import C, cell_weights
 from fixture import visits
 from fit import DATA_SHA, D
 from patch_terminal import verify_parent
@@ -36,7 +36,7 @@ def fold_stream(enc, signals, rows, pooled):
 
     def tap(i):
         def keep(_layer, _args, logits):
-            taps[i] = logits[-1].log_softmax(0)
+            taps[i] = logits.log_softmax(1)[-1]
         return keep
 
     hooks = [net.head.register_forward_hook(tap(i)) for i, net in enumerate(enc.nets)]
@@ -45,7 +45,7 @@ def fold_stream(enc, signals, rows, pooled):
             taps[:] = [None] * 9
             p = enc.posterior(signals[r].to(DEVICE)).cpu().numpy()
             current = torch.stack(taps)
-            q = current.mean(0).softmax(0).cpu().numpy()
+            q = (sum(taps) / len(taps)).softmax(0).cpu().numpy()
             np.testing.assert_allclose(q, p, atol=1e-7, rtol=0)
             out.append(current.cpu().numpy())
     finally:

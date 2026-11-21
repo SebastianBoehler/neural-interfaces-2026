@@ -14,7 +14,7 @@ from fixture import HELD, SCREEN, visits
 from fit import DATA_SHA, D
 from patch_terminal import LEAD_SHA, MIXES, verify_parent
 
-BINS = ((0, 10), (10, 20), (20, 40), (40, None))
+BINS = ((0, 10), (10, 20), (20, 40), (40, None), (0, 40))
 
 
 def cell_weights(data, rows):
@@ -31,7 +31,7 @@ def cell_weights(data, rows):
 
 def load(run, block, arms, orders, data):
     cells = {a: {} for a in arms}
-    bands = {mode: {a: np.zeros((4, 2)) for a in arms[1:]} for mode in ("new", "ret")}
+    bands = {mode: {a: np.zeros((len(BINS), 2)) for a in arms[1:]} for mode in ("new", "ret")}
     receipts = {}
     for mode, person in C.FOLDS:
         fold = f"{mode}_{person}"

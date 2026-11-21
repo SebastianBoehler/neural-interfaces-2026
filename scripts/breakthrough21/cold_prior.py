@@ -26,7 +26,7 @@ def population(data, fold):
         energy = np.trace(cov)
         if not np.isfinite(energy) or energy <= 0:
             raise ValueError(f"invalid source covariance from {stream}")
-        covariances.append(cov / energy)
+        covariances.append((cov + cov.T) / (2 * energy))
     prior = np.stack(covariances).mean(axis=0)
     if prior.shape != (41, 41) or np.linalg.eigvalsh(prior)[0] <= 0:
         raise ValueError("positive-definite 41-channel covariance required")
