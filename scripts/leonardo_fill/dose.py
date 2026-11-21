@@ -12,7 +12,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "laneTB"))
 import verify as V
 from run import check_zero_mixer
 
-ORDERS = tuple(range(71400, 71432))
+DOSE_STARTS = (71400, 71600)
+ORDER_CHUNKS = tuple(order for start in DOSE_STARTS for order in range(start, start + 32, 2))
 PIN = V.W / "laneTB-verify-21nov/out/hard"
 DATA_SHA = "2be4187fe33a5d476145cbb6d46164093b9b5c337209482503761042343e1327"
 
@@ -95,7 +96,7 @@ def main():
     p.add_argument("--data", type=Path, required=True)
     p.add_argument("--fold", required=True)
     p.add_argument("--out", type=Path, required=True)
-    p.add_argument("--first", type=int, choices=ORDERS[::2])
+    p.add_argument("--first", type=int, choices=ORDER_CHUNKS)
     a = p.parse_args()
     assert torch.cuda.is_available()
     data_sha = V.digest(a.data)

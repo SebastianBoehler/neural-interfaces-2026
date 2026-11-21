@@ -9,8 +9,9 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "laneTB"))
 import verify_collect as V
+from confirm_collect import pooled_dir
+from dose import DOSE_STARTS
 
-DOSE_ORDERS = tuple(range(71400, 71432))
 DOSE_PAIRS = (("nine25", "base"), ("nine15", "base"), ("nine25", "nine15"))
 
 
@@ -94,9 +95,22 @@ def main():
     p.add_argument("--root", type=Path, required=True)
     p.add_argument("--json", type=Path, required=True)
     p.add_argument("--half", type=int, choices=(1, 2))
+    p.add_argument("--start", type=int, choices=DOSE_STARTS, default=DOSE_STARTS[0])
+    p.add_argument("--prior-root", type=Path, help="original 71400 block for the pooled 64-order report")
     a = p.parse_args()
-    orders = DOSE_ORDERS if a.half is None else DOSE_ORDERS[16 * (a.half - 1):16 * a.half]
-    report = dose(a.root, V.D.load(a.data), orders)
+    orders = tuple(range(a.start, a.start + 32))
+    if a.half is not None:
+        orders = orders[16 * (a.half - 1):16 * a.half]
+    data = V.D.load(a.data)
+    report = dose(a.root, data, orders)
+    if a.prior_root is not None:
+        if a.start != DOSE_STARTS[1] or a.half is not None:
+            p.error("--prior-root requires the full follow-up block")
+        old = tuple(range(DOSE_STARTS[0], DOSE_STARTS[0] + 32))
+        with TemporaryDirectory() as scratch:
+            merged = pooled_dir((a.prior_root.resolve(), a.root.resolve()), scratch)
+            pooled = dose(merged, data, old + orders)["blocks"].popitem()[1]
+        report["blocks"]["71400–71431 and 71600–71631"] = pooled
     a.json.write_text(json.dumps(report, indent=1) + "\n")
     for name, block in report["blocks"].items():
         print(name)

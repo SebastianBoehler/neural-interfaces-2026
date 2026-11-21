@@ -22,14 +22,17 @@ case "$phase" in
   dose)
     task=${SLURM_ARRAY_TASK_ID:?}
     IFS=$'\t' read -r kind held _ < <(sed -n "$((task % 12 + 1))p" "$TB_SRC/hardcb/jobs.tsv")
-    bash "$launcher" "$src/dose.py" --fold "${kind}_${held}" --first "$((71400 + 2 * (task / 12)))" \
+    start=${2:-71400}
+    bash "$launcher" "$src/dose.py" --fold "${kind}_${held}" --first "$((start + 2 * (task / 12)))" \
       --data "$CAP250_DATA" --out "$run/dose"
     ;;
   dose-report)
     half=()
-    [[ -z ${2:-} ]] || half=(--half "$2")
+    [[ -z ${2:-} || $2 == all ]] || half=(--half "$2")
+    prior=()
+    [[ -z ${4:-} ]] || prior=(--prior-root "$4")
     bash "$launcher" "$src/report.py" --data "$CAP250_DATA" --root "$run/dose" \
-      --json "$run/dose${2:-}.json" "${half[@]}"
+      --json "$run/dose${2:-}.json" --start "${3:-71400}" "${half[@]}" "${prior[@]}"
     ;;
   *)
     exit 2
