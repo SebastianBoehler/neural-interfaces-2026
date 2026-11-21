@@ -1,0 +1,113 @@
+{
+ "gpu": "NVIDIA GeForce RTX 2080 Ti",
+ "torch": "2.14.1+cu130",
+ "sessions": [
+  "P03|1",
+  "P07|1",
+  "P10|2",
+  "P05|1",
+  "P04|1",
+  "P04|3"
+ ],
+ "load_s": {
+  "v66_cp1_cap250": 2.101095326244831,
+  "final_stack_hard_safe_st_team_b_nine15_tbgraph": 3.554796565324068,
+  "final_stack_hard_safe_st_team_b_nine15_tbgraph_fc": 1.3748643575236201,
+  "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph": 3.6282858112826943,
+  "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph_fc": 1.669389670714736
+ },
+ "kinds": {
+  "v66_cp1_cap250": "Ensemble6",
+  "final_stack_hard_safe_st_team_b_nine15_tbgraph": "TeamBlendStack",
+  "final_stack_hard_safe_st_team_b_nine15_tbgraph_fc": "TeamBlendStack",
+  "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph": "TeamBlendStack",
+  "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph_fc": "TeamBlendStack"
+ },
+ "v66_cp1_cap250": {
+  "ms_per_window": 146.42280741626845,
+  "inside_ms_per_window": {},
+  "windows": 1131,
+  "per_session_ms": [
+   141.41813935662702,
+   149.68025223130272,
+   158.599154252599,
+   146.90266101572075,
+   140.751492370058,
+   141.34903636047656
+  ],
+  "added_vs_ref_ms": 0.0,
+  "projected_s": 2554.9166
+ },
+ "final_stack_hard_safe_st_team_b_nine15_tbgraph": {
+  "ms_per_window": 193.13480278146045,
+  "inside_ms_per_window": {
+   "hard": 14.199359419036766,
+   "team_b": 37.07575995827491
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   195.7528629936475,
+   196.34220611658833,
+   192.78732474432678,
+   187.90019015340428,
+   192.53344416973135,
+   193.51699151237435
+  ],
+  "added_vs_ref_ms": 46.711995365191996,
+  "projected_s": 3493.033602919151
+ },
+ "final_stack_hard_safe_st_team_b_nine15_tbgraph_fc": {
+  "ms_per_window": 166.4277694017604,
+  "inside_ms_per_window": {
+   "hard": 14.194088181848024,
+   "team_b": 9.489390485245606
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   172.44528457719497,
+   163.80544987423394,
+   166.02015100739976,
+   165.14115280128624,
+   165.24511165719815,
+   165.90704871936046
+  ],
+  "added_vs_ref_ms": 20.004961985491946,
+  "projected_s": 2956.6762515546347
+ },
+ "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph": {
+  "ms_per_window": 202.49550788112438,
+  "inside_ms_per_window": {
+   "hard": 13.904970275957853,
+   "team_b": 36.96580228554686
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   202.41201793646843,
+   210.44706438899672,
+   199.60401574229843,
+   195.1774697505722,
+   199.49081357292556,
+   207.86288780893418
+  ],
+  "added_vs_ref_ms": 56.07270046485593,
+  "projected_s": 3681.0246434357014
+ },
+ "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph_fc": {
+  "ms_per_window": 176.81382741914135,
+  "inside_ms_per_window": {
+   "hard": 14.07522695496428,
+   "team_b": 9.534160756431092
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   171.41087561668385,
+   175.82314161869584,
+   180.0769588669702,
+   174.67205621498195,
+   176.91345670058456,
+   182.07745322898188
+  ],
+  "added_vs_ref_ms": 30.391020002872892,
+  "projected_s": 3165.2594547176964
+ }
+}

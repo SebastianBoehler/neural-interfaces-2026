@@ -46,3 +46,21 @@ Reading: `fc` removes about 28 ms/window on the 2080 Ti (Team B inside time 36.5
 | hardcb cbgraph | A100 cn220 / cn225 | 23.7 (3031) / 23.5 (3027) |
 
 Unpatched Team B: 2080 Ti 3,465-3,840 s (8 runs per arm), 4 of 8 nine25 and 4 of 8 nine15 runs above 3,600 s; node cn116 is the slow one (up to 3,840 s). cbgraph alone: 2,944-3,086 s on every node. A100 nodes differ by 11 ms between cn208 and cn222.
+
+## Qualification of _fc
+
+**Gate 1 passed.** All three archives rebuilt byte for byte with `patch_tb_fused_conv.py` (source in `47da04c7`). Each rebuild passed CRC and preserved its parent's ordered inventory. Only `submission.py` changed, within the embedded Team B encoder.
+
+| Arm | Parent ZIP SHA-256 | Fused ZIP SHA-256 | Entries |
+|---|---|---|---:|
+| nine25_fc | `6e09953709b2338507deaac1ec5f6afa4a21eef52de7814f7c2ae77f42e86ee9` | `7017bd5c8a707e7233fe6b1e2df4376c28d49f6613174ec82c0fdbf700bc3f07` | 42 |
+| nine15_fc | `9ad45b11de1bcc356c56a0b7ff9ae74eb0c471f64546cb6a18f716b2f956188b` | `6e6bbbb841db4ff1ea5e83e4bad75a090ab0a30455fa5ca570063b5ba828d1d4` | 42 |
+| hardcb nine25_fc | `911a31af329c3f38f75ae8a0f1331e18bc921e6c36b002538839ba04a2384c4e` | `086c7600555efba5545c035e1ef3c4245ab036599b588400c34ac118753fcd73` | 45 |
+
+**Gate 2 running.** Official warm-up replay pairs (cap250, candidate, cap250, candidate): Galvani 2080 Ti jobs 3146870/71 and Leonardo A100 jobs 65013942/43, nine25 / nine15 respectively.
+
+**Gate 3 queued.** Galvani matched cap250 timing jobs 3146861–66 target cn111/114/115/116/117/123, with hardcb nine25_fc included on cn114/116/123. Jobs 3146867–69 target A100-PCIe cn205/209/222. The earlier nine25_fc measurements covered just cn114/115 and cn209. Their worst projections were 3,064.0 s on 2080 Ti cn114 and 3,066.9 s on A100-PCIe cn209. The estimate adds paired Solver cost over 1,131 measured public windows to the sealed cap250 receipt. The RTX PRO 4500 remains unmeasured.
+
+**Gate 4 static check passed, runtime check queued.** Grep of each packaged `submission.py` found the inherited hard-actor load self-test and the dead-session guard. Both hard-only archives also have the Team B load self-test. The hardcb archive preserves its parent's CBraMod load self-test and lacks a Team B-specific load self-test, as does its parent. Galvani jobs 3146872–74 exercise the live dead-session guard and inject Team B graph capture failures at batches 1 and 64.
+
+`python replay/check.py` printed `OK` locally. The qualification ran on public windows.
