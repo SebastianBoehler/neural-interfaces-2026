@@ -124,4 +124,19 @@ Each timing uses 1,131 measured windows, alternating arm order, fresh Solver per
 
 At 12:55 CET cn111 (3147536) was pending. All five measured cap250 baselines were below the exclusion threshold of 190.5 ms/window. Cn122 exceeded 3,450 s by 33.5 s and counts in the profiled result. Source `6aa00b22` repeats the exact ordinary Solver timing with component hooks disabled, jobs 3147645–3147650 on cn122, cn116, cn114, cn115, cn117 and cn123. The exact RTX PRO 4500 has not been measured.
 
+| Unprofiled node | Job | cap250 ms/window | Fused nine25 projection (s) | Fused ba_six projection (s) |
+|---|---:|---:|---:|---:|
+| cn114 | 3147647 | 135.73 | 3,042.0 | **3,468.3** |
+| cn115 | 3147648 | 129.42 | 3,088.1 | 3,412.1 |
+| cn116 | 3147646 | 131.22 | 3,112.1 | 3,334.0 |
+| cn117 | 3147649 | 135.10 | 2,963.1 | 3,355.3 |
+| cn122 | 3147645 | 145.03 | 2,850.2 | 3,191.7 |
+| cn123 | 3147650 | 135.32 | 3,024.1 | 3,371.1 |
+
+All six unprofiled runs completed by 13:12 CET, and all six cap250 baselines qualify as normal. Cn114 misses the 3,450 s target by 18.3 s. The profiled cn122 overshoot and the unprofiled cn114 overshoot both remain in the evidence. The exact fused `ba_six` ZIP is timing-ineligible under the user's current rule. Signed fused nine25 is the timing-safe choice from this lane.
+
+### Turing-only MANAS acceleration
+
+Registered one targeted attempt after the timing miss. On CUDA capability 7.5, where BF16 lacks native arithmetic, test FP16 autocast in the MANAS encoder. The CPU and BF16 paths keep their original operators. The patch copies all weights and changes only generated Solver source. The first draft could have treated BF16 emulation as native support. Superseded build 3147734 and canceled dependent smoke 3147735. Source `33993df2` selects 7.5 explicitly and observes the recorded dtype at graph capture. Revised build 3147737 and paired 379-window smoke 3147738 run on Galvani. Any changed active labels or stage activity blocks the variant.
+
 The 08:08 CET Leonardo snapshot showed 26 running and 270 pending. This lane had 11 running and 187 pending. Codex heartbeat checks every 50 minutes and will retain the verified queue gaps in this card.
