@@ -71,12 +71,12 @@ def read_donor(path):
     return graph + "\n\n" + namespace, stack, blob
 
 
-def reference(namespace, blob):
+def reference(namespace, blob, members=3):
     torch.set_num_threads(1)
     ns = {"torch": torch}
     exec(compile(namespace, "<signed Team B encoder>", "exec"), ns)
     bank = torch.load(io.BytesIO(blob), map_location="cpu", weights_only=True)
-    encoder = ns["_TEAM_B"]["Encoder"](bank, "cpu", 3)
+    encoder = ns["_TEAM_B"]["Encoder"](bank, "cpu", members)
     posteriors = np.stack([encoder.posterior(torch.from_numpy(x)).numpy() for x in windows()])
     if posteriors.shape != (2, 3) or not np.isfinite(posteriors).all() or (posteriors < 0).any():
         raise ValueError("invalid Team B self-test reference")

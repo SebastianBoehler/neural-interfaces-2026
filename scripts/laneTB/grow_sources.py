@@ -94,7 +94,7 @@ def team_c(run, fold, data, variant):
     return model, dict(weights_sha=digest(pkg / "weights.pt"), source_sha=digest(src), train_sha=digest(training))
 
 
-def team_a(fold, data, data_sha):
+def team_a_donor(fold, data, data_sha):
     pkg = TEAM_A / fold
     people, first, _, _ = roster(fold, data)
     training = pkg / "training.json"
@@ -104,6 +104,12 @@ def team_a(fold, data, data_sha):
     assert meta["weights_sha"] == digest_weights and meta["arch"] == "manas" and meta["recipe"] == "A1"
     assert not meta["smoke"] and len(meta["corpora"]) == 12
     src = pkg / "submission.py"
+    return pkg, dict(weights_sha=digest_weights, source_sha=digest(src), train_sha=digest(training))
+
+
+def team_a(fold, data, data_sha):
+    pkg, receipt = team_a_donor(fold, data, data_sha)
+    src = pkg / "submission.py"
     original = src.read_text()
     patched = once(original, "        return logits.argmax(-1)",
                    "        self.last = logits.softmax(-1)[0]\n        return logits.argmax(-1)")
@@ -111,4 +117,4 @@ def team_a(fold, data, data_sha):
     names = list(data["ch_names"])
     model = mod.Solver().load_model(dict(submission_dir=pkg, device=DEVICE, ch_names=names, n_chans=len(names),
                                         n_times=480, n_classes=3, sfreq=120.0))
-    return model, dict(weights_sha=digest_weights, source_sha=digest(src), train_sha=digest(training))
+    return model, receipt

@@ -66,14 +66,12 @@ def smoke(data, signals, fold, pkgs):
     print("PASS pinned delivery, same-call mixer zero and live stage checks", flush=True)
 
 
-def replay(data, signals, fold, pkgs, orders, out, receipt):
-    for arm, pkg, model in load_arms(data, pkgs):
-        payload = dict(receipt=np.asarray(json.dumps({
-            **receipt, "source_sha": V.digest(pkg / "submission.py"), "bank_sha": V.digest(pkg / "team_b.pt"),
-        }, sort_keys=True)))
+def replay(data, signals, fold, models, orders, out, *, check=live_check):
+    for arm, model, receipt in models:
+        payload = dict(receipt=np.asarray(json.dumps(receipt, sort_keys=True)))
         for order in orders:
             for stream, rows in V.D.plans(data, order, sessions(data, fold)).items():
-                labels, _, meta = V.stream_session(model, signals, rows, V.DEVICE, check=live_check)
+                labels, _, meta = V.stream_session(model, signals, rows, V.DEVICE, check=check)
                 suffix = f"{order}_{stream.split('|')[1]}"
                 payload.update({f"rows_{suffix}": rows, f"labels_{suffix}": labels})
                 print(f"{fold} {arm} {suffix} {len(rows)}", meta, flush=True)
@@ -84,6 +82,12 @@ def replay(data, signals, fold, pkgs, orders, out, receipt):
             stage = Path(tmp) / path.name
             np.savez_compressed(stage, **payload)
             stage.replace(path)
+
+
+def dose_models(data, pkgs, receipt):
+    for arm, pkg, model in load_arms(data, pkgs):
+        yield arm, model, {**receipt, "source_sha": V.digest(pkg / "submission.py"),
+                          "bank_sha": V.digest(pkg / "team_b.pt")}
 
 
 def main():
@@ -106,7 +110,7 @@ def main():
         if a.first is None:
             smoke(data, signals, a.fold, pkgs)
         else:
-            replay(data, signals, a.fold, pkgs, (a.first, a.first + 1), a.out, receipt)
+            replay(data, signals, a.fold, dose_models(data, pkgs, receipt), (a.first, a.first + 1), a.out)
 
 
 if __name__ == "__main__":
