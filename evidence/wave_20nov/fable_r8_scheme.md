@@ -1,0 +1,12 @@
+# Fable Round 8 · delivery scheme audit
+
+[Preregistration](../../docs/LEDGER.md#fable-r8--delivery-scheme-audit-21-november-registered-before-scoring) · [Dispatch](DISPATCH_21NOV.md) · [Quarter ZIP qualification](fable_r6_diet.md#production-qualification)
+
+The sealed evaluator fixes the order within each session for every submission. The organisers have kept the shuffle scope private. This audit compares the same five stacks under within-run, per-interface and full-session delivery. All scores use the official cell-balanced metric and real `production-20261120-32a94ab7` fold assets. Returning P04/P10 use visit 1 for enrolment and visits 2/3 for evaluation. The new and returning results carry equal weight in the joint score. The order blocks reuse people.
+
+## Delivery review and dispatch
+
+- Harness `19ae67ef` is on `origin/main`. Compared the full PROTEUS permutations against its parent at 71000, 71808–71811 and nearby boundary seeds. Seed 71000 matched byte for byte, SHA-256 `605be1e5c9fff593f8475714847a03e8e5554e47e108b4c9b6f4673fd9fcf6f3`.
+- Direct calls to `delivery()` without acquisition metadata raised `ValueError` at 72000, 73000 and 74000. With real metadata, every stream retained its rows and the three schemes preserved the specified run or interface blocks. Local `python replay/check.py` printed `OK`.
+- Synced the reviewed harness to Last Push and Fable R6 Diet on Leonardo and Galvani. All four copies give SHA-256 `9c057995959fdc9a556c8c79bdf8bb6d9f0baf53074209eed870675b089f8d7d`. The concurrently running quarter confirmation keeps its separate legacy full-shuffle release.
+- Audit release `431eff98`. Leonardo `cap250/runs/fable-r8-scheme-21nov`: Slurm smoke 65049416 → 84-task grid 65049470. Galvani `ni26_fable_r8_scheme_20261121`: smoke 3149306 → 84-task grid 3149309. Each grid depends on its own smoke. Leonardo is the A100 reference. Galvani uses the production FP16 MANAS path on the RTX 2080 Ti.

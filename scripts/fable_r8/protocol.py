@@ -5,8 +5,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "scripts/bottleneck_21nov"), str(ROOT / "submissions/final_stack")]
-from capture import DATA_SHA, V
-from tapes import PEOPLE
+from tapes import DATA_SHA, PEOPLE
 
 FOLDS = tuple(f"{cohort}_{person}" for cohort, people in PEOPLE.items() for person in people)
 ORDERS = {

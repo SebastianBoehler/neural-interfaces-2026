@@ -9,8 +9,8 @@ from zipfile import ZipFile
 import numpy as np
 import torch
 
-from protocol import CHUNKS, DATA_SHA, FOLDS, V
-from capture import fixture_assets, normalized
+from protocol import CHUNKS, DATA_SHA, FOLDS
+from capture import V, fixture_assets, normalized
 from check_r1a import fold_fixture
 from dose import sessions
 from grow_replay import check, load

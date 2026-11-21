@@ -65,10 +65,10 @@ def stream_ids(data, cohort, person):
     return [f"{person}|{visit}" for visit in visits]
 
 
-def read_bank(data, orders, read):
-    permutations = {order: protocol.delivery(data["stream"], order) for order in orders}
-    by_order = {(order, stream): rows[data["stream"][rows] == stream]
-                for order, rows in permutations.items() for stream in np.unique(data["stream"])}
+def read_bank(data, orders, read, *, deliveries=None):
+    if deliveries is None:
+        streams = np.unique(data["stream"])
+        deliveries = {order: protocol.plans(data, order, streams) for order in orders}
     result = []
     for cohort, people in PEOPLE.items():
         for person in people:
@@ -77,7 +77,7 @@ def read_bank(data, orders, read):
                     visit = stream.split("|")[1]
                     fold, key = f"{cohort}_{person}", f"{order}_{visit}"
                     rows, scores = read(fold, order, key)
-                    np.testing.assert_array_equal(rows, by_order[order, stream], err_msg=f"{fold}/{key}")
+                    np.testing.assert_array_equal(rows, deliveries[order][stream], err_msg=f"{fold}/{key}")
                     if any(len(value) != len(rows) or not np.isfinite(value).all() for value in scores.values()):
                         raise ValueError(f"missing or nonfinite scores for {fold}/{key}")
                     result.append(Case(cohort, person, visit, order, rows, data["y"][rows],
