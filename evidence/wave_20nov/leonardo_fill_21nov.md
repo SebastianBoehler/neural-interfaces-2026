@@ -93,6 +93,12 @@ Official pair 3147535 completed four replays with stable predictive scores, unch
 
 Leonardo source `e00c77b5`. All three fused fold smokes 65023503–65023505 passed v3, exact pinned rows and labels, zero and active graph checks. Controller 65023506 released nine prep tasks 65023987, 96 replays 65023988 on 71800–71815 and paired collector 65023989.
 
+| 16 fresh fused-order contrast | Held-new pp [80%] | Returning pp [80%] | P04 / P10 pp | 50/50 pp [80%] |
+|---|---:|---:|---:|---:|
+| ba_six − nine25 | +0.21 [−0.04, +0.46] | +0.50 [+0.26, +0.74] | +0.47 / +0.53 | +0.36 [+0.17, +0.54] |
+
+All 96 replays and the collector completed by the 13:36 CET check. The returning lower bound and positive held-new point meet the user’s revised quality rule. The earlier disjoint block gave 50/50 +0.30 [+0.09, +0.50]. Both blocks reuse people. `confirmation.json` SHA-256 `d96335c7b18ae1d07b5b95ac50883fb2c76348dbdd19b712c6a0ebdccc9f2bca`.
+
 ### Exact archive validation
 
 CPU zero 3147533 passed at 12:42 CET. Disabling Team A matched the signed-lead-derived six-member control bitwise on 379 windows. Disabling both Team A and Team B matched signed hard bitwise on the same 379 windows. Both checks cover labels, captured scores and stage activity. GPU identity 3147534 changed 0/379 labels when fused convolution was disabled. Maximum score difference was 6.0e−8.
@@ -142,5 +148,9 @@ Registered one targeted attempt after the timing miss. On CUDA capability 7.5, w
 Smoke 3147738 passed at 13:22 CET. The parent used BF16 emulation on cn114 and the patched encoder used FP16. The 379 labels and stage counts matched. The largest absolute traced score difference was 1.09e−4. Production SHA-256 `890c2beec60344280f21b7206e99378dc71047a90b2e5db0876986b636b40cad`. Scherer-free SHA-256 `0804a2f272d4fb4b6215cfcd7f282f0c813cbe4b4888f3f6b5f38f74964d6160`.
 
 Source `19f9b979` released seven all-public identity shards 3147754, CPU zero 3147755, signed-lead official pair 3147756, and six unprofiled timing jobs 3147757–3147762. The nodes in job order are cn114, cn116, cn115, cn117, cn122 and cn123. The timing pairs both `ba_six` archives, cap250 and signed nine25_fc. Paired NI-V smokes 3147763/64 gate controller 3147765. A100 BF16 identity check is 3147766.
+
+All-public shards confirmed 0/2,655 changed labels across all 14 sessions, with identical stage counts. The largest absolute traced score difference on 2080 Ti was 5.02e−4. The A100 check observed BF16 on both archives and bitwise identity on 379 windows. Official fused-lead pair 3147756 passed with stable scores and unchanged files. Lead 99.5923%, FP16 candidate 100.0000%.
+
+Controller 3147765 released 36 paired B-new tasks 3147783, nine paired B-ret tasks 3147784 and report 3147785 over the same eight Scherer orders as the ordinary variant. The exact Galvani FP16 ZIP is mirrored locally and SHA-verified. Native-BF16 e2e check 3147847 pairs both signed variants on A100.
 
 The 08:08 CET Leonardo snapshot showed 26 running and 270 pending. This lane had 11 running and 187 pending. Codex heartbeat checks every 50 minutes and will retain the verified queue gaps in this card.
