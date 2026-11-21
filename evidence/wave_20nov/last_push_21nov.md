@@ -51,3 +51,20 @@ The 96 fit tasks completed. Collector 65026185 froze 40% and delayed SessionEM f
 | ba_six | Rebalance alpha | −0.21 [−0.50, +0.10] | −0.10 [−0.30, +0.08] | −0.15 / −0.06 | −0.16 [−0.33, +0.02] |
 | ba_six | Rebalance prior mass | −0.16 [−0.44, +0.14] | −0.05 [−0.23, +0.13] | −0.07 / −0.03 | −0.11 [−0.25, +0.05] |
 | ba_six | **SessionEM delay** | −0.13 [−0.36, +0.07] | +0.12 [−0.03, +0.30] | +0.23 / +0.01 | **0.00 [−0.15, +0.12]** |
+
+## Held-out result on 71808–71815
+
+Both 96-task arrays and both collectors completed. The held-out collector 65026187 finished by 14:12 CET. `held.json` SHA-256 `1ebee841444d03991ff1be3d2e662e67e439c2722747087ff12f1ca3e6bec5fd`. First-40 effects use the same full-session class weights restricted to the prefix.
+
+| Roster | Arm | Held-new pp [80% CI] | Returning pp [80% CI] | P04 / P10 pp | 50/50 pp [80% CI] | First 40 new / returning pp |
+|---|---|---:|---:|---:|---:|---:|
+| nine25 | **40%** | +0.10 [−0.49, +0.66] | −0.06 [−0.35, +0.25] | −0.15 / +0.04 | **+0.02 [−0.32, +0.35]** | −0.20 / −0.54 |
+| nine25 | Rebalance alpha | +0.21 [−0.10, +0.53] | +0.10 [−0.13, +0.34] | +0.23 / −0.03 | +0.16 [−0.04, +0.36] | +0.59 / +0.25 |
+| nine25 | Rebalance prior mass | +0.17 [−0.13, +0.50] | +0.10 [−0.06, +0.28] | +0.20 / 0.00 | +0.13 [−0.02, +0.31] | +0.68 / +0.09 |
+| nine25 | **SessionEM delay** | +0.18 [−0.13, +0.45] | −0.13 [−0.46, +0.19] | −0.42 / +0.16 | **+0.02 [−0.19, +0.22]** | −0.02 / 0.00 |
+| ba_six | **40%** | −0.24 [−0.62, +0.12] | +0.07 [−0.42, +0.52] | −0.35 / +0.49 | **−0.09 [−0.39, +0.20]** | −0.43 / +0.38 |
+| ba_six | Rebalance alpha | −0.12 [−0.35, +0.17] | +0.02 [−0.25, +0.27] | +0.01 / +0.03 | −0.05 [−0.23, +0.16] | −0.26 / +0.01 |
+| ba_six | Rebalance prior mass | −0.13 [−0.39, +0.18] | +0.07 [−0.14, +0.26] | +0.07 / +0.06 | −0.03 [−0.20, +0.17] | −0.22 / +0.32 |
+| ba_six | **SessionEM delay** | −0.11 [−0.34, +0.10] | +0.25 [+0.03, +0.42] | +0.14 / +0.35 | **+0.07 [−0.11, +0.23]** | −0.42 / +0.62 |
+
+Retain the 25% blend and original early-stage settings for this freeze. The largest cold point was nine25 Rebalance alpha at +0.155 pp, with an 80% lower bound of −0.039 pp and a negative fit result. Treat small effects as undecided. No variant met the accuracy rule for a new ZIP, official warm-up pair, or paired cold runtime test.
