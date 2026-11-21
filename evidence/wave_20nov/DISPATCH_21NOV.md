@@ -88,3 +88,4 @@
 - Final `ba_terminal` · complete 05:26:49 CET. RTX repeat 3146187 on cn114 projected 3,741.3 s versus 4,016.6 s on cn111. The A100 estimate was 3,090.6 s. The RTX proxy missed 3,600 s on both nodes. The staged production SHA is `c50a62913360a7baeab978db19b778749308b171ce1d92c66343d3a8803371c5`. [Final report](final_ba_terminal.md)
 
 - Fable Round 2 · completed 05:31 CET. P3 freeze 65006183 selected late_ramp. All 48 held-out replay chunks completed and collector 65006185 returned confirmed=false. Receipt SHA-256 `07cdf9393d13397e3b1232c62ec86f8154ae21a3638f645454393b1603897be5`. [Final card](fable_round2.md)
+- 05:4x Fable round 3 requested (round-2 P1/P2/P3 all negative per fable_round2.md; ba_terminal context) -> PROPOSALS_3.md; hourly tick dispatches.
