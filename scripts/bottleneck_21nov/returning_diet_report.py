@@ -71,7 +71,7 @@ def person_delta(cases, orders, arm, person, *, reference=REFERENCE):
     return (np.mean(differences), *np.quantile(draws, (0.1, 0.9)))
 
 
-def report(cases, orders):
+def report(cases, orders, *, arms=ARMS, nested_orders=False):
     result = {REFERENCE: levels(cases, REFERENCE)}
     misrecognised = []
     coverage = Counter()
@@ -86,9 +86,9 @@ def report(cases, orders):
             continue
         misrecognised.append(dict(person=case.person, visit=case.visit, order=case.order, age=age,
                                   identity=f"P{identity:02d}", cohort=case.cohort,
-                                  changes={a: int(np.count_nonzero(case.scores[a] != ref)) for a in ARMS}))
-    for arm in ARMS:
-        delta = paired(cases, predict(arm), predict(REFERENCE), orders)
+                                  changes={a: int(np.count_nonzero(case.scores[a] != ref)) for a in arms}))
+    for arm in arms:
+        delta = paired(cases, predict(arm), predict(REFERENCE), orders, nested_orders=nested_orders)
         people = {p: person_delta(cases, orders, arm, p) for p in ("P04", "P10")}
         changes = {mode: sum(int(np.count_nonzero(c.scores[arm] != c.scores[REFERENCE]))
                              for c in cases if c.cohort == mode) for mode in ("new", "ret")}
