@@ -43,7 +43,7 @@ def arbiter_line(case):
     permutation = "".join(names[i] for i in case["oracle"])
     if case["tied_nonidentities"]:
         permutation += "*"
-    fields = [case["fold"], case["stream"], str(case["order"]), permutation, f'{case["oracle_gain"]:+.2f}']
+    fields = [case["fold"], case["stream"].replace("|", "/"), str(case["order"]), permutation, f'{case["oracle_gain"]:+.2f}']
     fields += [show(x) for x in case["T"].values()]
     fields += [show(case["enrolled_gap"]), str(case["first_trigger"] or "—")]
     return "| " + " | ".join(fields) + " |"
@@ -66,7 +66,7 @@ def render(result):
     ]
     for cohort, label in (("new", "Held-new"), ("ret", "Returning")):
         lines.append(auc_line(f"**{label}**", result["residual"][cohort]))
-        lines.extend(auc_line(f"{label} {stream}", a) for stream, a in result["residual_sessions"][cohort].items())
+        lines.extend(auc_line(f"{label} {stream.replace('|', '/')}", a) for stream, a in result["residual_sessions"][cohort].items())
 
     lines += [
         "", "## P2 · Session oracle and causal arbiter", "",
@@ -94,7 +94,7 @@ def render(result):
         for j, (a, w) in enumerate(zip(r["accuracy"], r["cell_weighted"], strict=True), 1):
             lines.append(f'| {j} | ' + ' | '.join(show(x) for x in a + w) + f' | {w[2]-w[0]:+.2f} |')
         lines += ["", "| Session | Hard only | Team B | Lead | Gain, pp |", "|---|---:|---:|---:|---:|"]
-        lines.extend(f"| {s} | " + " | ".join(show(v) for v in a) + f" | {a[2]-a[0]:+.2f} |"
+        lines.extend(f"| {s.replace('|', '/')} | " + " | ".join(show(v) for v in a) + f" | {a[2]-a[0]:+.2f} |"
                      for s, a in r["session"].items())
     return "\n".join(lines) + "\n"
 
