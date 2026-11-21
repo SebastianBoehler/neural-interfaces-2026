@@ -1,0 +1,30 @@
+{
+  "archive_sha256": "6e6bbbb841db4ff1ea5e83e4bad75a090ab0a30455fa5ca570063b5ba828d1d4",
+  "gpu": "NVIDIA GeForce RTX 2080 Ti",
+  "torch": "2.14.1+cu130",
+  "fused_bodies": 6,
+  "fallback": {
+    "windows": 72,
+    "changed_labels": 0,
+    "max_abs": 1.5694147981193396e-08,
+    "faults": {
+      "1": 1,
+      "64": 1
+    },
+    "warnings": [
+      "Team B CUDA graph capture failed, using eager: injected fused Team B capture failure for batch 1",
+      "Team B CUDA graph capture failed, using eager: injected fused Team B capture failure for batch 64"
+    ]
+  },
+  "dead_session": {
+    "windows": 8,
+    "errors": 1,
+    "dead": true
+  },
+  "team_b_load_guards": {
+    "exception": "load-time self-test: Team B raised RuntimeError('injected Team B posterior failure')",
+    "wrong_posterior": "load-time self-test: Team B posterior [[0.09319577 0.74761957 0.15918465]\n [0.17319326 0.7654332  0.06137361]] != reference [[0.74761951 0.15918466 0.0931958 ]\n [0.76543319 0.06137361 0.17319329]]",
+    "capture_1": "load-time self-test: Team B raised RuntimeError('Team B feature graph failed for batch 1')",
+    "capture_64": "load-time self-test: Team B raised RuntimeError('Team B feature graph failed for batch 64')"
+  }
+}

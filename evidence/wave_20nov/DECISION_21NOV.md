@@ -4,8 +4,8 @@ Nothing uploaded. Quota 1 left (STATE.md); Failed attempts do not consume it, ma
 ## Candidates (all derive from hard_safe_st `239c86bd…3c1e`; deltas are pp vs the hard-only base unless stated)
 | Role | ZIP | SHA-256 |
 |---|---|---|
-| **Lead, qualification pending** | `final_stack_hard_safe_st_team_b_nine25_tbgraph_fc.zip` | `7017bd5c8a707e7233fe6b1e2df4376c28d49f6613174ec82c0fdbf700bc3f07` |
-| Alternate, qualification pending | `final_stack_hard_safe_st_team_b_nine15_tbgraph_fc.zip` | `6e6bbbb841db4ff1ea5e83e4bad75a090ab0a30455fa5ca570063b5ba828d1d4` |
+| **Lead by score, timing gate failed** | `final_stack_hard_safe_st_team_b_nine25_tbgraph_fc.zip` | `7017bd5c8a707e7233fe6b1e2df4376c28d49f6613174ec82c0fdbf700bc3f07` |
+| Alternate, cn222 timing pending | `final_stack_hard_safe_st_team_b_nine15_tbgraph_fc.zip` | `6e6bbbb841db4ff1ea5e83e4bad75a090ab0a30455fa5ca570063b5ba828d1d4` |
 | Timing comparison | `final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph_fc.zip` | `086c7600555efba5545c035e1ef3c4245ab036599b588400c34ac118753fcd73` |
 | Fallback | `final_stack_hardcb_safe_st_cbgraph.zip` | `6ba4092d1f07e036cfb7e19f306eba993cfdea5b6d9cff779d03c32e847a39f5` |
 
@@ -28,24 +28,24 @@ Not a candidate: `ba_terminal` (`c50a62913360…`): RTX proxy 3,741–4,017 s, S
 
 ## Runtime vs 3,600 s
 
-The sealed RTX PRO 4500 is untested. Earlier Galvani Solver measurements give these cap250-relative projections.
+The sealed RTX PRO 4500 is untested. Galvani Solver measurements give these cap250-relative projections.
 
 | ZIP | RTX 2080 Ti | A100-PCIe |
 |---|---:|---:|
-| nine25_fc | 2,932–3,064 s | 3,054–3,067 s |
+| nine25_fc | 2,932–3,169 s (3,126 s on cn116) | 2,994–3,636 s (maximum on cn222) |
 | nine15_fc | 2,957–3,092 s | 3,014–3,019 s |
 | hardcb nine25_fc | 3,165–3,229 s | 3,229–3,274 s |
 | hardcb cbgraph | 2,888–3,148 s | 3,027–3,043 s |
 
-The 3,060 s working margin was exceeded on some nodes. The fused archives remove the dominant Team B convolution cost on the 2080 Ti. The unpatched nine25 and nine15 each exceeded the official limit on 4 of 8 chained 2080 Ti measurements, with a combined maximum of 3,840 s.
+Nine25_fc passed 3,600 s on six 2080 Ti and two A100 nodes. It exceeded the limit by 36 s on A100 cn222, where cap250 itself ran at 476 ms/window. Several nodes exceeded the 3,060 s working margin. The fused archives remove the dominant Team B convolution cost on the 2080 Ti. The unpatched nine25 and nine15 each exceeded the official limit on 4 of 8 chained 2080 Ti measurements, with a combined maximum of 3,840 s.
 
 ## Qualification
 
-All three fused ZIPs reproduced byte for byte. Only the Team B encoder text in `submission.py` differs from each parent. Galvani parent/fused identity found zero changed labels on the covered public streams, with maximum posterior difference 7.5e−8. The earlier official warm-up replay passes apply to the parent ZIPs. The fused replay, expanded timing, and live fault-injection jobs are tracked in the qualification record. [Qualification of _fc](teamb_overhead.md#qualification-of-_fc)
+All three fused ZIPs reproduced byte for byte. Only the Team B encoder text in `submission.py` differs from each parent. Galvani parent/fused identity found zero changed labels on the covered public streams, with maximum posterior difference 7.5e−8. The earlier official warm-up replay passes apply to the parent ZIPs. All four exact fused warm-up pairs passed on 2080 Ti and A100. All three archives passed the live Team B graph capture fault and dead-session tests. Expanded timing is tracked in the qualification record. [Qualification of _fc](teamb_overhead.md#qualification-of-_fc)
 
 ## Recommendation (12:37 CET)
 
-Prefer **nine25_fc** if the exact archive passes the remaining qualification. Its parent produced the strongest replicated gains. **nine15_fc** is the alternate if its own qualification passes and its runtime supports the choice. **hardcb cbgraph** is the qualified fallback. The slower unpatched Team B archives exceeded 3,600 s on some 2080 Ti proxies.
+**Nine25_fc failed the registered timing gate on cn222.** Its parent produced the strongest replicated gains. **Nine15_fc** passed exact-archive warm-up and guard checks. Its cn222 timing comparison is running. **Hardcb cbgraph** is the qualified fallback. The unpatched Team B archives exceeded 3,600 s on some 2080 Ti proxies.
 
 ## Could change by 12:37
-(1) Exact fused archive qualification, including cn116 timing. (2) Leonardo dose block 2/pooled `dose.json` and growth screen/freeze (`grow/`; frozen choice only if timing-eligible; +8 ms cap): could add small positive stacking, unlikely to be ready for qualification. (3) Galvani NI-V C/D collected, no veto (see above); E pending. Chained e2e timing (09:00, 17 of 36 jobs done): unpatched nine25/nine15 on 2080 Ti 3,465-3,840 s over 8 runs each (4 of 8 above 3,600 s), cbgraph alone 2,944-3,086 s; A100 3,149-3,374 s. `fc` identity (changed labels 0 on 2080 Ti, A100, CPU) and timing (2080 Ti 2,932-3,092 s, A100 3,014-3,067 s) in `teamb_overhead.md`. (4) Fable round 3 Bet 3 anchor (65011780/81): not a package; no change expected.
+(1) cn222 repeat with cap250 and both fused doses (3146946). (2) Leonardo dose block 2/pooled `dose.json` and growth screen/freeze (`grow/`; frozen choice only if timing-eligible; +8 ms cap): could add small positive stacking, unlikely to be ready for qualification. (3) Galvani NI-V C/D collected, no veto (see above); E pending. Chained e2e timing (09:00, 17 of 36 jobs done): unpatched nine25/nine15 on 2080 Ti 3,465-3,840 s over 8 runs each (4 of 8 above 3,600 s), cbgraph alone 2,944-3,086 s; A100 3,149-3,374 s. Fused identity and the full node timing table are in `teamb_overhead.md`. (4) Fable round 3 Bet 3 anchor (65011780/81): not a package; no change expected.

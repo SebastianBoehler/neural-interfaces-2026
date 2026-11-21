@@ -1,0 +1,25 @@
+{
+  "archive_sha256": "086c7600555efba5545c035e1ef3c4245ab036599b588400c34ac118753fcd73",
+  "gpu": "NVIDIA GeForce RTX 2080 Ti",
+  "torch": "2.14.1+cu130",
+  "fused_bodies": 6,
+  "fallback": {
+    "windows": 72,
+    "changed_labels": 0,
+    "max_abs": 1.3847777591280419e-08,
+    "faults": {
+      "1": 1,
+      "64": 1
+    },
+    "warnings": [
+      "CBraMod CUDA graph capture failed, using eager: injected fused Team B capture failure for batch 1",
+      "CBraMod CUDA graph capture failed, using eager: injected fused Team B capture failure for batch 64"
+    ]
+  },
+  "dead_session": {
+    "windows": 8,
+    "errors": 1,
+    "dead": true
+  },
+  "team_b_load_guards": null
+}

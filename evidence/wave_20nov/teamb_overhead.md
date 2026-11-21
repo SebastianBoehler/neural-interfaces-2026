@@ -57,10 +57,33 @@ Unpatched Team B: 2080 Ti 3,465-3,840 s (8 runs per arm), 4 of 8 nine25 and 4 of
 | nine15_fc | `9ad45b11de1bcc356c56a0b7ff9ae74eb0c471f64546cb6a18f716b2f956188b` | `6e6bbbb841db4ff1ea5e83e4bad75a090ab0a30455fa5ca570063b5ba828d1d4` | 42 |
 | hardcb nine25_fc | `911a31af329c3f38f75ae8a0f1331e18bc921e6c36b002538839ba04a2384c4e` | `086c7600555efba5545c035e1ef3c4245ab036599b588400c34ac118753fcd73` | 45 |
 
-**Gate 2 running.** Official warm-up replay pairs (cap250, candidate, cap250, candidate): Galvani 2080 Ti jobs 3146870/71 and Leonardo A100 jobs 65013942/43, nine25 / nine15 respectively.
+**Gate 2 passed.** All four official warm-up pairs ran cap250, candidate, cap250, candidate. Each replay covered 755 windows in four v6 streams with zero errors. Both repeats per arm matched on all predictive scores and preserved package files. Cell-balanced accuracy was 0.9959229391 for both fused candidates and 0.9945788530 for cap250.
 
-**Gate 3 queued.** Galvani matched cap250 timing jobs 3146861–66 target cn111/114/115/116/117/123, with hardcb nine25_fc included on cn114/116/123. Jobs 3146867–69 target A100-PCIe cn205/209/222. The earlier nine25_fc measurements covered just cn114/115 and cn209. Their worst projections were 3,064.0 s on 2080 Ti cn114 and 3,066.9 s on A100-PCIe cn209. The estimate adds paired Solver cost over 1,131 measured public windows to the sealed cap250 receipt. The RTX PRO 4500 remains unmeasured.
+| GPU | Fused candidate | Job / node | cap250 ingestion, s | Candidate ingestion, s |
+|---|---|---|---:|---:|
+| 2080 Ti | nine25_fc | 3146870 / cn115 | 129.3 / 116.2 | 140.0 / 129.3 |
+| 2080 Ti | nine15_fc | 3146871 / cn116 | 132.1 / 124.6 | 147.7 / 140.2 |
+| A100-SXM-64GB | nine25_fc | 65013942 / lrdn0424 | 257.9 / 130.3 | 143.6 / 141.5 |
+| A100-SXM-64GB | nine15_fc | 65013943 / lrdn3254 | 203.9 / 127.4 | 142.6 / 143.0 |
 
-**Gate 4 static check passed, runtime check queued.** Grep of each packaged `submission.py` found the inherited hard-actor load self-test and the dead-session guard. Both hard-only archives also have the Team B load self-test. The hardcb archive preserves its parent's CBraMod load self-test and lacks a Team B-specific load self-test, as does its parent. Galvani jobs 3146872–74 exercise the live dead-session guard and inject Team B graph capture failures at batches 1 and 64.
+**Gate 3 failed for nine25_fc.** All six 2080 Ti and three A100-PCIe nodes completed the matched runs. The cn222 result exceeded 3,600 s by 36.1 s. The largest 2080 Ti projection was 3,169.1 s on cn117. The slow 2080 Ti node cn116 projected 3,125.9 s, compared with previous unpatched nine25 runs up to 3,782 s there.
+
+| Galvani node | Job | cap250 ms/window | nine25_fc added ms/window | nine25_fc projected s | hardcb nine25_fc projected s |
+|---|---:|---:|---:|---:|---:|
+| 2080 Ti cn111 | 3146861 | 132.67 | +19.20 | 2,940.5 | — |
+| 2080 Ti cn114 | 3146862 | 121.17 | +23.02 | 3,017.3 | 3,174.6 |
+| 2080 Ti cn115 | 3146863 | 129.97 | +23.70 | 3,031.0 | — |
+| 2080 Ti cn116 | 3146864 | 135.47 | +28.43 | 3,125.9 | 3,131.3 |
+| 2080 Ti cn117 | 3146865 | 131.35 | +30.58 | 3,169.1 | — |
+| 2080 Ti cn123 | 3146866 | 127.76 | +24.09 | 3,038.7 | 3,228.1 |
+| A100-PCIe cn207 | 3146879 | 127.54 | +22.82 | 3,013.2 | — |
+| A100-PCIe cn220 | 3146880 | 147.19 | +21.85 | 2,993.7 | — |
+| A100-PCIe cn222 | 3146869 | 476.29 | +53.83 | **3,636.1** | — |
+
+All three hardcb nine25_fc timings passed the 3,600 s comparison, with a maximum of 3,228.1 s in this wave and 3,274.4 s in the earlier A100 runs. Slurm forecast the original pending cn205/cn209 jobs (3146867/68) to start after 12:37 CET. The replacement jobs ran on cn207/cn220. The estimate adds paired Solver cost over 1,131 measured public windows to the sealed cap250 receipt. Load and the first warm-up session are excluded. The RTX PRO 4500 remains unmeasured.
+
+The cn222 run was slow for both arms. Cap250 was 476.29 ms/window and nine25_fc 530.12 ms/window. Repeat 3146946 measures cap250 and both fused doses on cn222. The first result still counts against the registered limit.
+
+**Gate 4 passed.** Grep of each packaged `submission.py` found the inherited hard-actor load self-test and the dead-session guard. Both hard-only archives also have the Team B load self-test. The hardcb archive preserves its parent's CBraMod load self-test and lacks a Team B-specific load self-test, as does its parent. Galvani jobs 3146872–74 on 2080 Ti cn116 observed six fused CUDA bodies per archive. Injecting capture failure at each Team B shape (1 and 64) produced two warnings, selected eager, and changed 0/72 labels per archive. The largest captured posterior delta was 1.57e−8. An injected live Team B failure marked the session dead and returned all eight labels in each archive on GPU and Mac CPU. The hard-only load tests rejected both injected capture failures, a posterior exception, and a rolled posterior. [Raw receipts](teamb_overhead/qualification/)
 
 `python replay/check.py` printed `OK` locally. The qualification ran on public windows.

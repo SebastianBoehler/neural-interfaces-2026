@@ -1,0 +1,60 @@
+{
+  "gpu": "NVIDIA A100-SXM-64GB",
+  "job": "65013942",
+  "runs": {
+    "ref": [
+      {
+        "score": {
+          "balanced_accuracy_cell_mean": 0.994578853046595,
+          "balanced_accuracy": 0.9947089947089948,
+          "accuracy": 0.9947019867549669,
+          "duration": 257.41335010528564
+        },
+        "files_unchanged": true,
+        "wall_s": 257.9,
+        "zip_sha256": "9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed",
+        "v6_streams": 4
+      },
+      {
+        "score": {
+          "balanced_accuracy_cell_mean": 0.994578853046595,
+          "balanced_accuracy": 0.9947089947089948,
+          "accuracy": 0.9947019867549669,
+          "duration": 130.1918489933014
+        },
+        "files_unchanged": true,
+        "wall_s": 130.3,
+        "zip_sha256": "9c4d553823b5a51cd9bcfec02eb0991d4305eddd784a39782737799e7d9117ed",
+        "v6_streams": 4
+      }
+    ],
+    "cand": [
+      {
+        "score": {
+          "balanced_accuracy_cell_mean": 0.9959229390681004,
+          "balanced_accuracy": 0.996031746031746,
+          "accuracy": 0.9960264900662251,
+          "duration": 143.52228236198425
+        },
+        "files_unchanged": true,
+        "wall_s": 143.6,
+        "zip_sha256": "7017bd5c8a707e7233fe6b1e2df4376c28d49f6613174ec82c0fdbf700bc3f07",
+        "v6_streams": 4
+      },
+      {
+        "score": {
+          "balanced_accuracy_cell_mean": 0.9959229390681004,
+          "balanced_accuracy": 0.996031746031746,
+          "accuracy": 0.9960264900662251,
+          "duration": 141.41270089149475
+        },
+        "files_unchanged": true,
+        "wall_s": 141.5,
+        "zip_sha256": "7017bd5c8a707e7233fe6b1e2df4376c28d49f6613174ec82c0fdbf700bc3f07",
+        "v6_streams": 4
+      }
+    ]
+  },
+  "repeat_scores_equal": true,
+  "replay_pass": true
+}

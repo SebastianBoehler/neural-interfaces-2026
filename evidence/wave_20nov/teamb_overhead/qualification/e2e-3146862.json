@@ -1,0 +1,73 @@
+{
+ "gpu": "NVIDIA GeForce RTX 2080 Ti",
+ "torch": "2.14.1+cu130",
+ "sessions": [
+  "P03|1",
+  "P07|1",
+  "P10|2",
+  "P05|1",
+  "P04|1",
+  "P04|3"
+ ],
+ "load_s": {
+  "v66_cp1_cap250": 2.105681483983062,
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph_fc": 3.0245463169412687,
+  "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph_fc": 3.5687484149821103
+ },
+ "kinds": {
+  "v66_cp1_cap250": "Ensemble6",
+  "final_stack_hard_safe_st_team_b_nine25_tbgraph_fc": "TeamBlendStack",
+  "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph_fc": "TeamBlendStack"
+ },
+ "v66_cp1_cap250": {
+  "ms_per_window": 121.1716975968588,
+  "inside_ms_per_window": {},
+  "windows": 1131,
+  "per_session_ms": [
+   126.17103239119783,
+   123.86352025408534,
+   118.43629889766015,
+   118.78109845259276,
+   119.70978465655611,
+   120.03164856937377
+  ],
+  "added_vs_ref_ms": 0.0,
+  "projected_s": 2554.9166
+ },
+ "final_stack_hard_safe_st_team_b_nine25_tbgraph_fc": {
+  "ms_per_window": 144.19650713806917,
+  "inside_ms_per_window": {
+   "hard": 12.202699705554876,
+   "team_b": 8.762623004328747
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   152.95186663470255,
+   146.35246469350975,
+   139.28377789805734,
+   139.4038414368161,
+   147.80083241830604,
+   139.3077716118646
+  ],
+  "added_vs_ref_ms": 23.02480954121036,
+  "projected_s": 3017.323850016128
+ },
+ "final_stack_hardcb_safe_team_b_nine25_cbgraph_tbgraph_fc": {
+  "ms_per_window": 152.02688669675103,
+  "inside_ms_per_window": {
+   "hard": 12.105874566647046,
+   "team_b": 8.764842867988774
+  },
+  "windows": 1131,
+  "per_session_ms": [
+   160.61650682548702,
+   154.80507838616157,
+   148.27379648966755,
+   148.68599734710236,
+   150.3955044447341,
+   149.3282620528802
+  ],
+  "added_vs_ref_ms": 30.85518909989223,
+  "projected_s": 3174.581362693136
+ }
+}
