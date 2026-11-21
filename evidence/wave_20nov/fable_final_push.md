@@ -6,10 +6,10 @@ clean-room repo. Nothing was run, built or uploaded. No new accuracy number is i
 
 ## 1. A change for tonight: none
 
-**Upload em_half unchanged** (`833a28721b0de0fa…a4d`; local hash rechecked at 20:14, 43 members, 417 MB).
+**Upload em_half unchanged** (`833a28721b0de0fa…a4d`; local hash rechecked at 20:10, 43 members, 417 MB).
 
 - **No untested lever fits the window.** A Scherer or PROTEUS check took 35–45 minutes today once its scripts existed,
-  and a new package also needs zero-change, warm-up and timing pairs. Anything started at 20:15 would reach 21:15 with
+  and a new package also needs zero-change, warm-up and timing pairs. Anything started now would reach 21:15 with
   one instrument at best. Every output-side idea in reach already ran today and missed (soft balance −0.04, word
   consensus −0.03, terminal urn +0.04, early adaptation, Team B weight, covariance prior −0.09).
 - **Quarter stays out.** It is the only measured positive left (+0.19 at 50/50 on PROTEUS, positive under all four
