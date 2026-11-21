@@ -90,3 +90,5 @@
 - Fable Round 2 · completed 05:31 CET. P3 freeze 65006183 selected late_ramp. All 48 held-out replay chunks completed and collector 65006185 returned confirmed=false. Receipt SHA-256 `07cdf9393d13397e3b1232c62ec86f8154ae21a3638f645454393b1603897be5`. [Final card](fable_round2.md)
 - 05:4x Fable round 3 requested (round-2 P1/P2/P3 all negative per fable_round2.md; ba_terminal context) -> PROPOSALS_3.md; hourly tick dispatches.
 - 06:5x Fable round 3 (PROPOSALS_3.md, 485dc9c: Step 0 ceiling, Bet 1 Team B rebalance, Bet 2 changed-window weight, Bet 3 conditional) dispatched to GPT-6.2 Sol high on Galvani -> fable_round3.md, due 11:30. Leonardo SSH cert expired 06:45 (needs user re-auth).
+
+- Fable Round 3 · 06:49 CET. Galvani canceled dead array 3140818 and its sole dependent collector 3140819 after checking the full Slurm queue for external dependents. Both report CANCELLED. The signed lead is on Galvani. The coordinator confirmed the exact fold fixtures, banks and pinned tapes are on Leonardo; batch SSH is denied pending certificate renewal.
