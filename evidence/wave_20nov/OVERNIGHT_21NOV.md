@@ -109,3 +109,4 @@ Run `cap250/runs/ni26-afternoon-71900` on AIFAC_P02_1636. Submitted at 12:36 CET
   jq '.contrasts | map_values({mean_50_50, ci80_50_50, new: .new.mean, returning: .returning.mean})' /tmp/ni26-afternoon-71900/confirmation.json
   ```
 - 12:40 CET afternoon receipts. Galvani paired Scherer arrays 3147546/3147547 and report 3147548. Official cap250 pair 3147535 ran all four replays and missed the symmetric score tolerance at +0.542 pp. Signed fused-lead official pair 3147630 queued. Leonardo prep 65023987, confirmation 65023988 and report 65023989 were released after all three fused-fold smokes.
+- 12:55 CET qualification. CPU zero, active identity, Scherer NI-V and signed-lead official pair completed. Profiled cn122 exceeds the 3,450 s target with a normal cap250 baseline. The ordinary Solver e2e repeats `3147645–3147650` are queued on six distinct nodes, including cn116 and cn122. No model bytes changed.

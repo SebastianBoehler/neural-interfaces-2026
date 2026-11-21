@@ -80,17 +80,48 @@ Both own-job queues were empty on the 12:11–12:15 CET check. Galvani run `ni26
 
 | New archive | SHA-256 | Use |
 |---|---|---|
-| `final_stack_hard_safe_st_team_b_ba_six_fc.zip` | `fc2acf89bc194e7e576dd9fa9b6a6858207d06fe98396a1e4e1f785c04e9a5aa` | Production candidate |
+| `final_stack_hard_safe_st_team_b_ba_six_fc.zip` | `fc2acf89bc194e7e576dd9fa9b6a6858207d06fe98396a1e4e1f785c04e9a5aa` | Production candidate, 417,253,492 bytes |
 | `ba_six_fc_niv.zip` | `3c4796d5143d307fdfad0004557b3ceffbd67f2ff18d76068b4e4083d8eaaf29` | Scherer-free validation |
 
 Galvani build 3147531 completed at 12:21 CET with source `7b845dc0`. Smoke 3147532 gates 379-window CPU zero 3147533, active fused/unfused identity 3147534, and official warm-up pair 3147535. E2E jobs 3147536–3147541 request cn111, cn114, cn116, cn117, cn122 and cn123 respectively. NI-V smokes 3147542/3147543 gate controller 3147545. The Scherer prior for the original Team A terminal is **B-ret −0.52 [−1.01, −0.02] pp**, an external flag under the current decision rule. [Original Scherer result](final_ba_terminal.md)
 
-The exact Galvani production ZIP is mirrored in local `runs/sealed/final_zips/` with its SHA verified. The Mac build had different `team_b.pt` serialization bytes and a one-ULP CPU reference difference. All six trained state dictionaries matched bitwise. The Galvani bytes are the candidate for every qualification.
+The exact Galvani production ZIP is mirrored in local `runs/sealed/final_zips/` with its SHA verified. The Mac build had different `team_b.pt` serialization bytes and a maximum absolute CPU reference difference of 6.0e−8. All six trained state dictionaries matched bitwise. The Galvani bytes are the candidate for every qualification.
 
 Production smoke passed on 144 windows with zero fused/unfused label changes, both graphs active and the exact MANAS terminal formula. Active identity 3147534 completed on 379 windows. NI-V smokes passed, then controller 3147545 released 36 paired B-new tasks 3147546, nine paired B-ret tasks 3147547 and report 3147548.
 
 Official pair 3147535 completed four replays with stable predictive scores, unchanged package files and no v6 errors. Cap250 was 99.4579% and the candidate 100.0000%. The runner exited 1 because the 0.5421 pp increase exceeds its symmetric 0.5 pp tolerance. Registered a second official pair against the signed fused lead, whose prior official BA is 99.5923%. Job 3147630 uses the same tolerance and official scorer. [Fused lead’s official pair](teamb_overhead.md)
 
 Leonardo source `e00c77b5`. All three fused fold smokes 65023503–65023505 passed v3, exact pinned rows and labels, zero and active graph checks. Controller 65023506 released nine prep tasks 65023987, 96 replays 65023988 on 71800–71815 and paired collector 65023989.
+
+### Exact archive validation
+
+CPU zero 3147533 passed at 12:42 CET. Disabling Team A matched the signed-lead-derived six-member control bitwise on 379 windows. Disabling both Team A and Team B matched signed hard bitwise on the same 379 windows. Both checks cover labels, captured scores and stage activity. GPU identity 3147534 changed 0/379 labels when fused convolution was disabled. Maximum score difference was 6.0e−8.
+
+The official fused-lead pair 3147630 passed at 12:54 CET. Both repeats gave 99.5923% lead BA and 100.0000% candidate BA (+0.4077 pp). Each replay processed four v6 streams, kept package files unchanged and logged zero v6 errors. Official warm-up measures ingestion and repeatability on the public rehearsal.
+
+### Scherer NI-V
+
+All 36 B-new and nine B-ret matched tasks completed. Collector 3147548 used eight orders per scheme (71840–71847) and the same visit-1 enrollment on both returning arms. The candidate’s MANAS weights exclude Scherer. Values are paired percentage-point deltas for fused `ba_six` minus fused nine25.
+
+| Delivery | B-new pp [80%] | B-ret pp [80%] | 50/50 pp |
+|---|---:|---:|---:|
+| Full-session | +0.06 [−0.43, +0.54] | −0.40 [−1.07, +0.23] | −0.16 [−0.57, +0.24] |
+| Within | −0.03 [−0.36, +0.30] | −0.19 [−0.74, +0.36] | −0.11 |
+
+Primary absolute BA is 47.97% versus 47.91% held-new, and 55.39% versus 55.79% returning. The worst B-ret person lost 3.85 pp. The original full Team A terminal returned −0.52 [−1.01, −0.02] pp. The new B-ret point remains an external flag and its 80% interval includes zero. Scherer has nine people and 22 of 41 channels are interpolated. `niv-results/ba_six_fc_niv/report.json` SHA-256 `b150b1f8f771c95936bead19ac48f9e600ec42bc325e7efb793bd04978d434be`.
+
+### RTX 2080 Ti compute projection
+
+Each timing uses 1,131 measured windows, alternating arm order, fresh Solver per session and a discarded warm-up session. The projection adds the matched compute delta over cap250 to the sealed cap250 receipt. Model load is outside the projection. The first script also synchronized CUDA after each Team B and hard actor call.
+
+| Profiled node | Job | cap250 ms/window | Fused nine25 projection (s) | Fused ba_six projection (s) |
+|---|---:|---:|---:|---:|
+| cn114 | 3147537 | 131.95 | 3,001.7 | 3,363.2 |
+| cn116 | 3147538 | 138.27 | 3,061.5 | 3,376.5 |
+| cn117 | 3147539 | 147.78 | 2,954.8 | 3,237.6 |
+| cn122 | 3147540 | 129.96 | 3,054.1 | **3,483.5** |
+| cn123 | 3147541 | 136.21 | 2,983.1 | 3,371.8 |
+
+At 12:55 CET cn111 (3147536) was pending. All five measured cap250 baselines were below the exclusion threshold of 190.5 ms/window. Cn122 exceeded 3,450 s by 33.5 s and counts in the profiled result. Source `6aa00b22` repeats the exact ordinary Solver timing with component hooks disabled, jobs 3147645–3147650 on cn122, cn116, cn114, cn115, cn117 and cn123. The exact RTX PRO 4500 has not been measured.
 
 The 08:08 CET Leonardo snapshot showed 26 running and 270 pending. This lane had 11 running and 187 pending. Codex heartbeat checks every 50 minutes and will retain the verified queue gaps in this card.
