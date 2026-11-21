@@ -50,4 +50,6 @@ The 96 held-out tasks (65013453) and report 65013454 completed by 09:26 CET. `ba
 
 Source `30074abb`, run `cap250/runs/leonardo-fill-roster-21nov`. The screen uses 71700–71715. `triseed25` spreads nine Team B members evenly across three existing fit seeds. `ba_seven` and `ba_eight` retain more of the original Team B bank and keep the same MANAS terminal term. All three assembled from the original trained P01 banks, with fresh signed CPU references. The same +8 ms/window A100 cap and growth retention rules apply. The confirmation orders are 71716–71731.
 
+Smokes 65014561, 65014571 and 65014573 use P01, P04 and P10. Controller 65014651 waits for all three, then checks Slurm completion and the exact replay receipts before submitting the prep, timing and screen jobs. The 09:34 CET account snapshot had 33 running, 193 pending and ten configuring.
+
 The 08:08 CET Leonardo snapshot showed **26 running and 270 pending**, including Fable Round 3 and this lane. This lane had 11 running and 187 pending. Codex heartbeat is scheduled every 50 minutes from 08:57 CET in this thread to continue collection and dispatch through 18:00 CET.
