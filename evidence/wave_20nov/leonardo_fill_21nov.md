@@ -153,4 +153,17 @@ All-public shards confirmed 0/2,655 changed labels across all 14 sessions, with 
 
 Controller 3147765 released 36 paired B-new tasks 3147783, nine paired B-ret tasks 3147784 and report 3147785 over the same eight Scherer orders as the ordinary variant. The exact Galvani FP16 ZIP is mirrored locally and SHA-verified. Native-BF16 e2e check 3147847 pairs both signed variants on A100.
 
+CPU zero 3147755 passed both 379-window checks at 13:41 CET, with Team A disabled and with both Team A and Team B disabled. All six ordinary Solver timings completed with 1,131 measured windows per arm and normal cap250 baselines.
+
+| Node | Job | cap250 ms/window | Fused nine25 projection (s) | Original ba_six projection (s) | FP16 ba_six projection (s) | Paired FP16 saving (ms/window) |
+|---|---:|---:|---:|---:|---:|---:|
+| cn114 | 3147757 | 135.22 | 3,109.8 | 3,372.4 | 3,100.8 | 13.53 |
+| cn115 | 3147759 | 138.47 | 2,872.6 | 3,242.0 | 3,009.5 | 11.58 |
+| cn116 | 3147758 | 134.02 | 3,102.1 | 3,488.4 | **3,259.2** | 11.41 |
+| cn117 | 3147760 | 148.35 | 2,903.8 | 3,225.8 | 3,040.3 | 9.24 |
+| cn122 | 3147761 | 135.75 | 3,026.6 | 3,452.4 | 3,151.5 | 14.98 |
+| cn123 | 3147762 | 144.60 | 3,099.0 | 3,462.9 | 3,200.6 | 13.06 |
+
+The patched archive passes the worst-normal-node timing rule with **190.8 s** to the 3,450 s target. Every measured node counts. Compute projections exclude initial load, use matched cap250 and retain full session startup and capture. Scherer and the supplemental native-BF16 timing were pending at the 13:41 CET snapshot.
+
 The 08:08 CET Leonardo snapshot showed 26 running and 270 pending. This lane had 11 running and 187 pending. Codex heartbeat checks every 50 minutes and will retain the verified queue gaps in this card.
