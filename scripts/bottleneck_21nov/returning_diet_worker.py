@@ -79,7 +79,7 @@ def smoke(model, folder, data, signals, rows, items, receipt, age):
     print("PASS exact live labels, route/terminal score tolerance, stage activity and exact tape prefixes", flush=True)
 
 
-def run(a):
+def run(a, *, arms=ARMS, intervention=diet, smoke_check=smoke):
     if not torch.cuda.is_available() or V.digest(a.data) != DATA_SHA:
         raise ValueError("CUDA and signed PROTEUS data required")
     blocks = json.loads(a.manifest.read_text())["active"]
@@ -120,16 +120,16 @@ def run(a):
             np.testing.assert_array_equal(half, expected[f"half_{key}"])
             payload[f"rows_{key}"] = rows
             payload[f"half_{key}"] = half
-            for arm in ARMS:
-                y, q, route_out = diet(model, items, arm)
+            for arm in arms:
+                y, q, route_out = intervention(model, items, arm)
                 np.testing.assert_array_equal(q[~flags], terminal[~flags])
                 np.testing.assert_array_equal(route_out[~flags], route[~flags])
                 np.testing.assert_array_equal(y[~flags], half[~flags])
-                if a.smoke and np.max(np.abs(route_out[flags] - route[flags])) <= 2e-5:
+                if a.smoke and intervention is diet and np.max(np.abs(route_out[flags] - route[flags])) <= 2e-5:
                     raise ValueError(f"{arm}: posterior unchanged after latch")
                 payload[f"{arm}_{key}"] = y
             if a.smoke:
-                smoke(model, pkg / ROSTER, data, signals, rows, items, receipt, age)
+                smoke_check(model, pkg / ROSTER, data, signals, rows, items, receipt, age)
             print(f"PASS {fold} {key}: {len(rows)} pinned native/em_half labels, latch {age}", flush=True)
     a.out.mkdir(parents=True, exist_ok=True)
     with TemporaryDirectory(dir=a.out) as temp:
@@ -138,14 +138,14 @@ def run(a):
         target.rename(a.out / target.name)
 
 
-def main():
+def parser():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("data", "fixtures", "archive", "manifest", "out"):
         parser.add_argument(name, type=Path)
     parser.add_argument("task", type=int)
     parser.add_argument("--smoke", action="store_true")
-    run(parser.parse_args())
+    return parser
 
 
 if __name__ == "__main__":
-    main()
+    run(parser().parse_args())
