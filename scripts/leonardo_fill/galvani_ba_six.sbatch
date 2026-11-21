@@ -46,6 +46,16 @@ case "$stage" in
         container friday/qualify_package.py pair "$run/zips/$candidate.zip" "$run/out/pair-$SLURM_JOB_ID" \
             --ref-zip "$run/zips/v66_cp1_cap250.zip" --expect-sha "$sha"
         ;;
+    pair-lead)
+        container -c 'import sys
+sys.path.insert(0, "friday")
+import qualify_package as q
+q.REF_SHA = sys.argv.pop(1)
+q.REF_SCORE = 0.9959229391
+q.main()
+' "$lead_sha" pair "$run/zips/$candidate.zip" "$run/out/pair-lead-$SLURM_JOB_ID" \
+            --ref-zip "$run/zips/$lead.zip" --expect-sha "$sha"
+        ;;
     niv-*)
         read -r sha _ < "$run/niv.sha"
         [[ ${#sha} == 64 ]]
