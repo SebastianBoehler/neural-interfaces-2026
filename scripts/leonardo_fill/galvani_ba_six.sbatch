@@ -42,6 +42,11 @@ case "$stage" in
         container submissions/final_stack/e2e_timing.py "$run/zips" data/proteus_windows.npz \
             "$run/out/e2e-$SLURM_JOB_ID.json" "v66_cp1_cap250=$cap_sha" "$lead=$lead_sha" "$candidate=$sha"
         ;;
+    unprofiled)
+        export PYTHONPATH="$run/src/submissions/final_stack:$PYTHONPATH"
+        container "$run/unprofiled-source/submissions/final_stack/e2e_timing.py" "$run/zips" data/proteus_windows.npz \
+            "$run/out/e2e-unprofiled-$SLURM_JOB_ID.json" "v66_cp1_cap250=$cap_sha" "$lead=$lead_sha" "$candidate=$sha" --unprofiled
+        ;;
     pair)
         container friday/qualify_package.py pair "$run/zips/$candidate.zip" "$run/out/pair-$SLURM_JOB_ID" \
             --ref-zip "$run/zips/v66_cp1_cap250.zip" --expect-sha "$sha"

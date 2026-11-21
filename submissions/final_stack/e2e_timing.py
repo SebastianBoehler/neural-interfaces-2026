@@ -48,6 +48,7 @@ def main():
     p.add_argument("out", type=Path)
     p.add_argument("arms", nargs="+")
     p.add_argument("--windows", choices=("gpu", "cpu"), default="gpu", help="device of the delivered window tensor")
+    p.add_argument("--unprofiled", action="store_true", help="omit synchronized per-method timing hooks")
     a = p.parse_args()
     verify_parent(a.data, C.DATA_SHA)
     data = D.load(a.data)
@@ -69,11 +70,12 @@ def main():
             kinds[name] = type(models[name]).__name__
             print(name, kinds[name], f"load {load_s[name]:.2f} s", flush=True)
         res = {n: dict(wall_s=[], windows=[]) for n in models}
-        for n, m in models.items():  # profile: time inside Team B and the hard actors during the same streams
-            if getattr(m, "team_b", None) is not None:
-                wrap(type(m.team_b), "posterior", n, "team_b")
-            if hasattr(type(m), "hard_probability"):
-                wrap(type(m), "hard_probability", n, "hard")
+        if not a.unprofiled:
+            for n, m in models.items():
+                if getattr(m, "team_b", None) is not None:
+                    wrap(type(m.team_b), "posterior", n, "team_b")
+                if hasattr(type(m), "hard_probability"):
+                    wrap(type(m), "hard_probability", n, "hard")
         for k, (session, rows) in enumerate(plan):
             windows = torch.from_numpy(data["X"][rows])
             if a.windows == "gpu":
@@ -91,7 +93,8 @@ def main():
                     res[n]["windows"].append(len(rows))
             print(session, {n: round(1e3 * res[n]["wall_s"][-1] / res[n]["windows"][-1], 2) for n in models if res[n]["wall_s"]}, flush=True)
     ref = next(iter(models))
-    out = dict(gpu=torch.cuda.get_device_name(), torch=torch.__version__, sessions=[s for s, _ in plan[1:]], load_s=load_s, kinds=kinds)
+    out = dict(gpu=torch.cuda.get_device_name(), torch=torch.__version__, component_profile=not a.unprofiled,
+               sessions=[s for s, _ in plan[1:]], load_s=load_s, kinds=kinds)
     for n, r in res.items():
         ms = 1e3 * sum(r["wall_s"]) / sum(r["windows"])
         inside = {key: 1e3 * v / sum(r["windows"]) for key, v in INSIDE.get(n, {}).items()}
