@@ -258,3 +258,13 @@ Eight of 12 repeat receipts are complete. All eight count. The observed FP16 wor
 Leonardo had three running and one pending across the account, all in another lane. The target was short by 11 tasks at this check. Galvani had zero running and nine pending. Its remaining FP16 jobs are 3147921/22 and 3147925/26. The first repeats on cn116 and cn123 were resource-bound with estimated starts at 02:01 CET on 22 Nov, and each second repeat waits for its first. No new dispatch. The separate fill heartbeat remains active through the cutoff.
 
 17:27 CET heartbeat. Leonardo had one running and zero pending across the account, 14 below target. The lane's collectors 65023989 and 65024442 were complete, and the 71900–71915 receipt still matched its SHA-256. Galvani had zero running and nine pending, including four FP16 repeats. Slurm still estimated 02:01 CET on 22 Nov for first repeats 3147921/25. Eight of 12 timing receipts were available and the worst normal FP16 projection remained 3,280.7 s. All registered lane work was complete or queued.
+
+### 18:17 CET cutoff receipt
+
+Leonardo reported seven running and four pending across the account at 18:17:06 CET, four below the 15-task target. This lane had finished. Collectors 65023989 and 65024442 were complete with exit 0:0. The final fold receipt retained its recorded SHA-256.
+
+Galvani reported three running and 56 pending across the account at 18:17:05 CET. This lane had four pending timings and zero running. First repeats 3147921 (cn116) and 3147925 (cn123) waited for resources, with Slurm still estimating 02:01 CET on 22 Nov. Second repeats 3147922 and 3147926 waited for their first jobs. Those jobs remain queued.
+
+The eight available FP16 repeat receipts all had cap250 at or below 190.5 ms/window. The worst normal projection remained 3,280.7 s on cn115, and no completed FP16 repeat exceeded 3,450 s. The original cn111 timing 3147536 and both Scherer reports matched the recorded hashes. The FP16 recommendation remains qualified from this lane. No jobs were dispatched at closeout.
+
+Disabled **NI26 Leonardo fill heartbeat** at the cutoff check. The scheduler returned `enabled=false` and `nextRunAt=null` for `scheduled-task:dcbe1653-45f4-469f-a64f-821588d09938`.
