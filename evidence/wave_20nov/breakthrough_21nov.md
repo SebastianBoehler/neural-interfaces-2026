@@ -18,3 +18,20 @@ Registered two independent terminal experts and their combination against the si
 | Team B size curve | The stored traces have pooled Team B probabilities. The capture job recovers individual member outputs on their exact rows and checks the pooled result before comparing 20 distinct, family-balanced subsets per size (3 and 6), plus the single 9-member roster. This diagnostic uses terminal reweighting. |
 | Cold start | Registered an equal-session population covariance prior inside Team B whitening, active on windows 1–40. The Team B weight stays at 25%. The frozen oracle's +2.09 pp held-new gain includes all adaptation state, so it bounds more than this intervention. |
 | Base batching | The new ZIP batches compatible frozen Shallow and FBC members. GPU 379-window smoke and all seven all-public label identity shards completed. CPU zero and paired cn116 timing are pending. |
+
+## Terminal experts and Team B size
+
+| Full-chain screen vs fused lead | Held-new Δ pp [80%] | Returning Δ pp [80%] | J | 57/43 proxy* |
+|---|---:|---:|---:|---:|
+| spectral20 | −1.34 [−2.04, −0.62] | −1.24 [−1.91, −0.61] | −1.29 | −1.18 |
+| cb25 | −2.27 [−2.87, −1.52] | −3.14 [−5.82, −0.47] | −2.70 | −1.99 |
+| joint | −1.60 [−2.36, −0.78] | −1.63 [−2.87, −0.52] | −1.61 | −1.34 |
+
+All 48 tasks (65014389) and collector 65014391 passed on 71600–71607. Each cohort upper 80% bound was below zero. The first ten held-new windows lost 4.50, 5.49 and 4.18 pp, respectively. Each arm therefore also missed the cold-start objective. The selected arm was null and 71608–71623 stayed blind. Returning covers only P04 and P10. *The 57/43 cohort mix and 20/80 returning mix remain unverified. Report SHA-256 `c0e1a3cb4bf52409d3b9c9dbbc5e9a446248d43265521746759c14d317abb8db`.
+
+The 20-subset terminal proxy J was +1.024 pp for 3 members, +1.080 for 6, and +1.131 for 9 against stored hard scores. The 6→9 step was +0.051 pp in J (held-new −0.014, returning +0.116). It missed the +0.10 pp threshold for training nine more. All original stored row orders and nine-member posterior checks passed. Leonardo 65014447/49/51, diagnostic SHA-256 `c4f135a5b67c3a101ed24732889fbe1ef5de3d8552a4d6bdcb165ca2fbac9d8e`.
+
+## Exact archive qualification updates
+
+- Team A floor passed 379-window CPU bitwise zero in 3146885. All four official worker replays in 3146918 completed with identical repeats. The floor hit 100.0000% vs cap250's 99.4579%, a +0.5421 pp difference. The local symmetric ±0.5000 pp replay gate returned false. Public labels here come from the all-public fit.
+- Frozen base batching preserved all 2,655 labels. The cn116 pair 3146909 measured 156.02 ms/window vs 154.71 for the fused lead. Including load, the projections were 3,008.0 vs 2,983.4 s. This refutes the proposed speed saving on that placement.
