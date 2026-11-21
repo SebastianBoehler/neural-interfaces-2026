@@ -89,3 +89,4 @@ Submitted at 12:15 CET. 42 Slurm job IDs (171 tasks including arrays), pre-regis
   scp "mlcloud-galvani:$ni26_remote/ni26_niv_finalF_20261121/logs/refill-niv-3147370.out" /tmp/ni26-refill21/niv/
   jq '{headline, parity_vs_nine25, scherer_new, scherer_returning, sealed_weighted}' /tmp/ni26-refill21/niv/report_hss_n25_fc_vs_hss.json
   ```
+- 12:15 CET resumption. The morning dose retest and second bank wave completed. The user accepts a positive paired lower bound in the target regime and at most a 0.30 pp loss in the other. Report the official 50/50. Galvani `ni26_ba_six_fc_20261121` runs two signed builds, zero/active identity, official pair, six requested RTX nodes and separate Scherer NI-V. Leonardo `leonardo-fill-ba-six-21nov` runs the fused 71800–71815 confirmation. Exact dispatches and receipts are in [leonardo_fill_21nov.md](leonardo_fill_21nov.md).
