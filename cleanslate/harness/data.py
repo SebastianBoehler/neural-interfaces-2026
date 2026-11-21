@@ -4,6 +4,10 @@ Rows are those of data/proteus_windows.npz (2,655 windows, 10 people, 14 session
 Streams = participant/session, cells = stream x interface (official `balanced_accuracy_cell_mean`).
 Delivery = full-session shuffle: every window of a session is permuted (rng [seed,0,0], sessions in data order,
 same recipe as niv/orders.py scheme "full"), so neither recording order nor interface blocks survive.
+Order seeds 72000-72999 select "within" (runs in acquisition order, windows shuffled inside each run), 73000-73999
+"runs" (runs in random order, recording order inside) and 74000-74999 "cells" (one block per interface in order of
+first acquisition, shuffled inside), with niv/orders.py's RNG stream per scheme. The sealed shuffle scope is not
+stated by the organisers, so a stack chosen on full-session orders needs a within-run check too.
 """
 import argparse
 import os
@@ -65,19 +69,41 @@ def train_parser(desc=""):
     return a
 
 
-def delivery(stream, seed):
+SCHEME_ID = {"full": 0, "runs": 1, "within": 2, "cells": 3}     # first three as in niv/orders.py
+
+
+def scheme_of(seed):
+    """Delivery scheme of an order seed: 72xxx within-run shuffle, 73xxx run-order shuffle, 74xxx per-interface
+    shuffle, anything else full-session."""
+    return {72: "within", 73: "runs", 74: "cells"}.get(int(seed) // 1000, "full")
+
+
+def delivery(stream, seed, run=None, onset=None, interface=None):
     """Permutation p of all rows: p[stream==s] lists the delivery order of session s under this seed."""
-    rng = np.random.default_rng([seed, 0, 0])
+    scheme = scheme_of(seed)
+    if scheme != "full" and (run is None or onset is None or (scheme == "cells" and interface is None)):
+        raise ValueError(f"order {seed} is a {scheme!r} order: delivery() needs run, onset and interface (use plans())")
+    rng = np.random.default_rng([seed, 0, SCHEME_ID[scheme]])
     p = np.arange(len(stream))
     for s in dict.fromkeys(stream):
         rows = np.flatnonzero(stream == s)
-        p[rows] = rows[rng.permutation(len(rows))]
+        if scheme == "full":
+            p[rows] = rows[rng.permutation(len(rows))]
+            continue
+        acq = rows[np.lexsort((onset[rows], run[rows]))]        # acquisition order: BIDS run number, then onset
+        group = interface if scheme == "cells" else run
+        blocks = [acq[group[acq] == g] for g in dict.fromkeys(group[acq])]
+        if scheme == "runs":
+            blocks = [blocks[i] for i in rng.permutation(len(blocks))]
+        else:
+            blocks = [b[rng.permutation(len(b))] for b in blocks]
+        p[rows] = np.concatenate(blocks)
     assert np.array_equal(np.sort(p), np.arange(len(stream)))
     return p
 
 
 def plans(d, seed, streams):
-    p = delivery(d["stream"], seed)
+    p = delivery(d["stream"], seed, d.get("run"), d.get("onset"), d.get("interface"))
     return {s: p[d["stream"][p] == s] for s in streams}
 
 
