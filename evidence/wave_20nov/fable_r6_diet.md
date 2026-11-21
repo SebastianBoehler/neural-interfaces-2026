@@ -64,3 +64,7 @@ The quarter-weight arm advances to exact ZIP checks.
 The source-only quarter archive `final_stack_hard_safe_st_team_b_ba_six_fc_fp16_turing_recognised_em_half_diet_quarter.zip` was built at 17:34 CET. SHA-256 `42fb63cf1ae9f54cf48315b00894b3788bc65400e75e06bd208ffe3753c43b07`. The builder verified the parent digest, member inventory, CRCs and byte equality outside the exact `submission.py` patch. The archive is staged locally under `runs/sealed/final_zips/` and on Galvani under `ni26_fable_r6_diet_20261121/zips/`. [Builder](../../scripts/bottleneck_21nov/returning_diet.py)
 
 Galvani zero job 3148853 started at 17:36:11 CET, ahead of the earlier estimate. Official warm-up pair 3148854 and one unprofiled e2e timing 3148855 depend on its success. The copy and build used source `2c991e32`.
+
+RTX 2080 Ti zero job 3148853 completed at 17:40:57 CET. It changed 0/379 labels on P01 and P02 held-new folds. Neither stream recognised, and the maximum RouteB/terminal score difference was 4.77e−6. Receipt `zero-3148853.json` SHA-256 `9fc37f4f7e2e8e7dadb3da046813c7809eb246f82d16a64fe5ebb132e2b318ad`.
+
+The official pair started at 17:41:16 CET. The first e2e job stopped before loading any model because the extracted timing-only tree lacked `check_hard_team_b`. The complete staged source passed the import check. Timing retry 3149006 uses the same signed archives and unprofiled workload, from launcher revision `c9914dc7`.
