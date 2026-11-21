@@ -133,10 +133,14 @@ At 12:55 CET cn111 (3147536) was pending. All five measured cap250 baselines wer
 | cn122 | 3147645 | 145.03 | 2,850.2 | 3,191.7 |
 | cn123 | 3147650 | 135.32 | 3,024.1 | 3,371.1 |
 
-All six unprofiled runs completed by 13:12 CET, and all six cap250 baselines qualify as normal. Cn114 misses the 3,450 s target by 18.3 s. The profiled cn122 overshoot and the unprofiled cn114 overshoot both remain in the evidence. The exact fused `ba_six` ZIP is timing-ineligible under the user's current rule. Signed fused nine25 is the timing-safe choice from this lane.
+All six unprofiled runs completed by 13:12 CET, and all six cap250 baselines qualify as normal. Cn114 misses the 3,450 s target by 18.3 s. On cn122 the candidate measured 176.20 ms/window with hooks and 176.73 without. Cap250 changed from 129.96 to 145.03 ms/window. The cn122 projection change came from the different cap250 baseline. The exact fused `ba_six` ZIP is timing-ineligible under the user's current rule. Signed fused nine25 is the timing-safe choice from this lane.
 
 ### Turing-only MANAS acceleration
 
 Registered one targeted attempt after the timing miss. On CUDA capability 7.5, where BF16 lacks native arithmetic, test FP16 autocast in the MANAS encoder. The CPU and BF16 paths keep their original operators. The patch copies all weights and changes only generated Solver source. The first draft could have treated BF16 emulation as native support. Superseded build 3147734 and canceled dependent smoke 3147735. Source `33993df2` selects 7.5 explicitly and observes the recorded dtype at graph capture. Revised build 3147737 and paired 379-window smoke 3147738 run on Galvani. Any changed active labels or stage activity blocks the variant.
+
+Smoke 3147738 passed at 13:22 CET. The parent used BF16 emulation on cn114 and the patched encoder used FP16. The 379 labels and stage counts matched. The largest absolute traced score difference was 1.09e−4. Production SHA-256 `890c2beec60344280f21b7206e99378dc71047a90b2e5db0876986b636b40cad`. Scherer-free SHA-256 `0804a2f272d4fb4b6215cfcd7f282f0c813cbe4b4888f3f6b5f38f74964d6160`.
+
+Source `19f9b979` released seven all-public identity shards 3147754, CPU zero 3147755, signed-lead official pair 3147756, and six unprofiled timing jobs 3147757–3147762. The nodes in job order are cn114, cn116, cn115, cn117, cn122 and cn123. The timing pairs both `ba_six` archives, cap250 and signed nine25_fc. Paired NI-V smokes 3147763/64 gate controller 3147765. A100 BF16 identity check is 3147766.
 
 The 08:08 CET Leonardo snapshot showed 26 running and 270 pending. This lane had 11 running and 187 pending. Codex heartbeat checks every 50 minutes and will retain the verified queue gaps in this card.
