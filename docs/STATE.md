@@ -63,4 +63,4 @@ and the sign of returning levers measured on them are not trustworthy. Clean lev
 - `python scripts/friday_smoke.py` checks both ZIPs and loads each package; `python replay/check.py` checks six v3 scores in
   recording order. A shuffled scorer needs its own zero-change and pinned-order check. Neither measures private performance.
 - Mac venv: `../neural-interfaces-2026/.venv/bin/python`. Galvani: native package and worker image from the pinned paths in the worker notes.
-- Active files: [sparse-paths](../friday/sparse-paths); frozen history `git show cb3e05a:<path>`; replay inputs [replay/data.sha256](../replay/data.sha256).
+- Active files: [sparse-paths](../friday/sparse-paths); frozen history `git show a5843492:<path>`; replay inputs [replay/data.sha256](../replay/data.sha256).

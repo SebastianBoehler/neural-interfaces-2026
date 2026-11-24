@@ -1,7 +1,7 @@
 # Cross-review · Opus on Codex (strategy_codex, bugs_codex) and Fable (design_fable) · 19 Nov 2026
 
 Read-only. Main at 09e6627c (includes the Friday merge a7db5818). "Verified" = I re-read the cited file:line and redid
-the arithmetic. Old ledger = `git show cb3e05a:docs/LEDGER.md`.
+the arithmetic. Old ledger = `git show a5843492:docs/LEDGER.md`.
 
 ## 1. Codex claims checked against the repo
 

@@ -1,8 +1,8 @@
 # First-principles design review · Thursday 19 Nov 2026, 13:00 CET
 
 Author: research sub-agent (Fable). Read-only review; no jobs, no edits besides this file. Other reports in
-this folder were not read. "Old ledger" and "old state" mean `git show cb3e05a:docs/LEDGER.md` and
-`git show cb3e05a:docs/STATE.md`; line numbers refer to those blobs.
+this folder were not read. "Old ledger" and "old state" mean `git show a5843492:docs/LEDGER.md` and
+`git show a5843492:docs/STATE.md`; line numbers refer to those blobs.
 
 ## 0. Verdict in five lines
 

@@ -36,6 +36,10 @@ The decoder is a routed ensemble, not a single network:
 
 Every change was pre-registered in [docs/LEDGER.md](docs/LEDGER.md) with a numeric prediction and a refutation rule before it was scored, and was judged inside the full system under shuffled delivery orders. Most ideas were refuted or left undecided, and those records stay in.
 
+## The experiments along the way
+
+The full trail is here, not only the final system: about 3,000 commits since 10 Nov, the ledger with every pre-registered run (mechanism, numeric prediction, refutation rule, then result), the scripts and logs behind each entry under `evidence/`, `studies/`, `experiments/` and the `lane*/` directories, and the failures and closed directions. The original campaign's ledger sits in the history (`git show a5843492:docs/LEDGER.md`). Large result arrays were removed before release, so some entries keep only logs, scripts and summaries ([history note](docs/HISTORY.md)).
+
 ## Repository map
 
 | Path | Contents |
@@ -50,6 +54,7 @@ Every change was pre-registered in [docs/LEDGER.md](docs/LEDGER.md) with a numer
 | `replay/` | Scorer that replays the packaged chain on public data. `python replay/check.py` must print `OK` before chain results are trusted. |
 | `studies/`, `experiments/`, `scripts/` | Dated studies, experiment code, data export and Slurm helpers |
 | `friday/`, `evidence/`, `lane*/`, `niv/`, `revisit/` | Per-experiment code, logs and result files, indexed from the ledger |
+| [docs/HISTORY.md](docs/HISTORY.md) | Note on the one-time history rewrite, and a map from old to new commit hashes |
 | `2026-competition/` | Official competition repository as a pinned submodule, unchanged |
 
 ## Reproducing
