@@ -1,13 +1,14 @@
 # Public release audit · 24 November 2026
 
-Status: **ready to publish once the author picks a licence and pushes the cleaned history** (steps at the end).
+The cleaned main branch was pushed and the repository is public. The release uses [Apache 2.0](../LICENSE).
+GitHub still serves at least one NumPy blob from the pre-rewrite history by object ID.
 
 ## Organiser rules
 
 Upstream `2026-competition` main (`df31ee73`, 22 Nov) has no rule against publishing code. The Terms
 (`codabench/pages/terms.md`) say original dataset and model licences remain in force, and the top three teams must
 supply a method description and training and inference code for the reproducibility audit (Rules 7 and 8). Sealed
-data must never be used or released; this repository contains none.
+data stays private. The source tree contains no sealed data.
 
 ## What was checked
 
@@ -39,13 +40,9 @@ data must never be used or released; this repository contains none.
 - Docs paraphrase organiser clarifications from the competition Discord and link to channel messages. The links need
   server membership to open.
 - `AGENTS.md` and `.claude/` describe the author's agent workflow, usage limits and model choices.
-- No top-level `LICENSE`. Without one, others have no right to reuse the code. The author chooses.
 
-## To publish
+## GitHub object retention
 
-1. Pick a licence and add `LICENSE` (recommend MIT or Apache-2.0 for code; third-party and dataset terms stay in force).
-2. Rebuild the clean history from the final commit:
-   `git clone --no-local . ../neural-interfaces-2026-public && cd ../neural-interfaces-2026-public && git remote remove origin && git filter-repo --force --invert-paths --path-glob '*.npz' --path-glob '*.npy'`
-3. In that clone add the `origin` remote and `git push --force origin main`. This replaces the private remote's
-   history. Other checkouts must re-clone.
-4. Set the repository to public (Settings → Danger zone) and check the GitHub Insights tab for stray branches.
+An unauthenticated GitHub API check returned HTTP 200 for the old commit and one removed NumPy
+blob. The rewritten branch does not reference those objects. Purging the retained copy requires
+GitHub-side cleanup.
