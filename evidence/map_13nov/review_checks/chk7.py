@@ -1,7 +1,7 @@
 import sys, os
 sys.dont_write_bytecode = True
 import numpy as np
-REPO = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026"
+REPO = "<repo>"
 F = REPO + "/studies/12nov/inpop3.py"; __file__ = F
 src = open(F).read().split("\nfor bn in (\"B2_pool\"")[0]
 exec(compile(src, F, "exec"))

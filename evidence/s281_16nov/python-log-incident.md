@@ -1,6 +1,6 @@
 # Python executable log-append incident — 16 Nov 2026
 
-`run_capped.sh` expects `LOG CMD [ARGS...]`. It was accidentally invoked with `.venv/bin/python` as `LOG` and `-I` as `CMD`. The resolved log target was `/Users/sebastianboehler/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/bin/python3.12`. The command did not score anything: the shell could not find command `-I`.
+`run_capped.sh` expects `LOG CMD [ARGS...]`. It was accidentally invoked with `.venv/bin/python` as `LOG` and `-I` as `CMD`. The resolved log target was `<home>/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/bin/python3.12`. The command did not score anything: the shell could not find command `-I`.
 
 The following exact 201 bytes were appended, including the final newline:
 

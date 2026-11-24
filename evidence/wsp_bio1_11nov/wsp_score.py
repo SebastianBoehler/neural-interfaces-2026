@@ -1,7 +1,7 @@
 """WSP scoring: verify the cache against the stored core1, then standalone and chain scores of every edit."""
 import sys, time
 import numpy as np
-REPO = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026"
+REPO = "<repo>"
 sys.path.insert(0, REPO + "/runs/archive_scratch_11nov/secop")
 import env
 A = env.A; SC = A.SC

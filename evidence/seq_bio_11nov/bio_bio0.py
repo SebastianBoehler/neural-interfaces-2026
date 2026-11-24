@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.signal import welch
-z = np.load("/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/data/proteus_windows.npz", allow_pickle=True)
+z = np.load("<repo>/data/proteus_windows.npz", allow_pickle=True)
 X = z["X"]; per = np.array([s[-3:] for s in z["subject"]]); ses = z["session"].astype(str)
 X = X - X.mean(1, keepdims=True)
 f, P = welch(X, fs=120, nperseg=120, noverlap=60, axis=-1)

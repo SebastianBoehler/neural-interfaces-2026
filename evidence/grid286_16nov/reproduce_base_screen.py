@@ -1,5 +1,5 @@
 from pathlib import Path
-p=Path('/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/studies/15nov/grid283/score_completed.py')
+p=Path('<repo>/studies/15nov/grid283/score_completed.py')
 s=p.read_text()
 orig="new=('fb_dist1','fb_dist2','fb_dist4','eegn_dist1','eegn_dist2','eegn_dist4','fbl_coral10_am50','fbw2_dist2','tsm','tsm_lr3e4','tsm_lr3e3')"
 old=('fb_dist1','fb_dist2','fb_dist4','eegn_dist1','eegn_dist2','eegn_dist4','fbw2_dist2','tsm','tsm_lr3e4','tsm_lr3e3')

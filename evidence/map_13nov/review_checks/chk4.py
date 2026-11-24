@@ -3,7 +3,7 @@
 import sys, os, time
 sys.dont_write_bytecode = True
 import numpy as np
-REPO = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026"
+REPO = "<repo>"
 F = REPO + "/studies/12nov/pnet.py"; src = open(F).read().split("\nR = {}")[0].replace("os.path.abspath(__file__ + \"/../../..\")", repr(REPO))
 __file__ = F
 exec(compile(src, F, "exec"))

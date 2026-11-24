@@ -28,5 +28,5 @@ P10_2 sess n 186 loss 59.7 best-permutation purity (diagnostic only) 0.473 22s
 P10_2 run n 186 loss 82.7 best-permutation purity (diagnostic only) 0.511 22s
 P10_3 sess n 199 loss 37.9 best-permutation purity (diagnostic only) 0.452 22s
 P10_3 run n 199 loss 45.8 best-permutation purity (diagnostic only) 0.412 22s
-saved /Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/runs/transclust/clusters.npz
+saved <repo>/runs/transclust/clusters.npz
 [run_capped] Sat Nov 14 19:21:22 CET 2026 exit 0

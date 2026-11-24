@@ -1,7 +1,7 @@
 import sys, numpy as np, torch
 sys.dont_write_bytecode = True
 from pathlib import Path
-PKG = Path("/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/runs/sealed/cand_v52b_pnets")
+PKG = Path("<repo>/runs/sealed/cand_v52b_pnets")
 z = np.load(PKG / "weights.npz")
 names = [str(n) for n in z["route_names"]]; print("route_names", names)
 idx = z["pnet_member"]; files = z["pnet_files"]; w = z["member_weights"].astype(float); w = w / w.sum()

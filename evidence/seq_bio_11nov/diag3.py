@@ -1,7 +1,7 @@
 """Flip anatomy of the Graz position prior at each chain stage, and calibration by on/off-pattern."""
 import sys, collections
 import numpy as np
-ARCH = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/runs/archive_scratch_11nov"
+ARCH = "<repo>/runs/archive_scratch_11nov"
 sys.path.insert(0, ARCH + "/secop")
 import env
 A = env.A; M = A.M; SC = A.SC

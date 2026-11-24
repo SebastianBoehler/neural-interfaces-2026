@@ -11,7 +11,7 @@ Nothing was edited, created, trained or fetched. All findings come from files on
 
 Citation keys: **[pin]** is the working tree; **[latest]** is `origin/main` at `bddaff3`, with line numbers from `git show … | cat -n`. Code citations are valid for both.
 
-Prefix `C` = `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/2026-competition`; `R` = `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026`.
+Prefix `C` = `<repo>/2026-competition`; `R` = `<repo>`.
 
 | Key | File |
 |---|---|

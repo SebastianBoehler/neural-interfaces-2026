@@ -100,7 +100,7 @@
   "weights_sha256": "6c93ac0cd879dcc17beda0beacc9e271ddf762855e4bf382a2975945dfec94d6",
   "submission_sha256": "681dd49aa089d44ab480169b257d4736ee7873cca1076f90cd24f13663ee2560",
   "comparison": {
-   "reference": "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/runs/submissions/ensemble_all_r6nf",
+   "reference": "<repo>/runs/submissions/ensemble_all_r6nf",
    "reference_weights_sha256": "2739b2632851fffbec996475ce05580753ec82f741076104e842864795e10777",
    "same_weight_keys": true,
    "submission_py_identical": true,

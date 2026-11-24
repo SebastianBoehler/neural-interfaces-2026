@@ -1,5 +1,5 @@
 [run_capped] Sat Nov 14 19:32:30 CET 2026 start: .venv/bin/python studies/14nov/transclust/score.py (max 16 GB)
-pseudo-labels from /Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/studies/12nov/chain_final.npz chain_final.npz:75101510ad18
+pseudo-labels from <repo>/studies/12nov/chain_final.npz chain_final.npz:75101510ad18
 s259 transductive clustering; orders 20; chain posterior mapping; SMOKE=False
 diagnostic (labels, not used): best-permutation purity of the order-free clusters, per person:
   sess: mean 0.499 | 0.57 0.50 0.47 0.45 0.47 0.49 0.52 0.62 0.43 0.48

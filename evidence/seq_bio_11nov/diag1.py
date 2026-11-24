@@ -1,7 +1,7 @@
 """Why does the Graz position prior hurt? Accuracy of chain stages / members on pattern vs off-pattern windows."""
 import sys, collections
 import numpy as np
-ARCH = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/runs/archive_scratch_11nov"
+ARCH = "<repo>/runs/archive_scratch_11nov"
 sys.path.insert(0, ARCH + "/secop")
 import env
 A = env.A; M = A.M; SC = A.SC; L = A.L

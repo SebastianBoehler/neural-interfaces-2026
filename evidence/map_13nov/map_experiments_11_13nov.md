@@ -384,13 +384,13 @@ Stacking tests that exist: §57b (negative), PFT + stage (adds), §73 (two views
 ---
 
 ## Files
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/LEDGER.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/PREDICTIONS_11NOV.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/PREDICTIONS_12NOV.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/REVIEW_12NOV.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/STATE.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/SEALED_UPLOADS.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/V52_BUILD.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/studies/12nov/README.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/studies/13nov/` (docstrings of `ttt6.py`, `ttt7.py`, `ttt_reduce_score.py`, `ft_bench*.py`, `profile_v52.py`, `gpu_cpu_spread.py`)
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/studies/11nov/` (no README; scripts only)
+- `<repo>/docs/LEDGER.md`
+- `<repo>/docs/PREDICTIONS_11NOV.md`
+- `<repo>/docs/PREDICTIONS_12NOV.md`
+- `<repo>/docs/REVIEW_12NOV.md`
+- `<repo>/docs/STATE.md`
+- `<repo>/docs/SEALED_UPLOADS.md`
+- `<repo>/docs/V52_BUILD.md`
+- `<repo>/studies/12nov/README.md`
+- `<repo>/studies/13nov/` (docstrings of `ttt6.py`, `ttt7.py`, `ttt_reduce_score.py`, `ft_bench*.py`, `profile_v52.py`, `gpu_cpu_spread.py`)
+- `<repo>/studies/11nov/` (no README; scripts only)

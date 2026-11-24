@@ -3,7 +3,7 @@ seeded with the start time)? Brute-force seeds for several generator variants an
 Labels only; no EEG."""
 import sys, time, collections
 import numpy as np
-z = np.load("/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/data/proteus_windows.npz", allow_pickle=True)
+z = np.load("<repo>/data/proteus_windows.npz", allow_pickle=True)
 y = z["y"]; per = np.array([s[-3:] for s in z["subject"]]); ses = z["session"].astype(str); task = z["task"].astype(str); run = z["run"]
 runs = collections.OrderedDict()
 for i in range(len(y)):

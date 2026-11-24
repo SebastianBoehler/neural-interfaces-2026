@@ -2,11 +2,11 @@
 
 ## Final Track 2 submission
 
-**Upload [submission.zip](../submission.zip) from the repository root.** It contains the qualified arm c decoder with a 0.25 SessionEM weight on recognised streams. The archive is 417,253,955 bytes.
+**The final upload was `submission.zip`** (kept outside the repository because of its size and trained weights). It contains the qualified arm c decoder with a 0.25 SessionEM weight on recognised streams. The archive is 417,253,955 bytes.
 
 SHA-256 `cba9b208fbff7ce416efd8b5ce68ae1ad0771980d84e754433bd33e9996d0bca`.
 
-Run `shasum -a 256 submission.zip` from the repository root to verify the file. [Arm c qualification](../evidence/wave_20nov/arm_c_confirmation.md) · [Final sprint decision](../evidence/wave_20nov/arm_c_sprint_21nov.md)
+Run `shasum -a 256 submission.zip` on the archive to verify it. [Arm c qualification](../evidence/wave_20nov/arm_c_confirmation.md) · [Final sprint decision](../evidence/wave_20nov/arm_c_sprint_21nov.md)
 
 ## Track 2 contract
 

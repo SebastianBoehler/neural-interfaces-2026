@@ -1,7 +1,7 @@
 """SEQ stage 0: oracle-structure Graz position prior through the route3geb chain replay."""
 import sys, time, collections
 import numpy as np
-ARCH = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/runs/archive_scratch_11nov"
+ARCH = "<repo>/runs/archive_scratch_11nov"
 sys.path.insert(0, ARCH + "/secop")
 import env
 A = env.A; M = A.M; SC = A.SC

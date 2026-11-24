@@ -7,6 +7,8 @@ __pycache__/
 .journal/
 .learnings/
 *.pyc
+*.npy
+*.npz
 .env
 .env.*
 .tools/
@@ -17,3 +19,8 @@ __pycache__/
 .weco/*/history.jsonl
 .runs/
 studies/12nov/chain_final.npz
+
+# local scratch, never published
+/work/
+/ssh_dummy/
+moonM2/stage0.log

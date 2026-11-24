@@ -1,6 +1,6 @@
 # Review brief, Thursday 19 Nov 2026 (shared by all reviewers)
 
-Repo: /Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026 (Track 2 BCI decoding, Neural Interfaces 2026).
+Repo: <repo> (Track 2 BCI decoding, Neural Interfaces 2026).
 Read first: AGENTS.md, docs/STATE.md (long; skim section 1), OFFICIAL_CONTRACT.md, docs/LEDGER.md (index at top; 11k lines, grep it),
 evidence/next_wave_16nov/{solution_space_review_17nov,scoring_audit_18nov,lunch_recommendation_18nov,recent_methods_18nov,FRIDAY_20NOV,EVENING_HANDOFF_18NOV}.md.
 Apply the user's skills (read them): ~/Documents/GitHub/sebastianboehler/skills/{scientific-discovery/SKILL.md (+ references/coverage-audit.md, search-policy.md), intent-clarification/SKILL.md, engineering-workflow/SKILL.md}.
@@ -30,7 +30,7 @@ by Friday evening with 2 uploads left?
 - Be blunt and concrete. Disagree with the existing documents where evidence supports it.
 
 ## CORRECTION (12:35 CET) — main is stale; the live work is on branch codex/friday-clean-stack
-- Worktree: /Users/sebastianboehler/Documents/Codex/neural-interfaces-2026-campaign/neural-interfaces-2026-friday
+- Worktree: <campaign-checkout>/neural-interfaces-2026-friday
   (812 commits, ~77k lines since 18 Nov 13:30, not merged to main). Read friday/OVERNIGHT_TOP3.md, friday/DECISION_18NOV.md,
   friday/QUEUE.md, friday/SOLUTION_SPACE_18NOV.md, friday/RETROSPECTIVE_18NOV.md there.
 - cap250 WAS uploaded on 18 Nov 18:45 CET: sealed 0.8298729992 (+1.01 pp over v5.1b; dev predicted about +1.1, so transfer was

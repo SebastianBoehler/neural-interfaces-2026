@@ -1,6 +1,6 @@
 import sys, os, numpy as np
 sys.dont_write_bytecode = True
-REPO = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026"
+REPO = "<repo>"
 sys.path.insert(0, REPO + "/replay")
 import env
 A = env.A; L = A.L

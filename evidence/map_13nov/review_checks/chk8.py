@@ -3,7 +3,7 @@ sys.dont_write_bytecode = True
 warnings.filterwarnings("ignore")
 import torch
 torch.set_num_threads(1)
-PKG = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/runs/sealed/cand_v52b_pnets/"
+PKG = "<repo>/runs/sealed/cand_v52b_pnets/"
 x1 = torch.randn(1, 41, 480); x32 = torch.randn(32, 41, 480)
 def times(m, x, n=6):
     out = []

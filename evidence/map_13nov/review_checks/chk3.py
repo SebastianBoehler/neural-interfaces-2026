@@ -1,6 +1,6 @@
 import sys
 sys.dont_write_bytecode = True
-REPO = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026"
+REPO = "<repo>"
 sys.path[:0] = [REPO + "/experiments", REPO + "/scripts"]
 import torch, deep, session_bn as SB
 for arch in ("fbcnet", "fblight", "sincshallow", "shallow"):

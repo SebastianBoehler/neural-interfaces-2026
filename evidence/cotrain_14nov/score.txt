@@ -1,8 +1,8 @@
-/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:497: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+<repo>/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:497: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
   montage = mne.channels.make_standard_montage("standard_1020")
-/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:1452: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
+<repo>/.venv/lib/python3.12/site-packages/braindecode/models/eegpt.py:1452: FutureWarning: Montage name 'standard_1020' is deprecated and will be removed in MNE 1.14. Use 'colin27_1020' instead.
   montage = make_standard_montage("standard_1020")
-pseudo-labels from /Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/studies/12nov/chain_final.npz chain_final.npz:75101510ad18
+pseudo-labels from <repo>/studies/12nov/chain_final.npz chain_final.npz:75101510ad18
 r15 chain on the test runs, ten-person mean 79.70; 20 orders; fallback = chain alone
 
 arm   n  purity  fallback | dose-map | c x aE gain [80 % people x orders] people up | within / full / runs | per person P01..P10

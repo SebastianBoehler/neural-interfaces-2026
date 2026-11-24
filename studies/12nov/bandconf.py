@@ -1,6 +1,6 @@
 """BANDMAP addendum (ledger s77): confusion matrices of below-chance transfers. Usage: python studies/12nov/bandconf.py"""
 import sys, itertools, numpy as np
-__file__ = "/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/studies/12nov/bandmap.py"
+__file__ = "<repo>/studies/12nov/bandmap.py"
 src = open(__file__).read().split("keys = [")[0]; exec(src)
 def probs(M, prior, r, key):
     Cw, _ = O.recentred(r, prior)

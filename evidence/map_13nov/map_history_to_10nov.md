@@ -1,6 +1,6 @@
 # Search-narrowing decisions, 17 Oct – 10 Nov 2026 (read-only reconstruction)
 
-Root: `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026`. All `docs/...` citations below are under this root; line numbers are from the current files. Sources read: all 71 commits up to 10 Nov (subjects and bodies), every file in `docs/archive/`, `docs/REVIEW_5NOV.md`, `docs/SEALED_UPLOADS.md` (to line 215), `docs/COMPETITION.md`, `docs/AUDIT_SBN.md` (recipe introductions), and the later documents only where they judge an earlier closure (`docs/REVIEW_12NOV.md`, `docs/PREDICTIONS_12NOV.md:848-869`, `docs/LEDGER.md:1120-1152`).
+Root: `<repo>`. All `docs/...` citations below are under this root; line numbers are from the current files. Sources read: all 71 commits up to 10 Nov (subjects and bodies), every file in `docs/archive/`, `docs/REVIEW_5NOV.md`, `docs/SEALED_UPLOADS.md` (to line 215), `docs/COMPETITION.md`, `docs/AUDIT_SBN.md` (recipe introductions), and the later documents only where they judge an earlier closure (`docs/REVIEW_12NOV.md`, `docs/PREDICTIONS_12NOV.md:848-869`, `docs/LEDGER.md:1120-1152`).
 
 Abbreviations: dl = `dev_loso`, ds = `dev_session`, dla = `dev_loso_all`, al = `all_loso`, ss = `seen_session`, sel = mean(ds, dla), J = person-equal 0.5 new + 0.5 seen (from 5 Nov).
 
@@ -299,11 +299,11 @@ No upload isolated the teacher, SessionBN, the cores, TSEM, routing or the early
 My reading of the routing case differs slightly from the 12 Nov sentence: routing was measured four times before it shipped, but always with spectral identity features; only the 30 Oct "in any form" extension was argument.
 
 ## Files
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/archive/` (OPTIMIZATION.md, OPTIMIZATION_R3–R8.md, OPTIMIZATION_R10.md, STRATEGY_REVIEW.md, STRATEGY_R16.md, GROUND_UP_REVIEW.md, HANDOFF.md, SEALED_PLAN.md, REVIEW_2NOV.md, OVERNIGHT_2NOV.md, WAVE10_3NOV.md, STATE_7NOV.md, PROTEUS_*.md, README.md)
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/REVIEW_5NOV.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/SEALED_UPLOADS.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/COMPETITION.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/AUDIT_SBN.md`
-- `/Users/sebastianboehler/Documents/GitHub/neural-interfaces-2026/docs/REVIEW_12NOV.md`, `docs/PREDICTIONS_12NOV.md` (lines 848-869), `docs/LEDGER.md` (lines 1120-1152)
+- `<repo>/docs/archive/` (OPTIMIZATION.md, OPTIMIZATION_R3–R8.md, OPTIMIZATION_R10.md, STRATEGY_REVIEW.md, STRATEGY_R16.md, GROUND_UP_REVIEW.md, HANDOFF.md, SEALED_PLAN.md, REVIEW_2NOV.md, OVERNIGHT_2NOV.md, WAVE10_3NOV.md, STATE_7NOV.md, PROTEUS_*.md, README.md)
+- `<repo>/docs/REVIEW_5NOV.md`
+- `<repo>/docs/SEALED_UPLOADS.md`
+- `<repo>/docs/COMPETITION.md`
+- `<repo>/docs/AUDIT_SBN.md`
+- `<repo>/docs/REVIEW_12NOV.md`, `docs/PREDICTIONS_12NOV.md` (lines 848-869), `docs/LEDGER.md` (lines 1120-1152)
 
 Not covered: `docs/archive/STATE_11NOV.md` and everything from 11 Nov on, except the cross-references above. `docs/AUDIT_SBN.md` was skimmed (recipe introductions only), as asked.
