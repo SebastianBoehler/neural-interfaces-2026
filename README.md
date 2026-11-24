@@ -25,14 +25,67 @@ The full contract, with sources, is in [OFFICIAL_CONTRACT.md](OFFICIAL_CONTRACT.
 
 Development numbers use ten held-out PROTEUS people and two returning people. They are reading aids with wide intervals (about ±0.5 percentage points across people), not private-set predictions. Where a claim depends on a validity caveat, [docs/STATE.md](docs/STATE.md) says so, including the 18 Nov scoring audit and the 20 Nov red-team finding that some returning-person levels were inflated.
 
-## Approach in brief
+![Sealed balanced accuracy of our three scored uploads: 0.8162, 0.8198, 0.8299](docs/img/sealed_scores.svg)
 
-The decoder is a routed ensemble, not a single network:
+## The final system
 
-- **Members:** several EEG architectures (for example FBCNet-style, shallow ConvNet-style and larger pretrained-backbone members) trained on PROTEUS and on additional public corpora, each declared in the ledger. The Scherer corpus was cleared for use by the organisers on 11 Nov.
-- **Per-session adaptation without labels:** Euclidean-alignment style whitening, a session-level EM stage, a count filter, CSP and a causal personalisation step. State resets between sessions.
-- **Routing:** a recognition step decides whether a stream looks like a person seen in training, and the stages and weights change accordingly.
-- **Native runtime:** a C++/CUDA port of the inference path, built to fit the 3,600 s budget ([native/](native/)).
+The decoder is a routed ensemble with label-free adaptation at test time, not a single network. "Test time" means while it decodes a new person's session, after training is finished. The trained weights stay fixed. What adapts is a small amount of state, built only from the windows of the current session seen so far and thrown away when the session ends.
+
+### Pipeline
+
+```mermaid
+flowchart LR
+    W["EEG window<br/>41 ch, 4 s, 120 Hz"] --> V["Views<br/>covariance tangent features,<br/>raw waveform, ocular traces"]
+    V --> M["Ensemble members<br/>shallow / FBCNet / Sinc / FBLight nets,<br/>teacher, eye net, rest member"]
+    M --> MIX["Mixed class posterior"]
+    MIX --> T1["Adaptation tail on the plain mix<br/>Rebalance → SessionEM → TSEM"]
+    V --> G["Identity gates<br/>does this stream look like<br/>a person seen in training?"]
+    T1 --> G
+    G -->|"recognised: ramp r"| R["Route<br/>blend in that person's<br/>personal head"]
+    MIX --> R
+    R --> T2["Adaptation tail on the routed mix<br/>Rebalance → SessionEM → TSEM"]
+    T2 --> CF["Run-level count filter<br/>and later stages"]
+    CF --> Y["Label<br/>MI / subtraction / word generation"]
+```
+
+The member list is the family inventory in [cleanslate/cap250/SPEC.md](cleanslate/cap250/SPEC.md). The two tails, the gates and the route are described in `lean/src/stages.py` and `lean/src/routing.py`. The C++/CUDA port in [native/](native/) reproduces this chain to fit the 3,600 s budget.
+
+### What adapts while a session runs
+
+```mermaid
+flowchart TB
+    S(["Session starts<br/>all state reset"]) --> A["Window t arrives"]
+    A --> B["Decode using state from windows 0 … t−1<br/>plus the training prior"]
+    B --> C["Emit the label immediately"]
+    C --> D["Update state with window t<br/>feature mean, class-prior estimate,<br/>class templates, recognition evidence"]
+    D --> A
+```
+
+The state used at each step:
+
+| Stage | What it does |
+|---|---|
+| Feature re-centring | Band-wise covariance features are re-centred on the log-Euclidean mean of the session's windows so far, with the training mean as a prior worth about two windows. Training sessions get per-session Euclidean alignment. |
+| `Rebalance` | Divides the posterior by the running mean of the recent outputs raised to a power, with a uniform prior, so a session cannot drift into one class. |
+| `SessionEM` | Fits per-session Gaussian class templates on earlier windows in a view of frontal slow potentials and ocular-event rates, then reweights the current window. It is gated by the session's input margin. |
+| `TSEM` | Per-session class templates in the leading principal components of one core model's features. The most confident earlier windows per class give a mean, and their pooled covariance gives an LDA likelihood. |
+| Identity gates and route | Decide whether a stream looks like a person seen in training. If so, part of the mix is replaced by that person's personal head, with a ramp that grows with confidence. |
+| Count filter | A run-level filter, with the form and fit in the ledger. |
+
+### Arm c, the final upload
+
+Arm c is the cap250 system with one change: on streams the gates recognise, the `SessionEM` emission weight is lowered from 0.5 to 0.25 (normalised `p^0.75 · q^0.25`). Streams from new people are untouched.
+
+```mermaid
+flowchart LR
+    X["Stream"] --> Q{"Recognised<br/>as a seen person?"}
+    Q -->|"no (new person)"| N["Unchanged:<br/>0 of 10,620 held-new labels changed"]
+    Q -->|"yes (returning)"| Rt["Personal head blended in,<br/>SessionEM weight 0.25 instead of 0.5"]
+```
+
+This was a small, cautious move. On fresh PROTEUS orders with full-session delivery it changed returning-person balanced accuracy by +0.18 pp (80% interval −0.00 to +0.36) and the 50/50 new/returning figure by +0.09 pp. Within-run delivery gave +0.16 and +0.08 pp. These intervals touch or include zero. It was chosen over three further candidates that each missed a promotion criterion ([sprint record](evidence/wave_20nov/arm_c_sprint_21nov.md)), and its qualification is in [evidence/wave_20nov/arm_c_confirmation.md](evidence/wave_20nov/arm_c_confirmation.md). Its sealed score is not recorded here.
+
+## How we worked
 
 Every change was pre-registered in [docs/LEDGER.md](docs/LEDGER.md) with a numeric prediction and a refutation rule before it was scored, and was judged inside the full system under shuffled delivery orders. Most ideas were refuted or left undecided, and those records stay in.
 
