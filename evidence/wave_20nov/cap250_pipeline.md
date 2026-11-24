@@ -65,7 +65,7 @@ Implementation is authorized regardless of that verdict.
   corpora including Scherer. Each reuse needs corpus metadata and a file digest. This
   verifies dataset scope; identities across independently collected corpora cannot be
   linked from these metadata. [Trunk provenance](../../docs/AUDIT_NXIF.md#external-data-and-licences-declare-in-the-method-description) ·
-  [Spectral sources](../../experiments/bio_id.py) · [CBraMod source stage](../../laneC/train.py)
+  [Spectral sources](../../experiments/bio_id.py) · [CBraMod source stage](../../experiments/lanes/model-families/reve-encoder/train.py)
 - P04 returning sources contain 2,278 rows and P10 returning sources 2,270. The target's
   public visit 1 is enrolled, visits 2–3 are excluded. A held-new fold excludes every visit
   of its target. The official metric weights person/visit/interface cells equally.

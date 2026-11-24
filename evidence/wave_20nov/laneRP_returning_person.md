@@ -24,7 +24,7 @@ The primary whole decoder uses cap250's new-person output until a match, then em
 
 PROTEUS uses official subject/session/interface balanced accuracy with equal cell weights. External cohorts use per-visit balanced accuracy. Deltas and 80% intervals pair predictions on the same rows and resample people, then orders within people and delivery scheme (20,000 draws, seed 20261120). Per-person intervals resample orders only. On false-enrollee pairs the probe people are resampled conditional on the donor panel. Reused people and repeated shuffles limit all intervals.
 
-[Registration](../../docs/LEDGER.md#rp--one-enrolled-day-independent-expert-and-open-set-recognition-20-nov-before-scoring) · [Composition audit](../audit_20nov/sealed_composition.md) · [Reference production pipeline](cap250_pipeline.md) · [Experiment source](../../laneRP)
+[Registration](../../docs/LEDGER.md#rp--one-enrolled-day-independent-expert-and-open-set-recognition-20-nov-before-scoring) · [Composition audit](../audit_20nov/sealed_composition.md) · [Reference production pipeline](cap250_pipeline.md) · [Experiment source](../../experiments/lanes/returning-participants/open-set-personal-experts)
 
 ## Feature decoder results
 

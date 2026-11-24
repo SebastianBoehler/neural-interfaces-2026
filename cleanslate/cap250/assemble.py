@@ -117,7 +117,7 @@ def install_variants(stage, optional, variant):
             (hard if family == "hard" else cb).append((path.name, digest))
         blob = revised(blob, "hardcb" if hard else "cb", cb, hard_files=hard)
     if variant.ttt.startswith("ttt"):
-        sys.path.insert(0, str(ROOT / "laneT"))
+        sys.path.insert(0, str(ROOT / "experiments/lanes/session-adaptation/test-time-training"))
         from build_ttt import patch
 
         blob = patch(blob, variant.ttt.removeprefix("ttt"))

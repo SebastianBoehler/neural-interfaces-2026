@@ -43,7 +43,7 @@ D1 used the staged offline REVE-Base checkpoint (SHA-256 `8ecc650619598748286c24
 
 Local CPU canary loaded the pinned REVE weights, aligned real P02 windows using 2,466 source and 189 held rows, and matched batched and one-window logits. This checks the source split and input path. The submitted Galvani canary also exercises supervised steps on each corpus. Galvani canary 3136807 completed in 45 seconds. It executed one supervised update for each of the six corpora, then one PROTEUS update and all 189 held-P02 predictions in full0 and full1. The strict-prefix and singleton guards passed. Both external and PROTEUS-only arrays started after this canary.
 
-[The Leonardo launcher](../../scripts/cloud/leo_lane_c.sh) starts the full wave through Slurm and collects eight full-session standalone orders. It requires the staged checkpoint, position file, external exports and smoke receipt on Leonardo. [The full0 consumer](../../laneC/full_replay.py) prepares a corrected Friday mixer test with one-sixth of the raw family replaced. Eight-order cap250 integration and A100/RTX paired runtime still require a qualified candidate and matching held-fold instruments.
+[The Leonardo launcher](../../scripts/cloud/leo_lane_c.sh) starts the full wave through Slurm and collects eight full-session standalone orders. It requires the staged checkpoint, position file, external exports and smoke receipt on Leonardo. [The full0 consumer](../../experiments/lanes/model-families/reve-encoder/full_replay.py) prepares a corrected Friday mixer test with one-sixth of the raw family replaced. Eight-order cap250 integration and A100/RTX paired runtime still require a qualified candidate and matching held-fold instruments.
 
 ## Leonardo full D1 authorization · before scoring
 

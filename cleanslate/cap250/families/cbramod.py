@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _aux_cb import checkpoint, make_public, stage_a_dir  # noqa: E402
 from source import ROOT, family_args  # noqa: E402
 
-sys.path[:0] = [str(ROOT / "submissions/final_stack"), str(ROOT / "laneC2")]
+sys.path[:0] = [str(ROOT / "submissions/final_stack"), str(ROOT / "experiments/lanes/model-families/cbramod-encoder")]
 import train_cbramod  # noqa: E402  (Lane C2 patches onto Lane C; fails loudly if one is inactive)
 from cb_export import export_blob  # noqa: E402
 

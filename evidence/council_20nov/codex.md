@@ -55,7 +55,7 @@ people/order intervals, and separate returning views. Prove stock zero, pinned o
   smoke. Its synthetic stream measures cost and the script starts its timer *after* `fresh_model`. Add restore, session-copy/start, peak GPU memory and refit/step/CSP counts from the real
   workers. Project from the paired total ratio at 40/57/75% unrecognised windows, plus cold overhead sensitivity. At 2,554.9 s, a ratio of 1.409 already consumes the entire budget. My
   practical cutoff for hardcb is **≤3,350 s** on the upper plausible workload, with no package drift beyond stock A/A and no latched error path. Hard alone measured 1.06× unrecognised and
-  1.09× recognised on an RTX 2080 Ti. Neither card is a PRO 4500 receipt. [Timing script](../../laneT/time_ft.py) · [Hard timing](../../friday/cap250_hard_package/README.md) ·
+  1.09× recognised on an RTX 2080 Ti. Neither card is a PRO 4500 receipt. [Timing script](../../experiments/lanes/session-adaptation/test-time-training/time_ft.py) · [Hard timing](../../friday/cap250_hard_package/README.md) ·
   [Worker qualification](../../friday/qualify_package.py)
 - Use B1's registered seed, TTT and B6 slot arms in parallel. The current B1 card supersedes the earlier plan for two more corrected held-new full-shuffle orders. Those banks do not exist
   yet. NI-V can supply eight exact external full shuffles, with its montage limits. A one-seed CBraMod arm is a possible cheaper candidate only after it has a signed and timed ZIP. Its seed
@@ -93,7 +93,7 @@ people/order intervals, and separate returning views. Prove stock zero, pinned o
 - B5's N5 mean beats its N9 swap by +0.39 pp, despite worse standalone. N5 ran the same five-person subset across the three seeds within each arm. Test three different subsets across seeds,
   averaging their probabilities **before** the nonlinear stages. This could improve coverage of the incumbent's errors without adding corpora, synthetic people or extra seeds. The leading
   competing explanation is that N5 merely supplies softer probabilities. Measure disagreement restricted to incumbent misses and match aggregate entropy to the N9 control in a diagnostic
-  arm. [B5 design](../wave_20nov/laneB5_curve.md) · [Subset construction](../../laneB5/curve.py) · [EEG ensemble shift evidence, clinical task](https://pubmed.ncbi.nlm.nih.gov/41650580/) ·
+  arm. [B5 design](../wave_20nov/laneB5_curve.md) · [Subset construction](../../experiments/lanes/model-families/learning-curves/curve.py) · [EEG ensemble shift evidence, clinical task](https://pubmed.ncbi.nlm.nih.gov/41650580/) ·
   [Deep-ensemble shift caveat](https://papers.neurips.cc/paper_files/paper/2022/file/da18c47118a2d09926346f33bebde9f4-Paper-Conference.pdf)
 - **Decisive test, 30–60 min on Galvani from existing B5 banks.** Pre-fix `(seed,subset)=(0,0),(1,1),(2,2)` for N5. Compare N5 shared subset 0, N9 three seeds, hard and hardcb. Replace the
   four hard shares in hardcb with the candidate mean, preserving its CBraMod share, shadow and warm delta, then rerun all consuming stages. Forecast **+0.05 [−0.45,+0.55] pp** versus

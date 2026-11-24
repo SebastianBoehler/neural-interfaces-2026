@@ -23,4 +23,4 @@ studies/12nov/chain_final.npz
 # local scratch, never published
 /work/
 /ssh_dummy/
-moonM2/stage0.log
+/experiments/lanes/returning-participants/nearest-session-experts/stage0.log

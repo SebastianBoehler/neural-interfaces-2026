@@ -10,4 +10,5 @@ history, look the old hash up in [COMMIT_MAP.txt](COMMIT_MAP.txt) (`old new`, fu
 Hash-pinned scripts were left untouched, so their embedded commit hashes need the same lookup.
 
 The archives themselves are not published. Experiments whose evidence was an archive keep their logs, scripts and
-result summaries, and can be re-run from the scripts.
+result summaries. The [experiment lane index](../experiments/lanes/) maps original paths to the archived source and
+shows how to check out the original layout for reruns.
