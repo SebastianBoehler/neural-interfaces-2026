@@ -38,7 +38,7 @@ Every change was pre-registered in [docs/LEDGER.md](docs/LEDGER.md) with a numer
 
 ## The experiments along the way
 
-The full trail is here, not only the final system: about 3,000 commits since 10 Nov, the ledger with every pre-registered run (mechanism, numeric prediction, refutation rule, then result), the scripts and logs behind each entry under `evidence/`, `studies/`, `experiments/` and the `lane*/` directories, and the failures and closed directions. The original campaign's ledger sits in the history (`git show a5843492:docs/LEDGER.md`). Large result arrays were removed before release, so some entries keep only logs, scripts and summaries ([history note](docs/HISTORY.md)).
+The full trail is here, not only the final system: about 3,000 commits since 17 Oct, the ledger with every pre-registered run (mechanism, numeric prediction, refutation rule, then result), the scripts and logs behind each entry under `evidence/`, `studies/`, `experiments/` and the `lane*/` directories, and the failures and closed directions. The original campaign's ledger sits in the history (`git show a5843492:docs/LEDGER.md`). Large result arrays were removed before release, so some entries keep only logs, scripts and summaries ([history note](docs/HISTORY.md)).
 
 ## Repository map
 
